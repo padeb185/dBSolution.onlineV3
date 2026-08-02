@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -76,157 +78,161 @@ def bte_auto_check_view(request, exemplaire_id):
     maintenance = None
     bte_auto = None
 
-    with tenant_context(tenant):
 
-        # 🔎 Récupération exemplaire
-        exemplaire = get_object_or_404(
-            VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) |
-                Q(client__isnull=True, societe=tenant)
-            ),
-            id=exemplaire_id
+
+    # 🔎 Récupération exemplaire
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
+
+    # 🔐 rôles autorisés
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction"
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # =========================
+    # POST
+    # =========================
+    if request.method == "POST":
+
+        form = ControleBteVitesseAutoForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
         )
 
-        # 🔐 rôles autorisés
-        roles_autorises = [
-            "mecanicien",
-            "apprenti",
-            "magasinier",
-            "chef_mecanicien",
-            "direction"
-        ]
+        if form.is_valid():
 
-        if role not in roles_autorises:
-            messages.error(request, _("Accès refusé"))
-            return redirect("utilisateurs:dashboard")
+            try:
+                with transaction.atomic():
 
-        # =========================
-        # POST
-        # =========================
-        if request.method == "POST":
+                    km = form.cleaned_data.get("kilometrage_controle_boite_auto")
 
-            form = ControleBteVitesseAutoForm(
-                request.POST,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+                    # 🚗 SYNC KM VOITURE
+                    if km is not None:
+                        km = int(km)
 
-            if form.is_valid():
+                        ancien_km = exemplaire.kilometres_chassis
 
-                try:
-                    with transaction.atomic():
+                        if km < ancien_km:
+                            form.add_error(
+                                "kilometrage_controle_boite_auto",
+                                _("Le kilométrage ne peut pas diminuer.")
+                            )
+                            raise ValueError("Kilométrage invalide")
 
-                        km = form.cleaned_data.get("kilometrage_controle_boite_auto")
+                        exemplaire.kilometres_chassis = km
+                        exemplaire.date_derniere_intervention = timezone.now().date()
 
-                        # 🚗 SYNC KM VOITURE
-                        if km is not None:
-                            km = int(km)
+                        exemplaire.update_kilometres()
+                        exemplaire.save()
 
-                            ancien_km = exemplaire.kilometres_chassis
-
-                            if km < ancien_km:
-                                form.add_error(
-                                    "kilometrage_controle_boite_auto",
-                                    _("Le kilométrage ne peut pas diminuer.")
-                                )
-                                raise ValueError("Kilométrage invalide")
-
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.date_derniere_intervention = timezone.now().date()
-
-                            exemplaire.update_kilometres()
-                            exemplaire.save()
-
-                        # 🔴 MAINTENANCE UNIQUE
-                        maintenance = Maintenance.objects.create(
-                            societe=request.user.societe,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=exemplaire.kilometres_chassis,
-                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.BOITE_AUTO,
-                            tag=Maintenance.Tag.JAUNE,
-                        )
-
-                        # 🔧 affectation rôle
-                        if role == "mecanicien":
-                            maintenance.mecanicien = request.user
-
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = request.user
-
-                        elif role == "apprenti":
-                            maintenance.apprentis.add(request.user)
-
-                        elif role == "magasinier":
-                            maintenance.magasinier = request.user
-
-                        elif role == "direction":
-                            maintenance.direction = request.user
-
-                        maintenance.save()
-
-                        # 🔗 OBJET FORM UNIQUE
-                        bte_auto = form.save(commit=False)
-
-                        if bte_auto is None:
-                            raise ValueError("Objet bte_auto non créé")
-
-                        bte_auto.assign_technicien(request.user)
-
-                        bte_auto.kilometres_chassis = exemplaire.kilometres_chassis
-                        bte_auto.kilometrage_controle_boite_auto = km
-                        bte_auto.voiture_exemplaire = exemplaire
-                        bte_auto.maintenance = maintenance
-
-                        bte_auto.save()
-
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=_("Contrôle boite automatique - %(immatriculation)s") % {
-                                "immatriculation": exemplaire.immatriculation
-                            }
-                        )
-
-                    messages.success(
-                        request,
-                        _("Contrôle boite automatique enregistré avec succès.")
+                    # 🔴 MAINTENANCE UNIQUE
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.BOITE_AUTO,
+                        tag=Maintenance.Tag.JAUNE,
                     )
 
-                    return redirect(request.path)
+                    # 🔧 affectation rôle
+                    if role == "mecanicien":
+                        maintenance.mecanicien = request.user
 
-                except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
 
-            else:
-                print("FORM INVALID:", form.errors)
-                messages.error(request, _("Le formulaire contient des erreurs."))
+                    elif role == "apprenti":
+                        maintenance.apprentis.add(request.user)
 
-        # =========================
-        # GET
-        # =========================
+                    elif role == "magasinier":
+                        maintenance.magasinier = request.user
+
+                    elif role == "direction":
+                        maintenance.direction = request.user
+
+                    maintenance.save()
+
+                    # 🔗 OBJET FORM UNIQUE
+                    bte_auto = form.save(commit=False)
+
+                    if bte_auto is None:
+                        raise ValueError("Objet bte_auto non créé")
+
+                    bte_auto.assign_technicien(request.user)
+
+                    bte_auto.kilometres_chassis = exemplaire.kilometres_chassis
+                    bte_auto.kilometrage_controle_boite_auto = km
+                    bte_auto.voiture_exemplaire = exemplaire
+                    bte_auto.maintenance = maintenance
+
+                    bte_auto.save()
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Contrôle boite automatique - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
+
+                messages.success(
+                    request,
+                    _("Contrôle boite automatique enregistré avec succès.")
+                )
+
+                return redirect(request.path)
+
+            except Exception as e:
+                messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+
         else:
-            bte_auto = ControleBteVitesseAuto(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
+            print("FORM INVALID:", form.errors)
+            messages.error(request, _("Le formulaire contient des erreurs."))
 
-            bte_auto.assign_technicien(request.user)
+    # =========================
+    # GET
+    # =========================
+    else:
+        bte_auto = ControleBteVitesseAuto(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=exemplaire.kilometres_chassis
+        )
 
-            form = ControleBteVitesseAutoForm(
-                instance=bte_auto,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+        bte_auto.assign_technicien(request.user)
 
-        return render(request, 'bte_auto/bte_auto_check.html', {
-            "exemplaire": exemplaire,
-            "immatriculation": exemplaire.immatriculation,
-            "maintenance": maintenance,
-            "form": form,
-            "now": timezone.now(),
-        })
+        form = ControleBteVitesseAutoForm(
+            instance=bte_auto,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+    return render(request, 'bte_auto/bte_auto_check.html', {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "maintenance": maintenance,
+        "form": form,
+        "now": timezone.now(),
+    })
+
+
+
+
 
 # ------------
 # Vue détail boite
@@ -245,52 +251,55 @@ def bte_auto_detail_view(request, bte_auto_id):
     return render(request, "bte_auto/bte_auto_detail.html", context)
 
 
+
+
+
+
+
 @login_required
 def modifier_bte_auto_view(request, bte_auto_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        # Récupération du controle boite avec son exemplaire
-        bte_auto = get_object_or_404(
-            ControleBteVitesseAuto.objects.select_related("voiture_exemplaire"),
-            id=bte_auto_id
+    bte_auto = get_object_or_404(
+        ControleBteVitesseAuto.objects.select_related("voiture_exemplaire"),
+        id=bte_auto_id
+    )
+    exemplaire = bte_auto.voiture_exemplaire
+    # -------------------------
+    # POST
+    # -------------------------
+    if request.method == "POST":
+        form = ControleBteVitesseAutoForm(
+            request.POST,
+            instance=bte_auto,
+            user=request.user,       # 🔑 important pour initialiser technicien/societe
+            exemplaire=bte_auto.voiture_exemplaire
         )
-        exemplaire = bte_auto.voiture_exemplaire
-        # -------------------------
-        # POST
-        # -------------------------
-        if request.method == "POST":
-            form = ControleBteVitesseAutoForm(
-                request.POST,
-                instance=bte_auto,
-                user=request.user,       # 🔑 important pour initialiser technicien/societe
-                exemplaire=bte_auto.voiture_exemplaire
+        if form.is_valid():
+            form.save()
+
+            UserLog.objects.create(
+                utilisateur=request.user,
+                action=_("Modification du contrôle de la boite automatique - %(immatriculation)s") % {
+                    "immatriculation": exemplaire.immatriculation
+                }
             )
-            if form.is_valid():
-                form.save()
 
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Modification du contrôle de la boite automatique - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
-                )
-
-                messages.success(request, _("Contrôle de la boite automatique modifié avec succès !"))
-                return redirect("bte_auto:modifier_bte_auto", bte_auto_id=bte_auto.id)
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
-
-        # -------------------------
-        # GET
-        # -------------------------
+            messages.success(request, _("Contrôle de la boite automatique modifié avec succès !"))
+            return redirect("bte_auto:modifier_bte_auto", bte_auto_id=bte_auto.id)
         else:
-            form = ControleBteVitesseAutoForm(
-                instance=bte_auto,
-                user=request.user,
-                exemplaire=bte_auto.voiture_exemplaire
-            )
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
+
+    # -------------------------
+    # GET
+    # -------------------------
+    else:
+        form = ControleBteVitesseAutoForm(
+            instance=bte_auto,
+            user=request.user,
+            exemplaire=bte_auto.voiture_exemplaire
+        )
 
     return render(
         request,
@@ -303,128 +312,53 @@ def modifier_bte_auto_view(request, bte_auto_id):
     )
 
 
+
+
 @login_required
 def bte_auto_pdf_view(request, bte_auto_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        bte_auto = get_object_or_404(
-            ControleBteVitesseAuto.objects.select_related(
-                "voiture_exemplaire",
-                "tech_technicien",
-                "tech_societe",
-                "main_oeuvre",
-            ),
-            id=bte_auto_id
-        )
-        rapport = bte_auto.generer_rapport_remplacement()
 
-        html_string = render_to_string(
-            "bte_auto/bte_auto_detail_pdf.html",
-            {
-                "bte_auto": bte_auto,
-                "rapport": rapport,
-                "societe": tenant,
-            }
-        )
+    bte_auto = get_object_or_404(
+        ControleBteVitesseAuto.objects.select_related(
+            "voiture_exemplaire",
+            "tech_technicien",
+            "tech_societe",
+            "main_oeuvre",
+        ),
+        id=bte_auto_id
+    )
+    rapport = bte_auto.generer_rapport_remplacement()
 
-        pdf = HTML(
-            string=html_string,
-            base_url=request.build_absolute_uri()
-        ).write_pdf()
-
-        immatriculation = (
-            bte_auto.voiture_exemplaire.immatriculation
-            if bte_auto.voiture_exemplaire
-            else "sans_immatriculation"
-        )
-
-        technicien = bte_auto.tech_nom_technicien or "technicien_inconnu"
-
-        response = HttpResponse(pdf, content_type="application/pdf")
-        response["Content-Disposition"] = (
-            f'inline; filename="bte_auto_{immatriculation}_{technicien}.pdf"'
-        )
-
-        return response
-
-    def generer_rapport_remplacement(self):
-        lignes = []
-        total_general = Decimal("0.00")
-
-        pieces = [
-            {
-                "champ": _("Convertisseur de couple"),
-                "etat": self.auto_emb_convertisseur_couple,
-                "prix": self.auto_emb_convertisseur_couple_prix_achat,
-                "quantite": self.auto_emb_convertisseur_couple_quantite,
-            },
-            {
-                "champ": _("Embrayages automatiques"),
-                "etat": self.auto_emb_embrayages_auto,
-                "prix": self.auto_emb_embrayages_auto_prix_achat,
-                "quantite": self.auto_emb_embrayages_auto_quantite,
-            },
-            {
-                "champ": _("Pompe à huile"),
-                "etat": self.pompes_huile,
-                "prix": self.pompes_huile_prix_achat,
-                "quantite": self.pompes_huile_quantite,
-            },
-            {
-                "champ": _("Valves de contrôle"),
-                "etat": self.pompes_valves,
-                "prix": self.pompes_valves_prix_achat,
-                "quantite": self.pompes_valves_quantite,
-            },
-            {
-                "champ": _("Arbre de couple"),
-                "etat": self.arbre_bte_torque,
-                "prix": self.arbre_bte_torque_prix_achat,
-                "quantite": self.arbre_bte_torque_quantite,
-            },
-            {
-                "champ": _("Arbre secondaire"),
-                "etat": self.arbre_bte_secondaire_auto,
-                "prix": self.arbre_bte_secondaire_auto_prix_achat,
-                "quantite": self.arbre_bte_secondaire_auto_quantite,
-            },
-            {
-                "champ": _("Roulements internes"),
-                "etat": self.roulement_auto,
-                "prix": self.roulement_auto_prix_achat,
-                "quantite": self.roulement_auto_quantite,
-            },
-        ]
-
-        etats_labels = {
-            "NOT_OK": _("À remplacer"),
-            "REMPLACE": _("Remplacé"),
+    html_string = render_to_string(
+        "bte_auto/bte_auto_detail_pdf.html",
+        {
+            "bte_auto": bte_auto,
+            "rapport": rapport,
+            "societe": tenant,
         }
+    )
 
-        for piece in pieces:
-            etat = piece["etat"]
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri()
+    ).write_pdf()
 
-            # Très important : inclure aussi les pièces remplacées
-            if etat not in ("NOT_OK", "REMPLACE"):
-                continue
+    immatriculation = (
+        bte_auto.voiture_exemplaire.immatriculation
+        if bte_auto.voiture_exemplaire
+        else "sans_immatriculation"
+    )
 
-            prix = piece["prix"] or Decimal("0.00")
-            quantite = piece["quantite"] or Decimal("0.00")
-            total = prix * quantite
+    technicien = bte_auto.tech_nom_technicien or "technicien_inconnu"
 
-            lignes.append({
-                "champ": piece["champ"],
-                "etat": etat,
-                "etat_label": etats_labels.get(etat, etat),
-                "quantite": quantite,
-                "prix": prix,
-                "total": total,
-            })
+    response = HttpResponse(pdf, content_type="application/pdf")
+    response["Content-Disposition"] = (
+        f'inline; filename="bte_auto_{immatriculation}_{technicien}.pdf"'
+    )
 
-            total_general += total
+    return response
 
-        return {
-            "lignes": lignes,
-            "total_general": total_general,
-        }
+
+
+

@@ -78,145 +78,145 @@ def boite_check_view(request, exemplaire_id):
 
     maintenance = None  # 👈 important pour éviter UnboundLocalError
 
-    with tenant_context(tenant):
 
-        # 🔎 Récupération exemplaire
-        exemplaire = get_object_or_404(
-            VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) |
-                Q(client__isnull=True, societe=tenant)
-            ),
-            id=exemplaire_id
+
+    # 🔎 Récupération exemplaire
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
+
+    # 🔐 rôles autorisés
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction"
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # =========================
+    # POST
+    # =========================
+    if request.method == "POST":
+
+        form = ControleBoiteForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
         )
 
-        # 🔐 rôles autorisés
-        roles_autorises = [
-            "mecanicien",
-            "apprenti",
-            "magasinier",
-            "chef_mecanicien",
-            "direction"
-        ]
+        if form.is_valid():
 
-        if role not in roles_autorises:
-            messages.error(request, _("Accès refusé"))
-            return redirect("utilisateurs:dashboard")
+            try:
+                with transaction.atomic():
 
-        # =========================
-        # POST
-        # =========================
-        if request.method == "POST":
+                    km = form.cleaned_data.get("kilometrage_controle_boite")
 
-            form = ControleBoiteForm(
-                request.POST,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+                    if km is not None:
+                        km = int(km)
 
-            if form.is_valid():
+                        ancien_km = exemplaire.kilometres_chassis
 
-                try:
-                    with transaction.atomic():
+                        if km < ancien_km:
+                            form.add_error(
+                                "kilometrage_controle_boite",
+                                _("Le kilométrage ne peut pas diminuer.")
+                            )
+                            raise ValueError("Kilométrage invalide")
 
-                        km = form.cleaned_data.get("kilometrage_controle_boite")
+                        # 🚗 update voiture (source unique)
+                        exemplaire.kilometres_chassis = km
+                        exemplaire.date_derniere_intervention = timezone.now().date()
 
-                        if km is not None:
-                            km = int(km)
+                        exemplaire.update_kilometres()
+                        exemplaire.save()
 
-                            ancien_km = exemplaire.kilometres_chassis
-
-                            if km < ancien_km:
-                                form.add_error(
-                                    "kilometrage_controle_boite",
-                                    _("Le kilométrage ne peut pas diminuer.")
-                                )
-                                raise ValueError("Kilométrage invalide")
-
-                            # 🚗 update voiture (source unique)
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.date_derniere_intervention = timezone.now().date()
-
-                            exemplaire.update_kilometres()
-                            exemplaire.save()
-
-                            # 🔗 checkup UNIQUE
-                            boite = form.save(commit=False)
-                            boite.assign_technicien(request.user)
-
-                            boite.kilometres_chassis = exemplaire.kilometres_chassis
-                            boite.kilometrage_controle_boite = km
-
-                        # 🔴 maintenance unique
-                        maintenance = Maintenance.objects.create(
-                            societe=request.user.societe,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=exemplaire.kilometres_chassis,
-                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.BOITE,
-                            tag=Maintenance.Tag.JAUNE,
-                        )
-
-                        # 🔧 affectation rôle
-                        if role == "mecanicien":
-                            maintenance.mecanicien = request.user
-
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = request.user
-
-                        elif role == "apprenti":
-                            maintenance.apprentis.add(request.user)
-
-                        elif role == "magasinier":
-                            maintenance.magasinier = request.user
-
-                        elif role == "direction":
-                            maintenance.direction = request.user
-
-                        maintenance.save()
+                        # 🔗 checkup UNIQUE
+                        boite = form.save(commit=False)
                         boite.assign_technicien(request.user)
 
-                        # 🔗 lien final
-                        boite.maintenance = maintenance
-                        boite.save()
+                        boite.kilometres_chassis = exemplaire.kilometres_chassis
+                        boite.kilometrage_controle_boite = km
 
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=_("Contrôle Boite de vitesse - %(immatriculation)s") % {
-                                "immatriculation": exemplaire.immatriculation
-                            }
-                        )
+                    # 🔴 maintenance unique
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.BOITE,
+                        tag=Maintenance.Tag.JAUNE,
+                    )
 
-                    messages.success(request, _("Checkup de la boite de vitesse enregistré avec succès."))
+                    # 🔧 affectation rôle
+                    if role == "mecanicien":
+                        maintenance.mecanicien = request.user
 
-                except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
-            else:
-                print("FORM INVALID:", form.errors)
-                messages.error(request, _("Le formulaire contient des erreurs."))
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
 
+                    elif role == "apprenti":
+                        maintenance.apprentis.add(request.user)
+
+                    elif role == "magasinier":
+                        maintenance.magasinier = request.user
+
+                    elif role == "direction":
+                        maintenance.direction = request.user
+
+                    maintenance.save()
+                    boite.assign_technicien(request.user)
+
+                    # 🔗 lien final
+                    boite.maintenance = maintenance
+                    boite.save()
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Contrôle Boite de vitesse - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
+
+                messages.success(request, _("Checkup de la boite de vitesse enregistré avec succès."))
+
+            except Exception as e:
+                messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
         else:
-            boite = ControleBoite(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
+            print("FORM INVALID:", form.errors)
+            messages.error(request, _("Le formulaire contient des erreurs."))
 
-            boite.assign_technicien(request.user)
+    else:
+        boite = ControleBoite(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=exemplaire.kilometres_chassis
+        )
 
-            form = ControleBoiteForm(
-                instance=boite,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+        boite.assign_technicien(request.user)
 
-        return render(request, 'boite_de_vitesse/boite_check.html', {
-            "exemplaire": exemplaire,
-            "immatriculation": exemplaire.immatriculation,
-            "maintenance": maintenance,
-            "form": form,
-            "now": timezone.now(),
-        })
+        form = ControleBoiteForm(
+            instance=boite,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+    return render(request, 'boite_de_vitesse/boite_check.html', {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "maintenance": maintenance,
+        "form": form,
+        "now": timezone.now(),
+    })
 
 
 
@@ -244,47 +244,47 @@ def boite_detail_view(request, boite_id):
 def modifier_boite_view(request, boite_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        # Récupération du controle boite avec son exemplaire
-        boite = get_object_or_404(
-            ControleBoite.objects.select_related("voiture_exemplaire"),
-            id=boite_id
+
+    # Récupération du controle boite avec son exemplaire
+    boite = get_object_or_404(
+        ControleBoite.objects.select_related("voiture_exemplaire"),
+        id=boite_id
+    )
+    exemplaire = boite.voiture_exemplaire
+    # -------------------------
+    # POST
+    # -------------------------
+    if request.method == "POST":
+        form = ControleBoiteForm(
+            request.POST,
+            instance=boite,
+            user=request.user,       # 🔑 important pour initialiser technicien/societe
+            exemplaire=boite.voiture_exemplaire
         )
-        exemplaire = boite.voiture_exemplaire
-        # -------------------------
-        # POST
-        # -------------------------
-        if request.method == "POST":
-            form = ControleBoiteForm(
-                request.POST,
-                instance=boite,
-                user=request.user,       # 🔑 important pour initialiser technicien/societe
-                exemplaire=boite.voiture_exemplaire
+        if form.is_valid():
+            form.save()
+
+            UserLog.objects.create(
+                utilisateur=request.user,
+                action=_("Modification contrôle Boite de vitesse - %(immatriculation)s") % {
+                    "immatriculation": exemplaire.immatriculation
+                }
             )
-            if form.is_valid():
-                form.save()
-
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Modification contrôle Boite de vitesse - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
-                )
-                messages.success(request, _("Checkup de la boite de vitesse modifié avec succès !"))
-                return redirect("boite_de_vitesse:modifier_boite", boite_id=boite.id)
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
-
-        # -------------------------
-        # GET
-        # -------------------------
+            messages.success(request, _("Checkup de la boite de vitesse modifié avec succès !"))
+            return redirect("boite_de_vitesse:modifier_boite", boite_id=boite.id)
         else:
-            form = ControleBoiteForm(
-                instance=boite,
-                user=request.user,
-                exemplaire=boite.voiture_exemplaire
-            )
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
+
+    # -------------------------
+    # GET
+    # -------------------------
+    else:
+        form = ControleBoiteForm(
+            instance=boite,
+            user=request.user,
+            exemplaire=boite.voiture_exemplaire
+        )
 
     return render(
         request,
@@ -306,84 +306,84 @@ def modifier_boite_view(request, boite_id):
 def dashboard_boite_view(request, exemplaire_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-
-        user = request.user
-        context = {}
-
-        # 🔹 Récupérer l'exemplaire AVANT
-        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-
-        # --- Sécurité tenant ---
-        tenant_schema = getattr(request, 'tenant', None)
-        schema_name = tenant_schema.schema_name if tenant_schema else None
 
 
-        total_boite = total_remplacement_boite = total_int_boite = 0
+    user = request.user
+    context = {}
 
-        boite = remplacement_boite  = []
+    # 🔹 Récupérer l'exemplaire AVANT
+    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
-
-
-        if schema_name:
-            with schema_context(schema_name):
-
-                # ✅ FILTRAGE PAR EXEMPLAIRE
-
-                boite = ControleBoite.objects.filter(voiture_exemplaire=exemplaire)
-                remplacement_boite = RemplacementBoite.objects.filter(voiture_exemplaire=exemplaire)
+    # --- Sécurité tenant ---
+    tenant_schema = getattr(request, 'tenant', None)
+    schema_name = tenant_schema.schema_name if tenant_schema else None
 
 
-                # ✅ COUNTS CORRECTS
-                total_boite = boite.count()
-                total_remplacement_boite = remplacement_boite.count()
-                total_int_boite = boite.count() + remplacement_boite.count()
+    total_boite = total_remplacement_boite = total_int_boite = 0
+
+    boite = remplacement_boite  = []
 
 
-                total_int_boite = total_boite + total_remplacement_boite
 
-                modeles = VoitureModele.objects.all()
-        else:
-            modeles = []
+    if schema_name:
+        with schema_context(schema_name):
 
-        # --- POST ---
-        if request.method == "POST":
-            type_choisi = request.POST.get("type_maintenance")
-            date_intervention = request.POST.get("date_intervention")
-            description = request.POST.get("description", "")
+            # ✅ FILTRAGE PAR EXEMPLAIRE
 
-            if type_choisi and date_intervention:
-                Maintenance.objects.create(
-                    societe=tenant,
-                    voiture_exemplaire=exemplaire,
-                    type_maintenance=type_choisi,
-                    immatriculation=exemplaire.immatriculation,
-                    date_intervention=date_intervention,
-                    description=description
-                )
-                return redirect(
-                    'maintenance:dashboard_boite',
-                    exemplaire_id=exemplaire.id
-                )
-
-        # --- CONTEXT ---
-        context.update({
-            "exemplaire": exemplaire,
-            "types_maintenance": TYPES_MAINTENANCE,
-
-            "total_boite": total_boite,
-            "total_remplacement_boite": total_remplacement_boite,
-            "total_int_boite": total_int_boite,
-
-            "boite": boite,
-            "remplacement_boite": remplacement_boite,
+            boite = ControleBoite.objects.filter(voiture_exemplaire=exemplaire)
+            remplacement_boite = RemplacementBoite.objects.filter(voiture_exemplaire=exemplaire)
 
 
-            "modeles": modeles,
+            # ✅ COUNTS CORRECTS
+            total_boite = boite.count()
+            total_remplacement_boite = remplacement_boite.count()
+            total_int_boite = boite.count() + remplacement_boite.count()
 
-        })
 
-        return render(request, "boite_de_vitesse/dashboard_boite.html", context)
+            total_int_boite = total_boite + total_remplacement_boite
+
+            modeles = VoitureModele.objects.all()
+    else:
+        modeles = []
+
+    # --- POST ---
+    if request.method == "POST":
+        type_choisi = request.POST.get("type_maintenance")
+        date_intervention = request.POST.get("date_intervention")
+        description = request.POST.get("description", "")
+
+        if type_choisi and date_intervention:
+            Maintenance.objects.create(
+                societe=tenant,
+                voiture_exemplaire=exemplaire,
+                type_maintenance=type_choisi,
+                immatriculation=exemplaire.immatriculation,
+                date_intervention=date_intervention,
+                description=description
+            )
+            return redirect(
+                'maintenance:dashboard_boite',
+                exemplaire_id=exemplaire.id
+            )
+
+    # --- CONTEXT ---
+    context.update({
+        "exemplaire": exemplaire,
+        "types_maintenance": TYPES_MAINTENANCE,
+
+        "total_boite": total_boite,
+        "total_remplacement_boite": total_remplacement_boite,
+        "total_int_boite": total_int_boite,
+
+        "boite": boite,
+        "remplacement_boite": remplacement_boite,
+
+
+        "modeles": modeles,
+
+    })
+
+    return render(request, "boite_de_vitesse/dashboard_boite.html", context)
 
 
 

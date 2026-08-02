@@ -18,9 +18,11 @@ from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import DetailView
-from decimal import Decimal
 from weasyprint import HTML
+
+
+
+
 
 @method_decorator([login_required, never_cache], name="dispatch")
 class CourroieAccessoiresListView(ListView):
@@ -72,198 +74,197 @@ def courroie_access_form_view(request, exemplaire_id):
     role = request.user.role
     maintenance = None
 
-    with tenant_context(tenant):
 
-        exemplaire = get_object_or_404(
-            VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) |
-                Q(client__isnull=True, societe=tenant)
-            ),
-            id=exemplaire_id
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
+
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction",
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    if request.method == "POST":
+        form = CourroieAccessoiresForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
         )
 
-        roles_autorises = [
-            "mecanicien",
-            "apprenti",
-            "magasinier",
-            "chef_mecanicien",
-            "direction",
-        ]
+        if form.is_valid():
+            try:
+                with transaction.atomic():
 
-        if role not in roles_autorises:
-            messages.error(request, _("Accès refusé"))
-            return redirect("utilisateurs:dashboard")
+                    # ✅ Création immédiate de l'objet
+                    courroie_accessoires = form.save(commit=False)
 
-        if request.method == "POST":
-            form = CourroieAccessoiresForm(
-                request.POST,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+                    courroie_accessoires.voiture_exemplaire = exemplaire
+                    courroie_accessoires.assign_technicien(request.user)
 
-            if form.is_valid():
-                try:
-                    with transaction.atomic():
+                    km = form.cleaned_data.get("kilometrage_access")
 
-                        # ✅ Création immédiate de l'objet
-                        courroie_accessoires = form.save(commit=False)
+                    if km is not None:
+                        km = int(km)
+                        ancien_km = exemplaire.kilometres_chassis
 
-                        courroie_accessoires.voiture_exemplaire = exemplaire
-                        courroie_accessoires.assign_technicien(request.user)
+                        if km < ancien_km:
+                            form.add_error(
+                                "kilometrage_courroie_access",
+                                _("Le kilométrage ne peut pas diminuer.")
+                            )
+                            raise ValueError("Kilométrage invalide")
 
-                        km = form.cleaned_data.get("kilometrage_access")
+                        exemplaire.kilometres_chassis = km
+                        exemplaire.date_derniere_intervention = timezone.now().date()
+                        exemplaire.update_kilometres()
+                        exemplaire.save()
 
-                        if km is not None:
-                            km = int(km)
-                            ancien_km = exemplaire.kilometres_chassis
+                        courroie_accessoires.kilometres_chassis = exemplaire.kilometres_chassis
+                        courroie_accessoires.kilometrage_courroie_access = km
 
-                            if km < ancien_km:
-                                form.add_error(
-                                    "kilometrage_courroie_access",
-                                    _("Le kilométrage ne peut pas diminuer.")
-                                )
-                                raise ValueError("Kilométrage invalide")
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.COURROIE_ACCESS,
+                        tag=Maintenance.Tag.JAUNE,
+                    )
 
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.date_derniere_intervention = timezone.now().date()
-                            exemplaire.update_kilometres()
-                            exemplaire.save()
+                    if role == "mecanicien":
+                        maintenance.mecanicien = request.user
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
+                    elif role == "apprenti":
+                        maintenance.apprentis.add(request.user)
+                    elif role == "magasinier":
+                        maintenance.magasinier = request.user
+                    elif role == "direction":
+                        maintenance.direction = request.user
 
-                            courroie_accessoires.kilometres_chassis = exemplaire.kilometres_chassis
-                            courroie_accessoires.kilometrage_courroie_access = km
+                    maintenance.save()
 
-                        maintenance = Maintenance.objects.create(
-                            societe=request.user.societe,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=exemplaire.kilometres_chassis,
-                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.COURROIE_ACCESS,
-                            tag=Maintenance.Tag.JAUNE,
-                        )
+                    courroie_accessoires.maintenance = maintenance
+                    courroie_accessoires.save()
+                    form.save_m2m()
 
-                        if role == "mecanicien":
-                            maintenance.mecanicien = request.user
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = request.user
-                        elif role == "apprenti":
-                            maintenance.apprentis.add(request.user)
-                        elif role == "magasinier":
-                            maintenance.magasinier = request.user
-                        elif role == "direction":
-                            maintenance.direction = request.user
-
-                        maintenance.save()
-
-                        courroie_accessoires.maintenance = maintenance
-                        courroie_accessoires.save()
-                        form.save_m2m()
-
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=_("Courroie d'accessoires - %(immatriculation)s") % {
-                                "immatriculation": exemplaire.immatriculation
-                            }
-                        )
-
-                        messages.success(
-                            request,
-                            _("Check de la courroie d'accessoires enregistré avec succès.")
-                        )
-
-                        return redirect(
-                            "courroie_accessoires:courroie_list",
-                            exemplaire_id=exemplaire.id
-                        )
-
-                except Exception as e:
-                    messages.error(
-                        request,
-                        _("Erreur lors de l'enregistrement : %(error)s") % {
-                            "error": str(e)
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Courroie d'accessoires - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
                         }
                     )
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
 
+                    messages.success(
+                        request,
+                        _("Check de la courroie d'accessoires enregistré avec succès.")
+                    )
+
+                    return redirect(
+                        "courroie_accessoires:courroie_list",
+                        exemplaire_id=exemplaire.id
+                    )
+
+            except Exception as e:
+                messages.error(
+                    request,
+                    _("Erreur lors de l'enregistrement : %(error)s") % {
+                        "error": str(e)
+                    }
+                )
         else:
-            courroie_accessoires = CourroieAccessoires(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-            courroie_accessoires.assign_technicien(request.user)
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
 
-            form = CourroieAccessoiresForm(
-                instance=courroie_accessoires,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+    else:
+        courroie_accessoires = CourroieAccessoires(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=exemplaire.kilometres_chassis
+        )
+        courroie_accessoires.assign_technicien(request.user)
 
-        sections = [
-            {
-                "title": _("Kilométrage"),
-                "icon": "icons/compteur.png",
-                "fields": [form[f.name] for f in form if "kilo" in f.name],
-            },
-            {
-                "title": _("Courroie d'accessoires"),
-                "icon": "icons/courroie-daccess.png",
-                "fields": [form[f.name] for f in form if "courroie" in f.name],
-            },
-            {
-                "title": _("Galet Tendeur"),
-                "icon": "icons/galet-tendeur.png",
-                "fields": [form[f.name] for f in form if "galet" in f.name],
-            },
-            {
-                "title": _("Poulie Damper"),
-                "icon": "icons/poulie.png",
-                "fields": [form[f.name] for f in form if "poulie" in f.name],
-            },
-            {
-                "title": _("Serrage des roues"),
-                "icon": "icons/roue.png",
-                "fields": [form[f.name] for f in form if "serrage" in f.name],
-            },
-            {
-                "title": _("Etiquette"),
-                "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "tag" in f.name],
-            },
-            {
-                "title": _("Pays"),
-                "icon": "icons/pays.png",
-                "fields": [form[f.name] for f in form if "pays" in f.name],
-            },
-            {
-                "title": _("Remarques"),
-                "icon": "icons/notes.png",
-                "fields": [form[f.name] for f in form if "remarques" in f.name],
-            },
-            {
-                "title": _("Technicien"),
-                "icon": "icons/mecanicien.png",
-                "fields": [form[f.name] for f in form if "tech" in f.name],
-            },
-            {
-                "title": _("Taux horaire"),
-                "icon": "icons/taux.png",
-                "fields": [form[f.name] for f in form if "taux" in f.name],
-            },
+        form = CourroieAccessoiresForm(
+            instance=courroie_accessoires,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [form[f.name] for f in form if "kilo" in f.name],
+        },
+        {
+            "title": _("Courroie d'accessoires"),
+            "icon": "icons/courroie-daccess.png",
+            "fields": [form[f.name] for f in form if "courroie" in f.name],
+        },
+        {
+            "title": _("Galet Tendeur"),
+            "icon": "icons/galet-tendeur.png",
+            "fields": [form[f.name] for f in form if "galet" in f.name],
+        },
+        {
+            "title": _("Poulie Damper"),
+            "icon": "icons/poulie.png",
+            "fields": [form[f.name] for f in form if "poulie" in f.name],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [form[f.name] for f in form if "tag" in f.name],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [form[f.name] for f in form if "pays" in f.name],
+        },
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [form[f.name] for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [form[f.name] for f in form if "tech" in f.name],
+        },
+        {
+            "title": _("Taux horaire"),
+            "icon": "icons/taux.png",
+            "fields": [form[f.name] for f in form if "taux" in f.name],
+        },
 
 
-        ]
+    ]
 
-        return render(request, "courroie_accessoires/courroie_access_form.html", {
-            "exemplaire": exemplaire,
-            "immatriculation": exemplaire.immatriculation,
-            "maintenance": maintenance,
-            "form": form,
-            "sections": sections,
-            "now": timezone.now(),
-        })
+    return render(request, "courroie_accessoires/courroie_access_form.html", {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "maintenance": maintenance,
+        "form": form,
+        "sections": sections,
+        "now": timezone.now(),
+    })
 
 
 
@@ -290,121 +291,120 @@ def courroie_access_detail_view(request, courroie_accessoires_id):
 def modifier_courroie_access_view(request, courroie_accessoires_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        # Récupération de l'admission avec son exemplaire
-        courroie_accessoires = get_object_or_404(
-        CourroieAccessoires.objects.select_related("voiture_exemplaire"),
-            id=courroie_accessoires_id
+
+    courroie_accessoires = get_object_or_404(
+    CourroieAccessoires.objects.select_related("voiture_exemplaire"),
+        id=courroie_accessoires_id
+    )
+    exemplaire = courroie_accessoires.voiture_exemplaire
+    # -------------------------
+    # POST
+    # -------------------------
+    if request.method == "POST":
+        form = CourroieAccessoiresForm(
+            request.POST,
+            instance=courroie_accessoires,
+            user=request.user,
+            exemplaire=courroie_accessoires.voiture_exemplaire
         )
-        exemplaire = courroie_accessoires.voiture_exemplaire
-        # -------------------------
-        # POST
-        # -------------------------
-        if request.method == "POST":
-            form = CourroieAccessoiresForm(
-                request.POST,
-                instance=courroie_accessoires,
-                user=request.user,
-                exemplaire=courroie_accessoires.voiture_exemplaire
-            )
 
-            if form.is_valid():
-                try:
-                    courroie_accessoires = form.save(commit=False)
+        if form.is_valid():
+            try:
+                courroie_accessoires = form.save(commit=False)
 
-                    # 🔧 Réaffectation technicien + société
-                    courroie_accessoires.assign_technicien(request.user)
+                # 🔧 Réaffectation technicien + société
+                courroie_accessoires.assign_technicien(request.user)
 
-                    courroie_accessoires.save()
+                courroie_accessoires.save()
 
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_("Modification courroie d'accessoires - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
-                    )
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification courroie d'accessoires - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
 
-                    messages.success(
-                        request,
-                        _("Remplacement de la courroie d'accessoires modifié avec succès !")
-                    )
+                messages.success(
+                    request,
+                    _("Remplacement de la courroie d'accessoires modifié avec succès !")
+                )
 
-                except ValidationError as e:
-                    form.add_error(None, e)
-                    messages.error(request, _("Kilométrage invalide"))
+            except ValidationError as e:
+                form.add_error(None, e)
+                messages.error(request, _("Kilométrage invalide"))
 
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
-
-        # -------------------------
-        # GET
-        # -------------------------
         else:
-            form = CourroieAccessoiresForm(
-                instance=courroie_accessoires,
-                user=request.user,
-                exemplaire=courroie_accessoires.voiture_exemplaire
-            )
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
 
-        # -------------------------
-        # Sections pour le template
-        # -------------------------
-        sections = [
-            {
-                "title": _("Kilométrage"),
-                "icon": "icons/compteur.png",
-                "fields": [form[f.name] for f in form if "kilo" in f.name],
-            },
-            {
-                "title": _("Courroie d'accessoires"),
-                "icon": "icons/courroie-daccess.png",
-                "fields": [form[f.name] for f in form if "courroie" in f.name],
-            },
-            {
-                "title": _("Galet"),
-                "icon": "icons/galet-tendeur.png",
-                "fields": [form[f.name] for f in form if "galet" in f.name],
-            },
-            {
-                "title": _("Poulie Damper"),
-                "icon": "icons/poulie.png",
-                "fields": [form[f.name] for f in form if "poulie" in f.name],
-            },
-            {
-                "title": _("Serrage des roues"),
-                "icon": "icons/roue.png",
-                "fields": [form[f.name] for f in form if "serrage" in f.name],
-            },
+    # -------------------------
+    # GET
+    # -------------------------
+    else:
+        form = CourroieAccessoiresForm(
+            instance=courroie_accessoires,
+            user=request.user,
+            exemplaire=courroie_accessoires.voiture_exemplaire
+        )
 
-            {
-                "title": _("Etiquette"),
-                "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "tag" in f.name],
-            },
-            {
-                "title": _("Pays"),
-                "icon": "icons/pays.png",
-                "fields": [form[f.name] for f in form if "pays" in f.name],
-            },
+    # -------------------------
+    # Sections pour le template
+    # -------------------------
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [form[f.name] for f in form if "kilo" in f.name],
+        },
+        {
+            "title": _("Courroie d'accessoires"),
+            "icon": "icons/courroie-daccess.png",
+            "fields": [form[f.name] for f in form if "courroie" in f.name],
+        },
+        {
+            "title": _("Galet"),
+            "icon": "icons/galet-tendeur.png",
+            "fields": [form[f.name] for f in form if "galet" in f.name],
+        },
+        {
+            "title": _("Poulie Damper"),
+            "icon": "icons/poulie.png",
+            "fields": [form[f.name] for f in form if "poulie" in f.name],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
 
-            {
-                "title": _("Remarques"),
-                "icon": "icons/notes.png",
-                "fields": [form[f.name] for f in form if "remarques" in f.name],
-            },
-            {
-                "title": _("Technicien"),
-                "icon": "icons/mecanicien.png",
-                "fields": [form[f.name] for f in form if "tech" in f.name],
-            },
-            {
-                "title": _("Taux horaire"),
-                "icon": "icons/taux.png",
-                "fields": [form[f.name] for f in form if "taux" in f.name],
-            },
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [form[f.name] for f in form if "tag" in f.name],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [form[f.name] for f in form if "pays" in f.name],
+        },
 
-        ]
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [form[f.name] for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [form[f.name] for f in form if "tech" in f.name],
+        },
+        {
+            "title": _("Taux horaire"),
+            "icon": "icons/taux.png",
+            "fields": [form[f.name] for f in form if "taux" in f.name],
+        },
+
+    ]
 
     return render(
         request,

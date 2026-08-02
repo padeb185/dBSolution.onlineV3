@@ -1,5 +1,4 @@
 from decimal import Decimal
-
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
@@ -78,194 +77,192 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 
     remplacement_moteur = None
 
-    with tenant_context(tenant):
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
 
-        exemplaire = get_object_or_404(
-            VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) |
-                Q(client__isnull=True, societe=tenant)
-            ),
-            id=exemplaire_id
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction"
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # =========================
+    # POST
+    # =========================
+    if request.method == "POST":
+
+        form = RemplacementMoteurForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
         )
 
-        roles_autorises = [
-            "mecanicien",
-            "apprenti",
-            "magasinier",
-            "chef_mecanicien",
-            "direction"
-        ]
+        if form.is_valid():
 
-        if role not in roles_autorises:
-            messages.error(request, _("Accès refusé"))
-            return redirect("utilisateurs:dashboard")
+            try:
+                with transaction.atomic():
 
-        # =========================
-        # POST
-        # =========================
-        if request.method == "POST":
+                    km_checkup = form.cleaned_data.get("kilometres_chassis")
 
-            form = RemplacementMoteurForm(
-                request.POST,
-                user=request.user,
-                exemplaire=exemplaire
-            )
-
-            if form.is_valid():
-
-                try:
-                    with transaction.atomic():
-
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                        # 🔴 validation métier
-                        if km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
-                            form.add_error(
-                                "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur.")
-                            )
-                            raise ValueError("invalid km")
-
-                        # 🔴 maintenance unique
-                        maintenance = Maintenance.objects.create(
-                            societe=request.user.societe,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=exemplaire.kilometres_chassis,
-                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.REMPLACEMENT_BOITE,
-                            tag=Maintenance.Tag.JAUNE,
+                    # 🔴 validation métier
+                    if km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
+                        form.add_error(
+                            "kilometres_chassis",
+                            _("Le kilométrage ne peut pas être inférieur.")
                         )
+                        raise ValueError("invalid km")
 
-                        # 🔧 rôle
-                        if role == "mecanicien":
-                            maintenance.mecanicien = request.user
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = request.user
-                        elif role == "apprenti":
-                            maintenance.apprentis.add(request.user)
-                        elif role == "magasinier":
-                            maintenance.magasinier = request.user
-                        elif role == "direction":
-                            maintenance.direction = request.user
-
-                        maintenance.save()
-
-                        # 🧾 remplacement boîte
-                        remplacement_moteur = form.save(commit=False)
-                        remplacement_moteur.voiture_exemplaire = exemplaire
-
-                        # 🚗 km update (CORRIGÉ)
-                        if km_checkup is not None:
-                            exemplaire.kilometres_chassis = km_checkup
-                            exemplaire.kilometres_remplacement_moteur = km_checkup  # ✔ CORRECT
-                            exemplaire.save()
-
-                        remplacement_moteur.save()
-
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=_("Remplacement moteur - %(immatriculation)s") % {
-                                "immatriculation": exemplaire.immatriculation
-                            }
-                        )
-
-                        # ➕ compteur (si champ existe)
-                        if remplacement_moteur.pk:
-                            exemplaire.nombre_remplacements_moteurs = F("nombre_remplacements_moteurs")
-                            exemplaire.save(update_fields=["nombre_remplacements_moteurs"])
-                            exemplaire.refresh_from_db()
-
-                    messages.success(
-                        request,
-                        _("Remplacement du moteur enregistré avec succès")
+                    # 🔴 maintenance unique
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.REMPLACEMENT_BOITE,
+                        tag=Maintenance.Tag.JAUNE,
                     )
 
-                except Exception as e:
-                    messages.error(request, str(e))
+                    # 🔧 rôle
+                    if role == "mecanicien":
+                        maintenance.mecanicien = request.user
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
+                    elif role == "apprenti":
+                        maintenance.apprentis.add(request.user)
+                    elif role == "magasinier":
+                        maintenance.magasinier = request.user
+                    elif role == "direction":
+                        maintenance.direction = request.user
 
-            else:
-                messages.error(request, _("Veuillez corriger les erreurs du formulaire"))
-                print(form.errors)  # 🔥 DEBUG IMPORTANT
+                    maintenance.save()
+
+                    # 🧾 remplacement boîte
+                    remplacement_moteur = form.save(commit=False)
+                    remplacement_moteur.voiture_exemplaire = exemplaire
+
+                    # 🚗 km update (CORRIGÉ)
+                    if km_checkup is not None:
+                        exemplaire.kilometres_chassis = km_checkup
+                        exemplaire.kilometres_remplacement_moteur = km_checkup  # ✔ CORRECT
+                        exemplaire.save()
+
+                    remplacement_moteur.save()
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Remplacement moteur - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
+
+                    # ➕ compteur (si champ existe)
+                    if remplacement_moteur.pk:
+                        exemplaire.nombre_remplacements_moteurs = F("nombre_remplacements_moteurs")
+                        exemplaire.save(update_fields=["nombre_remplacements_moteurs"])
+                        exemplaire.refresh_from_db()
+
+                messages.success(
+                    request,
+                    _("Remplacement du moteur enregistré avec succès")
+                )
+
+            except Exception as e:
+                messages.error(request, str(e))
 
         else:
-            remplacement_moteur = RemplacementMoteur(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
+            messages.error(request, _("Veuillez corriger les erreurs du formulaire"))
+            print(form.errors)  # 🔥 DEBUG IMPORTANT
 
-            remplacement_moteur.assign_technicien(request.user)
+    else:
+        remplacement_moteur = RemplacementMoteur(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=exemplaire.kilometres_chassis
+        )
 
-            form = RemplacementMoteurForm(
-                instance=remplacement_moteur,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+        remplacement_moteur.assign_technicien(request.user)
 
-        # =========================
-        # RENDER
-        # =========================
-        sections = [
-            {
-                "title": _("Kilométrage"),
-                "icon": "icons/compteur.png",
-                "fields": [form[f.name] for f in form if "kilometres" in f.name],
-            },
-            {
-                "title": _("Remplacement du moteur"),
-                "icon": "icons/engine.png",
-                "fields": [form[f.name] for f in form if "moteurs" in f.name],
-            },
-            {
-                "title": _("Huile moteur"),
-                "icon": "icons/huile-moteur.png",
-                "fields": [form[f.name] for f in form if "niveau" in f.name],
-            },
-            {
-                "title": _("Liquide de refroidissement"),
-                "icon": "icons/anti-gel.png",
-                "fields": [form[f.name] for f in form if "refroidissement" in f.name],
-            },
-            {
-                "title": _("Remise à Zéro des kilomètres moteurs"),
-                "icon": "icons/km.png",
-                "fields": [form[f.name] for f in form if "remplacement_effectue" in f.name],
-            },
-            {
-                "title": _("Etiquette"),
-                "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "tag" in f.name],
-            },
-            {
-                "title": _("Pays"),
-                "icon": "icons/pays.png",
-                "fields": [form[f.name] for f in form if "pays" in f.name],
-            },
-            {
-                "title": _("Remarques"),
-                "icon": "icons/notes.png",
-                "fields": [form[f.name] for f in form if "remarques" in f.name],
-            },
-            {
-                "title": _("Technicien"),
-                "icon": "icons/mecanicien.png",
-                "fields": [form[f.name] for f in form if "tech" in f.name],
-            },
-            {
-                "title": _("Taux horaire"),
-                "icon": "icons/taux.png",
-                "fields": [form[f.name] for f in form if "taux" in f.name],
-            },
-        ]
+        form = RemplacementMoteurForm(
+            instance=remplacement_moteur,
+            user=request.user,
+            exemplaire=exemplaire
+        )
 
-        return render(request, "remplacement_moteur/remplacement_moteur_form.html", {
-            "remplacement_moteur": remplacement_moteur,
-            "exemplaire": exemplaire,
-            "form": form,
-            "sections": sections,
-            "now": timezone.now(),
-        })
+    # =========================
+    # RENDER
+    # =========================
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [form[f.name] for f in form if "kilometres" in f.name],
+        },
+        {
+            "title": _("Remplacement du moteur"),
+            "icon": "icons/engine.png",
+            "fields": [form[f.name] for f in form if "moteurs" in f.name],
+        },
+        {
+            "title": _("Huile moteur"),
+            "icon": "icons/huile-moteur.png",
+            "fields": [form[f.name] for f in form if "niveau" in f.name],
+        },
+        {
+            "title": _("Liquide de refroidissement"),
+            "icon": "icons/anti-gel.png",
+            "fields": [form[f.name] for f in form if "refroidissement" in f.name],
+        },
+        {
+            "title": _("Remise à Zéro des kilomètres moteurs"),
+            "icon": "icons/km.png",
+            "fields": [form[f.name] for f in form if "remplacement_effectue" in f.name],
+        },
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [form[f.name] for f in form if "tag" in f.name],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [form[f.name] for f in form if "pays" in f.name],
+        },
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [form[f.name] for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [form[f.name] for f in form if "tech" in f.name],
+        },
+        {
+            "title": _("Taux horaire"),
+            "icon": "icons/taux.png",
+            "fields": [form[f.name] for f in form if "taux" in f.name],
+        },
+    ]
+
+    return render(request, "remplacement_moteur/remplacement_moteur_form.html", {
+        "remplacement_moteur": remplacement_moteur,
+        "exemplaire": exemplaire,
+        "form": form,
+        "sections": sections,
+        "now": timezone.now(),
+    })
 
 
 
@@ -290,120 +287,120 @@ def remplacement_moteur_detail_view(request, remplacement_moteur_id):
 def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
 
-        remplacement_moteur = get_object_or_404(
-            RemplacementMoteur.objects.select_related("voiture_exemplaire"),
-            id=remplacement_moteur_id
+
+    remplacement_moteur = get_object_or_404(
+        RemplacementMoteur.objects.select_related("voiture_exemplaire"),
+        id=remplacement_moteur_id
+    )
+    exemplaire = remplacement_moteur.voiture_exemplaire
+    # -------------------------
+    # POST
+    # -------------------------
+    if request.method == "POST":
+        form = RemplacementMoteurForm(
+            request.POST,
+            instance=remplacement_moteur,
+            user=request.user,
+            exemplaire=remplacement_moteur.voiture_exemplaire
         )
-        exemplaire = remplacement_moteur.voiture_exemplaire
-        # -------------------------
-        # POST
-        # -------------------------
-        if request.method == "POST":
-            form = RemplacementMoteurForm(
-                request.POST,
-                instance=remplacement_moteur,
-                user=request.user,
-                exemplaire=remplacement_moteur.voiture_exemplaire
-            )
 
-            if form.is_valid():
-                try:
-                    form.save()
+        if form.is_valid():
+            try:
+                form.save()
 
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_("Modification remplacement moteur - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
-                    )
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification remplacement moteur - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
 
-                    messages.success(request, _("Remplacement du moteur modifié avec succès !"))
-                    return redirect(
-                        "remplacement_moteur:modifier_remplacement_moteur",
-                        remplacement_moteur_id=remplacement_moteur.id
-                    )
+                messages.success(request, _("Remplacement du moteur modifié avec succès !"))
+                return redirect(
+                    "remplacement_moteur:modifier_remplacement_moteur",
+                    remplacement_moteur_id=remplacement_moteur.id
+                )
 
-                except ValidationError as e:
-                    form.add_error(None, e)
-                    messages.error(request, _("Kilométrage invalide"))
+            except ValidationError as e:
+                form.add_error(None, e)
+                messages.error(request, _("Kilométrage invalide"))
 
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
-        # -------------------------
-        # GET
-        # -------------------------
         else:
-            form = RemplacementMoteurForm(
-                instance=remplacement_moteur,
-                user=request.user,
-                exemplaire=remplacement_moteur.voiture_exemplaire
-            )
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
+    # -------------------------
+    # GET
+    # -------------------------
+    else:
+        form = RemplacementMoteurForm(
+            instance=remplacement_moteur,
+            user=request.user,
+            exemplaire=remplacement_moteur.voiture_exemplaire
+        )
 
-        # -------------------------
-        # SECTIONS
-        # -------------------------
-        sections = [
-            {
-                "title": _("Kilométrage"),
-                "icon": "icons/compteur.png",
-                "fields": [form[f.name] for f in form if "kilometres" in f.name],
-            },
-            {
-                "title": _("Remplacement du moteur"),
-                "icon": "icons/engine.png",
-                "fields": [form[f.name] for f in form if "moteurs" in f.name],
-            },
-            {
-                "title": _("Huile moteur"),
-                "icon": "icons/huile-moteur.png",
-                "fields": [form[f.name] for f in form if "niveau" in f.name],
-            },
-            {
-                "title": _("Liquide de refroidissement"),
-                "icon": "icons/anti-gel.png",
-                "fields": [form[f.name] for f in form if "refroidissement" in f.name],
-            },
-            {
-                "title": _("Remise à Zéro des kilomètres moteurs"),
-                "icon": "icons/km.png",
-                "fields": [form[f.name] for f in form if "remplacement_effectue" in f.name],
-            },
-            {
-                "title": _("Etiquette"),
-                "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "tag" in f.name],
-            },
-            {
-                "title": _("Pays"),
-                "icon": "icons/pays.png",
-                "fields": [form[f.name] for f in form if "pays" in f.name],
-            },
-            {
-                "title": _("Remarques"),
-                "icon": "icons/notes.png",
-                "fields": [form[f.name] for f in form if "remarques" in f.name],
-            },
-            {
-                "title": _("Technicien"),
-                "icon": "icons/mecanicien.png",
-                "fields": [form[f.name] for f in form if "tech" in f.name],
-            },
-            {
-                "title": _("Taux horaire"),
-                "icon": "icons/taux.png",
-                "fields": [form[f.name] for f in form if "taux" in f.name],
-            },
-        ]
+    # -------------------------
+    # SECTIONS
+    # -------------------------
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [form[f.name] for f in form if "kilometres" in f.name],
+        },
+        {
+            "title": _("Remplacement du moteur"),
+            "icon": "icons/engine.png",
+            "fields": [form[f.name] for f in form if "moteurs" in f.name],
+        },
+        {
+            "title": _("Huile moteur"),
+            "icon": "icons/huile-moteur.png",
+            "fields": [form[f.name] for f in form if "niveau" in f.name],
+        },
+        {
+            "title": _("Liquide de refroidissement"),
+            "icon": "icons/anti-gel.png",
+            "fields": [form[f.name] for f in form if "refroidissement" in f.name],
+        },
+        {
+            "title": _("Remise à Zéro des kilomètres moteurs"),
+            "icon": "icons/km.png",
+            "fields": [form[f.name] for f in form if "remplacement_effectue" in f.name],
+        },
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [form[f.name] for f in form if "tag" in f.name],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [form[f.name] for f in form if "pays" in f.name],
+        },
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [form[f.name] for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [form[f.name] for f in form if "tech" in f.name],
+        },
+        {
+            "title": _("Taux horaire"),
+            "icon": "icons/taux.png",
+            "fields": [form[f.name] for f in form if "taux" in f.name],
+        },
+    ]
 
-        return render(request, "remplacement_moteur/modifier_remplacement_moteur.html", {
-            "remplacement_moteur": remplacement_moteur,
-            "form": form,
-            "sections": sections,
-            "exemplaire": exemplaire,
-        })
+    return render(request, "remplacement_moteur/modifier_remplacement_moteur.html", {
+        "remplacement_moteur": remplacement_moteur,
+        "form": form,
+        "sections": sections,
+        "exemplaire": exemplaire,
+    })
 
 
 
@@ -415,96 +412,96 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
 def remplacement_moteur_pdf_view(request, remplacement_moteur_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        remplacement = get_object_or_404(
-            RemplacementMoteur.objects.select_related(
-                "voiture_exemplaire",
-                "voiture_exemplaire__voiture_marque",
-                "voiture_exemplaire__voiture_modele",
-                "maintenance",
-                "tech_technicien",
-                "tech_societe",
-                "main_oeuvre",
-                "main_oeuvre__utilisateur",
-            ),
-            pk=remplacement_moteur_id,
+
+    remplacement = get_object_or_404(
+        RemplacementMoteur.objects.select_related(
+            "voiture_exemplaire",
+            "voiture_exemplaire__voiture_marque",
+            "voiture_exemplaire__voiture_modele",
+            "maintenance",
+            "tech_technicien",
+            "tech_societe",
+            "main_oeuvre",
+            "main_oeuvre__utilisateur",
+        ),
+        pk=remplacement_moteur_id,
+    )
+
+    # Rapport des pièces et produits
+    rapport = remplacement.generer_rapport_remplacement()
+
+    lignes_rapport = rapport.get("lignes", [])
+    total_pieces_produits = rapport.get(
+        "total_general",
+        Decimal("0.00"),
+    )
+
+    # Main-d'œuvre
+    cout_main_oeuvre = remplacement.cout_main_oeuvre
+    total_general = remplacement.total_general_avec_main_oeuvre
+
+    html_string = render_to_string(
+        "remplacement_moteur/remplacement_moteur_pdf.html",
+        {
+            "remplacement": remplacement,
+            "rapport": rapport,
+            "lignes_rapport": lignes_rapport,
+
+            # Compatibilité avec les templates utilisant pieces_utilisees
+            "pieces_utilisees": lignes_rapport,
+
+            "total_pieces": total_pieces_produits,
+            "total_pieces_produits": total_pieces_produits,
+            "cout_main_oeuvre": cout_main_oeuvre,
+            "total_general": total_general,
+
+            "maintenance": remplacement.maintenance,
+            "vehicule": remplacement.voiture_exemplaire,
+            "societe": tenant,
+            "date_export": timezone.now(),
+        },
+        request=request,
+    )
+
+    pdf_file = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri("/"),
+    ).write_pdf()
+
+    vehicule = remplacement.voiture_exemplaire
+
+    immatriculation = (
+        vehicule.immatriculation
+        if vehicule and vehicule.immatriculation
+        else "sans_immatriculation"
+    )
+
+    technicien = (
+        remplacement.tech_nom_technicien
+        or (
+            str(remplacement.tech_technicien)
+            if remplacement.tech_technicien
+            else "technicien_inconnu"
         )
+    )
 
-        # Rapport des pièces et produits
-        rapport = remplacement.generer_rapport_remplacement()
+    # Nettoyage des caractères problématiques pour le nom du PDF
+    immatriculation = str(immatriculation).replace(" ", "_").replace("/", "-")
+    technicien = str(technicien).replace(" ", "_").replace("/", "-")
 
-        lignes_rapport = rapport.get("lignes", [])
-        total_pieces_produits = rapport.get(
-            "total_general",
-            Decimal("0.00"),
-        )
+    nom_fichier = (
+        f"remplacement_moteur_"
+        f"{immatriculation}_"
+        f"{technicien}.pdf"
+    )
 
-        # Main-d'œuvre
-        cout_main_oeuvre = remplacement.cout_main_oeuvre
-        total_general = remplacement.total_general_avec_main_oeuvre
+    response = HttpResponse(
+        pdf_file,
+        content_type="application/pdf",
+    )
 
-        html_string = render_to_string(
-            "remplacement_moteur/remplacement_moteur_pdf.html",
-            {
-                "remplacement": remplacement,
-                "rapport": rapport,
-                "lignes_rapport": lignes_rapport,
+    response["Content-Disposition"] = (
+        f'inline; filename="{nom_fichier}"'
+    )
 
-                # Compatibilité avec les templates utilisant pieces_utilisees
-                "pieces_utilisees": lignes_rapport,
-
-                "total_pieces": total_pieces_produits,
-                "total_pieces_produits": total_pieces_produits,
-                "cout_main_oeuvre": cout_main_oeuvre,
-                "total_general": total_general,
-
-                "maintenance": remplacement.maintenance,
-                "vehicule": remplacement.voiture_exemplaire,
-                "societe": tenant,
-                "date_export": timezone.now(),
-            },
-            request=request,
-        )
-
-        pdf_file = HTML(
-            string=html_string,
-            base_url=request.build_absolute_uri("/"),
-        ).write_pdf()
-
-        vehicule = remplacement.voiture_exemplaire
-
-        immatriculation = (
-            vehicule.immatriculation
-            if vehicule and vehicule.immatriculation
-            else "sans_immatriculation"
-        )
-
-        technicien = (
-            remplacement.tech_nom_technicien
-            or (
-                str(remplacement.tech_technicien)
-                if remplacement.tech_technicien
-                else "technicien_inconnu"
-            )
-        )
-
-        # Nettoyage des caractères problématiques pour le nom du PDF
-        immatriculation = str(immatriculation).replace(" ", "_").replace("/", "-")
-        technicien = str(technicien).replace(" ", "_").replace("/", "-")
-
-        nom_fichier = (
-            f"remplacement_moteur_"
-            f"{immatriculation}_"
-            f"{technicien}.pdf"
-        )
-
-        response = HttpResponse(
-            pdf_file,
-            content_type="application/pdf",
-        )
-
-        response["Content-Disposition"] = (
-            f'inline; filename="{nom_fichier}"'
-        )
-
-        return response
+    return response

@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -17,7 +16,6 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from weasyprint import HTML
-
 from .forms import TurboForm
 from .models import Turbo
 
@@ -64,6 +62,8 @@ class TurboListView(ListView):
         return context
 
 
+
+
 @never_cache
 @login_required
 def turbo_check_view(request, exemplaire_id):
@@ -72,181 +72,179 @@ def turbo_check_view(request, exemplaire_id):
 
     maintenance = None
 
-    with tenant_context(tenant):
+    # 🔎 Récupération exemplaire
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
 
-        # 🔎 Récupération exemplaire
-        exemplaire = get_object_or_404(
-            VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) |
-                Q(client__isnull=True, societe=tenant)
-            ),
-            id=exemplaire_id
+    # 🔐 rôles autorisés
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction"
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # =========================
+    # Sections disponibles TOUJOURS
+    # =========================
+    section_templates = [
+        {"title": _("Kilométrage"), "icon": "icons/compteur.png", "filter": "kilo"},
+        {"title": _("Jeu dans l'axe"), "icon": "icons/turbo.png", "filter": "jeu_axe"},
+        {"title": _("État des turbines"), "icon": "icons/turbine.png", "filter": "turbine"},
+        {"title": _("Fuites d'huile"), "icon": "icons/fuite-deau.png", "filter": "fuites"},
+        {"title": _("Géométrie Variable"), "icon": "icons/turbine.png", "filter": "geometrie"},
+        {"title": _("Turbo"), "icon": "icons/turbo.png", "filter": "turbos"},
+        {"title": _("Intercooler"), "icon": "icons/intercooler.png", "filter": "intercooler"},
+        {"title": _("Electro-vanne"), "icon": "icons/electrovanne.png", "filter": "electrovanne"},
+        {"title": _("Joints"), "icon": "icons/joint.png", "filter": "joints"},
+        {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
+        {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
+        {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
+        {"title": _("Taux horaire"), "icon": "icons/taux.png", "filter": "taux"},
+    ]
+
+    # =========================
+    # POST
+    # =========================
+    if request.method == "POST":
+
+        form = TurboForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
         )
 
-        # 🔐 rôles autorisés
-        roles_autorises = [
-            "mecanicien",
-            "apprenti",
-            "magasinier",
-            "chef_mecanicien",
-            "direction"
-        ]
+        if form.is_valid():
 
-        if role not in roles_autorises:
-            messages.error(request, _("Accès refusé"))
-            return redirect("utilisateurs:dashboard")
+            try:
+                with transaction.atomic():
 
-        # =========================
-        # Sections disponibles TOUJOURS
-        # =========================
-        section_templates = [
-            {"title": _("Kilométrage"), "icon": "icons/compteur.png", "filter": "kilo"},
-            {"title": _("Jeu dans l'axe"), "icon": "icons/turbo.png", "filter": "jeu_axe"},
-            {"title": _("État des turbines"), "icon": "icons/turbine.png", "filter": "turbine"},
-            {"title": _("Fuites d'huile"), "icon": "icons/fuite-deau.png", "filter": "fuites"},
-            {"title": _("Géométrie Variable"), "icon": "icons/turbine.png", "filter": "geometrie"},
-            {"title": _("Turbo"), "icon": "icons/turbo.png", "filter": "turbos"},
-            {"title": _("Intercooler"), "icon": "icons/intercooler.png", "filter": "intercooler"},
-            {"title": _("Electro-vanne"), "icon": "icons/electrovanne.png", "filter": "electrovanne"},
-            {"title": _("Joints"), "icon": "icons/joint.png", "filter": "joints"},
-            {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
-            {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
-            {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
-            {"title": _("Taux horaire"), "icon": "icons/taux.png", "filter": "taux"},
-        ]
+                    km = form.cleaned_data.get("kilometres_turbo")
 
-        # =========================
-        # POST
-        # =========================
-        if request.method == "POST":
+                    if km is not None:
+                        km = int(km)
 
-            form = TurboForm(
-                request.POST,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+                        ancien_km = exemplaire.kilometres_chassis
 
-            if form.is_valid():
+                        if km < ancien_km:
+                            form.add_error(
+                                "kilometres_turbo",
+                                _("Le kilométrage ne peut pas diminuer.")
+                            )
+                            raise ValueError("Kilométrage invalide")
 
-                try:
-                    with transaction.atomic():
+                        # 🚗 update voiture (source unique)
+                        exemplaire.kilometres_chassis = km
+                        exemplaire.date_derniere_intervention = timezone.now().date()
 
-                        km = form.cleaned_data.get("kilometres_turbo")
+                        exemplaire.update_kilometres()
+                        exemplaire.save()
 
-                        if km is not None:
-                            km = int(km)
-
-                            ancien_km = exemplaire.kilometres_chassis
-
-                            if km < ancien_km:
-                                form.add_error(
-                                    "kilometres_turbo",
-                                    _("Le kilométrage ne peut pas diminuer.")
-                                )
-                                raise ValueError("Kilométrage invalide")
-
-                            # 🚗 update voiture (source unique)
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.date_derniere_intervention = timezone.now().date()
-
-                            exemplaire.update_kilometres()
-                            exemplaire.save()
-
-                            # 🔗 checkup UNIQUE
-                            turbo = form.save(commit=False)
-                            turbo.assign_technicien(request.user)
-
-                            turbo.kilometres_chassis = exemplaire.kilometres_chassis
-                            turbo.kilometres_turbo = km
-
-                        maintenance = Maintenance.objects.create(
-                            societe=request.user.societe,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=exemplaire.kilometres_chassis,
-                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.TURBO,
-                            tag=Maintenance.Tag.JAUNE,
-                        )
-
-                        # 🔧 affectation rôle
-                        if role == "mecanicien":
-                            maintenance.mecanicien = request.user
-
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = request.user
-
-                        elif role == "apprenti":
-                            maintenance.apprentis.add(request.user)
-
-                        elif role == "magasinier":
-                            maintenance.magasinier = request.user
-
-                        elif role == "direction":
-                            maintenance.direction = request.user
-
-                        maintenance.save()
-
+                        # 🔗 checkup UNIQUE
+                        turbo = form.save(commit=False)
                         turbo.assign_technicien(request.user)
 
-                        # 🔗 lien final
-                        turbo.maintenance = maintenance
-                        turbo.save()
+                        turbo.kilometres_chassis = exemplaire.kilometres_chassis
+                        turbo.kilometres_turbo = km
 
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=_("Turbo - %(immatriculation)s") % {
-                                "immatriculation": exemplaire.immatriculation
-                            }
-                        )
-
-                    messages.success(
-                        request,
-                        _("Check turbo enregistré avec succès.")
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.TURBO,
+                        tag=Maintenance.Tag.JAUNE,
                     )
-                except Exception as e:
-                    messages.error(request,_(f"Erreur lors de l'enregistrement : {str(e)}")
-                    )
-            else:
-                print("FORM INVALID:", form.errors)
-                messages.error(request, _("Formulaire invalide"))
 
+                    # 🔧 affectation rôle
+                    if role == "mecanicien":
+                        maintenance.mecanicien = request.user
+
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
+
+                    elif role == "apprenti":
+                        maintenance.apprentis.add(request.user)
+
+                    elif role == "magasinier":
+                        maintenance.magasinier = request.user
+
+                    elif role == "direction":
+                        maintenance.direction = request.user
+
+                    maintenance.save()
+
+                    turbo.assign_technicien(request.user)
+
+                    # 🔗 lien final
+                    turbo.maintenance = maintenance
+                    turbo.save()
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Turbo - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
+
+                messages.success(
+                    request,
+                    _("Check turbo enregistré avec succès.")
+                )
+            except Exception as e:
+                messages.error(request,_(f"Erreur lors de l'enregistrement : {str(e)}")
+                )
         else:
+            print("FORM INVALID:", form.errors)
+            messages.error(request, _("Formulaire invalide"))
 
-            turbo = Turbo(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
+    else:
 
-            turbo.assign_technicien(request.user)
+        turbo = Turbo(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=exemplaire.kilometres_chassis
+        )
 
-            form = TurboForm(
-                instance=turbo,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+        turbo.assign_technicien(request.user)
 
-        # =========================
-        # Génération sections
-        # =========================
-        sections = [
-            {
-                "title": s["title"],
-                "icon": s["icon"],
-                "fields": [f for f in form if s["filter"] in f.name]
-            }
-            for s in section_templates
-        ]
+        form = TurboForm(
+            instance=turbo,
+            user=request.user,
+            exemplaire=exemplaire
+        )
 
-        return render(request, 'turbo/turbo_check.html', {
-            "exemplaire": exemplaire,
-            "immatriculation": exemplaire.immatriculation,
-            "maintenance": maintenance,
-            "form": form,
-            "sections": sections,
-            "now": timezone.now(),
-        })
+    # =========================
+    # Génération sections
+    # =========================
+    sections = [
+        {
+            "title": s["title"],
+            "icon": s["icon"],
+            "fields": [f for f in form if s["filter"] in f.name]
+        }
+        for s in section_templates
+    ]
+
+    return render(request, 'turbo/turbo_check.html', {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "maintenance": maintenance,
+        "form": form,
+        "sections": sections,
+        "now": timezone.now(),
+    })
 
 
 
@@ -273,79 +271,77 @@ def turbo_detail_view(request, turbo_id):
 def modifier_turbo_view(request, turbo_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        # Récupération de l'admission avec son exemplaire
-        turbo = get_object_or_404(
-            Turbo.objects.select_related("voiture_exemplaire"),
-            id=turbo_id
+    turbo = get_object_or_404(
+        Turbo.objects.select_related("voiture_exemplaire"),
+        id=turbo_id
+    )
+    exemplaire = turbo.voiture_exemplaire
+    # -------------------------
+    # POST
+    # -------------------------
+    if request.method == "POST":
+        form = TurboForm(
+            request.POST,
+            instance=turbo,
+            user=request.user,
+            exemplaire=turbo.voiture_exemplaire
         )
-        exemplaire = turbo.voiture_exemplaire
-        # -------------------------
-        # POST
-        # -------------------------
-        if request.method == "POST":
-            form = TurboForm(
-                request.POST,
-                instance=turbo,
-                user=request.user,
-                exemplaire=turbo.voiture_exemplaire
+
+        if form.is_valid():
+            form.save()
+
+            UserLog.objects.create(
+                utilisateur=request.user,
+                action=_("Modification turbo - %(immatriculation)s") % {
+                    "immatriculation": exemplaire.immatriculation
+                }
             )
 
-            if form.is_valid():
-                form.save()
-
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Modification turbo - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
-                )
-
-                messages.success(request, _("Contrôle du turbo modifié avec succès !"))
-                return redirect("turbo:modifier_turbo", turbo_id=turbo.id)
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
-
-        # -------------------------
-        # GET
-        # -------------------------
+            messages.success(request, _("Contrôle du turbo modifié avec succès !"))
+            return redirect("turbo:modifier_turbo", turbo_id=turbo.id)
         else:
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
 
-            form = TurboForm(
-                instance=turbo,
-                user=request.user,
-                exemplaire=turbo.voiture_exemplaire
-            )
+    # -------------------------
+    # GET
+    # -------------------------
+    else:
 
-        # -------------------------
-        # Sections pour le template
-        # -------------------------
-        section_templates = [
-            {"title": _("Kilométrage"), "icon": "icons/compteur.png", "filter": "kilo"},
-            {"title": _("Jeu dans l'axe"), "icon": "icons/turbo.png", "filter": "jeu_axe"},
-            {"title": _("État des turbines"), "icon": "icons/turbine.png", "filter": "turbine"},
-            {"title": _("Fuites d'huile"), "icon": "icons/fuite-deau.png", "filter": "fuites"},
-            {"title": _("Géométrie Variable"), "icon": "icons/turbine.png", "filter": "geometrie"},
-            {"title": _("Turbo"), "icon": "icons/turbo.png", "filter": "turbos"},
-            {"title": _("Intercooler"), "icon": "icons/intercooler.png", "filter": "intercooler"},
-            {"title": _("Electro-vanne"), "icon": "icons/electrovanne.png", "filter": "electrovanne"},
-            {"title": _("joints"), "icon": "icons/joint.png", "filter": "joints"},
-            {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
-            {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
-            {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
-            {"title": _("Taux horaire"), "icon": "icons/taux.png", "filter": "taux"},
+        form = TurboForm(
+            instance=turbo,
+            user=request.user,
+            exemplaire=turbo.voiture_exemplaire
+        )
 
-        ]
+    # -------------------------
+    # Sections pour le template
+    # -------------------------
+    section_templates = [
+        {"title": _("Kilométrage"), "icon": "icons/compteur.png", "filter": "kilo"},
+        {"title": _("Jeu dans l'axe"), "icon": "icons/turbo.png", "filter": "jeu_axe"},
+        {"title": _("État des turbines"), "icon": "icons/turbine.png", "filter": "turbine"},
+        {"title": _("Fuites d'huile"), "icon": "icons/fuite-deau.png", "filter": "fuites"},
+        {"title": _("Géométrie Variable"), "icon": "icons/turbine.png", "filter": "geometrie"},
+        {"title": _("Turbo"), "icon": "icons/turbo.png", "filter": "turbos"},
+        {"title": _("Intercooler"), "icon": "icons/intercooler.png", "filter": "intercooler"},
+        {"title": _("Electro-vanne"), "icon": "icons/electrovanne.png", "filter": "electrovanne"},
+        {"title": _("joints"), "icon": "icons/joint.png", "filter": "joints"},
+        {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
+        {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
+        {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
+        {"title": _("Taux horaire"), "icon": "icons/taux.png", "filter": "taux"},
 
-        sections = [
-            {
-                "title": s["title"],
-                "icon": s["icon"],
-                "fields": [f for f in form if s["filter"] in f.name]
-            }
-            for s in section_templates
-        ]
+    ]
+
+    sections = [
+        {
+            "title": s["title"],
+            "icon": s["icon"],
+            "fields": [f for f in form if s["filter"] in f.name]
+        }
+        for s in section_templates
+    ]
 
     return render(
         request,

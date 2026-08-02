@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
-from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -82,161 +81,159 @@ def entretien_check_view(request, exemplaire_id):
     tenant = request.user.societe
     role = request.user.role
 
-    with (tenant_context(tenant)):
+    # 🔎 Récupération exemplaire
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
 
-        # 🔎 Récupération exemplaire
-        exemplaire = get_object_or_404(
-            VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) |
-                Q(client__isnull=True, societe=tenant)
-            ),
-            id=exemplaire_id
+    # 🔐 Vérification rôles
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction"
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # =========================
+    # POST
+    # =========================
+
+    maintenance = None
+
+    if request.method == "POST":
+
+        form = EntretienForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
         )
 
-        # 🔐 Vérification rôles
-        roles_autorises = [
-            "mecanicien",
-            "apprenti",
-            "magasinier",
-            "chef_mecanicien",
-            "direction"
-        ]
+        if form.is_valid():
 
-        if role not in roles_autorises:
-            messages.error(request, _("Accès refusé"))
-            return redirect("utilisateurs:dashboard")
+            try:
+                with transaction.atomic():
+                    km = form.cleaned_data.get("kilometrage_entretien")
 
-        # =========================
-        # POST
-        # =========================
+                    if km is not None:
+                        km = int(km)
 
-        maintenance = None
+                        ancien_km = exemplaire.kilometres_chassis or 0
 
-        if request.method == "POST":
-
-            form = EntretienForm(
-                request.POST,
-                user=request.user,
-                exemplaire=exemplaire
-            )
-
-            if form.is_valid():
-
-                try:
-                    with transaction.atomic():
-                        km = form.cleaned_data.get("kilometrage_entretien")
-
-                        if km is not None:
-                            km = int(km)
-
-                            ancien_km = exemplaire.kilometres_chassis or 0
-
-                            if km < ancien_km:
-                                form.add_error(
-                                    "kilometrage_entretien",
-                                    _("Le kilométrage ne peut pas diminuer.")
-                                )
-                                raise ValueError("Kilométrage invalide")
-
-                            # 🚗 source unique = voiture
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.kilometres_dernier_entretien = km
-                            exemplaire.date_derniere_intervention = timezone.now().date()
-
-                            exemplaire.update_kilometres()
-
-                            exemplaire.save(
-                                update_fields=[
-                                    "kilometres_chassis",
-                                    "kilometres_dernier_entretien",
-                                    "date_derniere_intervention",
-                                ]
+                        if km < ancien_km:
+                            form.add_error(
+                                "kilometrage_entretien",
+                                _("Le kilométrage ne peut pas diminuer.")
                             )
+                            raise ValueError("Kilométrage invalide")
 
-                        # 🔗 entretien
-                        entretien = form.save(commit=False)
+                        # 🚗 source unique = voiture
+                        exemplaire.kilometres_chassis = km
+                        exemplaire.kilometres_dernier_entretien = km
+                        exemplaire.date_derniere_intervention = timezone.now().date()
 
-                        entretien.assign_technicien(request.user)
+                        exemplaire.update_kilometres()
 
-                        entretien.kilometres_chassis = exemplaire.kilometres_chassis
-                        entretien.kilometrage_entretien = km
-
-
-                        # 🔴 Création maintenance UNIQUE
-                        maintenance = Maintenance.objects.create(
-                            societe=request.user.societe,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=exemplaire.kilometres_chassis,
-                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.ENTRETIEN,
-                            tag=Maintenance.Tag.JAUNE,
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis",
+                                "kilometres_dernier_entretien",
+                                "date_derniere_intervention",
+                            ]
                         )
 
-                        # 🔧 Affectation rôle
-                        if role == "mecanicien":
-                            maintenance.mecanicien = Mecanicien.objects.get(id=request.user.id)
+                    # 🔗 entretien
+                    entretien = form.save(commit=False)
 
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = ChefMecanicien.objects.get(id=request.user.id)
+                    entretien.assign_technicien(request.user)
 
-                        elif role == "apprenti":
-                            maintenance.apprentis = Apprenti.objects.get(id=request.user.id)
+                    entretien.kilometres_chassis = exemplaire.kilometres_chassis
+                    entretien.kilometrage_entretien = km
 
-                        elif role == "magasinier":
-                            maintenance.magasinier = Magasinier.objects.get(id=request.user.id)
 
-                        elif role == 'direction':
-                            maintenance.direction = Direction.objects.get(id=request.user.id)
-
-                        maintenance.save()
-
-                    entretien.maintenance = maintenance
-                    entretien.save()
-
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_("Entretien - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
+                    # 🔴 Création maintenance UNIQUE
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.ENTRETIEN,
+                        tag=Maintenance.Tag.JAUNE,
                     )
 
-                    messages.success(request, _("Entretien enregistré avec succès."))
+                    # 🔧 Affectation rôle
+                    if role == "mecanicien":
+                        maintenance.mecanicien = Mecanicien.objects.get(id=request.user.id)
 
-                except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
-            else:
-                print("FORM INVALID:", form.errors)
-                messages.error(request, _("Le formulaire contient des erreurs."))
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = ChefMecanicien.objects.get(id=request.user.id)
 
+                    elif role == "apprenti":
+                        maintenance.apprentis = Apprenti.objects.get(id=request.user.id)
 
+                    elif role == "magasinier":
+                        maintenance.magasinier = Magasinier.objects.get(id=request.user.id)
 
+                    elif role == 'direction':
+                        maintenance.direction = Direction.objects.get(id=request.user.id)
+
+                    maintenance.save()
+
+                entretien.maintenance = maintenance
+                entretien.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Entretien - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
+                messages.success(request, _("Entretien enregistré avec succès."))
+
+            except Exception as e:
+                messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
         else:
-            entretien = Entretien(
-                societe=tenant,
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-
-            )
-
-            entretien.assign_technicien(request.user)
-
-            form = EntretienForm(
-                instance=entretien,
-                user=request.user,
-                exemplaire=exemplaire
-
-            )
+            print("FORM INVALID:", form.errors)
+            messages.error(request, _("Le formulaire contient des erreurs."))
 
 
-        return render(request, 'entretien/entretien_check.html', {
-            "exemplaire": exemplaire,
-            "immatriculation": exemplaire.immatriculation,
-            "maintenance": maintenance,
-            "form": form,
-            "now": timezone.now(),
-        })
+
+    else:
+        entretien = Entretien(
+            societe=tenant,
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=exemplaire.kilometres_chassis
+
+        )
+
+        entretien.assign_technicien(request.user)
+
+        form = EntretienForm(
+            instance=entretien,
+            user=request.user,
+            exemplaire=exemplaire
+
+        )
+
+
+    return render(request, 'entretien/entretien_check.html', {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "maintenance": maintenance,
+        "form": form,
+        "now": timezone.now(),
+    })
 
 
 
@@ -248,17 +245,16 @@ def entretien_check_view(request, exemplaire_id):
 def entretien_detail_view(request, entretien_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        entretien = get_object_or_404(
-            Entretien.objects.select_related("voiture_exemplaire"),
-            id=entretien_id
-        )
+    entretien = get_object_or_404(
+        Entretien.objects.select_related("voiture_exemplaire"),
+        id=entretien_id
+    )
 
-        context = {
-            "entretien": entretien,
-            "exemplaire": entretien.voiture_exemplaire,
-        }
-        return render(request, "entretien/entretien_detail.html", context)
+    context = {
+        "entretien": entretien,
+        "exemplaire": entretien.voiture_exemplaire,
+    }
+    return render(request, "entretien/entretien_detail.html", context)
 
 
 #---------------------
@@ -271,50 +267,49 @@ def entretien_detail_view(request, entretien_id):
 def modifier_entretien_view(request, entretien_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        # Récupération de l'entretien avec son exemplaire
-        entretien = get_object_or_404(
-            Entretien.objects.select_related("voiture_exemplaire"),
-            id=entretien_id
+    # Récupération de l'entretien avec son exemplaire
+    entretien = get_object_or_404(
+        Entretien.objects.select_related("voiture_exemplaire"),
+        id=entretien_id
+    )
+
+    exemplaire = entretien.voiture_exemplaire
+
+    # -------------------------
+    # POST
+    # -------------------------
+    if request.method == "POST":
+        form = EntretienForm(
+            request.POST,
+            instance=entretien,
+            user=request.user,
+            exemplaire=entretien.voiture_exemplaire
         )
+        if form.is_valid():
+            form.save()
 
-        exemplaire = entretien.voiture_exemplaire
-
-        # -------------------------
-        # POST
-        # -------------------------
-        if request.method == "POST":
-            form = EntretienForm(
-                request.POST,
-                instance=entretien,
-                user=request.user,
-                exemplaire=entretien.voiture_exemplaire
+            UserLog.objects.create(
+                utilisateur=request.user,
+                action=_("Modification entretien - %(immatriculation)s") % {
+                    "immatriculation": exemplaire.immatriculation
+                }
             )
-            if form.is_valid():
-                form.save()
 
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Modification entretien - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
-                )
-
-                messages.success(request, _("Entretien modifié avec succès !"))
-                return redirect("entretien:modifier_entretien", entretien_id=entretien.id)
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
-
-        # -------------------------
-        # GET
-        # -------------------------
+            messages.success(request, _("Entretien modifié avec succès !"))
+            return redirect("entretien:modifier_entretien", entretien_id=entretien.id)
         else:
-            form = EntretienForm(
-                instance=entretien,
-                user=request.user,
-                exemplaire=entretien.voiture_exemplaire
-            )
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
+
+    # -------------------------
+    # GET
+    # -------------------------
+    else:
+        form = EntretienForm(
+            instance=entretien,
+            user=request.user,
+            exemplaire=entretien.voiture_exemplaire
+        )
 
     return render(
         request,
@@ -332,58 +327,57 @@ def modifier_entretien_view(request, entretien_id):
 def entretien_pdf_view(request, entretien_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        entretien = get_object_or_404(
-            Entretien.objects.select_related(
-                "voiture_exemplaire",
-                "tech_technicien",
-                "tech_societe",
-                "main_oeuvre",
-                "piece",
-            ),
-            id=entretien_id
-        )
+    entretien = get_object_or_404(
+        Entretien.objects.select_related(
+            "voiture_exemplaire",
+            "tech_technicien",
+            "tech_societe",
+            "main_oeuvre",
+            "piece",
+        ),
+        id=entretien_id
+    )
 
-        rapport = entretien.generer_rapport_remplacement()
+    rapport = entretien.generer_rapport_remplacement()
 
-        html_string = render_to_string(
-            "entretien/entretien_detail_pdf.html",
-            {
-                "entretien": entretien,
-                "objet": entretien,
-                "rapport": rapport,
-                "pieces_utilisees": rapport.get("lignes", []),
-                "total_pieces": rapport.get("total_general", 0),
-                "date_export": timezone.now(),
-                "societe": tenant,
-            },
-            request=request,
-        )
+    html_string = render_to_string(
+        "entretien/entretien_detail_pdf.html",
+        {
+            "entretien": entretien,
+            "objet": entretien,
+            "rapport": rapport,
+            "pieces_utilisees": rapport.get("lignes", []),
+            "total_pieces": rapport.get("total_general", 0),
+            "date_export": timezone.now(),
+            "societe": tenant,
+        },
+        request=request,
+    )
 
-        pdf = HTML(
-            string=html_string,
-            base_url=request.build_absolute_uri("/")
-        ).write_pdf()
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri("/")
+    ).write_pdf()
 
-        immatriculation = (
-            entretien.voiture_exemplaire.immatriculation
-            if entretien.voiture_exemplaire
-            else "sans_immatriculation"
-        )
+    immatriculation = (
+        entretien.voiture_exemplaire.immatriculation
+        if entretien.voiture_exemplaire
+        else "sans_immatriculation"
+    )
 
-        technicien = (
-            entretien.tech_nom_technicien
-            or "technicien_inconnu"
-        )
+    technicien = (
+        entretien.tech_nom_technicien
+        or "technicien_inconnu"
+    )
 
-        response = HttpResponse(
-            pdf,
-            content_type="application/pdf",
-        )
+    response = HttpResponse(
+        pdf,
+        content_type="application/pdf",
+    )
 
-        response["Content-Disposition"] = (
-            f'inline; filename="entretien_'
-            f'{immatriculation}_{technicien}.pdf"'
-        )
+    response["Content-Disposition"] = (
+        f'inline; filename="entretien_'
+        f'{immatriculation}_{technicien}.pdf"'
+    )
 
-        return response
+    return response

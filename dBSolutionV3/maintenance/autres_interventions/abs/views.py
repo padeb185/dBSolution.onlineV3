@@ -75,207 +75,207 @@ def abs_form_view(request, exemplaire_id):
 
     maintenance = None  # 👈 important pour éviter UnboundLocalError
 
-    with tenant_context(tenant):
 
-        # 🔎 Récupération exemplaire
-        exemplaire = get_object_or_404(
-            VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) |
-                Q(client__isnull=True, societe=tenant)
-            ),
-            id=exemplaire_id
+
+    # 🔎 Récupération exemplaire
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
+
+    # 🔐 rôles autorisés
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction"
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # =========================
+    # POST
+    # =========================
+    if request.method == "POST":
+        form = AbsForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
         )
 
-        # 🔐 rôles autorisés
-        roles_autorises = [
-            "mecanicien",
-            "apprenti",
-            "magasinier",
-            "chef_mecanicien",
-            "direction"
-        ]
+        if form.is_valid():
 
-        if role not in roles_autorises:
-            messages.error(request, _("Accès refusé"))
-            return redirect("utilisateurs:dashboard")
+            try:
+                with transaction.atomic():
 
-        # =========================
-        # POST
-        # =========================
-        if request.method == "POST":
-            form = AbsForm(
-                request.POST,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+                    km = form.cleaned_data.get("kilometrage_abs")
 
-            if form.is_valid():
+                    if km is not None:
+                        km = int(km)
 
-                try:
-                    with transaction.atomic():
+                        ancien_km = exemplaire.kilometres_chassis
 
-                        km = form.cleaned_data.get("kilometrage_abs")
+                        if km < ancien_km:
+                            form.add_error(
+                                "kilometrage_abs",
+                                _("Le kilométrage ne peut pas diminuer.")
+                            )
+                            raise ValueError("Kilométrage invalide")
 
-                        if km is not None:
-                            km = int(km)
+                        # 🚗 update voiture (source unique)
+                        exemplaire.kilometres_chassis = km
+                        exemplaire.date_derniere_intervention = timezone.now().date()
 
-                            ancien_km = exemplaire.kilometres_chassis
+                        exemplaire.update_kilometres()
+                        exemplaire.save()
 
-                            if km < ancien_km:
-                                form.add_error(
-                                    "kilometrage_abs",
-                                    _("Le kilométrage ne peut pas diminuer.")
-                                )
-                                raise ValueError("Kilométrage invalide")
-
-                            # 🚗 update voiture (source unique)
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.date_derniere_intervention = timezone.now().date()
-
-                            exemplaire.update_kilometres()
-                            exemplaire.save()
-
-                            # 🔗 checkup UNIQUE
-                            abs = form.save(commit=False)
-                            abs.assign_technicien(request.user)
-
-                            abs.kilometres_chassis = exemplaire.kilometres_chassis
-                            abs.kilometrage_abs = km
-
-                        # 🔴 maintenance unique
-                        maintenance = Maintenance.objects.create(
-                            societe=request.user.societe,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=exemplaire.kilometres_chassis,
-                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.ABS,
-                            tag=Maintenance.Tag.JAUNE,
-                        )
-
-                        # 🔧 affectation rôle
-                        if role == "mecanicien":
-                            maintenance.mecanicien = request.user
-
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = request.user
-
-                        elif role == "apprenti":
-                            maintenance.apprentis.add(request.user)
-
-                        elif role == "magasinier":
-                            maintenance.magasinier = request.user
-
-                        elif role == "direction":
-                            maintenance.direction = request.user
-
-                        maintenance.save()
-
+                        # 🔗 checkup UNIQUE
+                        abs = form.save(commit=False)
                         abs.assign_technicien(request.user)
 
-                        # 🔗 lien final
-                        abs.maintenance = maintenance
-                        abs.save()
+                        abs.kilometres_chassis = exemplaire.kilometres_chassis
+                        abs.kilometrage_abs = km
 
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=_("Contrôle ABS - %(immatriculation)s") % {
-                                "immatriculation": exemplaire.immatriculation
-                            }
-                        )
+                    # 🔴 maintenance unique
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.ABS,
+                        tag=Maintenance.Tag.JAUNE,
+                    )
 
-                    messages.success(request, _("Contrôle du système ABS enregistré avec succès."))
+                    # 🔧 affectation rôle
+                    if role == "mecanicien":
+                        maintenance.mecanicien = request.user
 
-                except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
 
-            else:
-                print("FORM INVALID:", form.errors)
-                messages.error(request, _("Le formulaire contient des erreurs."))
+                    elif role == "apprenti":
+                        maintenance.apprentis.add(request.user)
+
+                    elif role == "magasinier":
+                        maintenance.magasinier = request.user
+
+                    elif role == "direction":
+                        maintenance.direction = request.user
+
+                    maintenance.save()
+
+                    abs.assign_technicien(request.user)
+
+                    # 🔗 lien final
+                    abs.maintenance = maintenance
+                    abs.save()
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Contrôle ABS - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
+
+                messages.success(request, _("Contrôle du système ABS enregistré avec succès."))
+
+            except Exception as e:
+                messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+
         else:
-            Abs_qs = Abs(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-            Abs_qs.assign_technicien(request.user)
+            print("FORM INVALID:", form.errors)
+            messages.error(request, _("Le formulaire contient des erreurs."))
+    else:
+        Abs_qs = Abs(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=exemplaire.kilometres_chassis
+        )
+        Abs_qs.assign_technicien(request.user)
 
 
-            form = AbsForm(
-                instance=Abs_qs,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+        form = AbsForm(
+            instance=Abs_qs,
+            user=request.user,
+            exemplaire=exemplaire
+        )
 
-        # --- Génération des champs par section ---
-        sections = [
-            {
-                "title": _("Kilométrage"),
-                "icon": "icons/compteur.png",
-                "fields": [form[f.name] for f in form if "kilo" in f.name],
-            },
-            {
-                "title": _("Pompe du système ABS"),
-                "icon": "icons/abs.png",
-                "fields": [form[f.name] for f in form if "pompe" in f.name],
-            },
-            {
-                "title": _("Calculateur ABS"),
-                "icon": "icons/calculateur.png",
-                "fields": [form[f.name] for f in form if "calculateur" in f.name],
-            },
-            {
-                "title": _("Capteur ABS"),
-                "icon": "icons/capteurs.png",
-                "fields": [form[f.name] for f in form if "capteur" in f.name],
-            },
-            {
-                "title": _("Liquide de frein"),
-                "icon": "icons/liquide_frein.png",
-                "fields": [form[f.name] for f in form if "liquide" in f.name],
-            },
-            {
-                "title": _("Serrage des roues"),
-                "icon": "icons/roue.png",
-                "fields": [form[f.name] for f in form if "serrage" in f.name],
-            },
+    # --- Génération des champs par section ---
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [form[f.name] for f in form if "kilo" in f.name],
+        },
+        {
+            "title": _("Pompe du système ABS"),
+            "icon": "icons/abs.png",
+            "fields": [form[f.name] for f in form if "pompe" in f.name],
+        },
+        {
+            "title": _("Calculateur ABS"),
+            "icon": "icons/calculateur.png",
+            "fields": [form[f.name] for f in form if "calculateur" in f.name],
+        },
+        {
+            "title": _("Capteur ABS"),
+            "icon": "icons/capteurs.png",
+            "fields": [form[f.name] for f in form if "capteur" in f.name],
+        },
+        {
+            "title": _("Liquide de frein"),
+            "icon": "icons/liquide_frein.png",
+            "fields": [form[f.name] for f in form if "liquide" in f.name],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
 
-            {
-                "title": _("Etiquette"),
-                "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "tag" in f.name],
-            },
-            {
-                "title": _("Pays"),
-                "icon": "icons/pays.png",
-                "fields": [form[f.name] for f in form if "pays" in f.name],
-            },
-            {
-                "title": _("Remarques"),
-                "icon": "icons/notes.png",
-                "fields": [form[f.name] for f in form if "remarques" in f.name],
-            },
-            {
-                "title": _("Technicien"),
-                "icon": "icons/mecanicien.png",
-                "fields": [form[f.name] for f in form if "tech" in f.name],
-            },
-            {
-                "title": _("Taux horaire"),
-                "icon": "icons/taux.png",
-                "fields": [form[f.name] for f in form if "taux" in f.name],
-            },
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [form[f.name] for f in form if "tag" in f.name],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [form[f.name] for f in form if "pays" in f.name],
+        },
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [form[f.name] for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [form[f.name] for f in form if "tech" in f.name],
+        },
+        {
+            "title": _("Taux horaire"),
+            "icon": "icons/taux.png",
+            "fields": [form[f.name] for f in form if "taux" in f.name],
+        },
 
-        ]
+    ]
 
-        return render(request, 'abs/abs_form.html', {
-            "exemplaire": exemplaire,
-            "immatriculation": exemplaire.immatriculation,
-            "maintenance": maintenance,
-            "form": form,
-            "sections": sections,
-            "now": timezone.now(),
-        })
+    return render(request, 'abs/abs_form.html', {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "maintenance": maintenance,
+        "form": form,
+        "sections": sections,
+        "now": timezone.now(),
+    })
 
 
 # ------------
@@ -300,113 +300,113 @@ def abs_detail_view(request, abs_id):
 def modifier_abs_view(request, abs_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
 
-        abs = get_object_or_404(
-            Abs.objects.select_related("voiture_exemplaire"),
-            id=abs_id
+
+    abs = get_object_or_404(
+        Abs.objects.select_related("voiture_exemplaire"),
+        id=abs_id
+    )
+    exemplaire = abs.voiture_exemplaire
+    # -------------------------
+    # POST
+    # -------------------------
+    if request.method == "POST":
+        form = AbsForm(
+            request.POST,
+            instance=abs,
+            user=request.user,
+            exemplaire=abs.voiture_exemplaire
         )
-        exemplaire = abs.voiture_exemplaire
-        # -------------------------
-        # POST
-        # -------------------------
-        if request.method == "POST":
-            form = AbsForm(
-                request.POST,
-                instance=abs,
-                user=request.user,
-                exemplaire=abs.voiture_exemplaire
+
+        if form.is_valid():
+            form.save()
+
+            UserLog.objects.create(
+                utilisateur=request.user,
+                action=_("Modification contrôle ABS - %(immatriculation)s") % {
+                    "immatriculation": exemplaire.immatriculation
+                }
             )
 
-            if form.is_valid():
-                form.save()
-
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Modification contrôle ABS - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
-                )
-
-                messages.success(request, _("Contrôle du système ABS modifié avec succès !"))
-                return redirect("abs:modifier_abs", abs_id=abs.id)
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
-
-        # -------------------------
-        # GET
-        # -------------------------
+            messages.success(request, _("Contrôle du système ABS modifié avec succès !"))
+            return redirect("abs:modifier_abs", abs_id=abs.id)
         else:
-            form = AbsForm(
-                instance=abs,
-                user=request.user,
-                exemplaire=abs.voiture_exemplaire
-            )
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
 
-        # -------------------------
-        # Sections pour le template
-        # -------------------------
-        sections = [
-            {
-                "title": _("Kilométrage"),
-                "icon": "icons/compteur.png",
-                "fields": [form[f.name] for f in form if "kilo" in f.name],
-            },
-            {
-                "title": _("Pompe du système ABS"),
-                "icon": "icons/abs.png",
-                "fields": [form[f.name] for f in form if "pompe" in f.name],
-            },
-            {
-                "title": _("Calculateur ABS"),
-                "icon": "icons/calculateur.png",
-                "fields": [form[f.name] for f in form if "calculateur" in f.name],
-            },
-            {
-                "title": _("Capteur ABS"),
-                "icon": "icons/capteurs.png",
-                "fields": [form[f.name] for f in form if "capteur" in f.name],
-            },
-            {
-                "title": _("Liquide de frein"),
-                "icon": "icons/liquide_frein.png",
-                "fields": [form[f.name] for f in form if "liquide" in f.name],
-            },
-            {
-                "title": _("Serrage des roues"),
-                "icon": "icons/roue.png",
-                "fields": [form[f.name] for f in form if "serrage" in f.name],
-            },
+    # -------------------------
+    # GET
+    # -------------------------
+    else:
+        form = AbsForm(
+            instance=abs,
+            user=request.user,
+            exemplaire=abs.voiture_exemplaire
+        )
 
-            {
-                "title": _("Etiquette"),
-                "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "tag" in f.name],
-            },
-            {
-                "title": _("Pays"),
-                "icon": "icons/pays.png",
-                "fields": [form[f.name] for f in form if "pays" in f.name],
-            },
+    # -------------------------
+    # Sections pour le template
+    # -------------------------
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [form[f.name] for f in form if "kilo" in f.name],
+        },
+        {
+            "title": _("Pompe du système ABS"),
+            "icon": "icons/abs.png",
+            "fields": [form[f.name] for f in form if "pompe" in f.name],
+        },
+        {
+            "title": _("Calculateur ABS"),
+            "icon": "icons/calculateur.png",
+            "fields": [form[f.name] for f in form if "calculateur" in f.name],
+        },
+        {
+            "title": _("Capteur ABS"),
+            "icon": "icons/capteurs.png",
+            "fields": [form[f.name] for f in form if "capteur" in f.name],
+        },
+        {
+            "title": _("Liquide de frein"),
+            "icon": "icons/liquide_frein.png",
+            "fields": [form[f.name] for f in form if "liquide" in f.name],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
 
-            {
-                "title": _("Remarques"),
-                "icon": "icons/notes.png",
-                "fields": [form[f.name] for f in form if "remarques" in f.name],
-            },
-            {
-                "title": _("Technicien"),
-                "icon": "icons/mecanicien.png",
-                "fields": [form[f.name] for f in form if "tech" in f.name],
-            },
-            {
-                "title": _("Taux horaire"),
-                "icon": "icons/taux.png",
-                "fields": [form[f.name] for f in form if "taux" in f.name],
-            },
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [form[f.name] for f in form if "tag" in f.name],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [form[f.name] for f in form if "pays" in f.name],
+        },
 
-        ]
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [form[f.name] for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [form[f.name] for f in form if "tech" in f.name],
+        },
+        {
+            "title": _("Taux horaire"),
+            "icon": "icons/taux.png",
+            "fields": [form[f.name] for f in form if "taux" in f.name],
+        },
+
+    ]
 
     return render(
         request,

@@ -86,155 +86,143 @@ def alternateur_check_view(request, exemplaire_id):
         messages.error(request, _("Accès refusé"))
         return redirect("utilisateurs:dashboard")
 
-    with tenant_context(tenant):
 
-        exemplaire = get_object_or_404(
-            VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant)
-                | Q(client__isnull=True, societe=tenant)
-            ),
-            id=exemplaire_id,
+
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant)
+            | Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id,
+    )
+
+    maintenance = None
+
+    # ==================================================
+    # POST
+    # ==================================================
+    if request.method == "POST":
+        form = AlternateurForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire,
         )
 
-        maintenance = None
+        if form.is_valid():
+            try:
+                with transaction.atomic():
 
-        # ==================================================
-        # POST
-        # ==================================================
-        if request.method == "POST":
-            form = AlternateurForm(
-                request.POST,
-                user=request.user,
-                exemplaire=exemplaire,
-            )
+                    controle_alternateur = form.save(commit=False)
 
-            if form.is_valid():
-                try:
-                    with transaction.atomic():
+                    km = form.cleaned_data.get("kilometrage_alte")
 
-                        controle_alternateur = form.save(commit=False)
+                    if km is not None:
+                        km = int(km)
+                        ancien_km = exemplaire.kilometres_chassis or 0
 
-                        km = form.cleaned_data.get("kilometrage_alte")
-
-                        if km is not None:
-                            km = int(km)
-                            ancien_km = exemplaire.kilometres_chassis or 0
-
-                            if km < ancien_km:
-                                form.add_error(
-                                    "kilometrage_alte",
-                                    _(
-                                        "Le kilométrage ne peut pas diminuer."
-                                    ),
-                                )
-
-                                raise ValueError(
-                                    "kilometrage_invalide"
-                                )
-
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.date_derniere_intervention = (
-                                timezone.now().date()
+                        if km < ancien_km:
+                            form.add_error(
+                                "kilometrage_alte",
+                                _(
+                                    "Le kilométrage ne peut pas diminuer."
+                                ),
                             )
 
-                            exemplaire.update_kilometres()
-                            exemplaire.save()
+                            raise ValueError(
+                                "kilometrage_invalide"
+                            )
 
-                        # Liaison avec le véhicule
-                        controle_alternateur.voiture_exemplaire = exemplaire
-                        controle_alternateur.kilometres_chassis = (
+                        exemplaire.kilometres_chassis = km
+                        exemplaire.date_derniere_intervention = (
+                            timezone.now().date()
+                        )
+
+                        exemplaire.update_kilometres()
+                        exemplaire.save()
+
+                    # Liaison avec le véhicule
+                    controle_alternateur.voiture_exemplaire = exemplaire
+                    controle_alternateur.kilometres_chassis = (
+                        exemplaire.kilometres_chassis
+                    )
+
+                    if km is not None:
+                        controle_alternateur.kilometrage_alte = km
+
+                    # ==================================================
+                    # MAINTENANCE
+                    # ==================================================
+                    maintenance = Maintenance(
+                        societe=tenant,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=(
                             exemplaire.kilometres_chassis
-                        )
-
-                        if km is not None:
-                            controle_alternateur.kilometrage_alte = km
-
-                        # ==================================================
-                        # MAINTENANCE
-                        # ==================================================
-                        maintenance = Maintenance(
-                            societe=tenant,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=(
-                                exemplaire.kilometres_chassis
-                            ),
-                            kilometres_dernier_entretien=(
-                                exemplaire.kilometres_dernier_entretien
-                            ),
-                            type_maintenance=(
-                                Maintenance.TypeMaintenance.ALTERNATEUR
-                            ),
-                            tag=Maintenance.Tag.JAUNE,
-                        )
-
-                        if role == "mecanicien":
-                            maintenance.mecanicien = request.user
-
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = request.user
-
-                        elif role == "magasinier":
-                            maintenance.magasinier = request.user
-
-                        elif role == "direction":
-                            maintenance.direction = request.user
-
-                        maintenance.save()
-
-                        if role == "apprenti":
-                            maintenance.apprentis.add(request.user)
-
-                        # ==================================================
-                        # CONTRÔLE ALTERNATEUR
-                        # ==================================================
-                        controle_alternateur.maintenance = maintenance
-                        controle_alternateur.assign_technicien(
-                            request.user
-                        )
-                        controle_alternateur.save()
-
-                        form.save_m2m()
-
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=_(
-                                "Alternateur - %(immatriculation)s"
-                            )
-                            % {
-                                "immatriculation": (
-                                    exemplaire.immatriculation
-                                )
-                            },
-                        )
-
-                    messages.success(
-                        request,
-                        _(
-                            "Check alternateur enregistré avec succès."
                         ),
+                        kilometres_dernier_entretien=(
+                            exemplaire.kilometres_dernier_entretien
+                        ),
+                        type_maintenance=(
+                            Maintenance.TypeMaintenance.ALTERNATEUR
+                        ),
+                        tag=Maintenance.Tag.JAUNE,
                     )
 
-                    return redirect(
-                        "alternateur:alternateur_detail",
-                        controle_alternateur.pk,
-                    )
+                    if role == "mecanicien":
+                        maintenance.mecanicien = request.user
 
-                except ValueError as erreur:
-                    if str(erreur) != "kilometrage_invalide":
-                        messages.error(
-                            request,
-                            _(
-                                "Erreur lors de l'enregistrement : "
-                                "%(erreur)s"
-                            )
-                            % {
-                                "erreur": str(erreur),
-                            },
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
+
+                    elif role == "magasinier":
+                        maintenance.magasinier = request.user
+
+                    elif role == "direction":
+                        maintenance.direction = request.user
+
+                    maintenance.save()
+
+                    if role == "apprenti":
+                        maintenance.apprentis.add(request.user)
+
+                    # ==================================================
+                    # CONTRÔLE ALTERNATEUR
+                    # ==================================================
+                    controle_alternateur.maintenance = maintenance
+                    controle_alternateur.assign_technicien(
+                        request.user
+                    )
+                    controle_alternateur.save()
+
+                    form.save_m2m()
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_(
+                            "Alternateur - %(immatriculation)s"
                         )
+                        % {
+                            "immatriculation": (
+                                exemplaire.immatriculation
+                            )
+                        },
+                    )
 
-                except Exception as erreur:
+                messages.success(
+                    request,
+                    _(
+                        "Check alternateur enregistré avec succès."
+                    ),
+                )
+
+                return redirect(
+                    "alternateur:alternateur_detail",
+                    controle_alternateur.pk,
+                )
+
+            except ValueError as erreur:
+                if str(erreur) != "kilometrage_invalide":
                     messages.error(
                         request,
                         _(
@@ -246,133 +234,145 @@ def alternateur_check_view(request, exemplaire_id):
                         },
                     )
 
-            else:
+            except Exception as erreur:
                 messages.error(
                     request,
-                    _("Le formulaire contient des erreurs."),
+                    _(
+                        "Erreur lors de l'enregistrement : "
+                        "%(erreur)s"
+                    )
+                    % {
+                        "erreur": str(erreur),
+                    },
                 )
 
-                print(form.errors)
-
-        # ==================================================
-        # GET
-        # ==================================================
         else:
-            controle_alternateur_initial = Alternateur(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis,
+            messages.error(
+                request,
+                _("Le formulaire contient des erreurs."),
             )
 
-            controle_alternateur_initial.assign_technicien(
-                request.user
-            )
+            print(form.errors)
 
-            form = AlternateurForm(
-                instance=controle_alternateur_initial,
-                user=request.user,
-                exemplaire=exemplaire,
-            )
-        # ==================================================
-        # SECTIONS
-        # ==================================================
-        sections = [
-            {
-                "title": _("Kilométrage"),
-                "icon": "icons/compteur.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "kilo" in field.name
-                ],
-            },
-            {
-                "title": _("Diagnostic"),
-                "icon": "icons/diagnostic.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "diagnostic" in field.name
-                ],
-            },
-            {
-                "title": _("Alternateur"),
-                "icon": "icons/alternateur.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "alternateur" in field.name
-                ],
-            },
-            {
-                "title": _("Courroie d'accessoires"),
-                "icon": "icons/courroie-daccessoires.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "courroie_accessoires" in field.name
-                ],
-            },
-            {
-                "title": _("Étiquette"),
-                "icon": "icons/tag.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "tag" in field.name
-                ],
-            },
-            {
-                "title": _("Pays"),
-                "icon": "icons/pays.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "pays" in field.name
-                ],
-            },
-            {
-                "title": _("Remarques"),
-                "icon": "icons/notes.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "remarques" in field.name
-                ],
-            },
-            {
-                "title": _("Technicien"),
-                "icon": "icons/mecanicien.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "tech_" in field.name
-                ],
-            },
-            {
-                "title": _("Main-d'œuvre"),
-                "icon": "icons/mecanicien.png",
-                "fields": [
-                    field
-                    for field in form
-                    if field.name in {
-                        "taux_horaire",
-                    }
-                ],
-            },
-        ]
-
-        return render(
-            request,
-            "alternateur/alternateur_check.html",
-            {
-                "exemplaire": exemplaire,
-                "immatriculation": exemplaire.immatriculation,
-                "maintenance": maintenance,
-                "form": form,
-                "sections": sections,
-                "now": timezone.now(),
-            },
+    # ==================================================
+    # GET
+    # ==================================================
+    else:
+        controle_alternateur_initial = Alternateur(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=exemplaire.kilometres_chassis,
         )
+
+        controle_alternateur_initial.assign_technicien(
+            request.user
+        )
+
+        form = AlternateurForm(
+            instance=controle_alternateur_initial,
+            user=request.user,
+            exemplaire=exemplaire,
+        )
+    # ==================================================
+    # SECTIONS
+    # ==================================================
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [
+                field
+                for field in form
+                if "kilo" in field.name
+            ],
+        },
+        {
+            "title": _("Diagnostic"),
+            "icon": "icons/diagnostic.png",
+            "fields": [
+                field
+                for field in form
+                if "diagnostic" in field.name
+            ],
+        },
+        {
+            "title": _("Alternateur"),
+            "icon": "icons/alternateur.png",
+            "fields": [
+                field
+                for field in form
+                if "alternateur" in field.name
+            ],
+        },
+        {
+            "title": _("Courroie d'accessoires"),
+            "icon": "icons/courroie-daccessoires.png",
+            "fields": [
+                field
+                for field in form
+                if "courroie_accessoires" in field.name
+            ],
+        },
+        {
+            "title": _("Étiquette"),
+            "icon": "icons/tag.png",
+            "fields": [
+                field
+                for field in form
+                if "tag" in field.name
+            ],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [
+                field
+                for field in form
+                if "pays" in field.name
+            ],
+        },
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [
+                field
+                for field in form
+                if "remarques" in field.name
+            ],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [
+                field
+                for field in form
+                if "tech_" in field.name
+            ],
+        },
+        {
+            "title": _("Main-d'œuvre"),
+            "icon": "icons/mecanicien.png",
+            "fields": [
+                field
+                for field in form
+                if field.name in {
+                    "taux_horaire",
+                }
+            ],
+        },
+    ]
+
+    return render(
+        request,
+        "alternateur/alternateur_check.html",
+        {
+            "exemplaire": exemplaire,
+            "immatriculation": exemplaire.immatriculation,
+            "maintenance": maintenance,
+            "form": form,
+            "sections": sections,
+            "now": timezone.now(),
+        },
+    )
 
 
 # ------------
@@ -397,108 +397,108 @@ def alternateur_detail_view(request, alternateur_id):
 def modifier_alternateur_view(request, alternateur_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        # Récupération de l'admission avec son exemplaire
-        alternateur = get_object_or_404(
-            Alternateur.objects.select_related("voiture_exemplaire"),
-            id=alternateur_id
+
+    # Récupération de l'admission avec son exemplaire
+    alternateur = get_object_or_404(
+        Alternateur.objects.select_related("voiture_exemplaire"),
+        id=alternateur_id
+    )
+    exemplaire = alternateur.voiture_exemplaire
+    # -------------------------
+    # POST
+    # -------------------------
+    if request.method == "POST":
+        form = AlternateurForm(
+            request.POST,
+            instance=alternateur,
+            user=request.user,
+            exemplaire=alternateur.voiture_exemplaire
         )
-        exemplaire = alternateur.voiture_exemplaire
-        # -------------------------
-        # POST
-        # -------------------------
-        if request.method == "POST":
-            form = AlternateurForm(
-                request.POST,
-                instance=alternateur,
-                user=request.user,
-                exemplaire=alternateur.voiture_exemplaire
+
+        if form.is_valid():
+            form.save()
+
+            UserLog.objects.create(
+                utilisateur=request.user,
+                action=_("Modification alternateur - %(immatriculation)s") % {
+                    "immatriculation": exemplaire.immatriculation
+                }
             )
 
-            if form.is_valid():
-                form.save()
-
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Modification alternateur - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
-                )
-
-                messages.success(request, _("Contrôle de l'alternateur modifié avec succès !"))
-                return redirect("alternateur:modifier_alternateur", alternateur_id=alternateur.id)
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
-
-        # -------------------------
-        # GET
-        # -------------------------
+            messages.success(request, _("Contrôle de l'alternateur modifié avec succès !"))
+            return redirect("alternateur:modifier_alternateur", alternateur_id=alternateur.id)
         else:
-            form = AlternateurForm(
-                instance=alternateur,
-                user=request.user,
-                exemplaire=alternateur.voiture_exemplaire
-            )
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
 
-        # -------------------------
-        # Sections pour le template
-        # -------------------------
-        sections = [
-            {
-                "title": _("Kilométrage"),
-                "icon": "icons/compteur.png",
-                "fields": [form[f.name] for f in form if "kilo" in f.name],
-            },
-            {
-                "title": _("Diagnostic"),
-                "icon": "icons/diagnostic.png",
-                "fields": [form[f.name] for f in form if "diagnostic" in f.name],
-            },
-            {
-                "title": _("Alternateur"),
-                "icon": "icons/alternateur.png",
-                "fields": [form[f.name] for f in form if "alternateur" in f.name],
-            },
-            {
-                "title": _("Courroie d'accessoires"),
-                "icon": "icons/courroie-daccessoires.png",
-                "fields": [form[f.name] for f in form if "courroie_accessoires" in f.name],
-            },
-            {
-                "title": _("Etiquette"),
-                "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "tag" in f.name],
-            },
-            {
-                "title": _("Pays"),
-                "icon": "icons/pays.png",
-                "fields": [form[f.name] for f in form if "pays" in f.name],
-            },
+    # -------------------------
+    # GET
+    # -------------------------
+    else:
+        form = AlternateurForm(
+            instance=alternateur,
+            user=request.user,
+            exemplaire=alternateur.voiture_exemplaire
+        )
 
-            {
-                "title": _("Remarques"),
-                "icon": "icons/notes.png",
-                "fields": [form[f.name] for f in form if "remarques" in f.name],
-            },
-            {
-                "title": _("Technicien"),
-                "icon": "icons/mecanicien.png",
-                "fields": [form[f.name] for f in form if "tech" in f.name],
-            },
-            {
-                "title": _("Main-d'œuvre"),
-                "icon": "icons/mecanicien.png",
-                "fields": [
-                    field
-                    for field in form
-                    if field.name in {
-                        "taux_horaire",
-                    }
-                ],
-            },
+    # -------------------------
+    # Sections pour le template
+    # -------------------------
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [form[f.name] for f in form if "kilo" in f.name],
+        },
+        {
+            "title": _("Diagnostic"),
+            "icon": "icons/diagnostic.png",
+            "fields": [form[f.name] for f in form if "diagnostic" in f.name],
+        },
+        {
+            "title": _("Alternateur"),
+            "icon": "icons/alternateur.png",
+            "fields": [form[f.name] for f in form if "alternateur" in f.name],
+        },
+        {
+            "title": _("Courroie d'accessoires"),
+            "icon": "icons/courroie-daccessoires.png",
+            "fields": [form[f.name] for f in form if "courroie_accessoires" in f.name],
+        },
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [form[f.name] for f in form if "tag" in f.name],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [form[f.name] for f in form if "pays" in f.name],
+        },
 
-        ]
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [form[f.name] for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [form[f.name] for f in form if "tech" in f.name],
+        },
+        {
+            "title": _("Main-d'œuvre"),
+            "icon": "icons/mecanicien.png",
+            "fields": [
+                field
+                for field in form
+                if field.name in {
+                    "taux_horaire",
+                }
+            ],
+        },
+
+    ]
 
     return render(
         request,

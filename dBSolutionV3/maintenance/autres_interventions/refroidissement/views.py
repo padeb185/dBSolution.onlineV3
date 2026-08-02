@@ -1,15 +1,5 @@
-from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render
-
-# Create your views here.
-from datetime import datetime
-
 from django.utils.text import slugify
-
 from django.core.exceptions import ValidationError
-
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -28,8 +18,6 @@ from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-from decimal import Decimal
-
 from weasyprint import HTML
 
 
@@ -95,402 +83,402 @@ def ref_form_view(request, exemplaire_id):
         messages.error(request, _("Accès refusé"))
         return redirect("utilisateurs:dashboard")
 
-    with tenant_context(tenant):
 
-        exemplaire = get_object_or_404(
-            VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant)
-                | Q(client__isnull=True, societe=tenant)
-            ),
-            id=exemplaire_id,
+
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant)
+            | Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id,
+    )
+
+    # ==================================================
+    # POST
+    # ==================================================
+
+    if request.method == "POST":
+        form = RefForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire,
         )
 
-        # ==================================================
-        # POST
-        # ==================================================
+        # Très important :
+        # la relation doit exister avant form.is_valid()
+        form.instance.voiture_exemplaire = exemplaire
+        form.instance.kilometres_chassis = exemplaire.kilometres_chassis
+        form.instance._user = request.user
 
-        if request.method == "POST":
-            form = RefForm(
-                request.POST,
-                user=request.user,
-                exemplaire=exemplaire,
-            )
+        if form.is_valid():
+            try:
+                with transaction.atomic():
 
-            # Très important :
-            # la relation doit exister avant form.is_valid()
-            form.instance.voiture_exemplaire = exemplaire
-            form.instance.kilometres_chassis = exemplaire.kilometres_chassis
-            form.instance._user = request.user
+                    ref = form.save(commit=False)
 
-            if form.is_valid():
-                try:
-                    with transaction.atomic():
+                    # Sécurisation de la relation véhicule
+                    ref.voiture_exemplaire = exemplaire
+                    ref._user = request.user
+                    ref.assign_technicien(request.user)
 
-                        ref = form.save(commit=False)
+                    km = form.cleaned_data.get(
+                        "kilometrage_refroidissement"
+                    )
 
-                        # Sécurisation de la relation véhicule
-                        ref.voiture_exemplaire = exemplaire
-                        ref._user = request.user
-                        ref.assign_technicien(request.user)
+                    if km is not None:
+                        km = int(km)
+                        ancien_km = exemplaire.kilometres_chassis or 0
 
-                        km = form.cleaned_data.get(
-                            "kilometrage_refroidissement"
-                        )
+                        if km < ancien_km:
+                            form.add_error(
+                                "kilometrage_refroidissement",
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur au kilométrage actuel "
+                                    "du véhicule."
+                                ),
+                            )
 
-                        if km is not None:
-                            km = int(km)
-                            ancien_km = exemplaire.kilometres_chassis or 0
+                            raise ValidationError(
+                                _("Kilométrage invalide.")
+                            )
 
-                            if km < ancien_km:
-                                form.add_error(
-                                    "kilometrage_refroidissement",
-                                    _(
-                                        "Le kilométrage ne peut pas être "
-                                        "inférieur au kilométrage actuel "
-                                        "du véhicule."
-                                    ),
-                                )
+                        if km > ancien_km:
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.date_derniere_intervention = (
+                                timezone.now().date()
+                            )
 
-                                raise ValidationError(
-                                    _("Kilométrage invalide.")
-                                )
+                            exemplaire.update_kilometres()
 
-                            if km > ancien_km:
-                                exemplaire.kilometres_chassis = km
-                                exemplaire.date_derniere_intervention = (
-                                    timezone.now().date()
-                                )
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                    "date_derniere_intervention",
+                                ]
+                            )
 
-                                exemplaire.update_kilometres()
+                    ref.kilometres_chassis = (
+                        exemplaire.kilometres_chassis
+                    )
 
-                                exemplaire.save(
-                                    update_fields=[
-                                        "kilometres_chassis",
-                                        "date_derniere_intervention",
-                                    ]
-                                )
+                    ref.kilometrage_refroidissement = km
 
-                        ref.kilometres_chassis = (
+                    # ------------------------------------------
+                    # Création de la maintenance
+                    # ------------------------------------------
+
+                    maintenance = Maintenance.objects.create(
+                        societe=tenant,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=(
                             exemplaire.kilometres_chassis
-                        )
-
-                        ref.kilometrage_refroidissement = km
-
-                        # ------------------------------------------
-                        # Création de la maintenance
-                        # ------------------------------------------
-
-                        maintenance = Maintenance.objects.create(
-                            societe=tenant,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=(
-                                exemplaire.kilometres_chassis
-                            ),
-                            kilometres_dernier_entretien=(
-                                exemplaire.kilometres_dernier_entretien
-                            ),
-                            type_maintenance=(
-                                Maintenance.TypeMaintenance.REFROIDISSEMMENT
-                            ),
-                            tag=Maintenance.Tag.JAUNE,
-                        )
-
-                        # ------------------------------------------
-                        # Affectation du personnel
-                        # ------------------------------------------
-
-                        if role == "mecanicien":
-                            maintenance.mecanicien = request.user
-
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = request.user
-
-                        elif role == "magasinier":
-                            maintenance.magasinier = request.user
-
-                        elif role == "direction":
-                            maintenance.direction = request.user
-
-                        maintenance.save()
-
-                        if role == "apprenti":
-                            maintenance.apprentis.add(request.user)
-
-                        # ------------------------------------------
-                        # Enregistrement du contrôle
-                        # ------------------------------------------
-
-                        ref.maintenance = maintenance
-                        ref.save()
-
-                        # Nécessaire si le formulaire contient
-                        # éventuellement des champs ManyToMany
-                        form.save_m2m()
-
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=_(
-                                "Contrôle système de refroidissement - "
-                                "%(immatriculation)s"
-                            ) % {
-                                "immatriculation": (
-                                    exemplaire.immatriculation
-                                )
-                            },
-                        )
-
-                    messages.success(
-                        request,
-                        _(
-                            "Contrôle du système de refroidissement "
-                            "enregistré avec succès."
                         ),
+                        kilometres_dernier_entretien=(
+                            exemplaire.kilometres_dernier_entretien
+                        ),
+                        type_maintenance=(
+                            Maintenance.TypeMaintenance.REFROIDISSEMMENT
+                        ),
+                        tag=Maintenance.Tag.JAUNE,
                     )
 
-                    return redirect(
-                        "refroidissement:ref_list",
-                        exemplaire_id=exemplaire.id,
-                    )
+                    # ------------------------------------------
+                    # Affectation du personnel
+                    # ------------------------------------------
 
-                except ValidationError:
-                    messages.error(
-                        request,
-                        _("Le formulaire contient des erreurs."),
-                    )
+                    if role == "mecanicien":
+                        maintenance.mecanicien = request.user
 
-                except Exception as e:
-                    messages.error(
-                        request,
-                        _(
-                            "Erreur lors de l'enregistrement : %(erreur)s"
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
+
+                    elif role == "magasinier":
+                        maintenance.magasinier = request.user
+
+                    elif role == "direction":
+                        maintenance.direction = request.user
+
+                    maintenance.save()
+
+                    if role == "apprenti":
+                        maintenance.apprentis.add(request.user)
+
+                    # ------------------------------------------
+                    # Enregistrement du contrôle
+                    # ------------------------------------------
+
+                    ref.maintenance = maintenance
+                    ref.save()
+
+                    # Nécessaire si le formulaire contient
+                    # éventuellement des champs ManyToMany
+                    form.save_m2m()
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_(
+                            "Contrôle système de refroidissement - "
+                            "%(immatriculation)s"
                         ) % {
-                            "erreur": str(e),
+                            "immatriculation": (
+                                exemplaire.immatriculation
+                            )
                         },
                     )
 
-            else:
-                print("FORM INVALID:", form.errors)
+                messages.success(
+                    request,
+                    _(
+                        "Contrôle du système de refroidissement "
+                        "enregistré avec succès."
+                    ),
+                )
 
+                return redirect(
+                    "refroidissement:ref_list",
+                    exemplaire_id=exemplaire.id,
+                )
+
+            except ValidationError:
                 messages.error(
                     request,
                     _("Le formulaire contient des erreurs."),
                 )
 
-        # ==================================================
-        # GET
-        # ==================================================
+            except Exception as e:
+                messages.error(
+                    request,
+                    _(
+                        "Erreur lors de l'enregistrement : %(erreur)s"
+                    ) % {
+                        "erreur": str(e),
+                    },
+                )
 
         else:
-            ref_instance = Refroidissement(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis,
+            print("FORM INVALID:", form.errors)
+
+            messages.error(
+                request,
+                _("Le formulaire contient des erreurs."),
             )
 
-            ref_instance.assign_technicien(request.user)
+    # ==================================================
+    # GET
+    # ==================================================
 
-            form = RefForm(
-                instance=ref_instance,
-                user=request.user,
-                exemplaire=exemplaire,
-            )
-
-        # ==================================================
-        # SECTIONS DU FORMULAIRE
-        # ==================================================
-
-        sections = [
-            {
-                "title": _("Kilométrage"),
-                "icon": "icons/compteur.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "kilometrage" in field.name
-                       or "kilometres" in field.name
-                ],
-            },
-            {
-                "title": _("Presence de fuite"),
-                "icon": "icons/fuites-eau.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "presence" in field.name
-                ],
-            },
-            {
-                "title": _("Pression"),
-                "icon": "icons/pression-eau.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "pression" in field.name
-                       or "pression_" in field.name
-                ],
-            },
-            {
-                "title": _("Température"),
-                "icon": "icons/temperature-eau.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "temperature_" in field.name
-                ],
-            },
-            {
-                "title": _("circulation"),
-                "icon": "icons/circulation-eau.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "circulation" in field.name
-                ],
-            },
-            {
-                "title": _("Liquide de refroidissement"),
-                "icon": "icons/liquide-ref.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "liquide" in field.name
-                ],
-            },
-            {
-                "title": _("Purge"),
-                "icon": "icons/purge-eau.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "purge" in field.name
-                ],
-            },
-            {
-                "title": _("Ventilateur"),
-                "icon": "icons/ventilateur.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "ventilateur_" in field.name
-                ],
-            },
-            {
-                "title": _("Radiateur"),
-                "icon": "icons/radiateur.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "radiateur" in field.name
-                ],
-            },
-            {
-                "title": _("Thermostat"),
-                "icon": "icons/thermostat.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "thermostat" in field.name
-                ],
-            },
-            {
-                "title": _("Boitier d'eau"),
-                "icon": "icons/boitier-eau.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "boitier_eau" in field.name
-                ],
-            },
-            {
-                "title": _("Sonde de température"),
-                "icon": "icons/sonde-temperature.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "sonde_t_" in field.name
-                ],
-            },
-            {
-                "title": _("Durites"),
-                "icon": "icons/durites.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "durites" in field.name
-                ],
-            },
-            {
-                "title": _("Chaufferette"),
-                "icon": "icons/chaufferette.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "chaufferette" in field.name
-                ],
-            },
-
-
-            {
-                "title": _("Étiquette"),
-                "icon": "icons/tag.png",
-                "fields": [
-                    field
-                    for field in form
-                    if field.name == "tag"
-                ],
-            },
-            {
-                "title": _("Pays"),
-                "icon": "icons/pays.png",
-                "fields": [
-                    field
-                    for field in form
-                    if field.name == "pays"
-                ],
-            },
-            {
-                "title": _("Remarques"),
-                "icon": "icons/notes.png",
-                "fields": [
-                    field
-                    for field in form
-                    if field.name == "remarques"
-                ],
-            },
-            {
-                "title": _("Technicien"),
-                "icon": "icons/mecanicien.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "tech_" in field.name
-                ],
-            },
-
-            {
-                "title": _("Taux Horaire"),
-                "icon": "icons/taux.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "taux_" in field.name
-                ],
-            },
-        ]
-
-        return render(
-            request,
-            "refroidissement/ref_form.html",
-            {
-                "exemplaire": exemplaire,
-                "immatriculation": exemplaire.immatriculation,
-                "maintenance": maintenance,
-                "form": form,
-                "sections": sections,
-                "now": timezone.now(),
-            },
+    else:
+        ref_instance = Refroidissement(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=exemplaire.kilometres_chassis,
         )
+
+        ref_instance.assign_technicien(request.user)
+
+        form = RefForm(
+            instance=ref_instance,
+            user=request.user,
+            exemplaire=exemplaire,
+        )
+
+    # ==================================================
+    # SECTIONS DU FORMULAIRE
+    # ==================================================
+
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [
+                field
+                for field in form
+                if "kilometrage" in field.name
+                   or "kilometres" in field.name
+            ],
+        },
+        {
+            "title": _("Presence de fuite"),
+            "icon": "icons/fuites-eau.png",
+            "fields": [
+                field
+                for field in form
+                if "presence" in field.name
+            ],
+        },
+        {
+            "title": _("Pression"),
+            "icon": "icons/pression-eau.png",
+            "fields": [
+                field
+                for field in form
+                if "pression" in field.name
+                   or "pression_" in field.name
+            ],
+        },
+        {
+            "title": _("Température"),
+            "icon": "icons/temperature-eau.png",
+            "fields": [
+                field
+                for field in form
+                if "temperature_" in field.name
+            ],
+        },
+        {
+            "title": _("circulation"),
+            "icon": "icons/circulation-eau.png",
+            "fields": [
+                field
+                for field in form
+                if "circulation" in field.name
+            ],
+        },
+        {
+            "title": _("Liquide de refroidissement"),
+            "icon": "icons/liquide-ref.png",
+            "fields": [
+                field
+                for field in form
+                if "liquide" in field.name
+            ],
+        },
+        {
+            "title": _("Purge"),
+            "icon": "icons/purge-eau.png",
+            "fields": [
+                field
+                for field in form
+                if "purge" in field.name
+            ],
+        },
+        {
+            "title": _("Ventilateur"),
+            "icon": "icons/ventilateur.png",
+            "fields": [
+                field
+                for field in form
+                if "ventilateur_" in field.name
+            ],
+        },
+        {
+            "title": _("Radiateur"),
+            "icon": "icons/radiateur.png",
+            "fields": [
+                field
+                for field in form
+                if "radiateur" in field.name
+            ],
+        },
+        {
+            "title": _("Thermostat"),
+            "icon": "icons/thermostat.png",
+            "fields": [
+                field
+                for field in form
+                if "thermostat" in field.name
+            ],
+        },
+        {
+            "title": _("Boitier d'eau"),
+            "icon": "icons/boitier-eau.png",
+            "fields": [
+                field
+                for field in form
+                if "boitier_eau" in field.name
+            ],
+        },
+        {
+            "title": _("Sonde de température"),
+            "icon": "icons/sonde-temperature.png",
+            "fields": [
+                field
+                for field in form
+                if "sonde_t_" in field.name
+            ],
+        },
+        {
+            "title": _("Durites"),
+            "icon": "icons/durites.png",
+            "fields": [
+                field
+                for field in form
+                if "durites" in field.name
+            ],
+        },
+        {
+            "title": _("Chaufferette"),
+            "icon": "icons/chaufferette.png",
+            "fields": [
+                field
+                for field in form
+                if "chaufferette" in field.name
+            ],
+        },
+
+
+        {
+            "title": _("Étiquette"),
+            "icon": "icons/tag.png",
+            "fields": [
+                field
+                for field in form
+                if field.name == "tag"
+            ],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [
+                field
+                for field in form
+                if field.name == "pays"
+            ],
+        },
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [
+                field
+                for field in form
+                if field.name == "remarques"
+            ],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [
+                field
+                for field in form
+                if "tech_" in field.name
+            ],
+        },
+
+        {
+            "title": _("Taux Horaire"),
+            "icon": "icons/taux.png",
+            "fields": [
+                field
+                for field in form
+                if "taux_" in field.name
+            ],
+        },
+    ]
+
+    return render(
+        request,
+        "refroidissement/ref_form.html",
+        {
+            "exemplaire": exemplaire,
+            "immatriculation": exemplaire.immatriculation,
+            "maintenance": maintenance,
+            "form": form,
+            "sections": sections,
+            "now": timezone.now(),
+        },
+    )
 
 
 
@@ -516,231 +504,229 @@ def ref_detail_view(request, ref_id):
 def modifier_ref_view(request, ref_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-
-        ref = get_object_or_404(
-            Refroidissement.objects.select_related("voiture_exemplaire"),
-            id=ref_id
+    ref = get_object_or_404(
+        Refroidissement.objects.select_related("voiture_exemplaire"),
+        id=ref_id
+    )
+    exemplaire = ref.voiture_exemplaire
+    # -------------------------
+    # POST
+    # -------------------------
+    if request.method == "POST":
+        form = RefForm(
+            request.POST,
+            instance=ref,
+            user=request.user,
+            exemplaire=ref.voiture_exemplaire
         )
-        exemplaire = ref.voiture_exemplaire
-        # -------------------------
-        # POST
-        # -------------------------
-        if request.method == "POST":
-            form = RefForm(
-                request.POST,
-                instance=ref,
-                user=request.user,
-                exemplaire=ref.voiture_exemplaire
+
+        if form.is_valid():
+            form.save()
+
+            UserLog.objects.create(
+                utilisateur=request.user,
+                action=_("Modification contrôle du refroidissement - %(immatriculation)s") % {
+                    "immatriculation": exemplaire.immatriculation
+                }
             )
 
-            if form.is_valid():
-                form.save()
+            messages.success(request, _("Contrôle du système de refroidissement modifié avec succès !"))
 
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Modification contrôle du refroidissement - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
-                )
-
-                messages.success(request, _("Contrôle du système de refroidissement modifié avec succès !"))
-
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
-
-        # -------------------------
-        # GET
-        # -------------------------
         else:
-            form = RefForm(
-                instance=ref,
-                user=request.user,
-                exemplaire=ref.voiture_exemplaire
-            )
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
 
-        # -------------------------
-        # Sections pour le template
-        # -------------------------
+    # -------------------------
+    # GET
+    # -------------------------
+    else:
+        form = RefForm(
+            instance=ref,
+            user=request.user,
+            exemplaire=ref.voiture_exemplaire
+        )
 
-        sections = [
-            {
-                "title": _("Kilométrage"),
-                "icon": "icons/compteur.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "kilometrage" in field.name
-                       or "kilometres" in field.name
-                ],
-            },
-            {
-                "title": _("Presence de fuite"),
-                "icon": "icons/fuites-eau.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "presence" in field.name
-                ],
-            },
-            {
-                "title": _("Pression"),
-                "icon": "icons/pression-eau.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "pression" in field.name
-                       or "pression_" in field.name
-                ],
-            },
-            {
-                "title": _("Température"),
-                "icon": "icons/temperature-eau.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "temperature_" in field.name
-                ],
-            },
-            {
-                "title": _("circulation"),
-                "icon": "icons/circulation-eau.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "circulation" in field.name
-                ],
-            },
-            {
-                "title": _("Liquide de refroidissement"),
-                "icon": "icons/liquide-ref.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "liquide" in field.name
-                ],
-            },
-            {
-                "title": _("Purge"),
-                "icon": "icons/purge-eau.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "purge" in field.name
-                ],
-            },
-            {
-                "title": _("Ventilateur"),
-                "icon": "icons/ventilateur.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "ventilateur_" in field.name
-                ],
-            },
-            {
-                "title": _("Radiateur"),
-                "icon": "icons/radiateur.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "radiateur" in field.name
-                ],
-            },
-            {
-                "title": _("Thermostat"),
-                "icon": "icons/thermostat.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "thermostat" in field.name
-                ],
-            },
-            {
-                "title": _("Boitier d'eau"),
-                "icon": "icons/boitier-eau.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "boitier_eau" in field.name
-                ],
-            },
-            {
-                "title": _("Sonde de température"),
-                "icon": "icons/sonde-temperature.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "sonde_t_" in field.name
-                ],
-            },
-            {
-                "title": _("Durites"),
-                "icon": "icons/durites.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "durites" in field.name
-                ],
-            },
-            {
-                "title": _("Chaufferette"),
-                "icon": "icons/chaufferette.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "chaufferette" in field.name
-                ],
-            },
+    # -------------------------
+    # Sections pour le template
+    # -------------------------
 
-            {
-                "title": _("Étiquette"),
-                "icon": "icons/tag.png",
-                "fields": [
-                    field
-                    for field in form
-                    if field.name == "tag"
-                ],
-            },
-            {
-                "title": _("Pays"),
-                "icon": "icons/pays.png",
-                "fields": [
-                    field
-                    for field in form
-                    if field.name == "pays"
-                ],
-            },
-            {
-                "title": _("Remarques"),
-                "icon": "icons/notes.png",
-                "fields": [
-                    field
-                    for field in form
-                    if field.name == "remarques"
-                ],
-            },
-            {
-                "title": _("Technicien"),
-                "icon": "icons/mecanicien.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "tech_" in field.name
-                ],
-            },
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [
+                field
+                for field in form
+                if "kilometrage" in field.name
+                   or "kilometres" in field.name
+            ],
+        },
+        {
+            "title": _("Presence de fuite"),
+            "icon": "icons/fuites-eau.png",
+            "fields": [
+                field
+                for field in form
+                if "presence" in field.name
+            ],
+        },
+        {
+            "title": _("Pression"),
+            "icon": "icons/pression-eau.png",
+            "fields": [
+                field
+                for field in form
+                if "pression" in field.name
+                   or "pression_" in field.name
+            ],
+        },
+        {
+            "title": _("Température"),
+            "icon": "icons/temperature-eau.png",
+            "fields": [
+                field
+                for field in form
+                if "temperature_" in field.name
+            ],
+        },
+        {
+            "title": _("circulation"),
+            "icon": "icons/circulation-eau.png",
+            "fields": [
+                field
+                for field in form
+                if "circulation" in field.name
+            ],
+        },
+        {
+            "title": _("Liquide de refroidissement"),
+            "icon": "icons/liquide-ref.png",
+            "fields": [
+                field
+                for field in form
+                if "liquide" in field.name
+            ],
+        },
+        {
+            "title": _("Purge"),
+            "icon": "icons/purge-eau.png",
+            "fields": [
+                field
+                for field in form
+                if "purge" in field.name
+            ],
+        },
+        {
+            "title": _("Ventilateur"),
+            "icon": "icons/ventilateur.png",
+            "fields": [
+                field
+                for field in form
+                if "ventilateur_" in field.name
+            ],
+        },
+        {
+            "title": _("Radiateur"),
+            "icon": "icons/radiateur.png",
+            "fields": [
+                field
+                for field in form
+                if "radiateur" in field.name
+            ],
+        },
+        {
+            "title": _("Thermostat"),
+            "icon": "icons/thermostat.png",
+            "fields": [
+                field
+                for field in form
+                if "thermostat" in field.name
+            ],
+        },
+        {
+            "title": _("Boitier d'eau"),
+            "icon": "icons/boitier-eau.png",
+            "fields": [
+                field
+                for field in form
+                if "boitier_eau" in field.name
+            ],
+        },
+        {
+            "title": _("Sonde de température"),
+            "icon": "icons/sonde-temperature.png",
+            "fields": [
+                field
+                for field in form
+                if "sonde_t_" in field.name
+            ],
+        },
+        {
+            "title": _("Durites"),
+            "icon": "icons/durites.png",
+            "fields": [
+                field
+                for field in form
+                if "durites" in field.name
+            ],
+        },
+        {
+            "title": _("Chaufferette"),
+            "icon": "icons/chaufferette.png",
+            "fields": [
+                field
+                for field in form
+                if "chaufferette" in field.name
+            ],
+        },
 
-            {
-                "title": _("Taux Horaire"),
-                "icon": "icons/taux.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "taux_" in field.name
-                ],
-            },
-        ]
+        {
+            "title": _("Étiquette"),
+            "icon": "icons/tag.png",
+            "fields": [
+                field
+                for field in form
+                if field.name == "tag"
+            ],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [
+                field
+                for field in form
+                if field.name == "pays"
+            ],
+        },
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [
+                field
+                for field in form
+                if field.name == "remarques"
+            ],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [
+                field
+                for field in form
+                if "tech_" in field.name
+            ],
+        },
+
+        {
+            "title": _("Taux Horaire"),
+            "icon": "icons/taux.png",
+            "fields": [
+                field
+                for field in form
+                if "taux_" in field.name
+            ],
+        },
+    ]
 
     return render(
         request,
@@ -754,69 +740,68 @@ def modifier_ref_view(request, ref_id):
     )
 
 
+
 @never_cache
 @login_required
 def ref_detail_pdf_view(request, pk):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
+    ref = get_object_or_404(
+        Refroidissement.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+            "tech_technicien",
+            "tech_societe",
+            "main_oeuvre",
+            "main_oeuvre__utilisateur",
+        ),
+        pk=pk,
+    )
 
-        ref = get_object_or_404(
-            Refroidissement.objects.select_related(
-                "voiture_exemplaire",
-                "maintenance",
-                "tech_technicien",
-                "tech_societe",
-                "main_oeuvre",
-                "main_oeuvre__utilisateur",
-            ),
-            pk=pk,
+    rapport = ref.generer_rapport_remplacement() or {
+        "lignes": [],
+        "total_general": 0,
+    }
+
+    html_string = render_to_string(
+        "refroidissement/ref_detail_pdf.html",
+        {
+            "ref": ref,
+            "rapport": rapport,
+            "date_export": timezone.now(),
+        },
+        request=request,
+    )
+
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri("/"),
+    ).write_pdf()
+
+    immatriculation = "vehicule"
+
+    if ref.voiture_exemplaire_id:
+        immatriculation = (
+            ref.voiture_exemplaire.immatriculation
+            or "vehicule"
         )
 
-        rapport = ref.generer_rapport_remplacement() or {
-            "lignes": [],
-            "total_general": 0,
-        }
+    technicien = (
+        ref.tech_nom_technicien
+        or "technicien"
+    )
 
-        html_string = render_to_string(
-            "refroidissement/ref_detail_pdf.html",
-            {
-                "ref": ref,
-                "rapport": rapport,
-                "date_export": timezone.now(),
-            },
-            request=request,
-        )
+    filename = slugify(
+        f"Refroidissement-{immatriculation}-{technicien}"
+    )
 
-        pdf = HTML(
-            string=html_string,
-            base_url=request.build_absolute_uri("/"),
-        ).write_pdf()
+    response = HttpResponse(
+        pdf,
+        content_type="application/pdf",
+    )
 
-        immatriculation = "vehicule"
+    response["Content-Disposition"] = (
+        f'inline; filename="{filename}.pdf"'
+    )
 
-        if ref.voiture_exemplaire_id:
-            immatriculation = (
-                ref.voiture_exemplaire.immatriculation
-                or "vehicule"
-            )
-
-        technicien = (
-            ref.tech_nom_technicien
-            or "technicien"
-        )
-
-        filename = slugify(
-            f"Refroidissement-{immatriculation}-{technicien}"
-        )
-
-        response = HttpResponse(
-            pdf,
-            content_type="application/pdf",
-        )
-
-        response["Content-Disposition"] = (
-            f'inline; filename="{filename}.pdf"'
-        )
-
-        return response
+    return response
