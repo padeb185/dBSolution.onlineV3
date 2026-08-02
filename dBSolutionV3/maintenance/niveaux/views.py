@@ -1,5 +1,4 @@
 from django.core.exceptions import ValidationError
-
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
@@ -66,6 +65,9 @@ class NiveauxListView(ListView):
         return context
 
 
+
+
+
 @login_required
 def niveau_form_view(request, exemplaire_id):
 
@@ -74,145 +76,144 @@ def niveau_form_view(request, exemplaire_id):
 
     maintenance = None  # 👈 important pour éviter UnboundLocalError
 
-    with tenant_context(tenant):
 
-        # 🔎 Récupération exemplaire
-        exemplaire = get_object_or_404(
-            VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) |
-                Q(client__isnull=True, societe=tenant)
-            ),
-            id=exemplaire_id
+    # 🔎 Récupération exemplaire
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
+
+    # 🔐 rôles autorisés
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction"
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # =========================
+    # POST
+    # =========================
+    if request.method == "POST":
+
+        form = NiveauForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
         )
 
-        # 🔐 rôles autorisés
-        roles_autorises = [
-            "mecanicien",
-            "apprenti",
-            "magasinier",
-            "chef_mecanicien",
-            "direction"
-        ]
+        if form.is_valid():
 
-        if role not in roles_autorises:
-            messages.error(request, _("Accès refusé"))
-            return redirect("utilisateurs:dashboard")
+            try:
+                with transaction.atomic():
 
-        # =========================
-        # POST
-        # =========================
-        if request.method == "POST":
+                    km = form.cleaned_data.get("kilometrage_niveaux")
 
-            form = NiveauForm(
-                request.POST,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+                    if km is not None:
+                        km = int(km)
 
-            if form.is_valid():
+                        ancien_km = exemplaire.kilometres_chassis
 
-                try:
-                    with transaction.atomic():
+                        if km < ancien_km:
+                            form.add_error(
+                                "kilometrage_niveaux",
+                                _("Le kilométrage ne peut pas diminuer.")
+                            )
+                            raise ValueError("Kilométrage invalide")
 
-                        km = form.cleaned_data.get("kilometrage_niveaux")
+                        # 🚗 update voiture (source unique)
+                        exemplaire.kilometres_chassis = km
+                        exemplaire.date_derniere_intervention = timezone.now().date()
 
-                        if km is not None:
-                            km = int(km)
+                        exemplaire.update_kilometres()
+                        exemplaire.save()
 
-                            ancien_km = exemplaire.kilometres_chassis
-
-                            if km < ancien_km:
-                                form.add_error(
-                                    "kilometrage_niveaux",
-                                    _("Le kilométrage ne peut pas diminuer.")
-                                )
-                                raise ValueError("Kilométrage invalide")
-
-                            # 🚗 update voiture (source unique)
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.date_derniere_intervention = timezone.now().date()
-
-                            exemplaire.update_kilometres()
-                            exemplaire.save()
-
-                            # 🔗 checkup UNIQUE
-                            niveau = form.save(commit=False)
-                            niveau.assign_technicien(request.user)
-
-                            niveau.kilometres_chassis = exemplaire.kilometres_chassis
-                            niveau.kilometrage_niveaux = km
-
-                        maintenance = Maintenance.objects.create(
-                            societe=request.user.societe,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=exemplaire.kilometres_chassis,
-                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.NIVEAUX,
-                            tag=Maintenance.Tag.JAUNE,
-                        )
-
-                        # 🔧 affectation rôle
-                        if role == "mecanicien":
-                            maintenance.mecanicien = request.user
-
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = request.user
-
-                        elif role == "apprenti":
-                            maintenance.apprentis.add(request.user)
-
-                        elif role == "magasinier":
-                            maintenance.magasinier = request.user
-
-                        elif role == "direction":
-                            maintenance.direction = request.user
-
-                        maintenance.save()
-
+                        # 🔗 checkup UNIQUE
+                        niveau = form.save(commit=False)
                         niveau.assign_technicien(request.user)
 
-                        # 🔗 lien final
-                        niveau.maintenance = maintenance
-                        niveau.save()
+                        niveau.kilometres_chassis = exemplaire.kilometres_chassis
+                        niveau.kilometrage_niveaux = km
 
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=_("Niveaux - %(immatriculation)s") % {
-                                "immatriculation": exemplaire.immatriculation
-                            }
-                        )
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.NIVEAUX,
+                        tag=Maintenance.Tag.JAUNE,
+                    )
 
-                    messages.success(request, _("Controle des niveaux enregistré avec succès."))
+                    # 🔧 affectation rôle
+                    if role == "mecanicien":
+                        maintenance.mecanicien = request.user
 
-                except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
-            else:
-                print("FORM INVALID:", form.errors)
-                messages.error(request, _("Le formulaire contient des erreurs."))
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
 
+                    elif role == "apprenti":
+                        maintenance.apprentis.add(request.user)
+
+                    elif role == "magasinier":
+                        maintenance.magasinier = request.user
+
+                    elif role == "direction":
+                        maintenance.direction = request.user
+
+                    maintenance.save()
+
+                    niveau.assign_technicien(request.user)
+
+                    # 🔗 lien final
+                    niveau.maintenance = maintenance
+                    niveau.save()
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Niveaux - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
+
+                messages.success(request, _("Controle des niveaux enregistré avec succès."))
+
+            except Exception as e:
+                messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
         else:
-            niveau = Niveau(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
+            print("FORM INVALID:", form.errors)
+            messages.error(request, _("Le formulaire contient des erreurs."))
 
-            niveau.assign_technicien(request.user)  # 👈 AJOUT IMPORTANT
+    else:
+        niveau = Niveau(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=exemplaire.kilometres_chassis
+        )
 
-            form = NiveauForm(
-                instance=niveau,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+        niveau.assign_technicien(request.user)  # 👈 AJOUT IMPORTANT
 
-        return render(request, 'niveaux/niveau_form.html', {
-            "exemplaire": exemplaire,
-            "immatriculation": exemplaire.immatriculation,
-            "maintenance": maintenance,
-            "form": form,
-            "now": timezone.now(),
-        })
+        form = NiveauForm(
+            instance=niveau,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+    return render(request, 'niveaux/niveau_form.html', {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "maintenance": maintenance,
+        "form": form,
+        "now": timezone.now(),
+    })
 
 
 
@@ -239,88 +240,87 @@ def niveau_detail_view(request, niveau_id):
 def modifier_niveau_view(request, niveau_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        # Récupération du checkup avec son exemplaire
-        niveau = get_object_or_404(
-            Niveau.objects.select_related("voiture_exemplaire"),
-            id=niveau_id
+    # Récupération du checkup avec son exemplaire
+    niveau = get_object_or_404(
+        Niveau.objects.select_related("voiture_exemplaire"),
+        id=niveau_id
+    )
+    exemplaire = niveau.voiture_exemplaire
+    # -------------------------
+    # POST
+    # -------------------------
+    if request.method == "POST":
+        form = NiveauForm(
+            request.POST,
+            instance=niveau,
+            user=request.user,       # 🔑 important pour initialiser technicien/societe
+            exemplaire=niveau.voiture_exemplaire
         )
-        exemplaire = niveau.voiture_exemplaire
-        # -------------------------
-        # POST
-        # -------------------------
         if request.method == "POST":
             form = NiveauForm(
                 request.POST,
-                instance=niveau,
-                user=request.user,       # 🔑 important pour initialiser technicien/societe
-                exemplaire=niveau.voiture_exemplaire
-            )
-            if request.method == "POST":
-                form = NiveauForm(
-                    request.POST,
-                    instance=niveau,
-                    user=request.user,
-                    exemplaire=exemplaire
-                )
-
-                if form.is_valid():
-                    try:
-                        niveau = form.save(commit=False)
-
-                        niveau.assign_technicien(request.user)
-                        niveau.save()
-
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=_("Modification des niveaux - %(immatriculation)s") % {
-                                "immatriculation": exemplaire.immatriculation
-                            }
-                        )
-
-                        messages.success(
-                            request,
-                            _("Contrôle des niveaux modifié avec succès !")
-                        )
-
-                        return redirect(
-                            "niveaux:modifier_niveau",
-                            niveau_id=niveau.id
-                        )
-
-                    except ValidationError as e:
-                        form.add_error(None, e)
-                        messages.error(
-                            request,
-                            _("Le kilométrage du contrôle ne peut pas être inférieur au kilométrage actuel du véhicule.")
-                        )
-
-                else:
-                    messages.error(
-                        request,
-                        _("Le kilométrage du contrôle ne peut pas être inférieur au kilométrage actuel du véhicule.")
-                    )
-                    print(form.errors)
-
-        # -------------------------
-        # GET
-        # -------------------------
-        else:
-            form = NiveauForm(
                 instance=niveau,
                 user=request.user,
                 exemplaire=exemplaire
             )
 
-        return render(
-            request,
-            "niveaux/modifier_niveaux.html",
-            {
-                "form": form,
-                "niveau": niveau,
-                "exemplaire": exemplaire,
-            }
+            if form.is_valid():
+                try:
+                    niveau = form.save(commit=False)
+
+                    niveau.assign_technicien(request.user)
+                    niveau.save()
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Modification des niveaux - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
+
+                    messages.success(
+                        request,
+                        _("Contrôle des niveaux modifié avec succès !")
+                    )
+
+                    return redirect(
+                        "niveaux:modifier_niveau",
+                        niveau_id=niveau.id
+                    )
+
+                except ValidationError as e:
+                    form.add_error(None, e)
+                    messages.error(
+                        request,
+                        _("Le kilométrage du contrôle ne peut pas être inférieur au kilométrage actuel du véhicule.")
+                    )
+
+            else:
+                messages.error(
+                    request,
+                    _("Le kilométrage du contrôle ne peut pas être inférieur au kilométrage actuel du véhicule.")
+                )
+                print(form.errors)
+
+    # -------------------------
+    # GET
+    # -------------------------
+    else:
+        form = NiveauForm(
+            instance=niveau,
+            user=request.user,
+            exemplaire=exemplaire
         )
+
+    return render(
+        request,
+        "niveaux/modifier_niveaux.html",
+        {
+            "form": form,
+            "niveau": niveau,
+            "exemplaire": exemplaire,
+        }
+    )
 
 
 
@@ -329,56 +329,56 @@ def modifier_niveau_view(request, niveau_id):
 def niveau_pdf_view(request, niveau_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        niveau = get_object_or_404(
-            Niveau.objects.select_related(
-                "maintenance",
-                "voiture_exemplaire",
-                "main_oeuvre",
-                "tech_technicien",
-                "tech_societe",
-            ),
-            id=niveau_id
-        )
 
-        # Génération du rapport des liquides / produits utilisés
-        rapport = niveau.generer_rapport_remplacement()
+    niveau = get_object_or_404(
+        Niveau.objects.select_related(
+            "maintenance",
+            "voiture_exemplaire",
+            "main_oeuvre",
+            "tech_technicien",
+            "tech_societe",
+        ),
+        id=niveau_id
+    )
 
-        html_string = render_to_string(
-            "niveaux/niveau_detail_pdf.html",
-            {
-                "niveau": niveau,
-                "rapport": rapport,
-                "date_export": timezone.now(),
-                "societe": tenant,
-            },
-            request=request
-        )
+    # Génération du rapport des liquides / produits utilisés
+    rapport = niveau.generer_rapport_remplacement()
 
-        pdf_file = HTML(
-            string=html_string,
-            base_url=request.build_absolute_uri("/")
-        ).write_pdf()
+    html_string = render_to_string(
+        "niveaux/niveau_detail_pdf.html",
+        {
+            "niveau": niveau,
+            "rapport": rapport,
+            "date_export": timezone.now(),
+            "societe": tenant,
+        },
+        request=request
+    )
 
-        immatriculation = (
-            niveau.voiture_exemplaire.immatriculation
-            if niveau.voiture_exemplaire
-            else "sans_immatriculation"
-        )
+    pdf_file = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri("/")
+    ).write_pdf()
 
-        technicien = (
-            niveau.tech_nom_technicien
-            or "technicien_inconnu"
-        )
+    immatriculation = (
+        niveau.voiture_exemplaire.immatriculation
+        if niveau.voiture_exemplaire
+        else "sans_immatriculation"
+    )
 
-        response = HttpResponse(
-            pdf_file,
-            content_type="application/pdf"
-        )
+    technicien = (
+        niveau.tech_nom_technicien
+        or "technicien_inconnu"
+    )
 
-        response["Content-Disposition"] = (
-            f'inline; filename="niveau_'
-            f'{immatriculation}_{technicien}.pdf"'
-        )
+    response = HttpResponse(
+        pdf_file,
+        content_type="application/pdf"
+    )
 
-        return response
+    response["Content-Disposition"] = (
+        f'inline; filename="niveau_'
+        f'{immatriculation}_{technicien}.pdf"'
+    )
+
+    return response

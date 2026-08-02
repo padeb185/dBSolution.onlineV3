@@ -48,13 +48,13 @@ class SocieteClienteListView(ListView):
 def societe_cliente_detail(request, societe_cliente_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        societe_cliente = get_object_or_404(
-            SocieteCliente,
-            id_societe_cliente=societe_cliente_id
-        )
 
-        adresse = societe_cliente.adresse
+    societe_cliente = get_object_or_404(
+        SocieteCliente,
+        id_societe_cliente=societe_cliente_id
+    )
+
+    adresse = societe_cliente.adresse
 
     return render(
         request,
@@ -73,46 +73,48 @@ def ajouter_societe_cliente_all(request):
 
     tenant = request.user.societe
 
-    with tenant_context(tenant):
 
-        if request.method == "POST":
+    if request.method == "POST":
 
-            form = SocieteClienteForm(request.POST)
+        form = SocieteClienteForm(request.POST)
 
-            if form.is_valid():
+        if form.is_valid():
 
-                # Création adresse
-                adresse = Adresse.objects.create(
-                    rue=form.cleaned_data.get("rue"),
-                    numero=form.cleaned_data.get("numero"),
-                    code_postal=form.cleaned_data.get("code_postal"),
-                    boite=form.cleaned_data.get("boite"),
-                    ville=form.cleaned_data.get("ville"),
-                    pays=form.cleaned_data.get("pays"),
-                    code_pays=form.cleaned_data.get("code_pays"),
-                )
+            # Création adresse
+            adresse = Adresse.objects.create(
+                rue=form.cleaned_data.get("rue"),
+                numero=form.cleaned_data.get("numero"),
+                code_postal=form.cleaned_data.get("code_postal"),
+                boite=form.cleaned_data.get("boite"),
+                ville=form.cleaned_data.get("ville"),
+                pays=form.cleaned_data.get("pays"),
+                code_pays=form.cleaned_data.get("code_pays"),
+            )
 
-                # Création société
-                societe_cliente = form.save(commit=False)
-                societe_cliente.societe = tenant
-                societe_cliente.adresse = adresse
-                societe_cliente.save()
+            # Création société
+            societe_cliente = form.save(commit=False)
+            societe_cliente.societe = tenant
+            societe_cliente.adresse = adresse
+            societe_cliente.save()
 
-                messages.success(
-                    request,
-                    _("Société cliente ajoutée avec succès !")
-                )
+            messages.success(
+                request,
+                _("Société cliente ajoutée avec succès !")
+            )
 
-        else:
-            form = SocieteClienteForm()
+    else:
+        form = SocieteClienteForm()
 
-        return render(
-            request,
-            "societe_cliente/societe_cliente_form.html",
-            {
-                "form": form
-            }
-        )
+    return render(
+        request,
+        "societe_cliente/societe_cliente_form.html",
+        {
+            "form": form
+        }
+    )
+
+
+
 
 
 
@@ -122,67 +124,65 @@ def modifier_societe_cliente(request, societe_cliente_id):
 
     tenant = request.user.societe
 
-    with tenant_context(tenant):
+    societe_cliente = get_object_or_404(
+        SocieteCliente,
+        id_societe_cliente=societe_cliente_id
+    )
 
-        societe_cliente = get_object_or_404(
-            SocieteCliente,
-            id_societe_cliente=societe_cliente_id
+    if request.method == "POST":
+
+        form = SocieteClienteForm(
+            request.POST,
+            instance=societe_cliente
         )
 
-        if request.method == "POST":
+        if form.is_valid():
 
-            form = SocieteClienteForm(
-                request.POST,
-                instance=societe_cliente
-            )
+            # -------------------------
+            # MAJ ADRESSE
+            # -------------------------
+            adresse = societe_cliente.adresse
 
-            if form.is_valid():
+            adresse.rue = form.cleaned_data.get("rue")
+            adresse.numero = form.cleaned_data.get("numero")
+            adresse.code_postal = form.cleaned_data.get("code_postal")
+            adresse.ville = form.cleaned_data.get("ville")
+            adresse.pays = form.cleaned_data.get("pays")
+            adresse.code_pays = form.cleaned_data.get("code_pays")
 
-                # -------------------------
-                # MAJ ADRESSE
-                # -------------------------
-                adresse = societe_cliente.adresse
+            adresse.save()
 
-                adresse.rue = form.cleaned_data.get("rue")
-                adresse.numero = form.cleaned_data.get("numero")
-                adresse.code_postal = form.cleaned_data.get("code_postal")
-                adresse.ville = form.cleaned_data.get("ville")
-                adresse.pays = form.cleaned_data.get("pays")
-                adresse.code_pays = form.cleaned_data.get("code_pays")
+            # -------------------------
+            # MAJ SOCIETE
+            # -------------------------
+            form.save()
 
-                adresse.save()
-
-                # -------------------------
-                # MAJ SOCIETE
-                # -------------------------
-                form.save()
-
-                messages.success(
-                    request,
-                    _(
-                        f"SocieteCliente '{societe_cliente.nom_societe_cliente}' modifiée avec succès !"
-                    )
+            messages.success(
+                request,
+                _(
+                    f"SocieteCliente '{societe_cliente.nom_societe_cliente}' modifiée avec succès !"
                 )
-
-        else:
-
-            initial = {}
-
-            if societe_cliente.adresse:
-
-                initial = {
-                    "rue": societe_cliente.adresse.rue,
-                    "numero": societe_cliente.adresse.numero,
-                    "code_postal": societe_cliente.adresse.code_postal,
-                    "ville": societe_cliente.adresse.ville,
-                    "pays": societe_cliente.adresse.pays,
-                    "code_pays": societe_cliente.adresse.code_pays,
-                }
-
-            form = SocieteClienteForm(
-                instance=societe_cliente,
-                initial=initial
             )
+
+    else:
+
+        initial = {}
+
+        if societe_cliente.adresse:
+
+            initial = {
+                "rue": societe_cliente.adresse.rue,
+                "numero": societe_cliente.adresse.numero,
+                "code_postal": societe_cliente.adresse.code_postal,
+                "ville": societe_cliente.adresse.ville,
+                "pays": societe_cliente.adresse.pays,
+                "code_pays": societe_cliente.adresse.code_pays,
+            }
+
+        form = SocieteClienteForm(
+            instance=societe_cliente,
+            initial=initial
+        )
 
     return render(
         request,

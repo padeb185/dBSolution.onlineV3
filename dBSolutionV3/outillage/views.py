@@ -29,8 +29,8 @@ class OutillageListView(ListView):
 def outillage_detail(request, outillage_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        outillage = get_object_or_404(Outillage, id_outillage=outillage_id)
+
+    outillage = get_object_or_404(Outillage, id_outillage=outillage_id)
 
 
     return render(
@@ -97,25 +97,24 @@ def ajouter_outillage_all(request):
 def modifier_outillage(request, outillage_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        # Récupérer l'outillage par son vrai champ PK : id_outillage
-        outillage = get_object_or_404(
-            Outillage,
-            id_outillage=outillage_id
-        )
+    # Récupérer l'outillage par son vrai champ PK : id_outillage
+    outillage = get_object_or_404(
+        Outillage,
+        id_outillage=outillage_id
+    )
 
-        if request.method == "POST":
-            form_outillage = OutillageForm(request.POST, instance=outillage)
+    if request.method == "POST":
+        form_outillage = OutillageForm(request.POST, instance=outillage)
 
-            if form_outillage.is_valid():
-                form_outillage.save()
-                messages.success(request, "Outillage mis à jour avec succès.")
-                # Rediriger vers la page de détail de l'outillage
-                return redirect("outillage:outillage_detail", outillage_id=outillage.id_outillage)
-            else:
-                messages.error(request, "Le formulaire contient des erreurs.")
+        if form_outillage.is_valid():
+            form_outillage.save()
+            messages.success(request, "Outillage mis à jour avec succès.")
+            # Rediriger vers la page de détail de l'outillage
+            return redirect("outillage:outillage_detail", outillage_id=outillage.id_outillage)
         else:
-            form_outillage = OutillageForm(instance=outillage)
+            messages.error(request, "Le formulaire contient des erreurs.")
+    else:
+        form_outillage = OutillageForm(instance=outillage)
 
     return render(
         request,

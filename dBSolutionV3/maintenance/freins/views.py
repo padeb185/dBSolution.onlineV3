@@ -80,156 +80,154 @@ def controle_freins_view(request, exemplaire_id):
     maintenance = None
     controle_freins = None
 
-    with tenant_context(tenant):
+    # 🔎 Récupération exemplaire
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
 
-        # 🔎 Récupération exemplaire
-        exemplaire = get_object_or_404(
-            VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) |
-                Q(client__isnull=True, societe=tenant)
-            ),
-            id=exemplaire_id
+    # 🔐 rôles autorisés
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction"
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # =========================
+    # POST
+    # =========================
+    if request.method == "POST":
+
+        form = ControleFreinsForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
         )
 
-        # 🔐 rôles autorisés
-        roles_autorises = [
-            "mecanicien",
-            "apprenti",
-            "magasinier",
-            "chef_mecanicien",
-            "direction"
-        ]
+        if form.is_valid():
 
-        if role not in roles_autorises:
-            messages.error(request, _("Accès refusé"))
-            return redirect("utilisateurs:dashboard")
+            try:
+                with transaction.atomic():
+                    controle_freins = form.save(commit=False)
 
-        # =========================
-        # POST
-        # =========================
-        if request.method == "POST":
+                    controle_freins.assign_technicien(request.user)
+                    controle_freins.voiture_exemplaire = exemplaire
+                    controle_freins.immatriculation = exemplaire.immatriculation
+                    controle_freins.societe = tenant
+                    controle_freins.kilometres_chassis = exemplaire.kilometres_chassis
 
-            form = ControleFreinsForm(
-                request.POST,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+                    km = form.cleaned_data.get("kilometrage_controle_brake")
 
-            if form.is_valid():
+                    if km is not None:
+                        km = int(km)
 
-                try:
-                    with transaction.atomic():
-                        controle_freins = form.save(commit=False)
+                        ancien_km = exemplaire.kilometres_chassis
 
-                        controle_freins.assign_technicien(request.user)
-                        controle_freins.voiture_exemplaire = exemplaire
-                        controle_freins.immatriculation = exemplaire.immatriculation
-                        controle_freins.societe = tenant
+                        if km < ancien_km:
+                            form.add_error(
+                                "kilometrage_controle_brake",
+                                _("Le kilométrage ne peut pas diminuer.")
+                            )
+                            raise ValueError("Kilométrage invalide")
+
+                        # 🚗 update voiture (source unique)
+                        exemplaire.kilometres_chassis = km
+                        exemplaire.date_derniere_intervention = timezone.now().date()
+
+                        exemplaire.update_kilometres()
+                        exemplaire.save()
+
                         controle_freins.kilometres_chassis = exemplaire.kilometres_chassis
-
-                        km = form.cleaned_data.get("kilometrage_controle_brake")
-
-                        if km is not None:
-                            km = int(km)
-
-                            ancien_km = exemplaire.kilometres_chassis
-
-                            if km < ancien_km:
-                                form.add_error(
-                                    "kilometrage_controle_brake",
-                                    _("Le kilométrage ne peut pas diminuer.")
-                                )
-                                raise ValueError("Kilométrage invalide")
-
-                            # 🚗 update voiture (source unique)
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.date_derniere_intervention = timezone.now().date()
-
-                            exemplaire.update_kilometres()
-                            exemplaire.save()
-
-                            controle_freins.kilometres_chassis = exemplaire.kilometres_chassis
-                            controle_freins.kilometrage_controle_brake = km
+                        controle_freins.kilometrage_controle_brake = km
 
 
-                        maintenance = Maintenance.objects.create(
-                            societe=request.user.societe,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=exemplaire.kilometres_chassis,
-                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.FREINS,
-                            tag=Maintenance.Tag.JAUNE,
-                        )
-
-                        # 🔧 affectation rôle
-                        if role == "mecanicien":
-                            maintenance.mecanicien = request.user
-
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = request.user
-
-                        elif role == "apprenti":
-                            maintenance.apprentis.add(request.user)
-
-                        elif role == "magasinier":
-                            maintenance.magasinier = request.user
-
-                        elif role == "direction":
-                            maintenance.direction = request.user
-
-                        maintenance.save()
-                        controle_freins.assign_technicien(request.user)
-
-                        # 🔗 lien final
-
-                    controle_freins.maintenance = maintenance
-                    controle_freins.save()
-
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_("Freins - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.FREINS,
+                        tag=Maintenance.Tag.JAUNE,
                     )
 
+                    # 🔧 affectation rôle
+                    if role == "mecanicien":
+                        maintenance.mecanicien = request.user
 
-                    messages.success(request, _("Contrôle freins enregistré avec succès."))
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
+
+                    elif role == "apprenti":
+                        maintenance.apprentis.add(request.user)
+
+                    elif role == "magasinier":
+                        maintenance.magasinier = request.user
+
+                    elif role == "direction":
+                        maintenance.direction = request.user
+
+                    maintenance.save()
+                    controle_freins.assign_technicien(request.user)
+
+                    # 🔗 lien final
+
+                controle_freins.maintenance = maintenance
+                controle_freins.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Freins - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
 
 
-                except Exception as e:
-                    messages.error(request, f"Erreur : {e}")
-            else:
-                print("FORM INVALID:", form.errors)
-                messages.error(request, _("Le formulaire contient des erreurs."))
+                messages.success(request, _("Contrôle freins enregistré avec succès."))
 
-        # =========================
-        # GET
-        # =========================
+
+            except Exception as e:
+                messages.error(request, f"Erreur : {e}")
         else:
+            print("FORM INVALID:", form.errors)
+            messages.error(request, _("Le formulaire contient des erreurs."))
 
-            controle_frein = ControleFreins(
-                societe=tenant,
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
+    # =========================
+    # GET
+    # =========================
+    else:
 
-            controle_frein.assign_technicien(request.user)
+        controle_frein = ControleFreins(
+            societe=tenant,
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=exemplaire.kilometres_chassis
+        )
 
-            form = ControleFreinsForm(
-                instance=controle_frein,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+        controle_frein.assign_technicien(request.user)
 
-        return render(request, "freins/freins_check.html", {
-            "exemplaire": exemplaire,
-            "immatriculation": exemplaire.immatriculation,
-            "maintenance": maintenance,
-            "form": form,
-            "now": timezone.now(),
-        })
+        form = ControleFreinsForm(
+            instance=controle_frein,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+    return render(request, "freins/freins_check.html", {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "maintenance": maintenance,
+        "form": form,
+        "now": timezone.now(),
+    })
 
 
 
@@ -257,66 +255,65 @@ def freins_detail_view(request, frein_id):
 def modifier_freins_view(request, frein_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        frein = get_object_or_404(
-            ControleFreins.objects.select_related("voiture_exemplaire"),
-            id=frein_id
+    frein = get_object_or_404(
+        ControleFreins.objects.select_related("voiture_exemplaire"),
+        id=frein_id
+    )
+
+    exemplaire = frein.voiture_exemplaire
+
+    if request.method == "POST":
+        form = ControleFreinsForm(
+            request.POST,
+            instance=frein,
+            user=request.user,
+            exemplaire=exemplaire
         )
 
-        exemplaire = frein.voiture_exemplaire
+        if form.is_valid():
+            try:
+                frein = form.save(commit=False)
+                frein.assign_technicien(request.user)
+                frein.save()
 
-        if request.method == "POST":
-            form = ControleFreinsForm(
-                request.POST,
-                instance=frein,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification du contrôle des freins - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
 
-            if form.is_valid():
-                try:
-                    frein = form.save(commit=False)
-                    frein.assign_technicien(request.user)
-                    frein.save()
+                messages.success(request, _("Contrôle freins modifié avec succès !"))
 
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_("Modification du contrôle des freins - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
-                    )
+                return redirect(
+                    "freins:modifier_freins",
+                    frein_id=frein.id
+                )
 
-                    messages.success(request, _("Contrôle freins modifié avec succès !"))
-
-                    return redirect(
-                        "freins:modifier_freins",
-                        frein_id=frein.id
-                    )
-
-                except ValidationError as e:
-                    form.add_error(None, e)
-                    messages.error(request, _("Kilométrage invalide"))
-
-            else:
+            except ValidationError as e:
+                form.add_error(None, e)
                 messages.error(request, _("Kilométrage invalide"))
-                print(form.errors)
 
         else:
-            form = ControleFreinsForm(
-                instance=frein,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+            messages.error(request, _("Kilométrage invalide"))
+            print(form.errors)
 
-        return render(
-            request,
-            "freins/modifier_freins.html",
-            {
-                "form": form,
-                "frein": frein,
-                "exemplaire": exemplaire,
-            }
+    else:
+        form = ControleFreinsForm(
+            instance=frein,
+            user=request.user,
+            exemplaire=exemplaire
         )
+
+    return render(
+        request,
+        "freins/modifier_freins.html",
+        {
+            "form": form,
+            "frein": frein,
+            "exemplaire": exemplaire,
+        }
+    )
 
 
 
@@ -325,56 +322,56 @@ def modifier_freins_view(request, frein_id):
 def controle_freins_pdf_view(request, controle_freins_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        controle_freins = get_object_or_404(
-            ControleFreins.objects.select_related(
-                "voiture_exemplaire",
-                "societe",
-                "tech_technicien",
-                "tech_societe",
-                "main_oeuvre",
-                "main_oeuvre__utilisateur",
-            ),
-            id=controle_freins_id,
-        )
 
-        rapport = controle_freins.generer_rapport_remplacement()
+    controle_freins = get_object_or_404(
+        ControleFreins.objects.select_related(
+            "voiture_exemplaire",
+            "societe",
+            "tech_technicien",
+            "tech_societe",
+            "main_oeuvre",
+            "main_oeuvre__utilisateur",
+        ),
+        id=controle_freins_id,
+    )
 
-        html_string = render_to_string(
-            "freins/controle_freins_detail_pdf.html",
-            {
-                "controle_freins": controle_freins,
-                "rapport": rapport,
-                "date_export": timezone.now(),
-                "societe": tenant,
-            },
-            request=request,
-        )
+    rapport = controle_freins.generer_rapport_remplacement()
 
-        pdf = HTML(
-            string=html_string,
-            base_url=request.build_absolute_uri("/"),
-        ).write_pdf()
+    html_string = render_to_string(
+        "freins/controle_freins_detail_pdf.html",
+        {
+            "controle_freins": controle_freins,
+            "rapport": rapport,
+            "date_export": timezone.now(),
+            "societe": tenant,
+        },
+        request=request,
+    )
 
-        immatriculation = (
-            controle_freins.voiture_exemplaire.immatriculation
-            if controle_freins.voiture_exemplaire
-            else "sans_immatriculation"
-        )
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri("/"),
+    ).write_pdf()
 
-        technicien = (
-            controle_freins.tech_nom_technicien
-            or "technicien_inconnu"
-        )
+    immatriculation = (
+        controle_freins.voiture_exemplaire.immatriculation
+        if controle_freins.voiture_exemplaire
+        else "sans_immatriculation"
+    )
 
-        response = HttpResponse(
-            pdf,
-            content_type="application/pdf",
-        )
+    technicien = (
+        controle_freins.tech_nom_technicien
+        or "technicien_inconnu"
+    )
 
-        response["Content-Disposition"] = (
-            f'inline; filename="controle_freins_'
-            f'{immatriculation}_{technicien}.pdf"'
-        )
+    response = HttpResponse(
+        pdf,
+        content_type="application/pdf",
+    )
 
-        return response
+    response["Content-Disposition"] = (
+        f'inline; filename="controle_freins_'
+        f'{immatriculation}_{technicien}.pdf"'
+    )
+
+    return response

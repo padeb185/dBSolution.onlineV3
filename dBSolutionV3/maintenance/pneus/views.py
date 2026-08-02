@@ -17,9 +17,8 @@ from django.http import HttpResponse
 from django.utils import timezone
 from django_tenants.utils import tenant_context
 from weasyprint import HTML
-
 from .models import ControlePneus
-
+from django.core.exceptions import ValidationError
 
 
 # -----------------------------
@@ -76,145 +75,143 @@ def controle_pneus_view(request, exemplaire_id):
 
     maintenance = None  # 👈 important pour éviter UnboundLocalError
 
-    with tenant_context(tenant):
+    # 🔎 Récupération exemplaire
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
 
-        # 🔎 Récupération exemplaire
-        exemplaire = get_object_or_404(
-            VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) |
-                Q(client__isnull=True, societe=tenant)
-            ),
-            id=exemplaire_id
+    # 🔐 rôles autorisés
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction"
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # =========================
+    # POST
+    # =========================
+    if request.method == "POST":
+
+        form = ControlePneusForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
         )
 
-        # 🔐 rôles autorisés
-        roles_autorises = [
-            "mecanicien",
-            "apprenti",
-            "magasinier",
-            "chef_mecanicien",
-            "direction"
-        ]
+        if form.is_valid():
 
-        if role not in roles_autorises:
-            messages.error(request, _("Accès refusé"))
-            return redirect("utilisateurs:dashboard")
+            try:
+                with transaction.atomic():
 
-        # =========================
-        # POST
-        # =========================
-        if request.method == "POST":
+                    km = form.cleaned_data.get("kilometrage_pneus")
 
-            form = ControlePneusForm(
-                request.POST,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+                    if km is not None:
+                        km = int(km)
 
-            if form.is_valid():
+                        ancien_km = exemplaire.kilometres_chassis
 
-                try:
-                    with transaction.atomic():
+                        if km < ancien_km:
+                            form.add_error(
+                                "kilometrage_pneus",
+                                _("Le kilométrage ne peut pas diminuer.")
+                            )
+                            raise ValueError("Kilométrage invalide")
 
-                        km = form.cleaned_data.get("kilometrage_pneus")
+                        # 🚗 update voiture (source unique)
+                        exemplaire.kilometres_chassis = km
+                        exemplaire.date_derniere_intervention = timezone.now().date()
 
-                        if km is not None:
-                            km = int(km)
+                        exemplaire.update_kilometres()
+                        exemplaire.save()
 
-                            ancien_km = exemplaire.kilometres_chassis
-
-                            if km < ancien_km:
-                                form.add_error(
-                                    "kilometrage_pneus",
-                                    _("Le kilométrage ne peut pas diminuer.")
-                                )
-                                raise ValueError("Kilométrage invalide")
-
-                            # 🚗 update voiture (source unique)
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.date_derniere_intervention = timezone.now().date()
-
-                            exemplaire.update_kilometres()
-                            exemplaire.save()
-
-                            # 🔗 checkup UNIQUE
-                            pneus = form.save(commit=False)
-                            pneus.assign_technicien(request.user)
-
-                            pneus.kilometres_chassis = exemplaire.kilometres_chassis
-                            pneus.kilometrage_pneus = km
-
-                        maintenance = Maintenance.objects.create(
-                            societe=request.user.societe,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=exemplaire.kilometres_chassis,
-                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.PNEUS,
-                            tag=Maintenance.Tag.JAUNE,
-                        )
-
-                        # 🔧 affectation rôle
-                        if role == "mecanicien":
-                            maintenance.mecanicien = request.user
-
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = request.user
-
-                        elif role == "apprenti":
-                            maintenance.apprentis.add(request.user)
-
-                        elif role == "magasinier":
-                            maintenance.magasinier = request.user
-
-                        elif role == "direction":
-                            maintenance.direction = request.user
-
-
-                        maintenance.save()
-
+                        # 🔗 checkup UNIQUE
+                        pneus = form.save(commit=False)
                         pneus.assign_technicien(request.user)
 
+                        pneus.kilometres_chassis = exemplaire.kilometres_chassis
+                        pneus.kilometrage_pneus = km
 
-                        pneus.maintenance = maintenance
-                        pneus.save()
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.PNEUS,
+                        tag=Maintenance.Tag.JAUNE,
+                    )
 
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=_("Pneus - %(immatriculation)s") % {
-                                "immatriculation": exemplaire.immatriculation
-                            }
-                        )
+                    # 🔧 affectation rôle
+                    if role == "mecanicien":
+                        maintenance.mecanicien = request.user
 
-                        messages.success(request, _("Contrôle pneus enregistré avec succès."))
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
 
-                except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
-            else:
-                print("FORM INVALID:", form.errors)
-                messages.error(request, _("Le formulaire contient des erreurs."))
+                    elif role == "apprenti":
+                        maintenance.apprentis.add(request.user)
 
+                    elif role == "magasinier":
+                        maintenance.magasinier = request.user
+
+                    elif role == "direction":
+                        maintenance.direction = request.user
+
+
+                    maintenance.save()
+
+                    pneus.assign_technicien(request.user)
+
+
+                    pneus.maintenance = maintenance
+                    pneus.save()
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Pneus - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
+
+                    messages.success(request, _("Contrôle pneus enregistré avec succès."))
+
+            except Exception as e:
+                messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
         else:
-            pneus = ControlePneus(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-            pneus.assign_technicien(request.user)
+            print("FORM INVALID:", form.errors)
+            messages.error(request, _("Le formulaire contient des erreurs."))
 
-            form = ControlePneusForm(
-                instance=pneus,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+    else:
+        pneus = ControlePneus(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=exemplaire.kilometres_chassis
+        )
+        pneus.assign_technicien(request.user)
 
-        return render(request, 'pneus/controle_pneus.html', {
-            "exemplaire": exemplaire,
-            "immatriculation": exemplaire.immatriculation,
-            "maintenance": maintenance,
-            "form": form,
-            "now": timezone.now(),
-        })
+        form = ControlePneusForm(
+            instance=pneus,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+    return render(request, 'pneus/controle_pneus.html', {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "maintenance": maintenance,
+        "form": form,
+        "now": timezone.now(),
+    })
 
 
 
@@ -235,72 +232,72 @@ def pneus_detail_view(request, pneu_id):
     return render(request, "pneus/pneus_detail.html", context)
 
 
-from django.core.exceptions import ValidationError
+
 
 @login_required
 def modifier_pneus_view(request, pneu_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        pneus = get_object_or_404(
-            ControlePneus.objects.select_related("voiture_exemplaire"),
-            id=pneu_id
+
+    pneus = get_object_or_404(
+        ControlePneus.objects.select_related("voiture_exemplaire"),
+        id=pneu_id
+    )
+
+    exemplaire = pneus.voiture_exemplaire
+
+    if request.method == "POST":
+        form = ControlePneusForm(
+            request.POST,
+            instance=pneus,
+            user=request.user,
+            exemplaire=exemplaire
         )
 
-        exemplaire = pneus.voiture_exemplaire
+        if form.is_valid():
+            try:
+                pneus = form.save(commit=False)
+                pneus.assign_technicien(request.user)
+                pneus.save()
 
-        if request.method == "POST":
-            form = ControlePneusForm(
-                request.POST,
-                instance=pneus,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification du contrôle pneus - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
 
-            if form.is_valid():
-                try:
-                    pneus = form.save(commit=False)
-                    pneus.assign_technicien(request.user)
-                    pneus.save()
+                messages.success(request, _("Contrôle des pneus modifié avec succès !"))
 
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_("Modification du contrôle pneus - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
-                    )
+                return redirect(
+                    "pneus:modifier_pneus",
+                    pneu_id=pneus.id
+                )
 
-                    messages.success(request, _("Contrôle des pneus modifié avec succès !"))
-
-                    return redirect(
-                        "pneus:modifier_pneus",
-                        pneu_id=pneus.id
-                    )
-
-                except ValidationError as e:
-                    form.add_error(None, e)
-                    messages.error(request, _("Kilométrage invalide"))
-
-            else:
+            except ValidationError as e:
+                form.add_error(None, e)
                 messages.error(request, _("Kilométrage invalide"))
-                print(form.errors)
 
         else:
-            form = ControlePneusForm(
-                instance=pneus,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+            messages.error(request, _("Kilométrage invalide"))
+            print(form.errors)
 
-        return render(
-            request,
-            "pneus/modifier_pneus.html",
-            {
-                "form": form,
-                "pneus": pneus,
-                "exemplaire": exemplaire,
-            }
+    else:
+        form = ControlePneusForm(
+            instance=pneus,
+            user=request.user,
+            exemplaire=exemplaire
         )
+
+    return render(
+        request,
+        "pneus/modifier_pneus.html",
+        {
+            "form": form,
+            "pneus": pneus,
+            "exemplaire": exemplaire,
+        }
+    )
 
 
 
@@ -308,60 +305,60 @@ def modifier_pneus_view(request, pneu_id):
 def controle_pneus_pdf_view(request, controle_pneus_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        controle_pneus = get_object_or_404(
-            ControlePneus.objects.select_related(
-                "maintenance",
-                "voiture_exemplaire",
-                "voiture_pneus",
-                "main_oeuvre",
-                "tech_technicien",
-                "tech_societe",
-            ),
-            id=controle_pneus_id
-        )
 
-        # Génération du rapport des pneus à remplacer ou remplacés
-        rapport = controle_pneus.generer_rapport_remplacement()
+    controle_pneus = get_object_or_404(
+        ControlePneus.objects.select_related(
+            "maintenance",
+            "voiture_exemplaire",
+            "voiture_pneus",
+            "main_oeuvre",
+            "tech_technicien",
+            "tech_societe",
+        ),
+        id=controle_pneus_id
+    )
 
-        html_string = render_to_string(
-            "pneus/controle_pneus_detail_pdf.html",
-            {
-                "controle_pneus": controle_pneus,
-                "objet": controle_pneus,
-                "rapport": rapport,
-                "pieces_utilisees": rapport.get("lignes", []),
-                "total_pieces": rapport.get("total_general", 0),
-                "date_export": timezone.now(),
-                "societe": tenant,
-            },
-            request=request
-        )
+    # Génération du rapport des pneus à remplacer ou remplacés
+    rapport = controle_pneus.generer_rapport_remplacement()
 
-        pdf_file = HTML(
-            string=html_string,
-            base_url=request.build_absolute_uri("/")
-        ).write_pdf()
+    html_string = render_to_string(
+        "pneus/controle_pneus_detail_pdf.html",
+        {
+            "controle_pneus": controle_pneus,
+            "objet": controle_pneus,
+            "rapport": rapport,
+            "pieces_utilisees": rapport.get("lignes", []),
+            "total_pieces": rapport.get("total_general", 0),
+            "date_export": timezone.now(),
+            "societe": tenant,
+        },
+        request=request
+    )
 
-        immatriculation = (
-            controle_pneus.voiture_exemplaire.immatriculation
-            if controle_pneus.voiture_exemplaire
-            else "sans_immatriculation"
-        )
+    pdf_file = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri("/")
+    ).write_pdf()
 
-        technicien = (
-            controle_pneus.tech_nom_technicien
-            or "technicien_inconnu"
-        )
+    immatriculation = (
+        controle_pneus.voiture_exemplaire.immatriculation
+        if controle_pneus.voiture_exemplaire
+        else "sans_immatriculation"
+    )
 
-        response = HttpResponse(
-            pdf_file,
-            content_type="application/pdf"
-        )
+    technicien = (
+        controle_pneus.tech_nom_technicien
+        or "technicien_inconnu"
+    )
 
-        response["Content-Disposition"] = (
-            f'inline; filename="controle_pneus_'
-            f'{immatriculation}_{technicien}.pdf"'
-        )
+    response = HttpResponse(
+        pdf_file,
+        content_type="application/pdf"
+    )
 
-        return response
+    response["Content-Disposition"] = (
+        f'inline; filename="controle_pneus_'
+        f'{immatriculation}_{technicien}.pdf"'
+    )
+
+    return response

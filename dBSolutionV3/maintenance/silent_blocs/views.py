@@ -15,7 +15,6 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils import timezone
-from django_tenants.utils import tenant_context
 from weasyprint import HTML
 
 
@@ -63,6 +62,9 @@ class SilentListView(ListView):
 
         return context
 
+
+
+
 @never_cache
 @login_required
 def silent_check_view(request, exemplaire_id):
@@ -72,137 +74,135 @@ def silent_check_view(request, exemplaire_id):
 
     maintenance = None  # 👈 important pour éviter UnboundLocalError
 
-    with tenant_context(tenant):
+    # 🔎 Récupération exemplaire
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
 
-        # 🔎 Récupération exemplaire
-        exemplaire = get_object_or_404(
-            VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) |
-                Q(client__isnull=True, societe=tenant)
-            ),
-            id=exemplaire_id
+    # 🔐 rôles autorisés
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction"
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # =========================
+    # POST
+    # =========================
+    if request.method == "POST":
+
+        form = SilentBlocForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
         )
 
-        # 🔐 rôles autorisés
-        roles_autorises = [
-            "mecanicien",
-            "apprenti",
-            "magasinier",
-            "chef_mecanicien",
-            "direction"
-        ]
+        if form.is_valid():
 
-        if role not in roles_autorises:
-            messages.error(request, _("Accès refusé"))
-            return redirect("utilisateurs:dashboard")
+            try:
+                with transaction.atomic():
 
-        # =========================
-        # POST
-        # =========================
-        if request.method == "POST":
+                    km = form.cleaned_data.get("kilometrage_silent")
 
-            form = SilentBlocForm(
-                request.POST,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+                    if km is not None:
+                        km = int(km)
 
-            if form.is_valid():
+                        ancien_km = exemplaire.kilometres_chassis
 
-                try:
-                    with transaction.atomic():
+                        if km < ancien_km:
+                            form.add_error(
+                                "kilometrage_silent",
+                                _("Le kilométrage ne peut pas diminuer.")
+                            )
+                            raise ValueError("Kilométrage invalide")
 
-                        km = form.cleaned_data.get("kilometrage_silent")
+                        # 🚗 update voiture (source unique)
+                        exemplaire.kilometres_chassis = km
+                        exemplaire.date_derniere_intervention = timezone.now().date()
 
-                        if km is not None:
-                            km = int(km)
+                        exemplaire.update_kilometres()
+                        exemplaire.save()
 
-                            ancien_km = exemplaire.kilometres_chassis
-
-                            if km < ancien_km:
-                                form.add_error(
-                                    "kilometrage_silent",
-                                    _("Le kilométrage ne peut pas diminuer.")
-                                )
-                                raise ValueError("Kilométrage invalide")
-
-                            # 🚗 update voiture (source unique)
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.date_derniere_intervention = timezone.now().date()
-
-                            exemplaire.update_kilometres()
-                            exemplaire.save()
-
-                            # 🔗 checkup UNIQUE
-                            silent = form.save(commit=False)
-                            silent.assign_technicien(request.user)
-
-                            silent.kilometres_chassis = exemplaire.kilometres_chassis
-                            silent.kilometrage_silent = km
-
-                        maintenance = Maintenance.objects.create(
-                            societe=request.user.societe,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=exemplaire.kilometres_chassis,
-                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.SILENT_BLOC,
-                            tag=Maintenance.Tag.JAUNE,
-                        )
-
-                        # 🔧 affectation rôle
-                        if role == "mecanicien":
-                            maintenance.mecanicien = request.user
-
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = request.user
-
-                        elif role == "apprenti":
-                            maintenance.apprentis.add(request.user)
-
-                        elif role == "magasinier":
-                            maintenance.magasinier = request.user
-
-                        elif role == "direction":
-                            maintenance.direction = request.user
-
-                        maintenance.save()
-
+                        # 🔗 checkup UNIQUE
+                        silent = form.save(commit=False)
                         silent.assign_technicien(request.user)
 
-                        # 🔗 lien final
-                        silent.maintenance = maintenance
-                        silent.save()
+                        silent.kilometres_chassis = exemplaire.kilometres_chassis
+                        silent.kilometrage_silent = km
 
-                    messages.success(request, _("Controle des silent blocs enregistré avec succès."))
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.SILENT_BLOC,
+                        tag=Maintenance.Tag.JAUNE,
+                    )
 
-                except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
+                    # 🔧 affectation rôle
+                    if role == "mecanicien":
+                        maintenance.mecanicien = request.user
+
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
+
+                    elif role == "apprenti":
+                        maintenance.apprentis.add(request.user)
+
+                    elif role == "magasinier":
+                        maintenance.magasinier = request.user
+
+                    elif role == "direction":
+                        maintenance.direction = request.user
+
+                    maintenance.save()
+
+                    silent.assign_technicien(request.user)
+
+                    # 🔗 lien final
+                    silent.maintenance = maintenance
+                    silent.save()
+
+                messages.success(request, _("Controle des silent blocs enregistré avec succès."))
+
+            except Exception as e:
+                messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
         else:
-            silent = SilentBloc(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
+    else:
+        silent = SilentBloc(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=exemplaire.kilometres_chassis
+        )
 
-            silent.assign_technicien(request.user)  # 👈 AJOUT IMPORTANT
+        silent.assign_technicien(request.user)  # 👈 AJOUT IMPORTANT
 
-            form = SilentBlocForm(
-                instance=silent,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+        form = SilentBlocForm(
+            instance=silent,
+            user=request.user,
+            exemplaire=exemplaire
+        )
 
-        return render(request, 'silent_blocs/silent_check.html', {
-            "exemplaire": exemplaire,
-            "immatriculation": exemplaire.immatriculation,
-            "maintenance": maintenance,
-            "form": form,
-            "now": timezone.now(),
-        })
+    return render(request, 'silent_blocs/silent_check.html', {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "maintenance": maintenance,
+        "form": form,
+        "now": timezone.now(),
+    })
 
 
 # ------------
@@ -222,45 +222,48 @@ def silent_detail_view(request, silent_id):
     return render(request, "silent_blocs/silent_detail.html", context)
 
 
+
+
+
 @login_required
 def modifier_silent_view(request, silent_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        # Récupération du checkup avec son exemplaire
-        silent = get_object_or_404(
-            SilentBloc.objects.select_related("voiture_exemplaire"),
-            id=silent_id
+
+    # Récupération du checkup avec son exemplaire
+    silent = get_object_or_404(
+        SilentBloc.objects.select_related("voiture_exemplaire"),
+        id=silent_id
+    )
+
+    exemplaire = silent.voiture_exemplaire
+    # -------------------------
+    # POST
+    # -------------------------
+    if request.method == "POST":
+        form = SilentBlocForm(
+            request.POST,
+            instance=silent,
+            user=request.user,       # 🔑 important pour initialiser technicien/societe
+            exemplaire=exemplaire
         )
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Contrôle des silent blocs modifié avec succès !"))
 
-        exemplaire = silent.voiture_exemplaire
-        # -------------------------
-        # POST
-        # -------------------------
-        if request.method == "POST":
-            form = SilentBlocForm(
-                request.POST,
-                instance=silent,
-                user=request.user,       # 🔑 important pour initialiser technicien/societe
-                exemplaire=exemplaire
-            )
-            if form.is_valid():
-                form.save()
-                messages.success(request, _("Contrôle des silent blocs modifié avec succès !"))
-
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
-
-        # -------------------------
-        # GET
-        # -------------------------
         else:
-            form = SilentBlocForm(
-                instance=silent,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
+
+    # -------------------------
+    # GET
+    # -------------------------
+    else:
+        form = SilentBlocForm(
+            instance=silent,
+            user=request.user,
+            exemplaire=exemplaire
+        )
 
     return render(
         request,
@@ -278,58 +281,58 @@ def modifier_silent_view(request, silent_id):
 def silent_bloc_pdf_view(request, silent_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        silent_bloc = get_object_or_404(
-            SilentBloc.objects.select_related(
-                "maintenance",
-                "voiture_exemplaire",
-                "main_oeuvre",
-                "tech_technicien",
-                "tech_societe",
-            ),
-            id=silent_id
-        )
 
-        rapport = silent_bloc.generer_rapport_remplacement()
+    silent_bloc = get_object_or_404(
+        SilentBloc.objects.select_related(
+            "maintenance",
+            "voiture_exemplaire",
+            "main_oeuvre",
+            "tech_technicien",
+            "tech_societe",
+        ),
+        id=silent_id
+    )
 
-        html_string = render_to_string(
-            "silent_blocs/silent_bloc_detail_pdf.html",
-            {
-                "objet": silent_bloc,
-                "silent_bloc": silent_bloc,
-                "rapport": rapport,
-                "pieces_utilisees": rapport.get("lignes", []),
-                "total_pieces": rapport.get("total_general", 0),
-                "societe": tenant,
-                "date_export": timezone.now(),
-            },
-            request=request
-        )
+    rapport = silent_bloc.generer_rapport_remplacement()
 
-        pdf = HTML(
-            string=html_string,
-            base_url=request.build_absolute_uri("/")
-        ).write_pdf()
+    html_string = render_to_string(
+        "silent_blocs/silent_bloc_detail_pdf.html",
+        {
+            "objet": silent_bloc,
+            "silent_bloc": silent_bloc,
+            "rapport": rapport,
+            "pieces_utilisees": rapport.get("lignes", []),
+            "total_pieces": rapport.get("total_general", 0),
+            "societe": tenant,
+            "date_export": timezone.now(),
+        },
+        request=request
+    )
 
-        immatriculation = (
-            silent_bloc.voiture_exemplaire.immatriculation
-            if silent_bloc.voiture_exemplaire
-            else "sans_immatriculation"
-        )
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri("/")
+    ).write_pdf()
 
-        technicien = (
-            silent_bloc.tech_nom_technicien
-            or "technicien_inconnu"
-        )
+    immatriculation = (
+        silent_bloc.voiture_exemplaire.immatriculation
+        if silent_bloc.voiture_exemplaire
+        else "sans_immatriculation"
+    )
 
-        response = HttpResponse(
-            pdf,
-            content_type="application/pdf"
-        )
+    technicien = (
+        silent_bloc.tech_nom_technicien
+        or "technicien_inconnu"
+    )
 
-        response["Content-Disposition"] = (
-            f'inline; filename="silent_blocs_'
-            f'{immatriculation}_{technicien}.pdf"'
-        )
+    response = HttpResponse(
+        pdf,
+        content_type="application/pdf"
+    )
 
-        return response
+    response["Content-Disposition"] = (
+        f'inline; filename="silent_blocs_'
+        f'{immatriculation}_{technicien}.pdf"'
+    )
+
+    return response

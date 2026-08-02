@@ -1,23 +1,24 @@
-
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.db.models import Sum, Count, FloatField, Value, ExpressionWrapper, F, When, Case, Max, Min, Avg
-from django.db.models.functions import TruncYear, TruncMonth, Coalesce
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404, redirect
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_GET
-from django.views.generic import ListView, TemplateView
-from django.utils.translation import gettext_lazy as _
+from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from guardian.mixins import LoginRequiredMixin
-from recharge.models import Electricite
-from recharge.forms import ElectriciteForm
-from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_modele.models import VoitureModele
 from decimal import Decimal
+from django.db.models import Count, Max, Min, Sum
+from django.db.models.functions import TruncMonth, TruncYear
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.generic import TemplateView
+from voiture.voiture_exemplaire.models import VoitureExemplaire
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import get_language
+from django.utils.translation import gettext_lazy as _
+from .forms import ElectriciteForm
+from .models import Electricite
 
 
 
@@ -47,15 +48,8 @@ class ElectriciteListView(ListView):
         )
 
 
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
-from django.utils.translation import get_language
-from django.utils.translation import gettext_lazy as _
 
-from voiture.voiture_exemplaire.models import VoitureExemplaire
 
-from .forms import ElectriciteForm
 
 
 @login_required
@@ -156,10 +150,7 @@ def ajouter_recharge_all(request):
 
 
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render
 
-from .models import Electricite
 
 
 @login_required
@@ -186,15 +177,6 @@ def electricite_detail(request, electricite_id):
         },
     )
 
-
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect, render
-from django.utils.translation import get_language
-from django.utils.translation import gettext_lazy as _
-
-from .forms import ElectriciteForm
-from .models import Electricite
 
 
 @login_required
@@ -394,16 +376,10 @@ def electricite_delete(request, electricite_id):
 
 
 
-from decimal import Decimal
 
-from django.contrib.auth.decorators import login_required
-from django.db.models import Count, Max, Min, Sum
-from django.db.models.functions import TruncMonth, TruncYear
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import never_cache
-from django.views.generic import TemplateView
 
-from .models import Electricite
+
+
 
 
 @method_decorator([login_required, never_cache], name="dispatch")

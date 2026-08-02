@@ -1,64 +1,59 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import schema_context, tenant_context
-from proprietaire.models import Proprietaire, ProprietaireVoiture
+from proprietaire.models import  ProprietaireVoiture
 from django.utils.translation import gettext_lazy as _
 from adresse.models import Adresse
-import json
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from .forms import ProprietaireForm, ProprietaireVoitureForm
 from .models import Proprietaire
-from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ValidationError
 from adresse.forms import AdresseForm
 
 
 
 
 
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
+from django.shortcuts import render
+
 @never_cache
 @login_required
 def proprietaire_dashboard_view(request):
     user = request.user
-    societe = getattr(user, "societe", None)
 
-    # Valeurs par défaut
+
     total_proprietaire = 0
     total_voiture_cop = 0
-    proprietaire = []
-    proprietaire_voiture = []
+    proprietaire = Proprietaire.objects.none()
+    proprietaire_voiture = ProprietaireVoiture.objects.none()
 
-    if societe:
-        schema_name = societe.schema_name
+    # Chargement des données
+    proprietaire = Proprietaire.objects.all()
+    proprietaire_voiture = ProprietaireVoiture.objects.all()
 
-        with schema_context(schema_name):
-
-            proprietaire = Proprietaire.objects.filter(societe=societe)
-            proprietaire_voiture = ProprietaireVoiture.objects.filter(societe=societe)
-
-            total_proprietaire = proprietaire.count()
-            total_voiture_cop = proprietaire_voiture.count()
+    total_proprietaire = proprietaire.count()
+    total_voiture_cop = proprietaire_voiture.count()
 
     context = {
         "user": user,
-        "societe": societe,
+        "societe": getattr(user, "societe", None),
         "total_proprietaire": total_proprietaire,
         "total_voiture_cop": total_voiture_cop,
         "proprietaire": proprietaire,
         "proprietaire_voiture": proprietaire_voiture,
-
     }
 
-    return render(request, "proprietaire/proprietaire_dashboard.html", context)
-
-
+    return render(
+        request,
+        "proprietaire/proprietaire_dashboard.html",
+        context,
+    )
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -90,25 +85,25 @@ def proprietaire_form_view(request):
         adresse_form = AdresseForm(request.POST, instance=adresse_instance)
 
         if form.is_valid() and adresse_form.is_valid():
-            with tenant_context(tenant):
-                adresse = adresse_form.save(commit=False)
-                adresse.societe = tenant
-                adresse.save()
 
-                proprietaire = form.save(commit=False)
-                proprietaire.societe = tenant
-                proprietaire.adresse = adresse
-                proprietaire.save()
+            adresse = adresse_form.save(commit=False)
+            adresse.societe = tenant
+            adresse.save()
 
-                messages.success(
-                    request,
-                    _("Propriétaire '%(prenom)s %(nom)s' ajouté avec succès !") % {
-                        "prenom": proprietaire.prenom,
-                        "nom": proprietaire.nom
-                    }
-                )
+            proprietaire = form.save(commit=False)
+            proprietaire.societe = tenant
+            proprietaire.adresse = adresse
+            proprietaire.save()
 
-                return redirect("proprietaire:proprietaire_list")
+            messages.success(
+                request,
+                _("Propriétaire '%(prenom)s %(nom)s' ajouté avec succès !") % {
+                    "prenom": proprietaire.prenom,
+                    "nom": proprietaire.nom
+                }
+            )
+
+            return redirect("proprietaire:proprietaire_list")
         else:
             print("FORM ERRORS:", form.errors)
             print("ADRESSE FORM ERRORS:", adresse_form.errors)
@@ -136,9 +131,9 @@ def proprietaire_form_view(request):
 def proprietaire_detail_view(request, proprietaire_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        proprietaire = get_object_or_404(Proprietaire, id=proprietaire_id)
-        adresse = proprietaire.adresse  # si tu veux l’afficher séparément
+
+    proprietaire = get_object_or_404(Proprietaire, id=proprietaire_id)
+    adresse = proprietaire.adresse  # si tu veux l’afficher séparément
 
     return render(request, "proprietaire/proprietaire_detail.html", {
         "proprietaire": proprietaire,
@@ -151,20 +146,20 @@ def proprietaire_detail_view(request, proprietaire_id):
 def modifier_proprietaire_view(request, proprietaire_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        proprietaire = get_object_or_404(Proprietaire, id=proprietaire_id)
 
-        if request.method == "POST":
-            form = ProprietaireForm(request.POST, instance=proprietaire)
-            if form.is_valid():
-                form.save()
-                messages.success(request, _(f"Client '{proprietaire.prenom} {proprietaire.nom}' modifié avec succès !"))
+    proprietaire = get_object_or_404(Proprietaire, id=proprietaire_id)
 
-            else:
-                # Ici, si la carte bancaire est invalide, Django affichera automatiquement l'erreur
-                messages.error(request, _("Veuillez corriger les erreurs dans le formulaire."))
+    if request.method == "POST":
+        form = ProprietaireForm(request.POST, instance=proprietaire)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _(f"Client '{proprietaire.prenom} {proprietaire.nom}' modifié avec succès !"))
+
         else:
-            form = ProprietaireForm(instance=proprietaire)
+            # Ici, si la carte bancaire est invalide, Django affichera automatiquement l'erreur
+            messages.error(request, _("Veuillez corriger les erreurs dans le formulaire."))
+    else:
+        form = ProprietaireForm(instance=proprietaire)
 
     return render(
         request,
@@ -205,15 +200,15 @@ def proprietaire_voiture_form_view(request):
         form = ProprietaireVoitureForm(request.POST)
 
         if form.is_valid():
-            with tenant_context(tenant):
-                proprietaire_voiture = form.save(commit=False)
-                proprietaire_voiture.societe = tenant
-                proprietaire_voiture.save()
 
-                messages.success(
-                    request,
-                    _("Lien propriétaire / voiture ajouté avec succès !")
-                )
+            proprietaire_voiture = form.save(commit=False)
+            proprietaire_voiture.societe = tenant
+            proprietaire_voiture.save()
+
+            messages.success(
+                request,
+                _("Lien propriétaire / voiture ajouté avec succès !")
+            )
 
 
         else:
@@ -254,9 +249,9 @@ def total_part_voiture(request, voiture_id):
 def proprietaire_voiture_detail_view(request, proprietaire_voiture_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        proprietaire_voiture = get_object_or_404(ProprietaireVoiture, id=proprietaire_voiture_id)
-        adresse = proprietaire_voiture.proprietaire.adresse
+
+    proprietaire_voiture = get_object_or_404(ProprietaireVoiture, id=proprietaire_voiture_id)
+    adresse = proprietaire_voiture.proprietaire.adresse
 
     return render(
         request,
@@ -273,33 +268,31 @@ def proprietaire_voiture_detail_view(request, proprietaire_voiture_id):
 def modifier_proprietaire_voiture_view(request, proprietaire_voiture_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
+    proprietaire_voiture = get_object_or_404(
+        ProprietaireVoiture,
+        id=proprietaire_voiture_id
+    )
 
-        proprietaire_voiture = get_object_or_404(
-            ProprietaireVoiture,
-            id=proprietaire_voiture_id
+    if request.method == "POST":
+        form_proprietaire_voiture = ProprietaireVoitureForm(
+            request.POST,
+            instance=proprietaire_voiture
         )
 
-        if request.method == "POST":
-            form_proprietaire_voiture = ProprietaireVoitureForm(
-                request.POST,
-                instance=proprietaire_voiture
+        if form_proprietaire_voiture.is_valid():  # ✅ corrigé
+            proprietaire_voiture = form_proprietaire_voiture.save()
+
+            messages.success(
+                request,
+                _("Propriété mise à jour avec succès.")
             )
-
-            if form_proprietaire_voiture.is_valid():  # ✅ corrigé
-                proprietaire_voiture = form_proprietaire_voiture.save()
-
-                messages.success(
-                    request,
-                    _("Propriété mise à jour avec succès.")
-                )
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-
         else:
-            form_proprietaire_voiture = ProprietaireVoitureForm(
-                instance=proprietaire_voiture
-            )
+            messages.error(request, _("Le formulaire contient des erreurs."))
+
+    else:
+        form_proprietaire_voiture = ProprietaireVoitureForm(
+            instance=proprietaire_voiture
+        )
 
     return render(
         request,

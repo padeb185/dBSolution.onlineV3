@@ -369,29 +369,9 @@ def login_totp(request):
 @never_cache
 @login_required(login_url="/fr/connexion/")
 def dashboard_view(request):
-    from django.db import connection
 
     societe = getattr(request.user, "societe", None)
 
-    print("========== DASHBOARD VIEW ==========")
-    print("PATH :", request.path)
-    print("SCHEMA :", connection.schema_name)
-    print("AUTHENTICATED :", request.user.is_authenticated)
-    print("USER :", request.user)
-    print("USER ID :", getattr(request.user, "pk", None))
-    print(
-        "SOCIETE :",
-        getattr(societe, "schema_name", None),
-    )
-    print(
-        "SESSION TENANT :",
-        request.session.get("tenant_schema"),
-    )
-    print(
-        "TOTP VERIFIED :",
-        request.session.get("totp_verified"),
-    )
-    print("====================================")
 
 
     user = request.user
@@ -452,75 +432,6 @@ def dashboard_view(request):
         bool(request_schema)
         and bool(session_schema)
         and request_schema == session_schema
-    )
-
-    print(
-        "========== DASHBOARD AUTH DEBUG =========="
-    )
-    print(
-        "PATH :",
-        request.path,
-    )
-    print(
-        "USER :",
-        user,
-    )
-    print(
-        "AUTHENTICATED :",
-        user.is_authenticated,
-    )
-    print(
-        "USER ID :",
-        current_user_id,
-    )
-    print(
-        "USER SOCIETE ID :",
-        getattr(
-            user,
-            "societe_id",
-            None,
-        ),
-    )
-    print(
-        "SESSION KEY :",
-        request.session.session_key,
-    )
-    print(
-        "AUTH BACKEND :",
-        request.session.get(
-            "_auth_user_backend"
-        ),
-    )
-    print(
-        "REQUEST SCHEMA :",
-        request_schema,
-    )
-    print(
-        "SESSION SCHEMA :",
-        session_schema,
-    )
-    print(
-        "TOTP ENABLED :",
-        totp_enabled,
-    )
-    print(
-        "TOTP VERIFIED :",
-        totp_verified,
-    )
-    print(
-        "TOTP USER ID :",
-        totp_user_id,
-    )
-    print(
-        "TOTP CORRECT :",
-        validation_totp_correcte,
-    )
-    print(
-        "TENANT CORRECT :",
-        validation_tenant_correcte,
-    )
-    print(
-        "=========================================="
     )
 
     if not validation_tenant_correcte:
