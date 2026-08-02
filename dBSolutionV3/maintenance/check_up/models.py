@@ -314,13 +314,13 @@ class Checkup(TechnicienMixin, models.Model):
     )
 
 
-    freins_fuites = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fuite"))
+    freins_liquide_fuites = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fuite"))
 
 
     # --- Liquide ---
-    frein_liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État liquide de frein"))
+    freins_liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État liquide de frein"))
     freins_liquide_specif = models.CharField(max_length=100, choices=QualiteLiquideFrein.choices, default=QualiteLiquideFrein.DOT4, blank=True, verbose_name=_("Spécification liquide de frein"))
-    frein_liquide_quantite = models.DecimalField(
+    freins_liquide_quantite = models.DecimalField(
         max_digits=4,
         decimal_places=2,
         default=0.0,
@@ -329,13 +329,13 @@ class Checkup(TechnicienMixin, models.Model):
         verbose_name=_("Quantité liquide de frein (L)"),
         validators=[StepValueValidator(0.1)],
     )
-    frein_liquide_fabricant = models.CharField(
+    freins_liquide_fabricant = models.CharField(
         max_length=25,
         choices=FabricantLubrifiant.choices,
         default=FabricantLubrifiant.CASTROL,
         verbose_name=_("Fabricant du liquide de frein")
     )
-    frein_liquide_prix = models.DecimalField(
+    freins_liquide_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,

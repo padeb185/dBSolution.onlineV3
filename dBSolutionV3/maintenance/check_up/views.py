@@ -243,69 +243,78 @@ def checkup_detail_view(request, checkup_id):
 def modifier_checkup_view(request, checkup_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        # Récupération du checkup avec son exemplaire
-        checkup = get_object_or_404(
-            Checkup.objects.select_related("voiture_exemplaire"),
-            id=checkup_id
+    # Récupération du checkup avec son exemplaire
+    checkup = get_object_or_404(
+        Checkup.objects.select_related("voiture_exemplaire"),
+        id=checkup_id,
+
+    )
+
+    exemplaire = checkup.voiture_exemplaire
+
+    if request.method == "POST":
+        form = CheckupForm(
+            request.POST,
+            instance=checkup,
+            user=request.user,
+            exemplaire=exemplaire,
         )
 
-        exemplaire = checkup.voiture_exemplaire
-        # -------------------------
-        # POST
-        # -------------------------
-        if request.method == "POST":
-            form = CheckupForm(
-                request.POST,
-                instance=checkup,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+        if form.is_valid():
+            try:
+                checkup = form.save(commit=False)
+                checkup.assign_technicien(request.user)
+                checkup.save()
 
-            if form.is_valid():
-                try:
-                    checkup = form.save(commit=False)
-                    checkup.assign_technicien(request.user)
-                    checkup.save()
+                # À conserver uniquement si le formulaire contient des ManyToMany
+                form.save_m2m()
 
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_("Modification checkup - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
-                    )
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_(
+                        "Modification checkup - %(immatriculation)s"
+                    ) % {
+                        "immatriculation": exemplaire.immatriculation
+                    },
+                )
 
-                    messages.success(request, _("Checkup modifié avec succès !"))
+                messages.success(
+                    request,
+                    _("Checkup modifié avec succès !"),
+                )
 
-                    return redirect(
-                        "check_up:modifier_checkup",
-                        checkup_id=checkup.id
-                    )
+                return redirect(
+                    "check_up:modifier_checkup",
+                    checkup_id=checkup.id,
+                )
 
-                except ValidationError as e:
-                    form.add_error(None, e)
-                    messages.error(request, _("Kilométrage invalide"))
-
-            else:
+            except ValidationError as e:
+                form.add_error(None, e)
                 messages.error(request, _("Kilométrage invalide"))
-                print(form.errors)
 
         else:
-            form = CheckupForm(
-                instance=checkup,
-                user=request.user,
-                exemplaire=exemplaire
+            messages.error(
+                request,
+                _("Veuillez corriger les erreurs ci-dessous."),
             )
 
-        return render(
-            request,
-            "check_up/modifier_checkup.html",
-            {
-                "form": form,
-                "checkup": checkup,
-                "exemplaire": exemplaire,
-            }
+    else:
+        form = CheckupForm(
+            instance=checkup,
+            user=request.user,
+            exemplaire=exemplaire,
         )
+
+    return render(
+        request,
+        "check_up/modifier_checkup.html",
+        {
+            "form": form,
+            "checkup": checkup,
+            "exemplaire": exemplaire,
+        },
+    )
+
 
 
 @login_required
