@@ -190,26 +190,15 @@ def modifier_assurance(request, assurance_id):
 @login_required
 def dashboard_assurance_view(request):
     user = request.user
-    societe = getattr(user, "societe", None)
 
-    # Valeurs par défaut
-    total_assurance = 0
-    total_assurance_police = 0
-    assurance = []
-    assurance_police = []
-
-    if societe:
-        assurance = Assurance.objects.filter(societe=societe)
-        assurance_police = AssurancePolice.objects.filter(societe=societe)
-
-        total_assurance = assurance.count()
-        total_assurance_police = assurance_police.count()
+    assurance = Assurance.objects.all()
+    assurance_police = AssurancePolice.objects.all()
 
     context = {
         "user": user,
-        "societe": societe,
-        "total_assurance": total_assurance,
-        "total_assurance_police": total_assurance_police,
+        "societe": getattr(user, "societe", None),
+        "total_assurance": assurance.count(),
+        "total_assurance_police": assurance_police.count(),
         "assurance": assurance,
         "assurance_police": assurance_police,
     }

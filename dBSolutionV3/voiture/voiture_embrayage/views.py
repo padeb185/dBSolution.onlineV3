@@ -2,23 +2,17 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import never_cache
-from django_tenants.utils import tenant_context
 from voiture.voiture_embrayage.forms import VoitureEmbrayageForm
 from voiture.voiture_embrayage.models import VoitureEmbrayage
-from voiture.voiture_modele.models import VoitureModele
-from voiture.voiture_embrayage.models import TypeEmbrayage
-from voiture.voiture_embrayage.models import TypeVolantMoteur
-from voiture.voiture_embrayage.models import TypePlateauPression
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.utils.translation import gettext as _
-from voiture.voiture_embrayage.models import TypeButeeDEmbrayage
+
 
 
 
 @never_cache
 @login_required
 def liste_embrayage(request):
-
     embrayages = VoitureEmbrayage.objects.all()
     return render(request, "voiture_embrayage/list.html",
                   {
@@ -30,7 +24,6 @@ def liste_embrayage(request):
 
 @login_required
 def ajouter_embrayage_view(request):
-    tenant = request.user.societe
 
     if request.method == "POST":
         form = VoitureEmbrayageForm(
@@ -40,7 +33,7 @@ def ajouter_embrayage_view(request):
 
         if form.is_valid():
             embrayage = form.save(commit=False)
-            embrayage.societe = tenant
+
             embrayage.save()
             form.save_m2m()
 
@@ -59,6 +52,8 @@ def ajouter_embrayage_view(request):
             "form": form,
         },
     )
+
+
 
 @login_required
 def lier_embrayage(request, embrayage_id):

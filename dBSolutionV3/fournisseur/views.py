@@ -150,28 +150,26 @@ def modifier_fournisseur(request, fournisseur_id):
 @never_cache
 @login_required
 def fournisseur_dashboard_view(request):
-    tenant = request.user.societe
     user = request.user
-    societe = user.societe
+    societe = getattr(user, "societe", None)
 
-
-
-    fournisseurs = Fournisseur.objects.all(societe=tenant)
+    fournisseurs = Fournisseur.objects.all()
     achat_mds = AchatMds.objects.all()
-
-    total_fournisseur = fournisseurs.count()
-    total_achat = achat_mds.count()
 
     context = {
         "user": user,
         "societe": societe,
-        "total_fournisseur": total_fournisseur,
-        "total_achat": total_achat,
         "fournisseurs": fournisseurs,
+        "achat_mds": achat_mds,
+        "total_fournisseur": fournisseurs.count(),
+        "total_achat": achat_mds.count(),
     }
 
-    return render(request, "fournisseur/fournisseur_dashboard.html", context)
-
+    return render(
+        request,
+        "fournisseur/fournisseur_dashboard.html",
+        context,
+    )
 
 
 

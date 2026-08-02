@@ -38,9 +38,9 @@ class ClientAtelierListView(ListView):
 def client_atelier_detail_view(request, client_atelier_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        client_atelier = get_object_or_404(ClientAtelier, id=client_atelier_id)
-        adresse = client_atelier.adresse  # si tu veux l’afficher séparément
+
+    client_atelier = get_object_or_404(ClientAtelier, id=client_atelier_id)
+    adresse = client_atelier.adresse  # si tu veux l’afficher séparément
 
     return render(request, "client_atelier/client_atelier_detail.html", {
         "client_atelier": client_atelier,
@@ -52,84 +52,78 @@ def client_atelier_detail_view(request, client_atelier_id):
 
 @login_required
 def client_atelier_form_view(request):
-    tenant = request.user.societe
 
-    with tenant_context(tenant):
+    if request.method == "POST":
 
-        if request.method == "POST":
+        form = ClientAtelierForm(request.POST)
 
-            form = ClientAtelierForm(request.POST)
+        if form.is_valid():
 
-            if form.is_valid():
+            with transaction.atomic():
 
-                with transaction.atomic():
-
-                    # -----------------------
-                    # CLIENT PARTICULIER
-                    # -----------------------
-                    client_particulier = ClientParticulier.objects.create(
-                        societe=tenant,
-                        nom=form.cleaned_data.get("nom"),
-                        prenom=form.cleaned_data.get("prenom"),
-                        email=form.cleaned_data.get("email"),
-                        numero_telephone=form.cleaned_data.get("numero_telephone"),
-                        numero_carte_id=form.cleaned_data.get("numero_carte_id"),
-                        numero_compte=form.cleaned_data.get("numero_compte"),
-                        numero_carte_bancaire=form.cleaned_data.get("numero_carte_bancaire"),
-                        date_naissance=form.cleaned_data.get("date_naissance"),
-                    )
-
-                    # -----------------------
-                    # ADRESSE
-                    # -----------------------
-                    adresse = Adresse.objects.create(
-                        societe=tenant,
-                        rue=form.cleaned_data.get("rue"),
-                        numero=form.cleaned_data.get("numero"),
-                        boite=form.cleaned_data.get("boite"),
-                        code_postal=form.cleaned_data.get("code_postal"),
-                        ville=form.cleaned_data.get("ville"),
-                        pays=form.cleaned_data.get("pays"),
-                        code_pays=form.cleaned_data.get("code_pays"),
-                    )
-
-                    # -----------------------
-                    # CLIENT ATELIER
-                    # -----------------------
-                    client_atelier = form.save(commit=False)
-                    client_atelier.client_particulier = client_particulier
-                    client_atelier.societe = tenant
-                    client_atelier.adresse = adresse
-                    client_atelier.save()
-
-                    form.save_m2m()
-
-                messages.success(
-                    request,
-                    _(
-                        "Client '%(prenom)s %(nom)s' créé avec succès !"
-                    ) % {
-                        "prenom": client_particulier.prenom,
-                        "nom": client_particulier.nom,
-                    }
+                # -----------------------
+                # CLIENT PARTICULIER
+                # -----------------------
+                client_particulier = ClientParticulier.objects.create(
+                    nom=form.cleaned_data.get("nom"),
+                    prenom=form.cleaned_data.get("prenom"),
+                    email=form.cleaned_data.get("email"),
+                    numero_telephone=form.cleaned_data.get("numero_telephone"),
+                    numero_carte_id=form.cleaned_data.get("numero_carte_id"),
+                    numero_compte=form.cleaned_data.get("numero_compte"),
+                    numero_carte_bancaire=form.cleaned_data.get("numero_carte_bancaire"),
+                    date_naissance=form.cleaned_data.get("date_naissance"),
                 )
 
-            else:
-                messages.error(
-                    request,
-                    _("Veuillez corriger les erreurs du formulaire.")
+                # -----------------------
+                # ADRESSE
+                # -----------------------
+                adresse = Adresse.objects.create(
+                    rue=form.cleaned_data.get("rue"),
+                    numero=form.cleaned_data.get("numero"),
+                    boite=form.cleaned_data.get("boite"),
+                    code_postal=form.cleaned_data.get("code_postal"),
+                    ville=form.cleaned_data.get("ville"),
+                    pays=form.cleaned_data.get("pays"),
+                    code_pays=form.cleaned_data.get("code_pays"),
                 )
+
+                # -----------------------
+                # CLIENT ATELIER
+                # -----------------------
+                client_atelier = form.save(commit=False)
+                client_atelier.client_particulier = client_particulier
+                client_atelier.adresse = adresse
+                client_atelier.save()
+
+                form.save_m2m()
+
+            messages.success(
+                request,
+                _(
+                    "Client '%(prenom)s %(nom)s' créé avec succès !"
+                ) % {
+                    "prenom": client_particulier.prenom,
+                    "nom": client_particulier.nom,
+                }
+            )
 
         else:
-            form = ClientAtelierForm()
+            messages.error(
+                request,
+                _("Veuillez corriger les erreurs du formulaire.")
+            )
 
-        return render(
-            request,
-            "client_atelier/client_atelier_form.html",
-            {
-                "form": form,
-            }
-        )
+    else:
+        form = ClientAtelierForm()
+
+    return render(
+        request,
+        "client_atelier/client_atelier_form.html",
+        {
+            "form": form,
+        }
+    )
 
 @login_required
 def modifier_client_atelier_view(request, client_atelier_id):
@@ -325,18 +319,14 @@ def dashboard_client_view(request):
     client_atelier = []
     client_pilotage = []
 
-    if societe:
-        schema_name = societe.schema_name
 
-        with schema_context(schema_name):
+    client_particulier = ClientParticulier.objects.filter(societe=societe)
+    client_atelier = ClientAtelier.objects.filter(societe=societe)
+    client_pilotage = ClientPilotage.objects.filter(societe=societe)
 
-            client_particulier = ClientParticulier.objects.filter(societe=societe)
-            client_atelier = ClientAtelier.objects.filter(societe=societe)
-            client_pilotage = ClientPilotage.objects.filter(societe=societe)
-
-            total_client_particulier = client_particulier.count()
-            total_client_atelier = client_atelier.count()
-            total_client_pilotage = client_pilotage.count()
+    total_client_particulier = client_particulier.count()
+    total_client_atelier = client_atelier.count()
+    total_client_pilotage = client_pilotage.count()
 
     context = {
         "user": user,

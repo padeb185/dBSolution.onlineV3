@@ -13,7 +13,6 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from client_particulier.models import ClientParticulier
 from client_particulier.forms import ClientParticulierForm
-from adresse.forms import AdresseForm
 
 
 @method_decorator([login_required, never_cache], name='dispatch')

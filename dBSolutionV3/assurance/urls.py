@@ -8,7 +8,7 @@ app_name = "assurance"
 
 urlpatterns = [
 
-    path("tenant/", dashboard_assurance_view, name="dashboard_assurance"),
+    path("", dashboard_assurance_view, name="dashboard_assurance"),
 
     path(
         "assurance/",
