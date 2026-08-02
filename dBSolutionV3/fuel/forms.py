@@ -54,6 +54,8 @@ class FuelForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        self.societe = kwargs.pop("societe", None)
+
         super().__init__(*args, **kwargs)
 
         voiture = getattr(self.instance, "voiture_exemplaire", None)

@@ -46,17 +46,52 @@ class FuelListView(ListView):
         )
 
 
+
+
 @login_required
 def ajouter_fuel_all(request):
     tenant = request.user.societe
 
+
+
     if request.method == "POST":
+
         form = FuelForm(request.POST)
 
+        # Auto-détection du véhicule avant validation
+        immatriculation = request.POST.get("immatriculation")
+
+        if immatriculation and not request.POST.get("voiture_exemplaire"):
+            try:
+                voiture = VoitureExemplaire.objects.get(
+                    immatriculation__iexact=immatriculation.strip()
+                )
+
+                # Injection de l'identifiant du véhicule dans les données POST
+                data = form.data.copy()
+                data["voiture_exemplaire"] = str(voiture.id)
+
+                form = FuelForm(data)
+
+            except VoitureExemplaire.DoesNotExist:
+                form.add_error(
+                    "immatriculation",
+                    _("Voiture introuvable."),
+                )
+
+            except VoitureExemplaire.MultipleObjectsReturned:
+                form.add_error(
+                    "immatriculation",
+                    _("Plusieurs véhicules possèdent cette immatriculation."),
+                )
+
         if form.is_valid():
+
             fuel = form.save(commit=False)
+
             fuel.utilisateur = request.user
             fuel.societe = tenant
+
             fuel.save()
             form.save_m2m()
 
@@ -64,6 +99,7 @@ def ajouter_fuel_all(request):
                 request,
                 _("Carburant ajouté avec succès."),
             )
+
             return redirect("fuel:fuel_list")
 
         messages.error(
@@ -81,7 +117,6 @@ def ajouter_fuel_all(request):
             "form": form,
         },
     )
-
 
 @never_cache
 @login_required
