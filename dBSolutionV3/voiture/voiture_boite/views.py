@@ -1,17 +1,22 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404, redirect
-from django_tenants.utils import tenant_context
+from django.shortcuts import get_object_or_404, redirect
 from voiture.voiture_boite.forms import VoitureBoiteForm
-from voiture.voiture_modele.models import VoitureModele
 from voiture.voiture_boite.models import VoitureBoite
-from voiture.voiture_boite.models import TypeBoite
 from django.utils.translation import gettext as _
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
+
+
 
 
 @login_required
 def liste_boite_view(request):
-    boites = VoitureBoite.objects.all()
+    boites = (
+        VoitureBoite.objects
+        .all()
+        .order_by("fabricant", "nom_du_type")
+    )
 
     return render(
         request,

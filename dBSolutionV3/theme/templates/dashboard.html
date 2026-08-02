@@ -1,63 +1,101 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 {% load i18n_extras %}
 {% get_current_language as LANGUAGE_CODE %}
-
-
 
 {% block title %}
     {% trans "Tableau de bord" %}
 {% endblock %}
 
 {% block content %}
+
 <br>
+
 <h1 class="text-2xl font-bold mb-6">
     {% trans "Bienvenue sur le tableau de bord" %}
 </h1>
+
 <br>
-<!-- Cartes principales -->
+
+<!-- ================================================== -->
+<!-- CARTES PRINCIPALES -->
+<!-- ================================================== -->
+
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
     <div class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Utilisateurs" %}</h2>
-            <p class="text-lg font-bold">{{ user_full_name }}</p>
-            <p class="text-gray-500 text-sm">{{ user_role }}</p>
-        </div>
-        <img src="{% static 'icons/equipe.png' %}" alt="Utilisateurs" class="w-[60px] h-[60px]">
-    </div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Utilisateurs" %}
+            </h2>
 
-    <div class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-        <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Maintenance" %}</h2>
-            <p class="text-gray-600 text-sm">
-                {% trans "Effectuées :" %}
-                <span class="font-bold">{{ total_maintenances_user }}</span>
+            <p class="text-lg font-bold">
+                {{ user_full_name }}
+            </p>
+
+            <p class="text-gray-500 text-sm">
+                {{ user_role }}
             </p>
         </div>
-        <img src="{% static 'icons/gestion-de-projet.png' %}" alt="Maintenance" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/equipe.png' %}"
+             alt="{% trans 'Utilisateurs' %}"
+             class="w-[60px] h-[60px]">
     </div>
 
     <div class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Notifications" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Maintenance" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Effectuées :" %}
+                <span class="font-bold">
+                    {{ total_maintenances_user }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/gestion-de-projet.png' %}"
+             alt="{% trans 'Maintenance' %}"
+             class="w-[60px] h-[60px]">
+    </div>
+
+    <div class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Notifications" %}
+            </h2>
+
             <p class="text-gray-600 text-sm">
                 {% trans "Messages non lus :" %}
                 <span class="font-bold">5</span>
             </p>
         </div>
-        <img src="{% static 'icons/cloche.png' %}" alt="Notifications" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/cloche.png' %}"
+             alt="{% trans 'Notifications' %}"
+             class="w-[60px] h-[60px]">
     </div>
 
 </div>
+
 <br>
-<!-- Tableau activités -->
+
+<!-- ================================================== -->
+<!-- DERNIÈRES ACTIVITÉS -->
+<!-- ================================================== -->
+
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+
     <h2 class="text-lg font-semibold mb-4">
         {% trans "Dernières activités" %}
     </h2>
 
-   <div style="height: 250px; overflow-y: auto;" class="border border-gray-200 rounded-lg">
+    <div style="height: 250px; overflow-y: auto;"
+         class="border border-gray-200 rounded-lg">
+
         <table class="min-w-full border-collapse">
             <thead>
                 <tr>
@@ -80,64 +118,98 @@
 
             <tbody>
                 {% for log in dernieres_activites %}
-                <tr>
-                    <td class="border border-gray-200 px-4 py-2">
-                        {{ log.date_action|date:"d/m/Y H:i:s" }}
-                    </td>
+                    <tr>
+                        <td class="border border-gray-200 px-4 py-2">
+                            {{ log.date_action|date:"d/m/Y H:i:s" }}
+                        </td>
 
-                    <td class="border border-gray-200 px-4 py-2">
-                        {{ log.utilisateur.prenom }}
-                        {{ log.utilisateur.nom }}
-                        <span class="text-gray-500">
-                            ({{ log.utilisateur.get_role_display|default:log.utilisateur.role }})
-                        </span>
-                    </td>
+                        <td class="border border-gray-200 px-4 py-2">
+                            {{ log.utilisateur.prenom }}
+                            {{ log.utilisateur.nom }}
 
-                    <td class="border border-gray-200 px-4 py-2">
-                        {{ log.action|db_trans }}
-                    </td>
-                </tr>
+                            <span class="text-gray-500">
+                                (
+                                {{ log.utilisateur.get_role_display|default:log.utilisateur.role }}
+                                )
+                            </span>
+                        </td>
+
+                        <td class="border border-gray-200 px-4 py-2">
+                            {{ log.action|db_trans }}
+                        </td>
+                    </tr>
+
                 {% empty %}
-                <tr>
-                    <td colspan="3" class="border border-gray-200 px-4 py-2 text-center text-gray-500">
-                        {% trans "Aucune activité enregistrée" %}
-                    </td>
-                </tr>
+                    <tr>
+                        <td colspan="3"
+                            class="border border-gray-200 px-4 py-2 text-center text-gray-500">
+                            {% trans "Aucune activité enregistrée" %}
+                        </td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
+
     </div>
 </div>
+
 <br>
 <br>
+
+<!-- ================================================== -->
+<!-- SECTION MÉCANICIEN -->
+<!-- ================================================== -->
+
 {% if request.user.role == "mecanicien" or request.user.role == "chef_mecanicien" or request.user.role == "direction" or request.user.role == "magasinier" %}
-<!-- Section Mécanicien -->
+
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
-    <img src="{% static 'icons/mecanicien.png' %}" alt="Mecanicien" class="w-[60px] h-[60px] mr-4">
-    <h2 class="text-lg font-semibold">{% trans "Mécanicien" %}</h2>
+    <img src="{% static 'icons/mecanicien.png' %}"
+         alt="{% trans 'Mécanicien' %}"
+         class="w-[60px] h-[60px] mr-4">
+
+    <h2 class="text-lg font-semibold">
+        {% trans "Mécanicien" %}
+    </h2>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
-    <a href="{% url 'maintenance:liste_maintenance_all' %}"
+    <!-- Maintenances -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/maintenance/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Maintenances" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Maintenances" %}
+            </h2>
+
             <p class="text-gray-600 text-sm">
                 {% trans "Nombre total :" %}
-                <span class="font-bold">{{ total_maintenance }}</span>
+                <span class="font-bold">
+                    {{ total_maintenance }}
+                </span>
             </p>
         </div>
-        <img src="{% static 'icons/mecanique.png' %}" alt="Maintenance" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/mecanique.png' %}"
+             alt="{% trans 'Maintenance' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
+    <!-- Carburants -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/fuel/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Carburants" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Carburants" %}
+            </h2>
+
             <p class="text-gray-600 text-sm">
                 {% trans "Nombre total :" %}
-                <span class="font-bold">{{ total_carburant }}</span>
+                <span class="font-bold">
+                    {{ total_carburant }}
+                </span>
             </p>
         </div>
 
@@ -146,293 +218,520 @@
              class="w-[60px] h-[60px]">
     </a>
 
-    <a href="{% url 'recharge:recharge_list' %}"
+    <!-- Recharges électriques -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/recharge/recharge/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Recharges électriques" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Recharges électriques" %}
+            </h2>
+
             <p class="text-gray-600 text-sm">
                 {% trans "Nombre total :" %}
-                <span class="font-bold">{{ total_recharge }}</span>
+                <span class="font-bold">
+                    {{ total_recharge }}
+                </span>
             </p>
         </div>
-        <img src="{% static 'icons/voyage.png' %}" alt="Recharge électrique" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/voyage.png' %}"
+             alt="{% trans 'Recharge électrique' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
 </div>
+
 {% endif %}
+
 <br>
 <br>
-    {% if request.user.role == "chef_mecanicien" or request.user.role == "direction" %}
-<!-- Section Chef Mécanicien -->
+
+<!-- ================================================== -->
+<!-- SECTION CHEF MÉCANICIEN -->
+<!-- ================================================== -->
+
+{% if request.user.role == "chef_mecanicien" or request.user.role == "direction" %}
+
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
-    <img src="{% static 'icons/chef-mecanicien.png' %}" alt="Chef Mecanicien" class="w-[60px] h-[60px] mr-4">
-    <h2 class="text-lg font-semibold">{% trans "Chef Mécanicien" %}</h2>
+    <img src="{% static 'icons/chef-mecanicien.png' %}"
+         alt="{% trans 'Chef mécanicien' %}"
+         class="w-[60px] h-[60px] mr-4">
+
+    <h2 class="text-lg font-semibold">
+        {% trans "Chef Mécanicien" %}
+    </h2>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
-    <a href="{% url 'voiture_marque:dashboard_voiture' %}"
+    <!-- Voitures -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/marques/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Voitures" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Voitures" %}
+            </h2>
         </div>
-        <img src="{% static 'icons/voiture-de-course.png' %}" alt="Voiture" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/voiture-de-course.png' %}"
+             alt="{% trans 'Voiture' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
-    <a href="{% url 'voiture_moteur:list' %}"
+    <!-- Moteurs -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/moteur/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Moteurs" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Moteurs" %}
+            </h2>
+
             <p class="text-gray-600 text-sm">
                 {% trans "Nombre total :" %}
-                <span class="font-bold">{{ total_moteurs }}</span>
+                <span class="font-bold">
+                    {{ total_moteurs }}
+                </span>
             </p>
         </div>
-        <img src="{% static 'icons/engine.png' %}" alt="Moteur" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/engine.png' %}"
+             alt="{% trans 'Moteur' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
-    <a href="{% url 'voiture_boite:list' %}"
+    <!-- Boîtes de vitesses -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/boite/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Boites de vitesses" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Boites de vitesses" %}
+            </h2>
+
             <p class="text-gray-600 text-sm">
                 {% trans "Nombre total :" %}
-                <span class="font-bold">{{ total_boites }}</span>
+                <span class="font-bold">
+                    {{ total_boites }}
+                </span>
             </p>
         </div>
-        <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Boite de vitesse" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/boite-de-vitesse.png' %}"
+             alt="{% trans 'Boite de vitesse' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
-    <a href="{% url 'voiture_embrayage:list' %}"
+    <!-- Embrayages -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/embrayage/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Embrayages" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Embrayages" %}
+            </h2>
+
             <p class="text-gray-600 text-sm">
                 {% trans "Nombre total :" %}
-                <span class="font-bold">{{ total_embrayages }}</span>
+                <span class="font-bold">
+                    {{ total_embrayages }}
+                </span>
             </p>
         </div>
-        <img src="{% static 'icons/disque-dembrayage.png' %}" alt="Embrayage" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/disque-dembrayage.png' %}"
+             alt="{% trans 'Embrayage' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
-    <a href="{% url 'voiture_freins_av:dashboard_frein' %}"
+    <!-- Freins -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/freins/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Freins" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Freins" %}
+            </h2>
         </div>
-        <img src="{% static 'icons/disque-de-frein.png' %}" alt="Freins" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/disque-de-frein.png' %}"
+             alt="{% trans 'Freins' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
-    <a href="{% url 'voiture_pneus:list' %}"
+    <!-- Pneus -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/pneus/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Pneus" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Pneus" %}
+            </h2>
+
             <p class="text-gray-600 text-sm">
                 {% trans "Nombre total :" %}
-                <span class="font-bold">{{ total_pneus }}</span>
+                <span class="font-bold">
+                    {{ total_pneus }}
+                </span>
             </p>
         </div>
-        <img src="{% static 'icons/pneus.png' %}" alt="Pneus" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/pneus.png' %}"
+             alt="{% trans 'Pneus' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
-    <a href="{% url 'carrosserie:dashboard_carrosserie' %}"
+    <!-- Carrosseries -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/carrosserie/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Carrosseries" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Carrosseries" %}
+            </h2>
         </div>
-        <img src="{% static 'icons/carrosserie.png' %}" alt="Carrosserie" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/carrosserie.png' %}"
+             alt="{% trans 'Carrosserie' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
 </div>
+
 {% endif %}
+
 <br>
-    <br>
+<br>
+
+<!-- ================================================== -->
+<!-- SECTION MAGASINIER -->
+<!-- ================================================== -->
+
 {% if request.user.role == "chef_mecanicien" or request.user.role == "direction" or request.user.role == "magasinier" %}
-<!-- Section Magasinier -->
+
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
-    <img src="{% static 'icons/magasinier.png' %}" alt="Magasinier" class="w-[60px] h-[60px] mr-4">
-    <h2 class="text-lg font-semibold">{% trans "Magasinier" %}</h2>
+    <img src="{% static 'icons/magasinier.png' %}"
+         alt="{% trans 'Magasinier' %}"
+         class="w-[60px] h-[60px] mr-4">
+
+    <h2 class="text-lg font-semibold">
+        {% trans "Magasinier" %}
+    </h2>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
-    <a href="{% url 'fournisseur:fournisseur_dashboard' %}"
+    <!-- Fournisseurs -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/fournisseurs/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Fournisseurs" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Fournisseurs" %}
+            </h2>
+
             <p class="text-gray-600 text-sm">
                 {% trans "Nombre total :" %}
-                <span class="font-bold">{{ total_fournisseur }}</span>
+                <span class="font-bold">
+                    {{ total_fournisseur }}
+                </span>
             </p>
         </div>
-        <img src="{% static 'icons/fournisseur.png' %}" alt="Fournisseur" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/fournisseur.png' %}"
+             alt="{% trans 'Fournisseur' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
-    <a href="{% url 'outillage:outillage_list' %}"
+    <!-- Outillages -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/outillage/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Outillages" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Outillages" %}
+            </h2>
+
             <p class="text-gray-600 text-sm">
                 {% trans "Nombre total :" %}
-                <span class="font-bold">{{ total_outils }}</span>
+                <span class="font-bold">
+                    {{ total_outils }}
+                </span>
             </p>
         </div>
-        <img src="{% static 'icons/outils.png' %}" alt="Outils" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/outils.png' %}"
+             alt="{% trans 'Outils' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
 </div>
+
 {% endif %}
+
 <br>
 <br>
+
+<!-- ================================================== -->
+<!-- SECTION VENDEUR -->
+<!-- ================================================== -->
+
 {% if request.user.role == "chef_mecanicien" or request.user.role == "direction" or request.user.role == "vendeur" %}
-<!-- Section Vente -->
+
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
-    <img src="{% static 'icons/vendeur.png' %}" alt="Vendeur" class="w-[60px] h-[60px] mr-4">
-    <h2 class="text-lg font-semibold">{% trans "Vendeur" %}</h2>
+    <img src="{% static 'icons/vendeur.png' %}"
+         alt="{% trans 'Vendeur' %}"
+         class="w-[60px] h-[60px] mr-4">
+
+    <h2 class="text-lg font-semibold">
+        {% trans "Vendeur" %}
+    </h2>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
-    <a href="{% url 'client_atelier:dashboard_client' %}"
+    <!-- Clients -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/client_atelier/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Clients" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Clients" %}
+            </h2>
+
             <p class="text-gray-600 text-sm">
                 {% trans "Nombre total :" %}
-                <span class="font-bold">{{ total_client }}</span>
+                <span class="font-bold">
+                    {{ total_client }}
+                </span>
             </p>
         </div>
-        <img src="{% static 'icons/client.png' %}" alt="Client" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/client.png' %}"
+             alt="{% trans 'Client' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
-    <a href="{% url 'societe_cliente:societe_cliente_list' %}"
+    <!-- Sociétés clientes -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/societe_cliente/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Sociétés clientes" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Sociétés clientes" %}
+            </h2>
+
             <p class="text-gray-600 text-sm">
                 {% trans "Nombre total :" %}
-                <span class="font-bold">{{ total_societe_cliente }}</span>
+                <span class="font-bold">
+                    {{ total_societe_cliente }}
+                </span>
             </p>
         </div>
-        <img src="{% static 'icons/societe_cliente.png' %}" alt="Société cliente" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/societe_cliente.png' %}"
+             alt="{% trans 'Société cliente' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
-    <a href="{% url 'adresse:adresse_list' %}"
+    <!-- Adresses -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/adresse/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Adresses" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Adresses" %}
+            </h2>
+
             <p class="text-gray-600 text-sm">
                 {% trans "Nombre total :" %}
-                <span class="font-bold">{{ total_adresse }}</span>
+                <span class="font-bold">
+                    {{ total_adresse }}
+                </span>
             </p>
         </div>
-        <img src="{% static 'icons/adresse.png' %}" alt="Adresses" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/adresse.png' %}"
+             alt="{% trans 'Adresses' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
 </div>
+
 {% endif %}
+
 <br>
-    <br>
+<br>
+
+<!-- ================================================== -->
+<!-- SECTION DIRECTION -->
+<!-- ================================================== -->
+
 {% if request.user.role == "direction" %}
-<!-- Section Direction -->
+
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
-    <img src="{% static 'icons/directeur.png' %}" alt="Direction" class="w-[60px] h-[60px] mr-4">
-    <h2 class="text-lg font-semibold">{% trans "Direction" %}</h2>
+    <img src="{% static 'icons/directeur.png' %}"
+         alt="{% trans 'Direction' %}"
+         class="w-[60px] h-[60px] mr-4">
+
+    <h2 class="text-lg font-semibold">
+        {% trans "Direction" %}
+    </h2>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
-    <a href="{% url 'assurance:dashboard_assurance' %}"
+    <!-- Assurances -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/assurance/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Assurances" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Assurances" %}
+            </h2>
         </div>
-        <img src="{% static 'icons/assurance-voiture.png' %}" alt="Assurance" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/assurance-voiture.png' %}"
+             alt="{% trans 'Assurance' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
-    <a href="{% url 'maindoeuvre:main_oeuvre_list' %}"
+    <!-- Main d'œuvre -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/maindoeuvre/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Main d'oeuvre" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Main d'oeuvre" %}
+            </h2>
+
             <p class="text-gray-600 text-sm">
                 {% trans "Nombre total :" %}
-                <span class="font-bold">{{ total_main }}</span>
+                <span class="font-bold">
+                    {{ total_main }}
+                </span>
             </p>
         </div>
-        <img src="{% static 'icons/main-doeuvre.png' %}" alt="Main d'oeuvre" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/main-doeuvre.png' %}"
+             alt="{% trans "Main d'oeuvre" %}"
+             class="w-[60px] h-[60px]">
     </a>
 
-    <a href="{% url 'proprietaire:proprietaire_dashboard' %}"
+    <!-- Propriétaires -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/proprietaire/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Propriétaires" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Propriétaires" %}
+            </h2>
+
             <p class="text-gray-600 text-sm">
                 {% trans "Nombre total :" %}
-                <span class="font-bold">{{ total_proprietaire }}</span>
+                <span class="font-bold">
+                    {{ total_proprietaire }}
+                </span>
             </p>
         </div>
-        <img src="{% static 'icons/proprietaire.png' %}" alt="Propriétaire" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/proprietaire.png' %}"
+             alt="{% trans 'Propriétaire' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
-     <a href="{% url 'utilisateurs:creer_utilisateur' %}"
-            class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div>
+    <!-- Créer utilisateur -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/creer/"
+       class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
 
-                <h2 class="text-lg font-semibold mb-2">{% trans "Créer un utilisateur" %}</h2>
-                <p>{% trans "Ajouter un nouvel employé" %}</p>
-            </div>
-                <img src="{% static 'icons/mecanicien.png' %}" alt="Utilisateur" style="width:60px; height:60px; margin-right:10px;">
-        </a>
+        <div>
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Créer un utilisateur" %}
+            </h2>
 
+            <p>
+                {% trans "Ajouter un nouvel employé" %}
+            </p>
+        </div>
 
-        <a href="{% url 'utilisateurs:liste_utilisateurs' %}"
-                   class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-                    <!-- Texte à gauche -->
-            <div>
-                <h2 class="text-lg font-semibold mb-2">{% trans "Liste des utilisateurs" %}</h2>
+        <img src="{% static 'icons/mecanicien.png' %}"
+             alt="{% trans 'Utilisateur' %}"
+             class="w-[60px] h-[60px] mr-[10px]">
+    </a>
 
-            </div>
+    <!-- Liste utilisateurs -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/admin/utilisateurs/"
+       class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
 
-            <!-- Icône à droite -->
-            <img src="{% static 'icons/equipe.png' %}" alt="Utilisateur" style="width:60px; height:60px; margin-right:10px;">
-        </a>
+        <div>
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Liste des utilisateurs" %}
+            </h2>
+        </div>
 
+        <img src="{% static 'icons/equipe.png' %}"
+             alt="{% trans 'Utilisateur' %}"
+             class="w-[60px] h-[60px] mr-[10px]">
+    </a>
 
-         <a href="{% url 'utilisateurs:creer_paie_utilisateur' %}"
-                   class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-                    <!-- Texte à gauche -->
-            <div>
-                <h2 class="text-lg font-semibold mb-2">{% trans "Créer une paie mensuelle" %}</h2>
+    <!-- Créer une paie -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/paie/creer/"
+       class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
 
-            </div>
+        <div>
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Créer une paie mensuelle" %}
+            </h2>
+        </div>
 
-            <!-- Icône à droite -->
-            <img src="{% static 'icons/equipe.png' %}" alt="Completer Utilisateur" style="width:60px; height:60px; margin-right:10px;">
-        </a>
+        <img src="{% static 'icons/equipe.png' %}"
+             alt="{% trans 'Compléter utilisateur' %}"
+             class="w-[60px] h-[60px] mr-[10px]">
+    </a>
 
-    </div>
+</div>
 
 {% endif %}
+
 <br>
 <br>
+
+<!-- ================================================== -->
+<!-- SECTION ADMINISTRATEUR -->
+<!-- ================================================== -->
+
 {% if user.is_staff and user.is_superuser %}
-<!-- Section Administrateur -->
+
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
-    <img src="{% static 'icons/admin.png' %}" alt="Administrateur" class="w-[60px] h-[60px] mr-[15px]">
-    <h2 class="text-lg font-semibold">{% trans "Administrateur" %}</h2>
+    <img src="{% static 'icons/admin.png' %}"
+         alt="{% trans 'Administrateur' %}"
+         class="w-[60px] h-[60px] mr-[15px]">
+
+    <h2 class="text-lg font-semibold">
+        {% trans "Administrateur" %}
+    </h2>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 mb-8">
 
-    <a href="{% url 'utilisateurs:dashboard_admin' %}"
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/admin/dashboard/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Tableau de bord Admin" %}</h2>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Tableau de bord Admin" %}
+            </h2>
         </div>
-        <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="Admin" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/ingenieur-logiciel.png' %}"
+             alt="{% trans 'Admin' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
 </div>
+
 {% endif %}
 
 {% endblock %}

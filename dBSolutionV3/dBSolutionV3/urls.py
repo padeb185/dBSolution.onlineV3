@@ -67,7 +67,7 @@ urlpatterns += i18n_patterns(
     # Moteurs
     path('voiture/moteur/', include('voiture.voiture_moteur.urls', namespace='voiture_moteur')),
 
-    path('voiture/boite', include('voiture.voiture_boite.urls', namespace='voiture_boite')),
+    path('voiture/boite/', include('voiture.voiture_boite.urls', namespace='voiture_boite')),
 
     path('voiture/embrayage', include('voiture.voiture_embrayage.urls', namespace='voiture_embrayage')),
 

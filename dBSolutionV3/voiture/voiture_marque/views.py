@@ -13,17 +13,36 @@ from voiture.voiture_marque.forms import VoitureMarqueForm
 from voiture.voiture_moteur.forms import MoteurVoitureForm
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
+from voiture.voiture_marque.models import VoitureMarque
+from voiture.voiture_modele.models import VoitureModele
+
+from .models import MarqueFavorite
+
 
 @login_required
 def marques_list(request):
-    marques = VoitureMarque.objects.all().order_by("nom_marque")
+    societe = request.user.societe
 
-    modeles = VoitureModele.objects.all().order_by("nom_modele")
+    marques = (
+        VoitureMarque.objects
+        .all()
+        .order_by("nom_marque")
+    )
+
+    modeles = (
+        VoitureModele.objects
+        .select_related("voiture_marque")
+        .all()
+        .order_by("nom_modele")
+    )
 
     favorites_ids = set(
-        MarqueFavorite.objects.filter(
-            societe=request.user
-        ).values_list("marque_id", flat=True)
+        MarqueFavorite.objects
+        .filter(societe=societe)
+        .values_list("marque_id", flat=True)
     )
 
     return render(
@@ -35,7 +54,6 @@ def marques_list(request):
             "favorites_ids": favorites_ids,
         },
     )
-
 
 @login_required
 def modeles_par_marque(request, marque_id):
