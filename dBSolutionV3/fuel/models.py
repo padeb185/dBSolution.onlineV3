@@ -21,16 +21,66 @@ class TypeCarburant(models.TextChoices):
 class RechargeCarburant(models.Model):
     # Choix des pays
     PAYS_CHOICES = [
+        ('AT', _("Autriche")),
         ('BE', _("Belgique")),
-        ('LU', _("Luxembourg")),
+        ('BG', _("Bulgarie")),
+        ('HR', _("Croatie")),
+        ('CY', _("Chypre")),
+        ('CZ', _("Tchéquie")),
+        ('DK', _("Danemark")),
+        ('EE', _("Estonie")),
+        ('FI', _("Finlande")),
+        ('FR', _("France")),
         ('DE', _("Allemagne")),
+        ('GR', _("Grèce")),
+        ('HU', _("Hongrie")),
+        ('IE', _("Irlande")),
+        ('IT', _("Italie")),
+        ('LV', _("Lettonie")),
+        ('LT', _("Lituanie")),
+        ('LU', _("Luxembourg")),
+        ('MT', _("Malte")),
+        ('NL', _("Pays-Bas")),
+        ('PL', _("Pologne")),
+        ('PT', _("Portugal")),
+        ('RO', _("Roumanie")),
+        ('SK', _("Slovaquie")),
+        ('SI', _("Slovénie")),
+        ('ES', _("Espagne")),
+        ('SE', _("Suède")),
+        ('GB', _("Royaume-Uni")),
     ]
 
-    # Mapping pays → TVA carburant
+    # Taux de TVA sur le carburant
     TVA_CARBURANT = {
+        'AT': 20,
         'BE': 21,
-        'LU': 17,
+        'BG': 20,
+        'HR': 25,
+        'CY': 19,
+        'CZ': 21,
+        'DK': 25,
+        'EE': 24,
+        'FI': 25.5,
+        'FR': 20,
         'DE': 19,
+        'GR': 24,
+        'HU': 27,
+        'IE': 23,
+        'IT': 22,
+        'LV': 21,
+        'LT': 21,
+        'LU': 17,
+        'MT': 18,
+        'NL': 21,
+        'PL': 23,
+        'PT': 23,
+        'RO': 21,
+        'SK': 23,
+        'SI': 22,
+        'ES': 21,
+        'SE': 25,
+        'GB': 20,
     }
 
 
@@ -63,6 +113,12 @@ class Fuel(models.Model):
         related_name="fuels",
         verbose_name=_("Véhicule")
     )
+    kilometres_chassis = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres chassis")
+    )
 
 
     immatriculation = models.CharField(
@@ -79,11 +135,6 @@ class Fuel(models.Model):
 
     )
 
-    kilometres_chassis = models.PositiveIntegerField(
-        default=0,
-        null=True,
-        blank=True
-    )
 
     kilometrage_fuel = models.IntegerField(
         _("Kilométrage au plein"),

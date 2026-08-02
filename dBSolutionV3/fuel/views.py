@@ -23,16 +23,46 @@ from decimal import Decimal
 from collections import defaultdict
 
 
-@never_cache
-@login_required
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.generic import ListView
+
+from .models import Fuel
+
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.generic import ListView
+
+from .models import Fuel
+
+from django.db import connection
+
+
+@method_decorator(login_required, name="dispatch")
+@method_decorator(never_cache, name="dispatch")
 class FuelListView(ListView):
     model = Fuel
     template_name = "fuel/fuel_list.html"
-    context_object_name = "fuels"   # ⚠️ important : pluriel
-    ordering = ["-date"]
+    context_object_name = "fuels"
 
     def get_queryset(self):
         societe = self.request.user.societe
+
+        print("HOST :", self.request.get_host())
+        print("PATH :", self.request.path)
+        print(
+            "REQUEST TENANT :",
+            getattr(
+                getattr(self.request, "tenant", None),
+                "schema_name",
+                None,
+            ),
+        )
+        print("SCHEMA ACTIF :", connection.schema_name)
+        print("SOCIETE USER :", societe.schema_name)
+
         return (
             Fuel.objects
             .select_related(
@@ -41,11 +71,9 @@ class FuelListView(ListView):
                 "voiture_exemplaire__voiture_modele",
                 "voiture_exemplaire__voiture_modele__voiture_marque",
             )
-            .order_by("-date")
             .filter(societe=societe)
+            .order_by("-date")
         )
-
-
 
 
 @login_required
@@ -261,22 +289,77 @@ def fuel_delete(request, fuel_id):
 
 
 
+
+@login_required
 def check_immatriculation(request):
-    immat = request.GET.get('immatriculation', '').strip()
-    try:
-        voiture = VoitureExemplaire.objects.get(immatriculation__iexact=immat)
-        data = {
-            'id': voiture.id,
-            'marque': voiture.voiture_modele.voiture_marque.nom_marque,
-            'modele': voiture.voiture_modele.nom_modele,
-            'volume': voiture.voiture_modele.taille_reservoir,
+    tenant = request.user.societe
+    immatriculation = request.GET.get("immatriculation", "").strip()
 
-        }
-        return JsonResponse(data)
-    except VoitureExemplaire.DoesNotExist:
-        return JsonResponse({'error': 'not found'})
+    if not immatriculation:
+        return JsonResponse(
+            {
+                "error": True,
+                "message": "Immatriculation manquante.",
+            },
+            status=400,
+        )
 
+    with tenant_context(tenant):
+        voiture = (
+            VoitureExemplaire.objects
+            .select_related(
+                "voiture_marque",
+                "voiture_modele",
+            )
+            .filter(
+                immatriculation__iexact=immatriculation,
+            )
+            .first()
+        )
 
+        if voiture is None:
+            return JsonResponse(
+                {
+                    "error": True,
+                    "message": "Véhicule introuvable.",
+                },
+                status=404,
+            )
+
+        marque = ""
+        modele = ""
+        volume_max = 0
+        kilometres_chassis = 0
+
+        if voiture.voiture_marque:
+            marque = voiture.voiture_marque.nom_marque or ""
+
+        if voiture.voiture_modele:
+            modele = voiture.voiture_modele.nom_modele or ""
+
+            # Adapte ce champ au nom réel présent dans VoitureModele
+            volume_max = (
+                getattr(voiture.voiture_modele, "taille_reservoir", None)
+                or 0
+            )
+
+        # Adapte selon le nom exact de ton champ
+        kilometres_chassis = (
+            getattr(voiture, "kilometres_chassis", None)
+            or 0
+        )
+
+        return JsonResponse(
+            {
+                "error": False,
+                "id": str(voiture.pk),
+                "immatriculation": voiture.immatriculation or "",
+                "marque": marque,
+                "modele": modele,
+                "kilometres_chassis": kilometres_chassis,
+                "volume_max": volume_max,
+            }
+        )
 
 
 

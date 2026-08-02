@@ -119,82 +119,142 @@ const csrftoken = getCookie('csrftoken');
 
 
 document.addEventListener("DOMContentLoaded", function () {
+    const immatriculationInput = document.getElementById(
+        "id_immatriculation"
+    );
 
-    const immatInput = document.getElementById("id_immatriculation");
-    if (immatInput) {
-        immatInput.addEventListener("input", function () {
-            const value = this.value;
-            if (value.length < 2) return; // éviter les requêtes inutiles
+    const voitureInput = document.getElementById(
+        "id_voiture_exemplaire"
+    );
 
-            fetch(`/fuel/ajax/check-immatriculation/?immatriculation=${value}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (!data.error) {
-                        // remplir le champ caché obligatoire
-                        document.getElementById("id_voiture_exemplaire").value = data.id;
+    const kilometresInput = document.getElementById(
+        "id_kilometres_chassis"
+    );
 
-                        // remplir les champs readonly
-                        document.getElementById("id_voiture_marque").value = data.marque;
-                        document.getElementById("id_voiture_modele").value = data.modele;
-                        document.getElementById("id_taille_reservoir_display").value = data.volume;
-                    } else {
-                        document.getElementById("id_voiture_exemplaire").value = "";
-                        document.getElementById("id_voiture_marque").value = "";
-                        document.getElementById("id_voiture_modele").value = "";
-                        document.getElementById("id_taille_reservoir_display").value = "";
-                    }
-                })
-                .catch(err => console.error("Erreur:", err));
-        });
+    const marqueInput = document.getElementById(
+        "id_voiture_marque"
+    );
+
+    const modeleInput = document.getElementById(
+        "id_voiture_modele"
+    );
+
+    const volumeInput = document.getElementById(
+        "id_taille_reservoir_display"
+    );
+
+    const ajaxUrl = "{% url 'fuel:check_immatriculation' %}";
+
+    let timerRecherche = null;
+
+    function remplirChamp(champ, valeur) {
+        if (champ) {
+            champ.value = valeur ?? "";
+        }
     }
 
-    // -----------------------------
-    // Auto-complétion marque et modèle (optionnel)
-    // -----------------------------
-    const marqueInput = document.getElementById("id_voiture_marque");
-    const modeleInput = document.getElementById("id_voiture_modele");
-
-    if (marqueInput && modeleInput) {
-        // Auto-complétion marque
-        marqueInput.addEventListener("input", function () {
-            const query = this.value;
-            fetch(`/fuel/ajax/get-marques/?q=${query}`)
-                .then(r => r.json())
-                .then(data => {
-                    const list = document.getElementById("marque-list");
-                    if (list) {
-                        list.innerHTML = "";
-                        data.forEach(item => {
-                            const option = document.createElement("option");
-                            option.value = item;
-                            list.appendChild(option);
-                        });
-                    }
-                })
-                .catch(err => console.error("Erreur marques:", err));
-        });
-
-        // Auto-complétion modèle
-        modeleInput.addEventListener("input", function () {
-            const query = this.value;
-            fetch(`/fuel/ajax/get-modeles/?q=${query}`)
-                .then(r => r.json())
-                .then(data => {
-                    const list = document.getElementById("modele-list");
-                    if (list) {
-                        list.innerHTML = "";
-                        data.forEach(item => {
-                            const option = document.createElement("option");
-                            option.value = item;
-                            list.appendChild(option);
-                        });
-                    }
-                })
-                .catch(err => console.error("Erreur modèles:", err));
-        });
+    function viderInformationsVehicule() {
+        remplirChamp(voitureInput, "");
+        remplirChamp(kilometresInput, "");
+        remplirChamp(marqueInput, "");
+        remplirChamp(modeleInput, "");
+        remplirChamp(volumeInput, "");
     }
 
+    async function rechercherVehicule(immatriculation) {
+        try {
+            const url = new URL(
+                ajaxUrl,
+                window.location.origin
+            );
+
+            url.searchParams.set(
+                "immatriculation",
+                immatriculation
+            );
+
+            const response = await fetch(url.toString(), {
+                method: "GET",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest"
+                }
+            });
+
+            const data = await response.json();
+
+            if (!response.ok || data.error) {
+                viderInformationsVehicule();
+                return;
+            }
+
+            remplirChamp(
+                voitureInput,
+                data.id
+            );
+
+            remplirChamp(
+                kilometresInput,
+                data.kilometres_chassis
+            );
+
+            remplirChamp(
+                marqueInput,
+                data.marque
+            );
+
+            remplirChamp(
+                modeleInput,
+                data.modele
+            );
+
+            remplirChamp(
+                volumeInput,
+                data.volume_max
+            );
+
+        } catch (error) {
+            console.error(
+                "Erreur lors de la recherche du véhicule :",
+                error
+            );
+
+            viderInformationsVehicule();
+        }
+    }
+
+    if (immatriculationInput) {
+        immatriculationInput.addEventListener(
+            "input",
+            function () {
+                const immatriculation = this.value
+                    .trim()
+                    .toUpperCase();
+
+                clearTimeout(timerRecherche);
+
+                if (immatriculation.length < 2) {
+                    viderInformationsVehicule();
+                    return;
+                }
+
+                timerRecherche = setTimeout(function () {
+                    rechercherVehicule(immatriculation);
+                }, 350);
+            }
+        );
+
+        /*
+         * Si le formulaire est réaffiché après une erreur,
+         * on recherche immédiatement le véhicule déjà saisi.
+         */
+        const valeurInitiale = immatriculationInput.value
+            .trim()
+            .toUpperCase();
+
+        if (valeurInitiale.length >= 2) {
+            rechercherVehicule(valeurInitiale);
+        }
+    }
 });
-
 </script>
 {% endblock %}

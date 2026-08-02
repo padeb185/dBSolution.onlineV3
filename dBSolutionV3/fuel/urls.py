@@ -1,13 +1,17 @@
 from django.urls import path
 from . import views
 from .views import fuel_list, ajouter_fuel_all, fuel_delete, check_immatriculation, get_marques, \
-    get_modeles, modifier_fuel, FuelStatView, FuelExemplaireStatView
+    get_modeles, modifier_fuel, FuelStatView, FuelExemplaireStatView, FuelListView
 
 app_name = "fuel"
 
 urlpatterns = [
     # Liste des fuels
-    path("", fuel_list, name="fuel_list"),
+    path(
+        "",
+        FuelListView.as_view(),
+        name="fuel_list",
+    ),
 
     # Ajouter un fuel
     path("formulaire/", ajouter_fuel_all, name="ajouter_fuel_all"),
@@ -35,8 +39,13 @@ urlpatterns = [
 
 
     # Routes AJAX
-    path("ajax/check-immatriculation/", check_immatriculation, name="check_immatriculation"),
-    path("ajax/get-marques/", get_marques, name="get_marques"),
-    path("ajax/get-modeles/", get_modeles, name="get_modeles"),
+
+    #path("ajax/get-marques/", get_marques, name="get_marques"),
+    #path("ajax/get-modeles/", get_modeles, name="get_modeles"),
+    path(
+        "ajax/check-immatriculation/",
+        views.check_immatriculation,
+        name="check_immatriculation",
+    ),
 ]
 
