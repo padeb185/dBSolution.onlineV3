@@ -24,9 +24,20 @@ from .models import Admission
 
 
 
-@method_decorator([login_required, never_cache], name='dispatch')
+from django.contrib.auth.decorators import login_required
+from django.db import models
+from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.generic import ListView
+
+from voiture.voiture_exemplaire.models import VoitureExemplaire
+
+from .models import Admission
+
+@method_decorator([login_required, never_cache], name="dispatch")
 class AdmissionListView(ListView):
-    model = Admission   # ✅ ICI
+    model = Admission
     template_name = "admission/admission_list.html"
     context_object_name = "admissions"
     paginate_by = 100
@@ -34,13 +45,23 @@ class AdmissionListView(ListView):
 
     def get_queryset(self):
         queryset = Admission.objects.select_related(
-            "voiture_exemplaire", "maintenance", "tech_societe"
+            "voiture_exemplaire",
+            "maintenance",
+            "tech_societe",
         )
 
         societe = getattr(self.request.user, "societe", None)
+        exemplaire_id = self.kwargs.get("exemplaire_id")
+
         if societe:
             queryset = queryset.filter(
-                models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
+                models.Q(tech_societe=societe)
+                | models.Q(tech_societe__isnull=True)
+            )
+
+        if exemplaire_id:
+            queryset = queryset.filter(
+                voiture_exemplaire_id=exemplaire_id
             )
 
         return queryset.order_by("-id")
@@ -49,8 +70,12 @@ class AdmissionListView(ListView):
         context = super().get_context_data(**kwargs)
 
         exemplaire_id = self.kwargs.get("exemplaire_id")
+
         if exemplaire_id:
-            context["exemplaire"] = VoitureExemplaire.objects.get(id=exemplaire_id)
+            context["exemplaire"] = get_object_or_404(
+                VoitureExemplaire,
+                id=exemplaire_id,
+            )
 
         roles_autorises = [
             "mecanicien",
@@ -60,9 +85,12 @@ class AdmissionListView(ListView):
             "direction",
         ]
 
-        context["is_checkup_allowed"] = self.request.user.role in roles_autorises
+        context["is_checkup_allowed"] = (
+            self.request.user.role in roles_autorises
+        )
 
         return context
+
 
 
 

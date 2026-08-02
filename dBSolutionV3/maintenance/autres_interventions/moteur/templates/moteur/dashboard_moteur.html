@@ -1,97 +1,206 @@
-{% extends 'base.html' %}
+
+{% extends "base.html" %}
 {% load i18n static widget_tweaks %}
-{% block title %}{% trans "Tableau de bord Moteur" %}{% endblock %}
+
+{% block title %}
+    {% trans "Tableau de bord moteur" %}
+{% endblock %}
+
 {% block content %}
 
-<br>
-<br>
-<h1 class="text-2xl font-bold mb-6">{% trans "Bienvenue sur le tableau de bord moteur" %}</h1>
+<div class="p-6">
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <h1 class="mb-6 text-2xl font-bold">
+        {% trans "Bienvenue sur le tableau de bord moteur" %}
+    </h1>
 
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 
-<!-- Carte admission -->
-  <a href="{% url 'admission:admission_list' exemplaire.id %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Admission" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_admission }}</span>
-      </p>
+        <!-- ================================================== -->
+        <!-- ADMISSION -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'admission:admission_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Admission" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_admission|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/admission.png' %}"
+                alt="{% trans 'Admission' %}"
+                class="h-[60px] w-[60px]"
+            >
+        </a>
+
+        <!-- ================================================== -->
+        <!-- ALTERNATEUR -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'alternateur:alternateur_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Alternateur" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_alternateur|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/alternateur.png' %}"
+                alt="{% trans 'Alternateur' %}"
+                class="h-[60px] w-[60px]"
+            >
+        </a>
+
+        <!-- ================================================== -->
+        <!-- COURROIE DE DISTRIBUTION -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'courroie:courroie_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Courroie de distribution" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_courroie|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/courroie-de-distribution.png' %}"
+                alt="{% trans 'Courroie de distribution' %}"
+                class="h-[60px] w-[60px]"
+            >
+        </a>
+
+        <!-- ================================================== -->
+        <!-- REMPLACEMENT MOTEUR -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'remplacement_moteur:remplacement_moteur_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Remplacement moteur" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_remplacement_moteur|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/engine.png' %}"
+                alt="{% trans 'Remplacement moteur' %}"
+                class="h-[60px] w-[60px]"
+            >
+        </a>
+
+        <!-- ================================================== -->
+        <!-- TURBO -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'turbo:turbo_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Turbo" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_turbo|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/turbo.png' %}"
+                alt="{% trans 'Turbo' %}"
+                class="h-[60px] w-[60px]"
+            >
+        </a>
+
+        <!-- ================================================== -->
+        <!-- RODAGE -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'rodage:rodage_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Rodages" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_rodage|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/rodage.png' %}"
+                alt="{% trans 'Rodage' %}"
+                class="h-[60px] w-[60px]"
+            >
+        </a>
+
     </div>
-    <img src="{% static 'icons/admission.png' %}" alt="Admission" style="width:60px; height:60px;">
-  </a>
 
-<!-- Carte admission -->
-  <a href="{% url 'alternateur:alternateur_list' exemplaire.id %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Alternateur" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_alternateur }}</span>
-      </p>
+    <!-- ================================================== -->
+    <!-- RETOUR -->
+    <!-- ================================================== -->
+
+    <div class="mt-10">
+
+        <a
+            href="{% url 'autres_interventions:choisir_autre' exemplaire_id=exemplaire.id %}"
+            class="block rounded bg-blue-700 px-5 py-4 text-center font-semibold text-white hover:bg-blue-400"
+        >
+            {% trans "Retour au tableau des interventions" %}
+        </a>
+
     </div>
-    <img src="{% static 'icons/alternateur.png' %}" alt="Admission" style="width:60px; height:60px;">
-  </a>
-
-   <a href="{% url 'courroie:courroie_list' exemplaire.id %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Courroie de distribution" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_courroie }}</span>
-      </p>
-    </div>
-    <img src="{% static 'icons/courroie-de-distribution.png' %}" alt="Courroie de distribution" style="width:60px; height:60px;">
-  </a>
-
-
-     <a href="{% url 'remplacement_moteur:remplacement_moteur_list' exemplaire.id %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Remplacement moteur" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_remplacement_moteur }}</span>
-      </p>
-    </div>
-    <img src="{% static 'icons/engine.png' %}" alt="Remplacement moteur" style="width:60px; height:60px;">
-  </a>
-
-
-     <a href="{% url 'turbo:turbo_list' exemplaire.id %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Turbo" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_turbo }}</span>
-      </p>
-    </div>
-    <img src="{% static 'icons/turbo.png' %}" alt="Turbo" style="width:60px; height:60px;">
-  </a>
-
- <a href="{% url 'rodage:rodage_list' exemplaire.id %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Rodages" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_rodage }}</span>
-      </p>
-    </div>
-    <img src="{% static 'icons/rodage.png' %}" alt="Rodage" style="width:60px; height:60px;">
-  </a>
-
 
 </div>
-<br>
-<br>
-<br>
 
-<div>
-    <a href="{% url 'autres_interventions:choisir_autre' exemplaire.id %}"
-       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-        {% trans "Retour au tableau Interventions" %}
-    </a>
-</div>
-<br>
-<br>
 {% endblock %}

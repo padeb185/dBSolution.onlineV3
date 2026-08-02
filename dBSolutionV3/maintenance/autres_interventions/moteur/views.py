@@ -21,21 +21,25 @@ from maintenance.autres_interventions.moteur.turbo.models import Turbo
 from maintenance.check_up.models import Checkup
 
 
+
+
 @login_required
 def liste_moteur_all_view(request):
-    tenant = request.user.societe
-
-    with tenant_context(tenant):
-        exemplaires = VoitureExemplaire.objects.select_related(
-            'voiture_marque', 'voiture_modele'  # Ce sont les bons noms de champs
-        ).all().order_by('id')
+    exemplaires = (
+        VoitureExemplaire.objects.select_related(
+            "voiture_marque",
+            "voiture_modele",
+        )
+        .all()
+        .order_by("id")
+    )
 
     return render(
         request,
-        'autres_interventions/list.html',
+        "autres_interventions/list.html",
         {
-            'exemplaires': exemplaires
-        }
+            "exemplaires": exemplaires,
+        },
     )
 
 
@@ -45,102 +49,96 @@ def liste_moteur_all_view(request):
 def dashboard_moteur_view(request, exemplaire_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-
-        user = request.user
-        context = {}
-
-        # 🔹 Récupérer l'exemplaire AVANT
-        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-
-        # --- Sécurité tenant ---
-        tenant_schema = getattr(request, 'tenant', None)
-        schema_name = tenant_schema.schema_name if tenant_schema else None
 
 
-        total_admission = total_alternateur = total_courroie = total_remplacement_moteur = total_turbo = total_rodage = total_int_moteur = 0
+    user = request.user
+    context = {}
 
-        admission = alternateur = courroie = moteur_remplacement = turbo = rodage = []
+    # 🔹 Récupérer l'exemplaire AVANT
+    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+
+    # --- Sécurité tenant ---
+    tenant_schema = getattr(request, 'tenant', None)
+    schema_name = tenant_schema.schema_name if tenant_schema else None
+
+
+    total_admission = total_alternateur = total_courroie = total_remplacement_moteur = total_turbo = total_rodage = total_int_moteur = 0
+
+    admission = alternateur = courroie = moteur_remplacement = turbo = rodage = []
 
 
 
-        if schema_name:
-            with schema_context(schema_name):
 
                 # ✅ FILTRAGE PAR EXEMPLAIRE
 
-                admission = Admission.objects.filter(voiture_exemplaire=exemplaire)
-                alternateur = Alternateur.objects.filter(voiture_exemplaire=exemplaire)
-                courroie = CourroieDistribution.objects.filter(voiture_exemplaire=exemplaire)
-                moteur_remplacement = RemplacementMoteur.objects.filter(voiture_exemplaire=exemplaire)
-                turbo = Turbo.objects.filter(voiture_exemplaire=exemplaire)
-                rodage = Rodage.objects.filter(voiture_exemplaire=exemplaire)
+    admission = Admission.objects.filter(voiture_exemplaire=exemplaire)
+    alternateur = Alternateur.objects.filter(voiture_exemplaire=exemplaire)
+    courroie = CourroieDistribution.objects.filter(voiture_exemplaire=exemplaire)
+    moteur_remplacement = RemplacementMoteur.objects.filter(voiture_exemplaire=exemplaire)
+    turbo = Turbo.objects.filter(voiture_exemplaire=exemplaire)
+    rodage = Rodage.objects.filter(voiture_exemplaire=exemplaire)
 
 
-                # ✅ COUNTS CORRECTS
-                total_admission = admission.count()
-                total_alternateur = alternateur.count()
-                total_courroie = courroie.count()
-                total_remplacement_moteur = moteur_remplacement.count()
-                total_turbo = turbo.count()
-                total_rodage = rodage.count()
+        # ✅ COUNTS CORRECTS
+    total_admission = admission.count()
+    total_alternateur = alternateur.count()
+    total_courroie = courroie.count()
+    total_remplacement_moteur = moteur_remplacement.count()
+    total_turbo = turbo.count()
+    total_rodage = rodage.count()
 
-                total_int_moteur = total_admission + total_alternateur + total_courroie + total_remplacement_moteur + total_turbo + total_rodage
+    total_int_moteur = total_admission + total_alternateur + total_courroie + total_remplacement_moteur + total_turbo + total_rodage
 
 
-                modeles = VoitureModele.objects.all()
-        else:
-            modeles = []
+    # --- POST ---
+    if request.method == "POST":
+        type_choisi = request.POST.get("type_maintenance")
+        date_intervention = request.POST.get("date_intervention")
+        description = request.POST.get("description", "")
 
-        # --- POST ---
-        if request.method == "POST":
-            type_choisi = request.POST.get("type_maintenance")
-            date_intervention = request.POST.get("date_intervention")
-            description = request.POST.get("description", "")
+        if type_choisi and date_intervention:
+            Maintenance.objects.create(
+                societe=tenant,
+                voiture_exemplaire=exemplaire,
+                type_maintenance=type_choisi,
+                immatriculation=exemplaire.immatriculation,
+                date_intervention=date_intervention,
+                description=description
+            )
+            return redirect('maintenance:list', modele_id=exemplaire.voiture_modele.id)
 
-            if type_choisi and date_intervention:
-                Maintenance.objects.create(
-                    societe=tenant,
-                    voiture_exemplaire=exemplaire,
-                    type_maintenance=type_choisi,
-                    immatriculation=exemplaire.immatriculation,
-                    date_intervention=date_intervention,
-                    description=description
-                )
-                return redirect('maintenance:list', modele_id=exemplaire.voiture_modele.id)
+    # --- CONTEXT ---
+    context.update({
+        "exemplaire": exemplaire,
+        "is_checkup_allowed": request.user.role in [
+            "direction",
+            "mecanicien",
+            "chef_mecanicien",
+            "magasinier",
+        ],
+        "types_maintenance": TYPES_MAINTENANCE,
 
-        # --- CONTEXT ---
-        context.update({
-            "exemplaire": exemplaire,
-            "is_checkup_allowed": request.user.role in [
-                "direction",
-                "mecanicien",
-                "chef_mecanicien",
-                "magasinier",
-            ],
-            "types_maintenance": TYPES_MAINTENANCE,
+        "total_admission": total_admission,
+        "total_alternateur": total_alternateur,
+        "total_courroie": total_courroie,
+        "total_remplacement_moteur": total_remplacement_moteur,
+        "total_turbo": total_turbo,
+        "total_rodage": total_rodage,
 
-            "total_admission": total_admission,
-            "total_alternateur": total_alternateur,
-            "total_courroie": total_courroie,
-            "total_remplacement_moteur": total_remplacement_moteur,
-            "total_turbo": total_turbo,
-            "total_rodage": total_rodage,
+        "admission": admission,
+        "alternateur": alternateur,
+        "courroie": courroie,
+        "moteur_remplacement": moteur_remplacement,
+        "turbo": turbo,
+        "rodage": rodage,
 
-            "admission": admission,
-            "alternateur": alternateur,
-            "courroie": courroie,
-            "moteur_remplacement": moteur_remplacement,
-            "turbo": turbo,
-            "rodage": rodage,
+        "total_int_moteur": total_int_moteur,
 
-            "total_int_moteur": total_int_moteur,
 
-            "modeles": modeles,
 
-        })
+    })
 
-        return render(request, "moteur/dashboard_moteur.html", context)
+    return render(request, "moteur/dashboard_moteur.html", context)
 
 
 

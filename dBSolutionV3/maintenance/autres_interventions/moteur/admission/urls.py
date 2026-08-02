@@ -1,13 +1,23 @@
 # maintenance/check_up/urls.py
-from django.urls import path
 from .views import AdmissionListView, \
     admission_check_view, modifier_admission_view, admission_detail_view, admission_detail_pdf_view
 
+from django.urls import path
+
+
 app_name = "admission"
+
 
 urlpatterns = [
 
-    path('admission/<uuid:exemplaire_id>/liste/', AdmissionListView.as_view(),name='admission_list'),
+
+    path(
+        "exemplaire/<uuid:exemplaire_id>/",
+        AdmissionListView.as_view(),
+        name="admission_list",
+    ),
+
+
 
     path('admission/<uuid:exemplaire_id>/', admission_check_view, name='admission_check'),
 

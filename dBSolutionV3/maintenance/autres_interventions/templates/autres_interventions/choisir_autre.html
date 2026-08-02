@@ -1,177 +1,346 @@
-{% extends 'base.html' %}
+
+{% extends "base.html" %}
 {% load i18n static %}
 
 {% block content %}
 <div class="p-6">
 
-    <h1 class="text-2xl font-bold mb-6 flex flex-col md:flex-row md:items-center gap-3">
+    <h1 class="mb-6 flex flex-col gap-3 text-2xl font-bold md:flex-row md:items-center">
+
         <div class="flex items-center gap-3">
-            <img src="{% static 'icons/autres.png' %}" alt="Maintenance boite de vitesse" class="w-12 h-12">
+
+            <img
+                src="{% static 'icons/autres.png' %}"
+                alt="{% trans 'Autres maintenances' %}"
+                class="h-12 w-12"
+            >
+
             <div>
                 {% trans "Choisir le type d'intervention pour :" %}
+
                 <span class="font-semibold">
                     {{ exemplaire.voiture_modele.voiture_marque.nom_marque }}
                     {{ exemplaire.voiture_modele.nom_modele }}
+
                     {% if exemplaire.voiture_modele.nom_variante %}
                         {{ exemplaire.voiture_modele.nom_variante }}
                     {% endif %}
                 </span>
             </div>
+
         </div>
 
-        <!-- Plaque -->
         {% include "maintenance/partials/plaque.html" %}
+
     </h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+    <div class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
 
-        <!-- ✅ CHECK-UP → PAGE DÉDIÉE -->
+        <!-- ================================================== -->
+        <!-- BOÎTE DE VITESSES -->
+        <!-- ================================================== -->
 
-        <!-- Boite de vitesses -->
-        <a href="{% url 'boite_de_vitesse:dashboard_boite' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
+        <a
+            href="{% url 'boite_de_vitesse:dashboard_boite' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
                 <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Dashboard boite de vitesses" %}</h2>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}<span class="font-bold">{{ total_int_boite }}</span>
-                    </p>
-                </div>
-                <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Boite de vitesses" style="width:60px; height:60px;">
-            </div>
-        </a>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Dashboard boîte de vitesses" %}
+                    </h2>
 
-        <!-- Boite automatique -->
-        <a href="{% url 'bte_auto:bte_auto_list' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Interventions boite automatique" %}</h2>
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_bte_auto }}</span>
+                        <span class="font-bold">
+                            {{ total_int_boite|default:0 }}
+                        </span>
                     </p>
                 </div>
-                <img src="{% static 'icons/boite-auto.png' %}" alt="Boite automatique" style="width:60px; height:60px;">
+
+                <img
+                    src="{% static 'icons/boite-de-vitesse.png' %}"
+                    alt="{% trans 'Boîte de vitesses' %}"
+                    class="h-[60px] w-[60px]"
+                >
+
             </div>
         </a>
 
-        <!-- Moteur -->
-        <a href="{% url 'moteur:dashboard_moteur' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
+        <!-- ================================================== -->
+        <!-- BOÎTE AUTOMATIQUE -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'bte_auto:bte_auto_list' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
                 <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Intervention moteur" %}</h2>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Interventions boîte automatique" %}
+                    </h2>
+
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_int_moteur }}</span>
+                        <span class="font-bold">
+                            {{ total_bte_auto|default:0 }}
+                        </span>
                     </p>
                 </div>
-                <img src="{% static 'icons/engine.png' %}" alt="Moteur" style="width:60px; height:60px;">
+
+                <img
+                    src="{% static 'icons/boite-auto.png' %}"
+                    alt="{% trans 'Boîte automatique' %}"
+                    class="h-[60px] w-[60px]"
+                >
+
             </div>
         </a>
 
-         <!-- Géométrie -->
-        <a href="{% url 'geometrie:geometrie_list' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
+        <!-- ================================================== -->
+        <!-- MOTEUR -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'moteur:dashboard_moteur' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
                 <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Géometrie" %}</h2>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Interventions moteur" %}
+                    </h2>
+
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_geometrie }}</span>
+                        <span class="font-bold">
+                            {{ total_int_moteur|default:0 }}
+                        </span>
                     </p>
                 </div>
-                <img src="{% static 'icons/geometrie.png' %}" alt="géometrie" style="width:60px; height:60px;">
+
+                <img
+                    src="{% static 'icons/engine.png' %}"
+                    alt="{% trans 'Moteur' %}"
+                    class="h-[60px] w-[60px]"
+                >
+
             </div>
         </a>
 
-          <!-- ABS -->
-        <a href="{% url 'abs:abs_list' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
+        <!-- ================================================== -->
+        <!-- GÉOMÉTRIE -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'geometrie:geometrie_list' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
                 <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Système ABS" %}</h2>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Géométrie" %}
+                    </h2>
+
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_abs }}</span>
+                        <span class="font-bold">
+                            {{ total_geometrie|default:0 }}
+                        </span>
                     </p>
                 </div>
-                <img src="{% static 'icons/abs.png' %}" alt="système abs" style="width:60px; height:60px;">
+
+                <img
+                    src="{% static 'icons/geometrie.png' %}"
+                    alt="{% trans 'Géométrie' %}"
+                    class="h-[60px] w-[60px]"
+                >
+
             </div>
         </a>
 
-            <!-- courroie accessoires-->
-        <a href="{% url 'courroie_accessoires:courroie_list' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
+        <!-- ================================================== -->
+        <!-- ABS -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'abs:abs_list' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
                 <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Courroie d'accessoires" %}</h2>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Système ABS" %}
+                    </h2>
+
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_access }}</span>
+                        <span class="font-bold">
+                            {{ total_abs|default:0 }}
+                        </span>
                     </p>
                 </div>
-                <img src="{% static 'icons/courroie-daccess.png' %}" alt="Courroie d'accessoires" style="width:60px; height:60px;">
+
+                <img
+                    src="{% static 'icons/abs.png' %}"
+                    alt="{% trans 'Système ABS' %}"
+                    class="h-[60px] w-[60px]"
+                >
+
             </div>
         </a>
 
-         <a href="{% url 'echappement:dashboard_echappement' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
+        <!-- ================================================== -->
+        <!-- COURROIE D'ACCESSOIRES -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'courroie_accessoires:courroie_list' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
                 <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Dashboard Echappement" %}</h2>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Courroie d'accessoires" %}
+                    </h2>
+
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_echappement }}</span>
+                        <span class="font-bold">
+                            {{ total_access|default:0 }}
+                        </span>
                     </p>
                 </div>
-                <img src="{% static 'icons/echappement.png' %}" alt="Dashboard echappement" style="width:60px; height:60px;">
+
+                <img
+                    src="{% static 'icons/courroie-daccess.png' %}"
+                    alt="{% trans 'Courroie d’accessoires' %}"
+                    class="h-[60px] w-[60px]"
+                >
+
             </div>
         </a>
 
+        <!-- ================================================== -->
+        <!-- ÉCHAPPEMENT -->
+        <!-- ================================================== -->
 
-        <a href="{% url 'climatisation:clim_list' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
+        <a
+            href="{% url 'echappement:dashboard_echappement' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
                 <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Controle climatisation" %}</h2>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Dashboard échappement" %}
+                    </h2>
+
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_clim }}</span>
+                        <span class="font-bold">
+                            {{ total_echappement|default:0 }}
+                        </span>
                     </p>
                 </div>
-                <img src="{% static 'icons/climatisation.png' %}" alt="Climatisation" style="width:60px; height:60px;">
+
+                <img
+                    src="{% static 'icons/echappement.png' %}"
+                    alt="{% trans 'Échappement' %}"
+                    class="h-[60px] w-[60px]"
+                >
+
             </div>
         </a>
-         <a href="{% url 'refroidissement:ref_list' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
+
+        <!-- ================================================== -->
+        <!-- CLIMATISATION -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'climatisation:clim_list' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
                 <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Controle du refroidissement" %}</h2>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Contrôle de la climatisation" %}
+                    </h2>
+
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_ref }}</span>
+                        <span class="font-bold">
+                            {{ total_clim|default:0 }}
+                        </span>
                     </p>
                 </div>
-                <img src="{% static 'icons/radiateur.png' %}" alt="Système de refroidissement" style="width:60px; height:60px;">
+
+                <img
+                    src="{% static 'icons/climatisation.png' %}"
+                    alt="{% trans 'Climatisation' %}"
+                    class="h-[60px] w-[60px]"
+                >
+
             </div>
         </a>
 
+        <!-- ================================================== -->
+        <!-- REFROIDISSEMENT -->
+        <!-- ================================================== -->
 
+        <a
+            href="{% url 'refroidissement:ref_list' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
+                <div>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Contrôle du refroidissement" %}
+                    </h2>
+
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">
+                            {{ total_ref|default:0 }}
+                        </span>
+                    </p>
+                </div>
+
+                <img
+                    src="{% static 'icons/radiateur.png' %}"
+                    alt="{% trans 'Système de refroidissement' %}"
+                    class="h-[60px] w-[60px]"
+                >
+
+            </div>
+        </a>
 
     </div>
 
-    <br>
-    <br>
-    <div>
-        <a href="{% url 'maintenance:choisir_type' exemplaire.id %}"
-          class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-             {% trans "Retour à la liste des maintenances" %}
+    <!-- ================================================== -->
+    <!-- RETOUR -->
+    <!-- ================================================== -->
+
+    <div class="mt-10">
+
+        <a
+            href="{% url 'maintenance:choisir_type' exemplaire_id=exemplaire.id %}"
+            class="block rounded bg-blue-700 px-5 py-4 text-center font-semibold text-white hover:bg-blue-400"
+        >
+            {% trans "Retour à la liste des maintenances" %}
         </a>
+
     </div>
+
 </div>
-
-
-
 {% endblock %}
+
