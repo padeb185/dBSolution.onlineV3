@@ -131,7 +131,7 @@
         <img src="{% static 'icons/mecanique.png' %}" alt="Maintenance" class="w-[60px] h-[60px]">
     </a>
 
-    <a href="{% url 'fuel:fuel_list' %}"
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/fuel/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
         <div>
             <h2 class="text-lg font-semibold mb-1">{% trans "Carburants" %}</h2>
@@ -140,7 +140,10 @@
                 <span class="font-bold">{{ total_carburant }}</span>
             </p>
         </div>
-        <img src="{% static 'icons/pompe-a-essence.png' %}" alt="Carburant" class="w-[60px] h-[60px]">
+
+        <img src="{% static 'icons/pompe-a-essence.png' %}"
+             alt="{% trans 'Carburant' %}"
+             class="w-[60px] h-[60px]">
     </a>
 
     <a href="{% url 'recharge:recharge_list' %}"

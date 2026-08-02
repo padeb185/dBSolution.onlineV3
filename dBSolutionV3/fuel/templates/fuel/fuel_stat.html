@@ -34,17 +34,23 @@
     </div>
 
     <!-- TVA par pays -->
-    {% for code, tva in totaux_par_pays.items %}
+    {% for pays in totaux_par_pays_affichage %}
         <div class="bg-red-100 p-2 rounded w-28">
             <div class="text-xs text-gray-500">
-                {% if code == "BE" %}{% trans "Belgique" %}
-                {% elif code == "LU" %}{% trans "Luxembourg" %}
-                {% elif code == "DE" %}{% trans "Allemagne" %}
-                {% else %}{{ code }}{% endif %}
+                {{ pays.nom }}
             </div>
-            <div class="text-lg font-bold">{{ tva|floatformat:2 }} €</div>
+
+            <div class="text-lg font-bold">
+                {{ pays.tva|floatformat:2 }} €
+            </div>
+        </div>
+    {% empty %}
+
+        <div class="text-sm text-gray-500">
+            {% trans "Aucun montant de TVA enregistré." %}
         </div>
     {% endfor %}
+
 
     <!-- Total global TVA -->
     <div class="bg-blue-100 p-2 rounded w-32">

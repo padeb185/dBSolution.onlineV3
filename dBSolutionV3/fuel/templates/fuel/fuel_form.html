@@ -74,16 +74,17 @@
                     class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-500 font-semibold text-center">
                 {% trans "Enregistrer" %}
             </button>
-            <a href="{% url 'fuel:fuel_list' %}"
+            <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/fuel/"
                class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
-               {% trans "Annuler" %}
+                {% trans "Annuler" %}
             </a>
         </div>
     </form>
 </div>
 <div class="max-w-xl mx-auto mt-4">
-    <a href="{% url 'fuel:fuel_list' %}"
-        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+   {% get_current_language as LANGUAGE_CODE %}
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/fuel/"
+       class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
         {% trans "Retour à la liste des pleins" %}
     </a>
 </div>

@@ -19,6 +19,71 @@ class TypeCarburant(models.TextChoices):
     ETHANOL = "ETHANOL", _("Ethanol")
 
 class RechargeCarburant(models.Model):
+    PAYS_CHOICES = [
+        ('AT', _("Autriche")),
+        ('BE', _("Belgique")),
+        ('BG', _("Bulgarie")),
+        ('HR', _("Croatie")),
+        ('CY', _("Chypre")),
+        ('CZ', _("Tchéquie")),
+        ('DK', _("Danemark")),
+        ('EE', _("Estonie")),
+        ('FI', _("Finlande")),
+        ('FR', _("France")),
+        ('DE', _("Allemagne")),
+        ('GR', _("Grèce")),
+        ('HU', _("Hongrie")),
+        ('IE', _("Irlande")),
+        ('IT', _("Italie")),
+        ('LV', _("Lettonie")),
+        ('LT', _("Lituanie")),
+        ('LU', _("Luxembourg")),
+        ('MT', _("Malte")),
+        ('NL', _("Pays-Bas")),
+        ('PL', _("Pologne")),
+        ('PT', _("Portugal")),
+        ('RO', _("Roumanie")),
+        ('SK', _("Slovaquie")),
+        ('SI', _("Slovénie")),
+        ('ES', _("Espagne")),
+        ('SE', _("Suède")),
+        ('GB', _("Royaume-Uni")),
+    ]
+
+    # Taux de TVA sur le carburant
+    TVA_CARBURANT = {
+        'AT': 20,
+        'BE': 21,
+        'BG': 20,
+        'HR': 25,
+        'CY': 19,
+        'CZ': 21,
+        'DK': 25,
+        'EE': 24,
+        'FI': 25.5,
+        'FR': 20,
+        'DE': 19,
+        'GR': 24,
+        'HU': 27,
+        'IE': 23,
+        'IT': 22,
+        'LV': 21,
+        'LT': 21,
+        'LU': 17,
+        'MT': 18,
+        'NL': 21,
+        'PL': 23,
+        'PT': 23,
+        'RO': 21,
+        'SK': 23,
+        'SI': 22,
+        'ES': 21,
+        'SE': 25,
+        'GB': 20,
+    }
+
+
+class Fuel(models.Model):
     # Choix des pays
     PAYS_CHOICES = [
         ('AT', _("Autriche")),
@@ -84,8 +149,6 @@ class RechargeCarburant(models.Model):
     }
 
 
-
-class Fuel(models.Model):
     id = models.AutoField(primary_key=True)
 
     societe = models.ForeignKey(
