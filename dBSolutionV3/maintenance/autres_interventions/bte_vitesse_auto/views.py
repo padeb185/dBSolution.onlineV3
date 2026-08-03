@@ -1,5 +1,3 @@
-from decimal import Decimal
-
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -8,7 +6,6 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -19,6 +16,9 @@ from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBte
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from weasyprint import HTML
+
+
+
 
 
 # -----------------------------
@@ -196,7 +196,10 @@ def bte_auto_check_view(request, exemplaire_id):
                     _("Contrôle boite automatique enregistré avec succès.")
                 )
 
-                return redirect(request.path)
+                return redirect(
+                    "bte_auto:bte_auto_list",
+                    exemplaire_id=exemplaire.id,
+                )
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -286,7 +289,7 @@ def modifier_bte_auto_view(request, bte_auto_id):
             )
 
             messages.success(request, _("Contrôle de la boite automatique modifié avec succès !"))
-            return redirect("bte_auto:modifier_bte_auto", bte_auto_id=bte_auto.id)
+            return redirect("bte_auto:bte_auto_detail", bte_auto_id=bte_auto.id)
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
             print(form.errors)

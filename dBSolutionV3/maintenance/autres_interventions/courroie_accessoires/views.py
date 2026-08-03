@@ -10,7 +10,6 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.autres_interventions.courroie_accessoires.forms import CourroieAccessoiresForm
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from maintenance.models import Maintenance
@@ -328,6 +327,9 @@ def modifier_courroie_access_view(request, courroie_accessoires_id):
                     request,
                     _("Remplacement de la courroie d'accessoires modifié avec succès !")
                 )
+                return redirect("courroie_accessoires:courroie_access_detail",
+                                courroie_accessoires_id=courroie_accessoires.id
+                                )
 
             except ValidationError as e:
                 form.add_error(None, e)

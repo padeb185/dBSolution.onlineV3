@@ -10,7 +10,6 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -19,6 +18,10 @@ from django.utils.translation import gettext_lazy as _
 from weasyprint import HTML
 from .forms import ClimForm
 from .models import Climatisation
+
+
+
+
 
 
 
@@ -60,6 +63,10 @@ class ClimListView(ListView):
         context["is_checkup_allowed"] = self.request.user.role in roles_autorises
 
         return context
+
+
+
+
 
 
 @never_cache
@@ -558,7 +565,7 @@ def modifier_clim_view(request, climatisation_id):
             )
 
             messages.success(request, _("Contrôle du système de climatisation modifié avec succès !"))
-            return redirect("climatisation:modifier_clim", climatisation_id=clim.id)
+            return redirect("climatisation:clim_detail", climatisation_id=clim.id)
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
             print(form.errors)

@@ -9,9 +9,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context, schema_context
+from django_tenants.utils import  schema_context
 from maintenance.autres_interventions.echappement.forms import ControleEchappementForm
-from maintenance.autres_interventions.echappement.models import Echappement, EtatOKNotOK
+from maintenance.autres_interventions.echappement.models import Echappement
 from maintenance.models import Maintenance
 from maintenance.types_maintenances import TYPES_MAINTENANCE
 from utilisateurs.models import UserLog
@@ -80,7 +80,7 @@ def dashboard_echappement_view(request, exemplaire_id):
                 description=description
             )
             return redirect(
-                'maintenance:dashboard_echappement',
+                'echappement:dashboard_echappement',
                 exemplaire_id=exemplaire.id
             )
 
@@ -326,8 +326,8 @@ def echappement_check_view(request, exemplaire_id):
 
                     # Redirection indispensable pour éviter un double POST
                     return redirect(
-                        "echappement:echappement_detail",
-                        echappement_id=echappement.id,
+                        "echappement:echappement_list",
+                        exemplaire_id=exemplaire.id,
                     )
 
                 except Exception as e:
@@ -440,7 +440,7 @@ def modifier_echappement_view(request, echappement_id):
             )
 
             return redirect(
-                "echappement:modifier_echappement",
+                "echappement:echappement_detail",
                 echappement_id=echappement.id,
             )
 

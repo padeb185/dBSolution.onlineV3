@@ -9,7 +9,6 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -187,6 +186,8 @@ def geometrie_check_view(request, exemplaire_id):
                     )
 
                 messages.success(request, _("Géometrie enregistrée avec succès."))
+                return redirect("geometrie:geometrie_list", exemplaire_id=exemplaire.id)
+
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -346,7 +347,7 @@ def geometrie_modifier_view(request, geometrie_id):
             )
 
             messages.success(request, _("Contrôle de la géométrie modifié avec succès !"))
-            return redirect("geometrie:geometrie_modifier", geometrie_id=geometrie.id)
+            return redirect("geometrie:geometrie_detail", geometrie_id=geometrie.id)
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
             print(form.errors)
