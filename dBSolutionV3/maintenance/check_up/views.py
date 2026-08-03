@@ -74,148 +74,147 @@ def controle_total_view(request, exemplaire_id):
     tenant = request.user.societe
     role = request.user.role
 
-    with tenant_context(tenant):
+    # 🔎 Récupération exemplaire
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
 
-        # 🔎 Récupération exemplaire
-        exemplaire = get_object_or_404(
-            VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) |
-                Q(client__isnull=True, societe=tenant)
-            ),
-            id=exemplaire_id
+    # 🔐 Vérification rôles
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction"
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # =========================
+    # POST
+    # =========================
+    if request.method == "POST":
+
+        form = CheckupForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
         )
 
-        # 🔐 Vérification rôles
-        roles_autorises = [
-            "mecanicien",
-            "apprenti",
-            "magasinier",
-            "chef_mecanicien",
-            "direction"
-        ]
+        if form.is_valid():
 
-        if role not in roles_autorises:
-            messages.error(request, _("Accès refusé"))
-            return redirect("utilisateurs:dashboard")
+            try:
+                with transaction.atomic():
 
-        # =========================
-        # POST
-        # =========================
-        if request.method == "POST":
+                    km = form.cleaned_data.get("kilometrage_checkup")
 
-            form = CheckupForm(
-                request.POST,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+                    if km is not None:
 
-            if form.is_valid():
+                        # validation
+                        if km < exemplaire.kilometres_chassis:
+                            raise ValueError("KM invalide")
 
-                try:
-                    with transaction.atomic():
+                        exemplaire.kilometres_chassis = km
+                        exemplaire.save()
 
-                        km = form.cleaned_data.get("kilometrage_checkup")
-
-                        if km is not None:
-
-                            # validation
-                            if km < exemplaire.kilometres_chassis:
-                                raise ValueError("KM invalide")
-
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.save()
-
-                        # 🔴 création maintenance
-                        maintenance = Maintenance.objects.create(
-                            societe=request.user.societe,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=exemplaire.kilometres_chassis,
-                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.CHECKUP,
-                            tag=Maintenance.Tag.JAUNE,
-                        )
-
-                        # 🔴 rôle
-                        if role == "mecanicien":
-                            maintenance.mecanicien = Mecanicien.objects.get(id=request.user.id)
-
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = ChefMecanicien.objects.get(id=request.user.id)
-
-                        elif role == "apprenti":
-                            maintenance.apprentis = Apprenti.objects.get(id=request.user.id)
-
-                        elif role == "magasinier":
-                            maintenance.magasinier = Magasinier.objects.get(id=request.user.id)
-
-                        elif role == "direction":
-                            maintenance.direction = Direction.objects.get(id=request.user.id)
-
-                        maintenance.save()
-
-                        # 🔴 checkup
-                        checkup = form.save(commit=False)
-
-                        checkup.voiture_exemplaire = exemplaire
-                        checkup.maintenance = maintenance
-
-                        checkup.kilometrage_checkup = km
-                        checkup.kilometres_chassis = exemplaire.kilometres_chassis
-
-                        # 👨‍🔧 technicien
-                        checkup.assign_technicien(request.user)
-
-                        # 👨‍🔧 dernier technicien maintenance
-                        checkup.tech_last_maintained_by = request.user
-
-                        checkup.save()
-
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=_("Checkup - %(immatriculation)s") % {
-                                "immatriculation": exemplaire.immatriculation
-                            }
-                        )
-
-                    messages.success(
-                        request,
-                        _("Checkup enregistré avec succès.")
+                    # 🔴 création maintenance
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.CHECKUP,
+                        tag=Maintenance.Tag.JAUNE,
                     )
 
-                except Exception as e:
-                    messages.error(request, f"Erreur : {e}")
+                    # 🔴 rôle
+                    if role == "mecanicien":
+                        maintenance.mecanicien = Mecanicien.objects.get(id=request.user.id)
 
-            else:
-                print("FORM INVALID:", form.errors)
-                messages.error(
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = ChefMecanicien.objects.get(id=request.user.id)
+
+                    elif role == "apprenti":
+                        maintenance.apprentis = Apprenti.objects.get(id=request.user.id)
+
+                    elif role == "magasinier":
+                        maintenance.magasinier = Magasinier.objects.get(id=request.user.id)
+
+                    elif role == "direction":
+                        maintenance.direction = Direction.objects.get(id=request.user.id)
+
+                    maintenance.save()
+
+                    # 🔴 checkup
+                    checkup = form.save(commit=False)
+
+                    checkup.voiture_exemplaire = exemplaire
+                    checkup.maintenance = maintenance
+
+                    checkup.kilometrage_checkup = km
+                    checkup.kilometres_chassis = exemplaire.kilometres_chassis
+
+                    # 👨‍🔧 technicien
+                    checkup.assign_technicien(request.user)
+
+                    # 👨‍🔧 dernier technicien maintenance
+                    checkup.tech_last_maintained_by = request.user
+
+                    checkup.save()
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Checkup - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
+
+                messages.success(
                     request,
-                    _("Le formulaire contient des erreurs.")
+                    _("Checkup enregistré avec succès.")
                 )
-        # =========================
-        # GET
-        # =========================
+                return redirect("check_up:checkup_list", exemplaire_id=exemplaire.id)
+
+            except Exception as e:
+                messages.error(request, f"Erreur : {e}")
+
         else:
-
-            checkup = Checkup(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
+            print("FORM INVALID:", form.errors)
+            messages.error(
+                request,
+                _("Le formulaire contient des erreurs.")
             )
-            checkup.assign_technicien(request.user)
+    # =========================
+    # GET
+    # =========================
+    else:
 
-            form = CheckupForm(
-                instance=checkup,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+        checkup = Checkup(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=exemplaire.kilometres_chassis
+        )
+        checkup.assign_technicien(request.user)
 
-        return render(request, "check_up/controle_total.html", {
-            "exemplaire": exemplaire,
-            "immatriculation": exemplaire.immatriculation,
-            "form": form,
-            "now": timezone.now(),
-        })
+        form = CheckupForm(
+            instance=checkup,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+    return render(request, "check_up/controle_total.html", {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "form": form,
+        "now": timezone.now(),
+    })
 
 
 
@@ -284,7 +283,7 @@ def modifier_checkup_view(request, checkup_id):
                 )
 
                 return redirect(
-                    "check_up:modifier_checkup",
+                    "check_up:checkup_detail",
                     checkup_id=checkup.id,
                 )
 

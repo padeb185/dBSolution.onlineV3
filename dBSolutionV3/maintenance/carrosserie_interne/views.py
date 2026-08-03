@@ -1,5 +1,4 @@
 from django.template.loader import render_to_string
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -12,7 +11,6 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from utilisateurs.models import UserLog
 from weasyprint import HTML
 from .forms import CarrosserieInterneForm
@@ -198,6 +196,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                     )
 
                 messages.success(request, _("Intervention carrosserie enregistrée avec succès."))
+                return redirect("carrosserie_interne:carrosserie_interne_list", exemplaire_id=exemplaire.id)
 
             except Exception as e:
                 messages.error(request, _(f"Erreur : {str(e)}"))
@@ -681,6 +680,7 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
             )
 
             messages.success(request, _("Carrosserie modifiée avec succès !"))
+            return redirect("carrosserie_interne:carrosserie_interne_detail", carrosserie_interne_id=carrosserie_interne_id)
 
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))

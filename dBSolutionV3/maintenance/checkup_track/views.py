@@ -1,4 +1,3 @@
-from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -9,7 +8,6 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -206,6 +204,7 @@ def track_check_form_view(request, exemplaire_id):
                     request,
                     _("Checkup piste enregistré avec succès.")
                 )
+                return redirect("checkup_track:checkup_track_list", exemplaire_id=exemplaire.id)
 
             except Exception as e:
 
@@ -298,7 +297,7 @@ def modifier_checkup_track_view(request, checkup_track_id):
             messages.success(request, _("Checkup piste modifié avec succès !"))
 
             return redirect(
-                "checkup_track:modifier_checkup_track",
+                "checkup_track:checkup_track_detail",
                 checkup_track_id=checkup_track.id
             )
 

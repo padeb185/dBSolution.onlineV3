@@ -10,7 +10,6 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.autres_interventions.refroidissement.forms import RefForm
 from maintenance.autres_interventions.refroidissement.models import Refroidissement
 from maintenance.models import Maintenance
@@ -531,6 +530,7 @@ def modifier_ref_view(request, ref_id):
             )
 
             messages.success(request, _("Contrôle du système de refroidissement modifié avec succès !"))
+            return redirect("refroidissement:ref_detail", ref_id=ref.id)
 
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
