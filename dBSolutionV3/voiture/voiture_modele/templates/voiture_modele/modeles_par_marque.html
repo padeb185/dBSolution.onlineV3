@@ -5,9 +5,9 @@
 <div class="p-6 w-full ml-[-10px] mr-[10px]">
 
     <h1 class="text-2xl font-bold mb-6">
-        {% blocktrans with nom_marque=marque.nom_marque %}
-            Modèles de {{ nom_marque }}
-        {% endblocktrans %}
+    {% blocktrans trimmed with nom_marque=marque.nom_marque %}
+        Modèles de {{ nom_marque }}
+    {% endblocktrans %}
     </h1>
 
     <div class="mb-6">

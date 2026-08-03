@@ -22061,11 +22061,8 @@ msgstr "No model registered for this brand."
 
 #: voiture/voiture_modele/templates/voiture_modele/modeles_par_marque.html:8
 #, python-format
-msgid ""
-"\n"
-"            Modèles de %(nom_marque)s\n"
-"        "
-msgstr ""
+msgid "Modèles de %(nom_marque)s"
+msgstr "%(nom_marque)s Models"
 
 #: voiture/voiture_modele/templates/voiture_modele/modifier_voiture_modele_view.html:12
 msgid "Modifier le modèle:"
