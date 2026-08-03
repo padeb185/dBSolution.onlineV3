@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-03 15:26+0200\n"
+"POT-Creation-Date: 2026-08-03 16:20+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -22868,10 +22868,7 @@ msgstr ""
 
 #: voiture/voiture_modele/templates/voiture_modele/modeles_par_marque.html:8
 #, python-format
-msgid ""
-"\n"
-"            Modèles de %(nom_marque)s\n"
-"        "
+msgid "Modèles de %(nom_marque)s"
 msgstr ""
 
 #: voiture/voiture_modele/templates/voiture_modele/modifier_voiture_modele_view.html:12
