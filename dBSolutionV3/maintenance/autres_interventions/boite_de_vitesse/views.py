@@ -189,6 +189,10 @@ def boite_check_view(request, exemplaire_id):
                     )
 
                 messages.success(request, _("Checkup de la boite de vitesse enregistré avec succès."))
+                return redirect(
+                    "boite_de_vitesse:boite_list",
+                    exemplaire_id=boite.voiture_exemplaire_id,
+                )
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -271,7 +275,12 @@ def modifier_boite_view(request, boite_id):
                 }
             )
             messages.success(request, _("Checkup de la boite de vitesse modifié avec succès !"))
-            return redirect("boite_de_vitesse:modifier_boite", boite_id=boite.id)
+            return redirect(
+                "boite_de_vitesse:boite_detail",
+                boite_id=boite.id,
+            )
+
+
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
             print(form.errors)

@@ -1,5 +1,4 @@
 import re
-
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db import models, transaction
@@ -18,7 +17,6 @@ from .models import RemplacementBoite
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
-from django_tenants.utils import tenant_context
 from weasyprint import HTML
 
 
@@ -178,13 +176,17 @@ def remplacement_boite_form_view(request, exemplaire_id):
 
                     # ➕ compteur (si champ existe)
                     if remplacement_boite.pk:
-                        exemplaire.nombre_remplacements_boites = F("nombre_remplacements_boites")
+                        exemplaire.nombre_remplacements_boites = F("nombre_remplacements_boites") + 1
                         exemplaire.save(update_fields=["nombre_remplacements_boites"])
                         exemplaire.refresh_from_db()
 
                 messages.success(
                     request,
                     _("Remplacement de la boîte enregistré avec succès")
+                )
+                return redirect(
+                    "remplacement_boite:remplacement_boite_list",
+                    exemplaire_id=exemplaire.id,
                 )
 
             except Exception as e:
@@ -324,7 +326,7 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
                 messages.success(request, _("Remplacement de la boite modifié avec succès !"))
 
                 return redirect(
-                    "remplacement_boite:modifier_remplacement_boite",
+                    "remplacement_boite:remplacement_boite_detail",
                     remplacement_boite_id=remplacement_boite.id
                 )
 

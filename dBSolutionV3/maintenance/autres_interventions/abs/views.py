@@ -10,16 +10,13 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from decimal import Decimal
-
 from weasyprint import HTML
-
 from .forms import AbsForm
 from .models import Abs
 from ...checkup_track.models import EtatOKNotOK
@@ -186,6 +183,10 @@ def abs_form_view(request, exemplaire_id):
                     )
 
                 messages.success(request, _("Contrôle du système ABS enregistré avec succès."))
+                return redirect(
+                    "abs:abs_list",
+                    exemplaire_id=exemplaire.id,
+                )
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -329,7 +330,7 @@ def modifier_abs_view(request, abs_id):
             )
 
             messages.success(request, _("Contrôle du système ABS modifié avec succès !"))
-            return redirect("abs:modifier_abs", abs_id=abs.id)
+            return redirect("abs:abs_detail", abs_id=abs.id)
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
             print(form.errors)
