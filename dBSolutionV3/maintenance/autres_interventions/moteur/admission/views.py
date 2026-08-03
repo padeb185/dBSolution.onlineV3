@@ -1,39 +1,29 @@
-from datetime import datetime
 from decimal import Decimal
-
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.contrib import messages
-from django.db import transaction, models
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import never_cache
-from django.views.generic import ListView
+from django.db import transaction
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
-from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from weasyprint import HTML
 from .forms import AdmissionForm
-from .models import Admission
-
-
-
-
 from django.contrib.auth.decorators import login_required
 from django.db import models
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-
 from .models import Admission
+
+
+
+
 
 @method_decorator([login_required, never_cache], name="dispatch")
 class AdmissionListView(ListView):
@@ -103,190 +93,188 @@ def admission_check_view(request, exemplaire_id):
     maintenance = None
     admission = None
 
-    with tenant_context(tenant):
 
-        # 🔎 Récupération exemplaire
-        exemplaire = get_object_or_404(
-            VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) |
-                Q(client__isnull=True, societe=tenant)
-            ),
-            id=exemplaire_id
+
+    # 🔎 Récupération exemplaire
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
+
+    # 🔐 rôles autorisés
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction"
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # =========================
+    # POST
+    # =========================
+    if request.method == "POST":
+
+        form = AdmissionForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
         )
 
-        # 🔐 rôles autorisés
-        roles_autorises = [
-            "mecanicien",
-            "apprenti",
-            "magasinier",
-            "chef_mecanicien",
-            "direction"
-        ]
+        if form.is_valid():
+            try:
+                with transaction.atomic():
 
-        if role not in roles_autorises:
-            messages.error(request, _("Accès refusé"))
-            return redirect("utilisateurs:dashboard")
+                    admission = form.save(commit=False)
 
-        # =========================
-        # POST
-        # =========================
-        if request.method == "POST":
+                    # Taux choisi dans le formulaire
+                    taux_horaire = form.cleaned_data.get("taux_horaire")
 
-            form = AdmissionForm(
-                request.POST,
-                user=request.user,
-                exemplaire=exemplaire
-            )
 
-            if form.is_valid():
-                try:
-                    with transaction.atomic():
+                    if taux_horaire is not None:
+                        admission.taux_horaire = taux_horaire
 
-                        admission = form.save(commit=False)
+                    km = form.cleaned_data.get("kilometrage_admission")
 
-                        # Taux choisi dans le formulaire
-                        taux_horaire = form.cleaned_data.get("taux_horaire")
+                    if km is not None:
+                        km = int(km)
+                        ancien_km = exemplaire.kilometres_chassis or 0
 
-                        print("Taux POST :", request.POST.getlist("taux_horaire"))
-                        print("Taux nettoyé :", taux_horaire)
+                        if km < ancien_km:
+                            form.add_error(
+                                "kilometrage_admission",
+                                _("Le kilométrage ne peut pas diminuer.")
+                            )
+                            raise ValueError(_("Kilométrage invalide."))
 
-                        if taux_horaire is not None:
-                            admission.taux_horaire = taux_horaire
+                        exemplaire.kilometres_chassis = km
+                        exemplaire.date_derniere_intervention = timezone.now().date()
+                        exemplaire.update_kilometres()
+                        exemplaire.save()
+                    else:
+                        km = exemplaire.kilometres_chassis or 0
 
-                        km = form.cleaned_data.get("kilometrage_admission")
+                    admission.voiture_exemplaire = exemplaire
+                    admission.kilometres_chassis = exemplaire.kilometres_chassis
+                    admission.kilometrage_admission = km
+                    admission.assign_technicien(request.user)
 
-                        if km is not None:
-                            km = int(km)
-                            ancien_km = exemplaire.kilometres_chassis or 0
-
-                            if km < ancien_km:
-                                form.add_error(
-                                    "kilometrage_admission",
-                                    _("Le kilométrage ne peut pas diminuer.")
-                                )
-                                raise ValueError(_("Kilométrage invalide."))
-
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.date_derniere_intervention = timezone.now().date()
-                            exemplaire.update_kilometres()
-                            exemplaire.save()
-                        else:
-                            km = exemplaire.kilometres_chassis or 0
-
-                        admission.voiture_exemplaire = exemplaire
-                        admission.kilometres_chassis = exemplaire.kilometres_chassis
-                        admission.kilometrage_admission = km
-                        admission.assign_technicien(request.user)
-
-                        maintenance = Maintenance.objects.create(
-                            societe=request.user.societe,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=exemplaire.kilometres_chassis,
-                            kilometres_dernier_entretien=(
-                                    exemplaire.kilometres_dernier_entretien or 0
-                            ),
-                            type_maintenance=Maintenance.TypeMaintenance.ADMISSION,
-                            tag=Maintenance.Tag.JAUNE,
-                        )
-
-                        if role == "mecanicien":
-                            maintenance.mecanicien = request.user
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = request.user
-                        elif role == "apprenti":
-                            maintenance.apprentis.add(request.user)
-                        elif role == "magasinier":
-                            maintenance.magasinier = request.user
-                        elif role == "direction":
-                            maintenance.direction = request.user
-
-                        maintenance.save()
-
-                        admission.maintenance = maintenance
-                        admission.save()
-
-                        form.save_m2m()
-
-                        # Vérification après enregistrement
-                        admission.refresh_from_db()
-                        print("Taux réellement enregistré :", admission.taux_horaire)
-
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=_("Admission - %(immatriculation)s") % {
-                                "immatriculation": exemplaire.immatriculation
-                            }
-                        )
-
-                    messages.success(
-                        request,
-                        _("Contrôle de l'admission enregistré avec succès.")
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=(
+                                exemplaire.kilometres_dernier_entretien or 0
+                        ),
+                        type_maintenance=Maintenance.TypeMaintenance.ADMISSION,
+                        tag=Maintenance.Tag.JAUNE,
                     )
 
-                    return redirect(
-                        "admission:admission_detail",
-                        admission_id=admission.id
-                    )
+                    if role == "mecanicien":
+                        maintenance.mecanicien = request.user
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
+                    elif role == "apprenti":
+                        maintenance.apprentis.add(request.user)
+                    elif role == "magasinier":
+                        maintenance.magasinier = request.user
+                    elif role == "direction":
+                        maintenance.direction = request.user
 
-                except Exception as e:
-                    messages.error(
-                        request,
-                        _("Erreur lors de l'enregistrement : %(erreur)s") % {
-                            "erreur": str(e)
+                    maintenance.save()
+
+                    admission.maintenance = maintenance
+                    admission.save()
+
+                    form.save_m2m()
+
+                    # Vérification après enregistrement
+                    admission.refresh_from_db()
+
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Admission - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
                         }
                     )
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
 
-        # =========================
-        # GET
-        # =========================
+                messages.success(
+                    request,
+                    _("Contrôle de l'admission enregistré avec succès.")
+                )
+
+                return redirect(
+                    "admission:admission_list",
+                    exemplaire_id=exemplaire.id,
+                )
+
+            except Exception as e:
+                messages.error(
+                    request,
+                    _("Erreur lors de l'enregistrement : %(erreur)s") % {
+                        "erreur": str(e)
+                    }
+                )
         else:
-            admission = Admission(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
 
-            admission.assign_technicien(request.user)
+    # =========================
+    # GET
+    # =========================
+    else:
+        admission = Admission(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=exemplaire.kilometres_chassis
+        )
 
-            form = AdmissionForm(
-                instance=admission,
-                user=request.user,
-                exemplaire=exemplaire
-            )
+        admission.assign_technicien(request.user)
 
-        # --- Sections ---
-        section_templates = [
-            {"title": _("Kilométrage"), "icon": "icons/compteur.png", "filter": "kilo"},
-            {"title": _("Filtre à air"), "icon": "icons/filtre-a-air.png", "filter": "filtre_air_pc"},
-            {"title": _("Boitier de Filtre à air"), "icon": "icons/filtre-a-air.png", "filter": "boitier"},
-            {"title": _("Débitmètre"), "icon": "icons/capteurs.png", "filter": "debitmetre"},
-            {"title": _("Capteur MAP"), "icon": "icons/capteurs.png", "filter": "capteur_map"},
-            {"title": _("Capteur de temperature d'air"), "icon": "icons/capteurs.png", "filter": "capteur_temperature"},
-            {"title": _("Boitier papillon"), "icon": "icons/boitier_papillon.png", "filter": "corps_papillon"},
-            {"title": _("Collecteur d'admission"), "icon": "icons/admission.png", "filter": "collecteur"},
-            {"title": _("Turbo"), "icon": "icons/turbo.png", "filter": "turbo"},
-            {"title": _("Intercooler"), "icon": "icons/intercooler.png", "filter": "intercooler"},
-            {"title": _("Vanne EGR"), "icon": "icons/vanne.png", "filter": "vanne_"},
-            {"title": _("Durites d'admission"), "icon": "icons/durite.png", "filter": "durites_admission"},
-            {"title": _("Joints"), "icon": "icons/joint_admission.png", "filter": "joints_admission"},
-            {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
-            {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
-            {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
-            {"title": _("Main d'oeuvre"), "icon": "icons/taux.png", "filter": "taux_"},
-        ]
+        form = AdmissionForm(
+            instance=admission,
+            user=request.user,
+            exemplaire=exemplaire
+        )
 
-        sections = [
-            {
-                "title": s["title"],
-                "icon": s["icon"],
-                "fields": [f for f in form if s["filter"] in f.name]
-            }
-            for s in section_templates
-        ]
+    # --- Sections ---
+    section_templates = [
+        {"title": _("Kilométrage"), "icon": "icons/compteur.png", "filter": "kilo"},
+        {"title": _("Filtre à air"), "icon": "icons/filtre-a-air.png", "filter": "filtre_air_pc"},
+        {"title": _("Boitier de Filtre à air"), "icon": "icons/filtre-a-air.png", "filter": "boitier"},
+        {"title": _("Débitmètre"), "icon": "icons/capteurs.png", "filter": "debitmetre"},
+        {"title": _("Capteur MAP"), "icon": "icons/capteurs.png", "filter": "capteur_map"},
+        {"title": _("Capteur de temperature d'air"), "icon": "icons/capteurs.png", "filter": "capteur_temperature"},
+        {"title": _("Boitier papillon"), "icon": "icons/boitier_papillon.png", "filter": "corps_papillon"},
+        {"title": _("Collecteur d'admission"), "icon": "icons/admission.png", "filter": "collecteur"},
+        {"title": _("Turbo"), "icon": "icons/turbo.png", "filter": "turbo"},
+        {"title": _("Intercooler"), "icon": "icons/intercooler.png", "filter": "intercooler"},
+        {"title": _("Vanne EGR"), "icon": "icons/vanne.png", "filter": "vanne_"},
+        {"title": _("Durites d'admission"), "icon": "icons/durite.png", "filter": "durites_admission"},
+        {"title": _("Joints"), "icon": "icons/joint_admission.png", "filter": "joints_admission"},
+        {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
+        {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
+        {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
+        {"title": _("Main d'oeuvre"), "icon": "icons/taux.png", "filter": "taux_"},
+    ]
+
+    sections = [
+        {
+            "title": s["title"],
+            "icon": s["icon"],
+            "fields": [f for f in form if s["filter"] in f.name]
+        }
+        for s in section_templates
+    ]
 
     return render(request, 'admission/admission_check.html', {
         "exemplaire": exemplaire,
@@ -321,140 +309,140 @@ def admission_detail_view(request, admission_id):
 def modifier_admission_view(request, admission_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        # Récupération de l'admission avec son exemplaire
-        admission = get_object_or_404(
-            Admission.objects.select_related("voiture_exemplaire"),
-            id=admission_id
+
+    # Récupération de l'admission avec son exemplaire
+    admission = get_object_or_404(
+        Admission.objects.select_related("voiture_exemplaire"),
+        id=admission_id
+    )
+    exemplaire = admission.voiture_exemplaire
+    # -------------------------
+    # POST
+    # -------------------------
+    if request.method == "POST":
+        form = AdmissionForm(
+            request.POST,
+            instance=admission,
+            user=request.user,
+            exemplaire=admission.voiture_exemplaire
         )
-        exemplaire = admission.voiture_exemplaire
-        # -------------------------
-        # POST
-        # -------------------------
-        if request.method == "POST":
-            form = AdmissionForm(
-                request.POST,
-                instance=admission,
-                user=request.user,
-                exemplaire=admission.voiture_exemplaire
+
+        if form.is_valid():
+            form.save()
+
+            UserLog.objects.create(
+                utilisateur=request.user,
+                action=_("Modification admission - %(immatriculation)s") % {
+                    "immatriculation": exemplaire.immatriculation
+                }
             )
 
-            if form.is_valid():
-                form.save()
-
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Modification admission - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
-                )
-
-                messages.success(request, _("Contrôle de l'admission modifié avec succès !"))
-                return redirect("admission:modifier_admission", admission_id=admission.id)
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
-
-        # -------------------------
-        # GET
-        # -------------------------
+            messages.success(request, _("Contrôle de l'admission modifié avec succès !"))
+            return redirect("admission:admission_detail", admission_id=admission.id)
         else:
-            form = AdmissionForm(
-                instance=admission,
-                user=request.user,
-                exemplaire=admission.voiture_exemplaire
-            )
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
 
-        # -------------------------
-        # Sections pour le template
-        # -------------------------
-        sections = [
-            {
-                "title": _("Kilométrage"),
-                "icon": "icons/compteur.png",
-                "fields": [form[f.name] for f in form if "kilo" in f.name],
-            },
-            {
-                "title": _("Filtre à air"),
-                "icon": "icons/filtre-a-air.png",
-                "fields": [form[f.name] for f in form if "filtre_air_p" in f.name],
-            },
-            {
-                "title": _("Boitier de Filtre à air"),
-                "icon": "icons/filtre-a-air.png",
-                "fields": [form[f.name] for f in form if "boitier" in f.name],
-            },
-            {
-                "title": _("Débitmètre"),
-                "icon": "icons/capteurs.png",
-                "fields": [form[f.name] for f in form if "debitmetre" in f.name],
-            },
-            {
-                "title": _("Capteur MAP"),
-                "icon": "icons/capteurs.png",
-                "fields": [form[f.name] for f in form if "capteur_map" in f.name],
-            },
-            {
-                "title": _("Capteur de température d'air"),
-                "icon": "icons/capteurs.png",
-                "fields": [form[f.name] for f in form if "capteur_temperature" in f.name],
-            },
-            {
-                "title": _("Boitier papillon"),
-                "icon": "icons/boitier_papillon.png",
-                "fields": [form[f.name] for f in form if "corps_papillon" in f.name],
-            },
-            {
-                "title": _("Collecteur d'admission"),
-                "icon": "icons/admission.png",
-                "fields": [form[f.name] for f in form if "collecteur" in f.name],
-            },
-            {
-                "title": _("Turbo"),
-                "icon": "icons/turbo.png",
-                "fields": [form[f.name] for f in form if "turbo" in f.name],
-            },
-            {
-                "title": _("Intercooler"),
-                "icon": "icons/intercooler.png",
-                "fields": [form[f.name] for f in form if "intercooler" in f.name],
-            },
-            {
-                "title": _("Vanne EGR"),
-                "icon": "icons/vanne.png",
-                "fields": [form[f.name] for f in form if "vanne_" in f.name],
-            },
-            {
-                "title": _("Durites d'admission"),
-                "icon": "icons/durite.png",
-                "fields": [form[f.name] for f in form if "durites_admission" in f.name],
-            },
-            {
-                "title": _("Joints"),
-                "icon": "icons/joint_admission.png",
-                "fields": [form[f.name] for f in form if "joints_admission" in f.name],
-            },
-            {
-                "title": _("Etiquette"),
-                "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "tag" in f.name],
-            },
-            {
-                "title": _("Remarques"),
-                "icon": "icons/notes.png",
-                "fields": [form[f.name] for f in form if "remarques" in f.name],
-            },
-            {
-                "title": _("Technicien"),
-                "icon": "icons/mecanicien.png",
-                "fields": [form[f.name] for f in form if "tech" in f.name],
-            },
-            {
-                "title": _("Taux horaire"),
-                "icon": "icons/taux.png",
-                "fields": [form[f.name] for f in form if "taux" in f.name],
-            },
-        ]
+    # -------------------------
+    # GET
+    # -------------------------
+    else:
+        form = AdmissionForm(
+            instance=admission,
+            user=request.user,
+            exemplaire=admission.voiture_exemplaire
+        )
+
+    # -------------------------
+    # Sections pour le template
+    # -------------------------
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [form[f.name] for f in form if "kilo" in f.name],
+        },
+        {
+            "title": _("Filtre à air"),
+            "icon": "icons/filtre-a-air.png",
+            "fields": [form[f.name] for f in form if "filtre_air_p" in f.name],
+        },
+        {
+            "title": _("Boitier de Filtre à air"),
+            "icon": "icons/filtre-a-air.png",
+            "fields": [form[f.name] for f in form if "boitier" in f.name],
+        },
+        {
+            "title": _("Débitmètre"),
+            "icon": "icons/capteurs.png",
+            "fields": [form[f.name] for f in form if "debitmetre" in f.name],
+        },
+        {
+            "title": _("Capteur MAP"),
+            "icon": "icons/capteurs.png",
+            "fields": [form[f.name] for f in form if "capteur_map" in f.name],
+        },
+        {
+            "title": _("Capteur de température d'air"),
+            "icon": "icons/capteurs.png",
+            "fields": [form[f.name] for f in form if "capteur_temperature" in f.name],
+        },
+        {
+            "title": _("Boitier papillon"),
+            "icon": "icons/boitier_papillon.png",
+            "fields": [form[f.name] for f in form if "corps_papillon" in f.name],
+        },
+        {
+            "title": _("Collecteur d'admission"),
+            "icon": "icons/admission.png",
+            "fields": [form[f.name] for f in form if "collecteur" in f.name],
+        },
+        {
+            "title": _("Turbo"),
+            "icon": "icons/turbo.png",
+            "fields": [form[f.name] for f in form if "turbo" in f.name],
+        },
+        {
+            "title": _("Intercooler"),
+            "icon": "icons/intercooler.png",
+            "fields": [form[f.name] for f in form if "intercooler" in f.name],
+        },
+        {
+            "title": _("Vanne EGR"),
+            "icon": "icons/vanne.png",
+            "fields": [form[f.name] for f in form if "vanne_" in f.name],
+        },
+        {
+            "title": _("Durites d'admission"),
+            "icon": "icons/durite.png",
+            "fields": [form[f.name] for f in form if "durites_admission" in f.name],
+        },
+        {
+            "title": _("Joints"),
+            "icon": "icons/joint_admission.png",
+            "fields": [form[f.name] for f in form if "joints_admission" in f.name],
+        },
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [form[f.name] for f in form if "tag" in f.name],
+        },
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [form[f.name] for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [form[f.name] for f in form if "tech" in f.name],
+        },
+        {
+            "title": _("Taux horaire"),
+            "icon": "icons/taux.png",
+            "fields": [form[f.name] for f in form if "taux" in f.name],
+        },
+    ]
 
     return render(
         request,

@@ -6,7 +6,6 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.autres_interventions.moteur.rodage.forms import RodageForm
 from maintenance.autres_interventions.moteur.rodage.models import Rodage
 from maintenance.models import Maintenance
@@ -199,6 +198,7 @@ def rodage_check_view(request, exemplaire_id):
                 )
 
                 messages.success(request, _("Rodage enregistré avec succès."))
+                return redirect("rodage:rodage_list", exemplaire_id=exemplaire.id)
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -295,7 +295,7 @@ def modifier_rodage_view(request, rodage_id):
             )
 
             messages.success(request, _("rodage modifié avec succès !"))
-            return redirect("rodage:modifier_rodage", rodage_id=rodage.id)
+            return redirect("rodage:rodage_detail", rodage_id=rodage.id)
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
             print(form.errors)

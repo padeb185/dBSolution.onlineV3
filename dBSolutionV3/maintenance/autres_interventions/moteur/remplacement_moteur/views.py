@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db import models, transaction
-from django_tenants.utils import tenant_context
 from utilisateurs.models import UserLog
 from django.contrib import messages
 from maintenance.models import Maintenance
@@ -178,6 +177,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                     request,
                     _("Remplacement du moteur enregistré avec succès")
                 )
+                return redirect("remplacement_moteur:remplacement_moteur_list", exemplaire_id=exemplaire.id)
 
             except Exception as e:
                 messages.error(request, str(e))
@@ -318,7 +318,7 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
 
                 messages.success(request, _("Remplacement du moteur modifié avec succès !"))
                 return redirect(
-                    "remplacement_moteur:modifier_remplacement_moteur",
+                    "remplacement_moteur:remplacement_moteur_detail",
                     remplacement_moteur_id=remplacement_moteur.id
                 )
 

@@ -9,7 +9,6 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -67,6 +66,8 @@ class AlternateurListView(ListView):
         context["is_checkup_allowed"] = self.request.user.role in roles_autorises
 
         return context
+
+
 
 @never_cache
 @login_required
@@ -217,8 +218,8 @@ def alternateur_check_view(request, exemplaire_id):
                 )
 
                 return redirect(
-                    "alternateur:alternateur_detail",
-                    controle_alternateur.pk,
+                    "alternateur:alternateur_list",
+                    exemplaire_id=exemplaire.id,
                 )
 
             except ValueError as erreur:
@@ -426,7 +427,7 @@ def modifier_alternateur_view(request, alternateur_id):
             )
 
             messages.success(request, _("Contrôle de l'alternateur modifié avec succès !"))
-            return redirect("alternateur:modifier_alternateur", alternateur_id=alternateur.id)
+            return redirect("alternateur:alternateur_detail", alternateur_id=alternateur.id)
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
             print(form.errors)

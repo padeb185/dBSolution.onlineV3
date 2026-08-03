@@ -10,7 +10,6 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -190,6 +189,7 @@ def courroie_form_view(request, exemplaire_id):
                     )
 
                     messages.success(request, _("Check de la  courroie de distribution enregistré avec succès."))
+                    return redirect("courroie:courroie_list", exemplaire_id=exemplaire.id)
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -336,7 +336,7 @@ def modifier_courroie_view(request, courroie_id):
                     _("Remplacement de la courroie de distribution modifié avec succès !")
                 )
                 return redirect(
-                    "courroie:modifier_courroie",
+                    "courroie:courroie_detail",
                     courroie_id=courroie.id
                 )
 

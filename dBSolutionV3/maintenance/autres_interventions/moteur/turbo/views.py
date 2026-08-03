@@ -9,7 +9,6 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -203,6 +202,8 @@ def turbo_check_view(request, exemplaire_id):
                     request,
                     _("Check turbo enregistré avec succès.")
                 )
+                return redirect("turbo:turbo_list", exemplaire_id=exemplaire.id)
+
             except Exception as e:
                 messages.error(request,_(f"Erreur lors de l'enregistrement : {str(e)}")
                 )
@@ -298,7 +299,7 @@ def modifier_turbo_view(request, turbo_id):
             )
 
             messages.success(request, _("Contrôle du turbo modifié avec succès !"))
-            return redirect("turbo:modifier_turbo", turbo_id=turbo.id)
+            return redirect("turbo:turbo_detail", turbo_id=turbo.id)
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
             print(form.errors)
