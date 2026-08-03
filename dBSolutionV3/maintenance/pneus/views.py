@@ -15,7 +15,6 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.utils import timezone
-from django_tenants.utils import tenant_context
 from weasyprint import HTML
 from .models import ControlePneus
 from django.core.exceptions import ValidationError
@@ -185,6 +184,7 @@ def controle_pneus_view(request, exemplaire_id):
                     )
 
                     messages.success(request, _("Contrôle pneus enregistré avec succès."))
+                    return redirect("pneus:pneus_list", exemplaire_id=exemplaire.id)
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -270,7 +270,7 @@ def modifier_pneus_view(request, pneu_id):
                 messages.success(request, _("Contrôle des pneus modifié avec succès !"))
 
                 return redirect(
-                    "pneus:modifier_pneus",
+                    "pneus:pneus_detail",
                     pneu_id=pneus.id
                 )
 

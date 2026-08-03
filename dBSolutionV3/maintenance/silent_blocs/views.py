@@ -176,6 +176,7 @@ def silent_check_view(request, exemplaire_id):
                     silent.save()
 
                 messages.success(request, _("Controle des silent blocs enregistré avec succès."))
+                return redirect("silent_blocs:silent_list", exemplaire_id=exemplaire.id)
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -250,6 +251,7 @@ def modifier_silent_view(request, silent_id):
         if form.is_valid():
             form.save()
             messages.success(request, _("Contrôle des silent blocs modifié avec succès !"))
+            return redirect("silent_blocs:silent_detail", silent_id=silent.id)
 
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))

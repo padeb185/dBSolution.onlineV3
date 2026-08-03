@@ -6,7 +6,6 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -33,7 +32,7 @@ class EntretienListView(ListView):
     model = Entretien
     template_name = "entretien/entretien_list.html"
     context_object_name = "entretiens"
-    paginate_by = 100
+    paginate_by = 15
     ordering = ["-id"]
 
     def get_queryset(self):
@@ -200,11 +199,11 @@ def entretien_check_view(request, exemplaire_id):
                 )
 
                 messages.success(request, _("Entretien enregistré avec succès."))
+                return redirect("entretien:entretien_list", exemplaire_id=exemplaire.id)
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
         else:
-            print("FORM INVALID:", form.errors)
             messages.error(request, _("Le formulaire contient des erreurs."))
 
 
@@ -296,7 +295,7 @@ def modifier_entretien_view(request, entretien_id):
             )
 
             messages.success(request, _("Entretien modifié avec succès !"))
-            return redirect("entretien:modifier_entretien", entretien_id=entretien.id)
+            return redirect("entretien:entretien_detail", entretien_id=entretien.id)
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
             print(form.errors)

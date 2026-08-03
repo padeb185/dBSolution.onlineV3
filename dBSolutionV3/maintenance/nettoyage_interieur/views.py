@@ -16,7 +16,6 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.utils import timezone
-from django_tenants.utils import tenant_context
 from weasyprint import HTML
 
 
@@ -193,12 +192,12 @@ def nettoyage_interieur_view(request, exemplaire_id, nettoyage_int=None):
                     )
 
                 messages.success(request, _("Nettoyage intérieur enregistré avec succès."))
+                return redirect("nettoyage_interieur:nettoyage_int_list", exemplaire_id=exemplaire.id)
 
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
         else:
-            print("FORM INVALID:", form.errors)
             messages.error(request, _("Le formulaire contient des erreurs."))
 
     else:
@@ -276,6 +275,10 @@ def modifier_nettoyage_int_view(request, nettoyage_int_id):
             )
 
             messages.success(request, _("Nettoyage intérieur modifié avec succès !"))
+            return redirect(
+                "nettoyage_interieur:nettoyage_int_detail",
+                nettoyage_interieur_id=nettoyage_interieur.id,
+            )
 
 
     else:

@@ -16,7 +16,6 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.utils import timezone
-from django_tenants.utils import tenant_context
 from weasyprint import HTML
 
 
@@ -164,6 +163,7 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                     request,
                     _("Nettoyage extérieur enregistré avec succès.")
                 )
+                return redirect("nettoyage_exterieur:nettoyage_ext_list", exemplaire_id=exemplaire.id)
 
             except Exception as e:
                 messages.error(
@@ -253,6 +253,10 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
             )
 
             messages.success(request, _("Nettoyage extérieur modifié avec succès !"))
+            return redirect(
+                "nettoyage_exterieur:nettoyage_ext_detail",
+                nettoyage_id=nettoyage_exterieur.id,
+            )
 
     else:
         form = NettoyageExterieurForm(instance=nettoyage_exterieur, user=request.user)

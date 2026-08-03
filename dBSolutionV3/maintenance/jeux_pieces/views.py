@@ -16,7 +16,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.http import HttpResponse
-from django_tenants.utils import tenant_context
 from django.utils import timezone
 from weasyprint import HTML
 
@@ -190,6 +189,7 @@ def controle_jeux_pieces_view(request, exemplaire_id):
 
 
                 messages.success(request, _("Contrôle des jeux enregistré avec succès."))
+                return redirect("jeux_pieces:jeux_pieces_list", exemplaire_id=exemplaire.id)
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -274,6 +274,7 @@ def modifier_jeux_pieces_view(request, jeu_id):
             )
 
             messages.success(request, _("Contrôle des jeux modifié avec succès !"))
+            return redirect("jeux_pieces:jeux_pieces_detail", jeu_id=jeu_id)
 
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))

@@ -17,7 +17,6 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.utils import timezone
-from django_tenants.utils import tenant_context
 from weasyprint import HTML
 
 
@@ -186,6 +185,7 @@ def niveau_form_view(request, exemplaire_id):
                     )
 
                 messages.success(request, _("Controle des niveaux enregistré avec succès."))
+                return redirect("niveaux:niveaux_list", exemplaire_id=exemplaire.id)
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -284,7 +284,7 @@ def modifier_niveau_view(request, niveau_id):
                     )
 
                     return redirect(
-                        "niveaux:modifier_niveau",
+                        "niveaux:niveaux_detail",
                         niveau_id=niveau.id
                     )
 

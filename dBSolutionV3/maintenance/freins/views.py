@@ -16,7 +16,6 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils import timezone
-from django_tenants.utils import tenant_context
 from weasyprint import HTML
 from django.core.exceptions import ValidationError
 
@@ -194,12 +193,13 @@ def controle_freins_view(request, exemplaire_id):
 
 
                 messages.success(request, _("Contrôle freins enregistré avec succès."))
+                return redirect("freins:freins_list", exemplaire_id=exemplaire.id)
+
 
 
             except Exception as e:
                 messages.error(request, f"Erreur : {e}")
         else:
-            print("FORM INVALID:", form.errors)
             messages.error(request, _("Le formulaire contient des erreurs."))
 
     # =========================
@@ -286,7 +286,7 @@ def modifier_freins_view(request, frein_id):
                 messages.success(request, _("Contrôle freins modifié avec succès !"))
 
                 return redirect(
-                    "freins:modifier_freins",
+                    "freins:freins_detail",
                     frein_id=frein.id
                 )
 
