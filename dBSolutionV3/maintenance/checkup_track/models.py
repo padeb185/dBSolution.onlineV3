@@ -1,8 +1,6 @@
 from datetime import timezone
 from decimal import Decimal, ROUND_HALF_UP
-
 from django.core.validators import StepValueValidator
-
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -10,11 +8,11 @@ from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, Fabrican
     AmpouleAutomobile, FabricantFrein, MatierePlaquetteFrein, MatiereFrein, TypeDisqueFrein
 from maintenance.models import Maintenance
 from maintenance.nettoyage_exterieur.models import EtatAjouter
-from utilisateurs.models import Utilisateur
 from django.conf import settings
 from utils.mixin import TechnicienMixin
-from voiture.voiture_freins_ar.models import VoitureFreinsAR
-from voiture.voiture_freins_av.models import VoitureFreinsAV
+
+
+
 
 
 # ---------------------------
@@ -216,13 +214,33 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
 
     # --- Essuie-glaces & Pare-brise ---
-    essuie_glace = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Essuies-glace fonctionnel"))
+    essuie_glace = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat des balais avant"))
+    essuie_glace_quantite = models.PositiveIntegerField(
+        verbose_name=_("Quantité"),
+        default=0,
+        null=True,
+    )
+    essuie_glace_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
 
-    balais_essuie = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat des balais"))
+
+    balais_essuie = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat des balais arrières"))
+    balais_essuie_quantite = models.PositiveIntegerField(
+        verbose_name=_("Quantité"),
+        default=0,
+        null=True,
+    )
+    balais_essuie_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
 
 
-    pare_brise_coups = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Pare-brise sans coups"))
-    pare_brise_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Pare-brise à remplacer"))
+    pare_brise_av_coups = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Pare-brise sans coups"))
+    pare_brise_av_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Pare-brise à remplacer"))
+    pare_brise_av_quantite = models.PositiveIntegerField(
+        verbose_name=_("Quantité"),
+        default=0,
+        null=True,
+    )
+    pare_brise_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
+
 
     # --- Moteur & transmission ---
     moteur_etat =  models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État du moteur"))

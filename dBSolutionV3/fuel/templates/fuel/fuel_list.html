@@ -91,87 +91,122 @@
     </thead>
    <tbody>
     {% for fuel in fuels %}
-    <tr>
-        <td class="border px-4 py-2">{{ fuel.utilisateur }}</td>
-
-        <!-- Immatriculation stylisée -->
-        <td class="p-3">
-            {% with exemplaire=fuel.voiture_exemplaire %}
-                {% if exemplaire.pays == 'Belgique' %}
-                <div class="flex items-center w-[160px] h-[30px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
-                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                        <span>🇪🇺</span>
-                        <span>B</span>
-                    </div>
-                    <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
-                        {{ exemplaire.immatriculation|upper }}
-                    </div>
-                </div>
-                {% elif exemplaire.pays == 'Luxembourg' %}
-                <div class="flex items-center w-[160px] h-[30px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
-                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                        <span>🇪🇺</span>
-                        <span>L</span>
-                    </div>
-                    <div class="w-full text-center font-bold text-black text-[18px]">
-                        {{ exemplaire.immatriculation|upper }}
-                    </div>
-                </div>
-                {% elif exemplaire.pays == 'Allemagne' %}
-                <div class="flex items-center w-[160px] h-[30px] bg-white border-2 border-black rounded font-[Arial]">
-                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                        <span>🇪🇺</span>
-                        <span>D</span>
-                    </div>
-                    <div class="w-full text-center font-bold text-black text-[18px]">
-                        {{ exemplaire.immatriculation|upper }}
-                    </div>
-                </div>
-                {% endif %}
-            {% endwith %}
-            </td>
-
-            <!-- Véhicule -->
+        <tr>
+            <!-- 0 Utilisateur -->
             <td class="border px-4 py-2">
-                {{ fuel.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}
-                {{ fuel.voiture_exemplaire.voiture_modele.nom_modele }}
+                {{ fuel.utilisateur }}
             </td>
 
-            <!-- Kilomètres -->
-            <td class="border px-4 py-2">{{ fuel.kilometrage_fuel }}</td>
+            <!-- 1 Immatriculation -->
+            <td class="border px-4 py-2">
+                {% with exemplaire=fuel.voiture_exemplaire %}
+                    {% if exemplaire %}
+                        {% if exemplaire.pays == "Belgique" %}
+                            <div class="flex items-center w-[160px] h-[30px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                    <span>🇪🇺</span>
+                                    <span>B</span>
+                                </div>
 
-            <!-- Type carburant -->
-            <td class="border px-4 py-2">{{ fuel.get_type_carburant_display }}</td>
+                                <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
+                                    {{ exemplaire.immatriculation|upper }}
+                                </div>
+                            </div>
 
-            <!-- Litres -->
-            <td class="border px-4 py-2">{{ fuel.litres }}</td>
+                        {% elif exemplaire.pays == "Luxembourg" %}
+                            <div class="flex items-center w-[160px] h-[30px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                    <span>🇪🇺</span>
+                                    <span>L</span>
+                                </div>
 
-            <!-- Prix Total -->
-            <td class="border px-4 py-2">{{ fuel.prix_refuelling }}</td>
+                                <div class="w-full text-center font-bold text-black text-[18px]">
+                                    {{ exemplaire.immatriculation|upper }}
+                                </div>
+                            </div>
 
-            <!-- Prix au litre -->
-            <td class="border px-4 py-2">{{ fuel.prix_litre|floatformat:3 }}</td>
+                        {% elif exemplaire.pays == "Allemagne" %}
+                            <div class="flex items-center w-[160px] h-[30px] bg-white border-2 border-black rounded font-[Arial]">
+                                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                    <span>🇪🇺</span>
+                                    <span>D</span>
+                                </div>
 
-            <!-- Montant TVA -->
-            <td class="border px-4 py-2">{{ fuel.montant_tva|floatformat:2 }} €</td>
+                                <div class="w-full text-center font-bold text-black text-[18px]">
+                                    {{ exemplaire.immatriculation|upper }}
+                                </div>
+                            </div>
 
-            <!-- Date -->
-             <td class="border px-4 py-2"
-                data-order="{{ fuel.date|date:'Y-m-d H:i:s' }}">
-                {{ fuel.date|date:"d/m/Y H:i" }}
-             </td>
+                        {% else %}
+                            {{ exemplaire.immatriculation|upper }}
+                        {% endif %}
+                    {% else %}
+                        —
+                    {% endif %}
+                {% endwith %}
+            </td>
 
-            <!-- Info -->
+            <!-- 2 Véhicule -->
+            <td class="border px-4 py-2">
+                {% if fuel.voiture_exemplaire %}
+                    {{ fuel.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}
+                    {{ fuel.voiture_exemplaire.voiture_modele.nom_modele }}
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+
+            <!-- 3 Kilomètres -->
+            <td class="border px-4 py-2"
+                data-order="{{ fuel.kilometrage_fuel|default:0 }}">
+                {{ fuel.kilometrage_fuel|default:"—" }}
+            </td>
+
+            <!-- 4 Type de carburant -->
+            <td class="border px-4 py-2">
+                {{ fuel.get_type_carburant_display }}
+            </td>
+
+            <!-- 5 Litres -->
+            <td class="border px-4 py-2"
+                data-order="{{ fuel.litres|default:0 }}">
+                {{ fuel.litres|default:"—" }}
+            </td>
+
+            <!-- 6 Prix total -->
+            <td class="border px-4 py-2"
+                data-order="{{ fuel.prix_refuelling|default:0 }}">
+                {{ fuel.prix_refuelling|floatformat:2 }} €
+            </td>
+
+            <!-- 7 Prix au litre -->
+            <td class="border px-4 py-2"
+                data-order="{{ fuel.prix_litre|default:0 }}">
+                {{ fuel.prix_litre|floatformat:3 }} €
+            </td>
+
+            <!-- 8 Montant TVA -->
+            <td class="border px-4 py-2"
+                data-order="{{ fuel.montant_tva|default:0 }}">
+                {{ fuel.montant_tva|floatformat:2 }} €
+            </td>
+
+            <!-- 9 Date -->
+            <td class="border px-4 py-2"
+                data-order="{{ fuel.date|date:'Y-m-d' }}">
+                {{ fuel.date|date:"d/m/Y" }}
+            </td>
+
+            <!-- 10 Info -->
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'fuel:fuel_detail' fuel_id=fuel.id %}"
-                     class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Info" %}
                 </a>
             </td>
         </tr>
     {% endfor %}
-    </tbody>
-
+</tbody>
 
 
 </table>
@@ -188,14 +223,15 @@
 <br>
 <!-- DataTables JS -->
 <script>
-$(document).ready(function() {
-    var table = $('#fuel-table').DataTable({
+$(document).ready(function () {
+
+    const table = $('#fuel-table').DataTable({
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
-            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ fuels' %}",
-            infoEmpty: "{% trans 'Aucun fuel trouvé' %}",
-            zeroRecords: "{% trans 'Aucun fuel trouvé' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ pleins' %}",
+            infoEmpty: "{% trans 'Aucun plein trouvé' %}",
+            zeroRecords: "{% trans 'Aucun plein trouvé' %}",
             paginate: {
                 first: "{% trans 'Premier' %}",
                 last: "{% trans 'Dernier' %}",
@@ -203,27 +239,59 @@ $(document).ready(function() {
                 previous: "{% trans 'Précédent' %}"
             }
         },
-        order: [[9, "desc"]]
+
+        // Tri initial sur la date
+        order: [[9, 'desc']],
+
+        // Colonnes non triables
+        columnDefs: [
+            {
+                targets: [10], // colonne Info
+                orderable: false,
+                searchable: false
+            },
+            {
+                targets: [3, 5, 6, 7, 8],
+                type: 'num'
+            }
+        ]
     });
 
-    // Filtres par colonne
-    $('#search-utilisateur').on('keyup', function () {
+    // Utilisateur
+    $('#search-utilisateur').on('keyup change', function () {
         table.column(0).search(this.value).draw();
     });
-    $('#search-immatriculation').on('keyup', function () {
+
+    // Immatriculation
+    $('#search-immatriculation').on('keyup change', function () {
         table.column(1).search(this.value).draw();
     });
-    $('#search-exemplaire').on('keyup', function () {
+
+    // Véhicule
+    $('#search-exemplaire').on('keyup change', function () {
         table.column(2).search(this.value).draw();
     });
-    $('#search-type_carburant').on('keyup', function () {
-        table.column(3).search(this.value).draw();
-    });
-     $('#search-litres').on('keyup', function () {
+
+    // Type de carburant
+    $('#search-type_carburant').on('keyup change', function () {
         table.column(4).search(this.value).draw();
     });
-     $('#search-date').on('keyup', function () {
-        table.column(9).search(this.value).draw();
+
+    // Litres
+    $('#search-litres').on('keyup change', function () {
+        table.column(5).search(this.value).draw();
+    });
+
+    // Date
+    $('#search-date').on('change', function () {
+        let date = this.value;
+
+        if (date) {
+            const morceaux = date.split('-');
+            date = morceaux[2] + '/' + morceaux[1] + '/' + morceaux[0];
+        }
+
+        table.column(9).search(date).draw();
     });
 
 });
