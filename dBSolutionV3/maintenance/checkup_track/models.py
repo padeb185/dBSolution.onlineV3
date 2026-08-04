@@ -239,7 +239,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
         default=0,
         null=True,
     )
-    pare_brise_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
+    pare_brise_av_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
 
 
     # --- Moteur & transmission ---
@@ -957,6 +957,14 @@ class CheckupTrack(TechnicienMixin, models.Model):
                 "libelle": _("Produits de nettoyage intérieur"),
                 "unite": _("unité"),
             },
+            "pare_brise_av": {
+                "etat": "pare_brise_av_remplacer",
+                "quantite": "pare_brise_av_quantite",
+                "libelle": _("Pare-brise"),
+                "unite": _("unité"),
+            },
+
+
         }
 
         def convertir_decimal(valeur):

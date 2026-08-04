@@ -280,19 +280,19 @@
             <td>
                 {% if checkup_track.pare_brise_coups == "OK" %}
                     <span class="etat-vert">
-                        {{ checkup_track.get_pare_brise_coups_display }}
+                        {{ checkup_track.get_pare_brise_av_coups_display }}
                     </span>
-                {% elif checkup_track.pare_brise_coups == "A_REMPLACER" %}
+                {% elif checkup_track.pare_brise_av_coups == "A_REMPLACER" %}
                     <span class="etat-rouge">
-                        {{ checkup_track.get_pare_brise_coups_display }}
+                        {{ checkup_track.get_pare_brise_av_coups_display }}
                     </span>
-                {% elif checkup_track.pare_brise_coups == "REMPLACE" %}
+                {% elif checkup_track.pare_brise_av_coups == "REMPLACE" %}
                     <span class="etat-bleu">
-                        {{ checkup_track.get_pare_brise_coups_display }}
+                        {{ checkup_track.get_pare_brise_av_coups_display }}
                     </span>
                 {% else %}
                     <span class="etat-gris">
-                        {{ checkup_track.get_pare_brise_coups_display|default:"-" }}
+                        {{ checkup_track.get_pare_brise_av_coups_display|default:"-" }}
                     </span>
                 {% endif %}
             </td>
@@ -301,21 +301,21 @@
         <tr>
             <td>{% trans "Pare-brise à remplacer" %}</td>
             <td>
-                {% if checkup_track.pare_brise_remplacer == "OK" %}
+                {% if checkup_track.pare_brise_av_remplacer == "OK" %}
                     <span class="etat-vert">
-                        {{ checkup_track.get_pare_brise_remplacer_display }}
+                        {{ checkup_track.get_pare_brise_av_remplacer_display }}
                     </span>
-                {% elif checkup_track.pare_brise_remplacer == "A_REMPLACER" %}
+                {% elif checkup_track.pare_brise_av_remplacer == "A_REMPLACER" %}
                     <span class="etat-rouge">
-                        {{ checkup_track.get_pare_brise_remplacer_display }}
+                        {{ checkup_track.get_pare_brise_av_remplacer_display }}
                     </span>
-                {% elif checkup_track.pare_brise_remplacer == "REMPLACE" %}
+                {% elif checkup_track.pare_brise_av_remplacer == "REMPLACE" %}
                     <span class="etat-bleu">
-                        {{ checkup_track.get_pare_brise_remplacer_display }}
+                        {{ checkup_track.get_pare_brise_av_remplacer_display }}
                     </span>
                 {% else %}
                     <span class="etat-gris">
-                        {{ checkup_track.get_pare_brise_remplacer_display|default:"-" }}
+                        {{ checkup_track.get_pare_brise_av_remplacer_display|default:"-" }}
                     </span>
                 {% endif %}
             </td>
