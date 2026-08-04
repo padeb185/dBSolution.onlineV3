@@ -12,7 +12,9 @@ class SocieteAdmin(admin.ModelAdmin):
     list_display = (
         "nom",
         "directeur",
+        "adresse",
         "numero_tva",
+        "iban",
         "site",
         "schema_name",
         "max_utilisateurs",
@@ -21,14 +23,26 @@ class SocieteAdmin(admin.ModelAdmin):
         "on_trial",
     )
 
+    list_display_links = (
+        "nom",
+    )
+
     list_editable = (
+        "directeur",
+        "adresse",
+        "numero_tva",
+        "iban",
+        "site",
         "max_utilisateurs",
+        "paid_until",
+        "on_trial",
     )
 
     search_fields = (
         "nom",
-        "directeur",
+        "directeur__username",
         "numero_tva",
+        "iban",
         "schema_name",
     )
 
@@ -45,10 +59,13 @@ class SocieteAdmin(admin.ModelAdmin):
                 "id_societe",
                 "nom",
                 "directeur",
+                "adresse",
                 "numero_tva",
+                "iban",
                 "site",
             )
         }),
+
         ("Tenant", {
             "fields": (
                 "schema_name",
@@ -63,6 +80,7 @@ class SocieteAdmin(admin.ModelAdmin):
     def nombre_utilisateurs(self, obj):
         if not obj.pk:
             return 0
+
         return obj.utilisateurs.count()
 
     nombre_utilisateurs.short_description = "Utilisateurs"

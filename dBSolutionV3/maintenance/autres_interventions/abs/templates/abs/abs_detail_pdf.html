@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html>
@@ -146,6 +146,43 @@
             font-weight: bold;
             background: #f8fafc;
         }
+        .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
          .footer {
             margin-top: 25px;
             font-size: 10px;
@@ -157,6 +194,60 @@
 
 <body>
 
+{% if abs.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ abs.tech_societe.nom }}
+            </div>
+
+            {% if abs.tech_societe.adresse %}
+                <div>
+                    {{ abs.tech_societe.adresse.rue }}
+                    {{ abs.tech_societe.adresse.numero }}
+                    {% if abs.tech_societe.adresse.boite %}
+                        / {{ abs.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ abs.tech_societe.adresse.code_postal }}
+                    {{ abs.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if abs.tech_societe.adresse.pays %}
+                <div>{{ abs.tech_societe.adresse.pays }}
+                    {{ abs.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if abs.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ abs.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if abs.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ abs.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ abs.tech_societe.nom }}.png"
+                alt="{{ abs.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+
+<br>
 <h1>{% trans "Détail du checkup ABS" %}</h1>
 
 <!-- ================= INFOS GÉNÉRALES ================= -->
@@ -225,7 +316,7 @@
 </div>
 
 <!-- ================= ETAT DES PIÈCES ================= -->
-
+<br>
 <h2>{% trans "État des composants ABS" %}</h2>
 
 <div class="box">
@@ -404,7 +495,7 @@
 </div>
 
 <!-- ================= MAIN D'ŒUVRE ================= -->
-
+<br>
 <h2>{% trans "Main d'œuvre" %}</h2>
 
 <div class="box">
@@ -434,7 +525,9 @@
         {% endif %}
     </div>
 </div>
-
+<br>
+<br>
+<br>
 
 
 
@@ -562,7 +655,7 @@
 
 
 <!-- ================= REMARQUES ================= -->
-
+<br>
 <h2>{% trans "Remarques" %}</h2>
 
 <div class="box">

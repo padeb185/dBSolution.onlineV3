@@ -9,6 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
 from maintenance.choices import RouesSerrageEtat, FabricantLubrifiant
 from maintenance.entretien.models import LiquideFreinsQualite
+from societe.models import Societe
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 from maintenance.services import sync_maintenance
@@ -48,6 +49,7 @@ class Abs(TechnicienMixin, models.Model):
         null=True,
         blank=True
     )
+
 
     voiture_exemplaire = models.ForeignKey(
         "voiture_exemplaire.VoitureExemplaire",
