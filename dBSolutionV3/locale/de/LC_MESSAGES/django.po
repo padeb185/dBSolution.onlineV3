@@ -20876,17 +20876,19 @@ msgstr "Unbekannte Rolle"
 
 #: utilisateurs/views.py:329
 msgid "La session d'activation a expiré. Veuillez vous reconnecter."
-msgstr ""
+msgstr "Die Aktivierungssitzung ist abgelaufen. Bitte melden Sie sich erneut an."
 
 #: utilisateurs/views.py:410
 msgid ""
 "La vérification à deux facteurs est déjà configurée. Connectez-vous avec "
 "votre code Authy."
 msgstr ""
+"Die Zwei-Faktor-Authentifizierung ist bereits eingerichtet. Melden Sie sich "
+"mit Ihrem Authy-Code an."
 
 #: utilisateurs/views.py:447
 msgid "Saisissez le code à six chiffres affiché dans Authy."
-msgstr ""
+msgstr "Geben Sie den sechsstelligen Code ein, der in Authy angezeigt wird."
 
 #: utilisateurs/views.py:455
 msgid "Le code doit contenir exactement six chiffres."
