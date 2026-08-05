@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html>
@@ -192,6 +192,59 @@
     </style>
 </head>
 <body>
+
+{% if objet.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ objet.tech_societe.nom }}
+            </div>
+
+            {% if objet.tech_societe.adresse %}
+                <div>
+                    {{ objet.tech_societe.adresse.rue }}
+                    {{ objet.tech_societe.adresse.numero }}
+                    {% if objet.tech_societe.adresse.boite %}
+                        / {{ objet.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ objet.tech_societe.adresse.code_postal }}
+                    {{ objet.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if objet.tech_societe.adresse.pays %}
+                <div>{{ objet.tech_societe.adresse.pays }}
+                    {{ objet.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if objet.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ objet.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if objet.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ objet.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ objet.tech_societe.nom }}.png"
+                alt="{{ objet.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
 
 <h1>{% trans "Rapport du contrôle des silent blocs" %}</h1>
 

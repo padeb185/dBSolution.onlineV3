@@ -321,6 +321,18 @@ def controle_pneus_pdf_view(request, controle_pneus_id):
     # Génération du rapport des pneus à remplacer ou remplacés
     rapport = controle_pneus.generer_rapport_remplacement()
 
+    # Conserver uniquement les pièces avec une quantité > 0
+    rapport["lignes"] = [
+        ligne
+        for ligne in rapport.get("lignes", [])
+        if (ligne.get("quantite") or 0) > 0
+    ]
+
+    rapport["total_general"] = sum(
+        ligne.get("total", 0) or 0
+        for ligne in rapport["lignes"]
+    )
+
     html_string = render_to_string(
         "pneus/controle_pneus_detail_pdf.html",
         {

@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html>
@@ -194,6 +194,59 @@
 
 
 <body>
+
+{% if controle_pneus.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ controle_pneus.tech_societe.nom }}
+            </div>
+
+            {% if controle_pneus.tech_societe.adresse %}
+                <div>
+                    {{ controle_pneus.tech_societe.adresse.rue }}
+                    {{ controle_pneus.tech_societe.adresse.numero }}
+                    {% if controle_pneus.tech_societe.adresse.boite %}
+                        / {{ controle_pneus.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ controle_pneus.tech_societe.adresse.code_postal }}
+                    {{ controle_pneus.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if controle_pneus.tech_societe.adresse.pays %}
+                <div>{{ controle_pneus.tech_societe.adresse.pays }}
+                    {{ controle_pneus.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if controle_pneus.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ controle_pneus.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if controle_pneus.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ controle_pneus.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ controle_pneus.tech_societe.nom }}.png"
+                alt="{{ controle_pneus.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
 
 <h1>{% trans "Rapport du contrôle des pneus" %}</h1>
 
@@ -422,7 +475,7 @@
 </tbody>
 </table>
 <!-- ================= MAIN D'ŒUVRE ================= -->
-
+<br>
 <h2>{% trans "Main d'œuvre" %}</h2>
 
 <div class="box">
