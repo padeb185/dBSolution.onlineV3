@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -190,6 +190,58 @@
 
 <body>
 
+{% if niveau.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ niveau.tech_societe.nom }}
+            </div>
+
+            {% if niveau.tech_societe.adresse %}
+                <div>
+                    {{ niveau.tech_societe.adresse.rue }}
+                    {{ niveau.tech_societe.adresse.numero }}
+                    {% if niveau.tech_societe.adresse.boite %}
+                        / {{ niveau.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ niveau.tech_societe.adresse.code_postal }}
+                    {{ niveau.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if niveau.tech_societe.adresse.pays %}
+                <div>{{ niveau.tech_societe.adresse.pays }}
+                    {{ niveau.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if niveau.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ niveau.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if niveau.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ niveau.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ niveau.tech_societe.nom }}.png"
+                alt="{{ niveau.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
 <h1>{% trans "Rapport du contrôle des niveaux" %}</h1>
 
 <div class="box">

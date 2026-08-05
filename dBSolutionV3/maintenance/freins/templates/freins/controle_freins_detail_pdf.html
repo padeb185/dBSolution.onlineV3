@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -28,7 +28,6 @@
             color: #1e40af;
             border-bottom: 1px solid #93c5fd;
         }
-
         .box {
             border: 1px solid #ddd;
             padding: 12px;
@@ -44,33 +43,6 @@
         .label {
             font-weight: bold;
         }
-         .etat-rouge {
-            color: #dc2626;
-            font-weight: bold;
-        }
-
-        .etat-vert {
-           color: #166534;
-            background: #dcfce7;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .etat-jaune {
-            color: #ca8a04;
-            font-weight: bold;
-        }
-
-        .etat-bleu {
-            color: #2563eb;
-            font-weight: bold;
-        }
-
-        .etat-gris {
-            color: #6b7280;
-            font-weight: bold;
-        }
 
         .tag {
             padding: 4px 8px;
@@ -83,31 +55,45 @@
         .tag-jaune { background: #ca8a04; }
         .tag-rouge { background: #dc2626; }
 
-       .etat-ok {
-            color: #166534;
-            background: #dcfce7;
-            padding: 2px 6px;
-            border-radius: 4px;
+        .etat {
             font-weight: bold;
-       }
+        }
 
-        .etat-remplacer {
-            color: #dc2626;
+        .etat-rouge {
+             color: #991b1b;
             background: #fee2e2;
             padding: 2px 6px;
             border-radius: 4px;
             font-weight: bold;
         }
 
-        .etat-remplace {
-            color: #2563eb;
+        .etat-vert {
+             color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-jaune {
+            color: #ca8a04;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
             background: #dbeafe;
             padding: 2px 6px;
             border-radius: 4px;
             font-weight: bold;
         }
 
-        table {
+        .etat-gris {
+            color: #6b7280;
+            font-weight: bold;
+        }
+
+       table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
@@ -135,10 +121,138 @@
             background: #f8fafc;
         }
 
+        /* =========================================
+           TABLEAUX À DEUX COLONNES : 2/3 - 1/3
+        ========================================= */
+
+        .table-2-cols {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        /* =========================================
+           TABLEAU NIVEAUX : QUATRE COLONNES
+        ========================================= */
+
+        .table-niveaux {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-niveaux .col-element {
+            width: 34%;
+        }
+
+        .table-niveaux .col-etat {
+            width: 22%;
+        }
+
+        .table-niveaux .col-quantite {
+            width: 18%;
+        }
+
+        .table-niveaux .col-qualite {
+            width: 26%;
+        }
+
+        /* =========================================
+           TABLEAU PIÈCES : CINQ COLONNES
+        ========================================= */
+
+        .rapport-pieces-table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+            font-size: 10px;
+        }
+
+        .rapport-pieces-table .col-produit {
+            width: 30%;
+        }
+
+        .rapport-pieces-table .col-etat {
+            width: 16%;
+        }
+
+        .rapport-pieces-table .col-quantite {
+            width: 12%;
+        }
+
+        .rapport-pieces-table .col-prix {
+            width: 22%;
+        }
+
+        .rapport-pieces-table .col-total {
+            width: 20%;
+        }
+
+        .rapport-pieces-table th,
+        .rapport-pieces-table td {
+            padding: 5px;
+            vertical-align: middle;
+            overflow-wrap: anywhere;
+            word-break: normal;
+        }
+
+        .rapport-pieces-table th:nth-child(3),
+        .rapport-pieces-table th:nth-child(4),
+        .rapport-pieces-table th:nth-child(5),
+        .rapport-pieces-table td:nth-child(3),
+        .rapport-pieces-table td:nth-child(4),
+        .rapport-pieces-table td:nth-child(5),
+        .rapport-pieces-table .total-montant {
+            white-space: nowrap;
+        }
+
+        .rapport-pieces-table .total-label,
+        .rapport-pieces-table .total-montant {
+            text-align: right;
+        }
+
+        /* Tableau lorsqu'aucune pièce n'est utilisée */
+
+        .rapport-vide-table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .rapport-vide-table th:first-child,
+        .rapport-vide-table td:first-child {
+            width: 66.67%;
+        }
+
+        .rapport-vide-table th:last-child,
+        .rapport-vide-table td:last-child {
+            width: 33.33%;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+
         .small {
             font-size: 11px;
             color: #555;
             margin-top: 25px;
+
         }
          .societe-header {
             display: table;
@@ -177,6 +291,7 @@
             max-width: 200px;
             max-height: 200px;
         }
+
          .footer {
             margin-top: 25px;
             font-size: 10px;
@@ -186,7 +301,61 @@
     </style>
 </head>
 
+
 <body>
+
+{% if controle_freins.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ controle_freins.tech_societe.nom }}
+            </div>
+
+            {% if controle_freins.tech_societe.adresse %}
+                <div>
+                    {{ controle_freins.tech_societe.adresse.rue }}
+                    {{ controle_freins.tech_societe.adresse.numero }}
+                    {% if controle_freins.tech_societe.adresse.boite %}
+                        / {{ controle_freins.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ controle_freins.tech_societe.adresse.code_postal }}
+                    {{ controle_freins.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if controle_freins.tech_societe.adresse.pays %}
+                <div>{{ controle_freins.tech_societe.adresse.pays }}
+                    {{ controle_freins.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if controle_freins.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ controle_freins.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if controle_freins.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ controle_freins.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ controle_freins.tech_societe.nom }}.png"
+                alt="{{ controle_freins.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
 
 <h1>{% trans "Rapport du contrôle des freins" %}</h1>
 
@@ -215,7 +384,7 @@
 
 <h2>{% trans "Freins avant" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr>
         <th>{% trans "Élément" %}</th>
         <th>{% trans "Valeur" %}</th>
@@ -273,7 +442,7 @@
 
 <h2>{% trans "Freins arrière" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr>
         <th>{% trans "Élément" %}</th>
         <th>{% trans "Valeur" %}</th>
@@ -331,7 +500,7 @@
 
 <h2>{% trans "Fuites" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr>
         <th>{% trans "Élément" %}</th>
         <th>{% trans "État" %}</th>
@@ -391,9 +560,7 @@
 </table>
 
 <h2>{% trans "Liquide de frein" %}</h2>
-
-<div class="box">
-    <table>
+    <table class="table-2-cols">
         <thead>
             <tr>
                 <th>{% trans "Élément contrôlé" %}</th>
@@ -460,7 +627,7 @@
 
 <h2>{% trans "Mâchoires de frein" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr>
         <th>{% trans "Position" %}</th>
         <th>{% trans "État" %}</th>
@@ -522,7 +689,7 @@
 
 <h2>{% trans "Serrage des roues" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr>
         <th>{% trans "Élément" %}</th>
         <th>{% trans "État" %}</th>
@@ -586,18 +753,35 @@
 
 <h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
 
-<div class="box">
+<div class="box rapport-pieces">
 
     {% if rapport.lignes %}
 
-        <table>
+        <table class="rapport-pieces-table">
+            <colgroup>
+                <col class="col-produit">
+                <col class="col-etat">
+                <col class="col-quantite">
+                <col class="col-prix">
+                <col class="col-total">
+            </colgroup>
+
             <thead>
                 <tr>
                     <th>{% trans "Pièce / Produit" %}</th>
                     <th>{% trans "État" %}</th>
-                    <th class="text-right">{% trans "Quantité" %}</th>
-                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
-                    <th class="text-right">{% trans "Total HTVA" %}</th>
+
+                    <th class="text-right">
+                        {% trans "Quantité" %}
+                    </th>
+
+                    <th class="text-right">
+                        {% trans "Prix unitaire HTVA" %}
+                    </th>
+
+                    <th class="text-right">
+                        {% trans "Total HTVA" %}
+                    </th>
                 </tr>
             </thead>
 
@@ -628,31 +812,31 @@
                 {% endfor %}
 
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+                    <td colspan="4" class="total-label">
                         {% trans "Total pièces et produits HTVA" %}
                     </td>
 
-                    <td class="text-right">
+                    <td class="total-montant">
                         {{ rapport.total_general|default:0|floatformat:2 }} €
                     </td>
                 </tr>
 
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+                    <td colspan="4" class="total-label">
                         {% trans "Main-d'œuvre" %}
                     </td>
 
-                    <td class="text-right">
+                    <td class="total-montant">
                         {{ controle_freins.cout_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
                 </tr>
 
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+                    <td colspan="4" class="total-label">
                         {% trans "Total général avec main-d'œuvre" %}
                     </td>
 
-                    <td class="text-right">
+                    <td class="total-montant">
                         {{ controle_freins.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
                 </tr>
@@ -666,29 +850,33 @@
             {% trans "Aucune pièce ou produit utilisé." %}
         </p>
 
-        <table>
+        <table class="rapport-vide-table">
             <tbody>
                 <tr class="total">
                     <td>
-                        <div>
-                            <strong>{% trans "Main-d'œuvre" %}</strong>
-                        </div>
+                        <strong>
+                            {% trans "Main-d'œuvre" %}
+                        </strong>
+                    </td>
 
-                        <div class="text-right" style="margin-top: 4px;">
+                    <td class="text-right">
+                        <strong>
                             {{ controle_freins.cout_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
+                        </strong>
                     </td>
                 </tr>
 
                 <tr class="total">
                     <td>
-                        <div>
-                            <strong>{% trans "Total général" %}</strong>
-                        </div>
+                        <strong>
+                            {% trans "Total général" %}
+                        </strong>
+                    </td>
 
-                        <div class="text-right" style="margin-top: 4px;">
+                    <td class="text-right">
+                        <strong>
                             {{ controle_freins.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
+                        </strong>
                     </td>
                 </tr>
             </tbody>

@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -150,6 +150,59 @@
 </head>
 
 <body>
+
+{% if nettoyage.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ nettoyage.tech_societe.nom }}
+            </div>
+
+            {% if nettoyage.tech_societe.adresse %}
+                <div>
+                    {{ nettoyage.tech_societe.adresse.rue }}
+                    {{ nettoyage.tech_societe.adresse.numero }}
+                    {% if nettoyage.tech_societe.adresse.boite %}
+                        / {{ nettoyage.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ nettoyage.tech_societe.adresse.code_postal }}
+                    {{ nettoyage.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if nettoyage.tech_societe.adresse.pays %}
+                <div>{{ nettoyage.tech_societe.adresse.pays }}
+                    {{ nettoyage.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if nettoyage.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ nettoyage.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if nettoyage.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ nettoyage.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ nettoyage.tech_societe.nom }}.png"
+                alt="{{ nettoyage.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
 
 <h1>{% trans "Rapport du nettoyage extérieur" %}</h1>
 
