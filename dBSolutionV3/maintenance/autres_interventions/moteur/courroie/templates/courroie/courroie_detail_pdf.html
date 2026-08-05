@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html>
@@ -168,7 +168,58 @@
     </style>
 </head>
 <body>
+{% if courroie.tech_societe %}
+    <div class="societe-header">
 
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ courroie.tech_societe.nom }}
+            </div>
+
+            {% if courroie.tech_societe.adresse %}
+                <div>
+                    {{ courroie.tech_societe.adresse.rue }}
+                    {{ courroie.tech_societe.adresse.numero }}
+                    {% if courroie.tech_societe.adresse.boite %}
+                        / {{ courroie.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ courroie.tech_societe.adresse.code_postal }}
+                    {{ courroie.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if courroie.tech_societe.adresse.pays %}
+                <div>{{ courroie.tech_societe.adresse.pays }}
+                    {{ courroie.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if courroie.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ courroie.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if courroie.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ courroie.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ courroie.tech_societe.nom }}.png"
+                alt="{{ courroie.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
 <h1>{% trans "Détail courroie de distribution" %}</h1>
 
 <!-- ================= INFOS ================= -->
@@ -230,6 +281,7 @@
 
     </div>
 </div>
+<br>
 <!-- ================= COURROIE ================= -->
 <h2>{% trans "Contrôle courroie" %}</h2>
 
@@ -331,6 +383,7 @@
     </table>
 
 </div>
+<br>
 <!-- ================= REFROIDISSEMENT ================= -->
 <h2>{% trans "Liquide de refroidissement" %}</h2>
 
@@ -357,7 +410,7 @@
 <!-- ================================================== -->
 <!-- MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
-
+<br>
 <h2>{% trans "Main d'œuvre" %}</h2>
 
 <div class="box">
@@ -506,7 +559,7 @@
 
 </div>
 
-
+<br>
 <!-- ================= REMARQUES ================= -->
 <h2>{% trans "Remarques" %}</h2>
 

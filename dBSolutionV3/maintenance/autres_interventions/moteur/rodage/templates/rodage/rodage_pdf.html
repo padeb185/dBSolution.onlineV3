@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -200,6 +200,60 @@
 </head>
 
 <body>
+
+
+{% if rodage.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ rodage.tech_societe.nom }}
+            </div>
+
+            {% if rodage.tech_societe.adresse %}
+                <div>
+                    {{ rodage.tech_societe.adresse.rue }}
+                    {{ rodage.tech_societe.adresse.numero }}
+                    {% if rodage.tech_societe.adresse.boite %}
+                        / {{ rodage.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ rodage.tech_societe.adresse.code_postal }}
+                    {{ rodage.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if rodage.tech_societe.adresse.pays %}
+                <div>{{ rodage.tech_societe.adresse.pays }}
+                    {{ rodage.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if rodage.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ rodage.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if rodage.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ rodage.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ rodage.tech_societe.nom }}.png"
+                alt="{{ rodage.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
 
 <h1>{% trans "Rapport du rodage" %}</h1>
 
@@ -675,19 +729,19 @@
                     </tr>
                 {% endfor %}
 
-                <tr class="total">
+               <tr class="total">
                     <td colspan="5" class="total-label">
                         {% trans "Total pièces et produits HTVA" %}
                     </td>
 
                     <td class="total-value">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        {{ rapport.total_pieces_htva|default:0|floatformat:2 }} €
                     </td>
                 </tr>
 
                 <tr class="total">
                     <td colspan="5" class="total-label">
-                        {% trans "Main-d'œuvre" %}
+                        {% trans "Main-d'œuvre HTVA" %}
                     </td>
 
                     <td class="total-value">
@@ -697,11 +751,11 @@
 
                 <tr class="total">
                     <td colspan="5" class="total-label">
-                        {% trans "Total général avec main-d'œuvre" %}
+                        {% trans "Total général HTVA" %}
                     </td>
 
                     <td class="total-value">
-                        {{ rodage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                       {{ rapport.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
                 </tr>
             </tbody>

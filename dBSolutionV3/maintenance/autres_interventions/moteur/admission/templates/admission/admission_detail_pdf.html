@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -182,6 +182,60 @@
 </head>
 
 <body>
+
+{% if admission.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ admission.tech_societe.nom }}
+            </div>
+
+            {% if admission.tech_societe.adresse %}
+                <div>
+                    {{ admission.tech_societe.adresse.rue }}
+                    {{ admission.tech_societe.adresse.numero }}
+                    {% if admission.tech_societe.adresse.boite %}
+                        / {{ admission.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ admission.tech_societe.adresse.code_postal }}
+                    {{ admission.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if admission.tech_societe.adresse.pays %}
+                <div>{{ admission.tech_societe.adresse.pays }}
+                    {{ admission.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if admission.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ admission.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if admission.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ admission.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ admission.tech_societe.nom }}.png"
+                alt="{{ admission.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+
 
 <h1>{% trans "Contrôle de l'admission moteur" %}</h1>
 

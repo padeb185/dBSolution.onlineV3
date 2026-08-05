@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -180,6 +180,60 @@
 
 <body>
 
+{% if turbo.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ turbo.tech_societe.nom }}
+            </div>
+
+            {% if turbo.tech_societe.adresse %}
+                <div>
+                    {{ turbo.tech_societe.adresse.rue }}
+                    {{ turbo.tech_societe.adresse.numero }}
+                    {% if turbo.tech_societe.adresse.boite %}
+                        / {{ turbo.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ turbo.tech_societe.adresse.code_postal }}
+                    {{ turbo.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if turbo.tech_societe.adresse.pays %}
+                <div>{{ turbo.tech_societe.adresse.pays }}
+                    {{ turbo.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if turbo.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ turbo.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if turbo.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ turbo.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ turbo.tech_societe.nom }}.png"
+                alt="{{ turbo.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+
+
 <h1>
     {% trans "Rapport du contrôle turbo" %}
 </h1>
@@ -355,20 +409,20 @@
             <tr>
                 <td>{% trans "Fonctionnement de la géométrie variable" %}</td>
                 <td>
-                    {% if turbo.fonctionnement_geometrie_variable == "OK" %}
+                    {% if turbo.fonctionnement_turbo_variable == "OK" %}
                         <span class="ok">
-                            {{ turbo.get_fonctionnement_geometrie_variable_display }}
+                            {{ turbo.get_fonctionnement_turbo_variable_display }}
                         </span>
-                    {% elif turbo.fonctionnement_geometrie_variable == "NOT_OK" %}
+                    {% elif turbo.fonctionnement_turbo_variable == "NOT_OK" %}
                         <span class="not-ok">
-                            {{ turbo.get_fonctionnement_geometrie_variable_display }}
+                            {{ turbo.get_fonctionnement_turbo_variable_display }}
                         </span>
-                    {% elif turbo.fonctionnement_geometrie_variable == "REMPLACE" %}
+                    {% elif turbo.fonctionnement_turbo_variable == "REMPLACE" %}
                         <span class="remplace">
-                            {{ turbo.get_fonctionnement_geometrie_variable_display }}
+                            {{ turbo.get_fonctionnement_turbo_variable_display }}
                         </span>
                     {% else %}
-                        {{ turbo.get_fonctionnement_geometrie_variable_display|default:"-" }}
+                        {{ turbo.get_fonctionnement_turbo_variable_display|default:"-" }}
                     {% endif %}
                 </td>
             </tr>
@@ -380,7 +434,7 @@
     </table>
 
 </div>
-
+<br>
 <h2>{% trans "État des pièces" %}</h2>
 
 <div class="box">
@@ -447,7 +501,6 @@
         </tbody>
     </table>
 </div>
-
 <!-- ================================================== -->
 <!-- MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
@@ -494,7 +547,7 @@
 
 
 <!-- ================= PIÈCES À REMPLACER ================= -->
-
+<br>
 <h2>{% trans "Pièces, produits utilisés et main-d'œuvre" %}</h2>
 
 <div class="box">
@@ -603,7 +656,7 @@
 
 </div>
 <!-- ================= REMARQUES ================= -->
-
+<br>
 <h2>{% trans "Remarques" %}</h2>
 
 <div class="box">
@@ -612,7 +665,7 @@
 
 </div>
 
-
+<br>
 <div class="footer">
     {% trans "Document généré automatiquement par CarsCosts.com." %}
     <br>

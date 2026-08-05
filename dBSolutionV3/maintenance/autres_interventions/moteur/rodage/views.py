@@ -323,6 +323,16 @@ def modifier_rodage_view(request, rodage_id):
 
 
 
+from decimal import Decimal
+
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.utils import timezone
+from weasyprint import HTML
+
+
 @login_required
 def rodage_pdf_view(request, rodage_id):
     tenant = request.user.societe
@@ -335,15 +345,35 @@ def rodage_pdf_view(request, rodage_id):
             "main_oeuvre",
             "piece",
         ),
-        id=rodage_id
+        id=rodage_id,
     )
 
-    # Génération du rapport des pièces et produits
-    rapport = rodage.generer_rapport_remplacement() or {
-        "lignes": [],
-        "total_general": 0,
-    }
+    rapport = rodage.generer_rapport_remplacement() or {}
 
+    # Accepte aussi bien "pieces" que l’ancienne clé "lignes"
+    pieces = rapport.get("pieces") or rapport.get("lignes") or []
+
+    total_pieces_htva = Decimal("0.00")
+
+    for ligne in pieces:
+        quantite = Decimal(str(ligne.get("quantite", 0) or 0))
+        prix = Decimal(str(ligne.get("prix", 0) or 0))
+
+        # Recalcul du total de chaque ligne une seule fois
+        total_ligne = quantite * prix
+        ligne["total"] = total_ligne
+
+        total_pieces_htva += total_ligne
+
+    cout_main_oeuvre = Decimal(
+        str(rodage.cout_main_oeuvre or 0)
+    )
+
+    rapport["pieces"] = pieces
+    rapport["total_pieces_htva"] = total_pieces_htva
+    rapport["total_general_avec_main_oeuvre"] = (
+        total_pieces_htva + cout_main_oeuvre
+    )
 
     html_string = render_to_string(
         "rodage/rodage_pdf.html",
@@ -352,12 +382,12 @@ def rodage_pdf_view(request, rodage_id):
             "rapport": rapport,
             "date_export": timezone.now(),
             "societe": tenant,
-        }
+        },
     )
 
     pdf = HTML(
         string=html_string,
-        base_url=request.build_absolute_uri("/")
+        base_url=request.build_absolute_uri("/"),
     ).write_pdf()
 
     immatriculation = (
@@ -373,7 +403,7 @@ def rodage_pdf_view(request, rodage_id):
 
     response = HttpResponse(
         pdf,
-        content_type="application/pdf"
+        content_type="application/pdf",
     )
 
     response["Content-Disposition"] = (

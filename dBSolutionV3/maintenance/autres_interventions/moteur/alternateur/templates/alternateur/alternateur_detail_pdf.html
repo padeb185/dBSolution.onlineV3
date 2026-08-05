@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -184,6 +184,59 @@
 
 <body>
 
+{% if alternateur.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ alternateur.tech_societe.nom }}
+            </div>
+
+            {% if alternateur.tech_societe.adresse %}
+                <div>
+                    {{ alternateur.tech_societe.adresse.rue }}
+                    {{ alternateur.tech_societe.adresse.numero }}
+                    {% if alternateur.tech_societe.adresse.boite %}
+                        / {{ alternateur.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ alternateur.tech_societe.adresse.code_postal }}
+                    {{ alternateur.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if alternateur.tech_societe.adresse.pays %}
+                <div>{{ alternateur.tech_societe.adresse.pays }}
+                    {{ alternateur.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if alternateur.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ alternateur.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if alternateur.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ alternateur.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ alternateur.tech_societe.nom }}.png"
+                alt="{{ alternateur.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+
 <h1>{% trans "Détail de la maintenance alternateur" %}</h1>
 
 <!-- ================================================== -->
@@ -259,7 +312,7 @@
 <!-- ================================================== -->
 <!-- MESURES DU DIAGNOSTIC -->
 <!-- ================================================== -->
-
+<br>
 <h2>{% trans "Mesures du diagnostic alternateur" %}</h2>
 
 <div class="box">
@@ -281,7 +334,7 @@
 <!-- ================================================== -->
 <!-- ÉTAT DES COMPOSANTS -->
 <!-- ================================================== -->
-
+<br>
 <h2>{% trans "État des composants" %}</h2>
 
 <div class="box">
@@ -370,7 +423,7 @@
 <!-- ================================================== -->
 <!-- MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
-
+<br>
 <h2>{% trans "Main-d'œuvre" %}</h2>
 
 <div class="box">
