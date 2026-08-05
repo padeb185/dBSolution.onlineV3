@@ -409,20 +409,20 @@
             <tr>
                 <td>{% trans "Fonctionnement de la géométrie variable" %}</td>
                 <td>
-                    {% if turbo.fonctionnement_turbo_variable == "OK" %}
+                    {% if turbo.fonctionnement_geometrie_variable == "OK" %}
                         <span class="ok">
-                            {{ turbo.get_fonctionnement_turbo_variable_display }}
+                            {{ turbo.get_fonctionnement_geometrie_variable_display }}
                         </span>
-                    {% elif turbo.fonctionnement_turbo_variable == "NOT_OK" %}
+                    {% elif turbo.fonctionnement_geometrie_variable == "NOT_OK" %}
                         <span class="not-ok">
-                            {{ turbo.get_fonctionnement_turbo_variable_display }}
+                            {{ turbo.get_fonctionnement_geometrie_variable_display }}
                         </span>
-                    {% elif turbo.fonctionnement_turbo_variable == "REMPLACE" %}
+                    {% elif turbo.fonctionnement_geometrie_variable == "REMPLACE" %}
                         <span class="remplace">
-                            {{ turbo.get_fonctionnement_turbo_variable_display }}
+                            {{ turbo.get_fonctionnement_geometrie_variable_display }}
                         </span>
                     {% else %}
-                        {{ turbo.get_fonctionnement_turbo_variable_display|default:"-" }}
+                        {{ turbo.get_fonctionnement_geometrie_variable_display|default:"-" }}
                     {% endif %}
                 </td>
             </tr>

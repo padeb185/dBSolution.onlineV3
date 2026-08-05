@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -155,6 +155,60 @@
 </head>
 
 <body>
+
+{% if checkup.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ checkup.tech_societe.nom }}
+            </div>
+
+            {% if checkup.tech_societe.adresse %}
+                <div>
+                    {{ checkup.tech_societe.adresse.rue }}
+                    {{ checkup.tech_societe.adresse.numero }}
+                    {% if checkup.tech_societe.adresse.boite %}
+                        / {{ checkup.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ checkup.tech_societe.adresse.code_postal }}
+                    {{ checkup.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if checkup.tech_societe.adresse.pays %}
+                <div>{{ checkup.tech_societe.adresse.pays }}
+                    {{ checkup.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if checkup.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ checkup.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if checkup.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ checkup.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ checkup.tech_societe.nom }}.png"
+                alt="{{ checkup.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+
 
 <h1>{% trans "Rapport de check-up général" %}</h1>
 

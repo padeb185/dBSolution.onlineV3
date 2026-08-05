@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html>
@@ -119,23 +119,35 @@
 
 
 
-        table {
+       table {
             width: 100%;
+            table-layout: fixed;
             border-collapse: collapse;
-            margin-top: 10px;
         }
 
-       th,
+        table th:first-child,
+        table td:first-child {
+            width: 67%;
+        }
+
+        table th:last-child,
+        table td:last-child {
+            width: 33%;
+        }
+
+        th,
         td {
             border: 1px solid #d1d5db;
-            padding: 6px;
+            padding: 6px 8px;
             vertical-align: middle;
+            word-wrap: break-word;
         }
 
         th {
             background: #eff6ff;
             color: #1e3a8a;
             text-align: left;
+            font-weight: 600;
         }
 
         .text-right {
@@ -183,6 +195,84 @@
             max-width: 200px;
             max-height: 200px;
         }
+      .rapport-pieces-table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+            font-size: 10px;
+        }
+
+        /* Largeurs réelles des six colonnes */
+        .rapport-pieces-table .col-produit {
+            width: 25%;
+        }
+
+        .rapport-pieces-table .col-etat {
+            width: 12%;
+        }
+
+        .rapport-pieces-table .col-fabricant {
+            width: 15%;
+        }
+
+        .rapport-pieces-table .col-quantite {
+            width: 10%;
+        }
+
+        .rapport-pieces-table .col-prix {
+            width: 20%;
+        }
+
+        .rapport-pieces-table .col-total {
+            width: 18%;
+        }
+
+        .rapport-pieces-table th,
+        .rapport-pieces-table td {
+            border: 1px solid #d1d5db;
+            padding: 5px;
+            vertical-align: middle;
+            overflow-wrap: anywhere;
+        }
+
+        /* Colonnes numériques */
+        .rapport-pieces-table .text-right,
+        .rapport-pieces-table .total-label,
+        .rapport-pieces-table .total-montant {
+            text-align: right;
+        }
+
+        /* Empêche les montants de passer sur deux lignes */
+        .rapport-pieces-table .total-montant,
+        .rapport-pieces-table th:nth-child(4),
+        .rapport-pieces-table th:nth-child(5),
+        .rapport-pieces-table th:nth-child(6),
+        .rapport-pieces-table td:nth-child(4),
+        .rapport-pieces-table td:nth-child(5),
+        .rapport-pieces-table td:nth-child(6) {
+            white-space: nowrap;
+        }
+
+        /* Annule le 67 % / 33 % global */
+        .rapport-pieces-table th:first-child,
+        .rapport-pieces-table td:first-child,
+        .rapport-pieces-table th:last-child,
+        .rapport-pieces-table td:last-child {
+            width: auto;
+        }
+
+        .rapport-pieces-table .total-label {
+            background: #f3f4f6;
+        }
+
+        .rapport-pieces-table .total-montant {
+            background: #f3f4f6;
+        }
+
+        .rapport-pieces-table .total-general td {
+            background: #eff6ff;
+            color: #1e3a8a;
+        }
          .footer {
             margin-top: 25px;
             font-size: 10px;
@@ -193,6 +283,60 @@
 </head>
 
 <body>
+
+{% if checkup_track.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ checkup_track.tech_societe.nom }}
+            </div>
+
+            {% if checkup_track.tech_societe.adresse %}
+                <div>
+                    {{ checkup_track.tech_societe.adresse.rue }}
+                    {{ checkup_track.tech_societe.adresse.numero }}
+                    {% if checkup_track.tech_societe.adresse.boite %}
+                        / {{ checkup_track.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ checkup_track.tech_societe.adresse.code_postal }}
+                    {{ checkup_track.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if checkup_track.tech_societe.adresse.pays %}
+                <div>{{ checkup_track.tech_societe.adresse.pays }}
+                    {{ checkup_track.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if checkup_track.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ checkup_track.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if checkup_track.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ checkup_track.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ checkup_track.tech_societe.nom }}.png"
+                alt="{{ checkup_track.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+
 
 <h1>{% trans "Rapport Checkup Track Véhicule" %}</h1>
 
@@ -254,7 +398,7 @@
 
     </div>
 </div>
-
+<br>
 <h2>{% trans "Essuies-glaces & Pare-brise" %}</h2>
 
 <table>
@@ -267,7 +411,7 @@
 
     <tbody>
         <tr>
-            <td>{% trans "Essuie-glace fonctionnel" %}</td>
+            <td>{% trans "Etat des balais avant" %}</td>
             <td>
                 {% if checkup_track.essuie_glace == "OK" %}
                     <span class="etat-vert">
@@ -290,7 +434,7 @@
         </tr>
 
         <tr>
-            <td>{% trans "État des balais" %}</td>
+            <td>{% trans "État des balais arrière" %}</td>
             <td>
                 {% if checkup_track.balais_essuie == "OK" %}
                     <span class="etat-vert">
@@ -1827,7 +1971,7 @@
         </tr>
     </tbody>
 </table>
-
+<br>
 <!-- ================= MAIN D'ŒUVRE ================= -->
 
 <h2>{% trans "Main d'œuvre" %}</h2>
@@ -1864,189 +2008,127 @@
 <!-- ================================================== -->
 
 <h2>{% trans "Pièces, produits utilisés et main-d'œuvre" %}</h2>
+<table class="rapport-pieces-table">
+    <colgroup>
+        <col class="col-produit">
+        <col class="col-etat">
+        <col class="col-fabricant">
+        <col class="col-quantite">
+        <col class="col-prix">
+        <col class="col-total">
+    </colgroup>
 
-<div class="box">
+    <thead>
+        <tr>
+            <th>{% trans "Pièce / Produit" %}</th>
+            <th>{% trans "État" %}</th>
+            <th>{% trans "Fabricant" %}</th>
+            <th class="text-right">{% trans "Quantité" %}</th>
+            <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+            <th class="text-right">{% trans "Total HTVA" %}</th>
+        </tr>
+    </thead>
 
-    {% if rapport.lignes %}
-
-        <table>
-            <thead>
+    <tbody>
+        {% for ligne in rapport.lignes %}
+            {% if ligne.champ and ligne.prix > 0 and ligne.quantite > 0 %}
                 <tr>
-                    <th>{% trans "Pièce / Produit" %}</th>
-                    <th>{% trans "État" %}</th>
-                    <th>{% trans "Fabricant" %}</th>
+                    <td>
+                        {{ ligne.designation|default:ligne.champ }}
 
-                    <th class="text-right">
-                        {% trans "Quantité" %}
-                    </th>
+                        {% if ligne.qualite %}
+                            <br>
+                            <span class="small">
+                                {% trans "Qualité" %} :
+                                {{ ligne.qualite_label|default:ligne.qualite }}
+                            </span>
+                        {% endif %}
 
-                    <th class="text-right">
-                        {% trans "Prix unitaire HTVA" %}
-                    </th>
+                        {% if ligne.type %}
+                            <br>
+                            <span class="small">
+                                {% trans "Type" %} :
+                                {{ ligne.type_label|default:ligne.type }}
+                            </span>
+                        {% endif %}
+                    </td>
 
-                    <th class="text-right">
-                        {% trans "Total HTVA" %}
-                    </th>
-                </tr>
-            </thead>
+                    <td>
+                        {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                            <span class="etat-vert">
+                                {{ ligne.etat_label|default:"-" }}
+                            </span>
+                        {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                            <span class="etat-rouge">
+                                {{ ligne.etat_label|default:"-" }}
+                            </span>
+                        {% elif ligne.etat == "REMPLACE" %}
+                            <span class="etat-bleu">
+                                {{ ligne.etat_label|default:"-" }}
+                            </span>
+                        {% elif ligne.etat == "REPORTER" %}
+                            <span class="etat-jaune">
+                                {{ ligne.etat_label|default:"-" }}
+                            </span>
+                        {% else %}
+                            <span class="etat-gris">
+                                {{ ligne.etat_label|default:"-" }}
+                            </span>
+                        {% endif %}
+                    </td>
 
-            <tbody>
-                {% for ligne in rapport.lignes %}
-                    {% if ligne.champ and ligne.prix > 0 and ligne.quantite > 0 %}
-                        <tr>
-                            <td>
-                                {{ ligne.designation|default:ligne.champ }}
+                    <td>{{ ligne.fabricant_label|default:"-" }}</td>
 
-                                {% if ligne.qualite %}
-                                    <br>
-                                    <span class="small">
-                                        {% trans "Qualité" %} :
-                                        {{ ligne.qualite_label|default:ligne.qualite }}
-                                    </span>
-                                {% endif %}
-
-                                {% if ligne.type %}
-                                    <br>
-                                    <span class="small">
-                                        {% trans "Type" %} :
-                                        {{ ligne.type_label|default:ligne.type }}
-                                    </span>
-                                {% endif %}
-                            </td>
-
-                            <td>
-                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
-                                    <span class="etat-vert">
-                                        {{ ligne.etat_label|default:"-" }}
-                                    </span>
-
-                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
-                                    <span class="etat-rouge">
-                                        {{ ligne.etat_label|default:"-" }}
-                                    </span>
-
-                                {% elif ligne.etat == "REMPLACE" %}
-                                    <span class="etat-bleu">
-                                        {{ ligne.etat_label|default:"-" }}
-                                    </span>
-
-                                {% elif ligne.etat == "REPORTER" %}
-                                    <span class="etat-jaune">
-                                        {{ ligne.etat_label|default:"-" }}
-                                    </span>
-
-                                {% else %}
-                                    <span class="etat-gris">
-                                        {{ ligne.etat_label|default:"-" }}
-                                    </span>
-                                {% endif %}
-                            </td>
-
-                            <td>
-                                {{ ligne.fabricant_label|default:"-" }}
-                            </td>
-
-                            <td class="text-right">
-                                {{ ligne.quantite|default:0|floatformat:2 }}
-                                {{ ligne.unite|default:"" }}
-                            </td>
-
-                            <td class="text-right">
-                                {{ ligne.prix|default:0|floatformat:2 }} €
-                            </td>
-
-                            <td class="text-right">
-                                {{ ligne.total|default:0|floatformat:2 }} €
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-
-                <tr class="total">
-                    <td colspan="5" class="text-right">
-                        <strong>
-                            {% trans "Total pièces et produits HTVA" %}
-                        </strong>
+                    <td class="text-right">
+                        {{ ligne.quantite|default:0|floatformat:2 }}
+                        {{ ligne.unite|default:"" }}
                     </td>
 
                     <td class="text-right">
-                        <strong>
-                            {{ rapport.total_general|default:0|floatformat:2 }} €
-                        </strong>
+                        {{ ligne.prix|default:0|floatformat:2 }} €
+                    </td>
+
+                    <td class="text-right">
+                        {{ ligne.total|default:0|floatformat:2 }} €
                     </td>
                 </tr>
+            {% endif %}
+        {% endfor %}
 
-                <tr class="total">
-                    <td colspan="5" class="text-right">
-                        <strong>
-                            {% trans "Main-d'œuvre" %}
-                        </strong>
-                    </td>
+        <tr class="total">
+            <td colspan="5" class="total-label">
+                <strong>{% trans "Total pièces et produits HTVA" %}</strong>
+            </td>
+            <td class="total-montant">
+                <strong>
+                    {{ rapport.total_general|default:0|floatformat:2 }} €
+                </strong>
+            </td>
+        </tr>
 
-                    <td class="text-right">
-                        <strong>
-                            {{ checkup_track.cout_main_oeuvre|default:0|floatformat:2 }} €
-                        </strong>
-                    </td>
-                </tr>
+        <tr class="total">
+            <td colspan="5" class="total-label">
+                <strong>{% trans "Main-d'œuvre" %}</strong>
+            </td>
+            <td class="total-montant">
+                <strong>
+                    {{ checkup_track.cout_main_oeuvre|default:0|floatformat:2 }} €
+                </strong>
+            </td>
+        </tr>
 
-                <tr class="total">
-                    <td colspan="5" class="text-right">
-                        <strong>
-                            {% trans "Total général avec main-d'œuvre" %}
-                        </strong>
-                    </td>
-
-                    <td class="text-right">
-                        <strong>
-                            {{ checkup_track.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
-                        </strong>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-    {% else %}
-
-        <p>
-            {% trans "Aucune pièce ou produit utilisé." %}
-        </p>
-
-        <table>
-            <tbody>
-                <tr class="total">
-                    <td class="text-right">
-                        <strong>
-                            {% trans "Main-d'œuvre" %}
-                        </strong>
-                    </td>
-
-                    <td class="text-right">
-                        <strong>
-                            {{ checkup_track.cout_main_oeuvre|default:0|floatformat:2 }} €
-                        </strong>
-                    </td>
-                </tr>
-
-                <tr class="total">
-                    <td class="text-right">
-                        <strong>
-                            {% trans "Total général avec main-d'œuvre" %}
-                        </strong>
-                    </td>
-
-                    <td class="text-right">
-                        <strong>
-                            {{ checkup_track.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
-                        </strong>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-    {% endif %}
-
-</div>
+        <tr class="total total-general">
+            <td colspan="5" class="total-label">
+                <strong>{% trans "Total général avec main-d'œuvre" %}</strong>
+            </td>
+            <td class="total-montant">
+                <strong>
+                    {{ checkup_track.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                </strong>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 
 <!-- ================= REMARQUES ================= -->

@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -140,6 +140,59 @@
 </head>
 
 <body>
+
+{% if carrosserie.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ carrosserie.tech_societe.nom }}
+            </div>
+
+            {% if carrosserie.tech_societe.adresse %}
+                <div>
+                    {{ carrosserie.tech_societe.adresse.rue }}
+                    {{ carrosserie.tech_societe.adresse.numero }}
+                    {% if carrosserie.tech_societe.adresse.boite %}
+                        / {{ carrosserie.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ carrosserie.tech_societe.adresse.code_postal }}
+                    {{ carrosserie.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if carrosserie.tech_societe.adresse.pays %}
+                <div>{{ carrosserie.tech_societe.adresse.pays }}
+                    {{ carrosserie.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if carrosserie.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ carrosserie.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if carrosserie.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ carrosserie.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ carrosserie.tech_societe.nom }}.png"
+                alt="{{ carrosserie.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
 
 <h1>{% trans "Rapport carrosserie interne" %}</h1>
 
