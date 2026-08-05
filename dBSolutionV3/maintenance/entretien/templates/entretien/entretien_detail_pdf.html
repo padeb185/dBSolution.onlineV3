@@ -43,7 +43,15 @@
         .label {
             font-weight: bold;
         }
+         .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
 
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
         .tag {
             padding: 4px 8px;
             border-radius: 4px;
@@ -988,9 +996,7 @@
 <h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
 
 
-<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
-
-<div class="box rapport-pieces">
+<div class="rapport-pieces">
 
     {% if rapport.lignes %}
 

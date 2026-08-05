@@ -1,11 +1,10 @@
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.decorators import login_required
-from django.utils import timezone
+from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
+from maindoeuvre.models import MainDoeuvre
 from maintenance.autres_interventions.moteur.rodage.forms import RodageForm
 from maintenance.autres_interventions.moteur.rodage.models import Rodage
 from maintenance.models import Maintenance
@@ -18,9 +17,14 @@ from utilisateurs.chef_mecanicien.models import ChefMecanicien
 from utilisateurs.direction.models import Direction
 from utilisateurs.magasinier.models import Magasinier
 from utilisateurs.mecanicien.models import Mecanicien
+from decimal import Decimal
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
+from django.utils import timezone
 from weasyprint import HTML
+
 
 
 
@@ -153,6 +157,23 @@ def rodage_check_view(request, exemplaire_id):
 
                     rodage.assign_technicien(request.user)
 
+                    taux_horaire = form.cleaned_data.get("taux_horaire")
+                    temps_main_oeuvre = form.cleaned_data.get("temps_main_oeuvre")
+                    descriptif = form.cleaned_data.get("descriptif", "")
+
+                    main_oeuvre = rodage.main_oeuvre
+
+                    if main_oeuvre is None:
+                        main_oeuvre = MainDoeuvre()
+
+                    main_oeuvre.utilisateur = request.user
+                    main_oeuvre.taux_horaire = taux_horaire or Decimal("0.00")
+                    main_oeuvre.temps_main_oeuvre = temps_main_oeuvre
+                    main_oeuvre.descriptif = descriptif
+                    main_oeuvre.save()
+
+                    rodage.main_oeuvre = main_oeuvre
+
                     rodage.kilometres_chassis = exemplaire.kilometres_chassis
                     rodage.kilometrage_rodage = km
 
@@ -190,6 +211,7 @@ def rodage_check_view(request, exemplaire_id):
                 rodage.maintenance = maintenance
                 rodage.save()
 
+
                 UserLog.objects.create(
                     utilisateur=request.user,
                     action=_("Rodage - %(immatriculation)s") % {
@@ -203,7 +225,6 @@ def rodage_check_view(request, exemplaire_id):
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
         else:
-            print("FORM INVALID:", form.errors)
             messages.error(request, _("Le formulaire contient des erreurs."))
 
 
@@ -323,14 +344,6 @@ def modifier_rodage_view(request, rodage_id):
 
 
 
-from decimal import Decimal
-
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
-from django.template.loader import render_to_string
-from django.utils import timezone
-from weasyprint import HTML
 
 
 @login_required
@@ -349,31 +362,33 @@ def rodage_pdf_view(request, rodage_id):
     )
 
     rapport = rodage.generer_rapport_remplacement() or {}
+    rapport.setdefault("lignes", [])
 
-    # Accepte aussi bien "pieces" que l’ancienne clé "lignes"
-    pieces = rapport.get("pieces") or rapport.get("lignes") or []
+    # Total des pièces uniquement
+    total_pieces = Decimal(str(
+        rapport.get("total_general") or 0
+    ))
 
-    total_pieces_htva = Decimal("0.00")
+    # Total de la main-d'œuvre
+    if rodage.main_oeuvre:
+        cout_main_oeuvre = Decimal(str(
+            rodage.main_oeuvre.cout_total or 0
+        ))
+    else:
+        cout_main_oeuvre = Decimal("0.00")
 
-    for ligne in pieces:
-        quantite = Decimal(str(ligne.get("quantite", 0) or 0))
-        prix = Decimal(str(ligne.get("prix", 0) or 0))
-
-        # Recalcul du total de chaque ligne une seule fois
-        total_ligne = quantite * prix
-        ligne["total"] = total_ligne
-
-        total_pieces_htva += total_ligne
-
-    cout_main_oeuvre = Decimal(
-        str(rodage.cout_main_oeuvre or 0)
+    # Total pièces + main-d'œuvre
+    total_general_avec_main_oeuvre = (
+            total_pieces + cout_main_oeuvre
     )
 
-    rapport["pieces"] = pieces
-    rapport["total_pieces_htva"] = total_pieces_htva
-    rapport["total_general_avec_main_oeuvre"] = (
-        total_pieces_htva + cout_main_oeuvre
-    )
+    rapport.update({
+        "total_pieces": total_pieces,
+        "cout_main_oeuvre": cout_main_oeuvre,
+        "total_general_avec_main_oeuvre": (
+            total_general_avec_main_oeuvre
+        ),
+    })
 
     html_string = render_to_string(
         "rodage/rodage_pdf.html",
@@ -381,13 +396,13 @@ def rodage_pdf_view(request, rodage_id):
             "rodage": rodage,
             "rapport": rapport,
             "date_export": timezone.now(),
-            "societe": tenant,
-        },
+            "societe": request.user.societe,
+        }
     )
 
     pdf = HTML(
         string=html_string,
-        base_url=request.build_absolute_uri("/"),
+        base_url=request.build_absolute_uri("/")
     ).write_pdf()
 
     immatriculation = (
@@ -397,18 +412,18 @@ def rodage_pdf_view(request, rodage_id):
     )
 
     technicien = (
-        rodage.tech_nom_technicien
-        or "technicien_inconnu"
+            rodage.tech_nom_technicien
+            or "technicien_inconnu"
     )
 
     response = HttpResponse(
         pdf,
-        content_type="application/pdf",
+        content_type="application/pdf"
     )
 
     response["Content-Disposition"] = (
-        f'inline; filename="rodage_'
-        f'{immatriculation}_{technicien}.pdf"'
+        f'attachment; '
+        f'filename="rodage_{immatriculation}_{technicien}.pdf"'
     )
 
     return response

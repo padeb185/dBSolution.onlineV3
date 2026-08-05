@@ -101,6 +101,22 @@
             color: #111;
         }
 
+         .table-2-cols {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -318,7 +334,7 @@
 
 <h2>{% trans "Moteur" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <thead>
         <tr>
             <th>{% trans "Élément" %}</th>
@@ -557,7 +573,7 @@
 
 <h2>{% trans "Pression des pneus" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <thead>
         <tr>
             <th>{% trans "Position" %}</th>
@@ -590,7 +606,7 @@
 
 <h2>{% trans "Serrage des roues" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tbody>
         <tr>
             <td>
@@ -656,7 +672,54 @@
         {% endif %}
     </div>
 </div>
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
 
+<h2>{% trans "Main-d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Temps de travail" %} :</span>
+            {{ rodage.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Taux horaire" %} :</span>
+
+            {% if rodage.main_oeuvre %}
+                {{ rodage.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €
+            {% else %}
+                0,00 €
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Coût de la main-d'œuvre" %} :</span>
+            {{ rodage.cout_main_oeuvre|default:0|floatformat:2 }} €
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+
+            {% if rodage.main_oeuvre and rodage.main_oeuvre.utilisateur %}
+                {{ rodage.main_oeuvre.utilisateur }}
+            {% else %}
+                {{ rodage.tech_nom_technicien|default:"-" }}
+            {% endif %}
+        </div>
+
+        {% if rodage.main_oeuvre and rodage.main_oeuvre.descriptif %}
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ rodage.main_oeuvre.descriptif }}
+            </div>
+        {% endif %}
+
+    </div>
+</div>
 
 
 <!-- ================================================== -->
@@ -712,7 +775,7 @@
                         </td>
 
                         <td>
-                            {{ ligne.type|default:"-" }}
+                            {{ ligne.qualite|default:"-" }}
                         </td>
 
                         <td class="text-right">

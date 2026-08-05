@@ -5,7 +5,6 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction
-from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from django.db.models import Q
@@ -25,12 +24,14 @@ from .models import Admission
 
 
 
+
+
 @method_decorator([login_required, never_cache], name="dispatch")
 class AdmissionListView(ListView):
     model = Admission
     template_name = "admission/admission_list.html"
     context_object_name = "admissions"
-    paginate_by = 100
+    paginate_by = 10
     ordering = ["-id"]
 
     def get_queryset(self):
