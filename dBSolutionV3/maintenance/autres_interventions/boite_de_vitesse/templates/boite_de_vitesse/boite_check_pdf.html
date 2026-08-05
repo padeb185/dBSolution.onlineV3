@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:'fr' }}">
@@ -189,6 +189,59 @@
 </head>
 
 <body>
+
+{% if boite.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ boite.tech_societe.nom }}
+            </div>
+
+            {% if boite.tech_societe.adresse %}
+                <div>
+                    {{ boite.tech_societe.adresse.rue }}
+                    {{ boite.tech_societe.adresse.numero }}
+                    {% if boite.tech_societe.adresse.boite %}
+                        / {{ boite.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ boite.tech_societe.adresse.code_postal }}
+                    {{ boite.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if boite.tech_societe.adresse.pays %}
+                <div>{{ boite.tech_societe.adresse.pays }}
+                    {{ boite.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if boite.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ boite.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if boite.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ boite.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ boite.tech_societe.nom }}.png"
+                alt="{{ boite.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
 
 <h1>{% trans "Rapport du contrôle de la boîte de vitesses" %}</h1>
 

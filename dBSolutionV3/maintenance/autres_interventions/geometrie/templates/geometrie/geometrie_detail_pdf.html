@@ -1,11 +1,16 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
-<html>
+<html lang="{{ LANGUAGE_CODE|default:'fr' }}">
 <head>
     <meta charset="utf-8">
 
     <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
         body {
             font-family: Arial, sans-serif;
             font-size: 12px;
@@ -28,6 +33,7 @@
             color: #1e40af;
             border-bottom: 1px solid #93c5fd;
         }
+
         .box {
             border: 1px solid #ddd;
             padding: 10px;
@@ -40,16 +46,48 @@
             gap: 6px;
         }
 
-        .grid-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 6px;
-        }
-
         .label {
             font-weight: bold;
         }
-         .tag {
+
+        .ok {
+            display: inline-block;
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            display: inline-block;
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            display: inline-block;
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            display: inline-block;
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .tag {
+            display: inline-block;
             padding: 3px 8px;
             border-radius: 4px;
             color: white;
@@ -66,6 +104,49 @@
 
         .tag-rouge {
             background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        tr {
+            page-break-inside: avoid;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+
+        .remarques {
+            white-space: pre-wrap;
+            min-height: 50px;
+        }
+
+        .small {
+            margin-top: 15px;
+            font-size: 10px;
+            color: #555;
         }
          .societe-header {
             display: table;
@@ -114,6 +195,59 @@
 </head>
 
 <body>
+
+{% if geometrie.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ geometrie.tech_societe.nom }}
+            </div>
+
+            {% if geometrie.tech_societe.adresse %}
+                <div>
+                    {{ geometrie.tech_societe.adresse.rue }}
+                    {{ geometrie.tech_societe.adresse.numero }}
+                    {% if geometrie.tech_societe.adresse.boite %}
+                        / {{ geometrie.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ geometrie.tech_societe.adresse.code_postal }}
+                    {{ geometrie.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if geometrie.tech_societe.adresse.pays %}
+                <div>{{ geometrie.tech_societe.adresse.pays }}
+                    {{ geometrie.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if geometrie.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ geometrie.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if geometrie.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ geometrie.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ geometrie.tech_societe.nom }}.png"
+                alt="{{ geometrie.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
 
 <h1>{% trans "Détail Géométrie Véhicule" %}</h1>
 
@@ -174,6 +308,7 @@
 
     </div>
 </div>
+<br>
 <!-- ================= ANGLES ================= -->
 <h2>{% trans "Pincement" %}</h2>
 
@@ -189,7 +324,7 @@
 
     </div>
 </div>
-
+<br>
 <!-- ================= ANGLES ================= -->
 <h2>{% trans "Angle de pivot" %}</h2>
 
@@ -198,7 +333,7 @@
         <div>{% trans "Angle de pivot" %} : {{ geometrie.angle_pivot }}°</div>
     </div>
 </div>
-
+<br>
 <!-- ================= ANGLES ================= -->
 <h2>{% trans "Poussée arrière" %}</h2>
 
@@ -207,6 +342,7 @@
         <div>{% trans "Poussée arrière" %} : {{ geometrie.poussee_arriere }}°</div>
     </div>
 </div>
+
 
 <!-- ================= SUSPENSION ================= -->
 <h2>{% trans "Suspension" %}</h2>
@@ -279,9 +415,11 @@
 <!-- PIÈCES ET PRODUITS -->
 <!-- ================================================== -->
 <br>
-<br>
-<br>
-<br>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
 <h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
 
 <div class="box">

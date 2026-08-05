@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -166,6 +166,59 @@
 </head>
 
 <body>
+
+{% if courroie_accessoires.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ courroie_accessoires.tech_societe.nom }}
+            </div>
+
+            {% if courroie_accessoires.tech_societe.adresse %}
+                <div>
+                    {{ courroie_accessoires.tech_societe.adresse.rue }}
+                    {{ courroie_accessoires.tech_societe.adresse.numero }}
+                    {% if courroie_accessoires.tech_societe.adresse.boite %}
+                        / {{ courroie_accessoires.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ courroie_accessoires.tech_societe.adresse.code_postal }}
+                    {{ courroie_accessoires.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if courroie_accessoires.tech_societe.adresse.pays %}
+                <div>{{ courroie_accessoires.tech_societe.adresse.pays }}
+                    {{ courroie_accessoires.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if courroie_accessoires.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ courroie_accessoires.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if courroie_accessoires.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ courroie_accessoires.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ courroie_accessoires.tech_societe.nom }}.png"
+                alt="{{ courroie_accessoires.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
 
 <h1>{% trans "Rapport du contrôle courroie d'accessoires" %}</h1>
 
