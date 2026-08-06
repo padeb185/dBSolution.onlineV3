@@ -140,7 +140,7 @@ def ajouter_marque(request):
         )
 
         messages.success(request, _("Marque ajoutée avec succès !"))
-        return redirect("voiture_marque:ajouter_marque")
+        return redirect("voiture_marque:marques_list")
 
     return render(request, "voiture_marque/ajouter_marque.html")
 

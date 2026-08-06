@@ -104,7 +104,7 @@ def modifier_voiture_modele(request, voiture_modele_id):
             form_voiture_modele.save()
             messages.success(request, "VoitureModele mise à jour avec succès.")
             return redirect(
-                "voiture_modele:modifier_voiture_modele",
+                "voiture_modele:voiture_modele_detail",
                 voiture_modele_id=voiture_modele.id,
             )
 

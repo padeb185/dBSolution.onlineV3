@@ -78,6 +78,7 @@ def modifier_moteur_view(request, moteur_id):
             if form.is_valid():
                 form.save()
                 messages.success(request, _("Moteur mis à jour avec succès."))
+                return redirect("voiture_moteur:moteur_detail")
 
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
