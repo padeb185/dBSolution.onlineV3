@@ -36,9 +36,9 @@ class CarrosserieListView(ListView):
 def carrosserie_detail(request, carrosserie_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        carrosserie = get_object_or_404(Carrosserie, id=carrosserie_id)
-        adresse = carrosserie.adresse
+
+    carrosserie = get_object_or_404(Carrosserie, id=carrosserie_id)
+    adresse = carrosserie.adresse
 
     return render(
         request,
@@ -55,46 +55,46 @@ def carrosserie_detail(request, carrosserie_id):
 def ajouter_carrosserie_all(request):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
+    if request.method == "POST":
+        form_carrosserie = CarrosserieForm(request.POST)
+        form_adresse = AdresseForm(request.POST)
 
-        if request.method == "POST":
-            form_carrosserie = CarrosserieForm(request.POST)
-            form_adresse = AdresseForm(request.POST)
+        form_adresse.instance.societe = tenant
 
-            form_adresse.instance.societe = tenant
+        if form_carrosserie.is_valid() and form_adresse.is_valid():
 
-            if form_carrosserie.is_valid() and form_adresse.is_valid():
+            with transaction.atomic():
 
-                with transaction.atomic():
-
-                    adresse = form_adresse.save(commit=False)
-                    adresse.societe = tenant
-                    adresse.save()
+                adresse = form_adresse.save(commit=False)
+                adresse.societe = tenant
+                adresse.save()
 
 
-                    carrosserie = form_carrosserie.save(commit=False)
-                    carrosserie.societe = tenant
-                    carrosserie.adresse = adresse
-                    carrosserie.save()
+                carrosserie = form_carrosserie.save(commit=False)
+                carrosserie.societe = tenant
+                carrosserie.adresse = adresse
+                carrosserie.save()
 
-                messages.success(
-                    request,
-                    _(f"Carrosserie '{carrosserie.nom_societe}' créée avec succès !")
-                )
-            else:
-                messages.error(
-                    request,
-                    _("Veuillez corriger les erreurs du formulaire.")
-                )
+            messages.success(
+                request,
+                _(f"Carrosserie '{carrosserie.nom_societe}' créée avec succès !")
+            )
+            return redirect("carrosserie:carrosserie_list ")
 
         else:
-            form_carrosserie = CarrosserieForm()
-            form_adresse = AdresseForm()
+            messages.error(
+                request,
+                _("Veuillez corriger les erreurs du formulaire.")
+            )
 
-        return render(request, "carrosserie/carrosserie_form.html", {
-            "form": form_carrosserie,
-            "form_adresse": form_adresse,
-        })
+    else:
+        form_carrosserie = CarrosserieForm()
+        form_adresse = AdresseForm()
+
+    return render(request, "carrosserie/carrosserie_form.html", {
+        "form": form_carrosserie,
+        "form_adresse": form_adresse,
+    })
 
 
 
@@ -102,34 +102,33 @@ def ajouter_carrosserie_all(request):
 def modifier_carrosserie(request, carrosserie_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        # Récupérer l'assureur et son adresse liée
-        carrosserie = get_object_or_404(
-            Carrosserie.objects.select_related("adresse"),
-            id=carrosserie_id
-        )
-        adresse = carrosserie.adresse
+    carrosserie = get_object_or_404(
+        Carrosserie.objects.select_related("adresse"),
+        id=carrosserie_id
+    )
+    adresse = carrosserie.adresse
 
-        if request.method == "POST":
-            # Formulaires pour Carrosserie et Adresse
-            form_carrosserie = CarrosserieForm(request.POST, instance=carrosserie)
-            form_adresse = AdresseForm(request.POST, instance=adresse)
+    if request.method == "POST":
+        # Formulaires pour Carrosserie et Adresse
+        form_carrosserie = CarrosserieForm(request.POST, instance=carrosserie)
+        form_adresse = AdresseForm(request.POST, instance=adresse)
 
-            if form_carrosserie.is_valid() and form_adresse.is_valid():
-                # Sauvegarde adresse puis mise à jour de l'carrosserie
-                adresse = form_adresse.save()
-                carrosserie = form_carrosserie.save(commit=False)
-                carrosserie.adresse = adresse
-                carrosserie.save()
+        if form_carrosserie.is_valid() and form_adresse.is_valid():
+            # Sauvegarde adresse puis mise à jour de l'carrosserie
+            adresse = form_adresse.save()
+            carrosserie = form_carrosserie.save(commit=False)
+            carrosserie.adresse = adresse
+            carrosserie.save()
 
-                messages.success(request, _("Carrosserie et adresse mises à jour avec succès."))
+            messages.success(request, _("Carrosserie et adresse mises à jour avec succès."))
+            return redirect("carrosserie:carrosserie_detail", carrosserie_id=carrosserie.id)
 
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
         else:
-            # Pré-remplissage des formulaires
-            form_carrosserie = CarrosserieForm(instance=carrosserie)
-            form_adresse = AdresseForm(instance=adresse)
+            messages.error(request, _("Le formulaire contient des erreurs."))
+    else:
+        # Pré-remplissage des formulaires
+        form_carrosserie = CarrosserieForm(instance=carrosserie)
+        form_adresse = AdresseForm(instance=adresse)
 
     return render(
         request,
@@ -159,13 +158,9 @@ def dashboard_carrosserie_view(request):
 
     carrosseries = []
 
-    if schema_name:
-        with schema_context(schema_name):
+    carrosseries = Carrosserie.objects.filter(societe=societe)
+    total_carrosserie = carrosseries.count()
 
-            carrosseries = Carrosserie.objects.filter(societe=societe)
-            total_carrosserie = carrosseries.count()
-    else:
-        modeles = []
 
     context.update({
         'user': user,
