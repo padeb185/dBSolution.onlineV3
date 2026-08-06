@@ -1,10 +1,7 @@
 from django.views.generic import ListView
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
-from django_tenants.utils import tenant_context
 from achat_mds.forms import AchatForm
 from achat_mds.models import AchatMds
 from fournisseur.models import Fournisseur

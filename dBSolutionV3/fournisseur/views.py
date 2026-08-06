@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import  ListView
@@ -108,6 +108,7 @@ def ajouter_fournisseur_all(request):
                     messages.success(
                         request,
                         _(f"Fournisseur '{fournisseur.nom}' créé avec succès !"))
+                    return redirect("fournisseur:fournisseur_list")
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
     else:
@@ -132,7 +133,7 @@ def modifier_fournisseur(request, fournisseur_id):
         if form.is_valid():
             form.save()
             messages.success(request, _(f"Fournisseur '{fournisseur.nom}' modifié avec succès !"))
-
+            return redirect("fournisseur:fournisseur_detail", fournisseur_id=fournisseur.id)
 
     else:
         form = FournisseurForm(instance=fournisseur)
