@@ -161,7 +161,7 @@ def modifier_assurance(request, assurance_id):
 
             messages.success(request, _("Assurance et adresse mises à jour avec succès."))
             return redirect(
-                "assurance:modifier_assurance",
+                "assurance:assurance_detail",
                 assurance_id=assurance.id
             )
         else:
