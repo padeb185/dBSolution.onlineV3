@@ -2,9 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import never_cache
-from django_tenants.utils import tenant_context
 from .forms import VoitureFreinsARForm
-from ..voiture_freins_av.models import MatiereFrein, TypeDisqueFrein
 from ..voiture_modele.models import VoitureModele
 from ..voiture_freins_ar.models import VoitureFreinsAR
 from societe.models import Societe
@@ -179,19 +177,20 @@ def liste_freins_ar(request, societe_id=None):
 def modifier_freins_ar_view(request, frein_ar_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        freins_ar = get_object_or_404(VoitureFreinsAR, id=frein_ar_id)
 
-        if request.method == "POST":
-            form_frein = VoitureFreinsARForm(request.POST, instance=freins_ar)
-            if form_frein.is_valid():
-                form_frein.save()
-                messages.success(request, _("Freins arrière mis à jour avec succès."))
+    freins_ar = get_object_or_404(VoitureFreinsAR, id=frein_ar_id)
 
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
+    if request.method == "POST":
+        form_frein = VoitureFreinsARForm(request.POST, instance=freins_ar)
+        if form_frein.is_valid():
+            form_frein.save()
+            messages.success(request, _("Freins arrière mis à jour avec succès."))
+            return redirect("voiture_freins_ar:freins_ar_detail", frein_ar_id=freins_ar.id)
+
         else:
-            form_frein = VoitureFreinsARForm(instance=freins_ar)
+            messages.error(request, _("Le formulaire contient des erreurs."))
+    else:
+        form_frein = VoitureFreinsARForm(instance=freins_ar)
 
     return render(
         request,

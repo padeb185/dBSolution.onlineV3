@@ -109,7 +109,7 @@ def modifier_freins_av_view(request, frein_av_id):
             )
 
             return redirect(
-                "voiture_freins_av:modifier_freins_av",
+                "voiture_freins_av:freins_av_detail",
                 frein_av_id=frein.id,
             )
 
