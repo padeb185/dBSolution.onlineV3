@@ -101,6 +101,7 @@ def ajouter_societe_cliente_all(request):
                 request,
                 _("Société cliente ajoutée avec succès !")
             )
+            return redirect("societe_cliente:societe_cliente_list")
 
     else:
         form = SocieteClienteForm()
@@ -159,9 +160,14 @@ def modifier_societe_cliente(request, societe_cliente_id):
 
             messages.success(
                 request,
-                _(
-                    f"SocieteCliente '{societe_cliente.nom_societe_cliente}' modifiée avec succès !"
-                )
+                _("Société cliente '%(nom)s' modifiée avec succès !") % {
+                    "nom": societe_cliente.nom_societe_cliente,
+                }
+            )
+
+            return redirect(
+                "societe_cliente:societe_cliente_detail",
+                societe_cliente_id=societe_cliente.pk,
             )
 
     else:
