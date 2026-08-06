@@ -1,26 +1,23 @@
 from django.contrib import messages
 from django.db.models import Sum
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.utils.decorators import method_decorator
-from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import schema_context, tenant_context
 from proprietaire.models import  ProprietaireVoiture
 from django.utils.translation import gettext_lazy as _
 from adresse.models import Adresse
 from django.http import JsonResponse
 from .forms import ProprietaireForm, ProprietaireVoitureForm
 from .models import Proprietaire
-from django.contrib.auth.decorators import login_required
 from adresse.forms import AdresseForm
-
-
-
-
-
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.shortcuts import render
+
+
+
+
+
 
 @never_cache
 @login_required
@@ -104,9 +101,8 @@ def proprietaire_form_view(request):
             )
 
             return redirect("proprietaire:proprietaire_list")
+
         else:
-            print("FORM ERRORS:", form.errors)
-            print("ADRESSE FORM ERRORS:", adresse_form.errors)
             messages.error(request, _("Veuillez corriger les erreurs du formulaire."))
 
     else:
@@ -154,6 +150,7 @@ def modifier_proprietaire_view(request, proprietaire_id):
         if form.is_valid():
             form.save()
             messages.success(request, _(f"Client '{proprietaire.prenom} {proprietaire.nom}' modifié avec succès !"))
+            return redirect("proprietaire:proprietaire_detail", proprietaire_id=proprietaire.id)
 
         else:
             # Ici, si la carte bancaire est invalide, Django affichera automatiquement l'erreur
@@ -209,11 +206,11 @@ def proprietaire_voiture_form_view(request):
                 request,
                 _("Lien propriétaire / voiture ajouté avec succès !")
             )
+            return redirect(
+                "proprietaire:proprietaire_voiture_list")
 
 
         else:
-            print("FORM ERRORS:", form.errors)
-
             messages.error(
                 request,
                 _("Veuillez corriger les erreurs du formulaire.")
@@ -286,6 +283,8 @@ def modifier_proprietaire_voiture_view(request, proprietaire_voiture_id):
                 request,
                 _("Propriété mise à jour avec succès.")
             )
+            return redirect("proprietaire:propriétaire_voiture_detail", proprietaire_voiture_id=proprietaire_voiture.id)
+
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
 
