@@ -62,27 +62,26 @@ class AssurancePoliceListView(ListView):
 @login_required
 def ajouter_assurance_all(request):
     tenant = request.user.societe  # si tu utilises tenant
-    with tenant_context(tenant):
-        if request.method == "POST":
-            form_assurance_police = AssurancePoliceForm(request.POST)
-            if form_assurance_police.is_valid():
-                assurance_police = form_assurance_police.save(commit=False)
+    if request.method == "POST":
+        form_assurance_police = AssurancePoliceForm(request.POST)
+        if form_assurance_police.is_valid():
+            assurance_police = form_assurance_police.save(commit=False)
 
-                assurance_police.societe = tenant
-                assurance_police.save()
-                messages.success(
-                    request,
-                    _(f"Assurance '{assurance_police.assurance.nom_compagnie}' créée avec succès !"
-                ))
-                return redirect('assurance_police:assurance_police_list')  # redirection après succès
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
+            assurance_police.societe = tenant
+            assurance_police.save()
+            messages.success(
+                request,
+                _(f"Assurance '{assurance_police.assurance.nom_compagnie}' créée avec succès !"
+            ))
+            return redirect('assurance_police:assurance_police_list')
         else:
-            form_assurance_police = AssurancePoliceForm()
+            messages.error(request, _("Le formulaire contient des erreurs."))
+    else:
+        form_assurance_police = AssurancePoliceForm()
 
-        return render(request, "assurance_police/assurance_police_form.html", {
-            "form": form_assurance_police
-        })
+    return render(request, "assurance_police/assurance_police_form.html", {
+        "form": form_assurance_police
+    })
 
 
 
@@ -90,8 +89,7 @@ def ajouter_assurance_all(request):
 def assurance_police_detail(request, assurance_police_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        assurance_police = get_object_or_404(AssurancePolice, id=assurance_police_id)
+    assurance_police = get_object_or_404(AssurancePolice, id=assurance_police_id)
 
 
     return render(
@@ -111,35 +109,37 @@ def assurance_police_detail(request, assurance_police_id):
 def modifier_assurance_police(request, assurance_police_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        # Récupère l'objet AssurancePolice du tenant
-        assurance_police = get_object_or_404(
-            AssurancePolice,
-            pk=assurance_police_id
+    # Récupère l'objet AssurancePolice du tenant
+    assurance_police = get_object_or_404(
+        AssurancePolice,
+        pk=assurance_police_id
+    )
+
+    if request.method == "POST":
+        form = AssurancePoliceForm(
+            request.POST,
+            request.FILES,
+            instance=assurance_police
         )
 
-        if request.method == "POST":
-            form = AssurancePoliceForm(
-                request.POST,
-                request.FILES,
-                instance=assurance_police
-            )
+        if form.is_valid():
+            assurance_police = form.save()
+            messages.success(request, _("Police d'assurance mise à jour avec succès."))
+            return redirect('assurance_police:assurance_police_detail', assurance_police_id=assurance_police.id)
 
-            if form.is_valid():
-                assurance_police = form.save()
-                messages.success(request, _("Police d'assurance mise à jour avec succès."))
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
 
         else:
-            # Pour GET : initialiser le formulaire avec les valeurs existantes
-            # et formater les dates correctement si nécessaire
-            initial_data = {
-                "date_debut": assurance_police.date_debut,
-                "date_fin": assurance_police.date_fin,
-                # ajouter d'autres champs si nécessaire
-            }
-            form = AssurancePoliceForm(instance=assurance_police, initial=initial_data)
+            messages.error(request, _("Le formulaire contient des erreurs."))
+
+    else:
+        # Pour GET : initialiser le formulaire avec les valeurs existantes
+        # et formater les dates correctement si nécessaire
+        initial_data = {
+            "date_debut": assurance_police.date_debut,
+            "date_fin": assurance_police.date_fin,
+            # ajouter d'autres champs si nécessaire
+        }
+        form = AssurancePoliceForm(instance=assurance_police, initial=initial_data)
 
     return render(
         request,
