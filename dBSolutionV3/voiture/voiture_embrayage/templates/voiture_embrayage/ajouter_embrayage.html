@@ -48,26 +48,28 @@
         {% csrf_token %}
 
         {% for field in form %}
-            <div>
-                <label class="block font-semibold mb-1">
-                    {{ field.label }}
-                </label>
-
-                {{ field|add_class:"input" }}
-
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">
-                        {{ field.help_text }}
-                    </p>
+            <label for="{{ field.id_for_label }}" class="font-semibold">
+                {{ field.label }}
+                {% if field.field.required %}
+                    <span class="text-red-600">*</span>
                 {% endif %}
+            </label>
 
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">
-                        {{ field.errors|striptags }}
-                    </p>
-                {% endif %}
-            </div>
+           {% if field.errors %}
+                {% render_field field class+="input input-error" %}
+            {% else %}
+                {% render_field field class+="input" %}
+            {% endif %}
+
+            {% if field.errors %}
+                <div class="text-red-600 text-sm mb-2">
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
         {% endfor %}
+
 
         <!-- Boutons -->
         <div class="flex gap-3 mt-6">

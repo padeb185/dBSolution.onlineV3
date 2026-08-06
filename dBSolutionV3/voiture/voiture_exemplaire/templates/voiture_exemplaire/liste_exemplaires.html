@@ -4,6 +4,7 @@
 
 {% block content %}
 
+
 <div class="p-6 w-full ml-[-10px] mr-[10px]">
 
     <!-- Titre -->
@@ -11,6 +12,20 @@
         {% trans "Véhicule : " %} {{ modele.voiture_marque.nom_marque }} {{ modele.nom_modele }}
         {% if modele.nom_variante %}- {{ modele.nom_variante }}{% endif %}
     </h1>
+<!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded border
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border-red-300
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
 
     {% if exemplaires %}
     <!-- Champ de recherche -->

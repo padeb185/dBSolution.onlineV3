@@ -42,18 +42,19 @@
         {% endfor %}
     {% endif %}
 
-    {% if form.errors %}
-        <div style="background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 10px; border-radius: 6px;">
-            <strong>Erreurs :</strong>
-            <ul>
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <li>{{ field.label }} : {{ error }}</li>
+      {% if form.errors %}
+        <div class="mb-4 bg-red-100 text-red-800 border border-red-300 p-3 rounded">
+            <strong>{% trans "Erreurs :" %}</strong>
+            <ul class="list-disc ml-5 mt-2">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }} : {{ error }}</li>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
+
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
             </ul>
         </div>
     {% endif %}
@@ -62,6 +63,7 @@
     <!-- Form -->
     <form method="POST" class="space-y-4">
         {% csrf_token %}
+
 
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/compteur-de-vitesse.png' %}" alt="Kilometrage"

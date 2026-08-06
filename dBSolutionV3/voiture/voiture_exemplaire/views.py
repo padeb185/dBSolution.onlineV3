@@ -4,18 +4,19 @@ from django.shortcuts import  redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-from django_tenants.utils import tenant_context
 from .forms import VoitureExemplaireForm
 from .models import VoitureExemplaire
 from ..voiture_modele.models import VoitureModele
 from ..voiture_moteur.models import MoteurVoiture
 from django.utils.translation import gettext as _
-from societe.models import Societe
 from ..voiture_boite.models import VoitureBoite
 from ..voiture_embrayage.models import VoitureEmbrayage
 from ..voiture_freins_av.models import VoitureFreinsAV
 from ..voiture_freins_ar.models import VoitureFreinsAR
 from ..voiture_pneus.models import VoiturePneus
+
+
+
 
 
 @never_cache
@@ -394,36 +395,62 @@ def liste_exemplaires_all(request):
 @login_required
 def ajouter_exemplaire_all(request, modele_id):
 
-    modele = get_object_or_404(VoitureModele, id=modele_id)
+    modele = get_object_or_404(
+        VoitureModele,
+        id=modele_id
+    )
     marque = modele.voiture_marque
 
     if request.method == "POST":
-        form = VoitureExemplaireForm(request.POST, user=request.user)
+        form = VoitureExemplaireForm(
+            request.POST,
+            user=request.user
+        )
 
         if form.is_valid():
             instance = form.save(commit=False)
 
             annee = form.cleaned_data.get("annee_production")
 
-            instance.modele = modele
+            instance.voiture_modele = modele
             instance.voiture_marque = marque
             instance.societe = request.user.societe
-            instance.est_apres_2010 = bool(annee and annee > 2010)
+            instance.est_apres_2010 = bool(
+                annee and annee > 2010
+            )
 
             instance.save()
 
-            messages.success(request, "Véhicule ajouté avec succès.")
+            messages.success(
+                request,
+                _("Véhicule '%(vehicule)s' créé avec succès.") % {
+                    "vehicule": (
+                        f"{instance.voiture_marque} "
+                        f"{instance.immatriculation}"
+                    )
+                }
+            )
+
+            return redirect(
+                "voiture_exemplaire:voiture_exemplaire",
+                modele_id=modele.id
+            )
 
     else:
         form = VoitureExemplaireForm(
             user=request.user,
             initial={
                 "voiture_marque": marque,
-                "voiture_modele": modele
+                "voiture_modele": modele,
             }
         )
 
-    return render(request, "voiture_exemplaire/ajouter_exemplaire_all.html", {
-        "form": form,
-        "modele": modele
-    })
+    return render(
+        request,
+        "voiture_exemplaire/ajouter_exemplaire_all.html",
+        {
+            "form": form,
+            "modele": modele,
+            "marque": marque,
+        }
+    )

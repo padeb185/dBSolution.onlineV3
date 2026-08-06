@@ -48,7 +48,7 @@ def ajouter_boite_view(request):
                 _("Boîte de vitesse ajoutée avec succès."),
             )
 
-            return redirect("voiture_boite:ajouter_boite")
+            return redirect("voiture_boite:list")
 
         messages.error(
             request,
