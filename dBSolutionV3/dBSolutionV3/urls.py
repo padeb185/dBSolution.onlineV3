@@ -20,14 +20,10 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-
-    path(
-        "connexion/",
-        connexion_globale_view,
-        name="connexion_globale",
-    ),
-
     path("", home_view, name="home"),
+    path("connexion/", connexion_globale_view, name="connexion_globale"),
+
+    path("admin/", admin.site.urls),
 
     path(
         "utilisateurs/",
@@ -36,10 +32,6 @@ urlpatterns += i18n_patterns(
             namespace="utilisateurs",
         ),
     ),
-
-    # Admin
-    path("admin/", admin.site.urls),
-
 
     path(
         "voiture/marques/",

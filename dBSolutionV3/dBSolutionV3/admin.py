@@ -23,17 +23,7 @@ from utilisateurs.mecanicien.models import Mecanicien
 from utilisateurs.vendeur.models import Vendeur
 from voiture.voiture_boite.models import VoitureBoite
 from voiture.voiture_embrayage.models import VoitureEmbrayage
-from voiture.voiture_exemplaire.models import VoitureExemplaire
-from voiture.voiture_freins_av.models import VoitureFreinsAV
-from voiture.voiture_freins_ar.models import VoitureFreinsAR
-from voiture.voiture_marque.models import VoitureMarque
-from voiture.voiture_modele.models import VoitureModele
-from voiture.voiture_moteur.models import MoteurVoiture
-from voiture.voiture_pneus.models import VoiturePneus
-from voiture.voiture_pneus_historique.models import VoiturePneusHistorique
 from client_pilotage.models import ClientPilotage
-from maintenance.autres_interventions import boite_de_vitesse
-from maintenance.autres_interventions.boite_de_vitesse import remplacement_boite
 from maintenance.autres_interventions.moteur.admission.models import Admission
 from maintenance.autres_interventions.moteur.alternateur.models import Alternateur
 from maintenance.autres_interventions.moteur.turbo.models import Turbo
@@ -45,7 +35,6 @@ from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBte
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
 from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
 from maintenance.carrosserie_interne.models import CarrosserieInterne
-
 from maintenance.checkup_track.models import CheckupTrack
 from maintenance.entretien.models import Entretien
 from maintenance.freins.models import ControleFreins

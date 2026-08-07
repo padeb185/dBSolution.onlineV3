@@ -68,13 +68,21 @@
         </a>
 
 
-        <a href="/fr/admin/"
+       <a href="/tenant/{{ request.tenant.schema_name }}/{{ LANGUAGE_CODE }}/admin/"
            class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
             <div>
-                <h2 class="text-lg font-semibold mb-2">{% trans "Admin Django" %}</h2>
-                <p>{% trans "Accéder à l’interface technique Django." %}</p>
+                <h2 class="text-lg font-semibold mb-2">
+                    {% trans "Admin Django" %}
+                </h2>
+
+                <p>
+                    {% trans "Accéder à l’interface technique Django." %}
+                </p>
             </div>
-             <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="Utilisateur" style="width:60px; height:60px; margin-right:10px;">
+
+            <img src="{% static 'icons/ingenieur-logiciel.png' %}"
+                 alt="{% trans 'Admin Django' %}"
+                 style="width:60px; height:60px; margin-right:10px;">
         </a>
 
     </div>
