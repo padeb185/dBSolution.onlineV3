@@ -80,7 +80,21 @@
             background: #f3f4f6;
             color: #6b7280;
         }
+         .table-2-cols {
+            width: 95%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
 
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -237,7 +251,7 @@
 
 <h2>{% trans "Essuie-glaces et pare-brise" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
 
     <tr>
@@ -333,7 +347,7 @@
 
 <h2>{% trans "Moteur" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr><th>{% trans "Élément" %}</th><th>{% trans "Valeur" %}</th></tr>
 
     <tr>
@@ -418,7 +432,7 @@
 
 <h2>{% trans "Boîte de vitesse" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr><th>{% trans "Élément" %}</th><th>{% trans "Valeur" %}</th></tr>
 
     <tr>
@@ -488,7 +502,7 @@
 
 <h2>{% trans "Pont arrière" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr><th>{% trans "Élément" %}</th><th>{% trans "Valeur" %}</th></tr>
 
     <tr>
@@ -558,7 +572,7 @@
 
 <h2>{% trans "Refroidissement" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr><th>{% trans "Élément" %}</th><th>{% trans "Valeur" %}</th></tr>
 
     <tr>
@@ -582,7 +596,7 @@
 
 <h2>{% trans "Freins" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <thead>
         <tr>
             <th>{% trans "Élément" %}</th>
@@ -822,7 +836,7 @@
 
 <h2>{% trans "Direction et roulements" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <thead>
         <tr>
             <th>{% trans "Élément" %}</th>
@@ -944,7 +958,7 @@
 
 <h2>{% trans "Rotules de direction" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr>
         <th>{% trans "Pièce" %}</th>
         <th>{% trans "État" %}</th>
@@ -1013,7 +1027,7 @@
 
 <h2>{% trans "Rotules de suspension inférieures" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr>
         <th>{% trans "Pièce" %}</th>
         <th>{% trans "État" %}</th>
@@ -1082,7 +1096,7 @@
 
 <h2>{% trans "Rotules de suspension supérieures" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr>
         <th>{% trans "Pièce" %}</th>
         <th>{% trans "État" %}</th>
@@ -1151,7 +1165,7 @@
 
 <h2>{% trans "Barres stabilisatrices et biellettes" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr>
         <th>{% trans "Pièce" %}</th>
         <th>{% trans "État" %}</th>
@@ -1250,7 +1264,7 @@
 
 <h2>{% trans "Amortisseurs" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr>
         <th>{% trans "Pièce" %}</th>
         <th>{% trans "État" %}</th>
@@ -1319,7 +1333,7 @@
 
 <h2>{% trans "Roulements" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr>
         <th>{% trans "Pièce" %}</th>
         <th>{% trans "État" %}</th>
@@ -1388,7 +1402,7 @@
 
 <h2>{% trans "Triangles" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr>
         <th>{% trans "Pièce" %}</th>
         <th>{% trans "État" %}</th>
@@ -1457,7 +1471,7 @@
 
 <h2>{% trans "Suspension multi-bras" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr>
         <th>{% trans "Pièce" %}</th>
         <th>{% trans "État" %}</th>
@@ -1527,7 +1541,7 @@
 
 <h2>{% trans "Batterie" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
     <tr>
         <td>{% trans "État batterie" %}</td>
@@ -1679,7 +1693,7 @@
 
 <h2>{% trans "Flancs des pneus" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <thead>
         <tr>
             <th>{% trans "Position" %}</th>
@@ -1799,7 +1813,7 @@
 
 <h2>{% trans "Phares" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
 
     <tr><td>{% trans "Réglage phares" %}</td><td>{% if checkup.phares_reglages == "OK" %}<span class="etat-vert">{{ checkup.get_phares_reglages_display }}</span>{% elif checkup.phares_reglages == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_phares_reglages_display }}</span>{% elif checkup.phares_reglages == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_phares_reglages_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_phares_reglages_display|default:"-" }}</span>{% endif %}</td></tr>
@@ -1810,7 +1824,7 @@
 
 <h2>{% trans "Serrage des roues" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <tr>
         <td>{% trans "Serrage des roues" %}</td>
         <td>
@@ -1827,7 +1841,7 @@
 
 <h2>{% trans "Nettoyage extérieur" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <thead>
         <tr>
             <th>{% trans "Élément contrôlé" %}</th>
@@ -1946,7 +1960,7 @@
 
 <h2>{% trans "Nettoyage intérieur" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <thead>
         <tr>
             <th>{% trans "Élément contrôlé" %}</th>
