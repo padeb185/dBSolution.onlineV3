@@ -109,25 +109,40 @@
             color: #374151;
             background: #f3f4f6;
         }
-
-        .tag {
-            display: inline-block;
-            padding: 3px 8px;
+          .tag,
+        .etat-vert,
+        .etat-rouge,
+        .etat-bleu,
+        .etat-gris {
+            padding: 2px 6px;
             border-radius: 4px;
-            color: white;
             font-weight: bold;
         }
-
-        .tag-vert {
-            background: #16a34a;
+           .tag-vert,
+        .etat-vert {
+            background: #dcfce7;
+            color: #166534;
         }
 
         .tag-jaune {
-            background: #ca8a04;
+            background: #fef3c7;
+            color: #92400e;
         }
 
-        .tag-rouge {
-            background: #dc2626;
+        .tag-rouge,
+        .etat-rouge {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .etat-bleu {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .etat-gris {
+            background: #f3f4f6;
+            color: #6b7280;
         }
 
         .total {
@@ -181,6 +196,11 @@
         .societe-logo img {
             max-width: 200px;
             max-height: 200px;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
         }
          .footer {
             margin-top: 25px;
@@ -891,9 +911,33 @@
                             {{ ligne.champ }}
                         </td>
 
-                        <td>
-                            {{ ligne.etat_label|default:"-" }}
-                        </td>
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
 
                         <td class="text-right">
                             {{ ligne.quantite|default:0 }}
@@ -929,7 +973,7 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td colspan="4" class="text-right">
                         {% trans "Total général avec main-d'œuvre" %}
                     </td>

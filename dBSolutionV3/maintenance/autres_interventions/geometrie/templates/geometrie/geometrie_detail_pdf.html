@@ -85,6 +85,36 @@
             border-radius: 4px;
             font-weight: bold;
         }
+          .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
 
         .tag {
             display: inline-block;
@@ -420,120 +450,149 @@
 <!-- PIÈCES ET PRODUITS -->
 <!-- ================================================== -->
 
-<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+{% if rapport.lignes %}
 
-<div class="box">
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Pièce / Produit" %}</th>
+                <th>{% trans "État" %}</th>
+                <th class="text-right">{% trans "Quantité" %}</th>
+                <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                <th class="text-right">{% trans "Total HTVA" %}</th>
+            </tr>
+        </thead>
 
-    {% if rapport.lignes %}
+        <tbody>
 
-        <table>
-            <thead>
+            {% for ligne in rapport.lignes %}
                 <tr>
-                    <th>{% trans "Pièce / Produit" %}</th>
-                    <th>{% trans "État" %}</th>
-                    <th class="text-right">{% trans "Quantité" %}</th>
-                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
-                    <th class="text-right">{% trans "Total HTVA" %}</th>
-                </tr>
-            </thead>
+                    <td>
+                        {{ ligne.champ }}
+                    </td>
 
-            <tbody>
+                    <td>
+                        {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                            <span class="etat-vert">
+                                {{ ligne.etat_label|default:"-" }}
+                            </span>
 
-                {% for ligne in rapport.lignes %}
-                    <tr>
-                        <td>
-                            {{ ligne.champ }}
-                        </td>
+                        {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                            <span class="etat-rouge">
+                                {{ ligne.etat_label|default:"-" }}
+                            </span>
 
-                        <td>
-                            {{ ligne.etat_label|default:"-" }}
-                        </td>
+                        {% elif ligne.etat == "REMPLACE" %}
+                            <span class="etat-bleu">
+                                {{ ligne.etat_label|default:"-" }}
+                            </span>
 
-                        <td class="text-right">
-                            {{ ligne.quantite|default:0 }}
-                        </td>
+                        {% elif ligne.etat == "REPORTER" %}
+                            <span class="etat-jaune">
+                                {{ ligne.etat_label|default:"-" }}
+                            </span>
 
-                        <td class="text-right">
-                            {{ ligne.prix|default:0|floatformat:2 }} €
-                        </td>
-
-                        <td class="text-right">
-                            {{ ligne.total|default:0|floatformat:2 }} €
-                        </td>
-                    </tr>
-                {% endfor %}
-
-                <tr class="total">
-                    <td colspan="4" class="text-right">
-                        {% trans "Total pièces et produits HTVA" %}
+                        {% else %}
+                            <span class="etat-gris">
+                                {{ ligne.etat_label|default:"-" }}
+                            </span>
+                        {% endif %}
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
-                    </td>
-                </tr>
-
-                <tr class="total">
-                    <td colspan="4" class="text-right">
-                        {% trans "Main-d'œuvre" %}
+                        {{ ligne.quantite|default:0 }}
                     </td>
 
                     <td class="text-right">
+                        {{ ligne.prix|default:0|floatformat:2 }} €
+                    </td>
+
+                    <td class="text-right">
+                        {{ ligne.total|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+            {% endfor %}
+
+
+            <tr class="total">
+                <td colspan="4" class="text-right">
+                    <strong>{% trans "Total pièces et produits HTVA" %}</strong>
+                </td>
+
+                <td class="text-right">
+                    <strong>
+                        {{ geometrie.total_pieces|default:0|floatformat:2 }} €
+                    </strong>
+                </td>
+            </tr>
+
+
+            <tr class="total">
+                <td colspan="4" class="text-right">
+                    <strong>{% trans "Main-d'œuvre" %}</strong>
+                </td>
+
+                <td class="text-right">
+                    <strong>
                         {{ geometrie.cout_main_oeuvre|default:0|floatformat:2 }} €
-                    </td>
-                </tr>
+                    </strong>
+                </td>
+            </tr>
 
-                <tr class="total">
-                    <td colspan="4" class="text-right">
-                        {% trans "Total général avec main-d'œuvre" %}
-                    </td>
 
-                    <td class="text-right">
-                        {{ geometrie.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
-                    </td>
-                </tr>
+            <tr class="total-general">
+                <td colspan="4" class="text-right">
+                    <strong>{% trans "Total général avec main-d'œuvre" %}</strong>
+                </td>
 
-            </tbody>
-        </table>
+                <td class="text-right">
+                    <strong>
+                        {{ geometrie.total_general|default:0|floatformat:2 }} €
+                    </strong>
+                </td>
+            </tr>
 
-    {% else %}
+        </tbody>
+    </table>
 
-        <p>
-            {% trans "Aucune pièce ou produit utilisé." %}
-        </p>
 
-        <table>
-            <tbody>
-                <tr class="total">
-                    <td>
-                        <div>
-                            <strong>{% trans "Main-d'œuvre" %}</strong>
-                        </div>
+{% else %}
 
-                        <div class="text-right" style="margin-top: 4px;">
-                            {{ geometrie.cout_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
-                    </td>
-                </tr>
+    <p>
+        {% trans "Aucune pièce ou produit utilisé." %}
+    </p>
 
-                <tr class="total">
-                    <td>
-                        <div>
-                            <strong>{% trans "Total général" %}</strong>
-                        </div>
+    <table>
+        <tbody>
 
-                        <div class="text-right" style="margin-top: 4px;">
-                            {{ geometrie.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            <tr class="total">
+                <td class="text-right">
+                    <strong>{% trans "Main-d'œuvre" %}</strong>
+                </td>
 
-    {% endif %}
+                <td class="text-right">
+                    <strong>
+                        {{ geometrie.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </strong>
+                </td>
+            </tr>
 
-</div>
+            <tr class="total-general">
+                <td class="text-right">
+                    <strong>{% trans "Total général avec main-d'œuvre" %}</strong>
+                </td>
 
+                <td class="text-right">
+                    <strong>
+                        {{ geometrie.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </strong>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+{% endif %}
 
 <!-- ================================================== -->
 <!-- REMARQUES -->

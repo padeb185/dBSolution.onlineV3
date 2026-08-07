@@ -183,6 +183,11 @@
             max-width: 200px;
             max-height: 200px;
         }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
          .footer {
             margin-top: 25px;
             font-size: 10px;
@@ -561,9 +566,33 @@
                             {{ ligne.champ }}
                         </td>
 
-                        <td>
-                            {{ ligne.etat_label|default:"-" }}
-                        </td>
+                     <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
                         <td>
                             {{ ligne.fabricant|default:"-" }}
                         </td>
@@ -602,7 +631,7 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td colspan="5" class="text-right">
                         {% trans "Total général avec main-d'œuvre" %}
                     </td>

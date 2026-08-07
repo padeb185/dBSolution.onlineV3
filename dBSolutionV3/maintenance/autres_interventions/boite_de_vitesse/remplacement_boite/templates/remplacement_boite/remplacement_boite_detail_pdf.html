@@ -90,6 +90,16 @@
             background: #f3f4f6;
         }
 
+         .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -361,7 +371,7 @@
 <h2>{% trans "Boîte de vitesse" %}</h2>
 
 <div class="box">
-    <table>
+    <table class="table-2-cols">
         <thead>
             <tr>
                 <th>{% trans "Élément" %}</th>
@@ -420,7 +430,7 @@
 <h2>{% trans "Huile de boîte" %}</h2>
 
 <div class="box">
-    <table>
+    <table class="table-2-cols">
         <thead>
             <tr>
                 <th>{% trans "Élément" %}</th>
