@@ -608,9 +608,33 @@
                             {{ ligne.champ }}
                         </td>
 
-                        <td>
-                            {{ ligne.etat_label|default:"-" }}
-                        </td>
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE"  %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
 
                         <td class="text-right">
                             {{ ligne.quantite|default:0 }}
@@ -646,7 +670,7 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td colspan="4" class="text-right">
                         {% trans "Total général avec main-d'œuvre" %}
                     </td>
@@ -679,7 +703,7 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td>
                         <div>
                             <strong>{% trans "Total général" %}</strong>
