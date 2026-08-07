@@ -159,6 +159,12 @@
             max-width: 200px;
             max-height: 200px;
         }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
         .footer {
             margin-top: 25px;
             font-size: 10px;
@@ -418,7 +424,7 @@
                 {{ checkup.get_moteur_niveau_huile_etat_display }}
             </span>
         {% elif checkup.moteur_niveau_huile_etat == "AJOUTER" %}
-            <span class="etat-rouge">
+            <span class="etat-bleu">
                 {{ checkup.get_moteur_niveau_huile_etat_display }}
             </span>
         {% else %}
@@ -1853,10 +1859,15 @@
         <tr>
             <td>{% trans "Traces de gomme" %}</td>
             <td>
-                {% if checkup.nettoyage_exterieur_traces_gomme == "FAIT" or checkup.nettoyage_exterieur_traces_gomme == "PROPRE" %}
+                {% if checkup.nettoyage_exterieur_traces_gomme == "PROPRE" %}
                     <span class="etat-vert">
                         {{ checkup.get_nettoyage_exterieur_traces_gomme_display }}
                     </span>
+                  {% elif checkup.nettoyage_exterieur_traces_gomme == "FAIT" %}
+                    <span class="etat-bleu">
+                        {{ checkup.get_nettoyage_exterieur_traces_gomme_display }}
+                    </span>
+
                 {% elif checkup.nettoyage_exterieur_traces_gomme == "A_FAIRE" %}
                     <span class="etat-rouge">
                         {{ checkup.get_nettoyage_exterieur_traces_gomme_display }}
@@ -2258,17 +2269,17 @@
                             </td>
 
                             <td>
-                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                {% if ligne.etat == "OK" or ligne.etat == "BON"  or ligne.etat == "PROPRE" %}
                                     <span class="etat-vert">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE"  %}
                                     <span class="etat-rouge">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "REMPLACE" %}
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "FAIT"  or ligne.etat == "AJOUTER"%}
                                     <span class="etat-bleu">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
@@ -2333,7 +2344,7 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td colspan="5" class="text-right">
                         <strong>
                             {% trans "Total général avec main-d'œuvre" %}
@@ -2371,7 +2382,7 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td class="text-right">
                         <strong>
                             {% trans "Total général avec main-d'œuvre" %}

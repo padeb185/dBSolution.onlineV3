@@ -17,7 +17,7 @@ class NettoyageEtat(models.TextChoices):
 
 class EtatAjouter(models.TextChoices):
     SANS = "SANS", _("Sans")
-    AJOUTER = "AJOUTER", _("Ajouter")
+    AJOUTER = "AJOUTER", _("Ajouté")
 
 
 
@@ -216,49 +216,57 @@ class NettoyageExterieur(TechnicienMixin, models.Model):
         super().save(*args, **kwargs)
 
     def generer_rapport_remplacement(self):
-            rapport = []
-            total_general = Decimal("0.00")
+        rapport = []
+        total_general = Decimal("0.00")
 
-            # Produit ajouté pendant le nettoyage
-            if self.nettoyage_exterieur_produits == EtatAjouter.AJOUTER:
-                prix = self.nettoyage_exterieur_produits_prix or Decimal("0.00")
-                quantite = self.nettoyage_exterieur_produits_quantite or 0
+        # Produit ajouté pendant le nettoyage
+        if self.nettoyage_exterieur_produits == EtatAjouter.AJOUTER:
+            prix = self.nettoyage_exterieur_produits_prix or Decimal("0.00")
+            quantite = self.nettoyage_exterieur_produits_quantite or 0
 
-                prix = Decimal(str(prix))
-                quantite = Decimal(str(quantite))
+            prix = Decimal(str(prix))
+            quantite = Decimal(str(quantite))
 
-                total = prix * quantite
+            total = prix * quantite
 
-                total = total.quantize(
-                    Decimal("0.01"),
-                    rounding=ROUND_HALF_UP,
-                )
+            total = total.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
 
-                total_general += total
+            total_general += total
 
-                rapport.append({
-                    "nom": _("Produits de nettoyage"),
-                    "etat": self.get_nettoyage_exterieur_produits_display(),
-                    "prix": prix.quantize(
-                        Decimal("0.01"),
-                        rounding=ROUND_HALF_UP,
-                    ),
-                    "prix_unitaire": prix.quantize(
-                        Decimal("0.01"),
-                        rounding=ROUND_HALF_UP,
-                    ),
-                    "quantite": quantite,
-                    "total": total,
-                })
+            rapport.append({
+                "nom": _("Produits de nettoyage"),
 
-            return {
-                "pieces": rapport,
-                "rapport": rapport,
-                "total_general": total_general.quantize(
+                # valeur technique utilisée dans les conditions du template
+                "etat": self.nettoyage_exterieur_produits,
+
+                # texte affiché dans le PDF
+                "etat_label": self.get_nettoyage_exterieur_produits_display(),
+
+                "prix": prix.quantize(
                     Decimal("0.01"),
                     rounding=ROUND_HALF_UP,
                 ),
-            }
+
+                "prix_unitaire": prix.quantize(
+                    Decimal("0.01"),
+                    rounding=ROUND_HALF_UP,
+                ),
+
+                "quantite": quantite,
+                "total": total,
+            })
+
+        return {
+            "pieces": rapport,
+            "rapport": rapport,
+            "total_general": total_general.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            ),
+        }
 
         # ======================================================
         # MAIN-D'ŒUVRE

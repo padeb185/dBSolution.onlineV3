@@ -66,6 +66,10 @@
         .etat {
             font-weight: bold;
         }
+         .total-label,
+        .total-montant {
+            text-align: right;
+        }
 
         .etat-rouge {
              color: #991b1b;
@@ -298,6 +302,11 @@
         .societe-logo img {
             max-width: 200px;
             max-height: 200px;
+        }
+          .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
         }
 
          .footer {
@@ -996,18 +1005,11 @@
 <h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
 
 
-<div class="rapport-pieces">
+<div>
 
     {% if rapport.lignes %}
 
-        <table class="rapport-pieces-table">
-            <colgroup>
-                <col class="col-produit">
-                <col class="col-etat">
-                <col class="col-quantite">
-                <col class="col-prix">
-                <col class="col-total">
-            </colgroup>
+        <table>
 
             <thead>
                 <tr>
@@ -1036,9 +1038,33 @@
                             {{ ligne.champ }}
                         </td>
 
-                        <td>
-                            {{ ligne.etat_label|default:"-" }}
-                        </td>
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON"  or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "FAIT" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
 
                         <td class="text-right">
                             {{ ligne.quantite|default:0 }}
@@ -1054,9 +1080,10 @@
                     </tr>
                 {% endfor %}
 
+
                 <tr class="total">
                     <td colspan="4" class="total-label">
-                        {% trans "Total pièces et produits HTVA" %}
+                        {% trans "Total pièces / produits" %}
                     </td>
 
                     <td class="total-montant">
@@ -1074,7 +1101,7 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td colspan="4" class="total-label">
                         {% trans "Total général avec main-d'œuvre" %}
                     </td>
@@ -1109,7 +1136,7 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td>
                         <strong>
                             {% trans "Total général" %}

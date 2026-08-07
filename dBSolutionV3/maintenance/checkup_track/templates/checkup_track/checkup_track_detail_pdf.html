@@ -118,12 +118,30 @@
         }
 
 
-
-       table {
+        table {
             width: 100%;
-            table-layout: fixed;
             border-collapse: collapse;
+            margin-top: 10px;
         }
+
+       th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
 
         table th:first-child,
         table td:first-child {
@@ -133,21 +151,6 @@
         table th:last-child,
         table td:last-child {
             width: 33%;
-        }
-
-        th,
-        td {
-            border: 1px solid #d1d5db;
-            padding: 6px 8px;
-            vertical-align: middle;
-            word-wrap: break-word;
-        }
-
-        th {
-            background: #eff6ff;
-            color: #1e3a8a;
-            text-align: left;
-            font-weight: 600;
         }
 
         .text-right {
@@ -2009,35 +2012,19 @@
 
 <h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
 
-<div class="box rapport-pieces">
+<div class="box">
 
     {% if rapport.lignes %}
 
-        <table class="rapport-pieces-table">
-            <colgroup>
-                <col class="col-produit">
-                <col class="col-etat">
-                <col class="col-quantite">
-                <col class="col-prix">
-                <col class="col-total">
-            </colgroup>
-
+        <table>
             <thead>
                 <tr>
                     <th>{% trans "Pièce / Produit" %}</th>
                     <th>{% trans "État" %}</th>
-
-                    <th class="text-right">
-                        {% trans "Quantité" %}
-                    </th>
-
-                    <th class="text-right">
-                        {% trans "Prix unitaire HTVA" %}
-                    </th>
-
-                    <th class="text-right">
-                        {% trans "Total HTVA" %}
-                    </th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
                 </tr>
             </thead>
 
@@ -2049,7 +2036,7 @@
                             {{ ligne.champ }}
                         </td>
 
-                        <td>
+                     <td>
                                 {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
                                     <span class="etat-vert">
                                         {{ ligne.etat_label|default:"-" }}
@@ -2076,6 +2063,9 @@
                                     </span>
                                 {% endif %}
                             </td>
+                        <td>
+                            {{ ligne.fabricant|default:"-" }}
+                        </td>
 
                         <td class="text-right">
                             {{ ligne.quantite|default:0 }}
@@ -2092,32 +2082,32 @@
                 {% endfor %}
 
                 <tr class="total">
-                    <td colspan="4" class="total-label">
+                    <td colspan="5" class="text-right">
                         {% trans "Total pièces et produits HTVA" %}
                     </td>
 
-                    <td class="total-montant">
+                    <td class="text-right">
                         {{ rapport.total_general|default:0|floatformat:2 }} €
                     </td>
                 </tr>
 
                 <tr class="total">
-                    <td colspan="4" class="total-label">
+                    <td colspan="5" class="text-right">
                         {% trans "Main-d'œuvre" %}
                     </td>
 
-                    <td class="total-montant">
-                        {{ controle_freins.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    <td class="text-right">
+                        {{ checkup_track.cout_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
                 </tr>
 
-                <tr class="total">
-                    <td colspan="4" class="total-label">
+                <tr class="total-general">
+                    <td colspan="5" class="text-right">
                         {% trans "Total général avec main-d'œuvre" %}
                     </td>
 
-                    <td class="total-montant">
-                        {{ controle_freins.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    <td class="text-right">
+                        {{ checkup_track.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
                 </tr>
 
@@ -2130,33 +2120,29 @@
             {% trans "Aucune pièce ou produit utilisé." %}
         </p>
 
-        <table class="rapport-vide-table">
+        <table>
             <tbody>
                 <tr class="total">
                     <td>
-                        <strong>
-                            {% trans "Main-d'œuvre" %}
-                        </strong>
-                    </td>
+                        <div>
+                            <strong>{% trans "Main-d'œuvre" %}</strong>
+                        </div>
 
-                    <td class="text-right">
-                        <strong>
-                            {{ controle_freins.cout_main_oeuvre|default:0|floatformat:2 }} €
-                        </strong>
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ checkup_track.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td>
-                        <strong>
-                            {% trans "Total général" %}
-                        </strong>
-                    </td>
+                        <div>
+                            <strong>{% trans "Total général" %}</strong>
+                        </div>
 
-                    <td class="text-right">
-                        <strong>
-                            {{ controle_freins.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
-                        </strong>
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ checkup_track.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -2165,6 +2151,7 @@
     {% endif %}
 
 </div>
+
 
 
 <!-- ================= REMARQUES ================= -->

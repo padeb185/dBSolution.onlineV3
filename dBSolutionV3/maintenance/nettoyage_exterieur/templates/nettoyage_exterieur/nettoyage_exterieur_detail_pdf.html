@@ -44,10 +44,11 @@
             font-weight: bold;
         }
 
-        .tag,
+       .tag,
         .etat-vert,
         .etat-rouge,
-        .etat-bleu {
+        .etat-bleu,
+        .etat-jaune {
             padding: 2px 8px;
             border-radius: 4px;
             font-weight: bold;
@@ -59,7 +60,8 @@
             color: #065f46;
         }
 
-        .tag-jaune {
+        .tag-jaune,
+        .etat-jaune {
             background: #fef3c7;
             color: #92400e;
         }
@@ -75,6 +77,11 @@
             color: #1e40af;
         }
 
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -273,9 +280,9 @@
                 {% if nettoyage.nettoyage_exterieur_traces_gomme == "A_FAIRE" %}
                     <span class="etat-rouge">{{ nettoyage.get_nettoyage_exterieur_traces_gomme_display }}</span>
                 {% elif nettoyage.nettoyage_exterieur_traces_gomme == "FAIT" %}
-                    <span class="etat-vert">{{ nettoyage.get_nettoyage_exterieur_traces_gomme_display }}</span>
-                {% elif nettoyage.nettoyage_exterieur_traces_gomme == "REPORTER" %}
                     <span class="etat-bleu">{{ nettoyage.get_nettoyage_exterieur_traces_gomme_display }}</span>
+                {% elif nettoyage.nettoyage_exterieur_traces_gomme == "REPORTER" %}
+                    <span class="etat-jaune">{{ nettoyage.get_nettoyage_exterieur_traces_gomme_display }}</span>
                 {% elif nettoyage.nettoyage_exterieur_traces_gomme == "PROPRE" %}
                     <span class="etat-vert">{{ nettoyage.get_nettoyage_exterieur_traces_gomme_display }}</span>
                 {% else %}
@@ -290,9 +297,9 @@
                 {% if nettoyage.nettoyage_exterieur_carrosserie == "A_FAIRE" %}
                     <span class="etat-rouge">{{ nettoyage.get_nettoyage_exterieur_carrosserie_display }}</span>
                 {% elif nettoyage.nettoyage_exterieur_carrosserie == "FAIT" %}
-                    <span class="etat-vert">{{ nettoyage.get_nettoyage_exterieur_carrosserie_display }}</span>
-                {% elif nettoyage.nettoyage_exterieur_carrosserie == "REPORTER" %}
                     <span class="etat-bleu">{{ nettoyage.get_nettoyage_exterieur_carrosserie_display }}</span>
+                {% elif nettoyage.nettoyage_exterieur_carrosserie == "REPORTER" %}
+                    <span class="etat-jaune">{{ nettoyage.get_nettoyage_exterieur_carrosserie_display }}</span>
                 {% elif nettoyage.nettoyage_exterieur_carrosserie == "PROPRE" %}
                     <span class="etat-vert">{{ nettoyage.get_nettoyage_exterieur_carrosserie_display }}</span>
                 {% else %}
@@ -307,9 +314,9 @@
                 {% if nettoyage.nettoyage_exterieur_jantes == "A_FAIRE" %}
                     <span class="etat-rouge">{{ nettoyage.get_nettoyage_exterieur_jantes_display }}</span>
                 {% elif nettoyage.nettoyage_exterieur_jantes == "FAIT" %}
-                    <span class="etat-vert">{{ nettoyage.get_nettoyage_exterieur_jantes_display }}</span>
-                {% elif nettoyage.nettoyage_exterieur_jantes == "REPORTER" %}
                     <span class="etat-bleu">{{ nettoyage.get_nettoyage_exterieur_jantes_display }}</span>
+                {% elif nettoyage.nettoyage_exterieur_jantes == "REPORTER" %}
+                    <span class="etat-jaune">{{ nettoyage.get_nettoyage_exterieur_jantes_display }}</span>
                 {% elif nettoyage.nettoyage_exterieur_jantes == "PROPRE" %}
                     <span class="etat-vert">{{ nettoyage.get_nettoyage_exterieur_jantes_display }}</span>
                 {% else %}
@@ -324,9 +331,9 @@
                 {% if nettoyage.nettoyage_exterieur_sechage == "A_FAIRE" %}
                     <span class="etat-rouge">{{ nettoyage.get_nettoyage_exterieur_sechage_display }}</span>
                 {% elif nettoyage.nettoyage_exterieur_sechage == "FAIT" %}
-                    <span class="etat-vert">{{ nettoyage.get_nettoyage_exterieur_sechage_display }}</span>
-                {% elif nettoyage.nettoyage_exterieur_sechage == "REPORTER" %}
                     <span class="etat-bleu">{{ nettoyage.get_nettoyage_exterieur_sechage_display }}</span>
+                {% elif nettoyage.nettoyage_exterieur_sechage == "REPORTER" %}
+                    <span class="etat-jaune">{{ nettoyage.get_nettoyage_exterieur_sechage_display }}</span>
                 {% elif nettoyage.nettoyage_exterieur_sechage == "PROPRE" %}
                     <span class="etat-vert">{{ nettoyage.get_nettoyage_exterieur_sechage_display }}</span>
                 {% else %}
@@ -401,7 +408,36 @@
                         </td>
 
                         <td>
-                            {{ piece.etat|default:"-" }}
+                            {% if piece.etat == "OK" or piece.etat == "BON" or piece.etat == "PROPRE" %}
+                                <span class="etat-vert">
+                                    {{ piece.etat_label|default:"-" }}
+                                </span>
+
+                            {% elif piece.etat == "A_REMPLACER" or piece.etat == "NOT_OK" or piece.etat == "REMPLACER" or piece.etat == "A_FAIRE" %}
+                                <span class="etat-rouge">
+                                    {{ piece.etat_label|default:"-" }}
+                                </span>
+
+                            {% elif piece.etat == "REMPLACE" or piece.etat == "FAIT" %}
+                                <span class="etat-bleu">
+                                    {{ piece.etat_label|default:"-" }}
+                                </span>
+
+                            {% elif piece.etat == "AJOUTER" %}
+                                <span class="etat-bleu">
+                                    {% trans "Ajouté" %}
+                                </span>
+
+                            {% elif piece.etat == "REPORTER" %}
+                                <span class="etat-jaune">
+                                    {{ piece.etat_label|default:"-" }}
+                                </span>
+
+                            {% else %}
+                                <span class="etat-gris">
+                                    {{ piece.etat_label|default:"-" }}
+                                </span>
+                            {% endif %}
                         </td>
 
                         <td class="text-right">
@@ -438,7 +474,7 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td colspan="4" class="text-right">
                         {% trans "Total général avec main-d'œuvre" %}
                     </td>
@@ -469,7 +505,7 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td class="text-right">
                         {% trans "Total général" %}
                     </td>

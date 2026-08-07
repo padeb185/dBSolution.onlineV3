@@ -25,7 +25,7 @@ class NettoyageEtat(models.TextChoices):
 
 class EtatAjouter(models.TextChoices):
     SANS = "SANS", _("Sans")
-    AJOUTER = "AJOUTER", _("Ajouter")
+    AJOUTER = "AJOUTER", _("Ajouté")
 
 
 class EtatOKNotOK(models.TextChoices):
