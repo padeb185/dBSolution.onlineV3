@@ -1,12 +1,14 @@
 from decimal import Decimal, ROUND_HALF_UP
-
 from django.core.exceptions import ValidationError
-from django.db import models
-from django.utils.translation import gettext_lazy as _
 from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantPneus
 from maintenance.models import Maintenance
 from django.conf import settings
 from utils.mixin import TechnicienMixin
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+
+
+
 
 
 # ---------------------------
@@ -17,6 +19,36 @@ class PneuEtat(models.TextChoices):
     OK = "OK", _("OK")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
+
+
+class ValveType(models.TextChoices):
+    CAOUTCHOUC = "caoutchouc", _("Valve caoutchouc")
+    METALLIQUE = "metallique", _("Valve métallique")
+    TPMS_CAOUTCHOUC = "tpms_caoutchouc", _("Valve TPMS caoutchouc")
+    TPMS_METALLIQUE = "tpms_metallique", _("Valve TPMS métallique")
+    HAUTE_PRESSION = "haute_pression", _("Valve haute pression")
+    MOTO = "moto", _("Valve moto")
+
+
+
+class MasseEquilibrageType(models.TextChoices):
+    # Masses à clipser
+    CLIP_ACIER = "clip_acier", _("Masse à clipser en acier")
+    CLIP_ZINC = "clip_zinc", _("Masse à clipser en zinc")
+    CLIP_PLOMB = "clip_plomb", _("Masse à clipser en plomb")
+
+    # Masses adhésives
+    ADHESIVE_ACIER = "adhesive_acier", _("Masse adhésive en acier")
+    ADHESIVE_ZINC = "adhesive_zinc", _("Masse adhésive en zinc")
+    ADHESIVE_PLOMB = "adhesive_plomb", _("Masse adhésive en plomb")
+
+    # Masses spécifiques
+    MOTO = "moto", _("Masse d'équilibrage moto")
+    CAMION = "camion", _("Masse d'équilibrage poids lourd")
+
+    AUTRE = "autre", _("Autre")
+
+
 
 # ---------------------------
 # Modèle fusionné
@@ -112,6 +144,22 @@ class ControlePneus(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA")
     )
     pneu_train_ar_quantite = models.PositiveIntegerField(default=0, null=True, blank=True, verbose_name=_("Quantité"))
+
+    valve_pneu = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("Valves de pneu"))
+    valve_pneu_type = models.CharField(max_length=25, choices=ValveType.choices, default=ValveType.CAOUTCHOUC, verbose_name=_("type de valves de pneu"))
+    valve_pneu_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    valve_pneu_quantite = models.PositiveIntegerField(default=0, null=True, blank=True, verbose_name=_("Quantité"))
+
+    masse_equilibrage = models.CharField(max_length=25, choices=MasseEquilibrageType.choices, default=MasseEquilibrageType.CLIP_ZINC , verbose_name=_("Type de masses d'équilibrage"))
+
+
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
 
 
     remarques = models.TextField(

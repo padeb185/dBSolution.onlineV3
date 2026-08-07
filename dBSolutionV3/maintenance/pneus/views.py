@@ -189,7 +189,7 @@ def controle_pneus_view(request, exemplaire_id):
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
         else:
-            print("FORM INVALID:", form.errors)
+
             messages.error(request, _("Le formulaire contient des erreurs."))
 
     else:
