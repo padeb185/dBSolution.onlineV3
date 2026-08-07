@@ -45,11 +45,24 @@
             font-weight: bold;
         }
 
+        .etat-rouge {
+             color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
         .etat-vert {
-            color: #166534;
+             color: #166534;
             background: #dcfce7;
             padding: 2px 6px;
             border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-jaune {
+            color: #ca8a04;
             font-weight: bold;
         }
 
@@ -63,12 +76,8 @@
 
         .etat-gris {
             color: #6b7280;
-            background: #f3f4f6;
-            padding: 2px 6px;
-            border-radius: 4px;
             font-weight: bold;
         }
-
         .tag {
             padding: 2px 8px;
             border-radius: 4px;
@@ -114,6 +123,11 @@
             background: #eff6ff;
             color: #1e3a8a;
             text-align: left;
+        }
+         .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
         }
 
         .text-right {
@@ -266,7 +280,7 @@
         </div>
     </div>
 </div>
-
+<br>
 <h2>{% trans "Contrôle des niveaux" %}</h2>
 
 <table>
@@ -388,7 +402,7 @@
 </table>
 
 <!-- ================= MAIN D'ŒUVRE ================= -->
-
+<br>
 <h2>{% trans "Main d'œuvre" %}</h2>
 
 <div class="box">
@@ -421,7 +435,10 @@
 <!-- ================================================== -->
 <!-- LIQUIDES, PRODUITS ET MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
-
+<br>
+<br>
+<br>
+<br>
 <h2>{% trans "Liquides, produits utilisés et main-d'œuvre" %}</h2>
 
 <div class="box">
@@ -450,8 +467,32 @@
                         </td>
 
                         <td>
-                            {{ ligne.etat_label|default:"-" }}
-                        </td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON"  or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "FAIT"  or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
 
                         <td>
                             {{ ligne.qualite_label|default:"-" }}
@@ -503,7 +544,7 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td colspan="6" class="text-right">
                         <strong>
                             {% trans "Total général avec main-d'œuvre" %}
@@ -541,7 +582,7 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td class="text-right">
                         <strong>{% trans "Total général" %}</strong>
                     </td>
@@ -559,7 +600,7 @@
     {% endif %}
 
 </div>
-
+<br>
 <h2>{% trans "Remarques" %}</h2>
 
 <div class="box">

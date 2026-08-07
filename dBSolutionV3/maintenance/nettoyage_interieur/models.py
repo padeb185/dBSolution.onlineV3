@@ -248,23 +248,13 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
         rapport = []
         total_general = Decimal("0.00")
 
-        etat_produit = self.nettoyage_interieur_produits
+        # Produit ajouté pendant le nettoyage intérieur
+        if self.nettoyage_interieur_produits == EtatAjouter.AJOUTER:
+            prix = self.nettoyage_interieur_produits_prix or Decimal("0.00")
+            quantite = self.nettoyage_interieur_produits_quantite or 0
 
-        # Le produit est ajouté uniquement lorsque l'état vaut AJOUTER
-        if etat_produit == EtatAjouter.AJOUTER:
-            prix = Decimal(
-                str(
-                    self.nettoyage_interieur_produits_prix
-                    or Decimal("0.00")
-                )
-            )
-
-            quantite = Decimal(
-                str(
-                    self.nettoyage_interieur_produits_quantite
-                    or 0
-                )
-            )
+            prix = Decimal(str(prix))
+            quantite = Decimal(str(quantite))
 
             prix_unitaire = prix.quantize(
                 Decimal("0.01"),
@@ -279,21 +269,31 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
             total_general += total
 
             rapport.append({
-                "nom": _("Produits de nettoyage"),
-                "etat": self.get_nettoyage_interieur_produits_display(),
+                "nom": _("Produits de nettoyage intérieur"),
+
+                # Valeur technique utilisée dans le template
+                "etat": self.nettoyage_interieur_produits,
+
+                # Libellé affiché
+                "etat_label": self.get_nettoyage_interieur_produits_display(),
+
                 "prix": prix_unitaire,
                 "prix_unitaire": prix_unitaire,
                 "quantite": quantite,
                 "total": total,
             })
 
+        total_general = total_general.quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
+
         return {
+            "lignes": rapport,
             "pieces": rapport,
             "rapport": rapport,
-            "total_general": total_general.quantize(
-                Decimal("0.01"),
-                rounding=ROUND_HALF_UP,
-            ),
+            "total_pieces": total_general,
+            "total_general": total_general,
         }
         # ======================================================
         # MAIN-D'ŒUVRE

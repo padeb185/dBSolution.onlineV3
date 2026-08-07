@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -47,7 +47,8 @@
         .tag,
         .etat-vert,
         .etat-rouge,
-        .etat-bleu {
+        .etat-bleu,
+        .etat-jaune {
             padding: 2px 8px;
             border-radius: 4px;
             font-weight: bold;
@@ -59,7 +60,8 @@
             color: #065f46;
         }
 
-        .tag-jaune {
+        .tag-jaune,
+        .etat-jaune {
             background: #fef3c7;
             color: #92400e;
         }
@@ -73,6 +75,11 @@
         .etat-bleu {
             background: #dbeafe;
             color: #1e40af;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
         }
 
         table {
@@ -257,7 +264,7 @@
 
     </div>
 </div>
-
+<br>
 <h2>{% trans "Contrôle du nettoyage intérieur" %}</h2>
 
 <table>
@@ -275,9 +282,9 @@
                 {% if nettoyage.nettoyage_interieur_vitres == "A_FAIRE" %}
                     <span class="etat-rouge">{{ nettoyage.get_nettoyage_interieur_vitres_display }}</span>
                 {% elif nettoyage.nettoyage_interieur_vitres == "FAIT" %}
-                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_vitres_display }}</span>
-                {% elif nettoyage.nettoyage_interieur_vitres == "REPORTER" %}
                     <span class="etat-bleu">{{ nettoyage.get_nettoyage_interieur_vitres_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_vitres == "REPORTER" %}
+                    <span class="etat-jaune">{{ nettoyage.get_nettoyage_interieur_vitres_display }}</span>
                 {% elif nettoyage.nettoyage_interieur_vitres == "PROPRE" %}
                     <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_vitres_display }}</span>
                 {% else %}
@@ -292,9 +299,9 @@
                 {% if nettoyage.nettoyage_interieur_pare_brise == "A_FAIRE" %}
                     <span class="etat-rouge">{{ nettoyage.get_nettoyage_interieur_pare_brise_display }}</span>
                 {% elif nettoyage.nettoyage_interieur_pare_brise == "FAIT" %}
-                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_pare_brise_display }}</span>
-                {% elif nettoyage.nettoyage_interieur_pare_brise == "REPORTER" %}
                     <span class="etat-bleu">{{ nettoyage.get_nettoyage_interieur_pare_brise_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_pare_brise == "REPORTER" %}
+                    <span class="etat-jaune">{{ nettoyage.get_nettoyage_interieur_pare_brise_display }}</span>
                 {% elif nettoyage.nettoyage_interieur_pare_brise == "PROPRE" %}
                     <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_pare_brise_display }}</span>
                 {% else %}
@@ -309,9 +316,9 @@
                 {% if nettoyage.nettoyage_interieur_aspirateur == "A_FAIRE" %}
                     <span class="etat-rouge">{{ nettoyage.get_nettoyage_interieur_aspirateur_display }}</span>
                 {% elif nettoyage.nettoyage_interieur_aspirateur == "FAIT" %}
-                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_aspirateur_display }}</span>
-                {% elif nettoyage.nettoyage_interieur_aspirateur == "REPORTER" %}
                     <span class="etat-bleu">{{ nettoyage.get_nettoyage_interieur_aspirateur_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_aspirateur == "REPORTER" %}
+                    <span class="etat-jaune">{{ nettoyage.get_nettoyage_interieur_aspirateur_display }}</span>
                 {% elif nettoyage.nettoyage_interieur_aspirateur == "PROPRE" %}
                     <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_aspirateur_display }}</span>
                 {% else %}
@@ -326,9 +333,9 @@
                 {% if nettoyage.nettoyage_interieur_interieur_portes == "A_FAIRE" %}
                     <span class="etat-rouge">{{ nettoyage.get_nettoyage_interieur_interieur_portes_display }}</span>
                 {% elif nettoyage.nettoyage_interieur_interieur_portes == "FAIT" %}
-                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_interieur_portes_display }}</span>
-                {% elif nettoyage.nettoyage_interieur_interieur_portes == "REPORTER" %}
                     <span class="etat-bleu">{{ nettoyage.get_nettoyage_interieur_interieur_portes_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_interieur_portes == "REPORTER" %}
+                    <span class="etat-jaune">{{ nettoyage.get_nettoyage_interieur_interieur_portes_display }}</span>
                 {% elif nettoyage.nettoyage_interieur_interieur_portes == "PROPRE" %}
                     <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_interieur_portes_display }}</span>
                 {% else %}
@@ -343,9 +350,9 @@
                 {% if nettoyage.nettoyage_interieur_tableau_de_bord == "A_FAIRE" %}
                     <span class="etat-rouge">{{ nettoyage.get_nettoyage_interieur_tableau_de_bord_display }}</span>
                 {% elif nettoyage.nettoyage_interieur_tableau_de_bord == "FAIT" %}
-                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_tableau_de_bord_display }}</span>
-                {% elif nettoyage.nettoyage_interieur_tableau_de_bord == "REPORTER" %}
                     <span class="etat-bleu">{{ nettoyage.get_nettoyage_interieur_tableau_de_bord_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_tableau_de_bord == "REPORTER" %}
+                    <span class="etat-jaune">{{ nettoyage.get_nettoyage_interieur_tableau_de_bord_display }}</span>
                 {% elif nettoyage.nettoyage_interieur_tableau_de_bord == "PROPRE" %}
                     <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_tableau_de_bord_display }}</span>
                 {% else %}
@@ -360,9 +367,9 @@
                 {% if nettoyage.nettoyage_interieur_plastiques == "A_FAIRE" %}
                     <span class="etat-rouge">{{ nettoyage.get_nettoyage_interieur_plastiques_display }}</span>
                 {% elif nettoyage.nettoyage_interieur_plastiques == "FAIT" %}
-                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_plastiques_display }}</span>
-                {% elif nettoyage.nettoyage_interieur_plastiques == "REPORTER" %}
                     <span class="etat-bleu">{{ nettoyage.get_nettoyage_interieur_plastiques_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_plastiques == "REPORTER" %}
+                    <span class="etat-jaune">{{ nettoyage.get_nettoyage_interieur_plastiques_display }}</span>
                 {% elif nettoyage.nettoyage_interieur_plastiques == "PROPRE" %}
                     <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_plastiques_display }}</span>
                 {% else %}
@@ -377,9 +384,9 @@
                 {% if nettoyage.nettoyage_interieur_console == "A_FAIRE" %}
                     <span class="etat-rouge">{{ nettoyage.get_nettoyage_interieur_console_display }}</span>
                 {% elif nettoyage.nettoyage_interieur_console == "FAIT" %}
-                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_console_display }}</span>
-                {% elif nettoyage.nettoyage_interieur_console == "REPORTER" %}
                     <span class="etat-bleu">{{ nettoyage.get_nettoyage_interieur_console_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_console == "REPORTER" %}
+                    <span class="etat-jaune">{{ nettoyage.get_nettoyage_interieur_console_display }}</span>
                 {% elif nettoyage.nettoyage_interieur_console == "PROPRE" %}
                     <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_console_display }}</span>
                 {% else %}
@@ -391,7 +398,7 @@
 </table>
 
 <!-- ================= MAIN D'ŒUVRE ================= -->
-
+<br>
 <h2>{% trans "Main d'œuvre" %}</h2>
 
 <div class="box">
@@ -424,7 +431,10 @@
 <!-- ================================================== -->
 <!-- PIÈCES, PRODUITS ET MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
-
+<br>
+<br>
+<br>
+<br>
 <h2>{% trans "Pièces, produits utilisés et main-d'œuvre" %}</h2>
 
 <div class="box">
@@ -457,8 +467,32 @@
                         </td>
 
                         <td>
-                            {{ ligne.etat|default:"-" }}
-                        </td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON"  or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE"  %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" or ligne.etat == "FAIT" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
 
                         <td class="text-right">
                             {{ ligne.quantite|default:0 }}
@@ -502,7 +536,7 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td colspan="4" class="text-right">
                         <strong>
                             {% trans "Total général avec main-d'œuvre" %}
@@ -542,7 +576,7 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td class="text-right">
                         <strong>
                             {% trans "Total général" %}
@@ -569,7 +603,7 @@
     {{ nettoyage.remarques|default:_("Aucune remarque.") }}
 </div>
 
-
+<br>
 <div class="footer">
     {% trans "Document généré automatiquement par CarsCosts.com." %}
     <br>

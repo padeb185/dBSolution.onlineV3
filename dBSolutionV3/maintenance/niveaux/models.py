@@ -577,13 +577,23 @@ class Niveau(TechnicienMixin, models.Model):
             rapport.append({
                 "champ": produit["label"],
                 "code": prefix,
+
+                # Valeur technique : AJOUTER, REMPLACE, FAIT...
                 "etat": etat,
+
+                # Libellé traduit affiché dans le PDF
                 "etat_label": etat_label,
+
+                # Valeur technique de la qualité
                 "qualite": qualite,
                 "qualite_label": qualite_label,
+
+                # Valeur technique du fabricant
                 "fabricant": fabricant,
                 "fabricant_label": fabricant_label,
+
                 "prix": prix,
+                "prix_unitaire": prix,
                 "quantite": quantite,
                 "total": total,
             })
