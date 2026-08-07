@@ -30,6 +30,21 @@
             color: #1e40af;
             border-bottom: 1px solid #93c5fd;
         }
+         .table-2-cols {
+            width: 95%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
 
         .box {
             border: 1px solid #ddd;
@@ -89,6 +104,35 @@
             border-radius: 4px;
             font-weight: bold;
         }
+          .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
 
 
         table {
@@ -313,9 +357,7 @@
 
 <h2>{% trans "Contrôle turbo" %}</h2>
 
-<div class="box">
-
-    <table>
+   <table class="table-2-cols">
 
         <thead>
 
@@ -433,12 +475,11 @@
 
     </table>
 
-</div>
+
 <br>
 <h2>{% trans "État des pièces" %}</h2>
 
-<div class="box">
-    <table>
+    <table class="table-2-cols">
         <thead>
             <tr>
                 <th>{% trans "Pièce" %}</th>
@@ -500,7 +541,10 @@
             </tr>
         </tbody>
     </table>
-</div>
+
+
+
+
 <!-- ================================================== -->
 <!-- MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
@@ -572,9 +616,33 @@
                             {{ ligne.champ }}
                         </td>
 
-                        <td>
-                            {{ ligne.etat_label|default:"-" }}
-                        </td>
+                      <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
 
                         <td class="text-right">
                             {{ ligne.quantite|default:0 }}
@@ -610,7 +678,7 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td colspan="4" class="total-label">
                         {% trans "Total général avec main-d'œuvre" %}
                     </td>
@@ -640,7 +708,7 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td class="total-label">
                         {% trans "Total général" %}
                     </td>
