@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html>
@@ -15,18 +15,19 @@
         h1 {
             font-size: 20px;
             margin-bottom: 15px;
-            border-bottom: 2px solid #333;
-            padding-bottom: 5px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
         }
 
         h2 {
             font-size: 14px;
-            margin-top: 20px;
+            margin-top: 18px;
             margin-bottom: 8px;
-            border-bottom: 1px solid #ccc;
             padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
         }
-
         .box {
             border: 1px solid #ddd;
             padding: 10px;
@@ -61,15 +62,62 @@
         .tag-rouge {
             background: #dc2626;
         }
-         .ok {
-            color: #16a34a;
+
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
 
-        .not-ok {
-            color: #dc2626;
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .tag {
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag-jaune {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-rouge {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+
 
         table {
             width: 100%;
@@ -77,15 +125,17 @@
             margin-top: 10px;
         }
 
-        table th,
-        table td {
-            border: 1px solid #ccc;
+       th,
+        td {
+            border: 1px solid #d1d5db;
             padding: 6px;
-            text-align: left;
+            vertical-align: middle;
         }
 
-        table th {
-            background: #f3f3f3;
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
         }
 
         .text-right {
@@ -94,12 +144,111 @@
 
         .total {
             font-weight: bold;
-            background: #f8f8f8;
+            background: #f8fafc;
+        }
+         .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+         .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
+
+
+{% if maindoeuvre.utilisateur %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ maindoeuvre.utilisateur.nom }}
+            </div>
+
+            {% if maindoeuvre.utilisateur.adresse %}
+                <div>
+                    {{ maindoeuvre.utilisateur.adresse.rue }}
+                    {{ maindoeuvre.utilisateur.adresse.numero }}
+                    {% if maindoeuvre.utilisateur.adresse.boite %}
+                        / {{ maindoeuvre.utilisateur.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ maindoeuvre.utilisateur.adresse.code_postal }}
+                    {{ maindoeuvre.utilisateur.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if maindoeuvre.utilisateur.adresse.pays %}
+                <div>{{ maindoeuvre.utilisateur.adresse.pays }}
+                    {{ maindoeuvre.utilisateur.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if maindoeuvre.utilisateur.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ maindoeuvre.utilisateur.numero_tva }}
+                </div>
+            {% endif %}
+             {% if maindoeuvre.utilisateur.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ maindoeuvre.utilisateur.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ maindoeuvre.utilisateur.societe.nom }}.png"
+                alt="{{ maindoeuvre.utilisateur.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+
+
 
 <h1>{% trans "Détail de la main d'oeuvre" %}</h1>
 
@@ -179,7 +328,7 @@
 
 <div class="box">
 
-    {{ maindoeuvre.remarques|default:_("Immatriculation, ....") }}
+    {{ maindoeuvre.remarques|default:"-" }}
 
 </div>
 
