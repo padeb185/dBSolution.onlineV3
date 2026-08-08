@@ -652,7 +652,7 @@
 
     {% if rapport.lignes %}
 
-        <table>
+        <table>source
             <thead>
                 <tr>
                     <th>{% trans "Pièce" %}</th>
@@ -716,53 +716,53 @@
                             {{ ligne.total|default:0|floatformat:2 }} €
                         </td>
 
-                       
+
                 {% endfor %}
 
-                <tr class="total">
-                    <td colspan="4" class="text-right">
+                    <tr class="total">
+                        <td colspan="4" class="text-right">
 
-                        <strong>
-                            {% trans "Total des pièces HTVA" %}
-                        </strong>
-                    </td>
+                            <strong>
+                                {% trans "Total des pièces HTVA" %}
+                            </strong>
+                        </td>
 
-                    <td class="text-right">
-                        <strong>
-                            {{ rapport.total_general|default:0|floatformat:2 }} €
-                        </strong>
-                    </td>
-                </tr>
+                        <td class="text-right">
+                            <strong>
+                                {{ rapport.total_general|default:0|floatformat:2 }} €
+                            </strong>
+                        </td>
+                    </tr>
 
-                <tr class="total">
-                   <td colspan="4" class="text-right">
+                    <tr class="total">
+                       <td colspan="4" class="text-right">
 
-                        <strong>
-                            {% trans "Main-d'œuvre" %}
-                        </strong>
-                    </td>
+                            <strong>
+                                {% trans "Main-d'œuvre" %}
+                            </strong>
+                        </td>
 
-                    <td class="text-right">
-                        <strong>
-                            {{ silent_bloc.cout_main_oeuvre|default:0|floatformat:2 }} €
-                        </strong>
-                    </td>
-                </tr>
+                        <td class="text-right">
+                            <strong>
+                                {{ silent_bloc.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            </strong>
+                        </td>
+                    </tr>
 
-                <tr class="total">
-                   <td colspan="4" class="text-right">
+                    <tr class="total">
+                       <td colspan="4" class="text-right">
 
-                        <strong>
-                            {% trans "Total général avec main-d'œuvre" %}
-                        </strong>
-                    </td>
+                            <strong>
+                                {% trans "Total général avec main-d'œuvre" %}
+                            </strong>
+                        </td>
 
-                    <td class="text-right">
-                        <strong>
-                            {{ silent_bloc.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
-                        </strong>
-                    </td>
-                </tr>
+                        <td class="text-right">
+                            <strong>
+                                {{ silent_bloc.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            </strong>
+                        </td>
+                    </tr>
 
             </tbody>
         </table>

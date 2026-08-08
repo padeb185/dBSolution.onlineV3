@@ -462,7 +462,7 @@
         <tr>
             <td>{% trans "Pare-brise sans coups" %}</td>
             <td>
-                {% if checkup_track.pare_brise_coups == "OK" %}
+                {% if checkup_track.pare_brise_av_coups == "OK" %}
                     <span class="etat-vert">
                         {{ checkup_track.get_pare_brise_av_coups_display }}
                     </span>
@@ -545,11 +545,11 @@
             <td>{% trans "Niveau d'huile" %}</td>
             <td>
                 {% if checkup_track.moteur_niveau_huile_etat == "BON" %}
-                    <span class="etat-gris">
+                    <span class="etat-vert">
                         {{ checkup_track.get_moteur_niveau_huile_etat_display }}
                     </span>
                 {% elif checkup_track.moteur_niveau_huile_etat == "AJOUTER" %}
-                    <span class="etat-vert">
+                    <span class="etat-bleu">
                         {{ checkup_track.get_moteur_niveau_huile_etat_display }}
                     </span>
                 {% elif checkup_track.moteur_niveau_huile_etat == "REMPLACER" %}
@@ -640,12 +640,12 @@
         <tr>
             <td>{% trans "Niveau d'huile de la boîte" %}</td>
             <td>
-                {% if checkup_track.boite_niveau_huile_etat == "BON" %}
-                    <span class="etat-gris">
+                {% if checkup_track.boite_niveau_huile_etat == "OK" %}
+                    <span class="etat-vert">
                         {{ checkup_track.get_boite_niveau_huile_etat_display }}
                     </span>
                 {% elif checkup_track.boite_niveau_huile_etat == "AJOUTER" %}
-                    <span class="etat-vert">
+                    <span class="etat-bleu">
                         {{ checkup_track.get_boite_niveau_huile_etat_display }}
                     </span>
                 {% elif checkup_track.boite_niveau_huile_etat == "REMPLACER" %}
@@ -713,12 +713,12 @@
         <tr>
             <td>{% trans "Niveau d'huile du pont" %}</td>
             <td>
-                {% if checkup_track.pont_niveau_huile_etat == "BON" %}
-                    <span class="etat-gris">
+                {% if checkup_track.pont_niveau_huile_etat == "OK" %}
+                    <span class="etat-vert">
                         {{ checkup_track.get_pont_niveau_huile_etat_display }}
                     </span>
                 {% elif checkup_track.pont_niveau_huile_etat == "AJOUTER" %}
-                    <span class="etat-vert">
+                    <span class="etat-bleu">
                         {{ checkup_track.get_pont_niveau_huile_etat_display }}
                     </span>
                 {% elif checkup_track.pont_niveau_huile_etat == "REMPLACER" %}
@@ -785,6 +785,27 @@
 
         <tr>
             <td>{% trans "Liquide de refroidissement ajouté" %}</td>
+            <td>
+                {% if checkup_track.refroidissement_etat == "OK" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_refroidissement_etat_display }}
+                    </span>
+                {% elif checkup_track.refroidissement_etat == "AJOUTER" %}
+                    <span class="etat-bleu">
+                        {{ checkup_track.get_refroidissement_etat_display }}
+                    </span>
+                {% elif checkup_track.refroidissement_etat == "REMPLACER" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_pont_niveau_huile_etat_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_refroidissement_etat_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
             <td>
                 {{ checkup_track.refroidissement_quantite|default:0|floatformat:1 }} L
             </td>
@@ -1097,27 +1118,30 @@
 
     <tbody>
         <tr>
-            <td>{% trans "État du liquide de frein" %}</td>
-            <td>
-                {% if checkup_track.freins_liquide_frein_etat == "BON" %}
-                    <span class="etat-gris">
-                        {{ checkup_track.get_freins_liquide_frein_etat_display }}
-                    </span>
-                {% elif checkup_track.freins_liquide_frein_etat == "AJOUTER" %}
-                    <span class="etat-vert">
-                        {{ checkup_track.get_freins_liquide_frein_etat_display }}
-                    </span>
-                {% elif checkup_track.freins_liquide_frein_etat == "REMPLACER" or checkup_track.frein_liquide_frein_etat == "A_REMPLACER" %}
-                    <span class="etat-rouge">
-                        {{ checkup_track.get_freins_liquide_frein_etat_display }}
-                    </span>
-                {% else %}
-                    <span class="etat-gris">
-                        {{ checkup_track.get_frein_liquide_frein_etat_display|default:"-" }}
-                    </span>
-                {% endif %}
-            </td>
-        </tr>
+        <td>{% trans "État du liquide de frein" %}</td>
+        <td>
+            {% if checkup_track.freins_liquide_etat == "OK" %}
+                <span class="etat-vert">
+                    {{ checkup_track.get_freins_liquide_etat_display }}
+                </span>
+
+            {% elif checkup_track.freins_liquide_etat == "REMPLACER" or checkup_track.freins_liquide_etat == "REMPLACE" %}
+                <span class="etat-bleu">
+                    {{ checkup_track.get_freins_liquide_etat_display|default:"Remplacé" }}
+                </span>
+
+            {% elif checkup_track.freins_liquide_etat == "A_REMPLACER" %}
+                <span class="etat-rouge">
+                    {{ checkup_track.get_freins_liquide_etat_display }}
+                </span>
+
+            {% else %}
+                <span class="etat-gris">
+                    {{ checkup_track.get_freins_liquide_etat_display|default:"-" }}
+                </span>
+            {% endif %}
+        </td>
+    </tr>
 
         <tr>
             <td>{% trans "Fabricant du liquide de frein" %}</td>
@@ -1179,12 +1203,12 @@
         <tr>
             <td>{% trans "Niveau du liquide de direction" %}</td>
             <td>
-                {% if checkup_track.direction_liquide_niveau == "BON" %}
-                    <span class="etat-gris">
+                {% if checkup_track.direction_liquide_niveau == "OK" %}
+                    <span class="etat-vert">
                         {{ checkup_track.get_direction_liquide_niveau_display }}
                     </span>
                 {% elif checkup_track.direction_liquide_niveau == "AJOUTER" %}
-                    <span class="etat-vert">
+                    <span class="etat-bleu">
                         {{ checkup_track.get_direction_liquide_niveau_display }}
                     </span>
                 {% elif checkup_track.direction_liquide_niveau == "REMPLACER" %}
@@ -1659,8 +1683,12 @@
         <tr>
             <td>{% trans "Traces de gomme" %}</td>
             <td>
-                {% if checkup_track.nettoyage_exterieur_traces_gomme == "FAIT" or checkup_track.nettoyage_exterieur_traces_gomme == "PROPRE" %}
+                {% if checkup_track.nettoyage_exterieur_traces_gomme == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display }}
+                    </span>
+                 {% elif checkup_track.nettoyage_exterieur_traces_gomme == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display }}
                     </span>
                 {% elif checkup_track.nettoyage_exterieur_traces_gomme == "A_FAIRE" %}
@@ -1680,20 +1708,24 @@
         </tr>
 
         <tr>
+            <tr>
             <td>{% trans "Carrosserie" %}</td>
             <td>
-                {% if checkup_track.nettoyage_exterieur_carrosserie == "FAIT" or checkup_track.nettoyage_exterieur_carrosserie == "PROPRE" %}
+                {% if checkup_track.nettoyage_exterieur_carrosserie == "PROPRE" %}
                     <span class="etat-vert">
                         {{ checkup_track.get_nettoyage_exterieur_carrosserie_display }}
                     </span>
-                {% elif checkup_track.nettoyage_exterieur_carrosserie == "A_FAIRE" %}
+
+                {% elif checkup_track.nettoyage_exterieur_carrosserie == "FAIT" %}
+                    <span class="etat-bleu">
+                        {{ checkup_track.get_nettoyage_exterieur_carrosserie_display }}
+                    </span>
+
+                {% elif checkup_track.nettoyage_exterieur_carrosserie == "A_FAIRE" or checkup_track.nettoyage_exterieur_carrosserie == "REPORTER" %}
                     <span class="etat-rouge">
                         {{ checkup_track.get_nettoyage_exterieur_carrosserie_display }}
                     </span>
-                {% elif checkup_track.nettoyage_exterieur_carrosserie == "REPORTER" %}
-                    <span class="etat-jaune">
-                        {{ checkup_track.get_nettoyage_exterieur_carrosserie_display }}
-                    </span>
+
                 {% else %}
                     <span class="etat-gris">
                         {{ checkup_track.get_nettoyage_exterieur_carrosserie_display|default:"-" }}
@@ -1705,18 +1737,21 @@
         <tr>
             <td>{% trans "Jantes" %}</td>
             <td>
-                {% if checkup_track.nettoyage_exterieur_jantes == "FAIT" or checkup_track.nettoyage_exterieur_jantes == "PROPRE" %}
+                {% if checkup_track.nettoyage_exterieur_jantes == "PROPRE" %}
                     <span class="etat-vert">
                         {{ checkup_track.get_nettoyage_exterieur_jantes_display }}
                     </span>
-                {% elif checkup_track.nettoyage_exterieur_jantes == "A_FAIRE" %}
+
+                {% elif checkup_track.nettoyage_exterieur_jantes == "FAIT" %}
+                    <span class="etat-bleu">
+                        {{ checkup_track.get_nettoyage_exterieur_jantes_display }}
+                    </span>
+
+                {% elif checkup_track.nettoyage_exterieur_jantes == "A_FAIRE" or checkup_track.nettoyage_exterieur_jantes == "REPORTER" %}
                     <span class="etat-rouge">
                         {{ checkup_track.get_nettoyage_exterieur_jantes_display }}
                     </span>
-                {% elif checkup_track.nettoyage_exterieur_jantes == "REPORTER" %}
-                    <span class="etat-jaune">
-                        {{ checkup_track.get_nettoyage_exterieur_jantes_display }}
-                    </span>
+
                 {% else %}
                     <span class="etat-gris">
                         {{ checkup_track.get_nettoyage_exterieur_jantes_display|default:"-" }}
@@ -1728,18 +1763,21 @@
         <tr>
             <td>{% trans "Séchage" %}</td>
             <td>
-                {% if checkup_track.nettoyage_exterieur_sechage == "FAIT" or checkup_track.nettoyage_exterieur_sechage == "PROPRE" %}
+                {% if checkup_track.nettoyage_exterieur_sechage == "PROPRE" %}
                     <span class="etat-vert">
                         {{ checkup_track.get_nettoyage_exterieur_sechage_display }}
                     </span>
-                {% elif checkup_track.nettoyage_exterieur_sechage == "A_FAIRE" %}
+
+                {% elif checkup_track.nettoyage_exterieur_sechage == "FAIT" %}
+                    <span class="etat-bleu">
+                        {{ checkup_track.get_nettoyage_exterieur_sechage_display }}
+                    </span>
+
+                {% elif checkup_track.nettoyage_exterieur_sechage == "A_FAIRE" or checkup_track.nettoyage_exterieur_sechage == "REPORTER" %}
                     <span class="etat-rouge">
                         {{ checkup_track.get_nettoyage_exterieur_sechage_display }}
                     </span>
-                {% elif checkup_track.nettoyage_exterieur_sechage == "REPORTER" %}
-                    <span class="etat-jaune">
-                        {{ checkup_track.get_nettoyage_exterieur_sechage_display }}
-                    </span>
+
                 {% else %}
                     <span class="etat-gris">
                         {{ checkup_track.get_nettoyage_exterieur_sechage_display|default:"-" }}
@@ -1748,10 +1786,24 @@
             </td>
         </tr>
 
-        <tr>
+       <tr>
             <td>{% trans "Produits utilisés" %}</td>
             <td>
-                {{ checkup_track.get_nettoyage_exterieur_produits_display|default:"-" }}
+                {% if checkup_track.nettoyage_exterieur_produits == "SANS" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_exterieur_produits_display }}
+                    </span>
+
+                {% elif checkup_track.nettoyage_exterieur_produits == "AJOUTER" %}
+                    <span class="etat-bleu">
+                        {{ checkup_track.get_nettoyage_exterieur_produits_display }}
+                    </span>
+
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_exterieur_produits_display|default:"-" }}
+                    </span>
+                {% endif %}
             </td>
         </tr>
 
@@ -1775,34 +1827,15 @@
     </thead>
 
     <tbody>
-        <tr>
-            <td>{% trans "Vitres" %}</td>
-            <td>
-                {% if checkup_track.nettoyage_interieur_vitres == "FAIT" or checkup_track.nettoyage_interieur_vitres == "PROPRE" %}
-                    <span class="etat-vert">
-                        {{ checkup_track.get_nettoyage_interieur_vitres_display }}
-                    </span>
-                {% elif checkup_track.nettoyage_interieur_vitres == "A_FAIRE" %}
-                    <span class="etat-rouge">
-                        {{ checkup_track.get_nettoyage_interieur_vitres_display }}
-                    </span>
-                {% elif checkup_track.nettoyage_interieur_vitres == "REPORTER" %}
-                    <span class="etat-jaune">
-                        {{ checkup_track.get_nettoyage_interieur_vitres_display }}
-                    </span>
-                {% else %}
-                    <span class="etat-gris">
-                        {{ checkup_track.get_nettoyage_interieur_vitres_display|default:"-" }}
-                    </span>
-                {% endif %}
-            </td>
-        </tr>
-
-        <tr>
+       <tr>
             <td>{% trans "Pare-brise" %}</td>
             <td>
-                {% if checkup_track.nettoyage_interieur_pare_brise == "FAIT" or checkup_track.nettoyage_interieur_pare_brise == "PROPRE" %}
+                {% if checkup_track.nettoyage_interieur_pare_brise == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_interieur_pare_brise_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_pare_brise == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup_track.get_nettoyage_interieur_pare_brise_display }}
                     </span>
                 {% elif checkup_track.nettoyage_interieur_pare_brise == "A_FAIRE" %}
@@ -1824,8 +1857,12 @@
         <tr>
             <td>{% trans "Aspirateur" %}</td>
             <td>
-                {% if checkup_track.nettoyage_interieur_aspirateur == "FAIT" or checkup_track.nettoyage_interieur_aspirateur == "PROPRE" %}
+                {% if checkup_track.nettoyage_interieur_aspirateur == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_interieur_aspirateur_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_aspirateur == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup_track.get_nettoyage_interieur_aspirateur_display }}
                     </span>
                 {% elif checkup_track.nettoyage_interieur_aspirateur == "A_FAIRE" %}
@@ -1847,8 +1884,12 @@
         <tr>
             <td>{% trans "Intérieurs de porte" %}</td>
             <td>
-                {% if checkup_track.nettoyage_interieur_portes == "FAIT" or checkup_track.nettoyage_interieur_portes == "PROPRE" %}
+                {% if checkup_track.nettoyage_interieur_portes == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_interieur_portes_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_portes == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup_track.get_nettoyage_interieur_portes_display }}
                     </span>
                 {% elif checkup_track.nettoyage_interieur_portes == "A_FAIRE" %}
@@ -1870,8 +1911,12 @@
         <tr>
             <td>{% trans "Sièges" %}</td>
             <td>
-                {% if checkup_track.nettoyage_interieur_sieges == "FAIT" or checkup_track.nettoyage_interieur_sieges == "PROPRE" %}
+                {% if checkup_track.nettoyage_interieur_sieges == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_interieur_sieges_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_sieges == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup_track.get_nettoyage_interieur_sieges_display }}
                     </span>
                 {% elif checkup_track.nettoyage_interieur_sieges == "A_FAIRE" %}
@@ -1893,8 +1938,12 @@
         <tr>
             <td>{% trans "Carpettes" %}</td>
             <td>
-                {% if checkup_track.nettoyage_interieur_carpettes == "FAIT" or checkup_track.nettoyage_interieur_carpettes == "PROPRE" %}
+                {% if checkup_track.nettoyage_interieur_carpettes == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_interieur_carpettes_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_carpettes == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup_track.get_nettoyage_interieur_carpettes_display }}
                     </span>
                 {% elif checkup_track.nettoyage_interieur_carpettes == "A_FAIRE" %}
@@ -1916,8 +1965,12 @@
         <tr>
             <td>{% trans "Tableau de bord" %}</td>
             <td>
-                {% if checkup_track.nettoyage_interieur_tableau_de_bord == "FAIT" or checkup_track.nettoyage_interieur_tableau_de_bord == "PROPRE" %}
+                {% if checkup_track.nettoyage_interieur_tableau_de_bord == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_interieur_tableau_de_bord_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_tableau_de_bord == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup_track.get_nettoyage_interieur_tableau_de_bord_display }}
                     </span>
                 {% elif checkup_track.nettoyage_interieur_tableau_de_bord == "A_FAIRE" %}
@@ -1939,8 +1992,12 @@
         <tr>
             <td>{% trans "Plastiques" %}</td>
             <td>
-                {% if checkup_track.nettoyage_interieur_plastiques == "FAIT" or checkup_track.nettoyage_interieur_plastiques == "PROPRE" %}
+                {% if checkup_track.nettoyage_interieur_plastiques == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_interieur_plastiques_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_plastiques == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup_track.get_nettoyage_interieur_plastiques_display }}
                     </span>
                 {% elif checkup_track.nettoyage_interieur_plastiques == "A_FAIRE" %}
@@ -1962,7 +2019,19 @@
         <tr>
             <td>{% trans "Produits utilisés" %}</td>
             <td>
-                {{ checkup_track.get_nettoyage_interieur_produits_display|default:"-" }}
+                {% if checkup_track.nettoyage_interieur_produits == "SANS" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_interieur_produits_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_produits == "AJOUTER" %}
+                    <span class="etat-bleu">
+                        {{ checkup_track.get_nettoyage_interieur_produits_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_interieur_produits_display|default:"-" }}
+                    </span>
+                {% endif %}
             </td>
         </tr>
 
@@ -2037,17 +2106,17 @@
                         </td>
 
                      <td>
-                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                {% if ligne.etat == "OK" or ligne.etat == "BON"  or ligne.etat == "PROPRE" %}
                                     <span class="etat-vert">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE"  %}
                                     <span class="etat-rouge">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "REMPLACE" %}
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "FAIT" or ligne.etat == "AJOUTER" %}
                                     <span class="etat-bleu">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
