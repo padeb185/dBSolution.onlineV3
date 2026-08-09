@@ -199,17 +199,38 @@ class Checkup(TechnicienMixin, models.Model):
 
 
     # --- Essuie-glaces & Pare-brise ---
-    essuie_glace_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Essuie-glace AV fonctionnel"))
+    # --- Essuie-glaces & Pare-brise ---
+    essuie_glace = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                    verbose_name=_("Etat des balais avant"))
+    essuie_glace_quantite = models.PositiveIntegerField(
+        verbose_name=_("Quantité"),
+        default=0,
+        null=True,
+    )
+    essuie_glace_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                            verbose_name=_("Prix d'achat htva"))
 
-    essuie_glace_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Essuie-glace AR fonctionnel"))
+    balais_essuie = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                     verbose_name=_("Etat des balais arrières"))
+    balais_essuie_quantite = models.PositiveIntegerField(
+        verbose_name=_("Quantité"),
+        default=0,
+        null=True,
+    )
+    balais_essuie_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                             verbose_name=_("Prix d'achat htva"))
 
-    balais_essuie_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Balais avant"))
-
-    balais_essuie_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Balai arrière"))
-
-    pare_brise_coups = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Pare-brise sans coups"))
-    pare_brise_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat du Pare-brise"))
-
+    pare_brise_av_coups = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                           verbose_name=_("Pare-brise sans coups"))
+    pare_brise_av_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                               verbose_name=_("Pare-brise à remplacer"))
+    pare_brise_av_quantite = models.PositiveIntegerField(
+        verbose_name=_("Quantité"),
+        default=0,
+        null=True,
+    )
+    pare_brise_av_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                             verbose_name=_("Prix d'achat htva"))
 
     # --- Moteur & transmission ---
     moteur_fuite =  models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite moteur"))

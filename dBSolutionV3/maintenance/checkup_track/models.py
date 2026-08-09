@@ -97,6 +97,7 @@ class HuileBoiteEtat(models.TextChoices):
 
 class HuilePontEtat(models.TextChoices):
     SEPTANTE_CINQ140 = "75W140", _("75W140")
+    SEPTANTE_CINQ90 = "75W90", _("Porsche 75W90")
     AUTRE = "AUTRE", _("Autre")
 
 
