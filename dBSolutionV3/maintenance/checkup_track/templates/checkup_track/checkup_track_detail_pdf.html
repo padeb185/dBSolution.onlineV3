@@ -749,16 +749,7 @@
     </tbody>
 </table>
 
-<h2>{% trans "Refroidissement" %}</h2>
-
-<table class="table-2-cols">
-    <thead>
-        <tr>
-            <th>{% trans "Élément contrôlé" %}</th>
-            <th>{% trans "État / Valeur" %}</th>
-        </tr>
-    </thead>
-
+<table>
     <tbody>
         <tr>
             <td>{% trans "Radiateur" %}</td>
@@ -767,14 +758,17 @@
                     <span class="etat-vert">
                         {{ checkup_track.get_refroidissement_radiateur_display }}
                     </span>
+
                 {% elif checkup_track.refroidissement_radiateur == "A_REMPLACER" or checkup_track.refroidissement_radiateur == "NOT_OK" %}
                     <span class="etat-rouge">
                         {{ checkup_track.get_refroidissement_radiateur_display }}
                     </span>
+
                 {% elif checkup_track.refroidissement_radiateur == "REMPLACE" %}
                     <span class="etat-bleu">
                         {{ checkup_track.get_refroidissement_radiateur_display }}
                     </span>
+
                 {% else %}
                     <span class="etat-gris">
                         {{ checkup_track.get_refroidissement_radiateur_display|default:"-" }}
@@ -784,20 +778,23 @@
         </tr>
 
         <tr>
-            <td>{% trans "Liquide de refroidissement ajouté" %}</td>
+            <td>{% trans "Niveau de liquide de refroidissement" %}</td>
             <td>
                 {% if checkup_track.refroidissement_etat == "OK" %}
                     <span class="etat-vert">
                         {{ checkup_track.get_refroidissement_etat_display }}
                     </span>
+
                 {% elif checkup_track.refroidissement_etat == "AJOUTER" %}
                     <span class="etat-bleu">
                         {{ checkup_track.get_refroidissement_etat_display }}
                     </span>
+
                 {% elif checkup_track.refroidissement_etat == "REMPLACER" %}
                     <span class="etat-rouge">
-                        {{ checkup_track.get_pont_niveau_huile_etat_display }}
+                        {{ checkup_track.get_refroidissement_etat_display }}
                     </span>
+
                 {% else %}
                     <span class="etat-gris">
                         {{ checkup_track.get_refroidissement_etat_display|default:"-" }}
@@ -805,7 +802,9 @@
                 {% endif %}
             </td>
         </tr>
+
         <tr>
+            <td>{% trans "Quantité de liquide de refroidissement ajoutée" %}</td>
             <td>
                 {{ checkup_track.refroidissement_quantite|default:0|floatformat:1 }} L
             </td>
@@ -819,6 +818,7 @@
         </tr>
     </tbody>
 </table>
+
 
 <h2>{% trans "Freins" %}</h2>
 
@@ -1125,9 +1125,9 @@
                     {{ checkup_track.get_freins_liquide_etat_display }}
                 </span>
 
-            {% elif checkup_track.freins_liquide_etat == "REMPLACER" or checkup_track.freins_liquide_etat == "REMPLACE" %}
+            {% elif checkup_track.freins_liquide_etat == "REMPLACER" or checkup_track.freins_liquide_etat == "AJOUTER" %}
                 <span class="etat-bleu">
-                    {{ checkup_track.get_freins_liquide_etat_display|default:"Remplacé" }}
+                    {{ checkup_track.get_freins_liquide_etat_display }}
                 </span>
 
             {% elif checkup_track.freins_liquide_etat == "A_REMPLACER" %}
@@ -1176,22 +1176,52 @@
         </tr>
     </thead>
 
+
     <tbody>
         <tr>
             <td>{% trans "Direction assistée / crémaillère" %}</td>
+            <td>
+                {% if checkup_track.direction_liquide == "OK" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_direction_liquide_display }}
+                    </span>
+
+                {% elif checkup_track.direction_liquide == "A_REMPLACER" or checkup_track.direction_liquide == "NOT_OK" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_direction_liquide_display }}
+                    </span>
+
+                {% elif checkup_track.direction_liquide == "REMPLACE" %}
+                    <span class="etat-bleu">
+                        {{ checkup_track.get_direction_liquide_display }}
+                    </span>
+
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_direction_liquide_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Niveau du liquide de direction" %}</td>
             <td>
                 {% if checkup_track.direction_liquide_etat == "OK" %}
                     <span class="etat-vert">
                         {{ checkup_track.get_direction_liquide_etat_display }}
                     </span>
-                {% elif checkup_track.direction_liquide_etat == "A_REMPLACER" or checkup_track.direction_liquide_etat == "NOT_OK" %}
-                    <span class="etat-rouge">
-                        {{ checkup_track.get_direction_liquide_etat_display }}
-                    </span>
-                {% elif checkup_track.direction_liquide_etat == "REMPLACE" %}
+
+                {% elif checkup_track.direction_liquide_etat == "AJOUTER" %}
                     <span class="etat-bleu">
                         {{ checkup_track.get_direction_liquide_etat_display }}
                     </span>
+
+                {% elif checkup_track.direction_liquide_etat == "REMPLACER" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_direction_liquide_etat_display }}
+                    </span>
+
                 {% else %}
                     <span class="etat-gris">
                         {{ checkup_track.get_direction_liquide_etat_display|default:"-" }}
@@ -1201,25 +1231,9 @@
         </tr>
 
         <tr>
-            <td>{% trans "Niveau du liquide de direction" %}</td>
+            <td>{% trans "Quantité de liquide de direction ajoutée" %}</td>
             <td>
-                {% if checkup_track.direction_liquide_niveau == "OK" %}
-                    <span class="etat-vert">
-                        {{ checkup_track.get_direction_liquide_niveau_display }}
-                    </span>
-                {% elif checkup_track.direction_liquide_niveau == "AJOUTER" %}
-                    <span class="etat-bleu">
-                        {{ checkup_track.get_direction_liquide_niveau_display }}
-                    </span>
-                {% elif checkup_track.direction_liquide_niveau == "REMPLACER" %}
-                    <span class="etat-rouge">
-                        {{ checkup_track.get_direction_liquide_niveau_display }}
-                    </span>
-                {% else %}
-                    <span class="etat-gris">
-                        {{ checkup_track.get_direction_liquide_niveau_display|default:"-" }}
-                    </span>
-                {% endif %}
+                {{ checkup_track.direction_liquide_quantite|default:0|floatformat:1 }} L
             </td>
         </tr>
 
@@ -1230,12 +1244,6 @@
             </td>
         </tr>
 
-        <tr>
-            <td>{% trans "Quantité de liquide de direction" %}</td>
-            <td>
-                {{ checkup_track.direction_liquide_quantite|default:0|floatformat:1 }} L
-            </td>
-        </tr>
 
         <tr>
             <td>{% trans "Bruit de roulement de roue" %}</td>
@@ -1652,7 +1660,7 @@
             <td>{% trans "Serrage des roues" %}</td>
             <td>
                 {% if checkup_track.serrage_roues == "FAIT" %}
-                    <span class="etat-vert">
+                    <span class="etat-bleu">
                         {{ checkup_track.get_serrage_roues_display }}
                     </span>
                 {% elif checkup_track.serrage_roues == "A_FAIRE" %}

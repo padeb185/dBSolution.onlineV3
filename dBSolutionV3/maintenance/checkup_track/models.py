@@ -45,7 +45,7 @@ class NettoyageEtat(models.TextChoices):
 
 
 class NiveauxEtat(models.TextChoices):
-    BON = "OK", _("OK")
+    OK = "OK", _("OK")
     AJOUTER = "AJOUTER", _("Ajouté")
     REMPLACER = "REMPLACER", _("A remplacer")
 
@@ -178,6 +178,7 @@ class QualiteLiquideFrein(models.TextChoices):
 
 class LiquideFreinEtat(models.TextChoices):
     OK = "OK", _("OK")
+    AJOUTER = "AJOUTER", _("Ajouté")
     A_REMPLACER = "A_REMPLACER", _("A remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
 # ---------------------------
@@ -244,7 +245,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     # --- Moteur & transmission ---
     moteur_etat =  models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État du moteur"))
-    moteur_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON, verbose_name=_("Niveau d'huile"))
+    moteur_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.OK, verbose_name=_("Niveau d'huile"))
     moteur_niveau_huile_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.MOBIL, verbose_name=_("Fabricant de l'huile moteur"))
     moteur_niveau_huile_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1,  verbose_name=_("Quantité d'huile ajoutée en litres"), validators=[StepValueValidator(0.1)])
     moteur_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30, verbose_name=_("Qualité d'huile"))
@@ -253,7 +254,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     boite_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État de la boîte de vitesse"))
     boite_embrayage = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État de l'embrayage"))
-    boite_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
+    boite_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.OK,verbose_name=_("Niveau d'huile"))
     boite_niveau_huile_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1,  verbose_name=_("Quantité d'huile ajoutée en litres"), validators=[StepValueValidator(0.1)])
     boite_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices, default=HuileBoiteEtat.SEPTANTE_CINQ, verbose_name=_("Qualité d'huile"))
     boite_niveau_huile_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva de l'huile de boite"))
@@ -261,14 +262,14 @@ class CheckupTrack(TechnicienMixin, models.Model):
     # --- Pont ----
 
     pont_niveau_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite pont arrière"))
-    pont_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
+    pont_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.OK,verbose_name=_("Niveau d'huile"))
     pont_niveau_huile_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité d'huile ajoutée en litres"), validators=[StepValueValidator(0.1)])
     pont_niveau_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ140,verbose_name=_("Qualité d'huile"))
     pont_niveau_huile_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva de l'huile de pont"))
 
     # --- Refroidissement ---
-    refroidissement_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de refroidissement"))
-    refroidissement_radiateur = models.CharField(max_length=25, choices=RefroidissementEtat.choices, default=RefroidissementEtat.OK, verbose_name=_("Radiateur"))
+    refroidissement_radiateur = models.CharField(max_length=25, choices=RefroidissementEtat.choices,default=RefroidissementEtat.OK, verbose_name=_("Radiateur"))
+    refroidissement_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.OK,verbose_name=_("Niveau de liquide de refroidissement"))
     refroidissement_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"), validators=[StepValueValidator(0.1)])
     refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13, verbose_name=_("Qualité de liquide de refroidissement"))
     refroidissement_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du liquide de refroidissement"))
@@ -325,14 +326,14 @@ class CheckupTrack(TechnicienMixin, models.Model):
     freins_liquide_etat = models.CharField(max_length=25, choices=LiquideFreinEtat.choices, default=LiquideFreinEtat.OK, verbose_name=_("État liquide de frein"))
     freins_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.CASTROL, verbose_name=_("Fabricant du liquide de frein"))
     freins_liquide_qualite = models.CharField(max_length=100,choices=QualiteLiquideFrein.choices, default=QualiteLiquideFrein.DOT4, blank=True, verbose_name=_("Spécification liquide de frein"))
-    freins_liquide_quantite = models.FloatField(default=0, null=True, blank=True, verbose_name=_("Quantité liquide de frein (L)"), validators=[StepValueValidator(0.1)])
+    freins_liquide_quantite =  models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité liquide de frein (L)"), validators=[StepValueValidator(0.1)])
     freins_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du liquide de frein"))
 
 
-    direction_liquide_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat direction assistée / crémaillère"), null=True, blank=True)
-    direction_liquide_niveau = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON, verbose_name=_("Niveau du liquide de direction"), null=True, blank=True)
+    direction_liquide = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat direction assistée / crémaillère"), null=True, blank=True)
+    direction_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.OK, verbose_name=_("Niveau du liquide de direction"), null=True, blank=True)
     direction_liquide_qualite = models.CharField(max_length=25, choices=TypeHuileDirection.choices, default=TypeHuileDirection.CHOISIR, verbose_name=_("Qualité du liquide de direction"), null=True, blank=True)
-    direction_liquide_quantite = models.FloatField(default=0, null=True, blank=True,verbose_name=_("Quantité liquide de direction (L)"), validators=[StepValueValidator(0.1)])
+    direction_liquide_quantite =  models.DecimalField(default=0.0, max_digits=4, decimal_places=1,verbose_name=_("Quantité liquide de direction (L)"), validators=[StepValueValidator(0.1)])
     direction_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du liquide de direction"))
 
     # --- Bruits ---
