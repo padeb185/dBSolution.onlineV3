@@ -187,7 +187,6 @@ def controle_total_view(request, exemplaire_id):
                 messages.error(request, f"Erreur : {e}")
 
         else:
-            print("FORM INVALID:", form.errors)
             messages.error(
                 request,
                 _("Le formulaire contient des erreurs.")

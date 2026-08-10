@@ -255,101 +255,111 @@
     </div>
 </div>
 
-<h2>{% trans "Essuie-glaces et pare-brise" %}</h2>
+<h2>{% trans "Essuies-glaces & Pare-brise" %}</h2>
 
 <table class="table-2-cols">
-    <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
+    <thead>
+        <tr>
+            <th>{% trans "Élément contrôlé" %}</th>
+            <th>{% trans "État / Valeur" %}</th>
+        </tr>
+    </thead>
 
-    <tr>
-        <td>{% trans "Essuie-glace avant" %}</td>
-        <td>
-            {% if checkup.essuie_glace_av == "OK" %}
-                <span class="etat-vert">{{ checkup.get_essuie_glace_av_display }}</span>
-            {% elif checkup.essuie_glace_av == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_essuie_glace_av_display }}</span>
-            {% elif checkup.essuie_glace_av == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_essuie_glace_av_display }}</span>
-            {% else %}
-                <span class="etat-gris">{{ checkup.get_essuie_glace_av_display|default:"-" }}</span>
-            {% endif %}
-        </td>
-    </tr>
+    <tbody>
+        <tr>
+            <td>{% trans "Etat des balais avant" %}</td>
+            <td>
+                {% if checkup.essuie_glace == "OK" %}
+                    <span class="etat-vert">
+                        {{ checkup.get_essuie_glace_display }}
+                    </span>
+                {% elif checkup.essuie_glace == "A_REMPLACER" %}
+                    <span class="etat-rouge">
+                        {{ checkup.get_essuie_glace_display }}
+                    </span>
+                {% elif checkup.essuie_glace == "REMPLACE" %}
+                    <span class="etat-bleu">
+                        {{ checkup.get_essuie_glace_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup.get_essuie_glace_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
 
-    <tr>
-        <td>{% trans "Essuie-glace arrière" %}</td>
-        <td>
-            {% if checkup.essuie_glace_ar == "OK" %}
-                <span class="etat-vert">{{ checkup.get_essuie_glace_ar_display }}</span>
-            {% elif checkup.essuie_glace_ar == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_essuie_glace_ar_display }}</span>
-            {% elif checkup.essuie_glace_ar == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_essuie_glace_ar_display }}</span>
-            {% else %}
-                <span class="etat-gris">{{ checkup.get_essuie_glace_ar_display|default:"-" }}</span>
-            {% endif %}
-        </td>
-    </tr>
+        <tr>
+            <td>{% trans "État des balais arrière" %}</td>
+            <td>
+                {% if checkup.balais_essuie == "OK" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_balais_essuie_display }}
+                    </span>
+                {% elif checkup.balais_essuie == "A_REMPLACER" %}
+                    <span class="etat-rouge">
+                        {{ checkup.get_balais_essuie_display }}
+                    </span>
+                {% elif checkup.balais_essuie == "REMPLACE" %}
+                    <span class="etat-bleu">
+                        {{ checkup.get_balais_essuie_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup.get_balais_essuie_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
 
-    <tr>
-        <td>{% trans "Balais avant à remplacer" %}</td>
-        <td>
-            {% if checkup.balais_essuie_av == "OK" %}
-                <span class="etat-vert">{{ checkup.get_balais_essuie_av_display }}</span>
-            {% elif checkup.balais_essuie_av == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_balais_essuie_av_display }}</span>
-            {% elif checkup.balais_essuie_av == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_balais_essuie_av_display }}</span>
-            {% else %}
-                <span class="etat-gris">{{ checkup.get_balais_essuie_av_display|default:"-" }}</span>
-            {% endif %}
-        </td>
-    </tr>
+        <tr>
+            <td>{% trans "Pare-brise sans coups" %}</td>
+            <td>
+                {% if checkup.pare_brise_av_coups == "OK" %}
+                    <span class="etat-vert">
+                        {{ checkup.get_pare_brise_av_coups_display }}
+                    </span>
+                {% elif checkup.pare_brise_av_coups == "A_REMPLACER" %}
+                    <span class="etat-rouge">
+                        {{ checkup.get_pare_brise_av_coups_display }}
+                    </span>
+                {% elif checkup.pare_brise_av_coups == "REMPLACE" %}
+                    <span class="etat-bleu">
+                        {{ checkup.get_pare_brise_av_coups_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup.get_pare_brise_av_coups_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
 
-    <tr>
-        <td>{% trans "Balai arrière à remplacer" %}</td>
-        <td>
-            {% if checkup.balais_essuie_ar == "OK" %}
-                <span class="etat-vert">{{ checkup.get_balais_essuie_ar_display }}</span>
-            {% elif checkup.balais_essuie_ar == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_balais_essuie_ar_display }}</span>
-            {% elif checkup.balais_essuie_ar == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_balais_essuie_ar_display }}</span>
-            {% else %}
-                <span class="etat-gris">{{ checkup.get_balais_essuie_ar_display|default:"-" }}</span>
-            {% endif %}
-        </td>
-    </tr>
-
-    <tr>
-        <td>{% trans "Pare-brise sans coups" %}</td>
-        <td>
-            {% if checkup.pare_brise_coups == "OK" %}
-                <span class="etat-vert">{{ checkup.get_pare_brise_coups_display }}</span>
-            {% elif checkup.pare_brise_coups == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_pare_brise_coups_display }}</span>
-            {% elif checkup.pare_brise_coups == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_pare_brise_coups_display }}</span>
-            {% else %}
-                <span class="etat-gris">{{ checkup.get_pare_brise_coups_display|default:"-" }}</span>
-            {% endif %}
-        </td>
-    </tr>
-
-    <tr>
-        <td>{% trans "Pare-brise à remplacer" %}</td>
-        <td>
-            {% if checkup.pare_brise_remplacer == "OK" %}
-                <span class="etat-vert">{{ checkup.get_pare_brise_remplacer_display }}</span>
-            {% elif checkup.pare_brise_remplacer == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_pare_brise_remplacer_display }}</span>
-            {% elif checkup.pare_brise_remplacer == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_pare_brise_remplacer_display }}</span>
-            {% else %}
-                <span class="etat-gris">{{ checkup.get_pare_brise_remplacer_display|default:"-" }}</span>
-            {% endif %}
-        </td>
-    </tr>
+        <tr>
+            <td>{% trans "Pare-brise à remplacer" %}</td>
+            <td>
+                {% if checkup.pare_brise_av_remplacer == "OK" %}
+                    <span class="etat-vert">
+                        {{ checkup.get_pare_brise_av_remplacer_display }}
+                    </span>
+                {% elif checkup.pare_brise_av_remplacer == "A_REMPLACER" %}
+                    <span class="etat-rouge">
+                        {{ checkup.get_pare_brise_av_remplacer_display }}
+                    </span>
+                {% elif checkup.pare_brise_av_remplacer == "REMPLACE" %}
+                    <span class="etat-bleu">
+                        {{ checkup.get_pare_brise_av_remplacer_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup.get_pare_brise_av_remplacer_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+    </tbody>
 </table>
+
 
 <h2>{% trans "Moteur" %}</h2>
 
@@ -494,7 +504,7 @@
                 {{ checkup.get_boite_niveau_huile_etat_display }}
             </span>
         {% elif checkup.boite_niveau_huile_etat == "AJOUTER" %}
-            <span class="etat-rouge">
+            <span class="etat-bleu">
                 {{ checkup.get_boite_niveau_huile_etat_display }}
             </span>
         {% else %}
@@ -564,7 +574,7 @@
                 {{ checkup.get_pont_niveau_huile_etat_display }}
             </span>
         {% elif checkup.pont_niveau_huile_etat == "AJOUTER" %}
-            <span class="etat-rouge">
+            <span class="etat-bleu">
                 {{ checkup.get_pont_niveau_huile_etat_display }}
             </span>
         {% else %}
@@ -780,21 +790,21 @@
         <tr>
             <td>{% trans "Présence de fuite" %}</td>
             <td>
-                {% if checkup.freins_fuites == "OK" %}
+                {% if checkup.freins_liquide_fuites == "OK" %}
                     <span class="etat-vert">
-                        {{ checkup.get_freins_fuites_display }}
+                        {{ checkup.get_freins_liquide_fuites_display }}
                     </span>
-                {% elif checkup.freins_fuites == "A_REMPLACER" %}
+                {% elif checkup.freins_liquide_fuites == "A_REMPLACER" %}
                     <span class="etat-rouge">
-                        {{ checkup.get_freins_fuites_display }}
+                        {{ checkup.get_freins_liquide_fuites_display }}
                     </span>
-                {% elif checkup.freins_fuites == "REMPLACE" %}
+                {% elif checkup.freins_liquide_fuites == "REMPLACE" %}
                     <span class="etat-bleu">
-                        {{ checkup.get_freins_fuites_display }}
+                        {{ checkup.get_freins_liquide_fuites_display }}
                     </span>
                 {% else %}
                     <span class="etat-gris">
-                        {{ checkup.get_freins_fuites_display|default:"-" }}
+                        {{ checkup.get_freins_liquide_fuites_display|default:"-" }}
                     </span>
                 {% endif %}
             </td>
@@ -803,21 +813,21 @@
         <tr>
             <td>{% trans "État du liquide de frein" %}</td>
             <td>
-                {% if checkup.frein_liquide_frein_etat == "OK" %}
+                {% if checkup.frein_liquide_etat == "OK" %}
                     <span class="etat-vert">
-                        {{ checkup.get_frein_liquide_frein_etat_display }}
+                        {{ checkup.get_frein_liquide_etat_display }}
                     </span>
-                {% elif checkup.frein_liquide_frein_etat == "A_REMPLACER" %}
+                {% elif checkup.frein_liquide_etat == "A_REMPLACER" %}
                     <span class="etat-rouge">
-                        {{ checkup.get_frein_liquide_frein_etat_display }}
+                        {{ checkup.get_frein_liquide_etat_display }}
                     </span>
-                {% elif checkup.frein_liquide_frein_etat == "REMPLACE" %}
+                {% elif checkup.frein_liquide_etat == "REMPLACE" %}
                     <span class="etat-bleu">
-                        {{ checkup.get_frein_liquide_frein_etat_display }}
+                        {{ checkup.get_frein_liquide_etat_display }}
                     </span>
                 {% else %}
                     <span class="etat-gris">
-                        {{ checkup.get_frein_liquide_frein_etat_display|default:"-" }}
+                        {{ checkup.get_frein_liquide_etat_display|default:"-" }}
                     </span>
                 {% endif %}
             </td>
@@ -882,7 +892,7 @@
                         {{ checkup.get_direction_liquide_etat_display }}
                     </span>
                 {% elif checkup.direction_liquide_etat == "AJOUTER" %}
-                    <span class="etat-rouge">
+                    <span class="etat-bleu">
                         {{ checkup.get_direction_liquide_etat_display }}
                     </span>
                 {% else %}
@@ -892,11 +902,23 @@
                 {% endif %}
             </td>
         </tr>
+        <tr>
+            <td>{% trans "Fabricant" %}</td>
+            <td>
+                {{ checkup.direction_liquide_fabricant }}
+            </td>
+        </tr>
 
         <tr>
-            <td>{% trans "Niveau mesuré du liquide de direction" %}</td>
+            <td>{% trans "Qualité de liquide de frein" %}</td>
             <td>
-                {{ checkup.direction_liquide_niveau|default:0|floatformat:2 }}
+                {{ checkup.direction_liquide_qualite }}
+            </td>
+        </tr>
+         <tr>
+            <td>{% trans "Quantité de liquide de frein" %}</td>
+            <td>
+                {{ checkup.direction_liquide_quantite|default:0|floatformat:2 }} L
             </td>
         </tr>
 
@@ -1887,12 +1909,16 @@
         <tr>
             <td>{% trans "Carrosserie" %}</td>
             <td>
-                {% if checkup.nettoyage_exterieur_carrosserie == "FAIT" or checkup.nettoyage_exterieur_carrosserie == "PROPRE" %}
+                {% if checkup.nettoyage_exterieur_carrosserie == "PROPRE" %}
                     <span class="etat-vert">
                         {{ checkup.get_nettoyage_exterieur_carrosserie_display }}
                     </span>
                 {% elif checkup.nettoyage_exterieur_carrosserie == "A_FAIRE" %}
                     <span class="etat-rouge">
+                        {{ checkup.get_nettoyage_exterieur_carrosserie_display }}
+                    </span>
+                 {% elif checkup.nettoyage_exterieur_carrosserie == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup.get_nettoyage_exterieur_carrosserie_display }}
                     </span>
                 {% elif checkup.nettoyage_exterieur_carrosserie == "REPORTER" %}
@@ -1910,8 +1936,12 @@
         <tr>
             <td>{% trans "Jantes" %}</td>
             <td>
-                {% if checkup.nettoyage_exterieur_jantes == "FAIT" or checkup.nettoyage_exterieur_jantes == "PROPRE" %}
+                {% if checkup.nettoyage_exterieur_jantes == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup.get_nettoyage_exterieur_jantes_display }}
+                    </span>
+                {% elif checkup.nettoyage_exterieur_jantes == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup.get_nettoyage_exterieur_jantes_display }}
                     </span>
                 {% elif checkup.nettoyage_exterieur_jantes == "A_FAIRE" %}
@@ -1933,12 +1963,16 @@
         <tr>
             <td>{% trans "Séchage" %}</td>
             <td>
-                {% if checkup.nettoyage_exterieur_sechage == "FAIT" or checkup.nettoyage_exterieur_sechage == "PROPRE" %}
+                {% if  checkup.nettoyage_exterieur_sechage == "PROPRE" %}
                     <span class="etat-vert">
                         {{ checkup.get_nettoyage_exterieur_sechage_display }}
                     </span>
                 {% elif checkup.nettoyage_exterieur_sechage == "A_FAIRE" %}
                     <span class="etat-rouge">
+                        {{ checkup.get_nettoyage_exterieur_sechage_display }}
+                    </span>
+                {% elif checkup.nettoyage_exterieur_sechage == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup.get_nettoyage_exterieur_sechage_display }}
                     </span>
                 {% elif checkup.nettoyage_exterieur_sechage == "REPORTER" %}
@@ -1952,13 +1986,23 @@
                 {% endif %}
             </td>
         </tr>
-
+        
         <tr>
-            <td>{% trans "Produits utilisés" %}</td>
+            <td>{% trans "Produits" %}</td>
             <td>
-                {{ checkup.get_nettoyage_exterieur_produits_display|default:"-" }}
+                {% if checkup.nettoyage_exterieur_produits == "SANS" %}
+                    <span class="etat-vert">
+                        {{ checkup.get_nettoyage_exterieur_produits_display }}
+                    </span>
+                {% elif checkup.nettoyage_exterieur_produits == "AJOUTER" %}
+                    <span class="etat-bleu">
+                        {{ checkup.get_nettoyage_exterieur_produits_display }}
+                    </span>
+                {% endif %}
             </td>
         </tr>
+
+
 
         <tr>
             <td>{% trans "Quantité de produits" %}</td>
@@ -1983,8 +2027,12 @@
         <tr>
             <td>{% trans "Vitres" %}</td>
             <td>
-                {% if checkup.nettoyage_interieur_vitres == "FAIT" or checkup.nettoyage_interieur_vitres == "PROPRE" %}
+                {% if checkup.nettoyage_interieur_vitres == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup.get_nettoyage_interieur_vitres_display }}
+                    </span>
+                {% elif checkup.nettoyage_interieur_vitres == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup.get_nettoyage_interieur_vitres_display }}
                     </span>
                 {% elif checkup.nettoyage_interieur_vitres == "A_FAIRE" %}
@@ -2006,8 +2054,12 @@
         <tr>
             <td>{% trans "Pare-brise" %}</td>
             <td>
-                {% if checkup.nettoyage_interieur_pare_brise == "FAIT" or checkup.nettoyage_interieur_pare_brise == "PROPRE" %}
+                {% if checkup.nettoyage_interieur_pare_brise == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup.get_nettoyage_interieur_pare_brise_display }}
+                    </span>
+                {% elif checkup.nettoyage_interieur_pare_brise == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup.get_nettoyage_interieur_pare_brise_display }}
                     </span>
                 {% elif checkup.nettoyage_interieur_pare_brise == "A_FAIRE" %}
@@ -2029,8 +2081,12 @@
         <tr>
             <td>{% trans "Aspirateur" %}</td>
             <td>
-                {% if checkup.nettoyage_interieur_aspirateur == "FAIT" or checkup.nettoyage_interieur_aspirateur == "PROPRE" %}
+                {% if checkup.nettoyage_interieur_aspirateur == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup.get_nettoyage_interieur_aspirateur_display }}
+                    </span>
+                 {% elif checkup.nettoyage_interieur_aspirateur == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup.get_nettoyage_interieur_aspirateur_display }}
                     </span>
                 {% elif checkup.nettoyage_interieur_aspirateur == "A_FAIRE" %}
@@ -2052,8 +2108,12 @@
         <tr>
             <td>{% trans "Intérieurs de porte" %}</td>
             <td>
-                {% if checkup.nettoyage_interieur_portes == "FAIT" or checkup.nettoyage_interieur_portes == "PROPRE" %}
+                {% if checkup.nettoyage_interieur_portes == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup.get_nettoyage_interieur_portes_display }}
+                    </span>
+                 {% elif checkup.nettoyage_interieur_portes == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup.get_nettoyage_interieur_portes_display }}
                     </span>
                 {% elif checkup.nettoyage_interieur_portes == "A_FAIRE" %}
@@ -2075,8 +2135,12 @@
         <tr>
             <td>{% trans "Sièges" %}</td>
             <td>
-                {% if checkup.nettoyage_interieur_sieges == "FAIT" or checkup.nettoyage_interieur_sieges == "PROPRE" %}
+                {% if checkup.nettoyage_interieur_sieges == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup.get_nettoyage_interieur_sieges_display }}
+                    </span>
+                {% elif checkup.nettoyage_interieur_sieges == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup.get_nettoyage_interieur_sieges_display }}
                     </span>
                 {% elif checkup.nettoyage_interieur_sieges == "A_FAIRE" %}
@@ -2098,8 +2162,12 @@
         <tr>
             <td>{% trans "Carpettes" %}</td>
             <td>
-                {% if checkup.nettoyage_interieur_carpettes == "FAIT" or checkup.nettoyage_interieur_carpettes == "PROPRE" %}
+                {% if checkup.nettoyage_interieur_carpettes == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup.get_nettoyage_interieur_carpettes_display }}
+                    </span>
+                {% elif checkup.nettoyage_interieur_carpettes == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup.get_nettoyage_interieur_carpettes_display }}
                     </span>
                 {% elif checkup.nettoyage_interieur_carpettes == "A_FAIRE" %}
@@ -2121,8 +2189,12 @@
         <tr>
             <td>{% trans "Tableau de bord" %}</td>
             <td>
-                {% if checkup.nettoyage_interieur_tableau_de_bord == "FAIT" or checkup.nettoyage_interieur_tableau_de_bord == "PROPRE" %}
+                {% if checkup.nettoyage_interieur_tableau_de_bord == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup.get_nettoyage_interieur_tableau_de_bord_display }}
+                    </span>
+                {% elif checkup.nettoyage_interieur_tableau_de_bord == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup.get_nettoyage_interieur_tableau_de_bord_display }}
                     </span>
                 {% elif checkup.nettoyage_interieur_tableau_de_bord == "A_FAIRE" %}
@@ -2144,8 +2216,12 @@
         <tr>
             <td>{% trans "Plastiques" %}</td>
             <td>
-                {% if checkup.nettoyage_interieur_plastiques == "FAIT" or checkup.nettoyage_interieur_plastiques == "PROPRE" %}
+                {% if checkup.nettoyage_interieur_plastiques == "PROPRE" %}
                     <span class="etat-vert">
+                        {{ checkup.get_nettoyage_interieur_plastiques_display }}
+                    </span>
+                {% elif checkup.nettoyage_interieur_plastiques == "FAIT" %}
+                    <span class="etat-bleu">
                         {{ checkup.get_nettoyage_interieur_plastiques_display }}
                     </span>
                 {% elif checkup.nettoyage_interieur_plastiques == "A_FAIRE" %}
@@ -2164,13 +2240,20 @@
             </td>
         </tr>
 
-        <tr>
-            <td>{% trans "Produits utilisés" %}</td>
+         <tr>
+            <td>{% trans "Produits" %}</td>
             <td>
-                {{ checkup.get_nettoyage_interieur_produits_display|default:"-" }}
+                {% if checkup.nettoyage_interieur_produits == "SANS" %}
+                    <span class="etat-vert">
+                        {{ checkup.get_nettoyage_interieur_produits_display }}
+                    </span>
+                {% elif checkup.nettoyage_interieur_produits == "AJOUTER" %}
+                    <span class="etat-bleu">
+                        {{ checkup.get_nettoyage_interieur_produits_display }}
+                    </span>
+                {% endif %}
             </td>
         </tr>
-
         <tr>
             <td>{% trans "Quantité de produits" %}</td>
             <td>

@@ -339,7 +339,7 @@ class Checkup(TechnicienMixin, models.Model):
 
 
     # --- Liquide ---
-    freins_liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État liquide de frein"))
+    freins_liquide_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État liquide de frein"))
     freins_liquide_specif = models.CharField(max_length=100, choices=QualiteLiquideFrein.choices, default=QualiteLiquideFrein.DOT4, blank=True, verbose_name=_("Spécification liquide de frein"))
     freins_liquide_quantite = models.DecimalField(
         max_digits=4,
@@ -365,7 +365,6 @@ class Checkup(TechnicienMixin, models.Model):
 
 
     direction_liquide_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite direction assistée / crémaillère"), null=True, blank=True)
-    direction_liquide_niveau = models.FloatField(default=0.0, null=True, blank=True, verbose_name=_("Niveau liquide direction"))
     direction_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de direction"))
     direction_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité de liquide de direction ajoutée en litres"), validators=[StepValueValidator(0.1)])
     direction_liquide_qualite = models.CharField(max_length=25, choices=TypeHuileDirection.choices,default=TypeHuileDirection.CHOISIR,verbose_name=_("Qualité de liquide de direction"))

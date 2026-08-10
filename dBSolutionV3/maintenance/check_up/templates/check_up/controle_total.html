@@ -162,43 +162,57 @@
         {% endfor %}
 
         <br>
-
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/pare-brise-casse.png' %}" alt="pare brise"
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pare-brise-cassé.png' %}" alt="Pare-brise"
                  style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Pare-Brise" %}
+            {% trans "Pare-brise" %}
         </h2>
-         <!-- Pare-brise avec coups -->
-        <div class="mb-4">
-            {% with field=form.pare_brise_coups %}
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                {% endif %}
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                {% endif %}
-            {% endwith %}
-        </div>
+        {% for field in form %}
+            {% if "pare_brise_av" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
 
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
 
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
 
-        <!-- Pare-brise à remplacer -->
-        <div class="mb-4">
-            {% with field=form.pare_brise_remplacer %}
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
                 {% endif %}
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                {% endif %}
-            {% endwith %}
-        </div>
+            </div>
+            {% endif %}
+        {% endfor %}
 
         <br>
+
+
 
         <!-- Section Moteur -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
