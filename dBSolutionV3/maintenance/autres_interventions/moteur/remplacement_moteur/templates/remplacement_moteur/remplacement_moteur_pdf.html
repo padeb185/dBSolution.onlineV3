@@ -349,7 +349,7 @@
             </tr>
 
             <tr>
-                <td>{% trans "Quantité de moteurs" %}</td>
+                <td>{% trans "Quantité" %}</td>
                 <td>
                     {{ remplacement.moteur_quantite|default:1 }}
                 </td>
@@ -419,7 +419,7 @@
                         </span>
 
                     {% elif remplacement.niveau_huile_etat == "AJOUTER" %}
-                        <span class="etat-jaune">
+                        <span class="etat-bleu">
                             {{ remplacement.get_niveau_huile_etat_display }}
                         </span>
 
@@ -492,7 +492,7 @@
                         </span>
 
                     {% elif remplacement.refroidissement_etat == "AJOUTER" %}
-                        <span class="etat-jaune">
+                        <span class="etat-bleu">
                             {{ remplacement.get_refroidissement_etat_display }}
                         </span>
 

@@ -212,7 +212,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
 
     remplacement_effectue = models.BooleanField(
         default=False,
-        verbose_name=_("Remplacement effectué"),
+        verbose_name=_("Remplacement effectué et remise à zéro"),
     )
 
     pays = models.CharField(
@@ -329,6 +329,8 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         self.save()
 
     def save(self, *args, **kwargs):
+        self.nombre_moteurs_montes = self.nombre_remplacements_moteurs + 1
+
         km = self.kilometres_chassis or 0
 
         is_new = not RemplacementMoteur.objects.filter(pk=self.pk).exists()

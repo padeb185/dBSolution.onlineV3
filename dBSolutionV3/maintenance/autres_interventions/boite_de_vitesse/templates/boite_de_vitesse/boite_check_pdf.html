@@ -339,8 +339,6 @@
             <tr>
                 <th>{% trans "Composant" %}</th>
                 <th>{% trans "État" %}</th>
-                <th class="text-right">{% trans "Quantité" %}</th>
-                <th class="text-right">{% trans "Prix d'achat HTVA" %}</th>
             </tr>
         </thead>
 
@@ -359,8 +357,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.bte_embrayage_disque_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.bte_embrayage_disque_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             <tr>
@@ -376,8 +373,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.bte_embrayage_plateau_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.bte_embrayage_plateau_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             <tr>
@@ -393,8 +389,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.bte_a_primaire_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.bte_a_primaire_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             <tr>
@@ -410,8 +405,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.bte_a_secondaire_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.bte_a_secondaire_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             <tr>
@@ -427,8 +421,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.roulement_bte_primaire_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.roulement_bte_primaire_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             <tr>
@@ -444,8 +437,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.roulement_bte_secondaire_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.roulement_bte_secondaire_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             <tr>
@@ -461,8 +453,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.roulement_bte_differentiel_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.roulement_bte_differentiel_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             {% for numero in "12345678" %}
@@ -481,8 +472,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.vitesse_1_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.vitesse_1_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             <tr>
@@ -498,8 +488,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.vitesse_2_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.vitesse_2_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             <tr>
@@ -515,8 +504,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.vitesse_3_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.vitesse_3_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             <tr>
@@ -532,8 +520,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.vitesse_4_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.vitesse_4_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             <tr>
@@ -549,8 +536,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.vitesse_5_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.vitesse_5_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             <tr>
@@ -566,8 +552,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.vitesse_6_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.vitesse_6_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             <tr>
@@ -583,8 +568,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.vitesse_7_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.vitesse_7_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             <tr>
@@ -600,8 +584,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.vitesse_8_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.vitesse_8_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             <tr>
@@ -617,8 +600,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.vitesse_r_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.vitesse_r_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             <tr>
@@ -634,8 +616,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.synchros_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.synchros_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
             <tr>
@@ -651,8 +632,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.fourchettes_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.fourchettes_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
              <tr>
@@ -668,8 +648,7 @@
                         <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
-                <td class="text-right">{{ boite.man_huile_manuelle_quantite|default:0 }}</td>
-                <td class="text-right">{{ boite.man_huile_manuelle_prix|default:0|floatformat:2 }} €</td>
+
             </tr>
 
         </tbody>
