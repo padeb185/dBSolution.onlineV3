@@ -1,13 +1,14 @@
 from decimal import Decimal, ROUND_HALF_UP
 
-from django.core.validators import StepValueValidator
+from django.core.validators import StepValueValidator, MinValueValidator, MaxValueValidator
 
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantLubrifiant, RefroidissementFabricant, \
-    FabricantFrein, TypeHuileDirection, FabricantPiece, FabricantSuspension, AmpouleAutomobile, FabricantPneus
+    FabricantFrein, TypeHuileDirection, FabricantPiece, FabricantSuspension, AmpouleAutomobile, FabricantPneus, \
+    FabricantBatterie
 from utilisateurs.models import Utilisateur
 from django.conf import settings
 from utils.mixin import TechnicienMixin
@@ -43,6 +44,11 @@ class PhareEtat(models.TextChoices):
     OK = "OK", _("OK")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
+
+class PhareReglageEtat(models.TextChoices):
+    OK = "OK", _("OK")
+    FAIT = "FAIT", _("Fait")
+    A_FAIRE = "A_FAIRE", _("A faire")
 
 class NettoyageEtat(models.TextChoices):
     A_FAIRE = "A_FAIRE", _("A faire")
@@ -207,11 +213,11 @@ class Checkup(TechnicienMixin, models.Model):
         default=0,
         null=True,
     )
-    essuie_glace_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
-                                            verbose_name=_("Prix d'achat htva"))
+    essuie_glace_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
 
-    balais_essuie = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-                                     verbose_name=_("Etat des balais arrières"))
+
+
+    balais_essuie = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Etat des balais arrières"))
     balais_essuie_quantite = models.PositiveIntegerField(
         verbose_name=_("Quantité"),
         default=0,
@@ -219,6 +225,8 @@ class Checkup(TechnicienMixin, models.Model):
     )
     balais_essuie_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
                                              verbose_name=_("Prix d'achat htva"))
+
+
 
     pare_brise_av_coups = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                            verbose_name=_("Pare-brise sans coups"))
@@ -380,7 +388,34 @@ class Checkup(TechnicienMixin, models.Model):
 
 
     # --- Batterie ---
-    batterie_etat =models.CharField(max_length=25, choices=BatterieEtat.choices, default=BatterieEtat.OK, verbose_name=_("État batterie"))
+    batterie_etat = models.CharField(max_length=25, choices=BatterieEtat.choices, default=BatterieEtat.OK, verbose_name=_("État batterie"))
+    batterie_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBatterie.choices,
+        default=FabricantBatterie.CHOISIR,
+        verbose_name=_("Fabricant de la batterie"),
+    )
+    batterie_tension = models.PositiveIntegerField(default= 12, verbose_name=_("Tension de batterie"))
+    batterie_ampere_heure = models.PositiveIntegerField(
+        default=0,
+        validators=[MinValueValidator(0), MaxValueValidator(150)],
+        verbose_name=_("Ampère heure"),
+    )
+    batterie_ampere_max = models.PositiveIntegerField(
+        default=0,
+        validators=[MinValueValidator(0), MaxValueValidator(1500)],
+        verbose_name=_("Courant maximum de démarrage"),
+    )
+
+    batterie_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name= _("Quantité")
+    )
+    batterie_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+
+
+
+
 
     # --- Jeux ---
 
@@ -1408,7 +1443,7 @@ class Checkup(TechnicienMixin, models.Model):
     serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE, verbose_name=_("Serrage des roues"))
 
     # --- Réglage phares ---
-    phares_reglages = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Réglage phares"))
+    phares_reglages = models.CharField(max_length=25, choices=PhareReglageEtat.choices, default=PhareReglageEtat.OK,verbose_name=_("Réglage des phares"))
 
     phares_avant = models.CharField(
         max_length=25,

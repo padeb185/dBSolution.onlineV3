@@ -79,6 +79,7 @@ class FabricantLubrifiant(models.TextChoices):
     GM = "GM", _("General Motors")
     MOPAR = "MOPAR", _("Mopar")
     AUTRE = "AUTRE", _("Autre")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
 
 
 
@@ -124,6 +125,7 @@ class FabricantFiltre(models.TextChoices):
     TECNECO = "TECNECO", "Tecneco"
     OPEN_PARTS = "OPEN_PARTS", "Open Parts"
     AUTRE = "AUTRE", _("Autre")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
 
 
 
@@ -795,3 +797,26 @@ class TypeDisqueFrein(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
 
 
+class FabricantBatterie(models.TextChoices):
+    BOSCH = "BOSCH", _("Bosch")
+    VARTA = "VARTA", _("Varta")
+    EXIDE = "EXIDE", _("Exide")
+    YUASA = "YUASA", _("Yuasa")
+    BANNER = "BANNER", _("Banner")
+    FIAMM = "FIAMM", _("Fiamm")
+    TUDOR = "TUDOR", _("Tudor")
+    FULMEN = "FULMEN", _("Fulmen")
+    CENTRA = "CENTRA", _("Centra")
+    HANKOOK = "HANKOOK", _("Hankook")
+    MUTLU = "MUTLU", _("Mutlu")
+    TAB = "TAB", _("TAB")
+    TOPLA = "TOPLA", _("Topla")
+    ODYSSEY = "ODYSSEY", _("Odyssey")
+    OPTIMA = "OPTIMA", _("Optima")
+    INTERSTATE = "INTERSTATE", _("Interstate")
+    ACDELCO = "ACDELCO", _("ACDelco")
+    MOLL = "MOLL", _("Moll")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
+    AUTRE = "AUTRE", _("Autre")
+    CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")

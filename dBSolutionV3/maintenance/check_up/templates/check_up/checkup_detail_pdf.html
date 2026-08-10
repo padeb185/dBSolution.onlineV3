@@ -294,7 +294,7 @@
             <td>
                 {% if checkup.balais_essuie == "OK" %}
                     <span class="etat-vert">
-                        {{ checkup_track.get_balais_essuie_display }}
+                        {{ checkup.get_balais_essuie_display }}
                     </span>
                 {% elif checkup.balais_essuie == "A_REMPLACER" %}
                     <span class="etat-rouge">
@@ -849,6 +849,86 @@
     </tbody>
 </table>
 
+<h2>{% trans "Batterie" %}</h2>
+
+<table class="table-2-cols">
+    <thead>
+        <tr>
+            <th>{% trans "Élément" %}</th>
+            <th>{% trans "État / Valeur" %}</th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+
+        <tr>
+            <td>{% trans "État batterie" %}</td>
+            <td>
+                {% if checkup.batterie_etat == "OK" %}
+                    <span class="etat-vert">
+                        {{ checkup.get_batterie_etat_display }}
+                    </span>
+                {% elif checkup.batterie_etat == "A_REMPLACER" %}
+                    <span class="etat-rouge">
+                        {{ checkup.get_batterie_etat_display }}
+                    </span>
+                {% elif checkup.batterie_etat == "REMPLACE" %}
+                    <span class="etat-bleu">
+                        {{ checkup.get_batterie_etat_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup.get_batterie_etat_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Fabricant de la batterie" %}</td>
+            <td>
+                {{ checkup.get_batterie_fabricant_display|default:"-" }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Tension de batterie" %}</td>
+            <td>
+                {{ checkup.batterie_tension|default:0 }} V
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Capacité de la batterie" %}</td>
+            <td>
+                {{ checkup.batterie_ampere_heure|default:0 }} Ah
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Courant maximum de démarrage" %}</td>
+            <td>
+                {{ checkup.batterie_ampere_max|default:0 }} A
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Quantité" %}</td>
+            <td>
+                {{ checkup.batterie_quantite|default:0 }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Prix d'achat HTVA" %}</td>
+            <td>
+                {{ checkup.batterie_prix|default:0|floatformat:2 }} €
+            </td>
+        </tr>
+
+    </tbody>
+</table>
 
 <h2>{% trans "Direction et roulements" %}</h2>
 
@@ -1844,10 +1924,178 @@
 <table class="table-2-cols">
     <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
 
-    <tr><td>{% trans "Réglage phares" %}</td><td>{% if checkup.phares_reglages == "OK" %}<span class="etat-vert">{{ checkup.get_phares_reglages_display }}</span>{% elif checkup.phares_reglages == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_phares_reglages_display }}</span>{% elif checkup.phares_reglages == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_phares_reglages_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_phares_reglages_display|default:"-" }}</span>{% endif %}</td></tr>
-    <tr><td>{% trans "Feux de route" %}</td><td>{% if checkup.phares_avant == "OK" %}<span class="etat-vert">{{ checkup.get_phares_avant_display }}</span>{% elif checkup.phares_avant == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_phares_avant_display }}</span>{% elif checkup.phares_avant == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_phares_avant_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_phares_avant_display|default:"-" }}</span>{% endif %}</td></tr>
-    <tr><td>{% trans "Grands phares" %}</td><td>{% if checkup.phares_gros_phares == "OK" %}<span class="etat-vert">{{ checkup.get_phares_gros_phares_display }}</span>{% elif checkup.phares_gros_phares == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_phares_gros_phares_display }}</span>{% elif checkup.phares_gros_phares == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_phares_gros_phares_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_phares_gros_phares_display|default:"-" }}</span>{% endif %}</td></tr>
-    <tr><td>{% trans "Clignotants" %}</td><td>{% if checkup.phares_clignotants == "OK" %}<span class="etat-vert">{{ checkup.get_phares_clignotants_display }}</span>{% elif checkup.phares_clignotants == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_phares_clignotants_display }}</span>{% elif checkup.phares_clignotants == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_phares_clignotants_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_phares_clignotants_display|default:"-" }}</span>{% endif %}</td></tr>
+   <tr>
+        <td>{% trans "Réglage phares" %}</td>
+        <td>
+            {% if checkup.phares_reglages == "OK" %}
+                <span class="etat-vert">
+                    {{ checkup.get_phares_reglages_display }}
+                </span>
+            {% elif checkup.phares_reglages == "A_FAIRE" %}
+                <span class="etat-rouge">
+                    {{ checkup.get_phares_reglages_display }}
+                </span>
+            {% elif checkup.phares_reglages == "FAIT" %}
+                <span class="etat-bleu">
+                    {{ checkup.get_phares_reglages_display }}
+                </span>
+            {% else %}
+                <span class="etat-gris">
+                    {{ checkup.get_phares_reglages_display|default:"-" }}
+                </span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux de route" %}</td>
+        <td>
+            {% if checkup.phares_avant == "OK" %}
+                <span class="etat-vert">{{ checkup.get_phares_avant_display }}</span>
+            {% elif checkup.phares_avant == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_phares_avant_display }}</span>
+            {% elif checkup.phares_avant == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_phares_avant_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_phares_avant_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Grands phares" %}</td>
+        <td>
+            {% if checkup.phares_gros_phares == "OK" %}
+                <span class="etat-vert">{{ checkup.get_phares_gros_phares_display }}</span>
+            {% elif checkup.phares_gros_phares == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_phares_gros_phares_display }}</span>
+            {% elif checkup.phares_gros_phares == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_phares_gros_phares_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_phares_gros_phares_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Clignotants" %}</td>
+        <td>
+            {% if checkup.phares_clignotants == "OK" %}
+                <span class="etat-vert">{{ checkup.get_phares_clignotants_display }}</span>
+            {% elif checkup.phares_clignotants == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_phares_clignotants_display }}</span>
+            {% elif checkup.phares_clignotants == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_phares_clignotants_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_phares_clignotants_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux de recul" %}</td>
+        <td>
+            {% if checkup.phares_recul == "OK" %}
+                <span class="etat-vert">{{ checkup.get_phares_recul_display }}</span>
+            {% elif checkup.phares_recul == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_phares_recul_display }}</span>
+            {% elif checkup.phares_recul == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_phares_recul_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_phares_recul_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Phares anti-brouillard avant" %}</td>
+        <td>
+            {% if checkup.phares_anti_brouillard_avant == "OK" %}
+                <span class="etat-vert">{{ checkup.get_phares_anti_brouillard_avant_display }}</span>
+            {% elif checkup.phares_anti_brouillard_avant == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_phares_anti_brouillard_avant_display }}</span>
+            {% elif checkup.phares_anti_brouillard_avant == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_phares_anti_brouillard_avant_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_phares_anti_brouillard_avant_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Phares anti-brouillard arrière" %}</td>
+        <td>
+            {% if checkup.phares_anti_brouillard_arriere == "OK" %}
+                <span class="etat-vert">{{ checkup.get_phares_anti_brouillard_arriere_display }}</span>
+            {% elif checkup.phares_anti_brouillard_arriere == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_phares_anti_brouillard_arriere_display }}</span>
+            {% elif checkup.phares_anti_brouillard_arriere == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_phares_anti_brouillard_arriere_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_phares_anti_brouillard_arriere_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux stop" %}</td>
+        <td>
+            {% if checkup.phares_feux_stops == "OK" %}
+                <span class="etat-vert">{{ checkup.get_phares_feux_stops_display }}</span>
+            {% elif checkup.phares_feux_stops == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_phares_feux_stops_display }}</span>
+            {% elif checkup.phares_feux_stops == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_phares_feux_stops_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_phares_feux_stops_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Troisième feu stop" %}</td>
+        <td>
+            {% if checkup.phares_troisieme_feux_stop == "OK" %}
+                <span class="etat-vert">{{ checkup.get_phares_troisieme_feux_stop_display }}</span>
+            {% elif checkup.phares_troisieme_feux_stop == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_phares_troisieme_feux_stop_display }}</span>
+            {% elif checkup.phares_troisieme_feux_stop == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_phares_troisieme_feux_stop_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_phares_troisieme_feux_stop_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux de position avant" %}</td>
+        <td>
+            {% if checkup.phares_feux_position_av == "OK" %}
+                <span class="etat-vert">{{ checkup.get_phares_feux_position_av_display }}</span>
+            {% elif checkup.phares_feux_position_av == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_phares_feux_position_av_display }}</span>
+            {% elif checkup.phares_feux_position_av == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_phares_feux_position_av_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_phares_feux_position_av_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux de position arrière" %}</td>
+        <td>
+            {% if checkup.phares_feux_position_ar == "OK" %}
+                <span class="etat-vert">{{ checkup.get_phares_feux_position_ar_display }}</span>
+            {% elif checkup.phares_feux_position_ar == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_phares_feux_position_ar_display }}</span>
+            {% elif checkup.phares_feux_position_ar == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_phares_feux_position_ar_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_phares_feux_position_ar_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
 </table>
 
 <h2>{% trans "Serrage des roues" %}</h2>

@@ -4,6 +4,7 @@ from django.core.validators import StepValueValidator
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from maintenance.check_up.models import PhareReglageEtat
 from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantLubrifiant, TypeHuileDirection, \
     AmpouleAutomobile, FabricantFrein, MatierePlaquetteFrein, MatiereFrein, TypeDisqueFrein, RefroidissementFabricant
 from maintenance.models import Maintenance
@@ -376,6 +377,8 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
 
     # phares#
+    phares_reglages = models.CharField(max_length=25, choices=PhareReglageEtat.choices, default=PhareReglageEtat.OK,
+                                       verbose_name=_("Réglage des phares"))
 
     phares_avant = models.CharField(
         max_length=25,

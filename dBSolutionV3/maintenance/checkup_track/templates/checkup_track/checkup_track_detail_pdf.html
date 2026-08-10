@@ -341,7 +341,7 @@
 {% endif %}
 
 
-<h1>{% trans "Rapport Checkup Track Véhicule" %}</h1>
+<h1>{% trans "Rapport checkup_track Track Véhicule" %}</h1>
 
 <div class="box">
     <div class="grid">
@@ -372,7 +372,7 @@
         </div>
 
         <div>
-            <span class="label">{% trans "Kilométrage checkup piste" %} :</span>
+            <span class="label">{% trans "Kilométrage checkup_track piste" %} :</span>
             {{ checkup_track.kilometrage_checkup_track|default:0 }} km
         </div>
 
@@ -1850,6 +1850,186 @@
         </tr>
     </tbody>
 </table>
+
+<h2>{% trans "Phares" %}</h2>
+
+<table class="table-2-cols">
+    <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
+
+   <tr>
+        <td>{% trans "Réglage phares" %}</td>
+        <td>
+            {% if checkup_track.phares_reglages == "OK" %}
+                <span class="etat-vert">
+                    {{ checkup_track.get_phares_reglages_display }}
+                </span>
+            {% elif checkup_track.phares_reglages == "A_FAIRE" %}
+                <span class="etat-rouge">
+                    {{ checkup_track.get_phares_reglages_display }}
+                </span>
+            {% elif checkup_track.phares_reglages == "FAIT" %}
+                <span class="etat-bleu">
+                    {{ checkup_track.get_phares_reglages_display }}
+                </span>
+            {% else %}
+                <span class="etat-gris">
+                    {{ checkup_track.get_phares_reglages_display|default:"-" }}
+                </span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux de route" %}</td>
+        <td>
+            {% if checkup_track.phares_avant == "OK" %}
+                <span class="etat-vert">{{ checkup_track.get_phares_avant_display }}</span>
+            {% elif checkup_track.phares_avant == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup_track.get_phares_avant_display }}</span>
+            {% elif checkup_track.phares_avant == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup_track.get_phares_avant_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup_track.get_phares_avant_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Grands phares" %}</td>
+        <td>
+            {% if checkup_track.phares_gros_phares == "OK" %}
+                <span class="etat-vert">{{ checkup_track.get_phares_gros_phares_display }}</span>
+            {% elif checkup_track.phares_gros_phares == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup_track.get_phares_gros_phares_display }}</span>
+            {% elif checkup_track.phares_gros_phares == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup_track.get_phares_gros_phares_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup_track.get_phares_gros_phares_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Clignotants" %}</td>
+        <td>
+            {% if checkup_track.phares_clignotants == "OK" %}
+                <span class="etat-vert">{{ checkup_track.get_phares_clignotants_display }}</span>
+            {% elif checkup_track.phares_clignotants == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup_track.get_phares_clignotants_display }}</span>
+            {% elif checkup_track.phares_clignotants == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup_track.get_phares_clignotants_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup_track.get_phares_clignotants_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux de recul" %}</td>
+        <td>
+            {% if checkup_track.phares_recul == "OK" %}
+                <span class="etat-vert">{{ checkup_track.get_phares_recul_display }}</span>
+            {% elif checkup_track.phares_recul == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup_track.get_phares_recul_display }}</span>
+            {% elif checkup_track.phares_recul == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup_track.get_phares_recul_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup_track.get_phares_recul_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Phares anti-brouillard avant" %}</td>
+        <td>
+            {% if checkup_track.phares_anti_brouillard_avant == "OK" %}
+                <span class="etat-vert">{{ checkup_track.get_phares_anti_brouillard_avant_display }}</span>
+            {% elif checkup_track.phares_anti_brouillard_avant == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup_track.get_phares_anti_brouillard_avant_display }}</span>
+            {% elif checkup_track.phares_anti_brouillard_avant == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup_track.get_phares_anti_brouillard_avant_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup_track.get_phares_anti_brouillard_avant_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Phares anti-brouillard arrière" %}</td>
+        <td>
+            {% if checkup_track.phares_anti_brouillard_arriere == "OK" %}
+                <span class="etat-vert">{{ checkup_track.get_phares_anti_brouillard_arriere_display }}</span>
+            {% elif checkup_track.phares_anti_brouillard_arriere == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup_track.get_phares_anti_brouillard_arriere_display }}</span>
+            {% elif checkup_track.phares_anti_brouillard_arriere == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup_track.get_phares_anti_brouillard_arriere_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup_track.get_phares_anti_brouillard_arriere_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux stop" %}</td>
+        <td>
+            {% if checkup_track.phares_feux_stops == "OK" %}
+                <span class="etat-vert">{{ checkup_track.get_phares_feux_stops_display }}</span>
+            {% elif checkup_track.phares_feux_stops == "A_REMPLACE" %}
+                <span class="etat-rouge">{{ checkup_track.get_phares_feux_stops_display }}</span>
+            {% elif checkup_track.phares_feux_stops == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup_track.get_phares_feux_stops_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup_track.get_phares_feux_stops_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Troisième feu stop" %}</td>
+        <td>
+            {% if checkup_track.phares_troisieme_feux_stop == "OK" %}
+                <span class="etat-vert">{{ checkup_track.get_phares_troisieme_feux_stop_display }}</span>
+            {% elif checkup_track.phares_troisieme_feux_stop == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup_track.get_phares_troisieme_feux_stop_display }}</span>
+            {% elif checkup_track.phares_troisieme_feux_stop == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup_track.get_phares_troisieme_feux_stop_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup_track.get_phares_troisieme_feux_stop_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux de position avant" %}</td>
+        <td>
+            {% if checkup_track.phares_feux_position_av == "OK" %}
+                <span class="etat-vert">{{ checkup_track.get_phares_feux_position_av_display }}</span>
+            {% elif checkup_track.phares_feux_position_av == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup_track.get_phares_feux_position_av_display }}</span>
+            {% elif checkup_track.phares_feux_position_av == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup_track.get_phares_feux_position_av_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup_track.get_phares_feux_position_av_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux de position arrière" %}</td>
+        <td>
+            {% if checkup_track.phares_feux_position_ar == "OK" %}
+                <span class="etat-vert">{{ checkup_track.get_phares_feux_position_ar_display }}</span>
+            {% elif checkup_track.phares_feux_position_ar == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup_track.get_phares_feux_position_ar_display }}</span>
+            {% elif checkup_track.phares_feux_position_ar == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup_track.get_phares_feux_position_ar_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup_track.get_phares_feux_position_ar_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
 
 <h2>{% trans "Nettoyage intérieur" %}</h2>
 
