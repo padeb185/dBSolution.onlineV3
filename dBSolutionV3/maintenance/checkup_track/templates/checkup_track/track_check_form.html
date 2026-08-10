@@ -533,11 +533,11 @@
 
         <br>
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/liquide_frein.png' %}" alt="Liquide de freins"
-                 style="width:60px; height:60px; margin-right:10px;">
-              {% trans "Liquide de freins" %}
-        </h2>
+             <!-- Section freins liquide -->
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/liquide_frein.png' %}" alt="Liquide de frein"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Liquide de frein" %}</h2>
+
         {% for field in form %}
             {% if "freins_liquide" in field.name %}
             <div class="mb-4">

@@ -779,11 +779,11 @@
             <td>{% trans "Liquide de direction" %}</td>
             <td>
                 {% if entretien.liquide_direction_etat == "BON" %}
-                    <span class="etat-gris">{{ entretien.get_liquide_direction_etat_display }}</span>
-                {% elif entretien.liquide_direction_etat == "AJOUTER" %}
                     <span class="etat-vert">{{ entretien.get_liquide_direction_etat_display }}</span>
-                {% elif entretien.liquide_direction_etat == "REMPLACER" %}
+                {% elif entretien.liquide_direction_etat == "AJOUTER" %}
                     <span class="etat-bleu">{{ entretien.get_liquide_direction_etat_display }}</span>
+                {% elif entretien.liquide_direction_etat == "REMPLACER" %}
+                    <span class="etat-rouge">{{ entretien.get_liquide_direction_etat_display }}</span>
                 {% endif %}
             </td>
             <td>{{ entretien.liquide_direction_quantite }} L</td>
@@ -1044,12 +1044,12 @@
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE"  %}
                                     <span class="etat-rouge">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "FAIT" %}
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "FAIT" or ligne.etat == "AJOUTER" %}
                                     <span class="etat-bleu">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>

@@ -225,17 +225,17 @@ class Entretien(TechnicienMixin, models.Model):
         max_length=25,
         choices=FabricantPiece.choices,
         default=FabricantPiece.AUTRE,
-        verbose_name=_("Nom du fabricant du bouchon de vidange"),
+        verbose_name=_("Nom du fabricant"),
     )
     moteur_bouchon_vidange_quantite = models.PositiveIntegerField(
         default=1,
-        verbose_name=_("Quantité de bouchons de vidange"),
+        verbose_name=_("Quantité"),
     )
     moteur_bouchon_vidange_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat HTVA du bouchon de vidange"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     moteur_joint_vidange = models.CharField(
@@ -248,17 +248,17 @@ class Entretien(TechnicienMixin, models.Model):
         max_length=25,
         choices=FabricantPiece.choices,
         default=FabricantPiece.AUTRE,
-        verbose_name=_("Nom du fabricant du joint de bouchon de vidange"),
+        verbose_name=_("Nom du fabricant"),
     )
     moteur_joint_vidange_quantite = models.PositiveIntegerField(
         default=1,
-        verbose_name=_("Quantité de joints de bouchon de vidange"),
+        verbose_name=_("Quantité"),
     )
     moteur_joint_vidange_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat HTVA du joint de bouchon de vidange"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
     moteur_ajout_huile =  models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE, verbose_name=_("Ajout de la nouvelle huile moteur"))
     moteur_ajout_huile_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant d'huile moteur"))
@@ -276,20 +276,18 @@ class Entretien(TechnicienMixin, models.Model):
         max_length=25,
         choices=FabricantFiltre.choices,
         default=FabricantFiltre.BOSCH,
-        verbose_name=_("Nom du fabricant du filtre à huile"),
+        verbose_name=_("Nom du fabricant"),
     )
-    filtre_huile_quantite = models.DecimalField(
-        default=1.00,
-        decimal_places=2,
-        max_digits=4,
-        verbose_name=_("Quantité de filtres à huile"),
-        validators=[StepValueValidator(0.1)],
+    filtre_huile_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+
     )
     filtre_huile_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat HTVA du filtre à huile"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     filtre_a_air = models.CharField(
@@ -302,20 +300,18 @@ class Entretien(TechnicienMixin, models.Model):
         max_length=25,
         choices=FabricantFiltre.choices,
         default=FabricantFiltre.BOSCH,
-        verbose_name=_("Nom du fabricant du filtre à air"),
+        verbose_name=_("Nom du fabricant"),
     )
-    filtre_a_air_quantite = models.DecimalField(
-        default=1.00,
-        decimal_places=2,
-        max_digits=4,
-        verbose_name=_("Quantité de filtres à air"),
-        validators=[StepValueValidator(0.1)],
+    filtre_a_air_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+
     )
     filtre_a_air_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat HTVA du filtre à air"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     filtre_a_carburant = models.CharField(
@@ -328,20 +324,18 @@ class Entretien(TechnicienMixin, models.Model):
         max_length=25,
         choices=FabricantFiltre.choices,
         default=FabricantFiltre.BOSCH,
-        verbose_name=_("Nom du fabricant du filtre à carburant"),
+        verbose_name=_("Nom du fabricant"),
     )
-    filtre_a_carburant_quantite = models.DecimalField(
-        default=1.00,
-        decimal_places=2,
-        max_digits=4,
-        verbose_name=_("Quantité de filtres à carburant"),
-        validators=[StepValueValidator(0.1)],
+    filtre_a_carburant_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+
     )
     filtre_a_carburant_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat HTVA du filtre à carburant"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     filtre_habitacle = models.CharField(
@@ -356,18 +350,15 @@ class Entretien(TechnicienMixin, models.Model):
         default=FabricantFiltre.BOSCH,
         verbose_name=_("Nom du fabricant du filtre d'habitacle"),
     )
-    filtre_habitacle_quantite = models.DecimalField(
-        default=1.00,
-        decimal_places=2,
-        max_digits=4,
-        verbose_name=_("Quantité de filtres d'habitacle"),
-        validators=[StepValueValidator(0.1)],
+    filtre_habitacle_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
     )
     filtre_habitacle_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat HTVA du filtre d'habitacle"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
     filtre_huile_boite = models.CharField(
         max_length=25,
@@ -380,22 +371,19 @@ class Entretien(TechnicienMixin, models.Model):
         max_length=25,
         choices=FabricantFiltre.choices,
         default=FabricantFiltre.BOSCH,
-        verbose_name=_("Nom du fabricant du filtre à huile de boîte de vitesses"),
+        verbose_name=_("Nom du fabricant"),
     )
 
-    filtre_huile_boite_quantite = models.DecimalField(
-        default=1.00,
-        decimal_places=2,
-        max_digits=4,
-        verbose_name=_("Quantité de filtres à huile de boîte de vitesses"),
-        validators=[StepValueValidator(0.1)],
+    filtre_huile_boite_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
     )
 
     filtre_huile_boite_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat HTVA du filtre à huile de boîte de vitesses"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
 
@@ -435,17 +423,17 @@ class Entretien(TechnicienMixin, models.Model):
         max_length=25,
         choices=FabricantPiece.choices,
         default=FabricantPiece.AUTRE,
-        verbose_name=_("Nom du fabricant du bouchon de vidange"),
+        verbose_name=_("Nom du fabricant"),
     )
     boite_bouchon_vidange_quantite = models.PositiveIntegerField(
         default=1,
-        verbose_name=_("Quantité de bouchons de vidange"),
+        verbose_name=_("Quantité"),
     )
     boite_bouchon_vidange_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat HTVA du bouchon de vidange"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     boite_joint_vidange = models.CharField(
@@ -458,24 +446,24 @@ class Entretien(TechnicienMixin, models.Model):
         max_length=25,
         choices=FabricantPiece.choices,
         default=FabricantPiece.AUTRE,
-        verbose_name=_("Nom du fabricant du joint de bouchon de vidange"),
+        verbose_name=_("Nom du fabricant"),
     )
     boite_joint_vidange_quantite = models.PositiveIntegerField(
         default=0,
-        verbose_name=_("Quantité de joints de bouchon de vidange"),
+        verbose_name=_("Quantité"),
     )
     boite_joint_vidange_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat HTVA du joint de bouchon de vidange"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
     boite_ajout_huile = models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE,verbose_name=_("Vidange de l'huile moteur"))
     boite_ajout_huile_fabricant = models.CharField(
         max_length=25,
         choices=FabricantLubrifiant.choices,
         default=FabricantLubrifiant.MOBIL,
-        verbose_name=_("Nom du fabricant de l'huile de boîte de vitesses"),
+        verbose_name=_("Nom du fabricant"),
     )
     boite_ajout_huile_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices, default=HuileEtat.ZERO_30,verbose_name=_("Qualité d'huile"))
     boite_ajout_huile_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  verbose_name=_("Quantité d'huile de boite ajoutée en litres"), validators=[StepValueValidator(0.1)])
@@ -483,7 +471,7 @@ class Entretien(TechnicienMixin, models.Model):
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat HTVA de l'huile de boîte de vitesses"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
 
@@ -496,7 +484,7 @@ class Entretien(TechnicienMixin, models.Model):
         max_length=25,
         choices=FabricantLubrifiant.choices,
         default=FabricantLubrifiant.MOBIL,
-        verbose_name=_("Nom du fabricant de l'huile de pont"),
+        verbose_name=_("Nom du fabricant"),
     )
     pont_ajout_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ140, verbose_name=_("Qualité d'huile de pont"))
     pont_ajout_huile_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2, verbose_name=_("Quantité d'huile de pont ajoutée en litres"), validators=[StepValueValidator(0.1)])
@@ -504,14 +492,14 @@ class Entretien(TechnicienMixin, models.Model):
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat HTVA de l'huile de pont"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
 
     lave_glace_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de lave-glace"))
-    lave_glace_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant de lave glace"))
-    lave_glace_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité de liquide de lave glace ajoutée en litres"))
-    lave_glace_qualite = models.CharField(max_length=25, choices=LaveGlaceQualite.choices,default=LaveGlaceQualite.HIVER,verbose_name=_("Qualité de liquide de lave glace"))
+    lave_glace_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant"))
+    lave_glace_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité en litres"))
+    lave_glace_qualite = models.CharField(max_length=25, choices=LaveGlaceQualite.choices,default=LaveGlaceQualite.HIVER,verbose_name=_("Qualité"))
     lave_glace_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -521,9 +509,9 @@ class Entretien(TechnicienMixin, models.Model):
 
 
     frein_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de freins"))
-    frein_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant du liquide de freins"))
-    frein_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité de liquide de freins ajoutée en litres"))
-    frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité de liquide de freins"))
+    frein_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant"))
+    frein_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité en litres"))
+    frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité"))
     frein_liquide_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -534,9 +522,9 @@ class Entretien(TechnicienMixin, models.Model):
 
 
     refroidissement_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de refroidissement"))
-    refroidissement_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant du liquide de refroidissement"))
-    refroidissement_liquide_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité de liquide de refroidissement ajouté en litres"))
-    refroidissement_liquide_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
+    refroidissement_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant"))
+    refroidissement_liquide_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité ajouté en litres"))
+    refroidissement_liquide_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité"))
     refroidissement_liquide_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -546,9 +534,9 @@ class Entretien(TechnicienMixin, models.Model):
 
 
     liquide_direction_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de direction"))
-    liquide_direction_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant du liquide de direction"))
-    liquide_direction_quantite =  models.DecimalField(default=0.0,  max_digits=4, decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité de liquide de direction ajouté en litres"))
-    liquide_direction_qualite = models.CharField(max_length=25, choices=TypeHuileDirection.choices,default=TypeHuileDirection.CHOISIR,verbose_name=_("Qualité de liquide de direction"))
+    liquide_direction_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant"))
+    liquide_direction_quantite =  models.DecimalField(default=0.0,  max_digits=4, decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité ajouté en litres"))
+    liquide_direction_qualite = models.CharField(max_length=25, choices=TypeHuileDirection.choices,default=TypeHuileDirection.CHOISIR,verbose_name=_("Qualité"))
     liquide_direction_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -940,14 +928,15 @@ class Entretien(TechnicienMixin, models.Model):
         for field in self._meta.fields:
             field_name = field.name
 
-            # On traite uniquement les champs de prix
+            # --------------------------------------------------
+            # On traite uniquement les champs terminant par _prix
+            # --------------------------------------------------
             if not field_name.endswith("_prix"):
                 continue
 
             # Exemple :
-            # moteur_bouchon_vidange_prix
-            # devient :
-            # moteur_bouchon_vidange
+            # liquide_direction_prix
+            # -> liquide_direction
             champ_base = field_name.removesuffix("_prix")
 
             champ_quantite = f"{champ_base}_quantite"
@@ -956,52 +945,80 @@ class Entretien(TechnicienMixin, models.Model):
             if not hasattr(self, champ_quantite):
                 continue
 
+            # --------------------------------------------------
+            # Prix / quantité
+            # --------------------------------------------------
             prix = getattr(self, field_name, None)
             quantite = getattr(self, champ_quantite, None)
 
             prix = Decimal(str(prix or 0))
             quantite = Decimal(str(quantite or 0))
 
-            # Ne pas afficher les lignes sans valeur
+            # Ne pas afficher les lignes sans prix ou quantité
             if prix <= 0 or quantite <= 0:
                 continue
-
-            total = prix * quantite
 
             prix = prix.quantize(
                 Decimal("0.01"),
                 rounding=ROUND_HALF_UP,
             )
 
-            total = total.quantize(
+            total = (prix * quantite).quantize(
                 Decimal("0.01"),
                 rounding=ROUND_HALF_UP,
             )
 
-            # État de la pièce ou du produit
-            etat = getattr(self, champ_base, "")
+            # --------------------------------------------------
+            # ÉTAT
+            # --------------------------------------------------
 
-            methode_etat_display = getattr(
-                self,
-                f"get_{champ_base}_display",
-                None,
-            )
+            # Priorité à :
+            # liquide_direction_etat
+            champ_etat = f"{champ_base}_etat"
+
+            if hasattr(self, champ_etat):
+                etat = getattr(self, champ_etat, "")
+
+                methode_etat_display = getattr(
+                    self,
+                    f"get_{champ_etat}_display",
+                    None,
+                )
+
+            # Sinon ancien fonctionnement :
+            # ex. balais_essuie_avant
+            elif hasattr(self, champ_base):
+                etat = getattr(self, champ_base, "")
+
+                methode_etat_display = getattr(
+                    self,
+                    f"get_{champ_base}_display",
+                    None,
+                )
+
+            else:
+                etat = ""
+                methode_etat_display = None
 
             if callable(methode_etat_display):
                 etat_label = methode_etat_display()
             else:
                 etat_label = etat or "-"
 
-            # Fabricant
+            # --------------------------------------------------
+            # FABRICANT
+            # --------------------------------------------------
+            champ_fabricant = f"{champ_base}_fabricant"
+
             fabricant = getattr(
                 self,
-                f"{champ_base}_fabricant",
+                champ_fabricant,
                 "",
             )
 
             methode_fabricant_display = getattr(
                 self,
-                f"get_{champ_base}_fabricant_display",
+                f"get_{champ_fabricant}_display",
                 None,
             )
 
@@ -1010,16 +1027,20 @@ class Entretien(TechnicienMixin, models.Model):
             else:
                 fabricant_label = fabricant or "-"
 
-            # Qualité
+            # --------------------------------------------------
+            # QUALITÉ
+            # --------------------------------------------------
+            champ_qualite = f"{champ_base}_qualite"
+
             qualite = getattr(
                 self,
-                f"{champ_base}_qualite",
+                champ_qualite,
                 "",
             )
 
             methode_qualite_display = getattr(
                 self,
-                f"get_{champ_base}_qualite_display",
+                f"get_{champ_qualite}_display",
                 None,
             )
 
@@ -1028,16 +1049,20 @@ class Entretien(TechnicienMixin, models.Model):
             else:
                 qualite_label = qualite or "-"
 
-            # Type, notamment pour les ampoules
+            # --------------------------------------------------
+            # TYPE
+            # --------------------------------------------------
+            champ_type = f"{champ_base}_type"
+
             type_piece = getattr(
                 self,
-                f"{champ_base}_type",
+                champ_type,
                 "",
             )
 
             methode_type_display = getattr(
                 self,
-                f"get_{champ_base}_type_display",
+                f"get_{champ_type}_display",
                 None,
             )
 
@@ -1046,13 +1071,26 @@ class Entretien(TechnicienMixin, models.Model):
             else:
                 type_label = type_piece or "-"
 
-            # Libellé du champ principal
+            # --------------------------------------------------
+            # LIBELLÉ
+            # --------------------------------------------------
+
+            # On essaie d'abord le champ d'état
             try:
-                champ_model = self._meta.get_field(champ_base)
-                libelle = champ_model.verbose_name
+                if hasattr(self, champ_etat):
+                    champ_model = self._meta.get_field(champ_etat)
+                    libelle = champ_model.verbose_name
+
+                else:
+                    champ_model = self._meta.get_field(champ_base)
+                    libelle = champ_model.verbose_name
+
             except Exception:
                 libelle = champ_base.replace("_", " ").capitalize()
 
+            # --------------------------------------------------
+            # RAPPORT
+            # --------------------------------------------------
             rapport.append({
                 "champ": libelle,
                 "nom": libelle,
