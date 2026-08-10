@@ -88,77 +88,93 @@
 
         <br>
 
-        <!-- Section jeux rotules -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Nettoyage intérieur" %}</h2>
-        {% for field in form %}
-            {% if "nettoyage_int" in field.name %}
-            <div class="mb-4">
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
-                <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                {% endif %}
-                {% if field.errors %}
-                <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                {% endif %}
-            </div>
-            {% endif %}
-        {% endfor %}
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/nettoyage_int.png' %}" alt="Nettoyage interieur"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Nettoyage intérieur" %}</h2>
 
-        <br>
-
-
-
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Remarques" %}</h2>
-        {% for field in form %}
-            {% if "remarques" in field.name %}
-            <div class="mb-4">
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
+            {% for field in form %}
+                {% if "nettoyage_int" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
                     <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                {% endif %}
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
-            </div>
-            {% endif %}
-        {% endfor %}
-
-        <br>
-
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Étiquette" %}</h2>
-        {% for field in form %}
-            {% if "tag" in field.name %}
-            <div class="mb-4">
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                {% endif %}
-                {% if field.errors %}
+                    {% endif %}
+                    {% if field.errors %}
                     <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                </div>
                 {% endif %}
-            </div>
-            {% endif %}
-        {% endfor %}
-        <br>
+            {% endfor %}
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Technicien" %}</h2>
-        {% for field in form %}
-            {% if "tech" in field.name %}
-            <div class="mb-4">
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+            <br>
+
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/notes.png' %}" alt="Remarques"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Remarques" %}</h2>
+
+
+            {% for field in form %}
+                {% if "remarques" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
                 {% endif %}
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+            {% endfor %}
+
+            <br>
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/tag.png' %}" alt="Tag"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Étiquette" %}</h2>
+
+
+            {% for field in form %}
+                {% if "tag" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                </div>
                 {% endif %}
-            </div>
-            {% endif %}
-        {% endfor %}
-        <br>
+            {% endfor %}
+            <br>
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/mecanicien.png' %}" alt="Technicien"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Technicien" %}</h2>
+
+            {% for field in form %}
+                {% if "tech" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endfor %}
+            <br>
 
 
      <!-- Section taux -->

@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -130,7 +130,7 @@
         ========================================= */
 
         .table-2-cols {
-            width: 100%;
+            width: 95%;
             table-layout: fixed;
             border-collapse: collapse;
         }
@@ -307,6 +307,59 @@
 
 
 <body>
+
+{% if controle.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ controle.tech_societe.nom }}
+            </div>
+
+            {% if controle.tech_societe.adresse %}
+                <div>
+                    {{ controle.tech_societe.adresse.rue }}
+                    {{ controle.tech_societe.adresse.numero }}
+                    {% if controle.tech_societe.adresse.boite %}
+                        / {{ controle.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ controle.tech_societe.adresse.code_postal }}
+                    {{ controle.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if controle.tech_societe.adresse.pays %}
+                <div>{{ controle.tech_societe.adresse.pays }}
+                    {{ controle.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if controle.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ controle.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if controle.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ controle.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ controle.tech_societe.nom }}.png"
+                alt="{{ controle.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
 
 <h1>{% trans "Rapport du contrôle des jeux" %}</h1>
 
