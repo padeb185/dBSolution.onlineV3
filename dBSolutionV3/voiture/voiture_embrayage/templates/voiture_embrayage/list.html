@@ -4,6 +4,7 @@
 {% block title %}{% trans "Liste des embrayages" %}{% endblock %}
 
 {% block content %}
+    <br>
 <h1 class="text-2xl font-bold mb-6 flex items-center">
     <img src="{% static 'icons/disque-dembrayage.png' %}" alt="Embrayage"
          style="width:60px; height:60px; margin-right:10px;">
@@ -58,7 +59,7 @@
     </div>
 </div>
 
-
+<br>
 
 <!-- Table -->
 <table id="embrayage-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
@@ -93,13 +94,14 @@
 </table>
  <br>
 <br>
+
 <div>
     <a href="{% url 'utilisateurs:dashboard' %}"
        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Retour au tableau de bord" %}
     </a>
 </div>
-
+<br>
 <!-- DataTables JS -->
 <script>
 $(document).ready(function() {

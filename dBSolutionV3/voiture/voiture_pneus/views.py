@@ -105,7 +105,7 @@ def ajouter_pneus_simple(request):
                 ),
             )
 
-            return redirect("voiture_pneus:ajouter_pneus")
+            return redirect("voiture_pneus:list")
 
         messages.error(
             request,
