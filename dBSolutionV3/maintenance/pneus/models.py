@@ -1,4 +1,7 @@
 from decimal import Decimal, ROUND_HALF_UP
+
+from django.core.validators import StepValueValidator
+
 from django.core.exceptions import ValidationError
 from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantPneus
 from maintenance.models import Maintenance
@@ -106,14 +109,41 @@ class ControlePneus(TechnicienMixin, models.Model):
     pneu_sidewall_ard = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("flancs du pneu arrière droit"))
     pneu_sidewall_arg = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("flancs du pneu arrière gauche"))
 
-    pneu_pression_bar_avd = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant droit en bar"))
-    pneu_pression_bar_avg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant gauche en bar"))
-    pneu_pression_bar_ard = models.FloatField(default=2.4, verbose_name=_("Pression du pneu arrière droit en bar"))
-    pneu_pression_bar_arg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu arrière gauche en bar"))
+    pneu_pression_bar_avd = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        default=2.4,
+        validators=[StepValueValidator(Decimal("0.1"))],
+        verbose_name=_("Pression du pneu avant droit en bar"),
+    )
 
+    pneu_pression_bar_avg = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        default=2.4,
+        validators=[StepValueValidator(Decimal("0.1"))],
+        verbose_name=_("Pression du pneu avant gauche en bar"),
+    )
 
+    pneu_pression_bar_ard = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        default=2.4,
+        validators=[StepValueValidator(Decimal("0.1"))],
+        verbose_name=_("Pression du pneu arrière droit en bar"),
+    )
+
+    pneu_pression_bar_arg = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        default=2.4,
+        validators=[StepValueValidator(Decimal("0.1"))],
+        verbose_name=_("Pression du pneu arrière gauche en bar"),
+    )
 
     pneu_train_av =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("Pneus avant à remplacer"))
+
+
     pneu_train_av_fabricant = models.CharField(
         max_length=30,
         choices=FabricantPneus.choices,

@@ -22,6 +22,18 @@ class EntretienForm(forms.ModelForm):
                 "rows": 4,
                 "placeholder": _("Ajoutez des remarques ici...")
             }),
+            "pneu_pression_bar_avd": forms.NumberInput(
+                attrs={"step": "0.1"}
+            ),
+            "pneu_pression_bar_avg": forms.NumberInput(
+                attrs={"step": "0.1"}
+            ),
+            "pneu_pression_bar_ard": forms.NumberInput(
+                attrs={"step": "0.1"}
+            ),
+            "pneu_pression_bar_arg": forms.NumberInput(
+                attrs={"step": "0.1"}
+            ),
         }
 
     def __init__(self, *args, **kwargs):

@@ -743,7 +743,7 @@
         {% if controle_freins.serrage_roues|upper == "A_FAIRE" %}
             <span class="etat-rouge">{{ controle_freins.get_serrage_roues_display }}</span>
         {% elif controle_freins.serrage_roues|upper == "FAIT" %}
-            <span class="etat-vert">{{ controle_freins.get_serrage_roues_display }}</span>
+            <span class="etat-bleu">{{ controle_freins.get_serrage_roues_display }}</span>
         {% else %}
             <span class="etat-gris">
                 {{ controle_freins.get_serrage_roues_display|default:controle_freins.serrage_roues|default:"-" }}

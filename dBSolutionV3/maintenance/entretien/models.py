@@ -774,11 +774,39 @@ class Entretien(TechnicienMixin, models.Model):
         default=0,
         verbose_name=_("Quantité"),
     )
-    pneu_pression_bar_avd = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant droit en bar"), validators=[StepValueValidator(0.1)])
-    pneu_pression_bar_avg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant gauche en bar"), validators=[StepValueValidator(0.1)])
-    pneu_pression_bar_ard = models.FloatField(default=2.4, verbose_name=_("Pression du pneu arrière droit en bar"), validators=[StepValueValidator(0.1)])
-    pneu_pression_bar_arg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu arrière gauche en bar"), validators=[StepValueValidator(0.1)])
 
+    pneu_pression_bar_avd = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        default=2.4,
+        validators=[StepValueValidator(Decimal("0.1"))],
+        verbose_name=_("Pression du pneu avant droit en bar"),
+    )
+
+    pneu_pression_bar_avg = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        default=2.4,
+        validators=[StepValueValidator(Decimal("0.1"))],
+        verbose_name=_("Pression du pneu avant gauche en bar"),
+    )
+
+    pneu_pression_bar_ard = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        default=2.4,
+        validators=[StepValueValidator(Decimal("0.1"))],
+        verbose_name=_("Pression du pneu arrière droit en bar"),
+    )
+
+    pneu_pression_bar_arg = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        default=2.4,
+        validators=[StepValueValidator(Decimal("0.1"))],
+        verbose_name=_("Pression du pneu arrière gauche en bar"),
+
+    )
     serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE, verbose_name=_("Serrage des roues"))
 
     piece = models.ForeignKey(

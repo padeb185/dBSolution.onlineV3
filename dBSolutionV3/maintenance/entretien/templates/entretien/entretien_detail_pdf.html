@@ -70,9 +70,8 @@
         .total-montant {
             text-align: right;
         }
-
         .etat-rouge {
-             color: #991b1b;
+            color: #991b1b;
             background: #fee2e2;
             padding: 2px 6px;
             border-radius: 4px;
@@ -80,7 +79,7 @@
         }
 
         .etat-vert {
-             color: #166534;
+            color: #166534;
             background: #dcfce7;
             padding: 2px 6px;
             border-radius: 4px;
@@ -88,7 +87,10 @@
         }
 
         .etat-jaune {
-            color: #ca8a04;
+            color: #a16207;
+            background: #fef9c3;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
 
@@ -101,7 +103,10 @@
         }
 
         .etat-gris {
-            color: #6b7280;
+            color: #4b5563;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
 
@@ -416,7 +421,7 @@
             {% if entretien.moteur_entretien_vidange == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_moteur_entretien_vidange_display }}</span>
             {% elif entretien.moteur_entretien_vidange == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_moteur_entretien_vidange_display }}</span>
+                <span class="etat-Bleu">{{ entretien.get_moteur_entretien_vidange_display }}</span>
             {% elif entretien.moteur_entretien_vidange == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_moteur_entretien_vidange_display }}</span>
             {% endif %}
@@ -429,7 +434,7 @@
             {% if entretien.filtre_huile == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_filtre_huile_display }}</span>
             {% elif entretien.filtre_huile == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_filtre_huile_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_filtre_huile_display }}</span>
             {% elif entretien.filtre_huile == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_filtre_huile_display }}</span>
             {% endif %}
@@ -442,7 +447,7 @@
             {% if entretien.moteur_bouchon_vidange == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_moteur_bouchon_vidange_display }}</span>
             {% elif entretien.moteur_bouchon_vidange == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_moteur_bouchon_vidange_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_moteur_bouchon_vidange_display }}</span>
             {% elif entretien.moteur_bouchon_vidange == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_moteur_bouchon_vidange_display }}</span>
             {% endif %}
@@ -455,7 +460,7 @@
             {% if entretien.moteur_joint_vidange == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_moteur_joint_vidange_display }}</span>
             {% elif entretien.moteur_joint_vidange == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_moteur_joint_vidange_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_moteur_joint_vidange_display }}</span>
             {% elif entretien.moteur_joint_vidange == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_moteur_joint_vidange_display }}</span>
             {% endif %}
@@ -468,7 +473,7 @@
             {% if entretien.moteur_ajout_huile == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_moteur_ajout_huile_display }}</span>
             {% elif entretien.moteur_ajout_huile == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_moteur_ajout_huile_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_moteur_ajout_huile_display }}</span>
             {% elif entretien.moteur_ajout_huile == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_moteur_ajout_huile_display }}</span>
             {% endif %}
@@ -491,7 +496,7 @@
             {% if entretien.bougies == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_bougies_display }}</span>
             {% elif entretien.bougies == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_bougies_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_bougies_display }}</span>
             {% elif entretien.bougies == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_bougies_display }}</span>
             {% endif %}
@@ -513,7 +518,7 @@
             {% if entretien.filtre_a_air == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_filtre_a_air_display }}</span>
             {% elif entretien.filtre_a_air == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_filtre_a_air_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_filtre_a_air_display }}</span>
             {% elif entretien.filtre_a_air == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_filtre_a_air_display }}</span>
             {% endif %}
@@ -526,7 +531,7 @@
             {% if entretien.filtre_a_carburant == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_filtre_a_carburant_display }}</span>
             {% elif entretien.filtre_a_carburant == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_filtre_a_carburant_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_filtre_a_carburant_display }}</span>
             {% elif entretien.filtre_a_carburant == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_filtre_a_carburant_display }}</span>
             {% endif %}
@@ -539,7 +544,7 @@
             {% if entretien.filtre_habitacle == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_filtre_habitacle_display }}</span>
             {% elif entretien.filtre_habitacle == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_filtre_habitacle_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_filtre_habitacle_display }}</span>
             {% elif entretien.filtre_habitacle == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_filtre_habitacle_display }}</span>
             {% endif %}
@@ -561,7 +566,7 @@
             {% if entretien.boite_entretien_vidange == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_boite_entretien_vidange_display }}</span>
             {% elif entretien.boite_entretien_vidange == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_boite_entretien_vidange_display }}</span>
+                <span class="etat-blue">{{ entretien.get_boite_entretien_vidange_display }}</span>
             {% elif entretien.boite_entretien_vidange == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_boite_entretien_vidange_display }}</span>
             {% endif %}
@@ -577,7 +582,7 @@
             </span>
 
         {% elif entretien.filtre_huile_boite == "FAIT" %}
-            <span class="etat-vert">
+            <span class="etat-bleu">
                 {{ entretien.get_filtre_huile_boite_display }}
             </span>
 
@@ -610,7 +615,7 @@
             {% if entretien.boite_bouchon_vidange == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_boite_bouchon_vidange_display }}</span>
             {% elif entretien.boite_bouchon_vidange == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_boite_bouchon_vidange_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_boite_bouchon_vidange_display }}</span>
             {% elif entretien.boite_bouchon_vidange == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_boite_bouchon_vidange_display }}</span>
             {% endif %}
@@ -623,7 +628,7 @@
             {% if entretien.boite_joint_vidange == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_boite_joint_vidange_display }}</span>
             {% elif entretien.boite_joint_vidange == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_boite_joint_vidange_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_boite_joint_vidange_display }}</span>
             {% elif entretien.boite_joint_vidange == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_boite_joint_vidange_display }}</span>
             {% endif %}
@@ -636,7 +641,7 @@
             {% if entretien.boite_ajout_huile == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_boite_ajout_huile_display }}</span>
             {% elif entretien.boite_ajout_huile == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_boite_ajout_huile_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_boite_ajout_huile_display }}</span>
             {% elif entretien.boite_ajout_huile == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_boite_ajout_huile_display }}</span>
             {% endif %}
@@ -661,7 +666,7 @@
             {% if entretien.pont_entretien_vidange == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_pont_entretien_vidange_display }}</span>
             {% elif entretien.pont_entretien_vidange == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_pont_entretien_vidange_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_pont_entretien_vidange_display }}</span>
             {% elif entretien.pont_entretien_vidange == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_pont_entretien_vidange_display }}</span>
             {% endif %}
@@ -674,7 +679,7 @@
             {% if entretien.pont_bouchon_vidange == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_pont_bouchon_vidange_display }}</span>
             {% elif entretien.pont_bouchon_vidange == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_pont_bouchon_vidange_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_pont_bouchon_vidange_display }}</span>
             {% elif entretien.pont_bouchon_vidange == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_pont_bouchon_vidange_display }}</span>
             {% endif %}
@@ -687,7 +692,7 @@
             {% if entretien.pont_joint_vidange == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_pont_joint_vidange_display }}</span>
             {% elif entretien.pont_joint_vidange == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_pont_joint_vidange_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_pont_joint_vidange_display }}</span>
             {% elif entretien.pont_joint_vidange == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_pont_joint_vidange_display }}</span>
             {% endif %}
@@ -700,7 +705,7 @@
             {% if entretien.pont_ajout_huile == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_pont_ajout_huile_display }}</span>
             {% elif entretien.pont_ajout_huile == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_pont_ajout_huile_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_pont_ajout_huile_display }}</span>
             {% elif entretien.pont_ajout_huile == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_pont_ajout_huile_display }}</span>
             {% endif %}
@@ -736,7 +741,7 @@
                 {% if entretien.lave_glace_liquide_etat == "BON" %}
                     <span class="etat-gris">{{ entretien.get_lave_glace_liquide_etat_display }}</span>
                 {% elif entretien.lave_glace_liquide_etat == "AJOUTER" %}
-                    <span class="etat-vert">{{ entretien.get_lave_glace_liquide_etat_display }}</span>
+                    <span class="etat-bleu">{{ entretien.get_lave_glace_liquide_etat_display }}</span>
                 {% elif entretien.lave_glace_liquide_etat == "REMPLACER" %}
                     <span class="etat-bleu">{{ entretien.get_lave_glace_liquide_etat_display }}</span>
                 {% endif %}
@@ -751,7 +756,7 @@
                 {% if entretien.frein_liquide_etat == "BON" %}
                     <span class="etat-gris">{{ entretien.get_frein_liquide_etat_display }}</span>
                 {% elif entretien.frein_liquide_etat == "AJOUTER" %}
-                    <span class="etat-vert">{{ entretien.get_frein_liquide_etat_display }}</span>
+                    <span class="etat-bleu">{{ entretien.get_frein_liquide_etat_display }}</span>
                 {% elif entretien.frein_liquide_etat == "REMPLACER" %}
                     <span class="etat-bleu">{{ entretien.get_frein_liquide_etat_display }}</span>
                 {% endif %}
@@ -766,7 +771,7 @@
                 {% if entretien.refroidissement_liquide_etat == "BON" %}
                     <span class="etat-gris">{{ entretien.get_refroidissement_liquide_etat_display }}</span>
                 {% elif entretien.refroidissement_liquide_etat == "AJOUTER" %}
-                    <span class="etat-vert">{{ entretien.get_refroidissement_liquide_etat_display }}</span>
+                    <span class="etat-bleu">{{ entretien.get_refroidissement_liquide_etat_display }}</span>
                 {% elif entretien.refroidissement_liquide_etat == "REMPLACER" %}
                     <span class="etat-bleu">{{ entretien.get_refroidissement_liquide_etat_display }}</span>
                 {% endif %}
@@ -955,7 +960,7 @@
         {% if entretien.serrage_roues|upper == "A_FAIRE" %}
             <span class="etat-rouge">{{ entretien.get_serrage_roues_display }}</span>
         {% elif entretien.serrage_roues|upper == "FAIT" %}
-            <span class="etat-vert">{{ entretien.get_serrage_roues_display }}</span>
+            <span class="etat-bleu">{{ entretien.get_serrage_roues_display }}</span>
         {% else %}
             <span class="etat-gris">
                 {{ entretien.get_serrage_roues_display|default:entretien.serrage_roues|default:"-" }}
