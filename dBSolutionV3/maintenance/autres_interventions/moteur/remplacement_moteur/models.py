@@ -32,16 +32,67 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     # -------------------------
     # CONFIG TVA
     # -------------------------
+    # -------------------------
+    # CONFIG TVA
+    # -------------------------
     PAYS_CHOICES = [
+        ('AT', _("Autriche")),
         ('BE', _("Belgique")),
-        ('LU', _("Luxembourg")),
+        ('BG', _("Bulgarie")),
+        ('CY', _("Chypre")),
+        ('CZ', _("Tchéquie")),
         ('DE', _("Allemagne")),
+        ('DK', _("Danemark")),
+        ('EE', _("Estonie")),
+        ('ES', _("Espagne")),
+        ('FI', _("Finlande")),
+        ('FR', _("France")),
+        ('GR', _("Grèce")),
+        ('HR', _("Croatie")),
+        ('HU', _("Hongrie")),
+        ('IE', _("Irlande")),
+        ('IT', _("Italie")),
+        ('LT', _("Lituanie")),
+        ('LU', _("Luxembourg")),
+        ('LV', _("Lettonie")),
+        ('MT', _("Malte")),
+        ('NL', _("Pays-Bas")),
+        ('PL', _("Pologne")),
+        ('PT', _("Portugal")),
+        ('RO', _("Roumanie")),
+        ('SE', _("Suède")),
+        ('SI', _("Slovénie")),
+        ('SK', _("Slovaquie")),
     ]
 
     TVA_PIECES = {
+        'AT': 20,
         'BE': 21,
-        'LU': 16,
+        'BG': 20,
+        'CY': 19,
+        'CZ': 21,
         'DE': 19,
+        'DK': 25,
+        'EE': 24,
+        'ES': 21,
+        'FI': 25.5,
+        'FR': 20,
+        'GR': 24,
+        'HR': 25,
+        'HU': 27,
+        'IE': 23,
+        'IT': 22,
+        'LT': 21,
+        'LU': 17,
+        'LV': 21,
+        'MT': 18,
+        'NL': 21,
+        'PL': 23,
+        'PT': 23,
+        'RO': 21,
+        'SE': 25,
+        'SI': 22,
+        'SK': 23,
     }
 
     # -------------------------
