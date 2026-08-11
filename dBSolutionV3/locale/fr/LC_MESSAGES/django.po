@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-11 09:05+0200\n"
+"POT-Creation-Date: 2026-08-11 09:23+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -5903,8 +5903,6 @@ msgstr ""
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1128
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:884
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:919
-#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1227
-#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1269
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:469
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:500
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:528
@@ -5938,9 +5936,6 @@ msgstr ""
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2681
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2719
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2390
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1106
-#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:895
-#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1242
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:479
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:542
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:550
@@ -5990,9 +5985,6 @@ msgstr ""
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1286
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:466
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2424
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1142
-#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:934
-#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1284
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:510
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:582
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:587
@@ -11356,10 +11348,15 @@ msgid "Type / Qualité"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:812
+#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1227
+#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1269
 msgid "Main-d'œuvre HTVA"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:822
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1142
+#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:934
+#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1284
 msgid "Total général HTVA"
 msgstr ""
 
@@ -16781,7 +16778,15 @@ msgstr ""
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:873
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Total pièces / produits"
+msgid "Total pièces / produits HTVA"
+msgstr "Tableau de Bord"
+
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1106
+#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:895
+#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1242
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Total général avec main-d'œuvre HTVA"
 msgstr "Tableau de Bord"
 
 #: maintenance/entretien/templates/entretien/entretien_list.html:4
@@ -17176,7 +17181,7 @@ msgstr ""
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1212
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Total pièces"
+msgid "Total pièces HTVA"
 msgstr "Tableau de Bord"
 
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1260
@@ -23724,6 +23729,11 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:145
 msgid "Pneu mis à jour avec succès."
 msgstr ""
+
+#, fuzzy
+#~| msgid "Tableau de bord"
+#~ msgid "Total pièces"
+#~ msgstr "Tableau de Bord"
 
 #, fuzzy
 #~| msgid "Tableau de bord"
