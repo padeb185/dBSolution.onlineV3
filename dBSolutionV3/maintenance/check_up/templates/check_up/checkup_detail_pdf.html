@@ -813,21 +813,21 @@
         <tr>
             <td>{% trans "État du liquide de frein" %}</td>
             <td>
-                {% if checkup.frein_liquide_etat == "OK" %}
+                {% if checkup.freins_liquide_etat == "OK" %}
                     <span class="etat-vert">
-                        {{ checkup.get_frein_liquide_etat_display }}
+                        {{ checkup.get_freins_liquide_etat_display }}
                     </span>
-                {% elif checkup.frein_liquide_etat == "A_REMPLACER" %}
+                {% elif checkup.freins_liquide_etat == "A_REMPLACER" %}
                     <span class="etat-rouge">
-                        {{ checkup.get_frein_liquide_etat_display }}
+                        {{ checkup.get_freins_liquide_etat_display }}
                     </span>
-                {% elif checkup.frein_liquide_etat == "REMPLACE" %}
+                {% elif checkup.freins_liquide_etat == "REMPLACE" %}
                     <span class="etat-bleu">
-                        {{ checkup.get_frein_liquide_etat_display }}
+                        {{ checkup.get_freins_liquide_etat_display }}
                     </span>
                 {% else %}
                     <span class="etat-gris">
-                        {{ checkup.get_frein_liquide_etat_display|default:"-" }}
+                        {{ checkup.get_freins_liquide_etat_display|default:"-" }}
                     </span>
                 {% endif %}
             </td>
