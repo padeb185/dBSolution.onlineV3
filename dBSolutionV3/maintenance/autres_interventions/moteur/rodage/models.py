@@ -208,6 +208,12 @@ class Rodage(TechnicienMixin, models.Model):
         'SI': 22,
         'SK': 23,
     }
+    pays = models.CharField(
+        max_length=5,
+        choices=PAYS_CHOICES,
+        default="BE",
+        verbose_name=_("Pays"),
+    )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 

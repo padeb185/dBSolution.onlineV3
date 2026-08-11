@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import RefroidissementFabricant
+from maintenance.choices import RefroidissementFabricant, CourroieDistributionFabricant
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -62,8 +62,6 @@ class RefroidissementQualiteEtat(models.TextChoices):
 
 
 class CourroieDistribution(TechnicienMixin, models.Model):
-
-
     # -------------------------
     # CONFIG TVA
     # -------------------------
@@ -126,7 +124,12 @@ class CourroieDistribution(TechnicienMixin, models.Model):
         'SI': 22,
         'SK': 23,
     }
-
+    pays = models.CharField(
+        max_length=5,
+        choices=PAYS_CHOICES,
+        default="BE",
+        verbose_name=_("Pays"),
+    )
 
     # -------------------------
     # RELATIONS
@@ -181,13 +184,45 @@ class CourroieDistribution(TechnicienMixin, models.Model):
 
     # Courroie
     courroie_distribution = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Courroie de distribution"))
+    courroie_distribution_fabricant = models.CharField(
+        max_length=30,
+        choices=CourroieDistributionFabricant.choices,
+        default=CourroieDistributionFabricant.CHOISIR,
+        verbose_name=_("Fabricant de la courroie de distribution"),
+    )
     courroie_distribution_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva de la courroie"))
     courroie_distribution_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
+    galet_enrouleur = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Galet enrouleur"))
+    galet_enrouleur_fabricant = models.CharField(
+        max_length=30,
+        choices=CourroieDistributionFabricant.choices,
+        default=CourroieDistributionFabricant.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    galet_enrouleur_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    galet_enrouleur_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+
+
+    galet_tendeur = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Galet tendeur"))
+    galet_tendeur_fabricant = models.CharField(
+        max_length=30,
+        choices=CourroieDistributionFabricant.choices,
+        default=CourroieDistributionFabricant.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    galet_tendeur_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    galet_tendeur_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     pompe_a_eau = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Pompe à eau"))
-    pompe_a_eau_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva de la pompe à eau"))
+    pompe_a_eau_fabricant = models.CharField(
+        max_length=30,
+        choices=CourroieDistributionFabricant.choices,
+        default=CourroieDistributionFabricant.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    pompe_a_eau_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
     pompe_a_eau_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 

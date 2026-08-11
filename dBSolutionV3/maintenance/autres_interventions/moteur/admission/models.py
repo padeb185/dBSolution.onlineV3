@@ -83,6 +83,13 @@ class Admission(TechnicienMixin, models.Model):
         'SI': 22,
         'SK': 23,
     }
+    pays = models.CharField(
+        max_length=5,
+        choices=PAYS_CHOICES,
+        default="BE",
+        verbose_name=_("Pays"),
+    )
+
 
     maintenance = models.ForeignKey(
         Maintenance,
@@ -119,6 +126,7 @@ class Admission(TechnicienMixin, models.Model):
         verbose_name=_("Kilométrage au moment du controle"),
 
     )
+
 
     # -------------------------
     # PIECES

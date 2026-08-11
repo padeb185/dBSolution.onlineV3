@@ -27,11 +27,6 @@ class TypeUtilisation(models.TextChoices):
 class RemplacementMoteur(TechnicienMixin, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-
-
-    # -------------------------
-    # CONFIG TVA
-    # -------------------------
     # -------------------------
     # CONFIG TVA
     # -------------------------
@@ -94,6 +89,13 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         'SI': 22,
         'SK': 23,
     }
+
+    pays = models.CharField(
+        max_length=5,
+        choices=PAYS_CHOICES,
+        default="BE",
+        verbose_name=_("Pays"),
+    )
 
     # -------------------------
     # RELATIONS

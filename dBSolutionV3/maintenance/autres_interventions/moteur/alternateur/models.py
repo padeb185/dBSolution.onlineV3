@@ -18,10 +18,6 @@ class EtatOKNotOK(models.TextChoices):
 
 
 class Alternateur(TechnicienMixin, models.Model):
-
-    # -------------------------
-    # CONFIG TVA
-    # -------------------------
     # -------------------------
     # CONFIG TVA
     # -------------------------
@@ -84,6 +80,13 @@ class Alternateur(TechnicienMixin, models.Model):
         'SI': 22,
         'SK': 23,
     }
+    pays = models.CharField(
+        max_length=5,
+        choices=PAYS_CHOICES,
+        default="BE",
+        verbose_name=_("Pays"),
+    )
+
 
     # -------------------------
     # RELATIONS

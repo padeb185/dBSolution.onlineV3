@@ -920,3 +920,31 @@ class FabricantSilentBloc(models.TextChoices):
 
     OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre")
+
+
+
+class CourroieDistributionFabricant(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
+    CONTINENTAL = "CONTINENTAL", _("Continental / ContiTech")
+    GATES = "GATES", _("Gates")
+    DAYCO = "DAYCO", _("Dayco")
+    BOSCH = "BOSCH", _("Bosch")
+    SKF = "SKF", _("SKF")
+    INA = "INA", _("INA")
+    SNR = "SNR", _("SNR")
+    HUTCHINSON = "HUTCHINSON", _("Hutchinson")
+    OPTIBELT = "OPTIBELT", _("Optibelt")
+    MEYLE = "MEYLE", _("Meyle")
+    FEBI = "FEBI", _("Febi Bilstein")
+    SWAG = "SWAG", _("SWAG")
+    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
+    METELLI = "METELLI", _("Metelli")
+    HEPU = "HEPU", _("HEPU")
+    GRAF = "GRAF", _("GRAF")
+    DOLZ = "DOLZ", _("DOLZ")
+    QUINTON_HAZELL = "QUINTON_HAZELL", _("Quinton Hazell")
+    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
+
+    ORIGINE = "ORIGINE", _("Pièce d'origine / OEM")
+    AUTRE = "AUTRE", _("Autre")

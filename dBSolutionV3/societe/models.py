@@ -33,6 +33,13 @@ class Societe(TenantMixin):
     nom = models.CharField(max_length=100, unique=True)
     directeur = models.CharField(max_length=100)
 
+    numero_tel = models.CharField(
+        max_length=30,
+        verbose_name=_("Numéro de téléphone"),
+        null=True,
+        blank=True,
+    )
+
     numero_tva = models.CharField(
         max_length=20,
         unique=True,
