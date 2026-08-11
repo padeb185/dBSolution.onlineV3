@@ -505,17 +505,25 @@ def echappement_check_pdf_view(request, pk):
 
     voiture = echappement.voiture_exemplaire
 
+    # Immatriculation
     if voiture and voiture.immatriculation:
         immatriculation = voiture.immatriculation
-    elif echappement.immatriculation:
+    elif getattr(echappement, "immatriculation", None):
         immatriculation = echappement.immatriculation
     else:
         immatriculation = "sans_immatriculation"
 
-    technicien = (
-        echappement.tech_nom_technicien
-        or "technicien_inconnu"
-    )
+    # Technicien
+    if echappement.tech_technicien:
+        technicien = str(echappement.tech_technicien)
+    elif getattr(echappement, "tech_nom_technicien", None):
+        technicien = echappement.tech_nom_technicien
+    else:
+        technicien = "technicien_inconnu"
+
+    # Nettoyage pour le nom du fichier
+    immatriculation = str(immatriculation).replace(" ", "_").replace("/", "-")
+    technicien = str(technicien).replace(" ", "_").replace("/", "-")
 
     filename = (
         f"rapport_echappement_"
@@ -533,4 +541,3 @@ def echappement_check_pdf_view(request, pk):
     )
 
     return response
-

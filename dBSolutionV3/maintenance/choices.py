@@ -820,3 +820,103 @@ class FabricantBatterie(models.TextChoices):
     AUTRE = "AUTRE", _("Autre")
     CHOISIR = "CHOISIR", _("Choisir")
     CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
+
+
+
+class FabricantEchappement(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
+    AKRAPOVIC = "AKRAPOVIC", _("Akrapovič")
+    REMUS = "REMUS", _("Remus")
+    SUPERSPRINT = "SUPERSPRINT", _("Supersprint")
+    MILLTEK = "MILLTEK", _("Milltek Sport")
+    MAGNAFLOW = "MAGNAFLOW", _("MagnaFlow")
+    BORLA = "BORLA", _("Borla")
+    EISENMANN = "EISENMANN", _("Eisenmann")
+    FOX = "FOX", _("FOX")
+    BASTUCK = "BASTUCK", _("Bastuck")
+    RAGAZZON = "RAGAZZON", _("Ragazzon")
+    SCORPION = "SCORPION", _("Scorpion")
+    COBRA = "COBRA", _("Cobra Sport")
+    MIVV = "MIVV", _("MIVV")
+    ARROW = "ARROW", _("Arrow")
+    BOSAL = "BOSAL", _("Bosal")
+    WALKER = "WALKER", _("Walker")
+    EBERSPACHER = "EBERSPACHER", _("Eberspächer")
+    IMASAF = "IMASAF", _("IMASAF")
+    ERNST = "ERNST", _("Ernst")
+    POLMO = "POLMO", _("Polmo")
+    BMW = "BMW", _("BMW")
+    PORSCHE = "PORSCHE", _("Porsche")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
+
+
+    AUTRE = "AUTRE", _("Autre")
+
+
+
+
+class FabricantCapteurEchappement(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
+    BOSCH = "BOSCH", _("Bosch")
+    DENSO = "DENSO", _("Denso")
+    NGK = "NGK", _("NGK / NTK")
+    DELPHI = "DELPHI", _("Delphi")
+    HELLA = "HELLA", _("Hella")
+    VDO = "VDO", _("VDO")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
+    PIERBURG = "PIERBURG", _("Pierburg")
+    FACET = "FACET", _("Facet")
+    FEBI = "FEBI", _("Febi Bilstein")
+    MEYLE = "MEYLE", _("Meyle")
+    VEMO = "VEMO", _("Vemo")
+    ERA = "ERA", _("ERA")
+    FAE = "FAE", _("FAE")
+    EPS = "EPS", _("EPS")
+    RIDEX = "RIDEX", _("Ridex")
+    STARK = "STARK", _("Stark")
+    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
+    HITACHI = "HITACHI", _("Hitachi")
+    VALEO = "VALEO", _("Valeo")
+    WALKER = "WALKER", _("Walker Products")
+    SIDAT = "SIDAT", _("SIDAT")
+    METZGER = "METZGER", _("Metzger")
+    TOPRAN = "TOPRAN", _("Topran")
+
+    OEM = "OEM", _("Origine constructeur (OEM)")
+    AUTRE = "AUTRE", _("Autre")
+
+
+
+class FabricantSilentBloc(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
+    LEMFORDER = "LEMFORDER", _("Lemförder")
+    FEBI = "FEBI", _("Febi Bilstein")
+    MEYLE = "MEYLE", _("Meyle")
+    TRW = "TRW", _("TRW")
+    MOOG = "MOOG", _("Moog")
+    SACHS = "SACHS", _("Sachs")
+    SKF = "SKF", _("SKF")
+    SNR = "SNR", _("SNR")
+    DELPHI = "DELPHI", _("Delphi")
+    SIDEM = "SIDEM", _("Sidem")
+    CORTECO = "CORTECO", _("Corteco")
+    SWAG = "SWAG", _("SWAG")
+    VAICO = "VAICO", _("Vaico")
+    MAPCO = "MAPCO", _("Mapco")
+    OPTIMAL = "OPTIMAL", _("Optimal")
+    BIRTH = "BIRTH", _("Birth")
+    SASIC = "SASIC", _("Sasic")
+    METZGER = "METZGER", _("Metzger")
+    TOPRAN = "TOPRAN", _("Topran")
+    RIDEX = "RIDEX", _("Ridex")
+    STARK = "STARK", _("Stark")
+
+    POWERFLEX = "POWERFLEX", _("Powerflex")
+    SUPERPRO = "SUPERPRO", _("SuperPro")
+    STRONGFLEX = "STRONGFLEX", _("Strongflex")
+
+    OEM = "OEM", _("Origine constructeur (OEM)")
+    AUTRE = "AUTRE", _("Autre")

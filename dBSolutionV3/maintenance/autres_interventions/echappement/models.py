@@ -1,17 +1,15 @@
 from django.core.exceptions import ValidationError
-
 from django.conf import settings
-
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
-from django.db.models import Sum
 from decimal import Decimal, ROUND_HALF_UP
-
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
+from maintenance.choices import FabricantEchappement, FabricantCapteurEchappement, FabricantSilentBloc
 from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
 from societe.models import Societe
+
+
 
 
 
@@ -29,16 +27,66 @@ class Echappement(models.Model):
     # CONFIG TVA
     # -------------------------
     PAYS_CHOICES = [
+        ('AT', _("Autriche")),
         ('BE', _("Belgique")),
-        ('LU', _("Luxembourg")),
+        ('BG', _("Bulgarie")),
+        ('CY', _("Chypre")),
+        ('CZ', _("Tchéquie")),
         ('DE', _("Allemagne")),
+        ('DK', _("Danemark")),
+        ('EE', _("Estonie")),
+        ('ES', _("Espagne")),
+        ('FI', _("Finlande")),
+        ('FR', _("France")),
+        ('GR', _("Grèce")),
+        ('HR', _("Croatie")),
+        ('HU', _("Hongrie")),
+        ('IE', _("Irlande")),
+        ('IT', _("Italie")),
+        ('LT', _("Lituanie")),
+        ('LU', _("Luxembourg")),
+        ('LV', _("Lettonie")),
+        ('MT', _("Malte")),
+        ('NL', _("Pays-Bas")),
+        ('PL', _("Pologne")),
+        ('PT', _("Portugal")),
+        ('RO', _("Roumanie")),
+        ('SE', _("Suède")),
+        ('SI', _("Slovénie")),
+        ('SK', _("Slovaquie")),
     ]
 
     TVA_PIECES = {
+        'AT': 20,
         'BE': 21,
-        'LU': 16,
+        'BG': 20,
+        'CY': 19,
+        'CZ': 21,
         'DE': 19,
+        'DK': 25,
+        'EE': 24,
+        'ES': 21,
+        'FI': 25.5,
+        'FR': 20,
+        'GR': 24,
+        'HR': 25,
+        'HU': 27,
+        'IE': 23,
+        'IT': 22,
+        'LT': 21,
+        'LU': 17,
+        'LV': 21,
+        'MT': 18,
+        'NL': 21,
+        'PL': 23,
+        'PT': 23,
+        'RO': 21,
+        'SE': 25,
+        'SI': 22,
+        'SK': 23,
     }
+
+
 
     id = models.AutoField(primary_key=True)
 
@@ -115,60 +163,72 @@ class Echappement(models.Model):
         }
 
     collecteur = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Collecteur"))
+    collecteur_fabricant = models.CharField(max_length=25, choices=FabricantEchappement.choices,default=FabricantEchappement.CHOISIR ,verbose_name=_("Fabricant"), blank=True)
     collecteur_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     collecteur_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     catalyseur = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Catalyseur"))
+    catalyseur_fabricant = models.CharField(max_length=25, choices=FabricantEchappement.choices,default=FabricantEchappement.CHOISIR, verbose_name=_("Fabricant"), blank=True)
     catalyseur_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     catalyseur_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     ligne_complete = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Ligne complete"))
+    ligne_complete_fabricant = models.CharField(max_length=25, choices=FabricantEchappement.choices,default=FabricantEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     ligne_complete_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     ligne_complete_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     filtre_particules = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Filtre à particules"))
+    filtre_particules_fabricant = models.CharField(max_length=25, choices=FabricantEchappement.choices,default=FabricantEchappement.CHOISIR, verbose_name=_("Fabricant"), blank=True,)
     filtre_particules_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     filtre_particules_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     pot_denox = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Pot DeNOx"))
+    pot_denox_fabricant = models.CharField(max_length=25, choices=FabricantEchappement.choices,default=FabricantEchappement.CHOISIR, verbose_name=_("Fabricant"), blank=True,)
     pot_denox_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     pot_denox_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     silencieux = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Silencieux"))
+    silencieux_fabricant = models.CharField(max_length=25, choices=FabricantEchappement.choices,default=FabricantEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     silencieux_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     silencieux_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     sonde_lambda_amont = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Sonde Lambda amont"))
+    sonde_lambda_amont_fabricant = models.CharField(max_length=25, choices=FabricantCapteurEchappement.choices,default=FabricantCapteurEchappement.CHOISIR,verbose_name=_("Fabricant"),  blank=True,)
     sonde_lambda_amont_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     sonde_lambda_amont_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     sonde_lambda_aval = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Sonde Lambda aval"))
+    sonde_lambda_aval_fabricant = models.CharField(max_length=25, choices=FabricantCapteurEchappement.choices,default=FabricantCapteurEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     sonde_lambda_aval_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     sonde_lambda_aval_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     sonde_fap_amont = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Sonde de température avant le filtre à particules"))
+    sonde_fap_amont_fabricant = models.CharField(max_length=25, choices=FabricantCapteurEchappement.choices,default=FabricantCapteurEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     sonde_fap_amont_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     sonde_fap_amont_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     sonde_fap_aval = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Sonde de température après le filtre à particules"))
+    sonde_fap_aval_fabricant = models.CharField(max_length=25, choices=FabricantCapteurEchappement.choices,default=FabricantCapteurEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     sonde_fap_aval_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     sonde_fap_aval_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     capteur_fap = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur de pression différentielle du filtre à particules"))
+    capteur_fap_fabricant = models.CharField(max_length=25, choices=FabricantCapteurEchappement.choices,default=FabricantCapteurEchappement.CHOISIR,verbose_name=_("Fabricant"), blank=True,)
     capteur_fap_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     capteur_fap_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     tuyau_fap = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Tuyaux du capteur de pression différentielle"))
+    tuyau_fap_fabricant = models.CharField(max_length=25, choices=FabricantEchappement.choices,default=FabricantEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     tuyau_fap_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     tuyau_fap_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
@@ -186,28 +246,34 @@ class Echappement(models.Model):
 
 
     injecteur_ad = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Injecteur d'AdBlue"))
+    injecteur_ad_fabricant = models.CharField(max_length=25, choices=FabricantCapteurEchappement.choices,default=FabricantCapteurEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     injecteur_ad_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
     injecteur_ad_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     valve = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Valve d'échappement"))
+    valve_fabricant = models.CharField(max_length=25, choices=FabricantCapteurEchappement.choices, default=FabricantCapteurEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     valve_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
     valve_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     collier = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Collier de serrage"))
+    collier_fabricant = models.CharField(max_length=25, choices=FabricantEchappement.choices,default=FabricantEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     collier_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
     collier_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     manchon = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Manchon"))
+    mancon_fabricant = models.CharField(max_length=25, choices=FabricantEchappement.choices,default=FabricantEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     manchon_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
     manchon_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     joint = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Joints"))
+    joint_fabricant = models.CharField(max_length=25, choices=FabricantEchappement.choices,default=FabricantEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     joint_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
     joint_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     silent_bloc = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Silent Bloc"))
+    silent_bloc_fabricant = models.CharField(max_length=25, choices=FabricantSilentBloc.choices,default=FabricantSilentBloc.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     silent_bloc_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
     silent_bloc_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
@@ -367,7 +433,7 @@ class Echappement(models.Model):
             ):
                 valeur = getattr(self, field_name)
 
-                # Prendre les pièces à remplacer ET déjà remplacées
+                # Pièces à remplacer ou déjà remplacées
                 if valeur in [
                     EtatOKNotOK.NOT_OK,
                     EtatOKNotOK.REMPLACE,
@@ -393,17 +459,44 @@ class Echappement(models.Model):
                         quantite = 0
 
                     quantite = Decimal(str(quantite))
-                    total = prix * quantite
 
+                    # Fabricant
+                    fabricant_field_name = f"{field_name}_fabricant"
+
+                    fabricant = getattr(
+                        self,
+                        fabricant_field_name,
+                        None,
+                    )
+
+                    fabricant_label = fabricant
+
+                    # Si le champ fabricant possède des choices,
+                    # récupérer le libellé affichable
+                    get_fabricant_display = getattr(
+                        self,
+                        f"get_{fabricant_field_name}_display",
+                        None,
+                    )
+
+                    if callable(get_fabricant_display):
+                        fabricant_label = get_fabricant_display()
+
+                    total = prix * quantite
                     total_general += total
 
                     rapport.append({
                         "champ": field.verbose_name,
                         "code": field_name,
+
                         "etat": valeur,
                         "etat_label": dict(
                             EtatOKNotOK.choices
                         ).get(valeur, valeur),
+
+                        "fabricant": fabricant,
+                        "fabricant_label": fabricant_label,
+
                         "prix": prix,
                         "quantite": quantite,
                         "total": total,

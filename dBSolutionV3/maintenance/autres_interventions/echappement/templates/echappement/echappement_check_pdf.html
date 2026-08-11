@@ -86,6 +86,38 @@
             font-weight: bold;
         }
 
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-jaune {
+            color: #854d0e;
+            background: #fef9c3;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
         .tag {
             display: inline-block;
             padding: 3px 8px;
@@ -133,34 +165,15 @@
             text-align: right;
         }
 
-        .etat-vert {
-            color: #166534;
-            background: #dcfce7;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .etat-rouge {
-            color: #991b1b;
-            background: #fee2e2;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .etat-bleu {
-            color: #1e40af;
-            background: #dbeafe;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-
         .total {
             font-weight: bold;
             background: #f8fafc;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
         }
 
         .remarques {
@@ -173,7 +186,8 @@
             font-size: 10px;
             color: #555;
         }
-         .societe-header {
+
+        .societe-header {
             display: table;
             width: 100%;
             margin-bottom: 25px;
@@ -211,13 +225,7 @@
             max-height: 200px;
         }
 
-        .total-general {
-            font-weight: bold;
-            color: #1e3a8a;
-            background: #dbeafe;
-        }
-
-         .footer {
+        .footer {
             margin-top: 25px;
             font-size: 10px;
             color: #666;
@@ -232,6 +240,7 @@
     <div class="societe-header">
 
         <div class="societe-informations">
+
             <div class="societe-nom">
                 {{ echappement.tech_societe.nom }}
             </div>
@@ -240,6 +249,7 @@
                 <div>
                     {{ echappement.tech_societe.adresse.rue }}
                     {{ echappement.tech_societe.adresse.numero }}
+
                     {% if echappement.tech_societe.adresse.boite %}
                         / {{ echappement.tech_societe.adresse.boite }}
                     {% endif %}
@@ -252,8 +262,9 @@
             {% endif %}
 
             {% if echappement.tech_societe.adresse.pays %}
-                <div>{{ echappement.tech_societe.adresse.pays }}
-                    {{ echappement.tech_societe.adresse.code_pays  }}
+                <div>
+                    {{ echappement.tech_societe.adresse.pays }}
+                    {{ echappement.tech_societe.adresse.code_pays }}
                 </div>
             {% endif %}
 
@@ -263,12 +274,14 @@
                     {{ echappement.tech_societe.numero_tva }}
                 </div>
             {% endif %}
-             {% if echappement.tech_societe.iban %}
+
+            {% if echappement.tech_societe.iban %}
                 <div>
                     <strong>{% trans "Numéro de compte" %} :</strong>
                     {{ echappement.tech_societe.iban }}
                 </div>
             {% endif %}
+
         </div>
 
         <div class="societe-logo">
@@ -281,13 +294,16 @@
     </div>
 {% endif %}
 
+
 <h1>{% trans "Rapport du contrôle de l'échappement" %}</h1>
+
 
 <!-- ================================================== -->
 <!-- INFORMATIONS GÉNÉRALES -->
 <!-- ================================================== -->
 
 <div class="box">
+
     <div class="grid">
 
         <div>
@@ -326,7 +342,9 @@
         </div>
 
         <div>
-            <span class="label">{% trans "Kilométrage du contrôle échappement" %} :</span>
+            <span class="label">
+                {% trans "Kilométrage du contrôle échappement" %} :
+            </span>
             {{ echappement.kilometrage_echappement|default:0 }} km
         </div>
 
@@ -361,7 +379,9 @@
         </div>
 
     </div>
+
 </div>
+
 
 <!-- ================================================== -->
 <!-- COMPOSANTS DE L'ÉCHAPPEMENT -->
@@ -370,13 +390,13 @@
 <h2>{% trans "État des composants de l'échappement" %}</h2>
 
 <div class="box">
+
     <table>
+
         <thead>
             <tr>
                 <th>{% trans "Composant" %}</th>
                 <th>{% trans "État" %}</th>
-                <th class="text-right">{% trans "Quantité" %}</th>
-                <th class="text-right">{% trans "Prix d'achat HTVA" %}</th>
             </tr>
         </thead>
 
@@ -384,6 +404,7 @@
 
             <!-- COLLECTEUR -->
             <tr>
+
                 <td>{% trans "Collecteur" %}</td>
 
                 <td>
@@ -409,17 +430,13 @@
                     {% endif %}
                 </td>
 
-                <td class="text-right">
-                    {{ echappement.collecteur_quantite|default:0 }}
-                </td>
 
-                <td class="text-right">
-                    {{ echappement.collecteur_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
+
 
             <!-- CATALYSEUR -->
             <tr>
+
                 <td>{% trans "Catalyseur" %}</td>
 
                 <td>
@@ -445,17 +462,12 @@
                     {% endif %}
                 </td>
 
-                <td class="text-right">
-                    {{ echappement.catalyseur_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ echappement.catalyseur_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
+
 
             <!-- LIGNE COMPLÈTE -->
             <tr>
+
                 <td>{% trans "Ligne complète" %}</td>
 
                 <td>
@@ -481,17 +493,12 @@
                     {% endif %}
                 </td>
 
-                <td class="text-right">
-                    {{ echappement.ligne_complete_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ echappement.ligne_complete_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
+
 
             <!-- FILTRE À PARTICULES -->
             <tr>
+
                 <td>{% trans "Filtre à particules" %}</td>
 
                 <td>
@@ -517,17 +524,12 @@
                     {% endif %}
                 </td>
 
-                <td class="text-right">
-                    {{ echappement.filtre_particules_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ echappement.filtre_particules_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
+
 
             <!-- POT DENOX -->
             <tr>
+
                 <td>{% trans "Pot DeNOx" %}</td>
 
                 <td>
@@ -553,17 +555,12 @@
                     {% endif %}
                 </td>
 
-                <td class="text-right">
-                    {{ echappement.pot_denox_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ echappement.pot_denox_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
+
 
             <!-- SILENCIEUX -->
             <tr>
+
                 <td>{% trans "Silencieux" %}</td>
 
                 <td>
@@ -588,18 +585,12 @@
                         </span>
                     {% endif %}
                 </td>
-
-                <td class="text-right">
-                    {{ echappement.silencieux_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ echappement.silencieux_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
+
 
             <!-- SONDE LAMBDA AMONT -->
             <tr>
+
                 <td>{% trans "Sonde Lambda amont" %}</td>
 
                 <td>
@@ -625,17 +616,12 @@
                     {% endif %}
                 </td>
 
-                <td class="text-right">
-                    {{ echappement.sonde_lambda_amont_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ echappement.sonde_lambda_amont_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
+
 
             <!-- SONDE LAMBDA AVAL -->
             <tr>
+
                 <td>{% trans "Sonde Lambda aval" %}</td>
 
                 <td>
@@ -660,19 +646,15 @@
                         </span>
                     {% endif %}
                 </td>
-
-                <td class="text-right">
-                    {{ echappement.sonde_lambda_aval_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ echappement.sonde_lambda_aval_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
+
 
             <!-- SONDE FAP AMONT -->
             <tr>
-                <td>{% trans "Sonde de température avant le filtre à particules" %}</td>
+
+                <td>
+                    {% trans "Sonde de température avant le filtre à particules" %}
+                </td>
 
                 <td>
                     {% if echappement.sonde_fap_amont == "OK" %}
@@ -696,19 +678,15 @@
                         </span>
                     {% endif %}
                 </td>
-
-                <td class="text-right">
-                    {{ echappement.sonde_fap_amont_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ echappement.sonde_fap_amont_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
+
 
             <!-- SONDE FAP AVAL -->
             <tr>
-                <td>{% trans "Sonde de température après le filtre à particules" %}</td>
+
+                <td>
+                    {% trans "Sonde de température après le filtre à particules" %}
+                </td>
 
                 <td>
                     {% if echappement.sonde_fap_aval == "OK" %}
@@ -733,18 +711,15 @@
                     {% endif %}
                 </td>
 
-                <td class="text-right">
-                    {{ echappement.sonde_fap_aval_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ echappement.sonde_fap_aval_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
+
 
             <!-- CAPTEUR FAP -->
             <tr>
-                <td>{% trans "Capteur de pression différentielle du filtre à particules" %}</td>
+
+                <td>
+                    {% trans "Capteur de pression différentielle du filtre à particules" %}
+                </td>
 
                 <td>
                     {% if echappement.capteur_fap == "OK" %}
@@ -769,18 +744,15 @@
                     {% endif %}
                 </td>
 
-                <td class="text-right">
-                    {{ echappement.capteur_fap_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ echappement.capteur_fap_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
+
 
             <!-- TUYAUX FAP -->
             <tr>
-                <td>{% trans "Tuyaux du capteur de pression différentielle" %}</td>
+
+                <td>
+                    {% trans "Tuyaux du capteur de pression différentielle" %}
+                </td>
 
                 <td>
                     {% if echappement.tuyau_fap == "OK" %}
@@ -804,18 +776,12 @@
                         </span>
                     {% endif %}
                 </td>
-
-                <td class="text-right">
-                    {{ echappement.tuyau_fap_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ echappement.tuyau_fap_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
+
 
             <!-- RÉGÉNÉRATION FAP -->
             <tr>
+
                 <td>{% trans "Régénération du FAP" %}</td>
 
                 <td>
@@ -841,17 +807,12 @@
                     {% endif %}
                 </td>
 
-                <td class="text-right">
-                    {{ echappement.regeneration_fap_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ echappement.regeneration_fap_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
+
 
             <!-- INJECTEUR ADBLUE -->
             <tr>
+
                 <td>{% trans "Injecteur d'AdBlue" %}</td>
 
                 <td>
@@ -876,18 +837,42 @@
                         </span>
                     {% endif %}
                 </td>
+            </tr>
 
-                <td class="text-right">
-                    {{ echappement.injecteur_ad_quantite|default:0 }}
-                </td>
 
-                <td class="text-right">
-                    {{ echappement.injecteur_ad_prix_achat|default:0|floatformat:2 }} €
+            <!-- VALVE D'ÉCHAPPEMENT -->
+            <tr>
+
+                <td>{% trans "Valve d'échappement" %}</td>
+
+                <td>
+                    {% if echappement.valve == "OK" %}
+                        <span class="ok">
+                            {{ echappement.get_valve_display }}
+                        </span>
+
+                    {% elif echappement.valve == "NOT_OK" %}
+                        <span class="not-ok">
+                            {{ echappement.get_valve_display }}
+                        </span>
+
+                    {% elif echappement.valve == "REMPLACE" %}
+                        <span class="remplace">
+                            {{ echappement.get_valve_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ echappement.get_valve_display|default:"-" }}
+                        </span>
+                    {% endif %}
                 </td>
             </tr>
 
+
             <!-- COLLIER -->
             <tr>
+
                 <td>{% trans "Collier de serrage" %}</td>
 
                 <td>
@@ -912,18 +897,12 @@
                         </span>
                     {% endif %}
                 </td>
-
-                <td class="text-right">
-                    {{ echappement.collier_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ echappement.collier_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
+
 
             <!-- MANCHON -->
             <tr>
+
                 <td>{% trans "Manchon" %}</td>
 
                 <td>
@@ -949,17 +928,12 @@
                     {% endif %}
                 </td>
 
-                <td class="text-right">
-                    {{ echappement.manchon_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ echappement.manchon_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
+
 
             <!-- JOINT -->
             <tr>
+
                 <td>{% trans "Joints" %}</td>
 
                 <td>
@@ -984,18 +958,12 @@
                         </span>
                     {% endif %}
                 </td>
-
-                <td class="text-right">
-                    {{ echappement.joint_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ echappement.joint_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
+
 
             <!-- SILENT BLOC -->
             <tr>
+
                 <td>{% trans "Silent Bloc" %}</td>
 
                 <td>
@@ -1020,19 +988,14 @@
                         </span>
                     {% endif %}
                 </td>
-
-                <td class="text-right">
-                    {{ echappement.silent_bloc_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ echappement.silent_bloc_prix_achat|default:0|floatformat:2 }} €
-                </td>
             </tr>
 
         </tbody>
+
     </table>
+
 </div>
+
 
 <!-- ================================================== -->
 <!-- MESURES DU FILTRE À PARTICULES -->
@@ -1041,25 +1004,34 @@
 <h2>{% trans "Mesures du filtre à particules" %}</h2>
 
 <div class="box">
+
     <div class="grid">
 
         <div>
-            <span class="label">{% trans "Taux de colmatage du FAP" %} :</span>
+            <span class="label">
+                {% trans "Taux de colmatage du FAP" %} :
+            </span>
             {{ echappement.colmatage_fap|default:0 }} %
         </div>
 
         <div>
-            <span class="label">{% trans "Poids des suies du FAP" %} :</span>
+            <span class="label">
+                {% trans "Poids des suies du FAP" %} :
+            </span>
             {{ echappement.suie_fap|default:0 }} g
         </div>
 
         <div>
-            <span class="label">{% trans "Poids des cendres du FAP" %} :</span>
+            <span class="label">
+                {% trans "Poids des cendres du FAP" %} :
+            </span>
             {{ echappement.cendre_fap|default:0 }} g
         </div>
 
     </div>
+
 </div>
+
 
 <!-- ================================================== -->
 <!-- MAIN-D'ŒUVRE -->
@@ -1068,10 +1040,13 @@
 <h2>{% trans "Main d'oeuvre" %}</h2>
 
 <div class="box">
+
     <div class="grid">
 
         <div>
-            <span class="label">{% trans "Temps de travail" %} :</span>
+            <span class="label">
+                {% trans "Temps de travail" %} :
+            </span>
 
             {% if echappement.main_oeuvre %}
                 {{ echappement.main_oeuvre.temps_display|default:"0h00" }}
@@ -1081,7 +1056,9 @@
         </div>
 
         <div>
-            <span class="label">{% trans "Technicien" %} :</span>
+            <span class="label">
+                {% trans "Technicien" %} :
+            </span>
 
             {% if echappement.main_oeuvre and echappement.main_oeuvre.utilisateur %}
                 {{ echappement.main_oeuvre.utilisateur }}
@@ -1092,19 +1069,26 @@
 
         {% if echappement.main_oeuvre and echappement.main_oeuvre.descriptif %}
             <div>
-                <span class="label">{% trans "Descriptif" %} :</span>
+                <span class="label">
+                    {% trans "Descriptif" %} :
+                </span>
+
                 {{ echappement.main_oeuvre.descriptif }}
             </div>
         {% endif %}
 
         {% if echappement.main_oeuvre and echappement.main_oeuvre.cout_total %}
             <div>
-                <span class="label">{% trans "Coût de la main d'œuvre" %} :</span>
+                <span class="label">
+                    {% trans "Coût de la main d'œuvre" %} :
+                </span>
+
                 {{ echappement.main_oeuvre.cout_total|default:0|floatformat:2 }} €
             </div>
         {% endif %}
 
     </div>
+
 </div>
 
 
@@ -1112,20 +1096,30 @@
 <!-- PIÈCES ET PRODUITS -->
 <!-- ================================================== -->
 
-<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+<h2>
+    {% trans "Pièces, produits utilisés et main d'oeuvre" %}
+</h2>
 
 <div class="box">
 
     {% if rapport.lignes %}
 
         <table>
+
             <thead>
                 <tr>
                     <th>{% trans "Pièce / Produit" %}</th>
                     <th>{% trans "État" %}</th>
-                    <th class="text-right">{% trans "Quantité" %}</th>
-                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
-                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">
+                        {% trans "Quantité" %}
+                    </th>
+                    <th class="text-right">
+                        {% trans "Prix unitaire HTVA" %}
+                    </th>
+                    <th class="text-right">
+                        {% trans "Total HTVA" %}
+                    </th>
                 </tr>
             </thead>
 
@@ -1133,37 +1127,48 @@
 
                 {% for ligne in rapport.lignes %}
                     <tr>
+
                         <td>
-                            {{ ligne.champ }}
+                            {{ ligne.champ|default:"-" }}
                         </td>
 
                         <td>
-                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
-                                    <span class="etat-vert">
-                                        {{ ligne.etat_label|default:"-" }}
-                                    </span>
+                            {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
 
-                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
-                                    <span class="etat-rouge">
-                                        {{ ligne.etat_label|default:"-" }}
-                                    </span>
+                                <span class="etat-vert">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
 
-                                {% elif ligne.etat == "REMPLACE" %}
-                                    <span class="etat-bleu">
-                                        {{ ligne.etat_label|default:"-" }}
-                                    </span>
+                            {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
 
-                                {% elif ligne.etat == "REPORTER" %}
-                                    <span class="etat-jaune">
-                                        {{ ligne.etat_label|default:"-" }}
-                                    </span>
+                                <span class="etat-rouge">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
 
-                                {% else %}
-                                    <span class="etat-gris">
-                                        {{ ligne.etat_label|default:"-" }}
-                                    </span>
-                                {% endif %}
-                            </td>
+                            {% elif ligne.etat == "REMPLACE" %}
+
+                                <span class="etat-bleu">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% elif ligne.etat == "REPORTER" %}
+
+                                <span class="etat-jaune">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% else %}
+
+                                <span class="etat-gris">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
 
                         <td class="text-right">
                             {{ ligne.quantite|default:0 }}
@@ -1176,40 +1181,51 @@
                         <td class="text-right">
                             {{ ligne.total|default:0|floatformat:2 }} €
                         </td>
+
                     </tr>
                 {% endfor %}
 
+
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+
+                    <td colspan="5" class="text-right">
                         {% trans "Total pièces et produits HTVA" %}
                     </td>
 
                     <td class="text-right">
                         {{ rapport.total_general|default:0|floatformat:2 }} €
                     </td>
+
                 </tr>
 
+
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+
+                    <td colspan="5" class="text-right">
                         {% trans "Main-d'œuvre" %}
                     </td>
 
                     <td class="text-right">
                         {{ echappement.cout_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
+
                 </tr>
 
-               <tr class="total-general">
-                    <td colspan="4" class="text-right">
+
+                <tr class="total-general">
+
+                    <td colspan="5" class="text-right">
                         {% trans "Total général avec main-d'œuvre" %}
                     </td>
 
                     <td class="text-right">
                         {{ echappement.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
+
                 </tr>
 
             </tbody>
+
         </table>
 
     {% else %}
@@ -1219,31 +1235,44 @@
         </p>
 
         <table>
-            <tbody>
-                <tr class="total">
-                    <td>
-                        <div>
-                            <strong>{% trans "Main-d'œuvre" %}</strong>
-                        </div>
 
-                        <div class="text-right" style="margin-top: 4px;">
-                            {{ echappement.cout_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
+            <tbody>
+
+                <tr class="total">
+
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre" %}
+                        </strong>
                     </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ echappement.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+
                 </tr>
+
 
                 <tr class="total-general">
-                    <td>
-                        <div>
-                            <strong>{% trans "Total général" %}</strong>
-                        </div>
 
-                        <div class="text-right" style="margin-top: 4px;">
-                            {{ echappement.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général" %}
+                        </strong>
                     </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ echappement.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+
                 </tr>
+
             </tbody>
+
         </table>
 
     {% endif %}
@@ -1258,12 +1287,15 @@
 <h2>{% trans "Remarques" %}</h2>
 
 <div class="box remarques">
+
     {% if echappement.remarques %}
         {{ echappement.remarques|linebreaksbr }}
     {% else %}
         {% trans "Aucune remarque." %}
     {% endif %}
+
 </div>
+
 
 <div class="small">
     {% trans "Rapport généré le" %} :
@@ -1272,10 +1304,16 @@
 
 
 <div class="footer">
+
     {% trans "Document généré automatiquement par CarsCosts.com." %}
+
     <br>
-    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+
+    {% trans "Date export" %} :
+    {{ date_export|date:"d/m/Y H:i" }}
+
 </div>
 
 </body>
 </html>
+
