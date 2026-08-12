@@ -4,6 +4,7 @@
 {% block title %}{% trans "Liste des boîtes de vitesse" %}{% endblock %}
 
 {% block content %}
+<br>
 <h1 class="text-2xl font-bold mb-6 flex items-center">
     <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Boîte de vitesse"
          style="width:60px; height:60px; margin-right:10px;">
@@ -25,7 +26,7 @@
         {% endfor %}
     {% endif %}
 
-<br>
+
 <br>
 <div>
      <a href="{% url 'voiture_boite:ajouter_boite' %}"
@@ -100,7 +101,7 @@
 <script>
 $(document).ready(function() {
     var table = $('#boites-table').DataTable({
-        pageLength: 35,
+        pageLength: 20,
         language: {
             search: "{% trans 'Recherche :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
