@@ -1,5 +1,7 @@
 from decimal import Decimal, ROUND_HALF_UP
 
+from django.core.validators import StepValueValidator
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -231,8 +233,9 @@ class Climatisation(TechnicienMixin, models.Model):
     )
     ajout_huile_quantite = models.DecimalField(
         max_digits=8,
-        decimal_places=4,
+        decimal_places=3,
         default=0,
+        validators=[StepValueValidator(0.001)],
         verbose_name=_("Quantité d'huile ajoutée en millilitres"),
     )
 
@@ -266,10 +269,12 @@ class Climatisation(TechnicienMixin, models.Model):
 
     traceur_quantite = models.DecimalField(
         max_digits=8,
-        decimal_places=4,
+        decimal_places=3,
         default=0,
-        verbose_name=_("Quantité de traceur en millilitres"),
+        validators=[StepValueValidator(0.001)],
+        verbose_name=_("Quantité d'huile ajoutée en millilitres")
     )
+
     traceur_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,

@@ -20,6 +20,20 @@ class ClimForm(forms.ModelForm):
                 'rows': 4,
                 'placeholder': _("Ajoutez des remarques ici...")
             }),
+            "ajout_huile_quantite": forms.NumberInput(
+                attrs={
+                    "step": "0.001",
+                    "placeholder": "0.015",
+                    "min": "0",
+                }
+            ),
+            "traceur_quantite": forms.NumberInput(
+                attrs={
+                    "step": "0.001",
+                    "placeholder": "0.015",
+                    "min": "0",
+                }
+            ),
 
         }
 

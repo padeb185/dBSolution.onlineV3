@@ -591,8 +591,6 @@
             <tr>
                 <th>{% trans "Composant" %}</th>
                 <th>{% trans "État" %}</th>
-                <th class="text-right">{% trans "Quantité" %}</th>
-                <th class="text-right">{% trans "Prix d'achat HTVA" %}</th>
             </tr>
         </thead>
 
@@ -617,14 +615,6 @@
                         </span>
                     {% endif %}
                 </td>
-
-                <td class="text-right">
-                    {{ climatisation.tuyaux_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ climatisation.tuyaux_prix|default:0|floatformat:2 }} €
-                </td>
             </tr>
 
             <!-- VALVES -->
@@ -645,14 +635,6 @@
                             {{ climatisation.get_valves_display }}
                         </span>
                     {% endif %}
-                </td>
-
-                <td class="text-right">
-                    {{ climatisation.valves_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ climatisation.valves_prix|default:0|floatformat:2 }} €
                 </td>
             </tr>
 
@@ -675,14 +657,6 @@
                         </span>
                     {% endif %}
                 </td>
-
-                <td class="text-right">
-                    {{ climatisation.deshydrateur_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ climatisation.deshydrateur_prix|default:0|floatformat:2 }} €
-                </td>
             </tr>
 
             <!-- CONDENSEUR -->
@@ -703,14 +677,6 @@
                             {{ climatisation.get_condenseur_display }}
                         </span>
                     {% endif %}
-                </td>
-
-                <td class="text-right">
-                    {{ climatisation.condenseur_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ climatisation.condenseur_prix|default:0|floatformat:2 }} €
                 </td>
             </tr>
 
@@ -733,14 +699,6 @@
                         </span>
                     {% endif %}
                 </td>
-
-                <td class="text-right">
-                    {{ climatisation.compresseur_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ climatisation.compresseur_prix|default:0|floatformat:2 }} €
-                </td>
             </tr>
 
             <!-- ÉVAPORATEUR -->
@@ -761,13 +719,6 @@
                             {{ climatisation.get_evaporateur_display }}
                         </span>
                     {% endif %}
-                </td>
-                <td class="text-right">
-                    {{ climatisation.evaporateur_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ climatisation.evaporateur_prix|default:0|floatformat:2 }} €
                 </td>
             </tr>
 
@@ -790,22 +741,9 @@
                         </span>
                     {% endif %}
                 </td>
-
-                 <td class="text-right">
-                    {{ climatisation.recharge_quantite|default:0 }}
-                </td>
-
-                <td class="text-right">
-                    {{ climatisation.recharge_prix|default:0|floatformat:2 }} €
-                </td>
-
              </tr>
-
-
-
         </tbody>
     </table>
-
 </div>
 
 <!-- ================================================== -->
@@ -912,7 +850,7 @@
                         </td>
 
                        <td>
-                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                {% if ligne.etat == "OK" or ligne.etat == "BON"  or ligne.etat == "PROPRE" %}
                                     <span class="etat-vert">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
@@ -922,7 +860,7 @@
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "REMPLACE" %}
+                                {% elif ligne.etat == "REMPLACE"  or ligne.etat == "FAIT" %}
                                     <span class="etat-bleu">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
