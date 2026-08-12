@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import RouesSerrageEtat, FabricantLubrifiant
+from maintenance.choices import RouesSerrageEtat, FabricantLubrifiant, FabricantPiece
 from maintenance.entretien.models import LiquideFreinsQualite
 from utils.mixin import TechnicienMixin
 from maintenance.services import sync_maintenance
@@ -137,26 +137,32 @@ class Abs(TechnicienMixin, models.Model):
 
 
     pompe_abs = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Pompe d'ABS"))
+    pompe_abs_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"), blank=True)
     pompe_abs_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva de la pompe ABS"))
     pompe_abs_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     calculateur_abs = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Calculateur d'ABS"))
+    calculateur_abs_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"), blank=True)
     calculateur_abs_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du calculateur d'ABS"))
     calculateur_abs_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     capteur_abs_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS avant droit"))
+    capteur_abs_avd_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"), blank=True)
     capteur_abs_avd_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix capteur ABS avant droit"))
     capteur_abs_avd_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     capteur_abs_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS avant gauche"))
+    capteur_abs_avg_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
     capteur_abs_avg_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix capteur ABS avant gauche"))
     capteur_abs_avg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     capteur_abs_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS arrière droit"))
+    capteur_abs_ard_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
     capteur_abs_ard_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix capteur ABS arrière droit"))
     capteur_abs_ard_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     capteur_abs_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS arrière gauche"))
+    capteur_abs_arg_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices, default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
     capteur_abs_arg_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix capteur ABS arrière gauche"))
     capteur_abs_arg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
