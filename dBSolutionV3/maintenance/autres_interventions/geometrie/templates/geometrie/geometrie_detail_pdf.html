@@ -44,6 +44,13 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 6px;
+
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            column-gap: 15px;
+            row-gap: 15px; /* espace vertical */
         }
 
         .label {
@@ -76,7 +83,11 @@
             border-radius: 4px;
             font-weight: bold;
         }
-
+        .carrossage-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
         .etat-gris {
             display: inline-block;
             color: #6b7280;
@@ -317,7 +328,7 @@
 <h2>{% trans "Carrossage" %}</h2>
 
 <div class="box">
-    <div class="grid-3">
+    <div class="carrossage-list">
 
         <div>{% trans "Carrossage AVD" %} : {{ geometrie.carrossage_avant_droit }}°</div>
         <div>{% trans "Carrossage AVG" %} : {{ geometrie.carrossage_avant_gauche }}°</div>
@@ -331,7 +342,7 @@
 <h2>{% trans "Chasse" %}</h2>
 
 <div class="box">
-    <div class="grid-3">
+    <div class="carrossage-list">
 
         <div>{% trans "Chasse droite" %} : {{ geometrie.chasse_droite }}°</div>
         <div>{% trans "Chasse gauche" %} : {{ geometrie.chasse_gauche }}°</div>
@@ -343,7 +354,7 @@
 <h2>{% trans "Pincement" %}</h2>
 
 <div class="box">
-    <div class="grid-3">
+    <div class="carrossage-list">
 
 
         <div>{% trans "Pincement AVD" %} : {{ geometrie.pincement_avant_droit }}°</div>
@@ -359,7 +370,7 @@
 <h2>{% trans "Angle de pivot" %}</h2>
 
 <div class="box">
-    <div class="grid-3">
+    <div class="carrossage-list">
         <div>{% trans "Angle de pivot" %} : {{ geometrie.angle_pivot }}°</div>
     </div>
 </div>
@@ -393,22 +404,21 @@
 </div>
 
 <div class="box">
-    <div class="grid">
+    <div class="carrossage-list">
 
         <div>{% trans "Amortisseurs avant compression" %} : {{ geometrie.amortissement_avant_compression }}</div>
         <div>{% trans "Amortisseurs avant rebond" %} : {{ geometrie.amortissement_avant_rebond }}</div>
 
         <div>{% trans "Amortisseurs arrière compression" %} : {{ geometrie.amortissement_arriere_compression }}</div>
         <div>{% trans "Amortisseurs arrière rebond" %} : {{ geometrie.amortissement_arriere_rebond }}</div>
-
     </div>
 </div>
+
 
 <!-- ================================================== -->
 <!-- MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
 
-<!-- ================= MAIN D'ŒUVRE ================= -->
 
 <h2>{% trans "Main d'œuvre" %}</h2>
 
