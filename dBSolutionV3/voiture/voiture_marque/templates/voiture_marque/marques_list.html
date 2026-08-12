@@ -124,32 +124,8 @@
 
             </div>
 
-           <div class="flex-1">
-                <h2 class="text-lg font-semibold">{{ marque.nom_marque }}</h2>
-                <p class="text-gray-600">
-                    {% trans "Voir les" %} {{ marque.modeles.count }} {% trans "modèles de" %} {{ marque.nom_marque }}
-                </p>
-           </div>
 
-
-            <img
-                src="{% static 'images/marques/' %}{{ marque.nom_fichier_logo }}"
-                alt="{{ marque.nom_marque }}"
-                style="width:75px; margin-right:20px;"
-                onerror="
-                    console.error(
-                        'Logo introuvable :',
-                        '{{ marque.nom_marque|escapejs }}',
-                        this.src
-                    );
-                    this.onerror=null;
-                    this.src='{% static 'images/marques/default.png' %}';
-                "
-            >
-
-</div>
-
-<br>
+    <br>
 <br>
 
 <br>
@@ -162,6 +138,9 @@
 </div>
 <br>
 <br>
+</div>
+
+
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
