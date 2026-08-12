@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
@@ -263,6 +263,7 @@ def admission_check_view(request, exemplaire_id):
         {"title": _("Durites d'admission"), "icon": "icons/durite.png", "filter": "durites_admission"},
         {"title": _("Joints"), "icon": "icons/joint_admission.png", "filter": "joints_admission"},
         {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
+        {"title": _("Pays"), "icon": "icons/pays.png", "filter": "pays"},
         {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
         {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
         {"title": _("Main d'oeuvre"), "icon": "icons/taux.png", "filter": "taux_"},
@@ -424,6 +425,11 @@ def modifier_admission_view(request, admission_id):
             "fields": [form[f.name] for f in form if "joints_admission" in f.name],
         },
         {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [form[f.name] for f in form if "pays" in f.name],
+        },
+        {
             "title": _("Etiquette"),
             "icon": "icons/tag.png",
             "fields": [form[f.name] for f in form if "tag" in f.name],
@@ -458,7 +464,6 @@ def modifier_admission_view(request, admission_id):
 
 
 
-
 @login_required
 def admission_detail_pdf_view(request, pk):
 
@@ -474,34 +479,65 @@ def admission_detail_pdf_view(request, pk):
         pk=pk,
     )
 
+    # Génération du rapport des pièces remplacées
     rapport = admission.generer_rapport_remplacement() or {}
+
     rapport.setdefault("lignes", [])
 
-    # Total des pièces uniquement
-    total_pieces = Decimal(str(
-        rapport.get("total_general") or 0
-    ))
+    # -------------------------
+    # Total des pièces
+    # -------------------------
 
-    # Total de la main-d'œuvre
+    total_pieces = Decimal(
+        str(
+            rapport.get("total_general")
+            or Decimal("0.00")
+        )
+    ).quantize(
+        Decimal("0.01"),
+        rounding=ROUND_HALF_UP,
+    )
+
+    # -------------------------
+    # Main-d'œuvre
+    # -------------------------
+
     if admission.main_oeuvre:
-        cout_main_oeuvre = Decimal(str(
-            admission.main_oeuvre.cout_total or 0
-        ))
+        cout_main_oeuvre = Decimal(
+            str(
+                admission.main_oeuvre.cout_total
+                or Decimal("0.00")
+            )
+        )
     else:
         cout_main_oeuvre = Decimal("0.00")
 
-    # Total pièces + main-d'œuvre
+    cout_main_oeuvre = cout_main_oeuvre.quantize(
+        Decimal("0.01"),
+        rounding=ROUND_HALF_UP,
+    )
+
+    # -------------------------
+    # Total général
+    # -------------------------
+
     total_general_avec_main_oeuvre = (
         total_pieces + cout_main_oeuvre
+    ).quantize(
+        Decimal("0.01"),
+        rounding=ROUND_HALF_UP,
     )
 
     rapport.update({
         "total_pieces": total_pieces,
         "cout_main_oeuvre": cout_main_oeuvre,
-        "total_general_avec_main_oeuvre": (
-            total_general_avec_main_oeuvre
-        ),
+        "total_general_avec_main_oeuvre":
+            total_general_avec_main_oeuvre,
     })
+
+    # -------------------------
+    # Génération HTML
+    # -------------------------
 
     html_string = render_to_string(
         "admission/admission_detail_pdf.html",
@@ -510,13 +546,22 @@ def admission_detail_pdf_view(request, pk):
             "rapport": rapport,
             "date_export": timezone.now(),
             "societe": request.user.societe,
-        }
+        },
+        request=request,
     )
+
+    # -------------------------
+    # Génération PDF
+    # -------------------------
 
     pdf = HTML(
         string=html_string,
-        base_url=request.build_absolute_uri("/")
+        base_url=request.build_absolute_uri("/"),
     ).write_pdf()
+
+    # -------------------------
+    # Nom du fichier
+    # -------------------------
 
     immatriculation = (
         admission.voiture_exemplaire.immatriculation
@@ -531,7 +576,7 @@ def admission_detail_pdf_view(request, pk):
 
     response = HttpResponse(
         pdf,
-        content_type="application/pdf"
+        content_type="application/pdf",
     )
 
     response["Content-Disposition"] = (

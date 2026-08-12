@@ -948,3 +948,239 @@ class CourroieDistributionFabricant(models.TextChoices):
 
     ORIGINE = "ORIGINE", _("Pièce d'origine / OEM")
     AUTRE = "AUTRE", _("Autre")
+
+
+
+
+class FabricantTurbo(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
+    GARRETT = "GARRETT", _("Garrett")
+    BORGWARNER = "BORGWARNER", _("BorgWarner")
+    KKK = "KKK", _("KKK")
+    SCHWITZER = "SCHWITZER", _("Schwitzer")
+
+    MITSUBISHI = "MITSUBISHI", _("Mitsubishi")
+    MHI = "MHI", _("Mitsubishi Heavy Industries (MHI)")
+    IHI = "IHI", _("IHI")
+
+    HOLSET = "HOLSET", _("Holset")
+    CUMMINS = "CUMMINS", _("Cummins Turbo Technologies")
+
+    CONTINENTAL = "CONTINENTAL", _("Continental")
+    MAHLE = "MAHLE", _("MAHLE")
+    BOSCH_MAHLE = "BOSCH_MAHLE", _("Bosch Mahle Turbo Systems")
+
+    HITACHI = "HITACHI", _("Hitachi")
+    TOYOTA = "TOYOTA", _("Toyota")
+    AISIN = "AISIN", _("Aisin")
+
+    HONEYWELL = "HONEYWELL", _("Honeywell")
+    ROTOMASTER = "ROTOMASTER", _("Rotomaster")
+
+    TURBO_TECHNICS = "TURBO_TECHNICS", _("Turbo Technics")
+    TURBOSMART = "TURBOSMART", _("Turbosmart")
+    TURBONETICS = "TURBONETICS", _("Turbonetics")
+    PRECISION = "PRECISION", _("Precision Turbo & Engine")
+    COMP_TURBO = "COMP_TURBO", _("Comp Turbo")
+    TIAL = "TIAL", _("TiAL Sport")
+
+    TTE = "TTE", _("The Turbo Engineers (TTE)")
+    LOBA = "LOBA", _("LOBA Motorsport")
+    WEISTEC = "WEISTEC", _("Weistec")
+    PURE_TURBOS = "PURE_TURBOS", _("Pure Turbos")
+
+    MELETT = "MELETT", _("Melett")
+    JRONE = "JRONE", _("JRone")
+    SL_TURBO = "SL_TURBO", _("SL Turbo")
+
+    NISSENS = "NISSENS", _("Nissens")
+    DELPHI = "DELPHI", _("Delphi")
+    NRF = "NRF", _("NRF")
+
+    RIDEX = "RIDEX", _("RIDEX")
+    STARK = "STARK", _("STARK")
+    ALANKO = "ALANKO", _("ALANKO")
+    LUCAS = "LUCAS", _("Lucas")
+    BTS_TURBO = "BTS_TURBO", _("BTS Turbo")
+    BE_TURBO = "BE_TURBO", _("BE Turbo")
+    TURBO_MOTOR = "TURBO_MOTOR", _("Turbo Motor")
+    MOTAIR = "MOTAIR", _("Motair")
+    ELSTOCK = "ELSTOCK", _("Elstock")
+    TURBO_S_M = "TURBO_S_M", _("Turbo's Hoet")
+
+    AUTRE = "AUTRE", _("Autre")
+
+
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+
+
+class FabricantIntercooler(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
+    # Fabricants OEM / équipementiers
+    MAHLE = "MAHLE", _("MAHLE")
+    BEHR = "BEHR", _("Behr")
+    VALEO = "VALEO", _("Valeo")
+    DENSO = "DENSO", _("Denso")
+    DELPHI = "DELPHI", _("Delphi")
+    MODINE = "MODINE", _("Modine")
+    HANON = "HANON", _("Hanon Systems")
+    SANDEN = "SANDEN", _("Sanden")
+    MARELLI = "MARELLI", _("Marelli")
+    NRF = "NRF", _("NRF")
+    NISSENS = "NISSENS", _("Nissens")
+    AVA = "AVA", _("AVA Cooling Systems")
+    KOYORAD = "KOYORAD", _("Koyorad")
+    TYC = "TYC", _("TYC")
+
+    # Turbo / systèmes de suralimentation
+    GARRETT = "GARRETT", _("Garrett")
+    BORGWARNER = "BORGWARNER", _("BorgWarner")
+    MITSUBISHI = "MITSUBISHI", _("Mitsubishi")
+    IHI = "IHI", _("IHI")
+
+    # Performance / compétition
+    WAGNER_TUNING = "WAGNER_TUNING", _("Wagner Tuning")
+    MISHIMOTO = "MISHIMOTO", _("Mishimoto")
+    FORGE = "FORGE", _("Forge Motorsport")
+    AIRTEC = "AIRTEC", _("AIRTEC Motorsport")
+    DO88 = "DO88", _("do88")
+    CSF = "CSF", _("CSF")
+    PWR = "PWR", _("PWR")
+    PROALLOY = "PROALLOY", _("Pro Alloy")
+    TURBOSMART = "TURBOSMART", _("Turbosmart")
+    AMS = "AMS", _("AMS Performance")
+    APR = "APR", _("APR")
+    CTS_TURBO = "CTS_TURBO", _("CTS Turbo")
+    DINAN = "DINAN", _("Dinan")
+    COBB = "COBB", _("COBB Tuning")
+
+    # Aftermarket / remplacement
+    HELLA = "HELLA", _("HELLA")
+    RIDEX = "RIDEX", _("RIDEX")
+    STARK = "STARK", _("STARK")
+    FEBI = "FEBI", _("FEBI Bilstein")
+    MEYLE = "MEYLE", _("MEYLE")
+    METZGER = "METZGER", _("Metzger")
+    VAN_WEZEL = "VAN_WEZEL", _("Van Wezel")
+    PRASCO = "PRASCO", _("Prasco")
+    THERMOTEC = "THERMOTEC", _("Thermotec")
+    KALE = "KALE", _("KALE")
+    JP_GROUP = "JP_GROUP", _("JP Group")
+    MAXGEAR = "MAXGEAR", _("MAXGEAR")
+    ABAKUS = "ABAKUS", _("ABAKUS")
+
+    AUTRE = "AUTRE", _("Autre")
+
+
+
+class FabricantVanneEGR(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
+    # Équipementiers / OEM
+    BOSCH = "BOSCH", _("Bosch")
+    PIERBURG = "PIERBURG", _("Pierburg")
+    WAHLER = "WAHLER", _("Wahler")
+    DELPHI = "DELPHI", _("Delphi")
+    DENSO = "DENSO", _("Denso")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
+    VDO = "VDO", _("VDO")
+    HELLA = "HELLA", _("HELLA")
+    VALEO = "VALEO", _("Valeo")
+    MARELLI = "MARELLI", _("Marelli")
+    HITACHI = "HITACHI", _("Hitachi")
+    AISIN = "AISIN", _("Aisin")
+    MAHLE = "MAHLE", _("MAHLE")
+
+    # Aftermarket
+    FEBI = "FEBI", _("FEBI Bilstein")
+    SWAG = "SWAG", _("SWAG")
+    MEYLE = "MEYLE", _("MEYLE")
+    METZGER = "METZGER", _("Metzger")
+    ERA = "ERA", _("ERA")
+    FACET = "FACET", _("Facet")
+    VEMO = "VEMO", _("VEMO")
+    TOPRAN = "TOPRAN", _("Topran")
+    MAPCO = "MAPCO", _("MAPCO")
+    TRISCAN = "TRISCAN", _("Triscan")
+    SIDAT = "SIDAT", _("SIDAT")
+    FISPA = "FISPA", _("FISPA")
+    NRF = "NRF", _("NRF")
+    NTY = "NTY", _("NTY")
+    RIDEX = "RIDEX", _("RIDEX")
+    STARK = "STARK", _("STARK")
+    MAXGEAR = "MAXGEAR", _("MAXGEAR")
+    ABAKUS = "ABAKUS", _("ABAKUS")
+    ESEN_SKV = "ESEN_SKV", _("ESEN SKV")
+    MEAT_DORIA = "MEAT_DORIA", _("Meat & Doria")
+    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
+    HERTH_BUSS = "HERTH_BUSS", _("Herth+Buss")
+    QUINTON_HAZELL = "QUINTON_HAZELL", _("Quinton Hazell")
+
+    AUTRE = "AUTRE", _("Autre")
+
+
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+
+
+class FabricantDurite(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
+    # OEM / grands équipementiers
+    CONTINENTAL = "CONTINENTAL", _("Continental")
+    CONTITECH = "CONTITECH", _("ContiTech")
+    GATES = "GATES", _("Gates")
+    DAYCO = "DAYCO", _("Dayco")
+    HUTCHINSON = "HUTCHINSON", _("Hutchinson")
+    PARKER = "PARKER", _("Parker")
+    COHLINE = "COHLINE", _("Cohline")
+    NORMA = "NORMA", _("NORMA Group")
+    VERITAS = "VERITAS", _("Veritas")
+    FREUDENBERG = "FREUDENBERG", _("Freudenberg")
+    TEKNIKUM = "TEKNIKUM", _("Teknikum")
+
+    # Refroidissement / moteur
+    MAHLE = "MAHLE", _("MAHLE")
+    BEHR = "BEHR", _("Behr")
+    VALEO = "VALEO", _("Valeo")
+    NISSENS = "NISSENS", _("Nissens")
+    NRF = "NRF", _("NRF")
+    METZGER = "METZGER", _("Metzger")
+    MEYLE = "MEYLE", _("MEYLE")
+    FEBI = "FEBI", _("FEBI Bilstein")
+    SWAG = "SWAG", _("SWAG")
+    TOPRAN = "TOPRAN", _("Topran")
+    VAICO = "VAICO", _("VAICO")
+
+    # Turbo / intercooler / admission
+    FORGE = "FORGE", _("Forge Motorsport")
+    SAMCO = "SAMCO", _("Samco Sport")
+    DO88 = "DO88", _("do88")
+    MISHIMOTO = "MISHIMOTO", _("Mishimoto")
+    WAGNER_TUNING = "WAGNER_TUNING", _("Wagner Tuning")
+    AIRTEC = "AIRTEC", _("AIRTEC Motorsport")
+
+    # Carburant / huile / hydraulique
+    BOSCH = "BOSCH", _("Bosch")
+    DELPHI = "DELPHI", _("Delphi")
+    PIERBURG = "PIERBURG", _("Pierburg")
+    HELLA = "HELLA", _("HELLA")
+
+    # Aftermarket
+    IMPERGOM = "IMPERGOM", _("Impergom")
+    RAPRO = "RAPRO", _("Rapro")
+    THERMOTEC = "THERMOTEC", _("Thermotec")
+    TRISCAN = "TRISCAN", _("Triscan")
+    MAPCO = "MAPCO", _("MAPCO")
+    JP_GROUP = "JP_GROUP", _("JP Group")
+    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
+    HERTH_BUSS = "HERTH_BUSS", _("Herth+Buss")
+    RIDEX = "RIDEX", _("RIDEX")
+    STARK = "STARK", _("STARK")
+    MAXGEAR = "MAXGEAR", _("MAXGEAR")
+    ABAKUS = "ABAKUS", _("ABAKUS")
+
+    AUTRE = "AUTRE", _("Autre")

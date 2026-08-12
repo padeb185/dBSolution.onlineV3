@@ -116,6 +116,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
         with schema_context(schema_name):
 
             # ---------------- BOITE / CHASSIS ----------------
+            # ---------------- BOITE / CHASSIS ----------------
+
             boite = ControleBoite.objects.filter(
                 voiture_exemplaire=exemplaire
             )
@@ -135,6 +137,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
             remplacement_boite = RemplacementBoite.objects.filter(
                 voiture_exemplaire=exemplaire
             )
+
             courroie_access = CourroieAccessoires.objects.filter(
                 voiture_exemplaire=exemplaire
             )
@@ -142,9 +145,16 @@ def choisir_autre_maintenance(request, exemplaire_id):
             echappement = Echappement.objects.filter(
                 voiture_exemplaire=exemplaire
             )
+
             refroidissement = Refroidissement.objects.filter(
                 voiture_exemplaire=exemplaire
             )
+
+            climatisation = Climatisation.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
+
+            # ---------------- TOTALS ----------------
 
             total_boite = boite.count()
             total_bte_auto = bte_auto.count()
@@ -153,8 +163,12 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_remplacement_boite = remplacement_boite.count()
             total_access = courroie_access.count()
             total_echappement = echappement.count()
+            total_clim = climatisation.count()
+            total_ref = refroidissement.count()
+            total_turbo = turbo.count()
 
             # ---------------- MOTEUR ----------------
+
             admission = Admission.objects.filter(
                 voiture_exemplaire=exemplaire
             )
@@ -175,11 +189,22 @@ def choisir_autre_maintenance(request, exemplaire_id):
                 voiture_exemplaire=exemplaire
             )
 
-            climatisation = Climatisation.objects.filter(
-                voiture_exemplaire=exemplaire
+            total_turbo = turbo.count()
+
+            total_int_moteur = (
+                    admission.count()
+                    + alternateur.count()
+                    + courroie.count()
+                    + turbo.count()
+                    + remplacement_moteur.count()
             )
 
-            total_turbo = turbo.count()
+            total_int_boite = (
+                    total_boite
+                    + total_remplacement_boite
+            )
+
+            modeles = VoitureModele.objects.all()
 
             total_int_moteur = (
                 admission.count()
