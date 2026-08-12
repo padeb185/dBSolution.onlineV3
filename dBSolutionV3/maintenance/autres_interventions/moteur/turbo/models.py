@@ -1,9 +1,9 @@
 from decimal import Decimal, ROUND_HALF_UP
 from django.conf import settings
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, FieldDoesNotExist
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.choices import TAUX_HORAIRE_CHOICES
+from maintenance.choices import TAUX_HORAIRE_CHOICES, FabricantTurbo, FabricantIntercooler, FabricantCapteurEchappement
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -132,19 +132,23 @@ class Turbo(TechnicienMixin, models.Model):
 
 
     turbos = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Turbo à remplacer"))
+    turbos_fabricant = models.CharField(max_length=25, choices=FabricantTurbo.choices, default=FabricantTurbo.CHOISIR,verbose_name=_("Fabricant"), blank=True)
     turbos_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     turbos_quantite = models.IntegerField(default=0)
 
 
     intercooler = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Intercooler"))
+    intercooler_fabricant = models.CharField(max_length=25, choices=FabricantIntercooler.choices,default=FabricantIntercooler.CHOISIR, verbose_name=_("Fabricant"),blank=True)
     intercooler_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     intercooler_quantite = models.IntegerField(default=0)
 
     electrovanne = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Electro-vanne"))
+    electrovanne_fabricant = models.CharField(max_length=25, choices=FabricantCapteurEchappement.choices,default=FabricantCapteurEchappement.CHOISIR, verbose_name=_("Fabricant"),blank=True)
     electrovanne_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     electrovanne_quantite = models.IntegerField(default=0)
 
     joints = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Joints"))
+    joints_fabricant = models.CharField(max_length=25, choices=FabricantTurbo.choices,default=FabricantTurbo.CHOISIR, verbose_name=_("Fabricant"),blank=True)
     joints_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     joints_quantite = models.IntegerField(default=0)
 
@@ -282,8 +286,7 @@ class Turbo(TechnicienMixin, models.Model):
         for field in self._meta.fields:
             field_name = field.name
 
-            # On garde uniquement les champs CharField
-            # utilisant les choix EtatOKNotOK
+            # Uniquement les CharField utilisant EtatOKNotOK
             if not (
                     isinstance(field, models.CharField)
                     and field.choices == EtatOKNotOK.choices
@@ -292,12 +295,46 @@ class Turbo(TechnicienMixin, models.Model):
 
             etat = getattr(self, field_name, None)
 
+            # Uniquement à remplacer ou remplacé
             if etat not in [
                 EtatOKNotOK.NOT_OK,
                 EtatOKNotOK.REMPLACE,
             ]:
                 continue
 
+            # -------------------------
+            # FABRICANT
+            # -------------------------
+            fabricant_field_name = f"{field_name}_fabricant"
+
+            fabricant = getattr(
+                self,
+                fabricant_field_name,
+                None,
+            )
+
+            fabricant_label = fabricant
+
+            try:
+                fabricant_field = self._meta.get_field(
+                    fabricant_field_name
+                )
+
+                if fabricant_field.choices:
+                    fabricant_label = dict(
+                        fabricant_field.choices
+                    ).get(
+                        fabricant,
+                        fabricant,
+                    )
+
+            except FieldDoesNotExist:
+                fabricant = None
+                fabricant_label = None
+
+            # -------------------------
+            # PRIX
+            # -------------------------
             prix = getattr(
                 self,
                 f"{field_name}_prix",
@@ -309,6 +346,9 @@ class Turbo(TechnicienMixin, models.Model):
 
             prix = Decimal(str(prix))
 
+            # -------------------------
+            # QUANTITÉ
+            # -------------------------
             quantite = getattr(
                 self,
                 f"{field_name}_quantite",
@@ -320,16 +360,31 @@ class Turbo(TechnicienMixin, models.Model):
 
             quantite = Decimal(str(quantite))
 
+            # Ne pas inclure si quantité = 0
+            if quantite <= 0:
+                continue
+
+            # -------------------------
+            # TOTAL
+            # -------------------------
             total = prix * quantite
             total_general += total
 
+            # -------------------------
+            # RAPPORT
+            # -------------------------
             rapport.append({
                 "champ": field.verbose_name,
                 "code": field_name,
+
                 "etat": etat,
                 "etat_label": dict(
                     EtatOKNotOK.choices
                 ).get(etat, etat),
+
+                "fabricant": fabricant,
+                "fabricant_label": fabricant_label,
+
                 "prix": prix,
                 "quantite": quantite,
                 "total": total,
@@ -339,6 +394,10 @@ class Turbo(TechnicienMixin, models.Model):
             "lignes": rapport,
             "total_general": total_general,
         }
+
+
+
+
 
     def calcul_piece(self, prefix):
         prix = getattr(self, f"{prefix}_prix", 0)

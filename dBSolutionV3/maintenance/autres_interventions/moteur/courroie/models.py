@@ -386,60 +386,117 @@ class CourroieDistribution(TechnicienMixin, models.Model):
         total_general = Decimal("0.00")
 
         pieces = [
-            ("courroie_distribution", "Courroie de distribution"),
-            ("pompe_a_eau", "Pompe à eau"),
+            ("courroie_distribution", _("Courroie de distribution")),
+            ("galet_enrouleur", _("Galet enrouleur")),
+            ("galet_tendeur", _("Galet tendeur")),
+            ("pompe_a_eau", _("Pompe à eau")),
             ("refroidissement", _("Liquide de refroidissement")),
         ]
 
         for prefix, label in pieces:
             etat = getattr(self, prefix, None)
 
-            if etat in [
+            if etat not in [
                 EtatOKNotOK.NOT_OK,
                 EtatOKNotOK.REMPLACE,
             ]:
-                prix = getattr(
-                    self,
-                    f"{prefix}_prix",
-                    Decimal("0.00"),
+                continue
+
+            # -------------------------
+            # FABRICANT
+            # -------------------------
+            fabricant = getattr(
+                self,
+                f"{prefix}_fabricant",
+                None,
+            )
+
+            fabricant_label = fabricant
+
+            # Récupérer le libellé du choix fabricant
+            try:
+                fabricant_field = self._meta.get_field(
+                    f"{prefix}_fabricant"
                 )
 
-                if prix is None:
-                    prix = Decimal("0.00")
+                if fabricant_field.choices:
+                    fabricant_label = dict(
+                        fabricant_field.choices
+                    ).get(
+                        fabricant,
+                        fabricant,
+                    )
 
-                prix = Decimal(str(prix))
+            except FieldDoesNotExist:
+                fabricant = None
+                fabricant_label = None
 
-                quantite = getattr(
-                    self,
-                    f"{prefix}_quantite",
-                    0,
-                )
+            # -------------------------
+            # PRIX
+            # -------------------------
+            prix = getattr(
+                self,
+                f"{prefix}_prix",
+                Decimal("0.00"),
+            )
 
-                if quantite is None:
-                    quantite = 0
+            if prix is None:
+                prix = Decimal("0.00")
 
-                quantite = Decimal(str(quantite))
+            prix = Decimal(str(prix))
 
-                total = prix * quantite
-                total_general += total
+            # -------------------------
+            # QUANTITÉ
+            # -------------------------
+            quantite = getattr(
+                self,
+                f"{prefix}_quantite",
+                0,
+            )
 
-                rapport.append({
-                    "champ": label,
-                    "code": prefix,
-                    "etat": etat,
-                    "etat_label": dict(
-                        EtatOKNotOK.choices
-                    ).get(etat, etat),
-                    "prix": prix,
-                    "quantite": quantite,
-                    "total": total,
-                })
+            if quantite is None:
+                quantite = 0
+
+            quantite = Decimal(str(quantite))
+
+            # Quantité 0 = ne pas ajouter au rapport
+            # et ne pas inclure dans les totaux
+            if quantite <= 0:
+                continue
+
+            # -------------------------
+            # TOTAL
+            # -------------------------
+            total = prix * quantite
+            total_general += total
+
+            # -------------------------
+            # RAPPORT
+            # -------------------------
+            rapport.append({
+                "champ": label,
+                "code": prefix,
+
+                "etat": etat,
+                "etat_label": dict(
+                    EtatOKNotOK.choices
+                ).get(
+                    etat,
+                    etat,
+                ),
+
+                "fabricant": fabricant,
+                "fabricant_label": fabricant_label,
+
+                "prix": prix,
+                "quantite": quantite,
+                "total": total,
+            })
 
         return {
             "lignes": rapport,
             "total_general": total_general,
         }
-
 
 
     @property

@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
+from maintenance.choices import FabricantAlternateur, FabricantCourroie
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 from decimal import Decimal
@@ -163,11 +164,13 @@ class Alternateur(TechnicienMixin, models.Model):
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK
     )
+    alternateur_fabricant = models.CharField(max_length=25, choices=FabricantAlternateur.choices,default=FabricantAlternateur.CHOISIR, verbose_name=_("Fabricant"),blank=True)
     alternateur_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
     alternateur_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     # Courroie
     courroie_accessoires = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Courroie d'accessoires"))
+    courroie_accessoires_fabricant = models.CharField(max_length=25, choices=FabricantCourroie.choices,default=FabricantCourroie.CHOISIR, verbose_name=_("Fabricant"),blank=True)
     courroie_accessoires_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
     courroie_accessoires_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
@@ -334,7 +337,7 @@ class Alternateur(TechnicienMixin, models.Model):
         for field in self._meta.fields:
             field_name = field.name
 
-            # uniquement les champs utilisant EtatOKNotOK
+            # Uniquement les champs utilisant EtatOKNotOK
             if (
                     isinstance(field, models.CharField)
                     and field.choices == EtatOKNotOK.choices
@@ -346,7 +349,10 @@ class Alternateur(TechnicienMixin, models.Model):
                     EtatOKNotOK.NOT_OK,
                     EtatOKNotOK.REMPLACE,
                 ]:
-                    # récupération sécurisée du prix
+
+                    # -----------------------------
+                    # PRIX
+                    # -----------------------------
                     prix = getattr(
                         self,
                         f"{field_name}_prix_achat",
@@ -358,7 +364,9 @@ class Alternateur(TechnicienMixin, models.Model):
 
                     prix = Decimal(str(prix))
 
-                    # récupération sécurisée de la quantité
+                    # -----------------------------
+                    # QUANTITÉ
+                    # -----------------------------
                     quantite = getattr(
                         self,
                         f"{field_name}_quantite",
@@ -370,16 +378,50 @@ class Alternateur(TechnicienMixin, models.Model):
 
                     quantite = Decimal(str(quantite))
 
+                    # -----------------------------
+                    # FABRICANT
+                    # -----------------------------
+                    fabricant_field_name = f"{field_name}_fabricant"
+
+                    fabricant = getattr(
+                        self,
+                        fabricant_field_name,
+                        None,
+                    )
+
+                    fabricant_label = "-"
+
+                    # Si le champ fabricant existe dans le modèle
+                    if fabricant is not None:
+                        display_method = getattr(
+                            self,
+                            f"get_{fabricant_field_name}_display",
+                            None,
+                        )
+
+                        if callable(display_method):
+                            fabricant_label = display_method()
+                        else:
+                            fabricant_label = fabricant
+
+                    # -----------------------------
+                    # TOTAL
+                    # -----------------------------
                     total = prix * quantite
                     total_general += total
 
                     rapport.append({
                         "champ": field.verbose_name,
                         "code": field_name,
+
                         "etat": valeur,
                         "etat_label": dict(
                             EtatOKNotOK.choices
                         ).get(valeur, valeur),
+
+                        "fabricant": fabricant,
+                        "fabricant_label": fabricant_label,
+
                         "prix": prix,
                         "quantite": quantite,
                         "total": total,

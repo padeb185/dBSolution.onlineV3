@@ -223,6 +223,16 @@ def courroie_form_view(request, exemplaire_id):
             "fields": [form[f.name] for f in form if "courroie_distribution" in f.name],
         },
         {
+            "title": _("Galet enrouleur"),
+            "icon": "icons/galet-enrouleur.png",
+            "fields": [form[f.name] for f in form if "galet_enrouleur" in f.name],
+        },
+        {
+            "title": _("Galet tendeur"),
+            "icon": "icons/galet-tendeur.png",
+            "fields": [form[f.name] for f in form if "galet_tendeur" in f.name],
+        },
+        {
             "title": _("Pompe à eau"),
             "icon": "icons/pompe-a-eau.png",
             "fields": [form[f.name] for f in form if "pompe" in f.name],
@@ -371,6 +381,16 @@ def modifier_courroie_view(request, courroie_id):
             "title": _("Courroie de distribution"),
             "icon": "icons/courroie-de-distribution.png",
             "fields": [form[f.name] for f in form if "courroie" in f.name],
+        },
+        {
+            "title": _("Galet enrouleur"),
+            "icon": "icons/galet-enrouleur.png",
+            "fields": [form[f.name] for f in form if "galet_enrouleur" in f.name],
+        },
+        {
+            "title": _("Galet tendeur"),
+            "icon": "icons/galet-tendeur.png",
+            "fields": [form[f.name] for f in form if "galet_tendeur" in f.name],
         },
         {
             "title": _("Pompe à eau"),

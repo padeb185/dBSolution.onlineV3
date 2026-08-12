@@ -533,12 +533,43 @@ class Rodage(TechnicienMixin, models.Model):
         verbose_name=_("Quantité"),
     )
 
+    from decimal import Decimal
 
-    pneu_pression_bar_avd = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant droit en bar"), validators=[StepValueValidator(0.1)])
-    pneu_pression_bar_avg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant gauche en bar"), validators=[StepValueValidator(0.1)])
-    pneu_pression_bar_ard = models.FloatField(default=2.4, verbose_name=_("Pression du pneu arrière droit en bar"), validators=[StepValueValidator(0.1)])
-    pneu_pression_bar_arg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu arrière gauche en bar"), validators=[StepValueValidator(0.1)])
+    from django.core.validators import StepValueValidator
+    from django.db import models
+    from django.utils.translation import gettext_lazy as _
 
+    pneu_pression_bar_avd = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        default=Decimal("2.4"),
+        verbose_name=_("Pression du pneu avant droit en bar"),
+        validators=[StepValueValidator(Decimal("0.1"))],
+    )
+
+    pneu_pression_bar_avg = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        default=Decimal("2.4"),
+        verbose_name=_("Pression du pneu avant gauche en bar"),
+        validators=[StepValueValidator(Decimal("0.1"))],
+    )
+
+    pneu_pression_bar_ard = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        default=Decimal("2.4"),
+        verbose_name=_("Pression du pneu arrière droit en bar"),
+        validators=[StepValueValidator(Decimal("0.1"))],
+    )
+
+    pneu_pression_bar_arg = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        default=Decimal("2.4"),
+        verbose_name=_("Pression du pneu arrière gauche en bar"),
+        validators=[StepValueValidator(Decimal("0.1"))],
+    )
     serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE, verbose_name=_("Serrage des roues"))
 
     piece = models.ForeignKey(
