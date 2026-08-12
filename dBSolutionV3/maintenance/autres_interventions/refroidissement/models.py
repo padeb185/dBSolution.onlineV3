@@ -1,15 +1,15 @@
 from decimal import Decimal, ROUND_HALF_UP
-
 from django.conf import settings
-
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-
+from maintenance.choices import RefroidissementFabricant, FabricantPiece, FabricantCapteurEchappement, FabricantDurite
 from maintenance.models import Maintenance
 from maindoeuvre.models import MainDoeuvre
 from utils.mixin import TechnicienMixin
+
+
 
 
 # ==========================================================
@@ -162,14 +162,6 @@ class Refroidissement(TechnicienMixin, models.Model):
     )
 
 
-
-    pays = models.CharField(
-        max_length=2,
-        choices=PAYS_CHOICES,
-        verbose_name=_("Pays"),
-        default="BE",
-    )
-
     # ======================================================
     # DIAGNOSTIC GÉNÉRAL
     # ======================================================
@@ -291,12 +283,13 @@ class Refroidissement(TechnicienMixin, models.Model):
         default=Decimal("0.00"),
     )
 
-    liquide_prix_achat = models.DecimalField(
+    liquide_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         verbose_name=_("Prix d'achat HTVA du liquide de refroidissement"),
         default=Decimal("0.00"),
     )
+    liquide_fabricant = models.CharField(max_length=25, choices=RefroidissementFabricant.choices,default=RefroidissementFabricant.CHOISIR, verbose_name=_("Fabricant"),blank=True)
 
 
 
@@ -357,7 +350,7 @@ class Refroidissement(TechnicienMixin, models.Model):
         default=False,
     )
 
-    ventilateur_prix_achat = models.DecimalField(
+    ventilateur_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         verbose_name=_("Prix d'achat HTVA du ventilateur"),
@@ -368,7 +361,7 @@ class Refroidissement(TechnicienMixin, models.Model):
         verbose_name=_("Quantité de ventilateurs"),
         default=0,
     )
-
+    ventilateur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
 
     # ======================================================
     # RADIATEUR
@@ -396,7 +389,7 @@ class Refroidissement(TechnicienMixin, models.Model):
         default=False,
     )
 
-    radiateur_prix_achat = models.DecimalField(
+    radiateur_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         verbose_name=_("Prix d'achat HTVA du radiateur"),
@@ -407,7 +400,7 @@ class Refroidissement(TechnicienMixin, models.Model):
         verbose_name=_("Quantité de radiateurs"),
         default=1,
     )
-
+    radiateur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"), blank=True)
 
     # ======================================================
     # THERMOSTAT
@@ -434,7 +427,7 @@ class Refroidissement(TechnicienMixin, models.Model):
         blank=True,
     )
 
-    thermostat_prix_achat = models.DecimalField(
+    thermostat_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         verbose_name=_("Prix d'achat HTVA du thermostat"),
@@ -445,6 +438,8 @@ class Refroidissement(TechnicienMixin, models.Model):
         verbose_name=_("Quantité de thermostats"),
         default=1,
     )
+
+    thermostat_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"), blank=True)
 
     # ======================================================
     # BOÎTIER D'EAU
@@ -467,7 +462,7 @@ class Refroidissement(TechnicienMixin, models.Model):
         default=False,
     )
 
-    boitier_eau_prix_achat = models.DecimalField(
+    boitier_eau_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         verbose_name=_("Prix d'achat HTVA du boîtier d'eau"),
@@ -478,7 +473,7 @@ class Refroidissement(TechnicienMixin, models.Model):
         verbose_name=_("Quantité de boîtiers d'eau"),
         default=1,
     )
-
+    boitier_eau_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"), blank=True)
 
     # ======================================================
     # SONDE DE TEMPÉRATURE
@@ -505,7 +500,7 @@ class Refroidissement(TechnicienMixin, models.Model):
         default=True,
     )
 
-    sonde_t_prix_achat = models.DecimalField(
+    sonde_t_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         verbose_name=_("Prix d'achat HTVA de la sonde de température"),
@@ -516,6 +511,7 @@ class Refroidissement(TechnicienMixin, models.Model):
         verbose_name=_("Quantité de sondes de température"),
         default=1,
     )
+    sonde_t_fabricant = models.CharField(max_length=25, choices=FabricantCapteurEchappement.choices, default=FabricantCapteurEchappement.CHOISIR, verbose_name=_("Fabricant"), blank=True)
 
     # ======================================================
     # DURITES
@@ -548,7 +544,7 @@ class Refroidissement(TechnicienMixin, models.Model):
         default=True,
     )
 
-    durites_prix_achat = models.DecimalField(
+    durites_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         verbose_name=_("Prix d'achat HTVA des durites"),
@@ -559,7 +555,7 @@ class Refroidissement(TechnicienMixin, models.Model):
         verbose_name=_("Quantité de durites"),
         default=1,
     )
-
+    durites_fabricant = models.CharField(max_length=25, choices=FabricantDurite.choices,default=FabricantDurite.CHOISIR, verbose_name=_("Fabricant"), blank=True)
 
     # ======================================================
     # CHAUFFERETTE / RADIATEUR DE CHAUFFAGE
@@ -597,7 +593,7 @@ class Refroidissement(TechnicienMixin, models.Model):
         default=False,
     )
 
-    chaufferette_prix_achat = models.DecimalField(
+    chaufferette_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         verbose_name=_("Prix d'achat HTVA du radiateur de chauffage"),
@@ -609,7 +605,7 @@ class Refroidissement(TechnicienMixin, models.Model):
         default=1,
     )
 
-
+    chaufferette_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"), blank=True)
 
     # ======================================================
     # REMARQUES ET ÉTIQUETTE
@@ -717,19 +713,19 @@ class Refroidissement(TechnicienMixin, models.Model):
         erreurs = {}
 
         champs_numeriques = [
-            "liquide_prix_achat",
+            "liquide_prix",
             "liquide_quantite",
-            "ventilateur_prix_achat",
+            "ventilateur_prix",
             "ventilateur_quantite",
-            "radiateur_prix_achat",
+            "radiateur_prix",
             "radiateur_quantite",
-            "thermostat_prix_achat",
+            "thermostat_prix",
             "thermostat_quantite",
-            "boitier_eau_prix_achat",
+            "boitier_eau_prix",
             "boitier_eau_quantite",
-            "sonde_t_prix_achat",
+            "sonde_t_prix",
             "sonde_t_quantite",
-            "durites_prix_achat",
+            "durites_prix",
             "durites_quantite",
         ]
 
@@ -774,77 +770,23 @@ class Refroidissement(TechnicienMixin, models.Model):
             / Decimal("100")
         )
 
-        prix_achat = Decimal(str(prix_achat))
+        prix = Decimal(str(prix_achat))
         quantite = Decimal(str(quantite))
 
-        total_achat = prix_achat * quantite
+        total_achat = prix * quantite
 
-        tva_achat = (total_achat * taux_tva).quantize(
-            Decimal("0.01"),
-            rounding=ROUND_HALF_UP,
-        )
 
-        prix_vente_htva = total_achat.quantize(
-            Decimal("0.01"),
-            rounding=ROUND_HALF_UP,
-        )
 
-        tva_vente = (prix_vente_htva * taux_tva).quantize(
-            Decimal("0.01"),
-            rounding=ROUND_HALF_UP,
-        )
-
-        prix_ttc = (prix_vente_htva + tva_vente).quantize(
-            Decimal("0.01"),
-            rounding=ROUND_HALF_UP,
-        )
-
-        setattr(self, f"{prefix}_tva_achat", tva_achat)
-        setattr(
-            self,
-            f"{prefix}_prix_vente_htva",
-            prix_vente_htva,
-        )
-        setattr(self, f"{prefix}_tva_vente", tva_vente)
-        setattr(self, f"{prefix}_prix_ttc", prix_ttc)
 
 
 
     def calcul_liquide(self):
-        prix_achat = self.liquide_prix_achat or Decimal("0.00")
+        prix = self.liquide_prix or Decimal("0.00")
         quantite = self.liquide_quantite or Decimal("0.00")
 
-        taux_tva = (
-            Decimal(str(self.TVA_PIECES.get(self.pays, Decimal("0.00"))))
-            / Decimal("100")
-        )
+        total_achat = Decimal(str(prix)) * Decimal(str(quantite))
 
-        total_achat = Decimal(str(prix_achat)) * Decimal(str(quantite))
 
-        self.liquide_tva_achat = (total_achat * taux_tva).quantize(
-            Decimal("0.01"),
-            rounding=ROUND_HALF_UP,
-        )
-
-        self.liquide_prix_vente_htva = total_achat.quantize(
-            Decimal("0.01"),
-            rounding=ROUND_HALF_UP,
-        )
-
-        self.liquide_tva_vente = (
-            self.liquide_prix_vente_htva * taux_tva
-        ).quantize(
-            Decimal("0.01"),
-            rounding=ROUND_HALF_UP,
-        )
-
-        self.liquide_prix_ttc = (
-            self.liquide_prix_vente_htva
-            + self.liquide_tva_vente
-        ).quantize(
-            Decimal("0.01"),
-            rounding=ROUND_HALF_UP,
-        )
 
     # ======================================================
     # SYNCHRONISATION DU KILOMÉTRAGE
@@ -974,39 +916,87 @@ class Refroidissement(TechnicienMixin, models.Model):
             if etat not in etats_a_facturer:
                 continue
 
+            # -----------------------------
+            # PRIX
+            # -----------------------------
             prix = getattr(
                 self,
-                f"{prefix}_prix_achat",
+                f"{prefix}_prix",
                 Decimal("0.00"),
             ) or Decimal("0.00")
 
+            # -----------------------------
+            # QUANTITÉ
+            # -----------------------------
             quantite = getattr(
                 self,
                 f"{prefix}_quantite",
                 0,
             ) or 0
 
+            # -----------------------------
+            # FABRICANT
+            # -----------------------------
+            fabricant = getattr(
+                self,
+                f"{prefix}_fabricant",
+                None,
+            )
+
+            # Récupère automatiquement le label du choices
+            fabricant_display = getattr(
+                self,
+                f"get_{prefix}_fabricant_display",
+                None,
+            )
+
+            if callable(fabricant_display):
+                fabricant_label = fabricant_display()
+            else:
+                fabricant_label = fabricant or "-"
+
+            # -----------------------------
+            # CALCULS
+            # -----------------------------
             prix = Decimal(str(prix))
             quantite = Decimal(str(quantite))
 
             total = prix * quantite
+
+            total = total.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
             total_general += total
 
             rapport.append({
                 "champ": libelle,
                 "code": prefix,
+
                 "etat": etat,
                 "etat_label": dict(
                     EtatRefroidissement.choices
                 ).get(etat, etat),
-                "prix": prix,
+
+                "fabricant": fabricant,
+                "fabricant_label": fabricant_label,
+
+                "prix": prix.quantize(
+                    Decimal("0.01"),
+                    rounding=ROUND_HALF_UP,
+                ),
+
                 "quantite": quantite,
                 "total": total,
             })
 
+        # =========================================================
+        # LIQUIDE DE REFROIDISSEMENT
+        # =========================================================
+
         if (
-                self.liquide_etat
-                in {
+                self.liquide_etat in {
             EtatLiquideRefroidissement.A_REMPLACER,
             EtatLiquideRefroidissement.REMPLACE,
             EtatLiquideRefroidissement.A_COMPLETER,
@@ -1014,7 +1004,7 @@ class Refroidissement(TechnicienMixin, models.Model):
                 and self.liquide_quantite
         ):
             prix_liquide = (
-                    self.liquide_prix_achat or Decimal("0.00")
+                    self.liquide_prix or Decimal("0.00")
             )
 
             quantite_liquide = (
@@ -1025,20 +1015,60 @@ class Refroidissement(TechnicienMixin, models.Model):
             quantite_liquide = Decimal(str(quantite_liquide))
 
             total_liquide = prix_liquide * quantite_liquide
+
+            total_liquide = total_liquide.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
             total_general += total_liquide
+
+            # -----------------------------
+            # FABRICANT LIQUIDE
+            # -----------------------------
+            fabricant_liquide = getattr(
+                self,
+                "liquide_fabricant",
+                None,
+            )
+
+            fabricant_liquide_display = getattr(
+                self,
+                "get_liquide_fabricant_display",
+                None,
+            )
+
+            if callable(fabricant_liquide_display):
+                fabricant_liquide_label = (
+                    fabricant_liquide_display()
+                )
+            else:
+                fabricant_liquide_label = (
+                        fabricant_liquide or "-"
+                )
 
             rapport.append({
                 "champ": _("Liquide de refroidissement"),
                 "code": "liquide_refroidissement",
+
                 "etat": self.liquide_etat,
                 "etat_label": self.get_liquide_etat_display(),
-                "prix": prix_liquide,
+
+                "fabricant": fabricant_liquide,
+                "fabricant_label": fabricant_liquide_label,
+
+                "prix": prix_liquide.quantize(
+                    Decimal("0.01"),
+                    rounding=ROUND_HALF_UP,
+                ),
+
                 "quantite": quantite_liquide,
                 "total": total_liquide,
             })
 
         return {
             "lignes": rapport,
+
             "total_general": total_general.quantize(
                 Decimal("0.01"),
                 rounding=ROUND_HALF_UP,
