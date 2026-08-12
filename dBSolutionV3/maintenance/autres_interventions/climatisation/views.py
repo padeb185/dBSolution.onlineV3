@@ -489,7 +489,7 @@ def clim_form_view(request, exemplaire_id):
         },
         {
             "title": _("Technicien"),
-            "icon": "icons/mécanicien.png",
+            "icon": "icons/mecanicien.png",
             "fields": [form[f.name] for f in form if "tech" in f.name],
         },
 

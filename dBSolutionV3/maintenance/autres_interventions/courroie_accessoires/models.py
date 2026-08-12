@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import RouesSerrageEtat
+from maintenance.choices import RouesSerrageEtat, FabricantCourroie, FabricantPiece
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -141,18 +141,22 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
 
     # Courroie
     courroie_daccessoires = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Courroie d'accessoires"))
+    courroie_daccessoires_fabricant = models.CharField(max_length=25, choices=FabricantCourroie.choices,default=FabricantCourroie.CHOISIR, verbose_name=_("Fabricant"),blank=True)
     courroie_daccessoires_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva de la courroie"))
     courroie_daccessoires_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     # Courroie
     galet_tendeur = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Galet Tendeur"))
+    galet_tendeur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
     galet_tendeur_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du galet"))
     galet_tendeur_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     # Courroie
     poulie_damper = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Poulie Damper"))
+    poulie_damper_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
     poulie_damper_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva de la poulie"))
     poulie_damper_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+
 
     serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
                                      verbose_name=_("Serrage des roues"))

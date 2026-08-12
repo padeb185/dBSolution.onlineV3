@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
+from maintenance.choices import FabricantPiece
 
 from maintenance.models import Maintenance
 from maintenance.services import sync_maintenance
@@ -232,7 +233,7 @@ class Climatisation(TechnicienMixin, models.Model):
         max_digits=8,
         decimal_places=4,
         default=0,
-        verbose_name=_("Quantité d'huile récupérée en millilitres"),
+        verbose_name=_("Quantité d'huile ajoutée en millilitres"),
     )
 
 
@@ -361,6 +362,7 @@ class Climatisation(TechnicienMixin, models.Model):
         default=EtatClimatisation.OK,
         verbose_name=_("Tuyaux de climatisation"),
     )
+    tuyaux_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
 
     tuyaux_prix = models.DecimalField(
         max_digits=10,
@@ -380,6 +382,7 @@ class Climatisation(TechnicienMixin, models.Model):
         default=EtatClimatisation.OK,
         verbose_name=_("Valves de climatisation"),
     )
+    valves_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
 
     valves_prix = models.DecimalField(
         max_digits=10,
@@ -399,6 +402,7 @@ class Climatisation(TechnicienMixin, models.Model):
         default=EtatClimatisation.OK,
         verbose_name=_("Déshydrateur"),
     )
+    deshydrateur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
 
     deshydrateur_prix = models.DecimalField(
         max_digits=10,
@@ -418,6 +422,7 @@ class Climatisation(TechnicienMixin, models.Model):
         default=EtatClimatisation.OK,
         verbose_name=_("Condenseur"),
     )
+    condenseur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
 
     condenseur_prix = models.DecimalField(
         max_digits=10,
@@ -437,6 +442,7 @@ class Climatisation(TechnicienMixin, models.Model):
         default=EtatClimatisation.OK,
         verbose_name=_("Compresseur de climatisation"),
     )
+    compresseur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
 
     compresseur_prix = models.DecimalField(
         max_digits=10,
@@ -456,6 +462,7 @@ class Climatisation(TechnicienMixin, models.Model):
         default=EtatClimatisation.OK,
         verbose_name=_("Évaporateur"),
     )
+    evaporateur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices, default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
 
     evaporateur_prix = models.DecimalField(
         max_digits=10,
