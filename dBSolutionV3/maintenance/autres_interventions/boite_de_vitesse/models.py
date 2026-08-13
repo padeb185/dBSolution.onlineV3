@@ -257,6 +257,9 @@ class ControleBoite(TechnicienMixin, models.Model):
     # Huile
     man_huile_manuelle = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,verbose_name=_("Huile de boite de vitesse"))
 
+    man_huile_manuelle_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices,
+                                                  default=HuileBoiteEtat.SEPTANTE_CINQ,
+                                                  verbose_name=_("Qualité de l'huile"))
     man_huile_manuelle_quantite = models.DecimalField(
         max_digits=4,
         decimal_places=1,
@@ -271,7 +274,7 @@ class ControleBoite(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA"),
     )
 
-    man_huile_manuelle_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices,default=HuileBoiteEtat.SEPTANTE_CINQ, verbose_name=_("Qualité de l'huile"))
+
 
     remarques = models.TextField(
         verbose_name=_("Remarques"), blank=True, null=True)

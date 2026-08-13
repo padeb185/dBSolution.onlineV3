@@ -166,7 +166,7 @@
         <br>
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/arbre-boite.png' %}" alt="Arbres de boite de vitesses"
+            <img src="{% static 'icons/arbre-de-boite.png' %}" alt="Arbres de boite de vitesses"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Arbre primaire / secondaire" %}
         </h2>
@@ -255,7 +255,7 @@
 
           <!-- Section Refroidissement -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/pignon.png' %}" alt="pont"
+            <img src="{% static 'icons/pignon.png' %}" alt="pignon"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Pignons" %}
          </h2>
@@ -292,7 +292,7 @@
 
         <!-- Section Boite -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Synchro"
+            <img src="{% static 'icons/synchro.png' %}" alt="Synchro"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Synchros" %}
          </h2>
@@ -329,7 +329,7 @@
 
          <!-- Section Pont -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/arbre-boite.png' %}" alt="Fourchettes"
+            <img src="{% static 'icons/fourchette.png' %}" alt="Fourchettes"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Fourchettes" %}
         </h2>
@@ -366,14 +366,14 @@
 
 
 
-        <!-- Section freins -->
+        <!-- Section huile -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/huile-moteur.png' %}" alt="Huile de boite"
                  style="width:60px; height:60px; margin-right:10px;">
              {% trans "Huile de boite de vitesses" %}
          </h2>
         {% for field in form %}
-            {% if "man_h" in field.name %}
+            {% if "man_huile" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -402,7 +402,41 @@
 
         <br>
 
+         <!-- Section Boite auto -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pays.png' %}" alt="TVA pays"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Pays" %}
+        </h2>
+        {% for field in form %}
+            {% if "pays" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
 
+        <br>
 
 
 

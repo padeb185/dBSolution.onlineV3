@@ -267,6 +267,10 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
                                               default=FabricantLubrifiant.CASTROL,
                                               verbose_name=_("Fabricant"))
 
+    huile_bte_auto_vitesse_qualite = models.CharField(max_length=25, choices=HuileBoiteAutoEtat.choices,
+                                                      default=HuileBoiteAutoEtat.ATF3,
+                                                      verbose_name=_("Qualité de l'huile"))
+
     huile_bte_auto_vitesse_quantite = models.DecimalField(
         max_digits=4,
         decimal_places=1,
@@ -281,9 +285,6 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA"),
     )
 
-    huile_bte_auto_vitesse_qualite = models.CharField(max_length=25, choices=HuileBoiteAutoEtat.choices,
-                                                  default=HuileBoiteAutoEtat.ATF3,
-                                                  verbose_name=_("Qualité de l'huile"))
 
     remarques = models.TextField(
         verbose_name=_("Remarques"),
