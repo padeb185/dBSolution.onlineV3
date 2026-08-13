@@ -348,7 +348,7 @@
         <br>
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/valve-de-pneu.png' %}" alt="Valves de pneu"
+            <img src="{% static 'icons/valve-de-pneu.png' %}" alt="Valve de pneu"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Valves de pneu" %}
         </h2>
@@ -570,24 +570,11 @@
 
         <br>
 
-                     <!-- Section temps main d'œuvre -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
-                 style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Temps de main d'œuvre" %}
-        </h2>
 
-        <div class="flex gap-2 items-center">
-            {{ form.temps_heures }}
-            <span>h</span>
-
-            {{ form.temps_minutes }}
-            <span>min</span>
-        </div>
 
         <!-- Section technicien -->
        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/mecanicien.png' %}" alt="triangle"
+            <img src="{% static 'icons/mecanicien.png' %}" alt="Technicien"
                  style="width:60px; height:60px; margin-right:10px;">
            {% trans "Technicien" %}
        </h2>
@@ -657,7 +644,20 @@
 
 
         <br>
+                        <!-- Section temps main d'œuvre -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Temps de main d'œuvre" %}
+        </h2>
 
+        <div class="flex gap-2 items-center">
+            {{ form.temps_heures }}
+            <span>h</span>
+
+            {{ form.temps_minutes }}
+            <span>min</span>
+        </div>
 
 
         <!-- Boutons -->

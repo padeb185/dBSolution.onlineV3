@@ -121,8 +121,11 @@
 
 
 
-        <!-- Section Moteur -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Huile moteur" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/engine.png' %}" alt="Niveaux d'huile moteur"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Huile moteur" %}
+       </h2>
         {% for field in form %}
             {% if "moteur" in field.name %}
             <div class="mb-4">
@@ -154,7 +157,11 @@
         <br>
 
           <!-- Section Refroidissement -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Liquide de refroidissement" %}</h2>
+       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/radiateur.png' %}" alt="Niveaux d'eau"
+                 class="w-12 h-12 mr-2">
+            {% trans "Liquide de refroidissement" %}
+       </h2>
         {% for field in form %}
             {% if "refroi" in field.name %}
             <div class="mb-4">
@@ -185,8 +192,13 @@
 
         <br>
 
-           <!-- Section lave-glace -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Liquide de lave-glace" %}</h2>
+
+          <!-- Section lave-glace -->
+       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/lave-glace.png' %}" alt="Niveaux d'eau"
+                 class="w-12 h-12 mr-2">
+            {% trans "Liquide de lave-glace" %}
+        </h2>
         {% for field in form %}
             {% if "lave" in field.name %}
             <div class="mb-4">
@@ -218,9 +230,12 @@
         <br>
 
 
-
         <!-- Section Boite -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Huile de boite de vitesse" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="boite de vitesse"
+                 class="w-12 h-12 mr-2">
+            {% trans "Huile de boite de vitesse" %}
+        </h2>
         {% for field in form %}
             {% if "boite" in field.name %}
             <div class="mb-4">
@@ -253,7 +268,10 @@
 
 
          <!-- Section Pont -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Huile pont arrière" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pont.png' %}" alt="Niveaux d'huile de différentiel"
+                 class="w-12 h-12 mr-2">
+             {% trans "Huile de pont arrière" %}</h2>
         {% for field in form %}
             {% if "pont" in field.name %}
             <div class="mb-4">
@@ -288,7 +306,10 @@
 
 
         <!-- Section freins -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Liquide de freins" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/frein-temoin.png' %}" alt="Niveaux de liquide de freins"
+                 class="w-12 h-12 mr-2">
+            {% trans "Liquide de Freins" %}</h2>
         {% for field in form %}
             {% if "frein" in field.name %}
             <div class="mb-4">
@@ -319,7 +340,7 @@
 
         <br>
 
-         <!-- Section direction -->
+        <!-- Section direction -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/direction.png' %}" alt="Niveaux de liquide de direction"
                  class="w-12 h-12 mr-2">
@@ -355,9 +376,10 @@
         <br>
 
 
-
-
-    <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Etiquette" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/tag.png' %}" alt="Etiquette"
+                 class="w-12 h-12 mr-2">
+            {% trans "Etiquette" %}</h2>
         {% for field in form %}
             {% if "tag" in field.name %}
             <div class="mb-4">
@@ -404,7 +426,10 @@
         <br>
 
         <!-- Section remarques -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Remarques" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/notes.png' %}" alt="Etiquette"
+                 class="w-12 h-12 mr-2">
+            {% trans "Remarques" %}</h2>
         {% for field in form %}
             {% if "remarques" in field.name %}
             <div class="mb-4">
@@ -436,23 +461,13 @@
 
         <br>
 
-                     <!-- Section temps main d'œuvre -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
-                 style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Temps de main d'œuvre" %}
-        </h2>
 
-        <div class="flex gap-2 items-center">
-            {{ form.temps_heures }}
-            <span>h</span>
-
-            {{ form.temps_minutes }}
-            <span>min</span>
-        </div>
 
         <!-- Section technicien -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Technicien" %}</h2>
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/mecanicien.png' %}" alt="Mécanicien"
+                 class="w-12 h-12 mr-2">
+              {% trans "Technicien" %}</h2>
         {% for field in form %}
             {% if "tech" in field.name %}
             <div class="mb-4">
@@ -483,7 +498,6 @@
 
 
         <br>
-
      <!-- Section technicien -->
        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/taux.png' %}" alt="taux horaire"
@@ -520,6 +534,22 @@
 
 
         <br>
+                 <!-- Section temps main d'œuvre -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Temps de main d'œuvre" %}
+        </h2>
+
+        <div class="flex gap-2 items-center">
+            {{ form.temps_heures }}
+            <span>h</span>
+
+            {{ form.temps_minutes }}
+            <span>min</span>
+        </div>
+        <br>
+
 
         <div class="flex gap-3 mt-6">
             <button type="submit"

@@ -89,7 +89,10 @@
         <br>
 
         <!-- Section jeux rotules -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux rotules de direction" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+            <img src="{% static 'icons/rotule-direction.png' %}" alt="rotule-direction"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux rotules de direction" %}</h2>
         {% for field in form %}
             {% if "jeu_rotule_dir" in field.name %}
             <div class="mb-4">
@@ -108,7 +111,10 @@
         <br>
 
          <!-- Section jeux rotules -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux rotules de suspensions inférieures" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+            <img src="{% static 'icons/rotule-suspension.png' %}" alt="rotule suspension"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux rotules de suspensions inférieures" %}</h2>
         {% for field in form %}
             {% if "jeu_rotule_suspension_inf" in field.name %}
             <div class="mb-4">
@@ -127,7 +133,11 @@
         <br>
 
          <!-- Section jeux rotules -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux rotules de suspensions supérieures" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+            <img src="{% static 'icons/rotule-suspension-superieure.png' %}" alt="rotule suspension supérieure"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux rotules de suspensions supérieures" %}
+        </h2>
         {% for field in form %}
             {% if "jeu_rotule_suspension_sup" in field.name %}
             <div class="mb-4">
@@ -146,7 +156,11 @@
         <br>
 
          <!-- Section jeux biellettes -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux biellettes" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+            <img src="{% static 'icons/biellette.png' %}" alt="biellette"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux biellettes" %}
+        </h2>
         {% for field in form %}
             {% if "jeu_biellette" in field.name %}
             <div class="mb-4">
@@ -165,7 +179,10 @@
         <br>
 
         <!-- Section jeux barre -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux barres stabilisatrice" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+            <img src="{% static 'icons/barre-stab.png' %}" alt="barre stabilisatrice"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux barres stabilisatrice" %}</h2>
         {% for field in form %}
             {% if "jeu_barre" in field.name %}
             <div class="mb-4">
@@ -186,7 +203,7 @@
 
          <!-- Section jeux roulement -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/roulement.png' %}" alt="roulement"
+            <img src="{% static 'icons/roulement-roue.png' %}" alt="roulement de roue"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Jeux roulements de roues" %}
         </h2>
@@ -210,7 +227,7 @@
 
           <!-- Section jeux triangle -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/triangle.png' %}" alt="jeux triangles"
+            <img src="{% static 'icons/triangle-sus.png' %}" alt="jeux triangles"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Jeux triangles" %}</h2>
         {% for field in form %}
             {% if "jeu_tri" in field.name %}
@@ -230,7 +247,7 @@
 
           <!-- Section jeux suspension multi-bras -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/suspension-multi.png' %}" alt="Kilometrage"
+            <img src="{% static 'icons/suspension-multi-bras.png' %}" alt="suspension-multi"
                  style="width:60px; height:60px; margin-right:10px;">
              {% trans "Jeux suspension multi-bras" %}
          </h2>
@@ -299,7 +316,7 @@
 
             <!-- Section jeux arbre de transmission -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/arbre.png' %}" alt="Jeu arbre de transmission"
+            <img src="{% static 'icons/arbre-de-transmission.png' %}" alt="Jeu arbre de transmission"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Jeux dans l'arbre de transmission" %}
         </h2>
@@ -362,20 +379,6 @@
         {% endfor %}
         <br>
 
-                     <!-- Section temps main d'œuvre -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
-                 style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Temps de main d'œuvre" %}
-        </h2>
-
-        <div class="flex gap-2 items-center">
-            {{ form.temps_heures }}
-            <span>h</span>
-
-            {{ form.temps_minutes }}
-            <span>min</span>
-        </div>
 
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/mecanicien.png' %}" alt="mecanicien"
@@ -432,6 +435,21 @@
         {% endfor %}
 
 
+        <br>
+            <!-- Section temps main d'œuvre -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Temps de main d'œuvre" %}
+        </h2>
+
+        <div class="flex gap-2 items-center">
+            {{ form.temps_heures }}
+            <span>h</span>
+
+            {{ form.temps_minutes }}
+            <span>min</span>
+        </div>
         <br>
 
 
