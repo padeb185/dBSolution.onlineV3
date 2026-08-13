@@ -1,8 +1,6 @@
 import uuid
 from decimal import Decimal, ROUND_HALF_UP
-
 from django.core.validators import StepValueValidator
-
 from django.core.exceptions import ValidationError, FieldDoesNotExist
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -336,7 +334,12 @@ class RemplacementBoite(TechnicienMixin, models.Model):
 
 
     def __str__(self):
-        return f"{self.voiture_marque.nom_marque} {self.voiture_modele.nom_modele} {self.voiture_modele.nom_variante} - {self.immatriculation}"
+        return (
+            f"{self.voiture_exemplaire.voiture_marque.nom_marque} "
+            f"{self.voiture_exemplaire.voiture_modele.nom_modele} "
+            f"{self.voiture_exemplaire.voiture_modele.nom_variante} - "
+            f"{self.voiture_exemplaire.immatriculation}"
+        )
 
 
 
