@@ -358,11 +358,33 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         self.tech_role_technicien = user.role
         self.tech_societe = user.societe
 
-
-
-
     def __str__(self):
-        return f"{self.voiture_marque.nom_marque} {self.voiture_modele.nom_modele} {self.voiture_modele.nom_variante} - {self.immatriculation}"
+        if not self.voiture_exemplaire:
+            return f"Remplacement moteur #{self.pk}"
+
+        voiture = self.voiture_exemplaire
+
+        marque = getattr(voiture, "voiture_marque", None)
+        modele = getattr(voiture, "voiture_modele", None)
+
+        nom_marque = getattr(marque, "nom_marque", "")
+        nom_modele = getattr(modele, "nom_modele", "")
+        nom_variante = getattr(modele, "nom_variante", "")
+        immatriculation = getattr(voiture, "immatriculation", "")
+
+        designation = " ".join(
+            str(x) for x in [
+                nom_marque,
+                nom_modele,
+                nom_variante,
+            ]
+            if x
+        )
+
+        if immatriculation:
+            return f"{designation} - {immatriculation}".strip(" -")
+
+        return designation or f"Remplacement moteur #{self.pk}"
 
 
 
