@@ -351,7 +351,7 @@ def alternateur_check_view(request, exemplaire_id):
         },
         {
             "title": _("Main-d'œuvre"),
-            "icon": "icons/mecanicien.png",
+            "icon": "icons/taux.png",
             "fields": [
                 field
                 for field in form
@@ -489,7 +489,7 @@ def modifier_alternateur_view(request, alternateur_id):
         },
         {
             "title": _("Main-d'œuvre"),
-            "icon": "icons/mecanicien.png",
+            "icon": "icons/taux.png",
             "fields": [
                 field
                 for field in form

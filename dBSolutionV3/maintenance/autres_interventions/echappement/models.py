@@ -265,7 +265,7 @@ class Echappement(models.Model):
     collier_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     manchon = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Manchon"))
-    mancon_fabricant = models.CharField(max_length=25, choices=FabricantEchappement.choices,default=FabricantEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
+    manchon_fabricant = models.CharField(max_length=25, choices=FabricantEchappement.choices,default=FabricantEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     manchon_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
     manchon_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 

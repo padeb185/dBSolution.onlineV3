@@ -265,7 +265,7 @@ def courroie_form_view(request, exemplaire_id):
         },
         {
             "title": _("Main-d'œuvre"),
-            "icon": "icons/mecanicien.png",
+            "icon": "icons/taux.png",
             "fields": [
                 field
                 for field in form
@@ -426,7 +426,7 @@ def modifier_courroie_view(request, courroie_id):
         },
         {
             "title": _("Main-d'œuvre"),
-            "icon": "icons/mecanicien.png",
+            "icon": "icons/taux.png",
             "fields": [
                 field
                 for field in form

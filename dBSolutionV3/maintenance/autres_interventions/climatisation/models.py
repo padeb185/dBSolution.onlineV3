@@ -161,13 +161,6 @@ class Climatisation(TechnicienMixin, models.Model):
         verbose_name=_("Kilométrage au moment du contrôle de la climatisation"),
     )
 
-    pays = models.CharField(
-        max_length=5,
-        choices=PAYS_CHOICES,
-        default="BE",
-        verbose_name=_("Pays"),
-    )
-
     # ------------------------------------------------------
     # GAZ DE CLIMATISATION
     # ------------------------------------------------------
@@ -369,17 +362,19 @@ class Climatisation(TechnicienMixin, models.Model):
     )
     tuyaux_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
 
-    tuyaux_prix = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=0,
-        verbose_name=_("Prix d'achat HTVA des tuyaux"),
-    )
-
     tuyaux_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité"),
     )
+
+    tuyaux_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+
 
     valves = models.CharField(
         max_length=25,
@@ -389,6 +384,11 @@ class Climatisation(TechnicienMixin, models.Model):
     )
     valves_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
 
+    valves_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
     valves_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -396,10 +396,7 @@ class Climatisation(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA des valves"),
     )
 
-    valves_quantite = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("Quantité"),
-    )
+
 
     deshydrateur = models.CharField(
         max_length=25,
@@ -409,16 +406,18 @@ class Climatisation(TechnicienMixin, models.Model):
     )
     deshydrateur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
 
+
+
+    deshydrateur_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
     deshydrateur_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA du déshydrateur"),
-    )
-
-    deshydrateur_quantite = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("Quantité"),
     )
 
     condenseur = models.CharField(

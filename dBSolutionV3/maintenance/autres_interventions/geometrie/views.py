@@ -263,6 +263,11 @@ def geometrie_check_view(request, exemplaire_id):
             "icon": "icons/amortisseur.png",
             "fields": [form[f.name] for f in form if "amortissement" in f.name],
         },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [form[f.name] for f in form if "pays" in f.name],
+        },
 
         {
             "title": _("Etiquette"),
@@ -415,6 +420,11 @@ def geometrie_modifier_view(request, geometrie_id):
             "title": _("Amortisseur"),
             "icon": "icons/amortisseur.png",
             "fields": [form[f.name] for f in form if "amorti" in f.name],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [form[f.name] for f in form if "pays" in f.name],
         },
 
         {

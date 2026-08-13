@@ -1,7 +1,5 @@
 from decimal import Decimal, ROUND_HALF_UP
-
 from django.core.validators import StepValueValidator
-
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -10,6 +8,10 @@ from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIR
 from maintenance.choices import RefroidissementFabricant, CourroieDistributionFabricant
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
+
+
+
+
 
 
 
@@ -164,10 +166,6 @@ class CourroieDistribution(TechnicienMixin, models.Model):
         verbose_name= _("Kilométrage de la courroie de distribution")
     )
 
-    pays = models.CharField(
-        max_length=5,
-        choices=PAYS_CHOICES
-    )
 
     # -------------------------
     # PIECES

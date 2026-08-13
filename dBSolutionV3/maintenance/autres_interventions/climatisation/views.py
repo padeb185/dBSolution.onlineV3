@@ -264,8 +264,6 @@ def clim_form_view(request, exemplaire_id):
                 )
 
         else:
-            print("FORM INVALID:", form.errors)
-
             messages.error(
                 request,
                 _("Le formulaire contient des erreurs."),
@@ -461,15 +459,6 @@ def clim_form_view(request, exemplaire_id):
             ],
         },
         {
-            "title": _("Étiquette"),
-            "icon": "icons/tag.png",
-            "fields": [
-                field
-                for field in form
-                if field.name == "tag"
-            ],
-        },
-        {
             "title": _("Pays"),
             "icon": "icons/pays.png",
             "fields": [
@@ -478,6 +467,16 @@ def clim_form_view(request, exemplaire_id):
                 if field.name == "pays"
             ],
         },
+        {
+            "title": _("Étiquette"),
+            "icon": "icons/tag.png",
+            "fields": [
+                field
+                for field in form
+                if field.name == "tag"
+            ],
+        },
+
         {
             "title": _("Remarques"),
             "icon": "icons/notes.png",
