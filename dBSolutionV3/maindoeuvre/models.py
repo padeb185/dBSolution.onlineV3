@@ -22,8 +22,10 @@ class MainDoeuvre(models.Model):
 
     utilisateur = models.ForeignKey(
         "utilisateurs.Utilisateur",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name="main_oeuvres",
+        null=True,
+        blank=True,
     )
 
     voiture_exemplaire = models.ForeignKey(
