@@ -167,7 +167,13 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         default=1,
         null=True,
         blank=True,
-        verbose_name=_("Nombre de boite")
+        verbose_name=_("Nombre de boite de remplacement")
+    )
+
+    nombre_boites_montes = models.PositiveIntegerField(
+        default=1,
+        editable=False,
+        verbose_name=_("Nombre de boites montées"),
     )
 
     remplacement_boite_etat = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Remplacement de la boite"))
@@ -353,12 +359,13 @@ class RemplacementBoite(TechnicienMixin, models.Model):
                     )
                 })
 
-
-
     def save(self, *args, **kwargs):
 
         is_new = not RemplacementBoite.objects.filter(pk=self.pk).exists()
 
+        # --------------------------------------------------
+        # NOMBRE DE REMPLACEMENTS
+        # --------------------------------------------------
         if is_new and self.voiture_exemplaire_id:
             self.nombre_remplacements = (
                     RemplacementBoite.objects.filter(
@@ -367,33 +374,46 @@ class RemplacementBoite(TechnicienMixin, models.Model):
                     ).count() + 1
             )
 
+        # --------------------------------------------------
+        # NOMBRE TOTAL DE BOÎTES MONTÉES
+        # boîte d'origine + remplacements
+        # --------------------------------------------------
+        self.nombre_boites_montes = (self.nombre_remplacements or 0) + 1
+
         km = self.kilometres_chassis or 0
 
-        # -------------------------
-        # REMISE À ZÉRO MOTEUR
-        # -------------------------
+        # --------------------------------------------------
+        # REMPLACEMENT EFFECTUÉ
+        # --------------------------------------------------
         if self.remplacement_effectue:
-            # on stocke le km de référence
+
             if not self.kilometres_remplacement_boite:
                 self.kilometres_remplacement_boite = km
 
-            # moteur remis à 0
-            self.voiture_exemplaire.kilometres_boite = km - (self.kilometres_remplacement_boite or km)
+            self.voiture_exemplaire.kilometres_boite = (
+                    km - (self.kilometres_remplacement_boite or km)
+            )
 
-            # sécurité
             if self.voiture_exemplaire.kilometres_boite < 0:
                 self.voiture_exemplaire.kilometres_boite = 0
 
-        # -------------------------
-        # CAS NORMAL (pas de remplacement)
-        # -------------------------
         else:
             self.voiture_exemplaire.kilometres_boite = km
 
+        # Sauvegarde de l'exemplaire
+        if self.voiture_exemplaire_id:
+            self.voiture_exemplaire.save(
+                update_fields=["kilometres_boite"]
+            )
 
+        # Sauvegarde du remplacement
         super().save(*args, **kwargs)
 
+        # --------------------------------------------------
+        # MAIN-D'ŒUVRE
+        # --------------------------------------------------
         if self.main_oeuvre_id and self.voiture_exemplaire_id:
+
             task_name = f"{_('Remplacement boite')} {self.voiture_exemplaire} "
 
             if self.main_oeuvre.descriptif != task_name:

@@ -82,6 +82,7 @@
             <th>{% trans "Km boite" %}</th>
             <th>{% trans "Km châssis" %}</th>
             <th>{% trans "Nombre de remplacements" %}</th>
+            <th>{% trans "Nombre de boites total" %}</th>
             <th>{% trans "Tag" %}</th>
             <th>{% trans "Technicien" %}</th>
             <th>{% trans "Date" %}</th>
@@ -145,6 +146,10 @@
             <!-- nombre de remplacment -->
             <td class="border px-4 py-2">
                 {{ remplacement.nombre_remplacements|default:"-" }}
+            </td>
+
+            <td class="border px-4 py-2">
+                {{ remplacement.nombre_boites_montes|default:"-" }}
             </td>
 
             <!-- TAG -->
