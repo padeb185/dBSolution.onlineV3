@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class EmbrayageConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'embrayage'
+    name = 'maintenance.autres_interventions.embrayage'

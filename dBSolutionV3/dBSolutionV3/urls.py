@@ -177,6 +177,9 @@ urlpatterns += i18n_patterns(
 
     path("refroidissement/",include(("maintenance.autres_interventions.refroidissement.urls", "refroidissement"), namespace="refroidissement")),
 
+    path('embrayage/', include(('maintenance.autres_interventions.embrayage.urls', 'embrayage'), namespace='embrayage')),
+
+
 
 )
 

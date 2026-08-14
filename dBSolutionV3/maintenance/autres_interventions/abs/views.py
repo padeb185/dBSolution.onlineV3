@@ -192,7 +192,6 @@ def abs_form_view(request, exemplaire_id):
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
 
         else:
-            print("FORM INVALID:", form.errors)
             messages.error(request, _("Le formulaire contient des erreurs."))
     else:
         Abs_qs = Abs(

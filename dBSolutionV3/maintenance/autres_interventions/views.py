@@ -11,6 +11,7 @@ from maintenance.autres_interventions import echappement, refroidissement
 from maintenance.autres_interventions.climatisation.models import Climatisation
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from maintenance.autres_interventions.echappement.models import Echappement
+from maintenance.autres_interventions.embrayage.models import Embrayage
 from maintenance.autres_interventions.refroidissement.models import Refroidissement
 from maintenance.models import Maintenance
 from maintenance.types_maintenances import TYPES_MAINTENANCE
@@ -86,6 +87,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     echappement = Echappement.objects.none()
     climatisation = Climatisation.objects.none()
     refroidissement = Refroidissement.objects.none()
+    embrayage = Embrayage.objects.none()
 
 
     # -----------------------------
@@ -100,7 +102,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     total_echappement = 0
     total_clim = 0
     total_ref = 0
-
+    total_embrayage = 0
 
     total_int_moteur = 0
     total_int_boite = 0
@@ -153,6 +155,9 @@ def choisir_autre_maintenance(request, exemplaire_id):
             climatisation = Climatisation.objects.filter(
                 voiture_exemplaire=exemplaire
             )
+            embrayage = Embrayage.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
 
             # ---------------- TOTALS ----------------
 
@@ -166,6 +171,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_clim = climatisation.count()
             total_ref = refroidissement.count()
             total_turbo = turbo.count()
+            total_embrayage = embrayage.count()
 
             # ---------------- MOTEUR ----------------
 
@@ -267,6 +273,9 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_int_boite": total_int_boite,
         "total_turbo": total_turbo,
         "total_ref": total_ref,
+        "total_embrayage": total_embrayage,
+
+
 
         "boite": boite,
         "bte_auto": bte_auto,
@@ -277,6 +286,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
 
         "remplacement_boite": remplacement_boite,
         "echappement": echappement,
+        "embrayage": embrayage,
 
         "turbo": turbo,
         "alternateur": alternateur,

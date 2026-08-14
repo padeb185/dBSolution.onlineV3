@@ -324,6 +324,35 @@
             </div>
         </a>
 
+
+         <a
+            href="{% url 'embrayage:embrayage_list' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
+                <div>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Remplacement de l'embrayage" %}
+                    </h2>
+
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">
+                            {{ total_embrayage|default:0 }}
+                        </span>
+                    </p>
+                </div>
+
+                <img
+                    src="{% static 'icons/disque-dembrayage.png' %}"
+                    alt="{% trans 'Système de refroidissement' %}"
+                    class="h-[60px] w-[60px]"
+                >
+
+            </div>
+        </a>
+
     </div>
 
     <!-- ================================================== -->

@@ -1283,3 +1283,279 @@ class FabricantCourroie(models.TextChoices):
 
     AUTRE = "AUTRE", _("Autre")
     CHOISIR = "CHOISIR", _("Choisir")
+
+
+
+
+
+class FabricantEmbrayage(models.TextChoices):
+    # ============================================================
+    # GRANDS ÉQUIPEMENTIERS / OEM
+    # ============================================================
+    CHOISIR = "CHOISIR", _("Choisir")
+
+    LUK = "LUK", _("LuK / Schaeffler")
+    SACHS = "SACHS", _("SACHS / ZF")
+    VALEO = "VALEO", _("Valeo")
+    EXEDY = "EXEDY", _("EXEDY")
+    AISIN = "AISIN", _("AISIN")
+    FCC = "FCC", _("F.C.C.")
+    BORGWARNER = "BORGWARNER", _("BorgWarner")
+    EATON = "EATON", _("Eaton")
+    TWIN_DISC = "TWIN_DISC", _("Twin Disc")
+    SETCO = "SETCO", _("Setco Automotive")
+    TIELIU = "TIELIU", _("Zhejiang Tieliu")
+    RAICAM = "RAICAM", _("Raicam")
+    NISSIN = "NISSIN", _("Nissin")
+    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
+    NSK = "NSK", _("NSK")
+    FCC_JAPAN = "FCC_JAPAN", _("FCC Japan")
+
+    # ============================================================
+    # PERFORMANCE / SPORT / COMPÉTITION
+    # ============================================================
+
+    AP_RACING = "AP_RACING", _("AP Racing")
+    TILTON = "TILTON", _("Tilton Engineering")
+    OS_GIKEN = "OS_GIKEN", _("OS Giken")
+    ACT = "ACT", _("ACT (Advanced Clutch Technology)")
+    SPEC = "SPEC", _("SPEC Clutch")
+    CENTERFORCE = "CENTERFORCE", _("Centerforce")
+    CLUTCH_MASTERS = "CLUTCH_MASTERS", _("Clutch Masters")
+    COMPETITION_CLUTCH = "COMPETITION_CLUTCH", _("Competition Clutch")
+    HELIX = "HELIX", _("Helix Autosport")
+    MANTIC = "MANTIC", _("Mantic Clutch")
+    QUARTER_MASTER = "QUARTER_MASTER", _("Quarter Master")
+    MCLEOD = "MCLEOD", _("McLeod Racing")
+    HAYS = "HAYS", _("Hays Clutches")
+    RAM = "RAM", _("RAM Clutches")
+    SOUTH_BEND = "SOUTH_BEND", _("South Bend Clutch")
+    XTREME = "XTREME", _("Xtreme Clutch")
+    DKM = "DKM", _("DKM Clutch")
+    FIDANZA = "FIDANZA", _("Fidanza")
+    CARBONETIC = "CARBONETIC", _("Carbonetic")
+    NPC = "NPC", _("NPC Performance Clutches")
+
+    # ============================================================
+    # JAPON / PERFORMANCE JAPONAISE
+    # ============================================================
+
+    HKS = "HKS", _("HKS")
+    CUSCO = "CUSCO", _("CUSCO")
+    ORC = "ORC", _("Ogura Racing Clutch (ORC)")
+    ATS = "ATS", _("ATS")
+    NISMO = "NISMO", _("NISMO")
+    TRD = "TRD", _("TRD")
+    STI = "STI", _("STI")
+    TODA = "TODA", _("Toda Racing")
+    JUN = "JUN", _("JUN Auto")
+    GREDDY = "GREDDY", _("GReddy / TRUST")
+
+    # ============================================================
+    # EUROPE / AFTERMARKET
+    # ============================================================
+
+    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
+    FEBI = "FEBI", _("febi bilstein")
+    MEYLE = "MEYLE", _("MEYLE")
+    MAPCO = "MAPCO", _("MAPCO")
+    RIDEX = "RIDEX", _("RIDEX")
+    STARK = "STARK", _("STARK")
+    NK = "NK", _("NK")
+    JP_GROUP = "JP_GROUP", _("JP Group")
+    MAXGEAR = "MAXGEAR", _("MAXGEAR")
+    KAMOKA = "KAMOKA", _("KAMOKA")
+    DENCKERMANN = "DENCKERMANN", _("Denckermann")
+    STATIM = "STATIM", _("STATIM")
+    MECARM = "MECARM", _("MECARM")
+    KAWE = "KAWE", _("KAWE")
+    NATIONAL = "NATIONAL", _("National")
+    BORG_BECK = "BORG_BECK", _("Borg & Beck")
+    QH = "QH", _("Quinton Hazell")
+    LPR = "LPR", _("LPR")
+    FAST = "FAST", _("FAST")
+    SAMKO = "SAMKO", _("SAMKO")
+    STARLINE = "STARLINE", _("Starline")
+    ASHIKA = "ASHIKA", _("ASHIKA")
+    JAPANPARTS = "JAPANPARTS", _("Japanparts")
+    JAPKO = "JAPKO", _("JAPKO")
+
+    # ============================================================
+    # POIDS LOURDS / UTILITAIRES / INDUSTRIEL
+    # ============================================================
+
+    KNORR_BREMSE = "KNORR_BREMSE", _("Knorr-Bremse")
+    WABCO = "WABCO", _("WABCO / ZF")
+    HAMMER = "HAMMER", _("Hammer Kupplungen")
+    LIPE = "LIPE", _("LIPE Clutch")
+    CEI = "CEI", _("CEI")
+    EURORICAMBI = "EURORICAMBI", _("Euroricambi")
+
+    # ============================================================
+    # CONSTRUCTEURS / PIÈCES D'ORIGINE
+    # ============================================================
+
+    BMW = "BMW", _("BMW Original")
+    MINI = "MINI", _("MINI Original")
+    MERCEDES = "MERCEDES", _("Mercedes-Benz Original")
+    AUDI = "AUDI", _("Audi Original")
+    VOLKSWAGEN = "VOLKSWAGEN", _("Volkswagen Original")
+    PORSCHE = "PORSCHE", _("Porsche Original")
+    FORD = "FORD", _("Ford Original")
+    OPEL = "OPEL", _("Opel Original")
+    PEUGEOT = "PEUGEOT", _("Peugeot Original")
+    CITROEN = "CITROEN", _("Citroën Original")
+    RENAULT = "RENAULT", _("Renault Original")
+    DACIA = "DACIA", _("Dacia Original")
+    FIAT = "FIAT", _("Fiat Original")
+    ALFA_ROMEO = "ALFA_ROMEO", _("Alfa Romeo Original")
+    LANCIA = "LANCIA", _("Lancia Original")
+    VOLVO = "VOLVO", _("Volvo Original")
+    TOYOTA = "TOYOTA", _("Toyota Original")
+    LEXUS = "LEXUS", _("Lexus Original")
+    HONDA = "HONDA", _("Honda Original")
+    NISSAN = "NISSAN", _("Nissan Original")
+    MAZDA = "MAZDA", _("Mazda Original")
+    SUBARU = "SUBARU", _("Subaru Original")
+    MITSUBISHI = "MITSUBISHI", _("Mitsubishi Original")
+    SUZUKI = "SUZUKI", _("Suzuki Original")
+    HYUNDAI = "HYUNDAI", _("Hyundai Original")
+    KIA = "KIA", _("Kia Original")
+    LAND_ROVER = "LAND_ROVER", _("Land Rover Original")
+    JAGUAR = "JAGUAR", _("Jaguar Original")
+
+    # ============================================================
+    # GÉNÉRIQUE
+    # ============================================================
+
+    OEM = "OEM", _("Origine constructeur (OEM)")
+    AUTRE = "AUTRE", _("Autre fabricant")
+    INCONNU = "INCONNU", _("Fabricant inconnu")
+
+
+
+
+class FabricantJointSpi(models.TextChoices):
+
+    CHOISIR = "CHOISIR", _("Choisir")
+    # ============================================================
+    # GRANDS FABRICANTS / OEM
+    # ============================================================
+
+    CORTECO = "CORTECO", _("Corteco")
+    FREUDENBERG = "FREUDENBERG", _("Freudenberg")
+    ELRING = "ELRING", _("Elring")
+    VICTOR_REINZ = "VICTOR_REINZ", _("Victor Reinz")
+    SKF = "SKF", _("SKF")
+    NOK = "NOK", _("NOK")
+    NAK = "NAK", _("NAK")
+    KACO = "KACO", _("KACO")
+    TRELLEBORG = "TRELLEBORG", _("Trelleborg")
+    PARKER = "PARKER", _("Parker")
+    SAKAGAMI = "SAKAGAMI", _("Sakagami")
+    MUSASHI = "MUSASHI", _("Musashi Oil Seal")
+    ARS = "ARS", _("ARS")
+    PAYEN = "PAYEN", _("Payen")
+    AJUSA = "AJUSA", _("Ajusa")
+
+    # ============================================================
+    # ROULEMENTS / TRANSMISSION / ÉTANCHÉITÉ
+    # ============================================================
+
+    FAG = "FAG", _("FAG / Schaeffler")
+    INA = "INA", _("INA / Schaeffler")
+    SNR = "SNR", _("NTN-SNR")
+    NTN = "NTN", _("NTN")
+    KOYO = "KOYO", _("Koyo / JTEKT")
+    TIMKEN = "TIMKEN", _("Timken")
+    NSK = "NSK", _("NSK")
+
+    # ============================================================
+    # AFTERMARKET EUROPÉEN
+    # ============================================================
+
+    FEBI = "FEBI", _("febi bilstein")
+    SWAG = "SWAG", _("SWAG")
+    MEYLE = "MEYLE", _("MEYLE")
+    METZGER = "METZGER", _("Metzger")
+    TOPRAN = "TOPRAN", _("TOPRAN")
+    VAICO = "VAICO", _("VAICO")
+    MAPCO = "MAPCO", _("MAPCO")
+    JP_GROUP = "JP_GROUP", _("JP Group")
+    MAXGEAR = "MAXGEAR", _("MAXGEAR")
+    RIDEX = "RIDEX", _("RIDEX")
+    STARK = "STARK", _("STARK")
+    AUTOMEGA = "AUTOMEGA", _("AUTOMEGA")
+    TRUCKTEC = "TRUCKTEC", _("TRUCKTEC Automotive")
+    BGA = "BGA", _("BGA")
+    FAI = "FAI", _("FAI AutoParts")
+    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
+    IMPERGOM = "IMPERGOM", _("IMPERGOM")
+    ORIGINAL_IMPERIUM = "ORIGINAL_IMPERIUM", _("Original Imperium")
+
+    # ============================================================
+    # AFTERMARKET ASIATIQUE
+    # ============================================================
+
+    ASHIKA = "ASHIKA", _("ASHIKA")
+    JAPANPARTS = "JAPANPARTS", _("Japanparts")
+    JAPKO = "JAPKO", _("JAPKO")
+    FEBEST = "FEBEST", _("FEBEST")
+    GSP = "GSP", _("GSP")
+    MASUMA = "MASUMA", _("Masuma")
+
+    # ============================================================
+    # CONSTRUCTEURS / PIÈCES D'ORIGINE
+    # ============================================================
+
+    BMW = "BMW", _("BMW Original")
+    MINI = "MINI", _("MINI Original")
+    MERCEDES = "MERCEDES", _("Mercedes-Benz Original")
+    AUDI = "AUDI", _("Audi Original")
+    VOLKSWAGEN = "VOLKSWAGEN", _("Volkswagen Original")
+    SKODA = "SKODA", _("Škoda Original")
+    SEAT = "SEAT", _("SEAT Original")
+    CUPRA = "CUPRA", _("CUPRA Original")
+    PORSCHE = "PORSCHE", _("Porsche Original")
+
+    OPEL = "OPEL", _("Opel Original")
+    FORD = "FORD", _("Ford Original")
+    VOLVO = "VOLVO", _("Volvo Original")
+    SAAB = "SAAB", _("Saab Original")
+
+    PEUGEOT = "PEUGEOT", _("Peugeot Original")
+    CITROEN = "CITROEN", _("Citroën Original")
+    DS = "DS", _("DS Automobiles Original")
+    RENAULT = "RENAULT", _("Renault Original")
+    DACIA = "DACIA", _("Dacia Original")
+
+    FIAT = "FIAT", _("Fiat Original")
+    ALFA_ROMEO = "ALFA_ROMEO", _("Alfa Romeo Original")
+    LANCIA = "LANCIA", _("Lancia Original")
+    MASERATI = "MASERATI", _("Maserati Original")
+    FERRARI = "FERRARI", _("Ferrari Original")
+
+    TOYOTA = "TOYOTA", _("Toyota Original")
+    LEXUS = "LEXUS", _("Lexus Original")
+    HONDA = "HONDA", _("Honda Original")
+    NISSAN = "NISSAN", _("Nissan Original")
+    INFINITI = "INFINITI", _("Infiniti Original")
+    MAZDA = "MAZDA", _("Mazda Original")
+    SUBARU = "SUBARU", _("Subaru Original")
+    MITSUBISHI = "MITSUBISHI", _("Mitsubishi Original")
+    SUZUKI = "SUZUKI", _("Suzuki Original")
+
+    HYUNDAI = "HYUNDAI", _("Hyundai Original")
+    KIA = "KIA", _("Kia Original")
+
+    JAGUAR = "JAGUAR", _("Jaguar Original")
+    LAND_ROVER = "LAND_ROVER", _("Land Rover Original")
+
+    # ============================================================
+    # GÉNÉRIQUE
+    # ============================================================
+
+    OEM = "OEM", _("Origine constructeur (OEM)")
+    AUTRE = "AUTRE", _("Autre fabricant")
+    INCONNU = "INCONNU", _("Fabricant inconnu")
