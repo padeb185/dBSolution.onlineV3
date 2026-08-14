@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-13 15:27+0200\n"
+"POT-Creation-Date: 2026-08-14 15:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,6 +128,7 @@ msgstr "Λεπτομέρειες προμηθευτή :"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:37
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_detail.html:38
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:39
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:38
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:38
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail.html:37
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:37
@@ -200,6 +201,7 @@ msgstr "Αναγνωριστικό Peppol"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:253
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:237
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:280
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:239
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:277
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:228
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:229
@@ -296,6 +298,7 @@ msgstr "Δεν έχει καταχωρηθεί διεύθυνση."
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:90
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_detail.html:87
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:92
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:88
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:87
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail.html:88
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:86
@@ -361,6 +364,8 @@ msgstr "Μεταδεδομένα"
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_detail.html:91
 #: maintenance/autres_interventions/echappement/models.py:341
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:96
+#: maintenance/autres_interventions/embrayage/models.py:306
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:92
 #: maintenance/autres_interventions/geometrie/models.py:286
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:91
 #: maintenance/autres_interventions/moteur/admission/models.py:287
@@ -457,6 +462,8 @@ msgstr "Δημιουργήθηκε στις"
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_detail.html:95
 #: maintenance/autres_interventions/echappement/models.py:342
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:100
+#: maintenance/autres_interventions/embrayage/models.py:307
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:96
 #: maintenance/autres_interventions/geometrie/models.py:287
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:95
 #: maintenance/autres_interventions/moteur/admission/models.py:288
@@ -564,6 +571,8 @@ msgstr "Αγορά εμπορευμάτων"
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/modifier_courroie.html:120
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:1171
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:1171
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_form.html:117
+#: maintenance/autres_interventions/embrayage/templates/embrayage/modifier_embrayage.html:122
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:117
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_modifier.html:127
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_check.html:123
@@ -674,6 +683,8 @@ msgstr "Αποθήκευση"
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/modifier_courroie.html:126
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:1176
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:1175
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_form.html:122
+#: maintenance/autres_interventions/embrayage/templates/embrayage/modifier_embrayage.html:128
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:122
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_modifier.html:131
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_check.html:128
@@ -893,6 +904,7 @@ msgstr "Επιστροφή στον πίνακα ελέγχου"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:186
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:185
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:182
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:186
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:185
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:182
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:184
@@ -945,6 +957,7 @@ msgstr "Παγκόσμια αναζήτηση:"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:187
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:186
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:183
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:187
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:186
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:183
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:185
@@ -1008,6 +1021,7 @@ msgstr "Δεν βρέθηκε κανένα τιμολόγιο"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:192
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:191
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:188
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:192
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:191
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:188
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:190
@@ -1062,6 +1076,7 @@ msgstr "Πρώτος"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:193
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:192
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:189
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:193
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:192
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:189
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:191
@@ -1116,6 +1131,7 @@ msgstr "Τελευταίος"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:194
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:193
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:190
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:194
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:193
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:190
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:192
@@ -1170,6 +1186,7 @@ msgstr "Επόμενος"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:195
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:194
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:191
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:195
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:194
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:191
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:193
@@ -1267,8 +1284,8 @@ msgstr "Πόλη"
 #: client_atelier/forms.py:118 fournisseur/forms.py:55
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:56
 #: fuel/templates/fuel/fuel_detail.html:66
-#: maintenance/autres_interventions/abs/views.py:250
-#: maintenance/autres_interventions/abs/views.py:389
+#: maintenance/autres_interventions/abs/views.py:249
+#: maintenance/autres_interventions/abs/views.py:388
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:120
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:105
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:321
@@ -1289,6 +1306,9 @@ msgstr "Πόλη"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:1029
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:352
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:1034
+#: maintenance/autres_interventions/embrayage/models.py:128
+#: maintenance/autres_interventions/embrayage/views.py:275
+#: maintenance/autres_interventions/embrayage/views.py:437
 #: maintenance/autres_interventions/geometrie/models.py:78
 #: maintenance/autres_interventions/geometrie/views.py:267
 #: maintenance/autres_interventions/geometrie/views.py:425
@@ -1391,8 +1411,8 @@ msgstr "Άλλες πληροφορίες"
 #: maintenance/autres_interventions/abs/models.py:211
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail.html:57
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:688
-#: maintenance/autres_interventions/abs/views.py:255
-#: maintenance/autres_interventions/abs/views.py:395
+#: maintenance/autres_interventions/abs/views.py:254
+#: maintenance/autres_interventions/abs/views.py:394
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:304
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:258
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail.html:57
@@ -1423,6 +1443,11 @@ msgstr "Άλλες πληροφορίες"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1287
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:63
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:959
+#: maintenance/autres_interventions/embrayage/models.py:238
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:57
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:737
+#: maintenance/autres_interventions/embrayage/views.py:280
+#: maintenance/autres_interventions/embrayage/views.py:443
 #: maintenance/autres_interventions/geometrie/models.py:230
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:57
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:611
@@ -1598,6 +1623,7 @@ msgstr "Η διεύθυνση '%(rue)s, %(cp)s' ενημερώθηκε με επ
 #: maintenance/autres_interventions/climatisation/models.py:69
 #: maintenance/autres_interventions/courroie_accessoires/models.py:26
 #: maintenance/autres_interventions/echappement/models.py:31
+#: maintenance/autres_interventions/embrayage/models.py:32
 #: maintenance/autres_interventions/geometrie/models.py:17
 #: maintenance/autres_interventions/models.py:27
 #: maintenance/autres_interventions/moteur/admission/models.py:30
@@ -1806,6 +1832,7 @@ msgstr "Ασφαλιστής"
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:247
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:279
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:311
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:340
 #: maintenance/templates/maintenance/choisir_type.html:33
 #: maintenance/templates/maintenance/choisir_type.html:43
 #: maintenance/templates/maintenance/choisir_type.html:53
@@ -1854,8 +1881,8 @@ msgstr ""
 #: assurance/views.py:120 assurance/views.py:168 assurance_police/views.py:78
 #: assurance_police/views.py:132 carrosserie/views.py:127
 #: fournisseur/views.py:113 fuel/views.py:275 maindoeuvre/views.py:181
-#: maintenance/autres_interventions/abs/views.py:196
-#: maintenance/autres_interventions/abs/views.py:335
+#: maintenance/autres_interventions/abs/views.py:195
+#: maintenance/autres_interventions/abs/views.py:334
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:338
 #: maintenance/autres_interventions/boite_de_vitesse/views.py:201
 #: maintenance/autres_interventions/boite_de_vitesse/views.py:285
@@ -1868,6 +1895,8 @@ msgstr ""
 #: maintenance/autres_interventions/courroie_accessoires/views.py:339
 #: maintenance/autres_interventions/echappement/views.py:347
 #: maintenance/autres_interventions/echappement/views.py:449
+#: maintenance/autres_interventions/embrayage/views.py:196
+#: maintenance/autres_interventions/embrayage/views.py:358
 #: maintenance/autres_interventions/geometrie/views.py:197
 #: maintenance/autres_interventions/geometrie/views.py:357
 #: maintenance/autres_interventions/moteur/admission/views.py:230
@@ -2008,6 +2037,9 @@ msgstr "Λεπτομέρειες ασφαλιστικής πολιτικής:"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:41
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:44
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:71
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:40
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:46
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:73
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:40
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:45
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:72
@@ -2053,7 +2085,7 @@ msgstr "Λεπτομέρειες ασφαλιστικής πολιτικής:"
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_detail.html:39
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:43
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:71
-#: maintenance/models.py:114
+#: maintenance/models.py:115
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_detail.html:39
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:43
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:70
@@ -2208,6 +2240,7 @@ msgstr "Όνομα υπευθύνου"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:247
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:231
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:273
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:233
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:271
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:222
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:223
@@ -2723,6 +2756,7 @@ msgstr "Δημιουργία πιλότου"
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_form.html:45
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_form.html:45
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_form.html:45
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_form.html:45
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:45
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_form.html:45
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_form.html:45
@@ -2888,6 +2922,15 @@ msgstr "Περιγραφή"
 #: maintenance/autres_interventions/echappement/models.py:276
 #: maintenance/autres_interventions/echappement/models.py:282
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1115
+#: maintenance/autres_interventions/embrayage/models.py:148
+#: maintenance/autres_interventions/embrayage/models.py:155
+#: maintenance/autres_interventions/embrayage/models.py:162
+#: maintenance/autres_interventions/embrayage/models.py:169
+#: maintenance/autres_interventions/embrayage/models.py:176
+#: maintenance/autres_interventions/embrayage/models.py:183
+#: maintenance/autres_interventions/embrayage/models.py:190
+#: maintenance/autres_interventions/embrayage/models.py:197
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:604
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:470
 #: maintenance/autres_interventions/moteur/admission/models.py:152
 #: maintenance/autres_interventions/moteur/admission/models.py:157
@@ -3231,6 +3274,7 @@ msgstr "Αιθανόλη"
 #: maintenance/autres_interventions/climatisation/models.py:68
 #: maintenance/autres_interventions/courroie_accessoires/models.py:25
 #: maintenance/autres_interventions/echappement/models.py:30
+#: maintenance/autres_interventions/embrayage/models.py:31
 #: maintenance/autres_interventions/geometrie/models.py:16
 #: maintenance/autres_interventions/models.py:26
 #: maintenance/autres_interventions/moteur/admission/models.py:29
@@ -3259,6 +3303,7 @@ msgstr "Αυστρία"
 #: maintenance/autres_interventions/climatisation/models.py:70
 #: maintenance/autres_interventions/courroie_accessoires/models.py:27
 #: maintenance/autres_interventions/echappement/models.py:32
+#: maintenance/autres_interventions/embrayage/models.py:33
 #: maintenance/autres_interventions/geometrie/models.py:18
 #: maintenance/autres_interventions/models.py:28
 #: maintenance/autres_interventions/moteur/admission/models.py:31
@@ -3287,6 +3332,7 @@ msgstr "Βουλγαρία"
 #: maintenance/autres_interventions/climatisation/models.py:80
 #: maintenance/autres_interventions/courroie_accessoires/models.py:37
 #: maintenance/autres_interventions/echappement/models.py:42
+#: maintenance/autres_interventions/embrayage/models.py:43
 #: maintenance/autres_interventions/geometrie/models.py:28
 #: maintenance/autres_interventions/models.py:38
 #: maintenance/autres_interventions/moteur/admission/models.py:41
@@ -3315,6 +3361,7 @@ msgstr "Κροατία"
 #: maintenance/autres_interventions/climatisation/models.py:71
 #: maintenance/autres_interventions/courroie_accessoires/models.py:28
 #: maintenance/autres_interventions/echappement/models.py:33
+#: maintenance/autres_interventions/embrayage/models.py:34
 #: maintenance/autres_interventions/geometrie/models.py:19
 #: maintenance/autres_interventions/models.py:29
 #: maintenance/autres_interventions/moteur/admission/models.py:32
@@ -3343,6 +3390,7 @@ msgstr "Κύπρος"
 #: maintenance/autres_interventions/climatisation/models.py:72
 #: maintenance/autres_interventions/courroie_accessoires/models.py:29
 #: maintenance/autres_interventions/echappement/models.py:34
+#: maintenance/autres_interventions/embrayage/models.py:35
 #: maintenance/autres_interventions/geometrie/models.py:20
 #: maintenance/autres_interventions/models.py:30
 #: maintenance/autres_interventions/moteur/admission/models.py:33
@@ -3371,6 +3419,7 @@ msgstr "Τσεχία"
 #: maintenance/autres_interventions/climatisation/models.py:74
 #: maintenance/autres_interventions/courroie_accessoires/models.py:31
 #: maintenance/autres_interventions/echappement/models.py:36
+#: maintenance/autres_interventions/embrayage/models.py:37
 #: maintenance/autres_interventions/geometrie/models.py:22
 #: maintenance/autres_interventions/models.py:32
 #: maintenance/autres_interventions/moteur/admission/models.py:35
@@ -3399,6 +3448,7 @@ msgstr "Δανία"
 #: maintenance/autres_interventions/climatisation/models.py:75
 #: maintenance/autres_interventions/courroie_accessoires/models.py:32
 #: maintenance/autres_interventions/echappement/models.py:37
+#: maintenance/autres_interventions/embrayage/models.py:38
 #: maintenance/autres_interventions/geometrie/models.py:23
 #: maintenance/autres_interventions/models.py:33
 #: maintenance/autres_interventions/moteur/admission/models.py:36
@@ -3427,6 +3477,7 @@ msgstr "Εσθονία"
 #: maintenance/autres_interventions/climatisation/models.py:77
 #: maintenance/autres_interventions/courroie_accessoires/models.py:34
 #: maintenance/autres_interventions/echappement/models.py:39
+#: maintenance/autres_interventions/embrayage/models.py:40
 #: maintenance/autres_interventions/geometrie/models.py:25
 #: maintenance/autres_interventions/models.py:35
 #: maintenance/autres_interventions/moteur/admission/models.py:38
@@ -3455,6 +3506,7 @@ msgstr "Φινλανδία"
 #: maintenance/autres_interventions/climatisation/models.py:78
 #: maintenance/autres_interventions/courroie_accessoires/models.py:35
 #: maintenance/autres_interventions/echappement/models.py:40
+#: maintenance/autres_interventions/embrayage/models.py:41
 #: maintenance/autres_interventions/geometrie/models.py:26
 #: maintenance/autres_interventions/models.py:36
 #: maintenance/autres_interventions/moteur/admission/models.py:39
@@ -3484,6 +3536,7 @@ msgstr "Γαλλία"
 #: maintenance/autres_interventions/climatisation/models.py:73
 #: maintenance/autres_interventions/courroie_accessoires/models.py:30
 #: maintenance/autres_interventions/echappement/models.py:35
+#: maintenance/autres_interventions/embrayage/models.py:36
 #: maintenance/autres_interventions/geometrie/models.py:21
 #: maintenance/autres_interventions/models.py:31
 #: maintenance/autres_interventions/moteur/admission/models.py:34
@@ -3513,6 +3566,7 @@ msgstr "Γερμανία"
 #: maintenance/autres_interventions/climatisation/models.py:79
 #: maintenance/autres_interventions/courroie_accessoires/models.py:36
 #: maintenance/autres_interventions/echappement/models.py:41
+#: maintenance/autres_interventions/embrayage/models.py:42
 #: maintenance/autres_interventions/geometrie/models.py:27
 #: maintenance/autres_interventions/models.py:37
 #: maintenance/autres_interventions/moteur/admission/models.py:40
@@ -3541,6 +3595,7 @@ msgstr "Ελλάδα"
 #: maintenance/autres_interventions/climatisation/models.py:81
 #: maintenance/autres_interventions/courroie_accessoires/models.py:38
 #: maintenance/autres_interventions/echappement/models.py:43
+#: maintenance/autres_interventions/embrayage/models.py:44
 #: maintenance/autres_interventions/geometrie/models.py:29
 #: maintenance/autres_interventions/models.py:39
 #: maintenance/autres_interventions/moteur/admission/models.py:42
@@ -3569,6 +3624,7 @@ msgstr "Ουγγαρία"
 #: maintenance/autres_interventions/climatisation/models.py:82
 #: maintenance/autres_interventions/courroie_accessoires/models.py:39
 #: maintenance/autres_interventions/echappement/models.py:44
+#: maintenance/autres_interventions/embrayage/models.py:45
 #: maintenance/autres_interventions/geometrie/models.py:30
 #: maintenance/autres_interventions/models.py:40
 #: maintenance/autres_interventions/moteur/admission/models.py:43
@@ -3597,6 +3653,7 @@ msgstr "Ιρλανδία"
 #: maintenance/autres_interventions/climatisation/models.py:83
 #: maintenance/autres_interventions/courroie_accessoires/models.py:40
 #: maintenance/autres_interventions/echappement/models.py:45
+#: maintenance/autres_interventions/embrayage/models.py:46
 #: maintenance/autres_interventions/geometrie/models.py:31
 #: maintenance/autres_interventions/models.py:41
 #: maintenance/autres_interventions/moteur/admission/models.py:44
@@ -3625,6 +3682,7 @@ msgstr "Ιταλία"
 #: maintenance/autres_interventions/climatisation/models.py:86
 #: maintenance/autres_interventions/courroie_accessoires/models.py:43
 #: maintenance/autres_interventions/echappement/models.py:48
+#: maintenance/autres_interventions/embrayage/models.py:49
 #: maintenance/autres_interventions/geometrie/models.py:34
 #: maintenance/autres_interventions/models.py:44
 #: maintenance/autres_interventions/moteur/admission/models.py:47
@@ -3653,6 +3711,7 @@ msgstr "Λετονία"
 #: maintenance/autres_interventions/climatisation/models.py:84
 #: maintenance/autres_interventions/courroie_accessoires/models.py:41
 #: maintenance/autres_interventions/echappement/models.py:46
+#: maintenance/autres_interventions/embrayage/models.py:47
 #: maintenance/autres_interventions/geometrie/models.py:32
 #: maintenance/autres_interventions/models.py:42
 #: maintenance/autres_interventions/moteur/admission/models.py:45
@@ -3682,6 +3741,7 @@ msgstr "Λιθουανία"
 #: maintenance/autres_interventions/climatisation/models.py:85
 #: maintenance/autres_interventions/courroie_accessoires/models.py:42
 #: maintenance/autres_interventions/echappement/models.py:47
+#: maintenance/autres_interventions/embrayage/models.py:48
 #: maintenance/autres_interventions/geometrie/models.py:33
 #: maintenance/autres_interventions/models.py:43
 #: maintenance/autres_interventions/moteur/admission/models.py:46
@@ -3710,6 +3770,7 @@ msgstr "Λουξεμβούργο"
 #: maintenance/autres_interventions/climatisation/models.py:87
 #: maintenance/autres_interventions/courroie_accessoires/models.py:44
 #: maintenance/autres_interventions/echappement/models.py:49
+#: maintenance/autres_interventions/embrayage/models.py:50
 #: maintenance/autres_interventions/geometrie/models.py:35
 #: maintenance/autres_interventions/models.py:45
 #: maintenance/autres_interventions/moteur/admission/models.py:48
@@ -3738,6 +3799,7 @@ msgstr "Μάλτα"
 #: maintenance/autres_interventions/climatisation/models.py:88
 #: maintenance/autres_interventions/courroie_accessoires/models.py:45
 #: maintenance/autres_interventions/echappement/models.py:50
+#: maintenance/autres_interventions/embrayage/models.py:51
 #: maintenance/autres_interventions/geometrie/models.py:36
 #: maintenance/autres_interventions/models.py:46
 #: maintenance/autres_interventions/moteur/admission/models.py:49
@@ -3766,6 +3828,7 @@ msgstr "Κάτω Χώρες"
 #: maintenance/autres_interventions/climatisation/models.py:89
 #: maintenance/autres_interventions/courroie_accessoires/models.py:46
 #: maintenance/autres_interventions/echappement/models.py:51
+#: maintenance/autres_interventions/embrayage/models.py:52
 #: maintenance/autres_interventions/geometrie/models.py:37
 #: maintenance/autres_interventions/models.py:47
 #: maintenance/autres_interventions/moteur/admission/models.py:50
@@ -3794,6 +3857,7 @@ msgstr "Πολωνία"
 #: maintenance/autres_interventions/climatisation/models.py:90
 #: maintenance/autres_interventions/courroie_accessoires/models.py:47
 #: maintenance/autres_interventions/echappement/models.py:52
+#: maintenance/autres_interventions/embrayage/models.py:53
 #: maintenance/autres_interventions/geometrie/models.py:38
 #: maintenance/autres_interventions/models.py:48
 #: maintenance/autres_interventions/moteur/admission/models.py:51
@@ -3822,6 +3886,7 @@ msgstr "Πορτογαλία"
 #: maintenance/autres_interventions/climatisation/models.py:91
 #: maintenance/autres_interventions/courroie_accessoires/models.py:48
 #: maintenance/autres_interventions/echappement/models.py:53
+#: maintenance/autres_interventions/embrayage/models.py:54
 #: maintenance/autres_interventions/geometrie/models.py:39
 #: maintenance/autres_interventions/models.py:49
 #: maintenance/autres_interventions/moteur/admission/models.py:52
@@ -3850,6 +3915,7 @@ msgstr "Ρουμανία"
 #: maintenance/autres_interventions/climatisation/models.py:94
 #: maintenance/autres_interventions/courroie_accessoires/models.py:51
 #: maintenance/autres_interventions/echappement/models.py:56
+#: maintenance/autres_interventions/embrayage/models.py:57
 #: maintenance/autres_interventions/geometrie/models.py:42
 #: maintenance/autres_interventions/models.py:52
 #: maintenance/autres_interventions/moteur/admission/models.py:55
@@ -3878,6 +3944,7 @@ msgstr "Σλοβακία"
 #: maintenance/autres_interventions/climatisation/models.py:93
 #: maintenance/autres_interventions/courroie_accessoires/models.py:50
 #: maintenance/autres_interventions/echappement/models.py:55
+#: maintenance/autres_interventions/embrayage/models.py:56
 #: maintenance/autres_interventions/geometrie/models.py:41
 #: maintenance/autres_interventions/models.py:51
 #: maintenance/autres_interventions/moteur/admission/models.py:54
@@ -3906,6 +3973,7 @@ msgstr "Σλοβενία"
 #: maintenance/autres_interventions/climatisation/models.py:76
 #: maintenance/autres_interventions/courroie_accessoires/models.py:33
 #: maintenance/autres_interventions/echappement/models.py:38
+#: maintenance/autres_interventions/embrayage/models.py:39
 #: maintenance/autres_interventions/geometrie/models.py:24
 #: maintenance/autres_interventions/models.py:34
 #: maintenance/autres_interventions/moteur/admission/models.py:37
@@ -3934,6 +4002,7 @@ msgstr "Ισπανία"
 #: maintenance/autres_interventions/climatisation/models.py:92
 #: maintenance/autres_interventions/courroie_accessoires/models.py:49
 #: maintenance/autres_interventions/echappement/models.py:54
+#: maintenance/autres_interventions/embrayage/models.py:55
 #: maintenance/autres_interventions/geometrie/models.py:40
 #: maintenance/autres_interventions/models.py:50
 #: maintenance/autres_interventions/moteur/admission/models.py:53
@@ -3992,6 +4061,7 @@ msgstr "Χρήστης"
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:279
 #: maintenance/autres_interventions/echappement/models.py:128
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:330
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:300
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:318
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:300
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:300
@@ -4025,6 +4095,7 @@ msgstr "Όχημα"
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:139
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:137
 #: maintenance/autres_interventions/courroie_accessoires/models.py:114
+#: maintenance/autres_interventions/embrayage/models.py:114
 #: maintenance/autres_interventions/geometrie/models.py:104
 #: maintenance/autres_interventions/moteur/admission/models.py:123
 #: maintenance/autres_interventions/moteur/alternateur/models.py:115
@@ -4183,6 +4254,8 @@ msgstr "Λεπτομέρειες για το γέμισμα καυσίμου:"
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:73
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:48
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:72
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:50
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:74
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:49
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:73
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:48
@@ -4439,6 +4512,9 @@ msgstr "14,32 Λίτρα"
 #: maintenance/autres_interventions/echappement/models.py:339
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:310
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:75
+#: maintenance/autres_interventions/embrayage/models.py:304
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:265
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:77
 #: maintenance/autres_interventions/geometrie/models.py:284
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:299
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:76
@@ -4698,6 +4774,7 @@ msgstr "Χρόνος (λεπτά)"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:813
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:411
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1073
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:574
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:444
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:728
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:469
@@ -4731,8 +4808,8 @@ msgstr "Λεπτομέρειες εργασίας"
 
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:55
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail.html:45
-#: maintenance/autres_interventions/abs/views.py:214
-#: maintenance/autres_interventions/abs/views.py:353
+#: maintenance/autres_interventions/abs/views.py:213
+#: maintenance/autres_interventions/abs/views.py:352
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail.html:44
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:221
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:355
@@ -4751,6 +4828,9 @@ msgstr "Λεπτομέρειες εργασίας"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:71
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:47
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:75
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:45
+#: maintenance/autres_interventions/embrayage/views.py:214
+#: maintenance/autres_interventions/embrayage/views.py:376
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:46
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail.html:45
 #: maintenance/autres_interventions/moteur/admission/views.py:252
@@ -4836,6 +4916,9 @@ msgstr "Χιλιομετρική απόσταση"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:48
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:73
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:997
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:46
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:280
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:75
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:47
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:305
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:74
@@ -4903,8 +4986,8 @@ msgstr "Ετικέτα"
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:270
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:58
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:76
-#: maintenance/autres_interventions/abs/views.py:260
-#: maintenance/autres_interventions/abs/views.py:400
+#: maintenance/autres_interventions/abs/views.py:259
+#: maintenance/autres_interventions/abs/views.py:399
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:334
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:277
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail.html:47
@@ -4949,6 +5032,13 @@ msgstr "Ετικέτα"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:56
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:74
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:1070
+#: maintenance/autres_interventions/embrayage/models.py:271
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:47
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:270
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:58
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:76
+#: maintenance/autres_interventions/embrayage/views.py:285
+#: maintenance/autres_interventions/embrayage/views.py:448
 #: maintenance/autres_interventions/geometrie/models.py:262
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:48
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:300
@@ -5092,6 +5182,7 @@ msgstr "Τεχνικός"
 #: maintenance/autres_interventions/climatisation/models.py:562
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:792
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:390
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:553
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:423
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:491
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:551
@@ -5121,6 +5212,7 @@ msgstr "Εργατικά"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:53
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_detail.html:54
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:56
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:54
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:55
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail.html:54
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:53
@@ -5172,6 +5264,10 @@ msgstr "Ημερομηνία παρέμβασης"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:66
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:63
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:76
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:55
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:558
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:65
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:78
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:428
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:64
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:77
@@ -5263,6 +5359,7 @@ msgstr "Τροποποίηση εργασίας"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:82
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_detail.html:78
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:83
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:79
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:78
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail.html:79
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:77
@@ -5310,6 +5407,8 @@ msgstr "Λεπτομέρειες εργασίας"
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:274
 #: maintenance/autres_interventions/echappement/models.py:327
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:325
+#: maintenance/autres_interventions/embrayage/models.py:292
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:275
 #: maintenance/autres_interventions/geometrie/models.py:272
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:302
 #: maintenance/autres_interventions/moteur/admission/models.py:273
@@ -5364,6 +5463,7 @@ msgstr "Εταιρεία"
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:256
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:284
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:340
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:305
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:310
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:317
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:258
@@ -5387,6 +5487,7 @@ msgstr "Χιλιομετρική απόσταση πλαισίου"
 #: maintenance/autres_interventions/courroie_accessoires/models.py:227
 #: maintenance/autres_interventions/echappement/models.py:308
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1040
+#: maintenance/autres_interventions/embrayage/models.py:262
 #: maintenance/autres_interventions/geometrie/models.py:253
 #: maintenance/autres_interventions/moteur/admission/models.py:243
 #: maintenance/autres_interventions/moteur/admission/views.py:269
@@ -5415,6 +5516,7 @@ msgstr "Εργατικά"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_form.html:128
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_form.html:127
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:1183
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_form.html:128
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:128
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_check.html:134
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_check.html:133
@@ -5468,6 +5570,7 @@ msgstr "Kost"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:79
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:78
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:77
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:79
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:78
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:77
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:78
@@ -5501,6 +5604,7 @@ msgstr "Ενέργεια"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:156
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:161
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:153
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:156
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:156
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:154
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:155
@@ -5579,6 +5683,7 @@ msgstr "Η εργασία τροποποιήθηκε με επιτυχία!"
 #: maintenance/autres_interventions/climatisation/forms.py:21
 #: maintenance/autres_interventions/courroie_accessoires/forms.py:23
 #: maintenance/autres_interventions/echappement/forms.py:24
+#: maintenance/autres_interventions/embrayage/forms.py:20
 #: maintenance/autres_interventions/geometrie/forms.py:20
 #: maintenance/autres_interventions/moteur/admission/forms.py:35
 #: maintenance/autres_interventions/moteur/alternateur/forms.py:45
@@ -5600,6 +5705,7 @@ msgstr "Προσθέστε παρατηρήσεις εδώ..."
 #: maintenance/autres_interventions/climatisation/models.py:22
 #: maintenance/autres_interventions/courroie_accessoires/models.py:15
 #: maintenance/autres_interventions/echappement/models.py:17
+#: maintenance/autres_interventions/embrayage/models.py:19
 #: maintenance/autres_interventions/moteur/admission/models.py:13
 #: maintenance/autres_interventions/moteur/alternateur/models.py:15
 #: maintenance/autres_interventions/moteur/courroie/models.py:19
@@ -5624,6 +5730,7 @@ msgstr "Εντάξει"
 #: maintenance/autres_interventions/abs/models.py:20
 #: maintenance/autres_interventions/courroie_accessoires/models.py:16
 #: maintenance/autres_interventions/echappement/models.py:18
+#: maintenance/autres_interventions/embrayage/models.py:20
 #: maintenance/autres_interventions/moteur/admission/models.py:14
 #: maintenance/autres_interventions/moteur/alternateur/models.py:16
 #: maintenance/autres_interventions/moteur/courroie/models.py:20
@@ -5638,6 +5745,7 @@ msgstr "Να αντικατασταθεί"
 #: maintenance/autres_interventions/climatisation/models.py:24
 #: maintenance/autres_interventions/courroie_accessoires/models.py:17
 #: maintenance/autres_interventions/echappement/models.py:19
+#: maintenance/autres_interventions/embrayage/models.py:21
 #: maintenance/autres_interventions/moteur/admission/models.py:15
 #: maintenance/autres_interventions/moteur/alternateur/models.py:17
 #: maintenance/autres_interventions/moteur/courroie/models.py:21
@@ -5703,6 +5811,15 @@ msgstr "Αντλία ABS"
 #: maintenance/autres_interventions/echappement/models.py:274
 #: maintenance/autres_interventions/echappement/models.py:280
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1113
+#: maintenance/autres_interventions/embrayage/models.py:147
+#: maintenance/autres_interventions/embrayage/models.py:154
+#: maintenance/autres_interventions/embrayage/models.py:161
+#: maintenance/autres_interventions/embrayage/models.py:168
+#: maintenance/autres_interventions/embrayage/models.py:175
+#: maintenance/autres_interventions/embrayage/models.py:182
+#: maintenance/autres_interventions/embrayage/models.py:189
+#: maintenance/autres_interventions/embrayage/models.py:196
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:603
 #: maintenance/autres_interventions/moteur/admission/models.py:150
 #: maintenance/autres_interventions/moteur/admission/models.py:155
 #: maintenance/autres_interventions/moteur/admission/models.py:162
@@ -5851,12 +5968,14 @@ msgid "Prix capteur ABS arrière gauche"
 msgstr "Τιμή αισθητήρα ABS πίσω αριστερά"
 
 #: maintenance/autres_interventions/abs/models.py:178
+#: maintenance/autres_interventions/embrayage/models.py:203
 #: maintenance/check_up/models.py:419 maintenance/checkup_track/models.py:400
 #: maintenance/freins/models.py:249
 msgid "État liquide de frein"
 msgstr "Κατάσταση υγρού φρένων"
 
 #: maintenance/autres_interventions/abs/models.py:183
+#: maintenance/autres_interventions/embrayage/models.py:208
 #: maintenance/check_up/models.py:434 maintenance/checkup_track/models.py:401
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1177
 #: maintenance/freins/models.py:264
@@ -5865,29 +5984,35 @@ msgid "Fabricant du liquide de frein"
 msgstr "Κατασκευαστής του υγρού φρένων"
 
 #: maintenance/autres_interventions/abs/models.py:187
+#: maintenance/autres_interventions/embrayage/models.py:213
 #: maintenance/check_up/models.py:420 maintenance/checkup_track/models.py:402
 #: maintenance/freins/models.py:250
 msgid "Spécification liquide de frein"
 msgstr "Προδιαγραφή υγρού φρένων"
 
 #: maintenance/autres_interventions/abs/models.py:194
+#: maintenance/autres_interventions/embrayage/models.py:221
 #: maintenance/check_up/models.py:427 maintenance/checkup_track/models.py:403
 #: maintenance/freins/models.py:257
 msgid "Quantité liquide de frein (L)"
 msgstr "Ποσότητα υγρού φρένων (L)"
 
 #: maintenance/autres_interventions/abs/models.py:202
+#: maintenance/autres_interventions/embrayage/models.py:229
 #: maintenance/check_up/models.py:440 maintenance/freins/models.py:270
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:653
 msgid "Prix d'achat du liquide HTVA"
 msgstr "Τιμή αγοράς του υγρού χωρίς ΦΠΑ"
 
 #: maintenance/autres_interventions/abs/models.py:208
-#: maintenance/autres_interventions/abs/views.py:239
-#: maintenance/autres_interventions/abs/views.py:378
+#: maintenance/autres_interventions/abs/views.py:238
+#: maintenance/autres_interventions/abs/views.py:377
 #: maintenance/autres_interventions/courroie_accessoires/models.py:162
 #: maintenance/autres_interventions/courroie_accessoires/views.py:226
 #: maintenance/autres_interventions/courroie_accessoires/views.py:377
+#: maintenance/autres_interventions/embrayage/models.py:235
+#: maintenance/autres_interventions/embrayage/views.py:264
+#: maintenance/autres_interventions/embrayage/views.py:426
 #: maintenance/autres_interventions/moteur/rodage/models.py:573
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:458
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:461
@@ -5926,6 +6051,7 @@ msgstr "Σφίξιμο των τροχών"
 #: maintenance/autres_interventions/climatisation/models.py:544
 #: maintenance/autres_interventions/courroie_accessoires/models.py:172
 #: maintenance/autres_interventions/echappement/models.py:290
+#: maintenance/autres_interventions/embrayage/models.py:244
 #: maintenance/autres_interventions/geometrie/models.py:236
 #: maintenance/autres_interventions/models.py:87
 #: maintenance/autres_interventions/moteur/admission/models.py:225
@@ -5937,7 +6063,7 @@ msgstr "Σφίξιμο των τροχών"
 #: maintenance/carrosserie_interne/models.py:595
 #: maintenance/check_up/models.py:1800 maintenance/checkup_track/models.py:789
 #: maintenance/entretien/models.py:896 maintenance/freins/models.py:375
-#: maintenance/jeux_pieces/models.py:1096 maintenance/models.py:45
+#: maintenance/jeux_pieces/models.py:1096 maintenance/models.py:46
 #: maintenance/nettoyage_exterieur/models.py:164
 #: maintenance/nettoyage_interieur/models.py:183
 #: maintenance/niveaux/models.py:317 maintenance/pneus/models.py:270
@@ -5953,6 +6079,7 @@ msgstr "Πράσινο"
 #: maintenance/autres_interventions/climatisation/models.py:545
 #: maintenance/autres_interventions/courroie_accessoires/models.py:173
 #: maintenance/autres_interventions/echappement/models.py:291
+#: maintenance/autres_interventions/embrayage/models.py:245
 #: maintenance/autres_interventions/geometrie/models.py:237
 #: maintenance/autres_interventions/models.py:88
 #: maintenance/autres_interventions/moteur/admission/models.py:226
@@ -5964,7 +6091,7 @@ msgstr "Πράσινο"
 #: maintenance/carrosserie_interne/models.py:596
 #: maintenance/check_up/models.py:1801 maintenance/checkup_track/models.py:790
 #: maintenance/entretien/models.py:897 maintenance/freins/models.py:376
-#: maintenance/jeux_pieces/models.py:1097 maintenance/models.py:46
+#: maintenance/jeux_pieces/models.py:1097 maintenance/models.py:47
 #: maintenance/nettoyage_exterieur/models.py:165
 #: maintenance/nettoyage_interieur/models.py:184
 #: maintenance/niveaux/models.py:318 maintenance/pneus/models.py:271
@@ -5980,6 +6107,7 @@ msgstr "Κίτρινο"
 #: maintenance/autres_interventions/climatisation/models.py:546
 #: maintenance/autres_interventions/courroie_accessoires/models.py:174
 #: maintenance/autres_interventions/echappement/models.py:292
+#: maintenance/autres_interventions/embrayage/models.py:246
 #: maintenance/autres_interventions/geometrie/models.py:238
 #: maintenance/autres_interventions/models.py:89
 #: maintenance/autres_interventions/moteur/admission/models.py:227
@@ -5991,7 +6119,7 @@ msgstr "Κίτρινο"
 #: maintenance/carrosserie_interne/models.py:597
 #: maintenance/check_up/models.py:1802 maintenance/checkup_track/models.py:791
 #: maintenance/entretien/models.py:898 maintenance/freins/models.py:377
-#: maintenance/jeux_pieces/models.py:1098 maintenance/models.py:47
+#: maintenance/jeux_pieces/models.py:1098 maintenance/models.py:48
 #: maintenance/nettoyage_exterieur/models.py:166
 #: maintenance/nettoyage_interieur/models.py:185
 #: maintenance/niveaux/models.py:319 maintenance/pneus/models.py:272
@@ -6007,6 +6135,7 @@ msgstr "Κόκκινο"
 #: maintenance/autres_interventions/climatisation/models.py:553
 #: maintenance/autres_interventions/courroie_accessoires/models.py:181
 #: maintenance/autres_interventions/echappement/models.py:299
+#: maintenance/autres_interventions/embrayage/models.py:253
 #: maintenance/autres_interventions/geometrie/models.py:244
 #: maintenance/autres_interventions/moteur/admission/models.py:234
 #: maintenance/autres_interventions/moteur/alternateur/models.py:193
@@ -6033,6 +6162,7 @@ msgstr "Οπτική κατάσταση / Ετικέτα"
 #: maintenance/autres_interventions/climatisation/models.py:579
 #: maintenance/autres_interventions/courroie_accessoires/models.py:195
 #: maintenance/autres_interventions/echappement/models.py:320
+#: maintenance/autres_interventions/embrayage/models.py:276
 #: maintenance/autres_interventions/geometrie/models.py:265
 #: maintenance/autres_interventions/moteur/admission/models.py:257
 #: maintenance/autres_interventions/moteur/alternateur/models.py:217
@@ -6059,6 +6189,7 @@ msgstr "Όνομα τεχνικού"
 #: maintenance/autres_interventions/climatisation/models.py:585
 #: maintenance/autres_interventions/courroie_accessoires/models.py:201
 #: maintenance/autres_interventions/echappement/models.py:321
+#: maintenance/autres_interventions/embrayage/models.py:282
 #: maintenance/autres_interventions/geometrie/models.py:266
 #: maintenance/autres_interventions/moteur/admission/models.py:263
 #: maintenance/autres_interventions/moteur/alternateur/models.py:223
@@ -6080,8 +6211,8 @@ msgstr "Ρόλος του τεχνικού"
 
 #: maintenance/autres_interventions/abs/models.py:274
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:515
-#: maintenance/autres_interventions/abs/views.py:265
-#: maintenance/autres_interventions/abs/views.py:405
+#: maintenance/autres_interventions/abs/views.py:264
+#: maintenance/autres_interventions/abs/views.py:404
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:364
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:306
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:521
@@ -6101,6 +6232,10 @@ msgstr "Ρόλος του τεχνικού"
 #: maintenance/autres_interventions/echappement/models.py:336
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:1101
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:1105
+#: maintenance/autres_interventions/embrayage/models.py:301
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:564
+#: maintenance/autres_interventions/embrayage/views.py:290
+#: maintenance/autres_interventions/embrayage/views.py:453
 #: maintenance/autres_interventions/geometrie/models.py:281
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:434
 #: maintenance/autres_interventions/geometrie/views.py:288
@@ -6222,6 +6357,7 @@ msgstr "Ιμάντας χρονισμού"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_detail.html:78
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:69
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:76
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:70
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:69
 #: maintenance/pneus/templates/pneus/modifier_pneus.html:22
 msgid "Modifier le contrôle"
@@ -6243,6 +6379,7 @@ msgid "Kilométrage ABS"
 msgstr "Χιλιομετρική ένδειξη ABS"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:315
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:315
 msgid "Pays TVA"
 msgstr "Χώρα ΦΠΑ"
 
@@ -6254,6 +6391,7 @@ msgstr "Κατάσταση των εξαρτημάτων ABS"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:340
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:592
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:398
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:332
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:601
 msgid "Composant"
 msgstr "Εξάρτημα"
@@ -6269,6 +6407,8 @@ msgstr "Εξάρτημα"
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:433
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:399
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1112
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:333
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:602
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:469
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:328
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:750
@@ -6338,8 +6478,8 @@ msgid "Pompe ABS"
 msgstr "Αντλία ABS"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:362
-#: maintenance/autres_interventions/abs/views.py:224
-#: maintenance/autres_interventions/abs/views.py:363
+#: maintenance/autres_interventions/abs/views.py:223
+#: maintenance/autres_interventions/abs/views.py:362
 #: piece/piece_electronique/models.py:24
 msgid "Calculateur ABS"
 msgstr "Μονάδα ABS"
@@ -6353,6 +6493,7 @@ msgstr "Υγρό φρένων"
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:528
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:808
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:406
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:569
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:439
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:507
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:567
@@ -6371,6 +6512,7 @@ msgstr "Τιμή χρέωσης"
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:537
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:817
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:415
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:578
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:448
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:516
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:576
@@ -6397,6 +6539,7 @@ msgstr "Δεν συνδέεται καμία εργασία"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:827
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:423
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1100
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:592
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:525
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:586
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1111
@@ -6413,6 +6556,7 @@ msgstr "Ανταλλακτικά, χρησιμοποιημένα προϊόντ�
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:836
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:432
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1111
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:601
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:468
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:749
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:490
@@ -6438,6 +6582,7 @@ msgstr "Ανταλλακτικό / Προϊόν"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:839
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:435
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1118
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:605
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:471
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:754
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:496
@@ -6467,6 +6612,7 @@ msgstr "Τιμή μονάδας χωρίς ΦΠΑ"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:840
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:436
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1121
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:606
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:472
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:756
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:499
@@ -6497,6 +6643,7 @@ msgstr "Σύνολο χωρίς ΦΠΑ"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:896
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:492
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1192
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:665
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:529
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:810
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:551
@@ -6528,6 +6675,8 @@ msgstr "Σύνολο ανταλλακτικών και προϊόντων χωρ
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:534
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1205
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1245
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:675
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:707
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:542
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:580
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:691
@@ -6582,6 +6731,7 @@ msgstr "Εργατικά"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:916
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:512
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1218
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:685
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:555
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:592
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:830
@@ -6608,6 +6758,7 @@ msgstr "Γενικό σύνολο με εργασία"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:930
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:526
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1234
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:699
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:572
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:843
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:585
@@ -6632,6 +6783,7 @@ msgstr "Δεν χρησιμοποιήθηκαν ανταλλακτικά ή πρ
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:950
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:546
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1262
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:719
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:860
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:603
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:652
@@ -6656,6 +6808,7 @@ msgstr "Γενικό σύνολο"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:975
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:569
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1294
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:743
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:617
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:885
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:628
@@ -6683,6 +6836,7 @@ msgstr "Καμία παρατήρηση."
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:985
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:575
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1308
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:749
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:628
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:891
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:634
@@ -6710,6 +6864,7 @@ msgstr "Το έγγραφο δημιουργήθηκε αυτόματα από �
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:987
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:577
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1312
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:751
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:630
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:893
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:636
@@ -6750,6 +6905,8 @@ msgstr "Έλεγχος ABS για:"
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/modifier_courroie.html:104
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:1153
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:1156
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_form.html:102
+#: maintenance/autres_interventions/embrayage/templates/embrayage/modifier_embrayage.html:107
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:102
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_modifier.html:110
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_check.html:108
@@ -6819,6 +6976,7 @@ msgstr "Προσθήκη ελέγχου"
 #: maintenance/autres_interventions/climatisation/views.py:756
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:53
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:52
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:54
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:53
 #: maintenance/autres_interventions/models.py:121
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:52
@@ -6843,7 +7001,7 @@ msgstr "Προσθήκη ελέγχου"
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux.html:364
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:51
 #: maintenance/jeux_pieces/templates/jeux_pieces/modifier_jeux_pieces.html:444
-#: maintenance/models.py:122
+#: maintenance/models.py:123
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:51
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/simple.html:141
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_list.html:53
@@ -6859,6 +7017,7 @@ msgstr "Ετικέτα"
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:164
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:164
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:161
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:164
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:162
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:163
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:161
@@ -6872,6 +7031,7 @@ msgstr "Δεν υπάρχουν καταχωρημένοι έλεγχοι για
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:175
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:175
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:173
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:175
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:174
 msgid "Retour au dashboard"
 msgstr "Επιστροφή στον πίνακα ελέγχου"
@@ -6886,6 +7046,8 @@ msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ ελέγχο
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:190
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:188
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:189
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:189
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:190
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:190
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:191
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:235
@@ -6905,6 +7067,7 @@ msgstr "Τροποποίηση του ελέγχου ABS"
 #: maintenance/autres_interventions/bte_vitesse_auto/views.py:102
 #: maintenance/autres_interventions/climatisation/views.py:88
 #: maintenance/autres_interventions/courroie_accessoires/views.py:94
+#: maintenance/autres_interventions/embrayage/views.py:97
 #: maintenance/autres_interventions/geometrie/views.py:99
 #: maintenance/autres_interventions/moteur/admission/views.py:118
 #: maintenance/autres_interventions/moteur/alternateur/views.py:87
@@ -6926,6 +7089,7 @@ msgstr "Πρόσβαση απαγορευμένη."
 #: maintenance/autres_interventions/boite_de_vitesse/views.py:131
 #: maintenance/autres_interventions/bte_vitesse_auto/views.py:132
 #: maintenance/autres_interventions/courroie_accessoires/views.py:123
+#: maintenance/autres_interventions/embrayage/views.py:125
 #: maintenance/autres_interventions/geometrie/views.py:128
 #: maintenance/autres_interventions/moteur/admission/forms.py:108
 #: maintenance/autres_interventions/moteur/admission/views.py:154
@@ -6952,19 +7116,22 @@ msgstr "Έλεγχος ABS - %(immatriculation)s"
 msgid "Contrôle du système ABS enregistré avec succès."
 msgstr "Ο έλεγχος του συστήματος ABS αποθηκεύτηκε με επιτυχία."
 
-#: maintenance/autres_interventions/abs/views.py:219
-#: maintenance/autres_interventions/abs/views.py:358
+#: maintenance/autres_interventions/abs/views.py:218
+#: maintenance/autres_interventions/abs/views.py:357
 msgid "Pompe du système ABS"
 msgstr "Αντλία του συστήματος ABS"
 
-#: maintenance/autres_interventions/abs/views.py:229
-#: maintenance/autres_interventions/abs/views.py:368
+#: maintenance/autres_interventions/abs/views.py:228
+#: maintenance/autres_interventions/abs/views.py:367
 #: piece/piece_electronique/models.py:21
 msgid "Capteur ABS"
 msgstr "Αισθητήρας ABS"
 
-#: maintenance/autres_interventions/abs/views.py:234
-#: maintenance/autres_interventions/abs/views.py:373
+#: maintenance/autres_interventions/abs/views.py:233
+#: maintenance/autres_interventions/abs/views.py:372
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:524
+#: maintenance/autres_interventions/embrayage/views.py:259
+#: maintenance/autres_interventions/embrayage/views.py:421
 #: maintenance/check_up/templates/check_up/controle_total.html:536
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:410
 #: maintenance/checkup_track/models.py:1004
@@ -6976,11 +7143,13 @@ msgstr "Αισθητήρας ABS"
 msgid "Liquide de frein"
 msgstr "Υγρό φρένων"
 
-#: maintenance/autres_interventions/abs/views.py:245
-#: maintenance/autres_interventions/abs/views.py:384
+#: maintenance/autres_interventions/abs/views.py:244
+#: maintenance/autres_interventions/abs/views.py:383
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:376
 #: maintenance/autres_interventions/courroie_accessoires/views.py:231
 #: maintenance/autres_interventions/courroie_accessoires/views.py:383
+#: maintenance/autres_interventions/embrayage/views.py:270
+#: maintenance/autres_interventions/embrayage/views.py:432
 #: maintenance/autres_interventions/geometrie/views.py:273
 #: maintenance/autres_interventions/geometrie/views.py:431
 #: maintenance/autres_interventions/moteur/admission/views.py:265
@@ -7010,12 +7179,12 @@ msgstr "Υγρό φρένων"
 msgid "Etiquette"
 msgstr "Ετικέτα"
 
-#: maintenance/autres_interventions/abs/views.py:327
+#: maintenance/autres_interventions/abs/views.py:326
 #, python-format
 msgid "Modification contrôle ABS - %(immatriculation)s"
 msgstr "Τροποποίηση ελέγχου ABS - %(immatriculation)s"
 
-#: maintenance/autres_interventions/abs/views.py:332
+#: maintenance/autres_interventions/abs/views.py:331
 msgid "Contrôle du système ABS modifié avec succès !"
 msgstr "Ο έλεγχος του συστήματος ABS τροποποιήθηκε με επιτυχία!"
 
@@ -7223,7 +7392,7 @@ msgstr "Να αντικατασταθεί"
 #: maintenance/autres_interventions/refroidissement/models.py:123
 #: maintenance/bruits/models.py:24 maintenance/carrosserie_interne/models.py:95
 #: maintenance/entretien/models.py:251 maintenance/freins/models.py:96
-#: maintenance/jeux_pieces/models.py:124 maintenance/models.py:153
+#: maintenance/jeux_pieces/models.py:124 maintenance/models.py:154
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_detail.html:51
 #: maintenance/pneus/models.py:135 theme/templates/dashboard.html:61
 #: theme/templates/dashboard.html:73 theme/templates/dashboard.html:207
@@ -7238,6 +7407,10 @@ msgstr "Χιλιόμετρα κατά τη στιγμή του ελέγχου"
 
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:155
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:348
+#: maintenance/autres_interventions/embrayage/models.py:146
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:340
+#: maintenance/autres_interventions/embrayage/views.py:219
+#: maintenance/autres_interventions/embrayage/views.py:381
 #: piece/piece_embrayage/models.py:13 piece/piece_embrayage/models.py:42
 msgid "Disque d'embrayage"
 msgstr "Δίσκος συμπλέκτη"
@@ -7274,6 +7447,14 @@ msgstr "Δίσκος συμπλέκτη"
 #: maintenance/autres_interventions/climatisation/models.py:275
 #: maintenance/autres_interventions/climatisation/models.py:374
 #: maintenance/autres_interventions/climatisation/models.py:493
+#: maintenance/autres_interventions/embrayage/models.py:149
+#: maintenance/autres_interventions/embrayage/models.py:156
+#: maintenance/autres_interventions/embrayage/models.py:163
+#: maintenance/autres_interventions/embrayage/models.py:170
+#: maintenance/autres_interventions/embrayage/models.py:177
+#: maintenance/autres_interventions/embrayage/models.py:184
+#: maintenance/autres_interventions/embrayage/models.py:191
+#: maintenance/autres_interventions/embrayage/models.py:198
 #: maintenance/autres_interventions/moteur/courroie/models.py:202
 #: maintenance/autres_interventions/moteur/courroie/models.py:213
 #: maintenance/autres_interventions/moteur/courroie/models.py:223
@@ -7407,6 +7588,8 @@ msgstr "Τιμή αγοράς χωρίς ΦΠΑ"
 
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:168
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:364
+#: maintenance/autres_interventions/embrayage/views.py:224
+#: maintenance/autres_interventions/embrayage/views.py:386
 #: piece/piece_embrayage/models.py:49
 msgid "Plateau d'embrayage"
 msgstr "Πλάκα συμπλέκτη"
@@ -8107,7 +8290,10 @@ msgstr "Έλεγχος κιβωτίου ταχυτήτων για :"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:125
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:121
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:120
-#: piece/piece_embrayage/models.py:72 theme/templates/dashboard.html:357
+#: maintenance/autres_interventions/embrayage/models.py:317
+#: maintenance/autres_interventions/embrayage/models.py:400
+#: maintenance/models.py:42 piece/piece_embrayage/models.py:72
+#: theme/templates/dashboard.html:357
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:59
 msgid "Embrayage"
 msgstr "Συμπλέκτης"
@@ -8155,7 +8341,7 @@ msgid "Rapport du contrôle de la boîte de vitesses"
 msgstr "Αναφορά ελέγχου κιβωτίου ταχυτήτων"
 
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:292
-#: maintenance/autres_interventions/models.py:139 maintenance/models.py:140
+#: maintenance/autres_interventions/models.py:139 maintenance/models.py:141
 msgid "Kilométrage boîte"
 msgstr "Χιλιομετρική απόσταση κιβωτίου"
 
@@ -8770,7 +8956,7 @@ msgstr "Αναφορά ελέγχου κλιματισμού"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:311
 #: maintenance/autres_interventions/models.py:134
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:278
-#: maintenance/models.py:135 voiture/voiture_boite/forms.py:28
+#: maintenance/models.py:136 voiture/voiture_boite/forms.py:28
 #: voiture/voiture_embrayage/forms.py:20
 msgid "Kilométrage châssis"
 msgstr "Χιλιόμετρα πλαισίου"
@@ -8854,6 +9040,7 @@ msgid "Méthode de contrôle"
 msgstr "Μέθοδος ελέγχου"
 
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:585
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:325
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:343
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:594
 msgid "État des composants"
@@ -9053,6 +9240,7 @@ msgid "Courroies d'accessoires"
 msgstr "Ιμάντες βοηθητικών"
 
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_detail.html:13
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:13
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:13
 msgid "Détails du remplacement"
 msgstr "Λεπτομέρειες αντικατάστασης"
@@ -9103,6 +9291,7 @@ msgid "Liste des remplacements de courroies d'accessoires"
 msgstr "Λίστα αντικαταστάσεων ιμάντων βοηθητικών"
 
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:32
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:33
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:33
 msgid "Ajouter un remplacement"
 msgstr "Προσθήκη αντικατάστασης"
@@ -9485,6 +9674,148 @@ msgstr "Τροποποίηση ελέγχου συστήματος εξάτμι�
 msgid "Checkup de l'échappement modifié avec succès !"
 msgstr "Ο έλεγχος του συστήματος εξάτμισης τροποποιήθηκε με επιτυχία!"
 
+#: maintenance/autres_interventions/embrayage/models.py:121
+msgid "Kilométrage au moment du remplacement de l'embrayage "
+msgstr "Χιλιόμετρα κατά τη στιγμή της αντικατάστασης του συμπλέκτη"
+
+#: maintenance/autres_interventions/embrayage/models.py:153
+#: piece/piece_embrayage/models.py:14 voiture/voiture_embrayage/forms.py:25
+#: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:62
+#: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:54
+msgid "Plateau de pression"
+msgstr "Πλάκα πίεσης συμπλέκτη"
+
+#: maintenance/autres_interventions/embrayage/models.py:160
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:386
+#: maintenance/autres_interventions/embrayage/views.py:229
+#: maintenance/autres_interventions/embrayage/views.py:391
+#: piece/piece_embrayage/models.py:15 piece/piece_embrayage/models.py:56
+#: voiture/voiture_embrayage/forms.py:26
+msgid "Butée d'embrayage"
+msgstr "Ρουλεμάν αποσύμπλεξης"
+
+#: maintenance/autres_interventions/embrayage/models.py:167
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:409
+msgid "Fourchette d'embrayage"
+msgstr "Πιρούνι αποσύμπλεξης"
+
+#: maintenance/autres_interventions/embrayage/models.py:174
+msgid "Guide de la butée"
+msgstr "Οδηγός ρουλεμάν αποσύμπλεξης"
+
+#: maintenance/autres_interventions/embrayage/models.py:181
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:455
+#: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:50
+msgid "Volant moteur"
+msgstr "Σφόνδυλος"
+
+#: maintenance/autres_interventions/embrayage/models.py:188
+#: maintenance/autres_interventions/embrayage/models.py:195
+msgid "Joint spi vilebrequin"
+msgstr "Τσιμούχα στροφαλοφόρου άξονα"
+
+#: maintenance/autres_interventions/embrayage/models.py:318
+#: piece/piece_embrayage/models.py:73 theme/templates/dashboard.html:345
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:102
+msgid "Embrayages"
+msgstr "Συμπλέκτες"
+
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:53
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:336
+msgid "Remplacement de l'embrayage"
+msgstr "Αντικατάσταση συμπλέκτη"
+
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:108
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_form.html:136
+#: maintenance/autres_interventions/embrayage/templates/embrayage/modifier_embrayage.html:138
+msgid "Retour à la liste des remplacements de l'embrayage"
+msgstr "Επιστροφή στη λίστα αντικαταστάσεων συμπλέκτη"
+
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:256
+msgid "Détail du remplacement de l'embrayage"
+msgstr "Λεπτομέρειες αντικατάστασης συμπλέκτη"
+
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:310
+msgid "Kilométrage embrayage"
+msgstr "Χιλιόμετρα συμπλέκτη"
+
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:363
+msgid "Mécanisme d'embrayage"
+msgstr "Μηχανισμός συμπλέκτη"
+
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:432
+msgid "Guide de butée d'embrayage"
+msgstr "Οδηγός ρουλεμάν αποσύμπλεξης"
+
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:478
+msgid "Joint SPI de vilebrequin"
+msgstr "Τσιμούχα στροφαλοφόρου άξονα"
+
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:501
+msgid "Joint SPI de boite"
+msgstr "Τσιμούχα κιβωτίου ταχυτήτων"
+
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_form.html:15
+msgid "Remplacement de l'embrayage pour :"
+msgstr "Αντικατάσταση συμπλέκτη για:"
+
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:4
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:12
+msgid "Liste des remplacements d'embrayages"
+msgstr "Λίστα αντικαταστάσεων συμπλέκτη"
+
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:188
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ remplacements de l'embrayage"
+msgstr "Εμφάνιση από _START_ έως _END_ από συνολικά _TOTAL_ αντικαταστάσεις συμπλέκτη"
+
+#: maintenance/autres_interventions/embrayage/templates/embrayage/modifier_embrayage.html:24
+msgid "Modifier le remplacement de l'embrayage"
+msgstr "Τροποποίηση της αντικατάστασης συμπλέκτη"
+
+#: maintenance/autres_interventions/embrayage/views.py:181
+#, python-format
+msgid "Contrôle Embrayage - %(immatriculation)s"
+msgstr "Έλεγχος συμπλέκτη - %(immatriculation)s"
+
+#: maintenance/autres_interventions/embrayage/views.py:186
+msgid "Remplacement de l'embrayage enregistré avec succès."
+msgstr "Η αντικατάσταση του συμπλέκτη καταχωρήθηκε με επιτυχία."
+
+#: maintenance/autres_interventions/embrayage/views.py:234
+#: maintenance/autres_interventions/embrayage/views.py:396
+msgid "Fourchette"
+msgstr "Πιρούνι αποσύμπλεξης"
+
+#: maintenance/autres_interventions/embrayage/views.py:239
+#: maintenance/autres_interventions/embrayage/views.py:401
+msgid "Guide de la butée d'embrayage"
+msgstr "Οδηγός ρουλεμάν αποσύμπλεξης"
+
+#: maintenance/autres_interventions/embrayage/views.py:244
+#: maintenance/autres_interventions/embrayage/views.py:406
+#: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:58
+msgid "Volant Moteur"
+msgstr "Σφόνδυλος"
+
+#: maintenance/autres_interventions/embrayage/views.py:249
+#: maintenance/autres_interventions/embrayage/views.py:411
+msgid "Joint SPI vilebrequin"
+msgstr "Τσιμούχα στροφαλοφόρου άξονα"
+
+#: maintenance/autres_interventions/embrayage/views.py:254
+#: maintenance/autres_interventions/embrayage/views.py:416
+msgid "Joint SPI boite"
+msgstr "Τσιμούχα κιβωτίου ταχυτήτων"
+
+#: maintenance/autres_interventions/embrayage/views.py:350
+#, python-format
+msgid "Modification du remplacement de l'embrayage - %(immatriculation)s"
+msgstr "Τροποποίηση της αντικατάστασης συμπλέκτη - %(immatriculation)s"
+
+#: maintenance/autres_interventions/embrayage/views.py:355
+msgid "Remplacement de l'embrayage modifié avec succès !"
+msgstr "Η αντικατάσταση του συμπλέκτη τροποποιήθηκε με επιτυχία!"
+
 #: maintenance/autres_interventions/geometrie/models.py:108
 msgid "Kilométrage au moment de la géometrie"
 msgstr "Χιλιόμετρα κατά τη στιγμή της γεωμετρίας"
@@ -9832,19 +10163,19 @@ msgstr "Επίπεδα"
 msgid "Autres interventions"
 msgstr "Άλλες επεμβάσεις"
 
-#: maintenance/autres_interventions/models.py:105 maintenance/models.py:61
+#: maintenance/autres_interventions/models.py:105 maintenance/models.py:62
 msgid "Voiture exemplaire"
 msgstr "Δείγμα αυτοκινήτου"
 
-#: maintenance/autres_interventions/models.py:114 maintenance/models.py:115
+#: maintenance/autres_interventions/models.py:114 maintenance/models.py:116
 msgid "Date d'intervention"
 msgstr "Ημερομηνία παρέμβασης"
 
-#: maintenance/autres_interventions/models.py:116 maintenance/models.py:117
+#: maintenance/autres_interventions/models.py:116 maintenance/models.py:118
 msgid "Date de la dernière intervention"
 msgstr "Ημερομηνία τελευταίας παρέμβασης"
 
-#: maintenance/autres_interventions/models.py:128 maintenance/models.py:129
+#: maintenance/autres_interventions/models.py:128 maintenance/models.py:130
 msgid "Kilométrage total"
 msgstr "Συνολική χιλιομετρική απόσταση"
 
@@ -9852,20 +10183,20 @@ msgstr "Συνολική χιλιομετρική απόσταση"
 msgid "Kilométrage à la dernière intervention"
 msgstr "Χιλιομετρική απόσταση στην τελευταία παρέμβαση"
 
-#: maintenance/autres_interventions/models.py:138 maintenance/models.py:139
+#: maintenance/autres_interventions/models.py:138 maintenance/models.py:140
 msgid "Kilométrage moteur"
 msgstr "Χιλιομετρική απόσταση κινητήρα"
 
-#: maintenance/autres_interventions/models.py:143 maintenance/models.py:144
+#: maintenance/autres_interventions/models.py:143 maintenance/models.py:145
 msgid "Type de maintenance"
 msgstr "Τύπος συντήρησης"
 
-#: maintenance/autres_interventions/models.py:152 maintenance/models.py:154
+#: maintenance/autres_interventions/models.py:152 maintenance/models.py:155
 #: theme/templates/dashboard.html:195
 msgid "Maintenances"
 msgstr "Συντηρήσεις"
 
-#: maintenance/autres_interventions/models.py:163 maintenance/models.py:167
+#: maintenance/autres_interventions/models.py:163 maintenance/models.py:168
 #, python-format
 msgid "Maintenance %(voiture)s (%(date)s)"
 msgstr "Συντήρηση %(voiture)s (%(date)s)"
@@ -11509,7 +11840,7 @@ msgid "Aucun rodage enregistré pour cet exemplaire."
 msgstr "Δεν έχει καταχωρηθεί κανένα στρώσιμο για αυτό το όχημα."
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:151
-#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:339
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:368
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:150
 #: maintenance/check_up/templates/check_up/checkup_list.html:153
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:150
@@ -12535,6 +12866,7 @@ msgid "Contrôle du refroidissement"
 msgstr "Έλεγχος του συστήματος ψύξης"
 
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:320
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:349
 msgid "Système de refroidissement"
 msgstr "Σύστημα ψύξης"
 
@@ -15039,6 +15371,7 @@ msgstr ""
 #: maintenance/choices.py:607 maintenance/choices.py:906
 #: maintenance/choices.py:940 maintenance/choices.py:1098
 #: maintenance/choices.py:1152 maintenance/choices.py:1262
+#: maintenance/choices.py:1479
 msgid "SWAG"
 msgstr ""
 
@@ -15138,6 +15471,7 @@ msgstr "Hersteller"
 #: maintenance/choices.py:956 maintenance/choices.py:1019
 #: maintenance/choices.py:1079 maintenance/choices.py:1128
 #: maintenance/choices.py:1242 maintenance/choices.py:1285
+#: maintenance/choices.py:1295 maintenance/choices.py:1441
 #: voiture/voiture_freins_av/models.py:20
 msgid "Choisir"
 msgstr ""
@@ -15482,7 +15816,7 @@ msgstr ""
 #: maintenance/choices.py:751 maintenance/choices.py:881
 #: maintenance/choices.py:1024 maintenance/choices.py:1090
 #: maintenance/choices.py:1146 maintenance/choices.py:1191
-#: maintenance/choices.py:1282
+#: maintenance/choices.py:1282 maintenance/choices.py:1299
 msgid "Valeo"
 msgstr "Valeo"
 
@@ -15510,6 +15844,7 @@ msgstr ""
 #: maintenance/choices.py:763 maintenance/choices.py:941
 #: maintenance/choices.py:1117 maintenance/choices.py:1177
 #: maintenance/choices.py:1237 maintenance/choices.py:1263
+#: maintenance/choices.py:1359 maintenance/choices.py:1493
 msgid "Blue Print"
 msgstr ""
 
@@ -15570,13 +15905,14 @@ msgid "Mapco"
 msgstr ""
 
 #: maintenance/choices.py:397 maintenance/choices.py:529
-#: maintenance/choices.py:597
+#: maintenance/choices.py:597 maintenance/choices.py:1365
 msgid "NK"
 msgstr ""
 
 #: maintenance/choices.py:398 maintenance/choices.py:514
 #: maintenance/choices.py:583 maintenance/choices.py:762
-#: maintenance/choices.py:1276
+#: maintenance/choices.py:1276 maintenance/choices.py:1381
+#: maintenance/choices.py:1502
 msgid "Japanparts"
 msgstr ""
 
@@ -15595,6 +15931,7 @@ msgid "Tomex"
 msgstr ""
 
 #: maintenance/choices.py:402 maintenance/choices.py:589
+#: maintenance/choices.py:1376
 msgid "LPR"
 msgstr "LPR"
 
@@ -15610,13 +15947,13 @@ msgstr "Metelli"
 #: maintenance/choices.py:405 maintenance/choices.py:533
 #: maintenance/choices.py:601 maintenance/choices.py:946
 #: maintenance/choices.py:1119 maintenance/choices.py:1232
-#: maintenance/choices.py:1264
+#: maintenance/choices.py:1264 maintenance/choices.py:1375
 msgid "Quinton Hazell"
 msgstr ""
 
 #: maintenance/choices.py:406 maintenance/choices.py:604
 #: maintenance/choices.py:901 maintenance/choices.py:933
-#: maintenance/choices.py:1253
+#: maintenance/choices.py:1253 maintenance/choices.py:1450
 msgid "SKF"
 msgstr "SKF"
 
@@ -15634,7 +15971,7 @@ msgstr ""
 msgid "ABRO"
 msgstr ""
 
-#: maintenance/choices.py:419
+#: maintenance/choices.py:419 maintenance/choices.py:1301
 msgid "AISIN"
 msgstr ""
 
@@ -15888,6 +16225,7 @@ msgstr ""
 #: maintenance/choices.py:522 maintenance/choices.py:754
 #: maintenance/choices.py:879 maintenance/choices.py:947
 #: maintenance/choices.py:1197 maintenance/choices.py:1281
+#: maintenance/choices.py:1310
 msgid "Magneti Marelli"
 msgstr "Magneti Marelli"
 
@@ -15971,11 +16309,11 @@ msgstr ""
 msgid "Autex"
 msgstr ""
 
-#: maintenance/choices.py:569
+#: maintenance/choices.py:569 maintenance/choices.py:1491
 msgid "BGA"
 msgstr ""
 
-#: maintenance/choices.py:571
+#: maintenance/choices.py:571 maintenance/choices.py:1374
 msgid "Borg & Beck"
 msgstr ""
 
@@ -15984,6 +16322,7 @@ msgid "BTA"
 msgstr "BTA"
 
 #: maintenance/choices.py:573 maintenance/choices.py:905
+#: maintenance/choices.py:1446
 msgid "Corteco"
 msgstr "Corteco"
 
@@ -16000,7 +16339,7 @@ msgstr ""
 msgid "Flennor"
 msgstr ""
 
-#: maintenance/choices.py:580
+#: maintenance/choices.py:580 maintenance/choices.py:1505
 msgid "GSP"
 msgstr "GSP"
 
@@ -16011,6 +16350,7 @@ msgstr ""
 
 #: maintenance/choices.py:585 maintenance/choices.py:1070
 #: maintenance/choices.py:1176 maintenance/choices.py:1214
+#: maintenance/choices.py:1366 maintenance/choices.py:1485
 msgid "JP Group"
 msgstr ""
 
@@ -16026,11 +16366,11 @@ msgstr ""
 msgid "Koyo"
 msgstr ""
 
-#: maintenance/choices.py:595
+#: maintenance/choices.py:595 maintenance/choices.py:1373
 msgid "National"
 msgstr "National"
 
-#: maintenance/choices.py:598
+#: maintenance/choices.py:598 maintenance/choices.py:1469
 msgid "NTN"
 msgstr ""
 
@@ -16042,7 +16382,7 @@ msgstr ""
 msgid "Ruville"
 msgstr "Ruville"
 
-#: maintenance/choices.py:608
+#: maintenance/choices.py:608 maintenance/choices.py:1471
 msgid "Timken"
 msgstr ""
 
@@ -16117,7 +16457,7 @@ msgstr ""
 #: maintenance/choices.py:657 maintenance/choices.py:819
 #: maintenance/choices.py:868 maintenance/choices.py:970
 #: maintenance/choices.py:1087 maintenance/choices.py:1131
-#: maintenance/choices.py:1234
+#: maintenance/choices.py:1234 maintenance/choices.py:1311
 msgid "Continental"
 msgstr ""
 
@@ -16454,7 +16794,7 @@ msgid "Eyquem"
 msgstr ""
 
 #: maintenance/choices.py:756 maintenance/choices.py:959
-#: maintenance/choices.py:1039
+#: maintenance/choices.py:1039 maintenance/choices.py:1303
 msgid "BorgWarner"
 msgstr ""
 
@@ -16469,7 +16809,8 @@ msgstr ""
 
 #: maintenance/choices.py:761 maintenance/choices.py:1001
 #: maintenance/choices.py:1061 maintenance/choices.py:1111
-#: maintenance/choices.py:1179
+#: maintenance/choices.py:1179 maintenance/choices.py:1363
+#: maintenance/choices.py:1487
 msgid "RIDEX"
 msgstr ""
 
@@ -16732,11 +17073,12 @@ msgstr ""
 
 #: maintenance/choices.py:884 maintenance/choices.py:912
 #: maintenance/choices.py:1065 maintenance/choices.py:1100
-#: maintenance/choices.py:1149
+#: maintenance/choices.py:1149 maintenance/choices.py:1481
 msgid "Metzger"
 msgstr ""
 
 #: maintenance/choices.py:887 maintenance/choices.py:921
+#: maintenance/choices.py:1432 maintenance/choices.py:1559
 msgid "Origine constructeur (OEM)"
 msgstr "Γνήσιο κατασκευαστή (OEM)"
 
@@ -16898,6 +17240,7 @@ msgstr ""
 
 #: maintenance/choices.py:1002 maintenance/choices.py:1062
 #: maintenance/choices.py:1112 maintenance/choices.py:1180
+#: maintenance/choices.py:1364 maintenance/choices.py:1488
 msgid "STARK"
 msgstr ""
 
@@ -17028,7 +17371,8 @@ msgid "FEBI Bilstein"
 msgstr ""
 
 #: maintenance/choices.py:1064 maintenance/choices.py:1099
-#: maintenance/choices.py:1150
+#: maintenance/choices.py:1150 maintenance/choices.py:1361
+#: maintenance/choices.py:1480
 msgid "MEYLE"
 msgstr ""
 
@@ -17049,7 +17393,8 @@ msgid "KALE"
 msgstr ""
 
 #: maintenance/choices.py:1071 maintenance/choices.py:1113
-#: maintenance/choices.py:1181
+#: maintenance/choices.py:1181 maintenance/choices.py:1367
+#: maintenance/choices.py:1486
 msgid "MAXGEAR"
 msgstr ""
 
@@ -17067,6 +17412,7 @@ msgid "VEMO"
 msgstr ""
 
 #: maintenance/choices.py:1105 maintenance/choices.py:1175
+#: maintenance/choices.py:1362 maintenance/choices.py:1484
 msgid "MAPCO"
 msgstr ""
 
@@ -17090,7 +17436,7 @@ msgstr ""
 msgid "ContiTech"
 msgstr ""
 
-#: maintenance/choices.py:1136
+#: maintenance/choices.py:1136 maintenance/choices.py:1455
 msgid "Parker"
 msgstr ""
 
@@ -17106,7 +17452,7 @@ msgstr ""
 msgid "Veritas"
 msgstr ""
 
-#: maintenance/choices.py:1140
+#: maintenance/choices.py:1140 maintenance/choices.py:1447
 msgid "Freudenberg"
 msgstr ""
 
@@ -17114,7 +17460,7 @@ msgstr ""
 msgid "Teknikum"
 msgstr ""
 
-#: maintenance/choices.py:1154
+#: maintenance/choices.py:1154 maintenance/choices.py:1483
 msgid "VAICO"
 msgstr ""
 
@@ -17236,6 +17582,486 @@ msgstr ""
 
 #: maintenance/choices.py:1274
 msgid "Dolz"
+msgstr ""
+
+#: maintenance/choices.py:1297
+msgid "LuK / Schaeffler"
+msgstr ""
+
+#: maintenance/choices.py:1298
+msgid "SACHS / ZF"
+msgstr ""
+
+#: maintenance/choices.py:1300
+msgid "EXEDY"
+msgstr ""
+
+#: maintenance/choices.py:1302
+msgid "F.C.C."
+msgstr ""
+
+#: maintenance/choices.py:1304
+msgid "Eaton"
+msgstr ""
+
+#: maintenance/choices.py:1305
+msgid "Twin Disc"
+msgstr ""
+
+#: maintenance/choices.py:1306
+msgid "Setco Automotive"
+msgstr ""
+
+#: maintenance/choices.py:1307
+msgid "Zhejiang Tieliu"
+msgstr ""
+
+#: maintenance/choices.py:1308
+msgid "Raicam"
+msgstr ""
+
+#: maintenance/choices.py:1309
+msgid "Nissin"
+msgstr "Nissin"
+
+#: maintenance/choices.py:1312 maintenance/choices.py:1472
+msgid "NSK"
+msgstr "NSK"
+
+#: maintenance/choices.py:1313
+msgid "FCC Japan"
+msgstr ""
+
+#: maintenance/choices.py:1319
+msgid "AP Racing"
+msgstr ""
+
+#: maintenance/choices.py:1320
+msgid "Tilton Engineering"
+msgstr ""
+
+#: maintenance/choices.py:1321
+msgid "OS Giken"
+msgstr ""
+
+#: maintenance/choices.py:1322
+msgid "ACT (Advanced Clutch Technology)"
+msgstr ""
+
+#: maintenance/choices.py:1323
+msgid "SPEC Clutch"
+msgstr ""
+
+#: maintenance/choices.py:1324
+msgid "Centerforce"
+msgstr ""
+
+#: maintenance/choices.py:1325
+msgid "Clutch Masters"
+msgstr ""
+
+#: maintenance/choices.py:1326
+msgid "Competition Clutch"
+msgstr ""
+
+#: maintenance/choices.py:1327
+msgid "Helix Autosport"
+msgstr ""
+
+#: maintenance/choices.py:1328
+msgid "Mantic Clutch"
+msgstr ""
+
+#: maintenance/choices.py:1329
+msgid "Quarter Master"
+msgstr ""
+
+#: maintenance/choices.py:1330
+msgid "McLeod Racing"
+msgstr ""
+
+#: maintenance/choices.py:1331
+msgid "Hays Clutches"
+msgstr ""
+
+#: maintenance/choices.py:1332
+msgid "RAM Clutches"
+msgstr ""
+
+#: maintenance/choices.py:1333
+msgid "South Bend Clutch"
+msgstr ""
+
+#: maintenance/choices.py:1334
+msgid "Xtreme Clutch"
+msgstr ""
+
+#: maintenance/choices.py:1335
+msgid "DKM Clutch"
+msgstr ""
+
+#: maintenance/choices.py:1336
+msgid "Fidanza"
+msgstr "Fidanza"
+
+#: maintenance/choices.py:1337
+msgid "Carbonetic"
+msgstr "Carbonetic"
+
+#: maintenance/choices.py:1338
+msgid "NPC Performance Clutches"
+msgstr "NPC Performance Clutches"
+
+#: maintenance/choices.py:1344
+msgid "HKS"
+msgstr ""
+
+#: maintenance/choices.py:1345
+msgid "CUSCO"
+msgstr ""
+
+#: maintenance/choices.py:1346
+msgid "Ogura Racing Clutch (ORC)"
+msgstr ""
+
+#: maintenance/choices.py:1347
+msgid "ATS"
+msgstr ""
+
+#: maintenance/choices.py:1348
+msgid "NISMO"
+msgstr ""
+
+#: maintenance/choices.py:1349
+msgid "TRD"
+msgstr ""
+
+#: maintenance/choices.py:1350
+msgid "STI"
+msgstr ""
+
+#: maintenance/choices.py:1351
+msgid "Toda Racing"
+msgstr ""
+
+#: maintenance/choices.py:1352
+msgid "JUN Auto"
+msgstr ""
+
+#: maintenance/choices.py:1353
+msgid "GReddy / TRUST"
+msgstr ""
+
+#: maintenance/choices.py:1360 maintenance/choices.py:1478
+msgid "febi bilstein"
+msgstr ""
+
+#: maintenance/choices.py:1368
+msgid "KAMOKA"
+msgstr ""
+
+#: maintenance/choices.py:1369
+msgid "Denckermann"
+msgstr ""
+
+#: maintenance/choices.py:1370
+msgid "STATIM"
+msgstr ""
+
+#: maintenance/choices.py:1371
+msgid "MECARM"
+msgstr ""
+
+#: maintenance/choices.py:1372
+msgid "KAWE"
+msgstr ""
+
+#: maintenance/choices.py:1377
+msgid "FAST"
+msgstr ""
+
+#: maintenance/choices.py:1378
+msgid "SAMKO"
+msgstr ""
+
+#: maintenance/choices.py:1379
+msgid "Starline"
+msgstr ""
+
+#: maintenance/choices.py:1380 maintenance/choices.py:1501
+msgid "ASHIKA"
+msgstr ""
+
+#: maintenance/choices.py:1382 maintenance/choices.py:1503
+msgid "JAPKO"
+msgstr ""
+
+#: maintenance/choices.py:1388
+msgid "Knorr-Bremse"
+msgstr ""
+
+#: maintenance/choices.py:1389
+msgid "WABCO / ZF"
+msgstr ""
+
+#: maintenance/choices.py:1390
+msgid "Hammer Kupplungen"
+msgstr ""
+
+#: maintenance/choices.py:1391
+msgid "LIPE Clutch"
+msgstr ""
+
+#: maintenance/choices.py:1392
+msgid "CEI"
+msgstr ""
+
+#: maintenance/choices.py:1393
+msgid "Euroricambi"
+msgstr ""
+
+#: maintenance/choices.py:1399 maintenance/choices.py:1512
+msgid "BMW Original"
+msgstr ""
+
+#: maintenance/choices.py:1400 maintenance/choices.py:1513
+msgid "MINI Original"
+msgstr ""
+
+#: maintenance/choices.py:1401 maintenance/choices.py:1514
+msgid "Mercedes-Benz Original"
+msgstr ""
+
+#: maintenance/choices.py:1402 maintenance/choices.py:1515
+msgid "Audi Original"
+msgstr ""
+
+#: maintenance/choices.py:1403 maintenance/choices.py:1516
+msgid "Volkswagen Original"
+msgstr ""
+
+#: maintenance/choices.py:1404 maintenance/choices.py:1520
+msgid "Porsche Original"
+msgstr ""
+
+#: maintenance/choices.py:1405 maintenance/choices.py:1523
+msgid "Ford Original"
+msgstr ""
+
+#: maintenance/choices.py:1406 maintenance/choices.py:1522
+msgid "Opel Original"
+msgstr ""
+
+#: maintenance/choices.py:1407 maintenance/choices.py:1527
+msgid "Peugeot Original"
+msgstr ""
+
+#: maintenance/choices.py:1408 maintenance/choices.py:1528
+msgid "Citroën Original"
+msgstr ""
+
+#: maintenance/choices.py:1409 maintenance/choices.py:1530
+msgid "Renault Original"
+msgstr ""
+
+#: maintenance/choices.py:1410 maintenance/choices.py:1531
+msgid "Dacia Original"
+msgstr ""
+
+#: maintenance/choices.py:1411 maintenance/choices.py:1533
+msgid "Fiat Original"
+msgstr ""
+
+#: maintenance/choices.py:1412 maintenance/choices.py:1534
+msgid "Alfa Romeo Original"
+msgstr ""
+
+#: maintenance/choices.py:1413 maintenance/choices.py:1535
+msgid "Lancia Original"
+msgstr ""
+
+#: maintenance/choices.py:1414 maintenance/choices.py:1524
+msgid "Volvo Original"
+msgstr ""
+
+#: maintenance/choices.py:1415 maintenance/choices.py:1539
+msgid "Toyota Original"
+msgstr ""
+
+#: maintenance/choices.py:1416 maintenance/choices.py:1540
+msgid "Lexus Original"
+msgstr ""
+
+#: maintenance/choices.py:1417 maintenance/choices.py:1541
+msgid "Honda Original"
+msgstr ""
+
+#: maintenance/choices.py:1418 maintenance/choices.py:1542
+msgid "Nissan Original"
+msgstr ""
+
+#: maintenance/choices.py:1419 maintenance/choices.py:1544
+msgid "Mazda Original"
+msgstr ""
+
+#: maintenance/choices.py:1420 maintenance/choices.py:1545
+msgid "Subaru Original"
+msgstr ""
+
+#: maintenance/choices.py:1421 maintenance/choices.py:1546
+msgid "Mitsubishi Original"
+msgstr ""
+
+#: maintenance/choices.py:1422 maintenance/choices.py:1547
+msgid "Suzuki Original"
+msgstr ""
+
+#: maintenance/choices.py:1423 maintenance/choices.py:1549
+msgid "Hyundai Original"
+msgstr ""
+
+#: maintenance/choices.py:1424 maintenance/choices.py:1550
+msgid "Kia Original"
+msgstr ""
+
+#: maintenance/choices.py:1425 maintenance/choices.py:1553
+msgid "Land Rover Original"
+msgstr ""
+
+#: maintenance/choices.py:1426 maintenance/choices.py:1552
+msgid "Jaguar Original"
+msgstr ""
+
+#: maintenance/choices.py:1433 maintenance/choices.py:1560
+msgid "Autre fabricant"
+msgstr "Άλλος κατασκευαστής"
+
+#: maintenance/choices.py:1434 maintenance/choices.py:1561
+msgid "Fabricant inconnu"
+msgstr "Άγνωστος κατασκευαστής"
+
+#: maintenance/choices.py:1448
+msgid "Elring"
+msgstr ""
+
+#: maintenance/choices.py:1449
+msgid "Victor Reinz"
+msgstr ""
+
+#: maintenance/choices.py:1451
+msgid "NOK"
+msgstr "NOK"
+
+#: maintenance/choices.py:1452
+msgid "NAK"
+msgstr "NAK"
+
+#: maintenance/choices.py:1453
+msgid "KACO"
+msgstr ""
+
+#: maintenance/choices.py:1454
+msgid "Trelleborg"
+msgstr ""
+
+#: maintenance/choices.py:1456
+msgid "Sakagami"
+msgstr ""
+
+#: maintenance/choices.py:1457
+msgid "Musashi Oil Seal"
+msgstr ""
+
+#: maintenance/choices.py:1458
+msgid "ARS"
+msgstr "ARS"
+
+#: maintenance/choices.py:1459
+msgid "Payen"
+msgstr ""
+
+#: maintenance/choices.py:1460
+msgid "Ajusa"
+msgstr ""
+
+#: maintenance/choices.py:1466
+msgid "FAG / Schaeffler"
+msgstr ""
+
+#: maintenance/choices.py:1467
+msgid "INA / Schaeffler"
+msgstr ""
+
+#: maintenance/choices.py:1468
+msgid "NTN-SNR"
+msgstr ""
+
+#: maintenance/choices.py:1470
+msgid "Koyo / JTEKT"
+msgstr ""
+
+#: maintenance/choices.py:1482
+msgid "TOPRAN"
+msgstr ""
+
+#: maintenance/choices.py:1489
+msgid "AUTOMEGA"
+msgstr ""
+
+#: maintenance/choices.py:1490
+msgid "TRUCKTEC Automotive"
+msgstr ""
+
+#: maintenance/choices.py:1492
+msgid "FAI AutoParts"
+msgstr ""
+
+#: maintenance/choices.py:1494
+msgid "IMPERGOM"
+msgstr ""
+
+#: maintenance/choices.py:1495
+msgid "Original Imperium"
+msgstr ""
+
+#: maintenance/choices.py:1504
+msgid "FEBEST"
+msgstr ""
+
+#: maintenance/choices.py:1506
+msgid "Masuma"
+msgstr ""
+
+#: maintenance/choices.py:1517
+msgid "Škoda Original"
+msgstr ""
+
+#: maintenance/choices.py:1518
+msgid "SEAT Original"
+msgstr ""
+
+#: maintenance/choices.py:1519
+msgid "CUPRA Original"
+msgstr ""
+
+#: maintenance/choices.py:1525
+msgid "Saab Original"
+msgstr ""
+
+#: maintenance/choices.py:1529
+msgid "DS Automobiles Original"
+msgstr ""
+
+#: maintenance/choices.py:1536
+msgid "Maserati Original"
+msgstr ""
+
+#: maintenance/choices.py:1537
+msgid "Ferrari Original"
+msgstr ""
+
+#: maintenance/choices.py:1543
+msgid "Infiniti Original"
 msgstr ""
 
 #: maintenance/entretien/models.py:272
@@ -17739,18 +18565,18 @@ msgstr "Φθαρμένο"
 msgid "Hors service"
 msgstr "Εκτός λειτουργίας"
 
-#: maintenance/jeux_pieces/models.py:44 maintenance/models.py:79
+#: maintenance/jeux_pieces/models.py:44 maintenance/models.py:80
 #: utilisateurs/models.py:84 utilisateurs/views.py:267
 msgid "Apprenti"
 msgstr "Μαθητευόμενος"
 
-#: maintenance/jeux_pieces/models.py:45 maintenance/models.py:70
+#: maintenance/jeux_pieces/models.py:45 maintenance/models.py:71
 #: theme/templates/dashboard.html:179 theme/templates/dashboard.html:183
 #: utilisateurs/models.py:85 utilisateurs/views.py:268
 msgid "Mécanicien"
 msgstr "Μηχανικός"
 
-#: maintenance/jeux_pieces/models.py:46 maintenance/models.py:88
+#: maintenance/jeux_pieces/models.py:46 maintenance/models.py:89
 #: theme/templates/dashboard.html:270
 msgid "Chef mécanicien"
 msgstr "Αρχιμηχανικός"
@@ -17890,7 +18716,7 @@ msgstr "Αντικραδασμικό μπλοκ"
 msgid "Boite automatique"
 msgstr "Αυτόματο κιβώτιο"
 
-#: maintenance/models.py:131
+#: maintenance/models.py:132
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:50
 msgid "Kilométrage du dernier entretien"
 msgstr "Χιλιόμετρα τελευταίας συντήρησης"
@@ -19974,17 +20800,6 @@ msgstr "Μονός δίσκος συμπλέκτη"
 msgid "Embrayage double disque"
 msgstr "Διπλός δίσκος συμπλέκτη"
 
-#: piece/piece_embrayage/models.py:14 voiture/voiture_embrayage/forms.py:25
-#: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:62
-#: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:54
-msgid "Plateau de pression"
-msgstr "Πλάκα πίεσης"
-
-#: piece/piece_embrayage/models.py:15 piece/piece_embrayage/models.py:56
-#: voiture/voiture_embrayage/forms.py:26
-msgid "Butée d'embrayage"
-msgstr "Ρουλεμάν συμπλέκτη"
-
 #: piece/piece_embrayage/models.py:16 piece/piece_freins/models.py:28
 msgid "Maître-cylindre"
 msgstr "Κύριος κύλινδρος"
@@ -20019,11 +20834,6 @@ msgstr "Λίστα εξαρτημάτων στον συμπλέκτη"
 #: piece/piece_embrayage/models.py:62
 msgid "Composants"
 msgstr "Στοιχεία"
-
-#: piece/piece_embrayage/models.py:73 theme/templates/dashboard.html:345
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:102
-msgid "Embrayages"
-msgstr "Συμπλέκτες"
 
 #: piece/piece_essuyage/models.py:9
 msgid "Balai avant"
@@ -22730,10 +23540,6 @@ msgstr "Επιστροφή στη λίστα συμπλεκτών"
 msgid "Détails de l'embrayage :"
 msgstr "Λεπτομέρειες συμπλέκτη"
 
-#: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:58
-msgid "Volant Moteur"
-msgstr "Βολάν κινητήρα"
-
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:89
 msgid "Modifier l'embrayage"
 msgstr "Επεξεργασία συμπλέκτη"
@@ -22750,10 +23556,6 @@ msgstr "Λίστα συμπλεκτών"
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:46
 msgid "Type embrayage"
 msgstr "Τύπος συμπλέκτη"
-
-#: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:50
-msgid "Volant moteur"
-msgstr "Βολάν κινητήρα"
 
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:71
 msgid "Type de plateau de pression"
