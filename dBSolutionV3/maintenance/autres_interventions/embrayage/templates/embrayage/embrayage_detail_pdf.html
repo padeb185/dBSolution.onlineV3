@@ -523,7 +523,7 @@
             <tr>
                 <td>{% trans "Liquide de frein" %}</td>
                 <td>
-                    {% if embrayage.liquide_de_frein == "OK" %}
+                    {% if embrayage.liquide_frein == "OK" %}
                         <span class="etat-vert">
                             {{ embrayage.get_liquide_frein_display }}
                         </span>
@@ -533,7 +533,7 @@
                         </span>
                     {% elif embrayage.liquide_frein == "REMPLACE" %}
                         <span class="etat-bleu">
-                            {{ embrayage.get_liquide_frien_display }}
+                            {{ embrayage.get_liquide_frein_display }}
                         </span>
                     {% else %}
                         <span class="etat-gris">

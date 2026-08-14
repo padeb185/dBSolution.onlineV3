@@ -238,12 +238,6 @@ def embrayage_form_view(request, exemplaire_id):
             "icon": "icons/butee-emb.png",
             "fields": [form[f.name] for f in form if "guide_butee" in f.name],
         },
-
-        {
-            "title": _("Butée d'embrayage"),
-            "icon": "icons/butee_emb.png",
-            "fields": [form[f.name] for f in form if "butee_embrayage" in f.name],
-        },
         {
             "title": _("Volant Moteur"),
             "icon": "icons/volant-mot.png",
@@ -405,11 +399,6 @@ def modifier_embrayage_view(request, embrayage_id):
             "title": _("Guide de la butée d'embrayage"),
             "icon": "icons/butee-emb.png",
             "fields": [form[f.name] for f in form if "guide_butee" in f.name],
-        },
-        {
-            "title": _("Butée d'embrayage"),
-            "icon": "icons/butee_emb.png",
-            "fields": [form[f.name] for f in form if "butee_embrayage" in f.name],
         },
         {
             "title": _("Volant Moteur"),
