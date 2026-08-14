@@ -227,7 +227,7 @@ def embrayage_form_view(request, exemplaire_id):
         },
         {
             "title": _("Butée d'embrayage"),
-            "icon": "icons/butee-mb.png",
+            "icon": "icons/butee-emb.png",
             "fields": [form[f.name] for f in form if "butee_embrayage" in f.name],
         },
         {
@@ -237,7 +237,7 @@ def embrayage_form_view(request, exemplaire_id):
         },
         {
             "title": _("Guide de la butée d'embrayage"),
-            "icon": "icons/butee-emb.png",
+            "icon": "icons/guide-emb.png",
             "fields": [form[f.name] for f in form if "guide_butee" in f.name],
         },
         {
@@ -389,7 +389,7 @@ def modifier_embrayage_view(request, embrayage_id):
         },
         {
             "title": _("Butée d'embrayage"),
-            "icon": "icons/butee-mb.png",
+            "icon": "icons/butee-emb.png",
             "fields": [form[f.name] for f in form if "butee_embrayage" in f.name],
         },
         {
@@ -399,7 +399,7 @@ def modifier_embrayage_view(request, embrayage_id):
         },
         {
             "title": _("Guide de la butée d'embrayage"),
-            "icon": "icons/butee-emb.png",
+            "icon": "icons/guide-emb.png",
             "fields": [form[f.name] for f in form if "guide_butee" in f.name],
         },
         {
