@@ -14,11 +14,13 @@ from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-from decimal import Decimal
 from weasyprint import HTML
 from .forms import EmbrayageForm
 from .models import Embrayage
-from ...checkup_track.models import EtatOKNotOK
+
+
+
+
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -119,7 +121,7 @@ def embrayage_form_view(request, exemplaire_id):
 
                         if km < ancien_km:
                             form.add_error(
-                                "kilometrage_abs",
+                                "kilometrage_embrayage",
                                 _("Le kilométrage ne peut pas diminuer.")
                             )
                             raise ValueError("Kilométrage invalide")

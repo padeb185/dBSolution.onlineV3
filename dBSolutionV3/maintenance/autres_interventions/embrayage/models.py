@@ -380,7 +380,7 @@ class Embrayage(TechnicienMixin, models.Model):
         # ----------------------------
         # MAJ KILOMÉTRAGE
         # ----------------------------
-        if self.voiture_exemplaire and self.kilometrage_abs:
+        if self.voiture_exemplaire and self.kilometrage_embrayage:
             if self.kilometrage_embrayage > self.voiture_exemplaire.kilometres_chassis:
                 self.voiture_exemplaire.kilometres_chassis = self.kilometrage_embrayage
                 self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
@@ -390,14 +390,14 @@ class Embrayage(TechnicienMixin, models.Model):
             self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
 
         # ----------------------------
-        # SAVE ABS
+        # SAVE EMBRAYAGE
         # ----------------------------
         super().save(*args, **kwargs)
 
 
         if self.main_oeuvre_id and self.voiture_exemplaire_id:
 
-            task_name = f"{_('ABS')} {self.voiture_exemplaire} "
+            task_name = f"{_('Embrayage')} {self.voiture_exemplaire} "
 
             if self.main_oeuvre.descriptif != task_name:
                 self.main_oeuvre.descriptif = task_name
@@ -408,7 +408,7 @@ class Embrayage(TechnicienMixin, models.Model):
         # ----------------------------
         sync_maintenance(
             self,
-            Maintenance.TypeMaintenance.ABS
+            Maintenance.TypeMaintenance.EMBRAYAGE
         )
     # -------------------------
     # RAPPORT

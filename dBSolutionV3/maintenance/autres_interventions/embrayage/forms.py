@@ -96,7 +96,7 @@ class EmbrayageForm(forms.ModelForm):
         voiture = self.exemplaire
 
         if km is not None and voiture:
-            instance.kilometrage_abs = km
+            instance.kilometrage_embrayage = km
             instance.voiture_exemplaire = voiture
 
             # -------- MAIN D'ŒUVRE --------
