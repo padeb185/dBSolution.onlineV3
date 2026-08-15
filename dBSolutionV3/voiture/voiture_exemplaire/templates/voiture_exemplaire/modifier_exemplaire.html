@@ -115,68 +115,341 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function getCookie(name) {
         let cookieValue = null;
+
         if (document.cookie) {
-            document.cookie.split(';').forEach(c => {
+            document.cookie.split(";").forEach(c => {
                 c = c.trim();
-                if (c.startsWith(name + '=')) {
-                    cookieValue = decodeURIComponent(c.slice(name.length + 1));
+
+                if (c.startsWith(name + "=")) {
+                    cookieValue = decodeURIComponent(
+                        c.slice(name.length + 1)
+                    );
                 }
             });
         }
+
         return cookieValue;
     }
 
-    const csrftoken = getCookie('csrftoken');
+    const csrftoken = getCookie("csrftoken");
 
 
-    const VIN_YEAR_BASE = {
-        "A":1980,"B":1981,"C":1982,"D":1983,"E":1984,"F":1985,"G":1986,"H":1987,
-        "J":1988,"K":1989,"L":1990,"M":1991,"N":1992,"P":1993,"R":1994,"S":1995,
-        "T":1996,"V":1997,"W":1998,"X":1999,"Y":2000,
-        "1":2001,"2":2002,"3":2003,"4":2004,"5":2005,"6":2006,"7":2007,"8":2008,"9":2009
+    // ========================================================
+    // CYCLES ANNÉE VIN
+    // ========================================================
+
+    const VIN_YEAR_CYCLES = {
+        "A": [1980, 2010, 2040],
+        "B": [1981, 2011, 2041],
+        "C": [1982, 2012, 2042],
+        "D": [1983, 2013, 2043],
+        "E": [1984, 2014, 2044],
+        "F": [1985, 2015, 2045],
+        "G": [1986, 2016, 2046],
+        "H": [1987, 2017, 2047],
+
+        "J": [1988, 2018, 2048],
+        "K": [1989, 2019, 2049],
+        "L": [1990, 2020, 2050],
+        "M": [1991, 2021, 2051],
+        "N": [1992, 2022, 2052],
+
+        "P": [1993, 2023, 2053],
+        "R": [1994, 2024, 2054],
+        "S": [1995, 2025, 2055],
+        "T": [1996, 2026, 2056],
+
+        "V": [1997, 2027, 2057],
+        "W": [1998, 2028, 2058],
+        "X": [1999, 2029, 2059],
+        "Y": [2000, 2030, 2060],
+
+        "1": [2001, 2031, 2061],
+        "2": [2002, 2032, 2062],
+        "3": [2003, 2033, 2063],
+        "4": [2004, 2034, 2064],
+        "5": [2005, 2035, 2065],
+        "6": [2006, 2036, 2066],
+        "7": [2007, 2037, 2067],
+        "8": [2008, 2038, 2068],
+        "9": [2009, 2039, 2069],
     };
 
-    const INVALID_CHARS = ["I","O","Q"];
 
-    const vinInput = document.getElementById("id_numero_vin");
-    const anneeInput = document.getElementById("id_annee_production");
-    const avant2010Checkbox = document.getElementById("id_est_avant_2010");
-    const vinSimplifieInput = document.getElementById("id_vin_simplifie");
+    // ========================================================
+    // CARACTÈRES INTERDITS DANS UN VIN
+    // ========================================================
 
-    if (!vinInput) return;
+    const INVALID_CHARS = ["I", "O", "Q"];
 
-    vinInput.addEventListener("input", function () {
-        let vin = vinInput.value.toUpperCase();
+
+    // ========================================================
+    // CHAMPS
+    // ========================================================
+
+    const vinInput =
+        document.getElementById("id_numero_vin");
+
+    const anneeInput =
+        document.getElementById("id_annee_production");
+
+    const apres2010Checkbox =
+        document.getElementById("id_est_apres_2010");
+
+    const vinSimplifieInput =
+        document.getElementById("id_vin_simplifie");
+
+    const dateMiseEnCirculationInput =
+        document.getElementById("id_date_mise_en_circulation");
+
+
+    if (!vinInput) {
+        return;
+    }
+
+
+    // ========================================================
+    // ANNÉE D'IMMATRICULATION
+    // ========================================================
+
+    function getRegistrationYear() {
+
+        if (
+            !dateMiseEnCirculationInput ||
+            !dateMiseEnCirculationInput.value
+        ) {
+            return null;
+        }
+
+        const date =
+            new Date(dateMiseEnCirculationInput.value);
+
+        if (isNaN(date.getTime())) {
+            return null;
+        }
+
+        return date.getFullYear();
+    }
+
+
+    // ========================================================
+    // DÉTERMINATION ANNÉE ISO
+    // ========================================================
+
+    function getIsoYear(code) {
+
+        const years =
+            VIN_YEAR_CYCLES[code];
+
+        if (!years) {
+            return null;
+        }
+
+        const currentYear =
+            new Date().getFullYear();
+
+        const registrationYear =
+            getRegistrationYear();
+
+        const possibleYears =
+            years.filter(
+                year => year <= currentYear + 1
+            );
+
+        if (!possibleYears.length) {
+            return null;
+        }
+
+
+        // ----------------------------------------------------
+        // Si année d'immatriculation connue
+        // ----------------------------------------------------
+
+        if (registrationYear) {
+
+            const candidates =
+                possibleYears.filter(
+                    year =>
+                        year <= registrationYear + 1
+                );
+
+            if (candidates.length) {
+
+                return candidates.reduce(
+                    (best, year) => {
+
+                        const bestDiff =
+                            Math.abs(
+                                best - registrationYear
+                            );
+
+                        const currentDiff =
+                            Math.abs(
+                                year - registrationYear
+                            );
+
+                        return currentDiff < bestDiff
+                            ? year
+                            : best;
+                    }
+                );
+            }
+        }
+
+
+        // ----------------------------------------------------
+        // Sinon cycle le plus récent
+        // ----------------------------------------------------
+
+        return Math.max(...possibleYears);
+    }
+
+
+    // ========================================================
+    // MISE À JOUR VIN
+    // ========================================================
+
+    function updateVinData() {
+
+        let vin =
+            vinInput.value
+                .trim()
+                .toUpperCase();
+
         vinInput.value = vin;
 
-        if (vin.length === 17) {
 
-            if (INVALID_CHARS.some(c => vin.includes(c))) {
+        // ----------------------------------------------------
+        // VIN incomplet
+        // ----------------------------------------------------
+
+        if (vin.length !== 17) {
+
+            if (anneeInput) {
                 anneeInput.value = "";
-                if (avant2010Checkbox) avant2010Checkbox.checked = false;
-                return;
             }
 
-            const code = vin[9];
-            const year = VIN_YEAR_BASE[code] || "";
-
-            if (anneeInput) anneeInput.value = year;
-
-            if (avant2010Checkbox && year) {
-                avant2010Checkbox.checked = year < 2010;
+            if (apres2010Checkbox) {
+                apres2010Checkbox.checked = false;
             }
 
-            // VIN simplifié = 10 derniers caractères
             if (vinSimplifieInput) {
-                vinSimplifieInput.value = vin.slice(-10);
+                vinSimplifieInput.value = "";
             }
 
-        } else {
-            if (anneeInput) anneeInput.value = "";
-            if (avant2010Checkbox) avant2010Checkbox.checked = false;
-            if (vinSimplifieInput) vinSimplifieInput.value = "";
+            return;
         }
-    });
+
+
+        // ----------------------------------------------------
+        // Caractères interdits
+        // ----------------------------------------------------
+
+        if (
+            INVALID_CHARS.some(
+                char => vin.includes(char)
+            )
+        ) {
+
+            if (anneeInput) {
+                anneeInput.value = "";
+            }
+
+            if (apres2010Checkbox) {
+                apres2010Checkbox.checked = false;
+            }
+
+            return;
+        }
+
+
+        // ----------------------------------------------------
+        // VIN simplifié
+        // ----------------------------------------------------
+
+        if (vinSimplifieInput) {
+            vinSimplifieInput.value =
+                vin.slice(-10);
+        }
+
+
+        // ----------------------------------------------------
+        // Code année = 10e caractère
+        // ----------------------------------------------------
+
+        const yearCode = vin[9];
+
+        let productionYear =
+            getIsoYear(yearCode);
+
+
+        // ----------------------------------------------------
+        // Code non ISO
+        //
+        // Exemple MINI :
+        // WMWRA31030TE24878
+        //
+        // position 10 = "0"
+        // ----------------------------------------------------
+
+        if (productionYear === null) {
+
+            const registrationYear =
+                getRegistrationYear();
+
+            if (registrationYear) {
+                productionYear =
+                    registrationYear;
+            }
+        }
+
+
+        // ----------------------------------------------------
+        // Année de production
+        // ----------------------------------------------------
+
+        if (anneeInput) {
+
+            anneeInput.value =
+                productionYear !== null
+                    ? productionYear
+                    : "";
+        }
+
+
+        // ----------------------------------------------------
+        // Véhicule après 2010
+        // ----------------------------------------------------
+
+        if (apres2010Checkbox) {
+
+            apres2010Checkbox.checked =
+                productionYear !== null &&
+                productionYear >= 2010;
+        }
+    }
+
+
+    // ========================================================
+    // ÉVÉNEMENTS
+    // ========================================================
+
+    vinInput.addEventListener(
+        "input",
+        updateVinData
+    );
+
+    if (dateMiseEnCirculationInput) {
+
+        dateMiseEnCirculationInput.addEventListener(
+            "change",
+            updateVinData
+        );
+    }
+
+
+    // Mise à jour au chargement
+    updateVinData();
 
 });
 </script>
