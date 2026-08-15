@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-15 15:26+0200\n"
+"POT-Creation-Date: 2026-08-15 15:49+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -4242,7 +4242,8 @@ msgstr ""
 #: fuel/models.py:165
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:281
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:373
-#: recharge/models.py:229
+#: piece/templates/piece/piece_detail.html:40
+#: piece/templates/piece/piece_form.html:100 recharge/models.py:229
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:88
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:129
 msgid "TVA"
@@ -13619,7 +13620,7 @@ msgid "Température de protection"
 msgstr ""
 
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:514
-#: piece/models.py:99 piece/templates/piece/piece_detail.html:41
+#: piece/models.py:99 piece/templates/piece/piece_detail.html:44
 msgid "Quantité utilisée"
 msgstr ""
 
@@ -20905,7 +20906,7 @@ msgid "Créée par"
 msgstr ""
 
 #: maintenance/templates/maintenance/detail.html:32 panier/models.py:47
-#: piece/models.py:103 piece/templates/piece/piece_detail.html:43
+#: piece/models.py:103 piece/templates/piece/piece_detail.html:46
 #: voiture/voiture_boite/forms.py:38
 msgid "Date de création"
 msgstr ""
@@ -20944,7 +20945,7 @@ msgid "Fluides"
 msgstr ""
 
 #: maintenance/templates/maintenance/entretien/creer_entretien.html:51
-#: piece/templates/piece/piece_detail.html:46
+#: piece/templates/piece/piece_detail.html:49
 msgid "Supprimer"
 msgstr ""
 
@@ -21202,13 +21203,13 @@ msgstr ""
 msgid "Prix de vente"
 msgstr ""
 
-#: piece/models.py:98 piece/templates/piece/piece_detail.html:40
+#: piece/models.py:98 piece/templates/piece/piece_detail.html:43
 #: piece/templates/piece/piece_form.html:76
 #: piece/templates/piece/piece_list.html:57
 msgid "Quantité en stock"
 msgstr ""
 
-#: piece/models.py:100 piece/templates/piece/piece_detail.html:42
+#: piece/models.py:100 piece/templates/piece/piece_detail.html:45
 msgid "Quantité minimale"
 msgstr ""
 
@@ -23289,28 +23290,21 @@ msgstr ""
 msgid "Aucun"
 msgstr ""
 
-#: piece/templates/piece/piece_detail.html:36
-#: piece/templates/piece/piece_form.html:92
-#, python-format
-msgid "Majoration (%%)"
-msgstr ""
-
 #: piece/templates/piece/piece_detail.html:37
-#: piece/templates/piece/piece_form.html:100
-#, python-format
-msgid "TVA (%%)"
+#: piece/templates/piece/piece_form.html:92
+msgid "Majoration"
 msgstr ""
 
-#: piece/templates/piece/piece_detail.html:38
+#: piece/templates/piece/piece_detail.html:41
 msgid "Prix de vente calculé"
 msgstr ""
 
-#: piece/templates/piece/piece_detail.html:45
+#: piece/templates/piece/piece_detail.html:48
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:215
 msgid "Modifier"
 msgstr ""
 
-#: piece/templates/piece/piece_detail.html:47
+#: piece/templates/piece/piece_detail.html:50
 #: voiture/voiture_pneus/templates/voiture_pneus/ajouter_pneus_simple.html:88
 msgid "Retour à la liste"
 msgstr ""
@@ -23471,8 +23465,7 @@ msgid "Ajouter un copropriétaire"
 msgstr ""
 
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:63
-#, python-format
-msgid "Part (%%)"
+msgid "Part"
 msgstr ""
 
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:76

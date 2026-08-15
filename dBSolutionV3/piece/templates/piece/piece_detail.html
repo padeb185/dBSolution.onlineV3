@@ -33,8 +33,11 @@
 <p><strong>{% trans "Qualité" %}:</strong> {{ piece.qualite }}</p>
 <p><strong>{% trans "Code OEM" %}:</strong> {{ piece.oem }}</p>
 <p><strong>{% trans "Prix d'achat" %}:</strong> {{ piece.prix_achat }}</p>
-<p><strong>{% trans "Majoration (%)" %}:</strong> {{ piece.majoration_pourcent }}</p>
-<p><strong>{% trans "TVA (%)" %}:</strong> {{ piece.tva }}</p>
+<p>
+    <strong>{% trans "Majoration" %} % :</strong>
+    {{ piece.majoration_pourcent }} %
+</p>
+<p><strong>{% trans "TVA" %} % :</strong> {{ piece.tva }}</p>
 <p><strong>{% trans "Prix de vente calculé" %}:</strong> {{ piece.calcul_prix_vente }}</p>
 
 <p><strong>{% trans "Quantité en stock" %}:</strong> {{ piece.quantite_stock }}</p>

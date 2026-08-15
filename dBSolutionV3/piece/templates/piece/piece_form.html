@@ -89,7 +89,7 @@
 
         <!-- Majoration -->
         <div>
-            <label for="id_majoration_pourcent">{% trans "Majoration (%)" %}</label>
+            <label for="id_majoration_pourcent">{% trans "Majoration" %} % </label>
             <input type="number" step="0.01" id="id_majoration_pourcent" name="majoration_pourcent"
                    value="{{ form.majoration_pourcent.value|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
@@ -97,7 +97,7 @@
 
         <!-- TVA -->
         <div>
-            <label for="id_tva">{% trans "TVA (%)" %}</label>
+            <label for="id_tva">{% trans "TVA" %} % </label>
             <input type="number" step="0.01" id="id_tva" name="tva"
                    value="{{ form.tva.value|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
