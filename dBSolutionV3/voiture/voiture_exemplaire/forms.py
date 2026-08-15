@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from .models import VoitureExemplaire
-from .utils.vin_decoder import VinDecoderService
+from .utils_vin import VinDecoderService
 
 INVALID_VIN_CHARS = set("IOQ")
 
@@ -76,29 +76,63 @@ class VoitureExemplaireForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
+
         vin = cleaned_data.get("numero_vin")
+        voiture_marque = cleaned_data.get("voiture_marque")
 
-        if vin:
-            decoder = VinDecoderService(vin)
-            data = decoder.decode()
-            annee = data.get("model_year")
+        if not vin:
+            return cleaned_data
 
-            cleaned_data["annee_production"] = annee
+        brand = (
+            voiture_marque.nom_marque
+            if voiture_marque
+            else None
+        )
 
-            if annee:
-                cleaned_data["est_apres_2010"] = annee >= 2010
+        decoder = VinDecoderService(
+            vin=vin,
+            brand=brand,
+        )
+
+        data = decoder.decode()
+
+        annee_production = data.get("production_year")
+
+        if annee_production is not None:
+            self.instance.annee_production = annee_production
+
+            cleaned_data["est_apres_2010"] = (
+                    annee_production >= 2010
+            )
+        else:
+            self.instance.annee_production = None
 
         return cleaned_data
+
+
+
 
     def save(self, commit=True):
         instance = super().save(commit=False)
 
         if self.user:
-            instance.societe = getattr(self.user, "societe", None)
+            instance.societe = getattr(
+                self.user,
+                "societe",
+                None,
+            )
 
-        # Important : applique les valeurs calculées
-        instance.annee_production = self.cleaned_data.get("annee_production")
-        instance.est_apres_2010 = self.cleaned_data.get("est_apres_2010", instance.est_apres_2010)
+        # -----------------------------------------------------
+        # Valeurs calculées dans clean()
+        # -----------------------------------------------------
+
+        # annee_production a déjà été placée dans self.instance
+        # dans clean(), donc on ne la relit pas depuis cleaned_data.
+
+        instance.est_apres_2010 = self.cleaned_data.get(
+            "est_apres_2010",
+            instance.est_apres_2010,
+        )
 
         if commit:
             instance.save()

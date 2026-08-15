@@ -5,8 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from client_particulier.models import ClientParticulier
 from django.conf import settings
 from societe.models import Societe
-from voiture.voiture_exemplaire.utils_vin import get_vin_year
-from voiture.voiture_exemplaire.utils.vin_decoder import VinDecoderService
+from voiture.voiture_exemplaire.utils_vin import VinDecoderService
 
 
 class TypeUtilisation(models.TextChoices):
@@ -94,15 +93,19 @@ class VoitureExemplaire(models.Model):
         unique=True,
         verbose_name="Numéro VIN",
         validators=[vin_validator],
-
     )
+
     vin_simplifie = models.CharField(
         max_length=10,
         verbose_name="VIN simplifié",
         editable=False,
-
     )
-    est_apres_2010 = models.BooleanField(default=True)
+
+    est_apres_2010 = models.BooleanField(
+        default=True,
+        editable=False,
+        verbose_name="Véhicule de 2010 ou après",
+    )
 
     annee_production = models.PositiveIntegerField(
         verbose_name="Année de production",
@@ -111,7 +114,13 @@ class VoitureExemplaire(models.Model):
         null=True,
     )
     mois_production = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(12)]
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(12),
+        ],
+        blank=True,
+        null=True,
+        verbose_name="Mois de production",
     )
 
     type_utilisation = models.CharField(
@@ -239,28 +248,69 @@ class VoitureExemplaire(models.Model):
     def __str__(self):
         return f"{self.voiture_marque.nom_marque} {self.voiture_modele.nom_modele} {self.voiture_modele.nom_variante} - {self.immatriculation}"
 
-
-
     def save(self, *args, **kwargs):
 
         if self.numero_vin:
-            self.numero_vin = self.numero_vin.upper().strip()
+            # -----------------------------------------------------
+            # Normalisation VIN
+            # -----------------------------------------------------
+            self.numero_vin = self.numero_vin.strip().upper()
             self.vin_simplifie = self.numero_vin[-10:]
 
-            decoder = VinDecoderService(self.numero_vin)
+            # -----------------------------------------------------
+            # Marque
+            # -----------------------------------------------------
+            brand = None
+
+            if self.voiture_marque_id:
+                brand = self.voiture_marque.nom_marque
+
+            # -----------------------------------------------------
+            # Année de première mise en circulation
+            # -----------------------------------------------------
+            registration_year = None
+
+            if self.date_mise_en_circulation:
+                registration_year = self.date_mise_en_circulation.year
+
+            # -----------------------------------------------------
+            # Décodage VIN
+            # -----------------------------------------------------
+            decoder = VinDecoderService(
+                vin=self.numero_vin,
+                brand=brand,
+                registration_year=registration_year,
+            )
+
             data = decoder.decode()
 
-            model_year = data.get("model_year")
+            production_year = data.get("production_year")
 
-            if model_year:
-                self.annee_production = model_year
+            # -----------------------------------------------------
+            # Année de production
+            # -----------------------------------------------------
+            if production_year is not None:
+                self.annee_production = production_year
+
+                self.est_apres_2010 = (
+                        production_year >= 2010
+                )
+
+            else:
+                self.annee_production = None
 
         else:
             self.vin_simplifie = None
+            self.annee_production = None
 
+        # ---------------------------------------------------------
+        # Kilométrages
+        # ---------------------------------------------------------
         self.update_kilometres()
 
         super().save(*args, **kwargs)
+
+
 
     def update_kilometres(self):
         km_chassis = self.kilometres_chassis or 0
@@ -293,6 +343,8 @@ class VoitureExemplaire(models.Model):
             self.kilometres_embrayage = km_chassis - self.kilometres_remplacement_embrayage
         else:
             self.kilometres_embrayage = km_chassis
+
+
 
 
 
