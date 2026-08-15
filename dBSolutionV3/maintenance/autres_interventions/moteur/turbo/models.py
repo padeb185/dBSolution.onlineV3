@@ -133,24 +133,24 @@ class Turbo(TechnicienMixin, models.Model):
 
     turbos = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Turbo à remplacer"))
     turbos_fabricant = models.CharField(max_length=25, choices=FabricantTurbo.choices, default=FabricantTurbo.CHOISIR,verbose_name=_("Fabricant"), blank=True)
-    turbos_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    turbos_quantite = models.IntegerField(default=0)
+    turbos_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    turbos_quantite = models.IntegerField(default=0,verbose_name=_("Quantité"))
 
 
     intercooler = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Intercooler"))
     intercooler_fabricant = models.CharField(max_length=25, choices=FabricantIntercooler.choices,default=FabricantIntercooler.CHOISIR, verbose_name=_("Fabricant"),blank=True)
-    intercooler_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    intercooler_quantite = models.IntegerField(default=0)
+    intercooler_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    intercooler_quantite = models.IntegerField(default=0,verbose_name=_("Quantité"))
 
     electrovanne = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Electro-vanne"))
     electrovanne_fabricant = models.CharField(max_length=25, choices=FabricantCapteurEchappement.choices,default=FabricantCapteurEchappement.CHOISIR, verbose_name=_("Fabricant"),blank=True)
-    electrovanne_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    electrovanne_quantite = models.IntegerField(default=0)
+    electrovanne_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    electrovanne_quantite = models.IntegerField(default=0,verbose_name=_("Quantité"))
 
     joints = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Joints"))
     joints_fabricant = models.CharField(max_length=25, choices=FabricantTurbo.choices,default=FabricantTurbo.CHOISIR, verbose_name=_("Fabricant"),blank=True)
-    joints_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    joints_quantite = models.IntegerField(default=0)
+    joints_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    joints_quantite = models.IntegerField(default=0,verbose_name=_("Quantité"))
 
 
 
