@@ -179,7 +179,7 @@ urlpatterns += i18n_patterns(
 
     path('embrayage/', include(('maintenance.autres_interventions.embrayage.urls', 'embrayage'), namespace='embrayage')),
 
-
+    path("allumage/", include(("maintenance.autres_interventions.moteur.allumage.urls", "allumage"), namespace="allumage")),
 
 )
 

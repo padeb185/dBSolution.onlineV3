@@ -1,9 +1,9 @@
 from decimal import ROUND_HALF_UP, Decimal
-
+from django.conf import settings
 from django.core.exceptions import ValidationError
-
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from maintenance.choices import TAUX_HORAIRE_CHOICES
 from maintenance.models import Maintenance
 
 
@@ -86,7 +86,7 @@ class Allumage(models.Model):
 
     )
 
-    date_controle = models.DateField(
+    date = models.DateTimeField(
         auto_now_add=True,
         verbose_name=_("Date du contrôle"),
     )
@@ -106,26 +106,26 @@ class Allumage(models.Model):
         max_length=30,
         choices=FabricantAllumage.choices,
         default=FabricantAllumage.CHOISIR,
-        verbose_name=_("Fabricant des bougies"),
+        verbose_name=_("Fabricant"),
     )
 
     bougies_reference = models.CharField(
         max_length=100,
         blank=True,
         null=True,
-        verbose_name=_("Référence des bougies"),
+        verbose_name=_("Référence"),
     )
 
     bougies_quantite = models.PositiveIntegerField(
         default=0,
-        verbose_name=_("Quantité de bougies"),
+        verbose_name=_("Quantité"),
     )
 
-    bougies_prix_achat = models.DecimalField(
+    bougies_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix unitaire des bougies HTVA"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     # ========================================================
@@ -143,26 +143,26 @@ class Allumage(models.Model):
         max_length=30,
         choices=FabricantAllumage.choices,
         default=FabricantAllumage.CHOISIR,
-        verbose_name=_("Fabricant des bobines d'allumage"),
+        verbose_name=_("Fabricant"),
     )
 
     bobines_reference = models.CharField(
         max_length=100,
         blank=True,
         null=True,
-        verbose_name=_("Référence des bobines d'allumage"),
+        verbose_name=_("Référence"),
     )
 
     bobines_quantite = models.PositiveIntegerField(
         default=0,
-        verbose_name=_("Quantité de bobines d'allumage"),
+        verbose_name=_("Quantité"),
     )
 
-    bobines_prix_achat = models.DecimalField(
+    bobines_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix unitaire des bobines HTVA"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     # ========================================================
@@ -180,19 +180,19 @@ class Allumage(models.Model):
         max_length=30,
         choices=FabricantAllumage.choices,
         default=FabricantAllumage.CHOISIR,
-        verbose_name=_("Fabricant du faisceau d'allumage"),
+        verbose_name=_("Fabricant"),
     )
 
     faisceau_allumage_quantite = models.PositiveIntegerField(
         default=0,
-        verbose_name=_("Quantité de faisceaux d'allumage"),
+        verbose_name=_("Quantité"),
     )
 
-    faisceau_allumage_prix_achat = models.DecimalField(
+    faisceau_allumage_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix du faisceau d'allumage HTVA"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     # ========================================================
@@ -210,19 +210,19 @@ class Allumage(models.Model):
         max_length=30,
         choices=FabricantAllumage.choices,
         default=FabricantAllumage.CHOISIR,
-        verbose_name=_("Fabricant de la tête d'allumeur"),
+        verbose_name=_("Fabricant"),
     )
 
     tete_allumeur_quantite = models.PositiveIntegerField(
         default=0,
-        verbose_name=_("Quantité de têtes d'allumeur"),
+        verbose_name=_("Quantité"),
     )
 
-    tete_allumeur_prix_achat = models.DecimalField(
+    tete_allumeur_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix de la tête d'allumeur HTVA"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     # ========================================================
@@ -240,19 +240,19 @@ class Allumage(models.Model):
         max_length=30,
         choices=FabricantAllumage.choices,
         default=FabricantAllumage.CHOISIR,
-        verbose_name=_("Fabricant du rotor d'allumeur"),
+        verbose_name=_("Fabricant"),
     )
 
     rotor_allumeur_quantite = models.PositiveIntegerField(
         default=0,
-        verbose_name=_("Quantité de rotors d'allumeur"),
+        verbose_name=_("Quantité"),
     )
 
-    rotor_allumeur_prix_achat = models.DecimalField(
+    rotor_allumeur_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix du rotor d'allumeur HTVA"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     # ========================================================
@@ -270,19 +270,19 @@ class Allumage(models.Model):
         max_length=30,
         choices=FabricantAllumage.choices,
         default=FabricantAllumage.CHOISIR,
-        verbose_name=_("Fabricant du module d'allumage"),
+        verbose_name=_("Fabricant"),
     )
 
     module_allumage_quantite = models.PositiveIntegerField(
         default=0,
-        verbose_name=_("Quantité de modules d'allumage"),
+        verbose_name=_("Quantité"),
     )
 
-    module_allumage_prix_achat = models.DecimalField(
+    module_allumage_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix du module d'allumage HTVA"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     # ========================================================
@@ -300,19 +300,19 @@ class Allumage(models.Model):
         max_length=30,
         choices=FabricantAllumage.choices,
         default=FabricantAllumage.CHOISIR,
-        verbose_name=_("Fabricant du capteur de vilebrequin"),
+        verbose_name=_("Fabricant"),
     )
 
     capteur_vilebrequin_quantite = models.PositiveIntegerField(
         default=0,
-        verbose_name=_("Quantité de capteurs de vilebrequin"),
+        verbose_name=_("Quantité"),
     )
 
-    capteur_vilebrequin_prix_achat = models.DecimalField(
+    capteur_vilebrequin_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix du capteur de vilebrequin HTVA"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     # ========================================================
@@ -330,19 +330,19 @@ class Allumage(models.Model):
         max_length=30,
         choices=FabricantAllumage.choices,
         default=FabricantAllumage.CHOISIR,
-        verbose_name=_("Fabricant du capteur d'arbre à cames"),
+        verbose_name=_("Fabricant"),
     )
 
     capteur_arbre_cames_quantite = models.PositiveIntegerField(
         default=0,
-        verbose_name=_("Quantité de capteurs d'arbre à cames"),
+        verbose_name=_("Quantité"),
     )
 
-    capteur_arbre_cames_prix_achat = models.DecimalField(
+    capteur_arbre_cames_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix du capteur d'arbre à cames HTVA"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     # -------------------------
@@ -423,6 +423,67 @@ class Allumage(models.Model):
         null=True,
         verbose_name=_("Remarques"),
     )
+
+    TAG_CHOICES = [
+        ("VERT", _("Vert")),
+        ("JAUNE", _("Jaune")),
+        ("ROUGE", _("Rouge")),
+    ]
+
+    tag = models.CharField(
+        max_length=10,
+        choices=TAG_CHOICES,
+        default="JAUNE",
+        verbose_name=_("État visuel / Tag"),
+    )
+
+    main_oeuvre = models.ForeignKey(
+        "maindoeuvre.MainDoeuvre",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="allumage",
+        verbose_name=_("Main d'oeuvre")
+    )
+
+    # Technicien qui fait le checkup (toujours l'utilisateur courant)
+    tech_technicien = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Technicien"),
+        related_name="allumage"
+    )
+
+    tech_nom_technicien = models.CharField(
+        _("Nom du technicien"),
+        max_length=255,
+        blank=True
+    )
+
+    tech_role_technicien = models.CharField(
+        _("Rôle du technicien"),
+        max_length=255,
+        blank=True
+    )
+
+    tech_societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Société"),
+        related_name="allumage"
+    )
+    taux_horaire = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        choices=TAUX_HORAIRE_CHOICES,
+        default=Decimal("50.00"),
+        verbose_name=_("Taux horaire"),
+    )
+
 
     created_at = models.DateTimeField(
         auto_now_add=True,
@@ -521,17 +582,20 @@ class Allumage(models.Model):
 
         super().save(*args, **kwargs)
 
-
-
-
     def generer_rapport_remplacement(self):
         lignes = []
         total_general = Decimal("0.00")
+
         etats_labels = dict(EtatAllumage.choices)
+
+        # ========================================================
+        # PARCOURS DES CHAMPS D'ÉTAT
+        # ========================================================
 
         for field in self._meta.fields:
             field_name = field.name
 
+            # On ne traite que les champs utilisant EtatAllumage
             if not (
                     isinstance(field, models.CharField)
                     and field.choices == EtatAllumage.choices
@@ -540,54 +604,61 @@ class Allumage(models.Model):
 
             valeur = getattr(self, field_name, None)
 
+            # Uniquement les pièces à remplacer ou remplacées
             if valeur not in (
                     EtatAllumage.A_REMPLACER,
                     EtatAllumage.REMPLACE,
             ):
                 continue
 
-            # -------------------------
-            # Prix
-            # -------------------------
+            # ====================================================
+            # PREFIX
+            #
+            # bougies_etat -> bougies
+            # bobines_etat -> bobines
+            # faisceau_allumage_etat -> faisceau_allumage
+            # ====================================================
+
+            if field_name.endswith("_etat"):
+                prefix = field_name[:-5]
+            else:
+                prefix = field_name
+
+            # ====================================================
+            # PRIX
+            # ====================================================
 
             prix = getattr(
                 self,
-                f"{field_name}_prix",
-                None,
+                f"{prefix}_prix",
+                Decimal("0.00"),
             )
 
-            if prix is None:
-                prix = getattr(
-                    self,
-                    f"{field_name}_prix_achat",
-                    Decimal("0.00"),
-                )
+            prix = Decimal(
+                str(prix or "0.00")
+            )
 
-            prix = Decimal(str(prix or "0.00"))
-
-            # -------------------------
-            # Quantité
-            # -------------------------
+            # ====================================================
+            # QUANTITÉ
+            # ====================================================
 
             quantite = getattr(
                 self,
-                f"{field_name}_quantite",
-                1,
+                f"{prefix}_quantite",
+                0,
             )
 
             quantite = Decimal(
-                str(
-                    quantite
-                    if quantite not in (None, 0)
-                    else 1
-                )
+                str(quantite or 0)
             )
 
-            # -------------------------
-            # Fabricant
-            # -------------------------
+            # ====================================================
+            # FABRICANT
+            # ====================================================
 
-            fabricant_field_name = f"{field_name}_fabricant"
+            fabricant_field_name = (
+                f"{prefix}_fabricant"
+            )
 
             fabricant = getattr(
                 self,
@@ -609,24 +680,42 @@ class Allumage(models.Model):
                 )
 
                 if callable(get_fabricant_display):
-                    fabricant_label = get_fabricant_display()
+                    fabricant_label = (
+                        get_fabricant_display()
+                    )
                 else:
                     fabricant_label = fabricant
 
-            # -------------------------
-            # Total
-            # -------------------------
+            # ====================================================
+            # RÉFÉRENCE
+            # ====================================================
 
-            total = (prix * quantite).quantize(
+            reference = getattr(
+                self,
+                f"{prefix}_reference",
+                None,
+            )
+
+            # ====================================================
+            # TOTAL
+            # ====================================================
+
+            total = (
+                    prix * quantite
+            ).quantize(
                 Decimal("0.01"),
                 rounding=ROUND_HALF_UP,
             )
 
             total_general += total
 
+            # ====================================================
+            # AJOUT AU RAPPORT
+            # ====================================================
+
             lignes.append({
                 "champ": field.verbose_name,
-                "code": field_name,
+                "code": prefix,
 
                 "etat": valeur,
                 "etat_label": etats_labels.get(
@@ -637,17 +726,25 @@ class Allumage(models.Model):
                 "fabricant": fabricant,
                 "fabricant_label": fabricant_label,
 
+                "reference": reference,
+
                 "prix": prix.quantize(
                     Decimal("0.01"),
                     rounding=ROUND_HALF_UP,
                 ),
 
                 "quantite": quantite,
+
                 "total": total,
             })
 
+        # ========================================================
+        # RETOUR
+        # ========================================================
+
         return {
             "lignes": lignes,
+
             "total_general": total_general.quantize(
                 Decimal("0.01"),
                 rounding=ROUND_HALF_UP,

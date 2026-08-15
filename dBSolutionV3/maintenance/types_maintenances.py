@@ -11,6 +11,7 @@ TYPES_MAINTENANCE = [
     {"code": "niveaux", "nom": _("Niveaux")},
     {"code": "autres", "nom": _("Autres interventions")},
     {"code": "autres", "nom": _("RODAGE")},
+    {"code": "allumage", "nom": _("ALLUMAGE")},
 
 
 ]

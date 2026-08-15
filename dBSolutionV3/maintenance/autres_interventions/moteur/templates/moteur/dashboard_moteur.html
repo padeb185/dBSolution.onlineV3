@@ -184,6 +184,34 @@
             >
         </a>
 
+           <!-- ================================================== -->
+        <!-- ALLUMAGE -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'allumage:allumage_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Allumage" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_allumage|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/allumage.png' %}"
+                alt="{% trans 'Allumage' %}"
+                class="h-[60px] w-[60px]"
+            >
+        </a>
+
     </div>
 
     <!-- ================================================== -->

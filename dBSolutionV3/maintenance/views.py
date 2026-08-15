@@ -9,6 +9,7 @@ from django_tenants.utils import tenant_context, schema_context
 from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models import RemplacementBoite
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from maintenance.autres_interventions.moteur import rodage
+from maintenance.autres_interventions.moteur.allumage.models import Allumage
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_modele.models import VoitureModele
 from maintenance.models import Maintenance
@@ -158,6 +159,9 @@ def choisir_type_maintenance(request, exemplaire_id):
             voiture_exemplaire=exemplaire
         )
 
+        allumage = Allumage.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
         abs_qs = Abs.objects.filter(
             voiture_exemplaire=exemplaire
@@ -187,6 +191,7 @@ def choisir_type_maintenance(request, exemplaire_id):
         total_carrosserie_interne = carrosserie_interne.count()
         total_checkup_track = checkup_track.count()
         total_echappement = echappement.count()
+        total_allumage = allumage.count()
         total_remplacement_boite = remplacement_boite.count()
 
 
@@ -263,7 +268,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             "total_checkup_track": total_checkup_track,
             "total_echappement": total_echappement,
             "total_remplacement_boite": total_remplacement_boite,
-
+            "total_allumage": total_allumage,
 
             "checkup": checkup,
             "entretien": entretien,
@@ -279,6 +284,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             "checkup_track": checkup_track,
             "echappement": echappement,
             "remplacement_boite": remplacement_boite,
+            "allumage": allumage,
 
 
             "modeles": modeles,

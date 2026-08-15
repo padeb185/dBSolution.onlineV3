@@ -1,5 +1,4 @@
 from datetime import timezone
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -7,11 +6,12 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import schema_context, tenant_context
-from maintenance.autres_interventions import echappement, refroidissement
 from maintenance.autres_interventions.climatisation.models import Climatisation
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from maintenance.autres_interventions.echappement.models import Echappement
 from maintenance.autres_interventions.embrayage.models import Embrayage
+from maintenance.autres_interventions.moteur import allumage
+from maintenance.autres_interventions.moteur.allumage.models import Allumage
 from maintenance.autres_interventions.refroidissement.models import Refroidissement
 from maintenance.models import Maintenance
 from maintenance.types_maintenances import TYPES_MAINTENANCE
@@ -158,6 +158,9 @@ def choisir_autre_maintenance(request, exemplaire_id):
             embrayage = Embrayage.objects.filter(
                 voiture_exemplaire=exemplaire
             )
+            allumage = Allumage.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
 
             # ---------------- TOTALS ----------------
 
@@ -172,6 +175,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_ref = refroidissement.count()
             total_turbo = turbo.count()
             total_embrayage = embrayage.count()
+            total_allumage = allumage.count()
 
             # ---------------- MOTEUR ----------------
 
@@ -194,6 +198,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
             remplacement_moteur = RemplacementMoteur.objects.filter(
                 voiture_exemplaire=exemplaire
             )
+          
 
             total_turbo = turbo.count()
 
@@ -203,6 +208,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
                     + courroie.count()
                     + turbo.count()
                     + remplacement_moteur.count()
+                    + allumage.count()
             )
 
             total_int_boite = (
@@ -218,6 +224,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
                 + courroie.count()
                 + turbo.count()
                 + remplacement_moteur.count()
+                + allumage.count()
 
             )
 
@@ -274,6 +281,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_turbo": total_turbo,
         "total_ref": total_ref,
         "total_embrayage": total_embrayage,
+        "total_allumage" : total_allumage,
 
 
 
@@ -294,6 +302,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "remplacement_moteur": remplacement_moteur,
         "admission": admission,
         "courroie_access": courroie_access,
+        "allumage": allumage,
         "modeles": modeles,
     }
 

@@ -3,14 +3,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models import Q
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache
-from django_tenants.utils import schema_context, tenant_context
+from django_tenants.utils import tenant_context
+from maintenance.autres_interventions.moteur.allumage.models import Allumage
 from maintenance.autres_interventions.moteur.rodage.models import Rodage
 from maintenance.models import Maintenance
 from maintenance.types_maintenances import TYPES_MAINTENANCE
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-from voiture.voiture_modele.models import VoitureModele
 from django.shortcuts import get_object_or_404
 from utilisateurs.models import Mecanicien
 from maintenance.autres_interventions.moteur.admission.models import Admission
@@ -77,6 +77,7 @@ def dashboard_moteur_view(request, exemplaire_id):
     moteur_remplacement = RemplacementMoteur.objects.filter(voiture_exemplaire=exemplaire)
     turbo = Turbo.objects.filter(voiture_exemplaire=exemplaire)
     rodage = Rodage.objects.filter(voiture_exemplaire=exemplaire)
+    allumage = Allumage.objects.filter(voiture_exemplaire=exemplaire)
 
 
         # ✅ COUNTS CORRECTS
@@ -86,8 +87,9 @@ def dashboard_moteur_view(request, exemplaire_id):
     total_remplacement_moteur = moteur_remplacement.count()
     total_turbo = turbo.count()
     total_rodage = rodage.count()
+    total_allumage = allumage.count()
 
-    total_int_moteur = total_admission + total_alternateur + total_courroie + total_remplacement_moteur + total_turbo + total_rodage
+    total_int_moteur = total_admission + total_allumage + total_alternateur + total_courroie + total_remplacement_moteur + total_turbo + total_rodage
 
 
     # --- POST ---
@@ -124,6 +126,7 @@ def dashboard_moteur_view(request, exemplaire_id):
         "total_remplacement_moteur": total_remplacement_moteur,
         "total_turbo": total_turbo,
         "total_rodage": total_rodage,
+        "total_allumage": total_allumage,
 
         "admission": admission,
         "alternateur": alternateur,
@@ -131,6 +134,7 @@ def dashboard_moteur_view(request, exemplaire_id):
         "moteur_remplacement": moteur_remplacement,
         "turbo": turbo,
         "rodage": rodage,
+        "allumage": allumage,
 
         "total_int_moteur": total_int_moteur,
 

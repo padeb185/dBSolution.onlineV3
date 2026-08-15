@@ -1,0 +1,928 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag-jaune {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-rouge {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .etat-vert {
+            display: inline-block;
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            display: inline-block;
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            display: inline-block;
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            display: inline-block;
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .section-row td {
+            background: #f8fafc;
+            color: #1e40af;
+            font-weight: bold;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+         .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+         .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+{% if allumage.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ allumage.tech_societe.nom }}
+            </div>
+
+            {% if allumage.tech_societe.adresse %}
+                <div>
+                    {{ allumage.tech_societe.adresse.rue }}
+                    {{ allumage.tech_societe.adresse.numero }}
+                    {% if allumage.tech_societe.adresse.boite %}
+                        / {{ allumage.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ allumage.tech_societe.adresse.code_postal }}
+                    {{ allumage.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if allumage.tech_societe.adresse.pays %}
+                <div>{{ allumage.tech_societe.adresse.pays }}
+                    {{ allumage.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if allumage.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ allumage.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if allumage.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ allumage.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ allumage.tech_societe.nom }}.png"
+                alt="{{ allumage.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+
+<h1>{% trans "Détail de la maintenance de l'allumage" %}</h1>
+
+<!-- ================================================== -->
+<!-- INFORMATIONS GÉNÉRALES -->
+<!-- ================================================== -->
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ allumage.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+
+            {% if allumage.main_oeuvre and allumage.main_oeuvre.utilisateur %}
+                {{ allumage.main_oeuvre.utilisateur }}
+            {% else %}
+                {{ allumage.tech_nom_technicien|default:"-" }}
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ allumage.tech_societe|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if allumage.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ allumage.get_tag_display }}
+                </span>
+
+            {% elif allumage.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ allumage.get_tag_display }}
+                </span>
+
+            {% elif allumage.tag == "ROUGE" %}
+                <span class="tag tag-rouge">
+                    {{ allumage.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="etat-gris">
+                    {{ allumage.get_tag_display|default:"-" }}
+                </span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ allumage.voiture_exemplaire|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage du châssis" %} :</span>
+            {{ allumage.kilometres_chassis|default:0 }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage allumage" %} :</span>
+            {{ allumage.kilometrage_allumage|default:0 }} km
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- MESURES DU DIAGNOSTIC -->
+<!-- ================================================== -->
+<br>
+
+<!-- ================================================== -->
+<!-- ÉTAT DES COMPOSANTS D'ALLUMAGE -->
+<!-- ================================================== -->
+
+<br>
+
+<h2>{% trans "État des composants d'allumage" %}</h2>
+
+<div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "État" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <!-- ========================================== -->
+            <!-- BOUGIES -->
+            <!-- ========================================== -->
+
+            <tr class="section-row">
+                <td colspan="2">
+                    {% trans "Bougies d'allumage" %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "État des bougies" %}</td>
+
+                <td>
+                    {% if allumage.bougies_etat == "OK" %}
+                        <span class="etat-vert">
+                            {{ allumage.get_bougies_etat_display }}
+                        </span>
+
+                    {% elif allumage.bougies_etat == "A_CONTROLER" %}
+                        <span class="etat-jaune">
+                            {{ allumage.get_bougies_etat_display }}
+                        </span>
+
+                    {% elif allumage.bougies_etat == "USE" %}
+                        <span class="etat-jaune">
+                            {{ allumage.get_bougies_etat_display }}
+                        </span>
+
+                    {% elif allumage.bougies_etat == "HS" %}
+                        <span class="etat-rouge">
+                            {{ allumage.get_bougies_etat_display }}
+                        </span>
+
+                    {% elif allumage.bougies_etat == "A_REMPLACER" %}
+                        <span class="etat-rouge">
+                            {{ allumage.get_bougies_etat_display }}
+                        </span>
+
+                    {% elif allumage.bougies_etat == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ allumage.get_bougies_etat_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ allumage.get_bougies_etat_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- ========================================== -->
+            <!-- BOBINES -->
+            <!-- ========================================== -->
+
+            <tr class="section-row">
+                <td colspan="2">
+                    {% trans "Bobines d'allumage" %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "État des bobines d'allumage" %}</td>
+
+                <td>
+                    {% if allumage.bobines_etat == "OK" %}
+                        <span class="etat-vert">
+                            {{ allumage.get_bobines_etat_display }}
+                        </span>
+
+                    {% elif allumage.bobines_etat == "A_CONTROLER" %}
+                        <span class="etat-jaune">
+                            {{ allumage.get_bobines_etat_display }}
+                        </span>
+
+                    {% elif allumage.bobines_etat == "USE" %}
+                        <span class="etat-jaune">
+                            {{ allumage.get_bobines_etat_display }}
+                        </span>
+
+                    {% elif allumage.bobines_etat == "HS" %}
+                        <span class="etat-rouge">
+                            {{ allumage.get_bobines_etat_display }}
+                        </span>
+
+                    {% elif allumage.bobines_etat == "A_REMPLACER" %}
+                        <span class="etat-rouge">
+                            {{ allumage.get_bobines_etat_display }}
+                        </span>
+
+                    {% elif allumage.bobines_etat == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ allumage.get_bobines_etat_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ allumage.get_bobines_etat_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- ========================================== -->
+            <!-- FAISCEAU D'ALLUMAGE -->
+            <!-- ========================================== -->
+
+            <tr class="section-row">
+                <td colspan="2">
+                    {% trans "Faisceau d'allumage" %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "État du faisceau d'allumage" %}</td>
+
+                <td>
+                    {% if allumage.faisceau_allumage_etat == "OK" %}
+                        <span class="etat-vert">
+                            {{ allumage.get_faisceau_allumage_etat_display }}
+                        </span>
+
+                    {% elif allumage.faisceau_allumage_etat == "A_CONTROLER" %}
+                        <span class="etat-jaune">
+                            {{ allumage.get_faisceau_allumage_etat_display }}
+                        </span>
+
+                    {% elif allumage.faisceau_allumage_etat == "USE" %}
+                        <span class="etat-jaune">
+                            {{ allumage.get_faisceau_allumage_etat_display }}
+                        </span>
+
+                    {% elif allumage.faisceau_allumage_etat == "HS" or allumage.faisceau_allumage_etat == "A_REMPLACER" %}
+                        <span class="etat-rouge">
+                            {{ allumage.get_faisceau_allumage_etat_display }}
+                        </span>
+
+                    {% elif allumage.faisceau_allumage_etat == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ allumage.get_faisceau_allumage_etat_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ allumage.get_faisceau_allumage_etat_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- ========================================== -->
+            <!-- TÊTE D'ALLUMEUR -->
+            <!-- ========================================== -->
+
+            <tr class="section-row">
+                <td colspan="2">
+                    {% trans "Tête d'allumeur" %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "État de la tête d'allumeur" %}</td>
+
+                <td>
+                    {% if allumage.tete_allumeur_etat == "OK" %}
+                        <span class="etat-vert">
+                            {{ allumage.get_tete_allumeur_etat_display }}
+                        </span>
+
+                    {% elif allumage.tete_allumeur_etat == "A_CONTROLER" or allumage.tete_allumeur_etat == "USE" %}
+                        <span class="etat-jaune">
+                            {{ allumage.get_tete_allumeur_etat_display }}
+                        </span>
+
+                    {% elif allumage.tete_allumeur_etat == "HS" or allumage.tete_allumeur_etat == "A_REMPLACER" %}
+                        <span class="etat-rouge">
+                            {{ allumage.get_tete_allumeur_etat_display }}
+                        </span>
+
+                    {% elif allumage.tete_allumeur_etat == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ allumage.get_tete_allumeur_etat_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ allumage.get_tete_allumeur_etat_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- ========================================== -->
+            <!-- ROTOR / DOIGT D'ALLUMEUR -->
+            <!-- ========================================== -->
+
+            <tr class="section-row">
+                <td colspan="2">
+                    {% trans "Rotor / doigt d'allumeur" %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "État du rotor d'allumeur" %}</td>
+
+                <td>
+                    {% if allumage.rotor_allumeur_etat == "OK" %}
+                        <span class="etat-vert">
+                            {{ allumage.get_rotor_allumeur_etat_display }}
+                        </span>
+
+                    {% elif allumage.rotor_allumeur_etat == "A_CONTROLER" or allumage.rotor_allumeur_etat == "USE" %}
+                        <span class="etat-jaune">
+                            {{ allumage.get_rotor_allumeur_etat_display }}
+                        </span>
+
+                    {% elif allumage.rotor_allumeur_etat == "HS" or allumage.rotor_allumeur_etat == "A_REMPLACER" %}
+                        <span class="etat-rouge">
+                            {{ allumage.get_rotor_allumeur_etat_display }}
+                        </span>
+
+                    {% elif allumage.rotor_allumeur_etat == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ allumage.get_rotor_allumeur_etat_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ allumage.get_rotor_allumeur_etat_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- ========================================== -->
+            <!-- MODULE D'ALLUMAGE -->
+            <!-- ========================================== -->
+
+            <tr class="section-row">
+                <td colspan="2">
+                    {% trans "Module d'allumage" %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "État du module d'allumage" %}</td>
+
+                <td>
+                    {% if allumage.module_allumage_etat == "OK" %}
+                        <span class="etat-vert">
+                            {{ allumage.get_module_allumage_etat_display }}
+                        </span>
+
+                    {% elif allumage.module_allumage_etat == "A_CONTROLER" or allumage.module_allumage_etat == "USE" %}
+                        <span class="etat-jaune">
+                            {{ allumage.get_module_allumage_etat_display }}
+                        </span>
+
+                    {% elif allumage.module_allumage_etat == "HS" or allumage.module_allumage_etat == "A_REMPLACER" %}
+                        <span class="etat-rouge">
+                            {{ allumage.get_module_allumage_etat_display }}
+                        </span>
+
+                    {% elif allumage.module_allumage_etat == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ allumage.get_module_allumage_etat_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ allumage.get_module_allumage_etat_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- ========================================== -->
+            <!-- CAPTEUR VILEBREQUIN / PMH -->
+            <!-- ========================================== -->
+
+            <tr class="section-row">
+                <td colspan="2">
+                    {% trans "Capteur de vilebrequin / PMH" %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "État du capteur de vilebrequin" %}</td>
+
+                <td>
+                    {% if allumage.capteur_vilebrequin_etat == "OK" %}
+                        <span class="etat-vert">
+                            {{ allumage.get_capteur_vilebrequin_etat_display }}
+                        </span>
+
+                    {% elif allumage.capteur_vilebrequin_etat == "A_CONTROLER" or allumage.capteur_vilebrequin_etat == "USE" %}
+                        <span class="etat-jaune">
+                            {{ allumage.get_capteur_vilebrequin_etat_display }}
+                        </span>
+
+                    {% elif allumage.capteur_vilebrequin_etat == "HS" or allumage.capteur_vilebrequin_etat == "A_REMPLACER" %}
+                        <span class="etat-rouge">
+                            {{ allumage.get_capteur_vilebrequin_etat_display }}
+                        </span>
+
+                    {% elif allumage.capteur_vilebrequin_etat == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ allumage.get_capteur_vilebrequin_etat_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ allumage.get_capteur_vilebrequin_etat_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- ========================================== -->
+            <!-- CAPTEUR ARBRE À CAMES -->
+            <!-- ========================================== -->
+
+            <tr class="section-row">
+                <td colspan="2">
+                    {% trans "Capteur d'arbre à cames" %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "État du capteur d'arbre à cames" %}</td>
+
+                <td>
+                    {% if allumage.capteur_arbre_cames_etat == "OK" %}
+                        <span class="etat-vert">
+                            {{ allumage.get_capteur_arbre_cames_etat_display }}
+                        </span>
+
+                    {% elif allumage.capteur_arbre_cames_etat == "A_CONTROLER" or allumage.capteur_arbre_cames_etat == "USE" %}
+                        <span class="etat-jaune">
+                            {{ allumage.get_capteur_arbre_cames_etat_display }}
+                        </span>
+
+                    {% elif allumage.capteur_arbre_cames_etat == "HS" or allumage.capteur_arbre_cames_etat == "A_REMPLACER" %}
+                        <span class="etat-rouge">
+                            {{ allumage.get_capteur_arbre_cames_etat_display }}
+                        </span>
+
+                    {% elif allumage.capteur_arbre_cames_etat == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ allumage.get_capteur_arbre_cames_etat_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ allumage.get_capteur_arbre_cames_etat_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
+
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+<br>
+<h2>{% trans "Main-d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Temps de travail" %} :</span>
+            {{ allumage.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Taux horaire" %} :</span>
+
+            {% if allumage.main_oeuvre %}
+                {{ allumage.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €
+            {% else %}
+                0,00 €
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Coût de la main-d'œuvre" %} :</span>
+            {{ allumage.cout_main_oeuvre|default:0|floatformat:2 }} €
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+
+            {% if allumage.main_oeuvre and allumage.main_oeuvre.utilisateur %}
+                {{ allumage.main_oeuvre.utilisateur }}
+            {% else %}
+                {{ allumage.tech_nom_technicien|default:"-" }}
+            {% endif %}
+        </div>
+
+        {% if allumage.main_oeuvre and allumage.main_oeuvre.descriptif %}
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ allumage.main_oeuvre.descriptif }}
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES, PRODUITS ET TOTAUX -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main-d'œuvre" %}</h2>
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th class="text-right">
+                        {% trans "Quantité" %}
+                    </th>
+                    <th class="text-right">
+                        {% trans "Prix unitaire HTVA" %}
+                    </th>
+                    <th class="text-right">
+                        {% trans "Total HTVA" %}
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ|default:"-" }}
+                        </td>
+
+                        <td>
+                            {% if ligne.etat == "OK" %}
+                                <span class="etat-vert">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% elif ligne.etat == "NOT_OK" %}
+                                <span class="etat-rouge">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% elif ligne.etat == "REMPLACE" %}
+                                <span class="etat-bleu">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% else %}
+                                <span class="etat-gris">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ allumage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="4" class="text-right">
+                        {% trans "Total général avec main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ allumage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>
+            {% trans "Aucune pièce ou produit utilisé." %}
+        </p>
+
+        <table>
+            <tbody>
+
+                <tr class="total">
+                    <td>
+                        {% trans "Main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ allumage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td>
+                        {% trans "Total général" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ allumage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% endif %}
+
+</div>
+
+<!-- ================================================== -->
+<!-- REMARQUES -->
+<!-- ================================================== -->
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {% if allumage.remarques %}
+        {{ allumage.remarques|linebreaks }}
+    {% else %}
+        {% trans "Aucune remarque." %}
+    {% endif %}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>
