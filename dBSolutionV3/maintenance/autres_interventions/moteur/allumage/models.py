@@ -53,7 +53,7 @@ class Allumage(models.Model):
     maintenance = models.ForeignKey(
         Maintenance,
         on_delete=models.CASCADE,
-        related_name="admission",
+        related_name="allumage",
         verbose_name=_("Maintenance"),
         null=True,
         blank=True
@@ -436,277 +436,277 @@ class Allumage(models.Model):
 
 
 
-def assign_technicien(self, user):
-    self.tech_technicien = user
-    self.tech_nom_technicien = f"{user.prenom} {user.nom}"
-    self.tech_role_technicien = user.role
-    self.tech_societe = user.societe
+    def assign_technicien(self, user):
+        self.tech_technicien = user
+        self.tech_nom_technicien = f"{user.prenom} {user.nom}"
+        self.tech_role_technicien = user.role
+        self.tech_societe = user.societe
 
-    class Meta:
-        verbose_name = _("Allumage")
-        verbose_name_plural = _("Allumages")
+        class Meta:
+            verbose_name = _("Allumage")
+            verbose_name_plural = _("Allumages")
 
-def __str__(self):
-    voiture = getattr(self, "voiture_exemplaire", None)
-    return f"Allumage moteur - {voiture or 'Sans véhicule'}"
-
-
+    def __str__(self):
+        voiture = getattr(self, "voiture_exemplaire", None)
+        return f"Allumage moteur - {voiture or 'Sans véhicule'}"
 
 
-def clean(self):
-    super().clean()
 
-    voiture = getattr(self, "voiture_exemplaire", None)
 
-    if voiture and self.kilometrage_allumage is not None:
-        if self.kilometrage_allumage < voiture.kilometres_chassis:
-            raise ValidationError({
-                'kilometrage_allumage': _(
-                    "Le kilométrage ne peut pas être inférieur au kilométrage actuel."
+    def clean(self):
+        super().clean()
+
+        voiture = getattr(self, "voiture_exemplaire", None)
+
+        if voiture and self.kilometrage_allumage is not None:
+            if self.kilometrage_allumage < voiture.kilometres_chassis:
+                raise ValidationError({
+                    'kilometrage_allumage': _(
+                        "Le kilométrage ne peut pas être inférieur au kilométrage actuel."
+                    )
+                })
+    def save(self, *args, **kwargs):
+        # ========================================================
+        # TECHNICIEN
+        # ========================================================
+
+        if not self.tech_technicien and hasattr(self, "_user"):
+            self.assign_technicien(self._user)
+
+        # ========================================================
+        # KILOMÉTRAGE
+        # ========================================================
+
+        if self.voiture_exemplaire_id:
+            voiture = self.voiture_exemplaire
+
+            kilometrage_allumage = self.kilometrage_allumage or 0
+            kilometres_chassis = voiture.kilometres_chassis or 0
+
+            # Si le kilométrage Allumage est supérieur au châssis
+            if kilometrage_allumage > kilometres_chassis:
+                voiture.__class__.objects.filter(
+                    pk=voiture.pk
+                ).update(
+                    kilometres_chassis=kilometrage_allumage
                 )
-            })
-def save(self, *args, **kwargs):
-    # ========================================================
-    # TECHNICIEN
-    # ========================================================
 
-    if not self.tech_technicien and hasattr(self, "_user"):
-        self.assign_technicien(self._user)
+                # Synchronisation de l'objet en mémoire
+                voiture.kilometres_chassis = kilometrage_allumage
 
-    # ========================================================
-    # KILOMÉTRAGE
-    # ========================================================
+            # Copie du kilométrage dans le contrôle Allumage
+            self.kilometres_chassis = voiture.kilometres_chassis or 0
 
-    if self.voiture_exemplaire_id:
-        voiture = self.voiture_exemplaire
+        # ========================================================
+        # MAIN-D'ŒUVRE
+        # ========================================================
 
-        kilometrage_allumage = self.kilometrage_allumage or 0
-        kilometres_chassis = voiture.kilometres_chassis or 0
-
-        # Si le kilométrage Allumage est supérieur au châssis
-        if kilometrage_allumage > kilometres_chassis:
-            voiture.__class__.objects.filter(
-                pk=voiture.pk
-            ).update(
-                kilometres_chassis=kilometrage_allumage
+        if self.main_oeuvre_id and self.voiture_exemplaire_id:
+            task_name = (
+                f"{_('Allumage')} "
+                f"{self.voiture_exemplaire}"
             )
 
-            # Synchronisation de l'objet en mémoire
-            voiture.kilometres_chassis = kilometrage_allumage
+            self.main_oeuvre.__class__.objects.filter(
+                pk=self.main_oeuvre_id
+            ).update(
+                descriptif=task_name
+            )
 
-        # Copie du kilométrage dans le contrôle Allumage
-        self.kilometres_chassis = voiture.kilometres_chassis or 0
+            self.main_oeuvre.descriptif = task_name
 
-    # ========================================================
-    # MAIN-D'ŒUVRE
-    # ========================================================
+        # ========================================================
+        # SAUVEGARDE
+        # ========================================================
 
-    if self.main_oeuvre_id and self.voiture_exemplaire_id:
-        task_name = (
-            f"{_('Allumage')} "
-            f"{self.voiture_exemplaire}"
-        )
-
-        self.main_oeuvre.__class__.objects.filter(
-            pk=self.main_oeuvre_id
-        ).update(
-            descriptif=task_name
-        )
-
-        self.main_oeuvre.descriptif = task_name
-
-    # ========================================================
-    # SAUVEGARDE
-    # ========================================================
-
-    super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
 
 
-def generer_rapport_remplacement(self):
-    lignes = []
-    total_general = Decimal("0.00")
-    etats_labels = dict(EtatAllumage.choices)
+    def generer_rapport_remplacement(self):
+        lignes = []
+        total_general = Decimal("0.00")
+        etats_labels = dict(EtatAllumage.choices)
 
-    for field in self._meta.fields:
-        field_name = field.name
+        for field in self._meta.fields:
+            field_name = field.name
 
-        if not (
-                isinstance(field, models.CharField)
-                and field.choices == EtatAllumage.choices
-        ):
-            continue
+            if not (
+                    isinstance(field, models.CharField)
+                    and field.choices == EtatAllumage.choices
+            ):
+                continue
 
-        valeur = getattr(self, field_name, None)
+            valeur = getattr(self, field_name, None)
 
-        if valeur not in (
-                EtatAllumage.A_REMPLACER,
-                EtatAllumage.REMPLACE,
-        ):
-            continue
+            if valeur not in (
+                    EtatAllumage.A_REMPLACER,
+                    EtatAllumage.REMPLACE,
+            ):
+                continue
 
-        # -------------------------
-        # Prix
-        # -------------------------
+            # -------------------------
+            # Prix
+            # -------------------------
 
-        prix = getattr(
-            self,
-            f"{field_name}_prix",
-            None,
-        )
-
-        if prix is None:
             prix = getattr(
                 self,
-                f"{field_name}_prix_achat",
-                Decimal("0.00"),
-            )
-
-        prix = Decimal(str(prix or "0.00"))
-
-        # -------------------------
-        # Quantité
-        # -------------------------
-
-        quantite = getattr(
-            self,
-            f"{field_name}_quantite",
-            1,
-        )
-
-        quantite = Decimal(
-            str(
-                quantite
-                if quantite not in (None, 0)
-                else 1
-            )
-        )
-
-        # -------------------------
-        # Fabricant
-        # -------------------------
-
-        fabricant_field_name = f"{field_name}_fabricant"
-
-        fabricant = getattr(
-            self,
-            fabricant_field_name,
-            None,
-        )
-
-        fabricant_label = "-"
-
-        if fabricant not in (
+                f"{field_name}_prix",
                 None,
-                "",
-                "CHOISIR",
-        ):
-            get_fabricant_display = getattr(
+            )
+
+            if prix is None:
+                prix = getattr(
+                    self,
+                    f"{field_name}_prix_achat",
+                    Decimal("0.00"),
+                )
+
+            prix = Decimal(str(prix or "0.00"))
+
+            # -------------------------
+            # Quantité
+            # -------------------------
+
+            quantite = getattr(
                 self,
-                f"get_{fabricant_field_name}_display",
+                f"{field_name}_quantite",
+                1,
+            )
+
+            quantite = Decimal(
+                str(
+                    quantite
+                    if quantite not in (None, 0)
+                    else 1
+                )
+            )
+
+            # -------------------------
+            # Fabricant
+            # -------------------------
+
+            fabricant_field_name = f"{field_name}_fabricant"
+
+            fabricant = getattr(
+                self,
+                fabricant_field_name,
                 None,
             )
 
-            if callable(get_fabricant_display):
-                fabricant_label = get_fabricant_display()
-            else:
-                fabricant_label = fabricant
+            fabricant_label = "-"
 
-        # -------------------------
-        # Total
-        # -------------------------
+            if fabricant not in (
+                    None,
+                    "",
+                    "CHOISIR",
+            ):
+                get_fabricant_display = getattr(
+                    self,
+                    f"get_{fabricant_field_name}_display",
+                    None,
+                )
 
-        total = (prix * quantite).quantize(
-            Decimal("0.01"),
-            rounding=ROUND_HALF_UP,
-        )
+                if callable(get_fabricant_display):
+                    fabricant_label = get_fabricant_display()
+                else:
+                    fabricant_label = fabricant
 
-        total_general += total
+            # -------------------------
+            # Total
+            # -------------------------
 
-        lignes.append({
-            "champ": field.verbose_name,
-            "code": field_name,
+            total = (prix * quantite).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
 
-            "etat": valeur,
-            "etat_label": etats_labels.get(
-                valeur,
-                valeur,
-            ),
+            total_general += total
 
-            "fabricant": fabricant,
-            "fabricant_label": fabricant_label,
+            lignes.append({
+                "champ": field.verbose_name,
+                "code": field_name,
 
-            "prix": prix.quantize(
+                "etat": valeur,
+                "etat_label": etats_labels.get(
+                    valeur,
+                    valeur,
+                ),
+
+                "fabricant": fabricant,
+                "fabricant_label": fabricant_label,
+
+                "prix": prix.quantize(
+                    Decimal("0.01"),
+                    rounding=ROUND_HALF_UP,
+                ),
+
+                "quantite": quantite,
+                "total": total,
+            })
+
+        return {
+            "lignes": lignes,
+            "total_general": total_general.quantize(
                 Decimal("0.01"),
                 rounding=ROUND_HALF_UP,
             ),
+        }
+            # ======================================================
+            # MAIN-D'ŒUVRE
+            # ======================================================
 
-            "quantite": quantite,
-            "total": total,
-        })
+    @property
+    def temps_main_oeuvre_display(self):
+        if not self.main_oeuvre:
+            return "0h00"
 
-    return {
-        "lignes": lignes,
-        "total_general": total_general.quantize(
-            Decimal("0.01"),
-            rounding=ROUND_HALF_UP,
-        ),
-    }
-        # ======================================================
-        # MAIN-D'ŒUVRE
-        # ======================================================
+        temps_minutes = self.main_oeuvre.temps_minutes or 0
+        heures, minutes = divmod(temps_minutes, 60)
 
-@property
-def temps_main_oeuvre_display(self):
-    if not self.main_oeuvre:
-        return "0h00"
+        return f"{heures}h{minutes:02d}"
 
-    temps_minutes = self.main_oeuvre.temps_minutes or 0
-    heures, minutes = divmod(temps_minutes, 60)
+    @property
+    def taux_horaire_main_oeuvre(self):
+        if (
+                self.main_oeuvre
+                and self.main_oeuvre.taux_horaire is not None
+        ):
+            return self.main_oeuvre.taux_horaire
 
-    return f"{heures}h{minutes:02d}"
-
-@property
-def taux_horaire_main_oeuvre(self):
-    if (
-            self.main_oeuvre
-            and self.main_oeuvre.taux_horaire is not None
-    ):
-        return self.main_oeuvre.taux_horaire
-
-    return Decimal("0.00")
-
-
-@property
-def cout_main_oeuvre(self):
-    if not self.main_oeuvre:
         return Decimal("0.00")
 
-    temps_minutes = self.main_oeuvre.temps_minutes or 0
-    taux_horaire = (
-            self.main_oeuvre.taux_horaire or Decimal("0.00")
-    )
 
-    cout = (
-            Decimal(str(temps_minutes))
-            / Decimal("60")
-            * Decimal(str(taux_horaire))
-    )
+    @property
+    def cout_main_oeuvre(self):
+        if not self.main_oeuvre:
+            return Decimal("0.00")
 
-    return cout.quantize(
-        Decimal("0.01"),
-        rounding=ROUND_HALF_UP,
-    )
+        temps_minutes = self.main_oeuvre.temps_minutes or 0
+        taux_horaire = (
+                self.main_oeuvre.taux_horaire or Decimal("0.00")
+        )
 
-@property
-def total_general_avec_main_oeuvre(self):
-    rapport = self.generer_rapport_remplacement()
+        cout = (
+                Decimal(str(temps_minutes))
+                / Decimal("60")
+                * Decimal(str(taux_horaire))
+        )
 
-    return (
-            rapport["total_general"]
-            + self.cout_main_oeuvre
-    ).quantize(
-        Decimal("0.01"),
-        rounding=ROUND_HALF_UP,
-    )
+        return cout.quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
+
+    @property
+    def total_general_avec_main_oeuvre(self):
+        rapport = self.generer_rapport_remplacement()
+
+        return (
+                rapport["total_general"]
+                + self.cout_main_oeuvre
+        ).quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )

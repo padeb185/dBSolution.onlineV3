@@ -1,10 +1,9 @@
 import uuid
-
-from django.core.exceptions import ValidationError
-
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.entretien.models import Entretien
+
+
 
 
 
@@ -40,6 +39,7 @@ class Maintenance(models.Model):
         ALTERNATEUR = "ALTERNATEUR", _("Alternateur")
         REFROIDISSEMMENT = "REFROIDISSEMENT", _("Refroidissement")
         EMBRAYAGE = "EMBRAYAGE", _("Embrayage")
+        ALLUMAGE = "ALLUMAGE", _("Allumage")
 
 
     class Tag(models.TextChoices):
