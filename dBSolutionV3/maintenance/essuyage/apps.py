@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class EssuyageConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'essuyage'
+    name = 'maintenance.essuyage'

@@ -164,7 +164,9 @@ TENANT_APPS = (
     "maintenance.autres_interventions.embrayage.apps.EmbrayageConfig",
 
 
+
     'maintenance.carrosserie_interne',
+    'maintenance.essuyage',
 
     'fuel',
 

@@ -37,9 +37,10 @@ class Maintenance(models.Model):
         ECHAPPEMENT = "ECHAPPEMENT", _("Echappement")
         CLIMATISATION = "CLIMATISATION", _("Climatisation")
         ALTERNATEUR = "ALTERNATEUR", _("Alternateur")
-        REFROIDISSEMMENT = "REFROIDISSEMENT", _("Refroidissement")
+        REFROIDISSEMENT = "REFROIDISSEMENT", _("Refroidissement")
         EMBRAYAGE = "EMBRAYAGE", _("Embrayage")
         ALLUMAGE = "ALLUMAGE", _("Allumage")
+        ESSUYAGE = "ESSUYAGE", _("Essuyage")
 
 
     class Tag(models.TextChoices):

@@ -179,7 +179,7 @@ def ref_form_view(request, exemplaire_id):
                             exemplaire.kilometres_dernier_entretien
                         ),
                         type_maintenance=(
-                            Maintenance.TypeMaintenance.REFROIDISSEMMENT
+                            Maintenance.TypeMaintenance.REFROIDISSEMENT
                         ),
                         tag=Maintenance.Tag.JAUNE,
                     )
