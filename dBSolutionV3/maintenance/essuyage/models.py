@@ -942,7 +942,7 @@ class Essuyage(TechnicienMixin, models.Model):
 
         if self.main_oeuvre_id and self.voiture_exemplaire_id:
 
-            task_name = f"{_('ABS')} {self.voiture_exemplaire} "
+            task_name = f"{_('Essuyage')} {self.voiture_exemplaire} "
 
             if self.main_oeuvre.descriptif != task_name:
                 self.main_oeuvre.descriptif = task_name
