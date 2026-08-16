@@ -416,7 +416,7 @@ def modifier_essuyage_view(request, essuyage_id):
 
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification contrôle ddu système d'essuyage - %(immatriculation)s") % {
+                action=_("Modification contrôle du système d'essuyage - %(immatriculation)s") % {
                     "immatriculation": exemplaire.immatriculation
                 }
             )
