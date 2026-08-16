@@ -402,8 +402,15 @@ class PaieUtilisateur(models.Model):
         null=True,
         verbose_name=_("Salaire brut / heure")
     )
+    salaire_brut_mensuel = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        verbose_name=_("Salaire mensuel")
+    )
 
-    salaire_brut_employeur = models.DecimalField(
+    salaire_brut_mensuel_employeur = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         blank=True,
