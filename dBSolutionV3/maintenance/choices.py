@@ -80,6 +80,7 @@ class FabricantLubrifiant(models.TextChoices):
     MOPAR = "MOPAR", _("Mopar")
     AUTRE = "AUTRE", _("Autre")
     CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
+    CHOISIR = "CHOISIR", _("Choisir")
 
 
 

@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import RouesSerrageEtat, FabricantPiece
+from maintenance.choices import RouesSerrageEtat, FabricantPiece, FabricantLubrifiant
 from utils.mixin import TechnicienMixin
 from maintenance.services import sync_maintenance
 from maintenance.models import Maintenance
@@ -727,8 +727,8 @@ class Essuyage(TechnicienMixin, models.Model):
 
     liquide_lave_glace_fabricant = models.CharField(
         max_length=50,
-        choices=FabricantPiece.choices,
-        default=FabricantPiece.CHOISIR,
+        choices=FabricantLubrifiant.choices,
+        default=FabricantLubrifiant.CHOISIR,
         verbose_name=_("Fabricant"),
         blank=True,
     )
@@ -736,7 +736,7 @@ class Essuyage(TechnicienMixin, models.Model):
     liquide_lave_glace_quantite = models.DecimalField(
         max_digits=6,
         decimal_places=2,
-        default=0,
+        default=0.0,
         verbose_name=_("Quantité"),
         help_text=_("Quantité en litres"),
     )
@@ -748,7 +748,6 @@ class Essuyage(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA"),
     )
 
-    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,verbose_name=_("Serrage des roues"))
 
     remarques = models.TextField(
         verbose_name=_("Remarques"),
@@ -1002,6 +1001,8 @@ class Essuyage(TechnicienMixin, models.Model):
         ]
 
         for prefix, libelle in pieces:
+            # L'état est directement le champ de la pièce
+            # ex. self.balai_av_gauche
             etat = getattr(self, prefix, None)
 
             if etat not in [
@@ -1010,6 +1011,9 @@ class Essuyage(TechnicienMixin, models.Model):
             ]:
                 continue
 
+            # -----------------------------
+            # QUANTITÉ
+            # -----------------------------
             quantite = getattr(
                 self,
                 f"{prefix}_quantite",
@@ -1021,10 +1025,12 @@ class Essuyage(TechnicienMixin, models.Model):
 
             quantite = Decimal(str(quantite))
 
-            # Ne pas afficher les lignes sans quantité
             if quantite <= 0:
                 continue
 
+            # -----------------------------
+            # PRIX
+            # -----------------------------
             prix = getattr(
                 self,
                 f"{prefix}_prix",
@@ -1036,27 +1042,55 @@ class Essuyage(TechnicienMixin, models.Model):
 
             prix = Decimal(str(prix))
 
+            # -----------------------------
+            # FABRICANT
+            # -----------------------------
             fabricant = getattr(
                 self,
                 f"{prefix}_fabricant",
                 "",
             )
 
+            # Si c'est un champ choices, on récupère
+            # le libellé affiché du fabricant
+            try:
+                fabricant_label = getattr(
+                    self,
+                    f"get_{prefix}_fabricant_display",
+                )()
+            except (AttributeError, TypeError):
+                fabricant_label = fabricant
+
+            # -----------------------------
+            # LIBELLÉ DE L'ÉTAT
+            # -----------------------------
+            try:
+                etat_label = getattr(
+                    self,
+                    f"get_{prefix}_display",
+                )()
+            except (AttributeError, TypeError):
+                etat_label = etat
+
+            # -----------------------------
+            # TOTAL
+            # -----------------------------
             total = prix * quantite
             total_general += total
 
             rapport.append({
-                "champ": prefix,
-                "libelle": libelle,
+                "champ": libelle,
+                "code": prefix,
                 "etat": etat,
-                "fabricant": fabricant,
+                "etat_label": etat_label,
+                "fabricant": fabricant_label,
                 "quantite": quantite,
                 "prix": prix,
                 "total": total,
             })
 
         return {
-            "pieces": rapport,
+            "lignes": rapport,
             "total_general": total_general,
         }
 

@@ -10,6 +10,7 @@ from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from maintenance.autres_interventions.moteur import rodage
 from maintenance.autres_interventions.moteur.allumage.models import Allumage
+from maintenance.essuyage.models import Essuyage
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_modele.models import VoitureModele
 from maintenance.models import Maintenance
@@ -120,6 +121,10 @@ def choisir_type_maintenance(request, exemplaire_id):
             voiture_exemplaire=exemplaire
         )
 
+        essuyage = Essuyage.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
+
         # --------------------------------------------------
         # Autres interventions
         # --------------------------------------------------
@@ -189,6 +194,7 @@ def choisir_type_maintenance(request, exemplaire_id):
         total_jeux_pieces = jeux_pieces.count()
         total_silent = silent.count()
         total_carrosserie_interne = carrosserie_interne.count()
+        total_essuyage = essuyage.count()
         total_checkup_track = checkup_track.count()
         total_echappement = echappement.count()
         total_allumage = allumage.count()
@@ -256,6 +262,7 @@ def choisir_type_maintenance(request, exemplaire_id):
 
             "total_checkup": total_checkup,
             "total_entretien": total_entretien,
+            "total_essuyage": total_essuyage,
             "total_freins": total_freins,
             "total_pneus": total_pneus,
             "total_niveaux": total_niveaux,
@@ -274,6 +281,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             "entretien": entretien,
             "freins": freins,
             "pneus": pneus,
+            "essuyage": essuyage,
             "niveaux": niveaux,
             "nettoyage_exterieur": nettoyage_exterieur,
             "nettoyage_interieur": nettoyage_interieur,

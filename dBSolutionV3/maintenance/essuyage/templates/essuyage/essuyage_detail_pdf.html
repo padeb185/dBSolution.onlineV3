@@ -1,10 +1,950 @@
+{% load i18n static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag-jaune {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-rouge {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-jaune {
+            color: #92400e;
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+        .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body>
+
+{% if essuyage.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+
+            <div class="societe-nom">
+                {{ essuyage.tech_societe.nom }}
+            </div>
+
+            {% if essuyage.tech_societe.adresse %}
+                <div>
+                    {{ essuyage.tech_societe.adresse.rue }}
+                    {{ essuyage.tech_societe.adresse.numero }}
+
+                    {% if essuyage.tech_societe.adresse.boite %}
+                        / {{ essuyage.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ essuyage.tech_societe.adresse.code_postal }}
+                    {{ essuyage.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if essuyage.tech_societe.adresse.pays %}
+                <div>
+                    {{ essuyage.tech_societe.adresse.pays }}
+                    {{ essuyage.tech_societe.adresse.code_pays }}
+                </div>
+            {% endif %}
+
+            {% if essuyage.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ essuyage.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+
+            {% if essuyage.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ essuyage.tech_societe.iban }}
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ essuyage.tech_societe.nom }}.png"
+                alt="{{ essuyage.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+
+
+<br>
+
+<h1>{% trans "Détail du contrôle du système d'essuyage" %}</h1>
+
+
+<!-- ================================================== -->
+<!-- INFORMATIONS GÉNÉRALES -->
+<!-- ================================================== -->
+
+<div class="box">
+
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ essuyage.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ essuyage.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ essuyage.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if essuyage.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ essuyage.get_tag_display }}
+                </span>
+
+            {% elif essuyage.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ essuyage.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ essuyage.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ essuyage.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage châssis" %} :</span>
+            {{ essuyage.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage essuyage" %} :</span>
+            {{ essuyage.kilometrage_essuyage }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Pays TVA" %} :</span>
+            {{ essuyage.get_pays_display }}
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================== -->
+<!-- ÉTAT DES COMPOSANTS -->
+<!-- ================================================== -->
+
+<br>
+
+<h2>{% trans "État des composants du système d'essuyage" %}</h2>
+
+<div class="box">
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>{% trans "Composant" %}</th>
+                <th>{% trans "État" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <!-- BALAIS -->
+
+            <tr>
+                <td>{% trans "Balai d'essuie-glace avant gauche" %}</td>
+                <td>
+                    {% if essuyage.balai_av_gauche == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_balai_av_gauche_display }}</span>
+                    {% elif essuyage.balai_av_gauche == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_balai_av_gauche_display }}</span>
+                    {% elif essuyage.balai_av_gauche == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_balai_av_gauche_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_balai_av_gauche_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Balai d'essuie-glace avant droit" %}</td>
+                <td>
+                    {% if essuyage.balai_av_droit == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_balai_av_droit_display }}</span>
+                    {% elif essuyage.balai_av_droit == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_balai_av_droit_display }}</span>
+                    {% elif essuyage.balai_av_droit == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_balai_av_droit_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_balai_av_droit_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Balai d'essuie-glace arrière" %}</td>
+                <td>
+                    {% if essuyage.balai_arriere == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_balai_arriere_display }}</span>
+                    {% elif essuyage.balai_arriere == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_balai_arriere_display }}</span>
+                    {% elif essuyage.balai_arriere == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_balai_arriere_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_balai_arriere_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- BRAS -->
+
+            <tr>
+                <td>{% trans "Bras d'essuie-glace avant gauche" %}</td>
+                <td>
+                    {% if essuyage.bras_av_gauche == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_bras_av_gauche_display }}</span>
+                    {% elif essuyage.bras_av_gauche == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_bras_av_gauche_display }}</span>
+                    {% elif essuyage.bras_av_gauche == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_bras_av_gauche_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_bras_av_gauche_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Bras d'essuie-glace avant droit" %}</td>
+                <td>
+                    {% if essuyage.bras_av_droit == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_bras_av_droit_display }}</span>
+                    {% elif essuyage.bras_av_droit == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_bras_av_droit_display }}</span>
+                    {% elif essuyage.bras_av_droit == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_bras_av_droit_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_bras_av_droit_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Bras d'essuie-glace arrière" %}</td>
+                <td>
+                    {% if essuyage.bras_arriere == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_bras_arriere_display }}</span>
+                    {% elif essuyage.bras_arriere == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_bras_arriere_display }}</span>
+                    {% elif essuyage.bras_arriere == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_bras_arriere_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_bras_arriere_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- MOTEURS -->
+
+            <tr>
+                <td>{% trans "Moteur d'essuie-glace avant" %}</td>
+                <td>
+                    {% if essuyage.moteur_essuie_glace_av == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_moteur_essuie_glace_av_display }}</span>
+                    {% elif essuyage.moteur_essuie_glace_av == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_moteur_essuie_glace_av_display }}</span>
+                    {% elif essuyage.moteur_essuie_glace_av == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_moteur_essuie_glace_av_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_moteur_essuie_glace_av_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Moteur d'essuie-glace arrière" %}</td>
+                <td>
+                    {% if essuyage.moteur_essuie_glace_ar == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_moteur_essuie_glace_ar_display }}</span>
+                    {% elif essuyage.moteur_essuie_glace_ar == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_moteur_essuie_glace_ar_display }}</span>
+                    {% elif essuyage.moteur_essuie_glace_ar == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_moteur_essuie_glace_ar_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_moteur_essuie_glace_ar_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- TRINGLERIE -->
+
+            <tr>
+                <td>{% trans "Tringlerie d'essuie-glace" %}</td>
+                <td>
+                    {% if essuyage.tringlerie_essuie_glace == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_tringlerie_essuie_glace_display }}</span>
+                    {% elif essuyage.tringlerie_essuie_glace == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_tringlerie_essuie_glace_display }}</span>
+                    {% elif essuyage.tringlerie_essuie_glace == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_tringlerie_essuie_glace_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_tringlerie_essuie_glace_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- POMPES -->
+
+            <tr>
+                <td>{% trans "Pompe de lave-glace avant" %}</td>
+                <td>
+                    {% if essuyage.pompe_lave_glace_av == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_pompe_lave_glace_av_display }}</span>
+                    {% elif essuyage.pompe_lave_glace_av == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_pompe_lave_glace_av_display }}</span>
+                    {% elif essuyage.pompe_lave_glace_av == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_pompe_lave_glace_av_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_pompe_lave_glace_av_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Pompe de lave-glace arrière" %}</td>
+                <td>
+                    {% if essuyage.pompe_lave_glace_ar == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_pompe_lave_glace_ar_display }}</span>
+                    {% elif essuyage.pompe_lave_glace_ar == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_pompe_lave_glace_ar_display }}</span>
+                    {% elif essuyage.pompe_lave_glace_ar == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_pompe_lave_glace_ar_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_pompe_lave_glace_ar_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- RÉSERVOIR -->
+
+            <tr>
+                <td>{% trans "Réservoir de liquide lave-glace" %}</td>
+                <td>
+                    {% if essuyage.reservoir_lave_glace == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_reservoir_lave_glace_display }}</span>
+                    {% elif essuyage.reservoir_lave_glace == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_reservoir_lave_glace_display }}</span>
+                    {% elif essuyage.reservoir_lave_glace == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_reservoir_lave_glace_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_reservoir_lave_glace_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- GICLEURS -->
+
+            <tr>
+                <td>{% trans "Gicleur avant gauche" %}</td>
+                <td>
+                    {% if essuyage.gicleur_av_gauche == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_gicleur_av_gauche_display }}</span>
+                    {% elif essuyage.gicleur_av_gauche == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_gicleur_av_gauche_display }}</span>
+                    {% elif essuyage.gicleur_av_gauche == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_gicleur_av_gauche_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_gicleur_av_gauche_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Gicleur avant droit" %}</td>
+                <td>
+                    {% if essuyage.gicleur_av_droit == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_gicleur_av_droit_display }}</span>
+                    {% elif essuyage.gicleur_av_droit == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_gicleur_av_droit_display }}</span>
+                    {% elif essuyage.gicleur_av_droit == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_gicleur_av_droit_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_gicleur_av_droit_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Gicleur arrière" %}</td>
+                <td>
+                    {% if essuyage.gicleur_arriere == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_gicleur_arriere_display }}</span>
+                    {% elif essuyage.gicleur_arriere == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_gicleur_arriere_display }}</span>
+                    {% elif essuyage.gicleur_arriere == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_gicleur_arriere_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_gicleur_arriere_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- TUYAUX -->
+
+            <tr>
+                <td>{% trans "Tuyau flexible de lave-glace avant" %}</td>
+                <td>
+                    {% if essuyage.tuyau_lave_glace_av == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_tuyau_lave_glace_av_display }}</span>
+                    {% elif essuyage.tuyau_lave_glace_av == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_tuyau_lave_glace_av_display }}</span>
+                    {% elif essuyage.tuyau_lave_glace_av == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_tuyau_lave_glace_av_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_tuyau_lave_glace_av_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Tuyau flexible de lave-glace arrière" %}</td>
+                <td>
+                    {% if essuyage.tuyau_lave_glace_ar == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_tuyau_lave_glace_ar_display }}</span>
+                    {% elif essuyage.tuyau_lave_glace_ar == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_tuyau_lave_glace_ar_display }}</span>
+                    {% elif essuyage.tuyau_lave_glace_ar == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_tuyau_lave_glace_ar_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_tuyau_lave_glace_ar_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- RACCORDS -->
+
+            <tr>
+                <td>{% trans "Raccord simple de lave-glace" %}</td>
+                <td>
+                    {% if essuyage.raccord_simple == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_raccord_simple_display }}</span>
+                    {% elif essuyage.raccord_simple == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_raccord_simple_display }}</span>
+                    {% elif essuyage.raccord_simple == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_raccord_simple_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_raccord_simple_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Raccord en T de lave-glace" %}</td>
+                <td>
+                    {% if essuyage.raccord_t == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_raccord_t_display }}</span>
+                    {% elif essuyage.raccord_t == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_raccord_t_display }}</span>
+                    {% elif essuyage.raccord_t == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_raccord_t_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_raccord_t_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- JOINTS -->
+
+            <tr>
+                <td>{% trans "Joints du circuit de lave-glace" %}</td>
+                <td>
+                    {% if essuyage.joints_lave_glace == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_joints_lave_glace_display }}</span>
+                    {% elif essuyage.joints_lave_glace == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_joints_lave_glace_display }}</span>
+                    {% elif essuyage.joints_lave_glace == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_joints_lave_glace_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_joints_lave_glace_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <!-- LIQUIDE -->
+
+            <tr>
+                <td>{% trans "Liquide lave-glace" %}</td>
+                <td>
+                    {% if essuyage.liquide_lave_glace == "OK" %}
+                        <span class="etat-vert">{{ essuyage.get_liquide_lave_glace_display }}</span>
+                    {% elif essuyage.liquide_lave_glace == "NOT_OK" %}
+                        <span class="etat-rouge">{{ essuyage.get_liquide_lave_glace_display }}</span>
+                    {% elif essuyage.liquide_lave_glace == "REMPLACE" %}
+                        <span class="etat-bleu">{{ essuyage.get_liquide_lave_glace_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ essuyage.get_liquide_lave_glace_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<!-- ================================================== -->
+<!-- MAIN D'ŒUVRE -->
+<!-- ================================================== -->
+
+<br>
+
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ essuyage.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if essuyage.main_oeuvre %}
+
+            <div>
+                <span class="label">{% trans "Taux horaire" %} :</span>
+                {{ essuyage.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix facturé" %} :</span>
+                {{ essuyage.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ essuyage.main_oeuvre.descriptif|default:"-" }}
+            </div>
+
+        {% else %}
+
+            <div>
+                {% trans "Aucune main d'œuvre liée" %}
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<!-- ================================================== -->
+<!-- PIÈCES / PRODUITS -->
+<!-- ================================================== -->
+
+<br>
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div class="box">
+
+    {% if rapport.lignes %}
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+
+                    <tr>
+
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                        <td>
+
+                            {% if ligne.etat == "OK" %}
+                                <span class="etat-vert">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% elif ligne.etat == "NOT_OK" %}
+                                <span class="etat-rouge">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% elif ligne.etat == "REMPLACE" %}
+                                <span class="etat-bleu">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% else %}
+                                <span class="etat-gris">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+                            {{ ligne.fabricant|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+
+                <tr class="total">
+
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+
+                </tr>
+
+
+                <tr class="total">
+
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ essuyage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+
+                </tr>
+
+
+                <tr class="total-general">
+
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ essuyage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+    {% else %}
+
+        <p>
+            {% trans "Aucune pièce ou produit utilisé." %}
+        </p>
+
+        <table>
+            <tbody>
+
+                <tr class="total">
+                    <td>
+
+                        <div>
+                            <strong>{% trans "Main-d'œuvre" %}</strong>
+                        </div>
+
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ essuyage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
+
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td>
+
+                        <div>
+                            <strong>{% trans "Total général" %}</strong>
+                        </div>
+
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ essuyage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
+
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% endif %}
+
+</div>
+
+
+<!-- ================================================== -->
+<!-- REMARQUES -->
+<!-- ================================================== -->
+
+<br>
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+
+    {% if essuyage.remarques %}
+        {{ essuyage.remarques|linebreaks }}
+    {% else %}
+        {% trans "Aucune remarque." %}
+    {% endif %}
+
+</div>
+
+
+<!-- ================================================== -->
+<!-- FOOTER -->
+<!-- ================================================== -->
+
+<div class="footer">
+
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+
+    <br>
+
+    {% trans "Date export" %} :
+    {{ date_export|date:"d/m/Y H:i" }}
+
+</div>
 
 </body>
 </html>

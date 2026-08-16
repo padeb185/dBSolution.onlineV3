@@ -16,10 +16,7 @@ from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-
-
-
-
+from weasyprint import HTML
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -612,100 +609,204 @@ def modifier_essuyage_view(request, essuyage_id):
 
 
 
+
 @login_required
 def essuyage_detail_pdf_view(request, pk):
-    essuyage_obj = get_object_or_404(
+
+    essuyage = get_object_or_404(
         Essuyage.objects.select_related(
             "maintenance",
-            "maintenance__voiture_exemplaire",
-            "maintenance__tech_technicien",
-            "maintenance__tech_societe",
+            "voiture_exemplaire",
+            "tech_technicien",
+            "tech_societe",
+            "main_oeuvre",
         ),
         pk=pk,
     )
 
-    rapport = essuyage_obj.generer_rapport_remplacement()
+    # =====================================================
+    # RAPPORT PIÈCES / PRODUITS
+    # =====================================================
 
-    maintenance = getattr(essuyage_obj, "maintenance", None)
+    rapport = essuyage.generer_rapport_remplacement()
 
-    vehicule = None
-    technicien = None
-    date_intervention = None
+    # =====================================================
+    # MAINTENANCE
+    # =====================================================
 
-    if maintenance:
-        vehicule = maintenance.voiture_exemplaire
-        technicien = maintenance.tech_technicien
-        date_intervention = maintenance.date_intervention
+    maintenance = essuyage.maintenance
 
-    # Sécurités si certaines relations ne sont pas renseignées
-    if vehicule is None:
-        vehicule = getattr(essuyage_obj, "voiture_exemplaire", None)
+    # =====================================================
+    # VÉHICULE
+    # =====================================================
 
-    if technicien is None:
-        technicien = getattr(essuyage_obj, "tech_technicien", None)
+    vehicule = essuyage.voiture_exemplaire
 
-    immatriculation = (
-        vehicule.immatriculation
-        if vehicule
-        else "sans_immatriculation"
+    if vehicule is None and maintenance:
+        vehicule = getattr(
+            maintenance,
+            "voiture_exemplaire",
+            None,
+        )
+
+    # =====================================================
+    # TECHNICIEN
+    # =====================================================
+
+    technicien = getattr(
+        essuyage,
+        "tech_technicien",
+        None,
     )
+
+    if technicien is None and maintenance:
+        technicien = getattr(
+            maintenance,
+            "tech_technicien",
+            None,
+        )
+
+    # =====================================================
+    # DATE INTERVENTION
+    # =====================================================
+
+    date_intervention = getattr(
+        essuyage,
+        "date",
+        None,
+    )
+
+    if date_intervention is None and maintenance:
+        date_intervention = getattr(
+            maintenance,
+            "date_intervention",
+            None,
+        )
+
+    # =====================================================
+    # IMMATRICULATION
+    # =====================================================
+
+    immatriculation = "sans_immatriculation"
+
+    if vehicule:
+        immatriculation = (
+            getattr(
+                vehicule,
+                "immatriculation",
+                None,
+            )
+            or "sans_immatriculation"
+        )
+
+    # =====================================================
+    # NOM TECHNICIEN
+    # =====================================================
 
     nom_technicien = "technicien_inconnu"
 
     if technicien:
-        prenom = getattr(technicien, "prenom", "") or ""
-        nom = getattr(technicien, "nom", "") or ""
+
+        prenom = (
+            getattr(
+                technicien,
+                "prenom",
+                "",
+            )
+            or ""
+        )
+
+        nom = (
+            getattr(
+                technicien,
+                "nom",
+                "",
+            )
+            or ""
+        )
+
+        nom_complet = f"{prenom} {nom}".strip()
 
         nom_technicien = (
-            f"{prenom} {nom}".strip()
-            or getattr(technicien, "username", None)
+            nom_complet
+            or getattr(
+                technicien,
+                "username",
+                None,
+            )
             or str(technicien)
         )
 
-    nom_technicien_fichier = (
-        str(nom_technicien)
-        .strip()
-        .replace(" ", "_")
-        .replace("/", "-")
-        .replace("\\", "-")
-        .replace(",", "")
+    # =====================================================
+    # NETTOYAGE DU NOM DE FICHIER
+    # =====================================================
+
+    def nettoyer_nom_fichier(valeur):
+        return (
+            str(valeur)
+            .strip()
+            .replace(" ", "_")
+            .replace("/", "-")
+            .replace("\\", "-")
+            .replace(",", "")
+            .replace(":", "-")
+            .replace(";", "-")
+        )
+
+    nom_technicien_fichier = nettoyer_nom_fichier(
+        nom_technicien
     )
 
-    immatriculation_fichier = (
-        str(immatriculation)
-        .strip()
-        .replace(" ", "_")
-        .replace("/", "-")
-        .replace("\\", "-")
-        .replace(",", "")
+    immatriculation_fichier = nettoyer_nom_fichier(
+        immatriculation
     )
+
+    # =====================================================
+    # GÉNÉRATION HTML
+    # =====================================================
 
     html_string = render_to_string(
         "essuyage/essuyage_detail_pdf.html",
         {
-            "essuyage": essuyage_obj,
+            "essuyage": essuyage,
             "rapport": rapport,
             "maintenance": maintenance,
             "technicien": technicien,
             "date_intervention": date_intervention,
             "vehicule": vehicule,
             "immatriculation": immatriculation,
-            "date_export": datetime.now(),
-            "societe": getattr(request.user, "societe", None),
+            "date_export": timezone.now(),
+            "societe": getattr(
+                request.user,
+                "societe",
+                None,
+            ),
         },
         request=request,
     )
+
+    # =====================================================
+    # GÉNÉRATION PDF
+    # =====================================================
 
     pdf = HTML(
         string=html_string,
         base_url=request.build_absolute_uri("/"),
     ).write_pdf()
 
+    # =====================================================
+    # NOM DU PDF
+    # =====================================================
+
     filename = (
         f"rapport_essuyage_"
         f"{immatriculation_fichier}_"
         f"{nom_technicien_fichier}.pdf"
     )
+
+    # =====================================================
+    # RÉPONSE
+    # =====================================================
 
     response = HttpResponse(
         pdf,
@@ -717,4 +818,3 @@ def essuyage_detail_pdf_view(request, pk):
     )
 
     return response
-
