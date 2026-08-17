@@ -590,7 +590,11 @@ def carrosserie_interne_create_view(request, exemplaire_id):
             "fields": [f for f in form if "peinture_complete" in f.name],
         },
 
-
+        {
+            "title": "Pays",
+            "icon": "icons/pays.png",
+            "fields": [f for f in form if "pays" in f.name],
+        },
 
         {
             "title": "Etiquette",
@@ -1065,6 +1069,12 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
             "title": "Peinture complète",
             "icon": "icons/pistolet-a-peinture.png",
             "fields": [f for f in form if "peinture_complete" in f.name],
+        },
+
+        {
+            "title": "Pays",
+            "icon": "icons/pays.png",
+            "fields": [f for f in form if "pays" in f.name],
         },
 
         {
