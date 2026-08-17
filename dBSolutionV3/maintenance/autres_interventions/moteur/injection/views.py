@@ -334,27 +334,24 @@ def injection_form_view(request, exemplaire_id):
                 if "kilo" in f.name
             ],
         },
-
         {
             "title": _("Type de carburant"),
-            "icon": "icons/pompe-a-essence.png",
+            "icon": "icons/pompe-type.png",
             "fields": [
                 form[f.name]
                 for f in form
                 if f.name == "type_carburant"
             ],
         },
-
         {
             "title": _("Pompe à carburant"),
-            "icon": "icons/pompe-a-essence.png",
+            "icon": "icons/pompe-a-carburant.png",
             "fields": [
                 form[f.name]
                 for f in form
                 if f.name.startswith("pompe_carburant")
             ],
         },
-
         {
             "title": _("Pompe haute pression"),
             "icon": "icons/pompe-haute-pression.png",
@@ -364,17 +361,15 @@ def injection_form_view(request, exemplaire_id):
                 if f.name.startswith("pompe_haute_pression")
             ],
         },
-
         {
             "title": _("Rampe d'injection"),
-            "icon": "icons/injection.png",
+            "icon": "icons/rampe-injection.png",
             "fields": [
                 form[f.name]
                 for f in form
                 if f.name.startswith("rampe_injection")
             ],
         },
-
         {
             "title": _("Capteur de pression de rampe"),
             "icon": "icons/capteur-pression.png",
@@ -382,130 +377,96 @@ def injection_form_view(request, exemplaire_id):
                 form[f.name]
                 for f in form
                 if (
-                    f.name.startswith("capteur_pression_rampe")
-                    or f.name == "pression_rampe_bar"
+                        f.name.startswith("capteur_pression_rampe")
+                        or f.name == "pression_rampe_bar"
                 )
             ],
         },
-
         {
             "title": _("Tuyaux haute pression"),
             "icon": "icons/tuyaux-haute-pression.png",
             "fields": [
                 form[f.name]
                 for f in form
-                if f.name.startswith(
-                    "tuyaux_haute_pression"
-                )
+                if f.name.startswith("tuyaux_haute_pression")
             ],
         },
-
         {
             "title": _("Injecteurs"),
-            "icon": "icons/injection.png",
+            "icon": "icons/injecteurs.png",
             "fields": [
                 form[f.name]
                 for f in form
                 if (
-                    f.name.startswith("injecteurs_")
-                    or f.name == "nombre_injecteurs"
+                        f.name.startswith("injecteurs_")
+                        or f.name == "nombre_injecteurs"
                 )
             ],
         },
-
         {
             "title": _("Résistance des injecteurs"),
-            "icon": "icons/multimetre.png",
+            "icon": "icons/resistance-injecteur.png",
             "fields": [
                 form[f.name]
                 for f in form
                 if (
-                    f.name.startswith("injecteur_")
-                    and f.name.endswith(
-                        "_resistance_ohm"
-                    )
+                        f.name.startswith("injecteur_")
+                        and f.name.endswith("_resistance_ohm")
                 )
             ],
         },
-
         {
             "title": _("Nettoyage des injecteurs"),
-            "icon": "icons/nettoyage.png",
+            "icon": "icons/nettoyage-injecteurs.png",
             "fields": [
                 form[f.name]
                 for f in form
-                if f.name.startswith(
-                    "nettoyage_injecteurs"
-                )
+                if f.name.startswith("nettoyage_injecteurs")
             ],
         },
-
         {
             "title": _("Connecteurs d'injecteurs"),
-            "icon": "icons/connecteur.png",
+            "icon": "icons/connecteur-injecteur.png",
             "fields": [
                 form[f.name]
                 for f in form
-                if f.name.startswith(
-                    "connecteurs_injecteurs"
-                )
+                if f.name.startswith("connecteurs_injecteurs")
             ],
         },
-
         {
             "title": _("Diagnostic"),
             "icon": "icons/diagnostic.png",
             "fields": [
                 form[f.name]
                 for f in form
-                if f.name in {
+                if f.name in [
                     "diagnostic_effectue",
                     "code_defaut",
                     "resultat_diagnostic",
-                }
+                ]
             ],
         },
 
         {
             "title": _("Etiquette"),
             "icon": "icons/tag.png",
-            "fields": [
-                form[f.name]
-                for f in form
-                if "tag" in f.name
-            ],
+            "fields": [form[f.name] for f in form if "tag" in f.name],
         },
-
         {
             "title": _("Pays"),
             "icon": "icons/pays.png",
-            "fields": [
-                form[f.name]
-                for f in form
-                if "pays" in f.name
-            ],
+            "fields": [form[f.name] for f in form if "pays" in f.name],
         },
-
         {
             "title": _("Remarques"),
             "icon": "icons/notes.png",
-            "fields": [
-                form[f.name]
-                for f in form
-                if "remarques" in f.name
-            ],
+            "fields": [form[f.name] for f in form if "remarques" in f.name],
         },
-
         {
             "title": _("Technicien"),
             "icon": "icons/mecanicien.png",
-            "fields": [
-                form[f.name]
-                for f in form
-                if "tech" in f.name
-            ],
+            "fields": [form[f.name] for f in form if "tech" in f.name],
         },
-
         {
             "title": _("Main-d'œuvre"),
             "icon": "icons/taux.png",
@@ -517,6 +478,7 @@ def injection_form_view(request, exemplaire_id):
                 }
             ],
         },
+
     ]
 
 
@@ -634,7 +596,7 @@ def modifier_injection_view(request, injection_id):
         },
         {
             "title": _("Type de carburant"),
-            "icon": "icons/pompe-a-essence.png",
+            "icon": "icons/pompe-type.png",
             "fields": [
                 form[f.name]
                 for f in form
@@ -643,7 +605,7 @@ def modifier_injection_view(request, injection_id):
         },
         {
             "title": _("Pompe à carburant"),
-            "icon": "icons/pompe-a-essence.png",
+            "icon": "icons/pompe-a-carburant.png",
             "fields": [
                 form[f.name]
                 for f in form
@@ -661,7 +623,7 @@ def modifier_injection_view(request, injection_id):
         },
         {
             "title": _("Rampe d'injection"),
-            "icon": "icons/injection.png",
+            "icon": "icons/rampe-injection.png",
             "fields": [
                 form[f.name]
                 for f in form
@@ -691,7 +653,7 @@ def modifier_injection_view(request, injection_id):
         },
         {
             "title": _("Injecteurs"),
-            "icon": "icons/injection.png",
+            "icon": "icons/injecteurs.png",
             "fields": [
                 form[f.name]
                 for f in form
@@ -703,7 +665,7 @@ def modifier_injection_view(request, injection_id):
         },
         {
             "title": _("Résistance des injecteurs"),
-            "icon": "icons/multimetre.png",
+            "icon": "icons/resistance-injecteur.png",
             "fields": [
                 form[f.name]
                 for f in form
@@ -715,7 +677,7 @@ def modifier_injection_view(request, injection_id):
         },
         {
             "title": _("Nettoyage des injecteurs"),
-            "icon": "icons/nettoyage.png",
+            "icon": "icons/nettoyage-injecteurs.png",
             "fields": [
                 form[f.name]
                 for f in form
@@ -724,7 +686,7 @@ def modifier_injection_view(request, injection_id):
         },
         {
             "title": _("Connecteurs d'injecteurs"),
-            "icon": "icons/connecteur.png",
+            "icon": "icons/connecteur-injecteur.png",
             "fields": [
                 form[f.name]
                 for f in form
