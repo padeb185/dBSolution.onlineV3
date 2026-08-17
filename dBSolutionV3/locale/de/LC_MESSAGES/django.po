@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-16 14:04+0200\n"
+"POT-Creation-Date: 2026-08-17 14:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -133,6 +133,7 @@ msgstr "Lieferantendetails:"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail.html:37
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:37
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:37
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:37
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:37
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:37
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:37
@@ -208,6 +209,7 @@ msgstr "Peppol-ID"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:229
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:229
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:237
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:270
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:215
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:263
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:264
@@ -307,6 +309,7 @@ msgstr "Keine Adresse angegeben."
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail.html:86
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:86
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:86
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:86
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:87
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:77
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:89
@@ -380,6 +383,8 @@ msgstr "Metadaten"
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:90
 #: maintenance/autres_interventions/moteur/courroie/models.py:304
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:90
+#: maintenance/autres_interventions/moteur/injection/models.py:582
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:90
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:352
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:91
 #: maintenance/autres_interventions/moteur/rodage/models.py:655
@@ -481,6 +486,8 @@ msgstr "Erstellt am"
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:94
 #: maintenance/autres_interventions/moteur/courroie/models.py:305
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:94
+#: maintenance/autres_interventions/moteur/injection/models.py:583
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:94
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:353
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:95
 #: maintenance/autres_interventions/moteur/rodage/models.py:656
@@ -594,6 +601,8 @@ msgstr "Wareneinkauf"
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/modifier_alternateur.html:123
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_form.html:116
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/modifier_courroie.html:123
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_form.html:116
+#: maintenance/autres_interventions/moteur/injection/templates/injection/modifier_injection.html:123
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/modifier_remplacement_moteur.html:120
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_form.html:118
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:718
@@ -710,6 +719,8 @@ msgstr "Speichern"
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/modifier_alternateur.html:127
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_form.html:121
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/modifier_courroie.html:129
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_form.html:121
+#: maintenance/autres_interventions/moteur/injection/templates/injection/modifier_injection.html:129
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/modifier_remplacement_moteur.html:126
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_form.html:123
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:726
@@ -931,6 +942,7 @@ msgstr "Zurück zum Dashboard"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_list.html:184
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:184
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:187
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:187
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:232
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:161
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:181
@@ -986,6 +998,7 @@ msgstr "Globale Suche:"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_list.html:185
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:185
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:188
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:188
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:233
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:162
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:182
@@ -1052,6 +1065,7 @@ msgstr "Keine Rechnung gefunden"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_list.html:190
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:190
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:193
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:193
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:238
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:167
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:187
@@ -1109,6 +1123,7 @@ msgstr "Erste"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_list.html:191
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:191
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:194
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:194
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:239
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:168
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:188
@@ -1166,6 +1181,7 @@ msgstr "Letzte"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_list.html:192
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:192
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:195
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:195
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:240
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:169
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:189
@@ -1223,6 +1239,7 @@ msgstr "Nächste"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_list.html:193
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:193
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:196
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:196
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:241
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:170
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:190
@@ -1357,6 +1374,9 @@ msgstr "Stadt"
 #: maintenance/autres_interventions/moteur/courroie/models.py:133
 #: maintenance/autres_interventions/moteur/courroie/views.py:252
 #: maintenance/autres_interventions/moteur/courroie/views.py:412
+#: maintenance/autres_interventions/moteur/injection/models.py:104
+#: maintenance/autres_interventions/moteur/injection/views.py:456
+#: maintenance/autres_interventions/moteur/injection/views.py:716
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:97
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:366
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:238
@@ -1510,6 +1530,10 @@ msgstr "Weitere Arbeiten"
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:669
 #: maintenance/autres_interventions/moteur/courroie/views.py:257
 #: maintenance/autres_interventions/moteur/courroie/views.py:418
+#: maintenance/autres_interventions/moteur/injection/models.py:509
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:56
+#: maintenance/autres_interventions/moteur/injection/views.py:461
+#: maintenance/autres_interventions/moteur/injection/views.py:721
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:285
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:57
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:727
@@ -1676,6 +1700,7 @@ msgstr "Adresse '%(rue)s, %(cp)s' erfolgreich geändert!"
 #: maintenance/autres_interventions/moteur/allumage/models.py:353
 #: maintenance/autres_interventions/moteur/alternateur/models.py:27
 #: maintenance/autres_interventions/moteur/courroie/models.py:72
+#: maintenance/autres_interventions/moteur/injection/models.py:43
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:35
 #: maintenance/autres_interventions/moteur/rodage/models.py:154
 #: maintenance/autres_interventions/moteur/turbo/models.py:26
@@ -1871,6 +1896,7 @@ msgstr "Versicherer"
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:145
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:173
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:201
+#: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:229
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:55
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:87
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:119
@@ -1955,6 +1981,8 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/alternateur/views.py:432
 #: maintenance/autres_interventions/moteur/courroie/views.py:198
 #: maintenance/autres_interventions/moteur/courroie/views.py:358
+#: maintenance/autres_interventions/moteur/injection/views.py:297
+#: maintenance/autres_interventions/moteur/injection/views.py:570
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:330
 #: maintenance/autres_interventions/moteur/rodage/views.py:228
 #: maintenance/autres_interventions/moteur/rodage/views.py:321
@@ -2109,6 +2137,9 @@ msgstr "Versicherungspolicen-Details:"
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:39
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:46
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:73
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:39
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:46
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:73
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:39
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:48
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:81
@@ -2304,6 +2335,7 @@ msgstr "Vorname des Verantwortlichen"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:223
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:223
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:231
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:263
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:209
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:257
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:258
@@ -2819,6 +2851,7 @@ msgstr "Einen Piloten erstellen"
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_form.html:45
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:45
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_form.html:45
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_form.html:45
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_form.html:45
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_check.html:45
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_form.html:45
@@ -3023,6 +3056,7 @@ msgstr "Beschreibung"
 #: maintenance/autres_interventions/moteur/courroie/models.py:214
 #: maintenance/autres_interventions/moteur/courroie/models.py:224
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:537
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1034
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:169
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:352
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:597
@@ -3329,7 +3363,9 @@ msgstr "Benzin 98"
 msgid "Essence 95"
 msgstr "Benzin 95"
 
-#: fuel/models.py:14 voiture/voiture_moteur/models.py:20
+#: fuel/models.py:14
+#: maintenance/autres_interventions/moteur/injection/models.py:21
+#: voiture/voiture_moteur/models.py:20
 msgid "Diesel"
 msgstr "Diesel"
 
@@ -3337,7 +3373,9 @@ msgstr "Diesel"
 msgid "Diesel +"
 msgstr "Diesel +"
 
-#: fuel/models.py:16 voiture/voiture_moteur/models.py:24
+#: fuel/models.py:16
+#: maintenance/autres_interventions/moteur/injection/models.py:24
+#: voiture/voiture_moteur/models.py:24
 msgid "Hydrogène"
 msgstr "Wasserstoff"
 
@@ -3367,6 +3405,7 @@ msgstr "Ethanol"
 #: maintenance/autres_interventions/moteur/allumage/models.py:352
 #: maintenance/autres_interventions/moteur/alternateur/models.py:26
 #: maintenance/autres_interventions/moteur/courroie/models.py:71
+#: maintenance/autres_interventions/moteur/injection/models.py:42
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:34
 #: maintenance/autres_interventions/moteur/rodage/models.py:153
 #: maintenance/autres_interventions/moteur/turbo/models.py:25
@@ -3397,6 +3436,7 @@ msgstr "Österreich"
 #: maintenance/autres_interventions/moteur/allumage/models.py:354
 #: maintenance/autres_interventions/moteur/alternateur/models.py:28
 #: maintenance/autres_interventions/moteur/courroie/models.py:73
+#: maintenance/autres_interventions/moteur/injection/models.py:44
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:36
 #: maintenance/autres_interventions/moteur/rodage/models.py:155
 #: maintenance/autres_interventions/moteur/turbo/models.py:27
@@ -3427,6 +3467,7 @@ msgstr "Bulgarien"
 #: maintenance/autres_interventions/moteur/allumage/models.py:364
 #: maintenance/autres_interventions/moteur/alternateur/models.py:38
 #: maintenance/autres_interventions/moteur/courroie/models.py:83
+#: maintenance/autres_interventions/moteur/injection/models.py:54
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:46
 #: maintenance/autres_interventions/moteur/rodage/models.py:165
 #: maintenance/autres_interventions/moteur/turbo/models.py:37
@@ -3457,6 +3498,7 @@ msgstr "Kroatien"
 #: maintenance/autres_interventions/moteur/allumage/models.py:355
 #: maintenance/autres_interventions/moteur/alternateur/models.py:29
 #: maintenance/autres_interventions/moteur/courroie/models.py:74
+#: maintenance/autres_interventions/moteur/injection/models.py:45
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:37
 #: maintenance/autres_interventions/moteur/rodage/models.py:156
 #: maintenance/autres_interventions/moteur/turbo/models.py:28
@@ -3487,6 +3529,7 @@ msgstr "Zypern"
 #: maintenance/autres_interventions/moteur/allumage/models.py:356
 #: maintenance/autres_interventions/moteur/alternateur/models.py:30
 #: maintenance/autres_interventions/moteur/courroie/models.py:75
+#: maintenance/autres_interventions/moteur/injection/models.py:46
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:38
 #: maintenance/autres_interventions/moteur/rodage/models.py:157
 #: maintenance/autres_interventions/moteur/turbo/models.py:29
@@ -3517,6 +3560,7 @@ msgstr "Tschechien"
 #: maintenance/autres_interventions/moteur/allumage/models.py:358
 #: maintenance/autres_interventions/moteur/alternateur/models.py:32
 #: maintenance/autres_interventions/moteur/courroie/models.py:77
+#: maintenance/autres_interventions/moteur/injection/models.py:48
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:40
 #: maintenance/autres_interventions/moteur/rodage/models.py:159
 #: maintenance/autres_interventions/moteur/turbo/models.py:31
@@ -3547,6 +3591,7 @@ msgstr "Dänemark"
 #: maintenance/autres_interventions/moteur/allumage/models.py:359
 #: maintenance/autres_interventions/moteur/alternateur/models.py:33
 #: maintenance/autres_interventions/moteur/courroie/models.py:78
+#: maintenance/autres_interventions/moteur/injection/models.py:49
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:41
 #: maintenance/autres_interventions/moteur/rodage/models.py:160
 #: maintenance/autres_interventions/moteur/turbo/models.py:32
@@ -3577,6 +3622,7 @@ msgstr "Estland"
 #: maintenance/autres_interventions/moteur/allumage/models.py:361
 #: maintenance/autres_interventions/moteur/alternateur/models.py:35
 #: maintenance/autres_interventions/moteur/courroie/models.py:80
+#: maintenance/autres_interventions/moteur/injection/models.py:51
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:43
 #: maintenance/autres_interventions/moteur/rodage/models.py:162
 #: maintenance/autres_interventions/moteur/turbo/models.py:34
@@ -3607,6 +3653,7 @@ msgstr "Finnland"
 #: maintenance/autres_interventions/moteur/allumage/models.py:362
 #: maintenance/autres_interventions/moteur/alternateur/models.py:36
 #: maintenance/autres_interventions/moteur/courroie/models.py:81
+#: maintenance/autres_interventions/moteur/injection/models.py:52
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:44
 #: maintenance/autres_interventions/moteur/rodage/models.py:163
 #: maintenance/autres_interventions/moteur/turbo/models.py:35
@@ -3638,6 +3685,7 @@ msgstr "Frankreich"
 #: maintenance/autres_interventions/moteur/allumage/models.py:357
 #: maintenance/autres_interventions/moteur/alternateur/models.py:31
 #: maintenance/autres_interventions/moteur/courroie/models.py:76
+#: maintenance/autres_interventions/moteur/injection/models.py:47
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:39
 #: maintenance/autres_interventions/moteur/rodage/models.py:158
 #: maintenance/autres_interventions/moteur/turbo/models.py:30
@@ -3669,6 +3717,7 @@ msgstr "Deutschland"
 #: maintenance/autres_interventions/moteur/allumage/models.py:363
 #: maintenance/autres_interventions/moteur/alternateur/models.py:37
 #: maintenance/autres_interventions/moteur/courroie/models.py:82
+#: maintenance/autres_interventions/moteur/injection/models.py:53
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:45
 #: maintenance/autres_interventions/moteur/rodage/models.py:164
 #: maintenance/autres_interventions/moteur/turbo/models.py:36
@@ -3699,6 +3748,7 @@ msgstr "Griechenland"
 #: maintenance/autres_interventions/moteur/allumage/models.py:365
 #: maintenance/autres_interventions/moteur/alternateur/models.py:39
 #: maintenance/autres_interventions/moteur/courroie/models.py:84
+#: maintenance/autres_interventions/moteur/injection/models.py:55
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:47
 #: maintenance/autres_interventions/moteur/rodage/models.py:166
 #: maintenance/autres_interventions/moteur/turbo/models.py:38
@@ -3729,6 +3779,7 @@ msgstr "Ungarn"
 #: maintenance/autres_interventions/moteur/allumage/models.py:366
 #: maintenance/autres_interventions/moteur/alternateur/models.py:40
 #: maintenance/autres_interventions/moteur/courroie/models.py:85
+#: maintenance/autres_interventions/moteur/injection/models.py:56
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:48
 #: maintenance/autres_interventions/moteur/rodage/models.py:167
 #: maintenance/autres_interventions/moteur/turbo/models.py:39
@@ -3759,6 +3810,7 @@ msgstr "Irland"
 #: maintenance/autres_interventions/moteur/allumage/models.py:367
 #: maintenance/autres_interventions/moteur/alternateur/models.py:41
 #: maintenance/autres_interventions/moteur/courroie/models.py:86
+#: maintenance/autres_interventions/moteur/injection/models.py:57
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:49
 #: maintenance/autres_interventions/moteur/rodage/models.py:168
 #: maintenance/autres_interventions/moteur/turbo/models.py:40
@@ -3789,6 +3841,7 @@ msgstr "Italien"
 #: maintenance/autres_interventions/moteur/allumage/models.py:370
 #: maintenance/autres_interventions/moteur/alternateur/models.py:44
 #: maintenance/autres_interventions/moteur/courroie/models.py:89
+#: maintenance/autres_interventions/moteur/injection/models.py:60
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:52
 #: maintenance/autres_interventions/moteur/rodage/models.py:171
 #: maintenance/autres_interventions/moteur/turbo/models.py:43
@@ -3819,6 +3872,7 @@ msgstr "Lettland"
 #: maintenance/autres_interventions/moteur/allumage/models.py:368
 #: maintenance/autres_interventions/moteur/alternateur/models.py:42
 #: maintenance/autres_interventions/moteur/courroie/models.py:87
+#: maintenance/autres_interventions/moteur/injection/models.py:58
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:50
 #: maintenance/autres_interventions/moteur/rodage/models.py:169
 #: maintenance/autres_interventions/moteur/turbo/models.py:41
@@ -3850,6 +3904,7 @@ msgstr "Litauen"
 #: maintenance/autres_interventions/moteur/allumage/models.py:369
 #: maintenance/autres_interventions/moteur/alternateur/models.py:43
 #: maintenance/autres_interventions/moteur/courroie/models.py:88
+#: maintenance/autres_interventions/moteur/injection/models.py:59
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:51
 #: maintenance/autres_interventions/moteur/rodage/models.py:170
 #: maintenance/autres_interventions/moteur/turbo/models.py:42
@@ -3880,6 +3935,7 @@ msgstr "Luxemburg"
 #: maintenance/autres_interventions/moteur/allumage/models.py:371
 #: maintenance/autres_interventions/moteur/alternateur/models.py:45
 #: maintenance/autres_interventions/moteur/courroie/models.py:90
+#: maintenance/autres_interventions/moteur/injection/models.py:61
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:53
 #: maintenance/autres_interventions/moteur/rodage/models.py:172
 #: maintenance/autres_interventions/moteur/turbo/models.py:44
@@ -3910,6 +3966,7 @@ msgstr "Malta"
 #: maintenance/autres_interventions/moteur/allumage/models.py:372
 #: maintenance/autres_interventions/moteur/alternateur/models.py:46
 #: maintenance/autres_interventions/moteur/courroie/models.py:91
+#: maintenance/autres_interventions/moteur/injection/models.py:62
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:54
 #: maintenance/autres_interventions/moteur/rodage/models.py:173
 #: maintenance/autres_interventions/moteur/turbo/models.py:45
@@ -3940,6 +3997,7 @@ msgstr "Niederlande"
 #: maintenance/autres_interventions/moteur/allumage/models.py:373
 #: maintenance/autres_interventions/moteur/alternateur/models.py:47
 #: maintenance/autres_interventions/moteur/courroie/models.py:92
+#: maintenance/autres_interventions/moteur/injection/models.py:63
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:55
 #: maintenance/autres_interventions/moteur/rodage/models.py:174
 #: maintenance/autres_interventions/moteur/turbo/models.py:46
@@ -3970,6 +4028,7 @@ msgstr "Polen"
 #: maintenance/autres_interventions/moteur/allumage/models.py:374
 #: maintenance/autres_interventions/moteur/alternateur/models.py:48
 #: maintenance/autres_interventions/moteur/courroie/models.py:93
+#: maintenance/autres_interventions/moteur/injection/models.py:64
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:56
 #: maintenance/autres_interventions/moteur/rodage/models.py:175
 #: maintenance/autres_interventions/moteur/turbo/models.py:47
@@ -4000,6 +4059,7 @@ msgstr "Portugal"
 #: maintenance/autres_interventions/moteur/allumage/models.py:375
 #: maintenance/autres_interventions/moteur/alternateur/models.py:49
 #: maintenance/autres_interventions/moteur/courroie/models.py:94
+#: maintenance/autres_interventions/moteur/injection/models.py:65
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:57
 #: maintenance/autres_interventions/moteur/rodage/models.py:176
 #: maintenance/autres_interventions/moteur/turbo/models.py:48
@@ -4030,6 +4090,7 @@ msgstr "Rumänien"
 #: maintenance/autres_interventions/moteur/allumage/models.py:378
 #: maintenance/autres_interventions/moteur/alternateur/models.py:52
 #: maintenance/autres_interventions/moteur/courroie/models.py:97
+#: maintenance/autres_interventions/moteur/injection/models.py:68
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:60
 #: maintenance/autres_interventions/moteur/rodage/models.py:179
 #: maintenance/autres_interventions/moteur/turbo/models.py:51
@@ -4060,6 +4121,7 @@ msgstr "Slowakei"
 #: maintenance/autres_interventions/moteur/allumage/models.py:377
 #: maintenance/autres_interventions/moteur/alternateur/models.py:51
 #: maintenance/autres_interventions/moteur/courroie/models.py:96
+#: maintenance/autres_interventions/moteur/injection/models.py:67
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:59
 #: maintenance/autres_interventions/moteur/rodage/models.py:178
 #: maintenance/autres_interventions/moteur/turbo/models.py:50
@@ -4090,6 +4152,7 @@ msgstr "Slowenien"
 #: maintenance/autres_interventions/moteur/allumage/models.py:360
 #: maintenance/autres_interventions/moteur/alternateur/models.py:34
 #: maintenance/autres_interventions/moteur/courroie/models.py:79
+#: maintenance/autres_interventions/moteur/injection/models.py:50
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:42
 #: maintenance/autres_interventions/moteur/rodage/models.py:161
 #: maintenance/autres_interventions/moteur/turbo/models.py:33
@@ -4120,6 +4183,7 @@ msgstr "Spanien"
 #: maintenance/autres_interventions/moteur/allumage/models.py:376
 #: maintenance/autres_interventions/moteur/alternateur/models.py:50
 #: maintenance/autres_interventions/moteur/courroie/models.py:95
+#: maintenance/autres_interventions/moteur/injection/models.py:66
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:58
 #: maintenance/autres_interventions/moteur/rodage/models.py:177
 #: maintenance/autres_interventions/moteur/turbo/models.py:49
@@ -4180,6 +4244,8 @@ msgstr "Benutzer"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:300
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:300
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:274
+#: maintenance/autres_interventions/moteur/injection/models.py:126
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:321
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:267
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:305
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:312
@@ -4215,6 +4281,7 @@ msgstr "Fahrzeug"
 #: maintenance/autres_interventions/moteur/admission/models.py:123
 #: maintenance/autres_interventions/moteur/alternateur/models.py:115
 #: maintenance/autres_interventions/moteur/courroie/models.py:159
+#: maintenance/autres_interventions/moteur/injection/models.py:133
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:123
 #: maintenance/autres_interventions/moteur/rodage/models.py:241
 #: maintenance/autres_interventions/moteur/turbo/models.py:110
@@ -4230,6 +4297,10 @@ msgid "Kilomètres chassis"
 msgstr "Kilometerstand des Fahrgestells"
 
 #: fuel/models.py:134 fuel/templates/fuel/fuel_list.html:83
+#: maintenance/autres_interventions/moteur/injection/models.py:144
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:331
+#: maintenance/autres_interventions/moteur/injection/views.py:338
+#: maintenance/autres_interventions/moteur/injection/views.py:598
 #: recharge/models.py:192 recharge/templates/recharge/recharge_list.html:71
 msgid "Type de carburant"
 msgstr "Kraftstoffart"
@@ -4382,6 +4453,8 @@ msgstr "Details der Betankung:"
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:73
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:50
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:74
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:50
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:74
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:46
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:70
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:48
@@ -4649,6 +4722,8 @@ msgstr "14,32 Liter"
 #: maintenance/autres_interventions/moteur/courroie/models.py:302
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:259
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:77
+#: maintenance/autres_interventions/moteur/injection/models.py:580
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:77
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:350
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:88
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:242
@@ -4847,6 +4922,7 @@ msgstr "Degressiv"
 
 #: investissements/models.py:57
 #: maintenance/autres_interventions/climatisation/models.py:51
+#: maintenance/autres_interventions/moteur/injection/models.py:25
 #: maintenance/checkup_track/models.py:97
 #: maintenance/checkup_track/models.py:102
 #: maintenance/checkup_track/models.py:158 maintenance/choices.py:81
@@ -4905,6 +4981,7 @@ msgstr "Zeit (Minuten)"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:757
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:469
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:512
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1000
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:572
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:663
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:721
@@ -4971,6 +5048,9 @@ msgstr "Details der Arbeitsleistung"
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:44
 #: maintenance/autres_interventions/moteur/courroie/views.py:216
 #: maintenance/autres_interventions/moteur/courroie/views.py:376
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:44
+#: maintenance/autres_interventions/moteur/injection/views.py:329
+#: maintenance/autres_interventions/moteur/injection/views.py:589
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:44
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:208
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:347
@@ -5066,6 +5146,9 @@ msgstr "Kilometerstand"
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:45
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:292
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:75
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:45
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:337
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:75
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:46
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:86
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:301
@@ -5215,6 +5298,13 @@ msgstr "Tag"
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:76
 #: maintenance/autres_interventions/moteur/courroie/views.py:262
 #: maintenance/autres_interventions/moteur/courroie/views.py:423
+#: maintenance/autres_interventions/moteur/injection/models.py:535
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:46
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:311
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:58
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:76
+#: maintenance/autres_interventions/moteur/injection/views.py:466
+#: maintenance/autres_interventions/moteur/injection/views.py:726
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:304
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:47
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:64
@@ -5337,6 +5427,7 @@ msgstr "Techniker"
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:553
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:423
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:491
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:976
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:551
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:642
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:551
@@ -5371,6 +5462,7 @@ msgstr "Arbeitskraft"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail.html:53
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:53
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:53
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:53
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:54
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:52
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:54
@@ -5439,6 +5531,10 @@ msgstr "Interventionsdatum"
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:496
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:65
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:78
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:54
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:983
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:65
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:78
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:55
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:71
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:89
@@ -5527,6 +5623,7 @@ msgstr "Arbeitsleistung bearbeiten"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail.html:77
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:77
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:77
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:77
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:78
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:68
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:79
@@ -5583,6 +5680,8 @@ msgstr "Details der Arbeitsleistung"
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:270
 #: maintenance/autres_interventions/moteur/courroie/models.py:280
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:269
+#: maintenance/autres_interventions/moteur/injection/models.py:556
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:316
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:19
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:325
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:262
@@ -5662,6 +5761,7 @@ msgstr "Fahrgestell-Kilometerstand"
 #: maintenance/autres_interventions/moteur/allumage/models.py:446
 #: maintenance/autres_interventions/moteur/alternateur/models.py:202
 #: maintenance/autres_interventions/moteur/courroie/models.py:298
+#: maintenance/autres_interventions/moteur/injection/models.py:574
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:343
 #: maintenance/autres_interventions/moteur/rodage/models.py:651
 #: maintenance/autres_interventions/moteur/turbo/models.py:180
@@ -5691,6 +5791,7 @@ msgstr "Arbeitskraft"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_check.html:133
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_check.html:133
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_form.html:127
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_form.html:127
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_form.html:129
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:636
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_check.html:131
@@ -5747,6 +5848,7 @@ msgstr "Kosten"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_list.html:78
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:78
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:79
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:79
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:90
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:75
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:77
@@ -5783,6 +5885,7 @@ msgstr "Aktion"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_list.html:155
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:155
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:158
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:158
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:188
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:133
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:153
@@ -5865,6 +5968,7 @@ msgstr "Arbeitsleistung erfolgreich geändert!"
 #: maintenance/autres_interventions/moteur/allumage/forms.py:35
 #: maintenance/autres_interventions/moteur/alternateur/forms.py:45
 #: maintenance/autres_interventions/moteur/courroie/forms.py:23
+#: maintenance/autres_interventions/moteur/injection/forms.py:24
 #: maintenance/autres_interventions/moteur/rodage/forms.py:39
 #: maintenance/autres_interventions/moteur/turbo/forms.py:20
 #: maintenance/autres_interventions/refroidissement/forms.py:22
@@ -5888,6 +5992,7 @@ msgstr "Hier Anmerkungen hinzufügen..."
 #: maintenance/autres_interventions/moteur/allumage/models.py:15
 #: maintenance/autres_interventions/moteur/alternateur/models.py:15
 #: maintenance/autres_interventions/moteur/courroie/models.py:19
+#: maintenance/autres_interventions/moteur/injection/models.py:29
 #: maintenance/autres_interventions/moteur/turbo/models.py:12
 #: maintenance/autres_interventions/refroidissement/models.py:20
 #: maintenance/carrosserie_interne/models.py:13
@@ -5931,6 +6036,7 @@ msgstr "Zu ersetzen"
 #: maintenance/autres_interventions/moteur/allumage/models.py:17
 #: maintenance/autres_interventions/moteur/alternateur/models.py:17
 #: maintenance/autres_interventions/moteur/courroie/models.py:21
+#: maintenance/autres_interventions/moteur/injection/models.py:32
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:575
 #: maintenance/autres_interventions/moteur/turbo/models.py:14
 #: maintenance/autres_interventions/refroidissement/models.py:22
@@ -6031,6 +6137,8 @@ msgstr "ABS-Pumpe"
 #: maintenance/autres_interventions/moteur/courroie/models.py:221
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:471
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:536
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:381
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1031
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:204
 #: maintenance/autres_interventions/moteur/turbo/models.py:135
 #: maintenance/autres_interventions/moteur/turbo/models.py:141
@@ -6261,6 +6369,7 @@ msgstr "Anziehen der Radschrauben"
 #: maintenance/autres_interventions/moteur/allumage/models.py:428
 #: maintenance/autres_interventions/moteur/alternateur/models.py:184
 #: maintenance/autres_interventions/moteur/courroie/models.py:241
+#: maintenance/autres_interventions/moteur/injection/models.py:515
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:182
 #: maintenance/autres_interventions/moteur/rodage/models.py:591
 #: maintenance/autres_interventions/moteur/turbo/models.py:162
@@ -6290,6 +6399,7 @@ msgstr "Grün"
 #: maintenance/autres_interventions/moteur/allumage/models.py:429
 #: maintenance/autres_interventions/moteur/alternateur/models.py:185
 #: maintenance/autres_interventions/moteur/courroie/models.py:242
+#: maintenance/autres_interventions/moteur/injection/models.py:516
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:183
 #: maintenance/autres_interventions/moteur/rodage/models.py:592
 #: maintenance/autres_interventions/moteur/turbo/models.py:163
@@ -6319,6 +6429,7 @@ msgstr "Gelb"
 #: maintenance/autres_interventions/moteur/allumage/models.py:430
 #: maintenance/autres_interventions/moteur/alternateur/models.py:186
 #: maintenance/autres_interventions/moteur/courroie/models.py:243
+#: maintenance/autres_interventions/moteur/injection/models.py:517
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:184
 #: maintenance/autres_interventions/moteur/rodage/models.py:593
 #: maintenance/autres_interventions/moteur/turbo/models.py:164
@@ -6347,6 +6458,7 @@ msgstr "Rot"
 #: maintenance/autres_interventions/moteur/allumage/models.py:437
 #: maintenance/autres_interventions/moteur/alternateur/models.py:193
 #: maintenance/autres_interventions/moteur/courroie/models.py:250
+#: maintenance/autres_interventions/moteur/injection/models.py:524
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:191
 #: maintenance/autres_interventions/moteur/rodage/models.py:600
 #: maintenance/autres_interventions/moteur/turbo/models.py:171
@@ -6375,6 +6487,7 @@ msgstr "Visueller Zustand / Tag"
 #: maintenance/autres_interventions/moteur/allumage/models.py:460
 #: maintenance/autres_interventions/moteur/alternateur/models.py:217
 #: maintenance/autres_interventions/moteur/courroie/models.py:264
+#: maintenance/autres_interventions/moteur/injection/models.py:540
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:309
 #: maintenance/autres_interventions/moteur/rodage/models.py:614
 #: maintenance/autres_interventions/moteur/turbo/models.py:194
@@ -6403,6 +6516,7 @@ msgstr "Name des Technikers"
 #: maintenance/autres_interventions/moteur/allumage/models.py:466
 #: maintenance/autres_interventions/moteur/alternateur/models.py:223
 #: maintenance/autres_interventions/moteur/courroie/models.py:270
+#: maintenance/autres_interventions/moteur/injection/models.py:546
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:315
 #: maintenance/autres_interventions/moteur/rodage/models.py:620
 #: maintenance/autres_interventions/moteur/turbo/models.py:200
@@ -6458,6 +6572,8 @@ msgstr "Rolle des Technikers"
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:443
 #: maintenance/autres_interventions/moteur/courroie/models.py:289
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:502
+#: maintenance/autres_interventions/moteur/injection/models.py:565
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:990
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:334
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:562
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:253
@@ -6546,6 +6662,7 @@ msgstr "ABS"
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail.html:13
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:13
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:13
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:13
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:13
 #: maintenance/essuyage/templates/essuyage/essuyage_detail.html:13
 #: maintenance/jeux_pieces/templates/jeux_pieces/modifier_jeux_pieces.html:67
@@ -6619,6 +6736,7 @@ msgstr "Komponente"
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:351
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:491
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:535
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1030
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:596
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:498
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:744
@@ -6702,6 +6820,7 @@ msgstr "Bremsflüssigkeit"
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:569
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:439
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:507
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:995
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:567
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:658
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:567
@@ -6722,6 +6841,7 @@ msgstr "Berechneter Preis"
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:578
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:448
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:516
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1006
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:576
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:676
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:585
@@ -6749,6 +6869,7 @@ msgstr "Keine zugeordnete Arbeitsleistung"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1100
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:592
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:525
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1019
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:586
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1111
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2300
@@ -6771,6 +6892,7 @@ msgstr "Verwendete Teile, Produkte und Arbeitskosten"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:778
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:490
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:534
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1029
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:595
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:743
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:604
@@ -6799,6 +6921,7 @@ msgstr "Teil / Produkt"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:784
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:496
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:538
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1038
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:598
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:747
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:608
@@ -6831,6 +6954,7 @@ msgstr "Stückpreis (ohne MwSt.)"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:787
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:499
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:539
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1042
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:599
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:748
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:609
@@ -6864,6 +6988,7 @@ msgstr "Gesamt netto (ohne MwSt.)"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:839
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:551
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:598
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1119
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:655
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:802
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:668
@@ -6913,6 +7038,10 @@ msgstr "Gesamtsumme Teile und Produkte ohne MwSt."
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:640
 #: maintenance/autres_interventions/moteur/courroie/views.py:267
 #: maintenance/autres_interventions/moteur/courroie/views.py:428
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1132
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1175
+#: maintenance/autres_interventions/moteur/injection/views.py:471
+#: maintenance/autres_interventions/moteur/injection/views.py:731
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:665
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:697
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:684
@@ -6990,6 +7119,7 @@ msgstr "Gesamtsumme einschließlich Arbeitskosten"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:873
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:585
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:632
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1162
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:689
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:835
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:701
@@ -7016,6 +7146,7 @@ msgstr "Keine Teile oder Produkte verwendet."
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:891
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:603
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:652
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1192
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:709
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:852
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:718
@@ -7074,6 +7205,7 @@ msgstr "Keine Bemerkung."
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:922
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:634
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:677
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1229
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:875
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:743
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1245
@@ -7104,6 +7236,7 @@ msgstr "Dokument automatisch von CarsCosts.com erstellt."
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:924
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:636
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:679
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1233
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:877
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:745
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1247
@@ -7153,6 +7286,8 @@ msgstr "ABS-Prüfung für:"
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/modifier_alternateur.html:109
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_form.html:101
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/modifier_courroie.html:107
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_form.html:101
+#: maintenance/autres_interventions/moteur/injection/templates/injection/modifier_injection.html:107
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/modifier_remplacement_moteur.html:104
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_form.html:103
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:604
@@ -7202,6 +7337,7 @@ msgstr "Liste der ABS-Prüfungen"
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:31
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_list.html:32
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:32
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:33
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:31
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:32
 #: maintenance/essuyage/templates/essuyage/essuyage_list.html:33
@@ -7228,6 +7364,7 @@ msgstr "Kontrolle hinzufügen"
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:53
 #: maintenance/autres_interventions/moteur/alternateur/views.py:317
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:54
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:54
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:60
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:528
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:531
@@ -7299,6 +7436,8 @@ msgstr "Anzeige von _START_ bis _END_ von _TOTAL_ ABS-Prüfungen"
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:190
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:190
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:191
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:190
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:191
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:235
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:236
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:188
@@ -7324,6 +7463,7 @@ msgstr "ABS-Kontrolle bearbeiten"
 #: maintenance/autres_interventions/moteur/allumage/views.py:87
 #: maintenance/autres_interventions/moteur/alternateur/views.py:87
 #: maintenance/autres_interventions/moteur/courroie/views.py:101
+#: maintenance/autres_interventions/moteur/injection/views.py:105
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:96
 #: maintenance/autres_interventions/moteur/rodage/views.py:105
 #: maintenance/autres_interventions/moteur/turbo/views.py:93
@@ -7351,6 +7491,8 @@ msgstr "Zugriff verweigert."
 #: maintenance/autres_interventions/moteur/alternateur/forms.py:121
 #: maintenance/autres_interventions/moteur/alternateur/views.py:128
 #: maintenance/autres_interventions/moteur/courroie/views.py:130
+#: maintenance/autres_interventions/moteur/injection/views.py:161
+#: maintenance/autres_interventions/moteur/injection/views.py:165
 #: maintenance/autres_interventions/moteur/rodage/views.py:136
 #: maintenance/autres_interventions/moteur/turbo/views.py:142
 #: maintenance/carrosserie_interne/views.py:148
@@ -7413,6 +7555,8 @@ msgstr "Bremsflüssigkeit"
 #: maintenance/autres_interventions/moteur/alternateur/views.py:470
 #: maintenance/autres_interventions/moteur/courroie/views.py:247
 #: maintenance/autres_interventions/moteur/courroie/views.py:407
+#: maintenance/autres_interventions/moteur/injection/views.py:451
+#: maintenance/autres_interventions/moteur/injection/views.py:711
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:233
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:372
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:440
@@ -7623,6 +7767,7 @@ msgstr ""
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:501
 #: maintenance/autres_interventions/climatisation/models.py:23
 #: maintenance/autres_interventions/moteur/allumage/models.py:16
+#: maintenance/autres_interventions/moteur/injection/models.py:31
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:577
 #: maintenance/autres_interventions/refroidissement/models.py:21
 #: maintenance/autres_interventions/refroidissement/models.py:35
@@ -8049,6 +8194,8 @@ msgstr ""
 #: maintenance/autres_interventions/courroie_accessoires/views.py:336
 #: maintenance/autres_interventions/moteur/courroie/forms.py:100
 #: maintenance/autres_interventions/moteur/courroie/views.py:355
+#: maintenance/autres_interventions/moteur/injection/forms.py:101
+#: maintenance/autres_interventions/moteur/injection/views.py:567
 #: maintenance/autres_interventions/moteur/remplacement_moteur/forms.py:155
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:327
 #: maintenance/check_up/views.py:291 maintenance/freins/views.py:295
@@ -8192,6 +8339,7 @@ msgstr "Neues Getriebe"
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail.html:107
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_detail.html:107
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:106
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:106
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:107
 msgid "Retour à la liste des remplacements"
 msgstr "Zurück zur Liste der Austausche"
@@ -8257,6 +8405,7 @@ msgid "Numéro de série de la boîte"
 msgstr "Seriennummer des Getriebes"
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:330
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:940
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:384
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:333
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:401
@@ -8286,6 +8435,7 @@ msgid "Oui"
 msgstr "Ja"
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:334
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:942
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:388
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:335
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:403
@@ -8494,6 +8644,7 @@ msgstr "Kein Getriebewechsel erfasst."
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_list.html:174
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:174
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:177
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:177
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:219
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:172
 msgid "Retour au dashboard moteur"
@@ -8862,6 +9013,7 @@ msgstr "Kilometerstand kontrolle"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:335
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:350
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:323
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:379
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:407
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:480
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:365
@@ -8887,6 +9039,7 @@ msgstr "Geprüftes Element"
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:289
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:321
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:324
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:380
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:366
 msgid "Résultat"
 msgstr "Ergebnis"
@@ -9402,6 +9555,7 @@ msgstr "Zurück zur Liste der Klimaanlagenprüfungen"
 #: maintenance/autres_interventions/courroie_accessoires/forms.py:75
 #: maintenance/autres_interventions/echappement/views.py:221
 #: maintenance/autres_interventions/moteur/courroie/forms.py:76
+#: maintenance/autres_interventions/moteur/injection/forms.py:77
 #: maintenance/autres_interventions/refroidissement/models.py:811
 #: maintenance/autres_interventions/refroidissement/views.py:135
 msgid ""
@@ -9432,6 +9586,7 @@ msgstr "Klimaanlagenprüfung erfolgreich gespeichert."
 #: maintenance/autres_interventions/moteur/allumage/views.py:242
 #: maintenance/autres_interventions/moteur/alternateur/views.py:230
 #: maintenance/autres_interventions/moteur/alternateur/views.py:242
+#: maintenance/autres_interventions/moteur/injection/views.py:288
 #: maintenance/autres_interventions/refroidissement/views.py:254
 #, python-format
 msgid "Erreur lors de l'enregistrement : %(erreur)s"
@@ -9484,6 +9639,7 @@ msgstr "Klimaanlagenprüfung erfolgreich geändert!"
 
 #: maintenance/autres_interventions/courroie_accessoires/forms.py:107
 #: maintenance/autres_interventions/moteur/courroie/forms.py:108
+#: maintenance/autres_interventions/moteur/injection/forms.py:109
 #, python-format
 msgid "Le kilométrage doit être ≥ %(km)s"
 msgstr "Der Kilometerstand muss ≥ %(km)s sein"
@@ -9564,6 +9720,7 @@ msgstr "Details des Austauschs"
 
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_detail.html:70
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:69
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:69
 msgid "Modifier le remplacement"
 msgstr "Austausch bearbeiten"
 
@@ -10779,13 +10936,21 @@ msgstr ""
 #: maintenance/choices.py:1020 maintenance/choices.py:1080
 #: maintenance/choices.py:1129 maintenance/choices.py:1243
 #: maintenance/choices.py:1286 maintenance/choices.py:1296
-#: maintenance/choices.py:1442 voiture/voiture_freins_av/models.py:20
+#: maintenance/choices.py:1442 maintenance/choices.py:1579
+#: maintenance/choices.py:1592 maintenance/choices.py:1605
+#: maintenance/choices.py:1620 maintenance/choices.py:1631
+#: maintenance/choices.py:1647 maintenance/choices.py:1660
+#: voiture/voiture_freins_av/models.py:20
 msgid "Choisir"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/allumage/models.py:25
 #: maintenance/choices.py:888 maintenance/choices.py:922
 #: maintenance/choices.py:1433 maintenance/choices.py:1560
+#: maintenance/choices.py:1576 maintenance/choices.py:1589
+#: maintenance/choices.py:1602 maintenance/choices.py:1617
+#: maintenance/choices.py:1628 maintenance/choices.py:1644
+#: maintenance/choices.py:1657
 msgid "Origine constructeur (OEM)"
 msgstr "Originalhersteller (OEM)"
 
@@ -10795,7 +10960,10 @@ msgstr "Originalhersteller (OEM)"
 #: maintenance/choices.py:802 maintenance/choices.py:863
 #: maintenance/choices.py:933 maintenance/choices.py:1083
 #: maintenance/choices.py:1166 maintenance/choices.py:1191
-#: maintenance/choices.py:1253
+#: maintenance/choices.py:1253 maintenance/choices.py:1567
+#: maintenance/choices.py:1583 maintenance/choices.py:1596
+#: maintenance/choices.py:1609 maintenance/choices.py:1624
+#: maintenance/choices.py:1635 maintenance/choices.py:1651
 msgid "Bosch"
 msgstr "Bosch"
 
@@ -10812,6 +10980,10 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/allumage/models.py:30
 #: maintenance/choices.py:864 maintenance/choices.py:1026
 #: maintenance/choices.py:1087 maintenance/choices.py:1193
+#: maintenance/choices.py:1569 maintenance/choices.py:1585
+#: maintenance/choices.py:1598 maintenance/choices.py:1611
+#: maintenance/choices.py:1626 maintenance/choices.py:1637
+#: maintenance/choices.py:1653
 msgid "Denso"
 msgstr ""
 
@@ -10821,13 +10993,17 @@ msgstr ""
 #: maintenance/choices.py:866 maintenance/choices.py:904
 #: maintenance/choices.py:999 maintenance/choices.py:1027
 #: maintenance/choices.py:1086 maintenance/choices.py:1167
-#: maintenance/choices.py:1194
+#: maintenance/choices.py:1194 maintenance/choices.py:1568
+#: maintenance/choices.py:1584 maintenance/choices.py:1597
+#: maintenance/choices.py:1610 maintenance/choices.py:1625
+#: maintenance/choices.py:1636 maintenance/choices.py:1652
 msgid "Delphi"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/allumage/models.py:32
 #: maintenance/choices.py:378 maintenance/choices.py:754
 #: maintenance/choices.py:867 maintenance/choices.py:1197
+#: maintenance/choices.py:1614
 msgid "Hella"
 msgstr ""
 
@@ -10849,7 +11025,8 @@ msgstr "Brembo"
 #: maintenance/choices.py:523 maintenance/choices.py:755
 #: maintenance/choices.py:880 maintenance/choices.py:948
 #: maintenance/choices.py:1198 maintenance/choices.py:1282
-#: maintenance/choices.py:1311
+#: maintenance/choices.py:1311 maintenance/choices.py:1573
+#: maintenance/choices.py:1643
 msgid "Magneti Marelli"
 msgstr "Magneti Marelli"
 
@@ -10865,12 +11042,16 @@ msgstr "Bremi"
 #: maintenance/autres_interventions/moteur/allumage/models.py:38
 #: maintenance/choices.py:881 maintenance/choices.py:975
 #: maintenance/choices.py:1093 maintenance/choices.py:1195
+#: maintenance/choices.py:1572 maintenance/choices.py:1588
+#: maintenance/choices.py:1601 maintenance/choices.py:1641
 msgid "Hitachi"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/allumage/models.py:39
 #: maintenance/choices.py:868 maintenance/choices.py:1089
-#: maintenance/choices.py:1236
+#: maintenance/choices.py:1236 maintenance/choices.py:1570
+#: maintenance/choices.py:1587 maintenance/choices.py:1600
+#: maintenance/choices.py:1613 maintenance/choices.py:1639
 msgid "VDO"
 msgstr ""
 
@@ -10879,11 +11060,15 @@ msgstr ""
 #: maintenance/choices.py:869 maintenance/choices.py:971
 #: maintenance/choices.py:1088 maintenance/choices.py:1132
 #: maintenance/choices.py:1235 maintenance/choices.py:1312
+#: maintenance/choices.py:1586 maintenance/choices.py:1599
+#: maintenance/choices.py:1612 maintenance/choices.py:1627
+#: maintenance/choices.py:1638
 msgid "Continental"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/allumage/models.py:41
 #: maintenance/choices.py:871 maintenance/choices.py:1103
+#: maintenance/choices.py:1615
 msgid "Facet"
 msgstr ""
 
@@ -10913,11 +11098,19 @@ msgstr ""
 
 #: maintenance/autres_interventions/moteur/allumage/models.py:46
 #: maintenance/choices.py:1434 maintenance/choices.py:1561
+#: maintenance/choices.py:1577 maintenance/choices.py:1590
+#: maintenance/choices.py:1603 maintenance/choices.py:1618
+#: maintenance/choices.py:1629 maintenance/choices.py:1645
+#: maintenance/choices.py:1658
 msgid "Autre fabricant"
 msgstr "Anderer Hersteller"
 
 #: maintenance/autres_interventions/moteur/allumage/models.py:47
 #: maintenance/choices.py:1435 maintenance/choices.py:1562
+#: maintenance/choices.py:1578 maintenance/choices.py:1591
+#: maintenance/choices.py:1604 maintenance/choices.py:1619
+#: maintenance/choices.py:1630 maintenance/choices.py:1646
+#: maintenance/choices.py:1659
 msgid "Fabricant inconnu"
 msgstr "Unbekannter Hersteller"
 
@@ -10926,6 +11119,7 @@ msgid "Kilométrage au moment du controle de l'allumage"
 msgstr "Kilometerstand zum Zeitpunkt der Prüfung der Zündanlage"
 
 #: maintenance/autres_interventions/moteur/allumage/models.py:91
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:301
 #: maintenance/autres_interventions/refroidissement/models.py:151
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:248
 msgid "Date du contrôle"
@@ -11167,6 +11361,9 @@ msgstr "Lichtmaschinen-Check erfolgreich gespeichert."
 
 #: maintenance/autres_interventions/moteur/alternateur/views.py:290
 #: maintenance/autres_interventions/moteur/alternateur/views.py:455
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:929
+#: maintenance/autres_interventions/moteur/injection/views.py:437
+#: maintenance/autres_interventions/moteur/injection/views.py:697
 msgid "Diagnostic"
 msgstr "Diagnose"
 
@@ -11409,6 +11606,7 @@ msgid "Qualité de liquide de refroidissement"
 msgstr "Kühlmittelqualität"
 
 #: maintenance/autres_interventions/moteur/courroie/models.py:321
+#: maintenance/autres_interventions/moteur/injection/models.py:598
 msgid ""
 "Le kilométrage de la courroie ne peut pas être supérieur au kilométrage du "
 "véhicule."
@@ -11425,6 +11623,7 @@ msgid "Détail courroie de distribution"
 msgstr "Details des Zahnriemens"
 
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:279
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:326
 msgid "Kilométrage véhicule"
 msgstr "Kilometerstand Fahrzeug"
 
@@ -11471,6 +11670,7 @@ msgid "Liste des remplacements de courroies de distribution"
 msgstr "Liste der Zahnriemenwechsel"
 
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:166
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:166
 msgid "Aucun remplacement enregistré pour cet exemplaire."
 msgstr "Kein Austausch für dieses Exemplar erfasst."
 
@@ -11495,6 +11695,442 @@ msgstr "Zahnriemen geändert - %(immatriculation)s"
 #: maintenance/autres_interventions/moteur/courroie/views.py:346
 msgid "Remplacement de la courroie de distribution modifié avec succès !"
 msgstr "Zahnriemenwechsel erfolgreich geändert!"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:19
+#: voiture/voiture_moteur/models.py:19
+msgid "Essence"
+msgstr "Benzin"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:20
+msgid "Éthanol / E85"
+msgstr "Ethanol / E85"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:22
+msgid "CNG / Gaz naturel"
+msgstr "CNG / Erdgas"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:23
+msgid "LPG / GPL"
+msgstr "LPG / Autogas"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:30
+msgid "À contrôler"
+msgstr "Zu prüfen"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:33
+msgid "Nettoyé"
+msgstr "Gereinigt"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:34
+msgid "Non applicable"
+msgstr "Nicht zutreffend"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:137
+msgid "Kilométrage du contrôle de l'injection"
+msgstr "Kilometerstand bei der Prüfung des Einspritzsystems"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:155
+msgid "État de la pompe à carburant"
+msgstr "Zustand der Kraftstoffpumpe"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:161
+msgid "Fabricant de la pompe à carburant"
+msgstr "Hersteller der Kraftstoffpumpe"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:170
+msgid "Pression de la pompe à carburant en bar"
+msgstr "Druck der Kraftstoffpumpe in bar"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:177
+msgid "Prix de la pompe à carburant"
+msgstr "Preis der Kraftstoffpumpe"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:182
+msgid "Quantité de pompes à carburant"
+msgstr "Anzahl der Kraftstoffpumpen"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:193
+msgid "État de la pompe haute pression"
+msgstr "Zustand der Hochdruckpumpe"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:201
+msgid "Fabricant de la pompe haute pression"
+msgstr "Hersteller der Hochdruckpumpe"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:210
+msgid "Pression de la pompe haute pression en bar"
+msgstr "Druck der Hochdruckpumpe in bar"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:218
+msgid "Prix de la pompe haute pression"
+msgstr "Preis der Hochdruckpumpe"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:223
+msgid "Quantité de pompes haute pression"
+msgstr "Anzahl der Hochdruckpumpen"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:234
+msgid "État de la rampe d'injection"
+msgstr "Zustand der Kraftstoffverteilerleiste"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:242
+msgid "Fabricant de la rampe d'injection"
+msgstr "Hersteller der Kraftstoffverteilerleiste"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:249
+msgid "Prix de la rampe d'injection"
+msgstr "Preis der Kraftstoffverteilerleiste"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:254
+msgid "Quantité de rampes d'injection"
+msgstr "Anzahl der Kraftstoffverteilerleisten"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:265
+msgid "État du capteur de pression de rampe"
+msgstr "Zustand des Kraftstoffdrucksensors"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:271
+msgid "Fabricant du capteur de pression de rampe"
+msgstr "Hersteller des Kraftstoffdrucksensors"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:280
+msgid "Pression de rampe mesurée en bar"
+msgstr "Gemessener Kraftstoffdruck in bar"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:287
+msgid "Prix du capteur de pression de rampe"
+msgstr "Preis des Kraftstoffdrucksensors"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:292
+msgid "Quantité de capteurs de pression de rampe"
+msgstr "Anzahl der Kraftstoffdrucksensoren"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:303
+msgid "État des tuyaux haute pression"
+msgstr "Zustand der Hochdruck-Kraftstoffleitungen"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:309
+msgid "Fabricant des tuyaux haute pression"
+msgstr "Hersteller der Hochdruck-Kraftstoffleitungen"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:316
+msgid "Prix des tuyaux haute pression"
+msgstr "Preis der Hochdruck-Kraftstoffleitungen"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:321
+msgid "Quantité de tuyaux haute pression"
+msgstr "Anzahl der Hochdruck-Kraftstoffleitungen"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:332
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:729
+msgid "État des injecteurs"
+msgstr "Zustand der Einspritzventile"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:337
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:763
+msgid "Nombre d'injecteurs"
+msgstr "Anzahl der Einspritzventile"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:343
+msgid "Fabricant des injecteurs"
+msgstr "Hersteller der Einspritzventile"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:350
+msgid "Prix unitaire d'un injecteur"
+msgstr "Stückpreis eines Einspritzventils"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:355
+msgid "Quantité d'injecteurs remplacés"
+msgstr "Anzahl der ersetzten Einspritzventile"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:368
+msgid "Résistance injecteur 1 en ohms"
+msgstr "Widerstand Einspritzventil 1 in Ohm"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:377
+msgid "Résistance injecteur 2 en ohms"
+msgstr "Widerstand Einspritzventil 2 in Ohm"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:386
+msgid "Résistance injecteur 3 en ohms"
+msgstr "Widerstand Einspritzventil 3 in Ohm"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:395
+msgid "Résistance injecteur 4 en ohms"
+msgstr "Widerstand Einspritzventil 4 in Ohm"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:404
+msgid "Résistance injecteur 5 en ohms"
+msgstr "Widerstand Einspritzventil 5 in Ohm"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:413
+msgid "Résistance injecteur 6 en ohms"
+msgstr "Widerstand Einspritzventil 6 in Ohm"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:422
+msgid "Résistance injecteur 7 en ohms"
+msgstr "Widerstand Einspritzventil 7 in Ohm"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:431
+msgid "Résistance injecteur 8 en ohms"
+msgstr "Widerstand Einspritzventil 8 in Ohm"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:442
+msgid "Nettoyage des injecteurs effectué"
+msgstr "Reinigung der Einspritzventile durchgeführt"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:447
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:817
+msgid "Nombre d'injecteurs nettoyés"
+msgstr "Anzahl der gereinigten Einspritzventile"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:454
+msgid "Prix du nettoyage des injecteurs"
+msgstr "Preis für die Reinigung der Einspritzventile"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:465
+msgid "État des connecteurs d'injecteurs"
+msgstr "Zustand der Steckverbinder der Einspritzventile"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:471
+msgid "Fabricant des connecteurs d'injecteurs"
+msgstr "Hersteller der Steckverbinder der Einspritzventile"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:478
+msgid "Prix des connecteurs d'injecteurs"
+msgstr "Preis der Steckverbinder der Einspritzventile"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:483
+msgid "Quantité de connecteurs d'injecteurs remplacés"
+msgstr "Anzahl der ersetzten Steckverbinder der Einspritzventile"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:494
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:936
+msgid "Diagnostic du système d'injection effectué"
+msgstr "Diagnose des Einspritzsystems durchgeführt"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:500
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:952
+msgid "Codes défaut"
+msgstr "Fehlercodes"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:505
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:963
+msgid "Résultat du diagnostic"
+msgstr "Diagnoseergebnis"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:604
+#: maintenance/autres_interventions/moteur/injection/models.py:610
+#: maintenance/autres_interventions/moteur/injection/models.py:611
+#: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:225
+#: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:238
+#: maintenance/models.py:44
+msgid "Injection"
+msgstr "Einspritzung"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:605
+msgid "Injections"
+msgstr "Einspritzprüfungen"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:657
+msgid "Contrôle de l'injection"
+msgstr "Prüfung des Einspritzsystems"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:668
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:391
+#: maintenance/autres_interventions/moteur/injection/views.py:347
+#: maintenance/autres_interventions/moteur/injection/views.py:607
+msgid "Pompe à carburant"
+msgstr "Kraftstoffpumpe"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:669
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:420
+#: maintenance/autres_interventions/moteur/injection/views.py:356
+#: maintenance/autres_interventions/moteur/injection/views.py:616
+msgid "Pompe haute pression"
+msgstr "Hochdruckpumpe"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:670
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:459
+#: maintenance/autres_interventions/moteur/injection/views.py:365
+#: maintenance/autres_interventions/moteur/injection/views.py:625
+#: piece/piece_moteur/models.py:43
+msgid "Rampe d'injection"
+msgstr "Kraftstoffverteilerleiste"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:671
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:498
+#: maintenance/autres_interventions/moteur/injection/views.py:374
+#: maintenance/autres_interventions/moteur/injection/views.py:634
+msgid "Capteur de pression de rampe"
+msgstr "Kraftstoffdrucksensor"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:672
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:537
+#: maintenance/autres_interventions/moteur/injection/views.py:386
+#: maintenance/autres_interventions/moteur/injection/views.py:646
+msgid "Tuyaux haute pression"
+msgstr "Hochdruck-Kraftstoffleitungen"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:673
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:576
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:720
+#: maintenance/autres_interventions/moteur/injection/views.py:395
+#: maintenance/autres_interventions/moteur/injection/views.py:655
+#: piece/piece_moteur/models.py:41
+msgid "Injecteurs"
+msgstr "Einspritzventile"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:674
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:783
+#: maintenance/autres_interventions/moteur/injection/views.py:419
+#: maintenance/autres_interventions/moteur/injection/views.py:679
+msgid "Nettoyage des injecteurs"
+msgstr "Reinigung der Einspritzventile"
+
+#: maintenance/autres_interventions/moteur/injection/models.py:675
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:621
+#: maintenance/autres_interventions/moteur/injection/views.py:428
+#: maintenance/autres_interventions/moteur/injection/views.py:688
+msgid "Connecteurs d'injecteurs"
+msgstr "Steckverbinder der Einspritzventile"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:52
+msgid "injection de distribution"
+msgstr "Kraftstoffeinspritzung"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:289
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:371
+msgid "Contrôle du système d'injection"
+msgstr "Prüfung des Einspritzsystems"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:667
+msgid "Pressions du système d'injection"
+msgstr "Drücke des Einspritzsystems"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:675
+msgid "Pression pompe à carburant"
+msgstr "Kraftstoffpumpendruck"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:688
+msgid "Pression pompe haute pression"
+msgstr "Hochdruckpumpendruck"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:701
+msgid "Pression de rampe"
+msgstr "Kraftstoffverteilerrohrdruck"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:773
+msgid "Nombre d'injecteurs remplacés"
+msgstr "Anzahl der ersetzten Einspritzventile"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:831
+#: maintenance/autres_interventions/moteur/injection/views.py:407
+#: maintenance/autres_interventions/moteur/injection/views.py:667
+msgid "Résistance des injecteurs"
+msgstr "Widerstand der Einspritzventile"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:839
+msgid "Injecteur"
+msgstr "Einspritzventil"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:840
+msgid "Résistance"
+msgstr "Widerstand"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:848
+msgid "Injecteur 1"
+msgstr "Einspritzventil 1"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:857
+msgid "Injecteur 2"
+msgstr "Einspritzventil 2"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:866
+msgid "Injecteur 3"
+msgstr "Einspritzventil 3"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:875
+msgid "Injecteur 4"
+msgstr "Einspritzventil 4"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:884
+msgid "Injecteur 5"
+msgstr "Einspritzventil 5"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:893
+msgid "Injecteur 6"
+msgstr "Einspritzventil 6"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:902
+msgid "Injecteur 7"
+msgstr "Einspritzventil 7"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:911
+msgid "Injecteur 8"
+msgstr "Einspritzventil 8"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1109
+msgid "Aucune pièce remplacée."
+msgstr "Keine Teile ersetzt."
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1145
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1111
+#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:895
+#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1242
+msgid "Total général avec main-d'œuvre HTVA"
+msgstr "Gesamtsumme einschließlich Arbeitskosten ohne MwSt."
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1216
+msgid "Observations"
+msgstr "Bemerkungen"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1219
+msgid "Aucune observation."
+msgstr "Keine Bemerkungen."
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_form.html:15
+msgid "Contrôle de l'injection pour :"
+msgstr "Prüfung des Einspritzsystems für:"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_form.html:135
+#: maintenance/autres_interventions/moteur/injection/templates/injection/modifier_injection.html:139
+msgid "Retour à la liste des contrôles injection"
+msgstr "Zurück zur Liste der Einspritzprüfungen"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:4
+msgid "Liste des contrôles de l'injection"
+msgstr "Liste der Einspritzprüfungen"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:12
+msgid "Liste des contrôles injection"
+msgstr "Liste der Einspritzprüfungen"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:189
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ Contrôles Injection"
+msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Einspritzprüfungen"
+
+#: maintenance/autres_interventions/moteur/injection/templates/injection/modifier_injection.html:25
+msgid "Modifier le contrôle de l'injection"
+msgstr "Einspritzprüfung bearbeiten"
+
+#: maintenance/autres_interventions/moteur/injection/views.py:257
+#, python-format
+msgid "Système d'injection - %(immatriculation)s"
+msgstr "Einspritzsystem - %(immatriculation)s"
+
+#: maintenance/autres_interventions/moteur/injection/views.py:269
+msgid "Check du système d'injection enregistré avec succès."
+msgstr "Prüfung des Einspritzsystems erfolgreich gespeichert."
+
+#: maintenance/autres_interventions/moteur/injection/views.py:551
+#, python-format
+msgid "Modification du contrôle de l' injection - %(immatriculation)s"
+msgstr "Änderung der Einspritzprüfung - %(immatriculation)s"
+
+#: maintenance/autres_interventions/moteur/injection/views.py:558
+msgid "Contrôle de l'injection modifié avec succès !"
+msgstr "Einspritzprüfung erfolgreich geändert!"
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/forms.py:89
 msgid ""
@@ -12700,7 +13336,7 @@ msgstr "Motor-Dashboard"
 msgid "Bienvenue sur le tableau de bord moteur"
 msgstr "Willkommen im Motor-Dashboard"
 
-#: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:227
+#: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:256
 msgid "Retour au tableau des interventions"
 msgstr "Zurück zum Interventions-Dashboard"
 
@@ -17357,6 +17993,7 @@ msgstr "Motorcraft"
 
 #: maintenance/choices.py:761 maintenance/choices.py:870
 #: maintenance/choices.py:1084 maintenance/choices.py:1168
+#: maintenance/choices.py:1571
 msgid "Pierburg"
 msgstr ""
 
@@ -17579,7 +18216,7 @@ msgstr ""
 msgid "Vemo"
 msgstr ""
 
-#: maintenance/choices.py:876
+#: maintenance/choices.py:876 maintenance/choices.py:1616
 msgid "FAE"
 msgstr ""
 
@@ -18580,6 +19217,36 @@ msgstr ""
 msgid "Infiniti Original"
 msgstr ""
 
+#: maintenance/choices.py:1574
+msgid "Walbro"
+msgstr ""
+
+#: maintenance/choices.py:1575
+#, fuzzy
+#| msgid "Automatique"
+msgid "TI Automotive"
+msgstr "TI Automotive"
+
+#: maintenance/choices.py:1640
+msgid "Siemens"
+msgstr "Siemens"
+
+#: maintenance/choices.py:1642
+msgid "Keihin"
+msgstr ""
+
+#: maintenance/choices.py:1654
+msgid "TE Connectivity"
+msgstr ""
+
+#: maintenance/choices.py:1655
+msgid "AMP"
+msgstr "AMP"
+
+#: maintenance/choices.py:1656
+msgid "Molex"
+msgstr ""
+
 #: maintenance/entretien/models.py:272
 msgid "Kilométrage au moment de l'entretien"
 msgstr "Kilometerstand zum Zeitpunkt der Wartung"
@@ -18776,12 +19443,6 @@ msgstr "Drittes Bremslicht"
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:873
 msgid "Total pièces / produits HTVA"
 msgstr "Gesamtsumme Teile / Produkte ohne MwSt."
-
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1111
-#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:895
-#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1242
-msgid "Total général avec main-d'œuvre HTVA"
-msgstr "Gesamtsumme einschließlich Arbeitskosten ohne MwSt."
 
 #: maintenance/entretien/templates/entretien/entretien_list.html:4
 #: maintenance/entretien/templates/entretien/entretien_list.html:12
@@ -18996,7 +19657,9 @@ msgstr "Liste der Kontrollen des Scheibenwischsystems"
 
 #: maintenance/essuyage/templates/essuyage/essuyage_list.html:188
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ contrôle du système d'essuyage"
-msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Kontrollen des Scheibenwischsystems"
+msgstr ""
+"Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Kontrollen des "
+"Scheibenwischsystems"
 
 #: maintenance/essuyage/templates/essuyage/modifier_essuyage.html:24
 msgid "Modifier le controle de l'essuyage"
@@ -19055,6 +19718,7 @@ msgstr "Änderung der Kontrolle des Scheibenwischsystems - %(immatriculation)s"
 #: maintenance/essuyage/views.py:424
 msgid "Contrôle du système d'essuyage modifié avec succès !"
 msgstr "Kontrolle des Scheibenwischsystems erfolgreich geändert!"
+
 #: maintenance/freins/models.py:117
 msgid "Kilométrage du controle des freins"
 msgstr "Kilometerstand der Bremskontrolle"
@@ -22197,17 +22861,9 @@ msgstr "Glühkerzen"
 msgid "Collecteur d'échappement"
 msgstr "Abgaskrümmer"
 
-#: piece/piece_moteur/models.py:41
-msgid "Injecteurs"
-msgstr "Einspritzdüsen"
-
 #: piece/piece_moteur/models.py:42
 msgid "Pompe à Carburant"
 msgstr "Kraftstoffpumpe"
-
-#: piece/piece_moteur/models.py:43
-msgid "Rampe d'injection"
-msgstr "Einspritzleiste"
 
 #: piece/piece_moteur/models.py:45
 msgid "Joint moteur"
@@ -25326,10 +25982,6 @@ msgstr "Hybrid-Turbo-Benzin"
 #: voiture/voiture_moteur/models.py:16
 msgid "Machine électrique"
 msgstr "Elektromotor"
-
-#: voiture/voiture_moteur/models.py:19
-msgid "Essence"
-msgstr "Benzin"
 
 #: voiture/voiture_moteur/models.py:21
 msgid "Électricité"
