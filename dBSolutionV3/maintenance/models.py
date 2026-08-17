@@ -41,7 +41,7 @@ class Maintenance(models.Model):
         EMBRAYAGE = "EMBRAYAGE", _("Embrayage")
         ALLUMAGE = "ALLUMAGE", _("Allumage")
         ESSUYAGE = "ESSUYAGE", _("Essuyage")
-
+        INJECTION = "INJECTION", _("Injection")
 
     class Tag(models.TextChoices):
         VERT = "VERT", _("Vert")

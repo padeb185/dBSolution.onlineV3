@@ -167,6 +167,7 @@ TENANT_APPS = (
 
     'maintenance.carrosserie_interne',
     'maintenance.essuyage',
+    'maintenance.autres_interventions.moteur.injection',
 
     'fuel',
 

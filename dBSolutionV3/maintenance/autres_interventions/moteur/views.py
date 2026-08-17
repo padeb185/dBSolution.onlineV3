@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
 from maintenance.autres_interventions.moteur.allumage.models import Allumage
+from maintenance.autres_interventions.moteur.injection.models import Injection
 from maintenance.autres_interventions.moteur.rodage.models import Rodage
 from maintenance.models import Maintenance
 from maintenance.types_maintenances import TYPES_MAINTENANCE
@@ -62,9 +63,9 @@ def dashboard_moteur_view(request, exemplaire_id):
     schema_name = tenant_schema.schema_name if tenant_schema else None
 
 
-    total_admission = total_alternateur = total_courroie = total_remplacement_moteur = total_turbo = total_rodage = total_int_moteur = 0
+    total_admission = total_injection = total_alternateur = total_courroie = total_remplacement_moteur = total_turbo = total_rodage = total_int_moteur = 0
 
-    admission = alternateur = courroie = moteur_remplacement = turbo = rodage = []
+    admission = alternateur = courroie = moteur_remplacement = turbo = rodage = injection =  []
 
 
 
@@ -78,6 +79,8 @@ def dashboard_moteur_view(request, exemplaire_id):
     turbo = Turbo.objects.filter(voiture_exemplaire=exemplaire)
     rodage = Rodage.objects.filter(voiture_exemplaire=exemplaire)
     allumage = Allumage.objects.filter(voiture_exemplaire=exemplaire)
+    injection = Injection.objects.filter(voiture_exemplaire=exemplaire)
+
 
 
         # ✅ COUNTS CORRECTS
@@ -88,8 +91,9 @@ def dashboard_moteur_view(request, exemplaire_id):
     total_turbo = turbo.count()
     total_rodage = rodage.count()
     total_allumage = allumage.count()
+    total_injection = injection.count()
 
-    total_int_moteur = total_admission + total_allumage + total_alternateur + total_courroie + total_remplacement_moteur + total_turbo + total_rodage
+    total_int_moteur = total_admission + total_injection + total_allumage + total_alternateur + total_courroie + total_remplacement_moteur + total_turbo + total_rodage
 
 
     # --- POST ---
@@ -127,6 +131,7 @@ def dashboard_moteur_view(request, exemplaire_id):
         "total_turbo": total_turbo,
         "total_rodage": total_rodage,
         "total_allumage": total_allumage,
+        "total_injecction": total_injection,
 
         "admission": admission,
         "alternateur": alternateur,
@@ -135,6 +140,7 @@ def dashboard_moteur_view(request, exemplaire_id):
         "turbo": turbo,
         "rodage": rodage,
         "allumage": allumage,
+        "inection": injection,
 
         "total_int_moteur": total_int_moteur,
 

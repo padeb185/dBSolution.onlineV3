@@ -183,6 +183,11 @@ urlpatterns += i18n_patterns(
 
     path('maintenance/essuyage/', include(('maintenance.essuyage.urls', 'essuyage'), namespace='essuyage')),
 
+    path("injection/",include(("maintenance.autres_interventions.moteur.injection.urls", "injection"), namespace="injection")),
+
+
+
+
 )
 
 

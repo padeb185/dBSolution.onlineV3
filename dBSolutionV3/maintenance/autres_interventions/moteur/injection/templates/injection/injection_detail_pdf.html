@@ -1,0 +1,1239 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-jaune {
+            color: #854d0e;
+            background: #fef9c3;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            color: #374151;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+
+        .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================================================== -->
+<!-- SOCIÉTÉ -->
+<!-- ================================================== -->
+
+{% if injection.tech_societe %}
+
+    <div class="societe-header">
+
+        <div class="societe-informations">
+
+            <div class="societe-nom">
+                {{ injection.tech_societe.nom }}
+            </div>
+
+            {% if injection.tech_societe.adresse %}
+                <div>
+                    {{ injection.tech_societe.adresse.rue }}
+                    {{ injection.tech_societe.adresse.numero }}
+
+                    {% if injection.tech_societe.adresse.boite %}
+                        / {{ injection.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ injection.tech_societe.adresse.code_postal }}
+                    {{ injection.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if injection.tech_societe.adresse.pays %}
+                <div>
+                    {{ injection.tech_societe.adresse.pays }}
+                    {{ injection.tech_societe.adresse.code_pays }}
+                </div>
+            {% endif %}
+
+            {% if injection.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ injection.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+
+            {% if injection.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ injection.tech_societe.iban }}
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ injection.tech_societe.nom }}.png"
+                alt="{{ injection.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+
+{% endif %}
+
+
+<h1>{% trans "Contrôle du système d'injection" %}</h1>
+
+
+<!-- ================================================== -->
+<!-- INFORMATIONS -->
+<!-- ================================================== -->
+
+<div class="box">
+
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date du contrôle" %} :</span>
+
+            {% if injection.date_controle %}
+                {{ injection.date_controle|date:"d/m/Y" }}
+            {% else %}
+                -
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ injection.tech_nom_technicien|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ injection.tech_societe|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ injection.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ injection.kilometrage_chassis|default:0 }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Type de carburant" %} :</span>
+            {{ injection.get_type_carburant_display }}
+        </div>
+
+        {% if injection.tag %}
+            <div>
+                <span class="label">{% trans "Tag" %} :</span>
+
+                {% if injection.tag == "VERT" %}
+
+                    <span class="tag tag-vert">
+                        {{ injection.get_tag_display }}
+                    </span>
+
+                {% elif injection.tag == "JAUNE" %}
+
+                    <span class="tag tag-jaune">
+                        {{ injection.get_tag_display }}
+                    </span>
+
+                {% else %}
+
+                    <span class="tag tag-rouge">
+                        {{ injection.get_tag_display }}
+                    </span>
+
+                {% endif %}
+
+            </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<!-- ================================================== -->
+<!-- CONTRÔLE INJECTION -->
+<!-- ================================================== -->
+
+<h2>{% trans "Contrôle du système d'injection" %}</h2>
+
+<div class="box">
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+                <th>{% trans "Fabricant" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <!-- ================= POMPE CARBURANT ================= -->
+
+            {% if injection.pompe_carburant_etat != "NON_APPLICABLE" %}
+<tr>
+    <td>{% trans "Pompe à carburant" %}</td>
+
+    <td>
+        {% if injection.pompe_carburant_etat == "OK" %}
+            <span class="ok">
+                {{ injection.get_pompe_carburant_etat_display }}
+            </span>
+
+        {% elif injection.pompe_carburant_etat == "NOT_OK" %}
+            <span class="not-ok">
+                {{ injection.get_pompe_carburant_etat_display }}
+            </span>
+
+        {% elif injection.pompe_carburant_etat == "REMPLACE" %}
+            <span class="remplace">
+                {{ injection.get_pompe_carburant_etat_display }}
+            </span>
+        {% endif %}
+    </td>
+
+    <td>
+        {{ injection.get_pompe_carburant_fabricant_display|default:"-" }}
+    </td>
+</tr>
+{% endif %}
+
+            <!-- ================= POMPE HAUTE PRESSION ================= -->
+            {% if injection.pompe_haute_pression_etat != "NON_APPLICABLE" %}
+            <tr>
+                <td>{% trans "Pompe haute pression" %}</td>
+
+                <td>
+
+                    {% if injection.pompe_haute_pression_etat == "OK" %}
+
+                        <span class="ok">
+                            {{ injection.get_pompe_haute_pression_etat_display }}
+                        </span>
+
+                    {% elif injection.pompe_haute_pression_etat == "NOT_OK" %}
+
+                        <span class="not-ok">
+                            {{ injection.get_pompe_haute_pression_etat_display }}
+                        </span>
+
+                    {% elif injection.pompe_haute_pression_etat == "REMPLACE" %}
+
+                        <span class="remplace">
+                            {{ injection.get_pompe_haute_pression_etat_display }}
+                        </span>
+
+                    {% else %}
+
+                        {{ injection.get_pompe_haute_pression_etat_display }}
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+                    {{ injection.get_pompe_haute_pression_fabricant_display|default:"-" }}
+                </td>
+            </tr>
+            {% endif %}
+
+            <!-- ================= RAMPE ================= -->
+            {% if injection.rampe_injection_etat != "NON_APPLICABLE" %}
+            <tr>
+                <td>{% trans "Rampe d'injection" %}</td>
+
+                <td>
+
+                    {% if injection.rampe_injection_etat == "OK" %}
+
+                        <span class="ok">
+                            {{ injection.get_rampe_injection_etat_display }}
+                        </span>
+
+                    {% elif injection.rampe_injection_etat == "NOT_OK" %}
+
+                        <span class="not-ok">
+                            {{ injection.get_rampe_injection_etat_display }}
+                        </span>
+
+                    {% elif injection.rampe_injection_etat == "REMPLACE" %}
+
+                        <span class="remplace">
+                            {{ injection.get_rampe_injection_etat_display }}
+                        </span>
+
+                    {% else %}
+
+                        {{ injection.get_rampe_injection_etat_display }}
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+                    {{ injection.get_rampe_injection_fabricant_display|default:"-" }}
+                </td>
+            </tr>
+            {% endif %}
+
+            <!-- ================= CAPTEUR PRESSION ================= -->
+            {% if injection.capteur_pression_rampe_etat != "NON_APPLICABLE" %}
+            <tr>
+                <td>{% trans "Capteur de pression de rampe" %}</td>
+
+                <td>
+
+                    {% if injection.capteur_pression_rampe_etat == "OK" %}
+
+                        <span class="ok">
+                            {{ injection.get_capteur_pression_rampe_etat_display }}
+                        </span>
+
+                    {% elif injection.capteur_pression_rampe_etat == "NOT_OK" %}
+
+                        <span class="not-ok">
+                            {{ injection.get_capteur_pression_rampe_etat_display }}
+                        </span>
+
+                    {% elif injection.capteur_pression_rampe_etat == "REMPLACE" %}
+
+                        <span class="remplace">
+                            {{ injection.get_capteur_pression_rampe_etat_display }}
+                        </span>
+
+                    {% else %}
+
+                        {{ injection.get_capteur_pression_rampe_etat_display }}
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+                    {{ injection.get_capteur_pression_rampe_fabricant_display|default:"-" }}
+                </td>
+            </tr>
+              {% endif %}
+
+            <!-- ================= TUYAUX HP ================= -->
+            {% if injection.tuyaux_haute_pression_etat != "NON_APPLICABLE" %}
+            <tr>
+                <td>{% trans "Tuyaux haute pression" %}</td>
+
+                <td>
+
+                    {% if injection.tuyaux_haute_pression_etat == "OK" %}
+
+                        <span class="ok">
+                            {{ injection.get_tuyaux_haute_pression_etat_display }}
+                        </span>
+
+                    {% elif injection.tuyaux_haute_pression_etat == "NOT_OK" %}
+
+                        <span class="not-ok">
+                            {{ injection.get_tuyaux_haute_pression_etat_display }}
+                        </span>
+
+                    {% elif injection.tuyaux_haute_pression_etat == "REMPLACE" %}
+
+                        <span class="remplace">
+                            {{ injection.get_tuyaux_haute_pression_etat_display }}
+                        </span>
+
+                    {% else %}
+
+                        {{ injection.get_tuyaux_haute_pression_etat_display }}
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+                    {{ injection.get_tuyaux_haute_pression_fabricant_display|default:"-" }}
+                </td>
+            </tr>
+              {% endif %}
+
+            <!-- ================= INJECTEURS ================= -->
+            {% if injection.injecteurs_etat != "NON_APPLICABLE" %}
+            <tr>
+                <td>{% trans "Injecteurs" %}</td>
+
+                <td>
+
+                    {% if injection.injecteurs_etat == "OK" %}
+
+                        <span class="ok">
+                            {{ injection.get_injecteurs_etat_display }}
+                        </span>
+
+                    {% elif injection.injecteurs_etat == "NOT_OK" %}
+
+                        <span class="not-ok">
+                            {{ injection.get_injecteurs_etat_display }}
+                        </span>
+
+                    {% elif injection.injecteurs_etat == "REMPLACE" %}
+
+                        <span class="remplace">
+                            {{ injection.get_injecteurs_etat_display }}
+                        </span>
+
+                    {% elif injection.injecteurs_etat == "NETTOYE" %}
+
+                        <span class="etat-bleu">
+                            {{ injection.get_injecteurs_etat_display }}
+                        </span>
+
+                    {% else %}
+
+                        {{ injection.get_injecteurs_etat_display }}
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+                    {{ injection.get_injecteurs_fabricant_display|default:"-" }}
+                </td>
+            </tr>
+              {% endif %}
+
+            <!-- ================= CONNECTEURS ================= -->
+            {% if injection.connecteurs_injecteurs_etat != "NON_APPLICABLE" %}
+            <tr>
+                <td>{% trans "Connecteurs d'injecteurs" %}</td>
+
+                <td>
+
+                    {% if injection.connecteurs_injecteurs_etat == "OK" %}
+
+                        <span class="ok">
+                            {{ injection.get_connecteurs_injecteurs_etat_display }}
+                        </span>
+
+                    {% elif injection.connecteurs_injecteurs_etat == "NOT_OK" %}
+
+                        <span class="not-ok">
+                            {{ injection.get_connecteurs_injecteurs_etat_display }}
+                        </span>
+
+                    {% elif injection.connecteurs_injecteurs_etat == "REMPLACE" %}
+
+                        <span class="remplace">
+                            {{ injection.get_connecteurs_injecteurs_etat_display }}
+                        </span>
+
+                    {% else %}
+
+                        {{ injection.get_connecteurs_injecteurs_etat_display }}
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+                    {{ injection.get_connecteurs_injecteurs_fabricant_display|default:"-" }}
+                </td>
+            </tr>
+              {% endif %}
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<!-- ================================================== -->
+<!-- PRESSIONS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pressions du système d'injection" %}</h2>
+
+<div class="box">
+
+    <div class="grid-3">
+
+        <div>
+            <span class="label">
+                {% trans "Pression pompe à carburant" %} :
+            </span>
+
+            {% if injection.pompe_carburant_pression_bar %}
+                {{ injection.pompe_carburant_pression_bar }} bar
+            {% else %}
+                -
+            {% endif %}
+        </div>
+
+
+        <div>
+            <span class="label">
+                {% trans "Pression pompe haute pression" %} :
+            </span>
+
+            {% if injection.pompe_haute_pression_pression_bar %}
+                {{ injection.pompe_haute_pression_pression_bar }} bar
+            {% else %}
+                -
+            {% endif %}
+        </div>
+
+
+        <div>
+            <span class="label">
+                {% trans "Pression de rampe" %} :
+            </span>
+
+            {% if injection.pression_rampe_bar %}
+                {{ injection.pression_rampe_bar }} bar
+            {% else %}
+                -
+            {% endif %}
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================== -->
+<!-- INJECTEURS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Injecteurs" %}</h2>
+
+<div class="box">
+
+    <div class="grid">
+
+        <!-- ÉTAT DES INJECTEURS -->
+        <div>
+            <span class="label">
+                {% trans "État des injecteurs" %} :
+            </span>
+
+            {% if injection.injecteurs_etat == "OK" %}
+                <span class="etat-vert">
+                    {{ injection.get_injecteurs_etat_display }}
+                </span>
+
+            {% elif injection.injecteurs_etat == "NOT_OK" %}
+                <span class="etat-rouge">
+                    {{ injection.get_injecteurs_etat_display }}
+                </span>
+
+            {% elif injection.injecteurs_etat == "REMPLACE" %}
+                <span class="etat-bleu">
+                    {{ injection.get_injecteurs_etat_display }}
+                </span>
+
+            {% elif injection.injecteurs_etat == "NETTOYE" %}
+                <span class="etat-bleu">
+                    {{ injection.get_injecteurs_etat_display }}
+                </span>
+
+            {% else %}
+                <span class="etat-gris">
+                    {{ injection.get_injecteurs_etat_display|default:"-" }}
+                </span>
+            {% endif %}
+        </div>
+
+
+        <!-- NOMBRE D'INJECTEURS -->
+        <div>
+            <span class="label">
+                {% trans "Nombre d'injecteurs" %} :
+            </span>
+
+            {{ injection.nombre_injecteurs|default:0 }}
+        </div>
+
+
+        <!-- INJECTEURS REMPLACÉS -->
+        <div>
+            <span class="label">
+                {% trans "Nombre d'injecteurs remplacés" %} :
+            </span>
+
+            {{ injection.injecteurs_quantite|default:0 }}
+        </div>
+
+
+        <!-- NETTOYAGE -->
+        <div>
+            <span class="label">
+                {% trans "Nettoyage des injecteurs" %} :
+            </span>
+
+            {% if injection.nettoyage_injecteurs_etat == "NETTOYE" %}
+                <span class="etat-bleu">
+                    {{ injection.get_nettoyage_injecteurs_etat_display }}
+                </span>
+
+            {% elif injection.nettoyage_injecteurs_etat == "OK" %}
+                <span class="etat-vert">
+                    {{ injection.get_nettoyage_injecteurs_etat_display }}
+                </span>
+
+            {% elif injection.nettoyage_injecteurs_etat == "NOT_OK" %}
+                <span class="etat-rouge">
+                    {{ injection.get_nettoyage_injecteurs_etat_display }}
+                </span>
+
+            {% elif injection.nettoyage_injecteurs_etat == "REMPLACE" %}
+                <span class="etat-bleu">
+                    {{ injection.get_nettoyage_injecteurs_etat_display }}
+                </span>
+
+            {% else %}
+                <span class="etat-gris">
+                    {{ injection.get_nettoyage_injecteurs_etat_display|default:"-" }}
+                </span>
+            {% endif %}
+        </div>
+
+
+        <!-- NOMBRE NETTOYÉ -->
+        <div>
+            <span class="label">
+                {% trans "Nombre d'injecteurs nettoyés" %} :
+            </span>
+
+            {{ injection.nettoyage_injecteurs_quantite|default:0 }}
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================================================== -->
+<!-- RÉSISTANCE INJECTEURS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Résistance des injecteurs" %}</h2>
+
+<div class="box">
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>{% trans "Injecteur" %}</th>
+                <th class="text-right">{% trans "Résistance" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% if injection.injecteur_1_resistance_ohm is not None %}
+                <tr>
+                    <td>{% trans "Injecteur 1" %}</td>
+                    <td class="text-right">
+                        {{ injection.injecteur_1_resistance_ohm }} Ω
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if injection.injecteur_2_resistance_ohm is not None %}
+                <tr>
+                    <td>{% trans "Injecteur 2" %}</td>
+                    <td class="text-right">
+                        {{ injection.injecteur_2_resistance_ohm }} Ω
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if injection.injecteur_3_resistance_ohm is not None %}
+                <tr>
+                    <td>{% trans "Injecteur 3" %}</td>
+                    <td class="text-right">
+                        {{ injection.injecteur_3_resistance_ohm }} Ω
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if injection.injecteur_4_resistance_ohm is not None %}
+                <tr>
+                    <td>{% trans "Injecteur 4" %}</td>
+                    <td class="text-right">
+                        {{ injection.injecteur_4_resistance_ohm }} Ω
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if injection.injecteur_5_resistance_ohm is not None %}
+                <tr>
+                    <td>{% trans "Injecteur 5" %}</td>
+                    <td class="text-right">
+                        {{ injection.injecteur_5_resistance_ohm }} Ω
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if injection.injecteur_6_resistance_ohm is not None %}
+                <tr>
+                    <td>{% trans "Injecteur 6" %}</td>
+                    <td class="text-right">
+                        {{ injection.injecteur_6_resistance_ohm }} Ω
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if injection.injecteur_7_resistance_ohm is not None %}
+                <tr>
+                    <td>{% trans "Injecteur 7" %}</td>
+                    <td class="text-right">
+                        {{ injection.injecteur_7_resistance_ohm }} Ω
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% if injection.injecteur_8_resistance_ohm is not None %}
+                <tr>
+                    <td>{% trans "Injecteur 8" %}</td>
+                    <td class="text-right">
+                        {{ injection.injecteur_8_resistance_ohm }} Ω
+                    </td>
+                </tr>
+            {% endif %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<!-- ================================================== -->
+<!-- DIAGNOSTIC -->
+<!-- ================================================== -->
+
+<h2>{% trans "Diagnostic" %}</h2>
+
+<div class="box">
+
+    <div>
+
+        <span class="label">
+            {% trans "Diagnostic du système d'injection effectué" %} :
+        </span>
+
+        {% if injection.diagnostic_effectue %}
+            {% trans "Oui" %}
+        {% else %}
+            {% trans "Non" %}
+        {% endif %}
+
+    </div>
+
+    <br>
+
+    {% if injection.code_defaut %}
+
+        <div>
+            <span class="label">{% trans "Codes défaut" %} :</span>
+            {{ injection.code_defaut }}
+        </div>
+
+    {% endif %}
+
+    {% if injection.resultat_diagnostic %}
+
+        <br>
+
+        <div>
+            <span class="label">{% trans "Résultat du diagnostic" %} :</span>
+            {{ injection.resultat_diagnostic }}
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ injection.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if injection.main_oeuvre %}
+
+            <div>
+                <span class="label">{% trans "Taux horaire" %} :</span>
+                {{ injection.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix facturé" %} :</span>
+                {{ injection.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ injection.main_oeuvre.descriptif|default:"-" }}
+            </div>
+
+        {% else %}
+
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<!-- ================================================== -->
+<!-- PIÈCES -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div class="box">
+
+    {% if rapport.lignes %}
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+
+                    <th class="text-right">
+                        {% trans "Quantité" %}
+                    </th>
+
+                    <th class="text-right">
+                        {% trans "Prix unitaire HTVA" %}
+                    </th>
+
+                    <th class="text-right">
+                        {% trans "Total HTVA" %}
+                    </th>
+                </tr>
+            </thead>
+
+           <tbody>
+
+                {% for ligne in rapport.lignes %}
+
+                    <tr>
+
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                        <td>
+
+                            {% if ligne.etat == "OK" or ligne.etat == "BON" %}
+                                <span class="etat-vert">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% elif ligne.etat == "NOT_OK" or ligne.etat == "A_REMPLACER" %}
+                                <span class="etat-rouge">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% elif ligne.etat == "REMPLACE" or ligne.etat == "NETTOYE" %}
+                                <span class="etat-bleu">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% elif ligne.etat == "REPORTER" %}
+                                <span class="etat-jaune">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% else %}
+                                <span class="etat-gris">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|floatformat:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|floatformat:2 }} €
+                        </td>
+
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            {% trans "Aucune pièce remplacée." %}
+                        </td>
+                    </tr>
+
+                {% endfor %}
+
+
+                <tr class="total">
+
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|floatformat:2 }} €
+                    </td>
+
+                </tr>
+
+
+                <tr class="total">
+
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ injection.cout_main_oeuvre|floatformat:2 }} €
+                    </td>
+
+                </tr>
+
+
+                <tr class="total-general">
+
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ injection.total_general_avec_main_oeuvre|floatformat:2 }} €
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+    {% else %}
+
+        <p>
+            {% trans "Aucune pièce ou produit utilisé." %}
+        </p>
+
+
+        <table>
+
+            <tbody>
+
+                <tr class="total">
+
+                    <td>
+
+                        <div>
+                            <strong>{% trans "Main-d'œuvre" %}</strong>
+                        </div>
+
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ injection.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
+
+                    </td>
+
+                </tr>
+
+
+                <tr class="total-general">
+
+                    <td>
+
+                        <div>
+                            <strong>{% trans "Total général" %}</strong>
+                        </div>
+
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ injection.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    {% endif %}
+
+</div>
+
+
+<!-- ================================================== -->
+<!-- OBSERVATIONS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Observations" %}</h2>
+
+<div class="box">
+    {{ injection.observations|default:_("Aucune observation.") }}
+</div>
+
+
+<!-- ================================================== -->
+<!-- FOOTER -->
+<!-- ================================================== -->
+
+<div class="footer">
+
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+
+    <br>
+
+    {% trans "Date export" %} :
+    {{ date_export|date:"d/m/Y H:i" }}
+
+</div>
+
+</body>
+</html>

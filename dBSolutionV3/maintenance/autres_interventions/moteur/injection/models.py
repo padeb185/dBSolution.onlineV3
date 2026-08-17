@@ -157,7 +157,7 @@ class Injection(models.Model):
     pompe_carburant_fabricant = models.CharField(
         max_length=50,
         choices=FabricantPompeCarburant.choices,
-        default=FabricantPompeCarburant.INCONNU,
+        default=FabricantPompeCarburant.CHOISIR,
         verbose_name=_("Fabricant de la pompe à carburant"),
     )
 
@@ -197,7 +197,7 @@ class Injection(models.Model):
     pompe_haute_pression_fabricant = models.CharField(
         max_length=50,
         choices=FabricantPompeHautePression.choices,
-        default=FabricantPompeHautePression.INCONNU,
+        default=FabricantPompeHautePression.CHOISIR,
         verbose_name=_("Fabricant de la pompe haute pression"),
     )
 
@@ -238,7 +238,7 @@ class Injection(models.Model):
     rampe_injection_fabricant = models.CharField(
         max_length=50,
         choices=FabricantRampeInjection.choices,
-        default=FabricantRampeInjection.INCONNU,
+        default=FabricantRampeInjection.CHOISIR,
         verbose_name=_("Fabricant de la rampe d'injection"),
     )
 
@@ -267,7 +267,7 @@ class Injection(models.Model):
     capteur_pression_rampe_fabricant = models.CharField(
         max_length=50,
         choices=FabricantCapteurPressionRampe.choices,
-        default=FabricantCapteurPressionRampe.INCONNU,
+        default=FabricantCapteurPressionRampe.CHOISIR,
         verbose_name=_("Fabricant du capteur de pression de rampe"),
     )
 
@@ -305,7 +305,7 @@ class Injection(models.Model):
     tuyaux_haute_pression_fabricant = models.CharField(
         max_length=50,
         choices=FabricantTuyauxHautePression.choices,
-        default=FabricantTuyauxHautePression.INCONNU,
+        default=FabricantTuyauxHautePression.CHOISIR,
         verbose_name=_("Fabricant des tuyaux haute pression"),
     )
 
@@ -339,7 +339,7 @@ class Injection(models.Model):
     injecteurs_fabricant = models.CharField(
         max_length=50,
         choices=FabricantInjecteur.choices,
-        default=FabricantInjecteur.INCONNU,
+        default=FabricantInjecteur.CHOISIR,
         verbose_name=_("Fabricant des injecteurs"),
     )
 
@@ -435,8 +435,10 @@ class Injection(models.Model):
     # NETTOYAGE INJECTEURS
     # ==========================================================
 
-    nettoyage_injecteurs = models.BooleanField(
-        default=False,
+    nettoyage_injecteurs_etat = models.CharField(
+        max_length=20,
+        choices=EtatInjection.choices,
+        default=EtatInjection.OK,
         verbose_name=_("Nettoyage des injecteurs effectué"),
     )
 
@@ -465,7 +467,7 @@ class Injection(models.Model):
     connecteurs_injecteurs_fabricant = models.CharField(
         max_length=50,
         choices=FabricantConnecteurInjecteur.choices,
-        default=FabricantConnecteurInjecteur.INCONNU,
+        default=FabricantConnecteurInjecteur.CHOISIR,
         verbose_name=_("Fabricant des connecteurs d'injecteurs"),
     )
 
@@ -501,11 +503,6 @@ class Injection(models.Model):
     resultat_diagnostic = models.TextField(
         blank=True,
         verbose_name=_("Résultat du diagnostic"),
-    )
-
-    observations = models.TextField(
-        blank=True,
-        verbose_name=_("Observations"),
     )
 
     remarques = models.TextField(
@@ -674,21 +671,44 @@ class Injection(models.Model):
             ("capteur_pression_rampe", _("Capteur de pression de rampe")),
             ("tuyaux_haute_pression", _("Tuyaux haute pression")),
             ("injecteurs", _("Injecteurs")),
+            ("nettoyage_injecteurs", _("Nettoyage des injecteurs")),
             ("connecteurs_injecteurs", _("Connecteurs d'injecteurs")),
         ]
 
         for prefix, label in pieces:
-            etat = getattr(self, prefix, None)
+
+            # ==================================================
+            # ÉTAT
+            # ==================================================
+
+            etat = getattr(
+                self,
+                f"{prefix}_etat",
+                None,
+            )
 
             if etat not in [
                 EtatInjection.NOT_OK,
                 EtatInjection.REMPLACE,
+                EtatInjection.NETTOYE,
             ]:
                 continue
 
-            # -------------------------
+            # ==================================================
+            # LIBELLÉ ÉTAT
+            # ==================================================
+
+            etat_label = dict(
+                EtatInjection.choices
+            ).get(
+                etat,
+                etat,
+            )
+
+            # ==================================================
             # FABRICANT
-            # -------------------------
+            # ==================================================
+
             fabricant = getattr(
                 self,
                 f"{prefix}_fabricant",
@@ -697,7 +717,6 @@ class Injection(models.Model):
 
             fabricant_label = fabricant
 
-            # Récupérer le libellé du choix fabricant
             try:
                 fabricant_field = self._meta.get_field(
                     f"{prefix}_fabricant"
@@ -715,9 +734,10 @@ class Injection(models.Model):
                 fabricant = None
                 fabricant_label = None
 
-            # -------------------------
+            # ==================================================
             # PRIX
-            # -------------------------
+            # ==================================================
+
             prix = getattr(
                 self,
                 f"{prefix}_prix",
@@ -729,9 +749,10 @@ class Injection(models.Model):
 
             prix = Decimal(str(prix))
 
-            # -------------------------
+            # ==================================================
             # QUANTITÉ
-            # -------------------------
+            # ==================================================
+
             quantite = getattr(
                 self,
                 f"{prefix}_quantite",
@@ -743,31 +764,27 @@ class Injection(models.Model):
 
             quantite = Decimal(str(quantite))
 
-            # Quantité 0 = ne pas ajouter au rapport
-            # et ne pas inclure dans les totaux
+            # Ne pas afficher une pièce sans quantité
             if quantite <= 0:
                 continue
 
-            # -------------------------
+            # ==================================================
             # TOTAL
-            # -------------------------
+            # ==================================================
+
             total = prix * quantite
             total_general += total
 
-            # -------------------------
+            # ==================================================
             # RAPPORT
-            # -------------------------
+            # ==================================================
+
             rapport.append({
                 "champ": label,
                 "code": prefix,
 
                 "etat": etat,
-                "etat_label": dict(
-                    EtatInjection.choices
-                ).get(
-                    etat,
-                    etat,
-                ),
+                "etat_label": etat_label,
 
                 "fabricant": fabricant,
                 "fabricant_label": fabricant_label,

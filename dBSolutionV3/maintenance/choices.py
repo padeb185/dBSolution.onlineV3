@@ -1576,6 +1576,7 @@ class FabricantPompeCarburant(models.TextChoices):
     OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
+    CHOISIR = "CHOISIR", _("Choisir")
 
 
 class FabricantPompeHautePression(models.TextChoices):
@@ -1588,6 +1589,7 @@ class FabricantPompeHautePression(models.TextChoices):
     OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
+    CHOISIR = "CHOISIR", _("Choisir")
 
 
 class FabricantRampeInjection(models.TextChoices):
@@ -1600,6 +1602,7 @@ class FabricantRampeInjection(models.TextChoices):
     OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
+    CHOISIR = "CHOISIR", _("Choisir")
 
 
 class FabricantCapteurPressionRampe(models.TextChoices):
@@ -1614,6 +1617,7 @@ class FabricantCapteurPressionRampe(models.TextChoices):
     OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
+    CHOISIR = "CHOISIR", _("Choisir")
 
 
 class FabricantTuyauxHautePression(models.TextChoices):
@@ -1624,6 +1628,7 @@ class FabricantTuyauxHautePression(models.TextChoices):
     OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
+    CHOISIR = "CHOISIR", _("Choisir")
 
 
 class FabricantInjecteur(models.TextChoices):
@@ -1639,6 +1644,7 @@ class FabricantInjecteur(models.TextChoices):
     OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
+    CHOISIR = "CHOISIR", _("Choisir")
 
 
 class FabricantConnecteurInjecteur(models.TextChoices):
@@ -1651,3 +1657,4 @@ class FabricantConnecteurInjecteur(models.TextChoices):
     OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
+    CHOISIR = "CHOISIR", _("Choisir")

@@ -69,7 +69,7 @@ class CourroieDistributionForm(forms.ModelForm):
                 self.fields[f].required = False
 
     def clean_kilometres_courroie(self):
-        km = self.cleaned_data["kilometres_courroie"]
+        km = self.cleaned_data["kilometrage_cour"]
 
         if km < self.exemplaire.kilometres_chassis:
             raise ValidationError(

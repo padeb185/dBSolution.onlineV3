@@ -212,6 +212,35 @@
             >
         </a>
 
+             <!-- ================================================== -->
+        <!-- ALLUMAGE -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'injection:injection_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Injection" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_injection|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/injection.png' %}"
+                alt="{% trans 'Injection' %}"
+                class="h-[60px] w-[60px]"
+            >
+        </a>
+
+
     </div>
 
     <!-- ================================================== -->
