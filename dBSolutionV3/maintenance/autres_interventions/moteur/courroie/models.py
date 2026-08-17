@@ -1,7 +1,7 @@
 from decimal import Decimal, ROUND_HALF_UP
 from django.core.validators import StepValueValidator
 from django.conf import settings
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, FieldDoesNotExist
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES

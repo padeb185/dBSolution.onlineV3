@@ -1560,3 +1560,94 @@ class FabricantJointSpi(models.TextChoices):
     OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
+
+
+
+class FabricantPompeCarburant(models.TextChoices):
+    BOSCH = "BOSCH", _("Bosch")
+    DELPHI = "DELPHI", _("Delphi")
+    DENSO = "DENSO", _("Denso")
+    VDO = "VDO", _("VDO")
+    PIERBURG = "PIERBURG", _("Pierburg")
+    HITACHI = "HITACHI", _("Hitachi")
+    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
+    WALBRO = "WALBRO", _("Walbro")
+    TI_AUTOMOTIVE = "TI_AUTOMOTIVE", _("TI Automotive")
+    OEM = "OEM", _("Origine constructeur (OEM)")
+    AUTRE = "AUTRE", _("Autre fabricant")
+    INCONNU = "INCONNU", _("Fabricant inconnu")
+
+
+class FabricantPompeHautePression(models.TextChoices):
+    BOSCH = "BOSCH", _("Bosch")
+    DELPHI = "DELPHI", _("Delphi")
+    DENSO = "DENSO", _("Denso")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
+    VDO = "VDO", _("VDO")
+    HITACHI = "HITACHI", _("Hitachi")
+    OEM = "OEM", _("Origine constructeur (OEM)")
+    AUTRE = "AUTRE", _("Autre fabricant")
+    INCONNU = "INCONNU", _("Fabricant inconnu")
+
+
+class FabricantRampeInjection(models.TextChoices):
+    BOSCH = "BOSCH", _("Bosch")
+    DELPHI = "DELPHI", _("Delphi")
+    DENSO = "DENSO", _("Denso")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
+    VDO = "VDO", _("VDO")
+    HITACHI = "HITACHI", _("Hitachi")
+    OEM = "OEM", _("Origine constructeur (OEM)")
+    AUTRE = "AUTRE", _("Autre fabricant")
+    INCONNU = "INCONNU", _("Fabricant inconnu")
+
+
+class FabricantCapteurPressionRampe(models.TextChoices):
+    BOSCH = "BOSCH", _("Bosch")
+    DELPHI = "DELPHI", _("Delphi")
+    DENSO = "DENSO", _("Denso")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
+    VDO = "VDO", _("VDO")
+    HELLA = "HELLA", _("Hella")
+    FACET = "FACET", _("Facet")
+    FAE = "FAE", _("FAE")
+    OEM = "OEM", _("Origine constructeur (OEM)")
+    AUTRE = "AUTRE", _("Autre fabricant")
+    INCONNU = "INCONNU", _("Fabricant inconnu")
+
+
+class FabricantTuyauxHautePression(models.TextChoices):
+    BOSCH = "BOSCH", _("Bosch")
+    DELPHI = "DELPHI", _("Delphi")
+    DENSO = "DENSO", _("Denso")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
+    OEM = "OEM", _("Origine constructeur (OEM)")
+    AUTRE = "AUTRE", _("Autre fabricant")
+    INCONNU = "INCONNU", _("Fabricant inconnu")
+
+
+class FabricantInjecteur(models.TextChoices):
+    BOSCH = "BOSCH", _("Bosch")
+    DELPHI = "DELPHI", _("Delphi")
+    DENSO = "DENSO", _("Denso")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
+    VDO = "VDO", _("VDO")
+    SIEMENS = "SIEMENS", _("Siemens")
+    HITACHI = "HITACHI", _("Hitachi")
+    KEIHIN = "KEIHIN", _("Keihin")
+    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
+    OEM = "OEM", _("Origine constructeur (OEM)")
+    AUTRE = "AUTRE", _("Autre fabricant")
+    INCONNU = "INCONNU", _("Fabricant inconnu")
+
+
+class FabricantConnecteurInjecteur(models.TextChoices):
+    BOSCH = "BOSCH", _("Bosch")
+    DELPHI = "DELPHI", _("Delphi")
+    DENSO = "DENSO", _("Denso")
+    TE_CONNECTIVITY = "TE_CONNECTIVITY", _("TE Connectivity")
+    AMP = "AMP", _("AMP")
+    MOLEX = "MOLEX", _("Molex")
+    OEM = "OEM", _("Origine constructeur (OEM)")
+    AUTRE = "AUTRE", _("Autre fabricant")
+    INCONNU = "INCONNU", _("Fabricant inconnu")
