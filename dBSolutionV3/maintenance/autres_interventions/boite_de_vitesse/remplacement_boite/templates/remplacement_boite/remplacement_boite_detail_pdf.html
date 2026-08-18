@@ -370,7 +370,7 @@
 
 <h2>{% trans "Boîte de vitesse" %}</h2>
 
-<div class="box">
+<div>
     <table class="table-2-cols">
         <thead>
             <tr>
@@ -429,7 +429,7 @@
 
 <h2>{% trans "Huile de boîte" %}</h2>
 
-<div class="box">
+<div>
     <table class="table-2-cols">
         <thead>
             <tr>
@@ -560,7 +560,7 @@
 
 <h2>{% trans "Pièces, produits utilisés et main-d'œuvre" %}</h2>
 
-<div class="box">
+<div>
 
     {% if rapport.lignes %}
         <table>
@@ -638,7 +638,7 @@
 
                 <tr class="total">
                     <td colspan="4" class="text-right">
-                        {% trans "Main-d'œuvre" %}
+                        {% trans "Main-d'œuvre HTVA" %}
                     </td>
 
                     <td class="text-right">
@@ -648,7 +648,7 @@
 
                 <tr class="total-general">
                     <td colspan="4" class="text-right">
-                        {% trans "Total général avec main-d'œuvre" %}
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
                     </td>
 
                     <td class="text-right">
@@ -666,7 +666,7 @@
         <table>
             <tbody>
                 <tr class="total">
-                    <td>{% trans "Main-d'œuvre" %}</td>
+                    <td>{% trans "Main-d'œuvre HTVA" %}</td>
 
                     <td class="text-right">
                         {{ remplacement.cout_main_oeuvre|default:0|floatformat:2 }} €
@@ -674,7 +674,7 @@
                 </tr>
 
                 <tr class="total-general">
-                    <td>{% trans "Total général avec main-d'œuvre" %}</td>
+                    <td>{% trans "Total général avec main-d'œuvre HTVA" %}</td>
 
                     <td class="text-right">
                         {{ remplacement.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €

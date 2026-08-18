@@ -252,7 +252,6 @@
     </div>
 {% endif %}
 
-<br>
 <h1>{% trans "Détail du checkup ABS" %}</h1>
 
 <!-- ================= INFOS GÉNÉRALES ================= -->
@@ -324,7 +323,7 @@
 <br>
 <h2>{% trans "État des composants ABS" %}</h2>
 
-<div class="box">
+<div>
 
     <table>
         <thead>
@@ -542,7 +541,7 @@
 
 <h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
 
-<div class="box">
+<div>
 
     {% if rapport.lignes %}
 
@@ -623,7 +622,7 @@
 
                 <tr class="total">
                     <td colspan="5" class="text-right">
-                        {% trans "Main-d'œuvre" %}
+                        {% trans "Main-d'œuvre HTVA" %}
                     </td>
 
                     <td class="text-right">
@@ -633,7 +632,7 @@
 
                 <tr class="total-general">
                     <td colspan="5" class="text-right">
-                        {% trans "Total général avec main-d'œuvre" %}
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
                     </td>
 
                     <td class="text-right">
@@ -655,7 +654,7 @@
                 <tr class="total">
                     <td>
                         <div>
-                            <strong>{% trans "Main-d'œuvre" %}</strong>
+                            <strong>{% trans "Main-d'œuvre HTVA" %}</strong>
                         </div>
 
                         <div class="text-right" style="margin-top: 4px;">
@@ -664,10 +663,10 @@
                     </td>
                 </tr>
 
-                <tr class="total">
+                <tr class="total-general">
                     <td>
                         <div>
-                            <strong>{% trans "Total général" %}</strong>
+                            <strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong>
                         </div>
 
                         <div class="text-right" style="margin-top: 4px;">
