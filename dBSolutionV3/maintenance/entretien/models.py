@@ -168,8 +168,27 @@ class RefroidissementQualiteEtat(models.TextChoices):
 
 
 class HuilePontEtat(models.TextChoices):
-    PORSCHE_75W90 = "75W90", _("Porsche 75W90")
+    SEPTANTE_CINQ80 = "75W80", _("75W80")
+    SEPTANTE_CINQ85 = "75W85", _("75W85")
+    SEPTANTE_CINQ90 = "75W90", _("75W90")
+    SEPTANTE_CINQ110 = "75W110", _("75W110")
     SEPTANTE_CINQ140 = "75W140", _("75W140")
+
+    QUATRE_VINGT90 = "80W90", _("80W90")
+    QUATRE_VINGT140 = "80W140", _("80W140")
+
+    QUATRE_VINGT_CINQ90 = "85W90", _("85W90")
+    QUATRE_VINGT_CINQ140 = "85W140", _("85W140")
+
+    SAE90 = "SAE90", _("SAE 90")
+    SAE140 = "SAE140", _("SAE 140")
+
+    PORSCHE_75W90 = "PORSCHE_75W90", _("Porsche 75W90")
+    PORSCHE_75W140 = "PORSCHE_75W140", _("Porsche 75W140")
+
+    AUTRE = "AUTRE", _("Autre")
+    INCONNUE = "INCONNUE", _("Huile inconnue")
+
 
 
 
@@ -552,9 +571,9 @@ class Entretien(TechnicienMixin, models.Model):
         max_length=25,
         choices=FabricantLubrifiant.choices,
         default=FabricantLubrifiant.MOBIL,
-        verbose_name=_("Nom du fabricant"),
+        verbose_name=_("Fabricant"),
     )
-    pont_ajout_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ140, verbose_name=_("Qualité d'huile de pont"))
+    pont_ajout_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ80, verbose_name=_("Qualité d'huile de pont"))
     pont_ajout_huile_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2, verbose_name=_("Quantité d'huile de pont ajoutée en litres"), validators=[StepValueValidator(0.1)])
     pont_ajout_huile_prix = models.DecimalField(
         max_digits=10,

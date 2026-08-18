@@ -548,9 +548,10 @@
         {% endfor %}
 
         <br>
-
-         <!-- Section jeux rotules -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux rotules de suspensions inférieures" %}</h2>
+  <!-- Section jeux rotules -->
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/rotule-suspension.png' %}" alt="Jeux rotules suspension inférieures"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Jeux rotules de suspension inférieur" %}</h2>
         {% for field in form %}
             {% if "jeu_rotule_suspension_inf" in field.name %}
             <div class="mb-4">
@@ -582,7 +583,9 @@
         <br>
 
          <!-- Section jeux rotules -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux rotules de suspensions supérieures" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/rotule-suspension.png' %}" alt="Jeux rotules suspension supérieures"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Jeux rotules de suspension supérieur" %}</h2>
         {% for field in form %}
             {% if "jeu_rotule_suspension_sup" in field.name %}
             <div class="mb-4">
@@ -614,9 +617,11 @@
         <br>
 
          <!-- Section jeux biellettes -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux biellettes" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/biellette-barre-stab.png' %}" alt="Jeu barre stabilisatrice"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Jeux biellettes de barre stabilisatrice" %}</h2>
         {% for field in form %}
-            {% if "jeu_Bi" in field.name %}
+            {% if "jeu_Biellette_barre" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -645,8 +650,12 @@
 
         <br>
 
+
+
         <!-- Section jeux barre -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux barres stabilisatrice" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/barre-stabilisatrice.png' %}" alt="Jeu barre stabilisatrice"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Jeux barres stabilisatrice" %}</h2>
         {% for field in form %}
             {% if "jeu_barre" in field.name %}
             <div class="mb-4">
@@ -679,6 +688,9 @@
 
 
               <!-- Section jeux biellettes -->
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/biellette-direction.png' %}" alt="Jeu biellette de direction"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Jeux biellettes de direction" %}</h2>
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux biellettes de direction" %}</h2>
         {% for field in form %}
             {% if "jeu_biellette_direction" in field.name %}
