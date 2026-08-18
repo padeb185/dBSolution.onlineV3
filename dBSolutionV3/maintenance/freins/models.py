@@ -129,25 +129,25 @@ class ControleFreins(TechnicienMixin, models.Model):
 
     avant_freins_pl_usure_plaquettes = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avant (%)"))
     avant_freins_pl_plaquettes_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Plaquettes avant"))
-    avant_freins_pl_fabricant = models.CharField(max_length=25, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR,verbose_name=_("Fabricant des plaquettes avant"))
+    avant_freins_pl_fabricant = models.CharField(max_length=25, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR,verbose_name=_("Fabricant"))
     avant_freins_pl_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
     avant_freins_pl_prix = models.DecimalField( max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat des plaquettes avant HTVA")
+        verbose_name=_("Prix d'achat HTVA")
     )
 
 
 
 
     avant_freins_d_epaisseur_disques = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant (mm)"))
-    avant_freins_d_fentes_disques = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes sur les disques avant"))
+    avant_freins_d_fentes_disques = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes"))
     avant_freins_d_disques_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Disques avant"))
     avant_freins_d_fabricant = models.CharField(
         max_length=25,
         choices=FabricantFrein.choices,
         default=FabricantFrein.CHOISIR,
-        verbose_name=_("Fabricant des disques avant")
+        verbose_name=_("Fabricant")
     )
 
     avant_freins_d_quantite = models.PositiveIntegerField(
@@ -159,7 +159,7 @@ class ControleFreins(TechnicienMixin, models.Model):
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat des disques avant HTVA")
+        verbose_name=_("Prix d'achat HTVA")
     )
 
     # ==========================
@@ -182,7 +182,7 @@ class ControleFreins(TechnicienMixin, models.Model):
         max_length=25,
         choices=FabricantFrein.choices,
         default=FabricantFrein.CHOISIR,
-        verbose_name=_("Fabricant des plaquettes arrière")
+        verbose_name=_("Fabricant")
     )
 
     arriere_freins_pl_quantite = models.PositiveIntegerField(
@@ -194,7 +194,7 @@ class ControleFreins(TechnicienMixin, models.Model):
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat des plaquettes arrière HTVA")
+        verbose_name=_("Prix d'achat HTVA")
     )
 
     # ==========================
@@ -210,7 +210,7 @@ class ControleFreins(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("Présence de fentes sur les disques arrière")
+        verbose_name=_("Présence de fentes")
     )
 
     arriere_freins_d_disques_remplacer = models.CharField(
@@ -224,7 +224,7 @@ class ControleFreins(TechnicienMixin, models.Model):
         max_length=25,
         choices=FabricantFrein.choices,
         default=FabricantFrein.CHOISIR,
-        verbose_name=_("Fabricant des disques arrière")
+        verbose_name=_("Fabricant")
     )
 
     arriere_freins_d_quantite = models.PositiveIntegerField(
@@ -236,7 +236,7 @@ class ControleFreins(TechnicienMixin, models.Model):
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat des disques arrière HTVA")
+        verbose_name=_("Prix d'achat HTVA")
     )
 
 
@@ -247,6 +247,12 @@ class ControleFreins(TechnicienMixin, models.Model):
 
     # --- Liquide ---
     liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État liquide de frein"))
+    liquide_frein_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantLubrifiant.choices,
+        default=FabricantLubrifiant.CASTROL,
+        verbose_name=_("Fabricant")
+    )
     liquide_frein_specif = models.CharField(max_length=100, choices=LiquideFreinsQualite.choices, default=LiquideFreinsQualite.DOT4,  blank=True,verbose_name=_("Spécification liquide de frein"))
     liquide_frein_quantite = models.DecimalField(
         max_digits=4,
@@ -254,20 +260,15 @@ class ControleFreins(TechnicienMixin, models.Model):
         default=0.0,
         null=True,
         blank=True,
-        verbose_name=_("Quantité liquide de frein (L)"),
+        verbose_name=_("Quantité"),
         validators=[StepValueValidator(0.1)],
     )
-    liquide_frein_fabricant = models.CharField(
-        max_length=25,
-        choices=FabricantLubrifiant.choices,
-        default=FabricantLubrifiant.CASTROL,
-        verbose_name=_("Fabricant du liquide de frein")
-    )
+
     liquide_frein_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat du liquide HTVA")
+        verbose_name=_("Prix d'achat HTVA")
     )
 
 
@@ -281,7 +282,7 @@ class ControleFreins(TechnicienMixin, models.Model):
         max_length=25,
         choices=FabricantFrein.choices,
         default=FabricantFrein.CHOISIR,
-        verbose_name=_("Fabricant de la mâchoire avant gauche"),
+        verbose_name=_("Fabricant"),
     )
     machoire_avg_quantite = models.PositiveIntegerField(
         default=0,
@@ -291,7 +292,7 @@ class ControleFreins(TechnicienMixin, models.Model):
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat de la mâchoire avant gauche HTVA"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     machoire_avd = models.CharField(
@@ -304,7 +305,7 @@ class ControleFreins(TechnicienMixin, models.Model):
         max_length=25,
         choices=FabricantFrein.choices,
         default=FabricantFrein.CHOISIR,
-        verbose_name=_("Fabricant de la mâchoire avant droite"),
+        verbose_name=_("Fabricant"),
     )
     machoire_avd_quantite = models.PositiveIntegerField(
         default=0,
@@ -314,7 +315,7 @@ class ControleFreins(TechnicienMixin, models.Model):
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat de la mâchoire avant droite HTVA"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     machoire_arg = models.CharField(
@@ -327,7 +328,7 @@ class ControleFreins(TechnicienMixin, models.Model):
         max_length=25,
         choices=FabricantFrein.choices,
         default=FabricantFrein.CHOISIR,
-        verbose_name=_("Fabricant de la mâchoire arrière gauche"),
+        verbose_name=_("Fabricant"),
     )
     machoire_arg_quantite = models.PositiveIntegerField(
         default=0,
@@ -337,7 +338,7 @@ class ControleFreins(TechnicienMixin, models.Model):
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat de la mâchoire arrière gauche HTVA"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     machoire_ard = models.CharField(
@@ -350,7 +351,7 @@ class ControleFreins(TechnicienMixin, models.Model):
         max_length=25,
         choices=FabricantFrein.choices,
         default=FabricantFrein.CHOISIR,
-        verbose_name=_("Fabricant de la mâchoire arrière droite"),
+        verbose_name=_("Fabricant"),
     )
     machoire_ard_quantite = models.PositiveIntegerField(
         default=0,
@@ -360,7 +361,7 @@ class ControleFreins(TechnicienMixin, models.Model):
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Prix d'achat de la mâchoire arrière droite HTVA"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
 
