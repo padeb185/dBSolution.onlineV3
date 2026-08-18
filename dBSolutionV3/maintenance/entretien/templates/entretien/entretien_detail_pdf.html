@@ -421,7 +421,7 @@
             {% if entretien.moteur_entretien_vidange == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_moteur_entretien_vidange_display }}</span>
             {% elif entretien.moteur_entretien_vidange == "FAIT" %}
-                <span class="etat-Bleu">{{ entretien.get_moteur_entretien_vidange_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_moteur_entretien_vidange_display }}</span>
             {% elif entretien.moteur_entretien_vidange == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_moteur_entretien_vidange_display }}</span>
             {% endif %}
@@ -739,7 +739,7 @@
             <td>{% trans "Lave-glace" %}</td>
             <td>
                 {% if entretien.lave_glace_liquide_etat == "BON" %}
-                    <span class="etat-gris">{{ entretien.get_lave_glace_liquide_etat_display }}</span>
+                    <span class="etat-vert">{{ entretien.get_lave_glace_liquide_etat_display }}</span>
                 {% elif entretien.lave_glace_liquide_etat == "AJOUTER" %}
                     <span class="etat-bleu">{{ entretien.get_lave_glace_liquide_etat_display }}</span>
                 {% elif entretien.lave_glace_liquide_etat == "REMPLACER" %}
@@ -754,7 +754,7 @@
             <td>{% trans "Liquide de freins" %}</td>
             <td>
                 {% if entretien.frein_liquide_etat == "BON" %}
-                    <span class="etat-gris">{{ entretien.get_frein_liquide_etat_display }}</span>
+                    <span class="etat-vert">{{ entretien.get_frein_liquide_etat_display }}</span>
                 {% elif entretien.frein_liquide_etat == "AJOUTER" %}
                     <span class="etat-bleu">{{ entretien.get_frein_liquide_etat_display }}</span>
                 {% elif entretien.frein_liquide_etat == "REMPLACER" %}
@@ -769,7 +769,7 @@
             <td>{% trans "Liquide de refroidissement" %}</td>
             <td>
                 {% if entretien.refroidissement_liquide_etat == "BON" %}
-                    <span class="etat-gris">{{ entretien.get_refroidissement_liquide_etat_display }}</span>
+                    <span class="etat-vert">{{ entretien.get_refroidissement_liquide_etat_display }}</span>
                 {% elif entretien.refroidissement_liquide_etat == "AJOUTER" %}
                     <span class="etat-bleu">{{ entretien.get_refroidissement_liquide_etat_display }}</span>
                 {% elif entretien.refroidissement_liquide_etat == "REMPLACER" %}
@@ -1098,7 +1098,7 @@
 
                 <tr class="total">
                     <td colspan="4" class="total-label">
-                        {% trans "Main-d'œuvre" %}
+                        {% trans "Main-d'œuvre HTVA" %}
                     </td>
 
                     <td class="total-montant">
@@ -1130,7 +1130,7 @@
                 <tr class="total">
                     <td>
                         <strong>
-                            {% trans "Main-d'œuvre" %}
+                            {% trans "Main-d'œuvre HTVA" %}
                         </strong>
                     </td>
 
@@ -1144,7 +1144,7 @@
                 <tr class="total-general">
                     <td>
                         <strong>
-                            {% trans "Total général HTVA" %}
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
                         </strong>
                     </td>
 

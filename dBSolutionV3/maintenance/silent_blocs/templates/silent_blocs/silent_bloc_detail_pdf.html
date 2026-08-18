@@ -653,11 +653,11 @@
 
 <h2>{% trans "Pièces à remplacer, remplacées et main-d'œuvre" %}</h2>
 
-<div class="box">
+<div>
 
     {% if rapport.lignes %}
 
-        <table>source
+        <table>
             <thead>
                 <tr>
                     <th>{% trans "Pièce" %}</th>
@@ -743,7 +743,7 @@
                        <td colspan="4" class="text-right">
 
                             <strong>
-                                {% trans "Main-d'œuvre" %}
+                                {% trans "Main-d'œuvre HTVA" %}
                             </strong>
                         </td>
 
@@ -758,7 +758,7 @@
                        <td colspan="4" class="text-right">
 
                             <strong>
-                                {% trans "Total général avec main-d'œuvre" %}
+                                {% trans "Total général avec main-d'œuvre HTVA" %}
                             </strong>
                         </td>
 
@@ -783,7 +783,7 @@
 
                 <tr class="total">
                     <td class="text-left">
-                        <strong>{% trans "Main-d'œuvre" %}</strong>
+                        <strong>{% trans "Main-d'œuvre HTVA" %}</strong>
                     </td>
 
                     <td class="text-right">
@@ -795,7 +795,7 @@
 
                 <tr class="total-general">
                     <td class="text-left">
-                        <strong>{% trans "Total général" %}</strong>
+                        <strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong>
                     </td>
 
                     <td class="text-right">

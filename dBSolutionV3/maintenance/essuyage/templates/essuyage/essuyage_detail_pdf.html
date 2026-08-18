@@ -329,7 +329,7 @@
 
 <h2>{% trans "État des composants du système d'essuyage" %}</h2>
 
-<div class="box">
+<div>
 
     <table>
 
@@ -751,7 +751,7 @@
 
 <h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
 
-<div class="box">
+<div>
 
     {% if rapport.lignes %}
 
@@ -775,30 +775,35 @@
                     <tr>
 
                         <td>
-                            {{ ligne.champ }}
+                            {{ ligne.champ|default:"-" }}
                         </td>
 
                         <td>
 
                             {% if ligne.etat == "OK" %}
+
                                 <span class="etat-vert">
                                     {{ ligne.etat_label|default:"-" }}
                                 </span>
 
                             {% elif ligne.etat == "NOT_OK" %}
+
                                 <span class="etat-rouge">
                                     {{ ligne.etat_label|default:"-" }}
                                 </span>
 
                             {% elif ligne.etat == "REMPLACE" %}
+
                                 <span class="etat-bleu">
                                     {{ ligne.etat_label|default:"-" }}
                                 </span>
 
                             {% else %}
+
                                 <span class="etat-gris">
                                     {{ ligne.etat_label|default:"-" }}
                                 </span>
+
                             {% endif %}
 
                         </td>
@@ -824,40 +829,55 @@
                 {% endfor %}
 
 
+                <!-- TOTAL PIÈCES / PRODUITS -->
                 <tr class="total">
 
                     <td colspan="5" class="text-right">
-                        {% trans "Total pièces et produits HTVA" %}
+                        <strong>
+                            {% trans "Total pièces et produits HTVA" %}
+                        </strong>
                     </td>
 
                     <td class="text-right">
-                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                        <strong>
+                            {{ rapport.total_general|default:0|floatformat:2 }} €
+                        </strong>
                     </td>
 
                 </tr>
 
 
+                <!-- MAIN-D'ŒUVRE -->
                 <tr class="total">
 
                     <td colspan="5" class="text-right">
-                        {% trans "Main-d'œuvre" %}
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
 
                     <td class="text-right">
-                        {{ essuyage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        <strong>
+                            {{ essuyage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
                     </td>
 
                 </tr>
 
 
+                <!-- TOTAL GÉNÉRAL -->
                 <tr class="total-general">
 
                     <td colspan="5" class="text-right">
-                        {% trans "Total général avec main-d'œuvre" %}
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
 
                     <td class="text-right">
-                        {{ essuyage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        <strong>
+                            {{ essuyage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
                     </td>
 
                 </tr>
@@ -874,43 +894,51 @@
         </p>
 
         <table>
+
             <tbody>
 
+                <!-- MAIN-D'ŒUVRE -->
                 <tr class="total">
-                    <td>
 
-                        <div>
-                            <strong>{% trans "Main-d'œuvre" %}</strong>
-                        </div>
-
-                        <div class="text-right" style="margin-top: 4px;">
-                            {{ essuyage.cout_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
-
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ essuyage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+
                 </tr>
 
-                <tr class="total">
-                    <td>
 
-                        <div>
-                            <strong>{% trans "Total général" %}</strong>
-                        </div>
+                <!-- TOTAL GÉNÉRAL -->
+                <tr class="total-general">
 
-                        <div class="text-right" style="margin-top: 4px;">
-                            {{ essuyage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
-
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ essuyage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+
                 </tr>
 
             </tbody>
+
         </table>
 
     {% endif %}
 
 </div>
-
 
 <!-- ================================================== -->
 <!-- REMARQUES -->

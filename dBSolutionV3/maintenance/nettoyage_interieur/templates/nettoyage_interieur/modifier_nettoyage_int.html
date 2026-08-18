@@ -62,12 +62,62 @@
 
 
     <!-- Formulaire -->
-    <form method="post" class="space-y-4">
+    <!-- Form -->
+    <form method="POST" class="space-y-4">
         {% csrf_token %}
 
-        <h2 class="text-lg font-semibold mb-2">{% trans "Détails du nettoyage intérieur" %}</h2>
-
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/compteur.png' %}" alt="Kilometrage"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Kilométrage" %}</h2>
         {% for field in form %}
+            {% if "kilo" in field.name %}
+            <div class="mb-4">
+                <label class="block font-semibold mb-1">{{ field.label }}</label>
+                {{ field|add_class:"input" }}
+
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                {% endif %}
+
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/nettoyage_int.png' %}" alt="Nettoyage interieur"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Nettoyage intérieur" %}</h2>
+
+            {% for field in form %}
+                {% if "nettoyage_int" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endfor %}
+
+            <br>
+
+            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pays.png' %}" alt="pays"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Pays" %}
+        </h2>
+        {% for field in form %}
+            {% if "pays" in field.name %}
             <div class="mb-4">
                 <label class="block font-semibold mb-1">{{ field.label }}</label>
                 {{ field|add_class:"input" }}
@@ -75,10 +125,117 @@
                     <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
                 {% endif %}
                 {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/notes.png' %}" alt="Remarques"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Remarques" %}</h2>
+
+
+            {% for field in form %}
+                {% if "remarques" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+                {% endif %}
+            {% endfor %}
+
+            <br>
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/tag.png' %}" alt="Tag"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Étiquette" %}</h2>
+
+
+            {% for field in form %}
+                {% if "tag" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endfor %}
+            <br>
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/mecanicien.png' %}" alt="Technicien"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Technicien" %}</h2>
+
+            {% for field in form %}
+                {% if "tech" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endfor %}
+            <br>
+
+
+     <!-- Section taux -->
+       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/taux.png' %}" alt="taux horaire"
+                 style="width:60px; height:60px; margin-right:10px;">
+           {% trans "Taux horaire" %}
+       </h2>
+        {% for field in form %}
+            {% if "taux" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
                 {% endif %}
             </div>
+            {% endif %}
         {% endfor %}
+
+
+        <br>
+
 
                      <!-- Section temps main d'œuvre -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
