@@ -127,6 +127,7 @@ class FabricantFiltre(models.TextChoices):
     OPEN_PARTS = "OPEN_PARTS", "Open Parts"
     AUTRE = "AUTRE", _("Autre")
     CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
+    CHOISIR = "CHOISIR", _("Choisir")
 
 
 
