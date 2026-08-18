@@ -238,15 +238,16 @@ def remplacement_boite_form_view(request, exemplaire_id):
             "fields": [form[f.name] for f in form if "remplacement_effectue" in f.name],
         },
         {
-            "title": _("Étiquette"),
-            "icon": "icons/tag.png",
-            "fields": [form[f.name] for f in form if "tag" in f.name],
-        },
-        {
             "title": _("Pays"),
             "icon": "icons/pays.png",
             "fields": [form[f.name] for f in form if "pays" in f.name],
         },
+        {
+            "title": _("Étiquette"),
+            "icon": "icons/tag.png",
+            "fields": [form[f.name] for f in form if "tag" in f.name],
+        },
+
         {
             "title": _("Remarques"),
             "icon": "icons/notes.png",
@@ -373,15 +374,16 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
             "fields": [form[f.name] for f in form if "remplacement_effectue" in f.name],
         },
         {
-            "title": _("Etiquette"),
-            "icon": "icons/tag.png",
-            "fields": [form[f.name] for f in form if "tag" in f.name],
-        },
-        {
             "title": _("Pays"),
             "icon": "icons/pays.png",
             "fields": [form[f.name] for f in form if "pays" in f.name],
         },
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [form[f.name] for f in form if "tag" in f.name],
+        },
+
 
         {
             "title": _("Remarques"),

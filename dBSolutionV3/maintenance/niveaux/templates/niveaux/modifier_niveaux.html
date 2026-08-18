@@ -375,6 +375,27 @@
 
         <br>
 
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pays.png' %}" alt="pays"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Pays" %}
+        </h2>
+        {% for field in form %}
+            {% if "pays" in field.name %}
+            <div class="mb-4">
+                <label class="block font-semibold mb-1">{{ field.label }}</label>
+                {{ field|add_class:"input" }}
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                {% endif %}
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
 
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/tag.png' %}" alt="Etiquette"
@@ -427,7 +448,7 @@
 
         <!-- Section remarques -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/notes.png' %}" alt="Etiquette"
+            <img src="{% static 'icons/notes.png' %}" alt="Remarques"
                  class="w-12 h-12 mr-2">
             {% trans "Remarques" %}</h2>
         {% for field in form %}

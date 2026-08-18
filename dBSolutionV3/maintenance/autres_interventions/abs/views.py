@@ -238,17 +238,17 @@ def abs_form_view(request, exemplaire_id):
             "icon": "icons/roue.png",
             "fields": [form[f.name] for f in form if "serrage" in f.name],
         },
-
-        {
-            "title": _("Etiquette"),
-            "icon": "icons/tag.png",
-            "fields": [form[f.name] for f in form if "tag" in f.name],
-        },
         {
             "title": _("Pays"),
             "icon": "icons/pays.png",
             "fields": [form[f.name] for f in form if "pays" in f.name],
         },
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [form[f.name] for f in form if "tag" in f.name],
+        },
+
         {
             "title": _("Remarques"),
             "icon": "icons/notes.png",
@@ -377,17 +377,17 @@ def modifier_abs_view(request, abs_id):
             "icon": "icons/roue.png",
             "fields": [form[f.name] for f in form if "serrage" in f.name],
         },
-
-        {
-            "title": _("Etiquette"),
-            "icon": "icons/tag.png",
-            "fields": [form[f.name] for f in form if "tag" in f.name],
-        },
         {
             "title": _("Pays"),
             "icon": "icons/pays.png",
             "fields": [form[f.name] for f in form if "pays" in f.name],
         },
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [form[f.name] for f in form if "tag" in f.name],
+        },
+
 
         {
             "title": _("Remarques"),
