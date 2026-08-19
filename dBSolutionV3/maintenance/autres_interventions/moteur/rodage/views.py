@@ -315,7 +315,7 @@ def modifier_rodage_view(request, rodage_id):
                 }
             )
 
-            messages.success(request, _("rodage modifié avec succès !"))
+            messages.success(request, _("Rodage modifié avec succès !"))
             return redirect("rodage:rodage_detail", rodage_id=rodage.id)
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))

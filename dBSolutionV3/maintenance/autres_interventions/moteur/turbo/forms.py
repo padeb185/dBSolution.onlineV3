@@ -36,12 +36,14 @@ class TurboForm(forms.ModelForm):
                 "class": "input"
             })
 
-
         if self.instance and self.instance.main_oeuvre:
             mo = self.instance.main_oeuvre
 
             self.fields["temps_heures"].initial = mo.heures
             self.fields["temps_minutes"].initial = mo.minutes
+
+            if "taux_horaire" in self.fields:
+                self.fields["taux_horaire"].initial = mo.taux_horaire
 
 
         # -------- DATE --------
@@ -106,20 +108,35 @@ class TurboForm(forms.ModelForm):
         # -------- MAIN D'ŒUVRE --------
         heures = self.cleaned_data.get("temps_heures") or 0
         minutes = self.cleaned_data.get("temps_minutes") or 0
+        taux_horaire = self.cleaned_data.get("taux_horaire")
+
         total_minutes = heures * 60 + minutes
 
         main = instance.main_oeuvre
 
         if main:
             main.temps_minutes = total_minutes
-            main.save(update_fields=["temps_minutes"])
+
+            if taux_horaire is not None:
+                main.taux_horaire = taux_horaire
+
+            main.save(
+                update_fields=[
+                    "temps_minutes",
+                    "taux_horaire",
+                ]
+            )
+
         else:
             main = MainDoeuvre.objects.create(
                 utilisateur=self.user,
-                temps_minutes=total_minutes
+                temps_minutes=total_minutes,
+                taux_horaire=taux_horaire,
             )
+
             instance.main_oeuvre = main
 
+        # -------- SAUVEGARDE FINALE --------
         if commit:
             instance.save()
 

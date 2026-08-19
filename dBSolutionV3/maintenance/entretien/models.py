@@ -311,7 +311,7 @@ class Entretien(TechnicienMixin, models.Model):
     moteur_bouchon_vidange_fabricant = models.CharField(
         max_length=25,
         choices=FabricantPiece.choices,
-        default=FabricantPiece.AUTRE,
+        default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
     moteur_bouchon_vidange_quantite = models.PositiveIntegerField(
