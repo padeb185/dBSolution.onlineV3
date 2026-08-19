@@ -350,7 +350,7 @@ class Entretien(TechnicienMixin, models.Model):
     moteur_ajout_huile =  models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE, verbose_name=_("Ajout de la nouvelle huile moteur"))
     moteur_ajout_huile_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.MOBIL,verbose_name=_("Fabricant"))
     moteur_ajout_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30,verbose_name=_("Qualité d'huile"))
-    moteur_ajout_huile_quantite =  models.DecimalField(default=0.0, decimal_places=2,  max_digits=4,  verbose_name=_("Quantité en litres"), validators=[StepValueValidator(0.1)])
+    moteur_ajout_huile_quantite =  models.DecimalField(default=0.0, decimal_places=2,  max_digits=4,  verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
     moteur_ajout_huile_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
 
     filtre_huile = models.CharField(
@@ -553,7 +553,7 @@ class Entretien(TechnicienMixin, models.Model):
         verbose_name=_("Fabricant"),
     )
     boite_ajout_huile_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices, default=HuileEtat.ZERO_30,verbose_name=_("Qualité d'huile"))
-    boite_ajout_huile_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  verbose_name=_("Quantité en litres"), validators=[StepValueValidator(0.1)])
+    boite_ajout_huile_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
     boite_ajout_huile_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -574,7 +574,7 @@ class Entretien(TechnicienMixin, models.Model):
         verbose_name=_("Fabricant"),
     )
     pont_ajout_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ80, verbose_name=_("Qualité d'huile de pont"))
-    pont_ajout_huile_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2, verbose_name=_("Quantité en litres"), validators=[StepValueValidator(0.1)])
+    pont_ajout_huile_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2, verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
     pont_ajout_huile_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -585,7 +585,7 @@ class Entretien(TechnicienMixin, models.Model):
 
     lave_glace_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de lave-glace"))
     lave_glace_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Fabricant"))
-    lave_glace_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité en litres"))
+    lave_glace_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité ajoutée en litres"))
     lave_glace_qualite = models.CharField(max_length=25, choices=LaveGlaceQualite.choices,default=LaveGlaceQualite.HIVER,verbose_name=_("Qualité"))
     lave_glace_prix = models.DecimalField(
         max_digits=10,
@@ -597,7 +597,7 @@ class Entretien(TechnicienMixin, models.Model):
 
     frein_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de freins"))
     frein_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Fabricant"))
-    frein_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité en litres"))
+    frein_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité ajoutée en litres"))
     frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité"))
     frein_liquide_prix = models.DecimalField(
         max_digits=10,
@@ -610,7 +610,7 @@ class Entretien(TechnicienMixin, models.Model):
 
     refroidissement_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de refroidissement"))
     refroidissement_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant"))
-    refroidissement_liquide_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité ajouté en litres"))
+    refroidissement_liquide_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité ajoutée en litres"))
     refroidissement_liquide_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité"))
     refroidissement_liquide_prix = models.DecimalField(
         max_digits=10,
@@ -622,7 +622,7 @@ class Entretien(TechnicienMixin, models.Model):
 
     liquide_direction_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de direction"))
     liquide_direction_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant"))
-    liquide_direction_quantite =  models.DecimalField(default=0.0,  max_digits=4, decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité ajouté en litres"))
+    liquide_direction_quantite =  models.DecimalField(default=0.0,  max_digits=4, decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité ajoutée en litres"))
     liquide_direction_qualite = models.CharField(max_length=25, choices=TypeHuileDirection.choices,default=TypeHuileDirection.CHOISIR,verbose_name=_("Qualité"))
     liquide_direction_prix = models.DecimalField(
         max_digits=10,
@@ -1006,7 +1006,7 @@ class Entretien(TechnicienMixin, models.Model):
         if self.voiture_exemplaire and self.kilometrage_entretien is not None:
             if self.kilometrage_entretien < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_checkup': _(
+                    'kilometrage_entretien': _(
                         f"Le kilométrage de l'entretien ({self.kilometrage_entretien}) "
                         f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
                     )

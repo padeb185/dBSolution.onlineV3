@@ -118,8 +118,14 @@ class RemplacementMoteurForm(forms.ModelForm):
             self.initial["nombre_remplacements_moteurs"] = prochain_numero
             self.fields["nombre_remplacements_moteurs"].widget.attrs["value"] = prochain_numero
 
-        if not self.instance.pk and not self.initial.get("taux_horaire"):
-            self.initial["taux_horaire"] = Decimal("50.00")
+        if self.instance and self.instance.main_oeuvre:
+            mo = self.instance.main_oeuvre
+
+            self.fields["temps_heures"].initial = mo.heures
+            self.fields["temps_minutes"].initial = mo.minutes
+
+            if "taux_horaire" in self.fields:
+                self.fields["taux_horaire"].initial = mo.taux_horaire
 
     def clean(self):
         cleaned_data = super().clean()
@@ -160,33 +166,47 @@ class RemplacementMoteurForm(forms.ModelForm):
             instance.kilometres_chassis = km_chassis
 
         instance_exists = (
-            instance.pk
-            and RemplacementMoteur.objects.filter(pk=instance.pk).exists()
+                instance.pk
+                and RemplacementMoteur.objects.filter(pk=instance.pk).exists()
         )
 
         if not instance_exists and voiture:
             instance.nombre_remplacements_moteurs = (
-                RemplacementMoteur.objects.filter(
-                    voiture_exemplaire_id=voiture.id,
-                    remplacement_effectue=True
-                ).count() + 1
+                    RemplacementMoteur.objects.filter(
+                        voiture_exemplaire_id=voiture.id,
+                        remplacement_effectue=True
+                    ).count() + 1
             )
 
+        # -------- MAIN D'ŒUVRE --------
         heures = self.cleaned_data.get("temps_heures") or 0
         minutes = self.cleaned_data.get("temps_minutes") or 0
+        taux_horaire = self.cleaned_data.get("taux_horaire")
+
         total_minutes = heures * 60 + minutes
 
         main = instance.main_oeuvre
 
         if main:
             main.temps_minutes = total_minutes
-            main.save(update_fields=["temps_minutes"])
+
+            if taux_horaire is not None:
+                main.taux_horaire = taux_horaire
+
+            main.save(
+                update_fields=[
+                    "temps_minutes",
+                    "taux_horaire",
+                ]
+            )
 
         elif self.user:
             main = MainDoeuvre.objects.create(
                 utilisateur=self.user,
-                temps_minutes=total_minutes
+                temps_minutes=total_minutes,
+                taux_horaire=taux_horaire,
             )
+
             instance.main_oeuvre = main
 
         if self.user:

@@ -6,9 +6,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import FabricantPiece
-
+from maintenance.choices import FabricantPiece, TAUX_HORAIRE_CHOICES
 from maintenance.models import Maintenance
 from maintenance.services import sync_maintenance
 from utils.mixin import TechnicienMixin
@@ -937,18 +935,15 @@ class Climatisation(TechnicienMixin, models.Model):
         if not self.main_oeuvre:
             return Decimal("0.00")
 
-        temps_minutes = Decimal(
-            str(self.main_oeuvre.temps_minutes or 0)
-        )
-
-        taux_horaire = Decimal(
-            str(self.taux_horaire or Decimal("50.00"))
+        temps_minutes = self.main_oeuvre.temps_minutes or 0
+        taux_horaire = (
+                self.main_oeuvre.taux_horaire or Decimal("0.00")
         )
 
         cout = (
-                temps_minutes
+                Decimal(str(temps_minutes))
                 / Decimal("60")
-                * taux_horaire
+                * Decimal(str(taux_horaire))
         )
 
         return cout.quantize(
@@ -956,7 +951,6 @@ class Climatisation(TechnicienMixin, models.Model):
             rounding=ROUND_HALF_UP,
         )
 
-    
     @property
     def total_general_avec_main_oeuvre(self):
         rapport = self.generer_rapport_remplacement()

@@ -800,7 +800,7 @@
         {% if climatisation.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire" %} :</span>
-                {{ climatisation.cout_main_oeuvre|floatformat:2 }} €
+                {{ climatisation.main_oeuvre.taux_horaire|floatformat:2 }} €
             </div>
 
             <div>

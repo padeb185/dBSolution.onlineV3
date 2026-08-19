@@ -3,11 +3,14 @@ from decimal import Decimal
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-
 class RouesSerrageEtat(models.TextChoices):
     A_FAIRE = "A_FAIRE", _("À faire")
     FAIT = "FAIT", _("Fait")
 
+
+# ============================================================
+# TAUX HORAIRE
+# ============================================================
 
 TAUX_HORAIRE_CHOICES = [
     (Decimal("0.00"), _("0,00 €")),
@@ -28,13 +31,12 @@ TAUX_HORAIRE_CHOICES = [
     (Decimal("95.00"), _("95,00 €")),
     (Decimal("100.00"), _("100,00 €")),
     (Decimal("105.00"), _("105,00 €")),
-    (Decimal("11.00"), _("110,00 €")),
+    (Decimal("110.00"), _("110,00 €")),
     (Decimal("115.00"), _("115,00 €")),
     (Decimal("120.00"), _("120,00 €")),
     (Decimal("125.00"), _("125,00 €")),
     (Decimal("130.00"), _("130,00 €")),
 ]
-
 
 
 

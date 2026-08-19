@@ -52,6 +52,16 @@ class GeometrieVoitureForm(forms.ModelForm):
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
 
+        if self.instance and self.instance.main_oeuvre:
+            mo = self.instance.main_oeuvre
+
+            self.fields["temps_heures"].initial = mo.heures
+            self.fields["temps_minutes"].initial = mo.minutes
+
+
+            if "taux_horaire" in self.fields:
+                self.fields["taux_horaire"].initial = mo.taux_horaire
+
     def clean_kilometrage_geometrie(self):
         km = self.cleaned_data.get("kilometrage_geometrie")
         exemplaire = self.exemplaire
@@ -78,17 +88,17 @@ class GeometrieVoitureForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        km = self.cleaned_data.get("kilometrage_geometrie")
+        km = self.cleaned_data.get("kilometrage_clim")
         voiture = self.exemplaire
 
         if km is not None and voiture:
-            instance.kilometrage_geometrie = km
+            instance.kilometrage_clim = km
             instance.voiture_exemplaire = voiture
-
 
             # -------- MAIN D'ŒUVRE --------
             heures = self.cleaned_data.get("temps_heures") or 0
             minutes = self.cleaned_data.get("temps_minutes") or 0
+            taux_horaire = self.cleaned_data.get("taux_horaire")
 
             total_minutes = heures * 60 + minutes
 
@@ -96,12 +106,24 @@ class GeometrieVoitureForm(forms.ModelForm):
 
             if main:
                 main.temps_minutes = total_minutes
-                main.save(update_fields=["temps_minutes"])
+
+                if taux_horaire is not None:
+                    main.taux_horaire = taux_horaire
+
+                main.save(
+                    update_fields=[
+                        "temps_minutes",
+                        "taux_horaire",
+                    ]
+                )
+
             else:
                 main = MainDoeuvre.objects.create(
                     utilisateur=self.user,
-                    temps_minutes=total_minutes
+                    temps_minutes=total_minutes,
+                    taux_horaire=taux_horaire,
                 )
+
                 instance.main_oeuvre = main
 
         # Sauvegarde finale

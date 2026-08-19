@@ -46,6 +46,9 @@ class CourroieDistributionForm(forms.ModelForm):
             self.fields["temps_heures"].initial = mo.heures
             self.fields["temps_minutes"].initial = mo.minutes
 
+            if "taux_horaire" in self.fields:
+                self.fields["taux_horaire"].initial = mo.taux_horaire
+
 
         # ✅ initialisation date seulement si le champ existe
         if "date" in self.fields and self.instance and self.instance.pk and self.instance.date:
@@ -121,10 +124,10 @@ class CourroieDistributionForm(forms.ModelForm):
             instance.kilometrage_cour = km
             instance.voiture_exemplaire = voiture
 
-
             # -------- MAIN D'ŒUVRE --------
             heures = self.cleaned_data.get("temps_heures") or 0
             minutes = self.cleaned_data.get("temps_minutes") or 0
+            taux_horaire = self.cleaned_data.get("taux_horaire")
 
             total_minutes = heures * 60 + minutes
 
@@ -132,14 +135,25 @@ class CourroieDistributionForm(forms.ModelForm):
 
             if main:
                 main.temps_minutes = total_minutes
-                main.save(update_fields=["temps_minutes"])
+
+                if taux_horaire is not None:
+                    main.taux_horaire = taux_horaire
+
+                main.save(
+                    update_fields=[
+                        "temps_minutes",
+                        "taux_horaire",
+                    ]
+                )
+
             else:
                 main = MainDoeuvre.objects.create(
                     utilisateur=self.user,
-                    temps_minutes=total_minutes
+                    temps_minutes=total_minutes,
+                    taux_horaire=taux_horaire,
                 )
-                instance.main_oeuvre = main
 
+                instance.main_oeuvre = main
 
         # Sauvegarde finale
         if commit:
