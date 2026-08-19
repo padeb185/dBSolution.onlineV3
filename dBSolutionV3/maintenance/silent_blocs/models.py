@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES
+from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantSilentBloc
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -126,16 +126,21 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent blocs barre stabilisatrice avant")
     )
+    silent_blocs_barre_stabilisatrice_av_fabricant = models.CharField(max_length=30, choices=FabricantSilentBloc.choices,
+                                                     default=FabricantSilentBloc.CHOISIR, verbose_name=_("Fabricant"))
+
+    silent_blocs_barre_stabilisatrice_av_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
     silent_blocs_barre_stabilisatrice_av_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_barre_stabilisatrice_av_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
+
 
     # Barre stabilisatrice AR
     silent_blocs_barre_stabilisatrice_ar = models.CharField(
@@ -144,16 +149,23 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent blocs barre stabilisatrice arrière")
     )
+    silent_blocs_barre_stabilisatrice_ar_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+
+    silent_blocs_barre_stabilisatrice_ar_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
     silent_blocs_barre_stabilisatrice_ar_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_barre_stabilisatrice_ar_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
 
     # Amortisseur AVD
     silent_blocs_amortisseur_avd = models.CharField(
@@ -162,16 +174,21 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc amortisseur avant droit")
     )
+    silent_blocs_amortisseur_avd_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+    silent_blocs_amortisseur_avd_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
     silent_blocs_amortisseur_avd_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_amortisseur_avd_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
 
     # Amortisseur AVG
     silent_bloc_amortisseur_avg = models.CharField(
@@ -180,16 +197,22 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc amortisseur avant gauche")
     )
+    silent_bloc_amortisseur_avg_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+    silent_bloc_amortisseur_avg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
     silent_bloc_amortisseur_avg_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_bloc_amortisseur_avg_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
 
     # Amortisseur ARD
     silent_blocs_amortisseur_ard = models.CharField(
@@ -198,16 +221,25 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc amortisseur arrière droit")
     )
+    silent_blocs_amortisseur_ard_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                       verbose_name=_("Fabricant"))
+
+    silent_blocs_amortisseur_ard_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
     silent_blocs_amortisseur_ard_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_amortisseur_ard_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
+
+
 
     # Amortisseur ARG
     silent_blocs_amortisseur_arg = models.CharField(
@@ -216,20 +248,34 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc amortisseur arrière gauche")
     )
+
+    silent_blocs_amortisseur_arg_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+
+    silent_blocs_amortisseur_arg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
     silent_blocs_amortisseur_arg_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_amortisseur_arg_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
 
     silent_blocs_triangle_inf_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle inférieur avant droit"))
+    silent_blocs_triangle_inf_avd_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+    silent_blocs_triangle_inf_avd_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
     silent_blocs_triangle_inf_avd_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
-    silent_blocs_triangle_inf_avd_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
+
+
 
     silent_blocs_triangle_inf_avg = models.CharField(
         max_length=25,
@@ -237,16 +283,24 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc de triangle inférieur avant gauche")
     )
+    silent_blocs_triangle_inf_avg_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+    silent_blocs_triangle_inf_avg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
     silent_blocs_triangle_inf_avg_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_triangle_inf_avg_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
+
+
 
     silent_blocs_triangle_inf_ard = models.CharField(
         max_length=25,
@@ -254,33 +308,48 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc de triangle inférieur arrière droit")
     )
+
+    silent_blocs_triangle_inf_ard_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+
+    silent_blocs_triangle_inf_ard_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
     silent_blocs_triangle_inf_ard_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_triangle_inf_ard_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
 
+
+   ###########
     silent_blocs_triangle_inf_arg = models.CharField(
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc de triangle inférieur arrière gauche")
     )
+    silent_blocs_triangle_inf_arg_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+    silent_blocs_triangle_inf_arg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
     silent_blocs_triangle_inf_arg_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_triangle_inf_arg_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
 
     silent_blocs_triangle_sup_avd = models.CharField(
         max_length=25,
@@ -288,16 +357,23 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc de triangle supérieur avant droit")
     )
+
+    silent_blocs_triangle_sup_avd_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+
+    silent_blocs_triangle_sup_avd_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
     silent_blocs_triangle_sup_avd_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_triangle_sup_avd_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
 
     silent_blocs_triangle_sup_avg = models.CharField(
         max_length=25,
@@ -305,16 +381,24 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc de triangle supérieur avant gauche")
     )
+
+    silent_blocs_triangle_sup_avg_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+
+    silent_blocs_triangle_sup_avg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
     silent_blocs_triangle_sup_avg_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_triangle_sup_avg_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
 
     silent_blocs_triangle_sup_ard = models.CharField(
         max_length=25,
@@ -322,16 +406,24 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc de triangle supérieur arrière droit")
     )
+
+    silent_blocs_triangle_sup_ard_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+
+    silent_blocs_triangle_sup_ard_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
     silent_blocs_triangle_sup_ard_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_triangle_sup_ard_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
 
     silent_blocs_triangle_sup_arg = models.CharField(
         max_length=25,
@@ -339,16 +431,24 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc de triangle supérieur arrière gauche")
     )
+
+    silent_blocs_triangle_sup_arg_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+
+    silent_blocs_triangle_sup_arg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
     silent_blocs_triangle_sup_arg_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_triangle_sup_arg_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
 
     silent_blocs_multi_bras_avd = models.CharField(
         max_length=25,
@@ -356,16 +456,25 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc de suspension multi-bras avant droit")
     )
+
+    silent_blocs_multi_bras_avd_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+
+    silent_blocs_multi_bras_avd_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
     silent_blocs_multi_bras_avd_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_multi_bras_avd_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
+
+
 
     silent_blocs_multi_bras_avg = models.CharField(
         max_length=25,
@@ -373,16 +482,23 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc de suspension multi-bras avant gauche")
     )
+
+    silent_blocs_multi_bras_avg_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+
+    silent_blocs_multi_bras_avg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
     silent_blocs_multi_bras_avg_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_multi_bras_avg_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
 
     silent_blocs_multi_bras_ard = models.CharField(
         max_length=25,
@@ -390,16 +506,25 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc de suspension multi-bras arrière droit")
     )
+
+    silent_blocs_multi_bras_ard_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+
+    silent_blocs_multi_bras_ard_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
     silent_blocs_multi_bras_ard_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_multi_bras_ard_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
+
 
     silent_blocs_multi_bras_arg = models.CharField(
         max_length=25,
@@ -407,16 +532,27 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc de suspension multi-bras arrière gauche")
     )
+
+    silent_blocs_multi_bras_arg_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+
+    silent_blocs_multi_bras_arg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
     silent_blocs_multi_bras_arg_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_multi_bras_arg_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
+
+
+
 
     silent_blocs_moteur_avg = models.CharField(
         max_length=25,
@@ -424,16 +560,25 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc moteur")
     )
+    silent_blocs_moteur_avg_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+
+    silent_blocs_moteur_avg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
     silent_blocs_moteur_avg_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_moteur_avg_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
+
+
 
     silent_blocs_moteur_boite_ard = models.CharField(
         max_length=25,
@@ -441,16 +586,27 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc de boite de vitesse")
     )
+
+    silent_blocs_moteur_boite_ard_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+
+    silent_blocs_moteur_boite_ard_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
     silent_blocs_moteur_boite_ard_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_moteur_boite_ard_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
+
+
+
 
     silent_blocs_moteur_inf_arg = models.CharField(
         max_length=25,
@@ -458,16 +614,23 @@ class SilentBloc(TechnicienMixin, models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("silent bloc moteur pendulaire")
     )
+
+    silent_blocs_moteur_inf_arg_fabricant = models.CharField(max_length=30,
+                                                                      choices=FabricantSilentBloc.choices,
+                                                                      default=FabricantSilentBloc.CHOISIR,
+                                                                      verbose_name=_("Fabricant"))
+
+    silent_blocs_moteur_inf_arg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
     silent_blocs_moteur_inf_arg_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    silent_blocs_moteur_inf_arg_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
 
 
 
