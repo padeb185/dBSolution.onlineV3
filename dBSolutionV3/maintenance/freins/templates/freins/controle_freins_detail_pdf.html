@@ -802,6 +802,7 @@
                 <tr>
                     <th>{% trans "Pièce / Produit" %}</th>
                     <th>{% trans "État" %}</th>
+                     <th>{% trans "Fabricant" %}</th>
 
                     <th class="text-right">
                         {% trans "Quantité" %}
@@ -853,6 +854,10 @@
                             {% endif %}
                         </td>
 
+                          <td class="text-right">
+                            {{ ligne.fabricant|default:"-" }}
+                        </td>
+
                         <td class="text-right">
                             {{ ligne.quantite|default:0 }}
                         </td>
@@ -869,7 +874,7 @@
 
 
                 <tr class="total">
-                    <td colspan="4" class="total-label" style="text-align: right;">
+                    <td colspan="5" class="total-label" style="text-align: right;">
                         {% trans "Total pièces / produits HTVA" %}
                     </td>
 
@@ -880,7 +885,7 @@
 
 
                 <tr class="total">
-                    <td colspan="4" class="total-label" style="text-align: right;">
+                    <td colspan="5" class="total-label" style="text-align: right;">
                         {% trans "Main-d'œuvre HTVA" %}
                     </td>
 
@@ -891,7 +896,7 @@
 
 
                 <tr class="total-general">
-                    <td colspan="4" class="total-label" style="text-align: right;">
+                    <td colspan="5" class="total-label" style="text-align: right;">
                         {% trans "Total général avec main-d'œuvre HTVA" %}
                     </td>
 
