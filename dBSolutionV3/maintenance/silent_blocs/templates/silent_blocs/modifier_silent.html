@@ -59,13 +59,9 @@
     {% endif %}
 
 
-    <!-- Formulaire -->
-    <form method="post" class="space-y-4">
+   <!-- Form -->
+    <form method="POST" class="space-y-4">
         {% csrf_token %}
-
-        <h2 class="text-lg font-semibold mb-2">{% trans "Détails du Contrôle" %}</h2>
-
-        <br>
 
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/compteur.png' %}" alt="Kilometrage"
@@ -119,7 +115,10 @@
 
 
 
-          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Barre stabilisatrice" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+            <img src="{% static 'icons/barre-stab.png' %}" alt="Barre stabilisatrice"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Barre stabilisatrice" %}</h2>
         {% for field in form %}
             {% if "stabili" in field.name %}
             <div class="mb-4">
@@ -166,13 +165,11 @@
         <br>
 
 
-
-
-
-
-
         <!-- Section Moteur -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Amortisseurs" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+            <img src="{% static 'icons/silent-amt.png' %}" alt="Silent Blocs amortisseurs"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Amortisseurs" %}</h2>
         {% for field in form %}
             {% if "amortisseur" in field.name %}
             <div class="mb-4">
@@ -204,7 +201,10 @@
         <br>
 
           <!-- Section Refroidissement -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Triangle inférieur" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+            <img src="{% static 'icons/silent-triangle.png' %}" alt="Silent Blocs de Triangle"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Triangle inférieur" %}</h2>
         {% for field in form %}
             {% if "triangle_inf" in field.name %}
             <div class="mb-4">
@@ -237,7 +237,10 @@
 
 
           <!-- Section lave-glace -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Triangle supérieur" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+             <img src="{% static 'icons/silent-triangle.png' %}" alt="Silent Blocs de Triangle supérieur"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Triangle supérieur" %}</h2>
         {% for field in form %}
             {% if "triangle_sup" in field.name %}
             <div class="mb-4">
@@ -270,7 +273,10 @@
 
 
         <!-- Section Boite -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Suspension multi-bras" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+             <img src="{% static 'icons/silent-multi.png' %}" alt="Silent Blocs de suspension multi bras"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Suspension multi-bras" %}</h2>
         {% for field in form %}
             {% if "multi" in field.name %}
             <div class="mb-4">
@@ -303,7 +309,10 @@
 
 
          <!-- Section Pont -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Moteur / boite de vitesse " %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+             <img src="{% static 'icons/silent-moteur.png' %}" alt="Silent Blocs de moteur"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Moteur / boite de vitesse " %}</h2>
         {% for field in form %}
             {% if "moteur" in field.name %}
             <div class="mb-4">
@@ -357,7 +366,10 @@
         <br>
 
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Etiquette" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+              <img src="{% static 'icons/tag.png' %}" alt="étiquette"
+                 style="width:60px; height:60px; margin-right:10px;">
+             {% trans "Etiquette" %}</h2>
         {% for field in form %}
             {% if "tag" in field.name %}
             <div class="mb-4">
@@ -404,7 +416,10 @@
         <br>
 
         <!-- Section remarques -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Remarques" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+             <img src="{% static 'icons/notes.png' %}" alt="remarques"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Remarques" %}</h2>
         {% for field in form %}
             {% if "remarques" in field.name %}
             <div class="mb-4">
@@ -437,7 +452,10 @@
         <br>
 
            <!-- Section technicien -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Technicien" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+             <img src="{% static 'icons/mecanicien.png' %}" alt="Technicien"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Technicien" %}</h2>
         {% for field in form %}
             {% if "tech" in field.name %}
             <div class="mb-4">
