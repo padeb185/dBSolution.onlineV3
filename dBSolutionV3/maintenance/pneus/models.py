@@ -403,96 +403,122 @@ class ControlePneus(TechnicienMixin, models.Model):
                 super().save(update_fields=["kilometres_chassis"])
 
     def generer_rapport_remplacement(self):
-            rapport = []
-            total_general = Decimal("0.00")
+        rapport = []
+        total_general = Decimal("0.00")
 
-            for field in self._meta.fields:
-                field_name = field.name
+        for field in self._meta.fields:
+            field_name = field.name
 
-                # Ne garder que les champs d'état des pneus
-                if not (
-                        isinstance(field, models.CharField)
-                        and field.choices == PneuEtat.choices
-                ):
-                    continue
+            # Ne garder que les champs d'état des pneus
+            if not (
+                    isinstance(field, models.CharField)
+                    and field.choices == PneuEtat.choices
+            ):
+                continue
 
-                etat = getattr(self, field_name, None)
+            etat = getattr(self, field_name, None)
 
-                # Pièces à remplacer ou déjà remplacées
-                if etat not in (
-                        PneuEtat.A_REMPLACER,
-                        PneuEtat.REMPLACE,
-                ):
-                    continue
+            # Pièces à remplacer ou déjà remplacées
+            if etat not in (
+                    PneuEtat.A_REMPLACER,
+                    PneuEtat.REMPLACE,
+            ):
+                continue
 
-                prix = Decimal(
-                    str(
-                        getattr(
-                            self,
-                            f"{field_name}_prix",
-                            Decimal("0.00"),
-                        )
-                        or Decimal("0.00")
+            # =========================
+            # FABRICANT
+            # =========================
+            fabricant = getattr(
+                self,
+                f"{field_name}_fabricant",
+                None,
+            )
+
+            # Si fabricant est un objet (ForeignKey)
+            if fabricant:
+                fabricant = str(fabricant)
+            else:
+                fabricant = "-"
+
+            # =========================
+            # PRIX
+            # =========================
+            prix = Decimal(
+                str(
+                    getattr(
+                        self,
+                        f"{field_name}_prix",
+                        Decimal("0.00"),
                     )
+                    or Decimal("0.00")
                 )
+            )
 
-                quantite = Decimal(
-                    str(
-                        getattr(
-                            self,
-                            f"{field_name}_quantite",
-                            0,
-                        )
-                        or 0
+            # =========================
+            # QUANTITÉ
+            # =========================
+            quantite = Decimal(
+                str(
+                    getattr(
+                        self,
+                        f"{field_name}_quantite",
+                        0,
                     )
+                    or 0
                 )
+            )
 
-                prix = prix.quantize(
-                    Decimal("0.01"),
-                    rounding=ROUND_HALF_UP,
-                )
+            prix = prix.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
 
-                total = (prix * quantite).quantize(
-                    Decimal("0.01"),
-                    rounding=ROUND_HALF_UP,
-                )
+            total = (prix * quantite).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
 
-                total_general += total
+            total_general += total
 
-                methode_display = getattr(
-                    self,
-                    f"get_{field_name}_display",
-                    None,
-                )
+            # =========================
+            # LABEL ÉTAT
+            # =========================
+            methode_display = getattr(
+                self,
+                f"get_{field_name}_display",
+                None,
+            )
 
-                etat_label = (
-                    methode_display()
-                    if callable(methode_display)
-                    else etat
-                )
+            etat_label = (
+                methode_display()
+                if callable(methode_display)
+                else etat
+            )
 
-                rapport.append({
-                    "champ": field.verbose_name,
-                    "nom": field.verbose_name,
-                    "code": field_name,
-                    "etat": etat,
-                    "etat_label": etat_label,
-                    "prix": prix,
-                    "prix_unitaire": prix,
-                    "quantite": quantite,
-                    "total": total,
-                })
+            # =========================
+            # RAPPORT
+            # =========================
+            rapport.append({
+                "champ": field.verbose_name,
+                "nom": field.verbose_name,
+                "code": field_name,
+                "etat": etat,
+                "etat_label": etat_label,
+                "fabricant": fabricant,
+                "prix": prix,
+                "prix_unitaire": prix,
+                "quantite": quantite,
+                "total": total,
+            })
 
-            return {
-                "lignes": rapport,
-                "pieces": rapport,
-                "total_general": total_general.quantize(
-                    Decimal("0.01"),
-                    rounding=ROUND_HALF_UP,
-                ),
-            }
-
-
+        return {
+            "lignes": rapport,
+            "pieces": rapport,
+            "total_general": total_general.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            ),
+        }
         # ======================================================
         # MAIN-D'ŒUVRE
         # ======================================================
