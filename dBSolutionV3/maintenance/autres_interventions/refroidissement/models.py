@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
+from maintenance.autres_interventions.moteur.courroie.models import RefroidissementQualiteEtat
 from maintenance.choices import RefroidissementFabricant, FabricantPiece, FabricantCapteurEchappement, FabricantDurite
 from maintenance.models import Maintenance
 from maindoeuvre.models import MainDoeuvre
@@ -255,9 +256,10 @@ class Refroidissement(TechnicienMixin, models.Model):
     )
 
     liquide_type = models.CharField(
-        max_length=100,
-        verbose_name=_("Type de liquide de refroidissement"),
-        blank=True,
+            max_length=20,
+            choices= RefroidissementQualiteEtat.choices,
+            verbose_name=_("Type du liquide de refroidissement"),
+            default=RefroidissementQualiteEtat.G13,
     )
 
     liquide_couleur = models.CharField(
@@ -274,22 +276,25 @@ class Refroidissement(TechnicienMixin, models.Model):
         null=True,
         blank=True,
     )
+    liquide_fabricant = models.CharField(max_length=25, choices=RefroidissementFabricant.choices,
+                                         default=RefroidissementFabricant.CHOISIR, verbose_name=_("Fabricant"),
+                                         blank=True)
 
     liquide_quantite = models.DecimalField(
         max_digits=7,
         decimal_places=2,
         verbose_name=_("Quantité de liquide utilisée"),
-        help_text=_("Quantité en litres"),
+        help_text=_("Quantité ajoutée en litres"),
         default=Decimal("0.00"),
     )
 
     liquide_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name=_("Prix d'achat HTVA du liquide de refroidissement"),
+        verbose_name=_("Prix d'achat HTVA"),
         default=Decimal("0.00"),
     )
-    liquide_fabricant = models.CharField(max_length=25, choices=RefroidissementFabricant.choices,default=RefroidissementFabricant.CHOISIR, verbose_name=_("Fabricant"),blank=True)
+
 
 
 
@@ -349,25 +354,28 @@ class Refroidissement(TechnicienMixin, models.Model):
         verbose_name=_("Bruit anormal du ventilateur"),
         default=False,
     )
+    ventilateur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,
+                                             default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"), blank=True)
+    ventilateur_quantite = models.PositiveIntegerField(
+        verbose_name=_("Quantité"),
+        default=0,
+    )
 
     ventilateur_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name=_("Prix d'achat HTVA du ventilateur"),
+        verbose_name=_("Prix d'achat HTVA"),
         default=Decimal("0.00"),
     )
 
-    ventilateur_quantite = models.PositiveIntegerField(
-        verbose_name=_("Quantité de ventilateurs"),
-        default=0,
-    )
-    ventilateur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
+
+
 
     # ======================================================
     # RADIATEUR
     # ======================================================
 
-    radiateur = models.CharField(
+    radiateur_etat = models.CharField(
         max_length=20,
         choices=EtatRefroidissement.choices,
         verbose_name=_("Radiateur moteur"),
@@ -388,25 +396,27 @@ class Refroidissement(TechnicienMixin, models.Model):
         verbose_name=_("Ailettes du radiateur endommagées"),
         default=False,
     )
-
+    radiateur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,
+                                           default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"), blank=True)
+    radiateur_quantite = models.PositiveIntegerField(
+        verbose_name=_("Quantité"),
+        default=0,
+    )
     radiateur_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name=_("Prix d'achat HTVA du radiateur"),
+        verbose_name=_("Prix d'achat HTVA"),
         default=Decimal("0.00"),
     )
 
-    radiateur_quantite = models.PositiveIntegerField(
-        verbose_name=_("Quantité de radiateurs"),
-        default=1,
-    )
-    radiateur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"), blank=True)
+
+
 
     # ======================================================
     # THERMOSTAT
     # ======================================================
 
-    thermostat = models.CharField(
+    thermostat_etat = models.CharField(
         max_length=20,
         choices=EtatRefroidissement.choices,
         verbose_name=_("Thermostat"),
@@ -426,26 +436,26 @@ class Refroidissement(TechnicienMixin, models.Model):
         null=True,
         blank=True,
     )
+    thermostat_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,
+                                            default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"), blank=True)
+
+    thermostat_quantite = models.PositiveIntegerField(
+        verbose_name=_("Quantité"),
+        default=0,
+    )
 
     thermostat_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name=_("Prix d'achat HTVA du thermostat"),
+        verbose_name=_("Prix d'achat HTVA"),
         default=Decimal("0.00"),
     )
-
-    thermostat_quantite = models.PositiveIntegerField(
-        verbose_name=_("Quantité de thermostats"),
-        default=1,
-    )
-
-    thermostat_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"), blank=True)
 
     # ======================================================
     # BOÎTIER D'EAU
     # ======================================================
 
-    boitier_eau = models.CharField(
+    boitier_eau_etat = models.CharField(
         max_length=20,
         choices=EtatRefroidissement.choices,
         verbose_name=_("Boîtier d'eau"),
@@ -461,19 +471,22 @@ class Refroidissement(TechnicienMixin, models.Model):
         verbose_name=_("Fissure du boîtier d'eau"),
         default=False,
     )
+    boitier_eau_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,
+                                             default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"), blank=True)
 
+    boitier_eau_quantite = models.PositiveIntegerField(
+        verbose_name=_("Quantité"),
+        default=0
+    )
     boitier_eau_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name=_("Prix d'achat HTVA du boîtier d'eau"),
+        verbose_name=_("Prix d'achat HTVA"),
         default=Decimal("0.00"),
     )
 
-    boitier_eau_quantite = models.PositiveIntegerField(
-        verbose_name=_("Quantité de boîtiers d'eau"),
-        default=1,
-    )
-    boitier_eau_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"), blank=True)
+
+
 
     # ======================================================
     # SONDE DE TEMPÉRATURE
@@ -494,30 +507,33 @@ class Refroidissement(TechnicienMixin, models.Model):
         null=True,
         blank=True,
     )
+    sonde_t_fabricant = models.CharField(max_length=25, choices=FabricantCapteurEchappement.choices,
+                                         default=FabricantCapteurEchappement.CHOISIR, verbose_name=_("Fabricant"),
+                                         blank=True)
 
     sonde_t_signal_correct = models.BooleanField(
         verbose_name=_("Signal de la sonde correct"),
         default=True,
     )
-
+    sonde_t_quantite = models.PositiveIntegerField(
+        verbose_name=_("Quantité"),
+        default=0,
+    )
     sonde_t_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name=_("Prix d'achat HTVA de la sonde de température"),
+        verbose_name=_("Prix d'achat HTVA"),
         default=Decimal("0.00"),
     )
 
-    sonde_t_quantite = models.PositiveIntegerField(
-        verbose_name=_("Quantité de sondes de température"),
-        default=1,
-    )
-    sonde_t_fabricant = models.CharField(max_length=25, choices=FabricantCapteurEchappement.choices, default=FabricantCapteurEchappement.CHOISIR, verbose_name=_("Fabricant"), blank=True)
+
+
 
     # ======================================================
     # DURITES
     # ======================================================
 
-    durites = models.CharField(
+    durites_etat = models.CharField(
         max_length=20,
         choices=EtatRefroidissement.choices,
         verbose_name=_("Durites de refroidissement"),
@@ -544,24 +560,29 @@ class Refroidissement(TechnicienMixin, models.Model):
         default=True,
     )
 
+    durites_fabricant = models.CharField(max_length=25, choices=FabricantDurite.choices,
+                                         default=FabricantDurite.CHOISIR, verbose_name=_("Fabricant"), blank=True)
+
+    durites_quantite = models.PositiveIntegerField(
+        verbose_name=_("Quantité"),
+        default=0,
+    )
+
     durites_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name=_("Prix d'achat HTVA des durites"),
+        verbose_name=_("Prix d'achat HTVA"),
         default=Decimal("0.00"),
     )
 
-    durites_quantite = models.PositiveIntegerField(
-        verbose_name=_("Quantité de durites"),
-        default=1,
-    )
-    durites_fabricant = models.CharField(max_length=25, choices=FabricantDurite.choices,default=FabricantDurite.CHOISIR, verbose_name=_("Fabricant"), blank=True)
+
+
 
     # ======================================================
     # CHAUFFERETTE / RADIATEUR DE CHAUFFAGE
     # ======================================================
 
-    chaufferette = models.CharField(
+    chaufferette_etat = models.CharField(
         max_length=20,
         choices=EtatRefroidissement.choices,
         verbose_name=_("Radiateur de chauffage"),
@@ -593,19 +614,21 @@ class Refroidissement(TechnicienMixin, models.Model):
         default=False,
     )
 
+    chaufferette_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,
+                                              default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"), blank=True)
+
+    chaufferette_quantite = models.PositiveIntegerField(
+        verbose_name=_("Quantité"),
+        default=0,
+    )
+
     chaufferette_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name=_("Prix d'achat HTVA du radiateur de chauffage"),
+        verbose_name=_("Prix d'achat HTVA"),
         default=Decimal("0.00"),
     )
 
-    chaufferette_quantite = models.PositiveIntegerField(
-        verbose_name=_("Quantité de radiateurs de chauffage"),
-        default=1,
-    )
-
-    chaufferette_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"), blank=True)
 
     # ======================================================
     # REMARQUES ET ÉTIQUETTE
@@ -870,17 +893,17 @@ class Refroidissement(TechnicienMixin, models.Model):
                 "libelle": _("Ventilateur"),
             },
             {
-                "etat_champ": "radiateur",
+                "etat_champ": "radiateur_etat",
                 "prefix": "radiateur",
                 "libelle": _("Radiateur"),
             },
             {
-                "etat_champ": "thermostat",
+                "etat_champ": "thermostat_etat",
                 "prefix": "thermostat",
                 "libelle": _("Thermostat"),
             },
             {
-                "etat_champ": "boitier_eau",
+                "etat_champ": "boitier_eau_etat",
                 "prefix": "boitier_eau",
                 "libelle": _("Boîtier d'eau"),
             },
@@ -890,12 +913,12 @@ class Refroidissement(TechnicienMixin, models.Model):
                 "libelle": _("Sonde de température du liquide"),
             },
             {
-                "etat_champ": "durites",
+                "etat_champ": "durites_etat",
                 "prefix": "durites",
                 "libelle": _("Durites"),
             },
             {
-                "etat_champ": "chaufferette",
+                "etat_champ": "chaufferette_etat",
                 "prefix": "chaufferette",
                 "libelle": _("Radiateur de chauffage"),
             },

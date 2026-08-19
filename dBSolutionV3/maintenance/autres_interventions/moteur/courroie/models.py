@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError, FieldDoesNotExist
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import RefroidissementFabricant, CourroieDistributionFabricant
+from maintenance.choices import RefroidissementFabricant, CourroieDistributionFabricant, FabricantPiece
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -216,8 +216,8 @@ class CourroieDistribution(TechnicienMixin, models.Model):
     pompe_a_eau = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Pompe à eau"))
     pompe_a_eau_fabricant = models.CharField(
         max_length=30,
-        choices=CourroieDistributionFabricant.choices,
-        default=CourroieDistributionFabricant.CHOISIR,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
     pompe_a_eau_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
@@ -225,10 +225,11 @@ class CourroieDistribution(TechnicienMixin, models.Model):
 
 
     refroidissement = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Liquide de refroidissement"))
-    refroidissement_fabricant = models.CharField(max_length=25, choices=RefroidissementFabricant.choices, default=RefroidissementFabricant.CHOISIR,verbose_name=_("Fabricant du liquide de refroidissement"))
-    refroidissement_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"), validators=[StepValueValidator(0.1)])
-    refroidissement_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du liquide de refroidissement"))
+    refroidissement_fabricant = models.CharField(max_length=25, choices=RefroidissementFabricant.choices, default=RefroidissementFabricant.CHOISIR,verbose_name=_("Fabricant"))
     refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
+    refroidissement_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
+    refroidissement_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+
 
 
     remarques = models.TextField(
