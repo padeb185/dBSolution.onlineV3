@@ -131,7 +131,7 @@ def dashboard_moteur_view(request, exemplaire_id):
         "total_turbo": total_turbo,
         "total_rodage": total_rodage,
         "total_allumage": total_allumage,
-        "total_injecction": total_injection,
+        "total_injection": total_injection,
 
         "admission": admission,
         "alternateur": alternateur,
@@ -140,7 +140,7 @@ def dashboard_moteur_view(request, exemplaire_id):
         "turbo": turbo,
         "rodage": rodage,
         "allumage": allumage,
-        "inection": injection,
+        "injection": injection,
 
         "total_int_moteur": total_int_moteur,
 
