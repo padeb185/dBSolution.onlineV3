@@ -317,7 +317,8 @@
 <!-- ================================================== -->
 <!-- MESURES DU DIAGNOSTIC -->
 <!-- ================================================== -->
-<br>
+
+
 
 <!-- ================================================== -->
 <!-- ÉTAT DES COMPOSANTS D'ALLUMAGE -->
@@ -336,376 +337,280 @@
                 <th>{% trans "État" %}</th>
             </tr>
         </thead>
-
         <tbody>
 
-            <!-- ========================================== -->
-            <!-- BOUGIES -->
-            <!-- ========================================== -->
-
-            <tr class="section-row">
-                <td colspan="2">
-                    {% trans "Bougies d'allumage" %}
-                </td>
-            </tr>
-
-            <tr>
-                <td>{% trans "État des bougies" %}</td>
-
-                <td>
-                    {% if allumage.bougies_etat == "OK" %}
-                        <span class="etat-vert">
-                            {{ allumage.get_bougies_etat_display }}
-                        </span>
-
-                    {% elif allumage.bougies_etat == "A_CONTROLER" %}
-                        <span class="etat-jaune">
-                            {{ allumage.get_bougies_etat_display }}
-                        </span>
-
-                    {% elif allumage.bougies_etat == "USE" %}
-                        <span class="etat-jaune">
-                            {{ allumage.get_bougies_etat_display }}
-                        </span>
-
-                    {% elif allumage.bougies_etat == "HS" %}
-                        <span class="etat-rouge">
-                            {{ allumage.get_bougies_etat_display }}
-                        </span>
-
-                    {% elif allumage.bougies_etat == "A_REMPLACER" %}
-                        <span class="etat-rouge">
-                            {{ allumage.get_bougies_etat_display }}
-                        </span>
-
-                    {% elif allumage.bougies_etat == "REMPLACE" %}
-                        <span class="etat-bleu">
-                            {{ allumage.get_bougies_etat_display }}
-                        </span>
-
-                    {% else %}
-                        <span class="etat-gris">
-                            {{ allumage.get_bougies_etat_display|default:"-" }}
-                        </span>
-                    {% endif %}
-                </td>
-            </tr>
-
-
-            <!-- ========================================== -->
-            <!-- BOBINES -->
-            <!-- ========================================== -->
-
-            <tr class="section-row">
-                <td colspan="2">
-                    {% trans "Bobines d'allumage" %}
-                </td>
-            </tr>
-
-            <tr>
-                <td>{% trans "État des bobines d'allumage" %}</td>
-
-                <td>
-                    {% if allumage.bobines_etat == "OK" %}
-                        <span class="etat-vert">
-                            {{ allumage.get_bobines_etat_display }}
-                        </span>
-
-                    {% elif allumage.bobines_etat == "A_CONTROLER" %}
-                        <span class="etat-jaune">
-                            {{ allumage.get_bobines_etat_display }}
-                        </span>
-
-                    {% elif allumage.bobines_etat == "USE" %}
-                        <span class="etat-jaune">
-                            {{ allumage.get_bobines_etat_display }}
-                        </span>
-
-                    {% elif allumage.bobines_etat == "HS" %}
-                        <span class="etat-rouge">
-                            {{ allumage.get_bobines_etat_display }}
-                        </span>
-
-                    {% elif allumage.bobines_etat == "A_REMPLACER" %}
-                        <span class="etat-rouge">
-                            {{ allumage.get_bobines_etat_display }}
-                        </span>
-
-                    {% elif allumage.bobines_etat == "REMPLACE" %}
-                        <span class="etat-bleu">
-                            {{ allumage.get_bobines_etat_display }}
-                        </span>
-
-                    {% else %}
-                        <span class="etat-gris">
-                            {{ allumage.get_bobines_etat_display|default:"-" }}
-                        </span>
-                    {% endif %}
-                </td>
-            </tr>
-
-
-            <!-- ========================================== -->
-            <!-- FAISCEAU D'ALLUMAGE -->
-            <!-- ========================================== -->
-
-            <tr class="section-row">
-                <td colspan="2">
-                    {% trans "Faisceau d'allumage" %}
-                </td>
-            </tr>
-
-            <tr>
-                <td>{% trans "État du faisceau d'allumage" %}</td>
-
-                <td>
-                    {% if allumage.faisceau_allumage_etat == "OK" %}
-                        <span class="etat-vert">
-                            {{ allumage.get_faisceau_allumage_etat_display }}
-                        </span>
-
-                    {% elif allumage.faisceau_allumage_etat == "A_CONTROLER" %}
-                        <span class="etat-jaune">
-                            {{ allumage.get_faisceau_allumage_etat_display }}
-                        </span>
-
-                    {% elif allumage.faisceau_allumage_etat == "USE" %}
-                        <span class="etat-jaune">
-                            {{ allumage.get_faisceau_allumage_etat_display }}
-                        </span>
-
-                    {% elif allumage.faisceau_allumage_etat == "HS" or allumage.faisceau_allumage_etat == "A_REMPLACER" %}
-                        <span class="etat-rouge">
-                            {{ allumage.get_faisceau_allumage_etat_display }}
-                        </span>
-
-                    {% elif allumage.faisceau_allumage_etat == "REMPLACE" %}
-                        <span class="etat-bleu">
-                            {{ allumage.get_faisceau_allumage_etat_display }}
-                        </span>
-
-                    {% else %}
-                        <span class="etat-gris">
-                            {{ allumage.get_faisceau_allumage_etat_display|default:"-" }}
-                        </span>
-                    {% endif %}
-                </td>
-            </tr>
-
-
-            <!-- ========================================== -->
-            <!-- TÊTE D'ALLUMEUR -->
-            <!-- ========================================== -->
-
-            <tr class="section-row">
-                <td colspan="2">
-                    {% trans "Tête d'allumeur" %}
-                </td>
-            </tr>
-
-            <tr>
-                <td>{% trans "État de la tête d'allumeur" %}</td>
-
-                <td>
-                    {% if allumage.tete_allumeur_etat == "OK" %}
-                        <span class="etat-vert">
-                            {{ allumage.get_tete_allumeur_etat_display }}
-                        </span>
-
-                    {% elif allumage.tete_allumeur_etat == "A_CONTROLER" or allumage.tete_allumeur_etat == "USE" %}
-                        <span class="etat-jaune">
-                            {{ allumage.get_tete_allumeur_etat_display }}
-                        </span>
-
-                    {% elif allumage.tete_allumeur_etat == "HS" or allumage.tete_allumeur_etat == "A_REMPLACER" %}
-                        <span class="etat-rouge">
-                            {{ allumage.get_tete_allumeur_etat_display }}
-                        </span>
-
-                    {% elif allumage.tete_allumeur_etat == "REMPLACE" %}
-                        <span class="etat-bleu">
-                            {{ allumage.get_tete_allumeur_etat_display }}
-                        </span>
-
-                    {% else %}
-                        <span class="etat-gris">
-                            {{ allumage.get_tete_allumeur_etat_display|default:"-" }}
-                        </span>
-                    {% endif %}
-                </td>
-            </tr>
-
-
-            <!-- ========================================== -->
-            <!-- ROTOR / DOIGT D'ALLUMEUR -->
-            <!-- ========================================== -->
-
-            <tr class="section-row">
-                <td colspan="2">
-                    {% trans "Rotor / doigt d'allumeur" %}
-                </td>
-            </tr>
-
-            <tr>
-                <td>{% trans "État du rotor d'allumeur" %}</td>
-
-                <td>
-                    {% if allumage.rotor_allumeur_etat == "OK" %}
-                        <span class="etat-vert">
-                            {{ allumage.get_rotor_allumeur_etat_display }}
-                        </span>
-
-                    {% elif allumage.rotor_allumeur_etat == "A_CONTROLER" or allumage.rotor_allumeur_etat == "USE" %}
-                        <span class="etat-jaune">
-                            {{ allumage.get_rotor_allumeur_etat_display }}
-                        </span>
-
-                    {% elif allumage.rotor_allumeur_etat == "HS" or allumage.rotor_allumeur_etat == "A_REMPLACER" %}
-                        <span class="etat-rouge">
-                            {{ allumage.get_rotor_allumeur_etat_display }}
-                        </span>
-
-                    {% elif allumage.rotor_allumeur_etat == "REMPLACE" %}
-                        <span class="etat-bleu">
-                            {{ allumage.get_rotor_allumeur_etat_display }}
-                        </span>
-
-                    {% else %}
-                        <span class="etat-gris">
-                            {{ allumage.get_rotor_allumeur_etat_display|default:"-" }}
-                        </span>
-                    {% endif %}
-                </td>
-            </tr>
-
-
-            <!-- ========================================== -->
-            <!-- MODULE D'ALLUMAGE -->
-            <!-- ========================================== -->
-
-            <tr class="section-row">
-                <td colspan="2">
-                    {% trans "Module d'allumage" %}
-                </td>
-            </tr>
-
-            <tr>
-                <td>{% trans "État du module d'allumage" %}</td>
-
-                <td>
-                    {% if allumage.module_allumage_etat == "OK" %}
-                        <span class="etat-vert">
-                            {{ allumage.get_module_allumage_etat_display }}
-                        </span>
-
-                    {% elif allumage.module_allumage_etat == "A_CONTROLER" or allumage.module_allumage_etat == "USE" %}
-                        <span class="etat-jaune">
-                            {{ allumage.get_module_allumage_etat_display }}
-                        </span>
-
-                    {% elif allumage.module_allumage_etat == "HS" or allumage.module_allumage_etat == "A_REMPLACER" %}
-                        <span class="etat-rouge">
-                            {{ allumage.get_module_allumage_etat_display }}
-                        </span>
-
-                    {% elif allumage.module_allumage_etat == "REMPLACE" %}
-                        <span class="etat-bleu">
-                            {{ allumage.get_module_allumage_etat_display }}
-                        </span>
-
-                    {% else %}
-                        <span class="etat-gris">
-                            {{ allumage.get_module_allumage_etat_display|default:"-" }}
-                        </span>
-                    {% endif %}
-                </td>
-            </tr>
-
-
-            <!-- ========================================== -->
-            <!-- CAPTEUR VILEBREQUIN / PMH -->
-            <!-- ========================================== -->
-
-            <tr class="section-row">
-                <td colspan="2">
-                    {% trans "Capteur de vilebrequin / PMH" %}
-                </td>
-            </tr>
-
-            <tr>
-                <td>{% trans "État du capteur de vilebrequin" %}</td>
-
-                <td>
-                    {% if allumage.capteur_vilebrequin_etat == "OK" %}
-                        <span class="etat-vert">
-                            {{ allumage.get_capteur_vilebrequin_etat_display }}
-                        </span>
-
-                    {% elif allumage.capteur_vilebrequin_etat == "A_CONTROLER" or allumage.capteur_vilebrequin_etat == "USE" %}
-                        <span class="etat-jaune">
-                            {{ allumage.get_capteur_vilebrequin_etat_display }}
-                        </span>
-
-                    {% elif allumage.capteur_vilebrequin_etat == "HS" or allumage.capteur_vilebrequin_etat == "A_REMPLACER" %}
-                        <span class="etat-rouge">
-                            {{ allumage.get_capteur_vilebrequin_etat_display }}
-                        </span>
-
-                    {% elif allumage.capteur_vilebrequin_etat == "REMPLACE" %}
-                        <span class="etat-bleu">
-                            {{ allumage.get_capteur_vilebrequin_etat_display }}
-                        </span>
-
-                    {% else %}
-                        <span class="etat-gris">
-                            {{ allumage.get_capteur_vilebrequin_etat_display|default:"-" }}
-                        </span>
-                    {% endif %}
-                </td>
-            </tr>
-
-
-            <!-- ========================================== -->
-            <!-- CAPTEUR ARBRE À CAMES -->
-            <!-- ========================================== -->
-
-            <tr class="section-row">
-                <td colspan="2">
-                    {% trans "Capteur d'arbre à cames" %}
-                </td>
-            </tr>
-
-            <tr>
-                <td>{% trans "État du capteur d'arbre à cames" %}</td>
-
-                <td>
-                    {% if allumage.capteur_arbre_cames_etat == "OK" %}
-                        <span class="etat-vert">
-                            {{ allumage.get_capteur_arbre_cames_etat_display }}
-                        </span>
-
-                    {% elif allumage.capteur_arbre_cames_etat == "A_CONTROLER" or allumage.capteur_arbre_cames_etat == "USE" %}
-                        <span class="etat-jaune">
-                            {{ allumage.get_capteur_arbre_cames_etat_display }}
-                        </span>
-
-                    {% elif allumage.capteur_arbre_cames_etat == "HS" or allumage.capteur_arbre_cames_etat == "A_REMPLACER" %}
-                        <span class="etat-rouge">
-                            {{ allumage.get_capteur_arbre_cames_etat_display }}
-                        </span>
-
-                    {% elif allumage.capteur_arbre_cames_etat == "REMPLACE" %}
-                        <span class="etat-bleu">
-                            {{ allumage.get_capteur_arbre_cames_etat_display }}
-                        </span>
-
-                    {% else %}
-                        <span class="etat-gris">
-                            {{ allumage.get_capteur_arbre_cames_etat_display|default:"-" }}
-                        </span>
-                    {% endif %}
-                </td>
-            </tr>
+            {% if allumage.bougies_etat and allumage.bougies_etat != "NON_PRESENT" %}
+                <!-- ========================================== -->
+                <!-- BOUGIES -->
+                <!-- ========================================== -->
+
+                <tr>
+                    <td>{% trans "État des bougies" %}</td>
+
+                    <td>
+                        {% if allumage.bougies_etat == "OK" %}
+                            <span class="etat-vert">
+                                {{ allumage.get_bougies_etat_display }}
+                            </span>
+
+                        {% elif allumage.bougies_etat == "A_CONTROLER" or allumage.bougies_etat == "USE" %}
+                            <span class="etat-jaune">
+                                {{ allumage.get_bougies_etat_display }}
+                            </span>
+
+                        {% elif allumage.bougies_etat == "HS" or allumage.bougies_etat == "A_REMPLACER" %}
+                            <span class="etat-rouge">
+                                {{ allumage.get_bougies_etat_display }}
+                            </span>
+
+                        {% elif allumage.bougies_etat == "REMPLACE" %}
+                            <span class="etat-bleu">
+                                {{ allumage.get_bougies_etat_display }}
+                            </span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+
+
+            {% if allumage.bobines_etat and allumage.bobines_etat != "NON_PRESENT" %}
+                <!-- ========================================== -->
+                <!-- BOBINES -->
+                <!-- ========================================== -->
+
+                <tr>
+                    <td>{% trans "État des bobines d'allumage" %}</td>
+
+                    <td>
+                        {% if allumage.bobines_etat == "OK" %}
+                            <span class="etat-vert">
+                                {{ allumage.get_bobines_etat_display }}
+                            </span>
+
+                        {% elif allumage.bobines_etat == "A_CONTROLER" or allumage.bobines_etat == "USE" %}
+                            <span class="etat-jaune">
+                                {{ allumage.get_bobines_etat_display }}
+                            </span>
+
+                        {% elif allumage.bobines_etat == "HS" or allumage.bobines_etat == "A_REMPLACER" %}
+                            <span class="etat-rouge">
+                                {{ allumage.get_bobines_etat_display }}
+                            </span>
+
+                        {% elif allumage.bobines_etat == "REMPLACE" %}
+                            <span class="etat-bleu">
+                                {{ allumage.get_bobines_etat_display }}
+                            </span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+
+
+            {% if allumage.faisceau_allumage_etat and allumage.faisceau_allumage_etat != "NON_PRESENT" %}
+                <!-- ========================================== -->
+                <!-- FAISCEAU D'ALLUMAGE -->
+                <!-- ========================================== -->
+
+                <tr>
+                    <td>{% trans "État du faisceau d'allumage" %}</td>
+
+                    <td>
+                        {% if allumage.faisceau_allumage_etat == "OK" %}
+                            <span class="etat-vert">
+                                {{ allumage.get_faisceau_allumage_etat_display }}
+                            </span>
+
+                        {% elif allumage.faisceau_allumage_etat == "A_CONTROLER" or allumage.faisceau_allumage_etat == "USE" %}
+                            <span class="etat-jaune">
+                                {{ allumage.get_faisceau_allumage_etat_display }}
+                            </span>
+
+                        {% elif allumage.faisceau_allumage_etat == "HS" or allumage.faisceau_allumage_etat == "A_REMPLACER" %}
+                            <span class="etat-rouge">
+                                {{ allumage.get_faisceau_allumage_etat_display }}
+                            </span>
+
+                        {% elif allumage.faisceau_allumage_etat == "REMPLACE" %}
+                            <span class="etat-bleu">
+                                {{ allumage.get_faisceau_allumage_etat_display }}
+                            </span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+
+
+            {% if allumage.tete_allumeur_etat and allumage.tete_allumeur_etat != "NON_PRESENT" %}
+                <!-- ========================================== -->
+                <!-- TÊTE D'ALLUMEUR -->
+                <!-- ========================================== -->
+
+
+                <tr>
+                    <td>{% trans "État de la tête d'allumeur" %}</td>
+
+                    <td>
+                        {% if allumage.tete_allumeur_etat == "OK" %}
+                            <span class="etat-vert">
+                                {{ allumage.get_tete_allumeur_etat_display }}
+                            </span>
+
+                        {% elif allumage.tete_allumeur_etat == "A_CONTROLER" or allumage.tete_allumeur_etat == "USE" %}
+                            <span class="etat-jaune">
+                                {{ allumage.get_tete_allumeur_etat_display }}
+                            </span>
+
+                        {% elif allumage.tete_allumeur_etat == "HS" or allumage.tete_allumeur_etat == "A_REMPLACER" %}
+                            <span class="etat-rouge">
+                                {{ allumage.get_tete_allumeur_etat_display }}
+                            </span>
+
+                        {% elif allumage.tete_allumeur_etat == "REMPLACE" %}
+                            <span class="etat-bleu">
+                                {{ allumage.get_tete_allumeur_etat_display }}
+                            </span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+
+
+            {% if allumage.rotor_allumeur_etat and allumage.rotor_allumeur_etat != "NON_PRESENT" %}
+                <!-- ========================================== -->
+                <!-- ROTOR / DOIGT D'ALLUMEUR -->
+                <!-- ========================================== -->
+
+                <tr>
+                    <td>{% trans "État du rotor d'allumeur" %}</td>
+
+                    <td>
+                        {% if allumage.rotor_allumeur_etat == "OK" %}
+                            <span class="etat-vert">
+                                {{ allumage.get_rotor_allumeur_etat_display }}
+                            </span>
+
+                        {% elif allumage.rotor_allumeur_etat == "A_CONTROLER" or allumage.rotor_allumeur_etat == "USE" %}
+                            <span class="etat-jaune">
+                                {{ allumage.get_rotor_allumeur_etat_display }}
+                            </span>
+
+                        {% elif allumage.rotor_allumeur_etat == "HS" or allumage.rotor_allumeur_etat == "A_REMPLACER" %}
+                            <span class="etat-rouge">
+                                {{ allumage.get_rotor_allumeur_etat_display }}
+                            </span>
+
+                        {% elif allumage.rotor_allumeur_etat == "REMPLACE" %}
+                            <span class="etat-bleu">
+                                {{ allumage.get_rotor_allumeur_etat_display }}
+                            </span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+
+
+            {% if allumage.module_allumage_etat and allumage.module_allumage_etat != "NON_PRESENT" %}
+                <!-- ========================================== -->
+                <!-- MODULE D'ALLUMAGE -->
+                <!-- ========================================== -->
+
+                <tr>
+                    <td>{% trans "État du module d'allumage" %}</td>
+
+                    <td>
+                        {% if allumage.module_allumage_etat == "OK" %}
+                            <span class="etat-vert">
+                                {{ allumage.get_module_allumage_etat_display }}
+                            </span>
+
+                        {% elif allumage.module_allumage_etat == "A_CONTROLER" or allumage.module_allumage_etat == "USE" %}
+                            <span class="etat-jaune">
+                                {{ allumage.get_module_allumage_etat_display }}
+                            </span>
+
+                        {% elif allumage.module_allumage_etat == "HS" or allumage.module_allumage_etat == "A_REMPLACER" %}
+                            <span class="etat-rouge">
+                                {{ allumage.get_module_allumage_etat_display }}
+                            </span>
+
+                        {% elif allumage.module_allumage_etat == "REMPLACE" %}
+                            <span class="etat-bleu">
+                                {{ allumage.get_module_allumage_etat_display }}
+                            </span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+
+
+            {% if allumage.capteur_vilebrequin_etat and allumage.capteur_vilebrequin_etat != "NON_PRESENT" %}
+                <!-- ========================================== -->
+                <!-- CAPTEUR VILEBREQUIN / PMH -->
+                <!-- ========================================== -->
+
+
+                <tr>
+                    <td>{% trans "État du capteur de vilebrequin" %}</td>
+
+                    <td>
+                        {% if allumage.capteur_vilebrequin_etat == "OK" %}
+                            <span class="etat-vert">
+                                {{ allumage.get_capteur_vilebrequin_etat_display }}
+                            </span>
+
+                        {% elif allumage.capteur_vilebrequin_etat == "A_CONTROLER" or allumage.capteur_vilebrequin_etat == "USE" %}
+                            <span class="etat-jaune">
+                                {{ allumage.get_capteur_vilebrequin_etat_display }}
+                            </span>
+
+                        {% elif allumage.capteur_vilebrequin_etat == "HS" or allumage.capteur_vilebrequin_etat == "A_REMPLACER" %}
+                            <span class="etat-rouge">
+                                {{ allumage.get_capteur_vilebrequin_etat_display }}
+                            </span>
+
+                        {% elif allumage.capteur_vilebrequin_etat == "REMPLACE" %}
+                            <span class="etat-bleu">
+                                {{ allumage.get_capteur_vilebrequin_etat_display }}
+                            </span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+
+
+            {% if allumage.capteur_arbre_cames_etat and allumage.capteur_arbre_cames_etat != "NON_PRESENT" %}
+                <!-- ========================================== -->
+                <!-- CAPTEUR ARBRE À CAMES -->
+                <!-- ========================================== -->
+
+                <tr>
+                    <td>{% trans "État du capteur d'arbre à cames" %}</td>
+
+                    <td>
+                        {% if allumage.capteur_arbre_cames_etat == "OK" %}
+                            <span class="etat-vert">
+                                {{ allumage.get_capteur_arbre_cames_etat_display }}
+                            </span>
+
+                        {% elif allumage.capteur_arbre_cames_etat == "A_CONTROLER" or allumage.capteur_arbre_cames_etat == "USE" %}
+                            <span class="etat-jaune">
+                                {{ allumage.get_capteur_arbre_cames_etat_display }}
+                            </span>
+
+                        {% elif allumage.capteur_arbre_cames_etat == "HS" or allumage.capteur_arbre_cames_etat == "A_REMPLACER" %}
+                            <span class="etat-rouge">
+                                {{ allumage.get_capteur_arbre_cames_etat_display }}
+                            </span>
+
+                        {% elif allumage.capteur_arbre_cames_etat == "REMPLACE" %}
+                            <span class="etat-bleu">
+                                {{ allumage.get_capteur_arbre_cames_etat_display }}
+                            </span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
 
         </tbody>
     </table>
@@ -777,6 +682,7 @@
                 <tr>
                     <th>{% trans "Pièce / Produit" %}</th>
                     <th>{% trans "État" %}</th>
+                     <th>{% trans "Fabricant" %}</th>
                     <th class="text-right">
                         {% trans "Quantité" %}
                     </th>
@@ -821,6 +727,10 @@
                         </td>
 
                         <td class="text-right">
+                            {{ ligne.fabricant|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
                             {{ ligne.quantite|default:0 }}
                         </td>
 
@@ -835,7 +745,7 @@
                 {% endfor %}
 
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+                    <td colspan="5" class="text-right">
                         {% trans "Total pièces et produits HTVA" %}
                     </td>
 
@@ -845,8 +755,8 @@
                 </tr>
 
                 <tr class="total">
-                    <td colspan="4" class="text-right">
-                        {% trans "Main-d'œuvre" %}
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre HTVA" %}
                     </td>
 
                     <td class="text-right">
@@ -855,8 +765,8 @@
                 </tr>
 
                 <tr class="total-general">
-                    <td colspan="4" class="text-right">
-                        {% trans "Total général avec main-d'œuvre" %}
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
                     </td>
 
                     <td class="text-right">
@@ -878,7 +788,7 @@
 
                 <tr class="total">
                     <td>
-                        {% trans "Main-d'œuvre" %}
+                        {% trans "Main-d'œuvre HTVA" %}
                     </td>
 
                     <td class="text-right">
@@ -888,7 +798,7 @@
 
                 <tr class="total-general">
                     <td>
-                        {% trans "Total général" %}
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
                     </td>
 
                     <td class="text-right">

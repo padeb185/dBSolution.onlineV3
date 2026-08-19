@@ -763,60 +763,70 @@ class Climatisation(TechnicienMixin, models.Model):
             {
                 "champ": _("Huile de climatisation"),
                 "etat_field": "ajout_huile",
+                "fabricant_field": "ajout_huile_fabricant",
                 "quantite_field": "ajout_huile_quantite",
                 "prix_field": "ajout_huile_prix",
             },
             {
                 "champ": _("Traceur de climatisation"),
                 "etat_field": "traceur",
+                "fabricant_field": "traceur_fabricant",
                 "quantite_field": "traceur_quantite",
                 "prix_field": "traceur_prix",
             },
             {
                 "champ": _("Mise sous vide"),
                 "etat_field": "mise_sous_vide",
+                "fabricant_field": "mise_sous_vide_fabricant",
                 "quantite_field": "mise_sous_vide_quantite",
                 "prix_field": "mise_sous_vide_prix",
             },
             {
                 "champ": _("Tuyaux de climatisation"),
                 "etat_field": "tuyaux",
+                "fabricant_field": "tuyaux_fabricant",
                 "quantite_field": "tuyaux_quantite",
                 "prix_field": "tuyaux_prix",
             },
             {
                 "champ": _("Valves de climatisation"),
                 "etat_field": "valves",
+                "fabricant_field": "valves_fabricant",
                 "quantite_field": "valves_quantite",
                 "prix_field": "valves_prix",
             },
             {
                 "champ": _("Déshydrateur"),
                 "etat_field": "deshydrateur",
+                "fabricant_field": "deshydrateur_fabricant",
                 "quantite_field": "deshydrateur_quantite",
                 "prix_field": "deshydrateur_prix",
             },
             {
                 "champ": _("Condenseur"),
                 "etat_field": "condenseur",
+                "fabricant_field": "condenseur_fabricant",
                 "quantite_field": "condenseur_quantite",
                 "prix_field": "condenseur_prix",
             },
             {
                 "champ": _("Compresseur de climatisation"),
                 "etat_field": "compresseur",
+                "fabricant_field": "compresseur_fabricant",
                 "quantite_field": "compresseur_quantite",
                 "prix_field": "compresseur_prix",
             },
             {
                 "champ": _("Évaporateur"),
                 "etat_field": "evaporateur",
+                "fabricant_field": "evaporateur_fabricant",
                 "quantite_field": "evaporateur_quantite",
                 "prix_field": "evaporateur_prix",
             },
             {
                 "champ": _("Recharge de gaz"),
                 "etat_field": "recharge",
+                "fabricant_field": "recharge_fabricant",
                 "quantite_field": "recharge_quantite",
                 "prix_field": "recharge_prix",
             },
@@ -824,10 +834,17 @@ class Climatisation(TechnicienMixin, models.Model):
 
         for element in elements:
             etat_field = element["etat_field"]
+            fabricant_field = element["fabricant_field"]
             quantite_field = element["quantite_field"]
             prix_field = element["prix_field"]
 
             etat = getattr(self, etat_field, None)
+
+            fabricant = getattr(
+                self,
+                fabricant_field,
+                None,
+            )
 
             quantite = getattr(
                 self,
@@ -870,6 +887,7 @@ class Climatisation(TechnicienMixin, models.Model):
                 "champ": element["champ"],
                 "etat": etat,
                 "etat_label": etat_label,
+                "fabricant": fabricant or "-",
                 "quantite": quantite,
                 "prix": prix.quantize(
                     Decimal("0.01"),
@@ -887,7 +905,6 @@ class Climatisation(TechnicienMixin, models.Model):
             "lignes": lignes,
             "total_general": total_general,
         }
-
 
 
 

@@ -756,6 +756,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "moteur_filtre_huile",
                 "label": _("Filtre à huile moteur"),
                 "etat_field": "moteur_filtre_huile",
+                "fabricant_field": "moteur_filtre_huile_fabricant",
                 "prix_field": "moteur_filtre_huile_prix",
                 "quantite_field": "moteur_filtre_huile_quantite",
                 "choices": RodageEtat.choices,
@@ -764,6 +765,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "moteur_bouchon_vidange",
                 "label": _("Bouchon de vidange"),
                 "etat_field": "moteur_bouchon_vidange",
+                "fabricant_field": "moteur_bouchon_vidange_fabricant",
                 "prix_field": "moteur_bouchon_vidange_prix",
                 "quantite_field": "moteur_bouchon_vidange_quantite",
                 "choices": RodageEtat.choices,
@@ -772,6 +774,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "moteur_joint_vidange",
                 "label": _("Joint du bouchon de vidange"),
                 "etat_field": "moteur_joint_vidange",
+                "fabricant_field": "moteur_joint_vidange_fabricant",
                 "prix_field": "moteur_joint_vidange_prix",
                 "quantite_field": "moteur_joint_vidange_quantite",
                 "choices": RodageEtat.choices,
@@ -780,6 +783,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "moteur_ajout_huile",
                 "label": _("Huile moteur"),
                 "etat_field": "moteur_ajout_huile",
+                "fabricant_field": "moteur_ajout_huile_fabricant",
                 "prix_field": "moteur_ajout_huile_prix",
                 "quantite_field": "moteur_ajout_huile_quantite",
                 "choices": RodageEtat.choices,
@@ -788,6 +792,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "lave_glace",
                 "label": _("Liquide de lave-glace"),
                 "etat_field": "lave_glace_liquide_etat",
+                "fabricant_field": "lave_glace_fabricant",
                 "prix_field": "lave_glace_prix",
                 "quantite_field": "lave_glace_quantite",
                 "choices": NiveauxEtat.choices,
@@ -796,6 +801,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "frein_liquide",
                 "label": _("Liquide de freins"),
                 "etat_field": "frein_liquide_etat",
+                "fabricant_field": "frein_liquide_fabricant",
                 "prix_field": "frein_liquide_prix",
                 "quantite_field": "frein_liquide_quantite",
                 "choices": NiveauxEtat.choices,
@@ -804,6 +810,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "refroidissement_liquide",
                 "label": _("Liquide de refroidissement"),
                 "etat_field": "refroidissement_liquide_etat",
+                "fabricant_field": "refroidissement_liquide_fabricant",
                 "prix_field": "refroidissement_prix",
                 "quantite_field": "refroidissement_liquide_quantite",
                 "choices": NiveauxEtat.choices,
@@ -812,6 +819,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "liquide_direction",
                 "label": _("Liquide de direction"),
                 "etat_field": "liquide_direction_etat",
+                "fabricant_field": "liquide_direction_fabricant",
                 "prix_field": "liquide_direction_prix",
                 "quantite_field": "liquide_direction_quantite",
                 "choices": NiveauxEtat.choices,
@@ -826,7 +834,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "phares_avant",
                 "label": _("Feux de route"),
                 "etat_field": "phares_avant",
-                "type_field": "phares_avant_type",
+                "fabricant_field": "phares_avant_fabricant",
                 "prix_field": "phares_avant_prix",
                 "quantite_field": "phares_avant_quantite",
                 "choices": PhareEtat.choices,
@@ -835,7 +843,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "phares_gros_phares",
                 "label": _("Grands phares"),
                 "etat_field": "phares_gros_phares",
-                "type_field": "phares_gros_phares_type",
+                "fabricant_field": "phares_gros_phares_fabricant",
                 "prix_field": "phares_gros_phares_prix",
                 "quantite_field": "phares_gros_phares_quantite",
                 "choices": PhareEtat.choices,
@@ -844,7 +852,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "phares_clignotants",
                 "label": _("Clignotants"),
                 "etat_field": "phares_clignotants",
-                "type_field": "phares_clignotants_type",
+                "fabricant_field": "phares_clignotants_fabricant",
                 "prix_field": "phares_clignotants_prix",
                 "quantite_field": "phares_clignotants_quantite",
                 "choices": PhareEtat.choices,
@@ -853,7 +861,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "phares_recul",
                 "label": _("Feux de recul"),
                 "etat_field": "phares_recul",
-                "type_field": "phares_recul_type",
+                "fabricant_field": "phares_recul_fabricant",
                 "prix_field": "phares_recul_prix",
                 "quantite_field": "phares_recul_quantite",
                 "choices": PhareEtat.choices,
@@ -862,7 +870,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "phares_anti_brouillard_avant",
                 "label": _("Phares anti-brouillard avant"),
                 "etat_field": "phares_anti_brouillard_avant",
-                "type_field": "phares_anti_brouillard_avant_type",
+                "fabricant_field": "phares_anti_brouillard_avant_fabricant",
                 "prix_field": "phares_anti_brouillard_avant_prix",
                 "quantite_field": "phares_anti_brouillard_avant_quantite",
                 "choices": PhareEtat.choices,
@@ -871,7 +879,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "phares_anti_brouillard_arriere",
                 "label": _("Phares anti-brouillard arrière"),
                 "etat_field": "phares_anti_brouillard_arriere",
-                "type_field": "phares_anti_brouillard_arriere_type",
+                "fabricant_field": "phares_anti_brouillard_arriere_fabricant",
                 "prix_field": "phares_anti_brouillard_arriere_prix",
                 "quantite_field": "phares_anti_brouillard_arriere_quantite",
                 "choices": PhareEtat.choices,
@@ -880,7 +888,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "phares_feux_stops",
                 "label": _("Feux stop"),
                 "etat_field": "phares_feux_stops",
-                "type_field": "phares_feux_stops_type",
+                "fabricant_field": "phares_feux_stops_fabricant",
                 "prix_field": "phares_feux_stops_prix",
                 "quantite_field": "phares_feux_stops_quantite",
                 "choices": PhareEtat.choices,
@@ -889,7 +897,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "phares_troisieme_feux_stop",
                 "label": _("Troisième feu stop"),
                 "etat_field": "phares_troisieme_feux_stop",
-                "type_field": "phares_troisieme_feux_stop_type",
+                "fabricant_field": "phares_troisieme_feux_stop_fabricant",
                 "prix_field": "phares_troisieme_feux_stop_prix",
                 "quantite_field": "phares_troisieme_feux_stop_quantite",
                 "choices": PhareEtat.choices,
@@ -898,7 +906,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "phares_feux_position_av",
                 "label": _("Feux de position avant"),
                 "etat_field": "phares_feux_position_av",
-                "type_field": "phares_feux_position_av_type",
+                "fabricant_field": "phares_feux_position_av_fabricant",
                 "prix_field": "phares_feux_position_av_prix",
                 "quantite_field": "phares_feux_position_av_quantite",
                 "choices": PhareEtat.choices,
@@ -907,7 +915,7 @@ class Rodage(TechnicienMixin, models.Model):
                 "code": "phares_feux_position_ar",
                 "label": _("Feux de position arrière"),
                 "etat_field": "phares_feux_position_ar",
-                "type_field": "phares_feux_position_ar_type",
+                "fabricant_field": "phares_feux_position_ar_fabricant",
                 "prix_field": "phares_feux_position_ar_prix",
                 "quantite_field": "phares_feux_position_ar_quantite",
                 "choices": PhareEtat.choices,
@@ -918,43 +926,65 @@ class Rodage(TechnicienMixin, models.Model):
             etat_field = element["etat_field"]
             etat = getattr(self, etat_field, None)
 
-            # Ne pas inclure les éléments en bon état
+            # Ne pas inclure les éléments sans état ou en bon état
             if etat in [None, PhareEtat.OK]:
                 continue
 
             prix_field = element.get("prix_field")
             quantite_field = element.get("quantite_field")
-            type_field = element.get("type_field")
+            fabricant_field = element.get("fabricant_field")
 
             prix = Decimal("0.00")
             quantite = Decimal("0")
             total = Decimal("0.00")
-            type_ampoule = None
+            fabricant = None
 
-            if prix_field:
-                prix = getattr(self, prix_field, Decimal("0.00")) or Decimal("0.00")
-                prix = Decimal(str(prix))
-
-            if quantite_field:
-                quantite = getattr(self, quantite_field, 0) or 0
-                quantite = Decimal(str(quantite))
-
-            if type_field:
-                type_ampoule = getattr(self, type_field, None)
+            # =========================
+            # FABRICANT
+            # =========================
+            if fabricant_field:
+                fabricant = getattr(self, fabricant_field, None)
 
                 display_method = getattr(
                     self,
-                    f"get_{type_field}_display",
+                    f"get_{fabricant_field}_display",
                     None,
                 )
 
                 if callable(display_method):
-                    type_ampoule = display_method()
+                    fabricant = display_method()
 
-            if prix_field and quantite_field:
-                total = prix * quantite
-                total_general += total
+            # =========================
+            # PRIX
+            # =========================
+            if prix_field:
+                prix = getattr(
+                    self,
+                    prix_field,
+                    Decimal("0.00"),
+                ) or Decimal("0.00")
 
+                prix = Decimal(str(prix))
+
+            # =========================
+            # QUANTITÉ
+            # =========================
+            if quantite_field:
+                quantite = getattr(
+                    self,
+                    quantite_field,
+                    0,
+                ) or 0
+
+                quantite = Decimal(str(quantite))
+
+            # Ne pas afficher les pièces sans quantité
+            if quantite_field and quantite < 1:
+                continue
+
+            # =========================
+            # ÉTAT AFFICHÉ
+            # =========================
             display_method = getattr(
                 self,
                 f"get_{etat_field}_display",
@@ -967,11 +997,12 @@ class Rodage(TechnicienMixin, models.Model):
                 else etat
             )
 
-            if quantite < 1:
-                continue
-
-            total = prix * quantite
-            total_general += total
+            # =========================
+            # TOTAL
+            # =========================
+            if prix_field and quantite_field:
+                total = prix * quantite
+                total_general += total
 
             rapport.append(
                 {
@@ -980,7 +1011,7 @@ class Rodage(TechnicienMixin, models.Model):
                     "label": element["label"],
                     "etat": etat,
                     "etat_display": etat_display,
-                    "type": type_ampoule,
+                    "fabricant": fabricant,
                     "prix": prix,
                     "quantite": quantite,
                     "total": total,

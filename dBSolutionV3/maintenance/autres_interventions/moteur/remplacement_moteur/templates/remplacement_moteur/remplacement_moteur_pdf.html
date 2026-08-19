@@ -129,6 +129,21 @@
             background: #dbeafe;
             color: #1e3a8a;
         }
+         .table-2-cols {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
          .societe-header {
             display: table;
             width: 100%;
@@ -331,7 +346,7 @@
 
 <h2>{% trans "Informations du moteur de remplacement" %}</h2>
 
-<div class="box">
+<div class="table-2-cols">
     <table>
         <thead>
             <tr>
@@ -380,7 +395,7 @@
                 <td>{% trans "Remplacement effectué" %}</td>
                 <td>
                     {% if remplacement.remplacement_effectue %}
-                        <span class="etat-vert">
+                        <span class="etat-bleu">
                             {% trans "Oui" %}
                         </span>
                     {% else %}
@@ -400,7 +415,7 @@
 
 <h2>{% trans "Huile moteur" %}</h2>
 
-<div class="box">
+<div class="table-2-cols">
     <table>
         <thead>
             <tr>
@@ -473,7 +488,7 @@
 
 <h2>{% trans "Liquide de refroidissement" %}</h2>
 
-<div class="box">
+<div class="table-2-cols">
     <table>
         <thead>
             <tr>
@@ -585,7 +600,7 @@
 
 <h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
 
-<div class="box">
+<div>
 
     {% if rapport.lignes %}
 
@@ -662,7 +677,7 @@
 
                 <tr class="total">
                     <td colspan="4" class="text-right">
-                        {% trans "Main-d'œuvre" %}
+                        {% trans "Main-d'œuvre HTVA" %}
                     </td>
 
                     <td class="text-right">
@@ -672,7 +687,7 @@
 
                 <tr class="total-general">
                     <td colspan="4" class="text-right">
-                        {% trans "Total général avec main-d'œuvre" %}
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
                     </td>
 
                     <td class="text-right">
@@ -694,7 +709,7 @@
                 <tr class="total">
                     <td>
                         <div>
-                            <strong>{% trans "Main-d'œuvre" %}</strong>
+                            <strong>{% trans "Main-d'œuvre HTVA" %}</strong>
                         </div>
 
                         <div class="text-right" style="margin-top: 4px;">
@@ -706,7 +721,7 @@
                 <tr class="total-general">
                     <td>
                         <div>
-                            <strong>{% trans "Total général" %}</strong>
+                            <strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong>
                         </div>
 
                         <div class="text-right" style="margin-top: 4px;">

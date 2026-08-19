@@ -827,7 +827,7 @@ def injection_detail_pdf_view(request, pk):
 
     response = HttpResponse(pdf, content_type="application/pdf")
     response["Content-Disposition"] = (
-        f'attachment; filename="rapport_courroie_de_distribution_{immatriculation}_{technicien}.pdf"'
+        f'attachment; filename="rapport_système_injection_{immatriculation}_{technicien}.pdf"'
     )
 
     return response
