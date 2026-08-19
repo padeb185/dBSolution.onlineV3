@@ -30,7 +30,7 @@ class ClimListView(ListView):
     model = Climatisation
     template_name = "climatisation/clim_list.html"
     context_object_name = "climatisations"
-    ordering = ["-id"]
+    ordering = ["-date"]
 
     def get_queryset(self):
         queryset = Climatisation.objects.select_related(

@@ -28,7 +28,7 @@ class EmbrayageListView(ListView):
     model = Embrayage
     template_name = "embrayage/embrayage_list.html"
     context_object_name = "embrayages"
-    paginate_by = 100
+    paginate_by = 10
     ordering = ["-id"]
 
     def get_queryset(self):

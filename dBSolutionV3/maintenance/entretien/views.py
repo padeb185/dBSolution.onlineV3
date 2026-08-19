@@ -32,7 +32,7 @@ class EntretienListView(ListView):
     model = Entretien
     template_name = "entretien/entretien_list.html"
     context_object_name = "entretiens"
-    paginate_by = 15
+    paginate_by = 10
     ordering = ["-id"]
 
     def get_queryset(self):

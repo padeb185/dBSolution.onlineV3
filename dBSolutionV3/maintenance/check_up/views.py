@@ -31,7 +31,7 @@ class CheckupListView(ListView):
     model = Checkup
     template_name = "check_up/checkup_list.html"
     context_object_name = "checkups"
-    paginate_by = 100
+    paginate_by = 10
     ordering = ["-id"]
 
     def get_queryset(self):

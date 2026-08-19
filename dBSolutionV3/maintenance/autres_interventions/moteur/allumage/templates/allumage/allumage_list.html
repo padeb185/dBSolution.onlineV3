@@ -180,6 +180,7 @@
 <script>
 $(document).ready(function() {
     var table = $('#allumages-table').DataTable({
+        pageLength: 10,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",

@@ -32,7 +32,7 @@ class CourroieDistributionListView(ListView):
     model = CourroieDistribution
     template_name = "courroie/courroie_list.html"
     context_object_name = "courroies"
-    paginate_by = 100
+    paginate_by = 10
     ordering = ["-id"]
 
     def get_queryset(self):
