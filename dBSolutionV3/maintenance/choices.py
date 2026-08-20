@@ -1661,3 +1661,21 @@ class FabricantConnecteurInjecteur(models.TextChoices):
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
     CHOISIR = "CHOISIR", _("Choisir")
+
+
+class FabricantAmpoule(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+    BOSCH = "BOSCH", _("Bosch")
+    OSRAM = "OSRAM", _("Osram")
+    PHILIPS = "PHILIPS", _("Philips")
+    HELLA = "HELLA", _("Hella")
+    VALEO = "VALEO", _("Valeo")
+    NARVA = "NARVA", _("Narva")
+    GE = "GE", _("GE")
+    RING = "RING", _("Ring")
+    PIAA = "PIAA", _("PIAA")
+    MTECH = "MTECH", _("M-Tech")
+    NEOLUX = "NEOLUX", _("Neolux")
+    TUNGSRAM = "TUNGSRAM", _("Tungsram")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
+    AUTRE = "AUTRE", _("Autre")

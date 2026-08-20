@@ -403,8 +403,8 @@
         <tbody>
 
             <!-- COLLECTEUR -->
+            {% if echappement.collecteur != "NON_PRESENT" %}
             <tr>
-
                 <td>{% trans "Collecteur" %}</td>
 
                 <td>
@@ -422,21 +422,15 @@
                         <span class="remplace">
                             {{ echappement.get_collecteur_display }}
                         </span>
-
-                    {% else %}
-                        <span class="etat-gris">
-                            {{ echappement.get_collecteur_display|default:"-" }}
-                        </span>
                     {% endif %}
                 </td>
-
-
             </tr>
+            {% endif %}
 
 
             <!-- CATALYSEUR -->
+            {% if echappement.catalyseur != "NON_PRESENT" %}
             <tr>
-
                 <td>{% trans "Catalyseur" %}</td>
 
                 <td>
@@ -454,20 +448,15 @@
                         <span class="remplace">
                             {{ echappement.get_catalyseur_display }}
                         </span>
-
-                    {% else %}
-                        <span class="etat-gris">
-                            {{ echappement.get_catalyseur_display|default:"-" }}
-                        </span>
                     {% endif %}
                 </td>
-
             </tr>
+            {% endif %}
 
 
             <!-- LIGNE COMPLÈTE -->
+            {% if echappement.ligne_complete != "NON_PRESENT" %}
             <tr>
-
                 <td>{% trans "Ligne complète" %}</td>
 
                 <td>
@@ -485,18 +474,16 @@
                         <span class="remplace">
                             {{ echappement.get_ligne_complete_display }}
                         </span>
-
-                    {% else %}
-                        <span class="etat-gris">
-                            {{ echappement.get_ligne_complete_display|default:"-" }}
-                        </span>
                     {% endif %}
                 </td>
-
             </tr>
+            {% endif %}
+
+
 
 
             <!-- FILTRE À PARTICULES -->
+            {% if echappement.filtre_particules != "NON_PRESENT" %}
             <tr>
 
                 <td>{% trans "Filtre à particules" %}</td>
@@ -525,9 +512,10 @@
                 </td>
 
             </tr>
-
+            {% endif %}
 
             <!-- POT DENOX -->
+            {% if echappement.pot_denox != "NON_PRESENT" %}
             <tr>
 
                 <td>{% trans "Pot DeNOx" %}</td>
@@ -556,9 +544,10 @@
                 </td>
 
             </tr>
-
+            {% endif %}
 
             <!-- SILENCIEUX -->
+            {% if echappement.silencieux != "NON_PRESENT" %}
             <tr>
 
                 <td>{% trans "Silencieux" %}</td>
@@ -586,9 +575,10 @@
                     {% endif %}
                 </td>
             </tr>
-
+            {% endif %}
 
             <!-- SONDE LAMBDA AMONT -->
+            {% if echappement.sonde_lambda_amont != "NON_PRESENT" %}
             <tr>
 
                 <td>{% trans "Sonde Lambda amont" %}</td>
@@ -617,9 +607,10 @@
                 </td>
 
             </tr>
-
+            {% endif %}
 
             <!-- SONDE LAMBDA AVAL -->
+            {% if echappement.sonde_lambda_aval != "NON_PRESENT" %}
             <tr>
 
                 <td>{% trans "Sonde Lambda aval" %}</td>
@@ -647,9 +638,10 @@
                     {% endif %}
                 </td>
             </tr>
-
+            {% endif %}
 
             <!-- SONDE FAP AMONT -->
+            {% if echappement.sonde_fap_amont != "NON_PRESENT" %}
             <tr>
 
                 <td>
@@ -679,9 +671,10 @@
                     {% endif %}
                 </td>
             </tr>
-
+            {% endif %}
 
             <!-- SONDE FAP AVAL -->
+            {% if echappement.sonde_fap_aval != "NON_PRESENT" %}
             <tr>
 
                 <td>
@@ -712,9 +705,10 @@
                 </td>
 
             </tr>
-
+            {% endif %}
 
             <!-- CAPTEUR FAP -->
+            {% if echappement.capteur_fap != "NON_PRESENT" %}
             <tr>
 
                 <td>
@@ -745,9 +739,10 @@
                 </td>
 
             </tr>
-
+            {% endif %}
 
             <!-- TUYAUX FAP -->
+            {% if echappement.tuyau_fap != "NON_PRESENT" %}
             <tr>
 
                 <td>
@@ -777,9 +772,10 @@
                     {% endif %}
                 </td>
             </tr>
-
+            {% endif %}
 
             <!-- RÉGÉNÉRATION FAP -->
+            {% if echappement.regeneration_fap != "NON_PRESENT" %}
             <tr>
 
                 <td>{% trans "Régénération du FAP" %}</td>
@@ -808,9 +804,10 @@
                 </td>
 
             </tr>
-
+            {% endif %}
 
             <!-- INJECTEUR ADBLUE -->
+            {% if echappement.injecteur_ad != "NON_PRESENT" %}
             <tr>
 
                 <td>{% trans "Injecteur d'AdBlue" %}</td>
@@ -838,9 +835,10 @@
                     {% endif %}
                 </td>
             </tr>
-
+            {% endif %}
 
             <!-- VALVE D'ÉCHAPPEMENT -->
+            {% if echappement.valve != "NON_PRESENT" %}
             <tr>
 
                 <td>{% trans "Valve d'échappement" %}</td>
@@ -868,9 +866,12 @@
                     {% endif %}
                 </td>
             </tr>
+            {% endif %}
+
 
 
             <!-- COLLIER -->
+            {% if echappement.collier != "NON_PRESENT" %}
             <tr>
 
                 <td>{% trans "Collier de serrage" %}</td>
@@ -898,9 +899,10 @@
                     {% endif %}
                 </td>
             </tr>
-
+            {% endif %}
 
             <!-- MANCHON -->
+            {% if echappement.manchon != "NON_PRESENT" %}
             <tr>
 
                 <td>{% trans "Manchon" %}</td>
@@ -929,9 +931,10 @@
                 </td>
 
             </tr>
-
+            {% endif %}
 
             <!-- JOINT -->
+            {% if echappement.joint != "NON_PRESENT" %}
             <tr>
 
                 <td>{% trans "Joints" %}</td>
@@ -959,9 +962,10 @@
                     {% endif %}
                 </td>
             </tr>
-
+            {% endif %}
 
             <!-- SILENT BLOC -->
+            {% if echappement.silent_bloc != "NON_PRESENT" %}
             <tr>
 
                 <td>{% trans "Silent Bloc" %}</td>
@@ -989,7 +993,7 @@
                     {% endif %}
                 </td>
             </tr>
-
+            {% endif %}
         </tbody>
 
     </table>

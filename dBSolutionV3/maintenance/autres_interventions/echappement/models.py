@@ -17,6 +17,7 @@ class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("OK")
     NOT_OK = "NOT_OK", _("A Remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
+    NON_PRESENT = "NON_PRESENT", _("Non présent")
 
 
 
@@ -148,11 +149,6 @@ class Echappement(models.Model):
         blank=True
     )
 
-    pays = models.CharField(
-        max_length=5,
-        choices=PAYS_CHOICES,
-        default="BE"
-    )
 
     def piece_fields(prefix):
         return {
@@ -184,13 +180,13 @@ class Echappement(models.Model):
     ligne_complete_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
-    filtre_particules = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Filtre à particules"))
+    filtre_particules = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NON_PRESENT,verbose_name=_("Filtre à particules"))
     filtre_particules_fabricant = models.CharField(max_length=25, choices=FabricantEchappement.choices,default=FabricantEchappement.CHOISIR, verbose_name=_("Fabricant"), blank=True,)
     filtre_particules_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     filtre_particules_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
-    pot_denox = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Pot DeNOx"))
+    pot_denox = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NON_PRESENT,verbose_name=_("Pot DeNOx"))
     pot_denox_fabricant = models.CharField(max_length=25, choices=FabricantEchappement.choices,default=FabricantEchappement.CHOISIR, verbose_name=_("Fabricant"), blank=True,)
     pot_denox_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     pot_denox_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
@@ -213,31 +209,31 @@ class Echappement(models.Model):
     sonde_lambda_aval_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
-    sonde_fap_amont = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Sonde de température avant le filtre à particules"))
+    sonde_fap_amont = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NON_PRESENT,verbose_name=_("Sonde de température avant le filtre à particules"))
     sonde_fap_amont_fabricant = models.CharField(max_length=25, choices=FabricantCapteurEchappement.choices,default=FabricantCapteurEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     sonde_fap_amont_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     sonde_fap_amont_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
-    sonde_fap_aval = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Sonde de température après le filtre à particules"))
+    sonde_fap_aval = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NON_PRESENT,verbose_name=_("Sonde de température après le filtre à particules"))
     sonde_fap_aval_fabricant = models.CharField(max_length=25, choices=FabricantCapteurEchappement.choices,default=FabricantCapteurEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     sonde_fap_aval_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     sonde_fap_aval_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
-    capteur_fap = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur de pression différentielle du filtre à particules"))
+    capteur_fap = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NON_PRESENT,verbose_name=_("Capteur de pression différentielle du filtre à particules"))
     capteur_fap_fabricant = models.CharField(max_length=25, choices=FabricantCapteurEchappement.choices,default=FabricantCapteurEchappement.CHOISIR,verbose_name=_("Fabricant"), blank=True,)
     capteur_fap_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     capteur_fap_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
-    tuyau_fap = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Tuyaux du capteur de pression différentielle"))
+    tuyau_fap = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NON_PRESENT,verbose_name=_("Tuyaux du capteur de pression différentielle"))
     tuyau_fap_fabricant = models.CharField(max_length=25, choices=FabricantEchappement.choices,default=FabricantEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     tuyau_fap_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     tuyau_fap_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
-    regeneration_fap = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Régénération du FAP"))
+    regeneration_fap = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NON_PRESENT,verbose_name=_("Régénération du FAP"))
     regeneration_fap_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix htva"))
     regeneration_fap_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
@@ -249,7 +245,7 @@ class Echappement(models.Model):
     cendre_fap = models.PositiveIntegerField(default=0, verbose_name=_("Poids des cendres du FAP"))
 
 
-    injecteur_ad = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Injecteur d'AdBlue"))
+    injecteur_ad = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NON_PRESENT,verbose_name=_("Injecteur d'AdBlue"))
     injecteur_ad_fabricant = models.CharField(max_length=25, choices=FabricantCapteurEchappement.choices,default=FabricantCapteurEchappement.CHOISIR, verbose_name=_("Fabricant"),  blank=True,)
     injecteur_ad_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
     injecteur_ad_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
