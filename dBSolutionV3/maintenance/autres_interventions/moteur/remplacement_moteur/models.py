@@ -241,7 +241,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
 
     refroidissement_quantite = models.FloatField(
         default=0,
-        verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"),
+        verbose_name=_("Quantité ajoutée en litres"),
         validators=[StepValueValidator(0.1)]
     )
 

@@ -121,10 +121,7 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
         verbose_name= _("Kilométrage de la courroie d'accessoires")
     )
 
-    pays = models.CharField(
-        max_length=5,
-        choices=PAYS_CHOICES
-    )
+
 
     # -------------------------
     # PIECES
@@ -142,20 +139,23 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
     # Courroie
     courroie_daccessoires = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Courroie d'accessoires"))
     courroie_daccessoires_fabricant = models.CharField(max_length=25, choices=FabricantCourroie.choices,default=FabricantCourroie.CHOISIR, verbose_name=_("Fabricant"),blank=True)
-    courroie_daccessoires_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva de la courroie"))
     courroie_daccessoires_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    courroie_daccessoires_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva de la courroie"))
+
 
     # Courroie
     galet_tendeur = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Galet Tendeur"))
     galet_tendeur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
-    galet_tendeur_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du galet"))
     galet_tendeur_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    galet_tendeur_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du galet"))
+
 
     # Courroie
     poulie_damper = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Poulie Damper"))
     poulie_damper_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
-    poulie_damper_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva de la poulie"))
     poulie_damper_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    poulie_damper_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva de la poulie"))
+
 
 
     serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,

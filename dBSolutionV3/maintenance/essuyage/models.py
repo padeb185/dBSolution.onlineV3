@@ -738,7 +738,7 @@ class Essuyage(TechnicienMixin, models.Model):
         decimal_places=2,
         default=0.0,
         verbose_name=_("Quantité"),
-        help_text=_("Quantité en litres"),
+        help_text=_("Quantité ajoutée en litres"),
     )
 
     liquide_lave_glace_prix = models.DecimalField(
