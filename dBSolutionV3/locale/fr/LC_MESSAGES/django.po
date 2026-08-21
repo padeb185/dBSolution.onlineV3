@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-20 15:35+0200\n"
+"POT-Creation-Date: 2026-08-21 11:13+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -6304,7 +6304,8 @@ msgstr ""
 #: maintenance/entretien/models.py:488 maintenance/entretien/models.py:513
 #: maintenance/entretien/models.py:536 maintenance/entretien/models.py:553
 #: maintenance/entretien/models.py:574 maintenance/entretien/models.py:587
-#: maintenance/entretien/models.py:599 maintenance/entretien/models.py:648
+#: maintenance/entretien/models.py:599 maintenance/entretien/models.py:612
+#: maintenance/entretien/models.py:624 maintenance/entretien/models.py:648
 #: maintenance/entretien/models.py:677 maintenance/entretien/models.py:707
 #: maintenance/entretien/models.py:737 maintenance/entretien/models.py:766
 #: maintenance/entretien/models.py:795 maintenance/entretien/models.py:824
@@ -7172,6 +7173,8 @@ msgstr ""
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:669
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:781
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:813
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:627
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:659
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:910
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:942
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:507
@@ -7198,6 +7201,8 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:842
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:678
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:708
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1863
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1906
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:412
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:452
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2668
@@ -7231,6 +7236,8 @@ msgstr ""
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:677
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:791
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:825
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:637
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:671
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:920
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:954
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:517
@@ -7257,6 +7264,8 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:852
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:688
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:718
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1876
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1925
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:426
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:466
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2682
@@ -8783,8 +8792,6 @@ msgid "Prix unitaire de l'huile HTVA"
 msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:510
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:627
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:659
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:691
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:625
 #: maintenance/autres_interventions/moteur/allumage/views.py:398
@@ -8798,8 +8805,7 @@ msgstr "Tableau de Bord"
 #: maintenance/autres_interventions/moteur/injection/views.py:731
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:684
 #: maintenance/autres_interventions/refroidissement/models.py:142
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1863
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1906
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1697
 msgid "Main-d'œuvre"
 msgstr ""
 
@@ -9311,18 +9317,6 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:380
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:366
 msgid "Résultat"
-msgstr ""
-
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:637
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1876
-#, fuzzy
-#| msgid "Tableau de bord"
-msgid "Total général avec main-d'œuvre"
-msgstr "Tableau de Bord"
-
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:671
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1925
-msgid "Total général"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:4
@@ -11657,7 +11651,7 @@ msgstr "Tableau de Bord"
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail.html:52
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:197
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:210
-#: maintenance/models.py:42
+#: maintenance/models.py:42 maintenance/types_maintenances.py:14
 msgid "Allumage"
 msgstr ""
 
@@ -12078,6 +12072,7 @@ msgid "Qualité de liquide de refroidissement"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/courroie/models.py:230
+#: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:244
 #: maintenance/autres_interventions/moteur/rodage/models.py:292
 #: maintenance/autres_interventions/moteur/rodage/models.py:299
 #: maintenance/autres_interventions/moteur/rodage/models.py:307
@@ -12096,9 +12091,10 @@ msgstr ""
 #: maintenance/entretien/models.py:556 maintenance/entretien/models.py:577
 #: maintenance/entretien/models.py:588 maintenance/entretien/models.py:600
 #: maintenance/entretien/models.py:613 maintenance/entretien/models.py:625
-#: maintenance/niveaux/models.py:285 maintenance/niveaux/models.py:292
-#: maintenance/niveaux/models.py:299 maintenance/niveaux/models.py:320
-#: maintenance/niveaux/models.py:327 piece/piece_fluides/models.py:160
+#: maintenance/essuyage/models.py:741 maintenance/niveaux/models.py:285
+#: maintenance/niveaux/models.py:292 maintenance/niveaux/models.py:299
+#: maintenance/niveaux/models.py:320 maintenance/niveaux/models.py:327
+#: piece/piece_fluides/models.py:160
 msgid "Quantité ajoutée en litres"
 msgstr ""
 
@@ -12765,10 +12761,6 @@ msgstr ""
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:805
 #: maintenance/entretien/models.py:611 maintenance/niveaux/models.py:303
 msgid "Niveau de liquide de refroidissement"
-msgstr ""
-
-#: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:244
-msgid "Quantité de liquide de refroidissement ajoutée en litres"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:262
@@ -13523,7 +13515,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:29
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:51
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:182
-#: maintenance/models.py:35
+#: maintenance/models.py:35 maintenance/types_maintenances.py:13
 msgid "Rodage"
 msgstr ""
 
@@ -14626,12 +14618,6 @@ msgstr ""
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1602
 msgid "Fonctionnement du chauffage correct"
 msgstr ""
-
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1697
-#, fuzzy
-#| msgid "Tableau de bord"
-msgid "Coût main-d'œuvre"
-msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_form.html:15
 #, fuzzy
@@ -20093,11 +20079,6 @@ msgstr "Tableau de Bord"
 msgid "Ajout de la nouvelle huile de pont"
 msgstr "Tableau de Bord"
 
-#: maintenance/entretien/models.py:612 maintenance/entretien/models.py:624
-#: piece/templates/piece/piece_list.html:17
-msgid "Nom du fabricant"
-msgstr ""
-
 #: maintenance/entretien/models.py:1067
 msgid "entretiens"
 msgstr ""
@@ -20413,12 +20394,6 @@ msgstr ""
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:373
 msgid "Liquide lave-glace"
 msgstr ""
-
-#: maintenance/essuyage/models.py:741
-#, fuzzy
-#| msgid "Tableau de bord"
-msgid "Quantité en litres"
-msgstr "Tableau de Bord"
 
 #: maintenance/essuyage/models.py:832
 #: maintenance/essuyage/templates/essuyage/essuyage_detail.html:54
@@ -22130,14 +22105,6 @@ msgstr ""
 
 #: maintenance/templates/maintenance/list.html:130
 msgid "Aucun exemplaire disponible pour la maintenance."
-msgstr ""
-
-#: maintenance/types_maintenances.py:13
-msgid "RODAGE"
-msgstr ""
-
-#: maintenance/types_maintenances.py:14
-msgid "ALLUMAGE"
 msgstr ""
 
 #: outillage/forms.py:25
@@ -24446,6 +24413,10 @@ msgstr ""
 
 #: piece/templates/piece/piece_form.html:116
 msgid "Quantité minimum"
+msgstr ""
+
+#: piece/templates/piece/piece_list.html:17
+msgid "Nom du fabricant"
 msgstr ""
 
 #: piece/templates/piece/piece_list.html:21
@@ -27420,6 +27391,21 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:145
 msgid "Pneu mis à jour avec succès."
 msgstr ""
+
+#, fuzzy
+#~| msgid "Tableau de bord"
+#~ msgid "Total général avec main-d'œuvre"
+#~ msgstr "Tableau de Bord"
+
+#, fuzzy
+#~| msgid "Tableau de bord"
+#~ msgid "Coût main-d'œuvre"
+#~ msgstr "Tableau de Bord"
+
+#, fuzzy
+#~| msgid "Tableau de bord"
+#~ msgid "Quantité en litres"
+#~ msgstr "Tableau de Bord"
 
 #, fuzzy
 #~| msgid "Tableau de bord"
