@@ -116,6 +116,12 @@ class SilentBloc(TechnicienMixin, models.Model):
 
     )
 
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
+
     # --- Silent Bloc ---
 
 
@@ -733,37 +739,108 @@ class SilentBloc(TechnicienMixin, models.Model):
                 })
 
     def save(self, *args, **kwargs):
-        self.full_clean()  # valide les km avant sauvegarde
 
-        if self.voiture_exemplaire:
-            if self.kilometrage_silent is not None:
-                # Si l'utilisateur a saisi un km
-                if self.kilometrage_silent > self.voiture_exemplaire.kilometres_chassis:
-                    self.voiture_exemplaire.kilometres_chassis = self.kilometrage_silent
-                    self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
-                # Toujours copier dans le Niveau
-                self.kilometres_chassis = max(self.kilometrage_silent, self.voiture_exemplaire.kilometres_chassis)
-            else:
-                # Si non saisi, prendre le km actuel de la voiture
-                self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+        ancien_kilometrage = 0
 
-        if not self.tech_technicien and hasattr(self, "_user"):
+        # =========================
+        # TECHNICIEN
+        # =========================
+        if not self.tech_technicien_id and hasattr(self, "_user"):
             self.assign_technicien(self._user)
 
-            # ----------------------------
-            # MAIN D'OEUVRE AUTO DESCRIPTIF
-            # ----------------------------
+        # =========================
+        # MAIN D'ŒUVRE
+        # =========================
         if self.main_oeuvre_id and self.voiture_exemplaire_id:
-            task_name = _("Silent Blocs") + " " + str(self.voiture_exemplaire)
+            task_name = (
+                    _("Controle des silent blocs")
+                    + " "
+                    + str(self.voiture_exemplaire)
+            )
+
             self.main_oeuvre.descriptif = task_name
-            self.main_oeuvre.save(update_fields=["descriptif"])
+            self.main_oeuvre.save(
+                update_fields=["descriptif"]
+            )
 
-        if not self.pk and self.main_oeuvre and self.main_oeuvre.taux_horaire:
-            self.taux_horaire = self.main_oeuvre.taux_horaire
+        # =========================
+        # MAINTENANCE
+        # =========================
+        if self.maintenance_id and self.voiture_exemplaire_id:
+            self.maintenance.type_maintenance = (
+                Maintenance.TypeMaintenance.SILENT_BLOC
+            )
 
+            self.maintenance.voiture_exemplaire = (
+                self.voiture_exemplaire
+            )
+
+            self.maintenance.save(
+                update_fields=[
+                    "type_maintenance",
+                    "voiture_exemplaire",
+                ]
+            )
+
+        # =========================
+        # KILOMÉTRAGE AVANT INTERVENTION
+        # =========================
+        if self.voiture_exemplaire_id:
+
+            voiture = type(self.voiture_exemplaire).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+            ancien_kilometrage = (
+                    voiture.kilometres_chassis or 0
+            )
+
+            # Snapshot du kilométrage avant intervention
+            self.kilometres_chassis = ancien_kilometrage
+
+            # =========================
+            # CALCUL VARIATION
+            # =========================
+            if self.kilometrage_silent is not None:
+
+                self.kilometrage_variation = (
+                        self.kilometrage_silent
+                        - ancien_kilometrage
+                )
+
+            else:
+                self.kilometrage_variation = 0
+
+        # =========================
+        # SAUVEGARDE NETTOYAGE EXTÉRIEUR
+        # =========================
         super().save(*args, **kwargs)
 
-        # ======================================================
+        # =========================
+        # MISE À JOUR DU VÉHICULE
+        # =========================
+        if (
+                self.voiture_exemplaire_id
+                and self.kilometrage_silent is not None
+        ):
+
+            voiture = type(self.voiture_exemplaire).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+            if (
+                    self.kilometrage_silent
+                    > (voiture.kilometres_chassis or 0)
+            ):
+                voiture.kilometres_chassis = (
+                    self.kilometrage_silent
+                )
+
+                voiture.save(
+                    update_fields=["kilometres_chassis"]
+                )
+
+    # ======================================================
         # MAIN-D'ŒUVRE
         # ======================================================
 

@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
@@ -112,33 +114,48 @@ def silent_check_view(request, exemplaire_id):
             try:
                 with transaction.atomic():
 
-                    km = form.cleaned_data.get("kilometrage_silent")
+
+                    silent = form.save(commit=False)
+
+                    # =========================
+                    # KILOMÉTRAGE
+                    # =========================
+
+                    km = form.cleaned_data.get(
+                        "kilometrage_silent"
+                    )
+
+                    ancien_kilometrage = (
+                        exemplaire.kilometres_chassis or 0
+                    )
+
+                    kilometrage_variation = 0
 
                     if km is not None:
+
                         km = int(km)
 
-                        ancien_km = exemplaire.kilometres_chassis
-
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometrage_silent",
-                                _("Le kilométrage ne peut pas diminuer.")
+                        if km < ancien_kilometrage:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage du contrôle des silent blocs "
+                                    "ne peut pas être inférieur au kilométrage "
+                                    "actuel du véhicule."
+                                )
                             )
-                            raise ValueError("Kilométrage invalide")
 
-                        # 🚗 update voiture (source unique)
+                        kilometrage_variation = (
+                            km - ancien_kilometrage
+                        )
+
+                        # Mise à jour véhicule
                         exemplaire.kilometres_chassis = km
-                        exemplaire.date_derniere_intervention = timezone.now().date()
 
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
-
-                        # 🔗 checkup UNIQUE
-                        silent = form.save(commit=False)
-                        silent.assign_technicien(request.user)
-
-                        silent.kilometres_chassis = exemplaire.kilometres_chassis
-                        silent.kilometrage_silent = km
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis"
+                            ]
+                        )
 
                     maintenance = Maintenance.objects.create(
                         societe=request.user.societe,
@@ -171,8 +188,24 @@ def silent_check_view(request, exemplaire_id):
 
                     silent.assign_technicien(request.user)
 
-                    # 🔗 lien final
-                    silent.maintenance = maintenance
+                    silent.kilometrage_silent = km
+
+                    silent.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+
+                    silent.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    silent.assign_technicien(
+                        request.user
+                    )
+
+                    silent.tech_last_maintained_by = (
+                        request.user
+                    )
+
                     silent.save()
 
                 messages.success(request, _("Controle des silent blocs enregistré avec succès."))
