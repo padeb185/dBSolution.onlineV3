@@ -119,6 +119,12 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
         verbose_name=_("Kilométrage au moment du Nettoyage intérieur"),
     )
 
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
+
     nettoyage_interieur_vitres =  models.CharField(
         max_length=25,
         choices=NettoyageEtat.choices,
@@ -288,31 +294,105 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
 
     def save(self, *args, **kwargs):
 
-        if self.voiture_exemplaire_id and self.kilometrage_net_int:
+        ancien_kilometrage = 0
 
-            if self.kilometrage_net_int < self.voiture_exemplaire.kilometres_chassis:
-                raise ValidationError("Le kilométrage ne peut pas diminuer.")
-
-            if self.kilometrage_net_int > self.voiture_exemplaire.kilometres_chassis:
-                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_net_int
-                self.voiture_exemplaire.kilometres_dernier_entretien = self.kilometrage_net_int
-                self.voiture_exemplaire.date_derniere_intervention = timezone.now().date()
-
-                self.voiture_exemplaire.update_kilometres()
-                self.voiture_exemplaire.save()
-
-        if self.voiture_exemplaire_id:
-            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
-
-        if not self.tech_technicien and hasattr(self, "_user"):
+        # =========================
+        # TECHNICIEN
+        # =========================
+        if not self.tech_technicien_id and hasattr(self, "_user"):
             self.assign_technicien(self._user)
 
+        # =========================
+        # MAIN D'ŒUVRE
+        # =========================
         if self.main_oeuvre_id and self.voiture_exemplaire_id:
-            task_name = _("Nettoyage Extérieur") + " " + str(self.voiture_exemplaire)
-            self.main_oeuvre.descriptif = task_name
-            self.main_oeuvre.save(update_fields=["descriptif"])
+            task_name = (
+                    _("Nettoyage intérieur")
+                    + " "
+                    + str(self.voiture_exemplaire)
+            )
 
+            self.main_oeuvre.descriptif = task_name
+            self.main_oeuvre.save(
+                update_fields=["descriptif"]
+            )
+
+        # =========================
+        # MAINTENANCE
+        # =========================
+        if self.maintenance_id and self.voiture_exemplaire_id:
+            self.maintenance.type_maintenance = (
+                Maintenance.TypeMaintenance.NETTOYAGE_INTERIEUR
+            )
+
+            self.maintenance.voiture_exemplaire = (
+                self.voiture_exemplaire
+            )
+
+            self.maintenance.save(
+                update_fields=[
+                    "type_maintenance",
+                    "voiture_exemplaire",
+                ]
+            )
+
+        # =========================
+        # KILOMÉTRAGE AVANT INTERVENTION
+        # =========================
+        if self.voiture_exemplaire_id:
+
+            voiture = type(self.voiture_exemplaire).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+            ancien_kilometrage = (
+                    voiture.kilometres_chassis or 0
+            )
+
+            # Snapshot du kilométrage avant intervention
+            self.kilometres_chassis = ancien_kilometrage
+
+            # =========================
+            # CALCUL VARIATION
+            # =========================
+            if self.kilometrage_net_int is not None:
+
+                self.kilometrage_variation = (
+                        self.kilometrage_net_int
+                        - ancien_kilometrage
+                )
+
+            else:
+                self.kilometrage_variation = 0
+
+        # =========================
+        # SAUVEGARDE NETTOYAGE EXTÉRIEUR
+        # =========================
         super().save(*args, **kwargs)
+
+        # =========================
+        # MISE À JOUR DU VÉHICULE
+        # =========================
+        if (
+                self.voiture_exemplaire_id
+                and self.kilometrage_net_int is not None
+        ):
+
+            voiture = type(self.voiture_exemplaire).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+            if (
+                    self.kilometrage_net_int
+                    > (voiture.kilometres_chassis or 0)
+            ):
+                voiture.kilometres_chassis = (
+                    self.kilometrage_net_int
+                )
+
+                voiture.save(
+                    update_fields=["kilometres_chassis"]
+                )
 
     def generer_rapport_remplacement(self):
         rapport = []

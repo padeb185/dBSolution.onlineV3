@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 from .models import NettoyageInterieur
 from maindoeuvre.models import MainDoeuvre
+from django.utils.translation import gettext_lazy as _
 
 
 class NettoyageInterieurForm(forms.ModelForm):
@@ -15,6 +16,17 @@ class NettoyageInterieurForm(forms.ModelForm):
             attrs={'readonly': 'readonly', 'class': 'form-input'},
             format='%Y-%m-%d %H:%M:%S'
         )
+    )
+
+    kilometrage_variation = forms.IntegerField(
+        required=False,
+        label=_("Variation du kilométrage"),
+        widget=forms.NumberInput(
+            attrs={
+                "readonly": "readonly",
+                "class": "input",
+            }
+        ),
     )
 
     class Meta:
@@ -32,7 +44,28 @@ class NettoyageInterieurForm(forms.ModelForm):
         self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
 
-         # -------- MAIN D'ŒUVRE QUERYSET --------
+        # =========================
+        # VARIATION KILOMÉTRAGE
+        # =========================
+        if "kilometrage_variation" in self.fields:
+
+            variation = 0
+
+            if (
+                    self.instance
+                    and self.instance.pk
+                    and self.instance.kilometrage_net_int is not None
+            ):
+                # À adapter suivant l'endroit où tu stockes
+                # le kilométrage précédent
+                variation = self.instance.kilometrage_variation or 0
+
+            self.fields["kilometrage_variation"].initial = variation
+
+
+
+
+        # -------- MAIN D'ŒUVRE QUERYSET --------
         if "main_oeuvre" in self.fields:
             self.fields["main_oeuvre"].queryset = MainDoeuvre.objects.select_related(
                 "utilisateur"

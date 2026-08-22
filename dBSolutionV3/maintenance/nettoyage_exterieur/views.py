@@ -153,7 +153,7 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                         nettoyage_ext.assign_technicien(request.user)
 
                         nettoyage_ext.kilometres_chassis = exemplaire.kilometres_chassis
-                        nettoyage_ext.kilometrage_jeu = km
+                        nettoyage_ext.kilometrage_net_ext = km
 
                     maintenance = Maintenance.objects.create(
                         societe=tenant,
