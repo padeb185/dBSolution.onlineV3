@@ -118,6 +118,12 @@ class ControleFreins(TechnicienMixin, models.Model):
 
     )
 
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
+
     societe = models.ForeignKey(
         Societe,
         on_delete=models.PROTECT,
@@ -467,38 +473,89 @@ class ControleFreins(TechnicienMixin, models.Model):
                                               }
             })
 
-
-
     def save(self, *args, **kwargs):
-        # Validation AVANT de modifier voiture_exemplaire.kilometres_chassis
+
+        # =========================
+        # VALIDATION
+        # =========================
         self.full_clean()
 
         if not self.tech_technicien and hasattr(self, "_user"):
             self.assign_technicien(self._user)
 
+        # =========================
+        # MAIN D'ŒUVRE
+        # =========================
         if self.main_oeuvre_id and self.voiture_exemplaire_id:
-            task_name = _("Contrôle des freins") + " " + str(self.voiture_exemplaire)
+            task_name = (
+                    _("Contrôle des freins")
+                    + " "
+                    + str(self.voiture_exemplaire)
+            )
+
             self.main_oeuvre.descriptif = task_name
-            self.main_oeuvre.save(update_fields=["descriptif"])
+            self.main_oeuvre.save(
+                update_fields=["descriptif"]
+            )
 
-        # Sauver d'abord le contrôle
-        super().save(*args, **kwargs)
+        # =========================
+        # KILOMÉTRAGE
+        # =========================
+        ancien_kilometrage = 0
 
-        # Ensuite seulement, mettre à jour la voiture si le km contrôle est supérieur
-        if self.voiture_exemplaire_id and self.kilometrage_controle_brake is not None:
+        if self.voiture_exemplaire_id:
+
             voiture = type(self.voiture_exemplaire).objects.get(
                 pk=self.voiture_exemplaire_id
             )
 
-            if self.kilometrage_controle_brake > (voiture.kilometres_chassis or 0):
-                voiture.kilometres_chassis = self.kilometrage_controle_brake
-                voiture.save(update_fields=["kilometres_chassis"])
+            # Kilométrage AVANT le contrôle
+            ancien_kilometrage = (
+                    voiture.kilometres_chassis or 0
+            )
 
-            # Garder une copie du kilométrage châssis dans le contrôle
-            if self.kilometres_chassis != voiture.kilometres_chassis:
-                self.kilometres_chassis = voiture.kilometres_chassis
-                super().save(update_fields=["kilometres_chassis"])
+            # Snapshot dans le contrôle
+            self.kilometres_chassis = ancien_kilometrage
 
+            # Calcul variation
+            if self.kilometrage_controle_brake is not None:
+
+                self.kilometrage_variation = (
+                        self.kilometrage_controle_brake
+                        - ancien_kilometrage
+                )
+
+            else:
+                self.kilometrage_variation = 0
+
+        # =========================
+        # SAUVEGARDE DU CONTRÔLE
+        # =========================
+        super().save(*args, **kwargs)
+
+        # =========================
+        # MISE À JOUR DU VÉHICULE
+        # =========================
+        if (
+                self.voiture_exemplaire_id
+                and self.kilometrage_controle_brake is not None
+        ):
+
+            voiture = type(self.voiture_exemplaire).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+            if (
+                    self.kilometrage_controle_brake
+                    > (voiture.kilometres_chassis or 0)
+            ):
+                voiture.kilometres_chassis = (
+                    self.kilometrage_controle_brake
+                )
+
+                voiture.save(
+                    update_fields=["kilometres_chassis"]
+                )
 
     def generer_rapport_remplacement(self):
             lignes = []

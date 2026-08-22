@@ -66,7 +66,6 @@ class CheckupListView(ListView):
 
         return context
 
-
 @never_cache
 @login_required
 def controle_total_view(request, exemplaire_id):
@@ -114,14 +113,29 @@ def controle_total_view(request, exemplaire_id):
 
                     km = form.cleaned_data.get("kilometrage_checkup")
 
+                    # ✅ On conserve le kilométrage précédent
+                    ancien_kilometrage = exemplaire.kilometres_chassis or 0
+
+                    # ✅ Variation calculée dynamiquement
+                    kilometrage_variation = 0
+
                     if km is not None:
 
-                        # validation
-                        if km < exemplaire.kilometres_chassis:
-                            raise ValueError("KM invalide")
+                        # Validation
+                        if km < ancien_kilometrage:
+                            raise ValueError(
+                                _("Le kilométrage du Checkup ne peut pas être inférieur "
+                                  "au kilométrage actuel du véhicule.")
+                            )
 
+                        # Calcul AVANT mise à jour du véhicule
+                        kilometrage_variation = km - ancien_kilometrage
+
+                        # Mise à jour du kilométrage véhicule
                         exemplaire.kilometres_chassis = km
-                        exemplaire.save()
+                        exemplaire.save(
+                            update_fields=["kilometres_chassis"]
+                        )
 
                     # 🔴 création maintenance
                     maintenance = Maintenance.objects.create(
@@ -129,27 +143,43 @@ def controle_total_view(request, exemplaire_id):
                         voiture_exemplaire=exemplaire,
                         immatriculation=exemplaire.immatriculation,
                         date_intervention=timezone.now().date(),
+
+                        # kilométrage actuel après mise à jour
                         kilometres_chassis=exemplaire.kilometres_chassis,
-                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+
+                        kilometres_dernier_entretien=(
+                            exemplaire.kilometres_dernier_entretien
+                        ),
+
                         type_maintenance=Maintenance.TypeMaintenance.CHECKUP,
                         tag=Maintenance.Tag.JAUNE,
                     )
 
                     # 🔴 rôle
                     if role == "mecanicien":
-                        maintenance.mecanicien = Mecanicien.objects.get(id=request.user.id)
+                        maintenance.mecanicien = Mecanicien.objects.get(
+                            id=request.user.id
+                        )
 
                     elif role == "chef_mecanicien":
-                        maintenance.chef_mecanicien = ChefMecanicien.objects.get(id=request.user.id)
+                        maintenance.chef_mecanicien = ChefMecanicien.objects.get(
+                            id=request.user.id
+                        )
 
                     elif role == "apprenti":
-                        maintenance.apprentis = Apprenti.objects.get(id=request.user.id)
+                        maintenance.apprentis = Apprenti.objects.get(
+                            id=request.user.id
+                        )
 
                     elif role == "magasinier":
-                        maintenance.magasinier = Magasinier.objects.get(id=request.user.id)
+                        maintenance.magasinier = Magasinier.objects.get(
+                            id=request.user.id
+                        )
 
                     elif role == "direction":
-                        maintenance.direction = Direction.objects.get(id=request.user.id)
+                        maintenance.direction = Direction.objects.get(
+                            id=request.user.id
+                        )
 
                     maintenance.save()
 
@@ -159,8 +189,14 @@ def controle_total_view(request, exemplaire_id):
                     checkup.voiture_exemplaire = exemplaire
                     checkup.maintenance = maintenance
 
+                    # ✅ kilométrage saisi lors du Checkup
                     checkup.kilometrage_checkup = km
-                    checkup.kilometres_chassis = exemplaire.kilometres_chassis
+
+                    # ✅ ancien kilométrage avant le Checkup
+                    checkup.kilometres_chassis = ancien_kilometrage
+
+                    # ✅ différence entre les deux
+                    checkup.kilometrage_variation = kilometrage_variation
 
                     # 👨‍🔧 technicien
                     checkup.assign_technicien(request.user)
@@ -181,16 +217,26 @@ def controle_total_view(request, exemplaire_id):
                     request,
                     _("Checkup enregistré avec succès.")
                 )
-                return redirect("check_up:checkup_list", exemplaire_id=exemplaire.id)
+
+                return redirect(
+                    "check_up:checkup_list",
+                    exemplaire_id=exemplaire.id
+                )
 
             except Exception as e:
-                messages.error(request, f"Erreur : {e}")
+                messages.error(
+                    request,
+                    _("Erreur : %(erreur)s") % {
+                        "erreur": str(e)
+                    }
+                )
 
         else:
             messages.error(
                 request,
                 _("Le formulaire contient des erreurs.")
             )
+
     # =========================
     # GET
     # =========================
@@ -200,6 +246,7 @@ def controle_total_view(request, exemplaire_id):
             voiture_exemplaire=exemplaire,
             kilometres_chassis=exemplaire.kilometres_chassis
         )
+
         checkup.assign_technicien(request.user)
 
         form = CheckupForm(
@@ -208,13 +255,16 @@ def controle_total_view(request, exemplaire_id):
             exemplaire=exemplaire
         )
 
-    return render(request, "check_up/controle_total.html", {
-        "exemplaire": exemplaire,
-        "immatriculation": exemplaire.immatriculation,
-        "form": form,
-        "now": timezone.now(),
-    })
-
+    return render(
+        request,
+        "check_up/controle_total.html",
+        {
+            "exemplaire": exemplaire,
+            "immatriculation": exemplaire.immatriculation,
+            "form": form,
+            "now": timezone.now(),
+        }
+    )
 
 
 # ------------

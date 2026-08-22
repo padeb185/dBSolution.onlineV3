@@ -116,7 +116,44 @@ def nettoyage_exterieur_view(request, exemplaire_id):
             try:
                 with transaction.atomic():
 
-                    nettoyage_ext = form.save(commit=False)
+                    nettoyage_ext.assign_technicien(request.user)
+                    nettoyage_ext.voiture_exemplaire = exemplaire
+                    nettoyage_ext.immatriculation = exemplaire.immatriculation
+                    nettoyage_ext.societe = tenant
+                    nettoyage_ext.kilometres_chassis = exemplaire.kilometres_chassis
+
+                    km = form.cleaned_data.get("kilometrage_net_ext")
+
+                    # ✅ On conserve le kilométrage précédent
+                    ancien_kilometrage = exemplaire.kilometres_chassis or 0
+
+                    # ✅ Variation calculée dynamiquement
+                    kilometrage_variation = 0
+
+                    if km is not None:
+
+                        # Validation
+                        if km < ancien_kilometrage:
+                            raise ValueError(
+                                _("Le kilométrage du nettoyage extérieur ne peut pas être inférieur "
+                                  "au kilométrage actuel du véhicule.")
+                            )
+
+                        # Calcul AVANT mise à jour du véhicule
+                        kilometrage_variation = km - ancien_kilometrage
+
+                        # Mise à jour du kilométrage véhicule
+                        exemplaire.kilometres_chassis = km
+                        exemplaire.save(
+                            update_fields=["kilometres_chassis"]
+                        )
+
+                        # 🔗 checkup UNIQUE
+                        nettoyage_ext = form.save(commit=False)
+                        nettoyage_ext.assign_technicien(request.user)
+
+                        nettoyage_ext.kilometres_chassis = exemplaire.kilometres_chassis
+                        nettoyage_ext.kilometrage_jeu = km
 
                     maintenance = Maintenance.objects.create(
                         societe=tenant,
@@ -145,14 +182,29 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                         maintenance.direction = request.user
 
                     maintenance.save()
+                    nettoyage_ext = form.save(commit=False)
 
-                    nettoyage_ext.maintenance = maintenance
                     nettoyage_ext.voiture_exemplaire = exemplaire
+                    nettoyage_ext.maintenance = maintenance
+
+                    # ✅ kilométrage saisi lors du nettoyage_ext
+                    nettoyage_ext.kilometrage_net_ext = km
+
+                    # ✅ ancien kilométrage avant le nettoyage_ext
+                    nettoyage_ext.kilometres_chassis = ancien_kilometrage
+
+                    # ✅ différence entre les deux
+                    nettoyage_ext.kilometrage_variation = kilometrage_variation
+
+                    # 👨‍🔧 technicien
                     nettoyage_ext.assign_technicien(request.user)
+
+                    # 👨‍🔧 dernier technicien maintenance
+                    nettoyage_ext.tech_last_maintained_by = request.user
 
                     nettoyage_ext.save()
 
-                    UserLog.objects.create(
+                UserLog.objects.create(
                         utilisateur=request.user,
                         action=_("Nettoyage extérieur - %(immatriculation)s") % {
                             "immatriculation": exemplaire.immatriculation

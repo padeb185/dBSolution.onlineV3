@@ -116,38 +116,39 @@ def controle_freins_view(request, exemplaire_id):
 
             try:
                 with transaction.atomic():
-                    controle_freins = form.save(commit=False)
+                    controle_frein = form.save(commit=False)
 
-                    controle_freins.assign_technicien(request.user)
-                    controle_freins.voiture_exemplaire = exemplaire
-                    controle_freins.immatriculation = exemplaire.immatriculation
-                    controle_freins.societe = tenant
-                    controle_freins.kilometres_chassis = exemplaire.kilometres_chassis
+                    controle_frein.assign_technicien(request.user)
+                    controle_frein.voiture_exemplaire = exemplaire
+                    controle_frein.immatriculation = exemplaire.immatriculation
+                    controle_frein.societe = tenant
+                    controle_frein.kilometres_chassis = exemplaire.kilometres_chassis
 
                     km = form.cleaned_data.get("kilometrage_controle_brake")
 
+                    # ✅ On conserve le kilométrage précédent
+                    ancien_kilometrage = exemplaire.kilometres_chassis or 0
+
+                    # ✅ Variation calculée dynamiquement
+                    kilometrage_variation = 0
+
                     if km is not None:
-                        km = int(km)
 
-                        ancien_km = exemplaire.kilometres_chassis
-
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometrage_controle_brake",
-                                _("Le kilométrage ne peut pas diminuer.")
+                        # Validation
+                        if km < ancien_kilometrage:
+                            raise ValueError(
+                                _("Le kilométrage du Checkup-Freins ne peut pas être inférieur "
+                                  "au kilométrage actuel du véhicule.")
                             )
-                            raise ValueError("Kilométrage invalide")
 
-                        # 🚗 update voiture (source unique)
+                        # Calcul AVANT mise à jour du véhicule
+                        kilometrage_variation = km - ancien_kilometrage
+
+                        # Mise à jour du kilométrage véhicule
                         exemplaire.kilometres_chassis = km
-                        exemplaire.date_derniere_intervention = timezone.now().date()
-
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
-
-                        controle_freins.kilometres_chassis = exemplaire.kilometres_chassis
-                        controle_freins.kilometrage_controle_brake = km
-
+                        exemplaire.save(
+                            update_fields=["kilometres_chassis"]
+                        )
 
                     maintenance = Maintenance.objects.create(
                         societe=request.user.societe,
@@ -177,12 +178,27 @@ def controle_freins_view(request, exemplaire_id):
                         maintenance.direction = request.user
 
                     maintenance.save()
-                    controle_freins.assign_technicien(request.user)
+                    controle_frein = form.save(commit=False)
 
-                    # 🔗 lien final
+                    controle_frein.voiture_exemplaire = exemplaire
+                    controle_frein.maintenance = maintenance
 
-                controle_freins.maintenance = maintenance
-                controle_freins.save()
+                    # ✅ kilométrage saisi lors du controle_frein
+                    controle_frein.kilometrage_controle_brake = km
+
+                    # ✅ ancien kilométrage avant le controle_frein
+                    controle_frein.kilometres_chassis = ancien_kilometrage
+
+                    # ✅ différence entre les deux
+                    controle_frein.kilometrage_variation = kilometrage_variation
+
+                    # 👨‍🔧 technicien
+                    controle_frein.assign_technicien(request.user)
+
+                    # 👨‍🔧 dernier technicien maintenance
+                    controle_frein.tech_last_maintained_by = request.user
+
+                    controle_frein.save()
 
                 UserLog.objects.create(
                     utilisateur=request.user,

@@ -288,6 +288,11 @@ class Checkup(TechnicienMixin, models.Model):
         verbose_name=_("Kilométrage au moment du Checkup"),
 
     )
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
 
 
     # --- Essuie-glaces & Pare-brise ---
@@ -2030,6 +2035,14 @@ class Checkup(TechnicienMixin, models.Model):
         # =========================
         if self.voiture_exemplaire:
             self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+
+        if (
+                self.kilometrage_checkup is not None
+                and self.kilometres_chassis is not None
+        ):
+            self.kilometrage_variation = (
+                    self.kilometrage_checkup - self.kilometres_chassis
+            )
 
         # =========================
         # 3. TECHNICIEN

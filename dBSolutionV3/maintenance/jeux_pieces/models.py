@@ -146,6 +146,12 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
         verbose_name=_("Kilométrage au moment du controle des jeux"),
     )
 
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
+
     # --- Jeux ---
 
     jeu_rotule_direction_avd = models.CharField(
@@ -1193,14 +1199,65 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
 
     def save(self, *args, **kwargs):
 
-        if self.voiture_exemplaire and self.kilometrage_jeu:
-            if self.kilometrage_jeu > self.voiture_exemplaire.kilometres_chassis:
-                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_jeu
-                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
+        ancien_kilometrage = 0
 
-        # Toujours garder une copie dans le contrôle
-        if self.voiture_exemplaire:
-            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+        # =========================
+        # KILOMÉTRAGE AVANT INTERVENTION
+        # =========================
+        if self.voiture_exemplaire_id:
+
+            voiture = type(self.voiture_exemplaire).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+            ancien_kilometrage = (
+                    voiture.kilometres_chassis or 0
+            )
+
+            # Snapshot du kilométrage avant intervention
+            self.kilometres_chassis = ancien_kilometrage
+
+            # =========================
+            # CALCUL VARIATION
+            # =========================
+            if self.kilometrage_jeu is not None:
+
+                self.kilometrage_variation = (
+                        self.kilometrage_jeu
+                        - ancien_kilometrage
+                )
+
+            else:
+                self.kilometrage_variation = 0
+
+        # =========================
+        # SAUVEGARDE DU CONTRÔLE
+        # =========================
+        super().save(*args, **kwargs)
+
+        # =========================
+        # MISE À JOUR DU VÉHICULE
+        # =========================
+        if (
+                self.voiture_exemplaire_id
+                and self.kilometrage_jeu is not None
+        ):
+
+            voiture = type(self.voiture_exemplaire).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+            if (
+                    self.kilometrage_jeu
+                    > (voiture.kilometres_chassis or 0)
+            ):
+                voiture.kilometres_chassis = self.kilometrage_jeu
+
+                voiture.save(
+                    update_fields=["kilometres_chassis"]
+                )
+
+
 
         if not self.tech_technicien and hasattr(self, '_user'):
             self.assign_technicien(self._user)
@@ -1214,6 +1271,10 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
             self.main_oeuvre.save(update_fields=["descriptif"])
 
         super().save(*args, **kwargs)
+
+
+
+
 
     def generer_rapport_remplacement(self):
         rapport = []

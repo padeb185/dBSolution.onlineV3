@@ -117,26 +117,39 @@ def controle_jeux_pieces_view(request, exemplaire_id):
             try:
                 with transaction.atomic():
 
+                    controle = form.save(commit=False)
+
+                    controle.assign_technicien(request.user)
+                    controle.voiture_exemplaire = exemplaire
+                    controle.immatriculation = exemplaire.immatriculation
+                    controle.societe = tenant
+                    controle.kilometres_chassis = exemplaire.kilometres_chassis
+
                     km = form.cleaned_data.get("kilometrage_jeu")
 
+                    # ✅ On conserve le kilométrage précédent
+                    ancien_kilometrage = exemplaire.kilometres_chassis or 0
+
+                    # ✅ Variation calculée dynamiquement
+                    kilometrage_variation = 0
+
                     if km is not None:
-                        km = int(km)
 
-                        ancien_km = exemplaire.kilometres_chassis
-
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometrage_jeu",
-                                _("Le kilométrage ne peut pas diminuer.")
+                        # Validation
+                        if km < ancien_kilometrage:
+                            raise ValueError(
+                                _("Le kilométrage du Checkup-Freins ne peut pas être inférieur "
+                                  "au kilométrage actuel du véhicule.")
                             )
-                            raise ValueError("Kilométrage invalide")
 
-                        # 🚗 update voiture (source unique)
+                        # Calcul AVANT mise à jour du véhicule
+                        kilometrage_variation = km - ancien_kilometrage
+
+                        # Mise à jour du kilométrage véhicule
                         exemplaire.kilometres_chassis = km
-                        exemplaire.date_derniere_intervention = timezone.now().date()
-
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
+                        exemplaire.save(
+                            update_fields=["kilometres_chassis"]
+                        )
 
                         # 🔗 checkup UNIQUE
                         controle = form.save(commit=False)
@@ -174,10 +187,26 @@ def controle_jeux_pieces_view(request, exemplaire_id):
                         maintenance.direction = request.user
 
                     maintenance.save()
+                    controle = form.save(commit=False)
+
+                    controle.voiture_exemplaire = exemplaire
+                    controle.maintenance = maintenance
+
+                    # ✅ kilométrage saisi lors du controle
+                    controle.kilometrage_jeu = km
+
+                    # ✅ ancien kilométrage avant le controle
+                    controle.kilometres_chassis = ancien_kilometrage
+
+                    # ✅ différence entre les deux
+                    controle.kilometrage_variation = kilometrage_variation
+
+                    # 👨‍🔧 technicien
                     controle.assign_technicien(request.user)
 
-                    # 🔗 lien final
-                    controle.maintenance = maintenance
+                    # 👨‍🔧 dernier technicien maintenance
+                    controle.tech_last_maintained_by = request.user
+
                     controle.save()
 
                     UserLog.objects.create(
