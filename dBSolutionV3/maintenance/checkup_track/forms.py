@@ -14,6 +14,18 @@ class CheckupTrackForm(forms.ModelForm):
     temps_heures = forms.IntegerField(required=False, min_value=0)
     temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
 
+
+    kilometrage_variation = forms.IntegerField(
+        required=False,
+        label=_("Variation du kilométrage"),
+        widget=forms.NumberInput(
+            attrs={
+                "readonly": "readonly",
+                "class": "input",
+            }
+        ),
+    )
+
     class Meta:
         model = CheckupTrack
         fields = "__all__"
@@ -50,6 +62,31 @@ class CheckupTrackForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
+
+        # =========================
+        # VARIATION KILOMÉTRAGE
+        # =========================
+        if "kilometrage_variation" in self.fields:
+
+            variation = 0
+
+            # =========================
+            # INSTANCE EXISTANTE
+            # =========================
+            if self.instance:
+
+                ancien_km = (
+                        self.instance.kilometres_chassis or 0
+                )
+
+                nouveau_km = (
+                    self.instance.kilometrage_checkup_track
+                )
+
+                if nouveau_km is not None:
+                    variation = nouveau_km - ancien_km
+
+            self.fields["kilometrage_variation"].initial = variation
 
         # -------- MAIN D'ŒUVRE QUERYSET --------
         if "main_oeuvre" in self.fields:

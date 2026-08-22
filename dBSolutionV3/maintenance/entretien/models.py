@@ -291,6 +291,12 @@ class Entretien(TechnicienMixin, models.Model):
         verbose_name=_("Kilométrage au moment de l'entretien"),
     )
 
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
+
     societe = models.ForeignKey(
         Societe,
         on_delete=models.PROTECT,
@@ -1087,9 +1093,25 @@ class Entretien(TechnicienMixin, models.Model):
                 self.voiture_exemplaire.kilometres_chassis = self.kilometrage_entretien
                 self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
 
-        # Toujours garder une copie dans le contrôle
+
+
+
+            # =========================
+            # 2. COPIE SNAPSHOT
+            # =========================
         if self.voiture_exemplaire:
             self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+
+        if (
+                self.kilometrage_entretien is not None
+                and self.kilometres_chassis is not None
+        ):
+            self.kilometrage_variation = (
+                    self.kilometrage_entretien - self.kilometres_chassis
+            )
+
+
+
 
         if not self.tech_technicien and hasattr(self, '_user'):
             self.assign_technicien(self._user)

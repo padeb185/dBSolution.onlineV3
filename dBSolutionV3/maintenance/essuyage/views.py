@@ -110,31 +110,29 @@ def essuyage_form_view(request, exemplaire_id):
 
                     km = form.cleaned_data.get("kilometrage_essuyage")
 
+                    # ✅ On conserve le kilométrage précédent
+                    ancien_kilometrage = exemplaire.kilometres_chassis or 0
+
+                    # ✅ Variation calculée dynamiquement
+                    kilometrage_variation = 0
+
                     if km is not None:
-                        km = int(km)
 
-                        ancien_km = exemplaire.kilometres_chassis
-
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometrage_essuyage",
-                                _("Le kilométrage ne peut pas diminuer.")
+                        # Validation
+                        if km < ancien_kilometrage:
+                            raise ValueError(
+                                _("Le kilométrage du Checkup-Essuyage ne peut pas être inférieur "
+                                  "au kilométrage actuel du véhicule.")
                             )
-                            raise ValueError("Kilométrage invalide")
 
-                        # 🚗 update voiture (source unique)
+                        # Calcul AVANT mise à jour du véhicule
+                        kilometrage_variation = km - ancien_kilometrage
+
+                        # Mise à jour du kilométrage véhicule
                         exemplaire.kilometres_chassis = km
-                        exemplaire.date_derniere_intervention = timezone.now().date()
-
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
-
-                        # 🔗 checkup UNIQUE
-                        essuyage = form.save(commit=False)
-                        essuyage.assign_technicien(request.user)
-
-                        essuyage.kilometres_chassis = exemplaire.kilometres_chassis
-                        essuyage.kilometrage_essuyage = km
+                        exemplaire.save(
+                            update_fields=["kilometres_chassis"]
+                        )
 
                     # 🔴 maintenance unique
                     maintenance = Maintenance.objects.create(
@@ -166,10 +164,26 @@ def essuyage_form_view(request, exemplaire_id):
 
                     maintenance.save()
 
+                    essuyage = form.save(commit=False)
+
+                    essuyage.voiture_exemplaire = exemplaire
+                    essuyage.maintenance = maintenance
+
+                    # ✅ kilométrage saisi lors du essuyage
+                    essuyage.kilometrage_essuyage = km
+
+                    # ✅ ancien kilométrage avant le essuyage
+                    essuyage.kilometres_chassis = ancien_kilometrage
+
+                    # ✅ différence entre les deux
+                    essuyage.kilometrage_variation = kilometrage_variation
+
+                    # 👨‍🔧 technicien
                     essuyage.assign_technicien(request.user)
 
-                    # 🔗 lien final
-                    essuyage.maintenance = maintenance
+                    # 👨‍🔧 dernier technicien maintenance
+                    essuyage.tech_last_maintained_by = request.user
+
                     essuyage.save()
 
                     UserLog.objects.create(

@@ -301,6 +301,11 @@ class CheckupTrack(TechnicienMixin, models.Model):
     kilometrage_checkup_track = models.PositiveIntegerField(
         verbose_name=_("Kilométrage au moment du checkup piste"),
     )
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
 
 
 
@@ -963,7 +968,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
             ):
                 raise ValidationError({
                     'kilometrage_checkup_track': _(
-                        f"Le kilométrage du check-up ({self.kilometrage_checkup_track}) "
+                        f"Le kilométrage du checkup Track ({self.kilometrage_checkup_track}) "
                         f"ne peut pas être inférieur au kilométrage actuel de la voiture "
                         f"({self.voiture_exemplaire.kilometres_chassis})."
                     )
@@ -995,6 +1000,20 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
             self.voiture_exemplaire.update_kilometres()
             self.voiture_exemplaire.save()
+
+        # =========================
+        # 2. COPIE SNAPSHOT
+        # =========================
+        if self.voiture_exemplaire:
+            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+
+        if (
+                self.kilometrage_checkup_track is not None
+                and self.kilometres_chassis is not None
+        ):
+            self.kilometrage_variation = (
+                    self.kilometrage_checkup_track - self.kilometres_chassis
+            )
 
         # ----------------------------
         # MAIN D'OEUVRE (FIX UNIQUE SAVE)

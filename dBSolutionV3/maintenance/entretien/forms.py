@@ -12,6 +12,17 @@ class EntretienForm(forms.ModelForm):
     temps_heures = forms.IntegerField(required=False, min_value=0)
     temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
 
+    kilometrage_variation = forms.IntegerField(
+        required=False,
+        label=_("Variation du kilométrage"),
+        widget=forms.NumberInput(
+            attrs={
+                "readonly": "readonly",
+                "class": "input",
+            }
+        ),
+    )
+
     class Meta:
         model = Entretien
 
@@ -41,12 +52,44 @@ class EntretienForm(forms.ModelForm):
         self.exemplaire = kwargs.pop("exemplaire", None)
         super().__init__(*args, **kwargs)
 
+        # =========================
+        # VARIATION KILOMÉTRAGE
+        # =========================
+        if "kilometrage_variation" in self.fields:
+
+            variation = 0
+
+            # =========================
+            # INSTANCE EXISTANTE
+            # =========================
+            if self.instance:
+
+                ancien_km = (
+                        self.instance.kilometres_chassis or 0
+                )
+
+                nouveau_km = (
+                    self.instance.kilometrage_entretien
+                )
+
+                if nouveau_km is not None:
+                    variation = nouveau_km - ancien_km
+
+            self.fields["kilometrage_variation"].initial = variation
+
+
+
+
         # -------- INITIALISATION TEMPS --------
         if self.instance and self.instance.pk and self.instance.main_oeuvre:
             total = self.instance.main_oeuvre.temps_minutes
 
             self.fields["temps_heures"].initial = total // 60
             self.fields["temps_minutes"].initial = total % 60
+
+
+
+
 
         # -------- MAIN D'ŒUVRE QUERYSET --------
         if "main_oeuvre" in self.fields:
@@ -57,6 +100,9 @@ class EntretienForm(forms.ModelForm):
             self.fields["main_oeuvre"].widget.attrs.update({
                 "class": "input"
             })
+
+
+
 
         # -------- DATE --------
         if "date" in self.fields and self.instance and self.instance.pk and self.instance.date:
@@ -72,6 +118,8 @@ class EntretienForm(forms.ModelForm):
             if "tech_societe" in self.fields:
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
+
+
 
     def clean_kilometrage_entretien(self):
         km = self.cleaned_data.get("kilometrage_entretien")

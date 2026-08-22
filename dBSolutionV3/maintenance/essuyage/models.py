@@ -117,6 +117,12 @@ class Essuyage(TechnicienMixin, models.Model):
         verbose_name= _("Kilométrage au moment du controle ABS ")
     )
 
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
+
     pays = models.CharField(
         max_length=5,
         choices=PAYS_CHOICES,
@@ -877,6 +883,19 @@ class Essuyage(TechnicienMixin, models.Model):
     # SAVE
     # -------------------------
     def save(self, *args, **kwargs):
+        # =========================
+        # 2. COPIE SNAPSHOT
+        # =========================
+        if self.voiture_exemplaire:
+            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+
+        if (
+                self.kilometrage_essuyage is not None
+                and self.kilometres_chassis is not None
+        ):
+            self.kilometrage_variation = (
+                    self.kilometrage_essuyage- self.kilometres_chassis
+            )
 
         # ----------------------------
         # CALCUL DES PIÈCES

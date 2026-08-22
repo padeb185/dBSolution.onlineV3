@@ -60,7 +60,142 @@
 
     <br>
     <!-- Formulaire -->
-    <form method="post" class="space-y-4">
+<!-- ========================= -->
+<!-- POPUP VARIATION KILOMÉTRAGE -->
+<!-- ========================= -->
+
+<style>
+    #kilometrage-popup {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background-color: rgba(0, 0, 0, 0.45);
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    #kilometrage-popup.popup-visible {
+        display: flex;
+    }
+
+    .kilometrage-popup-box {
+        width: 100%;
+        max-width: 520px;
+        background-color: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        padding: 24px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.20);
+    }
+
+    .kilometrage-popup-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #374151;
+        margin-bottom: 16px;
+    }
+
+    .kilometrage-popup-text {
+        color: #4b5563;
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .kilometrage-popup-variation {
+        font-weight: 700;
+        color: #111827;
+    }
+
+    .kilometrage-popup-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 22px;
+    }
+
+    .kilometrage-popup-button {
+        border: none;
+        border-radius: 6px;
+        padding: 9px 18px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .kilometrage-popup-annuler {
+        background-color: #d1d5db;
+        color: #374151;
+    }
+
+    .kilometrage-popup-annuler:hover {
+        background-color: #9ca3af;
+        color: #111827;
+    }
+
+    .kilometrage-popup-confirmer {
+        background-color: #6b7280;
+        color: white;
+    }
+
+    .kilometrage-popup-confirmer:hover {
+        background-color: #4b5563;
+    }
+</style>
+
+
+<div id="kilometrage-popup">
+
+    <div class="kilometrage-popup-box">
+
+        <h3 class="kilometrage-popup-title">
+            {% trans "Confirmer le kilométrage" %}
+        </h3>
+
+        <p class="kilometrage-popup-text">
+            {% trans "La variation du kilométrage est de" %}
+            <span class="kilometrage-popup-variation">
+                <span id="popup-variation">0</span> km
+            </span>.
+        </p>
+
+        <p class="kilometrage-popup-text">
+            {% trans "Cette variation est supérieure à 2 000 km. Voulez-vous vraiment enregistrer ce kilométrage ?" %}
+        </p>
+
+        <div class="kilometrage-popup-buttons">
+
+            <button
+                type="button"
+                id="popup-annuler"
+                class="kilometrage-popup-button kilometrage-popup-annuler"
+            >
+                {% trans "Annuler" %}
+            </button>
+
+            <button
+                type="button"
+                id="popup-confirmer"
+                class="kilometrage-popup-button kilometrage-popup-confirmer"
+            >
+                {% trans "Confirmer" %}
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <br>
+    <!-- Form -->
+    <form
+        method="POST"
+        id="entretien-form"
+        data-km-reference="{{ km_reference }}"
+        class="space-y-4"
+    >
         {% csrf_token %}
 
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -501,38 +636,7 @@
 
         <br>
 
-                <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/roue.png' %}" alt="Serrage des roues"
-                 style="width:60px; height:60px; margin-right:10px;">{% trans "Serrage des roues" %}</h2>
-        {% for field in form %}
-            {% if "serrage_roues" in field.name %}
-            <div class="mb-4">
-                {% if field.field.widget.input_type == "checkbox" %}
-                    <label class="inline-flex items-center gap-2">
-                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
-                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
-                    </label>
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
-                    {% endif %}
-                {% else %}
-                    <label class="block font-semibold mb-1">{{ field.label }}</label>
-                    {{ field|add_class:"input" }}
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                    {% endif %}
-                {% endif %}
-            </div>
-            {% endif %}
-        {% endfor %}
 
-        <br>
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/pays.png' %}" alt="pays"
                  style="width:60px; height:60px; margin-right:10px;">
@@ -656,6 +760,38 @@
             {% endif %}
         {% endfor %}
 
+
+        <br>
+                <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/roue.png' %}" alt="Serrage des roues"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Serrage des roues" %}</h2>
+        {% for field in form %}
+            {% if "serrage_roues" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
 
         <br>
 
@@ -807,6 +943,293 @@ function getCookie(name) {
 }
 
 const csrftoken = getCookie("csrftoken");
+document.addEventListener("DOMContentLoaded", function () {
 
+    const kmEntretien = document.getElementById(
+        "id_kilometrage_entretien"
+    );
+
+    const kmVariation = document.getElementById(
+        "id_kilometrage_variation"
+    );
+
+    if (!kmEntretien || !kmVariation) {
+        console.error(
+            "Champs kilométrage entretien introuvables"
+        );
+        return;
+    }
+
+    // Récupération automatique du formulaire
+    const form = kmEntretien.closest("form");
+
+    if (!form) {
+        console.error("Formulaire entretien introuvable");
+        return;
+    }
+
+    // =========================================
+    // KILOMÉTRAGE HISTORIQUE DE RÉFÉRENCE
+    // =========================================
+
+    const kmReference = Number(
+        form.dataset.kmReference
+    );
+
+    if (Number.isNaN(kmReference)) {
+        console.error(
+            "Kilométrage de référence invalide :",
+            form.dataset.kmReference
+        );
+        return;
+    }
+
+    const popup = document.getElementById(
+        "kilometrage-popup"
+    );
+
+    const popupVariation = document.getElementById(
+        "popup-variation"
+    );
+
+    const boutonAnnuler = document.getElementById(
+        "popup-annuler"
+    );
+
+    const boutonConfirmer = document.getElementById(
+        "popup-confirmer"
+    );
+
+    let variationConfirmee = false;
+
+
+    // =========================================
+    // CALCUL
+    // =========================================
+
+    function calculerVariation() {
+
+        const valeurEntretien = (
+            kmEntretien.value.trim()
+        );
+
+        if (valeurEntretien === "") {
+
+            kmVariation.value = "";
+
+            variationConfirmee = false;
+
+            return null;
+        }
+
+        const km = Number(valeurEntretien);
+
+        if (Number.isNaN(km)) {
+
+            kmVariation.value = "";
+
+            variationConfirmee = false;
+
+            return null;
+        }
+
+        // IMPORTANT :
+        // nouveau kilométrage - kilométrage historique
+        const variation = km - kmReference;
+
+        kmVariation.value = variation;
+
+        variationConfirmee = false;
+
+        return variation;
+    }
+
+
+    // =========================================
+    // RECALCUL À CHAQUE MODIFICATION
+    // =========================================
+
+    kmEntretien.addEventListener(
+        "input",
+        calculerVariation
+    );
+
+    kmEntretien.addEventListener(
+        "change",
+        calculerVariation
+    );
+
+
+    // =========================================
+    // POPUP
+    // =========================================
+
+    function ouvrirPopup(variation) {
+
+        if (!popup || !popupVariation) {
+            return;
+        }
+
+        popupVariation.textContent =
+            variation.toLocaleString(
+                "{{ LANGUAGE_CODE|default:'fr' }}"
+            );
+
+        popup.classList.add(
+            "popup-visible"
+        );
+
+        if (boutonConfirmer) {
+            boutonConfirmer.focus();
+        }
+    }
+
+
+    function fermerPopup() {
+
+        if (popup) {
+            popup.classList.remove(
+                "popup-visible"
+            );
+        }
+    }
+
+
+    // =========================================
+    // SUBMIT
+    // =========================================
+
+    form.addEventListener(
+        "submit",
+        function (event) {
+
+            const variation = calculerVariation();
+
+            if (variation === null) {
+                return;
+            }
+
+            // Sécurité : kilométrage inférieur
+            if (variation < 0) {
+
+                event.preventDefault();
+
+                alert(
+                    "Le kilométrage de l'entretien " +
+                    "ne peut pas être inférieur à " +
+                    kmReference.toLocaleString() +
+                    " km."
+                );
+
+                kmEntretien.focus();
+
+                return;
+            }
+
+            // Confirmation si augmentation > 2000 km
+            if (
+                variation > 2000 &&
+                !variationConfirmee &&
+                popup
+            ) {
+
+                event.preventDefault();
+
+                ouvrirPopup(variation);
+            }
+        }
+    );
+
+
+    // =========================================
+    // ANNULER
+    // =========================================
+
+    if (boutonAnnuler) {
+
+        boutonAnnuler.addEventListener(
+            "click",
+            function () {
+
+                fermerPopup();
+
+                kmEntretien.focus();
+            }
+        );
+    }
+
+
+    // =========================================
+    // CONFIRMER
+    // =========================================
+
+    if (boutonConfirmer) {
+
+        boutonConfirmer.addEventListener(
+            "click",
+            function () {
+
+                variationConfirmee = true;
+
+                fermerPopup();
+
+                form.requestSubmit();
+            }
+        );
+    }
+
+
+    // =========================================
+    // ESCAPE
+    // =========================================
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape" &&
+                popup &&
+                popup.classList.contains(
+                    "popup-visible"
+                )
+            ) {
+
+                fermerPopup();
+
+                kmEntretien.focus();
+            }
+        }
+    );
+
+
+    // =========================================
+    // CLIC HORS POPUP
+    // =========================================
+
+    if (popup) {
+
+        popup.addEventListener(
+            "click",
+            function (event) {
+
+                if (event.target === popup) {
+
+                    fermerPopup();
+
+                    kmEntretien.focus();
+                }
+            }
+        );
+    }
+
+
+    // =========================================
+    // CALCUL INITIAL
+    // =========================================
+
+    calculerVariation();
+
+});
 </script>
 {% endblock %}
