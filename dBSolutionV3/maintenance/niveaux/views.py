@@ -114,33 +114,59 @@ def niveau_form_view(request, exemplaire_id):
             try:
                 with transaction.atomic():
 
-                    km = form.cleaned_data.get("kilometrage_niveaux")
+                    # ====================================================
+                    # CRÉATION DE L'OBJET NETTOYAGE
+                    # ====================================================
+
+                    niveau = form.save(commit=False)
+
+                    # IMPORTANT :
+                    # niveau existe maintenant avant assign_technicien()
+                    niveau.assign_technicien(request.user)
+
+                    niveau.voiture_exemplaire = exemplaire
+                    niveau.societe = tenant
+                    niveau.immatriculation = exemplaire.immatriculation
+
+                    # ====================================================
+                    # KILOMÉTRAGE
+                    # ====================================================
+
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    km = form.cleaned_data.get(
+                        "kilometrage_niveaux"
+                    )
+
+                    kilometrage_variation = 0
 
                     if km is not None:
-                        km = int(km)
 
-                        ancien_km = exemplaire.kilometres_chassis
-
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometrage_niveaux",
-                                _("Le kilométrage ne peut pas diminuer.")
+                        if km < ancien_kilometrage:
+                            raise ValueError(
+                                _(
+                                    "Le kilométrage du contrôle des niveaux "
+                                    "ne peut pas être inférieur au kilométrage "
+                                    "actuel du véhicule."
+                                )
                             )
-                            raise ValueError("Kilométrage invalide")
 
-                        # 🚗 update voiture (source unique)
+                        kilometrage_variation = (
+                                km - ancien_kilometrage
+                        )
+
+                        # Mise à jour kilométrage véhicule
                         exemplaire.kilometres_chassis = km
-                        exemplaire.date_derniere_intervention = timezone.now().date()
 
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis"
+                            ]
+                        )
 
-                        # 🔗 checkup UNIQUE
-                        niveau = form.save(commit=False)
-                        niveau.assign_technicien(request.user)
 
-                        niveau.kilometres_chassis = exemplaire.kilometres_chassis
-                        niveau.kilometrage_niveaux = km
 
                     maintenance = Maintenance.objects.create(
                         societe=request.user.societe,
@@ -171,10 +197,32 @@ def niveau_form_view(request, exemplaire_id):
 
                     maintenance.save()
 
-                    niveau.assign_technicien(request.user)
-
-                    # 🔗 lien final
                     niveau.maintenance = maintenance
+                    niveau.voiture_exemplaire = exemplaire
+                    niveau.societe = tenant
+                    niveau.immatriculation = exemplaire.immatriculation
+
+                    # Kilométrage saisi
+                    niveau.kilometrage_niveaux = km
+
+                    # Kilométrage AVANT intervention
+                    niveau.kilometres_chassis = ancien_kilometrage
+
+                    # Variation
+                    niveau.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    # Technicien
+                    niveau.assign_technicien(
+                        request.user
+                    )
+
+                    # Dernier technicien
+                    niveau.tech_last_maintained_by = (
+                        request.user
+                    )
+
                     niveau.save()
 
                     UserLog.objects.create(
@@ -238,74 +286,151 @@ def niveau_detail_view(request, niveau_id):
 
 @login_required
 def modifier_niveau_view(request, niveau_id):
+
     tenant = request.user.societe
 
-    # Récupération du checkup avec son exemplaire
+    # =========================
+    # RÉCUPÉRATION NIVEAU
+    # =========================
     niveau = get_object_or_404(
-        Niveau.objects.select_related("voiture_exemplaire"),
+        Niveau.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
         id=niveau_id
     )
+
     exemplaire = niveau.voiture_exemplaire
-    # -------------------------
+
+    # =========================
     # POST
-    # -------------------------
+    # =========================
     if request.method == "POST":
+
         form = NiveauForm(
             request.POST,
             instance=niveau,
-            user=request.user,       # 🔑 important pour initialiser technicien/societe
-            exemplaire=niveau.voiture_exemplaire
+            user=request.user,
+            exemplaire=exemplaire
         )
-        if request.method == "POST":
-            form = NiveauForm(
-                request.POST,
-                instance=niveau,
-                user=request.user,
-                exemplaire=exemplaire
-            )
 
-            if form.is_valid():
-                try:
+        if form.is_valid():
+
+            try:
+                with transaction.atomic():
+
                     niveau = form.save(commit=False)
 
-                    niveau.assign_technicien(request.user)
+                    # =========================
+                    # KILOMÉTRAGE
+                    # =========================
+                    km = form.cleaned_data.get(
+                        "kilometrage_niveau"
+                    )
+
+                    # Snapshot déjà enregistré lors de la création
+                    ancien_kilometrage = (
+                        niveau.kilometres_chassis or 0
+                    )
+
+                    kilometrage_variation = 0
+
+                    if km is not None:
+
+                        km = int(km)
+
+                        if km < ancien_kilometrage:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage du contrôle des niveaux "
+                                    "ne peut pas être inférieur au kilométrage "
+                                    "enregistré avant l'intervention."
+                                )
+                            )
+
+                        kilometrage_variation = (
+                            km - ancien_kilometrage
+                        )
+
+                    # =========================
+                    # NIVEAU
+                    # =========================
+
+                    niveau.kilometrage_niveau = km
+
+                    # On conserve le snapshot d'origine
+                    niveau.kilometres_chassis = ancien_kilometrage
+
+                    # Nouvelle variation
+                    niveau.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    niveau.assign_technicien(
+                        request.user
+                    )
+
+                    niveau.tech_last_maintained_by = (
+                        request.user
+                    )
+
                     niveau.save()
 
+                    # =========================
+                    # LOG
+                    # =========================
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Modification des niveaux - %(immatriculation)s") % {
+                        action=_(
+                            "Modification des niveaux - %(immatriculation)s"
+                        ) % {
                             "immatriculation": exemplaire.immatriculation
                         }
                     )
 
-                    messages.success(
-                        request,
-                        _("Contrôle des niveaux modifié avec succès !")
-                    )
+                messages.success(
+                    request,
+                    _("Contrôle des niveaux modifié avec succès !")
+                )
 
-                    return redirect(
-                        "niveaux:niveaux_detail",
-                        niveau_id=niveau.id
-                    )
+                return redirect(
+                    "niveaux:niveaux_detail",
+                    niveau_id=niveau.id
+                )
 
-                except ValidationError as e:
-                    form.add_error(None, e)
-                    messages.error(
-                        request,
-                        _("Le kilométrage du contrôle ne peut pas être inférieur au kilométrage actuel du véhicule.")
-                    )
+            except ValidationError as e:
 
-            else:
+                form.add_error(
+                    "kilometrage_niveau",
+                    e
+                )
+
                 messages.error(
                     request,
-                    _("Le kilométrage du contrôle ne peut pas être inférieur au kilométrage actuel du véhicule.")
+                    _("Kilométrage invalide.")
                 )
-                print(form.errors)
 
-    # -------------------------
+            except Exception as e:
+
+                messages.error(
+                    request,
+                    _("Erreur lors de la modification : %(error)s") % {
+                        "error": str(e)
+                    }
+                )
+
+        else:
+
+            messages.error(
+                request,
+                _("Le formulaire contient des erreurs.")
+            )
+
+    # =========================
     # GET
-    # -------------------------
+    # =========================
     else:
+
         form = NiveauForm(
             instance=niveau,
             user=request.user,
@@ -321,9 +446,6 @@ def modifier_niveau_view(request, niveau_id):
             "exemplaire": exemplaire,
         }
     )
-
-
-
 
 @login_required
 def niveau_pdf_view(request, niveau_id):
