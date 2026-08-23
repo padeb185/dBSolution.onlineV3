@@ -46,7 +46,10 @@
                 {% include "maintenance/partials/plaque.html" %}
             </div>
 
-            <p><strong>{% trans "Kilométrage" %} :</strong> {{ boite.kilometres_chassis }}</p>
+            <p>
+                <strong>{% trans "Kilométrage" %} :</strong>
+                {{ boite.kilometrage_controle_boite }} km
+            </p>
             <p><strong>{% trans "Tag" %} :</strong> {{ boite.get_tag_display }}</p>
             <p><strong>{% trans "Technicien" %} :</strong> {{ boite.tech_nom_technicien }} {{ boite.tech_role_technicien }}</p>
         </div>

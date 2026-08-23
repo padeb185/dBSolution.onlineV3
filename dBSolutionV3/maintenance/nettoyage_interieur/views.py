@@ -148,7 +148,7 @@ def nettoyage_interieur_view(request, exemplaire_id):
                         # Validation
                         if km < ancien_kilometrage:
                             raise ValueError(
-                                _("Le kilométrage du nettoyage extérieur ne peut pas être inférieur "
+                                _("Le kilométrage du nettoyage intérieur ne peut pas être inférieur "
                                   "au kilométrage actuel du véhicule.")
                             )
 

@@ -458,7 +458,7 @@ class Niveau(TechnicienMixin, models.Model):
         # =========================
         if self.main_oeuvre_id and self.voiture_exemplaire_id:
             task_name = (
-                    _("Controle des niveaux")
+                    _("Contrôle des niveaux")
                     + " "
                     + str(self.voiture_exemplaire)
             )

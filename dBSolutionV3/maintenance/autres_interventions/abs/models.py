@@ -119,9 +119,16 @@ class Abs(TechnicienMixin, models.Model):
         verbose_name= _("Kilométrage au moment du controle ABS ")
     )
 
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
+
     pays = models.CharField(
         max_length=5,
-        choices=PAYS_CHOICES
+        choices=PAYS_CHOICES,
+        default="BE"
     )
 
     # -------------------------
@@ -334,41 +341,105 @@ class Abs(TechnicienMixin, models.Model):
         self.calcul_piece("capteur_abs_avg")
         self.calcul_piece("capteur_abs_ard")
         self.calcul_piece("capteur_abs_arg")
-        # ----------------------------
-        # TECHNICIEN AUTO
-        # ----------------------------
-        if not self.tech_technicien and hasattr(self, "_user"):
+
+
+        # =========================
+        # TECHNICIEN
+        # =========================
+        if not self.tech_technicien_id and hasattr(self, "_user"):
             self.assign_technicien(self._user)
 
-        # ----------------------------
-        # MAIN D'OEUVRE AUTO DESCRIPTIF
-        # ----------------------------
+        # =========================
+        # MAIN D'ŒUVRE
+        # =========================
+        if self.main_oeuvre_id and self.voiture_exemplaire_id:
+            task_name = (
+                    _("Controle du système ABS")
+                    + " "
+                    + str(self.voiture_exemplaire)
+            )
 
-        # ----------------------------
-        # MAJ KILOMÉTRAGE
-        # ----------------------------
-        if self.voiture_exemplaire and self.kilometrage_abs:
-            if self.kilometrage_abs > self.voiture_exemplaire.kilometres_chassis:
-                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_abs
-                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
+            self.main_oeuvre.descriptif = task_name
+            self.main_oeuvre.save(
+                update_fields=["descriptif"]
+            )
 
-        # copie locale
-        if self.voiture_exemplaire:
-            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+        # =========================
+        # MAINTENANCE
+        # =========================
+        if self.maintenance_id and self.voiture_exemplaire_id:
+            self.maintenance.type_maintenance = (
+                Maintenance.TypeMaintenance.ABS
+            )
 
-        # ----------------------------
-        # SAVE ABS
-        # ----------------------------
+            self.maintenance.voiture_exemplaire = (
+                self.voiture_exemplaire
+            )
+
+            self.maintenance.save(
+                update_fields=[
+                    "type_maintenance",
+                    "voiture_exemplaire",
+                ]
+            )
+
+        # =========================
+        # KILOMÉTRAGE AVANT INTERVENTION
+        # =========================
+        if self.voiture_exemplaire_id:
+
+            voiture = type(self.voiture_exemplaire).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+            ancien_kilometrage = (
+                    voiture.kilometres_chassis or 0
+            )
+
+            # Snapshot du kilométrage avant intervention
+            self.kilometres_chassis = ancien_kilometrage
+
+            # =========================
+            # CALCUL VARIATION
+            # =========================
+            if self.kilometrage_abs is not None:
+
+                self.kilometrage_variation = (
+                        self.kilometrage_abs
+                        - ancien_kilometrage
+                )
+
+            else:
+                self.kilometrage_variation = 0
+
+        # =========================
+        # SAUVEGARDE NETTOYAGE EXTÉRIEUR
+        # =========================
         super().save(*args, **kwargs)
 
+        # =========================
+        # MISE À JOUR DU VÉHICULE
+        # =========================
+        if (
+                self.voiture_exemplaire_id
+                and self.kilometrage_abs is not None
+        ):
 
-        if self.main_oeuvre_id and self.voiture_exemplaire_id:
+            voiture = type(self.voiture_exemplaire).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
 
-            task_name = f"{_('ABS')} {self.voiture_exemplaire} "
+            if (
+                    self.kilometrage_abs
+                    > (voiture.kilometres_chassis or 0)
+            ):
+                voiture.kilometres_chassis = (
+                    self.kilometrage_abs
+                )
 
-            if self.main_oeuvre.descriptif != task_name:
-                self.main_oeuvre.descriptif = task_name
-                self.main_oeuvre.save(update_fields=["descriptif"])
+                voiture.save(
+                    update_fields=["kilometres_chassis"]
+                )
 
         # ----------------------------
         # SYNC MAINTENANCE

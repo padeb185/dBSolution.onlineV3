@@ -1,4 +1,7 @@
 from datetime import datetime
+
+from django.core.exceptions import ValidationError
+
 from django.http import request, HttpResponse
 from django.template.loader import render_to_string
 from django.shortcuts import get_object_or_404, redirect, render
@@ -118,26 +121,47 @@ def boite_check_view(request, exemplaire_id):
             try:
                 with transaction.atomic():
 
-                    km = form.cleaned_data.get("kilometrage_controle_boite")
+                    boite = form.save(commit=False)
+
+                    # =========================
+                    # KILOMÉTRAGE
+                    # =========================
+
+                    km = form.cleaned_data.get(
+                        "kilometrage_controle_boite"
+                    )
+
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    kilometrage_variation = 0
 
                     if km is not None:
+
                         km = int(km)
 
-                        ancien_km = exemplaire.kilometres_chassis
-
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometrage_controle_boite",
-                                _("Le kilométrage ne peut pas diminuer.")
+                        if km < ancien_kilometrage:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage du contrôle "
+                                    "ne peut pas être inférieur au kilométrage "
+                                    "actuel du véhicule."
+                                )
                             )
-                            raise ValueError("Kilométrage invalide")
 
-                        # 🚗 update voiture (source unique)
+                        kilometrage_variation = (
+                                km - ancien_kilometrage
+                        )
+
+                        # Mise à jour véhicule
                         exemplaire.kilometres_chassis = km
-                        exemplaire.date_derniere_intervention = timezone.now().date()
 
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis"
+                            ]
+                        )
 
                         # 🔗 checkup UNIQUE
                         boite = form.save(commit=False)
@@ -177,11 +201,27 @@ def boite_check_view(request, exemplaire_id):
                     maintenance.save()
                     boite.assign_technicien(request.user)
 
-                    # 🔗 lien final
-                    boite.maintenance = maintenance
+                    boite.kilometrage_controle_boite = km
+
+                    boite.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+
+                    boite.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    boite.assign_technicien(
+                        request.user
+                    )
+
+                    boite.tech_last_maintained_by = (
+                        request.user
+                    )
+
                     boite.save()
 
-                    UserLog.objects.create(
+                UserLog.objects.create(
                         utilisateur=request.user,
                         action=_("Contrôle Boite de vitesse - %(immatriculation)s") % {
                             "immatriculation": exemplaire.immatriculation

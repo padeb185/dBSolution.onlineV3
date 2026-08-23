@@ -142,7 +142,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         default=0,
         editable=False,
         verbose_name=_("Variation de kilomètres depuis le dernier entretien"),
-        help_text=_("Calculé automatiquement : total - dernièr entretien")
+        help_text=_("Calculé automatiquement : total - dernier entretien")
     )
 
     remplacement_numero_moteurs= models.CharField(

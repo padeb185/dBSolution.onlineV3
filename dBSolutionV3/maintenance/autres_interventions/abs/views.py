@@ -1,4 +1,7 @@
 from datetime import datetime
+
+from django.core.exceptions import ValidationError
+
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -110,33 +113,47 @@ def abs_form_view(request, exemplaire_id):
             try:
                 with transaction.atomic():
 
-                    km = form.cleaned_data.get("kilometrage_abs")
+                    abs = form.save(commit=False)
+
+                    # =========================
+                    # KILOMÉTRAGE
+                    # =========================
+
+                    km = form.cleaned_data.get(
+                        "kilometrage_abs"
+                    )
+
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    kilometrage_variation = 0
 
                     if km is not None:
+
                         km = int(km)
 
-                        ancien_km = exemplaire.kilometres_chassis
-
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometrage_abs",
-                                _("Le kilométrage ne peut pas diminuer.")
+                        if km < ancien_kilometrage:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage du contrôle du système ABS "
+                                    "ne peut pas être inférieur au kilométrage "
+                                    "actuel du véhicule."
+                                )
                             )
-                            raise ValueError("Kilométrage invalide")
 
-                        # 🚗 update voiture (source unique)
+                        kilometrage_variation = (
+                                km - ancien_kilometrage
+                        )
+
+                        # Mise à jour véhicule
                         exemplaire.kilometres_chassis = km
-                        exemplaire.date_derniere_intervention = timezone.now().date()
 
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
-
-                        # 🔗 checkup UNIQUE
-                        abs = form.save(commit=False)
-                        abs.assign_technicien(request.user)
-
-                        abs.kilometres_chassis = exemplaire.kilometres_chassis
-                        abs.kilometrage_abs = km
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis"
+                            ]
+                        )
 
                     # 🔴 maintenance unique
                     maintenance = Maintenance.objects.create(
@@ -170,8 +187,24 @@ def abs_form_view(request, exemplaire_id):
 
                     abs.assign_technicien(request.user)
 
-                    # 🔗 lien final
-                    abs.maintenance = maintenance
+                    abs.kilometrage_abs = km
+
+                    abs.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+
+                    abs.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    abs.assign_technicien(
+                        request.user
+                    )
+
+                    abs.tech_last_maintained_by = (
+                        request.user
+                    )
+
                     abs.save()
 
                     UserLog.objects.create(
@@ -297,114 +330,267 @@ def abs_detail_view(request, abs_id):
 
 @login_required
 def modifier_abs_view(request, abs_id):
+
     tenant = request.user.societe
 
-
-
     abs = get_object_or_404(
-        Abs.objects.select_related("voiture_exemplaire"),
+        Abs.objects.select_related(
+            "voiture_exemplaire"
+        ),
         id=abs_id
     )
+
     exemplaire = abs.voiture_exemplaire
-    # -------------------------
+
+    # =========================
     # POST
-    # -------------------------
+    # =========================
     if request.method == "POST":
+
         form = AbsForm(
             request.POST,
             instance=abs,
             user=request.user,
-            exemplaire=abs.voiture_exemplaire
+            exemplaire=exemplaire
         )
 
         if form.is_valid():
-            form.save()
 
-            UserLog.objects.create(
-                utilisateur=request.user,
-                action=_("Modification contrôle ABS - %(immatriculation)s") % {
-                    "immatriculation": exemplaire.immatriculation
-                }
+            try:
+                with transaction.atomic():
+
+                    abs = form.save(commit=False)
+
+                    # =========================
+                    # KILOMÉTRAGE
+                    # =========================
+                    km = form.cleaned_data.get(
+                        "kilometrage_abs"
+                    )
+
+                    # Snapshot enregistré lors
+                    # de la création de l'intervention
+                    ancien_kilometrage = (
+                        abs.kilometres_chassis or 0
+                    )
+
+                    kilometrage_variation = 0
+
+                    if km is not None:
+
+                        km = int(km)
+
+                        if km < ancien_kilometrage:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage du contrôle ABS "
+                                    "ne peut pas être inférieur au kilométrage "
+                                    "enregistré avant l'intervention."
+                                )
+                            )
+
+                        kilometrage_variation = (
+                            km - ancien_kilometrage
+                        )
+
+                    # =========================
+                    # ABS
+                    # =========================
+
+                    # Kilométrage corrigé de l'intervention
+                    abs.kilometrage_abs = km
+
+                    # On conserve le snapshot d'origine
+                    abs.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+
+                    # Recalcul de la variation
+                    abs.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    # Technicien
+                    abs.assign_technicien(
+                        request.user
+                    )
+
+                    abs.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    abs.save()
+
+                    # =========================
+                    # LOG
+                    # =========================
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_(
+                            "Modification contrôle ABS - %(immatriculation)s"
+                        ) % {
+                            "immatriculation": (
+                                exemplaire.immatriculation
+                            )
+                        }
+                    )
+
+                messages.success(
+                    request,
+                    _(
+                        "Contrôle du système ABS modifié avec succès !"
+                    )
+                )
+
+                return redirect(
+                    "abs:abs_detail",
+                    abs_id=abs.id
+                )
+
+            except ValidationError as e:
+
+                form.add_error(
+                    "kilometrage_abs",
+                    e
+                )
+
+                messages.error(
+                    request,
+                    _("Kilométrage invalide.")
+                )
+
+            except Exception as e:
+
+                messages.error(
+                    request,
+                    _("Erreur lors de la modification : %(error)s") % {
+                        "error": str(e)
+                    }
+                )
+
+        else:
+
+            messages.error(
+                request,
+                _("Le formulaire contient des erreurs.")
             )
 
-            messages.success(request, _("Contrôle du système ABS modifié avec succès !"))
-            return redirect("abs:abs_detail", abs_id=abs.id)
-        else:
-            messages.error(request, _("Le formulaire contient des erreurs."))
             print(form.errors)
 
-    # -------------------------
+    # =========================
     # GET
-    # -------------------------
+    # =========================
     else:
+
         form = AbsForm(
             instance=abs,
             user=request.user,
-            exemplaire=abs.voiture_exemplaire
+            exemplaire=exemplaire
         )
 
-    # -------------------------
-    # Sections pour le template
-    # -------------------------
+    # =========================
+    # SECTIONS TEMPLATE
+    # =========================
     sections = [
         {
             "title": _("Kilométrage"),
             "icon": "icons/compteur.png",
-            "fields": [form[f.name] for f in form if "kilo" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "kilo" in f.name
+            ],
         },
         {
             "title": _("Pompe du système ABS"),
             "icon": "icons/abs.png",
-            "fields": [form[f.name] for f in form if "pompe" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "pompe" in f.name
+            ],
         },
         {
             "title": _("Calculateur ABS"),
             "icon": "icons/calculateur.png",
-            "fields": [form[f.name] for f in form if "calculateur" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "calculateur" in f.name
+            ],
         },
         {
             "title": _("Capteur ABS"),
             "icon": "icons/capteurs.png",
-            "fields": [form[f.name] for f in form if "capteur" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "capteur" in f.name
+            ],
         },
         {
             "title": _("Liquide de frein"),
             "icon": "icons/liquide_frein.png",
-            "fields": [form[f.name] for f in form if "liquide" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "liquide" in f.name
+            ],
         },
         {
             "title": _("Serrage des roues"),
             "icon": "icons/roue.png",
-            "fields": [form[f.name] for f in form if "serrage" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "serrage" in f.name
+            ],
         },
         {
             "title": _("Pays"),
             "icon": "icons/pays.png",
-            "fields": [form[f.name] for f in form if "pays" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "pays" in f.name
+            ],
         },
         {
             "title": _("Etiquette"),
             "icon": "icons/tag.png",
-            "fields": [form[f.name] for f in form if "tag" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "tag" in f.name
+            ],
         },
-
-
         {
             "title": _("Remarques"),
             "icon": "icons/notes.png",
-            "fields": [form[f.name] for f in form if "remarques" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "remarques" in f.name
+            ],
         },
         {
             "title": _("Technicien"),
             "icon": "icons/mecanicien.png",
-            "fields": [form[f.name] for f in form if "tech" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "tech" in f.name
+            ],
         },
         {
             "title": _("Taux horaire"),
             "icon": "icons/taux.png",
-            "fields": [form[f.name] for f in form if "taux" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "taux" in f.name
+            ],
         },
-
     ]
 
     return render(
@@ -417,7 +603,6 @@ def modifier_abs_view(request, abs_id):
             "exemplaire": exemplaire,
         }
     )
-
 
 
 @login_required
