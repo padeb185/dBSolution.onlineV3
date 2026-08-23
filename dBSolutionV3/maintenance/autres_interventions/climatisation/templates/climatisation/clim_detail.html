@@ -41,9 +41,9 @@
                     {% include "maintenance/partials/plaque.html" %}
                 </div>
             </p>
-            <p><strong>{% trans "Kilométrage" %} :</strong> {{ clim.kilometres_chassis }}</p>
+            <p><strong>{% trans "Kilométrage" %} :</strong> {{ clim.kilometrage_clim }}</p>
             <p><strong>{% trans "Tag" %} :</strong> {{ clim.get_tag_display }}</p>
-            <p><strong>{% trans "Technicien" %} :</strong> {{ clim.tech_nom_technicien }} {{ admission.tech_role_technicien }}</p>
+            <p><strong>{% trans "Technicien" %} :</strong> {{ clim.tech_nom_technicien }} {{ clim.tech_role_technicien }}</p>
         </div>
 
 

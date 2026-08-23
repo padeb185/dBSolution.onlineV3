@@ -121,53 +121,52 @@ def clim_form_view(request, exemplaire_id):
 
                     clim = form.save(commit=False)
 
-                    # Sécurisation de la relation véhicule
-                    clim.voiture_exemplaire = exemplaire
-                    clim._user = request.user
-                    clim.assign_technicien(request.user)
+                    # =========================
+                    # KILOMÉTRAGE
+                    # =========================
 
                     km = form.cleaned_data.get(
-                        "kilometrage_climatisation"
+                        "kilometrage_clim"
                     )
+
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    kilometrage_variation = 0
 
                     if km is not None:
+
                         km = int(km)
-                        ancien_km = exemplaire.kilometres_chassis or 0
 
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometrage_climatisation",
-                                _(
-                                    "Le kilométrage ne peut pas être "
-                                    "inférieur au kilométrage actuel "
-                                    "du véhicule."
-                                ),
-                            )
-
+                        if km < ancien_kilometrage:
                             raise ValidationError(
-                                _("Kilométrage invalide.")
+                                _(
+                                    "Le kilométrage du contrôle "
+                                    "ne peut pas être inférieur au kilométrage "
+                                    "actuel du véhicule."
+                                )
                             )
 
-                        if km > ancien_km:
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.date_derniere_intervention = (
-                                timezone.now().date()
-                            )
+                        kilometrage_variation = (
+                                km - ancien_kilometrage
+                        )
 
-                            exemplaire.update_kilometres()
+                        # Mise à jour véhicule
+                        exemplaire.kilometres_chassis = km
 
-                            exemplaire.save(
-                                update_fields=[
-                                    "kilometres_chassis",
-                                    "date_derniere_intervention",
-                                ]
-                            )
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis"
+                            ]
+                        )
 
-                    clim.kilometres_chassis = (
-                        exemplaire.kilometres_chassis
-                    )
+                        # 🔗 checkup UNIQUE
+                        clim = form.save(commit=False)
+                        clim.assign_technicien(request.user)
 
-                    clim.kilometrage_climatisation = km
+                        clim.kilometres_chassis = exemplaire.kilometres_chassis
+                        clim.kilometrage_clim = km
 
                     # ------------------------------------------
                     # Création de la maintenance
@@ -216,8 +215,28 @@ def clim_form_view(request, exemplaire_id):
                     # ------------------------------------------
 
                     clim.maintenance = maintenance
-                    clim.save()
 
+                    clim.assign_technicien(request.user)
+
+                    clim.kilometrage_clim = km
+
+                    clim.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+
+                    clim.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    clim.assign_technicien(
+                        request.user
+                    )
+
+                    clim.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    clim.save()
                     # Nécessaire si le formulaire contient
                     # éventuellement des champs ManyToMany
                     form.save_m2m()

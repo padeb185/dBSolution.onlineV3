@@ -10,6 +10,17 @@ class ClimForm(forms.ModelForm):
     temps_heures = forms.IntegerField(required=False, min_value=0)
     temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
 
+    kilometrage_variation = forms.IntegerField(
+        required=False,
+        label=_("Variation du kilométrage"),
+        widget=forms.NumberInput(
+            attrs={
+                "readonly": "readonly",
+                "class": "input",
+            }
+        ),
+    )
+
     class Meta:
         model = Climatisation
         fields = "__all__"
@@ -42,7 +53,31 @@ class ClimForm(forms.ModelForm):
         self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
 
-         # -------- MAIN D'ŒUVRE QUERYSET --------
+        # =========================
+        # VARIATION KILOMÉTRAGE
+        # =========================
+        if "kilometrage_variation" in self.fields:
+
+            variation = 0
+
+            if (
+                    self.instance
+                    and self.instance.pk
+                    and self.instance.kilometrage_clim is not None
+                    and self.exemplaire
+                    and self.exemplaire.kilometres_chassis is not None
+            ):
+                variation = (
+                        self.instance.kilometrage_clim
+                        - self.exemplaire.kilometres_chassis
+                )
+
+            self.fields["kilometrage_variation"].initial = variation
+
+
+
+
+        # -------- MAIN D'ŒUVRE QUERYSET --------
         if "main_oeuvre" in self.fields:
             self.fields["main_oeuvre"].queryset = MainDoeuvre.objects.select_related(
                 "utilisateur"
@@ -125,7 +160,7 @@ class ClimForm(forms.ModelForm):
 
             total_minutes = heures * 60 + minutes
 
-            main = instance.main_oeuvre
+            main = getattr(instance, "main_oeuvre", None)
 
             if main:
                 main.temps_minutes = total_minutes
@@ -133,23 +168,17 @@ class ClimForm(forms.ModelForm):
                 if taux_horaire is not None:
                     main.taux_horaire = taux_horaire
 
-                main.save(
-                    update_fields=[
-                        "temps_minutes",
-                        "taux_horaire",
-                    ]
-                )
+                main.save()
 
             else:
                 main = MainDoeuvre.objects.create(
                     utilisateur=self.user,
                     temps_minutes=total_minutes,
-                    taux_horaire=taux_horaire,
+                    taux_horaire=taux_horaire or 0,
                 )
 
                 instance.main_oeuvre = main
 
-        # Sauvegarde finale
         if commit:
             instance.save()
 

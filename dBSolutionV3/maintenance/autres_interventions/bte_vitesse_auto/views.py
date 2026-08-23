@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -118,26 +120,54 @@ def bte_auto_check_view(request, exemplaire_id):
             try:
                 with transaction.atomic():
 
-                    km = form.cleaned_data.get("kilometrage_controle_boite_auto")
+                    bte_auto = form.save(commit=False)
 
-                    # 🚗 SYNC KM VOITURE
+                    # =========================
+                    # KILOMÉTRAGE
+                    # =========================
+
+                    km = form.cleaned_data.get(
+                        "kilometrage_controle_boite_auto"
+                    )
+
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    kilometrage_variation = 0
+
                     if km is not None:
+
                         km = int(km)
 
-                        ancien_km = exemplaire.kilometres_chassis
-
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometrage_controle_boite_auto",
-                                _("Le kilométrage ne peut pas diminuer.")
+                        if km < ancien_kilometrage:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage du contrôle "
+                                    "ne peut pas être inférieur au kilométrage "
+                                    "actuel du véhicule."
+                                )
                             )
-                            raise ValueError("Kilométrage invalide")
 
+                        kilometrage_variation = (
+                                km - ancien_kilometrage
+                        )
+
+                        # Mise à jour véhicule
                         exemplaire.kilometres_chassis = km
-                        exemplaire.date_derniere_intervention = timezone.now().date()
 
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis"
+                            ]
+                        )
+
+                        # 🔗 checkup UNIQUE
+                        bte_auto = form.save(commit=False)
+                        bte_auto.assign_technicien(request.user)
+
+                        bte_auto.kilometres_chassis = exemplaire.kilometres_chassis
+                        bte_auto.kilometrage_controle_boite_auto = km
 
                     # 🔴 MAINTENANCE UNIQUE
                     maintenance = Maintenance.objects.create(
@@ -170,17 +200,25 @@ def bte_auto_check_view(request, exemplaire_id):
                     maintenance.save()
 
                     # 🔗 OBJET FORM UNIQUE
-                    bte_auto = form.save(commit=False)
-
-                    if bte_auto is None:
-                        raise ValueError("Objet bte_auto non créé")
-
                     bte_auto.assign_technicien(request.user)
 
-                    bte_auto.kilometres_chassis = exemplaire.kilometres_chassis
                     bte_auto.kilometrage_controle_boite_auto = km
-                    bte_auto.voiture_exemplaire = exemplaire
-                    bte_auto.maintenance = maintenance
+
+                    bte_auto.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+
+                    bte_auto.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    bte_auto.assign_technicien(
+                        request.user
+                    )
+
+                    bte_auto.tech_last_maintained_by = (
+                        request.user
+                    )
 
                     bte_auto.save()
 
@@ -205,7 +243,6 @@ def bte_auto_check_view(request, exemplaire_id):
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
 
         else:
-            print("FORM INVALID:", form.errors)
             messages.error(request, _("Le formulaire contient des erreurs."))
 
     # =========================
