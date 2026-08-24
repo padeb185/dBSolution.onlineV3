@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.contrib import messages
@@ -152,22 +154,32 @@ class EchappementListView(ListView):
 
 
 
+
+
 @never_cache
 @login_required
 def echappement_check_view(request, exemplaire_id):
+
     tenant = request.user.societe
     role = request.user.role
 
     maintenance = None
 
-    # Récupération sécurisée de l'exemplaire
+    # =========================================================
+    # RÉCUPÉRATION DU VÉHICULE
+    # =========================================================
+
     exemplaire = get_object_or_404(
         VoitureExemplaire.objects.filter(
             Q(client__societe=tenant)
             | Q(client__isnull=True, societe=tenant)
         ),
-        id=exemplaire_id
+        id=exemplaire_id,
     )
+
+    # =========================================================
+    # CONTRÔLE DES RÔLES
+    # =========================================================
 
     roles_autorises = [
         "mecanicien",
@@ -178,21 +190,30 @@ def echappement_check_view(request, exemplaire_id):
     ]
 
     if role not in roles_autorises:
-        messages.error(request, _("Accès refusé."))
-        return redirect("utilisateurs:dashboard")
+        messages.error(
+            request,
+            _("Accès refusé."),
+        )
 
-    # =========================
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # =========================================================
     # POST
-    # =========================
+    # =========================================================
+
     if request.method == "POST":
 
-        # On crée une instance déjà liée au véhicule
+        # Instance liée au véhicule avant validation du formulaire
         instance_echappement = Echappement(
             voiture_exemplaire=exemplaire,
             kilometres_chassis=exemplaire.kilometres_chassis,
         )
 
-        instance_echappement.assign_technicien(request.user)
+        instance_echappement.assign_technicien(
+            request.user
+        )
 
         form = ControleEchappementForm(
             request.POST,
@@ -201,169 +222,251 @@ def echappement_check_view(request, exemplaire_id):
             exemplaire=exemplaire,
         )
 
+        # =====================================================
+        # FORMULAIRE VALIDE
+        # =====================================================
+
         if form.is_valid():
-            km = form.cleaned_data.get("kilometrage_echappement")
 
-            # Sécurité supplémentaire
-            if km is None:
-                form.add_error(
-                    "kilometrage_echappement",
-                    _("Le kilométrage est obligatoire.")
+            try:
+
+                # -------------------------------------------------
+                # KILOMÉTRAGE
+                # -------------------------------------------------
+
+                km = form.cleaned_data.get(
+                    "kilometrage_echappement"
                 )
-            else:
-                km = int(km)
-                ancien_km = exemplaire.kilometres_chassis or 0
 
-                if km < ancien_km:
+                ancien_kilometrage = (
+                    exemplaire.kilometres_chassis or 0
+                )
+
+                if km is None:
                     form.add_error(
                         "kilometrage_echappement",
-                        _(
-                            "Le kilométrage ne peut pas être inférieur "
-                            "au kilométrage actuel du véhicule."
-                        )
+                        _("Le kilométrage est obligatoire."),
                     )
 
-            # On vérifie qu'aucune erreur n'a été ajoutée
-            if not form.errors:
-                try:
-                    with transaction.atomic():
+                else:
 
-                        # =========================
-                        # Mise à jour du véhicule
-                        # =========================
-                        if km > (exemplaire.kilometres_chassis or 0):
+                    km = int(km)
+
+                    if km < ancien_kilometrage:
+
+                        form.add_error(
+                            "kilometrage_echappement",
+                            _(
+                                "Le kilométrage du contrôle de "
+                                "l'échappement ne peut pas être "
+                                "inférieur au kilométrage actuel "
+                                "du véhicule."
+                            ),
+                        )
+
+                    else:
+
+                        kilometrage_variation = (
+                            km - ancien_kilometrage
+                        )
+
+                        # =========================================
+                        # TRANSACTION
+                        # =========================================
+
+                        with transaction.atomic():
+
+                            # -------------------------------------
+                            # CRÉATION MAINTENANCE
+                            # -------------------------------------
+
+                            maintenance = Maintenance.objects.create(
+                                societe=tenant,
+                                voiture_exemplaire=exemplaire,
+                                immatriculation=exemplaire.immatriculation,
+                                date_intervention=timezone.localdate(),
+
+                                # Kilométrage du contrôle
+                                kilometres_chassis=km,
+
+                                kilometres_dernier_entretien=(
+                                    exemplaire.kilometres_dernier_entretien
+                                ),
+
+                                type_maintenance=(
+                                    Maintenance.TypeMaintenance.ECHAPPEMENT
+                                ),
+
+                                tag=Maintenance.Tag.JAUNE,
+                            )
+
+                            # -------------------------------------
+                            # ATTRIBUTION DU PERSONNEL
+                            # -------------------------------------
+
+                            if role == "mecanicien":
+                                maintenance.mecanicien = request.user
+
+                            elif role == "chef_mecanicien":
+                                maintenance.chef_mecanicien = request.user
+
+                            elif role == "magasinier":
+                                maintenance.magasinier = request.user
+
+                            elif role == "direction":
+                                maintenance.direction = request.user
+
+                            maintenance.save()
+
+                            # ManyToMany
+                            if role == "apprenti":
+                                maintenance.apprentis.add(
+                                    request.user
+                                )
+
+                            # -------------------------------------
+                            # CRÉATION DU CONTRÔLE ÉCHAPPEMENT
+                            # -------------------------------------
+
+                            echappement = form.save(
+                                commit=False
+                            )
+
+                            echappement.voiture_exemplaire = (
+                                exemplaire
+                            )
+
+                            echappement.maintenance = (
+                                maintenance
+                            )
+
+                            # Kilométrage AVANT intervention
+                            echappement.kilometres_chassis = (
+                                ancien_kilometrage
+                            )
+
+                            # Kilométrage saisi lors du contrôle
+                            echappement.kilometrage_embrayage = (
+                                km
+                            )
+
+                            # Variation
+                            echappement.kilometrage_variation = (
+                                kilometrage_variation
+                            )
+
+                            # Technicien
+                            echappement.assign_technicien(
+                                request.user
+                            )
+
+                            echappement.tech_last_maintained_by = (
+                                request.user
+                            )
+
+                            echappement.save()
+
+                            # -------------------------------------
+                            # MANY TO MANY DU FORMULAIRE
+                            # -------------------------------------
+
+                            form.save_m2m()
+
+                            # -------------------------------------
+                            # MISE À JOUR DU VÉHICULE
+                            # -------------------------------------
+
                             exemplaire.kilometres_chassis = km
 
-                        exemplaire.date_derniere_intervention = (
-                            timezone.localdate()
-                        )
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                ]
+                            )
 
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
+                            # -------------------------------------
+                            # LOG
+                            # -------------------------------------
 
-                        # =========================
-                        # Création maintenance
-                        # =========================
-                        maintenance = Maintenance.objects.create(
-                            societe=tenant,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.localdate(),
-                            kilometres_chassis=(
-                                exemplaire.kilometres_chassis
-                            ),
-                            kilometres_dernier_entretien=(
-                                exemplaire.kilometres_dernier_entretien
-                            ),
-
-                            # Remplacer par la valeur exacte de ton enum
-                            type_maintenance=(
-                                Maintenance.TypeMaintenance.ECHAPPEMENT
-                            ),
-
-                            tag=Maintenance.Tag.JAUNE,
-                        )
-
-                        # =========================
-                        # Attribution du personnel
-                        # =========================
-                        if role == "mecanicien":
-                            maintenance.mecanicien = request.user
-
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = request.user
-
-                        elif role == "magasinier":
-                            maintenance.magasinier = request.user
-
-                        elif role == "direction":
-                            maintenance.direction = request.user
-
-                        maintenance.save()
-
-                        # ManyToMany après le premier save
-                        if role == "apprenti":
-                            maintenance.apprentis.add(request.user)
-
-                        # =========================
-                        # Création échappement
-                        # =========================
-                        echappement = form.save(commit=False)
-
-                        # Affectations obligatoires
-                        echappement.voiture_exemplaire = exemplaire
-                        echappement.maintenance = maintenance
-                        echappement.kilometres_chassis = (
-                            exemplaire.kilometres_chassis
-                        )
-                        echappement.kilometrage_echappement = km
-
-                        echappement.assign_technicien(request.user)
-                        echappement.save()
-
-                        # Nécessaire si le formulaire contient des M2M
-                        form.save_m2m()
-
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=_(
-                                "Contrôle échappement - "
-                                "%(immatriculation)s"
-                            ) % {
-                                "immatriculation": (
-                                    exemplaire.immatriculation
+                            UserLog.objects.create(
+                                utilisateur=request.user,
+                                action=_(
+                                    "Contrôle échappement - "
+                                    "%(immatriculation)s"
                                 )
-                            }
+                                % {
+                                    "immatriculation": (
+                                        exemplaire.immatriculation
+                                    )
+                                },
+                            )
+
+                        # =========================================
+                        # SUCCÈS
+                        # =========================================
+
+                        messages.success(
+                            request,
+                            _(
+                                "Le contrôle de l'échappement "
+                                "a été enregistré avec succès."
+                            ),
                         )
 
-                    messages.success(
-                        request,
-                        _(
-                            "Le contrôle de l'échappement "
-                            "a été enregistré avec succès."
+                        return redirect(
+                            "echappement:echappement_list",
+                            exemplaire_id=exemplaire.id,
                         )
-                    )
 
-                    # Redirection indispensable pour éviter un double POST
-                    return redirect(
-                        "echappement:echappement_list",
-                        exemplaire_id=exemplaire.id,
-                    )
+            except Exception as e:
 
-                except Exception as e:
-                    messages.error(
-                        request,
-                        _("Erreur lors de l'enregistrement : %(erreur)s")
-                        % {
-                            "erreur": str(e)
-                        }
+                messages.error(
+                    request,
+                    _(
+                        "Erreur lors de l'enregistrement : "
+                        "%(erreur)s"
                     )
+                    % {
+                        "erreur": str(e),
+                    },
+                )
+
+        # =====================================================
+        # FORMULAIRE INVALIDE
+        # =====================================================
 
         else:
-            print("FORM INVALID:", form.errors)
-
             messages.error(
                 request,
-                _("Le formulaire contient des erreurs.")
+                _(
+                    "Le formulaire contient des erreurs."
+                ),
             )
 
-    # =========================
+    # =========================================================
     # GET
-    # =========================
+    # =========================================================
+
     else:
+
         instance_echappement = Echappement(
             voiture_exemplaire=exemplaire,
             kilometres_chassis=exemplaire.kilometres_chassis,
-
         )
 
-        instance_echappement.assign_technicien(request.user)
+        instance_echappement.assign_technicien(
+            request.user
+        )
 
         form = ControleEchappementForm(
             instance=instance_echappement,
             user=request.user,
             exemplaire=exemplaire,
         )
+
+    # =========================================================
+    # AFFICHAGE
+    # =========================================================
 
     return render(
         request,
@@ -374,9 +477,8 @@ def echappement_check_view(request, exemplaire_id):
             "maintenance": maintenance,
             "form": form,
             "now": timezone.now(),
-        }
+        },
     )
-
 
 
 # ------------

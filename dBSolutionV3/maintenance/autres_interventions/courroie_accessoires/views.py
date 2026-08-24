@@ -105,32 +105,54 @@ def courroie_access_form_view(request, exemplaire_id):
             try:
                 with transaction.atomic():
 
-                    # ✅ Création immédiate de l'objet
-                    courroie_accessoires = form.save(commit=False)
+                    courroie_access = form.save(commit=False)
 
-                    courroie_accessoires.voiture_exemplaire = exemplaire
-                    courroie_accessoires.assign_technicien(request.user)
+                    # =========================
+                    # KILOMÉTRAGE
+                    # =========================
 
-                    km = form.cleaned_data.get("kilometrage_access")
+                    km = form.cleaned_data.get(
+                        "kilometrage_access"
+                    )
+
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    kilometrage_variation = 0
 
                     if km is not None:
+
                         km = int(km)
-                        ancien_km = exemplaire.kilometres_chassis
 
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometrage_courroie_access",
-                                _("Le kilométrage ne peut pas diminuer.")
+                        if km < ancien_kilometrage:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage du contrôle "
+                                    "ne peut pas être inférieur au kilométrage "
+                                    "actuel du véhicule."
+                                )
                             )
-                            raise ValueError("Kilométrage invalide")
 
+                        kilometrage_variation = (
+                                km - ancien_kilometrage
+                        )
+
+                        # Mise à jour véhicule
                         exemplaire.kilometres_chassis = km
-                        exemplaire.date_derniere_intervention = timezone.now().date()
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
 
-                        courroie_accessoires.kilometres_chassis = exemplaire.kilometres_chassis
-                        courroie_accessoires.kilometrage_courroie_access = km
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis"
+                            ]
+                        )
+
+                        # 🔗 checkup UNIQUE
+                        courroie_access = form.save(commit=False)
+                        courroie_access.assign_technicien(request.user)
+
+                        courroie_access.kilometres_chassis = exemplaire.kilometres_chassis
+                        courroie_access.kilometrage_access = km
 
                     maintenance = Maintenance.objects.create(
                         societe=request.user.societe,
@@ -156,8 +178,29 @@ def courroie_access_form_view(request, exemplaire_id):
 
                     maintenance.save()
 
-                    courroie_accessoires.maintenance = maintenance
-                    courroie_accessoires.save()
+                    courroie_access.maintenance = maintenance
+
+                    courroie_access.assign_technicien(request.user)
+
+                    courroie_access.kilometrage_access = km
+
+                    courroie_access.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+
+                    courroie_access.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    courroie_access.assign_technicien(
+                        request.user
+                    )
+
+                    courroie_access.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    courroie_access.save()
                     form.save_m2m()
 
                     UserLog.objects.create(
