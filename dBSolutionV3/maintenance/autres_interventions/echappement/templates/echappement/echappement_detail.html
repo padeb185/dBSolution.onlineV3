@@ -44,7 +44,7 @@
                 {% include "maintenance/partials/plaque.html" %}
             </div>
 
-            <p><strong>{% trans "Kilométrage" %} :</strong> {{ echappement.kilometres_chassis }}</p>
+            <p><strong>{% trans "Kilométrage" %} :</strong> {{ echappement.kilometrage_echappement }}</p>
             <p><strong>{% trans "Tag" %} :</strong> {{ echappement.get_tag_display }}</p>
             <p><strong>{% trans "Technicien" %} :</strong> {{ echappement.tech_nom_technicien }} {{ echappement.tech_role_technicien }}</p>
         </div>

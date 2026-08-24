@@ -160,7 +160,6 @@ TENANT_APPS = (
     'maintenance.autres_interventions.boite_de_vitesse.remplacement_boite',
     'maintenance.autres_interventions.echappement',
     'maintenance.autres_interventions.moteur.rodage',
-
     "maintenance.autres_interventions.embrayage.apps.EmbrayageConfig",
 
 

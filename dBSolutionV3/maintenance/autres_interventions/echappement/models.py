@@ -149,6 +149,12 @@ class Echappement(models.Model):
         blank=True
     )
 
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
+
 
     def piece_fields(prefix):
         return {
@@ -366,34 +372,127 @@ class Echappement(models.Model):
         if self.voiture_exemplaire and self.kilometrage_echappement is not None:
             if self.kilometrage_echappement < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_geometrie': _(
+                    'kilometrage_echappement': _(
                         f"Le kilométrage de l'échappement ({self.kilometrage_echappement}) "
                         f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
                     )
                 })
 
     def save(self, *args, **kwargs):
-        # Mise à jour du kilométrage de la voiture si nécessaire
-        if self.voiture_exemplaire and self.kilometrage_echappement:
-            if self.kilometrage_echappement > self.voiture_exemplaire.kilometres_chassis:
-                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_echappement
-                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
 
-        if self.voiture_exemplaire:
-            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
-
-        if not self.tech_technicien and hasattr(self, '_user'):
+        # =========================
+        # TECHNICIEN
+        # =========================
+        if not self.tech_technicien_id and hasattr(self, "_user"):
             self.assign_technicien(self._user)
 
-            # ----------------------------
-            # MAIN D'OEUVRE AUTO DESCRIPTIF
-            # ----------------------------
-        if self.main_oeuvre_id and self.voiture_exemplaire_id:
-            task_name = _("Echappement") + " " + str(self.voiture_exemplaire)
-            self.main_oeuvre.descriptif = task_name
-            self.main_oeuvre.save(update_fields=["descriptif"])
+        # =========================
+        # RÉCUPÉRATION DU VÉHICULE
+        # =========================
+        voiture = None
+        ancien_kilometrage = 0
 
+        if self.voiture_exemplaire_id:
+            voiture = type(self.voiture_exemplaire).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+            ancien_kilometrage = (
+                    voiture.kilometres_chassis or 0
+            )
+
+            # Snapshot AVANT intervention
+            self.kilometres_chassis = ancien_kilometrage
+
+        # =========================
+        # CALCUL VARIATION
+        # =========================
+        if self.kilometrage_echappement is not None:
+
+            self.kilometrage_variation = (
+                    self.kilometrage_echappement
+                    - ancien_kilometrage
+            )
+
+        else:
+            self.kilometrage_variation = 0
+
+        # =========================
+        # MAIN D'ŒUVRE
+        # =========================
+        if self.main_oeuvre_id and self.voiture_exemplaire_id:
+            task_name = (
+                    _("Checkup échappement")
+                    + " "
+                    + str(self.voiture_exemplaire)
+            )
+
+            self.main_oeuvre.descriptif = task_name
+
+            self.main_oeuvre.save(
+                update_fields=["descriptif"]
+            )
+
+        # =========================
+        # MAINTENANCE
+        # =========================
+        if self.maintenance_id and self.voiture_exemplaire_id:
+            self.maintenance.type_maintenance = (
+                Maintenance.TypeMaintenance.ECHAPPEMENT
+            )
+
+            self.maintenance.voiture_exemplaire = (
+                self.voiture_exemplaire
+            )
+
+            self.maintenance.kilometres_chassis = (
+                self.kilometrage_echappement
+                if self.kilometrage_echappement is not None
+                else ancien_kilometrage
+            )
+
+            self.maintenance.save(
+                update_fields=[
+                    "type_maintenance",
+                    "voiture_exemplaire",
+                    "kilometres_chassis",
+                ]
+            )
+
+        # =========================
+        # SAUVEGARDE ÉCHAPPEMENT
+        # =========================
         super().save(*args, **kwargs)
+
+        # =========================
+        # MISE À JOUR DU VÉHICULE
+        # =========================
+        if (
+                voiture is not None
+                and self.kilometrage_echappement is not None
+        ):
+
+            nouveau_kilometrage = int(
+                self.kilometrage_echappement
+            )
+
+            ancien_km_voiture = int(
+                voiture.kilometres_chassis or 0
+            )
+
+            if nouveau_kilometrage >= ancien_km_voiture:
+                voiture.kilometres_chassis = (
+                    nouveau_kilometrage
+                )
+
+                voiture.save(
+                    update_fields=[
+                        "kilometres_chassis"
+                    ]
+                )
+
+
+
 
     def __str__(self):
         if self.voiture_exemplaire:
