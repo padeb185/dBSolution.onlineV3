@@ -187,16 +187,27 @@ class Fuel(models.Model):
         return f"{immat} – {date} – {litres}"
 
     def save(self, *args, **kwargs):
-        tva_percent = RechargeCarburant.TVA_CARBURANT.get(self.pays, 0)
-        tva_decimal = Decimal(tva_percent) / Decimal('100')
-        self.montant_ht = (self.prix_refuelling / (Decimal('1') + tva_decimal)).quantize(
-            Decimal('0.01'), rounding=ROUND_HALF_UP
-        )
-        self.montant_tva = (self.prix_refuelling - self.montant_ht).quantize(
-            Decimal('0.01'), rounding=ROUND_HALF_UP
-        )
-        super().save(*args, **kwargs)
+        tva_percent = self.TVA_CARBURANT.get(self.pays, 0)
 
+        tva_decimal = Decimal(str(tva_percent)) / Decimal("100")
+
+        prix_refuelling = self.prix_refuelling or Decimal("0.00")
+
+        self.montant_ht = (
+                prix_refuelling / (Decimal("1") + tva_decimal)
+        ).quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP
+        )
+
+        self.montant_tva = (
+                prix_refuelling - self.montant_ht
+        ).quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP
+        )
+
+        super().save(*args, **kwargs)
 
     @classmethod
     def total_litres_mois(cls, vehicule, year=None, month=None):
