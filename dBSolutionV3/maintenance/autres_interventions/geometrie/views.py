@@ -1,4 +1,5 @@
 from datetime import datetime
+from maindoeuvre.models import MainDoeuvre
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -75,231 +76,549 @@ def geometrie_check_view(request, exemplaire_id):
 
     maintenance = None
 
+    # =========================================================
+    # RÉCUPÉRATION DU VÉHICULE
+    # =========================================================
 
-
-    # 🔎 Récupération exemplaire
     exemplaire = get_object_or_404(
         VoitureExemplaire.objects.filter(
-            Q(client__societe=tenant) |
-            Q(client__isnull=True, societe=tenant)
+            Q(client__societe=tenant)
+            |
+            Q(
+                client__isnull=True,
+                societe=tenant,
+            )
         ),
-        id=exemplaire_id
+        id=exemplaire_id,
     )
 
-    # 🔐 rôles autorisés
+    # =========================================================
+    # RÔLES AUTORISÉS
+    # =========================================================
+
     roles_autorises = [
         "mecanicien",
         "apprenti",
         "magasinier",
         "chef_mecanicien",
-        "direction"
+        "direction",
     ]
 
     if role not in roles_autorises:
-        messages.error(request, _("Accès refusé"))
-        return redirect("utilisateurs:dashboard")
+        messages.error(
+            request,
+            _("Accès refusé."),
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
 
-    # =========================
+    # =========================================================
     # POST
-    # =========================
+    # =========================================================
+
     if request.method == "POST":
+
+        # IMPORTANT :
+        # créer une instance déjà liée au véhicule
+        geometrie_instance = GeometrieVoiture(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=(
+                exemplaire.kilometres_chassis
+            ),
+        )
+
+        geometrie_instance.assign_technicien(
+            request.user
+        )
 
         form = GeometrieVoitureForm(
             request.POST,
+            instance=geometrie_instance,
             user=request.user,
-            exemplaire=exemplaire
+            exemplaire=exemplaire,
         )
 
         if form.is_valid():
 
             try:
-                with transaction.atomic():
 
-                    km = form.cleaned_data.get("kilometrage_geometrie")
+                km = form.cleaned_data.get(
+                    "kilometrage_geometrie"
+                )
 
-                    if km is not None:
-                        km = int(km)
+                ancien_kilometrage = (
+                    exemplaire.kilometres_chassis
+                    or 0
+                )
 
-                        ancien_km = exemplaire.kilometres_chassis
+                # =================================================
+                # VALIDATION KILOMÉTRAGE
+                # =================================================
 
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometrage_geometrie",
-                                _("Le kilométrage ne peut pas diminuer.")
+                if km is None:
+
+                    form.add_error(
+                        "kilometrage_geometrie",
+                        _("Le kilométrage est obligatoire."),
+                    )
+
+                else:
+
+                    km = int(km)
+
+                    if km < ancien_kilometrage:
+
+                        form.add_error(
+                            "kilometrage_geometrie",
+                            _(
+                                "Le kilométrage du contrôle "
+                                "de géométrie ne peut pas être "
+                                "inférieur au kilométrage actuel "
+                                "du véhicule."
+                            ),
+                        )
+
+                    else:
+
+                        kilometrage_variation = (
+                            km - ancien_kilometrage
+                        )
+
+                        with transaction.atomic():
+
+                            # =====================================
+                            # MAINTENANCE
+                            # =====================================
+
+                            maintenance = (
+                                Maintenance.objects.create(
+                                    societe=tenant,
+                                    voiture_exemplaire=exemplaire,
+                                    immatriculation=(
+                                        exemplaire.immatriculation
+                                    ),
+                                    date_intervention=(
+                                        timezone.localdate()
+                                    ),
+                                    kilometres_chassis=km,
+                                    kilometres_dernier_entretien=(
+                                        exemplaire
+                                        .kilometres_dernier_entretien
+                                    ),
+                                    type_maintenance=(
+                                        Maintenance
+                                        .TypeMaintenance
+                                        .CHECKUP_TRACK
+                                    ),
+                                    tag=(
+                                        Maintenance.Tag.JAUNE
+                                    ),
+                                )
                             )
-                            raise ValueError("Kilométrage invalide")
 
-                        # 🚗 update voiture (source unique)
-                        exemplaire.kilometres_chassis = km
-                        exemplaire.date_derniere_intervention = timezone.now().date()
+                            # =====================================
+                            # PERSONNEL
+                            # =====================================
 
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
+                            if role == "mecanicien":
+                                maintenance.mecanicien = (
+                                    request.user
+                                )
 
-                        # 🔗 checkup UNIQUE
-                        geometrie = form.save(commit=False)
-                        geometrie.assign_technicien(request.user)
+                            elif role == "chef_mecanicien":
+                                maintenance.chef_mecanicien = (
+                                    request.user
+                                )
 
-                        geometrie.kilometres_chassis = exemplaire.kilometres_chassis
-                        geometrie.kilometrage_geometrie = km
+                            elif role == "magasinier":
+                                maintenance.magasinier = (
+                                    request.user
+                                )
 
-                    # 🔴 maintenance unique
-                    maintenance = Maintenance.objects.create(
-                        societe=request.user.societe,
-                        voiture_exemplaire=exemplaire,
-                        immatriculation=exemplaire.immatriculation,
-                        date_intervention=timezone.now().date(),
-                        kilometres_chassis=exemplaire.kilometres_chassis,
-                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                        type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
-                        tag=Maintenance.Tag.JAUNE,
-                    )
+                            elif role == "direction":
+                                maintenance.direction = (
+                                    request.user
+                                )
 
-                    # 🔧 affectation rôle
-                    if role == "mecanicien":
-                        maintenance.mecanicien = request.user
+                            maintenance.save()
 
-                    elif role == "chef_mecanicien":
-                        maintenance.chef_mecanicien = request.user
+                            if role == "apprenti":
+                                maintenance.apprentis.add(
+                                    request.user
+                                )
 
-                    elif role == "apprenti":
-                        maintenance.apprentis.add(request.user)
+                            # =====================================
+                            # GÉOMÉTRIE
+                            # =====================================
 
-                    elif role == "magasinier":
-                        maintenance.magasinier = request.user
+                            geometrie = form.save(
+                                commit=False
+                            )
 
-                    elif role == "direction":
-                        maintenance.direction = request.user
+                            # IMPORTANT
+                            geometrie.voiture_exemplaire = (
+                                exemplaire
+                            )
 
-                    maintenance.save()
-                    geometrie.assign_technicien(request.user)
+                            geometrie.maintenance = (
+                                maintenance
+                            )
 
-                    # 🔗 lien final
-                    geometrie.maintenance = maintenance
-                    geometrie.save()
+                            geometrie.kilometres_chassis = (
+                                ancien_kilometrage
+                            )
 
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_("Géométrie - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
-                    )
+                            geometrie.kilometrage_geometrie = (
+                                km
+                            )
 
-                messages.success(request, _("Géometrie enregistrée avec succès."))
-                return redirect("geometrie:geometrie_list", exemplaire_id=exemplaire.id)
+                            geometrie.kilometrage_variation = (
+                                kilometrage_variation
+                            )
 
+                            geometrie.assign_technicien(
+                                request.user
+                            )
+
+                            geometrie.tech_last_maintained_by = (
+                                request.user
+                            )
+
+                            # =====================================
+                            # MAIN D'ŒUVRE
+                            # =====================================
+
+                            heures = (
+                                form.cleaned_data.get(
+                                    "temps_heures"
+                                )
+                                or 0
+                            )
+
+                            minutes = (
+                                form.cleaned_data.get(
+                                    "temps_minutes"
+                                )
+                                or 0
+                            )
+
+                            total_minutes = (
+                                heures * 60
+                                + minutes
+                            )
+
+                            taux_horaire = (
+                                form.cleaned_data.get(
+                                    "taux_horaire"
+                                )
+                                or 0
+                            )
+
+                            if geometrie.main_oeuvre_id:
+
+                                main_oeuvre = (
+                                    geometrie.main_oeuvre
+                                )
+
+                                main_oeuvre.temps_minutes = (
+                                    total_minutes
+                                )
+
+                                main_oeuvre.taux_horaire = (
+                                    taux_horaire
+                                )
+
+                                main_oeuvre.save(
+                                    update_fields=[
+                                        "temps_minutes",
+                                        "taux_horaire",
+                                    ]
+                                )
+
+                            else:
+
+                                main_oeuvre = (
+                                    MainDoeuvre.objects.create(
+                                        utilisateur=request.user,
+                                        temps_minutes=(
+                                            total_minutes
+                                        ),
+                                        taux_horaire=(
+                                            taux_horaire
+                                        ),
+                                    )
+                                )
+
+                                geometrie.main_oeuvre = (
+                                    main_oeuvre
+                                )
+
+                            # =====================================
+                            # SAVE GÉOMÉTRIE
+                            # =====================================
+
+                            geometrie.save()
+
+                            form.save_m2m()
+
+                            # =====================================
+                            # MISE À JOUR DU VÉHICULE
+                            # =====================================
+
+                            exemplaire.kilometres_chassis = (
+                                km
+                            )
+
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                ]
+                            )
+
+                            # =====================================
+                            # LOG
+                            # =====================================
+
+                            UserLog.objects.create(
+                                utilisateur=request.user,
+                                action=_(
+                                    "Géométrie - "
+                                    "%(immatriculation)s"
+                                )
+                                % {
+                                    "immatriculation": (
+                                        exemplaire.immatriculation
+                                    )
+                                },
+                            )
+
+                        messages.success(
+                            request,
+                            _(
+                                "Géométrie enregistrée "
+                                "avec succès."
+                            ),
+                        )
+
+                        return redirect(
+                            "geometrie:geometrie_list",
+                            exemplaire_id=(
+                                exemplaire.id
+                            ),
+                        )
 
             except Exception as e:
-                messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+
+                import traceback
+
+                traceback.print_exc()
+
+                messages.error(
+                    request,
+                    _(
+                        "Erreur lors de "
+                        "l'enregistrement : %(erreur)s"
+                    )
+                    % {
+                        "erreur": str(e),
+                    },
+                )
 
         else:
-            print("FORM INVALID:", form.errors)
-            messages.error(request, _("Le formulaire contient des erreurs."))
 
+            print(
+                "FORM GEOMETRIE INVALID:",
+                form.errors,
+            )
+
+            messages.error(
+                request,
+                _(
+                    "Le formulaire contient "
+                    "des erreurs."
+                ),
+            )
+
+    # =========================================================
+    # GET
+    # =========================================================
 
     else:
+
         geometrie = GeometrieVoiture(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis
+            kilometres_chassis=(
+                exemplaire.kilometres_chassis
+            ),
         )
 
-        geometrie.assign_technicien(request.user)
+        geometrie.assign_technicien(
+            request.user
+        )
 
         form = GeometrieVoitureForm(
             instance=geometrie,
             user=request.user,
-            exemplaire=exemplaire
+            exemplaire=exemplaire,
         )
 
-    # --- Génération des champs par section ---
+    # =========================================================
+    # SECTIONS
+    # =========================================================
+
     sections = [
         {
-            "title": "Kilométrage",
+            "title": _("Kilométrage"),
             "icon": "icons/compteur.png",
-            "fields": [form[f.name] for f in form if "kilo" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "kilo" in f.name
+            ],
         },
         {
             "title": _("Pincement"),
             "icon": "icons/pince.png",
-            "fields": [form[f.name] for f in form if "pincement" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "pincement" in f.name
+            ],
         },
         {
             "title": _("Carrossage"),
             "icon": "icons/carrossage.png",
-            "fields": [form[f.name] for f in form if "carrossage" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "carrossage" in f.name
+            ],
         },
         {
             "title": _("Chasse"),
             "icon": "icons/chasse.png",
-            "fields": [form[f.name] for f in form if "chasse" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "chasse" in f.name
+            ],
         },
         {
             "title": _("Angle de Poussée"),
             "icon": "icons/poussee.png",
-            "fields": [form[f.name] for f in form if "poussee" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "poussee" in f.name
+            ],
         },
         {
             "title": _("Angle de pivot"),
             "icon": "icons/angle-pivot.png",
-            "fields": [form[f.name] for f in form if "angle_pivot" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "angle_pivot" in f.name
+            ],
         },
         {
             "title": _("Hauteur de caisse"),
             "icon": "icons/hauteur.png",
-            "fields": [form[f.name] for f in form if "hauteur" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "hauteur" in f.name
+            ],
         },
         {
             "title": _("Débattement"),
             "icon": "icons/amortisseur.png",
-            "fields": [form[f.name] for f in form if "debattement" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "debattement" in f.name
+            ],
         },
         {
             "title": _("Raideur"),
             "icon": "icons/amortisseur.png",
-            "fields": [form[f.name] for f in form if "raideur" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "raideur" in f.name
+            ],
         },
         {
             "title": _("Amortisseur"),
             "icon": "icons/amortisseur.png",
-            "fields": [form[f.name] for f in form if "amortissement" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "amortissement" in f.name
+            ],
         },
         {
             "title": _("Pays"),
             "icon": "icons/pays.png",
-            "fields": [form[f.name] for f in form if "pays" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "pays" in f.name
+            ],
         },
-
         {
             "title": _("Etiquette"),
             "icon": "icons/tag.png",
-            "fields": [form[f.name] for f in form if "tag" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "tag" in f.name
+            ],
         },
         {
             "title": _("Remarques"),
             "icon": "icons/notes.png",
-            "fields": [form[f.name] for f in form if "remarques" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "remarques" in f.name
+            ],
         },
         {
             "title": _("Technicien"),
             "icon": "icons/mecanicien.png",
-            "fields": [form[f.name] for f in form if "tech" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "tech" in f.name
+            ],
         },
         {
             "title": _("Taux horaire"),
             "icon": "icons/taux.png",
-            "fields": [form[f.name] for f in form if "taux" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "taux" in f.name
+            ],
         },
-
     ]
 
-    return render(request, 'geometrie/geometrie_check.html', {
-        "exemplaire": exemplaire,
-        "immatriculation": exemplaire.immatriculation,
-        "maintenance": maintenance,
-        "form": form,
-        "sections": sections,
-        "now": timezone.now(),
-    })
+    return render(
+        request,
+        "geometrie/geometrie_check.html",
+        {
+            "exemplaire": exemplaire,
+            "immatriculation": (
+                exemplaire.immatriculation
+            ),
+            "maintenance": maintenance,
+            "form": form,
+            "sections": sections,
+            "now": timezone.now(),
+        },
+    )
 
 
 # ------------
@@ -355,7 +674,7 @@ def geometrie_modifier_view(request, geometrie_id):
             return redirect("geometrie:geometrie_detail", geometrie_id=geometrie.id)
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
-            print(form.errors)
+
 
     # -------------------------
     # GET
