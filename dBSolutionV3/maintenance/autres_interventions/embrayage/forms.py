@@ -10,6 +10,17 @@ class EmbrayageForm(forms.ModelForm):
     temps_heures = forms.IntegerField(required=False, min_value=0)
     temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
 
+    kilometrage_variation = forms.IntegerField(
+        required=False,
+        label=_("Variation du kilométrage"),
+        widget=forms.NumberInput(
+            attrs={
+                "readonly": "readonly",
+                "class": "input",
+            }
+        ),
+    )
+
     class Meta:
         model = Embrayage
         fields = "__all__"
@@ -27,7 +38,28 @@ class EmbrayageForm(forms.ModelForm):
         self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
 
-         # -------- MAIN D'ŒUVRE QUERYSET --------
+        # =========================
+        # VARIATION KILOMÉTRAGE
+        # =========================
+        if "kilometrage_variation" in self.fields:
+
+            variation = 0
+
+            if (
+                    self.instance
+                    and self.instance.pk
+                    and self.instance.kilometrage_embrayage is not None
+                    and self.exemplaire
+                    and self.exemplaire.kilometres_chassis is not None
+            ):
+                variation = (
+                        self.instance.kilometrage_embrayage
+                        - self.exemplaire.kilometres_chassis
+                )
+
+            self.fields["kilometrage_variation"].initial = variation
+
+        # -------- MAIN D'ŒUVRE QUERYSET --------
         if "main_oeuvre" in self.fields:
             self.fields["main_oeuvre"].queryset = MainDoeuvre.objects.select_related(
                 "utilisateur"
