@@ -9,6 +9,7 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
+from maindoeuvre.models import MainDoeuvre
 from maintenance.autres_interventions.moteur.allumage.forms import AllumageForm
 from maintenance.autres_interventions.moteur.allumage.models import Allumage
 from maintenance.models import Maintenance
@@ -111,117 +112,195 @@ def allumage_check_view(request, exemplaire_id):
         )
 
         if form.is_valid():
+
             try:
-                with transaction.atomic():
+                # =================================================
+                # KILOMÉTRAGE
+                # =================================================
+                km = form.cleaned_data.get(
+                    "kilometrage_allumage"
+                )
 
-                    allumage = form.save(commit=False)
-
-                    km = form.cleaned_data.get("kilometrage_allumage")
-
-                    if km is not None:
-                        km = int(km)
-                        ancien_km = exemplaire.kilometres_chassis or 0
-
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometrage_allumage",
-                                _(
-                                    "Le kilométrage ne peut pas diminuer."
-                                ),
-                            )
-
-                            raise ValueError(
-                                "kilometrage_invalide"
-                            )
-
-                        exemplaire.kilometres_chassis = km
-                        exemplaire.date_derniere_intervention = (
-                            timezone.now().date()
-                        )
-
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
-
-                    # Liaison avec le véhicule
-                    allumage.voiture_exemplaire = exemplaire
-                    allumage.kilometres_chassis = (
+                ancien_kilometrage = (
                         exemplaire.kilometres_chassis
+                        or 0
+                )
+
+                if km is None:
+                    form.add_error(
+                        "kilometrage_allumage",
+                        _(
+                            "Le kilométrage est obligatoire."
+                        ),
                     )
 
-                    if km is not None:
-                        allumage.kilometrage_allumage = km
+                else:
+                    km = int(km)
 
-                    # ==================================================
-                    # MAINTENANCE
-                    # ==================================================
-                    maintenance = Maintenance(
-                        societe=tenant,
-                        voiture_exemplaire=exemplaire,
-                        immatriculation=exemplaire.immatriculation,
-                        date_intervention=timezone.now().date(),
-                        kilometres_chassis=(
-                            exemplaire.kilometres_chassis
-                        ),
-                        kilometres_dernier_entretien=(
-                            exemplaire.kilometres_dernier_entretien
-                        ),
-                        type_maintenance=(
-                            Maintenance.TypeMaintenance.ALLUMAGE
-                        ),
-                        tag=Maintenance.Tag.JAUNE,
-                    )
-
-                    if role == "mecanicien":
-                        maintenance.mecanicien = request.user
-
-                    elif role == "chef_mecanicien":
-                        maintenance.chef_mecanicien = request.user
-
-                    elif role == "magasinier":
-                        maintenance.magasinier = request.user
-
-                    elif role == "direction":
-                        maintenance.direction = request.user
-
-                    maintenance.save()
-
-                    if role == "apprenti":
-                        maintenance.apprentis.add(request.user)
-
-                    # ==================================================
-                    # CONTRÔLE allumage
-                    # ==================================================
-                    allumage.maintenance = maintenance
-                    allumage.assign_technicien(
-                        request.user
-                    )
-                    allumage.save()
-
-                    form.save_m2m()
-
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_(
-                            "Allumage - %(immatriculation)s"
+                    if km < ancien_kilometrage:
+                        form.add_error(
+                            "kilometrage_allumage",
+                            _(
+                                "Le kilométrage du contrôle "
+                                "ne peut pas être "
+                                "inférieur au kilométrage actuel "
+                                "du véhicule."
+                            ),
                         )
-                        % {
-                            "immatriculation": (
-                                exemplaire.immatriculation
+
+                    else:
+                        kilometrage_variation = (
+                                km - ancien_kilometrage
+                        )
+
+                        # =========================================
+                        # TRANSACTION
+                        # =========================================
+                        with transaction.atomic():
+
+                            # ==================================================
+                            # MAINTENANCE
+                            # ==================================================
+                            maintenance = Maintenance(
+                                societe=tenant,
+                                voiture_exemplaire=exemplaire,
+                                immatriculation=exemplaire.immatriculation,
+                                date_intervention=timezone.now().date(),
+                                kilometres_chassis=(
+                                    exemplaire.kilometres_chassis
+                                ),
+                                kilometres_dernier_entretien=(
+                                    exemplaire.kilometres_dernier_entretien
+                                ),
+                                type_maintenance=(
+                                    Maintenance.TypeMaintenance.ALLUMAGE
+                                ),
+                                tag=Maintenance.Tag.JAUNE,
                             )
-                        },
-                    )
 
-                messages.success(
-                    request,
-                    _(
-                        "Check allumage enregistré avec succès."
-                    ),
-                )
+                            if role == "mecanicien":
+                                maintenance.mecanicien = request.user
 
-                return redirect(
-                    "allumage:allumage_list",
-                    exemplaire_id=exemplaire.id,
-                )
+                            elif role == "chef_mecanicien":
+                                maintenance.chef_mecanicien = request.user
+
+                            elif role == "magasinier":
+                                maintenance.magasinier = request.user
+
+                            elif role == "direction":
+                                maintenance.direction = request.user
+
+                            maintenance.save()
+
+                            if role == "apprenti":
+                                maintenance.apprentis.add(request.user)
+
+                            # =====================================
+                            # ALLUMAGE
+                            # =====================================
+                            allumage = form.save(commit=False)
+
+                            allumage.voiture_exemplaire = exemplaire
+                            allumage.maintenance = maintenance
+
+                            # Snapshot AVANT intervention
+                            allumage.kilometres_chassis = ancien_kilometrage
+
+                            # Kilométrage du contrôle
+                            allumage.kilometrage_allumage = km
+
+                            # Variation
+                            allumage.kilometrage_variation = kilometrage_variation
+
+                            # Technicien
+                            allumage.assign_technicien(request.user)
+
+                            allumage.tech_last_maintained_by = request.user
+
+                            # =====================================
+                            # MAIN D'ŒUVRE
+                            # =====================================
+                            heures = (
+                                    form.cleaned_data.get("temps_heures")
+                                    or 0
+                            )
+
+                            minutes = (
+                                    form.cleaned_data.get("temps_minutes")
+                                    or 0
+                            )
+
+                            total_minutes = heures * 60 + minutes
+
+                            taux_horaire = (
+                                    form.cleaned_data.get("taux_horaire")
+                                    or 0
+                            )
+
+                            if allumage.main_oeuvre_id:
+
+                                main_oeuvre = allumage.main_oeuvre
+
+                                main_oeuvre.temps_minutes = total_minutes
+                                main_oeuvre.taux_horaire = taux_horaire
+
+                                main_oeuvre.save(
+                                    update_fields=[
+                                        "temps_minutes",
+                                        "taux_horaire",
+                                    ]
+                                )
+
+                            else:
+
+                                main_oeuvre = MainDoeuvre.objects.create(
+                                    utilisateur=request.user,
+                                    temps_minutes=total_minutes,
+                                    taux_horaire=taux_horaire,
+                                )
+
+                                allumage.main_oeuvre = main_oeuvre
+
+                            # =====================================
+                            # SAUVEGARDE ALLUMAGE
+                            # =====================================
+                            allumage.save()
+
+                            form.save_m2m()
+
+                            # =====================================
+                            # MISE À JOUR DU VÉHICULE
+                            # =====================================
+                            exemplaire.kilometres_chassis = km
+
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                ]
+                            )
+                        UserLog.objects.create(
+                                utilisateur=request.user,
+                                action=_(
+                                    "Allumage - %(immatriculation)s"
+                                )
+                                % {
+                                    "immatriculation": (
+                                        exemplaire.immatriculation
+                                    )
+                                },
+                            )
+
+                        messages.success(
+                            request,
+                            _(
+                                "Check allumage enregistré avec succès."
+                            ),
+                        )
+
+                        return redirect(
+                            "allumage:allumage_list",
+                            exemplaire_id=exemplaire.id,
+                        )
 
             except ValueError as erreur:
                 if str(erreur) != "kilometrage_invalide":
@@ -444,7 +523,7 @@ def modifier_allumage_view(request, allumage_id):
     tenant = request.user.societe
 
 
-    # Récupération de l'admission avec son exemplaire
+    # Récupération de l'allumage avec son exemplaire
     allumage = get_object_or_404(
         Allumage.objects.select_related("voiture_exemplaire"),
         id=allumage_id

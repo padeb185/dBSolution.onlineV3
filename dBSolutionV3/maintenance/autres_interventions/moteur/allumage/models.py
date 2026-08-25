@@ -86,6 +86,12 @@ class Allumage(models.Model):
 
     )
 
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
+
     date = models.DateTimeField(
         auto_now_add=True,
         verbose_name=_("Date du contrôle"),
@@ -526,61 +532,175 @@ class Allumage(models.Model):
                         "Le kilométrage ne peut pas être inférieur au kilométrage actuel."
                     )
                 })
+
     def save(self, *args, **kwargs):
-        # ========================================================
+
+        # =========================
         # TECHNICIEN
-        # ========================================================
+        # =========================
+        if (
+                not self.tech_technicien_id
+                and hasattr(self, "_user")
+        ):
+            self.assign_technicien(
+                self._user
+            )
 
-        if not self.tech_technicien and hasattr(self, "_user"):
-            self.assign_technicien(self._user)
-
-        # ========================================================
-        # KILOMÉTRAGE
-        # ========================================================
+        # =========================
+        # VEHICULE
+        # =========================
+        voiture = None
 
         if self.voiture_exemplaire_id:
-            voiture = self.voiture_exemplaire
+            voiture = type(
+                self.voiture_exemplaire
+            ).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
 
-            kilometrage_allumage = self.kilometrage_allumage or 0
-            kilometres_chassis = voiture.kilometres_chassis or 0
+        # =========================
+        # ANCIEN KM ADMISSION
+        # =========================
+        ancien_kilometrage = 0
 
-            # Si le kilométrage Allumage est supérieur au châssis
-            if kilometrage_allumage > kilometres_chassis:
-                voiture.__class__.objects.filter(
-                    pk=voiture.pk
-                ).update(
-                    kilometres_chassis=kilometrage_allumage
+        if self.pk:
+
+            ancien_objet = type(self).objects.filter(
+                pk=self.pk
+            ).first()
+
+            if ancien_objet:
+                ancien_kilometrage = (
+                        ancien_objet.kilometrage_allumage
+                        or ancien_objet.kilometres_chassis
+                        or 0
                 )
 
-                # Synchronisation de l'objet en mémoire
-                voiture.kilometres_chassis = kilometrage_allumage
+        elif voiture:
 
-            # Copie du kilométrage dans le contrôle Allumage
-            self.kilometres_chassis = voiture.kilometres_chassis or 0
-
-        # ========================================================
-        # MAIN-D'ŒUVRE
-        # ========================================================
-
-        if self.main_oeuvre_id and self.voiture_exemplaire_id:
-            task_name = (
-                f"{_('Allumage')} "
-                f"{self.voiture_exemplaire}"
+            ancien_kilometrage = (
+                    voiture.kilometres_chassis
+                    or 0
             )
 
-            self.main_oeuvre.__class__.objects.filter(
-                pk=self.main_oeuvre_id
-            ).update(
-                descriptif=task_name
+        # =========================
+        # VARIATION
+        # =========================
+        if self.kilometrage_allumage is not None:
+
+            self.kilometrage_variation = (
+                    self.kilometrage_allumage
+                    - ancien_kilometrage
             )
 
-            self.main_oeuvre.descriptif = task_name
+            # =========================================
+            # IMPORTANT
+            # Le km chassis devient le km admission
+            # =========================================
+            self.kilometres_chassis = (
+                self.kilometrage_allumage
+            )
+
+        else:
+
+            self.kilometrage_variation = 0
+
+        # =========================
+        # MAIN D'ŒUVRE
+        # =========================
+        if (
+                self.main_oeuvre_id
+                and self.voiture_exemplaire_id
+        ):
+            self.main_oeuvre.descriptif = (
+                    _("Admission")
+                    + " "
+                    + str(self.voiture_exemplaire)
+            )
+
+            self.main_oeuvre.save(
+                update_fields=[
+                    "descriptif"
+                ]
+            )
+
+        # =========================
+        # MAINTENANCE
+        # =========================
+        if (
+                self.maintenance_id
+                and self.voiture_exemplaire_id
+        ):
+
+            self.maintenance.type_maintenance = (
+                Maintenance.TypeMaintenance.ALLUMAGE
+            )
+
+            self.maintenance.voiture_exemplaire = (
+                self.voiture_exemplaire
+            )
+
+            if self.kilometrage_allumage is not None:
+                self.maintenance.kilometres_chassis = (
+                    self.kilometrage_allumage
+                )
+
+            self.maintenance.save(
+                update_fields=[
+                    "type_maintenance",
+                    "voiture_exemplaire",
+                    "kilometres_chassis",
+                ]
+            )
+
+        # =========================
+        # SAVE ADMISSION
+        # =========================
+        super().save(
+            *args,
+            **kwargs
+        )
+
+        # =========================
+        # UPDATE VEHICULE
+        # =========================
+        if (
+                voiture is not None
+                and self.kilometrage_allumage is not None
+        ):
+
+            nouveau_kilometrage = int(
+                self.kilometrage_allumage
+            )
+
+            kilometrage_vehicule = int(
+                voiture.kilometres_chassis
+                or 0
+            )
+
+            # Ne jamais faire redescendre
+            # le kilométrage général du véhicule
+            if nouveau_kilometrage >= kilometrage_vehicule:
+                voiture.kilometres_chassis = (
+                    nouveau_kilometrage
+                )
+
+                voiture.save(
+                    update_fields=[
+                        "kilometres_chassis"
+                    ]
+                )
+
+
 
         # ========================================================
         # SAUVEGARDE
         # ========================================================
 
         super().save(*args, **kwargs)
+
+
+
 
     def generer_rapport_remplacement(self):
         lignes = []

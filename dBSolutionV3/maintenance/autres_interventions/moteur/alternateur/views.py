@@ -9,6 +9,7 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
+from maindoeuvre.models import MainDoeuvre
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -87,8 +88,9 @@ def alternateur_check_view(request, exemplaire_id):
         messages.error(request, _("Accès refusé"))
         return redirect("utilisateurs:dashboard")
 
-
-
+    # ==================================================
+    # VÉHICULE
+    # ==================================================
     exemplaire = get_object_or_404(
         VoitureExemplaire.objects.filter(
             Q(client__societe=tenant)
@@ -103,6 +105,7 @@ def alternateur_check_view(request, exemplaire_id):
     # POST
     # ==================================================
     if request.method == "POST":
+
         form = AlternateurForm(
             request.POST,
             user=request.user,
@@ -110,130 +113,246 @@ def alternateur_check_view(request, exemplaire_id):
         )
 
         if form.is_valid():
+
             try:
-                with transaction.atomic():
 
-                    controle_alternateur = form.save(commit=False)
+                # ==================================================
+                # KILOMÉTRAGE
+                # ==================================================
+                km = form.cleaned_data.get("kilometrage_alte")
 
-                    km = form.cleaned_data.get("kilometrage_alte")
+                ancien_kilometrage = (
+                    exemplaire.kilometres_chassis or 0
+                )
 
-                    if km is not None:
-                        km = int(km)
-                        ancien_km = exemplaire.kilometres_chassis or 0
+                if km is None:
+                    form.add_error(
+                        "kilometrage_alte",
+                        _("Le kilométrage est obligatoire."),
+                    )
 
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometrage_alte",
-                                _(
-                                    "Le kilométrage ne peut pas diminuer."
+                else:
+                    km = int(km)
+
+                    if km < ancien_kilometrage:
+                        form.add_error(
+                            "kilometrage_alte",
+                            _(
+                                "Le kilométrage du contrôle "
+                                "ne peut pas être inférieur au "
+                                "kilométrage actuel du véhicule."
+                            ),
+                        )
+
+                    else:
+                        kilometrage_variation = (
+                            km - ancien_kilometrage
+                        )
+
+                        # ==================================================
+                        # TRANSACTION
+                        # ==================================================
+                        with transaction.atomic():
+
+                            # ==================================================
+                            # MAINTENANCE
+                            # ==================================================
+                            maintenance = Maintenance(
+                                societe=tenant,
+                                voiture_exemplaire=exemplaire,
+                                immatriculation=exemplaire.immatriculation,
+                                date_intervention=timezone.now().date(),
+
+                                # Snapshot avant intervention
+                                kilometres_chassis=ancien_kilometrage,
+
+                                kilometres_dernier_entretien=(
+                                    exemplaire.kilometres_dernier_entretien
                                 ),
+
+                                type_maintenance=(
+                                    Maintenance.TypeMaintenance.ALTERNATEUR
+                                ),
+
+                                tag=Maintenance.Tag.JAUNE,
                             )
 
-                            raise ValueError(
-                                "kilometrage_invalide"
+                            # ==================================================
+                            # TECHNICIEN MAINTENANCE
+                            # ==================================================
+                            if role == "mecanicien":
+                                maintenance.mecanicien = request.user
+
+                            elif role == "chef_mecanicien":
+                                maintenance.chef_mecanicien = request.user
+
+                            elif role == "magasinier":
+                                maintenance.magasinier = request.user
+
+                            elif role == "direction":
+                                maintenance.direction = request.user
+
+                            maintenance.save()
+
+                            if role == "apprenti":
+                                maintenance.apprentis.add(request.user)
+
+                            # ==================================================
+                            # CONTRÔLE ALTERNATEUR
+                            # ==================================================
+                            alternateur = form.save(commit=False)
+
+                            alternateur.voiture_exemplaire = exemplaire
+                            alternateur.maintenance = maintenance
+
+                            # Snapshot AVANT intervention
+                            alternateur.kilometres_chassis = (
+                                ancien_kilometrage
                             )
 
-                        exemplaire.kilometres_chassis = km
-                        exemplaire.date_derniere_intervention = (
-                            timezone.now().date()
+                            # Kilométrage du contrôle
+                            alternateur.kilometrage_alte = km
+
+                            # Variation kilométrage
+                            alternateur.kilometrage_variation = (
+                                kilometrage_variation
+                            )
+
+                            # ==================================================
+                            # TECHNICIEN
+                            # ==================================================
+                            alternateur.assign_technicien(
+                                request.user
+                            )
+
+                            alternateur.tech_last_maintained_by = (
+                                request.user
+                            )
+
+                            # ==================================================
+                            # MAIN-D'ŒUVRE
+                            # ==================================================
+                            heures = (
+                                form.cleaned_data.get("temps_heures")
+                                or 0
+                            )
+
+                            minutes = (
+                                form.cleaned_data.get("temps_minutes")
+                                or 0
+                            )
+
+                            total_minutes = (
+                                heures * 60 + minutes
+                            )
+
+                            taux_horaire = (
+                                form.cleaned_data.get("taux_horaire")
+                                or 0
+                            )
+
+                            # --------------------------------------------------
+                            # Mise à jour main-d'œuvre existante
+                            # --------------------------------------------------
+                            if alternateur.main_oeuvre_id:
+
+                                main_oeuvre = (
+                                    alternateur.main_oeuvre
+                                )
+
+                                main_oeuvre.temps_minutes = (
+                                    total_minutes
+                                )
+
+                                main_oeuvre.taux_horaire = (
+                                    taux_horaire
+                                )
+
+                                main_oeuvre.save(
+                                    update_fields=[
+                                        "temps_minutes",
+                                        "taux_horaire",
+                                    ]
+                                )
+
+                            # --------------------------------------------------
+                            # Création main-d'œuvre
+                            # --------------------------------------------------
+                            else:
+
+                                main_oeuvre = (
+                                    MainDoeuvre.objects.create(
+                                        utilisateur=request.user,
+                                        temps_minutes=total_minutes,
+                                        taux_horaire=taux_horaire,
+                                    )
+                                )
+
+                                alternateur.main_oeuvre = (
+                                    main_oeuvre
+                                )
+
+                            # ==================================================
+                            # SAUVEGARDE ALTERNATEUR
+                            # IMPORTANT :
+                            # EN DEHORS DU IF/ELSE MAIN-D'ŒUVRE
+                            # ==================================================
+                            alternateur.save()
+
+                            form.save_m2m()
+
+                            # ==================================================
+                            # MISE À JOUR DU VÉHICULE
+                            # ==================================================
+                            exemplaire.kilometres_chassis = km
+
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                ]
+                            )
+
+                            # ==================================================
+                            # LOG
+                            # ==================================================
+                            UserLog.objects.create(
+                                utilisateur=request.user,
+                                action=_(
+                                    "Alternateur - %(immatriculation)s"
+                                )
+                                % {
+                                    "immatriculation": (
+                                        exemplaire.immatriculation
+                                    )
+                                },
+                            )
+
+                        # ==================================================
+                        # SUCCÈS
+                        # ==================================================
+                        messages.success(
+                            request,
+                            _(
+                                "Check alternateur enregistré avec succès."
+                            ),
                         )
 
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
-
-                    # Liaison avec le véhicule
-                    controle_alternateur.voiture_exemplaire = exemplaire
-                    controle_alternateur.kilometres_chassis = (
-                        exemplaire.kilometres_chassis
-                    )
-
-                    if km is not None:
-                        controle_alternateur.kilometrage_alte = km
-
-                    # ==================================================
-                    # MAINTENANCE
-                    # ==================================================
-                    maintenance = Maintenance(
-                        societe=tenant,
-                        voiture_exemplaire=exemplaire,
-                        immatriculation=exemplaire.immatriculation,
-                        date_intervention=timezone.now().date(),
-                        kilometres_chassis=(
-                            exemplaire.kilometres_chassis
-                        ),
-                        kilometres_dernier_entretien=(
-                            exemplaire.kilometres_dernier_entretien
-                        ),
-                        type_maintenance=(
-                            Maintenance.TypeMaintenance.ALTERNATEUR
-                        ),
-                        tag=Maintenance.Tag.JAUNE,
-                    )
-
-                    if role == "mecanicien":
-                        maintenance.mecanicien = request.user
-
-                    elif role == "chef_mecanicien":
-                        maintenance.chef_mecanicien = request.user
-
-                    elif role == "magasinier":
-                        maintenance.magasinier = request.user
-
-                    elif role == "direction":
-                        maintenance.direction = request.user
-
-                    maintenance.save()
-
-                    if role == "apprenti":
-                        maintenance.apprentis.add(request.user)
-
-                    # ==================================================
-                    # CONTRÔLE ALTERNATEUR
-                    # ==================================================
-                    controle_alternateur.maintenance = maintenance
-                    controle_alternateur.assign_technicien(
-                        request.user
-                    )
-                    controle_alternateur.save()
-
-                    form.save_m2m()
-
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_(
-                            "Alternateur - %(immatriculation)s"
+                        return redirect(
+                            "alternateur:alternateur_list",
+                            exemplaire_id=exemplaire.id,
                         )
-                        % {
-                            "immatriculation": (
-                                exemplaire.immatriculation
-                            )
-                        },
-                    )
-
-                messages.success(
-                    request,
-                    _(
-                        "Check alternateur enregistré avec succès."
-                    ),
-                )
-
-                return redirect(
-                    "alternateur:alternateur_list",
-                    exemplaire_id=exemplaire.id,
-                )
 
             except ValueError as erreur:
-                if str(erreur) != "kilometrage_invalide":
-                    messages.error(
-                        request,
-                        _(
-                            "Erreur lors de l'enregistrement : "
-                            "%(erreur)s"
-                        )
-                        % {
-                            "erreur": str(erreur),
-                        },
+                messages.error(
+                    request,
+                    _(
+                        "Erreur lors de l'enregistrement : "
+                        "%(erreur)s"
                     )
+                    % {
+                        "erreur": str(erreur),
+                    },
+                )
 
             except Exception as erreur:
                 messages.error(
@@ -253,12 +372,11 @@ def alternateur_check_view(request, exemplaire_id):
                 _("Le formulaire contient des erreurs."),
             )
 
-            print(form.errors)
-
     # ==================================================
     # GET
     # ==================================================
     else:
+
         controle_alternateur_initial = Alternateur(
             voiture_exemplaire=exemplaire,
             kilometres_chassis=exemplaire.kilometres_chassis,
@@ -273,6 +391,7 @@ def alternateur_check_view(request, exemplaire_id):
             user=request.user,
             exemplaire=exemplaire,
         )
+
     # ==================================================
     # SECTIONS
     # ==================================================
@@ -286,6 +405,7 @@ def alternateur_check_view(request, exemplaire_id):
                 if "kilo" in field.name
             ],
         },
+
         {
             "title": _("Diagnostic"),
             "icon": "icons/diagnostic.png",
@@ -295,6 +415,7 @@ def alternateur_check_view(request, exemplaire_id):
                 if "diagnostic" in field.name
             ],
         },
+
         {
             "title": _("Alternateur"),
             "icon": "icons/alternateur.png",
@@ -304,6 +425,7 @@ def alternateur_check_view(request, exemplaire_id):
                 if "alternateur" in field.name
             ],
         },
+
         {
             "title": _("Courroie d'accessoires"),
             "icon": "icons/courroie-daccessoires.png",
@@ -313,6 +435,7 @@ def alternateur_check_view(request, exemplaire_id):
                 if "courroie_accessoires" in field.name
             ],
         },
+
         {
             "title": _("Étiquette"),
             "icon": "icons/tag.png",
@@ -322,6 +445,7 @@ def alternateur_check_view(request, exemplaire_id):
                 if "tag" in field.name
             ],
         },
+
         {
             "title": _("Pays"),
             "icon": "icons/pays.png",
@@ -331,6 +455,7 @@ def alternateur_check_view(request, exemplaire_id):
                 if "pays" in field.name
             ],
         },
+
         {
             "title": _("Remarques"),
             "icon": "icons/notes.png",
@@ -340,6 +465,7 @@ def alternateur_check_view(request, exemplaire_id):
                 if "remarques" in field.name
             ],
         },
+
         {
             "title": _("Technicien"),
             "icon": "icons/mecanicien.png",
@@ -349,19 +475,21 @@ def alternateur_check_view(request, exemplaire_id):
                 if "tech_" in field.name
             ],
         },
+
         {
             "title": _("Main-d'œuvre"),
             "icon": "icons/taux.png",
             "fields": [
                 field
                 for field in form
-                if field.name in {
-                    "taux_horaire",
-                }
+                if field.name == "taux_horaire"
             ],
         },
     ]
 
+    # ==================================================
+    # RENDER
+    # ==================================================
     return render(
         request,
         "alternateur/alternateur_check.html",

@@ -122,9 +122,10 @@ class Alternateur(TechnicienMixin, models.Model):
         verbose_name= _("Kilométrage du controle alternateur")
     )
 
-    pays = models.CharField(
-        max_length=5,
-        choices=PAYS_CHOICES
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
     )
 
     # -------------------------
@@ -308,23 +309,167 @@ class Alternateur(TechnicienMixin, models.Model):
     # -------------------------
     def save(self, *args, **kwargs):
 
-        # 🔥 synchro kilométrage AVANT save
-        if hasattr(self, "sync_kilometrage"):
-            self.sync_kilometrage()
+        # =========================
+        # TECHNICIEN
+        # =========================
+        if (
+                not self.tech_technicien_id
+                and hasattr(self, "_user")
+        ):
+            self.assign_technicien(
+                self._user
+            )
 
-        # calcul pièces
-        self.calcul_piece("alternateur")
-        self.calcul_piece("courroie_accessoires")
+        # =========================
+        # VEHICULE
+        # =========================
+        voiture = None
 
-        # main d'oeuvre
-        if self.main_oeuvre_id and self.voiture_exemplaire_id:
-            task_name = _("Alternateur") + " " + str(self.voiture_exemplaire)
-            self.main_oeuvre.descriptif = task_name
-            self.main_oeuvre.save(update_fields=["descriptif"])
+        if self.voiture_exemplaire_id:
+            voiture = type(
+                self.voiture_exemplaire
+            ).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
 
+        # =========================
+        # ANCIEN KM ADMISSION
+        # =========================
+        ancien_kilometrage = 0
+
+        if self.pk:
+
+            ancien_objet = type(self).objects.filter(
+                pk=self.pk
+            ).first()
+
+            if ancien_objet:
+                ancien_kilometrage = (
+                        ancien_objet.kilometrage_alte
+                        or ancien_objet.kilometres_chassis
+                        or 0
+                )
+
+        elif voiture:
+
+            ancien_kilometrage = (
+                    voiture.kilometres_chassis
+                    or 0
+            )
+
+        # =========================
+        # VARIATION
+        # =========================
+        if self.kilometrage_alte is not None:
+
+            self.kilometrage_variation = (
+                    self.kilometrage_alte
+                    - ancien_kilometrage
+            )
+
+            # =========================================
+            # IMPORTANT
+            # Le km chassis devient le km admission
+            # =========================================
+            self.kilometres_chassis = (
+                self.kilometrage_alte
+            )
+
+        else:
+
+            self.kilometrage_variation = 0
+
+        # =========================
+        # MAIN D'ŒUVRE
+        # =========================
+        if (
+                self.main_oeuvre_id
+                and self.voiture_exemplaire_id
+        ):
+            self.main_oeuvre.descriptif = (
+                    _("Alternateur")
+                    + " "
+                    + str(self.voiture_exemplaire)
+            )
+
+            self.main_oeuvre.save(
+                update_fields=[
+                    "descriptif"
+                ]
+            )
+
+        # =========================
+        # MAINTENANCE
+        # =========================
+        if (
+                self.maintenance_id
+                and self.voiture_exemplaire_id
+        ):
+
+            self.maintenance.type_maintenance = (
+                Maintenance.TypeMaintenance.ALTERNATEUR
+            )
+
+            self.maintenance.voiture_exemplaire = (
+                self.voiture_exemplaire
+            )
+
+            if self.kilometrage_alte is not None:
+                self.maintenance.kilometres_chassis = (
+                    self.kilometrage_alte
+                )
+
+            self.maintenance.save(
+                update_fields=[
+                    "type_maintenance",
+                    "voiture_exemplaire",
+                    "kilometres_chassis",
+                ]
+            )
+
+        # =========================
+        # SAVE ADMISSION
+        # =========================
+        super().save(
+            *args,
+            **kwargs
+        )
+
+        # =========================
+        # UPDATE VEHICULE
+        # =========================
+        if (
+                voiture is not None
+                and self.kilometrage_alte is not None
+        ):
+
+            nouveau_kilometrage = int(
+                self.kilometrage_alte
+            )
+
+            kilometrage_vehicule = int(
+                voiture.kilometres_chassis
+                or 0
+            )
+
+            # Ne jamais faire redescendre
+            # le kilométrage général du véhicule
+            if nouveau_kilometrage >= kilometrage_vehicule:
+                voiture.kilometres_chassis = (
+                    nouveau_kilometrage
+                )
+
+                voiture.save(
+                    update_fields=[
+                        "kilometres_chassis"
+                    ]
+                )
+
+        # ========================================================
+        # SAUVEGARDE
+        # ========================================================
 
         super().save(*args, **kwargs)
-
 
     # -------------------------
     # RAPPORT

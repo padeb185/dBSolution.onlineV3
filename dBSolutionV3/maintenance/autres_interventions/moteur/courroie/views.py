@@ -10,6 +10,7 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
+from maindoeuvre.models import MainDoeuvre
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -115,81 +116,199 @@ def courroie_form_view(request, exemplaire_id):
         if form.is_valid():
 
             try:
-                with transaction.atomic():
 
-                    km = form.cleaned_data.get("kilometrage_cour")
+                # ==================================================
+                # KILOMÉTRAGE
+                # ==================================================
+                km = form.cleaned_data.get("kilometrage_cour")
 
-                    if km is not None:
-                        km = int(km)
+                ancien_kilometrage = (
+                        exemplaire.kilometres_chassis or 0
+                )
 
-                        ancien_km = exemplaire.kilometres_chassis
+                if km is None:
+                    form.add_error(
+                        "kilometrage_cour",
+                        _("Le kilométrage est obligatoire."),
+                    )
 
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometrage_cour",
-                                _("Le kilométrage ne peut pas diminuer.")
+                else:
+                    km = int(km)
+
+                    if km < ancien_kilometrage:
+                        form.add_error(
+                            "kilometrage_cour",
+                            _(
+                                "Le kilométrage du contrôle "
+                                "ne peut pas être inférieur au "
+                                "kilométrage actuel du véhicule."
+                            ),
+                        )
+
+                    else:
+                        kilometrage_variation = (
+                                km - ancien_kilometrage
+                        )
+
+                        # ==================================================
+                        # TRANSACTION
+                        # ==================================================
+                        with transaction.atomic():
+
+                            # 🔴 maintenance unique
+                            maintenance = Maintenance.objects.create(
+                                societe=request.user.societe,
+                                voiture_exemplaire=exemplaire,
+                                immatriculation=exemplaire.immatriculation,
+                                date_intervention=timezone.now().date(),
+                                kilometres_chassis=exemplaire.kilometres_chassis,
+                                kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                                type_maintenance=Maintenance.TypeMaintenance.COURROIE_DISTRI,
+                                tag=Maintenance.Tag.JAUNE,
                             )
-                            raise ValueError("Kilométrage invalide")
 
-                        # 🚗 update voiture (source unique)
-                        exemplaire.kilometres_chassis = km
-                        exemplaire.date_derniere_intervention = timezone.now().date()
+                            # 🔧 affectation rôle
+                            if role == "mecanicien":
+                                maintenance.mecanicien = request.user
 
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
+                            elif role == "chef_mecanicien":
+                                maintenance.chef_mecanicien = request.user
 
-                        # 🔗 checkup UNIQUE
-                        courroie_distribution = form.save(commit=False)
-                        courroie_distribution.assign_technicien(request.user)
+                            elif role == "apprenti":
+                                maintenance.apprentis.add(request.user)
 
-                        courroie_distribution.kilometres_chassis = exemplaire.kilometres_chassis
-                        courroie_distribution.kilometrage_cour = km
+                            elif role == "magasinier":
+                                maintenance.magasinier = request.user
 
-                    # 🔴 maintenance unique
-                    maintenance = Maintenance.objects.create(
-                        societe=request.user.societe,
-                        voiture_exemplaire=exemplaire,
-                        immatriculation=exemplaire.immatriculation,
-                        date_intervention=timezone.now().date(),
-                        kilometres_chassis=exemplaire.kilometres_chassis,
-                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                        type_maintenance=Maintenance.TypeMaintenance.COURROIE_DISTRI,
-                        tag=Maintenance.Tag.JAUNE,
-                    )
+                            elif role == "direction":
+                                maintenance.direction = request.user
 
-                    # 🔧 affectation rôle
-                    if role == "mecanicien":
-                        maintenance.mecanicien = request.user
+                            maintenance.save()
 
-                    elif role == "chef_mecanicien":
-                        maintenance.chef_mecanicien = request.user
+                            # ==================================================
+                            # CONTRÔLE COURROIE DISTRIBUTION
+                            # ==================================================
+                            courroie_distri = form.save(commit=False)
 
-                    elif role == "apprenti":
-                        maintenance.apprentis.add(request.user)
+                            courroie_distri.voiture_exemplaire = exemplaire
+                            courroie_distri.maintenance = maintenance
 
-                    elif role == "magasinier":
-                        maintenance.magasinier = request.user
+                            # Snapshot AVANT intervention
+                            courroie_distri.kilometres_chassis = (
+                                ancien_kilometrage
+                            )
 
-                    elif role == "direction":
-                        maintenance.direction = request.user
+                            # Kilométrage du contrôle
+                            courroie_distri.kilometrage_cour = km
 
-                    maintenance.save()
+                            # Variation kilométrage
+                            courroie_distri.kilometrage_variation = (
+                                kilometrage_variation
+                            )
 
-                    courroie_distribution.assign_technicien(request.user)
+                            # ==================================================
+                            # TECHNICIEN
+                            # ==================================================
+                            courroie_distri.assign_technicien(
+                                request.user
+                            )
 
-                    # 🔗 lien final
-                    courroie_distribution.maintenance = maintenance
-                    courroie_distribution.save()
+                            courroie_distri.tech_last_maintained_by = (
+                                request.user
+                            )
 
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_("Courroie de distribution - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
-                    )
+                            # ==================================================
+                            # MAIN-D'ŒUVRE
+                            # ==================================================
+                            heures = (
+                                    form.cleaned_data.get("temps_heures")
+                                    or 0
+                            )
 
-                    messages.success(request, _("Check de la  courroie de distribution enregistré avec succès."))
-                    return redirect("courroie:courroie_list", exemplaire_id=exemplaire.id)
+                            minutes = (
+                                    form.cleaned_data.get("temps_minutes")
+                                    or 0
+                            )
+
+                            total_minutes = (
+                                    heures * 60 + minutes
+                            )
+
+                            taux_horaire = (
+                                    form.cleaned_data.get("taux_horaire")
+                                    or 0
+                            )
+
+                            # --------------------------------------------------
+                            # Mise à jour main-d'œuvre existante
+                            # --------------------------------------------------
+                            if courroie_distri.main_oeuvre_id:
+
+                                main_oeuvre = (
+                                    courroie_distri.main_oeuvre
+                                )
+
+                                main_oeuvre.temps_minutes = (
+                                    total_minutes
+                                )
+
+                                main_oeuvre.taux_horaire = (
+                                    taux_horaire
+                                )
+
+                                main_oeuvre.save(
+                                    update_fields=[
+                                        "temps_minutes",
+                                        "taux_horaire",
+                                    ]
+                                )
+
+                            # --------------------------------------------------
+                            # Création main-d'œuvre
+                            # --------------------------------------------------
+                            else:
+
+                                main_oeuvre = (
+                                    MainDoeuvre.objects.create(
+                                        utilisateur=request.user,
+                                        temps_minutes=total_minutes,
+                                        taux_horaire=taux_horaire,
+                                    )
+                                )
+
+                                courroie_distri.main_oeuvre = (
+                                    main_oeuvre
+                                )
+
+                            # ==================================================
+                            # SAUVEGARDE courroie_distri
+                            # IMPORTANT :
+                            # EN DEHORS DU IF/ELSE MAIN-D'ŒUVRE
+                            # ==================================================
+                            courroie_distri.save()
+
+                            form.save_m2m()
+
+                            # ==================================================
+                            # MISE À JOUR DU VÉHICULE
+                            # ==================================================
+                            exemplaire.kilometres_chassis = km
+
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                ]
+                            )
+
+                        UserLog.objects.create(
+                                utilisateur=request.user,
+                                action=_("Courroie de distribution - %(immatriculation)s") % {
+                                    "immatriculation": exemplaire.immatriculation
+                                }
+                            )
+
+                        messages.success(request, _("Check de la  courroie de distribution enregistré avec succès."))
+                        return redirect("courroie:courroie_list", exemplaire_id=exemplaire.id)
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))

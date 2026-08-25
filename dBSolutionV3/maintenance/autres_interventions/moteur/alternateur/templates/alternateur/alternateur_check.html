@@ -61,9 +61,136 @@
         </div>
     {% endif %}
 
+<style>
+    #kilometrage-popup {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background-color: rgba(0, 0, 0, 0.45);
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
 
-    <!-- Form -->
-    <form method="POST">
+    #kilometrage-popup.popup-visible {
+        display: flex;
+    }
+
+    .kilometrage-popup-box {
+        width: 100%;
+        max-width: 520px;
+        background-color: #f3f4f6;
+        border: 1px solid #d1d5db;
+        border-radius: 10px;
+        padding: 24px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.20);
+    }
+
+    .kilometrage-popup-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #374151;
+        margin-bottom: 16px;
+    }
+
+    .kilometrage-popup-text {
+        color: #4b5563;
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .kilometrage-popup-variation {
+        font-weight: 700;
+        color: #111827;
+    }
+
+    .kilometrage-popup-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 22px;
+    }
+
+    .kilometrage-popup-button {
+        border: none;
+        border-radius: 6px;
+        padding: 9px 18px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .kilometrage-popup-annuler {
+        background-color: #d1d5db;
+        color: #374151;
+    }
+
+    .kilometrage-popup-annuler:hover {
+        background-color: #9ca3af;
+        color: #111827;
+    }
+
+    .kilometrage-popup-confirmer {
+        background-color: #6b7280;
+        color: white;
+    }
+
+    .kilometrage-popup-confirmer:hover {
+        background-color: #4b5563;
+    }
+</style>
+
+
+<div id="kilometrage-popup">
+
+    <div class="kilometrage-popup-box">
+
+        <h3 class="kilometrage-popup-title">
+            {% trans "Confirmer le kilométrage" %}
+        </h3>
+
+        <p class="kilometrage-popup-text">
+            {% trans "La variation du kilométrage est de" %}
+            <span class="kilometrage-popup-variation">
+                <span id="popup-variation">0</span> km
+            </span>.
+        </p>
+
+        <p class="kilometrage-popup-text">
+            {% trans "Cette variation est supérieure à 2 000 km. Voulez-vous vraiment enregistrer ce kilométrage ?" %}
+        </p>
+
+        <div class="kilometrage-popup-buttons">
+
+            <button
+                type="button"
+                id="popup-annuler"
+                class="kilometrage-popup-button kilometrage-popup-annuler"
+            >
+                {% trans "Annuler" %}
+            </button>
+
+            <button
+                type="button"
+                id="popup-confirmer"
+                class="kilometrage-popup-button kilometrage-popup-confirmer"
+            >
+                {% trans "Confirmer" %}
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- FORMULAIRE -->
+<!-- ========================= -->
+
+    <form method="post" id="alternateur-form" class="space-y-4">
         {% csrf_token %}
 
         {% for section in sections %}
@@ -173,5 +300,145 @@ function getCookie(name) {
 }
 
 const csrftoken = getCookie("csrftoken");
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+
+    const form = document.getElementById("alternateur-form");
+
+    const kmChassis = document.getElementById("id_kilometres_chassis");
+    const kmCheckup = document.getElementById("id_kilometrage_alte");
+    const kmVariation = document.getElementById("id_kilometrage_variation");
+
+    const popup = document.getElementById("kilometrage-popup");
+    const popupVariation = document.getElementById("popup-variation");
+
+    const boutonAnnuler = document.getElementById("popup-annuler");
+    const boutonConfirmer = document.getElementById("popup-confirmer");
+
+    if (
+        !form ||
+        !kmChassis ||
+        !kmCheckup ||
+        !kmVariation ||
+        !popup ||
+        !popupVariation ||
+        !boutonAnnuler ||
+        !boutonConfirmer
+    ) {
+        return;
+    }
+
+    let variationConfirmee = false;
+
+    function calculerVariation() {
+
+        if (
+            kmChassis.value.trim() === "" ||
+            kmCheckup.value.trim() === ""
+        ) {
+            kmVariation.value = "";
+            variationConfirmee = false;
+            return;
+        }
+
+        const chassis = Number(kmChassis.value);
+        const checkup = Number(kmCheckup.value);
+
+        if (
+            Number.isNaN(chassis) ||
+            Number.isNaN(checkup)
+        ) {
+            kmVariation.value = "";
+            variationConfirmee = false;
+            return;
+        }
+
+        const variation = checkup - chassis;
+
+        kmVariation.value = variation;
+
+        variationConfirmee = false;
+    }
+
+    function ouvrirPopup(variation) {
+
+        popupVariation.textContent =
+            variation.toLocaleString(
+                "{{ LANGUAGE_CODE|default:'fr' }}"
+            );
+
+        popup.classList.add("popup-visible");
+
+        boutonConfirmer.focus();
+    }
+
+    function fermerPopup() {
+        popup.classList.remove("popup-visible");
+    }
+
+    kmChassis.addEventListener("input", calculerVariation);
+    kmCheckup.addEventListener("input", calculerVariation);
+
+    form.addEventListener("submit", function (event) {
+
+        const variation = Number(kmVariation.value);
+
+        if (
+            variation > 2000 &&
+            !variationConfirmee
+        ) {
+            event.preventDefault();
+            ouvrirPopup(variation);
+        }
+    });
+
+    boutonAnnuler.addEventListener("click", function () {
+
+        fermerPopup();
+
+        kmCheckup.focus();
+    });
+
+    boutonConfirmer.addEventListener("click", function () {
+
+        variationConfirmee = true;
+
+        fermerPopup();
+
+        form.requestSubmit();
+    });
+
+    document.addEventListener("keydown", function (event) {
+
+        if (
+            event.key === "Escape" &&
+            popup.classList.contains("popup-visible")
+        ) {
+            fermerPopup();
+
+            kmCheckup.focus();
+        }
+    });
+
+    popup.addEventListener("click", function (event) {
+
+        if (event.target === popup) {
+            fermerPopup();
+
+            kmCheckup.focus();
+        }
+    });
+
+    calculerVariation();
+
+});
+
+
 </script>
+
+
+
 {% endblock %}

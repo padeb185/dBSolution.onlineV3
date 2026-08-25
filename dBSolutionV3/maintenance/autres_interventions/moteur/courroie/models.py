@@ -166,6 +166,12 @@ class CourroieDistribution(TechnicienMixin, models.Model):
         verbose_name= _("Kilométrage de la courroie de distribution")
     )
 
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
+
 
     # -------------------------
     # PIECES
@@ -316,10 +322,10 @@ class CourroieDistribution(TechnicienMixin, models.Model):
         super().clean()
 
         if self.voiture_exemplaire and self.kilometrage_cour is not None:
-            if self.kilometrage_cour > self.voiture_exemplaire.kilometres_chassis:
+            if self.kilometrage_cour < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
                     "kilometrage_cour": _(
-                        "Le kilométrage de la courroie ne peut pas être supérieur au kilométrage du véhicule."
+                        "Le kilométrage de la courroie ne peut pas être inférieur au kilométrage du véhicule."
                     )
                 })
 
@@ -369,16 +375,168 @@ class CourroieDistribution(TechnicienMixin, models.Model):
         self.calcul_piece("courroie_distribution")
         self.calcul_piece("pompe_a_eau")
 
-        # ----------------------------
-        # MAIN D'OEUVRE AUTO DESCRIPTIF
-        # ----------------------------
-        if self.main_oeuvre_id and self.voiture_exemplaire_id:
-            task_name = _("Courroie de distribution") + " " + str(self.voiture_exemplaire)
-            self.main_oeuvre.descriptif = task_name
-            self.main_oeuvre.save(update_fields=["descriptif"])
+        # =========================
+        # TECHNICIEN
+        # =========================
+        if (
+                not self.tech_technicien_id
+                and hasattr(self, "_user")
+        ):
+            self.assign_technicien(
+                self._user
+            )
 
+        # =========================
+        # VEHICULE
+        # =========================
+        voiture = None
+
+        if self.voiture_exemplaire_id:
+            voiture = type(
+                self.voiture_exemplaire
+            ).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+        # =========================
+        # ANCIEN KM ADMISSION
+        # =========================
+        ancien_kilometrage = 0
+
+        if self.pk:
+
+            ancien_objet = type(self).objects.filter(
+                pk=self.pk
+            ).first()
+
+            if ancien_objet:
+                ancien_kilometrage = (
+                        ancien_objet.kilometrage_cour
+                        or ancien_objet.kilometres_chassis
+                        or 0
+                )
+
+        elif voiture:
+
+            ancien_kilometrage = (
+                    voiture.kilometres_chassis
+                    or 0
+            )
+
+        # =========================
+        # VARIATION
+        # =========================
+        if self.kilometrage_cour is not None:
+
+            self.kilometrage_variation = (
+                    self.kilometrage_cour
+                    - ancien_kilometrage
+            )
+
+            # =========================================
+            # IMPORTANT
+            # Le km chassis devient le km admission
+            # =========================================
+            self.kilometres_chassis = (
+                self.kilometrage_cour
+            )
+
+        else:
+
+            self.kilometrage_variation = 0
+
+        # =========================
+        # MAIN D'ŒUVRE
+        # =========================
+        if (
+                self.main_oeuvre_id
+                and self.voiture_exemplaire_id
+        ):
+            self.main_oeuvre.descriptif = (
+                    _("Courroie de distribution")
+                    + " "
+                    + str(self.voiture_exemplaire)
+            )
+
+            self.main_oeuvre.save(
+                update_fields=[
+                    "descriptif"
+                ]
+            )
+
+        # =========================
+        # MAINTENANCE
+        # =========================
+        if (
+                self.maintenance_id
+                and self.voiture_exemplaire_id
+        ):
+
+            self.maintenance.type_maintenance = (
+                Maintenance.TypeMaintenance.COURROIE_DISTRI
+            )
+
+            self.maintenance.voiture_exemplaire = (
+                self.voiture_exemplaire
+            )
+
+            if self.kilometrage_cour is not None:
+                self.maintenance.kilometres_chassis = (
+                    self.kilometrage_cour
+                )
+
+            self.maintenance.save(
+                update_fields=[
+                    "type_maintenance",
+                    "voiture_exemplaire",
+                    "kilometres_chassis",
+                ]
+            )
+
+        # =========================
+        # SAVE ADMISSION
+        # =========================
+        super().save(
+            *args,
+            **kwargs
+        )
+
+        # =========================
+        # UPDATE VEHICULE
+        # =========================
+        if (
+                voiture is not None
+                and self.kilometrage_cour is not None
+        ):
+
+            nouveau_kilometrage = int(
+                self.kilometrage_cour
+            )
+
+            kilometrage_vehicule = int(
+                voiture.kilometres_chassis
+                or 0
+            )
+
+            # Ne jamais faire redescendre
+            # le kilométrage général du véhicule
+            if nouveau_kilometrage >= kilometrage_vehicule:
+                voiture.kilometres_chassis = (
+                    nouveau_kilometrage
+                )
+
+                voiture.save(
+                    update_fields=[
+                        "kilometres_chassis"
+                    ]
+                )
+
+        # ========================================================
+        # SAUVEGARDE
+        # ========================================================
 
         super().save(*args, **kwargs)
+
 
     def generer_rapport_remplacement(self):
         rapport = []
@@ -412,7 +570,6 @@ class CourroieDistribution(TechnicienMixin, models.Model):
 
             fabricant_label = fabricant
 
-            # Récupérer le libellé du choix fabricant
             try:
                 fabricant_field = self._meta.get_field(
                     f"{prefix}_fabricant"
@@ -459,7 +616,6 @@ class CourroieDistribution(TechnicienMixin, models.Model):
             quantite = Decimal(str(quantite))
 
             # Quantité 0 = ne pas ajouter au rapport
-            # et ne pas inclure dans les totaux
             if quantite <= 0:
                 continue
 
@@ -472,25 +628,27 @@ class CourroieDistribution(TechnicienMixin, models.Model):
             # -------------------------
             # RAPPORT
             # -------------------------
-            rapport.append({
-                "champ": label,
-                "code": prefix,
+            rapport.append(
+                {
+                    "champ": label,
+                    "code": prefix,
 
-                "etat": etat,
-                "etat_label": dict(
-                    EtatOKNotOK.choices
-                ).get(
-                    etat,
-                    etat,
-                ),
+                    "etat": etat,
+                    "etat_label": dict(
+                        EtatOKNotOK.choices
+                    ).get(
+                        etat,
+                        etat,
+                    ),
 
-                "fabricant": fabricant,
-                "fabricant_label": fabricant_label,
+                    "fabricant": fabricant,
+                    "fabricant_label": fabricant_label,
 
-                "prix": prix,
-                "quantite": quantite,
-                "total": total,
-            })
+                    "prix": prix,
+                    "quantite": quantite,
+                    "total": total,
+                }
+            )
 
         return {
             "lignes": rapport,
