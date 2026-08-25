@@ -206,8 +206,9 @@ class Rodage(TechnicienMixin, models.Model):
 
     moteur_filtre_huile =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Remplacement du filtre à huile moteur"))
     moteur_filtre_huile_fabricant = models.CharField(max_length=25, choices=FabricantFiltre.choices, default=FabricantFiltre.CHOISIR,verbose_name=_("Fabricant"))
-    moteur_filtre_huile_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
     moteur_filtre_huile_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    moteur_filtre_huile_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
+
 
 
     moteur_bouchon_vidange =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Remplacer le bouchon de vidange"))
@@ -217,8 +218,9 @@ class Rodage(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    moteur_bouchon_vidange_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
     moteur_bouchon_vidange_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    moteur_bouchon_vidange_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
+
 
 
     moteur_joint_vidange =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Remplacer le joint du bouchon de vidange"))
@@ -234,8 +236,9 @@ class Rodage(TechnicienMixin, models.Model):
     moteur_ajout_huile =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Ajout de la nouvelle huile moteur"))
     moteur_ajout_huile_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL, verbose_name=_("Fabricant"))
     moteur_ajout_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30,verbose_name=_("Qualité d'huile"))
+    moteur_ajout_huile_quantite = models.DecimalField(default=0.0, decimal_places=2, max_digits=4,verbose_name=_("Quantité ajoutée en litres"),validators=[StepValueValidator(0.1)])
     moteur_ajout_huile_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
-    moteur_ajout_huile_quantite =  models.DecimalField(default=0.0, decimal_places=2,  max_digits=4,  verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
+
 
 
 

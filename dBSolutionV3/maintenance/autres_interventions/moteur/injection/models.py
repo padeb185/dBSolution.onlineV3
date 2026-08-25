@@ -566,7 +566,10 @@ class Injection(models.Model):
         if not prix or not self.pays:
             return
 
-        tva_rate = Decimal(self.TVA_PIECES.get(self.pays, 0)) / 100
+        # ✅ nouveau
+        tva_rate = Decimal(
+            str(TVAConfig.get_tva(self.pays))
+        ) / Decimal("100")
 
         prix_htva = prix  # pas de marge dans ton modèle
 

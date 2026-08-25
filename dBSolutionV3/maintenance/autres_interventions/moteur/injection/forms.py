@@ -157,28 +157,40 @@ class InjectionForm(forms.ModelForm):
             instance.kilometrage_injection = km
             instance.voiture_exemplaire = voiture
 
-        # =====================================
-        # MAIN D'ŒUVRE
-        # =====================================
-        heures = self.cleaned_data.get("temps_heures") or 0
-        minutes = self.cleaned_data.get("temps_minutes") or 0
+            # =====================================
+            # MAIN D'ŒUVRE
+            # =====================================
+            heures = self.cleaned_data.get("temps_heures") or 0
+            minutes = self.cleaned_data.get("temps_minutes") or 0
+            taux_horaire = self.cleaned_data.get("taux_horaire")
 
-        total_minutes = heures * 60 + minutes
+            total_minutes = heures * 60 + minutes
 
-        main = instance.main_oeuvre
+            # Ne pas remplacer une valeur choisie par 50
+            if taux_horaire is None:
+                taux_horaire = 50
 
-        if main:
-            main.temps_minutes = total_minutes
-            main.save(
-                update_fields=["temps_minutes"]
-            )
-        else:
-            main = MainDoeuvre.objects.create(
-                utilisateur=self.user,
-                temps_minutes=total_minutes,
-            )
+            main = instance.main_oeuvre
 
-            instance.main_oeuvre = main
+            if main:
+                main.temps_minutes = total_minutes
+                main.taux_horaire = taux_horaire
+
+                main.save(
+                    update_fields=[
+                        "temps_minutes",
+                        "taux_horaire",
+                    ]
+                )
+
+            else:
+                main = MainDoeuvre.objects.create(
+                    utilisateur=self.user,
+                    temps_minutes=total_minutes,
+                    taux_horaire=taux_horaire,
+                )
+
+                instance.main_oeuvre = main
 
         # =====================================
         # SAUVEGARDE
