@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
 from maintenance.check_up.models import PhareEtat
 from maintenance.choices import RouesSerrageEtat, AmpouleAutomobile, FabricantFiltre, FabricantPiece, \
-    FabricantLubrifiant, TVAConfig
+    FabricantLubrifiant, TVAConfig, RefroidissementQualiteEtat, LiquideDirectionQualite, HuileEtat, LaveGlaceQualite
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 from societe.models import Societe
@@ -28,27 +28,6 @@ class RodageEtat(models.TextChoices):
     REPORTER = "REPORTER", _("Reporter")
 
 
-
-class HuileEtat(models.TextChoices):
-    ZERO_16 = "0W16", _("0W16")
-    ZERO_20 = "0W20", _("0W20")
-    ZERO_30 = "0W30", _("0W30")
-    ZERO_40 = "0W40", _("0W40")
-    CINQ_20 = "5W20", _("5W20")
-    CINQ_30 = "5W30", _("5W30")
-    CINQ_40 = "5W40", _("5W40")
-    DIX_40 = "10W40", _("10W40")
-    DIX_50 = "10W50", _("10W50")
-    DIX_60 = "10W60", _("10W60")
-    QUINZE_40 = "15W40", _("15W40")
-    QUINZE_50 = "15W50", _("15W50")
-    VINGT_50 = "20W50", _("20W50")
-
-class LaveGlaceQualite(models.TextChoices):
-    HIVER = 'HIVER', _("Hiver")
-    ETE = 'ETE', _("Eté")
-
-
 class NiveauxEtat(models.TextChoices):
     BON = "BON", _("Bon")
     AJOUTER = "AJOUTER", _("Ajouter")
@@ -59,93 +38,6 @@ class LiquideFreinsQualite(models.TextChoices):
     DOT4 = 'DOT 4', _("DOT 4")
     DOT5 = 'DOT 5', _("DOT 5")
     DOT51 = 'DOT 5.1', _("DOT 5.1")
-
-
-class LiquideDirectionQualite(models.TextChoices):
-
-    # Hydraulique direction assistée (Pentosin / CHF)
-    CHF_7_1 = "CHF_7_1", _("CHF 7.1")
-    CHF_11S = "CHF_11S", _("CHF 11S")
-    CHF_202 = "CHF_202", _("CHF 202")
-    CHF_1_PLUS = "CHF_1_PLUS", _("CHF 1+")
-    CHF_LIFEGUARD = "CHF_LIFEGUARD", _("CHF Lifeguard Fluid")
-
-    # --- Porsche spécifiques (très important : base CHF) ---
-    PORSCHE_CHF_11S = "PORSCHE_CHF_11S", _("Porsche / Pentosin CHF 11S (direction assistée)")
-    PORSCHE_CHF_202 = "PORSCHE_CHF_202", _("Porsche / Pentosin CHF 202 (hydraulique moderne)")
-    PORSCHE_ATF_D3 = "PORSCHE_ATF_D3", _("Porsche ATF Dexron III (anciens modèles)")
-
-    # --- BMW spécifiques (très important) ---
-    BMW_CHF_11S = "BMW_CHF_11S", _("BMW / Pentosin CHF 11S (direction assistée)")
-    BMW_CHF_202 = "BMW_CHF_202", _("BMW / Pentosin CHF 202 (direction assistée moderne)")
-    BMW_CHF_7_1 = "BMW_CHF_7_1", _("BMW CHF 7.1 (anciens systèmes hydrauliques)")
-    BMW_ATF_D3 = "BMW_ATF_D3", _("BMW ATF Dexron III (anciens modèles direction assistée)")
-
-    # Fluides spécifiques Renault / ELF
-    RENAULT_MATIC_D2 = "RENAULT_MATIC_D2", _("Renaultmatic D2 (ELF)")
-    RENAULT_MATIC_D3_SYN = "RENAULT_MATIC_D3_SYN", _("Renaultmatic D3 SYN (ELF)")
-    ELF_MATIC_G3 = "ELF_MATIC_G3", _("ELF Matic G3")
-
-    # --- Renault spécifiques (atelier / OEM) ---
-    RENAULT_PSF_D3 = "RENAULT_PSF_D3", _("Renault PSF Dexron III (direction assistée hydraulique)")
-    RENAULT_ELF_PSF = "RENAULT_ELF_PSF", _("Renault / ELF liquide direction assistée")
-
-    # Autres constructeurs
-    PSF_HYUNDAI_KIA = "PSF_HYUNDAI_KIA", _("PSF Hyundai / Kia")
-    PSF_TOYOTA = "PSF_TOYOTA", _("PSF Toyota")
-    PSF_HONDA = "PSF_HONDA", _("PSF Honda")
-
-    # Universel
-    UNIVERSAL_PSF = "UNIVERSAL_PSF", _("Liquide direction assistée universel")
-
-
-class RefroidissementQualiteEtat(models.TextChoices):
-    # Volkswagen Group
-    G11 = "G11", _("G 11")
-    G12 = "G12", _("G 12")
-    G12_PLUS = "G12_PLUS", _("G 12+")
-    G12_PLUS_PLUS = "G12_PLUS_PLUS", _("G 12++")
-    G13 = "G13", _("G 13")
-
-    # BMW
-    G48 = "G48", _("G 48")
-
-    # Mercedes-Benz
-    MB_325_0 = "MB_325_0", _("MB 325.0")
-    MB_325_3 = "MB_325_3", _("MB 325.3")
-    MB_325_5 = "MB_325_5", _("MB 325.5")
-
-    # Renault / Dacia
-    TYPE_D = "TYPE_D", _("Type D")
-
-    # PSA (Peugeot / Citroën)
-    PSA_B71_5110 = "PSA_B71_5110", _("PSA B71 5110")
-
-    # Ford
-    WSS_M97B44_D = "WSS_M97B44_D", _("WSS-M97B44-D")
-    WSS_M97B51_A1 = "WSS_M97B51_A1", _("WSS-M97B51-A1")
-
-    # General Motors
-    DEX_COOL = "DEX_COOL", _("Dex-Cool")
-
-    # Toyota / Lexus
-    TOYOTA_SLLC = "TOYOTA_SLLC", _("Toyota SLLC")
-
-    # Honda
-    HONDA_TYPE_2 = "HONDA_TYPE_2", _("Honda Type 2")
-
-    # Nissan
-    NISSAN_L248 = "NISSAN_L248", _("Nissan L248")
-    NISSAN_L250 = "NISSAN_L250", _("Nissan L250")
-
-    # Hyundai / Kia
-    HYUNDAI_KIA_LLC = "HYUNDAI_KIA_LLC", _("Hyundai/Kia Long Life Coolant")
-
-
-class HuilePontEtat(models.TextChoices):
-    PORSCHE_75W90 = "75W90", _("Porsche 75W90")
-    SEPTANTE_CINQ140 = "75W140", _("75W140")
-
 
 
 class Rodage(TechnicienMixin, models.Model):
@@ -246,7 +138,7 @@ class Rodage(TechnicienMixin, models.Model):
 
     lave_glace_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de lave-glace"))
     lave_glace_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL, verbose_name=_("Fabricant"))
-    lave_glace_qualite = models.CharField(max_length=25, choices=LaveGlaceQualite.choices,default=LaveGlaceQualite.HIVER,verbose_name=_("Qualité de liquide de lave glace"))
+    lave_glace_qualite = models.CharField(max_length=25, choices=LaveGlaceQualite.choices,default=LaveGlaceQualite.HIVER,verbose_name=_("Qualitée"))
     lave_glace_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2, verbose_name=_("Quantité ajoutée en litres"),validators=[StepValueValidator(0.1)])
     lave_glace_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
 
@@ -254,7 +146,7 @@ class Rodage(TechnicienMixin, models.Model):
 
     frein_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de freins"))
     frein_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL, verbose_name=_("Fabricant"))
-    frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité de liquide de freins"))
+    frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité"))
     frein_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=2, verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
     frein_liquide_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
 
@@ -262,7 +154,7 @@ class Rodage(TechnicienMixin, models.Model):
 
     refroidissement_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de refroidissement"))
     refroidissement_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Fabricant"))
-    refroidissement_liquide_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
+    refroidissement_liquide_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité"))
     refroidissement_liquide_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2, verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
     refroidissement_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
 
@@ -270,7 +162,7 @@ class Rodage(TechnicienMixin, models.Model):
 
     liquide_direction_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de direction"))
     liquide_direction_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Fabricant"))
-    liquide_direction_qualite = models.CharField(max_length=25, choices=LiquideDirectionQualite.choices,default=LiquideDirectionQualite.UNIVERSAL_PSF,verbose_name=_("Qualité de liquide de direction"))
+    liquide_direction_qualite = models.CharField(max_length=25, choices=LiquideDirectionQualite.choices,default=LiquideDirectionQualite.UNIVERSAL_PSF,verbose_name=_("Qualité"))
     liquide_direction_quantite =  models.DecimalField(default=0.0,  max_digits=4, decimal_places=2, verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
     liquide_direction_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2, verbose_name=_("Prix d'achat HTVA"))
 

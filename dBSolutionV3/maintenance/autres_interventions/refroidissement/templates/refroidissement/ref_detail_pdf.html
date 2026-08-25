@@ -1,24 +1,20 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE|default:'fr' }}">
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
 
     <style>
-        @page {
-            size: A4;
-            margin: 14mm;
-        }
 
         body {
             font-family: Arial, sans-serif;
-            font-size: 11px;
-            color: #111827;
+            font-size: 12px;
+            color: #111;
         }
 
-        h1 {
+         h1 {
             font-size: 20px;
             margin-bottom: 15px;
             padding-bottom: 6px;
@@ -34,135 +30,40 @@
             color: #1e40af;
             border-bottom: 1px solid #93c5fd;
         }
+         .table-2-cols {
+            width: 95%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
 
-        h3 {
-            font-size: 12px;
-            margin-top: 14px;
-            margin-bottom: 6px;
-            color: #1e3a8a;
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
         }
 
         .box {
-            border: 1px solid #d1d5db;
-            padding: 10px;
-            margin-bottom: 12px;
-            border-radius: 4px;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 14px;
         }
 
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 7px;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 7px;
+            gap: 8px;
         }
 
         .label {
             font-weight: bold;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 8px;
-        }
-
-        th,
-        td {
-            border: 1px solid #d1d5db;
-            padding: 6px;
-            vertical-align: middle;
-        }
-
-        th {
-            background: #eff6ff;
-            color: #1e3a8a;
-            text-align: left;
-        }
-
-        tr {
-            page-break-inside: avoid;
-        }
-
-        .text-right {
-            text-align: right;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .etat {
-            display: inline-block;
-            padding: 2px 7px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .etat-vert,
-        .etat-ok {
-            color: #166534;
-            background: #dcfce7;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .etat-rouge,
-        .etat-not-ok {
-            color: #991b1b;
-            background: #fee2e2;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .etat-bleu,
-        .etat-remplace {
-            color: #1e40af;
-            background: #dbeafe;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .etat-attention {
-            color: #854d0e;
-            background: #fef9c3;
-        }
-
-        .etat-gris,
-        .etat-neutre {
-            color: #374151;
-            background: #f3f4f6;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .etat-normal {
-            display: inline-block;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
-        .oui {
-            color: #166534;
-            font-weight: bold;
-        }
-
-        .non {
-            color: #991b1b;
-            font-weight: bold;
-        }
-
         .tag {
-            display: inline-block;
-            padding: 3px 8px;
+            padding: 4px 8px;
             border-radius: 4px;
             color: white;
             font-weight: bold;
@@ -180,38 +81,202 @@
             background: #dc2626;
         }
 
-        .total {
+         .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
-            background: #f8fafc;
         }
 
-        .total-general {
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+          .total-general {
             font-weight: bold;
             color: #1e3a8a;
             background: #dbeafe;
         }
-
-        .remarques {
-            white-space: pre-wrap;
-            min-height: 45px;
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
         }
 
-        .small {
-            margin-top: 15px;
-            font-size: 9px;
-            color: #6b7280;
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
         }
 
-        .footer {
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+
+         .total td {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+
+        .total-label {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .total-value {
+            text-align: right;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+         .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+         .footer {
             margin-top: 25px;
             font-size: 10px;
             color: #666;
             text-align: center;
         }
+
     </style>
+
 </head>
 
 <body>
+
+{% if ref.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ ref.tech_societe.nom }}
+            </div>
+
+            {% if ref.tech_societe.adresse %}
+                <div>
+                    {{ ref.tech_societe.adresse.rue }}
+                    {{ ref.tech_societe.adresse.numero }}
+                    {% if ref.tech_societe.adresse.boite %}
+                        / {{ ref.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ ref.tech_societe.adresse.code_postal }}
+                    {{ ref.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if ref.tech_societe.adresse.pays %}
+                <div>{{ ref.tech_societe.adresse.pays }}
+                    {{ ref.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if ref.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ ref.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if ref.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ ref.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ ref.tech_societe.nom }}.png"
+                alt="{{ ref.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+
 
 <h1>
     {% trans "Rapport du contrôle du système de refroidissement" %}
