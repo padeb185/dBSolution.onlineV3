@@ -5,7 +5,8 @@ from django.core.exceptions import ValidationError, FieldDoesNotExist
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import RefroidissementFabricant, CourroieDistributionFabricant, FabricantPiece, TVAConfig
+from maintenance.choices import RefroidissementFabricant, CourroieDistributionFabricant, FabricantPiece, TVAConfig, \
+    RouesSerrageEtat
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -176,7 +177,8 @@ class CourroieDistribution(TechnicienMixin, models.Model):
     refroidissement_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
     refroidissement_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
 
-
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
 
     remarques = models.TextField(
         verbose_name=_("Remarques"),
@@ -282,25 +284,80 @@ class CourroieDistribution(TechnicienMixin, models.Model):
     # CALCUL GENERIQUE
     # -------------------------
     def calcul_piece(self, prefix):
-        prix = getattr(self, f"{prefix}_prix", 0)
-        quantite = getattr(self, f"{prefix}_quantite", 0)
+        prix = getattr(
+            self,
+            f"{prefix}_prix",
+            Decimal("0.00"),
+        )
+
+        quantite = getattr(
+            self,
+            f"{prefix}_quantite",
+            0,
+        )
 
         if not prix or not self.pays:
             return
 
-        tva_rate = Decimal(self.TVA_PIECES.get(self.pays, 0)) / 100
+        # -------------------------
+        # TVA
+        # -------------------------
+        taux_tva = Decimal(
+            str(TVAConfig.get_tva(self.pays))
+        )
 
-        prix_htva = prix  # pas de marge dans ton modèle
+        tva_rate = taux_tva / Decimal("100")
 
-        prix_htva = prix_htva.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        # -------------------------
+        # PRIX HTVA
+        # -------------------------
+        prix_htva = Decimal(str(prix))
 
-        tva = (prix_htva * tva_rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
-        prix_ttc = prix_htva + tva
+        prix_htva = prix_htva.quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
 
-        setattr(self, f"{prefix}_prix_vente_htva", prix_htva)
-        setattr(self, f"{prefix}_tva_vente", tva)
-        setattr(self, f"{prefix}_prix_ttc", prix_ttc)
+        # -------------------------
+        # TVA
+        # -------------------------
+        tva = (
+                prix_htva * tva_rate
+        ).quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
 
+        # -------------------------
+        # PRIX TTC
+        # -------------------------
+        prix_ttc = (
+                prix_htva + tva
+        ).quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
+
+        # -------------------------
+        # SAUVEGARDE DES CALCULS
+        # -------------------------
+        setattr(
+            self,
+            f"{prefix}_prix_vente_htva",
+            prix_htva,
+        )
+
+        setattr(
+            self,
+            f"{prefix}_tva_vente",
+            tva,
+        )
+
+        setattr(
+            self,
+            f"{prefix}_prix_ttc",
+            prix_ttc,
+        )
 
     # -------------------------
     # SAVE

@@ -361,7 +361,11 @@ def courroie_form_view(request, exemplaire_id):
             "icon": "icons/radiateur.png",
             "fields": [form[f.name] for f in form if "refroidissement" in f.name],
         },
-
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
         {
             "title": _("Etiquette"),
             "icon": "icons/tag.png",
@@ -520,6 +524,11 @@ def modifier_courroie_view(request, courroie_id):
             "title": _("Liquide de refroidissement"),
             "icon": "icons/radiateur.png",
             "fields": [form[f.name] for f in form if "refroidissement" in f.name],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
         },
 
         {
