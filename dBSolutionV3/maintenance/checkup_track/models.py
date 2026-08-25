@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from maintenance.check_up.models import PhareReglageEtat
 from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantLubrifiant, TypeHuileDirection, \
     AmpouleAutomobile, FabricantFrein, MatierePlaquetteFrein, MatiereFrein, TypeDisqueFrein, RefroidissementFabricant, \
-    FabricantAmpoule
+    FabricantAmpoule, TVAConfig, HuileEtat, HuileBoiteEtat, RefroidissementQualiteEtat, HuilePontEtat
 from maintenance.models import Maintenance
 from maintenance.nettoyage_exterieur.models import EtatAjouter
 from django.conf import settings
@@ -52,74 +52,6 @@ class NiveauxEtat(models.TextChoices):
     REMPLACER = "REMPLACER", _("A remplacer")
 
 
-class HuileEtat(models.TextChoices):
-    ZERO_16 = "0W16", _("0W16")
-    ZERO_20 = "0W20", _("0W20")
-    ZERO_30 = "0W30", _("0W30")
-    ZERO_40 = "0W40", _("0W40")
-    CINQ_20 = "5W20", _("5W20")
-    CINQ_30 = "5W30", _("5W30")
-    CINQ_40 = "5W40", _("5W40")
-    DIX_40 = "10W40", _("10W40")
-    DIX_50 = "10W50", _("10W50")
-    DIX_60 = "10W60", _("10W60")
-    QUINZE_40 = "15W40", _("15W40")
-    QUINZE_50 = "15W50", _("15W50")
-    VINGT_50 = "20W50", _("20W50")
-
-
-class HuileBoiteEtat(models.TextChoices):
-    SEPTANTE_CINQ = "75W", _("75W")
-    SEPTANTE_5_80 = "75W80", _("75W80")
-    SEPTANTE_CINQ90  = "75W90", _("75W90")
-    QUATRE_20 = "80W", _("80W")
-    QUATRE_20_90 = "80W90", _("80W90")
-    QUATRE_25_90 = "85W90", _("85W90")
-    ATF3 = "ATF_III", _("ATF III")
-    ATF_DSG = "ATF_DSG", _("ATF DSG")
-    ATF_DCT = "ATF_DCT", _("ATF DCT")
-    ATF_CVT = "ATF_CVT", _("ATF CVT")
-    ATF_DEXRON_II = "ATF_DEXRON_II", _("ATF Dexron II")
-    ATF_DEXRON_III = "ATF_DEXRON_III", _("ATF Dexron III")
-    ATF_DEXRON_VI = "ATF_DEXRON_VI", _("ATF Dexron VI")
-    ATF_MERCON = "ATF_MERCON", _("ATF Mercon")
-    ATF_MERCON_V = "ATF_MERCON_V", _("ATF Mercon V")
-    ATF_MERCON_LV = "ATF_MERCON_LV", _("ATF Mercon LV")
-    ATF_MULTI = "ATF_MULTI", _("ATF Multi Vehicle")
-    ATF_WS = "ATF_WS", _("ATF Toyota WS")
-    ATF_ZF_LIFEGUARD = "ATF_ZF_LIFEGUARD", _("ZF Lifeguard")
-    ATF_MOPAR = "ATF_MOPAR", _("Mopar ATF+4")
-    ATF_AISIN = "ATF_AISIN", _("Aisin ATF")
-    ATF_MBV236 = "ATF_MBV236", _("Mercedes MB 236.x")
-    ATF_VOLVO = "ATF_VOLVO", _("Volvo ATF")
-    ATF_HONDA = "ATF_HONDA", _("Honda ATF DW-1")
-    ATF_NISSAN = "ATF_NISSAN", _("Nissan Matic")
-    Huile_PDK_FFL_3 = "PDK_FFL-3", _("PDK FFL 3")
-    AUTRE = "AUTRE", _("Autre")
-
-class HuilePontEtat(models.TextChoices):
-    SEPTANTE_CINQ80 = "75W80", _("75W80")
-    SEPTANTE_CINQ85 = "75W85", _("75W85")
-    SEPTANTE_CINQ90 = "75W90", _("75W90")
-    SEPTANTE_CINQ110 = "75W110", _("75W110")
-    SEPTANTE_CINQ140 = "75W140", _("75W140")
-
-    QUATRE_VINGT90 = "80W90", _("80W90")
-    QUATRE_VINGT140 = "80W140", _("80W140")
-
-    QUATRE_VINGT_CINQ90 = "85W90", _("85W90")
-    QUATRE_VINGT_CINQ140 = "85W140", _("85W140")
-
-    SAE90 = "SAE90", _("SAE 90")
-    SAE140 = "SAE140", _("SAE 140")
-
-    PORSCHE_75W90 = "PORSCHE_75W90", _("Porsche 75W90")
-    PORSCHE_75W140 = "PORSCHE_75W140", _("Porsche 75W140")
-
-    AUTRE = "AUTRE", _("Autre")
-    INCONNUE = "INCONNUE", _("Huile inconnue")
-
-
 
 class RefroidissementEtat(models.TextChoices):
     OK = "OK", _("OK")
@@ -132,49 +64,6 @@ class PneuEtat(models.TextChoices):
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
 
-
-class RefroidissementQualiteEtat(models.TextChoices):
-    # Volkswagen Group
-    G11 = "G11", _("G 11")
-    G12 = "G12", _("G 12")
-    G12_PLUS = "G12_PLUS", _("G 12+")
-    G12_PLUS_PLUS = "G12_PLUS_PLUS", _("G 12++")
-    G13 = "G13", _("G 13")
-
-    # BMW
-    G48 = "G48", _("G 48 BMW")
-
-    # Mercedes-Benz
-    MB_325_0 = "MB_325_0", _("MB 325.0")
-    MB_325_3 = "MB_325_3", _("MB 325.3")
-    MB_325_5 = "MB_325_5", _("MB 325.5")
-
-    # Renault / Dacia
-    TYPE_D = "TYPE_D", _("Type D")
-
-    # PSA (Peugeot / Citroën)
-    PSA_B71_5110 = "PSA_B71_5110", _("PSA B71 5110")
-
-    # Ford
-    WSS_M97B44_D = "WSS_M97B44_D", _("Ford WSS-M97B44-D")
-    WSS_M97B51_A1 = "WSS_M97B51_A1", _("Ford WSS-M97B51-A1")
-
-    # General Motors
-    DEX_COOL = "DEX_COOL", _("Dex-Cool")
-
-    # Toyota / Lexus
-    TOYOTA_SLLC = "TOYOTA_SLLC", _("Toyota SLLC")
-
-    # Honda
-    HONDA_TYPE_2 = "HONDA_TYPE_2", _("Honda Type 2")
-
-    # Nissan
-    NISSAN_L248 = "NISSAN_L248", _("Nissan L248")
-    NISSAN_L250 = "NISSAN_L250", _("Nissan L250")
-
-    # Hyundai / Kia
-    HYUNDAI_KIA_LLC = "HYUNDAI_KIA_LLC", _("Hyundai/Kia Long Life Coolant")
-    AUTRE = "AUTRE", _("Autre")
 
 class ReadyForOK(models.TextChoices):
     VIDE = "", "---------"
@@ -206,72 +95,12 @@ class LiquideFreinEtat(models.TextChoices):
 # Modèle fusionné
 # ---------------------------
 class CheckupTrack(TechnicienMixin, models.Model):
-    # -------------------------
-    # CONFIG TVA
-    # -------------------------
-    PAYS_CHOICES = [
-        ('AT', _("Autriche")),
-        ('BE', _("Belgique")),
-        ('BG', _("Bulgarie")),
-        ('CY', _("Chypre")),
-        ('CZ', _("Tchéquie")),
-        ('DE', _("Allemagne")),
-        ('DK', _("Danemark")),
-        ('EE', _("Estonie")),
-        ('ES', _("Espagne")),
-        ('FI', _("Finlande")),
-        ('FR', _("France")),
-        ('GR', _("Grèce")),
-        ('HR', _("Croatie")),
-        ('HU', _("Hongrie")),
-        ('IE', _("Irlande")),
-        ('IT', _("Italie")),
-        ('LT', _("Lituanie")),
-        ('LU', _("Luxembourg")),
-        ('LV', _("Lettonie")),
-        ('MT', _("Malte")),
-        ('NL', _("Pays-Bas")),
-        ('PL', _("Pologne")),
-        ('PT', _("Portugal")),
-        ('RO', _("Roumanie")),
-        ('SE', _("Suède")),
-        ('SI', _("Slovénie")),
-        ('SK', _("Slovaquie")),
-    ]
 
-    TVA_PIECES = {
-        'AT': 20,
-        'BE': 21,
-        'BG': 20,
-        'CY': 19,
-        'CZ': 21,
-        'DE': 19,
-        'DK': 25,
-        'EE': 24,
-        'ES': 21,
-        'FI': 25.5,
-        'FR': 20,
-        'GR': 24,
-        'HR': 25,
-        'HU': 27,
-        'IE': 23,
-        'IT': 22,
-        'LT': 21,
-        'LU': 17,
-        'LV': 21,
-        'MT': 18,
-        'NL': 21,
-        'PL': 23,
-        'PT': 23,
-        'RO': 21,
-        'SE': 25,
-        'SI': 22,
-        'SK': 23,
-    }
+
     pays = models.CharField(
         max_length=5,
-        choices=PAYS_CHOICES,
-        default="BE",
+        choices=TVAConfig.PAYS_CHOICES,
+        default=TVAConfig.DEFAULT_PAYS,
         verbose_name=_("Pays"),
     )
 

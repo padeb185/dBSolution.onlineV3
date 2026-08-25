@@ -5,38 +5,9 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
+from maintenance.choices import TVAConfig, HuileBoiteEtat
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
-
-
-
-class HuileBoiteEtat(models.TextChoices):
-    SEPTANTE_CINQ = "75W", _("75W")
-    SEPTANTE_5_80 = "75W80", _("75W80")
-    SEPTANTE_CINQ90  = "75W90", _("75W90")
-    QUATRE_20 = "80W", "80W"
-    QUATRE_20_90 = "80W90", _("80W90")
-    QUATRE_25_90 = "85W90", _("85W90")
-    ATF3 = "ATF_III", _("ATF III")
-    ATF_DSG = "ATF_DSG", _("ATF DSG")
-    ATF_DCT = "ATF_DCT", _("ATF DCT")
-    ATF_CVT = "ATF_CVT", _("ATF CVT")
-    ATF_DEXRON_II = "ATF_DEXRON_II", _("ATF Dexron II")
-    ATF_DEXRON_III = "ATF_DEXRON_III", _("ATF Dexron III")
-    ATF_DEXRON_VI = "ATF_DEXRON_VI", _("ATF Dexron VI")
-    ATF_MERCON = "ATF_MERCON", _("ATF Mercon")
-    ATF_MERCON_V = "ATF_MERCON_V", _("ATF Mercon V")
-    ATF_MERCON_LV = "ATF_MERCON_LV", _("ATF Mercon LV")
-    ATF_MULTI = "ATF_MULTI", _("ATF Multi Vehicle")
-    ATF_WS = "ATF_WS", _("ATF Toyota WS")
-    ATF_ZF_LIFEGUARD = "ATF_ZF_LIFEGUARD", _("ZF Lifeguard")
-    ATF_MOPAR = "ATF_MOPAR", _("Mopar ATF+4")
-    ATF_AISIN = "ATF_AISIN", _("Aisin ATF")
-    ATF_MBV236 = "ATF_MBV236", _("Mercedes MB 236.x")
-    ATF_VOLVO = "ATF_VOLVO", _("Volvo ATF")
-    ATF_HONDA = "ATF_HONDA", _("Honda ATF DW-1")
-    ATF_NISSAN = "ATF_NISSAN", _("Nissan Matic")
-
 
 
 
@@ -51,72 +22,11 @@ class BoiteVitesseEtat(models.TextChoices):
 # ---------------------------
 class ControleBoite(TechnicienMixin, models.Model):
 
-    # -------------------------
-    # CONFIG TVA
-    # -------------------------
-    PAYS_CHOICES = [
-        ('AT', _("Autriche")),
-        ('BE', _("Belgique")),
-        ('BG', _("Bulgarie")),
-        ('CY', _("Chypre")),
-        ('CZ', _("Tchéquie")),
-        ('DE', _("Allemagne")),
-        ('DK', _("Danemark")),
-        ('EE', _("Estonie")),
-        ('ES', _("Espagne")),
-        ('FI', _("Finlande")),
-        ('FR', _("France")),
-        ('GR', _("Grèce")),
-        ('HR', _("Croatie")),
-        ('HU', _("Hongrie")),
-        ('IE', _("Irlande")),
-        ('IT', _("Italie")),
-        ('LT', _("Lituanie")),
-        ('LU', _("Luxembourg")),
-        ('LV', _("Lettonie")),
-        ('MT', _("Malte")),
-        ('NL', _("Pays-Bas")),
-        ('PL', _("Pologne")),
-        ('PT', _("Portugal")),
-        ('RO', _("Roumanie")),
-        ('SE', _("Suède")),
-        ('SI', _("Slovénie")),
-        ('SK', _("Slovaquie")),
-    ]
 
-    TVA_PIECES = {
-        'AT': 20,
-        'BE': 21,
-        'BG': 20,
-        'CY': 19,
-        'CZ': 21,
-        'DE': 19,
-        'DK': 25,
-        'EE': 24,
-        'ES': 21,
-        'FI': 25.5,
-        'FR': 20,
-        'GR': 24,
-        'HR': 25,
-        'HU': 27,
-        'IE': 23,
-        'IT': 22,
-        'LT': 21,
-        'LU': 17,
-        'LV': 21,
-        'MT': 18,
-        'NL': 21,
-        'PL': 23,
-        'PT': 23,
-        'RO': 21,
-        'SE': 25,
-        'SI': 22,
-        'SK': 23,
-    }
     pays = models.CharField(
         max_length=5,
-        choices=PAYS_CHOICES,
-        default="BE",
+        choices=TVAConfig.PAYS_CHOICES,
+        default=TVAConfig.DEFAULT_PAYS,
         verbose_name=_("Pays"),
     )
 

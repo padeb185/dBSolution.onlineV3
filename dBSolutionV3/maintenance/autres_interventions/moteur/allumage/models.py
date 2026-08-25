@@ -3,7 +3,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.choices import TAUX_HORAIRE_CHOICES
+from maintenance.choices import TAUX_HORAIRE_CHOICES, TVAConfig
 from maintenance.models import Maintenance
 
 
@@ -57,6 +57,13 @@ class Allumage(models.Model):
         verbose_name=_("Maintenance"),
         null=True,
         blank=True
+    )
+
+    pays = models.CharField(
+        max_length=5,
+        choices=TVAConfig.PAYS_CHOICES,
+        default=TVAConfig.DEFAULT_PAYS,
+        verbose_name=_("Pays"),
     )
 
     # ========================================================

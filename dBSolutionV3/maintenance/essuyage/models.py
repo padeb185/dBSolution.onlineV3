@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import RouesSerrageEtat, FabricantPiece, FabricantLubrifiant
+from maintenance.choices import RouesSerrageEtat, FabricantPiece, FabricantLubrifiant, TVAConfig
 from utils.mixin import TechnicienMixin
 from maintenance.services import sync_maintenance
 from maintenance.models import Maintenance
@@ -20,80 +20,14 @@ class EtatOKNotOK(models.TextChoices):
 
 
 class Essuyage(TechnicienMixin, models.Model):
-    # -------------------------
-    # CONFIG TVA
-    # -------------------------
-    PAYS_CHOICES = [
-        ('AT', _("Autriche")),
-        ('BE', _("Belgique")),
-        ('BG', _("Bulgarie")),
-        ('CY', _("Chypre")),
-        ('CZ', _("Tchéquie")),
-        ('DE', _("Allemagne")),
-        ('DK', _("Danemark")),
-        ('EE', _("Estonie")),
-        ('ES', _("Espagne")),
-        ('FI', _("Finlande")),
-        ('FR', _("France")),
-        ('GR', _("Grèce")),
-        ('HR', _("Croatie")),
-        ('HU', _("Hongrie")),
-        ('IE', _("Irlande")),
-        ('IT', _("Italie")),
-        ('LT', _("Lituanie")),
-        ('LU', _("Luxembourg")),
-        ('LV', _("Lettonie")),
-        ('MT', _("Malte")),
-        ('NL', _("Pays-Bas")),
-        ('PL', _("Pologne")),
-        ('PT', _("Portugal")),
-        ('RO', _("Roumanie")),
-        ('SE', _("Suède")),
-        ('SI', _("Slovénie")),
-        ('SK', _("Slovaquie")),
-    ]
 
-    TVA_PIECES = {
-        'AT': 20,
-        'BE': 21,
-        'BG': 20,
-        'CY': 19,
-        'CZ': 21,
-        'DE': 19,
-        'DK': 25,
-        'EE': 24,
-        'ES': 21,
-        'FI': 25.5,
-        'FR': 20,
-        'GR': 24,
-        'HR': 25,
-        'HU': 27,
-        'IE': 23,
-        'IT': 22,
-        'LT': 21,
-        'LU': 17,
-        'LV': 21,
-        'MT': 18,
-        'NL': 21,
-        'PL': 23,
-        'PT': 23,
-        'RO': 21,
-        'SE': 25,
-        'SI': 22,
-        'SK': 23,
-    }
 
-    # -------------------------
-    # RELATIONS
-    # -------------------------
-    maintenance = models.ForeignKey(
-        Maintenance,
-        on_delete=models.CASCADE,
-        related_name="essuyage",
-        null=True,
-        blank=True
+    pays = models.CharField(
+        max_length=5,
+        choices=TVAConfig.PAYS_CHOICES,
+        default=TVAConfig.DEFAULT_PAYS,
+        verbose_name=_("Pays"),
     )
-
 
     voiture_exemplaire = models.ForeignKey(
         "voiture_exemplaire.VoitureExemplaire",
@@ -123,12 +57,6 @@ class Essuyage(TechnicienMixin, models.Model):
         verbose_name=_("Variation du kilométrage"),
     )
 
-    pays = models.CharField(
-        max_length=5,
-        choices=PAYS_CHOICES,
-        default="BE",
-        verbose_name=_("Pays"),
-    )
 
     # -------------------------
     # PIECES
