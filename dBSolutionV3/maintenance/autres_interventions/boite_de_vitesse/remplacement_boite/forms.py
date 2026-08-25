@@ -80,7 +80,19 @@ class RemplacementBoiteForm(forms.ModelForm):
                 )
 
             if self.exemplaire and "kilometres_boite" in self.fields:
-                km_boite = self.exemplaire.kilometres_boite or 0
+                kilometres_chassis = self.exemplaire.kilometres_chassis or 0
+                kilometres_remplacement_boite = (
+                        self.exemplaire.kilometres_remplacement_boite or 0
+                )
+
+                km_boite = (
+                        kilometres_chassis
+                        - kilometres_remplacement_boite
+                )
+
+                # Évite une valeur négative
+                if km_boite < 0:
+                    km_boite = 0
 
                 self.instance.kilometres_boite = km_boite
 

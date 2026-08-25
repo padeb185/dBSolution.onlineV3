@@ -148,13 +148,6 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres au remplacement de la boite")
     )
 
-    variation_kilometres = models.PositiveIntegerField(
-        default=0,
-        editable=False,
-        verbose_name=_("Variation de kilomètres depuis le dernier entretien"),
-        help_text=_("Calculé automatiquement : total - dernièr entretien")
-    )
-
 
     remplacement_boite_serie = models.CharField(
         max_length=50,
@@ -254,11 +247,6 @@ class RemplacementBoite(TechnicienMixin, models.Model):
     )
 
 
-    pays = models.CharField(
-        max_length=5,
-        default="BE",
-        choices=PAYS_CHOICES
-    )
 
     remarques = models.TextField(
         verbose_name=_("Remarques"),

@@ -1097,6 +1097,9 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA"),
     )
 
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
+
     # Tag visuel
     TAG_CHOICES = [
         ("VERT", _("Vert")),
