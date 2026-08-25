@@ -879,7 +879,6 @@
             <tr>
                 <th>{% trans "Composant" %}</th>
                 <th>{% trans "État" %}</th>
-                <th>{% trans "Fabricant" %}</th>
             </tr>
 
         </thead>
@@ -923,9 +922,6 @@
 
             </td>
 
-            <td>
-                {{ ref.get_ventilateur_fabricant_display|default:"-" }}
-            </td>
 
         </tr>
 
@@ -966,10 +962,6 @@
 
             </td>
 
-            <td>
-                {{ ref.get_radiateur_fabricant_display|default:"-" }}
-            </td>
-
         </tr>
 
 
@@ -1008,11 +1000,6 @@
                 {% endif %}
 
             </td>
-
-            <td>
-                {{ ref.get_thermostat_fabricant_display|default:"-" }}
-            </td>
-
         </tr>
 
 
@@ -1051,11 +1038,6 @@
                 {% endif %}
 
             </td>
-
-            <td>
-                {{ ref.get_boitier_eau_fabricant_display|default:"-" }}
-            </td>
-
         </tr>
 
 
@@ -1093,10 +1075,6 @@
 
                 {% endif %}
 
-            </td>
-
-            <td>
-                {{ ref.get_sonde_t_fabricant_display|default:"-" }}
             </td>
 
         </tr>
@@ -1138,10 +1116,6 @@
 
             </td>
 
-            <td>
-                {{ ref.get_durites_fabricant_display|default:"-" }}
-            </td>
-
         </tr>
 
 
@@ -1180,11 +1154,6 @@
                 {% endif %}
 
             </td>
-
-            <td>
-                {{ ref.get_chaufferette_fabricant_display|default:"-" }}
-            </td>
-
         </tr>
 
         </tbody>
