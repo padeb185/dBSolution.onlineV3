@@ -750,8 +750,10 @@
             </thead>
 
             <tbody>
+
                 {% for ligne in rapport.pieces %}
                     <tr>
+
                         <td>
                             {{ ligne.nom|default:ligne.label }}
                         </td>
@@ -794,10 +796,16 @@
                         <td class="text-right">
                             {{ ligne.total|default:0|floatformat:2 }} €
                         </td>
+
                     </tr>
                 {% endfor %}
 
-               <tr class="total">
+
+                <!-- ========================= -->
+                <!-- TOTAL PIÈCES / PRODUITS -->
+                <!-- ========================= -->
+
+                <tr class="total">
                     <td colspan="5" class="total-label">
                         {% trans "Total pièces et produits HTVA" %}
                     </td>
@@ -807,15 +815,25 @@
                     </td>
                 </tr>
 
+
+                <!-- ========================= -->
+                <!-- MAIN-D'ŒUVRE -->
+                <!-- ========================= -->
+
                 <tr class="total">
                     <td colspan="5" class="total-label">
                         {% trans "Main-d'œuvre HTVA" %}
                     </td>
 
                     <td class="total-value">
-                        {{ rodage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ rapport.cout_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
                 </tr>
+
+
+                <!-- ========================= -->
+                <!-- TOTAL GÉNÉRAL -->
+                <!-- ========================= -->
 
                 <tr class="total-general">
                     <td colspan="5" class="total-label">
@@ -823,11 +841,13 @@
                     </td>
 
                     <td class="total-value">
-                       {{ rapport.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ rapport.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
                 </tr>
+
             </tbody>
         </table>
+
 
     {% else %}
 
@@ -837,15 +857,25 @@
 
         <table>
             <tbody>
+
+                <!-- ========================= -->
+                <!-- MAIN-D'ŒUVRE UNIQUEMENT -->
+                <!-- ========================= -->
+
                 <tr class="total">
                     <td class="total-label">
                         {% trans "Main-d'œuvre HTVA" %}
                     </td>
 
                     <td class="total-value">
-                        {{ rodage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ rapport.cout_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
                 </tr>
+
+
+                <!-- ========================= -->
+                <!-- TOTAL GÉNÉRAL -->
+                <!-- ========================= -->
 
                 <tr class="total-general">
                     <td class="total-label">
@@ -853,9 +883,10 @@
                     </td>
 
                     <td class="total-value">
-                        {{ rodage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ rapport.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
                 </tr>
+
             </tbody>
         </table>
 

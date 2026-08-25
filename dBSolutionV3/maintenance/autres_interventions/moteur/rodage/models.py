@@ -12,6 +12,7 @@ from maintenance.choices import RouesSerrageEtat, AmpouleAutomobile, FabricantFi
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 from societe.models import Societe
+from django.core.exceptions import FieldDoesNotExist
 
 
 
@@ -230,8 +231,9 @@ class Rodage(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    moteur_joint_vidange_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
     moteur_joint_vidange_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    moteur_joint_vidange_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
+
 
     moteur_ajout_huile =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Ajout de la nouvelle huile moteur"))
     moteur_ajout_huile_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL, verbose_name=_("Fabricant"))
@@ -508,11 +510,7 @@ class Rodage(TechnicienMixin, models.Model):
         verbose_name=_("Quantité"),
     )
 
-    from decimal import Decimal
 
-    from django.core.validators import StepValueValidator
-    from django.db import models
-    from django.utils.translation import gettext_lazy as _
 
     pneu_pression_bar_avd = models.DecimalField(
         max_digits=4,
@@ -864,276 +862,279 @@ class Rodage(TechnicienMixin, models.Model):
         rapport = []
         total_general = Decimal("0.00")
 
-        elements = [
-            {
-                "code": "moteur_filtre_huile",
-                "label": _("Filtre à huile moteur"),
-                "etat_field": "moteur_filtre_huile",
-                "fabricant_field": "moteur_filtre_huile_fabricant",
-                "prix_field": "moteur_filtre_huile_prix",
-                "quantite_field": "moteur_filtre_huile_quantite",
-                "choices": RodageEtat.choices,
-            },
-            {
-                "code": "moteur_bouchon_vidange",
-                "label": _("Bouchon de vidange"),
-                "etat_field": "moteur_bouchon_vidange",
-                "fabricant_field": "moteur_bouchon_vidange_fabricant",
-                "prix_field": "moteur_bouchon_vidange_prix",
-                "quantite_field": "moteur_bouchon_vidange_quantite",
-                "choices": RodageEtat.choices,
-            },
-            {
-                "code": "moteur_joint_vidange",
-                "label": _("Joint du bouchon de vidange"),
-                "etat_field": "moteur_joint_vidange",
-                "fabricant_field": "moteur_joint_vidange_fabricant",
-                "prix_field": "moteur_joint_vidange_prix",
-                "quantite_field": "moteur_joint_vidange_quantite",
-                "choices": RodageEtat.choices,
-            },
-            {
-                "code": "moteur_ajout_huile",
-                "label": _("Huile moteur"),
-                "etat_field": "moteur_ajout_huile",
-                "fabricant_field": "moteur_ajout_huile_fabricant",
-                "prix_field": "moteur_ajout_huile_prix",
-                "quantite_field": "moteur_ajout_huile_quantite",
-                "choices": RodageEtat.choices,
-            },
-            {
-                "code": "lave_glace",
-                "label": _("Liquide de lave-glace"),
-                "etat_field": "lave_glace_liquide_etat",
-                "fabricant_field": "lave_glace_fabricant",
-                "prix_field": "lave_glace_prix",
-                "quantite_field": "lave_glace_quantite",
-                "choices": NiveauxEtat.choices,
-            },
-            {
-                "code": "frein_liquide",
-                "label": _("Liquide de freins"),
-                "etat_field": "frein_liquide_etat",
-                "fabricant_field": "frein_liquide_fabricant",
-                "prix_field": "frein_liquide_prix",
-                "quantite_field": "frein_liquide_quantite",
-                "choices": NiveauxEtat.choices,
-            },
-            {
-                "code": "refroidissement_liquide",
-                "label": _("Liquide de refroidissement"),
-                "etat_field": "refroidissement_liquide_etat",
-                "fabricant_field": "refroidissement_liquide_fabricant",
-                "prix_field": "refroidissement_prix",
-                "quantite_field": "refroidissement_liquide_quantite",
-                "choices": NiveauxEtat.choices,
-            },
-            {
-                "code": "liquide_direction",
-                "label": _("Liquide de direction"),
-                "etat_field": "liquide_direction_etat",
-                "fabricant_field": "liquide_direction_fabricant",
-                "prix_field": "liquide_direction_prix",
-                "quantite_field": "liquide_direction_quantite",
-                "choices": NiveauxEtat.choices,
-            },
-            {
-                "code": "phares_reglages",
-                "label": _("Réglage phares"),
-                "etat_field": "phares_reglages",
-                "choices": PhareEtat.choices,
-            },
-            {
-                "code": "phares_avant",
-                "label": _("Feux de route"),
-                "etat_field": "phares_avant",
-                "fabricant_field": "phares_avant_fabricant",
-                "prix_field": "phares_avant_prix",
-                "quantite_field": "phares_avant_quantite",
-                "choices": PhareEtat.choices,
-            },
-            {
-                "code": "phares_gros_phares",
-                "label": _("Grands phares"),
-                "etat_field": "phares_gros_phares",
-                "fabricant_field": "phares_gros_phares_fabricant",
-                "prix_field": "phares_gros_phares_prix",
-                "quantite_field": "phares_gros_phares_quantite",
-                "choices": PhareEtat.choices,
-            },
-            {
-                "code": "phares_clignotants",
-                "label": _("Clignotants"),
-                "etat_field": "phares_clignotants",
-                "fabricant_field": "phares_clignotants_fabricant",
-                "prix_field": "phares_clignotants_prix",
-                "quantite_field": "phares_clignotants_quantite",
-                "choices": PhareEtat.choices,
-            },
-            {
-                "code": "phares_recul",
-                "label": _("Feux de recul"),
-                "etat_field": "phares_recul",
-                "fabricant_field": "phares_recul_fabricant",
-                "prix_field": "phares_recul_prix",
-                "quantite_field": "phares_recul_quantite",
-                "choices": PhareEtat.choices,
-            },
-            {
-                "code": "phares_anti_brouillard_avant",
-                "label": _("Phares anti-brouillard avant"),
-                "etat_field": "phares_anti_brouillard_avant",
-                "fabricant_field": "phares_anti_brouillard_avant_fabricant",
-                "prix_field": "phares_anti_brouillard_avant_prix",
-                "quantite_field": "phares_anti_brouillard_avant_quantite",
-                "choices": PhareEtat.choices,
-            },
-            {
-                "code": "phares_anti_brouillard_arriere",
-                "label": _("Phares anti-brouillard arrière"),
-                "etat_field": "phares_anti_brouillard_arriere",
-                "fabricant_field": "phares_anti_brouillard_arriere_fabricant",
-                "prix_field": "phares_anti_brouillard_arriere_prix",
-                "quantite_field": "phares_anti_brouillard_arriere_quantite",
-                "choices": PhareEtat.choices,
-            },
-            {
-                "code": "phares_feux_stops",
-                "label": _("Feux stop"),
-                "etat_field": "phares_feux_stops",
-                "fabricant_field": "phares_feux_stops_fabricant",
-                "prix_field": "phares_feux_stops_prix",
-                "quantite_field": "phares_feux_stops_quantite",
-                "choices": PhareEtat.choices,
-            },
-            {
-                "code": "phares_troisieme_feux_stop",
-                "label": _("Troisième feu stop"),
-                "etat_field": "phares_troisieme_feux_stop",
-                "fabricant_field": "phares_troisieme_feux_stop_fabricant",
-                "prix_field": "phares_troisieme_feux_stop_prix",
-                "quantite_field": "phares_troisieme_feux_stop_quantite",
-                "choices": PhareEtat.choices,
-            },
-            {
-                "code": "phares_feux_position_av",
-                "label": _("Feux de position avant"),
-                "etat_field": "phares_feux_position_av",
-                "fabricant_field": "phares_feux_position_av_fabricant",
-                "prix_field": "phares_feux_position_av_prix",
-                "quantite_field": "phares_feux_position_av_quantite",
-                "choices": PhareEtat.choices,
-            },
-            {
-                "code": "phares_feux_position_ar",
-                "label": _("Feux de position arrière"),
-                "etat_field": "phares_feux_position_ar",
-                "fabricant_field": "phares_feux_position_ar_fabricant",
-                "prix_field": "phares_feux_position_ar_prix",
-                "quantite_field": "phares_feux_position_ar_quantite",
-                "choices": PhareEtat.choices,
-            },
-        ]
+        # États à retenir dans le rapport
+        etats_acceptes = {
+            "A_FAIRE",
+            "NOT_OK",
+            "REMPLACER",
+            "REMPLACE",
+            "AJOUTER",
+            "FAIT",
+        }
 
-        for element in elements:
-            etat_field = element["etat_field"]
-            etat = getattr(self, etat_field, None)
+        for field in self._meta.fields:
+            field_name = field.name
 
-            # Ne pas inclure les éléments sans état ou en bon état
-            if etat in [None, PhareEtat.OK]:
+            # Seulement les champs avec choices
+            if not (
+                    isinstance(field, models.CharField)
+                    and field.choices
+            ):
                 continue
 
-            prix_field = element.get("prix_field")
-            quantite_field = element.get("quantite_field")
-            fabricant_field = element.get("fabricant_field")
+            etat = getattr(self, field_name, None)
 
-            prix = Decimal("0.00")
-            quantite = Decimal("0")
-            total = Decimal("0.00")
+            # Ne garder que les états intéressants
+            if etat not in etats_acceptes:
+                continue
+
+            # =====================================================
+            # FABRICANT / TYPE
+            # =====================================================
             fabricant = None
+            fabricant_label = None
 
-            # =========================
+            fabricant_field_name = f"{field_name}_fabricant"
+            type_field_name = f"{field_name}_type"
+
+            # -------------------------
             # FABRICANT
-            # =========================
-            if fabricant_field:
-                fabricant = getattr(self, fabricant_field, None)
-
-                display_method = getattr(
-                    self,
-                    f"get_{fabricant_field}_display",
-                    None,
+            # -------------------------
+            try:
+                fabricant_field = self._meta.get_field(
+                    fabricant_field_name
                 )
 
-                if callable(display_method):
-                    fabricant = display_method()
+                fabricant = getattr(
+                    self,
+                    fabricant_field_name,
+                    None
+                )
 
-            # =========================
+                fabricant_label = fabricant
+
+                if fabricant_field.choices:
+                    fabricant_label = dict(
+                        fabricant_field.choices
+                    ).get(
+                        fabricant,
+                        fabricant
+                    )
+
+            except FieldDoesNotExist:
+                pass
+
+            # -------------------------
+            # TYPE D'AMPOULE
+            # Si aucun fabricant n'existe
+            # -------------------------
+            if fabricant is None:
+                try:
+                    type_field = self._meta.get_field(
+                        type_field_name
+                    )
+
+                    fabricant = getattr(
+                        self,
+                        type_field_name,
+                        None
+                    )
+
+                    fabricant_label = fabricant
+
+                    if type_field.choices:
+                        fabricant_label = dict(
+                            type_field.choices
+                        ).get(
+                            fabricant,
+                            fabricant
+                        )
+
+                except FieldDoesNotExist:
+                    fabricant = None
+                    fabricant_label = None
+
+            # =====================================================
             # PRIX
-            # =========================
-            if prix_field:
-                prix = getattr(
-                    self,
-                    prix_field,
-                    Decimal("0.00"),
-                ) or Decimal("0.00")
+            # =====================================================
+            prix_field_name = f"{field_name}_prix"
 
-                prix = Decimal(str(prix))
+            prix = getattr(
+                self,
+                prix_field_name,
+                Decimal("0.00")
+            )
 
-            # =========================
+            if prix is None:
+                prix = Decimal("0.00")
+
+            prix = Decimal(str(prix)).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP
+            )
+
+            # =====================================================
             # QUANTITÉ
-            # =========================
-            if quantite_field:
-                quantite = getattr(
-                    self,
-                    quantite_field,
-                    0,
-                ) or 0
+            # =====================================================
+            quantite_field_name = f"{field_name}_quantite"
 
-                quantite = Decimal(str(quantite))
+            quantite = getattr(
+                self,
+                quantite_field_name,
+                0
+            )
 
-            # Ne pas afficher les pièces sans quantité
-            if quantite_field and quantite < 1:
+            if quantite is None:
+                quantite = 0
+
+            quantite = Decimal(str(quantite))
+
+            # Si le champ possède une quantité,
+            # ne pas afficher si quantité = 0
+            try:
+                self._meta.get_field(
+                    quantite_field_name
+                )
+
+                if quantite <= 0:
+                    continue
+
+            except FieldDoesNotExist:
+                pass
+
+            if prix <= Decimal("0.00") and quantite <= Decimal("0.00"):
                 continue
 
-            # =========================
-            # ÉTAT AFFICHÉ
-            # =========================
-            display_method = getattr(
-                self,
-                f"get_{etat_field}_display",
-                None,
-            )
-
-            etat_display = (
-                display_method()
-                if callable(display_method)
-                else etat
-            )
-
-            # =========================
+            # =====================================================
             # TOTAL
-            # =========================
-            if prix_field and quantite_field:
-                total = prix * quantite
+            # =====================================================
+            total = Decimal("0.00")
+
+            try:
+                self._meta.get_field(
+                    prix_field_name
+                )
+
+                self._meta.get_field(
+                    quantite_field_name
+                )
+
+                total = (
+                        prix * quantite
+                ).quantize(
+                    Decimal("0.01"),
+                    rounding=ROUND_HALF_UP
+                )
+
                 total_general += total
 
+            except FieldDoesNotExist:
+                pass
+
+            # =====================================================
+            # ÉTAT AFFICHÉ
+            # =====================================================
+            display_method = getattr(
+                self,
+                f"get_{field_name}_display",
+                None
+            )
+
+            if callable(display_method):
+                etat_label = display_method()
+            else:
+                etat_label = etat
+
+            # =====================================================
+            # RAPPORT
+            # =====================================================
             rapport.append(
                 {
-                    "code": element["code"],
-                    "nom": element["label"],
-                    "label": element["label"],
+                    "champ": field.verbose_name,
+                    "nom": field.verbose_name,
+                    "label": field.verbose_name,
+                    "code": field_name,
+
                     "etat": etat,
-                    "etat_display": etat_display,
-                    "fabricant": fabricant,
+                    "etat_label": etat_label,
+                    "etat_display": etat_label,
+
+                    "fabricant": fabricant_label,
+                    "fabricant_label": fabricant_label,
+
                     "prix": prix,
                     "quantite": quantite,
                     "total": total,
                 }
             )
 
+        # =========================================================
+        # TOTAL PIÈCES
+        # =========================================================
+        total_general = total_general.quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP
+        )
+
+        # =========================================================
+        # MAIN-D'ŒUVRE
+        # =========================================================
+        cout_main_oeuvre = Decimal("0.00")
+
+        if self.main_oeuvre:
+            temps_minutes = Decimal(
+                str(
+                    getattr(
+                        self.main_oeuvre,
+                        "temps_minutes",
+                        0
+                    ) or 0
+                )
+            )
+
+            taux_horaire = Decimal(
+                str(
+                    self.taux_horaire
+                    or Decimal("0.00")
+                )
+            )
+
+            cout_main_oeuvre = (
+                    temps_minutes
+                    / Decimal("60")
+                    * taux_horaire
+            ).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP
+            )
+
+        # =========================================================
+        # TOTAL AVEC MAIN-D'ŒUVRE
+        # =========================================================
+        total_general_avec_main_oeuvre = (
+                total_general
+                + cout_main_oeuvre
+        ).quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP
+        )
+
+        # =========================================================
+        # RETOUR
+        # =========================================================
         return {
+            "lignes": rapport,
+
+            # Pour ton PDF actuel
             "pieces": rapport,
+
             "total_general": total_general,
+            "total_pieces_htva": total_general,
+
+            "cout_main_oeuvre": cout_main_oeuvre,
+
+            "total_general_avec_main_oeuvre":
+                total_general_avec_main_oeuvre,
         }
         # ======================================================
         # MAIN-D'ŒUVRE
