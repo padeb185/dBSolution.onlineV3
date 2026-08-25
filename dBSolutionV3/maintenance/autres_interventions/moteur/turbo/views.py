@@ -9,6 +9,7 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
+from maindoeuvre.models import MainDoeuvre
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -127,83 +128,198 @@ def turbo_check_view(request, exemplaire_id):
         if form.is_valid():
 
             try:
-                with transaction.atomic():
 
-                    km = form.cleaned_data.get("kilometres_turbo")
+                # ==================================================
+                # KILOMÉTRAGE
+                # ==================================================
+                km = form.cleaned_data.get("kilometres_turbo")
 
-                    if km is not None:
-                        km = int(km)
-
-                        ancien_km = exemplaire.kilometres_chassis
-
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometres_turbo",
-                                _("Le kilométrage ne peut pas diminuer.")
-                            )
-                            raise ValueError("Kilométrage invalide")
-
-                        # 🚗 update voiture (source unique)
-                        exemplaire.kilometres_chassis = km
-                        exemplaire.date_derniere_intervention = timezone.now().date()
-
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
-
-                        # 🔗 checkup UNIQUE
-                        turbo = form.save(commit=False)
-                        turbo.assign_technicien(request.user)
-
-                        turbo.kilometres_chassis = exemplaire.kilometres_chassis
-                        turbo.kilometres_turbo = km
-
-                    maintenance = Maintenance.objects.create(
-                        societe=request.user.societe,
-                        voiture_exemplaire=exemplaire,
-                        immatriculation=exemplaire.immatriculation,
-                        date_intervention=timezone.now().date(),
-                        kilometres_chassis=exemplaire.kilometres_chassis,
-                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                        type_maintenance=Maintenance.TypeMaintenance.TURBO,
-                        tag=Maintenance.Tag.JAUNE,
-                    )
-
-                    # 🔧 affectation rôle
-                    if role == "mecanicien":
-                        maintenance.mecanicien = request.user
-
-                    elif role == "chef_mecanicien":
-                        maintenance.chef_mecanicien = request.user
-
-                    elif role == "apprenti":
-                        maintenance.apprentis.add(request.user)
-
-                    elif role == "magasinier":
-                        maintenance.magasinier = request.user
-
-                    elif role == "direction":
-                        maintenance.direction = request.user
-
-                    maintenance.save()
-
-                    turbo.assign_technicien(request.user)
-
-                    # 🔗 lien final
-                    turbo.maintenance = maintenance
-                    turbo.save()
-
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_("Turbo - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
-                    )
-
-                messages.success(
-                    request,
-                    _("Check turbo enregistré avec succès.")
+                ancien_kilometrage = (
+                        exemplaire.kilometres_chassis or 0
                 )
-                return redirect("turbo:turbo_list", exemplaire_id=exemplaire.id)
+
+                if km is None:
+                    form.add_error(
+                        "kilometres_turbo",
+                        _("Le kilométrage est obligatoire."),
+                    )
+
+                else:
+                    km = int(km)
+
+                    if km < ancien_kilometrage:
+                        form.add_error(
+                            "kilometres_turbo",
+                            _(
+                                "Le kilométrage du contrôle "
+                                "ne peut pas être inférieur au "
+                                "kilométrage actuel du véhicule."
+                            ),
+                        )
+
+                    else:
+                        kilometrage_variation = (
+                                km - ancien_kilometrage
+                        )
+
+                        # ==================================================
+                        # TRANSACTION
+                        # ==================================================
+                        with transaction.atomic():
+
+                            maintenance = Maintenance.objects.create(
+                                societe=request.user.societe,
+                                voiture_exemplaire=exemplaire,
+                                immatriculation=exemplaire.immatriculation,
+                                date_intervention=timezone.now().date(),
+                                kilometres_chassis=exemplaire.kilometres_chassis,
+                                kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                                type_maintenance=Maintenance.TypeMaintenance.TURBO,
+                                tag=Maintenance.Tag.JAUNE,
+                            )
+
+                            # 🔧 affectation rôle
+                            if role == "mecanicien":
+                                maintenance.mecanicien = request.user
+
+                            elif role == "chef_mecanicien":
+                                maintenance.chef_mecanicien = request.user
+
+                            elif role == "apprenti":
+                                maintenance.apprentis.add(request.user)
+
+                            elif role == "magasinier":
+                                maintenance.magasinier = request.user
+
+                            elif role == "direction":
+                                maintenance.direction = request.user
+
+                            maintenance.save()
+
+                            turbo = form.save(commit=False)
+
+                            turbo.voiture_exemplaire = exemplaire
+                            turbo.maintenance = maintenance
+
+                            # Snapshot AVANT intervention
+                            turbo.kilometres_chassis = (
+                                ancien_kilometrage
+                            )
+
+                            # Kilométrage du contrôle
+                            turbo.kilometres_turbo = km
+
+                            # Variation kilométrage
+                            turbo.kilometrage_variation = (
+                                kilometrage_variation
+                            )
+
+                            # ==================================================
+                            # TECHNICIEN
+                            # ==================================================
+                            turbo.assign_technicien(
+                                request.user
+                            )
+
+                            turbo.tech_last_maintained_by = (
+                                request.user
+                            )
+
+                            # ==================================================
+                            # MAIN-D'ŒUVRE
+                            # ==================================================
+                            heures = (
+                                    form.cleaned_data.get("temps_heures")
+                                    or 0
+                            )
+
+                            minutes = (
+                                    form.cleaned_data.get("temps_minutes")
+                                    or 0
+                            )
+
+                            total_minutes = (
+                                    heures * 60 + minutes
+                            )
+
+                            taux_horaire = (
+                                    form.cleaned_data.get("taux_horaire")
+                                    or 0
+                            )
+
+                            # --------------------------------------------------
+                            # Mise à jour main-d'œuvre existante
+                            # --------------------------------------------------
+                            if turbo.main_oeuvre_id:
+
+                                main_oeuvre = (
+                                    turbo.main_oeuvre
+                                )
+
+                                main_oeuvre.temps_minutes = (
+                                    total_minutes
+                                )
+
+                                main_oeuvre.taux_horaire = (
+                                    taux_horaire
+                                )
+
+                                main_oeuvre.save(
+                                    update_fields=[
+                                        "temps_minutes",
+                                        "taux_horaire",
+                                    ]
+                                )
+
+                            # --------------------------------------------------
+                            # Création main-d'œuvre
+                            # --------------------------------------------------
+                            else:
+
+                                main_oeuvre = (
+                                    MainDoeuvre.objects.create(
+                                        utilisateur=request.user,
+                                        temps_minutes=total_minutes,
+                                        taux_horaire=taux_horaire,
+                                    )
+                                )
+
+                                turbo.main_oeuvre = (
+                                    main_oeuvre
+                                )
+
+                            # ==================================================
+                            # SAUVEGARDE turbo
+                            # IMPORTANT :
+                            # EN DEHORS DU IF/ELSE MAIN-D'ŒUVRE
+                            # ==================================================
+                            turbo.save()
+
+                            form.save_m2m()
+
+                            # ==================================================
+                            # MISE À JOUR DU VÉHICULE
+                            # ==================================================
+                            exemplaire.kilometres_chassis = km
+
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                ]
+                            )
+
+                        UserLog.objects.create(
+                                utilisateur=request.user,
+                                action=_("Turbo - %(immatriculation)s") % {
+                                    "immatriculation": exemplaire.immatriculation
+                                }
+                            )
+
+                        messages.success(
+                            request,
+                            _("Check turbo enregistré avec succès.")
+                        )
+                        return redirect("turbo:turbo_list", exemplaire_id=exemplaire.id)
 
             except Exception as e:
                 messages.error(request,_(f"Erreur lors de l'enregistrement : {str(e)}")

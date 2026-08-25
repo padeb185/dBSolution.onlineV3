@@ -10,6 +10,7 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
+from maindoeuvre.models import MainDoeuvre
 from maintenance.autres_interventions.moteur.injection.forms import InjectionForm
 from maintenance.autres_interventions.moteur.injection.models import Injection
 from maintenance.models import Maintenance
@@ -128,140 +129,215 @@ def injection_form_view(request, exemplaire_id):
         if form.is_valid():
 
             try:
-                with transaction.atomic():
 
-                    # ==================================================
-                    # CRÉATION INJECTION
-                    # ==================================================
+                # ==================================================
+                # KILOMÉTRAGE
+                # ==================================================
+                km = form.cleaned_data.get("kilometrage_injection")
 
-                    injection = form.save(commit=False)
+                ancien_kilometrage = (
+                        exemplaire.kilometres_chassis or 0
+                )
 
-                    # IMPORTANT :
-                    # le véhicule doit être affecté AVANT assign_technicien
-                    # et AVANT injection.save()
-                    injection.voiture_exemplaire = exemplaire
+                if km is None:
+                    form.add_error(
+                        "kilometrage_injection",
+                        _("Le kilométrage est obligatoire."),
+                    )
 
-                    # Si ton modèle Injection possède bien "societe"
-                    injection.societe = tenant
+                else:
+                    km = int(km)
 
-                    # ==================================================
-                    # KILOMÉTRAGE
-                    # ==================================================
-
-                    km = form.cleaned_data.get("kilometrage_injection")
-
-                    if km is not None:
-                        km = int(km)
-
-                        ancien_km = exemplaire.kilometres_chassis or 0
-
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometrage_injection",
-                                _("Le kilométrage ne peut pas diminuer."),
-                            )
-
-                            raise ValueError(
-                                _("Le kilométrage ne peut pas diminuer.")
-                            )
-
-                        # Mise à jour véhicule
-                        exemplaire.kilometres_chassis = km
-                        exemplaire.date_derniere_intervention = (
-                            timezone.now().date()
+                    if km < ancien_kilometrage:
+                        form.add_error(
+                            "kilometrage_injection",
+                            _(
+                                "Le kilométrage du contrôle "
+                                "ne peut pas être inférieur au "
+                                "kilométrage actuel du véhicule."
+                            ),
                         )
-
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
-
-                        # Copie dans Injection
-                        injection.kilometres_chassis = (
-                            exemplaire.kilometres_chassis
-                        )
-
-                        injection.kilometrage_injection = km
 
                     else:
-                        # Sécurité si aucun kilométrage n'est fourni
-                        injection.kilometres_chassis = (
-                            exemplaire.kilometres_chassis or 0
+                        kilometrage_variation = (
+                                km - ancien_kilometrage
                         )
 
-                    # ==================================================
-                    # TECHNICIEN
-                    # ==================================================
+                        # ==================================================
+                        # TRANSACTION
+                        # ==================================================
+                        with transaction.atomic():
 
-                    injection.assign_technicien(request.user)
+                            # ==================================================
+                            # MAINTENANCE
+                            # ==================================================
 
-                    # ==================================================
-                    # MAINTENANCE
-                    # ==================================================
-
-                    maintenance = Maintenance.objects.create(
-                        societe=tenant,
-                        voiture_exemplaire=exemplaire,
-                        immatriculation=exemplaire.immatriculation,
-                        date_intervention=timezone.now().date(),
-                        kilometres_chassis=(
-                            exemplaire.kilometres_chassis or 0
-                        ),
-                        kilometres_dernier_entretien=(
-                            exemplaire.kilometres_dernier_entretien
-                        ),
-                        type_maintenance=(
-                            Maintenance.TypeMaintenance.INJECTION
-                        ),
-                        tag=Maintenance.Tag.JAUNE,
-                    )
-
-                    # ==================================================
-                    # RÔLE DANS MAINTENANCE
-                    # ==================================================
-
-                    if role == "mecanicien":
-                        maintenance.mecanicien = request.user
-
-                    elif role == "chef_mecanicien":
-                        maintenance.chef_mecanicien = request.user
-
-                    elif role == "magasinier":
-                        maintenance.magasinier = request.user
-
-                    elif role == "direction":
-                        maintenance.direction = request.user
-
-                    maintenance.save()
-
-                    # M2M : après sauvegarde de Maintenance
-                    if role == "apprenti":
-                        maintenance.apprentis.add(request.user)
-
-                    # ==================================================
-                    # LIEN INJECTION <-> MAINTENANCE
-                    # ==================================================
-
-                    injection.maintenance = maintenance
-
-                    # Sécurité supplémentaire
-                    injection.voiture_exemplaire = exemplaire
-
-                    injection.save()
-
-                    # ==================================================
-                    # LOG
-                    # ==================================================
-
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_(
-                            "Système d'injection - %(immatriculation)s"
-                        )
-                        % {
-                            "immatriculation": (
-                                exemplaire.immatriculation
+                            maintenance = Maintenance.objects.create(
+                                societe=tenant,
+                                voiture_exemplaire=exemplaire,
+                                immatriculation=exemplaire.immatriculation,
+                                date_intervention=timezone.now().date(),
+                                kilometres_chassis=(
+                                    exemplaire.kilometres_chassis or 0
+                                ),
+                                kilometres_dernier_entretien=(
+                                    exemplaire.kilometres_dernier_entretien
+                                ),
+                                type_maintenance=(
+                                    Maintenance.TypeMaintenance.INJECTION
+                                ),
+                                tag=Maintenance.Tag.JAUNE,
                             )
-                        },
-                    )
+
+                            # ==================================================
+                            # RÔLE DANS MAINTENANCE
+                            # ==================================================
+
+                            if role == "mecanicien":
+                                maintenance.mecanicien = request.user
+
+                            elif role == "chef_mecanicien":
+                                maintenance.chef_mecanicien = request.user
+
+                            elif role == "magasinier":
+                                maintenance.magasinier = request.user
+
+                            elif role == "direction":
+                                maintenance.direction = request.user
+
+                            maintenance.save()
+
+                            # M2M : après sauvegarde de Maintenance
+                            if role == "apprenti":
+                                maintenance.apprentis.add(request.user)
+
+                            injection = form.save(commit=False)
+
+                            injection.voiture_exemplaire = exemplaire
+                            injection.maintenance = maintenance
+
+                            # Snapshot AVANT intervention
+                            injection.kilometres_chassis = (
+                                ancien_kilometrage
+                            )
+
+                            # Kilométrage du contrôle
+                            injection.kilometrage_injection = km
+
+                            # Variation kilométrage
+                            injection.kilometrage_variation = (
+                                kilometrage_variation
+                            )
+
+                            # ==================================================
+                            # TECHNICIEN
+                            # ==================================================
+                            injection.assign_technicien(
+                                request.user
+                            )
+
+                            injection.tech_last_maintained_by = (
+                                request.user
+                            )
+
+                            # ==================================================
+                            # MAIN-D'ŒUVRE
+                            # ==================================================
+                            heures = (
+                                    form.cleaned_data.get("temps_heures")
+                                    or 0
+                            )
+
+                            minutes = (
+                                    form.cleaned_data.get("temps_minutes")
+                                    or 0
+                            )
+
+                            total_minutes = (
+                                    heures * 60 + minutes
+                            )
+
+                            taux_horaire = (
+                                    form.cleaned_data.get("taux_horaire")
+                                    or 0
+                            )
+
+                            # --------------------------------------------------
+                            # Mise à jour main-d'œuvre existante
+                            # --------------------------------------------------
+                            if injection.main_oeuvre_id:
+
+                                main_oeuvre = (
+                                    injection.main_oeuvre
+                                )
+
+                                main_oeuvre.temps_minutes = (
+                                    total_minutes
+                                )
+
+                                main_oeuvre.taux_horaire = (
+                                    taux_horaire
+                                )
+
+                                main_oeuvre.save(
+                                    update_fields=[
+                                        "temps_minutes",
+                                        "taux_horaire",
+                                    ]
+                                )
+
+                            # --------------------------------------------------
+                            # Création main-d'œuvre
+                            # --------------------------------------------------
+                            else:
+
+                                main_oeuvre = (
+                                    MainDoeuvre.objects.create(
+                                        utilisateur=request.user,
+                                        temps_minutes=total_minutes,
+                                        taux_horaire=taux_horaire,
+                                    )
+                                )
+
+                                injection.main_oeuvre = (
+                                    main_oeuvre
+                                )
+
+                            # ==================================================
+                            # SAUVEGARDE injection
+                            # IMPORTANT :
+                            # EN DEHORS DU IF/ELSE MAIN-D'ŒUVRE
+                            # ==================================================
+                            injection.save()
+
+                            form.save_m2m()
+
+                            # ==================================================
+                            # MISE À JOUR DU VÉHICULE
+                            # ==================================================
+                            exemplaire.kilometres_chassis = km
+
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                ]
+                            )
+
+                            # ==================================================
+                            # LOG
+                            # ==================================================
+
+                            UserLog.objects.create(
+                                utilisateur=request.user,
+                                action=_(
+                                    "Système d'injection - %(immatriculation)s"
+                                )
+                                % {
+                                    "immatriculation": (
+                                        exemplaire.immatriculation
+                                    )
+                                },
+                            )
 
                     messages.success(
                         request,

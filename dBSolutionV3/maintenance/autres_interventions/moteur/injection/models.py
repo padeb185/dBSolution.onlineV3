@@ -137,6 +137,12 @@ class Injection(models.Model):
         verbose_name= _("Kilométrage du contrôle de l'injection")
     )
 
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
+
     type_carburant = models.CharField(
         max_length=20,
         choices=TypeCarburantInjection.choices,
@@ -592,10 +598,10 @@ class Injection(models.Model):
         super().clean()
 
         if self.voiture_exemplaire and self.kilometrage_injection is not None:
-            if self.kilometrage_injection > self.voiture_exemplaire.kilometres_chassis:
+            if self.kilometrage_injection < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
                     "kilometrage_injection": _(
-                        "Le kilométrage de la courroie ne peut pas être supérieur au kilométrage du véhicule."
+                        "Le kilométrage du controle injection ne peut pas être inférieur au kilométrage du véhicule."
                     )
                 })
 
@@ -638,9 +644,7 @@ class Injection(models.Model):
     # -------------------------
     def save(self, *args, **kwargs):
 
-        # 🔥 synchro kilométrage AVANT save
-        if hasattr(self, "sync_kilometrage"):
-            self.sync_kilometrage()
+
 
         # Calculs
         self.calcul_piece("pompe_carburant")
@@ -650,15 +654,169 @@ class Injection(models.Model):
         self.calcul_piece("tuyaux_haute_pression")
         self.calcul_piece("injecteurs")
         self.calcul_piece("connecteurs_injecteurs")
-        # ----------------------------
-        # MAIN D'OEUVRE AUTO DESCRIPTIF
-        # ----------------------------
-        if self.main_oeuvre_id and self.voiture_exemplaire_id:
-            task_name = _("Contrôle de l'injection") + " " + str(self.voiture_exemplaire)
-            self.main_oeuvre.descriptif = task_name
-            self.main_oeuvre.save(update_fields=["descriptif"])
+
+        # =========================
+        # TECHNICIEN
+        # =========================
+        if (
+                not self.tech_technicien_id
+                and hasattr(self, "_user")
+        ):
+            self.assign_technicien(
+                self._user
+            )
+
+        # =========================
+        # VEHICULE
+        # =========================
+        voiture = None
+
+        if self.voiture_exemplaire_id:
+            voiture = type(
+                self.voiture_exemplaire
+            ).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+        # =========================
+        # ANCIEN KM ADMISSION
+        # =========================
+        ancien_kilometrage = 0
+
+        if self.pk:
+
+            ancien_objet = type(self).objects.filter(
+                pk=self.pk
+            ).first()
+
+            if ancien_objet:
+                ancien_kilometrage = (
+                        ancien_objet.kilometrage_injection
+                        or ancien_objet.kilometres_chassis
+                        or 0
+                )
+
+        elif voiture:
+
+            ancien_kilometrage = (
+                    voiture.kilometres_chassis
+                    or 0
+            )
+
+        # =========================
+        # VARIATION
+        # =========================
+        if self.kilometrage_injection is not None:
+
+            self.kilometrage_variation = (
+                    self.kilometrage_injection
+                    - ancien_kilometrage
+            )
+
+            # =========================================
+            # IMPORTANT
+            # Le km chassis devient le km admission
+            # =========================================
+            self.kilometres_chassis = (
+                self.kilometrage_injection
+            )
+
+        else:
+
+            self.kilometrage_variation = 0
+
+        # =========================
+        # MAIN D'ŒUVRE
+        # =========================
+        if (
+                self.main_oeuvre_id
+                and self.voiture_exemplaire_id
+        ):
+            self.main_oeuvre.descriptif = (
+                    _("Controle Injection")
+                    + " "
+                    + str(self.voiture_exemplaire)
+            )
+
+            self.main_oeuvre.save(
+                update_fields=[
+                    "descriptif"
+                ]
+            )
+
+        # =========================
+        # MAINTENANCE
+        # =========================
+        if (
+                self.maintenance_id
+                and self.voiture_exemplaire_id
+        ):
+
+            self.maintenance.type_maintenance = (
+                Maintenance.TypeMaintenance.INJECTION
+            )
+
+            self.maintenance.voiture_exemplaire = (
+                self.voiture_exemplaire
+            )
+
+            if self.kilometrage_injection is not None:
+                self.maintenance.kilometres_chassis = (
+                    self.kilometrage_injection
+                )
+
+            self.maintenance.save(
+                update_fields=[
+                    "type_maintenance",
+                    "voiture_exemplaire",
+                    "kilometres_chassis",
+                ]
+            )
+
+        # =========================
+        # SAVE ADMISSION
+        # =========================
+        super().save(
+            *args,
+            **kwargs
+        )
+
+        # =========================
+        # UPDATE VEHICULE
+        # =========================
+        if (
+                voiture is not None
+                and self.kilometrage_injection is not None
+        ):
+
+            nouveau_kilometrage = int(
+                self.kilometrage_injection
+            )
+
+            kilometrage_vehicule = int(
+                voiture.kilometres_chassis
+                or 0
+            )
+
+            # Ne jamais faire redescendre
+            # le kilométrage général du véhicule
+            if nouveau_kilometrage >= kilometrage_vehicule:
+                voiture.kilometres_chassis = (
+                    nouveau_kilometrage
+                )
+
+                voiture.save(
+                    update_fields=[
+                        "kilometres_chassis"
+                    ]
+                )
+
+        # ========================================================
+        # SAUVEGARDE
+        # ========================================================
 
         super().save(*args, **kwargs)
+
 
     def generer_rapport_remplacement(self):
         rapport = []

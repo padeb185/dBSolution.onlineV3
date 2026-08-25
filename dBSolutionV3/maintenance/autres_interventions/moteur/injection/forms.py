@@ -12,6 +12,17 @@ class InjectionForm(forms.ModelForm):
     temps_heures = forms.IntegerField(required=False, min_value=0)
     temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
 
+    kilometrage_variation = forms.IntegerField(
+        required=False,
+        label=_("Variation du kilométrage"),
+        widget=forms.NumberInput(
+            attrs={
+                "readonly": "readonly",
+                "class": "input",
+            }
+        ),
+    )
+
     class Meta:
         model = Injection
         exclude = [
@@ -30,6 +41,29 @@ class InjectionForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
+
+        # =========================
+        # VARIATION KILOMÉTRAGE
+        # =========================
+        if "kilometrage_variation" in self.fields:
+
+            variation = 0
+
+            if (
+                    self.instance
+                    and self.instance.pk
+                    and self.instance.kilometrage_injection is not None
+                    and self.exemplaire
+                    and self.exemplaire.kilometres_chassis is not None
+            ):
+                variation = (
+                        self.instance.kilometrage_injection
+                        - self.exemplaire.kilometres_chassis
+                )
+
+            self.fields["kilometrage_variation"].initial = variation
+
+
 
          # -------- MAIN D'ŒUVRE QUERYSET --------
         if "main_oeuvre" in self.fields:
@@ -69,12 +103,33 @@ class InjectionForm(forms.ModelForm):
                 self.fields[f].initial = 0
                 self.fields[f].required = False
 
-    def clean_kilometres_injection(self):
-        km = self.cleaned_data["kilometrages_injection"]
+    def clean_kilometrage_injection(self):
+        km = self.cleaned_data.get("kilometrage_injection")
 
-        if km < self.exemplaire.kilometres_chassis:
+        if km is None:
+            return km
+
+        voiture = (
+                self.exemplaire
+                or (
+                    self.instance.voiture_exemplaire
+                    if self.instance and self.instance.pk
+                    else None
+                )
+        )
+
+        if not voiture:
+            return km
+
+        km_voiture = voiture.kilometres_chassis or 0
+
+        if km < km_voiture:
             raise ValidationError(
-                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel du véhicule.")
+                _(
+                    "Le kilométrage du contrôle de l'injection "
+                    "ne peut pas être inférieur au kilométrage actuel "
+                    "du véhicule."
+                )
             )
 
         return km
@@ -82,33 +137,13 @@ class InjectionForm(forms.ModelForm):
     def clean(self):
         cleaned = super().clean()
 
-        h = cleaned.get("temps_heures") or 0
-        m = cleaned.get("temps_minutes") or 0
+        minutes = cleaned.get("temps_minutes") or 0
 
-        if m >= 60:
-            raise ValidationError("Les minutes ne peuvent pas dépasser 59.")
-
-        km_courroie = cleaned.get("kilometrage_injection")
-        voiture = self.exemplaire or (self.instance.voiture_exemplaire if self.instance else None)
-
-        if not voiture or km_courroie in [None, ""]:
-            return cleaned
-
-        try:
-            km_injection = Decimal(str(km_courroie))
-        except:
-            raise ValidationError({
-                "kilometrage_injectionr": _("Kilométrage invalide")
-            })
-
-        km_voiture = voiture.kilometres_chassis or Decimal("0")
-
-        if km_injection < km_voiture:
-            raise ValidationError({
-                "kilometrage_injection": _(
-                    "Le kilométrage doit être ≥ %(km)s"
-                ) % {"km": km_voiture}
-            })
+        if minutes >= 60:
+            self.add_error(
+                "temps_minutes",
+                _("Les minutes ne peuvent pas dépasser 59.")
+            )
 
         return cleaned
 
@@ -122,27 +157,32 @@ class InjectionForm(forms.ModelForm):
             instance.kilometrage_injection = km
             instance.voiture_exemplaire = voiture
 
+        # =====================================
+        # MAIN D'ŒUVRE
+        # =====================================
+        heures = self.cleaned_data.get("temps_heures") or 0
+        minutes = self.cleaned_data.get("temps_minutes") or 0
 
-            # -------- MAIN D'ŒUVRE --------
-            heures = self.cleaned_data.get("temps_heures") or 0
-            minutes = self.cleaned_data.get("temps_minutes") or 0
+        total_minutes = heures * 60 + minutes
 
-            total_minutes = heures * 60 + minutes
+        main = instance.main_oeuvre
 
-            main = instance.main_oeuvre
+        if main:
+            main.temps_minutes = total_minutes
+            main.save(
+                update_fields=["temps_minutes"]
+            )
+        else:
+            main = MainDoeuvre.objects.create(
+                utilisateur=self.user,
+                temps_minutes=total_minutes,
+            )
 
-            if main:
-                main.temps_minutes = total_minutes
-                main.save(update_fields=["temps_minutes"])
-            else:
-                main = MainDoeuvre.objects.create(
-                    utilisateur=self.user,
-                    temps_minutes=total_minutes
-                )
-                instance.main_oeuvre = main
+            instance.main_oeuvre = main
 
-
-        # Sauvegarde finale
+        # =====================================
+        # SAUVEGARDE
+        # =====================================
         if commit:
             instance.save()
 

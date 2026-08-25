@@ -26,6 +26,17 @@ class RodageForm(forms.ModelForm):
         label=_("Minutes"),
     )
 
+    kilometrage_variation = forms.IntegerField(
+        required=False,
+        label=_("Variation du kilométrage"),
+        widget=forms.NumberInput(
+            attrs={
+                "readonly": "readonly",
+                "class": "input",
+            }
+        ),
+    )
+
     class Meta:
         model = Rodage
         exclude = ["pieces"]
@@ -105,6 +116,27 @@ class RodageForm(forms.ModelForm):
         self.exemplaire = kwargs.pop("exemplaire", None)
 
         super().__init__(*args, **kwargs)
+
+        # =========================
+        # VARIATION KILOMÉTRAGE
+        # =========================
+        if "kilometrage_variation" in self.fields:
+
+            variation = 0
+
+            if (
+                    self.instance
+                    and self.instance.pk
+                    and self.instance.kilometres_rodage is not None
+                    and self.exemplaire
+                    and self.exemplaire.kilometres_chassis is not None
+            ):
+                variation = (
+                        self.instance.kilometres_rodage
+                        - self.exemplaire.kilometres_chassis
+                )
+
+            self.fields["kilometrage_variation"].initial = variation
 
         # ---------------- CHAMPS FACULTATIFS ----------------
         champs_facultatifs = [

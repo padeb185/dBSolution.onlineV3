@@ -122,105 +122,200 @@ def rodage_check_view(request, exemplaire_id):
         if form.is_valid():
 
             try:
-                with transaction.atomic():
-                    km = form.cleaned_data.get("kilometres_rodage")
 
-                    if km is not None:
-                        km = int(km)
+                # ==================================================
+                # KILOMÉTRAGE
+                # ==================================================
+                km = form.cleaned_data.get("kilometres_rodage")
 
-                        ancien_km = exemplaire.kilometres_chassis or 0
-
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometres_rodage",
-                                _("Le kilométrage ne peut pas diminuer.")
-                            )
-                            raise ValueError("Kilométrage invalide")
-
-                        # 🚗 source unique = voiture
-                        exemplaire.kilometres_chassis = km
-                        exemplaire.kilometres_dernier_entretien = km
-                        exemplaire.date_derniere_intervention = timezone.now().date()
-
-                        exemplaire.update_kilometres()
-
-                        exemplaire.save(
-                            update_fields=[
-                                "kilometres_chassis",
-                                "kilometres_dernier_entretien",
-                                "date_derniere_intervention",
-                            ]
-                        )
-
-                    # 🔗 entretien
-                    rodage = form.save(commit=False)
-
-                    rodage.assign_technicien(request.user)
-
-                    taux_horaire = form.cleaned_data.get("taux_horaire")
-                    temps_main_oeuvre = form.cleaned_data.get("temps_main_oeuvre")
-                    descriptif = form.cleaned_data.get("descriptif", "")
-
-                    main_oeuvre = rodage.main_oeuvre
-
-                    if main_oeuvre is None:
-                        main_oeuvre = MainDoeuvre()
-
-                    main_oeuvre.utilisateur = request.user
-                    main_oeuvre.taux_horaire = taux_horaire or Decimal("0.00")
-                    main_oeuvre.temps_main_oeuvre = temps_main_oeuvre
-                    main_oeuvre.descriptif = descriptif
-                    main_oeuvre.save()
-
-                    rodage.main_oeuvre = main_oeuvre
-
-                    rodage.kilometres_chassis = exemplaire.kilometres_chassis
-                    rodage.kilometrage_rodage = km
-
-
-                    # 🔴 Création maintenance UNIQUE
-                    maintenance = Maintenance.objects.create(
-                        societe=request.user.societe,
-                        voiture_exemplaire=exemplaire,
-                        immatriculation=exemplaire.immatriculation,
-                        date_intervention=timezone.now().date(),
-                        kilometres_chassis=exemplaire.kilometres_chassis,
-                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                        type_maintenance=Maintenance.TypeMaintenance.RODAGE,
-                        tag=Maintenance.Tag.JAUNE,
-                    )
-
-                    # 🔧 Affectation rôle
-                    if role == "mecanicien":
-                        maintenance.mecanicien = Mecanicien.objects.get(id=request.user.id)
-
-                    elif role == "chef_mecanicien":
-                        maintenance.chef_mecanicien = ChefMecanicien.objects.get(id=request.user.id)
-
-                    elif role == "apprenti":
-                        maintenance.apprentis = Apprenti.objects.get(id=request.user.id)
-
-                    elif role == "magasinier":
-                        maintenance.magasinier = Magasinier.objects.get(id=request.user.id)
-
-                    elif role == 'direction':
-                        maintenance.direction = Direction.objects.get(id=request.user.id)
-
-                    maintenance.save()
-
-                rodage.maintenance = maintenance
-                rodage.save()
-
-
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Rodage - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
+                ancien_kilometrage = (
+                        exemplaire.kilometres_chassis or 0
                 )
 
-                messages.success(request, _("Rodage enregistré avec succès."))
-                return redirect("rodage:rodage_list", exemplaire_id=exemplaire.id)
+                if km is None:
+                    form.add_error(
+                        "kilometres_rodage",
+                        _("Le kilométrage est obligatoire."),
+                    )
+
+                else:
+                    km = int(km)
+
+                    if km < ancien_kilometrage:
+                        form.add_error(
+                            "kilometres_rodage",
+                            _(
+                                "Le kilométrage du contrôle "
+                                "ne peut pas être inférieur au "
+                                "kilométrage actuel du véhicule."
+                            ),
+                        )
+
+                    else:
+                        kilometrage_variation = (
+                                km - ancien_kilometrage
+                        )
+
+                        # ==================================================
+                        # TRANSACTION
+                        # ==================================================
+                        with transaction.atomic():
+
+                            # 🔴 Création maintenance UNIQUE
+                            maintenance = Maintenance.objects.create(
+                                societe=request.user.societe,
+                                voiture_exemplaire=exemplaire,
+                                immatriculation=exemplaire.immatriculation,
+                                date_intervention=timezone.now().date(),
+                                kilometres_chassis=exemplaire.kilometres_chassis,
+                                kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                                type_maintenance=Maintenance.TypeMaintenance.RODAGE,
+                                tag=Maintenance.Tag.JAUNE,
+                            )
+
+                            # 🔧 Affectation rôle
+                            if role == "mecanicien":
+                                maintenance.mecanicien = Mecanicien.objects.get(id=request.user.id)
+
+                            elif role == "chef_mecanicien":
+                                maintenance.chef_mecanicien = ChefMecanicien.objects.get(id=request.user.id)
+
+                            elif role == "apprenti":
+                                maintenance.apprentis = Apprenti.objects.get(id=request.user.id)
+
+                            elif role == "magasinier":
+                                maintenance.magasinier = Magasinier.objects.get(id=request.user.id)
+
+                            elif role == 'direction':
+                                maintenance.direction = Direction.objects.get(id=request.user.id)
+
+                            maintenance.save()
+
+                            # M2M : après sauvegarde de Maintenance
+                            if role == "apprenti":
+                                maintenance.apprentis.add(request.user)
+
+                            rodage = form.save(commit=False)
+
+                            rodage.voiture_exemplaire = exemplaire
+                            rodage.maintenance = maintenance
+
+                            # Snapshot AVANT intervention
+                            rodage.kilometres_chassis = (
+                                ancien_kilometrage
+                            )
+
+                            # Kilométrage du contrôle
+                            rodage.kilometres_rodage = km
+
+                            # Variation kilométrage
+                            rodage.kilometrage_variation = (
+                                kilometrage_variation
+                            )
+
+                            # ==================================================
+                            # TECHNICIEN
+                            # ==================================================
+                            rodage.assign_technicien(
+                                request.user
+                            )
+
+                            rodage.tech_last_maintained_by = (
+                                request.user
+                            )
+
+                            # ==================================================
+                            # MAIN-D'ŒUVRE
+                            # ==================================================
+                            heures = (
+                                    form.cleaned_data.get("temps_heures")
+                                    or 0
+                            )
+
+                            minutes = (
+                                    form.cleaned_data.get("temps_minutes")
+                                    or 0
+                            )
+
+                            total_minutes = (
+                                    heures * 60 + minutes
+                            )
+
+                            taux_horaire = (
+                                    form.cleaned_data.get("taux_horaire")
+                                    or 0
+                            )
+
+                            # --------------------------------------------------
+                            # Mise à jour main-d'œuvre existante
+                            # --------------------------------------------------
+                            if rodage.main_oeuvre_id:
+
+                                main_oeuvre = (
+                                    rodage.main_oeuvre
+                                )
+
+                                main_oeuvre.temps_minutes = (
+                                    total_minutes
+                                )
+
+                                main_oeuvre.taux_horaire = (
+                                    taux_horaire
+                                )
+
+                                main_oeuvre.save(
+                                    update_fields=[
+                                        "temps_minutes",
+                                        "taux_horaire",
+                                    ]
+                                )
+
+                            # --------------------------------------------------
+                            # Création main-d'œuvre
+                            # --------------------------------------------------
+                            else:
+
+                                main_oeuvre = (
+                                    MainDoeuvre.objects.create(
+                                        utilisateur=request.user,
+                                        temps_minutes=total_minutes,
+                                        taux_horaire=taux_horaire,
+                                    )
+                                )
+
+                                rodage.main_oeuvre = (
+                                    main_oeuvre
+                                )
+
+                            # ==================================================
+                            # SAUVEGARDE rodage
+                            # IMPORTANT :
+                            # EN DEHORS DU IF/ELSE MAIN-D'ŒUVRE
+                            # ==================================================
+                            rodage.save()
+
+                            form.save_m2m()
+
+                            # ==================================================
+                            # MISE À JOUR DU VÉHICULE
+                            # ==================================================
+                            exemplaire.kilometres_chassis = km
+
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                ]
+                            )
+
+                            UserLog.objects.create(
+                                utilisateur=request.user,
+                                action=_("Rodage - %(immatriculation)s") % {
+                                    "immatriculation": exemplaire.immatriculation
+                                }
+                            )
+
+                    messages.success(request, _("Rodage enregistré avec succès."))
+                    return redirect("rodage:rodage_list", exemplaire_id=exemplaire.id)
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))

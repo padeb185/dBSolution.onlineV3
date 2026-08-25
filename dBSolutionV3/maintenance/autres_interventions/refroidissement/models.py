@@ -162,6 +162,12 @@ class Refroidissement(TechnicienMixin, models.Model):
         verbose_name=_("Kilométrage au moment du contrôle"),
     )
 
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
+
 
     # ======================================================
     # DIAGNOSTIC GÉNÉRAL
@@ -865,16 +871,166 @@ class Refroidissement(TechnicienMixin, models.Model):
 
         self.calcul_liquide()
 
-        if self.main_oeuvre_id and self.voiture_exemplaire_id:
-            self.main_oeuvre.descriptif = _(
-                "Contrôle du système de refroidissement — %(vehicule)s"
-            ) % {
-                "vehicule": self.voiture_exemplaire,
-            }
+
+        # =========================
+        # TECHNICIEN
+        # =========================
+        if (
+                not self.tech_technicien_id
+                and hasattr(self, "_user")
+        ):
+            self.assign_technicien(
+                self._user
+            )
+
+        # =========================
+        # VEHICULE
+        # =========================
+        voiture = None
+
+        if self.voiture_exemplaire_id:
+            voiture = type(
+                self.voiture_exemplaire
+            ).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+        # =========================
+        # ANCIEN KM ADMISSION
+        # =========================
+        ancien_kilometrage = 0
+
+        if self.pk:
+
+            ancien_objet = type(self).objects.filter(
+                pk=self.pk
+            ).first()
+
+            if ancien_objet:
+                ancien_kilometrage = (
+                        ancien_objet.kilometrage_refroidissement
+                        or ancien_objet.kilometres_chassis
+                        or 0
+                )
+
+        elif voiture:
+
+            ancien_kilometrage = (
+                    voiture.kilometres_chassis
+                    or 0
+            )
+
+        # =========================
+        # VARIATION
+        # =========================
+        if self.kilometrage_refroidissement is not None:
+
+            self.kilometrage_variation = (
+                    self.kilometrage_refroidissement
+                    - ancien_kilometrage
+            )
+
+            # =========================================
+            # IMPORTANT
+            # Le km chassis devient le km admission
+            # =========================================
+            self.kilometres_chassis = (
+                self.kilometrage_refroidissement
+            )
+
+        else:
+
+            self.kilometrage_variation = 0
+
+        # =========================
+        # MAIN D'ŒUVRE
+        # =========================
+        if (
+                self.main_oeuvre_id
+                and self.voiture_exemplaire_id
+        ):
+            self.main_oeuvre.descriptif = (
+                    _("Refroidissement")
+                    + " "
+                    + str(self.voiture_exemplaire)
+            )
 
             self.main_oeuvre.save(
-                update_fields=["descriptif"]
+                update_fields=[
+                    "descriptif"
+                ]
             )
+
+        # =========================
+        # MAINTENANCE
+        # =========================
+        if (
+                self.maintenance_id
+                and self.voiture_exemplaire_id
+        ):
+
+            self.maintenance.type_maintenance = (
+                Maintenance.TypeMaintenance.TURBO
+            )
+
+            self.maintenance.voiture_exemplaire = (
+                self.voiture_exemplaire
+            )
+
+            if self.kilometrage_refroidissement is not None:
+                self.maintenance.kilometres_chassis = (
+                    self.kilometrage_refroidissement
+                )
+
+            self.maintenance.save(
+                update_fields=[
+                    "type_maintenance",
+                    "voiture_exemplaire",
+                    "kilometres_chassis",
+                ]
+            )
+
+        # =========================
+        # SAVE ADMISSION
+        # =========================
+        super().save(
+            *args,
+            **kwargs
+        )
+
+        # =========================
+        # UPDATE VEHICULE
+        # =========================
+        if (
+                voiture is not None
+                and self.kilometrage_refroidissement is not None
+        ):
+
+            nouveau_kilometrage = int(
+                self.kilometrage_refroidissement
+            )
+
+            kilometrage_vehicule = int(
+                voiture.kilometres_chassis
+                or 0
+            )
+
+            # Ne jamais faire redescendre
+            # le kilométrage général du véhicule
+            if nouveau_kilometrage >= kilometrage_vehicule:
+                voiture.kilometres_chassis = (
+                    nouveau_kilometrage
+                )
+
+                voiture.save(
+                    update_fields=[
+                        "kilometres_chassis"
+                    ]
+                )
+
+        # ========================================================
+        # SAUVEGARDE
+        # ========================================================
 
         super().save(*args, **kwargs)
 
