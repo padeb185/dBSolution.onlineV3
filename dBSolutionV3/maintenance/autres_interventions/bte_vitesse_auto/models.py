@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import FabricantLubrifiant
+from maintenance.choices import FabricantLubrifiant, FabricantEmbrayage
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -39,6 +39,7 @@ class BoiteVitesseEtat(models.TextChoices):
     OK = "OK", _("OK")
     NOT_OK = "NOT_OK", _("À remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
+    NON_PRESENT = "NON_PRESENT", _("Non présent")
 
 
 class ControleBteVitesseAuto(TechnicienMixin, models.Model):
@@ -154,50 +155,71 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Convertisseur de couple")
     )
+
+    auto_emb_convertisseur_couple_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantEmbrayage.choices,
+        default=FabricantEmbrayage.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
+    auto_emb_convertisseur_couple_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
     auto_emb_convertisseur_couple_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    auto_emb_convertisseur_couple_quantite = models.PositiveIntegerField(
+
+
+
+    double_embrayage = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Double embrayage")
+    )
+
+    double_embrayage_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantEmbrayage.choices,
+        default=FabricantEmbrayage.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
+    double_embrayage_quantite = models.PositiveIntegerField(
         default=1,
         verbose_name=_("Quantité")
     )
 
-    auto_emb_embrayages_auto = models.CharField(
-        max_length=25,
-        choices=BoiteVitesseEtat.choices,
-        default=BoiteVitesseEtat.OK,
-        verbose_name=_("Embrayages automatiques")
-    )
-    auto_emb_embrayages_auto_prix = models.DecimalField(
+    double_embrayage_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    auto_emb_embrayages_auto_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
 
-    pompes_huile = models.CharField(
+    pompes_h = models.CharField(
         max_length=25,
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Pompes à huile")
     )
-    pompes_huile_prix = models.DecimalField(
+
+    pompes_h_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+    pompes_h_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    pompes_huile_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
 
     pompes_valves = models.CharField(
         max_length=25,
@@ -205,16 +227,17 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Valves de contrôle")
     )
+    pompes_valves_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
     pompes_valves_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    pompes_valves_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
 
     arbre_bte_torque = models.CharField(
         max_length=25,
@@ -222,16 +245,19 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Arbre de couple")
     )
+
+    arbre_bte_torque_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
     arbre_bte_torque_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    arbre_bte_torque_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
+
 
     arbre_bte_secondaire_auto = models.CharField(
         max_length=25,
@@ -239,15 +265,17 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Arbre secondaire")
     )
+
+    arbre_bte_secondaire_auto_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
     arbre_bte_secondaire_auto_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
-    )
-    arbre_bte_secondaire_auto_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
     )
 
     roulement_auto = models.CharField(
@@ -256,16 +284,21 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Roulements internes")
     )
+
+
+
+    roulement_auto_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
     roulement_auto_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    roulement_auto_quantite = models.PositiveIntegerField(
-        default=1,
-        verbose_name=_("Quantité")
-    )
+
     huile_bte_auto_vitesse = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
                                           verbose_name=_("Huile de boite de vitesse"))
 
