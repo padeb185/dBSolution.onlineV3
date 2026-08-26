@@ -60,73 +60,214 @@
 
 </div>
 
+<!-- 🔎 Recherche Fuel -->
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="flex flex-wrap items-end gap-3">
 
+        <!-- Immatriculation -->
+        <input id="search-voiture"
+               type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Voiture' %}">
+
+        <!-- Kilométrage -->
+        <input id="search-immatriculation"
+               type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Immatriculation' %}">
+
+        <!-- Litres -->
+        <input id="search-litres"
+               type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Litres' %}">
+
+        <!-- Prix / litre -->
+        <input id="search-prix-litre"
+               type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Prix / L' %}">
+
+        <!-- Pays -->
+        <input id="search-pays"
+               type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Pays' %}">
+
+        <!-- Date -->
+        <input id="search-date"
+               type="date"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+    </div>
+</div>
 
 <!-- 🚗 Par voiture -->
-<h2 class="text-xl font-semibold mb-3">{% trans "Par voiture" %}</h2>
+<h2 class="text-xl font-semibold mb-3">
+    {% trans "Par voiture" %}
+</h2>
 
-<table class="min-w-full table-auto border-collapse border border-gray-200 bg-white mb-8">
+<table  id="fuel-table"
+       class="min-w-full table-auto border-collapse border border-gray-200 bg-white mb-8">
+
     <thead>
         <tr class="bg-gray-100">
-            <th class="border px-4 py-2">{% trans "Voiture" %}</th>
-            <th class="border px-4 py-2">{% trans "Immatriculation" %}</th>
-            <th class="border px-4 py-2 text-center">{% trans "Pleins" %}</th>
-            <th class="border px-4 py-2 text-center">{% trans "Litres" %}</th>
-            <th class="border px-4 py-2 text-center">{% trans "Coût total" %}</th>
-            <th class="border px-4 py-2 text-center">{% trans "Prix moyen / L" %}</th>
+
+            <th class="border px-4 py-2 cursor-pointer select-none"
+                data-column="0"
+                data-type="text">
+                {% trans "Voiture" %}
+                <span class="sort-icon"></span>
+            </th>
+
+            <th class="border px-4 py-2 cursor-pointer select-none"
+                data-column="1"
+                data-type="text">
+                {% trans "Immatriculation" %}
+
+            </th>
+
+            <th class="border px-4 py-2 text-center cursor-pointer select-none"
+                data-column="2"
+                data-type="number">
+                {% trans "Pleins" %}
+
+            </th>
+
+            <th class="border px-4 py-2 text-center cursor-pointer select-none"
+                data-column="3"
+                data-type="number">
+                {% trans "Litres" %}
+
+            </th>
+
+            <th class="border px-4 py-2 text-center cursor-pointer select-none"
+                data-column="4"
+                data-type="number">
+                {% trans "Coût total" %}
+
+            </th>
+
+            <th class="border px-4 py-2 text-center cursor-pointer select-none"
+                data-column="5"
+                data-type="number">
+                {% trans "Prix moyen / L" %}
+
+            </th>
+
         </tr>
     </thead>
+
     <tbody>
         {% for v in par_voiture %}
         <tr>
-         <td class="border px-4 py-2">
-            {{ v.voiture_exemplaire__voiture_modele__voiture_marque__nom_marque }}
-            {{ v.voiture_exemplaire__voiture_modele__nom_modele }}
-            {{ v.voiture_exemplaire__voiture_modele__nom_variante }}
-        </td>
 
-        <td class="border px-4 py-2">
-            {% with pays=v.voiture_exemplaire__pays imm=v.voiture_exemplaire__immatriculation %}
-                {% if pays == "Belgique" %}
-                    <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
-                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                            <span>🇪🇺</span><span>B</span>
-                        </div>
-                        <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">{{ imm|upper }}</div>
-                    </div>
-
-                {% elif pays == "Luxembourg" %}
-                    <div class="flex items-center w-[180px] h-[34px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
-                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                            <span>🇪🇺</span><span>L</span>
-                        </div>
-                        <div class="w-full text-center font-bold text-black text-[18px]">{{ imm|upper }}</div>
-                    </div>
-
-                {% elif pays == "Allemagne" %}
-                    <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-black rounded font-[Arial]">
-                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                            <span>🇪🇺</span><span>D</span>
-                        </div>
-                        <div class="w-full text-center font-bold text-black text-[18px]">{{ imm|upper }}</div>
-                    </div>
-
-                {% else %}
-                    {{ imm|upper }}
-                {% endif %}
-            {% endwith %}
+            <!-- Voiture -->
+            <td class="border px-4 py-2">
+                {{ v.voiture_exemplaire__voiture_modele__voiture_marque__nom_marque }}
+                {{ v.voiture_exemplaire__voiture_modele__nom_modele }}
+                {{ v.voiture_exemplaire__voiture_modele__nom_variante }}
             </td>
-            <td class="border px-4 py-2 text-center">{{ v.nb_pleins }}</td>
-            <td class="border px-4 py-2 text-center">{{ v.total_litres|floatformat:2 }}</td>
-            <td class="border px-4 py-2 text-center">{{ v.total_cout|floatformat:2 }} €</td>
-            <td class="border px-4 py-2 text-center">{{ v.prix_moyen_litre|floatformat:3 }} €</td>
+
+            <!-- Immatriculation -->
+            <td class="border px-4 py-2"
+                data-value="{{ v.voiture_exemplaire__immatriculation|default:'' }}">
+
+                {% with pays=v.voiture_exemplaire__pays imm=v.voiture_exemplaire__immatriculation %}
+
+                    {% if pays == "Belgique" %}
+
+                        <div class="flex items-center w-[160px] h-[32px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+
+                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                <span>🇪🇺</span>
+                                <span>B</span>
+                            </div>
+
+                            <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
+                                {{ imm|upper }}
+                            </div>
+
+                        </div>
+
+                    {% elif pays == "Luxembourg" %}
+
+                        <div class="flex items-center w-[160px] h-[32px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+
+                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                <span>🇪🇺</span>
+                                <span>L</span>
+                            </div>
+
+                            <div class="w-full text-center font-bold text-black text-[18px]">
+                                {{ imm|upper }}
+                            </div>
+
+                        </div>
+
+                    {% elif pays == "Allemagne" %}
+
+                        <div class="flex items-center w-[160px] h-[32px] bg-white border-2 border-black rounded font-[Arial]">
+
+                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                <span>🇪🇺</span>
+                                <span>D</span>
+                            </div>
+
+                            <div class="w-full text-center font-bold text-black text-[18px]">
+                                {{ imm|upper }}
+                            </div>
+
+                        </div>
+
+                    {% else %}
+
+                        {{ imm|upper }}
+
+                    {% endif %}
+
+                {% endwith %}
+
+            </td>
+
+            <!-- Pleins -->
+            <td class="border px-4 py-2 text-center"
+                data-value="{{ v.nb_pleins }}">
+                {{ v.nb_pleins }}
+            </td>
+
+            <!-- Litres -->
+            <td class="border px-4 py-2 text-center"
+                data-value="{{ v.total_litres }}">
+                {{ v.total_litres|floatformat:2 }}
+            </td>
+
+            <!-- Coût -->
+            <td class="border px-4 py-2 text-center"
+                data-value="{{ v.total_cout }}">
+                {{ v.total_cout|floatformat:2 }} €
+            </td>
+
+            <!-- Prix moyen -->
+            <td class="border px-4 py-2 text-center"
+                data-value="{{ v.prix_moyen_litre }}">
+                {{ v.prix_moyen_litre|floatformat:3 }} €
+            </td>
+
         </tr>
+
         {% empty %}
+
         <tr>
-            <td colspan="6" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
+            <td colspan="6"
+                class="border px-4 py-4 text-center">
+                {% trans "Aucune donnée" %}
+            </td>
         </tr>
+
         {% endfor %}
     </tbody>
+
 </table>
 
 <!-- 📅 Par mois -->
@@ -211,4 +352,69 @@
     {% endfor %}
 </div>
 <br>
+
+
+<script>
+$(document).ready(function() {
+
+    var table = $('#fuel-table').DataTable({
+        pageLength: 10,
+
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ véhicules' %}",
+            infoEmpty: "{% trans 'Aucun véhicule trouvé' %}",
+            zeroRecords: "{% trans 'Aucun véhicule trouvé' %}",
+
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+
+        // Tri initial sur le coût total, décroissant
+        order: [[4, "desc"]]
+    });
+
+
+    // Voiture
+    $('#search-voiture').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+
+
+    // Immatriculation
+    $('#search-immatriculation').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+
+
+    // Pleins
+    $('#search-pleins').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+
+
+    // Litres
+    $('#search-litres').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+
+
+    // Coût total
+    $('#search-cout').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+
+
+    // Prix moyen / L
+    $('#search-prix-litre').on('keyup', function () {
+        table.column(5).search(this.value).draw();
+    });
+
+});
+</script>
 {% endblock %}

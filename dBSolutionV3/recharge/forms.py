@@ -1,3 +1,7 @@
+from datetime import date
+
+from django.core.exceptions import ValidationError
+
 from django import forms
 from decimal import Decimal, ROUND_HALF_UP
 from .models import Electricite
@@ -6,6 +10,7 @@ from .models import Electricite
 class ElectriciteForm(forms.ModelForm):
     voiture_marque = forms.CharField(label="Marque", required=False, disabled=True)
     voiture_modele = forms.CharField(label="Modèle", required=False, disabled=True)
+
 
 
 
@@ -46,16 +51,24 @@ class ElectriciteForm(forms.ModelForm):
             "voiture_exemplaire",
             "immatriculation",
             "kilometrage_electricite",
+            "date_recharge",
             "type_carburant",
-            "date",
             "kW",
             "prix_recharge",
             "pays",
+
         ]
 
         widgets = {
             "voiture_exemplaire": forms.HiddenInput(),
             "date": forms.DateInput(attrs={"type": "date"}),
+
+            "date_recharge": forms.DateInput(
+                attrs={
+                    "type": "date",
+                },
+                format="%Y-%m-%d",
+            ),
         }
 
     def __init__(self, *args, **kwargs):
@@ -89,6 +102,17 @@ class ElectriciteForm(forms.ModelForm):
 
             self.fields["voiture_exemplaire"].initial = voiture.id
 
+        if self.instance and self.instance.pk:
+            # Modification : reprendre la date enregistrée
+            if self.instance.date_recharge:
+                self.fields["date_recharge"].initial = self.instance.date_recharge
+        else:
+            # Création : date du jour
+            self.fields["date_recharge"].initial = date.today()
+
+
+
+
     def clean(self):
         cleaned = super().clean()
 
@@ -102,6 +126,36 @@ class ElectriciteForm(forms.ModelForm):
                 pass
 
         return cleaned
+
+    def clean_kilometrage_electricite(self):
+        kilometrage_electricite = self.cleaned_data.get("kilometrage_electricite")
+
+        voiture = (
+            self.cleaned_data.get("voiture_exemplaire")
+            or getattr(self.instance, "voiture_exemplaire", None)
+        )
+
+        if kilometrage_electricite is None:
+            return kilometrage_electricite
+
+        if kilometrage_electricite < 0:
+            raise ValidationError(
+                "Le kilométrage ne peut pas être négatif."
+            )
+
+        if voiture:
+            kilometrage_actuel = voiture.kilometres_chassis or 0
+
+            if kilometrage_electricite < kilometrage_actuel:
+                raise ValidationError(
+                    "Le kilométrage ne peut pas être inférieur "
+                    f"au kilométrage actuel du véhicule "
+                    f"({kilometrage_actuel} km)."
+                )
+
+        return kilometrage_electricite
+
+
 
     def save(self, commit=True):
         instance = super().save(commit=False)

@@ -1,53 +1,33 @@
-from django.http import JsonResponse, request
-from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_GET
-from django.views.generic import ListView
 from django_tenants.utils import tenant_context
-from utilisateurs import mecanicien
 from .forms import FuelForm
-from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_modele.models import VoitureModele
-from fuel.models import Fuel
-from django.db.models import Count, Avg
 from django.db.models.functions import TruncYear
-from django.views.generic import TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Sum, Min, Max
-from django.db.models.functions import TruncMonth, ExtractYear
-from decimal import Decimal
+from django.shortcuts import get_object_or_404
+from voiture.voiture_exemplaire.models import VoitureExemplaire
+from django.contrib.auth.decorators import login_required
+from django.db import connection
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.generic import ListView
 from collections import defaultdict
-
-
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import never_cache
-from django.views.generic import ListView
-
-from .models import Fuel
-
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import never_cache
-from django.views.generic import ListView
+from decimal import Decimal
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Avg, Count, Max, Min, Sum
+from django.db.models.functions import ExtractYear, TruncMonth
+from django.views.generic import TemplateView
 
 from .models import Fuel
 
-from django.db import connection
 
 
-from django.contrib.auth.decorators import login_required
-from django.db import connection
-from django.db.models import Sum
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import never_cache
-from django.views.generic import ListView
 
-from .models import Fuel
+
 
 
 @method_decorator(login_required, name="dispatch")
@@ -449,15 +429,6 @@ def get_modeles(request):
 
 
 
-from collections import defaultdict
-from decimal import Decimal
-
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Avg, Count, Max, Min, Sum
-from django.db.models.functions import ExtractYear, TruncMonth
-from django.views.generic import TemplateView
-
-from .models import Fuel
 
 
 class FuelStatView(LoginRequiredMixin, TemplateView):
@@ -687,18 +658,21 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
                         total_km += km_parcourus
 
                         if fuel.date:
-                            mois = fuel.date.replace(day=1)
+                            mois = fuel.date.replace(
+                                day=1,
+                                hour=0,
+                                minute=0,
+                                second=0,
+                                microsecond=0,
+                            )
+
                             annee = fuel.date.year
 
                             stats_mois[mois]["litres"] += litres
-                            stats_mois[mois]["km"] += (
-                                km_parcourus
-                            )
+                            stats_mois[mois]["km"] += km_parcourus
 
                             stats_an[annee]["litres"] += litres
-                            stats_an[annee]["km"] += (
-                                km_parcourus
-                            )
+                            stats_an[annee]["km"] += km_parcourus
 
                 ancien_km = km_actuel
 
@@ -738,17 +712,7 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
 
 
 
-from decimal import Decimal
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Avg, Count, Max, Min, Sum
-from django.db.models.functions import TruncMonth, TruncYear
-from django.shortcuts import get_object_or_404
-from django.views.generic import TemplateView
-
-from voiture.voiture_exemplaire.models import VoitureExemplaire
-
-from .models import Fuel
 
 
 class FuelExemplaireStatView(LoginRequiredMixin, TemplateView):

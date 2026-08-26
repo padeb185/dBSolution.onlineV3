@@ -204,11 +204,13 @@ def modifier_electricite(request, electricite_id):
         if form.is_valid():
             recharge = form.save(commit=False)
 
-            # Garantir que la société et l’utilisateur ne changent pas.
             recharge.societe = societe
 
             if not recharge.utilisateur_id:
                 recharge.utilisateur = request.user
+
+            # Date introduite dans le formulaire
+            recharge.date_recharge = form.cleaned_data.get("date_recharge")
 
             recharge.save()
 

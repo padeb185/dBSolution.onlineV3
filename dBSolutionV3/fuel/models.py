@@ -3,6 +3,8 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.db.models import Sum
 from decimal import Decimal, ROUND_HALF_UP
+
+from recharge.models import RechargeCarburant
 from utilisateurs.models import Utilisateur
 from societe.models import Societe
 
