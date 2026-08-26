@@ -8,8 +8,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantLubrifiant, RefroidissementFabricant, \
     FabricantFrein, TypeHuileDirection, FabricantPiece, FabricantSuspension, AmpouleAutomobile, FabricantPneus, \
-    FabricantBatterie, FabricantAmpoule, TVAConfig
-from utilisateurs.models import Utilisateur
+    FabricantBatterie, FabricantAmpoule, TVAConfig, HuileEtat, HuileBoiteEtat, HuilePontEtat, RefroidissementQualiteEtat
 from django.conf import settings
 from utils.mixin import TechnicienMixin
 
@@ -18,11 +17,6 @@ from utils.mixin import TechnicienMixin
 # TextChoices
 # ---------------------------
 
-class NettoyageEtat(models.TextChoices):
-    A_FAIRE = "A_FAIRE", _("A faire")
-    FAIT = "FAIT", _("Fait")
-    REPORTER = "REPORTER", _("Reporter")
-    PROPRE = "PROPRE", _("Propre")
 
 class EtatAjouter(models.TextChoices):
     SANS = "SANS", _("Sans")
@@ -62,76 +56,10 @@ class NiveauxEtat(models.TextChoices):
     AJOUTER = "AJOUTER", _("Ajouter")
 
 
-class HuileEtat(models.TextChoices):
-    ZERO_16 = "0W16", _("0W16")
-    ZERO_20 = "0W20", _("0W20")
-    ZERO_30 = "0W30", _("0W30")
-    ZERO_40 = "0W40", _("0W40")
-    CINQ_20 = "5W20", _("5W20")
-    CINQ_30 = "5W30", _("5W30")
-    CINQ_40 = "5W40", _("5W40")
-    DIX_40 = "10W40", _("10W40")
-    DIX_50 = "10W50", _("10W50")
-    DIX_60 = "10W60", _("10W60")
-    QUINZE_40 = "15W40", _("15W40")
-    QUINZE_50 = "15W50", _("15W50")
-    VINGT_50 = "20W50", _("20W50")
-
-
-class HuileBoiteEtat(models.TextChoices):
-    SEPTANTE_CINQ = "75W", _("75W")
-    SEPTANTE_5_80 = "75W80", _("75W80")
-    SEPTANTE_CINQ90  = "75W90", _("75W90")
-    QUATRE_20 = "80W", "80W"
-    QUATRE_20_90 = "80W90", _("80W90")
-    QUATRE_25_90 = "85W90", _("85W90")
-    ATF3 = "ATF_III", _("ATF III")
-    ATF_DSG = "ATF_DSG", _("ATF DSG")
-    ATF_DCT = "ATF_DCT", _("ATF DCT")
-    ATF_CVT = "ATF_CVT", _("ATF CVT")
-    ATF_DEXRON_II = "ATF_DEXRON_II", _("ATF Dexron II")
-    ATF_DEXRON_III = "ATF_DEXRON_III", _("ATF Dexron III")
-    ATF_DEXRON_VI = "ATF_DEXRON_VI", _("ATF Dexron VI")
-    ATF_MERCON = "ATF_MERCON", _("ATF Mercon")
-    ATF_MERCON_V = "ATF_MERCON_V", _("ATF Mercon V")
-    ATF_MERCON_LV = "ATF_MERCON_LV", _("ATF Mercon LV")
-    ATF_MULTI = "ATF_MULTI", _("ATF Multi Vehicle")
-    ATF_WS = "ATF_WS", _("ATF Toyota WS")
-    ATF_ZF_LIFEGUARD = "ATF_ZF_LIFEGUARD", _("ZF Lifeguard")
-    ATF_MOPAR = "ATF_MOPAR", _("Mopar ATF+4")
-    ATF_AISIN = "ATF_AISIN", _("Aisin ATF")
-    ATF_MBV236 = "ATF_MBV236", _("Mercedes MB 236.x")
-    ATF_VOLVO = "ATF_VOLVO", _("Volvo ATF")
-    ATF_HONDA = "ATF_HONDA", _("Honda ATF DW-1")
-    ATF_NISSAN = "ATF_NISSAN", _("Nissan Matic")
-    Huile_PDK_FFL_3 = "PDK_FFL-3", _("PDK FFL 3")
-
-class HuilePontEtat(models.TextChoices):
-    SEPTANTE_CINQ80 = "75W80", _("75W80")
-    SEPTANTE_CINQ85 = "75W85", _("75W85")
-    SEPTANTE_CINQ90 = "75W90", _("75W90")
-    SEPTANTE_CINQ110 = "75W110", _("75W110")
-    SEPTANTE_CINQ140 = "75W140", _("75W140")
-
-    QUATRE_VINGT90 = "80W90", _("80W90")
-    QUATRE_VINGT140 = "80W140", _("80W140")
-
-    QUATRE_VINGT_CINQ90 = "85W90", _("85W90")
-    QUATRE_VINGT_CINQ140 = "85W140", _("85W140")
-
-    SAE90 = "SAE90", _("SAE 90")
-    SAE140 = "SAE140", _("SAE 140")
-
-    PORSCHE_75W90 = "PORSCHE_75W90", _("Porsche 75W90")
-    PORSCHE_75W140 = "PORSCHE_75W140", _("Porsche 75W140")
-
-    AUTRE = "AUTRE", _("Autre")
-    INCONNUE = "INCONNUE", _("Huile inconnue")
-
-
 class RefroidissementEtat(models.TextChoices):
     OK = "OK", _("OK")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
+    AJOUTER = "AJOUTER", _("Ajouter")
     REMPLACE = "REMPLACE", _("Remplacé")
 
 
@@ -140,47 +68,6 @@ class PneuEtat(models.TextChoices):
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
 
-class RefroidissementQualiteEtat(models.TextChoices):
-    # Volkswagen Group
-    G11 = "G11", _("G 11")
-    G12 = "G12", _("G 12")
-    G12_PLUS = "G12_PLUS", _("G 12+")
-    G12_PLUS_PLUS = "G12_PLUS_PLUS", _("G 12++")
-    G13 = "G13", _("G 13")
-
-    # BMW
-    G48 = "G48", _("G 48")
-
-    # Mercedes-Benz
-    MB_325_0 = "MB_325_0", _("MB 325.0")
-    MB_325_3 = "MB_325_3", _("MB 325.3")
-    MB_325_5 = "MB_325_5", _("MB 325.5")
-
-    # Renault / Dacia
-    TYPE_D = "TYPE_D", _("Type D")
-
-    # PSA (Peugeot / Citroën)
-    PSA_B71_5110 = "PSA_B71_5110", _("PSA B71 5110")
-
-    # Ford
-    WSS_M97B44_D = "WSS_M97B44_D", _("WSS-M97B44-D")
-    WSS_M97B51_A1 = "WSS_M97B51_A1", _("WSS-M97B51-A1")
-
-    # General Motors
-    DEX_COOL = "DEX_COOL", _("Dex-Cool")
-
-    # Toyota / Lexus
-    TOYOTA_SLLC = "TOYOTA_SLLC", _("Toyota SLLC")
-
-    # Honda
-    HONDA_TYPE_2 = "HONDA_TYPE_2", _("Honda Type 2")
-
-    # Nissan
-    NISSAN_L248 = "NISSAN_L248", _("Nissan L248")
-    NISSAN_L250 = "NISSAN_L250", _("Nissan L250")
-
-    # Hyundai / Kia
-    HYUNDAI_KIA_LLC = "HYUNDAI_KIA_LLC", _("Hyundai/Kia Long Life Coolant")
 
 class QualiteLiquideFrein(models.TextChoices):
     DOT3 = "DOT3", _("DOT 3")
@@ -307,11 +194,17 @@ class Checkup(TechnicienMixin, models.Model):
 
     # --- Refroidissement ---
 
-    refroidissement_radiateur = models.CharField(max_length=25, choices=RefroidissementEtat.choices, default=RefroidissementEtat.OK, verbose_name=_("Radiateur"))
-    refroidissement_fabricant = models.CharField(max_length=25, choices=RefroidissementFabricant.choices,default=RefroidissementFabricant.CHOISIR,verbose_name=_("Fabricant"))
-    refroidissement_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1,  verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
-    refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13, verbose_name=_("Qualité de liquide"))
-    refroidissement_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    refroidissement_radiateur = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Radiateur"))
+    refroidissement_radiateur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR,verbose_name=_("Fabricant"))
+    refroidissement_radiateur_quantite = models.PositiveIntegerField(default=0,verbose_name=_("Quantité"))
+    refroidissement_radiateur_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+
+
+    refroidissement_liquide = models.CharField(max_length=25, choices=RefroidissementEtat.choices, default=RefroidissementEtat.OK, verbose_name=_("Liquide de refroidissement "))
+    refroidissement_liquide_fabricant = models.CharField(max_length=25, choices=RefroidissementFabricant.choices,default=RefroidissementFabricant.CHOISIR,verbose_name=_("Fabricant"))
+    refroidissement_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1,  verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
+    refroidissement_liquide_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13, verbose_name=_("Qualité de liquide"))
+    refroidissement_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
 
     # --- Freins ---
 

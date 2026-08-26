@@ -589,26 +589,128 @@
 <h2>{% trans "Refroidissement" %}</h2>
 
 <table class="table-2-cols">
-    <tr><th>{% trans "Élément" %}</th><th>{% trans "Valeur" %}</th></tr>
+    <tr>
+        <th>{% trans "Élément" %}</th>
+        <th>{% trans "Valeur" %}</th>
+    </tr>
+
+    <!-- ========================= -->
+    <!-- RADIATEUR -->
+    <!-- ========================= -->
 
     <tr>
         <td>{% trans "Radiateur" %}</td>
         <td>
             {% if checkup.refroidissement_radiateur == "OK" %}
-                <span class="etat-vert">{{ checkup.get_refroidissement_radiateur_display }}</span>
+                <span class="etat-vert">
+                    {{ checkup.get_refroidissement_radiateur_display }}
+                </span>
+
             {% elif checkup.refroidissement_radiateur == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_refroidissement_radiateur_display }}</span>
+                <span class="etat-rouge">
+                    {{ checkup.get_refroidissement_radiateur_display }}
+                </span>
+
             {% elif checkup.refroidissement_radiateur == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_refroidissement_radiateur_display }}</span>
+                <span class="etat-bleu">
+                    {{ checkup.get_refroidissement_radiateur_display }}
+                </span>
+
             {% else %}
-                <span class="etat-gris">{{ checkup.get_refroidissement_radiateur_display|default:"-" }}</span>
+                <span class="etat-gris">
+                    {{ checkup.get_refroidissement_radiateur_display|default:"-" }}
+                </span>
             {% endif %}
         </td>
     </tr>
 
-    <tr><td>{% trans "Quantité ajoutée" %}</td><td>{{ checkup.refroidissement_quantite }} L</td></tr>
-    <tr><td>{% trans "Qualité du liquide" %}</td><td>{{ checkup.get_refroidissement_qualite_display }}</td></tr>
+    <tr>
+        <td>{% trans "Fabricant du radiateur" %}</td>
+        <td>
+            {{ checkup.get_refroidissement_radiateur_fabricant_display|default:"-" }}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Quantité" %}</td>
+        <td>
+            {{ checkup.refroidissement_radiateur_quantite|default:0 }}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Prix d'achat HTVA" %}</td>
+        <td>
+            {{ checkup.refroidissement_radiateur_prix|default:0|floatformat:2 }} €
+        </td>
+    </tr>
+
+
+    <!-- ========================= -->
+    <!-- LIQUIDE DE REFROIDISSEMENT -->
+    <!-- ========================= -->
+
+    <tr>
+        <td>{% trans "Liquide de refroidissement" %}</td>
+        <td>
+            {% if checkup.refroidissement_liquide == "OK" %}
+                <span class="etat-vert">
+                    {{ checkup.get_refroidissement_liquide_display }}
+                </span>
+
+            {% elif checkup.refroidissement_liquide == "A_REMPLACER" %}
+                <span class="etat-rouge">
+                    {{ checkup.get_refroidissement_liquide_display }}
+                </span>
+
+            {% elif checkup.refroidissement_liquide == "REMPLACE" %}
+                <span class="etat-bleu">
+                    {{ checkup.get_refroidissement_liquide_display }}
+                </span>
+
+            {% elif checkup.refroidissement_liquide == "AJOUTER" %}
+                <span class="etat-bleu">
+                    {{ checkup.get_refroidissement_liquide_display }}
+                </span>
+
+            {% else %}
+                <span class="etat-gris">
+                    {{ checkup.get_refroidissement_liquide_display|default:"-" }}
+                </span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Quantité ajoutée" %}</td>
+        <td>
+            {{ checkup.refroidissement_liquide_quantite|default:0|floatformat:1 }} L
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Qualité du liquide" %}</td>
+        <td>
+            {{ checkup.get_refroidissement_liquide_qualite_display|default:"-" }}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Fabricant" %}</td>
+        <td>
+            {{ checkup.get_refroidissement_liquide_fabricant_display|default:"-" }}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Prix d'achat HTVA" %}</td>
+        <td>
+            {{ checkup.refroidissement_liquide_prix|default:0|floatformat:2 }} €
+        </td>
+    </tr>
+
 </table>
+
 
 <h2>{% trans "Freins" %}</h2>
 
@@ -985,14 +1087,14 @@
         <tr>
             <td>{% trans "Fabricant" %}</td>
             <td>
-                {{ checkup.direction_liquide_fabricant }}
+                {{ checkup.get_direction_liquide_fabricant_display }}
             </td>
         </tr>
 
         <tr>
             <td>{% trans "Qualité de liquide de frein" %}</td>
             <td>
-                {{ checkup.direction_liquide_qualite }}
+                {{ checkup.get_direction_liquide_qualite_display }}
             </td>
         </tr>
          <tr>
