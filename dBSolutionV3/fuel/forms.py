@@ -1,3 +1,4 @@
+from datetime import date
 from decimal import Decimal
 from django import forms
 from django.core.exceptions import ValidationError
@@ -136,11 +137,11 @@ class FuelForm(forms.ModelForm):
                 }
             ),
 
-            "date": forms.DateInput(
+              "date_recharge": forms.DateInput(
                 attrs={
                     "type": "date",
-                    "class": "border rounded px-3 py-2 w-full text-sm",
-                }
+                },
+                format="%Y-%m-%d",
             ),
         }
 
@@ -193,6 +194,14 @@ class FuelForm(forms.ModelForm):
                 self.fields["taille_reservoir_display"].initial = (
                     modele.taille_reservoir or 0
                 )
+
+        if self.instance and self.instance.pk:
+            # Modification : reprendre la date enregistrée
+            if self.instance.date:
+                self.fields["date"].initial = self.instance.date
+        else:
+            # Création : date du jour
+            self.fields["date"].initial = date.today()
 
     def clean_kilometrage_fuel(self):
         kilometrage_fuel = self.cleaned_data.get("kilometrage_fuel")
