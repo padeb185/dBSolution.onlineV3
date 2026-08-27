@@ -6,11 +6,23 @@
     <meta charset="utf-8">
 
     <style>
+        @page {
+            size: A4 portrait;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
         body {
             font-family: Arial, sans-serif;
             font-size: 12px;
             color: #111;
         }
+
 
         h1 {
             font-size: 20px;
@@ -198,36 +210,27 @@
             max-width: 200px;
             max-height: 200px;
         }
-      .rapport-pieces-table {
+             .rapport-pieces-table {
             width: 100%;
             table-layout: fixed;
             border-collapse: collapse;
             font-size: 10px;
+
+            page-break-inside: auto;
+            break-inside: auto;
         }
 
-        /* Largeurs réelles des six colonnes */
-        .rapport-pieces-table .col-produit {
-            width: 25%;
+        .rapport-pieces-table thead {
+            display: table-header-group;
         }
 
-        .rapport-pieces-table .col-etat {
-            width: 12%;
+        .rapport-pieces-table tbody {
+            display: table-row-group;
         }
 
-        .rapport-pieces-table .col-fabricant {
-            width: 15%;
-        }
-
-        .rapport-pieces-table .col-quantite {
-            width: 10%;
-        }
-
-        .rapport-pieces-table .col-prix {
-            width: 20%;
-        }
-
-        .rapport-pieces-table .col-total {
-            width: 18%;
+        .rapport-pieces-table tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
         }
 
         .rapport-pieces-table th,
@@ -236,6 +239,9 @@
             padding: 5px;
             vertical-align: middle;
             overflow-wrap: anywhere;
+
+            page-break-inside: avoid;
+            break-inside: avoid;
         }
 
         /* Colonnes numériques */
@@ -282,6 +288,90 @@
             color: #666;
             text-align: center;
         }
+
+         /* ==================================================
+           GESTION DES COUPURES DE PAGE
+           ================================================== */
+
+        /*
+         * Évite qu'un titre se retrouve seul
+         * en bas d'une page.
+         */
+        h1,
+        h2 {
+            page-break-after: avoid;
+            break-after: avoid;
+        }
+
+        /*
+         * Les blocs courts restent ensemble si possible.
+         */
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        /*
+         * Autorise les grands tableaux à continuer
+         * sur la page A4 suivante.
+         */
+        table,
+        .rapport-pieces-table {
+            page-break-inside: auto;
+            break-inside: auto;
+        }
+
+        /*
+         * Une ligne de tableau ne doit pas être
+         * coupée entre deux pages.
+         */
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        /*
+         * Répète automatiquement l'en-tête du tableau
+         * lorsqu'il continue sur une nouvelle page.
+         */
+        thead {
+            display: table-header-group;
+        }
+
+        /*
+         * Gestion correcte des pieds de tableaux.
+         */
+        tfoot {
+            display: table-footer-group;
+        }
+
+        /*
+         * Évite certaines coupures incorrectes
+         * dans les cellules.
+         */
+        th,
+        td {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        /*
+         * Le total général reste sur une seule page.
+         */
+        .total-general {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        /*
+         * Évite de séparer le footer.
+         */
+        .footer {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
     </style>
 </head>
 
