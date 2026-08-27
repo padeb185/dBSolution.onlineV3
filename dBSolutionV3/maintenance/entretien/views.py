@@ -411,25 +411,36 @@ def modifier_entretien_view(request, entretien_id):
     # =========================
     # RÉCUPÉRATION ENTRETIEN
     # =========================
-
     entretien = get_object_or_404(
         Entretien.objects.select_related(
-            "voiture_exemplaire"
+            "voiture_exemplaire",
+            "maintenance",
+            "tech_societe",
+            "tech_technicien",
         ),
         id=entretien_id,
-        societe=tenant,
     )
 
-    exemplaire = entretien.voiture_exemplaire
+    # =========================
+    # VÉHICULE
+    # =========================
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=entretien.voiture_exemplaire_id
+    )
 
-    # IMPORTANT :
-    # kilométrage historique AVANT cet entretien
+    # =========================
+    # KILOMÉTRAGE DE RÉFÉRENCE
+    # =========================
+    # Kilométrage historique avant cet entretien
     km_reference = entretien.kilometres_chassis or 0
 
     # =========================
     # POST
     # =========================
-
     if request.method == "POST":
 
         form = EntretienForm(
@@ -449,9 +460,8 @@ def modifier_entretien_view(request, entretien_id):
                 km_entretien = int(km_entretien)
 
             # =========================
-            # VALIDATION
+            # VALIDATION KILOMÉTRAGE
             # =========================
-
             if (
                 km_entretien is not None
                 and km_entretien < km_reference
@@ -482,13 +492,22 @@ def modifier_entretien_view(request, entretien_id):
                         # =========================
                         # ENTRETIEN
                         # =========================
-
                         entretien_modifie = form.save(
                             commit=False
                         )
 
-                        # IMPORTANT :
-                        # on conserve le kilométrage historique
+                        # Conserver les relations
+                        entretien_modifie.voiture_exemplaire = (
+                            exemplaire
+                        )
+
+                        # On peut corriger la société
+                        # pour les anciens entretiens
+                        entretien_modifie.societe = tenant
+
+                        # =========================
+                        # KILOMÉTRAGE HISTORIQUE
+                        # =========================
                         entretien_modifie.kilometres_chassis = (
                             km_reference
                         )
@@ -497,14 +516,29 @@ def modifier_entretien_view(request, entretien_id):
                             km_entretien
                         )
 
-                        # Calcul dynamique
+                        # =========================
+                        # VARIATION
+                        # =========================
                         if km_entretien is not None:
+
                             entretien_modifie.kilometrage_variation = (
                                 km_entretien - km_reference
                             )
+
                         else:
+
                             entretien_modifie.kilometrage_variation = 0
 
+                        # =========================
+                        # TECHNICIEN
+                        # =========================
+                        entretien_modifie.assign_technicien(
+                            request.user
+                        )
+
+                        # =========================
+                        # SAUVEGARDE ENTRETIEN
+                        # =========================
                         entretien_modifie.save()
 
                         form.save_m2m()
@@ -512,13 +546,15 @@ def modifier_entretien_view(request, entretien_id):
                         # =========================
                         # MISE À JOUR DU VÉHICULE
                         # =========================
+                        kilometrage_actuel = (
+                            exemplaire.kilometres_chassis or 0
+                        )
 
-                        # On ne diminue JAMAIS le kilométrage
+                        # Ne jamais diminuer le kilométrage
                         # actuel du véhicule.
                         if (
                             km_entretien is not None
-                            and km_entretien >
-                            (exemplaire.kilometres_chassis or 0)
+                            and km_entretien > kilometrage_actuel
                         ):
 
                             exemplaire.kilometres_chassis = (
@@ -536,19 +572,19 @@ def modifier_entretien_view(request, entretien_id):
                         # =========================
                         # MAINTENANCE ASSOCIÉE
                         # =========================
+                        maintenance = entretien_modifie.maintenance
 
-                        if entretien_modifie.maintenance:
+                        if maintenance:
 
-                            maintenance = (
-                                entretien_modifie.maintenance
+                            maintenance_km = (
+                                maintenance.kilometres_chassis or 0
                             )
 
-                            # Ne mettre à jour que si supérieur
                             if (
                                 km_entretien is not None
-                                and km_entretien >
-                                (maintenance.kilometres_chassis or 0)
+                                and km_entretien > maintenance_km
                             ):
+
                                 maintenance.kilometres_chassis = (
                                     km_entretien
                                 )
@@ -562,7 +598,6 @@ def modifier_entretien_view(request, entretien_id):
                         # =========================
                         # LOG
                         # =========================
-
                         UserLog.objects.create(
                             utilisateur=request.user,
                             action=_(
@@ -574,6 +609,9 @@ def modifier_entretien_view(request, entretien_id):
                             }
                         )
 
+                    # =========================
+                    # SUCCÈS
+                    # =========================
                     messages.success(
                         request,
                         _("Entretien modifié avec succès !")
@@ -585,6 +623,9 @@ def modifier_entretien_view(request, entretien_id):
                     )
 
                 except Exception as e:
+
+                    import traceback
+                    traceback.print_exc()
 
                     messages.error(
                         request,
@@ -606,7 +647,6 @@ def modifier_entretien_view(request, entretien_id):
     # =========================
     # GET
     # =========================
-
     else:
 
         form = EntretienForm(
@@ -615,6 +655,9 @@ def modifier_entretien_view(request, entretien_id):
             exemplaire=exemplaire,
         )
 
+    # =========================
+    # TEMPLATE
+    # =========================
     return render(
         request,
         "entretien/modifier_entretien.html",
@@ -622,8 +665,6 @@ def modifier_entretien_view(request, entretien_id):
             "form": form,
             "entretien": entretien,
             "exemplaire": exemplaire,
-
-            # référence envoyée au JavaScript
             "km_reference": km_reference,
         }
     )
