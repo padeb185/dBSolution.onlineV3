@@ -42,7 +42,137 @@
         </div>
     {% endif %}
 
-     <form method="post" class="flex flex-col space-y-4">
+<style>
+    #kilometrage-popup {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background-color: rgba(0, 0, 0, 0.45);
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    #kilometrage-popup.popup-visible {
+        display: flex;
+    }
+
+    .kilometrage-popup-box {
+        width: 100%;
+        max-width: 520px;
+        background-color: #fee2e2;
+        border: 1px solid #fca5a5;
+        border-radius: 10px;
+        padding: 24px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.20);
+    }
+
+    .kilometrage-popup-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #374151;
+        margin-bottom: 16px;
+    }
+
+    .kilometrage-popup-text {
+        color: #4b5563;
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .kilometrage-popup-variation {
+        font-weight: 700;
+        color: #991b1b;
+    }
+
+    .kilometrage-popup-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 22px;
+    }
+
+    .kilometrage-popup-button {
+        border: none;
+        border-radius: 6px;
+        padding: 9px 18px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .kilometrage-popup-annuler {
+        background-color: #d1d5db;
+        color: #374151;
+    }
+
+    .kilometrage-popup-annuler:hover {
+        background-color: #9ca3af;
+        color: #111827;
+    }
+
+    .kilometrage-popup-confirmer {
+        background-color: #991b1b;;
+        color: white;
+    }
+
+    .kilometrage-popup-confirmer:hover {
+        background-color: #7f1d1d;
+    }
+</style>
+
+
+
+<div id="kilometrage-popup">
+
+    <div class="kilometrage-popup-box">
+
+        <h3 class="kilometrage-popup-title">
+            {% trans "Confirmer le kilométrage" %}
+        </h3>
+
+        <p class="kilometrage-popup-text">
+            {% trans "La variation du kilométrage est de" %}
+            <span class="kilometrage-popup-variation">
+                <span id="popup-variation">0</span> km
+            </span>.
+        </p>
+
+        <p class="kilometrage-popup-text">
+            {% trans "Cette variation est supérieure à 2 000 km. Voulez-vous vraiment enregistrer ce kilométrage ?" %}
+        </p>
+
+        <div class="kilometrage-popup-buttons">
+
+            <button
+                type="button"
+                id="popup-annuler"
+                class="kilometrage-popup-button kilometrage-popup-annuler"
+            >
+                {% trans "Annuler" %}
+            </button>
+
+            <button
+                type="button"
+                id="popup-confirmer"
+                class="kilometrage-popup-button kilometrage-popup-confirmer"
+            >
+                {% trans "Confirmer" %}
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- FORMULAIRE -->
+<!-- ========================= -->
+
+    <form method="post" id="fuel-form" class="space-y-4">
         {% csrf_token %}
 
 
@@ -117,145 +247,507 @@ function getCookie(name) {
 
 const csrftoken = getCookie('csrftoken');
 
-
-
 document.addEventListener("DOMContentLoaded", function () {
-    const immatriculationInput = document.getElementById(
-        "id_immatriculation"
-    );
 
-    const voitureInput = document.getElementById(
-        "id_voiture_exemplaire"
-    );
+    // ============================================================
+    // ELEMENTS
+    // ============================================================
 
-    const kilometresInput = document.getElementById(
-        "id_kilometres_chassis"
-    );
+    const form = document.getElementById("fuel-form");
 
-    const marqueInput = document.getElementById(
-        "id_voiture_marque"
-    );
+    const immatInput = document.getElementById("id_immatriculation");
+    const voitureExemplaire = document.getElementById("id_voiture_exemplaire");
 
-    const modeleInput = document.getElementById(
-        "id_voiture_modele"
-    );
+    const marqueInput = document.getElementById("id_voiture_marque");
+    const modeleInput = document.getElementById("id_voiture_modele");
+    const reservoirInput = document.getElementById("id_taille_reservoir_display");
 
-    const volumeInput = document.getElementById(
-        "id_taille_reservoir_display"
-    );
+    const kmChassis = document.getElementById("id_kilometres_chassis");
+    const kmFuel = document.getElementById("id_kilometrage_fuel");
+    const kmVariation = document.getElementById("id_kilometrage_variation");
 
-    const ajaxUrl = "{% url 'fuel:check_immatriculation' %}";
+    const popup = document.getElementById("kilometrage-popup");
+    const popupVariation = document.getElementById("popup-variation");
 
-    let timerRecherche = null;
+    const boutonAnnuler = document.getElementById("popup-annuler");
+    const boutonConfirmer = document.getElementById("popup-confirmer");
 
-    function remplirChamp(champ, valeur) {
-        if (champ) {
-            champ.value = valeur ?? "";
+    let variationConfirmee = false;
+
+
+    // ============================================================
+    // CALCUL VARIATION
+    // ============================================================
+
+    function calculerVariation() {
+
+        if (!kmChassis || !kmFuel || !kmVariation) {
+            return;
+        }
+
+        const chassis = parseInt(kmChassis.value, 10);
+        const fuel = parseInt(kmFuel.value, 10);
+
+        if (
+            Number.isNaN(chassis) ||
+            Number.isNaN(fuel)
+        ) {
+            kmVariation.value = "";
+            variationConfirmee = false;
+            return;
+        }
+
+        const variation = fuel - chassis;
+
+        kmVariation.value = variation;
+
+        // Toute modification oblige à confirmer à nouveau
+        variationConfirmee = false;
+
+        console.log("KM châssis :", chassis);
+        console.log("KM fuel :", fuel);
+        console.log("Variation :", variation);
+    }
+
+
+    // ============================================================
+    // POPUP
+    // ============================================================
+
+    function ouvrirPopup(variation) {
+
+        if (!popup || !popupVariation) {
+            return;
+        }
+
+        popupVariation.textContent =
+            variation.toLocaleString(
+                "{{ LANGUAGE_CODE|default:'fr' }}"
+            );
+
+        popup.classList.add("popup-visible");
+
+        if (boutonConfirmer) {
+            boutonConfirmer.focus();
         }
     }
 
-    function viderInformationsVehicule() {
-        remplirChamp(voitureInput, "");
-        remplirChamp(kilometresInput, "");
-        remplirChamp(marqueInput, "");
-        remplirChamp(modeleInput, "");
-        remplirChamp(volumeInput, "");
+
+    function fermerPopup() {
+
+        if (popup) {
+            popup.classList.remove("popup-visible");
+        }
     }
 
-    async function rechercherVehicule(immatriculation) {
-        try {
-            const url = new URL(
-                ajaxUrl,
-                window.location.origin
-            );
 
-            url.searchParams.set(
-                "immatriculation",
-                immatriculation
-            );
+    // ============================================================
+    // IMMATRICULATION
+    // ============================================================
 
-            const response = await fetch(url.toString(), {
-                method: "GET",
-                headers: {
-                    "X-Requested-With": "XMLHttpRequest"
+    if (immatInput) {
+
+        immatInput.addEventListener("input", function () {
+
+            const value = this.value.trim();
+
+            if (value.length < 2) {
+
+                if (voitureExemplaire) {
+                    voitureExemplaire.value = "";
                 }
-            });
 
-            const data = await response.json();
+                if (marqueInput) {
+                    marqueInput.value = "";
+                }
 
-            if (!response.ok || data.error) {
-                viderInformationsVehicule();
+                if (modeleInput) {
+                    modeleInput.value = "";
+                }
+
+                if (reservoirInput) {
+                    reservoirInput.value = "";
+                }
+
+                if (kmChassis) {
+                    kmChassis.value = "";
+                }
+
+                calculerVariation();
+
                 return;
             }
 
-            remplirChamp(
-                voitureInput,
-                data.id
-            );
+            fetch(
+                `/fuel/ajax/check-immatriculation/?immatriculation=${encodeURIComponent(value)}`
+            )
+                .then(response => {
 
-            remplirChamp(
-                kilometresInput,
-                data.kilometres_chassis
-            );
+                    if (!response.ok) {
+                        throw new Error(
+                            `Erreur HTTP ${response.status}`
+                        );
+                    }
 
-            remplirChamp(
-                marqueInput,
-                data.marque
-            );
+                    return response.json();
+                })
 
-            remplirChamp(
-                modeleInput,
-                data.modele
-            );
+                .then(data => {
 
-            remplirChamp(
-                volumeInput,
-                data.volume_max
-            );
+                    console.log("Véhicule reçu :", data);
 
-        } catch (error) {
-            console.error(
-                "Erreur lors de la recherche du véhicule :",
-                error
-            );
+                    if (!data.error) {
 
-            viderInformationsVehicule();
-        }
+                        if (voitureExemplaire) {
+                            voitureExemplaire.value = data.id || "";
+                        }
+
+                        if (marqueInput) {
+                            marqueInput.value = data.marque || "";
+                        }
+
+                        if (modeleInput) {
+                            modeleInput.value = data.modele || "";
+                        }
+
+                        if (reservoirInput) {
+                            reservoirInput.value = data.volume || "";
+                        }
+
+                        // IMPORTANT :
+                        // le endpoint AJAX doit renvoyer kilometres_chassis
+                        if (kmChassis) {
+                            kmChassis.value =
+                                data.kilometres_chassis ?? "";
+                        }
+
+                        calculerVariation();
+
+                    } else {
+
+                        if (voitureExemplaire) {
+                            voitureExemplaire.value = "";
+                        }
+
+                        if (marqueInput) {
+                            marqueInput.value = "";
+                        }
+
+                        if (modeleInput) {
+                            modeleInput.value = "";
+                        }
+
+                        if (reservoirInput) {
+                            reservoirInput.value = "";
+                        }
+
+                        if (kmChassis) {
+                            kmChassis.value = "";
+                        }
+
+                        calculerVariation();
+                    }
+                })
+
+                .catch(error => {
+                    console.error(
+                        "Erreur recherche immatriculation :",
+                        error
+                    );
+                });
+        });
     }
 
-    if (immatriculationInput) {
-        immatriculationInput.addEventListener(
+
+    // ============================================================
+    // AUTO-COMPLETION MARQUE
+    // ============================================================
+
+    if (marqueInput) {
+
+        marqueInput.addEventListener("input", function () {
+
+            const query = this.value.trim();
+
+            fetch(
+                `/fuel/ajax/get-marques/?q=${encodeURIComponent(query)}`
+            )
+                .then(response => response.json())
+
+                .then(data => {
+
+                    const list =
+                        document.getElementById("marque-list");
+
+                    if (!list) {
+                        return;
+                    }
+
+                    list.innerHTML = "";
+
+                    data.forEach(item => {
+
+                        const option =
+                            document.createElement("option");
+
+                        option.value = item;
+
+                        list.appendChild(option);
+                    });
+                })
+
+                .catch(error => {
+                    console.error(
+                        "Erreur marques :",
+                        error
+                    );
+                });
+        });
+    }
+
+
+    // ============================================================
+    // AUTO-COMPLETION MODELE
+    // ============================================================
+
+    if (modeleInput) {
+
+        modeleInput.addEventListener("input", function () {
+
+            const query = this.value.trim();
+
+            fetch(
+                `/fuel/ajax/get-modeles/?q=${encodeURIComponent(query)}`
+            )
+                .then(response => response.json())
+
+                .then(data => {
+
+                    const list =
+                        document.getElementById("modele-list");
+
+                    if (!list) {
+                        return;
+                    }
+
+                    list.innerHTML = "";
+
+                    data.forEach(item => {
+
+                        const option =
+                            document.createElement("option");
+
+                        option.value = item;
+
+                        list.appendChild(option);
+                    });
+                })
+
+                .catch(error => {
+                    console.error(
+                        "Erreur modèles :",
+                        error
+                    );
+                });
+        });
+    }
+
+
+    // ============================================================
+    // EVENEMENTS KILOMETRAGE
+    // ============================================================
+
+    if (kmChassis) {
+        kmChassis.addEventListener(
             "input",
-            function () {
-                const immatriculation = this.value
-                    .trim()
-                    .toUpperCase();
+            calculerVariation
+        );
+    }
 
-                clearTimeout(timerRecherche);
+    if (kmFuel) {
+        kmFuel.addEventListener(
+            "input",
+            calculerVariation
+        );
+    }
 
-                if (immatriculation.length < 2) {
-                    viderInformationsVehicule();
-                    return;
+
+    // ============================================================
+    // CONTROLE AVANT ENREGISTREMENT
+    // ============================================================
+
+    if (form) {
+
+        form.addEventListener("submit", function (event) {
+
+            // Déjà confirmé
+            if (variationConfirmee) {
+                return;
+            }
+
+            if (!kmChassis || !kmFuel) {
+                return;
+            }
+
+            const chassis =
+                parseInt(kmChassis.value, 10);
+
+            const fuel =
+                parseInt(kmFuel.value, 10);
+
+            if (
+                Number.isNaN(chassis) ||
+                Number.isNaN(fuel)
+            ) {
+                return;
+            }
+
+            // IMPORTANT :
+            // recalcul direct au moment du submit
+            const variation = fuel - chassis;
+
+            if (kmVariation) {
+                kmVariation.value = variation;
+            }
+
+            console.log(
+                "Submit - KM châssis :",
+                chassis
+            );
+
+            console.log(
+                "Submit - KM fuel :",
+                fuel
+            );
+
+            console.log(
+                "Submit - variation :",
+                variation
+            );
+
+            // ====================================================
+            // PLUS DE 2000 KM
+            // ====================================================
+
+            if (variation > 2000) {
+
+                event.preventDefault();
+
+                ouvrirPopup(variation);
+
+                return false;
+            }
+        });
+    }
+
+
+    // ============================================================
+    // ANNULER POPUP
+    // ============================================================
+
+    if (boutonAnnuler) {
+
+        boutonAnnuler.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                fermerPopup();
+
+                if (kmFuel) {
+                    kmFuel.focus();
                 }
-
-                timerRecherche = setTimeout(function () {
-                    rechercherVehicule(immatriculation);
-                }, 350);
             }
         );
-
-        /*
-         * Si le formulaire est réaffiché après une erreur,
-         * on recherche immédiatement le véhicule déjà saisi.
-         */
-        const valeurInitiale = immatriculationInput.value
-            .trim()
-            .toUpperCase();
-
-        if (valeurInitiale.length >= 2) {
-            rechercherVehicule(valeurInitiale);
-        }
     }
+
+
+    // ============================================================
+    // CONFIRMER POPUP
+    // ============================================================
+
+    if (boutonConfirmer) {
+
+        boutonConfirmer.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                variationConfirmee = true;
+
+                fermerPopup();
+
+                console.log(
+                    "Variation kilométrage confirmée"
+                );
+
+                if (form) {
+                    form.requestSubmit();
+                }
+            }
+        );
+    }
+
+
+    // ============================================================
+    // TOUCHE ESC
+    // ============================================================
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape" &&
+                popup &&
+                popup.classList.contains(
+                    "popup-visible"
+                )
+            ) {
+                fermerPopup();
+
+                if (kmFuel) {
+                    kmFuel.focus();
+                }
+            }
+        }
+    );
+
+
+    // ============================================================
+    // CLIC HORS POPUP
+    // ============================================================
+
+    if (popup) {
+
+        popup.addEventListener(
+            "click",
+            function (event) {
+
+                if (event.target === popup) {
+
+                    fermerPopup();
+
+                    if (kmFuel) {
+                        kmFuel.focus();
+                    }
+                }
+            }
+        );
+    }
+
+
+    // ============================================================
+    // CALCUL INITIAL
+    // ============================================================
+
+    calculerVariation();
+
 });
 </script>
+
+
+
 {% endblock %}

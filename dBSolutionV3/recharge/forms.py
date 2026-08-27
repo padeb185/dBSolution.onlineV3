@@ -5,11 +5,23 @@ from django.core.exceptions import ValidationError
 from django import forms
 from decimal import Decimal, ROUND_HALF_UP
 from .models import Electricite
+from django.utils.translation import gettext_lazy as _
 
 
 class ElectriciteForm(forms.ModelForm):
     voiture_marque = forms.CharField(label="Marque", required=False, disabled=True)
     voiture_modele = forms.CharField(label="Modèle", required=False, disabled=True)
+
+    kilometrage_variation = forms.IntegerField(
+        required=False,
+        label=_("Variation du kilométrage"),
+        widget=forms.NumberInput(
+            attrs={
+                "readonly": "readonly",
+                "class": "input",
+            }
+        ),
+    )
 
 
 
@@ -50,6 +62,7 @@ class ElectriciteForm(forms.ModelForm):
         fields = [
             "voiture_exemplaire",
             "immatriculation",
+            "kilometres_chassis",
             "kilometrage_electricite",
             "date_recharge",
             "type_carburant",
@@ -74,6 +87,25 @@ class ElectriciteForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.societe = kwargs.pop("societe", None)
         super().__init__(*args, **kwargs)
+
+        # =========================
+        # VARIATION KILOMÉTRAGE
+        # =========================
+        if "kilometrage_variation" in self.fields:
+
+            variation = 0
+
+            if (
+                    self.instance
+                    and self.instance.pk
+                    and self.instance.kilometrage_electricite is not None
+            ):
+                # À adapter suivant l'endroit où tu stockes
+                # le kilométrage précédent
+                variation = self.instance.kilometrage_variation or 0
+
+            self.fields["kilometrage_variation"].initial = variation
+
 
         voiture = None
 

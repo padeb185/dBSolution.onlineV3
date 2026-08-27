@@ -3,6 +3,8 @@ from decimal import Decimal
 from django import forms
 from django.core.exceptions import ValidationError
 from .models import Fuel
+from django.utils.translation import gettext_lazy as _
+
 
 
 
@@ -27,6 +29,17 @@ class FuelForm(forms.ModelForm):
         disabled=True,
         max_digits=10,
         decimal_places=2,
+    )
+
+    kilometrage_variation = forms.IntegerField(
+        required=False,
+        label=_("Variation du kilométrage"),
+        widget=forms.NumberInput(
+            attrs={
+                "readonly": "readonly",
+                "class": "input",
+            }
+        ),
     )
 
     TVA_PAYS = {
@@ -149,6 +162,24 @@ class FuelForm(forms.ModelForm):
         self.societe = kwargs.pop("societe", None)
 
         super().__init__(*args, **kwargs)
+
+        # =========================
+        # VARIATION KILOMÉTRAGE
+        # =========================
+        if "kilometrage_variation" in self.fields:
+
+            variation = 0
+
+            if (
+                    self.instance
+                    and self.instance.pk
+                    and self.instance.kilometrage_fuel is not None
+            ):
+                # À adapter suivant l'endroit où tu stockes
+                # le kilométrage précédent
+                variation = self.instance.kilometrage_variation or 0
+
+            self.fields["kilometrage_variation"].initial = variation
 
         voiture = None
 

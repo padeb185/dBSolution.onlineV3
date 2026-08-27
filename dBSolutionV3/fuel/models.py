@@ -123,6 +123,7 @@ class Fuel(models.Model):
     )
 
 
+
     immatriculation = models.CharField(
         max_length=20,
         verbose_name=_("Immatriculation"),
@@ -140,6 +141,12 @@ class Fuel(models.Model):
 
     kilometrage_fuel = models.IntegerField(
         _("Kilométrage au plein"),
+    )
+
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
     )
 
     nom_station = models.CharField(

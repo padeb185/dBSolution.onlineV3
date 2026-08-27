@@ -159,6 +159,11 @@ class Electricite(models.Model):
         null=True,
         blank=True
     )
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
 
     validation = models.BooleanField(default=True, verbose_name=_("Validation"))
 
