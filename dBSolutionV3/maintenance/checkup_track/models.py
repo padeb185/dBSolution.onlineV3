@@ -91,6 +91,15 @@ class LiquideFreinEtat(models.TextChoices):
     AJOUTER = "AJOUTER", _("Ajouté")
     A_REMPLACER = "A_REMPLACER", _("A remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
+
+
+class JeuEtat(models.TextChoices):
+    OK = "OK", _("OK")
+    JEU = "JEU", _("Petit Jeu")
+    A_REMPLACER = "A_REMPLACER", _("A remplacer")
+    REMPLACE = "REMPLACE", _("Remplacé")
+
+
 # ---------------------------
 # Modèle fusionné
 # ---------------------------
@@ -205,8 +214,8 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     freins_plaquettes_remplacer_av_usure = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avant (%)"))
     freins_plaquettes_remplacer_av_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Plaquettes avant à remplacer"))
-    freins_plaquettes_remplacer_av_quantite = models.PositiveIntegerField(default=0,  verbose_name=_("Quantité"))
     freins_plaquettes_remplacer_av_fabricant = models.CharField(max_length=25, choices=FabricantFrein.choices,default=FabricantFrein.CHOISIR,verbose_name=_("Fabricant"))
+    freins_plaquettes_remplacer_av_quantite = models.PositiveIntegerField(default=0,  verbose_name=_("Quantité"))
     freins_plaquettes_remplacer_av_qualite = models.CharField(max_length=25, choices=MatierePlaquetteFrein.choices, default=MatierePlaquetteFrein.CHOISIR,verbose_name=_("Matière des plaquettes"))
     freins_plaquettes_remplacer_av_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
 
@@ -251,7 +260,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
     freins_liquide_fuites = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fuite"))
     # --- Liquide ---
     freins_liquide_etat = models.CharField(max_length=25, choices=LiquideFreinEtat.choices, default=LiquideFreinEtat.OK, verbose_name=_("État liquide de frein"))
-    freins_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.CASTROL, verbose_name=_("Fabricant"))
+    freins_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.CHOISIR, verbose_name=_("Fabricant"))
     freins_liquide_qualite = models.CharField(max_length=100,choices=QualiteLiquideFrein.choices, default=QualiteLiquideFrein.DOT4, blank=True, verbose_name=_("Spécification liquide de frein"))
     freins_liquide_quantite =  models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
     freins_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
@@ -267,35 +276,35 @@ class CheckupTrack(TechnicienMixin, models.Model):
     # --- Bruits ---
     bruit_roulement_roue= models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bruit de roulement de roue"), blank=True, null=True)
 
-    jeu_roulement_roue = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu roulement de roue"))
+    jeu_roulement_roue = models.CharField(max_length=25, choices=JeuEtat.choices, default=JeuEtat.OK,verbose_name=_("Jeu roulement de roue"))
 
     # --- Jeux ---
 
-    jeu_rotule_direction_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeux rotules de direction"))
+    jeu_rotule_direction_avd = models.CharField(max_length=25, choices=JeuEtat.choices, default=JeuEtat.OK, verbose_name=_("Jeux rotules de direction"))
 
 
-    jeu_rotule_suspension = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux rotules de suspension"))
+    jeu_rotule_suspension = models.CharField(max_length=25, choices=JeuEtat.choices, default=JeuEtat.OK,verbose_name=_("Jeux rotules de suspension"))
 
 
-    jeu_biellette_bar_stab = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,    blank=True,
+    jeu_biellette_bar_stab = models.CharField(max_length=25, choices=JeuEtat.choices,default=JeuEtat.OK,    blank=True,
     null=True ,verbose_name=_("Jeu biellettes de barre stabilisatrice"))
 
-    jeu_barre_stabilisatrice = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu barre stabilisatrice"))
+    jeu_barre_stabilisatrice = models.CharField(max_length=25, choices=JeuEtat.choices,default=JeuEtat.OK, verbose_name=_("Jeu barre stabilisatrice"))
 
 
-    jeu_biellette_direction = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de direction"))
+    jeu_biellette_direction = models.CharField(max_length=25, choices=JeuEtat.choices,default=JeuEtat.OK, verbose_name=_("Jeu biellette de direction"))
 
-    jeu_cardan = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu des cardan"))
+    jeu_cardan = models.CharField(max_length=25, choices=JeuEtat.choices, default=JeuEtat.OK,verbose_name=_("Jeu des cardan"))
 
-    jeu_arbre = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu dans l'arbre de transmission"))
-
-
-    jeu_amortisseur = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu amortisseur"))
+    jeu_arbre = models.CharField(max_length=25, choices=JeuEtat.choices, default=JeuEtat.OK,verbose_name=_("Jeu dans l'arbre de transmission"))
 
 
-    jeu_triangle = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle"))
+    jeu_amortisseur = models.CharField(max_length=25, choices=JeuEtat.choices,default=JeuEtat.OK, verbose_name=_("Jeu amortisseur"))
 
-    jeu_multi_bras = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras"))
+
+    jeu_triangle = models.CharField(max_length=25, choices=JeuEtat.choices, default=JeuEtat.OK,verbose_name=_("Jeu triangle"))
+
+    jeu_multi_bras = models.CharField(max_length=25, choices=JeuEtat.choices, default=JeuEtat.OK,verbose_name=_("Jeu suspension multi-bras"))
 
 
     # phares#
