@@ -97,7 +97,8 @@
         <a href="{% if checkup_track.voiture_exemplaire %}
                    {% url 'checkup_track:checkup_track_list' checkup_track.voiture_exemplaire.id %}
                {% else %}# {% endif %}"
-            class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center"
+        >
             {% trans "Retour à la liste des checkups piste" %}
         </a>
     </div>

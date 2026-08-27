@@ -40,18 +40,6 @@ class FuelListView(ListView):
     def get_queryset(self):
         societe = self.request.user.societe
 
-        print("HOST :", self.request.get_host())
-        print("PATH :", self.request.path)
-        print(
-            "REQUEST TENANT :",
-            getattr(
-                getattr(self.request, "tenant", None),
-                "schema_name",
-                None,
-            ),
-        )
-        print("SCHEMA ACTIF :", connection.schema_name)
-        print("SOCIETE USER :", societe.schema_name)
 
         return (
             Fuel.objects

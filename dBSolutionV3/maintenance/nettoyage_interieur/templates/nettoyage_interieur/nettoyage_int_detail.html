@@ -93,7 +93,8 @@
         <a href="{% if nettoyage_int.voiture_exemplaire %}
                    {% url 'nettoyage_interieur:nettoyage_int_list' nettoyage_int.voiture_exemplaire.id %}
                {% else %}# {% endif %}"
-             class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                 class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center"
+        >
             {% trans "Retour à la liste des nettoyages intérieurs" %}
         </a>
     </div>

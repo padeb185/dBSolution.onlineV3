@@ -10,7 +10,7 @@
             <img src="{% static 'icons/pneus.png' %}"
                  alt="{{ pneus.voiture_exemplaire.immatriculation }}"
                  class="w-12 h-12">
-            <span>{% trans "Détails du checkup" %}</span>
+            <span>{% trans "Détails du checkup des Pneus" %}</span>
               {{ exemplaire.voiture_marque.nom_marque }}
                 {{ exemplaire.voiture_modele.nom_modele }}
                 {{ exemplaire.voiture_modele.nom_variante }}
@@ -94,7 +94,8 @@
         <a href="{% if pneus.voiture_exemplaire %}
                    {% url 'pneus:pneus_list' pneus.voiture_exemplaire.id %}
                {% else %}# {% endif %}"
-          class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+               class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center"
+        >
             {% trans "Retour à la liste des contrôle pneus" %}
         </a>
     </div>

@@ -17,8 +17,6 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from weasyprint import HTML
-
-
 @method_decorator([login_required, never_cache], name='dispatch')
 class EssuyageListView(ListView):
     model = Essuyage
@@ -29,13 +27,18 @@ class EssuyageListView(ListView):
 
     def get_queryset(self):
         queryset = Essuyage.objects.select_related(
-            "voiture_exemplaire", "maintenance", "tech_societe"
+            "voiture_exemplaire",
+            "tech_societe",
+            "tech_technicien",
+            "main_oeuvre",
         )
 
         societe = getattr(self.request.user, "societe", None)
+
         if societe:
             queryset = queryset.filter(
-                models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
+                models.Q(tech_societe=societe) |
+                models.Q(tech_societe__isnull=True)
             )
 
         return queryset.order_by("-id")
@@ -44,8 +47,11 @@ class EssuyageListView(ListView):
         context = super().get_context_data(**kwargs)
 
         exemplaire_id = self.kwargs.get("exemplaire_id")
+
         if exemplaire_id:
-            context["exemplaire"] = VoitureExemplaire.objects.get(id=exemplaire_id)
+            context["exemplaire"] = VoitureExemplaire.objects.get(
+                id=exemplaire_id
+            )
 
         roles_autorises = [
             "mecanicien",
@@ -55,10 +61,14 @@ class EssuyageListView(ListView):
             "direction",
         ]
 
-        context["is_checkup_allowed"] = self.request.user.role in roles_autorises
+        context["is_checkup_allowed"] = (
+            self.request.user.role in roles_autorises
+        )
 
         return context
 
+
+    
 
 @never_cache
 @login_required
