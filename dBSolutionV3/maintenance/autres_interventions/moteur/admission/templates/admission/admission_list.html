@@ -27,7 +27,7 @@
 {% if is_checkup_allowed %}
 <div>
     <a href="{% url 'admission:admission_check' exemplaire.id %}"
-         class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+         class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Ajouter un contrôle" %}
     </a>
 </div>
@@ -169,7 +169,7 @@
 <br>
 <div>
     <a href="{% url 'moteur:dashboard_moteur' exemplaire.id %}"
-         class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Retour au dashboard moteur" %}
     </a>
 </div>
