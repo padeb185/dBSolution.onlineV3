@@ -570,7 +570,7 @@
         <tr>
             <td>{% trans "Fabricant" %}</td>
             <td>
-                {{ checkup_track.moteur_niveau_huile_fabricant }}
+                {{ checkup_track.get_moteur_niveau_huile_fabricant_display }}
             </td>
         </tr>
 
@@ -674,7 +674,7 @@
           <tr>
             <td>{% trans "Fabricant" %}</td>
             <td>
-                {{ checkup_track.boite_niveau_huile_fabricant }}
+                {{ checkup_track.get_boite_niveau_huile_fabricant_display }}
             </td>
         </tr>
 
@@ -754,7 +754,7 @@
          <tr>
             <td>{% trans "Huile de pont ajoutée" %}</td>
             <td>
-                {{ checkup_track.pont_niveau_huile_fabricant }}
+                {{ checkup_track.get_pont_niveau_huile_fabricant_display }}
             </td>
         </tr>
         <tr>
@@ -772,8 +772,16 @@
         </tr>
     </tbody>
 </table>
+<h2>{% trans "Refroidissement" %}</h2>
 
-<table>
+<table class="table-2-cols">
+    <thead>
+        <tr>
+            <th>{% trans "Élément contrôlé" %}</th>
+            <th>{% trans "État / Valeur" %}</th>
+        </tr>
+    </thead>
+
     <tbody>
         <tr>
             <td>{% trans "Radiateur" %}</td>
@@ -830,7 +838,7 @@
           <tr>
             <td>{% trans "Fabricant" %}</td>
             <td>
-                {{ checkup_track.refroidissement_fabricant }}
+                {{ checkup_track.get_refroidissement_fabricant_display }}
             </td>
         </tr>
         <tr>
@@ -2351,7 +2359,7 @@
                                 {% endif %}
                             </td>
                         <td>
-                            {{ ligne.fabricant|default:"-" }}
+                            {{ ligne.fabricant_display|default:"-" }}
                         </td>
 
                         <td class="text-right">

@@ -1104,21 +1104,24 @@ class CheckupTrack(TechnicienMixin, models.Model):
             # FABRICANT
             # =====================================================
 
-            champ_fabricant = config.get(
-                "fabricant",
-                f"{champ_base}_fabricant",
-            )
+            champ_fabricant = f"{champ_base}_fabricant"
 
-            fabricant = (
-                getattr(self, champ_fabricant, "")
-                if hasattr(self, champ_fabricant)
-                else ""
-            )
-
-            fabricant_label = obtenir_display(
+            fabricant = getattr(
+                self,
                 champ_fabricant,
-                fabricant,
+                "",
+            ) or ""
+
+            methode_fabricant_display = getattr(
+                self,
+                f"get_{champ_fabricant}_display",
+                None,
             )
+
+            if callable(methode_fabricant_display):
+                fabricant_display = methode_fabricant_display()
+            else:
+                fabricant_display = fabricant or "-"
 
             # =====================================================
             # QUALITÉ
@@ -1208,7 +1211,8 @@ class CheckupTrack(TechnicienMixin, models.Model):
                 "niveau_label": niveau_label,
 
                 "fabricant": fabricant,
-                "fabricant_label": fabricant_label,
+                "fabricant_label": fabricant_display,
+                "fabricant_display": fabricant_display,
 
                 "qualite": qualite,
                 "qualite_label": qualite_label,

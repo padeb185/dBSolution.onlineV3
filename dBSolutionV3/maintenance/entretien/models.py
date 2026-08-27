@@ -908,6 +908,8 @@ class Entretien(TechnicienMixin, models.Model):
 
         super().save(*args, **kwargs)
 
+    from decimal import Decimal, ROUND_HALF_UP
+
     def generer_rapport_remplacement(self):
         rapport = []
         total_general = Decimal("0.00")
@@ -916,7 +918,7 @@ class Entretien(TechnicienMixin, models.Model):
             field_name = field.name
 
             # --------------------------------------------------
-            # On traite uniquement les champs terminant par _prix
+            # Uniquement les champs terminant par _prix
             # --------------------------------------------------
             if not field_name.endswith("_prix"):
                 continue
@@ -933,15 +935,22 @@ class Entretien(TechnicienMixin, models.Model):
                 continue
 
             # --------------------------------------------------
-            # Prix / quantité
+            # PRIX / QUANTITÉ
             # --------------------------------------------------
             prix = getattr(self, field_name, None)
             quantite = getattr(self, champ_quantite, None)
 
-            prix = Decimal(str(prix or 0))
-            quantite = Decimal(str(quantite or 0))
+            try:
+                prix = Decimal(str(prix or 0))
+            except (ValueError, TypeError):
+                prix = Decimal("0.00")
 
-            # Ne pas afficher les lignes sans prix ou quantité
+            try:
+                quantite = Decimal(str(quantite or 0))
+            except (ValueError, TypeError):
+                quantite = Decimal("0.00")
+
+            # Ne pas afficher si prix ou quantité <= 0
             if prix <= 0 or quantite <= 0:
                 continue
 
@@ -958,13 +967,10 @@ class Entretien(TechnicienMixin, models.Model):
             # --------------------------------------------------
             # ÉTAT
             # --------------------------------------------------
-
-            # Priorité à :
-            # liquide_direction_etat
             champ_etat = f"{champ_base}_etat"
 
             if hasattr(self, champ_etat):
-                etat = getattr(self, champ_etat, "")
+                etat = getattr(self, champ_etat, "") or ""
 
                 methode_etat_display = getattr(
                     self,
@@ -972,10 +978,10 @@ class Entretien(TechnicienMixin, models.Model):
                     None,
                 )
 
-            # Sinon ancien fonctionnement :
-            # ex. balais_essuie_avant
             elif hasattr(self, champ_base):
-                etat = getattr(self, champ_base, "")
+                # Ancien fonctionnement :
+                # ex. balai_av_gauche
+                etat = getattr(self, champ_base, "") or ""
 
                 methode_etat_display = getattr(
                     self,
@@ -988,9 +994,9 @@ class Entretien(TechnicienMixin, models.Model):
                 methode_etat_display = None
 
             if callable(methode_etat_display):
-                etat_label = methode_etat_display()
+                etat_display = methode_etat_display()
             else:
-                etat_label = etat or "-"
+                etat_display = etat or "-"
 
             # --------------------------------------------------
             # FABRICANT
@@ -1001,7 +1007,7 @@ class Entretien(TechnicienMixin, models.Model):
                 self,
                 champ_fabricant,
                 "",
-            )
+            ) or ""
 
             methode_fabricant_display = getattr(
                 self,
@@ -1010,9 +1016,9 @@ class Entretien(TechnicienMixin, models.Model):
             )
 
             if callable(methode_fabricant_display):
-                fabricant_label = methode_fabricant_display()
+                fabricant_display = methode_fabricant_display()
             else:
-                fabricant_label = fabricant or "-"
+                fabricant_display = fabricant or "-"
 
             # --------------------------------------------------
             # QUALITÉ
@@ -1023,7 +1029,7 @@ class Entretien(TechnicienMixin, models.Model):
                 self,
                 champ_qualite,
                 "",
-            )
+            ) or ""
 
             methode_qualite_display = getattr(
                 self,
@@ -1032,9 +1038,9 @@ class Entretien(TechnicienMixin, models.Model):
             )
 
             if callable(methode_qualite_display):
-                qualite_label = methode_qualite_display()
+                qualite_display = methode_qualite_display()
             else:
-                qualite_label = qualite or "-"
+                qualite_display = qualite or "-"
 
             # --------------------------------------------------
             # TYPE
@@ -1045,7 +1051,7 @@ class Entretien(TechnicienMixin, models.Model):
                 self,
                 champ_type,
                 "",
-            )
+            ) or ""
 
             methode_type_display = getattr(
                 self,
@@ -1054,23 +1060,24 @@ class Entretien(TechnicienMixin, models.Model):
             )
 
             if callable(methode_type_display):
-                type_label = methode_type_display()
+                type_display = methode_type_display()
             else:
-                type_label = type_piece or "-"
+                type_display = type_piece or "-"
 
             # --------------------------------------------------
             # LIBELLÉ
             # --------------------------------------------------
-
-            # On essaie d'abord le champ d'état
             try:
                 if hasattr(self, champ_etat):
                     champ_model = self._meta.get_field(champ_etat)
-                    libelle = champ_model.verbose_name
+
+                elif hasattr(self, champ_base):
+                    champ_model = self._meta.get_field(champ_base)
 
                 else:
-                    champ_model = self._meta.get_field(champ_base)
-                    libelle = champ_model.verbose_name
+                    champ_model = field
+
+                libelle = champ_model.verbose_name
 
             except Exception:
                 libelle = champ_base.replace("_", " ").capitalize()
@@ -1081,20 +1088,30 @@ class Entretien(TechnicienMixin, models.Model):
             rapport.append({
                 "champ": libelle,
                 "nom": libelle,
+                "label": libelle,
                 "code": champ_base,
 
+                # État
                 "etat": etat,
-                "etat_label": etat_label,
+                "etat_label": etat_display,
+                "etat_display": etat_display,
 
+                # Fabricant
                 "fabricant": fabricant,
-                "fabricant_label": fabricant_label,
+                "fabricant_label": fabricant_display,
+                "fabricant_display": fabricant_display,
 
+                # Qualité
                 "qualite": qualite,
-                "qualite_label": qualite_label,
+                "qualite_label": qualite_display,
+                "qualite_display": qualite_display,
 
+                # Type
                 "type": type_piece,
-                "type_label": type_label,
+                "type_label": type_display,
+                "type_display": type_display,
 
+                # Prix
                 "quantite": quantite,
                 "prix": prix,
                 "prix_unitaire": prix,
@@ -1103,15 +1120,20 @@ class Entretien(TechnicienMixin, models.Model):
 
             total_general += total
 
+        total_general = total_general.quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
+
         return {
             "lignes": rapport,
             "pieces": rapport,
-            "total_general": total_general.quantize(
-                Decimal("0.01"),
-                rounding=ROUND_HALF_UP,
-            ),
+            "total_general": total_general,
         }
 
+
+
+    
     @property
     def utilisateur_main_oeuvre(self):
         if self.main_oeuvre:
