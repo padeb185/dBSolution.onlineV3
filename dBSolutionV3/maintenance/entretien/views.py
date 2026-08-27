@@ -27,24 +27,26 @@ from weasyprint import HTML
 # -----------------------------
 # Classe ListView pour entretien
 # -----------------------------
-@method_decorator([login_required, never_cache], name='dispatch')
+@method_decorator([login_required, never_cache], name="dispatch")
 class EntretienListView(ListView):
     model = Entretien
     template_name = "entretien/entretien_list.html"
     context_object_name = "entretiens"
-    paginate_by = 10
     ordering = ["-id"]
 
     def get_queryset(self):
         queryset = Entretien.objects.select_related(
-            "voiture_exemplaire", "maintenance", "tech_societe"
+            "voiture_exemplaire",
+            "maintenance",
+            "tech_societe",
         )
 
-        # Filtrer par société : inclure les objets NULL ou ceux de la société de l'utilisateur
         societe = getattr(self.request.user, "societe", None)
+
         if societe:
             queryset = queryset.filter(
-                models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
+                models.Q(tech_societe=societe) |
+                models.Q(tech_societe__isnull=True)
             )
 
         return queryset.order_by(*self.ordering)
@@ -53,6 +55,7 @@ class EntretienListView(ListView):
         context = super().get_context_data(**kwargs)
 
         exemplaire_id = self.kwargs.get("exemplaire_id")
+
         context["exemplaire"] = get_object_or_404(
             VoitureExemplaire,
             id=exemplaire_id
@@ -68,6 +71,7 @@ class EntretienListView(ListView):
         return context
 
 
+
 #----------------------------
 # creation entretien
 #----------------------------
@@ -80,9 +84,8 @@ def entretien_check_view(request, exemplaire_id):
     role = request.user.role
 
     # =========================
-    # RÉCUPÉRATION DU VÉHICULE
+    # VÉHICULE
     # =========================
-
     exemplaire = get_object_or_404(
         VoitureExemplaire.objects.filter(
             Q(client__societe=tenant) |
@@ -92,9 +95,8 @@ def entretien_check_view(request, exemplaire_id):
     )
 
     # =========================
-    # VÉRIFICATION DES RÔLES
+    # RÔLES
     # =========================
-
     roles_autorises = [
         "mecanicien",
         "apprenti",
@@ -112,7 +114,6 @@ def entretien_check_view(request, exemplaire_id):
     # =========================
     # POST
     # =========================
-
     if request.method == "POST":
 
         form = EntretienForm(
@@ -125,13 +126,13 @@ def entretien_check_view(request, exemplaire_id):
 
             km = form.cleaned_data.get("kilometrage_entretien")
 
-            # Kilométrage du véhicule AVANT l'entretien
-            ancien_kilometrage = exemplaire.kilometres_chassis or 0
+            ancien_kilometrage = (
+                exemplaire.kilometres_chassis or 0
+            )
 
             # =========================
-            # VALIDATION KILOMÉTRAGE
+            # VALIDATION KM
             # =========================
-
             if km is not None:
 
                 km = int(km)
@@ -165,9 +166,8 @@ def entretien_check_view(request, exemplaire_id):
                 with transaction.atomic():
 
                     # =========================
-                    # CALCUL VARIATION
+                    # VARIATION
                     # =========================
-
                     kilometrage_variation = 0
 
                     if km is not None:
@@ -176,35 +176,32 @@ def entretien_check_view(request, exemplaire_id):
                         )
 
                     # =========================
-                    # CRÉATION ENTRETIEN
+                    # ENTRETIEN
                     # =========================
-
                     entretien = form.save(commit=False)
 
                     entretien.societe = tenant
                     entretien.voiture_exemplaire = exemplaire
 
-                    # Kilométrage du véhicule AVANT l'entretien
-                    entretien.kilometres_chassis = ancien_kilometrage
+                    entretien.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
 
-                    # Kilométrage saisi lors de l'entretien
                     entretien.kilometrage_entretien = km
 
-                    # Variation
                     entretien.kilometrage_variation = (
                         kilometrage_variation
                     )
 
-                    # Technicien
                     entretien.assign_technicien(request.user)
 
                     # =========================
-                    # MISE À JOUR DU VÉHICULE
+                    # VÉHICULE
                     # =========================
-
                     if km is not None:
 
                         exemplaire.kilometres_chassis = km
+
                         exemplaire.date_derniere_intervention = (
                             timezone.now().date()
                         )
@@ -214,16 +211,14 @@ def entretien_check_view(request, exemplaire_id):
                         exemplaire.save()
 
                     # =========================
-                    # CRÉATION MAINTENANCE
+                    # MAINTENANCE
                     # =========================
-
-                    maintenance = Maintenance.objects.create(
+                    maintenance = Maintenance(
                         societe=tenant,
                         voiture_exemplaire=exemplaire,
                         immatriculation=exemplaire.immatriculation,
                         date_intervention=timezone.now().date(),
 
-                        # Kilométrage APRÈS mise à jour
                         kilometres_chassis=(
                             exemplaire.kilometres_chassis
                         ),
@@ -240,74 +235,78 @@ def entretien_check_view(request, exemplaire_id):
                     )
 
                     # =========================
+                    # AFFECTATION UTILISATEUR
+                    # =========================
+                    #
+                    # IMPORTANT :
+                    # ne pas utiliser systématiquement
+                    # Mecanicien.objects.get(id=request.user.id)
+                    #
+                    # Si tes modèles ont un lien `utilisateur`,
+                    # utilise plutôt celui-ci.
+                    #
+
+                    # =========================
                     # AFFECTATION DU RÔLE
                     # =========================
 
                     if role == "mecanicien":
-                        maintenance.mecanicien = (
-                            Mecanicien.objects.get(
-                                id=request.user.id
-                            )
-                        )
+                        maintenance.mecanicien = Mecanicien.objects.filter(
+                            pk=request.user.pk
+                        ).first()
 
                     elif role == "chef_mecanicien":
-                        maintenance.chef_mecanicien = (
-                            ChefMecanicien.objects.get(
-                                id=request.user.id
-                            )
-                        )
+                        maintenance.chef_mecanicien = ChefMecanicien.objects.filter(
+                            pk=request.user.pk
+                        ).first()
 
                     elif role == "apprenti":
-                        maintenance.apprentis = (
-                            Apprenti.objects.get(
-                                id=request.user.id
-                            )
-                        )
+                        maintenance.apprentis = Apprenti.objects.filter(
+                            pk=request.user.pk
+                        ).first()
 
                     elif role == "magasinier":
-                        maintenance.magasinier = (
-                            Magasinier.objects.get(
-                                id=request.user.id
-                            )
-                        )
+                        maintenance.magasinier = Magasinier.objects.filter(
+                            pk=request.user.pk
+                        ).first()
 
                     elif role == "direction":
-                        maintenance.direction = (
-                            Direction.objects.get(
-                                id=request.user.id
-                            )
-                        )
+                        maintenance.direction = Direction.objects.filter(
+                            pk=request.user.pk
+                        ).first()
 
                     maintenance.save()
 
                     # =========================
-                    # LIER ENTRETIEN / MAINTENANCE
+                    # LIEN ENTRETIEN / MAINTENANCE
                     # =========================
-
                     entretien.maintenance = maintenance
 
-                    # Sauvegarde définitive de l'entretien
+                    # Sauvegarde entretien
                     entretien.save()
 
-                    # Si le formulaire contient des ManyToMany
-                    if hasattr(form, "save_m2m"):
-                        form.save_m2m()
+                    # =========================
+                    # MANY TO MANY
+                    # =========================
+                    form.instance = entretien
+                    form.save_m2m()
 
                     # =========================
                     # LOG
                     # =========================
-
                     UserLog.objects.create(
                         utilisateur=request.user,
                         action=_(
                             "Entretien - %(immatriculation)s"
                         ) % {
-                            "immatriculation": (
+                            "immatriculation":
                                 exemplaire.immatriculation
-                            )
                         }
                     )
 
+                # =========================
+                # SUCCÈS
+                # =========================
                 messages.success(
                     request,
                     _("Entretien enregistré avec succès.")
@@ -320,6 +319,10 @@ def entretien_check_view(request, exemplaire_id):
 
             except Exception as e:
 
+                # TEMPORAIRE POUR DEBUG
+                import traceback
+                traceback.print_exc()
+
                 messages.error(
                     request,
                     _("Erreur lors de l'enregistrement : %(erreur)s") % {
@@ -329,6 +332,10 @@ def entretien_check_view(request, exemplaire_id):
 
         else:
 
+            # Afficher précisément les erreurs du formulaire
+            print("ERREURS ENTRETIEN FORM :", form.errors)
+            print("ERREURS NON FIELD :", form.non_field_errors())
+
             messages.error(
                 request,
                 _("Le formulaire contient des erreurs.")
@@ -337,41 +344,26 @@ def entretien_check_view(request, exemplaire_id):
     # =========================
     # GET
     # =========================
-
     else:
 
         entretien = Entretien(
-
             societe=tenant,
-
             voiture_exemplaire=exemplaire,
-
-            # Kilométrage actuel du véhicule
-
             kilometres_chassis=exemplaire.kilometres_chassis,
-
-            # Variation initiale
-
             kilometrage_variation=0,
-
         )
 
         entretien.assign_technicien(request.user)
 
         form = EntretienForm(
-
             instance=entretien,
-
             user=request.user,
-
             exemplaire=exemplaire,
-
         )
 
     # =========================
     # TEMPLATE
     # =========================
-
     return render(
         request,
         "entretien/entretien_check.html",
