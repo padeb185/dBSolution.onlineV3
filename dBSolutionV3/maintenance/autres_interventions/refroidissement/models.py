@@ -740,15 +740,21 @@ class Refroidissement(TechnicienMixin, models.Model):
         ) or 0
 
         taux_tva = (
-            Decimal(str(self.TVA_PIECES.get(self.pays, Decimal("0.00"))))
-            / Decimal("100")
+                Decimal(
+                    str(
+                        TVAConfig.TVA_PIECES.get(
+                            self.pays,
+                            Decimal("0.00"),
+                        )
+                    )
+                )
+                / Decimal("100")
         )
 
         prix = Decimal(str(prix_achat))
         quantite = Decimal(str(quantite))
 
         total_achat = prix * quantite
-
 
 
 

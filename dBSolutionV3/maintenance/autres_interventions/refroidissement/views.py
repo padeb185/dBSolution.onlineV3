@@ -10,6 +10,7 @@ from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
+from maindoeuvre.models import MainDoeuvre
 from maintenance.autres_interventions.refroidissement.forms import RefForm
 from maintenance.autres_interventions.refroidissement.models import Refroidissement
 from maintenance.models import Maintenance
@@ -351,7 +352,6 @@ def ref_form_view(request, exemplaire_id):
                 )
 
         else:
-            print("FORM INVALID:", form.errors)
 
             messages.error(
                 request,
@@ -632,7 +632,6 @@ def modifier_ref_view(request, ref_id):
 
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
-            print(form.errors)
 
     # -------------------------
     # GET

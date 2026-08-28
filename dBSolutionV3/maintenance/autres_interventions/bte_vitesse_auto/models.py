@@ -496,16 +496,16 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
                 "quantite": self.auto_emb_convertisseur_couple_quantite,
             },
             {
-                "champ": _("Embrayages automatiques"),
-                "etat": self.auto_emb_embrayages_auto,
-                "prix": self.auto_emb_embrayages_auto_prix,
-                "quantite": self.auto_emb_embrayages_auto_quantite,
+                "champ": _("Double embrayage"),
+                "etat": self.double_embrayage,
+                "prix": self.double_embrayage_prix,
+                "quantite": self.double_embrayage_quantite,
             },
             {
                 "champ": _("Pompe à huile"),
-                "etat": self.pompes_huile,
-                "prix": self.pompes_huile_prix,
-                "quantite": self.pompes_huile_quantite,
+                "etat": self.pompes_h,
+                "prix": self.pompes_h_prix,
+                "quantite": self.pompes_h_quantite,
             },
             {
                 "champ": _("Valves de contrôle"),
@@ -556,7 +556,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
             if prix <= 0 or quantite <= 0:
                 continue
 
-            total_ligne = prix * quantite
+            total_ligne = (
+                    prix * quantite
+            ).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
             total_pieces += total_ligne
 
             lignes.append({
@@ -568,14 +574,17 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
                 "total": total_ligne,
             })
 
+        total_pieces = total_pieces.quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
+
         return {
             "lignes": lignes,
             "pieces": lignes,
             "total_pieces": total_pieces,
             "total_general": total_pieces,
         }
-
-
 
     @property
     def total_general_avec_main_oeuvre(self):
