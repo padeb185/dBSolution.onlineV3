@@ -228,6 +228,7 @@
 <script>
 $(document).ready(function() {
     var table = $('#remplacement_moteur-table').DataTable({
+        pageLength: 10,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
