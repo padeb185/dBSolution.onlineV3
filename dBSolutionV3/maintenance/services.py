@@ -1,13 +1,17 @@
 def sync_maintenance(instance, maintenance_type):
-    if not instance.maintenance:
+    maintenance = getattr(instance, "maintenance", None)
+
+    if maintenance is None:
         return
 
-    instance.maintenance.type_maintenance = maintenance_type
+    maintenance.type_maintenance = maintenance_type
 
-    if instance.voiture_exemplaire:
-        instance.maintenance.voiture_exemplaire = instance.voiture_exemplaire
+    if getattr(instance, "voiture_exemplaire", None):
+        maintenance.voiture_exemplaire = instance.voiture_exemplaire
 
-    instance.maintenance.save(update_fields=[
-        "type_maintenance",
-        "voiture_exemplaire"
-    ])
+    maintenance.save(
+        update_fields=[
+            "type_maintenance",
+            "voiture_exemplaire",
+        ]
+    )

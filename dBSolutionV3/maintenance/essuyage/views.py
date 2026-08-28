@@ -17,6 +17,11 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from weasyprint import HTML
+
+
+
+
+
 @method_decorator([login_required, never_cache], name='dispatch')
 class EssuyageListView(ListView):
     model = Essuyage
@@ -643,13 +648,11 @@ def modifier_essuyage_view(request, essuyage_id):
 
 
 
-
 @login_required
 def essuyage_detail_pdf_view(request, pk):
 
     essuyage = get_object_or_404(
         Essuyage.objects.select_related(
-            "maintenance",
             "voiture_exemplaire",
             "tech_technicien",
             "tech_societe",
@@ -665,23 +668,10 @@ def essuyage_detail_pdf_view(request, pk):
     rapport = essuyage.generer_rapport_remplacement()
 
     # =====================================================
-    # MAINTENANCE
-    # =====================================================
-
-    maintenance = essuyage.maintenance
-
-    # =====================================================
     # VÉHICULE
     # =====================================================
 
     vehicule = essuyage.voiture_exemplaire
-
-    if vehicule is None and maintenance:
-        vehicule = getattr(
-            maintenance,
-            "voiture_exemplaire",
-            None,
-        )
 
     # =====================================================
     # TECHNICIEN
@@ -693,13 +683,6 @@ def essuyage_detail_pdf_view(request, pk):
         None,
     )
 
-    if technicien is None and maintenance:
-        technicien = getattr(
-            maintenance,
-            "tech_technicien",
-            None,
-        )
-
     # =====================================================
     # DATE INTERVENTION
     # =====================================================
@@ -709,13 +692,6 @@ def essuyage_detail_pdf_view(request, pk):
         "date",
         None,
     )
-
-    if date_intervention is None and maintenance:
-        date_intervention = getattr(
-            maintenance,
-            "date_intervention",
-            None,
-        )
 
     # =====================================================
     # IMMATRICULATION
@@ -804,7 +780,6 @@ def essuyage_detail_pdf_view(request, pk):
         {
             "essuyage": essuyage,
             "rapport": rapport,
-            "maintenance": maintenance,
             "technicien": technicien,
             "date_intervention": date_intervention,
             "vehicule": vehicule,
