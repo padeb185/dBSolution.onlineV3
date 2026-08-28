@@ -48,7 +48,7 @@ class NettoyageEtat(models.TextChoices):
 
 class NiveauxEtat(models.TextChoices):
     OK = "OK", _("OK")
-    AJOUTER = "AJOUTER", _("Ajouté")
+    AJOUTER = "AJOUTER", _("Ajouter")
     REMPLACER = "REMPLACER", _("A remplacer")
 
 
@@ -88,7 +88,7 @@ class QualiteLiquideFrein(models.TextChoices):
 
 class LiquideFreinEtat(models.TextChoices):
     OK = "OK", _("OK")
-    AJOUTER = "AJOUTER", _("Ajouté")
+    AJOUTER = "AJOUTER", _("Ajouter")
     A_REMPLACER = "A_REMPLACER", _("A remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
 

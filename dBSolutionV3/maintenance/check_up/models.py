@@ -20,7 +20,7 @@ from utils.mixin import TechnicienMixin
 
 class EtatAjouter(models.TextChoices):
     SANS = "SANS", _("Sans")
-    AJOUTER = "AJOUTER", _("Ajouté")
+    AJOUTER = "AJOUTER", _("Ajouter")
 
 
 class EtatOKNotOK(models.TextChoices):
