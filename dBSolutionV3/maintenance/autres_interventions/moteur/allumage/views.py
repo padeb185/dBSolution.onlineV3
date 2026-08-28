@@ -31,7 +31,6 @@ class AllumageListView(ListView):
     model = Allumage
     template_name = "allumage/allumage_list.html"
     context_object_name = "allumages"
-    paginate_by = 10
     ordering = ["-date"]
 
     def get_queryset(self):

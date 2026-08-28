@@ -33,7 +33,6 @@ class InjectionListView(ListView):
     model = Injection
     template_name = "injection/injection_list.html"
     context_object_name = "injections"
-    paginate_by = 10
     ordering = ["-id"]
 
     def get_queryset(self):

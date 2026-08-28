@@ -34,7 +34,6 @@ class BoiteListView(ListView):
     model = ControleBoite   # ✅ ICI
     template_name = "boite_de_vitesse/boite_list.html"
     context_object_name = "boite_de_vitesses"
-    paginate_by = 10
     ordering = ["-id"]
 
     def get_queryset(self):

@@ -32,7 +32,6 @@ class AdmissionListView(ListView):
     model = Admission
     template_name = "admission/admission_list.html"
     context_object_name = "admissions"
-    paginate_by = 10
     ordering = ["-id"]
 
     def get_queryset(self):

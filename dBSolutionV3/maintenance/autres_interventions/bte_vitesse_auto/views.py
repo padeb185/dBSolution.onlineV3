@@ -31,7 +31,6 @@ class BteVitesseAutoListView(ListView):
     model = ControleBteVitesseAuto
     template_name = "bte_auto/bte_auto_list.html"
     context_object_name = "bte_autos"
-    paginate_by = 10
     ordering = ["-id"]
 
     def get_queryset(self):
