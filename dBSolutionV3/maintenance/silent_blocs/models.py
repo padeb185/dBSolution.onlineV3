@@ -597,6 +597,10 @@ class SilentBloc(TechnicienMixin, models.Model):
         default="JAUNE",
         verbose_name=_("État visuel / Tag")
     )
+
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
+
     main_oeuvre = models.ForeignKey(
         "maindoeuvre.MainDoeuvre",
         on_delete=models.SET_NULL,

@@ -366,6 +366,11 @@ def essuyage_form_view(request, exemplaire_id):
             ],
         },
         {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
+        {
             "title": _("Technicien"),
             "icon": "icons/mecanicien.png",
             "fields": [
@@ -599,6 +604,11 @@ def modifier_essuyage_view(request, essuyage_id):
                 for f in form
                 if "remarques" in f.name
             ],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
         },
         {
             "title": _("Technicien"),

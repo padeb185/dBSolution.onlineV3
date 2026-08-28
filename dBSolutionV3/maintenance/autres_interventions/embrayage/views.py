@@ -544,15 +544,7 @@ def embrayage_form_view(request, exemplaire_id):
                 if "liquide_frein" in f.name
             ],
         },
-        {
-            "title": _("Serrage des roues"),
-            "icon": "icons/roue.png",
-            "fields": [
-                form[f.name]
-                for f in form
-                if "serrage" in f.name
-            ],
-        },
+
         {
             "title": _("Etiquette"),
             "icon": "icons/tag.png",
@@ -578,6 +570,15 @@ def embrayage_form_view(request, exemplaire_id):
                 form[f.name]
                 for f in form
                 if "remarques" in f.name
+            ],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "serrage" in f.name
             ],
         },
         {
@@ -736,11 +737,7 @@ def modifier_embrayage_view(request, embrayage_id):
             "icon": "icons/liquide_frein.png",
             "fields": [form[f.name] for f in form if "liquide_frein" in f.name],
         },
-        {
-            "title": _("Serrage des roues"),
-            "icon": "icons/roue.png",
-            "fields": [form[f.name] for f in form if "serrage" in f.name],
-        },
+
 
         {
             "title": _("Etiquette"),
@@ -757,6 +754,11 @@ def modifier_embrayage_view(request, embrayage_id):
             "title": _("Remarques"),
             "icon": "icons/notes.png",
             "fields": [form[f.name] for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
         },
         {
             "title": _("Technicien"),

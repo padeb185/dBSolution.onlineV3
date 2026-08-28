@@ -1987,3 +1987,30 @@ class HuileBoiteAutoEtat(models.TextChoices):
     ATF_NISSAN = "ATF_NISSAN", _("Nissan Matic")
 
 
+class FabricantAllumage(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
+    OEM = "OEM", _("Origine constructeur (OEM)")
+
+    BOSCH = "BOSCH", _("Bosch")
+    NGK = "NGK", _("NGK")
+    BERU = "BERU", _("Beru")
+    DENSO = "DENSO", _("Denso")
+    DELPHI = "DELPHI", _("Delphi")
+    HELLA = "HELLA", _("Hella")
+    VALEO = "VALEO", _("Valeo")
+    BREMBO = "BREMBO", _("Brembo")
+    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
+    CHAMPION = "CHAMPION", _("Champion")
+    BREMI = "BREMI", _("Bremi")
+    HITACHI = "HITACHI", _("Hitachi")
+    VDO = "VDO", _("VDO")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
+    FACET = "FACET", _("Facet")
+    ERA = "ERA", _("ERA")
+    MEYLE = "MEYLE", _("Meyle")
+    FEBI = "FEBI", _("Febi Bilstein")
+
+    AUTRE = "AUTRE", _("Autre fabricant")
+    INCONNU = "INCONNU", _("Fabricant inconnu")
+

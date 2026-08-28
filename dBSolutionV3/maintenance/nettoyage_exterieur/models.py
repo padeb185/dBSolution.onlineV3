@@ -16,8 +16,8 @@ class NettoyageEtat(models.TextChoices):
     PROPRE = "PROPRE", _("Propre")
 
 class EtatAjouter(models.TextChoices):
-    SANS = "SANS", _("Sans")
-    AJOUTER = "AJOUTER", _("Ajouté")
+    SANS = "SANS", _("Sans produits")
+    AJOUTER = "AJOUTER", _("Ajouter les produits")
 
 
 

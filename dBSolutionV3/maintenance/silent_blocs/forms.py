@@ -4,9 +4,7 @@ from django.core.exceptions import ValidationError
 from .models import SilentBloc
 from django.utils.translation import gettext_lazy as _
 from maindoeuvre.models import MainDoeuvre
-
-
-
+from ..choices import RouesSerrageEtat
 
 
 class SilentBlocForm(forms.ModelForm):
@@ -143,3 +141,13 @@ class SilentBlocForm(forms.ModelForm):
             instance.save()
 
         return instance
+
+    def clean_serrage_roues(self):
+        serrage_roues = self.cleaned_data.get("serrage_roues")
+
+        if serrage_roues != RouesSerrageEtat.FAIT:
+            raise forms.ValidationError(
+                _("Vous devez confirmer que le serrage des roues est FAIT avant de valider.")
+            )
+
+        return serrage_roues

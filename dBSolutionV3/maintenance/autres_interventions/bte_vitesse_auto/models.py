@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import FabricantLubrifiant, FabricantEmbrayage, TVAConfig, HuileBoiteAutoEtat
+from maintenance.choices import FabricantLubrifiant, FabricantEmbrayage, TVAConfig, HuileBoiteAutoEtat, RouesSerrageEtat
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -260,6 +260,9 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         default="WHITE",
         verbose_name=_("État visuel / Tag"),
     )
+
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
 
     main_oeuvre = models.ForeignKey(
         "maindoeuvre.MainDoeuvre",

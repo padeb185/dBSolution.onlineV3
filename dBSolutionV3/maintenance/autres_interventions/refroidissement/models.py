@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
 from maintenance.autres_interventions.moteur.courroie.models import RefroidissementQualiteEtat
 from maintenance.choices import RefroidissementFabricant, FabricantPiece, FabricantCapteurEchappement, FabricantDurite, \
-    TVAConfig
+    TVAConfig, RouesSerrageEtat
 from maintenance.models import Maintenance
 from maindoeuvre.models import MainDoeuvre
 from utils.mixin import TechnicienMixin
@@ -593,6 +593,9 @@ class Refroidissement(TechnicienMixin, models.Model):
         verbose_name=_("Étiquette"),
         default=Maintenance.Tag.JAUNE,
     )
+
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
 
     # ------------------------------------------------------
     # TECHNICIEN

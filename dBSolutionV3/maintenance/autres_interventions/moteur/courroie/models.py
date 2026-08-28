@@ -6,7 +6,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
 from maintenance.choices import RefroidissementFabricant, CourroieDistributionFabricant, FabricantPiece, TVAConfig, \
-    RouesSerrageEtat
+    RouesSerrageEtat, RefroidissementQualiteEtat
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -20,48 +20,6 @@ class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("OK")
     NOT_OK = "NOT_OK", _("A Remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
-
-class RefroidissementQualiteEtat(models.TextChoices):
-    # Volkswagen Group
-    G11 = "G11", _("G 11")
-    G12 = "G12", _("G 12")
-    G12_PLUS = "G12_PLUS", _("G 12+")
-    G12_PLUS_PLUS = "G12_PLUS_PLUS", _("G 12++")
-    G13 = "G13", _("G 13")
-
-    # BMW
-    G48 = "G48", _("G 48")
-
-    # Mercedes-Benz
-    MB_325_0 = "MB_325_0", _("MB 325.0")
-    MB_325_3 = "MB_325_3", _("MB 325.3")
-    MB_325_5 = "MB_325_5", _("MB 325.5")
-
-    # Renault / Dacia
-    TYPE_D = "TYPE_D", _("Type D")
-
-    # PSA (Peugeot / Citroën)
-    PSA_B71_5110 = "PSA_B71_5110", _("PSA B71 5110")
-
-    # Ford
-    WSS_M97B44_D = "WSS_M97B44_D", _("WSS-M97B44-D")
-    WSS_M97B51_A1 = "WSS_M97B51_A1", _("WSS-M97B51-A1")
-
-    # General Motors
-    DEX_COOL = "DEX_COOL", _("Dex-Cool")
-
-    # Toyota / Lexus
-    TOYOTA_SLLC = "TOYOTA_SLLC", _("Toyota SLLC")
-
-    # Honda
-    HONDA_TYPE_2 = "HONDA_TYPE_2", _("Honda Type 2")
-
-    # Nissan
-    NISSAN_L248 = "NISSAN_L248", _("Nissan L248")
-    NISSAN_L250 = "NISSAN_L250", _("Nissan L250")
-
-    # Hyundai / Kia
-    HYUNDAI_KIA_LLC = "HYUNDAI_KIA_LLC", _("Hyundai/Kia Long Life Coolant")
 
 
 class CourroieDistribution(TechnicienMixin, models.Model):

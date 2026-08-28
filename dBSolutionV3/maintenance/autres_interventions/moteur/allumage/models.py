@@ -3,7 +3,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.choices import TAUX_HORAIRE_CHOICES, TVAConfig
+from maintenance.choices import TAUX_HORAIRE_CHOICES, TVAConfig, FabricantAllumage, RouesSerrageEtat
 from maintenance.models import Maintenance
 
 
@@ -18,33 +18,6 @@ class EtatAllumage(models.TextChoices):
     NON_PRESENT = "NON_PRESENT", _("Non présent")
 
 
-
-class FabricantAllumage(models.TextChoices):
-    CHOISIR = "CHOISIR", _("Choisir")
-
-    OEM = "OEM", _("Origine constructeur (OEM)")
-
-    BOSCH = "BOSCH", _("Bosch")
-    NGK = "NGK", _("NGK")
-    BERU = "BERU", _("Beru")
-    DENSO = "DENSO", _("Denso")
-    DELPHI = "DELPHI", _("Delphi")
-    HELLA = "HELLA", _("Hella")
-    VALEO = "VALEO", _("Valeo")
-    BREMBO = "BREMBO", _("Brembo")
-    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
-    CHAMPION = "CHAMPION", _("Champion")
-    BREMI = "BREMI", _("Bremi")
-    HITACHI = "HITACHI", _("Hitachi")
-    VDO = "VDO", _("VDO")
-    CONTINENTAL = "CONTINENTAL", _("Continental")
-    FACET = "FACET", _("Facet")
-    ERA = "ERA", _("ERA")
-    MEYLE = "MEYLE", _("Meyle")
-    FEBI = "FEBI", _("Febi Bilstein")
-
-    AUTRE = "AUTRE", _("Autre fabricant")
-    INCONNU = "INCONNU", _("Fabricant inconnu")
 
 
 
@@ -449,6 +422,8 @@ class Allumage(models.Model):
         default="JAUNE",
         verbose_name=_("État visuel / Tag"),
     )
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
 
     main_oeuvre = models.ForeignKey(
         "maindoeuvre.MainDoeuvre",

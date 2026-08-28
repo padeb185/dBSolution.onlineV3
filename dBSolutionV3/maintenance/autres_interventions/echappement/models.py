@@ -4,7 +4,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from decimal import Decimal, ROUND_HALF_UP
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import FabricantEchappement, FabricantCapteurEchappement, FabricantSilentBloc, TVAConfig
+from maintenance.choices import FabricantEchappement, FabricantCapteurEchappement, FabricantSilentBloc, TVAConfig, \
+    RouesSerrageEtat
 from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
 from societe.models import Societe
@@ -259,6 +260,8 @@ class Echappement(models.Model):
         default="JAUNE",
         verbose_name=_("État visuel / Tag"),
     )
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
 
     main_oeuvre = models.ForeignKey(
         "maindoeuvre.MainDoeuvre",

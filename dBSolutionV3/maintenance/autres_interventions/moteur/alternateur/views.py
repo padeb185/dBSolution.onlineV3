@@ -465,6 +465,11 @@ def alternateur_check_view(request, exemplaire_id):
                 if "remarques" in field.name
             ],
         },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
 
         {
             "title": _("Technicien"),
@@ -609,6 +614,11 @@ def modifier_alternateur_view(request, alternateur_id):
             "title": _("Remarques"),
             "icon": "icons/notes.png",
             "fields": [form[f.name] for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
         },
         {
             "title": _("Technicien"),

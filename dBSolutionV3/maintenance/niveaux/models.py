@@ -5,7 +5,8 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.choices import FabricantLubrifiant, TAUX_HORAIRE_CHOICES, TVAConfig, LiquideDirectionQualite, \
-    HuileEtat, HuileBoiteNiveauxEtat, HuilePontEtat, RefroidissementQualiteEtat, LiquideFreinsQualite, LaveGlaceQualite
+    HuileEtat, HuileBoiteNiveauxEtat, HuilePontEtat, RefroidissementQualiteEtat, LiquideFreinsQualite, LaveGlaceQualite, \
+    RouesSerrageEtat
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 from django.core.exceptions import ValidationError
@@ -15,7 +16,7 @@ from django.core.exceptions import ValidationError
 
 class NiveauxEtat(models.TextChoices):
     BON = "BON", _("OK")
-    AJOUTER = "AJOUTER", _("Ajouté")
+    AJOUTER = "AJOUTER", _("Ajouter")
 
 
 class Niveau(TechnicienMixin, models.Model):
@@ -145,6 +146,9 @@ class Niveau(TechnicienMixin, models.Model):
         related_name="niveaux",
         verbose_name=_("Main d'oeuvre")
     )
+
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
 
     # Technicien qui fait le checkup (toujours l'utilisateur courant)
     tech_technicien = models.ForeignKey(

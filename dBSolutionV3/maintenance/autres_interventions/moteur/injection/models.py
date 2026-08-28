@@ -8,7 +8,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.choices import TAUX_HORAIRE_CHOICES, FabricantPompeCarburant, FabricantPompeHautePression, \
     FabricantRampeInjection, FabricantCapteurPressionRampe, FabricantTuyauxHautePression, FabricantInjecteur, \
-    FabricantConnecteurInjecteur, TVAConfig
+    FabricantConnecteurInjecteur, TVAConfig, RouesSerrageEtat
 from maintenance.models import Maintenance
 
 
@@ -470,7 +470,8 @@ class Injection(models.Model):
         verbose_name=_("État visuel / Tag"),
     )
 
-
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
 
     # Technicien qui fait le checkup (toujours l'utilisateur courant)
     tech_technicien = models.ForeignKey(

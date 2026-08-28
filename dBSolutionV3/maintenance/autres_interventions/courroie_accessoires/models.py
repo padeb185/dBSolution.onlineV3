@@ -164,6 +164,7 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
         default=Decimal("50.00"),
         verbose_name=_("Taux horaire"),
     )
+
     main_oeuvre = models.ForeignKey(
         "maindoeuvre.MainDoeuvre",
         on_delete=models.SET_NULL,

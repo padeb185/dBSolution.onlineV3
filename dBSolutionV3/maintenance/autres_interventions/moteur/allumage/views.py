@@ -465,6 +465,11 @@ def allumage_check_view(request, exemplaire_id):
             ],
         },
         {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
+        {
             "title": _("Technicien"),
             "icon": "icons/mecanicien.png",
             "fields": [
@@ -681,6 +686,11 @@ def modifier_allumage_view(request, allumage_id):
                 for field in form
                 if "remarques" in field.name
             ],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
         },
         {
             "title": _("Technicien"),

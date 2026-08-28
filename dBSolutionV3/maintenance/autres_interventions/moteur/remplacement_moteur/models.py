@@ -6,7 +6,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import FabricantLubrifiant, RefroidissementFabricant, TVAConfig
+from maintenance.choices import FabricantLubrifiant, RefroidissementFabricant, TVAConfig, RouesSerrageEtat
 from maintenance.niveaux.models import  (NiveauxEtat,
                                          HuileEtat, RefroidissementQualiteEtat)
 from maintenance.models import Maintenance
@@ -213,6 +213,10 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         blank=True,
         null=True
     )
+
+
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
 
     tech_last_maintained_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,

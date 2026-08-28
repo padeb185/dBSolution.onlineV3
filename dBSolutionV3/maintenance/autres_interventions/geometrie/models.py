@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import TVAConfig
+from maintenance.choices import TVAConfig, RouesSerrageEtat
 from maintenance.models import Maintenance
 
 
@@ -176,6 +176,8 @@ class GeometrieVoiture(models.Model):
         blank=True,
         null=True
     )
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
 
     TAG_CHOICES = [
         ("VERT", _("Vert")),

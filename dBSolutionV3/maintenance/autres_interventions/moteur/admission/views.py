@@ -544,10 +544,16 @@ def admission_check_view(request, exemplaire_id):
             "icon": "icons/pays.png",
             "filter": "pays",
         },
+
         {
             "title": _("Remarques"),
             "icon": "icons/notes.png",
             "filter": "remarques",
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "filter": "serrage",
         },
         {
             "title": _("Technicien"),
@@ -1023,6 +1029,11 @@ def modifier_admission_view(request, admission_id):
                 for f in form
                 if "remarques" in f.name
             ],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
         },
         {
             "title": _("Technicien"),

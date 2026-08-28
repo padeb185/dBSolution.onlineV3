@@ -539,6 +539,11 @@ def ref_form_view(request, exemplaire_id):
             ],
         },
         {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
+        {
             "title": _("Technicien"),
             "icon": "icons/mecanicien.png",
             "fields": [
@@ -799,6 +804,11 @@ def modifier_ref_view(request, ref_id):
                 for field in form
                 if field.name == "remarques"
             ],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
         },
         {
             "title": _("Technicien"),

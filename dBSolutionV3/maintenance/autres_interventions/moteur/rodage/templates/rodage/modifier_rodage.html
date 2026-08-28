@@ -576,41 +576,7 @@
             {% endif %}
         {% endfor %}
 
-        <!-- ================================================== -->
-        <!-- SERRAGE DES ROUES -->
-        <!-- ================================================== -->
-        <h2 class="section-title">
-            <img
-                src="{% static 'icons/roue.png' %}"
-                alt="{% trans 'Serrage des roues' %}"
-                class="section-icon"
-            >
-            {% trans "Serrage des roues" %}
-        </h2>
-
-        {% if form.serrage_roues %}
-            <div class="mb-4">
-                <label for="{{ form.serrage_roues.id_for_label }}"
-                       class="block font-semibold mb-1">
-                    {{ form.serrage_roues.label }}
-                </label>
-
-                {{ form.serrage_roues|add_class:"input" }}
-
-                {% if form.serrage_roues.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">
-                        {{ form.serrage_roues.help_text }}
-                    </p>
-                {% endif %}
-
-                {% if form.serrage_roues.errors %}
-                    <p class="text-red-600 text-sm mt-1">
-                        {{ form.serrage_roues.errors|striptags }}
-                    </p>
-                {% endif %}
-            </div>
-        {% endif %}
-
+        <br>
 
                       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/pays.png' %}" alt="pays tva"
@@ -717,6 +683,42 @@
                 {% endif %}
             </div>
         {% endif %}
+
+         <!-- ================================================== -->
+        <!-- SERRAGE DES ROUES -->
+        <!-- ================================================== -->
+        <h2 class="section-title">
+            <img
+                src="{% static 'icons/roue.png' %}"
+                alt="{% trans 'Serrage des roues' %}"
+                class="section-icon"
+            >
+            {% trans "Serrage des roues" %}
+        </h2>
+
+        {% if form.serrage_roues %}
+            <div class="mb-4">
+                <label for="{{ form.serrage_roues.id_for_label }}"
+                       class="block font-semibold mb-1">
+                    {{ form.serrage_roues.label }}
+                </label>
+
+                {{ form.serrage_roues|add_class:"input" }}
+
+                {% if form.serrage_roues.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">
+                        {{ form.serrage_roues.help_text }}
+                    </p>
+                {% endif %}
+
+                {% if form.serrage_roues.errors %}
+                    <p class="text-red-600 text-sm mt-1">
+                        {{ form.serrage_roues.errors|striptags }}
+                    </p>
+                {% endif %}
+            </div>
+        {% endif %}
+
 
         <!-- ================================================== -->
         <!-- TECHNICIEN -->

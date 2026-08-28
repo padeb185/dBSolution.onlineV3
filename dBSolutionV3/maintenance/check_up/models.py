@@ -1755,6 +1755,8 @@ class Checkup(TechnicienMixin, models.Model):
         verbose_name=_("Main d'oeuvre")
     )
 
+
+
     tech_last_maintained_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,

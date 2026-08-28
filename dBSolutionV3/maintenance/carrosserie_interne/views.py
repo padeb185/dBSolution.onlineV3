@@ -602,6 +602,11 @@ def carrosserie_interne_create_view(request, exemplaire_id):
             "fields": [f for f in form if "tag" in f.name],
         },
         {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
+        {
             "title": "Remarques",
             "icon": "icons/notes.png",
             "fields": [f for f in form if "remarques" in f.name],
@@ -1082,10 +1087,16 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
             "icon": "icons/tag.png",
             "fields": [f for f in form if "tag" in f.name],
         },
+
         {
             "title": "Remarques",
             "icon": "icons/notes.png",
             "fields": [f for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
         },
         {
             "title": "Technicien",

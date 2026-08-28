@@ -203,3 +203,4 @@ class CheckupForm(forms.ModelForm):
             )
 
         return serrage_roues
+

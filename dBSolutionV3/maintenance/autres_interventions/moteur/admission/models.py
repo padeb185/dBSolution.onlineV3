@@ -1,10 +1,12 @@
 from decimal import Decimal, ROUND_HALF_UP
+
+from django import forms
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.choices import TAUX_HORAIRE_CHOICES, FabricantPiece, FabricantCapteurEchappement, FabricantTurbo, \
-    FabricantIntercooler, FabricantVanneEGR, FabricantDurite, TVAConfig
+    FabricantIntercooler, FabricantVanneEGR, FabricantDurite, TVAConfig, RouesSerrageEtat
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -177,6 +179,9 @@ class Admission(TechnicienMixin, models.Model):
         default="JAUNE",
         verbose_name=_("État visuel / Tag"),
     )
+
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
 
     main_oeuvre = models.ForeignKey(
         "maindoeuvre.MainDoeuvre",
@@ -642,3 +647,4 @@ class Admission(TechnicienMixin, models.Model):
             Decimal("0.01"),
             rounding=ROUND_HALF_UP,
         )
+

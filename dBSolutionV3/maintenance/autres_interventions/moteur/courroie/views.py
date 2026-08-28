@@ -382,6 +382,11 @@ def courroie_form_view(request, exemplaire_id):
             "fields": [form[f.name] for f in form if "remarques" in f.name],
         },
         {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
+        {
             "title": _("Technicien"),
             "icon": "icons/mecanicien.png",
             "fields": [form[f.name] for f in form if "tech" in f.name],
@@ -546,6 +551,11 @@ def modifier_courroie_view(request, courroie_id):
             "title": _("Remarques"),
             "icon": "icons/notes.png",
             "fields": [form[f.name] for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
         },
         {
             "title": _("Technicien"),

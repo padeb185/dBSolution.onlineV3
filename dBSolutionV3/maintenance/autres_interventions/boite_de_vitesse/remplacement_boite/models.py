@@ -8,7 +8,7 @@ from client_particulier.models import ClientParticulier
 from django.conf import settings
 from maintenance.autres_interventions.boite_de_vitesse.models import HuileBoiteEtat, BoiteVitesseEtat
 from maintenance.autres_interventions.moteur.turbo.models import EtatOKNotOK
-from maintenance.choices import TAUX_HORAIRE_CHOICES, FabricantLubrifiant, TVAConfig
+from maintenance.choices import TAUX_HORAIRE_CHOICES, FabricantLubrifiant, TVAConfig, RouesSerrageEtat
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 
@@ -189,6 +189,9 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         blank=True,
         null=True
     )
+
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
 
     tech_last_maintained_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,

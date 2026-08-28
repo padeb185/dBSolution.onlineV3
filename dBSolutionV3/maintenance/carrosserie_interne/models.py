@@ -552,6 +552,9 @@ class CarrosserieInterne(models.Model):
         verbose_name=_("Main d'oeuvre")
     )
 
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
+
     # Technicien qui fait le checkup (toujours l'utilisateur courant)
     tech_technicien = models.ForeignKey(
         settings.AUTH_USER_MODEL,

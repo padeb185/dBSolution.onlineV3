@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from maindoeuvre.models import MainDoeuvre
 from maintenance.autres_interventions.climatisation.models import Climatisation
 from maintenance.autres_interventions.refroidissement.models import Refroidissement
+from maintenance.choices import RouesSerrageEtat
 
 
 class RefForm(forms.ModelForm):
@@ -170,3 +171,14 @@ class RefForm(forms.ModelForm):
             instance.save()
 
         return instance
+
+
+    def clean_serrage_roues(self):
+        serrage_roues = self.cleaned_data.get("serrage_roues")
+
+        if serrage_roues != RouesSerrageEtat.FAIT:
+            raise forms.ValidationError(
+                _("Vous devez confirmer que le serrage des roues est FAIT avant de valider.")
+            )
+
+        return serrage_roues

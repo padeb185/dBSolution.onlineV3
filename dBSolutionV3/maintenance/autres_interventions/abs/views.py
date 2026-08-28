@@ -1,7 +1,5 @@
 from datetime import datetime
-
 from django.core.exceptions import ValidationError
-
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -22,6 +20,9 @@ from weasyprint import HTML
 from .forms import AbsForm
 from .models import Abs
 from ...checkup_track.models import EtatOKNotOK
+
+
+
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -267,11 +268,6 @@ def abs_form_view(request, exemplaire_id):
             "fields": [form[f.name] for f in form if "liquide" in f.name],
         },
         {
-            "title": _("Serrage des roues"),
-            "icon": "icons/roue.png",
-            "fields": [form[f.name] for f in form if "serrage" in f.name],
-        },
-        {
             "title": _("Pays"),
             "icon": "icons/pays.png",
             "fields": [form[f.name] for f in form if "pays" in f.name],
@@ -286,6 +282,11 @@ def abs_form_view(request, exemplaire_id):
             "title": _("Remarques"),
             "icon": "icons/notes.png",
             "fields": [form[f.name] for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
         },
         {
             "title": _("Technicien"),
@@ -537,15 +538,7 @@ def modifier_abs_view(request, abs_id):
                 if "liquide" in f.name
             ],
         },
-        {
-            "title": _("Serrage des roues"),
-            "icon": "icons/roue.png",
-            "fields": [
-                form[f.name]
-                for f in form
-                if "serrage" in f.name
-            ],
-        },
+
         {
             "title": _("Pays"),
             "icon": "icons/pays.png",
@@ -571,6 +564,15 @@ def modifier_abs_view(request, abs_id):
                 form[f.name]
                 for f in form
                 if "remarques" in f.name
+            ],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "serrage" in f.name
             ],
         },
         {

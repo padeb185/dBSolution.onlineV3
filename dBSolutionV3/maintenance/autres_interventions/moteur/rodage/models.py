@@ -465,6 +465,7 @@ class Rodage(TechnicienMixin, models.Model):
         verbose_name=_("État visuel / Tag"),
     )
 
+
     # Technicien qui fait le checkup (toujours l'utilisateur courant)
     tech_technicien = models.ForeignKey(
         settings.AUTH_USER_MODEL,
