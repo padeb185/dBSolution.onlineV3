@@ -482,7 +482,7 @@ class RefroidissementFabricant(models.TextChoices):
     TRIPLE_QX = "TRIPLE_QX", _("Triple QX")
     VALEO = "VALEO", _("Valeo")
     VALVOLINE = "VALVOLINE", _("Valvoline")
-    VAG = "VAG", _("Volkswagen Audi Group")
+    VAG = "VAG", _("VAG")
     VOLVO = "VOLVO", _("Volvo")
     WOLF = "WOLF", _("Wolf")
     XENUM = "XENUM", _("Xenum")

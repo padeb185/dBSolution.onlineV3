@@ -397,7 +397,7 @@
             {% trans "Refroidissement_radiateur" %}
          </h2>
         {% for field in form %}
-            {% if "refroidissement_radiateur" in field.name %}
+            {% if "Radiateur" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -430,7 +430,7 @@
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/anti-gel.png' %}" alt="Anti-gel"
                  style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Refroidissement_liquide" %}
+            {% trans "Liquide de refroidissement" %}
          </h2>
         {% for field in form %}
             {% if "refroidissement_liquide" in field.name %}

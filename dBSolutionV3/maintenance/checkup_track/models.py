@@ -4,7 +4,7 @@ from django.core.validators import StepValueValidator
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.check_up.models import PhareReglageEtat
+from maintenance.check_up.models import PhareReglageEtat, BruitEtat
 from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantLubrifiant, TypeHuileDirection, \
     AmpouleAutomobile, FabricantFrein, MatierePlaquetteFrein, MatiereFrein, TypeDisqueFrein, RefroidissementFabricant, \
     FabricantAmpoule, TVAConfig, HuileEtat, HuileBoiteEtat, RefroidissementQualiteEtat, HuilePontEtat
@@ -274,7 +274,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
     direction_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
 
     # --- Bruits ---
-    bruit_roulement_roue= models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bruit de roulement de roue"), blank=True, null=True)
+    bruit_roulement_roue= models.CharField(max_length=25, choices=BruitEtat.choices, default=BruitEtat.OK, verbose_name=_("Bruit de roulement de roue"), blank=True, null=True)
 
     jeu_roulement_roue = models.CharField(max_length=25, choices=JeuEtat.choices, default=JeuEtat.OK,verbose_name=_("Jeu roulement de roue"))
 
