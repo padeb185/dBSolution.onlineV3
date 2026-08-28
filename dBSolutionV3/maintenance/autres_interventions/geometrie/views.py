@@ -29,7 +29,6 @@ class GeometrieListView(ListView):
     model = GeometrieVoiture   # ✅ ICI
     template_name = "geometrie/geometrie_list.html"
     context_object_name = "geometries"
-    paginate_by = 10
     ordering = ["-id"]
 
     def get_queryset(self):

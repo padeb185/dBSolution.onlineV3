@@ -32,7 +32,6 @@ class CarrosserieInterneListView(LoginRequiredMixin, ListView):
     model = CarrosserieInterne
     template_name = "carrosserie_interne/carrosserie_interne_list.html"
     context_object_name = "carrosserie_internes"
-    paginate_by = 10
     ordering = ["-created_at"]
 
     def get_queryset(self):

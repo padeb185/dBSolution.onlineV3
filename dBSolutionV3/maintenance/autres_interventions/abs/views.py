@@ -30,7 +30,6 @@ class AbsListView(ListView):
     model = Abs
     template_name = "abs/abs_list.html"
     context_object_name = "abss"
-    paginate_by = 10
     ordering = ["-id"]
 
     def get_queryset(self):

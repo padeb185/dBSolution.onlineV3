@@ -27,7 +27,6 @@ class EssuyageListView(ListView):
     model = Essuyage
     template_name = "essuyage/essuyage_list.html"
     context_object_name = "essuyages"
-    paginate_by = 10
     ordering = ["-id"]
 
     def get_queryset(self):

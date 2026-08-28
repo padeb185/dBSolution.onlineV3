@@ -114,7 +114,6 @@ class EchappementListView(ListView):
     model = Echappement   # ✅ ICI
     template_name = "echappement/echappement_list.html"
     context_object_name = "echappements"
-
     ordering = ["-id"]
 
     def get_queryset(self):
