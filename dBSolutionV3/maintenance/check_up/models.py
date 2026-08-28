@@ -75,6 +75,22 @@ class QualiteLiquideFrein(models.TextChoices):
     DOT5 = "DOT5", _("DOT 5")
     DOT51 = "DOT51", _("DOT 5.1")
 
+class JeuEtat(models.TextChoices):
+    OK = "OK", _("OK")
+    JEU = "JEU", _("Petit Jeu")
+    A_REMPLACER = "A_REMPLACER", _("A remplacer")
+    REMPLACE = "REMPLACE", _("Remplacé")
+
+
+class BruitEtat(models.TextChoices):
+    OK = "OK", _("OK")
+    BRUIT = "BRUIT", _("Petit bruit")
+    A_REMPLACER = "A_REMPLACER", _("A remplacer")
+    REMPLACE = "REMPLACE", _("Remplacé")
+
+
+
+
 # ---------------------------
 # Modèle fusionné
 # ---------------------------
@@ -185,7 +201,7 @@ class Checkup(TechnicienMixin, models.Model):
 
     pont_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite pont arrière"))
     pont_bruit = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bruits pont arrière"))
-    pont_jeu = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu pont arrière"))
+    pont_jeu = models.CharField(max_length=25, choices=JeuEtat.choices, default=JeuEtat.OK, verbose_name=_("Jeu pont arrière"))
     pont_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
     pont_niveau_huile_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.CHOISIR,verbose_name=_("Fabricant"))
     pont_niveau_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ80,verbose_name=_("Qualité d'huile"))
@@ -309,10 +325,10 @@ class Checkup(TechnicienMixin, models.Model):
 
 
     # --- Bruits ---
-    bruit_roulement_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État roulement de roue avant droit"), blank=True, null=True)
-    bruit_roulement_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État roulement de roue avant gauche"),  blank=True, null=True)
-    bruit_roulement_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État roulement de roue arrière droit"), blank=True, null=True)
-    bruit_roulement_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État roulement de roue arrière gauche"),  blank=True, null=True)
+    bruit_roulement_avd = models.CharField(max_length=25, choices=BruitEtat.choices, default=BruitEtat.OK, verbose_name=_("État roulement de roue avant droit"), blank=True, null=True)
+    bruit_roulement_avg = models.CharField(max_length=25, choices=BruitEtat.choices, default=BruitEtat.OK,verbose_name=_("État roulement de roue avant gauche"),  blank=True, null=True)
+    bruit_roulement_ard = models.CharField(max_length=25, choices=BruitEtat.choices, default=BruitEtat.OK, verbose_name=_("État roulement de roue arrière droit"), blank=True, null=True)
+    bruit_roulement_arg = models.CharField(max_length=25, choices=BruitEtat.choices, default=BruitEtat.OK, verbose_name=_("État roulement de roue arrière gauche"),  blank=True, null=True)
 
 
     # --- Batterie ---
@@ -349,8 +365,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_rotule_direction_avd = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu rotule de direction avant droite"),
     )
     jeu_rotule_direction_avd_fabricant = models.CharField(
@@ -372,8 +388,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_rotule_direction_avg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu rotule de direction avant gauche"),
     )
     jeu_rotule_direction_avg_fabricant = models.CharField(
@@ -395,8 +411,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_rotule_direction_ard = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu rotule de direction arrière droite"),
     )
     jeu_rotule_direction_ard_fabricant = models.CharField(
@@ -418,8 +434,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_rotule_direction_arg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu rotule de direction arrière gauche"),
     )
     jeu_rotule_direction_arg_fabricant = models.CharField(
@@ -441,8 +457,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_rotule_suspension_inferieure_avd = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu rotule de suspension inférieure avant droite"),
     )
     jeu_rotule_suspension_inferieure_avd_fabricant = models.CharField(
@@ -464,8 +480,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_rotule_suspension_inferieure_avg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu rotule de suspension inférieure avant gauche"),
     )
     jeu_rotule_suspension_inferieure_avg_fabricant = models.CharField(
@@ -487,8 +503,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_rotule_suspension_inferieure_ard = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu rotule de suspension inférieure arrière droite"),
     )
     jeu_rotule_suspension_inferieure_ard_fabricant = models.CharField(
@@ -510,8 +526,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_rotule_suspension_inferieure_arg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu rotule de suspension inférieure arrière gauche"),
     )
     jeu_rotule_suspension_inferieure_arg_fabricant = models.CharField(
@@ -533,8 +549,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_rotule_suspension_superieure_avd = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu rotule de suspension supérieure avant droite"),
     )
     jeu_rotule_suspension_superieure_avd_fabricant = models.CharField(
@@ -556,8 +572,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_rotule_suspension_superieure_avg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu rotule de suspension supérieure avant gauche"),
     )
     jeu_rotule_suspension_superieure_avg_fabricant = models.CharField(
@@ -579,8 +595,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_rotule_suspension_superieure_ard = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu rotule de suspension supérieure arrière droite"),
     )
     jeu_rotule_suspension_superieure_ard_fabricant = models.CharField(
@@ -602,8 +618,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_rotule_suspension_superieure_arg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu rotule de suspension supérieure arrière gauche"),
     )
     jeu_rotule_suspension_superieure_arg_fabricant = models.CharField(
@@ -625,8 +641,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_Biellette_barre_stabilisatrice_avd = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu biellette de barre stabilisatrice avant droite"),
     )
     jeu_Biellette_barre_stabilisatrice_avd_fabricant = models.CharField(
@@ -648,8 +664,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_Biellette_barre_stabilisatrice_avg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu biellette de barre stabilisatrice avant gauche"),
     )
     jeu_Biellette_barre_stabilisatrice_avg_fabricant = models.CharField(
@@ -671,8 +687,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_Biellette_barre_stabilisatrice_ard = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu biellette de barre stabilisatrice arrière droite"),
     )
     jeu_Biellette_barre_stabilisatrice_ard_fabricant = models.CharField(
@@ -694,8 +710,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_Biellette_barre_stabilisatrice_arg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu biellette de barre stabilisatrice arrière gauche"),
     )
     jeu_Biellette_barre_stabilisatrice_arg_fabricant = models.CharField(
@@ -717,8 +733,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_barre_stabilisatrice_av = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu barre stabilisatrice avant"),
     )
     jeu_barre_stabilisatrice_av_fabricant = models.CharField(
@@ -740,8 +756,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_barre_stabilisatrice_ar = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu barre stabilisatrice arrière"),
     )
     jeu_barre_stabilisatrice_ar_fabricant = models.CharField(
@@ -763,8 +779,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_biellette_direction_avd = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu biellette de direction droite"),
     )
     jeu_biellette_direction_avd_fabricant = models.CharField(
@@ -786,8 +802,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_biellette_direction_avg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu biellette de direction gauche"),
     )
     jeu_biellette_direction_avg_fabricant = models.CharField(
@@ -809,8 +825,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_cardan_avd = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu du cardan avant droit"),
     )
     jeu_cardan_avd_fabricant = models.CharField(
@@ -832,8 +848,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_cardan_avg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu du cardan avant gauche"),
     )
     jeu_cardan_avg_fabricant = models.CharField(
@@ -855,8 +871,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_cardan_ard = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu du cardan arrière droit"),
     )
     jeu_cardan_ard_fabricant = models.CharField(
@@ -878,8 +894,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_cardan_arg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu du cardan arrière gauche"),
     )
     jeu_cardan_arg_fabricant = models.CharField(
@@ -901,8 +917,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_arbre = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu dans l'arbre de transmission"),
     )
     jeu_arbre_fabricant = models.CharField(
@@ -924,8 +940,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_amortisseur_avd = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu amortisseur avant droit"),
     )
     jeu_amortisseur_avd_fabricant = models.CharField(
@@ -947,8 +963,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_amortisseur_avg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu amortisseur avant gauche"),
     )
     jeu_amortisseur_avg_fabricant = models.CharField(
@@ -970,8 +986,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_amortisseur_ard = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu amortisseur arrière droit"),
     )
     jeu_amortisseur_ard_fabricant = models.CharField(
@@ -993,8 +1009,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_amortisseur_arg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu amortisseur arrière gauche"),
     )
     jeu_amortisseur_arg_fabricant = models.CharField(
@@ -1016,8 +1032,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_roulement_avd = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu roulement avant droit"),
     )
     jeu_roulement_avd_fabricant = models.CharField(
@@ -1039,8 +1055,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_roulement_avg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu roulement avant gauche"),
     )
     jeu_roulement_avg_fabricant = models.CharField(
@@ -1062,8 +1078,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_roulement_ard = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu roulement arrière droit"),
     )
     jeu_roulement_ard_fabricant = models.CharField(
@@ -1085,8 +1101,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_roulement_arg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu roulement arrière gauche"),
     )
     jeu_roulement_arg_fabricant = models.CharField(
@@ -1108,8 +1124,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_triangle_avd = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu triangle avant droit"),
     )
     jeu_triangle_avd_fabricant = models.CharField(
@@ -1131,8 +1147,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_triangle_avg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu triangle avant gauche"),
     )
     jeu_triangle_avg_fabricant = models.CharField(
@@ -1154,8 +1170,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_triangle_ard = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu triangle arrière droit"),
     )
     jeu_triangle_ard_fabricant = models.CharField(
@@ -1177,8 +1193,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_triangle_arg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu triangle arrière gauche"),
     )
     jeu_triangle_arg_fabricant = models.CharField(
@@ -1200,8 +1216,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_multi_bras_avd = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu suspension multi-bras avant droit"),
     )
     jeu_multi_bras_avd_fabricant = models.CharField(
@@ -1223,8 +1239,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_multi_bras_avg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu suspension multi-bras avant gauche"),
     )
     jeu_multi_bras_avg_fabricant = models.CharField(
@@ -1246,8 +1262,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_multi_bras_ard = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu suspension multi-bras arrière droit"),
     )
     jeu_multi_bras_ard_fabricant = models.CharField(
@@ -1269,8 +1285,8 @@ class Checkup(TechnicienMixin, models.Model):
 
     jeu_multi_bras_arg = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=JeuEtat.choices,
+        default=JeuEtat.OK,
         verbose_name=_("Jeu suspension multi-bras arrière gauche"),
     )
     jeu_multi_bras_arg_fabricant = models.CharField(
@@ -1904,6 +1920,12 @@ class Checkup(TechnicienMixin, models.Model):
             etats_a_facturer = {
                 EtatOKNotOK.A_REMPLACER,
                 EtatOKNotOK.REMPLACE,
+
+                JeuEtat.A_REMPLACER,
+                JeuEtat.REMPLACE,
+
+                BruitEtat.A_REMPLACER,
+                BruitEtat.REMPLACE,
 
                 BatterieEtat.A_REMPLACER,
                 BatterieEtat.REMPLACE,

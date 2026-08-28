@@ -12,6 +12,7 @@ from utils.mixin import TechnicienMixin
 
 class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("OK")
+    PETIT = "PETIT", _("Petit jeu")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
 
