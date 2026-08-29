@@ -49,7 +49,7 @@
 
 
 <!-- Table -->
-<table id="fournisseurs-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+<table id="achats-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
             <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Fournisseur" %}</th>
@@ -85,7 +85,10 @@
             <td class="border px-4 py-2 text-right">{{ achat.achat_tva }} %</td>
             <td class="border px-4 py-2 text-right">{{ achat.montant_tva|floatformat:2 }} €</td>
             <td class="border px-4 py-2 text-right font-bold">{{ achat.total_tvac|floatformat:2 }} €</td>
-            <td class="border px-4 py-2">{{ achat.date_facture }}</td>
+           <td class="border px-4 py-2"
+                data-order="{{ achat.date_facture|date:'Y-m-d' }}">
+                {{ achat.date_facture|date:"d/m/Y" }}
+            </td>
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'achat_mds:achat_detail' achat.id %}"
                      class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
@@ -109,14 +112,17 @@
 <!-- DataTables JS -->
 <script>
 $(document).ready(function() {
+
     var table = $('#achats-table').DataTable({
-        pageLength: 100,
+        pageLength: 10,
+
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
             info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ achats marchandises' %}",
             infoEmpty: "{% trans 'Aucune facture trouvée' %}",
             zeroRecords: "{% trans 'Aucune facture trouvée' %}",
+
             paginate: {
                 first: "{% trans 'Premier' %}",
                 last: "{% trans 'Dernier' %}",
@@ -124,27 +130,47 @@ $(document).ready(function() {
                 previous: "{% trans 'Précédent' %}"
             }
         },
-        order: [[0, "asc"]]
+
+        // Tri initial : date de facture décroissante
+        order: [[8, "desc"]],
+
+        columnDefs: [
+            {
+                targets: 9,       // colonne Info
+                orderable: false,
+                searchable: false
+            }
+        ]
     });
 
-    // Filtres par colonne
-    $('#search-fournisseur').on('keyup', function () {
+
+    // Fournisseur
+    $('#search-fournisseur').on('keyup change', function () {
         table.column(0).search(this.value).draw();
     });
-    $('#search-achat_mds').on('keyup', function () {
+
+
+    // Libellé
+    $('#search-achat_mds').on('keyup change', function () {
         table.column(1).search(this.value).draw();
     });
-    $('#search-achat_montant_htva').on('keyup', function () {
-        table.column(2).search(this.value).draw();
-    });
-     $('#search-transport_montant_htva').on('keyup', function () {
+
+
+    // Montant HTVA
+    $('#search-achat_montant_htva').on('keyup change', function () {
         table.column(3).search(this.value).draw();
     });
-    $('#search-achat_tva').on('keyup', function () {
-        table.column(4).search(this.value).draw();
-    });
-     $('#search-date_facture').on('keyup', function () {
+
+
+    // Taux TVA
+    $('#search-achat_tva').on('keyup change', function () {
         table.column(5).search(this.value).draw();
+    });
+
+
+    // Date facture
+    $('#search-date_facture').on('keyup change', function () {
+        table.column(8).search(this.value).draw();
     });
 
 });
