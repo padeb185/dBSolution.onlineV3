@@ -4,6 +4,7 @@
 {% block title %}{% trans "Tableau de bord assurance" %}{% endblock %}
 {% block content %}
 <br>
+<br>
 <h1 class="text-2xl font-bold mb-6">{% trans "Bienvenue sur le tableau de bord assurance" %}</h1>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -35,4 +36,15 @@
 
 
 </div>
+
+<br>
+<br>
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+
+
 {% endblock %}
