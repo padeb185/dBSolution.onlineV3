@@ -13,11 +13,6 @@
             <span class="text-black-700">{{ adresse.rue}} {{ adresse.numero }} {{ adresse.ville }} {{ adresse.code_postal}}</span>
 
         </h1>
-
-        <a href="{% url 'adresse:adresse_list' %}"
-           class="text-blue-600 hover:underline">
-            ← {% trans "Retour à la liste des adresses" %}
-        </a>
     </div>
 
     <!-- Infos principales -->
@@ -110,7 +105,7 @@
     <!-- Actions -->
     <div>
         <a href="{% url 'adresse:adresse_list' %}"
-             class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+              class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
             {% trans "Retour à la liste des adresses" %}
         </a>
     </div>

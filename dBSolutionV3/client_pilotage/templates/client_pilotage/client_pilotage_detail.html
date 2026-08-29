@@ -104,14 +104,18 @@
         </div>
     </div>
 
-    <!-- Adresse -->
+       <!-- Adresse -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <h2 class="text-lg font-semibold mb-4">
             {% trans "Adresse" %}
         </h2>
 
-        {% if client_pilotage.adresse %}
-            <p>{{ client_pilotage.adresse }}</p>
+       {% if client_pilotage.adresse %}
+        <p>
+            {{ client_pilotage.adresse.rue|default_if_none:"" }} {{ client_pilotage.adresse.numero|default_if_none:"" }}<br>
+            {{ client_pilotage.adresse.code_postal|default_if_none:"" }} {{ client_pilotage.adresse.ville|default_if_none:"" }}<br>
+            {{ client_pilotage.adresse.pays|default_if_none:"" }}
+        </p>
         {% else %}
             <p class="text-gray-500">
                 {% trans "Aucune adresse renseignée." %}
@@ -119,7 +123,7 @@
         {% endif %}
     </div>
 
-    <!-- Métadonnées -->
+
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <h2 class="text-lg font-semibold mb-4">
             {% trans "Métadonnées" %}
@@ -138,10 +142,10 @@
     <br>
 
 
-    <!-- Actions -->
+
     <div>
         <a href="{% url 'client_pilotage:client_pilotage_list' %}"
-           class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+            class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
             {% trans "Retour à la liste des pilotes" %}
         </a>
     </div>

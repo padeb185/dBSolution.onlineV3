@@ -4,7 +4,7 @@
 {% block content %}
 <div class="p-6 w-full ml-[-10px] mr-[10px]">
 
-    <!-- Header -->
+        <!-- Header -->
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
            <img src="{% static 'icons/client.png' %}" alt="client"
@@ -14,7 +14,7 @@
 
         </h1>
     </div>
-<!-- Messages -->
+        <!-- Messages -->
     {% if messages %}
         {% for message in messages %}
         <div class="mb-3 px-4 py-2 rounded border
@@ -29,7 +29,7 @@
     {% endif %}
 
 
-    <!-- Infos principales -->
+        <!-- Infos principales -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
 
         <!-- Informations générales -->
@@ -100,14 +100,18 @@
         </div>
     </div>
 
-    <!-- Adresse -->
+
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <h2 class="text-lg font-semibold mb-4">
             {% trans "Adresse" %}
         </h2>
 
-        {% if client_particulier.adresse %}
-            <p>{{ client_particulier.adresse }}</p>
+       {% if client_particulier.adresse %}
+        <p>
+            {{ client_particulier.adresse.rue|default_if_none:"" }} {{ client_particulier.adresse.numero|default_if_none:"" }}<br>
+            {{ client_particulier.adresse.code_postal|default_if_none:"" }} {{ client_particulier.adresse.ville|default_if_none:"" }}<br>
+            {{ client_particulier.adresse.pays|default_if_none:"" }}
+        </p>
         {% else %}
             <p class="text-gray-500">
                 {% trans "Aucune adresse renseignée." %}
@@ -115,30 +119,29 @@
         {% endif %}
     </div>
 
-    <!-- Métadonnées -->
+
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <h2 class="text-lg font-semibold mb-4">
             {% trans "Métadonnées" %}
         </h2>
 
-        <p>
-            <strong>{% trans "Créé le" %} :</strong>
-            {{ client_particulier.created_at|date:"d/m/Y H:i" }}
-        </p>
-        <br>
-         <p>
-            <strong>{% trans "Mis à jour le" %} :</strong>
-            {{ client_particulier.updated_at|date:"d/m/Y H:i" }}
-        </p>
+            <p>
+                <strong>{% trans "Créé le" %} :</strong>
+                {{ client_particulier.created_at|date:"d/m/Y H:i" }}
+            </p>
+            <br>
+             <p>
+                <strong>{% trans "Mis à jour le" %} :</strong>
+                {{ client_particulier.updated_at|date:"d/m/Y H:i" }}
+            </p>
     </div>
 
     <br>
 
 
-    <!-- Actions -->
     <div>
         <a href="{% url 'client_particulier:clientparticulier_list' %}"
-           class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+           class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
             {% trans "Retour à la liste des clients" %}
         </a>
     </div>

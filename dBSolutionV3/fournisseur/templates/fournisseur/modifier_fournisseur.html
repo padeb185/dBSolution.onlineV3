@@ -94,6 +94,12 @@
 
     </form>
 </div>
+<div class="max-w-xl mx-auto mt-4">
+     <a href="{% url 'fournisseur:fournisseur_detail' fournisseur_id=fournisseur.id %}"
+        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au detail du fournisseur" %}
+    </a>
+</div>
 
 <style>
 .input {

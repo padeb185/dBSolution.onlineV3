@@ -156,4 +156,13 @@
     {% endif %}
 
 </div>
+    <br>
+    <br>
+<div>
+    <a href="{% url 'fournisseur:fournisseur_dashboard' %}"
+        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord fournisseur" %}
+    </a>
+</div>
+
 {% endblock %}
