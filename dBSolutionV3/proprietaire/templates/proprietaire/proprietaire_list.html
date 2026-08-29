@@ -115,7 +115,7 @@
 <!-- Retour -->
 <div>
     <a href="{% url 'proprietaire:proprietaire_dashboard' %}"
-       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Retour au tableau de bord des propriétaires" %}
     </a>
 </div>
@@ -126,7 +126,7 @@
 <script>
 $(document).ready(function() {
     var table = $('#proprietaires-table').DataTable({
-        pageLength: 100,
+        pageLength: 10,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
