@@ -755,7 +755,9 @@ class Rodage(TechnicienMixin, models.Model):
         rapport = []
         total_general = Decimal("0.00")
 
-        # États à retenir dans le rapport
+        # =========================================================
+        # ÉTATS ACCEPTÉS POUR LES PIÈCES / PRODUITS
+        # =========================================================
         etats_acceptes = {
             "A_FAIRE",
             "NOT_OK",
@@ -765,34 +767,136 @@ class Rodage(TechnicienMixin, models.Model):
             "FAIT",
         }
 
+        # =========================================================
+        # PARCOURS DES CHAMPS
+        # =========================================================
         for field in self._meta.fields:
+
             field_name = field.name
 
-            # Seulement les champs avec choices
+            # Seulement les CharField avec choices
             if not (
                     isinstance(field, models.CharField)
                     and field.choices
             ):
                 continue
 
-            etat = getattr(self, field_name, None)
+            etat = getattr(
+                self,
+                field_name,
+                None
+            )
 
-            # Ne garder que les états intéressants
+            # -----------------------------------------------------
+            # ÉTAT OBLIGATOIRE
+            # -----------------------------------------------------
             if etat not in etats_acceptes:
                 continue
 
             # =====================================================
-            # FABRICANT / TYPE
+            # PRÉFIXE
+            #
+            # lave_glace_etat -> lave_glace
+            # frein_liquide_etat -> frein_liquide
+            # refroidissement_liquide_etat
+            #     -> refroidissement_liquide
+            # =====================================================
+            if field_name.endswith("_etat"):
+                prefix = field_name[:-5]
+            else:
+                prefix = field_name
+
+            # =====================================================
+            # NOMS DES CHAMPS ASSOCIÉS
+            # =====================================================
+            prix_field_name = f"{prefix}_prix"
+            quantite_field_name = f"{prefix}_quantite"
+            fabricant_field_name = f"{prefix}_fabricant"
+            type_field_name = f"{prefix}_type"
+            qualite_field_name = f"{prefix}_qualite"
+
+            # =====================================================
+            # PRIX ET QUANTITÉ DOIVENT EXISTER
+            # =====================================================
+            try:
+                prix_field = self._meta.get_field(
+                    prix_field_name
+                )
+            except FieldDoesNotExist:
+                # Pas de prix = pas une pièce / produit facturable
+                continue
+
+            try:
+                quantite_field = self._meta.get_field(
+                    quantite_field_name
+                )
+            except FieldDoesNotExist:
+                # Pas de quantité = pas une pièce / produit facturable
+                continue
+
+            # =====================================================
+            # PRIX
+            # =====================================================
+            prix = getattr(
+                self,
+                prix_field_name,
+                None
+            )
+
+            if prix is None:
+                continue
+
+            prix = Decimal(
+                str(prix)
+            ).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP
+            )
+
+            # Prix obligatoire et > 0
+            if prix <= Decimal("0.00"):
+                continue
+
+            # =====================================================
+            # QUANTITÉ
+            # =====================================================
+            quantite = getattr(
+                self,
+                quantite_field_name,
+                None
+            )
+
+            if quantite is None:
+                continue
+
+            quantite = Decimal(
+                str(quantite)
+            )
+
+            # Quantité obligatoire et > 0
+            if quantite <= Decimal("0.00"):
+                continue
+
+            # =====================================================
+            # TOTAL DE LA LIGNE
+            # =====================================================
+            total = (
+                    prix * quantite
+            ).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP
+            )
+
+            # Sécurité supplémentaire
+            if total <= Decimal("0.00"):
+                continue
+
+            # =====================================================
+            # FABRICANT
             # =====================================================
             fabricant = None
             fabricant_label = None
 
-            fabricant_field_name = f"{field_name}_fabricant"
-            type_field_name = f"{field_name}_type"
-
-            # -------------------------
-            # FABRICANT
-            # -------------------------
             try:
                 fabricant_field = self._meta.get_field(
                     fabricant_field_name
@@ -817,11 +921,12 @@ class Rodage(TechnicienMixin, models.Model):
             except FieldDoesNotExist:
                 pass
 
-            # -------------------------
-            # TYPE D'AMPOULE
-            # Si aucun fabricant n'existe
-            # -------------------------
+            # =====================================================
+            # TYPE
+            # Si aucun fabricant
+            # =====================================================
             if fabricant is None:
+
                 try:
                     type_field = self._meta.get_field(
                         type_field_name
@@ -844,82 +949,34 @@ class Rodage(TechnicienMixin, models.Model):
                         )
 
                 except FieldDoesNotExist:
-                    fabricant = None
-                    fabricant_label = None
+                    pass
 
             # =====================================================
-            # PRIX
+            # QUALITÉ
             # =====================================================
-            prix_field_name = f"{field_name}_prix"
-
-            prix = getattr(
-                self,
-                prix_field_name,
-                Decimal("0.00")
-            )
-
-            if prix is None:
-                prix = Decimal("0.00")
-
-            prix = Decimal(str(prix)).quantize(
-                Decimal("0.01"),
-                rounding=ROUND_HALF_UP
-            )
-
-            # =====================================================
-            # QUANTITÉ
-            # =====================================================
-            quantite_field_name = f"{field_name}_quantite"
-
-            quantite = getattr(
-                self,
-                quantite_field_name,
-                0
-            )
-
-            if quantite is None:
-                quantite = 0
-
-            quantite = Decimal(str(quantite))
-
-            # Si le champ possède une quantité,
-            # ne pas afficher si quantité = 0
-            try:
-                self._meta.get_field(
-                    quantite_field_name
-                )
-
-                if quantite <= 0:
-                    continue
-
-            except FieldDoesNotExist:
-                pass
-
-            if prix <= Decimal("0.00") and quantite <= Decimal("0.00"):
-                continue
-
-            # =====================================================
-            # TOTAL
-            # =====================================================
-            total = Decimal("0.00")
+            qualite = None
+            qualite_label = None
 
             try:
-                self._meta.get_field(
-                    prix_field_name
+                qualite_field = self._meta.get_field(
+                    qualite_field_name
                 )
 
-                self._meta.get_field(
-                    quantite_field_name
+                qualite = getattr(
+                    self,
+                    qualite_field_name,
+                    None
                 )
 
-                total = (
-                        prix * quantite
-                ).quantize(
-                    Decimal("0.01"),
-                    rounding=ROUND_HALF_UP
-                )
+                qualite_label = qualite
 
-                total_general += total
+                if qualite_field.choices:
+                    qualite_label = dict(
+                        qualite_field.choices
+                    ).get(
+                        qualite,
+                        qualite
+                    )
 
             except FieldDoesNotExist:
                 pass
@@ -939,14 +996,32 @@ class Rodage(TechnicienMixin, models.Model):
                 etat_label = etat
 
             # =====================================================
-            # RAPPORT
+            # NOM AFFICHÉ
+            # =====================================================
+            nom = field.verbose_name
+
+            noms_specifiques = {
+                "lave_glace": _("Liquide lave-glace"),
+                "frein_liquide": _("Liquide de freins"),
+                "refroidissement_liquide": _(
+                    "Liquide de refroidissement"
+                ),
+            }
+
+            if prefix in noms_specifiques:
+                nom = noms_specifiques[prefix]
+
+            # =====================================================
+            # AJOUT AU RAPPORT
             # =====================================================
             rapport.append(
                 {
-                    "champ": field.verbose_name,
-                    "nom": field.verbose_name,
-                    "label": field.verbose_name,
+                    "champ": nom,
+                    "nom": nom,
+                    "label": nom,
+
                     "code": field_name,
+                    "prefix": prefix,
 
                     "etat": etat,
                     "etat_label": etat_label,
@@ -955,14 +1030,22 @@ class Rodage(TechnicienMixin, models.Model):
                     "fabricant": fabricant_label,
                     "fabricant_label": fabricant_label,
 
+                    "qualite": qualite_label,
+                    "qualite_label": qualite_label,
+
                     "prix": prix,
                     "quantite": quantite,
                     "total": total,
                 }
             )
 
+            # =====================================================
+            # TOTAL UNIQUEMENT APRÈS VALIDATION COMPLÈTE
+            # =====================================================
+            total_general += total
+
         # =========================================================
-        # TOTAL PIÈCES
+        # TOTAL PIÈCES / PRODUITS
         # =========================================================
         total_general = total_general.quantize(
             Decimal("0.01"),
@@ -1002,7 +1085,7 @@ class Rodage(TechnicienMixin, models.Model):
             )
 
         # =========================================================
-        # TOTAL AVEC MAIN-D'ŒUVRE
+        # TOTAL GÉNÉRAL
         # =========================================================
         total_general_avec_main_oeuvre = (
                 total_general
@@ -1018,7 +1101,6 @@ class Rodage(TechnicienMixin, models.Model):
         return {
             "lignes": rapport,
 
-            # Pour ton PDF actuel
             "pieces": rapport,
 
             "total_general": total_general,
