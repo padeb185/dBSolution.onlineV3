@@ -758,9 +758,7 @@ class Allumage(models.Model):
             # FABRICANT
             # ====================================================
 
-            fabricant_field_name = (
-                f"{prefix}_fabricant"
-            )
+            fabricant_field_name = f"{prefix}_fabricant"
 
             fabricant = getattr(
                 self,
@@ -770,23 +768,18 @@ class Allumage(models.Model):
 
             fabricant_label = "-"
 
-            if fabricant not in (
-                    None,
-                    "",
-                    "CHOISIR",
-            ):
-                get_fabricant_display = getattr(
+            if fabricant not in (None, "", "CHOISIR"):
+
+                display_method = getattr(
                     self,
                     f"get_{fabricant_field_name}_display",
                     None,
                 )
 
-                if callable(get_fabricant_display):
-                    fabricant_label = (
-                        get_fabricant_display()
-                    )
+                if callable(display_method):
+                    fabricant_label = display_method() or "-"
                 else:
-                    fabricant_label = fabricant
+                    fabricant_label = str(fabricant)
 
             # ====================================================
             # RÉFÉRENCE
@@ -825,8 +818,8 @@ class Allumage(models.Model):
                     valeur,
                 ),
 
-                "fabricant": fabricant,
-                "fabricant_label": fabricant_label,
+                # IMPORTANT
+                "fabricant": fabricant_label,
 
                 "reference": reference,
 
@@ -836,7 +829,6 @@ class Allumage(models.Model):
                 ),
 
                 "quantite": quantite,
-
                 "total": total,
             })
 

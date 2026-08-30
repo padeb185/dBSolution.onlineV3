@@ -194,13 +194,16 @@ class ControlePneus(TechnicienMixin, models.Model):
 
     valve_pneu = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("Valves de pneu"))
     valve_pneu_type = models.CharField(max_length=25, choices=ValveType.choices, default=ValveType.CAOUTCHOUC, verbose_name=_("type de valves de pneu"))
+    valve_pneu_quantite = models.PositiveIntegerField(default=0, null=True, blank=True, verbose_name=_("Quantité"))
     valve_pneu_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    valve_pneu_quantite = models.PositiveIntegerField(default=0, null=True, blank=True, verbose_name=_("Quantité"))
+
+
+
 
     masse_equilibrage = models.CharField(max_length=25, choices=MasseEquilibrageType.choices, default=MasseEquilibrageType.CLIP_ZINC , verbose_name=_("Type de masses d'équilibrage"))
 
@@ -448,17 +451,22 @@ class ControlePneus(TechnicienMixin, models.Model):
             # =========================
             # FABRICANT
             # =========================
-            fabricant = getattr(
+            fabricant_field = f"{field_name}_fabricant"
+
+            get_fabricant_display = getattr(
                 self,
-                f"{field_name}_fabricant",
+                f"get_{fabricant_field}_display",
                 None,
             )
 
-            # Si fabricant est un objet (ForeignKey)
-            if fabricant:
-                fabricant = str(fabricant)
+            if callable(get_fabricant_display):
+                fabricant = get_fabricant_display() or "-"
             else:
-                fabricant = "-"
+                fabricant = getattr(
+                    self,
+                    fabricant_field,
+                    None,
+                ) or "-"
 
             # =========================
             # PRIX
