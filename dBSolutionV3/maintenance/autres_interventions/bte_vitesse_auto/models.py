@@ -82,7 +82,7 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
     )
 
     auto_emb_convertisseur_couple_quantite = models.PositiveIntegerField(
-        default=1,
+        default=0,
         verbose_name=_("Quantité")
     )
     auto_emb_convertisseur_couple_prix = models.DecimalField(
@@ -109,7 +109,7 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
     )
 
     double_embrayage_quantite = models.PositiveIntegerField(
-        default=1,
+        default=0,
         verbose_name=_("Quantité")
     )
 
@@ -128,7 +128,7 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
     )
 
     pompes_h_quantite = models.PositiveIntegerField(
-        default=1,
+        default=0,
         verbose_name=_("Quantité")
     )
     pompes_h_prix = models.DecimalField(
@@ -146,7 +146,7 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Valves de contrôle")
     )
     pompes_valves_quantite = models.PositiveIntegerField(
-        default=1,
+        default=0,
         verbose_name=_("Quantité")
     )
     pompes_valves_prix = models.DecimalField(
@@ -165,7 +165,7 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
     )
 
     arbre_bte_torque_quantite = models.PositiveIntegerField(
-        default=1,
+        default=0,
         verbose_name=_("Quantité")
     )
     arbre_bte_torque_prix = models.DecimalField(
@@ -185,7 +185,7 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
     )
 
     arbre_bte_secondaire_auto_quantite = models.PositiveIntegerField(
-        default=1,
+        default=0,
         verbose_name=_("Quantité")
     )
 
@@ -206,11 +206,968 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
 
 
     roulement_auto_quantite = models.PositiveIntegerField(
-        default=1,
+        default=0,
         verbose_name=_("Quantité")
     )
 
     roulement_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # ============================================================
+    # BOÎTE AUTOMATIQUE - PIÈCES COMPLÉMENTAIRES
+    # ============================================================
+
+    # -------------------------
+    # Bloc hydraulique
+    # -------------------------
+    bloc_hydraulique = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Bloc hydraulique")
+    )
+
+    bloc_hydraulique_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    bloc_hydraulique_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Mécatronique
+    # -------------------------
+    mecatronique = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Unité mécatronique")
+    )
+
+    mecatronique_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    mecatronique_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Solénoïdes
+    # -------------------------
+    solenoides = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Solénoïdes")
+    )
+
+    solenoides_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    solenoides_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Électrovannes
+    # -------------------------
+    electrovannes = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Électrovannes")
+    )
+
+    electrovannes_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    electrovannes_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Filtre de boîte automatique
+    # -------------------------
+    filtre_boite_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Filtre de boîte automatique")
+    )
+
+    filtre_boite_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantEmbrayage.choices,
+        default=FabricantEmbrayage.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
+    filtre_boite_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    filtre_boite_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Carter d'huile
+    # -------------------------
+    carter_huile_boite_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Carter d'huile de boîte")
+    )
+
+    carter_huile_boite_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    carter_huile_boite_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Joint de carter
+    # -------------------------
+    joint_carter_boite_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Joint de carter de boîte")
+    )
+
+    joint_carter_boite_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    joint_carter_boite_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Crépine
+    # -------------------------
+    crepine_boite_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Crépine de boîte automatique")
+    )
+
+    crepine_boite_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    crepine_boite_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Pompe hydraulique
+    # -------------------------
+    pompe_hydraulique_boite = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Pompe hydraulique")
+    )
+
+    pompe_hydraulique_boite_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    pompe_hydraulique_boite_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Embrayages internes
+    # -------------------------
+    embrayages_internes_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Embrayages internes")
+    )
+
+    embrayages_internes_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    embrayages_internes_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Disques d'embrayage internes
+    # -------------------------
+    disques_embrayage_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Disques d'embrayage internes")
+    )
+
+    disques_embrayage_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    disques_embrayage_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Disques acier
+    # -------------------------
+    disques_acier_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Disques acier d'embrayage")
+    )
+
+    disques_acier_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    disques_acier_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Tambours d'embrayage
+    # -------------------------
+    tambours_embrayage_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Tambours d'embrayage")
+    )
+
+    tambours_embrayage_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    tambours_embrayage_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Pistons d'embrayage
+    # -------------------------
+    pistons_embrayage_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Pistons d'embrayage")
+    )
+
+    pistons_embrayage_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    pistons_embrayage_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Joints de pistons
+    # -------------------------
+    joints_pistons_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Joints de pistons")
+    )
+
+    joints_pistons_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    joints_pistons_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Train épicycloïdal
+    # -------------------------
+    train_epicycloidal = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Train épicycloïdal")
+    )
+
+    train_epicycloidal_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    train_epicycloidal_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Planétaire
+    # -------------------------
+    pignon_planetaire = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Pignon planétaire")
+    )
+
+    pignon_planetaire_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    pignon_planetaire_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Satellites
+    # -------------------------
+    pignons_satellites = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Pignons satellites")
+    )
+
+    pignons_satellites_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    pignons_satellites_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Couronne
+    # -------------------------
+    couronne_epicycloidale = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Couronne du train épicycloïdal")
+    )
+
+    couronne_epicycloidale_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    couronne_epicycloidale_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Porte-satellites
+    # -------------------------
+    porte_satellites = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Porte-satellites")
+    )
+
+    porte_satellites_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    porte_satellites_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Arbre d'entrée
+    # -------------------------
+    arbre_entree_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Arbre d'entrée")
+    )
+
+    arbre_entree_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    arbre_entree_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Arbre de sortie
+    # -------------------------
+    arbre_sortie_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Arbre de sortie")
+    )
+
+    arbre_sortie_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    arbre_sortie_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Pignons internes
+    # -------------------------
+    pignons_internes_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Pignons internes")
+    )
+
+    pignons_internes_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    pignons_internes_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Roue libre
+    # -------------------------
+    roue_libre_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Roue libre")
+    )
+
+    roue_libre_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    roue_libre_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Freins internes
+    # -------------------------
+    freins_internes_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Freins internes")
+    )
+
+    freins_internes_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    freins_internes_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Bandes de frein
+    # -------------------------
+    bandes_frein_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Bandes de frein")
+    )
+
+    bandes_frein_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    bandes_frein_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Capteur vitesse entrée
+    # -------------------------
+    capteur_vitesse_entree_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Capteur de vitesse d'entrée")
+    )
+
+    capteur_vitesse_entree_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    capteur_vitesse_entree_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Capteur vitesse sortie
+    # -------------------------
+    capteur_vitesse_sortie_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Capteur de vitesse de sortie")
+    )
+
+    capteur_vitesse_sortie_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    capteur_vitesse_sortie_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Capteur température huile
+    # -------------------------
+    capteur_temperature_huile_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Capteur de température d'huile")
+    )
+
+    capteur_temperature_huile_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    capteur_temperature_huile_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Capteur pression huile
+    # -------------------------
+    capteur_pression_huile_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Capteur de pression d'huile")
+    )
+
+    capteur_pression_huile_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    capteur_pression_huile_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Calculateur de boîte
+    # -------------------------
+    calculateur_boite_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Calculateur de boîte automatique")
+    )
+
+    calculateur_boite_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    calculateur_boite_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Faisceau électrique
+    # -------------------------
+    faisceau_boite_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Faisceau électrique de boîte")
+    )
+
+    faisceau_boite_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    faisceau_boite_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Connecteur de boîte
+    # -------------------------
+    connecteur_boite_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Connecteur électrique de boîte")
+    )
+
+    connecteur_boite_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    connecteur_boite_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Sélecteur
+    # -------------------------
+    selecteur_boite_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Sélecteur de boîte")
+    )
+
+    selecteur_boite_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    selecteur_boite_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Capteur de position
+    # -------------------------
+    capteur_position_selecteur_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Capteur de position du sélecteur")
+    )
+
+    capteur_position_selecteur_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    capteur_position_selecteur_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Différentiel
+    # -------------------------
+    differentiel_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Différentiel")
+    )
+
+    differentiel_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    differentiel_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Pignons de différentiel
+    # -------------------------
+    pignons_differentiel_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Pignons de différentiel")
+    )
+
+    pignons_differentiel_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    pignons_differentiel_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Joints spi
+    # -------------------------
+    joints_spi_boite_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Joints spi de boîte")
+    )
+
+    joints_spi_boite_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    joints_spi_boite_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Joints toriques
+    # -------------------------
+    joints_toriques_boite_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Joints toriques de boîte")
+    )
+
+    joints_toriques_boite_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    joints_toriques_boite_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Bagues
+    # -------------------------
+    bagues_boite_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Bagues de boîte automatique")
+    )
+
+    bagues_boite_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    bagues_boite_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Radiateur / échangeur huile
+    # -------------------------
+    echangeur_huile_boite_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Échangeur d'huile de boîte")
+    )
+
+    echangeur_huile_boite_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    echangeur_huile_boite_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Durites d'huile
+    # -------------------------
+    durites_huile_boite_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Durites d'huile de boîte")
+    )
+
+    durites_huile_boite_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    durites_huile_boite_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+    # -------------------------
+    # Supports de boîte
+    # -------------------------
+    supports_boite_auto = models.CharField(
+        max_length=25,
+        choices=BoiteVitesseEtat.choices,
+        default=BoiteVitesseEtat.OK,
+        verbose_name=_("Supports de boîte automatique")
+    )
+
+    supports_boite_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    supports_boite_auto_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
