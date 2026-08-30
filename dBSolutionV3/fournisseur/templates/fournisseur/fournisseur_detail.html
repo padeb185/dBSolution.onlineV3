@@ -80,14 +80,18 @@
         </div>
     </div>
 
-    <!-- Adresse -->
+       <!-- Adresse -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <h2 class="text-lg font-semibold mb-4">
             {% trans "Adresse" %}
         </h2>
 
-        {% if fournisseur.adresse %}
-            <p>{{ fournisseur.adresse }}</p>
+       {% if fournisseur.adresse %}
+        <p>
+            {{ fournisseur.adresse.rue|default_if_none:"" }} {{ fournisseur.adresse.numero|default_if_none:"" }}<br>
+            {{ fournisseur.adresse.code_postal|default_if_none:"" }} {{ fournisseur.adresse.ville|default_if_none:"" }}<br>
+            {{ fournisseur.adresse.pays|default_if_none:"" }}
+        </p>
         {% else %}
             <p class="text-gray-500">
                 {% trans "Aucune adresse renseignée." %}
