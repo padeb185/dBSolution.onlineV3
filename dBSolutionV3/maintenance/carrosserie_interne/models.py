@@ -58,8 +58,13 @@ class CarrosserieInterne(models.Model):
         verbose_name=_("Kilométrage au moment de l'intervention"),
     )
 
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
 
-        # Pare-chocs
+    # Pare-chocs
     pare_choc_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Pare-chocs avant"))
     pare_choc_av_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Numero OEM"))
     pare_choc_av_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix du pare-chocs avant"))
@@ -660,6 +665,16 @@ class CarrosserieInterne(models.Model):
             task_name = _("Carrosserie interne") + " " + str(self.voiture_exemplaire)
             self.main_oeuvre.descriptif = task_name
             self.main_oeuvre.save(update_fields=["descriptif"])
+
+        if (
+                self.kilometrage_intervention is not None
+                and self.kilometres_chassis is not None
+        ):
+            self.kilometrage_variation = (
+                    self.kilometrage_intervention - self.kilometres_chassis
+            )
+
+
         super().save(*args, **kwargs)
 
 

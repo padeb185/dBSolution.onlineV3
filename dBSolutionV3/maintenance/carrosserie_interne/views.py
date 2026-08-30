@@ -118,7 +118,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
         form = CarrosserieInterneForm(
             request.POST,
             user=request.user,
-            exemplaire=exemplaire
+            exemplaire=exemplaire,
         )
 
         if form.is_valid():
@@ -126,82 +126,189 @@ def carrosserie_interne_create_view(request, exemplaire_id):
             try:
                 with transaction.atomic():
 
-                    km = form.cleaned_data.get("kilometrage_intervention")
+                    # =========================
+                    # KILOMÉTRAGE
+                    # =========================
 
-                    # 🔗 Création objet AVANT tout traitement
-                    carrosserie_interne = form.save(commit=False)
+                    km = form.cleaned_data["kilometrage_intervention"]
 
-                    # ✅ Relations obligatoires AVANT assign_technicien/save
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    if km < ancien_kilometrage:
+                        raise ValueError(
+                            _(
+                                "Le kilométrage du contrôle carrosserie "
+                                "ne peut pas être inférieur au kilométrage "
+                                "actuel du véhicule."
+                            )
+                        )
+
+                    kilometrage_variation = (
+                            km - ancien_kilometrage
+                    )
+
+                    # =========================
+                    # CARROSSERIE
+                    # =========================
+
+                    carrosserie_interne = form.save(
+                        commit=False
+                    )
+
                     carrosserie_interne.societe = tenant
                     carrosserie_interne.voiture_exemplaire = exemplaire
-                    carrosserie_interne.tech_last_maintained_by = request.user
+                    carrosserie_interne.immatriculation = (
+                        exemplaire.immatriculation
+                    )
 
-                    if km is not None:
-                        km = int(km)
+                    carrosserie_interne.kilometrage_intervention = km
 
-                        ancien_km = exemplaire.kilometres_chassis
+                    # kilométrage avant intervention
+                    carrosserie_interne.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
 
-                        if km < ancien_km:
-                            form.add_error(
-                                "kilometrage_intervention",
-                                _("Le kilométrage ne peut pas diminuer.")
-                            )
-                            raise ValueError("Kilométrage invalide")
+                    carrosserie_interne.kilometrage_variation = (
+                        kilometrage_variation
+                    )
 
-                        exemplaire.kilometres_chassis = km
-                        exemplaire.date_derniere_intervention = timezone.now().date()
-                        exemplaire.update_kilometres()
-                        exemplaire.save()
+                    carrosserie_interne.tech_last_maintained_by = (
+                        request.user
+                    )
 
-                        carrosserie_interne.kilometres_chassis = exemplaire.kilometres_chassis
-                        carrosserie_interne.kilometrage_intervention = km
-                    else:
-                        carrosserie_interne.kilometres_chassis = exemplaire.kilometres_chassis
+                    carrosserie_interne.assign_technicien(
+                        request.user
+                    )
 
-                    carrosserie_interne.assign_technicien(request.user)
+                    # =========================
+                    # MISE À JOUR VÉHICULE
+                    # =========================
+
+                    exemplaire.kilometres_chassis = km
+
+                    exemplaire.save(
+                        update_fields=[
+                            "kilometres_chassis"
+                        ]
+                    )
+
+                    # =========================
+                    # MAINTENANCE
+                    # =========================
 
                     maintenance = Maintenance.objects.create(
                         societe=tenant,
                         voiture_exemplaire=exemplaire,
                         immatriculation=exemplaire.immatriculation,
                         date_intervention=timezone.now().date(),
-                        kilometres_chassis=exemplaire.kilometres_chassis,
-                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                        type_maintenance=Maintenance.TypeMaintenance.CARROSSERIE_INTERNE,
+                        kilometres_chassis=km,
+                        kilometres_dernier_entretien=(
+                            exemplaire.kilometres_dernier_entretien
+                        ),
+                        type_maintenance=(
+                            Maintenance.TypeMaintenance.CARROSSERIE_INTERNE
+                        ),
                         tag=Maintenance.Tag.JAUNE,
                     )
 
+                    # =========================
+                    # TECHNICIEN MAINTENANCE
+                    # =========================
+
                     if role == "mecanicien":
-                        maintenance.mecanicien = Mecanicien.objects.get(id=request.user.id)
+                        maintenance.mecanicien = (
+                            Mecanicien.objects.get(
+                                id=request.user.id
+                            )
+                        )
+
                     elif role == "chef_mecanicien":
-                        maintenance.chef_mecanicien = ChefMecanicien.objects.get(id=request.user.id)
+                        maintenance.chef_mecanicien = (
+                            ChefMecanicien.objects.get(
+                                id=request.user.id
+                            )
+                        )
+
                     elif role == "apprenti":
-                        maintenance.apprentis = Apprenti.objects.get(id=request.user.id)
+                        maintenance.apprentis = (
+                            Apprenti.objects.get(
+                                id=request.user.id
+                            )
+                        )
+
                     elif role == "magasinier":
-                        maintenance.magasinier = Magasinier.objects.get(id=request.user.id)
+                        maintenance.magasinier = (
+                            Magasinier.objects.get(
+                                id=request.user.id
+                            )
+                        )
+
                     elif role == "direction":
-                        maintenance.direction = Direction.objects.get(id=request.user.id)
+                        maintenance.direction = (
+                            Direction.objects.get(
+                                id=request.user.id
+                            )
+                        )
 
                     maintenance.save()
 
+                    # =========================
+                    # RELATION MAINTENANCE
+                    # =========================
+
                     carrosserie_interne.maintenance = maintenance
+
+                    # =========================
+                    # SAUVEGARDE CARROSSERIE
+                    # =========================
+
                     carrosserie_interne.save()
+
+                    # =========================
+                    # LOG
+                    # =========================
 
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Carrosserie  - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
+                        action=_(
+                            "Carrosserie - %(immatriculation)s"
+                        ) % {
+                                   "immatriculation": (
+                                       exemplaire.immatriculation
+                                   )
+                               },
                     )
 
-                messages.success(request, _("Intervention carrosserie enregistrée avec succès."))
-                return redirect("carrosserie_interne:carrosserie_interne_list", exemplaire_id=exemplaire.id)
+                messages.success(
+                    request,
+                    _(
+                        "Intervention carrosserie "
+                        "enregistrée avec succès."
+                    ),
+                )
+
+                return redirect(
+                    "carrosserie_interne:carrosserie_interne_list",
+                    exemplaire_id=exemplaire.id,
+                )
 
             except Exception as e:
-                messages.error(request, _(f"Erreur : {str(e)}"))
+                messages.error(
+                    request,
+                    _("Erreur : %(erreur)s") % {
+                        "erreur": str(e)
+                    },
+                )
+
         else:
-            print("FORM INVALID:", form.errors)
-            messages.error(request, _("Le formulaire contient des erreurs."))
+
+
+            messages.error(
+                request,
+                _("Le formulaire contient des erreurs."),
+            )
 
     carrosserie_interne = CarrosserieInterne(
         societe=tenant,
