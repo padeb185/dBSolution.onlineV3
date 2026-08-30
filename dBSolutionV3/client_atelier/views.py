@@ -53,9 +53,14 @@ def client_atelier_detail_view(request, client_atelier_id):
 @login_required
 def client_atelier_form_view(request):
 
+    societe = request.user.societe  # TENANT COURANT
+
     if request.method == "POST":
 
-        form = ClientAtelierForm(request.POST)
+        form = ClientAtelierForm(
+            request.POST,
+            societe=societe,
+        )
 
         if form.is_valid():
 
@@ -70,8 +75,13 @@ def client_atelier_form_view(request):
                     email=form.cleaned_data.get("email"),
                     numero_telephone=form.cleaned_data.get("numero_telephone"),
                     numero_carte_id=form.cleaned_data.get("numero_carte_id"),
+                    numero_registre_national=form.cleaned_data.get(
+                        "numero_registre_national"
+                    ),
                     numero_compte=form.cleaned_data.get("numero_compte"),
-                    numero_carte_bancaire=form.cleaned_data.get("numero_carte_bancaire"),
+                    numero_carte_bancaire=form.cleaned_data.get(
+                        "numero_carte_bancaire"
+                    ),
                     date_naissance=form.cleaned_data.get("date_naissance"),
                 )
 
@@ -92,23 +102,31 @@ def client_atelier_form_view(request):
                 # CLIENT ATELIER
                 # -----------------------
                 client_atelier = form.save(commit=False)
+
                 client_atelier.client_particulier = client_particulier
                 client_atelier.adresse = adresse
+
+                # TENANT
+                client_atelier.societe = societe
+
+                # societe_cliente vient du formulaire
+                # NE PAS la remplacer ici
+
                 client_atelier.save()
 
                 form.save_m2m()
 
             messages.success(
                 request,
-                _(
-                    "Client '%(prenom)s %(nom)s' créé avec succès !"
-                ) % {
+                _("Client '%(prenom)s %(nom)s' créé avec succès !") % {
                     "prenom": client_particulier.prenom,
                     "nom": client_particulier.nom,
                 }
             )
-            return redirect("client_atelier:client_atelier_list")
 
+            return redirect(
+                "client_atelier:client_atelier_list"
+            )
 
         else:
             messages.error(
@@ -117,7 +135,9 @@ def client_atelier_form_view(request):
             )
 
     else:
-        form = ClientAtelierForm()
+        form = ClientAtelierForm(
+            societe=societe,
+        )
 
     return render(
         request,
@@ -126,6 +146,10 @@ def client_atelier_form_view(request):
             "form": form,
         }
     )
+
+
+
+
 
 @login_required
 def modifier_client_atelier_view(request, client_atelier_id):

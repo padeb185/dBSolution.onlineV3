@@ -122,31 +122,68 @@ class ClientPilotageForm(forms.ModelForm):
 
     class Meta:
         model = ClientPilotage
-        fields = ["historique", "niveau"]
+
+        fields = [
+            "prenom",
+            "nom",
+            "date_naissance",
+            "age",
+            "societe_cliente",
+            "email",
+            "numero_telephone",
+            "numero_carte_id",
+            "numero_registre_national",
+            "numero_compte",
+            "numero_carte_bancaire",
+
+            # Adresse
+            "rue",
+            "numero",
+            "boite",
+            "code_postal",
+            "ville",
+            "pays",
+            "code_pays",
+
+            # Toujours en bas
+            "niveau",
+            "historique",
+        ]
+
         widgets = {
-            "niveau": forms.Select(attrs={"class": "border rounded px-4 py-2 w-full"}),
-            "historique": forms.Textarea(attrs={
-                "class": "border rounded px-4 py-2 w-full",
-                "rows": 4,
-            }),
+            "niveau": forms.Select(
+                attrs={
+                    "class": "border rounded px-4 py-2 w-full"
+                }
+            ),
+            "historique": forms.Textarea(
+                attrs={
+                    "class": "border rounded px-4 py-2 w-full",
+                    "rows": 4,
+                }
+            ),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        # ==========================
+        # VALEURS EN MODIFICATION
+        # ==========================
         if self.instance and self.instance.pk:
 
             cp = self.instance.client_particulier
 
-            self.fields["prenom"].initial = cp.prenom
-            self.fields["nom"].initial = cp.nom
-            self.fields["email"].initial = cp.email
-            self.fields["numero_telephone"].initial = cp.numero_telephone
-            self.fields["numero_carte_id"].initial = cp.numero_carte_id
-            self.fields["numero_compte"].initial = cp.numero_compte
-            self.fields["numero_carte_bancaire"].initial = cp.numero_carte_bancaire
-            self.fields["date_naissance"].initial = cp.date_naissance
-            self.fields["age"].initial = cp.age
+            if cp:
+                self.fields["prenom"].initial = cp.prenom
+                self.fields["nom"].initial = cp.nom
+                self.fields["email"].initial = cp.email
+                self.fields["numero_telephone"].initial = cp.numero_telephone
+                self.fields["numero_carte_id"].initial = cp.numero_carte_id
+                self.fields["numero_compte"].initial = cp.numero_compte
+                self.fields["numero_carte_bancaire"].initial = cp.numero_carte_bancaire
+                self.fields["date_naissance"].initial = cp.date_naissance
+                self.fields["age"].initial = cp.age
 
             if self.instance.adresse:
                 adresse = self.instance.adresse
@@ -159,38 +196,38 @@ class ClientPilotageForm(forms.ModelForm):
                 self.fields["pays"].initial = adresse.pays
                 self.fields["code_pays"].initial = adresse.code_pays
 
-            # 👉 ordre FINAL du formulaire
+        # ==========================
+        # ORDRE DES CHAMPS
+        # création ET modification
+        # ==========================
+        ordered_fields = [
+            "prenom",
+            "nom",
+            "date_naissance",
+            "age",
+            "societe_cliente",
+            "email",
+            "numero_telephone",
+            "numero_carte_id",
+            "numero_registre_national",
+            "numero_compte",
+            "numero_carte_bancaire",
 
-            ordered_fields = [
-                "prenom",
-                "nom",
-                "date_naissance",
-                "age",
-                "societe_cliente",
-                "email",
-                "numero_telephone",
-                "numero_carte_id",
-                "numero_registre_national",
-                "numero_compte",
-                "numero_carte_bancaire",
-                "rue",
-                "numero",
-                "boite",
-                "code_postal",
-                "ville",
-                "pays",
-                "code_pays",
+            # Adresse
+            "rue",
+            "numero",
+            "boite",
+            "code_postal",
+            "ville",
+            "pays",
+            "code_pays",
 
-                # EN BAS
-                "niveau",
-                "historique",
-            ]
+            # Toujours en bas
+            "niveau",
+            "historique",
+        ]
 
-            self.fields = {
-                field: self.fields[field]
-                for field in ordered_fields
-                if field in self.fields
-            }
+        self.order_fields(ordered_fields)
 
     def clean_numero_carte_bancaire(self):
         value = self.cleaned_data.get("numero_carte_bancaire")

@@ -605,12 +605,19 @@ def dashboard_admin(request):
 @login_required
 @user_passes_test(is_admin)
 def liste_utilisateurs(request):
-    utilisateurs = Utilisateur.objects.all().order_by("nom")
-    return render(request, "utilisateurs/liste_utilisateurs.html", {
-        "utilisateurs": utilisateurs
-    })
+    tenant = request.user.societe
 
+    utilisateurs = Utilisateur.objects.filter(
+        societe=tenant
+    ).order_by("nom")
 
+    return render(
+        request,
+        "utilisateurs/liste_utilisateurs.html",
+        {
+            "utilisateurs": utilisateurs,
+        }
+    )
 
 
 @receiver(user_logged_in)
