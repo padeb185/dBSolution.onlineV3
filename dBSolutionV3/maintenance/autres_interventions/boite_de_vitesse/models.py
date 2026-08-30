@@ -126,7 +126,7 @@ class ControleBoite(TechnicienMixin, models.Model):
 
     # Vitesses / pignons
     vitesse_1 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 1ère vitesse"))
-    vitesse_1_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
+    vitesse_1_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
     vitesse_1_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
 
 
