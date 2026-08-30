@@ -1049,3 +1049,47 @@ class FuelExemplaireStatView(LoginRequiredMixin, TemplateView):
         )
 
         return context
+
+
+
+
+
+@login_required
+def autocomplete_immatriculation(request):
+
+    terme = request.GET.get("term", "").strip()
+    societe = request.user.societe
+
+    if not terme:
+        return JsonResponse([], safe=False)
+
+    voitures = (
+        VoitureExemplaire.objects
+        .filter(
+            societe=societe,
+            immatriculation__icontains=terme,
+        )
+        .select_related(
+            "voiture_modele",
+            "voiture_modele__voiture_marque",
+        )
+        .order_by("immatriculation")[:20]
+    )
+
+    resultats = []
+
+    for voiture in voitures:
+
+        modele = voiture.voiture_modele
+        marque = modele.voiture_marque if modele else None
+
+        resultats.append({
+            "id": voiture.pk,
+            "immatriculation": voiture.immatriculation,
+            "marque": marque.nom_marque if marque else "",
+            "modele": modele.nom_modele if modele else "",
+            "volume": modele.taille_reservoir if modele else "",
+            "kilometres_chassis": voiture.kilometres_chassis or 0,
+        })
+
+    return JsonResponse(resultats, safe=False)

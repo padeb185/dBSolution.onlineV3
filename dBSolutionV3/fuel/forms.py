@@ -12,19 +12,19 @@ from django.utils.translation import gettext_lazy as _
 
 class FuelForm(forms.ModelForm):
     voiture_marque = forms.CharField(
-        label="Marque",
+        label=_("Marque"),
         required=False,
         disabled=True,
     )
 
     voiture_modele = forms.CharField(
-        label="Modèle",
+        label=_("Modèle"),
         required=False,
         disabled=True,
     )
 
     taille_reservoir_display = forms.DecimalField(
-        label="Volume max (L)",
+        label=_("Volume max (L)"),
         required=False,
         disabled=True,
         max_digits=10,
@@ -99,11 +99,12 @@ class FuelForm(forms.ModelForm):
 
             "immatriculation": forms.TextInput(
                 attrs={
-                    "class": "border rounded px-3 py-2 w-full text-sm",
-                    "placeholder": "Ex : 1-ABC-123",
+                    "class": "form-control",
+                    "placeholder": _("Commencez à saisir une immatriculation"),
                     "autocomplete": "off",
                 }
             ),
+
 
             "kilometres_chassis": forms.NumberInput(
                 attrs={

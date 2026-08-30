@@ -38,14 +38,10 @@ urlpatterns = [
      ),
 
 
-    # Routes AJAX
-
-    #path("ajax/get-marques/", get_marques, name="get_marques"),
-    #path("ajax/get-modeles/", get_modeles, name="get_modeles"),
     path(
-        "ajax/check-immatriculation/",
-        views.check_immatriculation,
-        name="check_immatriculation",
+        "autocomplete-immatriculation/",
+        views.autocomplete_immatriculation,
+        name="autocomplete_immatriculation",
     ),
 ]
 
