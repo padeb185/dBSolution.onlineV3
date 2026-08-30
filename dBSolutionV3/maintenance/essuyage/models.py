@@ -5,6 +5,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
 from maintenance.choices import RouesSerrageEtat, FabricantPiece, FabricantLubrifiant, TVAConfig
+from piece.piece_fluides.models import NiveauxEtat
 from utils.mixin import TechnicienMixin
 from maintenance.services import sync_maintenance
 from maintenance.models import Maintenance
@@ -654,8 +655,8 @@ class Essuyage(TechnicienMixin, models.Model):
 
     liquide_lave_glace = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=NiveauxEtat.choices,
+        default=NiveauxEtat.BON,
         verbose_name=_("Liquide lave-glace"),
     )
 
@@ -958,6 +959,8 @@ class Essuyage(TechnicienMixin, models.Model):
             if etat not in [
                 EtatOKNotOK.NOT_OK,
                 EtatOKNotOK.REMPLACE,
+                NiveauxEtat.AJOUTER,
+                NiveauxEtat.REMPLACER
             ]:
                 continue
 

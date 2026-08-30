@@ -722,11 +722,11 @@
             <tr>
                 <td>{% trans "Liquide lave-glace" %}</td>
                 <td>
-                    {% if essuyage.liquide_lave_glace == "OK" %}
+                    {% if essuyage.liquide_lave_glace == "BON" %}
                         <span class="etat-vert">{{ essuyage.get_liquide_lave_glace_display }}</span>
                     {% elif essuyage.liquide_lave_glace == "NOT_OK" %}
                         <span class="etat-rouge">{{ essuyage.get_liquide_lave_glace_display }}</span>
-                    {% elif essuyage.liquide_lave_glace == "REMPLACE" %}
+                    {% elif essuyage.liquide_lave_glace == "REMPLACER" or essuyage.liquide_lave_glace == "AJOUTER" %}
                         <span class="etat-bleu">{{ essuyage.get_liquide_lave_glace_display }}</span>
                     {% else %}
                         <span class="etat-gris">{{ essuyage.get_liquide_lave_glace_display|default:"-" }}</span>
@@ -837,7 +837,7 @@
                                     {{ ligne.etat_label|default:"-" }}
                                 </span>
 
-                            {% elif ligne.etat == "REMPLACE" %}
+                            {% elif ligne.etat == "REMPLACE" or ligne.etat == "REMPLACER" or ligne.etat == "AJOUTER" %}
 
                                 <span class="etat-bleu">
                                     {{ ligne.etat_label|default:"-" }}
