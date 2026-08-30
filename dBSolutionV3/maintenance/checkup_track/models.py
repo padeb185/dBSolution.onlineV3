@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from maintenance.check_up.models import PhareReglageEtat, BruitEtat
 from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantLubrifiant, TypeHuileDirection, \
     AmpouleAutomobile, FabricantFrein, MatierePlaquetteFrein, MatiereFrein, TypeDisqueFrein, RefroidissementFabricant, \
-    FabricantAmpoule, TVAConfig, HuileEtat, HuileBoiteEtat, RefroidissementQualiteEtat, HuilePontEtat
+    FabricantAmpoule, TVAConfig, HuileEtat, HuileBoiteEtat, RefroidissementQualiteEtat, HuilePontEtat, FabricantPiece
 from maintenance.models import Maintenance
 from maintenance.nettoyage_exterieur.models import EtatAjouter
 from django.conf import settings
@@ -149,6 +149,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     # --- Essuie-glaces & Pare-brise ---
     essuie_glace = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat des balais avant"))
+    essuie_glace_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
     essuie_glace_quantite = models.PositiveIntegerField(
         verbose_name=_("Quantité"),
         default=0,
@@ -158,6 +159,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
 
     balais_essuie = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat des balais arrières"))
+    balais_essuie_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
     balais_essuie_quantite = models.PositiveIntegerField(
         verbose_name=_("Quantité"),
         default=0,

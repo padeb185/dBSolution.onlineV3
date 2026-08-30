@@ -141,8 +141,7 @@ class Checkup(TechnicienMixin, models.Model):
     # --- Essuie-glaces & Pare-brise ---
     essuie_glace = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                     verbose_name=_("Etat des balais avant"))
-    essuie_glace_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,
-                                                     default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
+    essuie_glace_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
     essuie_glace_quantite = models.PositiveIntegerField(
         verbose_name=_("Quantité"),
         default=0,
@@ -153,8 +152,7 @@ class Checkup(TechnicienMixin, models.Model):
 
 
     balais_essuie = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Etat des balais arrières"))
-    balais_essuie_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,
-                                              default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
+    balais_essuie_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
     balais_essuie_quantite = models.PositiveIntegerField(
         verbose_name=_("Quantité"),
         default=0,
