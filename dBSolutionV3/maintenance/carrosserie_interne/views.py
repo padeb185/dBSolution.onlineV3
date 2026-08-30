@@ -459,27 +459,27 @@ def carrosserie_interne_create_view(request, exemplaire_id):
 
         {
             "title": "Joint de coffre",
-            "icon": "icons/joint.png",
+            "icon": "icons/joint-coffre.png",
             "fields": [f for f in form if "joint_coffre" in f.name],
         },
         {
             "title": "Joint de porte avant droite",
-            "icon": "icons/joint.png",
+            "icon": "icons/joint-porte.png",
             "fields": [f for f in form if "joint_porte_avd" in f.name],
         },
         {
             "title": "Joint de porte avant gauche",
-            "icon": "icons/joint.png",
+            "icon": "icons/joint-porte.png",
             "fields": [f for f in form if "joint_porte_avg" in f.name],
         },
         {
             "title": "Joint de porte arrière droite",
-            "icon": "icons/joint.png",
+            "icon": "icons/joint-porte.png",
             "fields": [f for f in form if "joint_porte_ard" in f.name],
         },
         {
             "title": "Joint de porte arrière gauche",
-            "icon": "icons/joint.png",
+            "icon": "icons/joint-porte.png",
             "fields": [f for f in form if "joint_porte_arg" in f.name],
         },
         {

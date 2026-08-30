@@ -396,7 +396,7 @@
                             </td>
 
                             <td>
-                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE"  %}
                                     <span class="etat-vert">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
@@ -406,7 +406,7 @@
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "REMPLACE" %}
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "APEINDRE"  %}
                                     <span class="etat-bleu">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
