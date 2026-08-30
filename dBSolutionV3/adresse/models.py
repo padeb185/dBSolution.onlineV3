@@ -40,23 +40,38 @@ class Adresse(models.Model):
             )
         ]
 
-
-
     def clean(self):
-        if not self.societe:
-            raise ValidationError(_("Une adresse est obligatoire pour une société."))
+        super().clean()
 
-        if Adresse.objects.filter(
-                societe=self.societe,
-                rue__iexact=self.rue,
-                numero__iexact=self.numero,
-                boite__iexact=self.boite or " ",
-                code_postal__iexact=self.code_postal,
-                ville__iexact=self.ville
-        ).exclude(id=self.id).exists():
-            raise ValidationError(
-                _("Cette adresse existe déjà pour cette société.")
-            )
+        # Si l'adresse est liée à une société,
+        # on contrôle les doublons pour cette société
+        if self.societe:
+            if Adresse.objects.filter(
+                    societe=self.societe,
+                    rue__iexact=self.rue,
+                    numero__iexact=self.numero,
+                    boite__iexact=self.boite or "",
+                    code_postal__iexact=self.code_postal,
+                    ville__iexact=self.ville
+            ).exclude(id=self.id).exists():
+                raise ValidationError(
+                    _("Cette adresse existe déjà pour cette société.")
+                )
+
+        # Si aucune société n'est liée,
+        # on peut éventuellement contrôler les doublons généraux
+        else:
+            if Adresse.objects.filter(
+                    societe__isnull=True,
+                    rue__iexact=self.rue,
+                    numero__iexact=self.numero,
+                    boite__iexact=self.boite or "",
+                    code_postal__iexact=self.code_postal,
+                    ville__iexact=self.ville
+            ).exclude(id=self.id).exists():
+                raise ValidationError(
+                    _("Cette adresse existe déjà.")
+                )
 
     def __str__(self):
         return f"{self.rue} {self.numero}, {self.boite},  {self.code_postal} {self.ville} {self.pays} {self.code_pays}"

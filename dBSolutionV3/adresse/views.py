@@ -52,8 +52,6 @@ def adresse_detail(request, adresse_id):
 
 
 
-
-
 @login_required
 def ajouter_adresse_all(request):
 
@@ -61,39 +59,46 @@ def ajouter_adresse_all(request):
 
     if request.method == "POST":
 
-        form = AdresseForm(request.POST)
+        form = AdresseForm(
+            request.POST,
+            societe=tenant,
+        )
 
         if form.is_valid():
 
             try:
-
-                adresse = form.save(commit=False)
-                adresse.societe = tenant
-                adresse.save()
+                adresse = form.save()
 
                 messages.success(
                     request,
                     _(
-                        f"Adresse '{adresse.rue}, {adresse.code_postal}' ajoutée avec succès !"
-                    )
+                        "Adresse '%(rue)s, %(code_postal)s' ajoutée avec succès !"
+                    ) % {
+                        "rue": adresse.rue,
+                        "code_postal": adresse.code_postal,
+                    }
                 )
 
-                return redirect("adresse:adresse_list")
+                return redirect(
+                    "adresse:adresse_list"
+                )
 
-            except (IntegrityError, ValidationError):
-
+            except IntegrityError:
                 messages.error(
                     request,
-                    _("Cette adresse existe déjà pour cette société.")
+                    _("Cette adresse existe déjà.")
+                )
+
+            except ValidationError as e:
+                messages.error(
+                    request,
+                    str(e)
                 )
 
     else:
 
         form = AdresseForm(
-            initial={
-                "pays": "Belgique",
-                "code_pays": "BE",
-            }
+            societe=tenant,
         )
 
     return render(
@@ -104,6 +109,9 @@ def ajouter_adresse_all(request):
             "tenant": tenant,
         }
     )
+
+
+
 
 
 

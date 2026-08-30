@@ -1,11 +1,15 @@
-# adresse/forms.py
+#from django import forms
 from django import forms
-from .models import Adresse
 from django.utils.translation import gettext_lazy as _
 
+from .models import Adresse
+
+
 class AdresseForm(forms.ModelForm):
+
     class Meta:
         model = Adresse
+
         fields = [
             "rue",
             "numero",
@@ -15,6 +19,7 @@ class AdresseForm(forms.ModelForm):
             "pays",
             "code_pays",
         ]
+
         labels = {
             "rue": _("Rue"),
             "numero": _("Numéro"),
@@ -25,16 +30,22 @@ class AdresseForm(forms.ModelForm):
             "code_pays": _("Code pays"),
         }
 
-        def __init__(self, *args, **kwargs):
-            self.societe = kwargs.pop("societe", None)
-            super().__init__(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        self.societe = kwargs.pop("societe", None)
+        super().__init__(*args, **kwargs)
 
-        def clean(self):
-            cleaned_data = super().clean()
+        # Valeurs par défaut uniquement à la création
+        if not self.is_bound and not self.instance.pk:
+            self.fields["pays"].initial = "Belgique"
+            self.fields["code_pays"].initial = "BE"
 
-            if not self.societe:
-                raise forms.ValidationError(
-                    _("Une adresse est nécessaire")
-                )
+    def save(self, commit=True):
+        adresse = super().save(commit=False)
 
-            return cleaned_data
+        if self.societe:
+            adresse.societe = self.societe
+
+        if commit:
+            adresse.save()
+
+        return adresse
