@@ -454,7 +454,7 @@
     </div>
 </div>
 
-<h2>{% trans "Freins arrière" %}</h2>
+<h2>{% trans "Freins avant" %}</h2>
 
 <table class="table-2-cols">
     <tr>
@@ -462,9 +462,13 @@
         <th>{% trans "Valeur" %}</th>
     </tr>
 
+     <tr>
+        <td>{% trans "Usure des plaquettes avant" %}</td>
+        <td>{{ controle_freins.avant_freins_pl_usure_plaquettes }} %</td>
+    </tr>
 
     <tr>
-        <td>{% trans "Plaquettes avant état" %}</td>
+        <td>{% trans "Etat des plaquettes avant" %}</td>
         <td>
             {% if controle_freins.avant_freins_pl_plaquettes_remplacer == "OK" %}
                 <span class="etat-ok">{{ controle_freins.get_avant_freins_pl_plaquettes_remplacer_display }}</span>
