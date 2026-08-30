@@ -115,7 +115,12 @@ class CheckupTrackForm(forms.ModelForm):
 
         self.fields["nettoyage_interieur_plastiques"].required = False
 
+        # ------- Récupération du temps de main d'oeuvre ------#
+        if self.instance and self.instance.main_oeuvre:
+            mo = self.instance.main_oeuvre
 
+            self.fields["temps_heures"].initial = mo.heures
+            self.fields["temps_minutes"].initial = mo.minutes
 
     def clean_kilometrage_checkup_track(self):
         km = self.cleaned_data.get("kilometrage_checkup_track")
