@@ -159,27 +159,80 @@
         {% csrf_token %}
 
 
-        {% for field in form %}
-            <div>
-                <label class="block font-semibold mb-1">
-                    {{ field.label }}
-                </label>
+         {% for field in form %}
 
-                {{ field|add_class:"input" }}
+            {% if field.name == "immatriculation" %}
 
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">
-                        {{ field.help_text }}
-                    </p>
+                <div id="immatriculation-wrapper" style="position: relative;">
+
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    <div id="immatriculation-suggestions"
+                         style="
+                             display: none;
+                             position: absolute;
+                             top: 100%;
+                             left: 0;
+
+                             width: 300px;
+                             min-width: 200px;
+                             max-width: 300px;
+
+                             max-height: 320px;
+                             overflow-y: auto;
+
+                             padding-right: 20px;
+                             box-sizing: border-box;
+
+                             background: white;
+                             border: 1px solid #ccc;
+                             border-radius: 6px;
+                             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+                             z-index: 9999;
+                         ">
+                    </div>
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+
+                </div>
+
+                {% else %}
+
+                <div>
+
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
                 {% endif %}
 
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">
-                        {{ field.errors|striptags }}
-                    </p>
-                {% endif %}
-            </div>
+                </div>
+
+            {% endif %}
+
         {% endfor %}
+
 
         <div class="flex gap-3 mt-6">
             <button type="submit"
@@ -238,7 +291,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const marqueInput = document.getElementById("id_voiture_marque");
     const modeleInput = document.getElementById("id_voiture_modele");
-    const capaciteInput = document.getElementById("id_capacite_batterie_display");
+    const tailleReservoirInput = document.getElementById("id_taille_reservoir");
 
     const kmChassis = document.getElementById("id_kilometres_chassis");
     const kmRecharge = document.getElementById("id_kilometrage_electricite");
@@ -322,221 +375,193 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // ============================================================
-    // IMMATRICULATION
-    // ============================================================
+// AUTOCOMPLETE IMMATRICULATION
+// ============================================================
 
-    if (immatInput) {
+if (immatInput) {
 
-        immatInput.addEventListener("input", function () {
+    const suggestions =
+        document.getElementById("immatriculation-suggestions");
 
-            const value = this.value.trim();
+    let voituresDisponibles = {};
 
-            if (value.length < 2) {
+    immatInput.addEventListener("input", function () {
 
-                if (voitureExemplaire) {
-                    voitureExemplaire.value = "";
-                }
+        const terme = this.value.trim();
 
-                if (marqueInput) {
-                    marqueInput.value = "";
-                }
+        if (voitureExemplaire) {
+            voitureExemplaire.value = "";
+        }
 
-                if (modeleInput) {
-                    modeleInput.value = "";
-                }
+        if (terme.length < 1) {
 
-                if (capaciteInput) {
-                    capaciteInput.value = "";
-                }
+            suggestions.innerHTML = "";
+            suggestions.style.display = "none";
 
-                if (kmChassis) {
-                    kmChassis.value = "";
-                }
+            voituresDisponibles = {};
 
-                calculerVariation();
+            return;
+        }
 
+        fetch(
+            `{% url 'recharge:autocomplete_immatriculation' %}?term=${encodeURIComponent(terme)}`
+        )
+        .then(response => {
+
+            if (!response.ok) {
+                throw new Error(
+                    `Erreur HTTP ${response.status}`
+                );
+            }
+
+            return response.json();
+        })
+
+        .then(data => {
+
+            console.log(
+                "Résultat autocomplete :",
+                data
+            );
+
+            suggestions.innerHTML = "";
+            voituresDisponibles = {};
+
+            if (!data.length) {
+                suggestions.style.display = "none";
                 return;
             }
 
+            data.forEach(voiture => {
 
-            fetch(
-                `/recharge/ajax/check-immatriculation_elect/?immatriculation=${encodeURIComponent(value)}`
-            )
-                .then(response => {
+                const plaque =
+                    voiture.immatriculation;
 
-                    if (!response.ok) {
-                        throw new Error(
-                            `Erreur HTTP ${response.status}`
+                voituresDisponibles[plaque] =
+                    voiture;
+
+                const ligne =
+                    document.createElement("div");
+
+                ligne.textContent = plaque;
+
+                ligne.style.padding =
+                    "12px 40px 12px 15px";
+
+                ligne.style.cursor =
+                    "pointer";
+
+                ligne.style.fontSize =
+                    "17px";
+
+                ligne.style.fontWeight =
+                    "500";
+
+                ligne.style.whiteSpace =
+                    "nowrap";
+
+                ligne.style.borderBottom =
+                    "1px solid #e5e7eb";
+
+                ligne.addEventListener(
+                    "mouseenter",
+                    function () {
+                        this.style.background =
+                            "#f3f4f6";
+                    }
+                );
+
+                ligne.addEventListener(
+                    "mouseleave",
+                    function () {
+                        this.style.background =
+                            "white";
+                    }
+                );
+
+                ligne.addEventListener(
+                    "click",
+                    function () {
+
+                        immatInput.value =
+                            plaque;
+
+                        suggestions.style.display =
+                            "none";
+
+                        selectionnerVoiture(
+                            plaque
                         );
                     }
+                );
 
-                    return response.json();
-                })
+                suggestions.appendChild(
+                    ligne
+                );
+            });
 
-                .then(data => {
+            suggestions.style.display =
+                "block";
+        })
 
-                    console.log("Véhicule reçu :", data);
+        .catch(error => {
 
-                    if (!data.error) {
+            console.error(
+                "Erreur autocomplete :",
+                error
+            );
 
-                        // Véhicule
-                        if (voitureExemplaire) {
-                            voitureExemplaire.value = data.id || "";
-                        }
-
-                        // Marque
-                        if (marqueInput) {
-                            marqueInput.value = data.marque || "";
-                        }
-
-                        // Modèle
-                        if (modeleInput) {
-                            modeleInput.value = data.modele || "";
-                        }
-
-                        // Batterie
-                        if (capaciteInput) {
-                            capaciteInput.value = data.volume || "";
-                        }
-
-                        // IMPORTANT :
-                        // kilométrage actuel du véhicule
-                        if (kmChassis) {
-                            kmChassis.value =
-                                data.kilometres_chassis ?? "";
-                        }
-
-                        // Recalcul immédiat
-                        calculerVariation();
-
-                    } else {
-
-                        if (voitureExemplaire) {
-                            voitureExemplaire.value = "";
-                        }
-
-                        if (marqueInput) {
-                            marqueInput.value = "";
-                        }
-
-                        if (modeleInput) {
-                            modeleInput.value = "";
-                        }
-
-                        if (capaciteInput) {
-                            capaciteInput.value = "";
-                        }
-
-                        if (kmChassis) {
-                            kmChassis.value = "";
-                        }
-
-                        calculerVariation();
-                    }
-                })
-
-                .catch(error => {
-                    console.error(
-                        "Erreur recherche immatriculation :",
-                        error
-                    );
-                });
+            suggestions.style.display =
+                "none";
         });
+
+    });
+
+
+    // ========================================================
+    // REMPLISSAGE VEHICULE
+    // ========================================================
+
+    function selectionnerVoiture(plaque) {
+
+        const voiture =
+            voituresDisponibles[plaque];
+
+        if (!voiture) {
+            return;
+        }
+
+        if (voitureExemplaire) {
+            voitureExemplaire.value =
+                voiture.id;
+        }
+
+        if (marqueInput) {
+            marqueInput.value =
+                voiture.marque || "";
+        }
+
+        if (modeleInput) {
+            modeleInput.value =
+                voiture.modele || "";
+        }
+
+        if (tailleReservoirInput) {
+            tailleReservoirInput.value = voiture.taille_reservoir || "";
+}
+
+        if (kmChassis) {
+            kmChassis.value = voiture.kilometres_chassis ?? "";
+        }
+
+         if (kmRecharge) {
+            kmRecharge.value = 0;
+        }
+
+        calculerVariation();
     }
 
-
-    // ============================================================
-    // AUTO-COMPLETION MARQUE
-    // ============================================================
-
-    if (marqueInput) {
-
-        marqueInput.addEventListener("input", function () {
-
-            const query = this.value.trim();
-
-            fetch(
-                `/recharge/ajax/get-marques_elect/?q=${encodeURIComponent(query)}`
-            )
-                .then(response => response.json())
-
-                .then(data => {
-
-                    const list =
-                        document.getElementById("marque-list");
-
-                    if (!list) {
-                        return;
-                    }
-
-                    list.innerHTML = "";
-
-                    data.forEach(item => {
-
-                        const option =
-                            document.createElement("option");
-
-                        option.value = item;
-
-                        list.appendChild(option);
-                    });
-                })
-
-                .catch(error => {
-                    console.error(
-                        "Erreur marques :",
-                        error
-                    );
-                });
-        });
-    }
-
-
-    // ============================================================
-    // AUTO-COMPLETION MODELE
-    // ============================================================
-
-    if (modeleInput) {
-
-        modeleInput.addEventListener("input", function () {
-
-            const query = this.value.trim();
-
-            fetch(
-                `/recharge/ajax/get-modeles_elect/?q=${encodeURIComponent(query)}`
-            )
-                .then(response => response.json())
-
-                .then(data => {
-
-                    const list =
-                        document.getElementById("modele-list");
-
-                    if (!list) {
-                        return;
-                    }
-
-                    list.innerHTML = "";
-
-                    data.forEach(item => {
-
-                        const option =
-                            document.createElement("option");
-
-                        option.value = item;
-
-                        list.appendChild(option);
-                    });
-                })
-
-                .catch(error => {
-                    console.error(
-                        "Erreur modèles :",
-                        error
-                    );
-                });
-        });
-    }
+}
 
 
     // ============================================================
@@ -704,13 +729,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         );
     }
-
-
-    // ============================================================
-    // CALCUL INITIAL
-    // ============================================================
-
-    calculerVariation();
 
 });
 </script>

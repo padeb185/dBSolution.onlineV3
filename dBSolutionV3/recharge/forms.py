@@ -25,7 +25,6 @@ class ElectriciteForm(forms.ModelForm):
 
 
 
-
     TVA_PAYS = {
         'AT': Decimal('20.0'),
         'BE': Decimal('21.0'),
@@ -59,22 +58,23 @@ class ElectriciteForm(forms.ModelForm):
 
     class Meta:
         model = Electricite
+
         fields = [
             "voiture_exemplaire",
             "immatriculation",
+
             "kilometres_chassis",
             "kilometrage_electricite",
+
             "date_recharge",
             "type_carburant",
             "kW",
             "prix_recharge",
             "pays",
-
         ]
 
         widgets = {
             "voiture_exemplaire": forms.HiddenInput(),
-            "date": forms.DateInput(attrs={"type": "date"}),
 
             "date_recharge": forms.DateInput(
                 attrs={
@@ -82,11 +82,44 @@ class ElectriciteForm(forms.ModelForm):
                 },
                 format="%Y-%m-%d",
             ),
+
+            "immatriculation": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": _(
+                        "Commencez à saisir une immatriculation"
+                    ),
+                    "autocomplete": "off",
+                }
+            ),
         }
 
     def __init__(self, *args, **kwargs):
+
         self.societe = kwargs.pop("societe", None)
+
         super().__init__(*args, **kwargs)
+
+        self.order_fields([
+            "voiture_exemplaire",
+            "immatriculation",
+
+            "voiture_marque",
+            "voiture_modele",
+
+            "kilometres_chassis",
+            "kilometrage_electricite",
+            "kilometrage_variation",
+
+            "date_recharge",
+            "type_carburant",
+
+            "kW",
+            "prix_recharge",
+
+            "pays",
+        ])
+
 
         # =========================
         # VARIATION KILOMÉTRAGE
@@ -143,21 +176,6 @@ class ElectriciteForm(forms.ModelForm):
             self.fields["date_recharge"].initial = date.today()
 
 
-
-
-    def clean(self):
-        cleaned = super().clean()
-
-        voiture = cleaned.get("voiture_exemplaire")
-
-        if voiture:
-            try:
-                cleaned["voiture_marque"] = voiture.voiture_modele.voiture_marque.nom_marque
-                cleaned["voiture_modele"] = voiture.voiture_modele.nom_modele
-            except Exception:
-                pass
-
-        return cleaned
 
     def clean_kilometrage_electricite(self):
         kilometrage_electricite = self.cleaned_data.get("kilometrage_electricite")

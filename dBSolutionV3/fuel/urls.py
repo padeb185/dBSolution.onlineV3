@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
-from .views import fuel_list, ajouter_fuel_all, fuel_delete, check_immatriculation, get_marques, \
-    get_modeles, modifier_fuel, FuelStatView, FuelExemplaireStatView, FuelListView
+from .views import ajouter_fuel_all, fuel_delete,  modifier_fuel, FuelStatView, FuelExemplaireStatView, FuelListView
 
 app_name = "fuel"
 

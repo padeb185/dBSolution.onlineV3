@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import ElectriciteListView, ajouter_recharge_all, electricite_detail, modifier_electricite, \
-    check_immatriculation_elect, get_marques_elect, get_modeles_elect, ElectriciteStatView, \
-    ElectriciteExemplaireStatView, electricite_delete
+    ElectriciteStatView, \
+    ElectriciteExemplaireStatView, electricite_delete, autocomplete_immatriculation
 
 app_name = "recharge"
 
@@ -33,11 +33,9 @@ urlpatterns = [
         name="electricite_delete",
     ),
 
-
-
-
-
-    path("ajax/check-immatriculation_elect/", check_immatriculation_elect, name="check_immatriculation_elect"),
-    path("ajax/get-marques_elect/", get_marques_elect, name="get_marques_elect"),
-    path("ajax/get-modeles_elect/", get_modeles_elect, name="get_modeles_elect"),
+    path(
+        "autocomplete-immatriculation/",
+        autocomplete_immatriculation,
+        name="autocomplete_immatriculation",
+    ),
 ]

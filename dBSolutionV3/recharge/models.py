@@ -132,6 +132,7 @@ class Electricite(models.Model):
     )
 
     date = models.DateField(default=timezone.now, verbose_name=_("Date de la recharge"))
+    taille_batterie = models.FloatField(verbose_name= _("Capacité en KW"), null=True, blank=True)
     kW = models.FloatField(verbose_name=_("Kilos Watt"))
     prix_recharge = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Prix de la recharge (€)"))
     prix_watt = models.DecimalField(max_digits=6, decimal_places=4, verbose_name=_("Prix au kilo Watt (€)"))

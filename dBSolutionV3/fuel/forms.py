@@ -94,6 +94,7 @@ class FuelForm(forms.ModelForm):
             "pays",
         ]
 
+
         widgets = {
             "voiture_exemplaire": forms.HiddenInput(),
 
@@ -163,6 +164,26 @@ class FuelForm(forms.ModelForm):
         self.societe = kwargs.pop("societe", None)
 
         super().__init__(*args, **kwargs)
+
+        self.order_fields([
+            "voiture_exemplaire",
+            "immatriculation",
+
+            "voiture_marque",
+            "voiture_modele",
+
+            "kilometres_chassis",
+            "kilometrage_fuel",
+            "kilometrage_variation",
+
+            "date",
+            "type_carburant",
+
+            "litres",
+            "prix_refuelling",
+
+            "pays",
+        ])
 
         # =========================
         # VARIATION KILOMÉTRAGE
@@ -234,6 +255,7 @@ class FuelForm(forms.ModelForm):
         else:
             # Création : date du jour
             self.fields["date"].initial = date.today()
+
 
     def clean_kilometrage_fuel(self):
         kilometrage_fuel = self.cleaned_data.get("kilometrage_fuel")

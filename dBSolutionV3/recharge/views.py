@@ -105,13 +105,23 @@ def ajouter_recharge_all(request):
             voiture = recharge.voiture_exemplaire
 
             if voiture:
-                recharge.immatriculation = (
-                    voiture.immatriculation or ""
-                )
+                recharge.immatriculation = voiture.immatriculation or ""
 
+                # Kilométrage actuel du véhicule
                 if hasattr(recharge, "kilometres_chassis"):
-                    recharge.kilometres_chassis = (
-                        voiture.kilometres_chassis or 0
+                    recharge.kilometres_chassis = voiture.kilometres_chassis or 0
+
+                # Modèle du véhicule
+                if hasattr(recharge, "voiture_modele"):
+                    recharge.voiture_modele = voiture.voiture_modele
+
+                # Marque du véhicule
+                if (
+                        hasattr(recharge, "voiture_marque")
+                        and voiture.voiture_modele
+                ):
+                    recharge.voiture_marque = (
+                        voiture.voiture_modele.voiture_marque
                     )
 
             recharge.save()
@@ -322,38 +332,6 @@ def check_immatriculation_elect(request):
 
 
 
-@require_GET
-def get_marques_elect(request):
-    query = request.GET.get("q", "").strip()
-
-    if not query:
-        return JsonResponse([], safe=False)
-
-    marques = (
-        VoitureMarque.objects
-        .filter(nom_marque__icontains=query)
-        .values_list("nom_marque", flat=True)
-        .distinct()[:10]
-    )
-
-    return JsonResponse(list(marques), safe=False)
-
-
-@require_GET
-def get_modeles_elect(request):
-    query = request.GET.get("q", "").strip()
-
-    if not query:
-        return JsonResponse([], safe=False)
-
-    modeles = (
-        VoitureModele.objects
-        .filter(nom_modele__icontains=query)
-        .values_list("nom_modele", flat=True)
-        .distinct()[:10]
-    )
-
-    return JsonResponse(list(modeles), safe=False)
 
 
 
@@ -1208,3 +1186,46 @@ class ElectriciteExemplaireStatView(
             )
 
         return context
+
+
+
+
+@login_required
+def autocomplete_immatriculation(request):
+
+    terme = request.GET.get("term", "").strip()
+    societe = request.user.societe
+
+    if not terme:
+        return JsonResponse([], safe=False)
+
+    voitures = (
+        VoitureExemplaire.objects
+        .filter(
+            societe=societe,
+            immatriculation__icontains=terme,
+        )
+        .select_related(
+            "voiture_modele",
+            "voiture_modele__voiture_marque",
+        )
+        .order_by("immatriculation")[:20]
+    )
+
+    resultats = []
+
+    for voiture in voitures:
+
+        modele = voiture.voiture_modele
+        marque = modele.voiture_marque if modele else None
+
+        resultats.append({
+            "id": voiture.pk,
+            "immatriculation": voiture.immatriculation,
+            "marque": marque.nom_marque if marque else "",
+            "modele": modele.nom_modele if modele else "",
+            "volume": modele.taille_reservoir if modele else "",
+            "kilometres_chassis": voiture.kilometres_chassis or 0,
+        })
+
+    return JsonResponse(resultats, safe=False)
