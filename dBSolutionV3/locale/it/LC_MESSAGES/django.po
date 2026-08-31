@@ -10434,7 +10434,7 @@ msgstr ""
 #: maintenance/autres_interventions/embrayage/views.py:370
 #, python-format
 msgid "Remplacement embrayage - %(immatriculation)s"
-msgstr "Sostituzione del motore - %(immatriculation)s"
+msgstr "Sostituzione della frizione - %(immatriculation)s"
 
 #: maintenance/autres_interventions/embrayage/views.py:387
 msgid "Le remplacement de l'embrayage a été enregistré avec succès."
@@ -19938,7 +19938,7 @@ msgstr "Controllo freni modificato con successo!"
 
 #: maintenance/jeux_pieces/models.py:15
 msgid "Petit jeu"
-msgstr ""
+msgstr "Leggero gioco"
 
 #: maintenance/jeux_pieces/models.py:20
 msgid "Rotule de direction"
