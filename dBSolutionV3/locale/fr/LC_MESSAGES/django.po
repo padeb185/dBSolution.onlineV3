@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 08:11+0200\n"
+"POT-Creation-Date: 2026-08-31 09:59+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -421,7 +421,7 @@ msgstr ""
 #: proprietaire/models.py:82 proprietaire/models.py:125
 #: proprietaire/templates/proprietaire/proprietaire_detail.html:118
 #: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:107
-#: recharge/models.py:175
+#: recharge/models.py:176
 #: recharge/templates/recharge/electricite_detail.html:101
 #: recharge/templates/recharge/electricite_detail.html:105
 #: societe_cliente/models.py:133
@@ -524,7 +524,7 @@ msgstr ""
 #: proprietaire/models.py:83 proprietaire/models.py:126
 #: proprietaire/templates/proprietaire/proprietaire_detail.html:123
 #: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:111
-#: recharge/models.py:176 societe_cliente/models.py:134
+#: recharge/models.py:177 societe_cliente/models.py:134
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:132
 #: voiture/voiture_boite/models.py:71
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:115
@@ -642,7 +642,7 @@ msgstr ""
 #: proprietaire/templates/proprietaire/modifier_proprietaire_voiture.html:81
 #: proprietaire/templates/proprietaire/proprietaire_form.html:72
 #: proprietaire/templates/proprietaire/proprietaire_voiture_form.html:56
-#: recharge/templates/recharge/electricite_form.html:187
+#: recharge/templates/recharge/electricite_form.html:240
 #: recharge/templates/recharge/modifier_electricite.html:192
 #: societe_cliente/templates/societe_cliente/modifier_societe_cliente.html:79
 #: societe_cliente/templates/societe_cliente/societe_cliente_form.html:78
@@ -821,7 +821,7 @@ msgstr ""
 #: recharge/templates/recharge/electricite_delete.html:39
 #: recharge/templates/recharge/electricite_delete.html:88
 #: recharge/templates/recharge/electricite_form.html:136
-#: recharge/templates/recharge/electricite_form.html:191
+#: recharge/templates/recharge/electricite_form.html:244
 #: recharge/templates/recharge/modifier_electricite.html:151
 #: recharge/templates/recharge/modifier_electricite.html:196
 #: societe_cliente/templates/societe_cliente/modifier_societe_cliente.html:84
@@ -2089,7 +2089,7 @@ msgstr ""
 #: maintenance/niveaux/views.py:242 maintenance/niveaux/views.py:426
 #: maintenance/pneus/views.py:292 maintenance/pneus/views.py:518
 #: maintenance/silent_blocs/views.py:217 maintenance/silent_blocs/views.py:290
-#: outillage/views.py:80 proprietaire/views.py:289 recharge/views.py:231
+#: outillage/views.py:80 proprietaire/views.py:289 recharge/views.py:241
 #: voiture/voiture_boite/views.py:55 voiture/voiture_boite/views.py:114
 #: voiture/voiture_embrayage/views.py:136
 #: voiture/voiture_freins_ar/views.py:191
@@ -3593,11 +3593,11 @@ msgstr ""
 #: maintenance/niveaux/models.py:64 maintenance/pneus/forms.py:17
 #: maintenance/pneus/models.py:110 maintenance/silent_blocs/forms.py:17
 #: maintenance/silent_blocs/models.py:61 recharge/forms.py:17
-#: recharge/models.py:165
+#: recharge/models.py:166
 msgid "Variation du kilométrage"
 msgstr ""
 
-#: fuel/forms.py:103
+#: fuel/forms.py:104 recharge/forms.py:90
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Commencez à saisir une immatriculation"
@@ -3893,7 +3893,7 @@ msgstr ""
 #: maintenance/nettoyage_exterieur/models.py:50
 #: maintenance/nettoyage_interieur/models.py:55
 #: maintenance/niveaux/models.py:53 maintenance/pneus/models.py:100
-#: maintenance/silent_blocs/models.py:50 recharge/models.py:154
+#: maintenance/silent_blocs/models.py:50 recharge/models.py:155
 msgid "Kilomètres chassis"
 msgstr ""
 
@@ -3932,20 +3932,20 @@ msgstr ""
 msgid "Pays de la station"
 msgstr ""
 
-#: fuel/models.py:172 recharge/models.py:170
+#: fuel/models.py:172 recharge/models.py:171
 msgid "Montant HT"
 msgstr ""
 
 #: fuel/models.py:174
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:429
 #: piece/templates/piece/piece_detail.html:40
-#: piece/templates/piece/piece_form.html:100 recharge/models.py:172
+#: piece/templates/piece/piece_form.html:100 recharge/models.py:173
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:88
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:129
 msgid "TVA"
 msgstr ""
 
-#: fuel/models.py:179 recharge/models.py:168
+#: fuel/models.py:179 recharge/models.py:169
 msgid "Validation"
 msgstr ""
 
@@ -4691,7 +4691,7 @@ msgid "Carburant ajouté avec succès."
 msgstr ""
 
 #: fuel/views.py:147 fuel/views.py:270 maindoeuvre/views.py:91
-#: maintenance/check_up/views.py:345 recharge/views.py:134
+#: maintenance/check_up/views.py:345 recharge/views.py:144
 #: voiture/voiture_freins_ar/views.py:60
 msgid "Veuillez corriger les erreurs ci-dessous."
 msgstr ""
@@ -24700,40 +24700,46 @@ msgstr ""
 msgid "Propriété mise à jour avec succès."
 msgstr ""
 
-#: recharge/models.py:11 recharge/models.py:186
+#: recharge/models.py:11 recharge/models.py:187
 msgid "Electricite"
 msgstr ""
 
-#: recharge/models.py:134 recharge/models.py:138
+#: recharge/models.py:134 recharge/models.py:139
 #: recharge/templates/recharge/recharge_list.html:67
 msgid "Date de la recharge"
 msgstr ""
 
 #: recharge/models.py:135
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Capacité en KW"
+msgstr "Tableau de Bord"
+
+#: recharge/models.py:136
 msgid "Kilos Watt"
 msgstr ""
 
-#: recharge/models.py:136
+#: recharge/models.py:137
 msgid "Prix de la recharge (€)"
 msgstr ""
 
-#: recharge/models.py:137
+#: recharge/models.py:138
 msgid "Prix au kilo Watt (€)"
 msgstr ""
 
-#: recharge/models.py:140
+#: recharge/models.py:141
 msgid "Temps de recharge"
 msgstr ""
 
-#: recharge/models.py:147
+#: recharge/models.py:148
 msgid "Pays de la recharge"
 msgstr ""
 
-#: recharge/models.py:158
+#: recharge/models.py:159
 msgid "Kilométrage recharge"
 msgstr ""
 
-#: recharge/models.py:187
+#: recharge/models.py:188
 msgid "Electricites"
 msgstr ""
 
@@ -24877,19 +24883,19 @@ msgstr ""
 msgid "Aucune recharge electrique trouvée"
 msgstr ""
 
-#: recharge/views.py:121
+#: recharge/views.py:131
 msgid "Recharge ajoutée avec succès."
 msgstr ""
 
-#: recharge/views.py:219
+#: recharge/views.py:229
 msgid "La recharge a été mise à jour avec succès."
 msgstr ""
 
-#: recharge/views.py:366
+#: recharge/views.py:344
 msgid "Vous n'avez pas l'autorisation de supprimer cette recharge."
 msgstr ""
 
-#: recharge/views.py:374
+#: recharge/views.py:352
 msgid "Recharge électrique supprimée avec succès."
 msgstr ""
 
