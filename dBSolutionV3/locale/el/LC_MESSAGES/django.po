@@ -13705,11 +13705,11 @@ msgstr "%(type)s - %(empl)s (%(niveau)s)"
 
 #: maintenance/carrosserie_interne/models.py:18
 msgid "Peint"
-msgstr ""
+msgstr "Βαμμένο"
 
 #: maintenance/carrosserie_interne/models.py:19
 msgid "A peindre"
-msgstr ""
+msgstr "Προς βαφή"
 
 #: maintenance/carrosserie_interne/models.py:61
 msgid "Kilométrage au moment de l'intervention"
@@ -24789,7 +24789,7 @@ msgstr "Τύπος κιβωτίου"
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:91
 #: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:61
 msgid "N° OEM"
-msgstr "Αρ. OEM"
+msgstr "OEM"
 
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:79
 #: voiture/voiture_boite/templates/voiture_boite/list.html:61

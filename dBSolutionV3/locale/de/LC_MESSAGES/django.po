@@ -3511,7 +3511,7 @@ msgstr "Modell"
 
 #: fuel/forms.py:27
 msgid "Volume max (L)"
-msgstr ""
+msgstr "Maximales Volumen (L)"
 
 #: fuel/forms.py:36 fuel/models.py:149
 #: maintenance/autres_interventions/abs/forms.py:16
@@ -3564,7 +3564,7 @@ msgstr ""
 #: maintenance/silent_blocs/models.py:61 recharge/forms.py:17
 #: recharge/models.py:165
 msgid "Variation du kilométrage"
-msgstr ""
+msgstr "Änderung des Kilometerstands"
 
 #: fuel/forms.py:103
 msgid "Commencez à saisir une immatriculation"
@@ -13702,11 +13702,11 @@ msgstr "%(type)s - %(empl)s (%(niveau)s)"
 
 #: maintenance/carrosserie_interne/models.py:18
 msgid "Peint"
-msgstr ""
+msgstr "Lackiert"
 
 #: maintenance/carrosserie_interne/models.py:19
 msgid "A peindre"
-msgstr ""
+msgstr "Zu lackieren"
 
 #: maintenance/carrosserie_interne/models.py:61
 msgid "Kilométrage au moment de l'intervention"
@@ -13775,7 +13775,7 @@ msgstr "Stoßstange vorne"
 #: maintenance/carrosserie_interne/models.py:565
 #: voiture/voiture_boite/forms.py:19
 msgid "OEM"
-msgstr "OEM-Nummer"
+msgstr "OEM"
 
 #: maintenance/carrosserie_interne/models.py:79
 msgid "Pare-chocs arrière"
@@ -24783,7 +24783,7 @@ msgstr "Getriebetyp"
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:91
 #: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:61
 msgid "N° OEM"
-msgstr "OEM-Nummer"
+msgstr "OEM"
 
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:79
 #: voiture/voiture_boite/templates/voiture_boite/list.html:61
@@ -24881,7 +24881,7 @@ msgstr "Schwungradtyp"
 
 #: voiture/voiture_embrayage/forms.py:35
 msgid "Ex : Valeo"
-msgstr ""
+msgstr "Z. B.: Valeo"
 
 #: voiture/voiture_embrayage/forms.py:74 voiture/voiture_freins_ar/forms.py:94
 #: voiture/voiture_freins_av/forms.py:109

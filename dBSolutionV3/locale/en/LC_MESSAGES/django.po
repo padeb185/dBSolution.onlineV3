@@ -3511,7 +3511,7 @@ msgstr "Model"
 
 #: fuel/forms.py:27
 msgid "Volume max (L)"
-msgstr ""
+msgstr "Maximum volume (L)"
 
 #: fuel/forms.py:36 fuel/models.py:149
 #: maintenance/autres_interventions/abs/forms.py:16
@@ -3564,7 +3564,7 @@ msgstr ""
 #: maintenance/silent_blocs/models.py:61 recharge/forms.py:17
 #: recharge/models.py:165
 msgid "Variation du kilométrage"
-msgstr ""
+msgstr "Mileage variation"
 
 #: fuel/forms.py:103
 msgid "Commencez à saisir une immatriculation"
@@ -13681,11 +13681,11 @@ msgstr "%(type)s - %(empl)s (%(niveau)s)"
 
 #: maintenance/carrosserie_interne/models.py:18
 msgid "Peint"
-msgstr ""
+msgstr "Painted"
 
 #: maintenance/carrosserie_interne/models.py:19
 msgid "A peindre"
-msgstr ""
+msgstr "To be painted"
 
 #: maintenance/carrosserie_interne/models.py:61
 msgid "Kilométrage au moment de l'intervention"
@@ -13754,7 +13754,7 @@ msgstr "Front bumper"
 #: maintenance/carrosserie_interne/models.py:565
 #: voiture/voiture_boite/forms.py:19
 msgid "OEM"
-msgstr "OEM number"
+msgstr "OEM"
 
 #: maintenance/carrosserie_interne/models.py:79
 msgid "Pare-chocs arrière"
@@ -16793,7 +16793,7 @@ msgstr ""
 
 #: maintenance/choices.py:456
 msgid "Mobil"
-msgstr "Mobil 1"
+msgstr "Mobil"
 
 #: maintenance/choices.py:458
 msgid "Motip"
@@ -24747,7 +24747,7 @@ msgstr "Gearbox type"
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:91
 #: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:61
 msgid "N° OEM"
-msgstr "OEM number"
+msgstr "OEM"
 
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:79
 #: voiture/voiture_boite/templates/voiture_boite/list.html:61
@@ -25331,7 +25331,7 @@ msgstr "Rear pad thickness (mm)"
 
 #: voiture/voiture_freins_ar/forms.py:52 voiture/voiture_freins_av/forms.py:50
 msgid "Ex : Brembo"
-msgstr ""
+msgstr "E.g.: Brembo"
 
 #: voiture/voiture_freins_ar/forms.py:56
 msgid "Référence OEM disque arrière"
@@ -25339,7 +25339,7 @@ msgstr "Rear brake disc OEM reference"
 
 #: voiture/voiture_freins_ar/forms.py:60 voiture/voiture_freins_av/forms.py:60
 msgid "Ex : Bosch"
-msgstr ""
+msgstr "E.g.: Bosch"
 
 #: voiture/voiture_freins_ar/forms.py:64
 msgid "Référence OEM plaquette arrière"
@@ -26483,33 +26483,3 @@ msgstr "Tires replaced successfully."
 #: voiture/voiture_pneus/views.py:145
 msgid "Pneu mis à jour avec succès."
 msgstr "Tire updated successfully."
-
-#~ msgid "Une adresse est nécessaire"
-#~ msgstr "An address is required"
-
-#~ msgid "Une adresse est obligatoire pour une société."
-#~ msgstr "An address is required for a company."
-
-#~ msgid "Compte bancaire"
-#~ msgstr "Bank account"
-
-#~ msgid "+32 ..."
-#~ msgstr "+44 ..."
-
-#~ msgid "Prix du pare-chocs avant"
-#~ msgstr "Front bumper price"
-
-#~ msgid "Prix"
-#~ msgstr "Price"
-
-#~ msgid "Vitre de porte avant gauche oem"
-#~ msgstr "OEM front left door window"
-
-#~ msgid "Sans"
-#~ msgstr "None"
-
-#~ msgid "Qualité de liquide de frein"
-#~ msgstr "Brake fluid quality"
-
-#~ msgid "Plaquettes avant état"
-#~ msgstr "Front brake pads condition"

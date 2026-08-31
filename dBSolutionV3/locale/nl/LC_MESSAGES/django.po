@@ -3511,7 +3511,7 @@ msgstr "Model"
 
 #: fuel/forms.py:27
 msgid "Volume max (L)"
-msgstr ""
+msgstr "Maximaal volume (L)"
 
 #: fuel/forms.py:36 fuel/models.py:149
 #: maintenance/autres_interventions/abs/forms.py:16
@@ -3564,7 +3564,7 @@ msgstr ""
 #: maintenance/silent_blocs/models.py:61 recharge/forms.py:17
 #: recharge/models.py:166
 msgid "Variation du kilométrage"
-msgstr ""
+msgstr "Variatie in kilometerstand"
 
 #: fuel/forms.py:104 recharge/forms.py:90
 msgid "Commencez à saisir une immatriculation"
@@ -13703,11 +13703,11 @@ msgstr "%(type)s - %(empl)s (%(niveau)s)"
 
 #: maintenance/carrosserie_interne/models.py:18
 msgid "Peint"
-msgstr ""
+msgstr "Geschilderd"
 
 #: maintenance/carrosserie_interne/models.py:19
 msgid "A peindre"
-msgstr ""
+msgstr "Te schilderen"
 
 #: maintenance/carrosserie_interne/models.py:61
 msgid "Kilométrage au moment de l'intervention"
@@ -20739,10 +20739,8 @@ msgid "Total des pièces HTVA"
 msgstr "Totaal onderdelen excl. btw"
 
 #: maintenance/pneus/templates/pneus/pneus_detail.html:13
-#, fuzzy
-#| msgid "Détails du checkup piste"
 msgid "Détails du checkup des Pneus"
-msgstr "Details van de track-checkup"
+msgstr "Details van de bandencontrole"
 
 #: maintenance/pneus/templates/pneus/pneus_detail.html:61
 msgid "Modifier le contrôle des pneus"
@@ -23760,10 +23758,8 @@ msgid "Date de la recharge"
 msgstr "Datum van de laadbeurt"
 
 #: recharge/models.py:135
-#, fuzzy
-#| msgid "Capacité de la batterie"
 msgid "Capacité en KW"
-msgstr "Batterijcapaciteit"
+msgstr "Capaciteit in kW"
 
 #: recharge/models.py:136
 msgid "Kilos Watt"
@@ -24779,7 +24775,7 @@ msgstr "Type versnellingsbak"
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:91
 #: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:61
 msgid "N° OEM"
-msgstr "OEM-nummer"
+msgstr "OEM"
 
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:79
 #: voiture/voiture_boite/templates/voiture_boite/list.html:61

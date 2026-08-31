@@ -3514,7 +3514,7 @@ msgstr "Modelo"
 
 #: fuel/forms.py:27
 msgid "Volume max (L)"
-msgstr ""
+msgstr "Volumen máximo (L)"
 
 #: fuel/forms.py:36 fuel/models.py:149
 #: maintenance/autres_interventions/abs/forms.py:16
@@ -3567,7 +3567,7 @@ msgstr ""
 #: maintenance/silent_blocs/models.py:61 recharge/forms.py:17
 #: recharge/models.py:166
 msgid "Variation du kilométrage"
-msgstr ""
+msgstr "Variación del kilometraje"
 
 #: fuel/forms.py:104 recharge/forms.py:90
 msgid "Commencez à saisir une immatriculation"
@@ -13702,11 +13702,11 @@ msgstr "%(type)s - %(empl)s (%(niveau)s)"
 
 #: maintenance/carrosserie_interne/models.py:18
 msgid "Peint"
-msgstr ""
+msgstr "Pintado"
 
 #: maintenance/carrosserie_interne/models.py:19
 msgid "A peindre"
-msgstr ""
+msgstr "Por pintar"
 
 #: maintenance/carrosserie_interne/models.py:61
 msgid "Kilométrage au moment de l'intervention"
@@ -13775,7 +13775,7 @@ msgstr "Parachoques delantero"
 #: maintenance/carrosserie_interne/models.py:565
 #: voiture/voiture_boite/forms.py:19
 msgid "OEM"
-msgstr "N.º OEM"
+msgstr "OEM"
 
 #: maintenance/carrosserie_interne/models.py:79
 msgid "Pare-chocs arrière"
@@ -24780,7 +24780,7 @@ msgstr "Tipo de caja"
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:91
 #: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:61
 msgid "N° OEM"
-msgstr "N.º OEM"
+msgstr "OEM"
 
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:79
 #: voiture/voiture_boite/templates/voiture_boite/list.html:61
