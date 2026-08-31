@@ -410,6 +410,7 @@ class FabricantFrein(models.TextChoices):
     SKF = "SKF", _("SKF")
     SNR = "SNR", _("SNR")
     WINMAX = "WINMAX", _("Winmax")
+    DIXCEL = "DIXCEL", _("Dixcel")
     AUTRE = "AUTRE", _("Autre")
     CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
     CHOISIR = "CHOISIR", _("Choisir")
