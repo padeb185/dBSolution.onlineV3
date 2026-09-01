@@ -1272,14 +1272,45 @@ def carrosserie_interne_pdf_view(request, carrosserie_id):
         base_url=request.build_absolute_uri("/"),
     ).write_pdf()
 
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
+
     immatriculation = (
         carrosserie.voiture_exemplaire.immatriculation
         if carrosserie.voiture_exemplaire
         else "sans_immatriculation"
     )
 
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
+
+    technicien = (
+            carrosserie.tech_nom_technicien
+            or "technicien_inconnu"
+    )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        carrosserie.date.strftime("%Y-%m-%d")
+        if carrosserie.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
     nom_fichier = (
-        f"carrosserie_interne_{immatriculation}_{carrosserie.id}.pdf"
+        f"{_('Carrosserie')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
     )
 
     response = HttpResponse(

@@ -894,17 +894,54 @@ def injection_detail_pdf_view(request, pk):
         base_url=request.build_absolute_uri()
     ).write_pdf()
 
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
+
     immatriculation = (
         injection.voiture_exemplaire.immatriculation
         if injection.voiture_exemplaire
         else "sans_immatriculation"
     )
 
-    technicien = injection.tech_nom_technicien or "technicien_inconnu"
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
 
-    response = HttpResponse(pdf, content_type="application/pdf")
+    technicien = (
+            injection.tech_nom_technicien
+            or "technicien_inconnu"
+    )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        injection.date.strftime("%Y-%m-%d")
+        if injection.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
+    nom_fichier = (
+        f"{_('Injection')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
+    )
+
+    response = HttpResponse(
+        pdf,
+        content_type="application/pdf",
+    )
+
     response["Content-Disposition"] = (
-        f'attachment; filename="rapport_système_injection_{immatriculation}_{technicien}.pdf"'
+        f'inline; filename="{nom_fichier}"'
     )
 
     return response

@@ -1148,15 +1148,45 @@ def admission_detail_pdf_view(request, pk):
     # Nom du fichier
     # -------------------------
 
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
+
     immatriculation = (
         admission.voiture_exemplaire.immatriculation
         if admission.voiture_exemplaire
         else "sans_immatriculation"
     )
 
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
+
     technicien = (
-        admission.tech_nom_technicien
-        or "technicien_inconnu"
+            admission.tech_nom_technicien
+            or "technicien_inconnu"
+    )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        admission.date.strftime("%Y-%m-%d")
+        if admission.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
+    nom_fichier = (
+        f"{_('Admission')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
     )
 
     response = HttpResponse(
@@ -1165,8 +1195,7 @@ def admission_detail_pdf_view(request, pk):
     )
 
     response["Content-Disposition"] = (
-        f'attachment; '
-        f'filename="admission_{immatriculation}_{technicien}.pdf"'
+        f'inline; filename="{nom_fichier}"'
     )
 
     return response

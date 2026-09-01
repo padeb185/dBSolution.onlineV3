@@ -393,42 +393,59 @@ def checkup_pdf_view(request, checkup_id):
             request=request,
         )
 
-        pdf_file = HTML(
+        pdf = HTML(
             string=html_string,
             base_url=request.build_absolute_uri("/"),
         ).write_pdf()
 
+        # =========================================================
+        # IMMATRICULATION
+        # =========================================================
+
         immatriculation = (
             checkup.voiture_exemplaire.immatriculation
             if checkup.voiture_exemplaire
-            and checkup.voiture_exemplaire.immatriculation
             else "sans_immatriculation"
         )
 
+        # =========================================================
+        # TECHNICIEN
+        # =========================================================
+
         technicien = (
-            checkup.tech_nom_technicien
-            or (
-                str(checkup.main_oeuvre.utilisateur)
-                if checkup.main_oeuvre
-                and checkup.main_oeuvre.utilisateur
-                else None
-            )
-            or "technicien_inconnu"
+                checkup.tech_nom_technicien
+                or "technicien_inconnu"
         )
 
-        # Évite les caractères problématiques dans le nom du fichier
-        immatriculation = str(immatriculation).replace(" ", "_").replace("/", "-")
-        technicien = str(technicien).replace(" ", "_").replace("/", "-")
+        # Nettoyage pour le nom du fichier
+        technicien = str(technicien).replace(" ", "_")
+        immatriculation = str(immatriculation).replace(" ", "_")
 
-        filename = f"checkup_{immatriculation}_{technicien}.pdf"
+        # =========================================================
+        # DATE
+        # =========================================================
+
+        date_pdf = (
+            checkup.date.strftime("%Y-%m-%d")
+            if checkup.date
+            else timezone.now().strftime("%Y-%m-%d")
+        )
+
+        # =========================================================
+        # TITRE / NOM DU PDF
+        # =========================================================
+
+        nom_fichier = (
+            f"{_('Checkup')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
+        )
 
         response = HttpResponse(
-            pdf_file,
+            pdf,
             content_type="application/pdf",
         )
 
         response["Content-Disposition"] = (
-            f'inline; filename="{filename}"'
+            f'inline; filename="{nom_fichier}"'
         )
 
         return response

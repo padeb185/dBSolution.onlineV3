@@ -688,10 +688,45 @@ def abs_detail_pdf_view(request, pk):
         base_url=request.build_absolute_uri("/"),
     ).write_pdf()
 
-    filename = (
-        f"rapport_ABS_"
-        f"{immatriculation_fichier}_"
-        f"{nom_technicien_fichier}.pdf"
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
+
+    immatriculation = (
+        abs_obj.voiture_exemplaire.immatriculation
+        if abs_obj.voiture_exemplaire
+        else "sans_immatriculation"
+    )
+
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
+
+    technicien = (
+            abs_obj.tech_nom_technicien
+            or "technicien_inconnu"
+    )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        abs_obj.date.strftime("%Y-%m-%d")
+        if abs_obj.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
+    nom_fichier = (
+        f"{_('ABS')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
     )
 
     response = HttpResponse(
@@ -700,14 +735,14 @@ def abs_detail_pdf_view(request, pk):
     )
 
     response["Content-Disposition"] = (
-        f'attachment; filename="{filename}"'
+        f'inline; filename="{nom_fichier}"'
     )
 
     return response
 
-    # -------------------------
-    # RAPPORT
-    # -------------------------
+
+
+
 def generer_rapport_remplacement(self):
     rapport = []
     total_general = Decimal("0")

@@ -382,21 +382,57 @@ def bte_auto_pdf_view(request, bte_auto_id):
         base_url=request.build_absolute_uri()
     ).write_pdf()
 
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
+
     immatriculation = (
         bte_auto.voiture_exemplaire.immatriculation
         if bte_auto.voiture_exemplaire
         else "sans_immatriculation"
     )
 
-    technicien = bte_auto.tech_nom_technicien or "technicien_inconnu"
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
 
-    response = HttpResponse(pdf, content_type="application/pdf")
+    technicien = (
+            bte_auto.tech_nom_technicien
+            or "technicien_inconnu"
+    )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        bte_auto.date.strftime("%Y-%m-%d")
+        if bte_auto.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
+    nom_fichier = (
+        f"{_('Boite automatique')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
+    )
+
+    response = HttpResponse(
+        pdf,
+        content_type="application/pdf",
+    )
+
     response["Content-Disposition"] = (
-        f'inline; filename="bte_auto_{immatriculation}_{technicien}.pdf"'
+        f'inline; filename="{nom_fichier}"'
     )
 
     return response
-
 
 
 

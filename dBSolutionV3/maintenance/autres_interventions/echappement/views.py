@@ -611,14 +611,45 @@ def echappement_check_pdf_view(request, pk):
     else:
         technicien = "technicien_inconnu"
 
-    # Nettoyage pour le nom du fichier
-    immatriculation = str(immatriculation).replace(" ", "_").replace("/", "-")
-    technicien = str(technicien).replace(" ", "_").replace("/", "-")
+        # =========================================================
+        # IMMATRICULATION
+        # =========================================================
 
-    filename = (
-        f"rapport_echappement_"
-        f"{immatriculation}_"
-        f"{technicien}.pdf"
+    immatriculation = (
+        echappement.voiture_exemplaire.immatriculation
+        if echappement.voiture_exemplaire
+        else "sans_immatriculation"
+    )
+
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
+
+    technicien = (
+            echappement.tech_nom_technicien
+            or "technicien_inconnu"
+    )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        echappement.date.strftime("%Y-%m-%d")
+        if echappement.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
+    nom_fichier = (
+        f"{_('Echappement')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
     )
 
     response = HttpResponse(
@@ -627,7 +658,7 @@ def echappement_check_pdf_view(request, pk):
     )
 
     response["Content-Disposition"] = (
-        f'attachment; filename="{filename}"'
+        f'inline; filename="{nom_fichier}"'
     )
 
     return response

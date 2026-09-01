@@ -496,25 +496,54 @@ def rodage_pdf_view(request, rodage_id):
         base_url=request.build_absolute_uri("/")
     ).write_pdf()
 
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
+
     immatriculation = (
         rodage.voiture_exemplaire.immatriculation
         if rodage.voiture_exemplaire
         else "sans_immatriculation"
     )
 
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
+
     technicien = (
             rodage.tech_nom_technicien
             or "technicien_inconnu"
     )
 
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        rodage.date.strftime("%Y-%m-%d")
+        if rodage.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
+    nom_fichier = (
+        f"{_('Rodage')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
+    )
+
     response = HttpResponse(
         pdf,
-        content_type="application/pdf"
+        content_type="application/pdf",
     )
 
     response["Content-Disposition"] = (
-        f'attachment; '
-        f'filename="rodage_{immatriculation}_{technicien}.pdf"'
+        f'inline; filename="{nom_fichier}"'
     )
 
     return response

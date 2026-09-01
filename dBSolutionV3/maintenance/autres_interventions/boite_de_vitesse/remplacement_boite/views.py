@@ -17,11 +17,7 @@ from .models import RemplacementBoite
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
-from weasyprint import HTML
-
-
-
-
+from weasyprint import HTML, pdf
 
 
 @method_decorator([login_required, never_cache], name="dispatch")
@@ -493,33 +489,54 @@ def remplacement_boite_pdf_view(request, remplacement_boite_id):
         request=request,
     )
 
-    pdf_file = HTML(
+    pdf = HTML(
         string=html_string,
         base_url=request.build_absolute_uri("/"),
     ).write_pdf()
 
-    def nettoyer_nom_fichier(valeur):
-        valeur = str(valeur).strip()
-        valeur = re.sub(r"\s+", "_", valeur)
-        valeur = re.sub(r'[\\/:*?"<>|]+', "-", valeur)
-        return valeur or "inconnu"
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
 
-    filename_immatriculation = nettoyer_nom_fichier(
-        immatriculation
+    immatriculation = (
+        remplacement.voiture_exemplaire.immatriculation
+        if remplacement.voiture_exemplaire
+        else "sans_immatriculation"
     )
 
-    filename_technicien = nettoyer_nom_fichier(
-        technicien
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
+
+    technicien = (
+            remplacement.tech_nom_technicien
+            or "technicien_inconnu"
     )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        remplacement.date.strftime("%Y-%m-%d")
+        if remplacement.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
 
     nom_fichier = (
-        f"remplacement_boite_"
-        f"{filename_immatriculation}_"
-        f"{filename_technicien}.pdf"
+        f"{_('Remplacement boite')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
     )
 
     response = HttpResponse(
-        pdf_file,
+        pdf,
         content_type="application/pdf",
     )
 

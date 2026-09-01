@@ -951,10 +951,45 @@ def embrayage_detail_pdf_view(request, pk):
         base_url=request.build_absolute_uri("/"),
     ).write_pdf()
 
-    filename = (
-        f"rapport_remplacement_embrayage_"
-        f"{immatriculation_fichier}_"
-        f"{nom_technicien_fichier}.pdf"
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
+
+    immatriculation = (
+        embrayage.voiture_exemplaire.immatriculation
+        if embrayage.voiture_exemplaire
+        else "sans_immatriculation"
+    )
+
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
+
+    technicien = (
+            embrayage.tech_nom_technicien
+            or "technicien_inconnu"
+    )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        embrayage.date.strftime("%Y-%m-%d")
+        if embrayage.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
+    nom_fichier = (
+        f"{_('Embrayage')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
     )
 
     response = HttpResponse(
@@ -963,7 +998,7 @@ def embrayage_detail_pdf_view(request, pk):
     )
 
     response["Content-Disposition"] = (
-        f'attachment; filename="{filename}"'
+        f'inline; filename="{nom_fichier}"'
     )
 
     return response

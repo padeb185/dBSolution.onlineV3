@@ -507,17 +507,54 @@ def courroie_access_detail_pdf_view(request, pk):
         base_url=request.build_absolute_uri("/")
     ).write_pdf()
 
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
+
     immatriculation = (
         courroie_accessoires.voiture_exemplaire.immatriculation
         if courroie_accessoires.voiture_exemplaire
         else "sans_immatriculation"
     )
 
-    technicien = courroie_accessoires.tech_nom_technicien or "technicien_inconnu"
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
 
-    response = HttpResponse(pdf, content_type="application/pdf")
+    technicien = (
+            courroie_accessoires.tech_nom_technicien
+            or "technicien_inconnu"
+    )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        courroie_accessoires.date.strftime("%Y-%m-%d")
+        if courroie_accessoires.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
+    nom_fichier = (
+        f"{_('Courroie d’accessoires')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
+    )
+
+    response = HttpResponse(
+        pdf,
+        content_type="application/pdf",
+    )
+
     response["Content-Disposition"] = (
-        f'attachment; filename="rapport_courroie_accessoires_{pk}_{immatriculation}_{technicien}.pdf"'
+        f'inline; filename="{nom_fichier}"'
     )
 
     return response

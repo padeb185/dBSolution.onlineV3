@@ -363,25 +363,54 @@ def silent_bloc_pdf_view(request, silent_id):
         base_url=request.build_absolute_uri("/")
     ).write_pdf()
 
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
+
     immatriculation = (
         silent_bloc.voiture_exemplaire.immatriculation
         if silent_bloc.voiture_exemplaire
         else "sans_immatriculation"
     )
 
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
+
     technicien = (
-        silent_bloc.tech_nom_technicien
-        or "technicien_inconnu"
+            silent_bloc.tech_nom_technicien
+            or "technicien_inconnu"
+    )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        silent_bloc.date.strftime("%Y-%m-%d")
+        if silent_bloc.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
+    nom_fichier = (
+        f"{_('Silent blocs')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
     )
 
     response = HttpResponse(
         pdf,
-        content_type="application/pdf"
+        content_type="application/pdf",
     )
 
     response["Content-Disposition"] = (
-        f'inline; filename="silent_blocs_'
-        f'{immatriculation}_{technicien}.pdf"'
+        f'inline; filename="{nom_fichier}"'
     )
 
     return response

@@ -685,15 +685,45 @@ def checkup_track_detail_pdf_view(request, pk):
         base_url=request.build_absolute_uri("/"),
     ).write_pdf()
 
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
+
     immatriculation = (
         checkup_track.voiture_exemplaire.immatriculation
         if checkup_track.voiture_exemplaire
         else "sans_immatriculation"
     )
 
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
+
     technicien = (
-        checkup_track.tech_nom_technicien
-        or "technicien_inconnu"
+            checkup_track.tech_nom_technicien
+            or "technicien_inconnu"
+    )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        checkup_track.date.strftime("%Y-%m-%d")
+        if checkup_track.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
+    nom_fichier = (
+        f"{_('Checkup piste')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
     )
 
     response = HttpResponse(
@@ -702,8 +732,7 @@ def checkup_track_detail_pdf_view(request, pk):
     )
 
     response["Content-Disposition"] = (
-        f'attachment; '
-        f'filename="checkup_track_{immatriculation}_{technicien}.pdf"'
+        f'inline; filename="{nom_fichier}"'
     )
 
     return response

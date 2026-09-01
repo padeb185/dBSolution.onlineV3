@@ -854,21 +854,45 @@ def clim_detail_pdf_view(request, pk):
         base_url=request.build_absolute_uri("/"),
     ).write_pdf()
 
-    immatriculation = "vehicule"
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
 
-    if climatisation.voiture_exemplaire_id:
-        immatriculation = (
-            climatisation.voiture_exemplaire.immatriculation
-            or "vehicule"
-        )
-
-    technicien = (
-        climatisation.tech_nom_technicien
-        or "technicien"
+    immatriculation = (
+        climatisation.voiture_exemplaire.immatriculation
+        if climatisation.voiture_exemplaire
+        else "sans_immatriculation"
     )
 
-    filename = slugify(
-        f"climatisation-{immatriculation}-{technicien}"
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
+
+    technicien = (
+            climatisation.tech_nom_technicien
+            or "technicien_inconnu"
+    )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        climatisation.date.strftime("%Y-%m-%d")
+        if climatisation.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
+    nom_fichier = (
+        f"{_('Climatisation')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
     )
 
     response = HttpResponse(
@@ -877,7 +901,7 @@ def clim_detail_pdf_view(request, pk):
     )
 
     response["Content-Disposition"] = (
-        f'inline; filename="{filename}.pdf"'
+        f'inline; filename="{nom_fichier}"'
     )
 
     return response
