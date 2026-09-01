@@ -708,15 +708,45 @@ def entretien_pdf_view(request, entretien_id):
         base_url=request.build_absolute_uri("/")
     ).write_pdf()
 
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
+
     immatriculation = (
         entretien.voiture_exemplaire.immatriculation
         if entretien.voiture_exemplaire
         else "sans_immatriculation"
     )
 
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
+
     technicien = (
         entretien.tech_nom_technicien
         or "technicien_inconnu"
+    )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        entretien.date.strftime("%Y-%m-%d")
+        if entretien.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
+    nom_fichier = (
+        f"Entretien_{technicien}_{immatriculation}_{date_pdf}.pdf"
     )
 
     response = HttpResponse(
@@ -725,8 +755,7 @@ def entretien_pdf_view(request, entretien_id):
     )
 
     response["Content-Disposition"] = (
-        f'inline; filename="entretien_'
-        f'{immatriculation}_{technicien}.pdf"'
+        f'inline; filename="{nom_fichier}"'
     )
 
     return response
