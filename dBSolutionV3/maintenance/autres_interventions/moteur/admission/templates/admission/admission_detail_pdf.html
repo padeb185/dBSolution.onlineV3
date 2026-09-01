@@ -377,7 +377,7 @@
 
         <tbody>
 
-
+            {% if admission.filtre_air_pc != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Filtre à air" %}</td>
                 <td>
@@ -403,7 +403,9 @@
                     {% endif %}
                 </td>
             </tr>
+            {% endif %}
 
+            {% if admission.boitier_filtre_air != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Boîtier du filtre à air" %}</td>
                 <td>
@@ -429,9 +431,10 @@
                     {% endif %}
                 </td>
             </tr>
+            {% endif %}
 
             <!-- MESURE D'AIR -->
-
+            {% if admission.debitmetre != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Débitmètre d'air" %}</td>
                 <td>
@@ -457,7 +460,9 @@
                     {% endif %}
                 </td>
             </tr>
+            {% endif %}
 
+            {% if admission.capteur_map != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Capteur MAP" %}</td>
                 <td>
@@ -483,7 +488,10 @@
                     {% endif %}
                 </td>
             </tr>
+            {% endif %}
 
+
+            {% if admission.capteur_temperature_air != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Capteur de température d'air" %}</td>
                 <td>
@@ -509,8 +517,11 @@
                     {% endif %}
                 </td>
             </tr>
+            {% endif %}
 
             <!-- ADMISSION PRINCIPALE -->
+
+            {% if admission.corps_papillon != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Corps de papillon" %}</td>
                 <td>
@@ -536,7 +547,10 @@
                     {% endif %}
                 </td>
             </tr>
+            {% endif %}
 
+
+            {% if admission.collecteur_admission != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Collecteur d'admission" %}</td>
                 <td>
@@ -562,9 +576,11 @@
                     {% endif %}
                 </td>
             </tr>
+            {% endif %}
 
             <!-- SURALIMENTATION -->
 
+            {% if admission.turbo != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Turbo" %}</td>
                 <td>
@@ -582,15 +598,13 @@
                         <span class="etat-bleu">
                             {{ admission.get_turbo_display }}
                         </span>
-
-                    {% else %}
-                        <span class="etat-gris">
-                            {{ admission.get_turbo_display|default:"-" }}
-                        </span>
                     {% endif %}
                 </td>
             </tr>
+            {% endif %}
 
+
+            {% if admission.intercooler != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Intercooler" %}</td>
                 <td>
@@ -616,9 +630,10 @@
                     {% endif %}
                 </td>
             </tr>
+            {% endif %}
 
             <!-- SYSTÈME EGR -->
-
+            {% if admission.vanne_egr != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Vanne EGR" %}</td>
                 <td>
@@ -644,9 +659,10 @@
                     {% endif %}
                 </td>
             </tr>
+            {% endif %}
 
             <!-- DIVERS -->
-
+            {% if admission.durites_admission != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Durites d'admission" %}</td>
                 <td>
@@ -672,7 +688,9 @@
                     {% endif %}
                 </td>
             </tr>
+            {% endif %}
 
+            {% if admission.joints_admission != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Joints d'admission" %}</td>
                 <td>
@@ -698,7 +716,7 @@
                     {% endif %}
                 </td>
             </tr>
-
+            {% endif %}
         </tbody>
     </table>
 

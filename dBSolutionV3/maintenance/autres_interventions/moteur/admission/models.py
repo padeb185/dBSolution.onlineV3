@@ -15,6 +15,7 @@ class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("OK")
     NOT_OK = "NOT_OK", _("A Remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
+    NON_PRESENT = "NON_PRESENT", _("Non présent")
 
 
 
@@ -133,19 +134,19 @@ class Admission(TechnicienMixin, models.Model):
 
     # -------------------------
     # SURALIMENTATION
-    turbo = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Turbo"))
+    turbo = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NON_PRESENT,verbose_name=_("Turbo"))
     turbo_fabricant = models.CharField(max_length=25, choices=FabricantTurbo.choices, default=FabricantTurbo.CHOISIR, verbose_name=_("Fabricant"),blank=True)
     turbo_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
     turbo_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
-    intercooler = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Intercooler"))
+    intercooler = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NON_PRESENT,verbose_name=_("Intercooler"))
     intercooler_fabricant = models.CharField(max_length=25, choices=FabricantIntercooler.choices, default=FabricantIntercooler.CHOISIR,verbose_name=_("Fabricant"), blank=True)
     intercooler_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
     intercooler_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     # -------------------------
     # EGR
-    vanne_egr = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Vanne EGR"))
+    vanne_egr = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NON_PRESENT,verbose_name=_("Vanne EGR"))
     vanne_egr_fabricant = models.CharField(max_length=25, choices=FabricantVanneEGR.choices, default=FabricantVanneEGR.CHOISIR,verbose_name=_("Fabricant"), blank=True)
     vanne_egr_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
     vanne_egr_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
