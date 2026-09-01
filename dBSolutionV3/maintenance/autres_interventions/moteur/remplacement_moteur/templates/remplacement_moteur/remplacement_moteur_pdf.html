@@ -780,6 +780,8 @@
 <!-- REMARQUES -->
 <!-- ================================================== -->
 
+<!-- ================= REMARQUES ================= -->
+<br>
 <h2>{% trans "Remarques" %}</h2>
 
 <div class="box">
@@ -788,6 +790,13 @@
     {% else %}
         {% trans "Aucune remarque." %}
     {% endif %}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
 </div>
 
 </body>

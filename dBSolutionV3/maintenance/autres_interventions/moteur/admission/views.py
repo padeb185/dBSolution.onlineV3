@@ -25,14 +25,12 @@ from .models import Admission
 
 
 
-
-
 @method_decorator([login_required, never_cache], name="dispatch")
 class AdmissionListView(ListView):
     model = Admission
     template_name = "admission/admission_list.html"
     context_object_name = "admissions"
-    ordering = ["-id"]
+    ordering = ["-date"]
 
     def get_queryset(self):
         queryset = Admission.objects.select_related(
@@ -42,7 +40,6 @@ class AdmissionListView(ListView):
         )
 
         societe = getattr(self.request.user, "societe", None)
-        exemplaire_id = self.kwargs.get("exemplaire_id")
 
         if societe:
             queryset = queryset.filter(
@@ -50,12 +47,7 @@ class AdmissionListView(ListView):
                 | models.Q(tech_societe__isnull=True)
             )
 
-        if exemplaire_id:
-            queryset = queryset.filter(
-                voiture_exemplaire_id=exemplaire_id
-            )
-
-        return queryset.order_by("-id")
+        return queryset.order_by("-date")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -63,9 +55,8 @@ class AdmissionListView(ListView):
         exemplaire_id = self.kwargs.get("exemplaire_id")
 
         if exemplaire_id:
-            context["exemplaire"] = get_object_or_404(
-                VoitureExemplaire,
-                id=exemplaire_id,
+            context["exemplaire"] = VoitureExemplaire.objects.get(
+                id=exemplaire_id
             )
 
         roles_autorises = [
@@ -81,6 +72,8 @@ class AdmissionListView(ListView):
         )
 
         return context
+
+
 
 
 

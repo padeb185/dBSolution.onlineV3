@@ -3,13 +3,13 @@ from decimal import Decimal
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-
 from maindoeuvre.models import MainDoeuvre
 from maintenance.choices import RouesSerrageEtat
 from .models import RemplacementMoteur
 
 
 class RemplacementMoteurForm(forms.ModelForm):
+
     nombre_remplacements_moteurs = forms.IntegerField(
         required=False,
         disabled=True,

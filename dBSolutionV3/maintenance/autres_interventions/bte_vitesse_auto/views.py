@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.core.exceptions import ValidationError
 
 from django.shortcuts import get_object_or_404, redirect, render
@@ -373,6 +375,7 @@ def bte_auto_pdf_view(request, bte_auto_id):
         "bte_auto/bte_auto_detail_pdf.html",
         {
             "bte_auto": bte_auto,
+            "date_export": datetime.now(),
             "rapport": rapport,
             "societe": tenant,
         }

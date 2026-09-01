@@ -230,7 +230,12 @@
         .societe-header {
             page-break-inside: avoid;
         }
-
+        .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -876,20 +881,23 @@
 
     {% endif %}
 
-</div>
+<!-- ================= REMARQUES ================= -->
+<br>
 <h2>{% trans "Remarques" %}</h2>
 
-<div class="box remarques">
-    {% if boite.remarques %}
-        {{ boite.remarques|linebreaksbr }}
+<div class="box">
+    {% if abs.remarques %}
+        {{ abs.remarques|linebreaks }}
     {% else %}
         {% trans "Aucune remarque." %}
     {% endif %}
 </div>
 
-<div class="small">
-    {% trans "Rapport généré le" %} :
-    {% now "d/m/Y H:i" %}
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
 </div>
 
 </body>

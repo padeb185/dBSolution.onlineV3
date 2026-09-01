@@ -1238,26 +1238,23 @@
 <!-- OBSERVATIONS -->
 <!-- ================================================== -->
 
-<h2>{% trans "Observations" %}</h2>
+<!-- ================= REMARQUES ================= -->
+<br>
+<h2>{% trans "Remarques" %}</h2>
 
 <div class="box">
-    {{ injection.observations|default:_("Aucune observation.") }}
+    {% if injection.remarques %}
+        {{ injection.remarques|linebreaks }}
+    {% else %}
+        {% trans "Aucune remarque." %}
+    {% endif %}
 </div>
 
 
-<!-- ================================================== -->
-<!-- FOOTER -->
-<!-- ================================================== -->
-
 <div class="footer">
-
     {% trans "Document généré automatiquement par CarsCosts.com." %}
-
     <br>
-
-    {% trans "Date export" %} :
-    {{ date_export|date:"d/m/Y H:i" }}
-
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
 </div>
 
 </body>

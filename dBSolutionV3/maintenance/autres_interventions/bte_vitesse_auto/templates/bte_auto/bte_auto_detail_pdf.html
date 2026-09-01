@@ -326,7 +326,7 @@
 <br>
 <h2>{% trans "Contrôle boîte automatique" %}</h2>
 
-<div class="box">
+<div>
     <table>
         <thead>
             <tr>
@@ -550,9 +550,6 @@
 
 
 <!-- ================= MAIN D'ŒUVRE ================= -->
-<br>
-<br>
-<br>
 
 <h2>{% trans "Main d'œuvre" %}</h2>
 
@@ -592,7 +589,7 @@
 <br>
 <h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
 
-<div class="box">
+<div>
 
     {% if rapport.lignes %}
 
@@ -725,16 +722,20 @@
         </table>
 
     {% endif %}
-
 </div>
+<!-- ================= REMARQUES ================= -->
 <br>
 <h2>{% trans "Remarques" %}</h2>
 
 <div class="box">
-    {{ bte_auto.remarques|default:_("Aucune remarque.")|linebreaks }}
+    {% if bte_auto.remarques %}
+        {{ bte_auto.remarques|linebreaks }}
+    {% else %}
+        {% trans "Aucune remarque." %}
+    {% endif %}
 </div>
 
-<br>
+
 <div class="footer">
     {% trans "Document généré automatiquement par CarsCosts.com." %}
     <br>

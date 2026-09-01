@@ -399,7 +399,6 @@
 </div>
 
 <!-- ================= CONTRÔLE TURBO ================= -->
-<br>
 <h2>{% trans "Contrôle turbo" %}</h2>
 
    <table class="table-2-cols">
@@ -521,8 +520,7 @@
     </table>
 
 
-<br>
-<br>
+
 <h2>{% trans "État des pièces" %}</h2>
 
     <table class="table-2-cols">
@@ -588,12 +586,6 @@
         </tbody>
     </table>
 
-
-<br>
-<br>
-<br>
-<br>
-<br>
 <!-- ================================================== -->
 <!-- MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
@@ -777,17 +769,23 @@
     {% endif %}
 
 </div>
+
+
+
+
 <!-- ================= REMARQUES ================= -->
 <br>
 <h2>{% trans "Remarques" %}</h2>
 
 <div class="box">
-
-    {{ turbo.remarques|default:_("Aucune remarque.")|linebreaks }}
-
+    {% if turbo.remarques %}
+        {{ turbo.remarques|linebreaks }}
+    {% else %}
+        {% trans "Aucune remarque." %}
+    {% endif %}
 </div>
 
-<br>
+
 <div class="footer">
     {% trans "Document généré automatiquement par CarsCosts.com." %}
     <br>

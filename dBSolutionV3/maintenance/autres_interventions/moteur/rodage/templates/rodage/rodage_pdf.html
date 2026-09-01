@@ -948,10 +948,16 @@
 </div>
 
 
+<!-- ================= REMARQUES ================= -->
+<br>
 <h2>{% trans "Remarques" %}</h2>
 
 <div class="box">
-    {{ rodage.remarques|default:_("Aucune remarque.")|linebreaks }}
+    {% if rodage.remarques %}
+        {{ rodage.remarques|linebreaks }}
+    {% else %}
+        {% trans "Aucune remarque." %}
+    {% endif %}
 </div>
 
 
