@@ -318,13 +318,7 @@ def alternateur_check_view(request, exemplaire_id):
                             UserLog.objects.create(
                                 utilisateur=request.user,
                                 action=_(
-                                    "Alternateur - %(immatriculation)s"
-                                )
-                                % {
-                                    "immatriculation": (
-                                        exemplaire.immatriculation
-                                    )
-                                },
+                                    "Contrôle de l'alternateur") + f" - {exemplaire.immatriculation}"
                             )
 
                         # ==================================================
@@ -554,9 +548,7 @@ def modifier_alternateur_view(request, alternateur_id):
 
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification alternateur - %(immatriculation)s") % {
-                    "immatriculation": exemplaire.immatriculation
-                }
+                action=_("Modification du contrôle de l'alternateur") + f" - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Contrôle de l'alternateur modifié avec succès !"))

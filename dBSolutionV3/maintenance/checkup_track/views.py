@@ -319,12 +319,7 @@ def track_check_form_view(request, exemplaire_id):
                     UserLog.objects.create(
                         utilisateur=request.user,
                         action=_(
-                            "Check-up piste - %(immatriculation)s"
-                        ) % {
-                            "immatriculation": (
-                                exemplaire.immatriculation
-                            )
-                        }
+                            "Check-up piste") + f" - {exemplaire.immatriculation}"
                     )
 
                 messages.success(
@@ -587,12 +582,7 @@ def modifier_checkup_track_view(request, checkup_track_id):
                         UserLog.objects.create(
                             utilisateur=request.user,
                             action=_(
-                                "Modification check-up piste - "
-                                "%(immatriculation)s"
-                            ) % {
-                                "immatriculation":
-                                    exemplaire.immatriculation
-                            }
+                                "Modification du check-up piste") + f" - {exemplaire.immatriculation}"
                         )
 
                     messages.success(

@@ -301,9 +301,7 @@ def courroie_form_view(request, exemplaire_id):
 
                         UserLog.objects.create(
                                 utilisateur=request.user,
-                                action=_("Courroie de distribution - %(immatriculation)s") % {
-                                    "immatriculation": exemplaire.immatriculation
-                                }
+                                action=_("Courroie de distribution") + f" - {exemplaire.immatriculation}"
                             )
 
                         messages.success(request, _("Check de la  courroie de distribution enregistré avec succès."))

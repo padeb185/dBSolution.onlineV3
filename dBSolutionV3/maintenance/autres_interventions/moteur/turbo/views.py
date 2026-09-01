@@ -310,9 +310,7 @@ def turbo_check_view(request, exemplaire_id):
 
                         UserLog.objects.create(
                                 utilisateur=request.user,
-                                action=_("Turbo - %(immatriculation)s") % {
-                                    "immatriculation": exemplaire.immatriculation
-                                }
+                                action=_("Contrôle du Turbo") + f" - {exemplaire.immatriculation}"
                             )
 
                         messages.success(
@@ -410,9 +408,7 @@ def modifier_turbo_view(request, turbo_id):
 
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification turbo - %(immatriculation)s") % {
-                    "immatriculation": exemplaire.immatriculation
-                }
+                action=_("Modification du controle du turbo")+ f" - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Contrôle du turbo modifié avec succès !"))

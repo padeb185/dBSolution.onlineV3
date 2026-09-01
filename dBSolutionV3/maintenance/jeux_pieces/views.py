@@ -211,9 +211,7 @@ def controle_jeux_pieces_view(request, exemplaire_id):
 
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Jeux - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
+                        action=_("Contrôle des jeux") + f" - {exemplaire.immatriculation}"
                     )
 
 
@@ -297,9 +295,7 @@ def modifier_jeux_pieces_view(request, jeu_id):
 
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification jeux - %(immatriculation)s") % {
-                    "immatriculation": exemplaire.immatriculation
-                }
+                action=_("Modification du contrôle des jeux") + f" - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Contrôle des jeux modifié avec succès !"))

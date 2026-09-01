@@ -243,14 +243,7 @@ def clim_form_view(request, exemplaire_id):
 
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_(
-                            "Contrôle climatisation - "
-                            "%(immatriculation)s"
-                        ) % {
-                            "immatriculation": (
-                                exemplaire.immatriculation
-                            )
-                        },
+                        action=_("Contrôle de la climatisation") + f" - {exemplaire.immatriculation}"
                     )
 
                 messages.success(
@@ -577,9 +570,7 @@ def modifier_clim_view(request, climatisation_id):
 
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification contrôle climatisation - %(immatriculation)s") % {
-                    "immatriculation": exemplaire.immatriculation
-                }
+                action=_("Modification du contrôle de la  climatisation") + f" - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Contrôle du système de climatisation modifié avec succès !"))

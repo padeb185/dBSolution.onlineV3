@@ -387,13 +387,7 @@ def admission_check_view(request, exemplaire_id):
                             UserLog.objects.create(
                                 utilisateur=request.user,
                                 action=_(
-                                    "Admission - "
-                                    "%(immatriculation)s"
-                                ) % {
-                                    "immatriculation": (
-                                        exemplaire.immatriculation
-                                    )
-                                },
+                                    "Contrôle de l'admission") + f" - {exemplaire.immatriculation}"
                             )
 
                         messages.success(
@@ -797,14 +791,7 @@ def modifier_admission_view(request, admission_id):
                             # =====================================
                             UserLog.objects.create(
                                 utilisateur=request.user,
-                                action=_(
-                                    "Modification admission - "
-                                    "%(immatriculation)s"
-                                ) % {
-                                    "immatriculation": (
-                                        exemplaire.immatriculation
-                                    )
-                                },
+                                action=_("Modification du contrôle de l'admission") + f" - {exemplaire.immatriculation}"
                             )
 
                     if not form.errors:

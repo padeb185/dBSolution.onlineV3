@@ -202,9 +202,7 @@ def essuyage_form_view(request, exemplaire_id):
 
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Contrôle essuyage - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
+                        action=_("Contrôle de l'essuyage") + f" - {exemplaire.immatriculation}"
                     )
 
                 messages.success(request, _("Contrôle du système d'essuyage enregistré avec succès."))
@@ -449,9 +447,7 @@ def modifier_essuyage_view(request, essuyage_id):
 
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification contrôle du système d'essuyage - %(immatriculation)s") % {
-                    "immatriculation": exemplaire.immatriculation
-                }
+                action=_("Modification contrôle du système d'essuyage") + f" - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Contrôle du système d'essuyage modifié avec succès !"))

@@ -169,9 +169,7 @@ def remplacement_boite_form_view(request, exemplaire_id):
 
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Remplacement boite de vitesse - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
+                        action=_("Remplacement de la boite de vitesse") + f" - {exemplaire.immatriculation}"
                     )
 
                     # ➕ compteur (si champ existe)
@@ -328,9 +326,7 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification du remplacement de la boite de vitesse - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
+                    action=_("Modification du remplacement de la boite de vitesse") + f" - {exemplaire.immatriculation}"
                 )
 
                 messages.success(request, _("Remplacement de la boite modifié avec succès !"))

@@ -309,9 +309,7 @@ def rodage_check_view(request, exemplaire_id):
 
                             UserLog.objects.create(
                                 utilisateur=request.user,
-                                action=_("Rodage - %(immatriculation)s") % {
-                                    "immatriculation": exemplaire.immatriculation
-                                }
+                                action=_("Rodage") + f" - {exemplaire.immatriculation}"
                             )
 
                     messages.success(request, _("Rodage enregistré avec succès."))
@@ -405,9 +403,7 @@ def modifier_rodage_view(request, rodage_id):
 
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification rodage - %(immatriculation)s") % {
-                    "immatriculation": exemplaire.immatriculation
-                }
+                action=_("Modification du rodage") + f" - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Rodage modifié avec succès !"))

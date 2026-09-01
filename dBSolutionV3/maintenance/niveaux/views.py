@@ -227,9 +227,7 @@ def niveau_form_view(request, exemplaire_id):
 
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Niveaux - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
+                        action=_("Contrôle des Niveaux") + f" - {exemplaire.immatriculation}"
                     )
 
                 messages.success(request, _("Controle des niveaux enregistré avec succès."))
@@ -382,10 +380,7 @@ def modifier_niveau_view(request, niveau_id):
                     UserLog.objects.create(
                         utilisateur=request.user,
                         action=_(
-                            "Modification des niveaux - %(immatriculation)s"
-                        ) % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
+                            "Modification du contrôle des niveaux") + f" - {exemplaire.immatriculation}"
                     )
 
                 messages.success(

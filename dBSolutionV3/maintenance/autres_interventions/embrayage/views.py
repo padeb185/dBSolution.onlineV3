@@ -367,14 +367,7 @@ def embrayage_form_view(request, exemplaire_id):
                             UserLog.objects.create(
                                 utilisateur=request.user,
                                 action=_(
-                                    "Remplacement embrayage - "
-                                    "%(immatriculation)s"
-                                )
-                                % {
-                                    "immatriculation": (
-                                        exemplaire.immatriculation
-                                    )
-                                },
+                                    "Remplacement de l'embrayage") + f" - {exemplaire.immatriculation}"
                             )
 
                         # =========================================
@@ -662,9 +655,7 @@ def modifier_embrayage_view(request, embrayage_id):
 
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification du remplacement de l'embrayage - %(immatriculation)s") % {
-                    "immatriculation": exemplaire.immatriculation
-                }
+                action=_("Modification du remplacement de l'embrayage") + f" - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Remplacement de l'embrayage modifié avec succès !"))

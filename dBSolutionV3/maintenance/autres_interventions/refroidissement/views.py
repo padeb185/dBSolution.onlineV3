@@ -313,13 +313,7 @@ def ref_form_view(request, exemplaire_id):
                             UserLog.objects.create(
                                 utilisateur=request.user,
                                 action=_(
-                                    "Contrôle système de refroidissement - "
-                                    "%(immatriculation)s"
-                                ) % {
-                                    "immatriculation": (
-                                        exemplaire.immatriculation
-                                    )
-                                },
+                                    "Contrôle système de refroidissement") + f" - {exemplaire.immatriculation}"
                             )
 
                         messages.success(
@@ -622,9 +616,7 @@ def modifier_ref_view(request, ref_id):
 
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification contrôle du refroidissement - %(immatriculation)s") % {
-                    "immatriculation": exemplaire.immatriculation
-                }
+                action=_("Modification du contrôle du refroidissement")+ f" - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Contrôle du système de refroidissement modifié avec succès !"))

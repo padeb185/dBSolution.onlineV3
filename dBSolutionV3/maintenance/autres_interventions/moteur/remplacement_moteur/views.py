@@ -162,9 +162,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Remplacement moteur - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
+                        action=_("Remplacement moteur")  + f" - {exemplaire.immatriculation}"
                     )
 
                     # ➕ compteur (si champ existe)
@@ -316,9 +314,7 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification remplacement moteur - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
+                    action=_("Modification du remplacement moteur")  + f" - {exemplaire.immatriculation}"
                 )
 
                 messages.success(request, _("Remplacement du moteur modifié avec succès !"))

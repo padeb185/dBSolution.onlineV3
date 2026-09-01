@@ -297,11 +297,7 @@ def entretien_check_view(request, exemplaire_id):
                     UserLog.objects.create(
                         utilisateur=request.user,
                         action=_(
-                            "Entretien - %(immatriculation)s"
-                        ) % {
-                            "immatriculation":
-                                exemplaire.immatriculation
-                        }
+                            "Entretien") + f" - {exemplaire.immatriculation}"
                     )
 
                 # =========================
@@ -331,11 +327,6 @@ def entretien_check_view(request, exemplaire_id):
                 )
 
         else:
-
-            # Afficher précisément les erreurs du formulaire
-            print("ERREURS ENTRETIEN FORM :", form.errors)
-            print("ERREURS NON FIELD :", form.non_field_errors())
-
             messages.error(
                 request,
                 _("Le formulaire contient des erreurs.")
@@ -601,12 +592,7 @@ def modifier_entretien_view(request, entretien_id):
                         UserLog.objects.create(
                             utilisateur=request.user,
                             action=_(
-                                "Modification entretien - "
-                                "%(immatriculation)s"
-                            ) % {
-                                "immatriculation":
-                                    exemplaire.immatriculation
-                            }
+                                "Modification de l'entretien") + f" - {exemplaire.immatriculation}"
                         )
 
                     # =========================

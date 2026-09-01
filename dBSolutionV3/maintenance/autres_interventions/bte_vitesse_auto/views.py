@@ -225,9 +225,7 @@ def bte_auto_check_view(request, exemplaire_id):
 
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Contrôle boite automatique - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
+                        action=_("Contrôle de la boite automatique") + f" - {exemplaire.immatriculation}"
                     )
 
                 messages.success(
@@ -321,9 +319,7 @@ def modifier_bte_auto_view(request, bte_auto_id):
 
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification du contrôle de la boite automatique - %(immatriculation)s") % {
-                    "immatriculation": exemplaire.immatriculation
-                }
+                action=_("Modification du contrôle de la boite automatique") + f" - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Contrôle de la boite automatique modifié avec succès !"))

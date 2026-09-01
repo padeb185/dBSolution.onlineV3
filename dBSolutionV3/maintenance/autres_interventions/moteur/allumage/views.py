@@ -280,13 +280,7 @@ def allumage_check_view(request, exemplaire_id):
                         UserLog.objects.create(
                                 utilisateur=request.user,
                                 action=_(
-                                    "Allumage - %(immatriculation)s"
-                                )
-                                % {
-                                    "immatriculation": (
-                                        exemplaire.immatriculation
-                                    )
-                                },
+                                    "Contrôle de l'allumage") + f" - {exemplaire.immatriculation}"
                             )
 
                         messages.success(
@@ -549,9 +543,7 @@ def modifier_allumage_view(request, allumage_id):
 
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification allumage - %(immatriculation)s") % {
-                    "immatriculation": exemplaire.immatriculation
-                }
+                action=_("Modification du contrôle de l'allumage") + f" - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Contrôle de l'allumage modifié avec succès !"))

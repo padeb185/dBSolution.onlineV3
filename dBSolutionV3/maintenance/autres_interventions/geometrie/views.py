@@ -381,15 +381,7 @@ def geometrie_check_view(request, exemplaire_id):
 
                             UserLog.objects.create(
                                 utilisateur=request.user,
-                                action=_(
-                                    "Géométrie - "
-                                    "%(immatriculation)s"
-                                )
-                                % {
-                                    "immatriculation": (
-                                        exemplaire.immatriculation
-                                    )
-                                },
+                                action=_("Contrôle de la géométrie") + f" - {exemplaire.immatriculation}"
                             )
 
                         messages.success(
@@ -669,9 +661,7 @@ def geometrie_modifier_view(request, geometrie_id):
 
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification géométrie - %(immatriculation)s") % {
-                    "immatriculation": exemplaire.immatriculation
-                }
+                action=_("Modification du contrôle de la géométrie")  + f" - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Contrôle de la géométrie modifié avec succès !"))

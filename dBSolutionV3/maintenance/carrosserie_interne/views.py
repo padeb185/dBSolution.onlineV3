@@ -273,12 +273,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                     UserLog.objects.create(
                         utilisateur=request.user,
                         action=_(
-                            "Carrosserie - %(immatriculation)s"
-                        ) % {
-                                   "immatriculation": (
-                                       exemplaire.immatriculation
-                                   )
-                               },
+                            "Carrosserie")  + f" - {exemplaire.immatriculation}"
                     )
 
                 messages.success(
@@ -789,9 +784,7 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
 
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification carrosserie - %(immatriculation)s") % {
-                    "immatriculation": exemplaire.immatriculation
-                }
+                action=_("Modification de la carrosserie")  + f" - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Carrosserie modifiée avec succès !"))

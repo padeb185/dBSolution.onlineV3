@@ -7,6 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -208,6 +209,12 @@ def silent_check_view(request, exemplaire_id):
 
                     silent.save()
 
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_(
+                            "Contrôle des silent blocs") + f" - {exemplaire.immatriculation}"
+                    )
+
                 messages.success(request, _("Controle des silent blocs enregistré avec succès."))
                 return redirect("silent_blocs:silent_list", exemplaire_id=exemplaire.id)
 
@@ -283,6 +290,13 @@ def modifier_silent_view(request, silent_id):
         )
         if form.is_valid():
             form.save()
+
+            UserLog.objects.create(
+                utilisateur=request.user,
+                action=_(
+                    "Modification du contrôle des silent blocs") + f" - {exemplaire.immatriculation}"
+            )
+
             messages.success(request, _("Contrôle des silent blocs modifié avec succès !"))
             return redirect("silent_blocs:silent_detail", silent_id=silent.id)
 

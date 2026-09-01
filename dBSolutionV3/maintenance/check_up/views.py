@@ -207,9 +207,7 @@ def controle_total_view(request, exemplaire_id):
 
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Checkup - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
+                        action=_("Checkup") + f" - {exemplaire.immatriculation}"
                     )
 
                 messages.success(
@@ -319,10 +317,7 @@ def modifier_checkup_view(request, checkup_id):
                 UserLog.objects.create(
                     utilisateur=request.user,
                     action=_(
-                        "Modification checkup - %(immatriculation)s"
-                    ) % {
-                        "immatriculation": exemplaire.immatriculation
-                    },
+                        "Modification du checkup")  + f" - {exemplaire.immatriculation}"
                 )
 
                 messages.success(

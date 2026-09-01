@@ -222,10 +222,7 @@ def boite_check_view(request, exemplaire_id):
 
                 UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Contrôle Boite de vitesse - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
-                    )
+                        action=_("Contrôle de la boite de vitesse") + f" - {exemplaire.immatriculation}")
 
                 messages.success(request, _("Checkup de la boite de vitesse enregistré avec succès."))
                 return redirect(
@@ -309,10 +306,8 @@ def modifier_boite_view(request, boite_id):
 
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification contrôle Boite de vitesse - %(immatriculation)s") % {
-                    "immatriculation": exemplaire.immatriculation
-                }
-            )
+                action=_("Modification contrôle de la boite de vitesse") + f" - {exemplaire.immatriculation}")
+
             messages.success(request, _("Checkup de la boite de vitesse modifié avec succès !"))
             return redirect(
                 "boite_de_vitesse:boite_detail",

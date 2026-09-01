@@ -258,12 +258,7 @@ def controle_pneus_view(request, exemplaire_id):
                     UserLog.objects.create(
                         utilisateur=request.user,
                         action=_(
-                            "Pneus - %(immatriculation)s"
-                        ) % {
-                            "immatriculation": (
-                                exemplaire.immatriculation
-                            )
-                        }
+                            "Contrôle des pneus") + f" - {exemplaire.immatriculation}"
                     )
 
                 messages.success(
@@ -468,12 +463,7 @@ def modifier_pneus_view(request, pneu_id):
                     UserLog.objects.create(
                         utilisateur=request.user,
                         action=_(
-                            "Modification du contrôle pneus - %(immatriculation)s"
-                        ) % {
-                            "immatriculation": (
-                                exemplaire.immatriculation
-                            )
-                        }
+                            "Modification du contrôle des pneus")+ f" - {exemplaire.immatriculation}"
                     )
 
                 messages.success(

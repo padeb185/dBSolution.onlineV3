@@ -206,9 +206,7 @@ def nettoyage_exterieur_view(request, exemplaire_id):
 
                 UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Nettoyage extérieur - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
+                        action=_("Nettoyage extérieur") + f" - {exemplaire.immatriculation}"
                     )
 
                 messages.success(
@@ -299,9 +297,7 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
 
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification du nettoyage extérieur - %(immatriculation)s") % {
-                    "immatriculation": exemplaire.immatriculation
-                }
+                action=_("Modification du nettoyage extérieur")+ f" - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Nettoyage extérieur modifié avec succès !"))

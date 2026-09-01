@@ -205,9 +205,7 @@ def courroie_access_form_view(request, exemplaire_id):
 
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Courroie d'accessoires - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
+                        action=_("Controle de la courroie d'accessoires") + f" - {exemplaire.immatriculation}"
                     )
 
                     messages.success(
@@ -365,9 +363,7 @@ def modifier_courroie_access_view(request, courroie_accessoires_id):
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification courroie d'accessoires - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
+                    action=_("Modification du controle de la courroie d'accessoires") + f" - {exemplaire.immatriculation}"
                 )
 
                 messages.success(

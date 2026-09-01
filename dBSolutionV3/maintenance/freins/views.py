@@ -202,9 +202,7 @@ def controle_freins_view(request, exemplaire_id):
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Freins - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
+                    action=_("Contrôle des freins") + f" - {exemplaire.immatriculation}"
                 )
 
 
@@ -294,9 +292,7 @@ def modifier_freins_view(request, frein_id):
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification du contrôle des freins - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
+                    action=_("Modification du contrôle des freins")
                 )
 
                 messages.success(request, _("Contrôle freins modifié avec succès !"))

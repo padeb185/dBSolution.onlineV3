@@ -329,13 +329,7 @@ def injection_form_view(request, exemplaire_id):
                             UserLog.objects.create(
                                 utilisateur=request.user,
                                 action=_(
-                                    "Système d'injection - %(immatriculation)s"
-                                )
-                                % {
-                                    "immatriculation": (
-                                        exemplaire.immatriculation
-                                    )
-                                },
+                                    "Système d'injection") + f" - {exemplaire.immatriculation}"
                             )
 
                     messages.success(
@@ -628,9 +622,7 @@ def modifier_injection_view(request, injection_id):
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification du contrôle de l' injection - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
+                    action=_("Modification du contrôle de l'injection")  + f" - {exemplaire.immatriculation}"
                 )
 
                 messages.success(

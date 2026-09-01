@@ -390,14 +390,7 @@ def echappement_check_view(request, exemplaire_id):
                             UserLog.objects.create(
                                 utilisateur=request.user,
                                 action=_(
-                                    "Contrôle échappement - "
-                                    "%(immatriculation)s"
-                                )
-                                % {
-                                    "immatriculation": (
-                                        exemplaire.immatriculation
-                                    )
-                                },
+                                    "Contrôle de l'échappement ") + f" - {exemplaire.immatriculation}"
                             )
 
                         # =========================================
@@ -528,11 +521,7 @@ def modifier_echappement_view(request, echappement_id):
             UserLog.objects.create(
                 utilisateur=request.user,
                 action=_(
-                    "Modification contrôle de l'échappement - %(immatriculation)s"
-                )
-                % {
-                    "immatriculation": exemplaire.immatriculation,
-                },
+                    "Modification contrôle de l'échappement")  + f" - {exemplaire.immatriculation}"
             )
 
             messages.success(

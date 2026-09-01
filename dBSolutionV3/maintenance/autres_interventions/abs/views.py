@@ -209,9 +209,7 @@ def abs_form_view(request, exemplaire_id):
 
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Contrôle ABS - %(immatriculation)s") % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
+                        action=_("Contrôle de l'ABS") + f" - {exemplaire.immatriculation}"
                     )
 
                 messages.success(request, _("Contrôle du système ABS enregistré avec succès."))
@@ -426,13 +424,8 @@ def modifier_abs_view(request, abs_id):
                     # =========================
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_(
-                            "Modification contrôle ABS - %(immatriculation)s"
-                        ) % {
-                            "immatriculation": (
-                                exemplaire.immatriculation
-                            )
-                        }
+                        action=_("Modification du contrôle ABS") + f" - {exemplaire.immatriculation}"
+
                     )
 
                 messages.success(

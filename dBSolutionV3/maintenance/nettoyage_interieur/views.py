@@ -249,10 +249,7 @@ def nettoyage_interieur_view(request, exemplaire_id):
                     UserLog.objects.create(
                         utilisateur=request.user,
                         action=_(
-                            "Nettoyage intérieur - %(immatriculation)s"
-                        ) % {
-                            "immatriculation": exemplaire.immatriculation
-                        }
+                            "Nettoyage intérieur")  + f" - {exemplaire.immatriculation}"
                     )
 
                 messages.success(
@@ -367,9 +364,7 @@ def modifier_nettoyage_int_view(request, nettoyage_int_id):
 
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification du nettoyage intérieur - %(immatriculation)s") % {
-                    "immatriculation": exemplaire.immatriculation
-                }
+                action=_("Modification du nettoyage intérieur") + f" - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Nettoyage intérieur modifié avec succès !"))
