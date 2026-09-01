@@ -218,7 +218,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
         <!-- Section jeux rotules -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
@@ -240,7 +240,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
          <!-- Section jeux rotules -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
@@ -262,7 +262,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
          <!-- Section jeux rotules -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
@@ -285,7 +285,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
          <!-- Section jeux biellettes -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
@@ -308,7 +308,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
         <!-- Section jeux barre -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
@@ -330,7 +330,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
 
          <!-- Section jeux roulement -->
@@ -354,7 +354,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
 
           <!-- Section jeux triangle -->
@@ -375,7 +375,8 @@
             </div>
             {% endif %}
         {% endfor %}
-        <br>
+
+        <div class="espace-section"></div>
 
           <!-- Section jeux suspension multi-bras -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -398,7 +399,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
           <!-- Section jeux barre -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -421,7 +422,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
             <!-- Section jeux cardans -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -444,7 +445,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
             <!-- Section jeux arbre de transmission -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -467,7 +468,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
 
      <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -489,7 +490,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
 
 
@@ -512,7 +513,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/tag.png' %}" alt="étiquette"
@@ -533,7 +534,8 @@
             </div>
             {% endif %}
         {% endfor %}
-        <br>
+
+       <div class="espace-section"></div>
 
               <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/roue.png' %}" alt="serrage des roues"
@@ -554,7 +556,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
 
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -576,7 +578,9 @@
             </div>
             {% endif %}
         {% endfor %}
-        <br>
+
+      <div class="espace-section"></div>
+
      <!-- Section taux horaire -->
        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/taux.png' %}" alt="taux horaire"
@@ -612,7 +616,7 @@
         {% endfor %}
 
 
-        <br>
+        <div class="espace-section"></div>
             <!-- Section temps main d'œuvre -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
@@ -627,7 +631,9 @@
             {{ form.temps_minutes }}
             <span>min</span>
         </div>
-        <br>
+
+
+        <div class="espace-section"></div>
 
 
         <!-- Boutons -->
@@ -658,6 +664,7 @@
         {% trans "Retour à la liste des contrôles des jeux" %}
     </a>
 </div>
+
 <style>
 .input {
     width: 100% !important;
@@ -666,6 +673,11 @@
     padding: 8px !important;
     box-sizing: border-box !important;
 }
+ .espace-section {
+            height: 15px;
+            width: 100%;
+            display: block;
+     }
 </style>
 <script>
 function getCookie(name) {

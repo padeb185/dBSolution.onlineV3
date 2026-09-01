@@ -246,7 +246,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
         <!-- Section plaquettes avant -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -282,8 +282,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
-
+       <div class="espace-section"></div>
 
          <!-- Section disques avant -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -332,7 +331,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+      <div class="espace-section"></div>
 
 
         <!-- Section plaquettes arriere -->
@@ -369,7 +368,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
          <!-- Section disques arriere -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/disque-de-frein.png' %}" alt="disques de freins arrières"
@@ -416,7 +415,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+      <div class="espace-section"></div>
 
          <!-- Section freins machoire -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -452,7 +451,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
          <!-- Section fuites -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -488,7 +487,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
 
          <!-- Section liquides -->
@@ -525,7 +524,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
 
 
@@ -560,7 +559,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+      <div class="espace-section"></div>
 
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/tag.png' %}" alt="etiquette"
@@ -610,7 +609,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
         <!-- Section remarques -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -647,7 +646,7 @@
         {% endfor %}
 
 
-        <br>
+        <div class="espace-section"></div>
 
 
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -681,7 +680,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
         <!-- Section technicien -->
       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -718,7 +717,7 @@
         {% endfor %}
 
 
-        <br>
+       <div class="espace-section"></div>
       <!-- Section taux horaire -->
       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/taux.png' %}" alt="Taux horaire"
@@ -754,7 +753,7 @@
         {% endfor %}
 
 
-        <br>
+       <div class="espace-section"></div>
 
 
                      <!-- Section temps main d'œuvre -->
@@ -772,7 +771,7 @@
             <span>min</span>
         </div>
 
-
+        <div class="espace-section"></div>
         <!-- Boutons -->
 
          <div class="flex gap-3 mt-6">
@@ -801,15 +800,27 @@
         {% trans "Retour à la liste des contrôles freins" %}
     </a>
 </div>
+
+
+
+
 <style>
-.input {
-    width: 100% !important;
-    border: 1px solid #ccc !important;
-    border-radius: 6px !important;
-    padding: 8px !important;
-    box-sizing: border-box !important;
-}
+    .input {
+        width: 100% !important;
+        border: 1px solid #ccc !important;
+        border-radius: 6px !important;
+        padding: 8px !important;
+        box-sizing: border-box !important;
+    }
+     .espace-section {
+            height: 15px;
+            width: 100%;
+            display: block;
+     }
 </style>
+
+
+
 <script>
 function getCookie(name) {
     let cookieValue = null;

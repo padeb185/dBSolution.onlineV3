@@ -201,7 +201,7 @@
         {% csrf_token %}
 
         {% for section in sections %}
-            <div class="mb-16">
+             <div style="margin-bottom:40px;">
                 <h2 class="text-xl font-semibold mb-2 flex items-center gap-3">
                     <img src="{% static section.icon %}" class="w-16 h-16">
                     {% trans section.title %}

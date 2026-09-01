@@ -190,17 +190,12 @@
 
 </div>
 
-
 <!-- ========================= -->
 <!-- FORMULAIRE -->
 <!-- ========================= -->
 
     <form method="post" id="jeu-form" class="space-y-4">
         {% csrf_token %}
-
-        <h2 class="text-lg font-semibold mb-2">{% trans "Détails du contrôle" %}</h2>
-
-        <br>
 
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/compteur.png' %}" alt="Kilometrage"
@@ -210,213 +205,138 @@
         {% for field in form %}
             {% if "kilo" in field.name %}
             <div class="mb-4">
-                {% if field.field.widget.input_type == "checkbox" %}
-                    <label class="inline-flex items-center gap-2">
-                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
-                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
-                    </label>
+                <label class="block font-semibold mb-1">{{ field.label }}</label>
+                {{ field|add_class:"input" }}
 
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1 ml-7">
-                            {{ field.help_text }}
-                        </p>
-                    {% endif %}
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                {% endif %}
 
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1 ml-7">
-                            {{ field.errors|striptags }}
-                        </p>
-                    {% endif %}
-                {% else %}
-                    <label class="block font-semibold mb-1">
-                        {{ field.label }}
-                    </label>
-
-                    {{ field|add_class:"input" }}
-
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1">
-                            {{ field.help_text }}
-                        </p>
-                    {% endif %}
-
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1">
-                            {{ field.errors|striptags }}
-                        </p>
-                    {% endif %}
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
                 {% endif %}
             </div>
             {% endif %}
         {% endfor %}
 
-        <br>
-
+        <div class="espace-section"></div>
 
         <!-- Section jeux rotules -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux rotules de direction" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+            <img src="{% static 'icons/rotule-direction.png' %}" alt="rotule-direction"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux rotules de direction" %}</h2>
         {% for field in form %}
             {% if "jeu_rotule_dir" in field.name %}
             <div class="mb-4">
-                {% if field.field.widget.input_type == "checkbox" %}
-                    <label class="inline-flex items-center gap-2">
-                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
-                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
-                    </label>
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
-                    {% endif %}
-                {% else %}
-                    <label class="block font-semibold mb-1">{{ field.label }}</label>
-                    {{ field|add_class:"input" }}
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                    {% endif %}
+                <label class="block font-semibold mb-1">{{ field.label }}</label>
+                {{ field|add_class:"input" }}
+                {% if field.help_text %}
+                <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                {% endif %}
+                {% if field.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
                 {% endif %}
             </div>
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
          <!-- Section jeux rotules -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux rotules de suspensions inférieures" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+            <img src="{% static 'icons/rotule-suspension.png' %}" alt="rotule suspension"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux rotules de suspensions inférieures" %}</h2>
         {% for field in form %}
             {% if "jeu_rotule_suspension_inf" in field.name %}
             <div class="mb-4">
-                {% if field.field.widget.input_type == "checkbox" %}
-                    <label class="inline-flex items-center gap-2">
-                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
-                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
-                    </label>
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
-                    {% endif %}
-                {% else %}
-                    <label class="block font-semibold mb-1">{{ field.label }}</label>
-                    {{ field|add_class:"input" }}
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                    {% endif %}
+                <label class="block font-semibold mb-1">{{ field.label }}</label>
+                {{ field|add_class:"input" }}
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                {% endif %}
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
                 {% endif %}
             </div>
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
          <!-- Section jeux rotules -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux rotules de suspensions supérieures" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+            <img src="{% static 'icons/rotule-suspension-superieure.png' %}" alt="rotule suspension supérieure"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux rotules de suspensions supérieures" %}
+        </h2>
         {% for field in form %}
             {% if "jeu_rotule_suspension_sup" in field.name %}
             <div class="mb-4">
-                {% if field.field.widget.input_type == "checkbox" %}
-                    <label class="inline-flex items-center gap-2">
-                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
-                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
-                    </label>
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
-                    {% endif %}
-                {% else %}
-                    <label class="block font-semibold mb-1">{{ field.label }}</label>
-                    {{ field|add_class:"input" }}
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                    {% endif %}
+                <label class="block font-semibold mb-1">{{ field.label }}</label>
+                {{ field|add_class:"input" }}
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                {% endif %}
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
                 {% endif %}
             </div>
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
          <!-- Section jeux biellettes -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux biellettes" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+            <img src="{% static 'icons/biellette.png' %}" alt="biellette"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux biellettes" %}
+        </h2>
         {% for field in form %}
-            {% if "jeu_bie" in field.name %}
+            {% if "jeu_biellette" in field.name %}
             <div class="mb-4">
-                {% if field.field.widget.input_type == "checkbox" %}
-                    <label class="inline-flex items-center gap-2">
-                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
-                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
-                    </label>
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
-                    {% endif %}
-                {% else %}
-                    <label class="block font-semibold mb-1">{{ field.label }}</label>
-                    {{ field|add_class:"input" }}
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                    {% endif %}
+                <label class="block font-semibold mb-1">{{ field.label }}</label>
+                {{ field|add_class:"input" }}
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                {% endif %}
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
                 {% endif %}
             </div>
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
         <!-- Section jeux barre -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux barres stabilisatrice" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+            <img src="{% static 'icons/barre-stab.png' %}" alt="barre stabilisatrice"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux barres stabilisatrice" %}</h2>
         {% for field in form %}
             {% if "jeu_barre" in field.name %}
             <div class="mb-4">
-                {% if field.field.widget.input_type == "checkbox" %}
-                    <label class="inline-flex items-center gap-2">
-                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
-                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
-                    </label>
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
-                    {% endif %}
-                {% else %}
-                    <label class="block font-semibold mb-1">{{ field.label }}</label>
-                    {{ field|add_class:"input" }}
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                    {% endif %}
+                <label class="block font-semibold mb-1">{{ field.label }}</label>
+                {{ field|add_class:"input" }}
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                {% endif %}
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
                 {% endif %}
             </div>
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
 
-           <!-- Section jeux roulement -->
+         <!-- Section jeux roulement -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/roulement.png' %}" alt="roulement"
+            <img src="{% static 'icons/roulement-roue.png' %}" alt="roulement de roue"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Jeux roulements de roues" %}
         </h2>
@@ -435,12 +355,12 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
 
           <!-- Section jeux triangle -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/triangle.png' %}" alt="jeux triangles"
+            <img src="{% static 'icons/triangle-sus.png' %}" alt="jeux triangles"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Jeux triangles" %}</h2>
         {% for field in form %}
             {% if "jeu_tri" in field.name %}
@@ -456,11 +376,12 @@
             </div>
             {% endif %}
         {% endfor %}
-        <br>
+
+        <div class="espace-section"></div>
 
           <!-- Section jeux suspension multi-bras -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/suspension-multi.png' %}" alt="Kilometrage"
+            <img src="{% static 'icons/suspension-multi-bras.png' %}" alt="suspension-multi"
                  style="width:60px; height:60px; margin-right:10px;">
              {% trans "Jeux suspension multi-bras" %}
          </h2>
@@ -479,7 +400,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
           <!-- Section jeux barre -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -502,9 +423,9 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
-      <!-- Section jeux cardans -->
+            <!-- Section jeux cardans -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/cardan.png' %}" alt="jeu cardans"
                  style="width:60px; height:60px; margin-right:10px;">
@@ -525,11 +446,11 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
             <!-- Section jeux arbre de transmission -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/arbre.png' %}" alt="Jeu arbre de transmission"
+            <img src="{% static 'icons/arbre-de-transmission.png' %}" alt="Jeu arbre de transmission"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Jeux dans l'arbre de transmission" %}
         </h2>
@@ -548,10 +469,10 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+     <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/pays.png' %}" alt="pays"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Pays" %}
@@ -570,7 +491,8 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
+
 
 
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -592,7 +514,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/tag.png' %}" alt="étiquette"
@@ -613,9 +535,10 @@
             </div>
             {% endif %}
         {% endfor %}
-        <br>
 
-          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+       <div class="espace-section"></div>
+
+              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/roue.png' %}" alt="serrage des roues"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Serrage des roues" %}
@@ -634,7 +557,8 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
+
 
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/mecanicien.png' %}" alt="mecanicien"
@@ -655,7 +579,8 @@
             </div>
             {% endif %}
         {% endfor %}
-        <br>
+
+      <div class="espace-section"></div>
 
      <!-- Section taux horaire -->
        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -692,9 +617,8 @@
         {% endfor %}
 
 
-        <br>
-
-                   <!-- Section temps main d'œuvre -->
+        <div class="espace-section"></div>
+            <!-- Section temps main d'œuvre -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
                  style="width:60px; height:60px; margin-right:10px;">
@@ -708,7 +632,10 @@
             {{ form.temps_minutes }}
             <span>min</span>
         </div>
-    <br>
+
+
+        <div class="espace-section"></div>
+
 
         <div class="flex gap-3 mt-6">
             <button type="submit"
@@ -729,15 +656,26 @@
         {% trans "Retour à la liste des contrôles des jeux" %}
     </a>
 </div>
+
+
+    
 <style>
-.input {
-    width: 100% !important;
-    border: 1px solid #ccc !important;
-    border-radius: 6px !important;
-    padding: 8px !important;
-    box-sizing: border-box !important;
-}
+    .input {
+        width: 100% !important;
+        border: 1px solid #ccc !important;
+        border-radius: 6px !important;
+        padding: 8px !important;
+        box-sizing: border-box !important;
+    }
+     .espace-section {
+                height: 15px;
+                width: 100%;
+                display: block;
+     }
 </style>
+
+
+
 <script>
 function getCookie(name) {
     let cookieValue = null;

@@ -197,10 +197,6 @@
     <form method="post" id="frein-form" class="space-y-4">
         {% csrf_token %}
 
-        <h2 class="text-lg font-semibold mb-2">{% trans "Détails du checkup" %}</h2>
-
-        <br>
-
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/compteur.png' %}" alt="Kilometrage"
                  style="width:60px; height:60px; margin-right:10px;">
@@ -249,7 +245,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
         <!-- Section plaquettes avant -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -285,8 +281,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
-
+       <div class="espace-section"></div>
 
          <!-- Section disques avant -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -294,6 +289,19 @@
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Disques avant" %}
         </h2>
+
+        <div class="mb-4">
+            <label class="block font-semibold mb-1">
+                {% trans "Épaisseur disque avant constructeur (mm)" %}
+            </label>
+
+            <input
+                type="text"
+                class="input bg-gray-100"
+                value="{{ exemplaire.freins_av.first.epaisseur_disque_av|default:'-' }}"
+                readonly
+            >
+        </div>
         {% for field in form %}
             {% if "avant_freins_d" in field.name %}
             <div class="mb-4">
@@ -322,7 +330,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+      <div class="espace-section"></div>
 
 
         <!-- Section plaquettes arriere -->
@@ -359,13 +367,25 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
          <!-- Section disques arriere -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/disque-de-frein.png' %}" alt="disques de freins arrières"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Disques arrière" %}
         </h2>
+        <div class="mb-4">
+            <label class="block font-semibold mb-1">
+                {% trans "Épaisseur disque arrière constructeur (mm)" %}
+            </label>
+
+            <input
+                type="text"
+                class="input bg-gray-100"
+                value="{{ exemplaire.freins_ar.first.epaisseur_disque_ar|default:'-' }}"
+                readonly
+            >
+        </div>
         {% for field in form %}
             {% if "arriere_freins_d" in field.name %}
             <div class="mb-4">
@@ -394,7 +414,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+      <div class="espace-section"></div>
 
          <!-- Section freins machoire -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -430,7 +450,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
          <!-- Section fuites -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -466,7 +486,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
 
          <!-- Section liquides -->
@@ -476,7 +496,7 @@
             {% trans "Liquide de freins" %}
         </h2>
         {% for field in form %}
-            {% if "liquide" in field.name %}
+            {% if "liquide_frein" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -503,11 +523,11 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
 
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/pays.png' %}" alt="pays"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Pays" %}</h2>
         {% for field in form %}
@@ -538,8 +558,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
-
+      <div class="espace-section"></div>
 
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/tag.png' %}" alt="etiquette"
@@ -589,7 +608,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+       <div class="espace-section"></div>
 
         <!-- Section remarques -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -626,10 +645,10 @@
         {% endfor %}
 
 
-        <br>
+        <div class="espace-section"></div>
 
 
-                <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/roue.png' %}" alt="Serrage des roues"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Serrage des roues" %}</h2>
         {% for field in form %}
@@ -660,7 +679,7 @@
             {% endif %}
         {% endfor %}
 
-        <br>
+        <div class="espace-section"></div>
 
         <!-- Section technicien -->
       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -697,8 +716,8 @@
         {% endfor %}
 
 
-        <br>
-          <!-- Section taux horaire -->
+       <div class="espace-section"></div>
+      <!-- Section taux horaire -->
       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/taux.png' %}" alt="Taux horaire"
                  style="width:60px; height:60px; margin-right:10px;">
@@ -733,7 +752,8 @@
         {% endfor %}
 
 
-        <br>
+       <div class="espace-section"></div>
+
 
                      <!-- Section temps main d'œuvre -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -750,18 +770,27 @@
             <span>min</span>
         </div>
 
+        <div class="espace-section"></div>
+        <!-- Boutons -->
 
+         <div class="flex gap-3 mt-6">
+                <button type="submit"
+                        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                    {% trans "Enregistrer" %}
+                </button>
 
-          <div class="flex gap-3 mt-6">
-            <button type="submit"
-                    class="flex-1 bg-blue-700 text-white px-5 py-3 rounded hover:bg-blue-500 font-semibold text-center">
-                {% trans "Enregistrer" %}
-            </button>
-            <a href="{% url 'freins:freins_detail' frein_id=frein.id %}"
-               class="flex-1 bg-gray-300 text-black px-5 py-3 rounded hover:bg-gray-400 font-semibold text-center">
-               {% trans "Annuler" %}
-            </a>
-        </div>
+               <a href="{% url 'maintenance:choisir_type' exemplaire.id %}"
+                   class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                    {% trans "Annuler" %}
+                </a>
+
+          </div>
+
+        <!-- Date -->
+        <p class="text-sm text-gray-500 mt-4">
+            {% trans "Date actuelle" %} : {{ now|date:"Y-m-d H:i" }}
+        </p>
+
     </form>
 
 </div>
@@ -772,13 +801,19 @@
     </a>
 </div>
 <style>
-.input {
-    width: 100% !important;
-    border: 1px solid #ccc !important;
-    border-radius: 6px !important;
-    padding: 8px !important;
-    box-sizing: border-box !important;
-}
+    .input {
+        width: 100% !important;
+        border: 1px solid #ccc !important;
+        border-radius: 6px !important;
+        padding: 8px !important;
+        box-sizing: border-box !important;
+    }
+
+     .espace-section {
+                height: 15px;
+                width: 100%;
+                display: block;
+         }
 </style>
 
 <script>
