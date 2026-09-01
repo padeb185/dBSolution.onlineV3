@@ -125,6 +125,22 @@
             border-collapse: collapse;
             margin-top: 10px;
         }
+         .table-2-cols {
+            width: 95%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
 
         th,
         td {
@@ -292,9 +308,6 @@
     </div>
 {% endif %}
 
-
-<br>
-
 <h1>{% trans "Détail du contrôle du système d'essuyage" %}</h1>
 
 
@@ -376,7 +389,7 @@
 
 <div>
 
-    <table>
+    <table class="table-2-cols">
 
         <thead>
             <tr>
@@ -740,7 +753,30 @@
 
 </div>
 
+<h2>{% trans "Serrage des roues" %}</h2>
 
+<table class="table-2-cols">
+    <tr>
+        <th>{% trans "Élément" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+
+  <tr>
+    <td>{% trans "Serrage des roues" %}</td>
+    <td>
+        {% if essuyage.serrage_roues|upper == "A_FAIRE" %}
+            <span class="etat-rouge">{{ essuyage.get_serrage_roues_display }}</span>
+        {% elif essuyage.serrage_roues|upper == "FAIT" %}
+            <span class="etat-bleu">{{ essuyage.get_serrage_roues_display }}</span>
+        {% else %}
+            <span class="etat-gris">
+                {{ essuyage.get_serrage_roues_display|default:essuyage.serrage_roues|default:"-" }}
+            </span>
+        {% endif %}
+    </td>
+  </tr>
+</table>
 <!-- ================================================== -->
 <!-- MAIN D'ŒUVRE -->
 <!-- ================================================== -->
