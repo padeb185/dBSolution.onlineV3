@@ -10,7 +10,7 @@ from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from maintenance.nettoyage_exterieur.forms import NettoyageExterieurForm
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
@@ -204,10 +204,16 @@ def nettoyage_exterieur_view(request, exemplaire_id):
 
                     nettoyage_ext.save()
 
+
+
+                ACTION_NETTOYAGE_EXTERIEUR = gettext_noop(
+                    "Nettoyage extérieur"
+                )
+
                 UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_("Nettoyage extérieur") + f" - {exemplaire.immatriculation}"
-                    )
+                    utilisateur=request.user,
+                    action=f"{ACTION_NETTOYAGE_EXTERIEUR} - {exemplaire.immatriculation}"
+                )
 
                 messages.success(
                     request,
@@ -222,7 +228,6 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                 )
 
         else:
-            print(form.errors)
             messages.error(request, form.errors.as_text())
 
     # =========================
@@ -295,9 +300,15 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
         if form.is_valid():
             form.save()
 
+
+
+            ACTION_MODIFICATION_NETTOYAGE_EXTERIEUR = gettext_noop(
+                "Modification du nettoyage extérieur"
+            )
+
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification du nettoyage extérieur")+ f" - {exemplaire.immatriculation}"
+                action=f"{ACTION_MODIFICATION_NETTOYAGE_EXTERIEUR} - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Nettoyage extérieur modifié avec succès !"))

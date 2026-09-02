@@ -15,7 +15,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from django.views.generic import DetailView
 from decimal import Decimal
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
@@ -299,10 +299,16 @@ def courroie_form_view(request, exemplaire_id):
                                 ]
                             )
 
+
+
+                        ACTION_COURROIE_DISTRIBUTION = gettext_noop(
+                            "Courroie de distribution"
+                        )
+
                         UserLog.objects.create(
-                                utilisateur=request.user,
-                                action=_("Courroie de distribution") + f" - {exemplaire.immatriculation}"
-                            )
+                            utilisateur=request.user,
+                            action=f"{ACTION_COURROIE_DISTRIBUTION} - {exemplaire.immatriculation}"
+                        )
 
                         messages.success(request, _("Check de la  courroie de distribution enregistré avec succès."))
                         return redirect("courroie:courroie_list", exemplaire_id=exemplaire.id)
@@ -454,11 +460,15 @@ def modifier_courroie_view(request, courroie_id):
 
                 courroie.save()
 
+
+
+                ACTION_MODIFICATION_COURROIE_DISTRIBUTION = gettext_noop(
+                    "Modification courroie de distribution"
+                )
+
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification courroie de distribution - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
+                    action=f"{ACTION_MODIFICATION_COURROIE_DISTRIBUTION} - {exemplaire.immatriculation}"
                 )
 
                 messages.success(

@@ -14,7 +14,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from decimal import Decimal
 from weasyprint import HTML
 from .forms import AbsForm
@@ -207,9 +207,11 @@ def abs_form_view(request, exemplaire_id):
 
                     abs.save()
 
+                    ACTION_CONTROLE_ABS = gettext_noop("Contrôle de l'ABS")
+
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Contrôle de l'ABS") + f" - {exemplaire.immatriculation}"
+                        action=f"{ACTION_CONTROLE_ABS} - {exemplaire.immatriculation}"
                     )
 
                 messages.success(request, _("Contrôle du système ABS enregistré avec succès."))
@@ -422,10 +424,11 @@ def modifier_abs_view(request, abs_id):
                     # =========================
                     # LOG
                     # =========================
+                    ACTION_MODIF_CONTROLE_ABS = gettext_noop("Modification du contrôle de l'ABS")
+
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Modification du contrôle ABS") + f" - {exemplaire.immatriculation}"
-
+                        action=f"{ACTION_MODIF_CONTROLE_ABS} - {exemplaire.immatriculation}"
                     )
 
                 messages.success(

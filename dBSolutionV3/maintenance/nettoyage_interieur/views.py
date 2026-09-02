@@ -8,7 +8,7 @@ from django.db.models import Q
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from .forms import NettoyageInterieurForm
 from .models import NettoyageInterieur
 from django.contrib.auth.decorators import login_required
@@ -246,10 +246,15 @@ def nettoyage_interieur_view(request, exemplaire_id):
                     # LOG UTILISATEUR
                     # ====================================================
 
+
+
+                    ACTION_NETTOYAGE_INTERIEUR = gettext_noop(
+                        "Nettoyage intérieur"
+                    )
+
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_(
-                            "Nettoyage intérieur")  + f" - {exemplaire.immatriculation}"
+                        action=f"{ACTION_NETTOYAGE_INTERIEUR} - {exemplaire.immatriculation}"
                     )
 
                 messages.success(
@@ -362,9 +367,15 @@ def modifier_nettoyage_int_view(request, nettoyage_int_id):
 
             nettoyage_interieur.save()
 
+
+
+            ACTION_MODIFICATION_NETTOYAGE_INTERIEUR = gettext_noop(
+                "Modification du nettoyage intérieur"
+            )
+
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification du nettoyage intérieur") + f" - {exemplaire.immatriculation}"
+                action=f"{ACTION_MODIFICATION_NETTOYAGE_INTERIEUR} - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Nettoyage intérieur modifié avec succès !"))

@@ -17,7 +17,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 
 
@@ -310,10 +310,15 @@ def ref_form_view(request, exemplaire_id):
                             # éventuellement des champs ManyToMany
                             form.save_m2m()
 
+
+
+                            ACTION_CONTROLE_SYSTEME_REFROIDISSEMENT = gettext_noop(
+                                "Contrôle système de refroidissement"
+                            )
+
                             UserLog.objects.create(
                                 utilisateur=request.user,
-                                action=_(
-                                    "Contrôle système de refroidissement") + f" - {exemplaire.immatriculation}"
+                                action=f"{ACTION_CONTROLE_SYSTEME_REFROIDISSEMENT} - {exemplaire.immatriculation}"
                             )
 
                         messages.success(
@@ -614,9 +619,14 @@ def modifier_ref_view(request, ref_id):
         if form.is_valid():
             form.save()
 
+
+            ACTION_MODIFICATION_CONTROLE_REFROIDISSEMENT = gettext_noop(
+                "Modification du contrôle du refroidissement"
+            )
+
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification du contrôle du refroidissement")+ f" - {exemplaire.immatriculation}"
+                action=f"{ACTION_MODIFICATION_CONTROLE_REFROIDISSEMENT} - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Contrôle du système de refroidissement modifié avec succès !"))

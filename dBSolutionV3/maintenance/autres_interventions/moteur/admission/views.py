@@ -384,10 +384,15 @@ def admission_check_view(request, exemplaire_id):
                             # =====================================
                             # LOG
                             # =====================================
+                            from django.utils.translation import gettext_noop
+
+                            ACTION_CONTROLE_ADMISSION = gettext_noop(
+                                "Contrôle de l'admission"
+                            )
+
                             UserLog.objects.create(
                                 utilisateur=request.user,
-                                action=_(
-                                    "Contrôle de l'admission") + f" - {exemplaire.immatriculation}"
+                                action=f"{ACTION_CONTROLE_ADMISSION} - {exemplaire.immatriculation}"
                             )
 
                         messages.success(
@@ -789,9 +794,15 @@ def modifier_admission_view(request, admission_id):
                             # =====================================
                             # LOG
                             # =====================================
+                            from django.utils.translation import gettext_noop
+
+                            ACTION_MODIFICATION_CONTROLE_ADMISSION = gettext_noop(
+                                "Modification du contrôle de l'admission"
+                            )
+
                             UserLog.objects.create(
                                 utilisateur=request.user,
-                                action=_("Modification du contrôle de l'admission") + f" - {exemplaire.immatriculation}"
+                                action=f"{ACTION_MODIFICATION_CONTROLE_ADMISSION} - {exemplaire.immatriculation}"
                             )
 
                     if not form.errors:

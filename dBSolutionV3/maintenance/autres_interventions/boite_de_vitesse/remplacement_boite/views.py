@@ -6,7 +6,7 @@ from utilisateurs.models import UserLog
 from django.contrib import messages
 from maintenance.models import Maintenance
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from django.views.generic import ListView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -163,11 +163,16 @@ def remplacement_boite_form_view(request, exemplaire_id):
 
                     remplacement_boite.save()
 
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_("Remplacement de la boite de vitesse") + f" - {exemplaire.immatriculation}"
+
+
+                    ACTION_REMPLACEMENT_BOITE_VITESSE = gettext_noop(
+                        "Remplacement de la boite de vitesse"
                     )
 
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=f"{ACTION_REMPLACEMENT_BOITE_VITESSE} - {exemplaire.immatriculation}"
+                    )
                     # ➕ compteur (si champ existe)
                     if remplacement_boite.pk:
                         exemplaire.nombre_remplacements_boites = F("nombre_remplacements_boites") + 1
@@ -320,9 +325,15 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
             try:
                 remplacement_boite = form.save()
 
+
+
+                ACTION_MODIFICATION_REMPLACEMENT_BOITE_VITESSE = gettext_noop(
+                    "Modification du remplacement de la boite de vitesse"
+                )
+
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification du remplacement de la boite de vitesse") + f" - {exemplaire.immatriculation}"
+                    action=f"{ACTION_MODIFICATION_REMPLACEMENT_BOITE_VITESSE} - {exemplaire.immatriculation}"
                 )
 
                 messages.success(request, _("Remplacement de la boite modifié avec succès !"))

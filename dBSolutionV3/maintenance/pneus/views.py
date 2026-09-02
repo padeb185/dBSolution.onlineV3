@@ -8,7 +8,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.pneus.forms import ControlePneusForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -255,10 +255,15 @@ def controle_pneus_view(request, exemplaire_id):
                     # ====================================================
                     # LOG
                     # ====================================================
+
+
+                    ACTION_CONTROLE_PNEUS = gettext_noop(
+                        "Contrôle des pneus"
+                    )
+
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_(
-                            "Contrôle des pneus") + f" - {exemplaire.immatriculation}"
+                        action=f"{ACTION_CONTROLE_PNEUS} - {exemplaire.immatriculation}"
                     )
 
                 messages.success(
@@ -460,10 +465,15 @@ def modifier_pneus_view(request, pneu_id):
                     # LOG
                     # =========================
 
+
+
+                    ACTION_MODIFICATION_CONTROLE_PNEUS = gettext_noop(
+                        "Modification du contrôle des pneus"
+                    )
+
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_(
-                            "Modification du contrôle des pneus")+ f" - {exemplaire.immatriculation}"
+                        action=f"{ACTION_MODIFICATION_CONTROLE_PNEUS} - {exemplaire.immatriculation}"
                     )
 
                 messages.success(

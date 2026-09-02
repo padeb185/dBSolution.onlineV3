@@ -17,7 +17,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from django.views.generic import DetailView
 from decimal import Decimal
 from weasyprint import HTML
@@ -326,12 +326,16 @@ def injection_form_view(request, exemplaire_id):
                             # LOG
                             # ==================================================
 
-                            UserLog.objects.create(
-                                utilisateur=request.user,
-                                action=_(
-                                    "Système d'injection") + f" - {exemplaire.immatriculation}"
+
+
+                            ACTION_SYSTEME_INJECTION = gettext_noop(
+                                "Système d'injection"
                             )
 
+                            UserLog.objects.create(
+                                utilisateur=request.user,
+                                action=f"{ACTION_SYSTEME_INJECTION} - {exemplaire.immatriculation}"
+                            )
                     messages.success(
                         request,
                         _(
@@ -620,9 +624,15 @@ def modifier_injection_view(request, injection_id):
 
                 injection.save()
 
+                from django.utils.translation import gettext_noop
+
+                ACTION_MODIFICATION_CONTROLE_INJECTION = gettext_noop(
+                    "Modification du contrôle de l'injection"
+                )
+
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification du contrôle de l'injection")  + f" - {exemplaire.immatriculation}"
+                    action=f"{ACTION_MODIFICATION_CONTROLE_INJECTION} - {exemplaire.immatriculation}"
                 )
 
                 messages.success(

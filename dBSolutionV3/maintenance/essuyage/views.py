@@ -15,7 +15,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 
 
@@ -200,9 +200,14 @@ def essuyage_form_view(request, exemplaire_id):
 
                     essuyage.save()
 
+
+                    ACTION_CONTROLE_ESSUYAGE = gettext_noop(
+                        "Contrôle de l'essuyage"
+                    )
+
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Contrôle de l'essuyage") + f" - {exemplaire.immatriculation}"
+                        action=f"{ACTION_CONTROLE_ESSUYAGE} - {exemplaire.immatriculation}"
                     )
 
                 messages.success(request, _("Contrôle du système d'essuyage enregistré avec succès."))
@@ -445,9 +450,15 @@ def modifier_essuyage_view(request, essuyage_id):
         if form.is_valid():
             form.save()
 
+
+
+            ACTION_MODIFICATION_CONTROLE_ESSUYAGE = gettext_noop(
+                "Modification contrôle du système d'essuyage"
+            )
+
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification contrôle du système d'essuyage") + f" - {exemplaire.immatriculation}"
+                action=f"{ACTION_MODIFICATION_CONTROLE_ESSUYAGE} - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Contrôle du système d'essuyage modifié avec succès !"))

@@ -10,7 +10,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.entretien.models import Entretien
 from maintenance.entretien.forms import EntretienForm
 from utilisateurs.apprentis.models import Apprenti
@@ -294,10 +294,15 @@ def entretien_check_view(request, exemplaire_id):
                     # =========================
                     # LOG
                     # =========================
+
+
+                    ACTION_ENTRETIEN = gettext_noop(
+                        "Entretien"
+                    )
+
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_(
-                            "Entretien") + f" - {exemplaire.immatriculation}"
+                        action=f"{ACTION_ENTRETIEN} - {exemplaire.immatriculation}"
                     )
 
                 # =========================
@@ -589,10 +594,15 @@ def modifier_entretien_view(request, entretien_id):
                         # =========================
                         # LOG
                         # =========================
+
+
+                        ACTION_MODIFICATION_ENTRETIEN = gettext_noop(
+                            "Modification de l'entretien"
+                        )
+
                         UserLog.objects.create(
                             utilisateur=request.user,
-                            action=_(
-                                "Modification de l'entretien") + f" - {exemplaire.immatriculation}"
+                            action=f"{ACTION_MODIFICATION_ENTRETIEN} - {exemplaire.immatriculation}"
                         )
 
                     # =========================

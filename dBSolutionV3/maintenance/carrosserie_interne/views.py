@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.utils.decorators import method_decorator
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _, gettext_noop
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from utilisateurs.models import UserLog
@@ -270,12 +270,16 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                     # LOG
                     # =========================
 
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_(
-                            "Carrosserie")  + f" - {exemplaire.immatriculation}"
+
+
+                    ACTION_CARROSSERIE = gettext_noop(
+                        "Carrosserie"
                     )
 
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=f"{ACTION_CARROSSERIE} - {exemplaire.immatriculation}"
+                    )
                 messages.success(
                     request,
                     _(
@@ -782,9 +786,15 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
         if form.is_valid():
             form.save()
 
+
+
+            ACTION_MODIFICATION_CARROSSERIE = gettext_noop(
+                "Modification de la carrosserie"
+            )
+
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification de la carrosserie")  + f" - {exemplaire.immatriculation}"
+                action=f"{ACTION_MODIFICATION_CARROSSERIE} - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Carrosserie modifiée avec succès !"))

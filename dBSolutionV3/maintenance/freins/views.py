@@ -7,7 +7,7 @@ from django.views.generic import ListView
 from maintenance.models import Maintenance
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.freins.models import ControleFreins
 from maintenance.freins.forms import ControleFreinsForm
 from utilisateurs.models import UserLog
@@ -200,9 +200,15 @@ def controle_freins_view(request, exemplaire_id):
 
                     controle_frein.save()
 
+
+
+                ACTION_CONTROLE_FREINS = gettext_noop(
+                    "Contrôle des freins"
+                )
+
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Contrôle des freins") + f" - {exemplaire.immatriculation}"
+                    action=f"{ACTION_CONTROLE_FREINS} - {exemplaire.immatriculation}"
                 )
 
 
@@ -290,9 +296,14 @@ def modifier_freins_view(request, frein_id):
                 frein.assign_technicien(request.user)
                 frein.save()
 
+
+                ACTION_MODIFICATION_CONTROLE_FREINS = gettext_noop(
+                    "Modification du contrôle des freins"
+                )
+
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification du contrôle des freins")
+                    action=ACTION_MODIFICATION_CONTROLE_FREINS
                 )
 
                 messages.success(request, _("Contrôle freins modifié avec succès !"))

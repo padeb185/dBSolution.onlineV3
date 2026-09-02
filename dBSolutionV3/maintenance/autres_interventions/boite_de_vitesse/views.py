@@ -17,7 +17,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.autres_interventions.boite_de_vitesse.forms import ControleBoiteForm
 from maintenance.autres_interventions.boite_de_vitesse.models import ControleBoite
 from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models import RemplacementBoite
@@ -220,9 +220,15 @@ def boite_check_view(request, exemplaire_id):
 
                     boite.save()
 
+                ACTION_CONTROLE_BOITE_VITESSE = gettext_noop(
+                    "Contrôle de la boite de vitesse"
+                )
+
                 UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_("Contrôle de la boite de vitesse") + f" - {exemplaire.immatriculation}")
+                    utilisateur=request.user,
+                    action=f"{ACTION_CONTROLE_BOITE_VITESSE} - {exemplaire.immatriculation}"
+                )
+
 
                 messages.success(request, _("Checkup de la boite de vitesse enregistré avec succès."))
                 return redirect(
@@ -233,7 +239,6 @@ def boite_check_view(request, exemplaire_id):
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
         else:
-            print("FORM INVALID:", form.errors)
             messages.error(request, _("Le formulaire contient des erreurs."))
 
     else:
@@ -304,9 +309,14 @@ def modifier_boite_view(request, boite_id):
         if form.is_valid():
             form.save()
 
+            ACTION_MODIFICATION_BOITE_VITESSE = gettext_noop(
+                "Modification contrôle de la boite de vitesse"
+            )
+
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification contrôle de la boite de vitesse") + f" - {exemplaire.immatriculation}")
+                action=f"{ACTION_MODIFICATION_BOITE_VITESSE} - {exemplaire.immatriculation}"
+            )
 
             messages.success(request, _("Checkup de la boite de vitesse modifié avec succès !"))
             return redirect(

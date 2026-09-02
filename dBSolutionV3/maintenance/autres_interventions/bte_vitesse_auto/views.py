@@ -14,7 +14,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.autres_interventions.bte_vitesse_auto.forms import ControleBteVitesseAutoForm
 from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBteVitesseAuto
 from django.http import HttpResponse
@@ -223,9 +223,15 @@ def bte_auto_check_view(request, exemplaire_id):
 
                     bte_auto.save()
 
+
+
+                    ACTION_CONTROLE_BOITE_AUTOMATIQUE = gettext_noop(
+                        "Contrôle de la boite automatique"
+                    )
+
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Contrôle de la boite automatique") + f" - {exemplaire.immatriculation}"
+                        action=f"{ACTION_CONTROLE_BOITE_AUTOMATIQUE} - {exemplaire.immatriculation}"
                     )
 
                 messages.success(
@@ -317,11 +323,16 @@ def modifier_bte_auto_view(request, bte_auto_id):
         if form.is_valid():
             form.save()
 
-            UserLog.objects.create(
-                utilisateur=request.user,
-                action=_("Modification du contrôle de la boite automatique") + f" - {exemplaire.immatriculation}"
+
+
+            ACTION_MODIFICATION_CONTROLE_BOITE_AUTOMATIQUE = gettext_noop(
+                "Modification du contrôle de la boite automatique"
             )
 
+            UserLog.objects.create(
+                utilisateur=request.user,
+                action=f"{ACTION_MODIFICATION_CONTROLE_BOITE_AUTOMATIQUE} - {exemplaire.immatriculation}"
+            )
             messages.success(request, _("Contrôle de la boite automatique modifié avec succès !"))
             return redirect("bte_auto:bte_auto_detail", bte_auto_id=bte_auto.id)
         else:

@@ -9,7 +9,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from .forms import NiveauForm
 from .models import Niveau
 from django.contrib.auth.decorators import login_required
@@ -225,10 +225,17 @@ def niveau_form_view(request, exemplaire_id):
 
                     niveau.save()
 
+
+
+                    ACTION_CONTROLE_NIVEAUX = gettext_noop(
+                        "Contrôle des Niveaux"
+                    )
+
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Contrôle des Niveaux") + f" - {exemplaire.immatriculation}"
+                        action=f"{ACTION_CONTROLE_NIVEAUX} - {exemplaire.immatriculation}"
                     )
+
 
                 messages.success(request, _("Controle des niveaux enregistré avec succès."))
                 return redirect("niveaux:niveaux_list", exemplaire_id=exemplaire.id)
@@ -236,7 +243,6 @@ def niveau_form_view(request, exemplaire_id):
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
         else:
-            print("FORM INVALID:", form.errors)
             messages.error(request, _("Le formulaire contient des erreurs."))
 
     else:
@@ -377,10 +383,15 @@ def modifier_niveau_view(request, niveau_id):
                     # =========================
                     # LOG
                     # =========================
+
+
+                    ACTION_MODIFICATION_CONTROLE_NIVEAUX = gettext_noop(
+                        "Modification du contrôle des niveaux"
+                    )
+
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_(
-                            "Modification du contrôle des niveaux") + f" - {exemplaire.immatriculation}"
+                        action=f"{ACTION_MODIFICATION_CONTROLE_NIVEAUX} - {exemplaire.immatriculation}"
                     )
 
                 messages.success(

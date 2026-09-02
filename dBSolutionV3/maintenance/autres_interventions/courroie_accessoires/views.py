@@ -16,7 +16,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 
 
@@ -203,9 +203,15 @@ def courroie_access_form_view(request, exemplaire_id):
                     courroie_access.save()
                     form.save_m2m()
 
+
+
+                    ACTION_CONTROLE_COURROIE_ACCESSOIRES = gettext_noop(
+                        "Contrôle de la courroie d'accessoires"
+                    )
+
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Controle de la courroie d'accessoires") + f" - {exemplaire.immatriculation}"
+                        action=f"{ACTION_CONTROLE_COURROIE_ACCESSOIRES} - {exemplaire.immatriculation}"
                     )
 
                     messages.success(
@@ -361,11 +367,16 @@ def modifier_courroie_access_view(request, courroie_accessoires_id):
 
                 courroie_accessoires.save()
 
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Modification du controle de la courroie d'accessoires") + f" - {exemplaire.immatriculation}"
+
+
+                ACTION_MODIFICATION_CONTROLE_COURROIE_ACCESSOIRES = gettext_noop(
+                    "Modification du contrôle de la courroie d'accessoires"
                 )
 
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_MODIFICATION_CONTROLE_COURROIE_ACCESSOIRES} - {exemplaire.immatriculation}"
+                )
                 messages.success(
                     request,
                     _("Remplacement de la courroie d'accessoires modifié avec succès !")

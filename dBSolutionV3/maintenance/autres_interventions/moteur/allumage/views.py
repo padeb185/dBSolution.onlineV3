@@ -16,7 +16,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 
 
@@ -277,12 +277,16 @@ def allumage_check_view(request, exemplaire_id):
                                     "kilometres_chassis",
                                 ]
                             )
-                        UserLog.objects.create(
-                                utilisateur=request.user,
-                                action=_(
-                                    "Contrôle de l'allumage") + f" - {exemplaire.immatriculation}"
-                            )
 
+
+                        ACTION_CONTROLE_ALLUMAGE = gettext_noop(
+                            "Contrôle de l'allumage"
+                        )
+
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=f"{ACTION_CONTROLE_ALLUMAGE} - {exemplaire.immatriculation}"
+                        )
                         messages.success(
                             request,
                             _(
@@ -541,16 +545,21 @@ def modifier_allumage_view(request, allumage_id):
         if form.is_valid():
             form.save()
 
+
+
+            ACTION_MODIFICATION_CONTROLE_ALLUMAGE = gettext_noop(
+                "Modification du contrôle de l'allumage"
+            )
+
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification du contrôle de l'allumage") + f" - {exemplaire.immatriculation}"
+                action=f"{ACTION_MODIFICATION_CONTROLE_ALLUMAGE} - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Contrôle de l'allumage modifié avec succès !"))
             return redirect("allumage:allumage_detail", allumage_id=allumage.id)
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
-            print(form.errors)
 
     # -------------------------
     # GET

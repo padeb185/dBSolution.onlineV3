@@ -7,7 +7,7 @@ from utilisateurs.models import UserLog
 from django.contrib import messages
 from maintenance.models import Maintenance
 from .forms import RemplacementMoteurForm
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from django.views.generic import ListView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -157,11 +157,16 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 
                     remplacement_moteur.save()
 
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=_("Remplacement moteur")  + f" - {exemplaire.immatriculation}"
+
+
+                    ACTION_REMPLACEMENT_MOTEUR = gettext_noop(
+                        "Remplacement moteur"
                     )
 
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=f"{ACTION_REMPLACEMENT_MOTEUR} - {exemplaire.immatriculation}"
+                    )
                     # ➕ compteur (si champ existe)
                     if remplacement_moteur.pk:
                         exemplaire.nombre_remplacements_moteurs = F("nombre_remplacements_moteurs")
@@ -309,9 +314,15 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
             try:
                 form.save()
 
+
+
+                ACTION_MODIFICATION_REMPLACEMENT_MOTEUR = gettext_noop(
+                    "Modification du remplacement moteur"
+                )
+
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification du remplacement moteur")  + f" - {exemplaire.immatriculation}"
+                    action=f"{ACTION_MODIFICATION_REMPLACEMENT_MOTEUR} - {exemplaire.immatriculation}"
                 )
 
                 messages.success(request, _("Remplacement du moteur modifié avec succès !"))

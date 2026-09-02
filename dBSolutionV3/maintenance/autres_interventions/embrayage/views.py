@@ -12,7 +12,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 from .forms import EmbrayageForm
 from .models import Embrayage
@@ -364,10 +364,15 @@ def embrayage_form_view(request, exemplaire_id):
                             # LOG
                             # =====================================
 
+
+
+                            ACTION_REMPLACEMENT_EMBRAYAGE = gettext_noop(
+                                "Remplacement de l'embrayage"
+                            )
+
                             UserLog.objects.create(
                                 utilisateur=request.user,
-                                action=_(
-                                    "Remplacement de l'embrayage") + f" - {exemplaire.immatriculation}"
+                                action=f"{ACTION_REMPLACEMENT_EMBRAYAGE} - {exemplaire.immatriculation}"
                             )
 
                         # =========================================
@@ -653,9 +658,15 @@ def modifier_embrayage_view(request, embrayage_id):
         if form.is_valid():
             form.save()
 
+
+
+            ACTION_MODIFICATION_REMPLACEMENT_EMBRAYAGE = gettext_noop(
+                "Modification du remplacement de l'embrayage"
+            )
+
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification du remplacement de l'embrayage") + f" - {exemplaire.immatriculation}"
+                action=f"{ACTION_MODIFICATION_REMPLACEMENT_EMBRAYAGE} - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Remplacement de l'embrayage modifié avec succès !"))

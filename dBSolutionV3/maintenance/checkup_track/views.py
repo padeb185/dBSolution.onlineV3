@@ -12,7 +12,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 from .forms import CheckupTrackForm
 from .models import CheckupTrack
@@ -316,10 +316,15 @@ def track_check_form_view(request, exemplaire_id):
                     # LOG
                     # =========================
 
+
+
+                    ACTION_CHECKUP_PISTE = gettext_noop(
+                        "Check-up piste"
+                    )
+
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_(
-                            "Check-up piste") + f" - {exemplaire.immatriculation}"
+                        action=f"{ACTION_CHECKUP_PISTE} - {exemplaire.immatriculation}"
                     )
 
                 messages.success(
@@ -579,10 +584,15 @@ def modifier_checkup_track_view(request, checkup_track_id):
                         # LOG
                         # =========================
 
+
+
+                        ACTION_MODIFICATION_CHECKUP_PISTE = gettext_noop(
+                            "Modification du check-up piste"
+                        )
+
                         UserLog.objects.create(
                             utilisateur=request.user,
-                            action=_(
-                                "Modification du check-up piste") + f" - {exemplaire.immatriculation}"
+                            action=f"{ACTION_MODIFICATION_CHECKUP_PISTE} - {exemplaire.immatriculation}"
                         )
 
                     messages.success(

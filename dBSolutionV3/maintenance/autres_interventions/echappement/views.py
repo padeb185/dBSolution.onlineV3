@@ -19,7 +19,7 @@ from maintenance.types_maintenances import TYPES_MAINTENANCE
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_modele.models import VoitureModele
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 
 
@@ -387,10 +387,15 @@ def echappement_check_view(request, exemplaire_id):
                             # LOG
                             # -------------------------------------
 
+
+
+                            ACTION_CONTROLE_ECHAPPEMENT = gettext_noop(
+                                "Contrôle de l'échappement"
+                            )
+
                             UserLog.objects.create(
                                 utilisateur=request.user,
-                                action=_(
-                                    "Contrôle de l'échappement ") + f" - {exemplaire.immatriculation}"
+                                action=f"{ACTION_CONTROLE_ECHAPPEMENT} - {exemplaire.immatriculation}"
                             )
 
                         # =========================================
@@ -518,10 +523,15 @@ def modifier_echappement_view(request, echappement_id):
         if form.is_valid():
             form.save()
 
+
+
+            ACTION_MODIFICATION_CONTROLE_ECHAPPEMENT = gettext_noop(
+                "Modification contrôle de l'échappement"
+            )
+
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_(
-                    "Modification contrôle de l'échappement")  + f" - {exemplaire.immatriculation}"
+                action=f"{ACTION_MODIFICATION_CONTROLE_ECHAPPEMENT} - {exemplaire.immatriculation}"
             )
 
             messages.success(

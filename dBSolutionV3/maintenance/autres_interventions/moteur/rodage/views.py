@@ -11,7 +11,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from utilisateurs.apprentis.models import Apprenti
 from utilisateurs.chef_mecanicien.models import ChefMecanicien
 from utilisateurs.direction.models import Direction
@@ -307,9 +307,15 @@ def rodage_check_view(request, exemplaire_id):
                                 ]
                             )
 
+
+
+                            ACTION_RODAGE = gettext_noop(
+                                "Rodage"
+                            )
+
                             UserLog.objects.create(
                                 utilisateur=request.user,
-                                action=_("Rodage") + f" - {exemplaire.immatriculation}"
+                                action=f"{ACTION_RODAGE} - {exemplaire.immatriculation}"
                             )
 
                     messages.success(request, _("Rodage enregistré avec succès."))
@@ -401,16 +407,22 @@ def modifier_rodage_view(request, rodage_id):
         if form.is_valid():
             form.save()
 
+
+
+            ACTION_MODIFICATION_RODAGE = gettext_noop(
+                "Modification du rodage"
+            )
+
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification du rodage") + f" - {exemplaire.immatriculation}"
+                action=f"{ACTION_MODIFICATION_RODAGE} - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Rodage modifié avec succès !"))
             return redirect("rodage:rodage_detail", rodage_id=rodage.id)
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
-            print(form.errors)
+
 
     # -------------------------
     # GET

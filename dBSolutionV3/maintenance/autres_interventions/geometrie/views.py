@@ -14,7 +14,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 from .forms import GeometrieVoitureForm
 from .models import GeometrieVoiture
@@ -379,9 +379,15 @@ def geometrie_check_view(request, exemplaire_id):
                             # LOG
                             # =====================================
 
+
+
+                            ACTION_CONTROLE_GEOMETRIE = gettext_noop(
+                                "Contrôle de la géométrie"
+                            )
+
                             UserLog.objects.create(
                                 utilisateur=request.user,
-                                action=_("Contrôle de la géométrie") + f" - {exemplaire.immatriculation}"
+                                action=f"{ACTION_CONTROLE_GEOMETRIE} - {exemplaire.immatriculation}"
                             )
 
                         messages.success(

@@ -10,7 +10,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from .forms import SilentBlocForm
 from .models import SilentBloc
 from django.contrib.auth.decorators import login_required
@@ -209,10 +209,14 @@ def silent_check_view(request, exemplaire_id):
 
                     silent.save()
 
+
+                    ACTION_CONTROLE_SILENT_BLOCS = gettext_noop(
+                        "Contrôle des silent blocs"
+                    )
+
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_(
-                            "Contrôle des silent blocs") + f" - {exemplaire.immatriculation}"
+                        action=f"{ACTION_CONTROLE_SILENT_BLOCS} - {exemplaire.immatriculation}"
                     )
 
                 messages.success(request, _("Controle des silent blocs enregistré avec succès."))
@@ -291,10 +295,15 @@ def modifier_silent_view(request, silent_id):
         if form.is_valid():
             form.save()
 
+
+
+            ACTION_MODIFICATION_CONTROLE_SILENT_BLOCS = gettext_noop(
+                "Modification du contrôle des silent blocs"
+            )
+
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_(
-                    "Modification du contrôle des silent blocs") + f" - {exemplaire.immatriculation}"
+                action=f"{ACTION_MODIFICATION_CONTROLE_SILENT_BLOCS} - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Contrôle des silent blocs modifié avec succès !"))
@@ -302,7 +311,7 @@ def modifier_silent_view(request, silent_id):
 
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
-            print(form.errors)
+
 
     # -------------------------
     # GET

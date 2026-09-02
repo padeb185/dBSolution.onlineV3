@@ -14,7 +14,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 from .forms import ClimForm
 from .models import Climatisation
@@ -241,9 +241,15 @@ def clim_form_view(request, exemplaire_id):
                     # éventuellement des champs ManyToMany
                     form.save_m2m()
 
+
+
+                    ACTION_CONTROLE_CLIMATISATION = gettext_noop(
+                        "Contrôle de la climatisation"
+                    )
+
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Contrôle de la climatisation") + f" - {exemplaire.immatriculation}"
+                        action=f"{ACTION_CONTROLE_CLIMATISATION} - {exemplaire.immatriculation}"
                     )
 
                 messages.success(
@@ -568,9 +574,15 @@ def modifier_clim_view(request, climatisation_id):
         if form.is_valid():
             form.save()
 
+
+
+            ACTION_MODIFICATION_CONTROLE_CLIMATISATION = gettext_noop(
+                "Modification du contrôle de la climatisation"
+            )
+
             UserLog.objects.create(
                 utilisateur=request.user,
-                action=_("Modification du contrôle de la  climatisation") + f" - {exemplaire.immatriculation}"
+                action=f"{ACTION_MODIFICATION_CONTROLE_CLIMATISATION} - {exemplaire.immatriculation}"
             )
 
             messages.success(request, _("Contrôle du système de climatisation modifié avec succès !"))

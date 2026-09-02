@@ -11,7 +11,7 @@ from maintenance.jeux_pieces.forms import ControleJeuxPiecesForm
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
@@ -209,9 +209,14 @@ def controle_jeux_pieces_view(request, exemplaire_id):
 
                     controle.save()
 
+
+                    ACTION_CONTROLE_JEUX = gettext_noop(
+                        "Contrôle des jeux"
+                    )
+
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Contrôle des jeux") + f" - {exemplaire.immatriculation}"
+                        action=f"{ACTION_CONTROLE_JEUX} - {exemplaire.immatriculation}"
                     )
 
 
@@ -221,7 +226,6 @@ def controle_jeux_pieces_view(request, exemplaire_id):
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
         else:
-            print("FORM INVALID:", form.errors)
             messages.error(request, _("Le formulaire contient des erreurs."))
 
     else:
@@ -293,11 +297,16 @@ def modifier_jeux_pieces_view(request, jeu_id):
         if form.is_valid():
             form.save()
 
-            UserLog.objects.create(
-                utilisateur=request.user,
-                action=_("Modification du contrôle des jeux") + f" - {exemplaire.immatriculation}"
+
+
+            ACTION_MODIFICATION_CONTROLE_JEUX = gettext_noop(
+                "Modification du contrôle des jeux"
             )
 
+            UserLog.objects.create(
+                utilisateur=request.user,
+                action=f"{ACTION_MODIFICATION_CONTROLE_JEUX} - {exemplaire.immatriculation}"
+            )
             messages.success(request, _("Contrôle des jeux modifié avec succès !"))
             return redirect("jeux_pieces:jeux_pieces_detail", jeu_id=jeu_id)
 

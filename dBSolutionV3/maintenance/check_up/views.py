@@ -9,7 +9,7 @@ from django.views.generic import ListView
 from maintenance.models import Maintenance
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.check_up.forms import CheckupForm
 from maintenance.check_up.models import Checkup
 from utilisateurs.apprentis.models import Apprenti
@@ -205,9 +205,15 @@ def controle_total_view(request, exemplaire_id):
 
                     checkup.save()
 
+
+
+                    ACTION_CHECKUP = gettext_noop(
+                        "Checkup"
+                    )
+
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=_("Checkup") + f" - {exemplaire.immatriculation}"
+                        action=f"{ACTION_CHECKUP} - {exemplaire.immatriculation}"
                     )
 
                 messages.success(
@@ -314,10 +320,15 @@ def modifier_checkup_view(request, checkup_id):
                 # À conserver uniquement si le formulaire contient des ManyToMany
                 form.save_m2m()
 
+
+
+                ACTION_MODIFICATION_CHECKUP = gettext_noop(
+                    "Modification du checkup"
+                )
+
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_(
-                        "Modification du checkup")  + f" - {exemplaire.immatriculation}"
+                    action=f"{ACTION_MODIFICATION_CHECKUP} - {exemplaire.immatriculation}"
                 )
 
                 messages.success(
