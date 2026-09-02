@@ -5,8 +5,37 @@
 
 <br>
 <br>
-<h1 class="text-2xl font-bold mb-6">{% trans "Bienvenue sur le tableau de bord boite" %}</h1>
+<h1 class="text-2xl font-bold mb-6 flex flex-col md:flex-row md:items-center gap-3">
+    <div class="flex items-center gap-3">
 
+        <img src="{% static 'icons/boite-de-vitesse.png' %}"
+             alt="Tableau de bord boite"
+             class="w-16 h-16">
+
+        <div class="flex items-center gap-2">
+
+            {% trans "Choisir une intervention pour :" %}
+
+            {% static 'images/marques/' as marques_path %}
+
+            <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                 alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                 class="w-16 h-16 object-contain">
+
+            <span class="font-semibold">
+                {{ exemplaire.voiture_modele.nom_modele }}
+
+                {% if exemplaire.voiture_modele.nom_variante %}
+                    {{ exemplaire.voiture_modele.nom_variante }}
+                {% endif %}
+            </span>
+
+        </div>
+    </div>
+
+    {% include "maintenance/partials/plaque.html" %}
+</h1>
+<br>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
 
