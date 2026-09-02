@@ -45,6 +45,12 @@ class ClimForm(forms.ModelForm):
                     "min": "0",
                 }
             ),
+            "kilometres_chassis": forms.NumberInput(
+                attrs={
+                    "readonly": "readonly",
+                    "class": "bg-gray-100 cursor-not-allowed",
+                }
+            ),
 
         }
 

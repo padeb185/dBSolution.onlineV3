@@ -38,7 +38,13 @@ class ControleBoiteForm(forms.ModelForm):
                     "step": "0.1",
                     "min": "0"
                 }
-            )
+            ),
+            "kilometres_chassis": forms.NumberInput(
+                attrs={
+                    "readonly": "readonly",
+                    "class": "bg-gray-100 cursor-not-allowed",
+                }
+            ),
 
         }
 

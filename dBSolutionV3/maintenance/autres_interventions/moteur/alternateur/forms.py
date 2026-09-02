@@ -58,6 +58,12 @@ class AlternateurForm(forms.ModelForm):
                     "placeholder": _("Ajoutez des remarques ici..."),
                 }
             ),
+            "kilometres_chassis": forms.NumberInput(
+                attrs={
+                    "readonly": "readonly",
+                    "class": "bg-gray-100 cursor-not-allowed",
+                }
+            ),
         }
 
     def __init__(self, *args, **kwargs):

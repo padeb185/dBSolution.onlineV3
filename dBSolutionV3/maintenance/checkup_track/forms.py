@@ -56,6 +56,12 @@ class CheckupTrackForm(forms.ModelForm):
             "pneu_pression_bar_avg": forms.NumberInput(attrs={"step": "0.1"}),
             "pneu_pression_bar_ard": forms.NumberInput(attrs={"step": "0.1"}),
             "pneu_pression_bar_arg": forms.NumberInput(attrs={"step": "0.1"}),
+            "kilometres_chassis": forms.NumberInput(
+                attrs={
+                    "readonly": "readonly",
+                    "class": "bg-gray-100 cursor-not-allowed",
+                }
+            ),
         }
 
     def __init__(self, *args, **kwargs):

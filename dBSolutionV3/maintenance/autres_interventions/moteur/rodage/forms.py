@@ -109,6 +109,12 @@ class RodageForm(forms.ModelForm):
                     "min": "0",
                 }
             ),
+            "kilometres_chassis": forms.NumberInput(
+                attrs={
+                    "readonly": "readonly",
+                    "class": "bg-gray-100 cursor-not-allowed",
+                }
+            ),
         }
 
     def __init__(self, *args, **kwargs):

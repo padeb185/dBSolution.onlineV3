@@ -35,6 +35,12 @@ class ControleJeuxPiecesForm(forms.ModelForm):
                 'rows': 4,
                 'placeholder': _("Ajoutez des remarques ici...")
             }),
+            "kilometres_chassis": forms.NumberInput(
+                attrs={
+                    "readonly": "readonly",
+                    "class": "bg-gray-100 cursor-not-allowed",
+                }
+            ),
 
         }
 
