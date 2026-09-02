@@ -25,6 +25,7 @@ class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("OK")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
+    NON_PRESENT = "NON_PRESENT", _("Non présent")
 
 class CrochetPresent(models.TextChoices):
     OK = "OK", _("Monté")
