@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-02 16:18+0200\n"
+"POT-Creation-Date: 2026-09-02 19:42+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: outillage/templates/outillage/outillage_detail.html:47
 #: outillage/templates/outillage/outillage_list.html:41
 #: outillage/templates/outillage/outillage_list.html:74
-#: stats_fournisseurs/forms.py:58 theme/templates/dashboard.html:456
+#: stats_fournisseurs/forms.py:58 theme/templates/dashboard.html:457
 msgid "Fournisseur"
 msgstr ""
 
@@ -315,7 +315,7 @@ msgstr ""
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:90
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:84
 #: maintenance/check_up/templates/check_up/checkup_detail.html:80
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:80
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:81
 #: maintenance/entretien/templates/entretien/entretien_detail.html:77
 #: maintenance/essuyage/templates/essuyage/essuyage_detail.html:89
 #: maintenance/freins/templates/freins/freins_detail.html:190
@@ -394,10 +394,10 @@ msgstr ""
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:94
 #: maintenance/carrosserie_interne/models.py:716
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:88
-#: maintenance/check_up/models.py:1826
+#: maintenance/check_up/models.py:1827
 #: maintenance/check_up/templates/check_up/checkup_detail.html:84
-#: maintenance/checkup_track/models.py:782
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:84
+#: maintenance/checkup_track/models.py:783
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:85
 #: maintenance/entretien/models.py:837
 #: maintenance/entretien/templates/entretien/entretien_detail.html:81
 #: maintenance/essuyage/models.py:759
@@ -497,10 +497,10 @@ msgstr ""
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:98
 #: maintenance/carrosserie_interne/models.py:717
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:92
-#: maintenance/check_up/models.py:1827
+#: maintenance/check_up/models.py:1828
 #: maintenance/check_up/templates/check_up/checkup_detail.html:88
-#: maintenance/checkup_track/models.py:783
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:88
+#: maintenance/checkup_track/models.py:784
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:89
 #: maintenance/entretien/models.py:838
 #: maintenance/entretien/templates/entretien/entretien_detail.html:85
 #: maintenance/essuyage/models.py:760
@@ -1444,10 +1444,10 @@ msgstr ""
 #: maintenance/autres_interventions/refroidissement/views.py:523
 #: maintenance/autres_interventions/refroidissement/views.py:792
 #: maintenance/carrosserie_interne/models.py:29
-#: maintenance/check_up/models.py:105
+#: maintenance/check_up/models.py:106
 #: maintenance/check_up/templates/check_up/controle_total.html:1519
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1531
-#: maintenance/checkup_track/models.py:114
+#: maintenance/checkup_track/models.py:115
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1426
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1421
 #: maintenance/entretien/models.py:43
@@ -1487,8 +1487,8 @@ msgstr ""
 msgid "Code pays"
 msgstr ""
 
-#: adresse/models.py:34 theme/templates/dashboard.html:557
-#: theme/templates/dashboard.html:569
+#: adresse/models.py:34 theme/templates/dashboard.html:558
+#: theme/templates/dashboard.html:570
 msgid "Adresses"
 msgstr ""
 
@@ -1626,12 +1626,12 @@ msgstr ""
 #: maintenance/carrosserie_interne/models.py:714
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:53
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:533
-#: maintenance/check_up/models.py:1749
+#: maintenance/check_up/models.py:1750
 #: maintenance/check_up/templates/check_up/checkup_detail.html:55
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2981
 #: maintenance/check_up/templates/check_up/controle_total.html:1604
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1617
-#: maintenance/checkup_track/models.py:714
+#: maintenance/checkup_track/models.py:715
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:56
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2551
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1599
@@ -1883,11 +1883,11 @@ msgstr ""
 #: assurance/models.py:48
 #: assurance/templates/assurance/modifier_assurance.html:62
 #: assurance_police/templates/assurance_police/modifier_assurance_police.html:58
-#: theme/templates/dashboard.html:609
+#: theme/templates/dashboard.html:610
 msgid "Assurance"
 msgstr ""
 
-#: assurance/models.py:49 theme/templates/dashboard.html:604
+#: assurance/models.py:49 theme/templates/dashboard.html:605
 msgid "Assurances"
 msgstr ""
 
@@ -2012,13 +2012,13 @@ msgstr ""
 #: maintenance/templates/maintenance/choisir_type.html:166
 #: proprietaire/templates/proprietaire/proprietaire_dashboard.html:27
 #: proprietaire/templates/proprietaire/proprietaire_dashboard.html:42
-#: theme/templates/dashboard.html:199 theme/templates/dashboard.html:221
-#: theme/templates/dashboard.html:243 theme/templates/dashboard.html:305
-#: theme/templates/dashboard.html:327 theme/templates/dashboard.html:349
-#: theme/templates/dashboard.html:386 theme/templates/dashboard.html:448
-#: theme/templates/dashboard.html:470 theme/templates/dashboard.html:517
-#: theme/templates/dashboard.html:539 theme/templates/dashboard.html:561
-#: theme/templates/dashboard.html:623 theme/templates/dashboard.html:645
+#: theme/templates/dashboard.html:200 theme/templates/dashboard.html:222
+#: theme/templates/dashboard.html:244 theme/templates/dashboard.html:306
+#: theme/templates/dashboard.html:328 theme/templates/dashboard.html:350
+#: theme/templates/dashboard.html:387 theme/templates/dashboard.html:449
+#: theme/templates/dashboard.html:471 theme/templates/dashboard.html:518
+#: theme/templates/dashboard.html:540 theme/templates/dashboard.html:562
+#: theme/templates/dashboard.html:624 theme/templates/dashboard.html:646
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:19
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:31
 #: voiture/voiture_marque/templates/voiture_marque/dashboard_voiture.html:17
@@ -2450,20 +2450,20 @@ msgstr ""
 
 #: carrosserie/models.py:67 maintenance/carrosserie_interne/views.py:276
 #: maintenance/carrosserie_interne/views.py:1323
-#: maintenance/check_up/models.py:1703
+#: maintenance/check_up/models.py:1704
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2434
-#: maintenance/checkup_track/models.py:670
+#: maintenance/checkup_track/models.py:671
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1850
 #: maintenance/nettoyage_exterieur/models.py:76
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:341
 #: maintenance/templates/maintenance/choisir_type.html:155
-#: theme/templates/dashboard.html:409
+#: theme/templates/dashboard.html:410
 msgid "Carrosserie"
 msgstr ""
 
 #: carrosserie/models.py:68
 #: carrosserie/templates/carrosserie/dashboard_carrosserie.html:16
-#: theme/templates/dashboard.html:404
+#: theme/templates/dashboard.html:405
 msgid "Carrosseries"
 msgstr ""
 
@@ -2535,13 +2535,13 @@ msgstr ""
 
 #: carrosserie/templates/carrosserie/dashboard_carrosserie.html:4
 #: fournisseur/templates/fournisseur/fournisseur_dashboard.html:4
-#: maintenance/check_up/models.py:1728
+#: maintenance/check_up/models.py:1729
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2714
-#: maintenance/checkup_track/models.py:695
+#: maintenance/checkup_track/models.py:696
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2284
 #: maintenance/nettoyage_interieur/models.py:97
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:393
-#: theme/templates/dashboard.html:7
+#: theme/templates/dashboard.html:8
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:3
 #: voiture/voiture_marque/templates/voiture_marque/dashboard_voiture.html:4
 msgid "Tableau de bord"
@@ -2652,14 +2652,14 @@ msgid "Boîte"
 msgstr ""
 
 #: client_atelier/forms.py:213 client_pilotage/forms.py:26 panier/models.py:42
-#: theme/templates/dashboard.html:547
+#: theme/templates/dashboard.html:548
 msgid "Société cliente"
 msgstr ""
 
 #: client_atelier/forms.py:214 client_atelier/models.py:62
 #: client_atelier/templates/client_atelier/client_atelier_list.html:60
 #: client_atelier/templates/client_atelier/client_atelier_list.html:75
-#: theme/templates/dashboard.html:286
+#: theme/templates/dashboard.html:287
 msgid "Voitures"
 msgstr ""
 
@@ -3013,7 +3013,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:20
 #: panier/models.py:33
 #: societe_cliente/templates/societe_cliente/societe_cliente_form.html:13
-#: theme/templates/dashboard.html:525 voiture/voiture_exemplaire/models.py:13
+#: theme/templates/dashboard.html:526 voiture/voiture_exemplaire/models.py:13
 msgid "Client"
 msgstr ""
 
@@ -3236,62 +3236,62 @@ msgstr ""
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1838
 #: maintenance/carrosserie_interne/models.py:253
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:377
-#: maintenance/check_up/models.py:147 maintenance/check_up/models.py:158
-#: maintenance/check_up/models.py:172 maintenance/check_up/models.py:214
-#: maintenance/check_up/models.py:229 maintenance/check_up/models.py:247
-#: maintenance/check_up/models.py:260 maintenance/check_up/models.py:278
-#: maintenance/check_up/models.py:355 maintenance/check_up/models.py:379
-#: maintenance/check_up/models.py:402 maintenance/check_up/models.py:425
-#: maintenance/check_up/models.py:448 maintenance/check_up/models.py:471
-#: maintenance/check_up/models.py:494 maintenance/check_up/models.py:517
-#: maintenance/check_up/models.py:540 maintenance/check_up/models.py:563
-#: maintenance/check_up/models.py:586 maintenance/check_up/models.py:609
-#: maintenance/check_up/models.py:632 maintenance/check_up/models.py:655
-#: maintenance/check_up/models.py:678 maintenance/check_up/models.py:701
-#: maintenance/check_up/models.py:724 maintenance/check_up/models.py:747
-#: maintenance/check_up/models.py:770 maintenance/check_up/models.py:793
-#: maintenance/check_up/models.py:816 maintenance/check_up/models.py:839
-#: maintenance/check_up/models.py:862 maintenance/check_up/models.py:885
-#: maintenance/check_up/models.py:908 maintenance/check_up/models.py:931
-#: maintenance/check_up/models.py:954 maintenance/check_up/models.py:977
-#: maintenance/check_up/models.py:1000 maintenance/check_up/models.py:1023
-#: maintenance/check_up/models.py:1046 maintenance/check_up/models.py:1069
-#: maintenance/check_up/models.py:1092 maintenance/check_up/models.py:1115
-#: maintenance/check_up/models.py:1138 maintenance/check_up/models.py:1161
-#: maintenance/check_up/models.py:1184 maintenance/check_up/models.py:1207
-#: maintenance/check_up/models.py:1230 maintenance/check_up/models.py:1253
-#: maintenance/check_up/models.py:1276 maintenance/check_up/models.py:1299
-#: maintenance/check_up/models.py:1367 maintenance/check_up/models.py:1382
-#: maintenance/check_up/models.py:1411 maintenance/check_up/models.py:1440
-#: maintenance/check_up/models.py:1473 maintenance/check_up/models.py:1504
-#: maintenance/check_up/models.py:1535 maintenance/check_up/models.py:1566
-#: maintenance/check_up/models.py:1596 maintenance/check_up/models.py:1627
-#: maintenance/check_up/models.py:1657 maintenance/check_up/models.py:1688
-#: maintenance/check_up/models.py:1719 maintenance/check_up/models.py:1743
+#: maintenance/check_up/models.py:148 maintenance/check_up/models.py:159
+#: maintenance/check_up/models.py:173 maintenance/check_up/models.py:215
+#: maintenance/check_up/models.py:230 maintenance/check_up/models.py:248
+#: maintenance/check_up/models.py:261 maintenance/check_up/models.py:279
+#: maintenance/check_up/models.py:356 maintenance/check_up/models.py:380
+#: maintenance/check_up/models.py:403 maintenance/check_up/models.py:426
+#: maintenance/check_up/models.py:449 maintenance/check_up/models.py:472
+#: maintenance/check_up/models.py:495 maintenance/check_up/models.py:518
+#: maintenance/check_up/models.py:541 maintenance/check_up/models.py:564
+#: maintenance/check_up/models.py:587 maintenance/check_up/models.py:610
+#: maintenance/check_up/models.py:633 maintenance/check_up/models.py:656
+#: maintenance/check_up/models.py:679 maintenance/check_up/models.py:702
+#: maintenance/check_up/models.py:725 maintenance/check_up/models.py:748
+#: maintenance/check_up/models.py:771 maintenance/check_up/models.py:794
+#: maintenance/check_up/models.py:817 maintenance/check_up/models.py:840
+#: maintenance/check_up/models.py:863 maintenance/check_up/models.py:886
+#: maintenance/check_up/models.py:909 maintenance/check_up/models.py:932
+#: maintenance/check_up/models.py:955 maintenance/check_up/models.py:978
+#: maintenance/check_up/models.py:1001 maintenance/check_up/models.py:1024
+#: maintenance/check_up/models.py:1047 maintenance/check_up/models.py:1070
+#: maintenance/check_up/models.py:1093 maintenance/check_up/models.py:1116
+#: maintenance/check_up/models.py:1139 maintenance/check_up/models.py:1162
+#: maintenance/check_up/models.py:1185 maintenance/check_up/models.py:1208
+#: maintenance/check_up/models.py:1231 maintenance/check_up/models.py:1254
+#: maintenance/check_up/models.py:1277 maintenance/check_up/models.py:1300
+#: maintenance/check_up/models.py:1368 maintenance/check_up/models.py:1383
+#: maintenance/check_up/models.py:1412 maintenance/check_up/models.py:1441
+#: maintenance/check_up/models.py:1474 maintenance/check_up/models.py:1505
+#: maintenance/check_up/models.py:1536 maintenance/check_up/models.py:1567
+#: maintenance/check_up/models.py:1597 maintenance/check_up/models.py:1628
+#: maintenance/check_up/models.py:1658 maintenance/check_up/models.py:1689
+#: maintenance/check_up/models.py:1720 maintenance/check_up/models.py:1744
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:799
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1183
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2853
-#: maintenance/checkup_track/models.py:155
-#: maintenance/checkup_track/models.py:165
-#: maintenance/checkup_track/models.py:175
-#: maintenance/checkup_track/models.py:221
-#: maintenance/checkup_track/models.py:233
-#: maintenance/checkup_track/models.py:245
-#: maintenance/checkup_track/models.py:256
-#: maintenance/checkup_track/models.py:337
-#: maintenance/checkup_track/models.py:366
-#: maintenance/checkup_track/models.py:396
-#: maintenance/checkup_track/models.py:426
-#: maintenance/checkup_track/models.py:455
-#: maintenance/checkup_track/models.py:484
-#: maintenance/checkup_track/models.py:513
-#: maintenance/checkup_track/models.py:542
-#: maintenance/checkup_track/models.py:571
-#: maintenance/checkup_track/models.py:600
-#: maintenance/checkup_track/models.py:652
-#: maintenance/checkup_track/models.py:661
-#: maintenance/checkup_track/models.py:686
-#: maintenance/checkup_track/models.py:710
+#: maintenance/checkup_track/models.py:156
+#: maintenance/checkup_track/models.py:166
+#: maintenance/checkup_track/models.py:176
+#: maintenance/checkup_track/models.py:222
+#: maintenance/checkup_track/models.py:234
+#: maintenance/checkup_track/models.py:246
+#: maintenance/checkup_track/models.py:257
+#: maintenance/checkup_track/models.py:338
+#: maintenance/checkup_track/models.py:367
+#: maintenance/checkup_track/models.py:397
+#: maintenance/checkup_track/models.py:427
+#: maintenance/checkup_track/models.py:456
+#: maintenance/checkup_track/models.py:485
+#: maintenance/checkup_track/models.py:514
+#: maintenance/checkup_track/models.py:543
+#: maintenance/checkup_track/models.py:572
+#: maintenance/checkup_track/models.py:601
+#: maintenance/checkup_track/models.py:653
+#: maintenance/checkup_track/models.py:662
+#: maintenance/checkup_track/models.py:687
+#: maintenance/checkup_track/models.py:711
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2424
 #: maintenance/entretien/models.py:107 maintenance/entretien/models.py:130
 #: maintenance/entretien/models.py:158 maintenance/entretien/models.py:182
@@ -3428,7 +3428,7 @@ msgstr ""
 
 #: fournisseur/models.py:100
 #: fournisseur/templates/fournisseur/fournisseur_dashboard.html:16
-#: theme/templates/dashboard.html:444
+#: theme/templates/dashboard.html:445
 msgid "Fournisseurs"
 msgstr ""
 
@@ -3582,9 +3582,9 @@ msgstr ""
 #: maintenance/autres_interventions/refroidissement/models.py:110
 #: maintenance/carrosserie_interne/forms.py:17
 #: maintenance/carrosserie_interne/models.py:67
-#: maintenance/check_up/forms.py:17 maintenance/check_up/models.py:138
+#: maintenance/check_up/forms.py:17 maintenance/check_up/models.py:139
 #: maintenance/checkup_track/forms.py:20
-#: maintenance/checkup_track/models.py:146 maintenance/entretien/forms.py:17
+#: maintenance/checkup_track/models.py:147 maintenance/entretien/forms.py:17
 #: maintenance/entretien/models.py:79 maintenance/essuyage/forms.py:16
 #: maintenance/essuyage/models.py:58 maintenance/freins/forms.py:19
 #: maintenance/freins/models.py:65 maintenance/jeux_pieces/forms.py:18
@@ -3823,8 +3823,8 @@ msgstr ""
 #: maintenance/nettoyage_interieur/models.py:162 recharge/models.py:100
 #: recharge/templates/recharge/recharge_list.html:46
 #: recharge/templates/recharge/recharge_list.html:80
-#: theme/templates/dashboard.html:121 theme/templates/dashboard.html:672
-#: theme/templates/dashboard.html:687 utilisateurs/models.py:387
+#: theme/templates/dashboard.html:122 theme/templates/dashboard.html:673
+#: theme/templates/dashboard.html:688 utilisateurs/models.py:387
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:18
 msgid "Utilisateur"
 msgstr ""
@@ -3890,7 +3890,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/rodage/models.py:75
 #: maintenance/autres_interventions/moteur/turbo/models.py:52
 #: maintenance/carrosserie_interne/models.py:57
-#: maintenance/check_up/models.py:128 maintenance/checkup_track/models.py:137
+#: maintenance/check_up/models.py:129 maintenance/checkup_track/models.py:138
 #: maintenance/entretien/models.py:69 maintenance/essuyage/models.py:45
 #: maintenance/freins/models.py:54 maintenance/jeux_pieces/models.py:82
 #: maintenance/nettoyage_exterieur/models.py:50
@@ -3956,13 +3956,13 @@ msgstr ""
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:9
 #: fuel/templates/fuel/fuel_form.html:12 fuel/templates/fuel/fuel_stat.html:9
 #: fuel/templates/fuel/modifier_fuel.html:190
-#: theme/templates/dashboard.html:229 voiture/voiture_moteur/forms.py:29
+#: theme/templates/dashboard.html:230 voiture/voiture_moteur/forms.py:29
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:60
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:64
 msgid "Carburant"
 msgstr ""
 
-#: fuel/models.py:188 theme/templates/dashboard.html:217
+#: fuel/models.py:188 theme/templates/dashboard.html:218
 msgid "Carburants"
 msgstr ""
 
@@ -4599,10 +4599,10 @@ msgstr ""
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:101
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:100
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:278
-#: maintenance/check_up/models.py:1824
+#: maintenance/check_up/models.py:1825
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:399
 #: maintenance/check_up/templates/check_up/checkup_list.html:101
-#: maintenance/checkup_track/models.py:780
+#: maintenance/checkup_track/models.py:781
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:439
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:102
 #: maintenance/entretien/models.py:825
@@ -4629,7 +4629,7 @@ msgstr ""
 #: maintenance/silent_blocs/templates/silent_blocs/silent_list.html:99
 #: piece/models.py:135 piece/piece_fluides/models.py:194
 #: recharge/templates/recharge/recharge_list.html:89
-#: theme/templates/dashboard.html:116
+#: theme/templates/dashboard.html:117
 msgid "Date"
 msgstr "Date"
 
@@ -4655,7 +4655,7 @@ msgstr ""
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:59
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:75
 #: recharge/templates/recharge/electricite_stat.html:71
-#: theme/templates/dashboard.html:291
+#: theme/templates/dashboard.html:292
 msgid "Voiture"
 msgstr ""
 
@@ -5218,14 +5218,14 @@ msgstr ""
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:82
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:99
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:283
-#: maintenance/check_up/admin.py:67 maintenance/check_up/models.py:1790
+#: maintenance/check_up/admin.py:67 maintenance/check_up/models.py:1791
 #: maintenance/check_up/templates/check_up/checkup_detail.html:47
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:400
 #: maintenance/check_up/templates/check_up/checkup_list.html:82
 #: maintenance/check_up/templates/check_up/checkup_list.html:100
 #: maintenance/check_up/templates/check_up/controle_total.html:1677
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1689
-#: maintenance/checkup_track/models.py:746
+#: maintenance/checkup_track/models.py:747
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:48
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:444
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:87
@@ -5508,7 +5508,7 @@ msgstr ""
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:82
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:76
 #: maintenance/check_up/templates/check_up/checkup_detail.html:70
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:71
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:73
 #: maintenance/entretien/templates/entretien/entretien_detail.html:68
 #: maintenance/essuyage/templates/essuyage/essuyage_detail.html:80
 #: maintenance/freins/templates/freins/freins_detail.html:175
@@ -5573,9 +5573,9 @@ msgstr ""
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:360
 #: maintenance/carrosserie_interne/models.py:701
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:293
-#: maintenance/check_up/models.py:1811
+#: maintenance/check_up/models.py:1812
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:402
-#: maintenance/checkup_track/models.py:767
+#: maintenance/checkup_track/models.py:768
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:449
 #: maintenance/entretien/models.py:812
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:437
@@ -5648,14 +5648,14 @@ msgstr "Tableau de Bord"
 #: maintenance/autres_interventions/moteur/rodage/models.py:517
 #: maintenance/autres_interventions/moteur/turbo/models.py:128
 #: maintenance/carrosserie_interne/models.py:668
-#: maintenance/check_up/models.py:1770 maintenance/checkup_track/models.py:737
+#: maintenance/check_up/models.py:1771 maintenance/checkup_track/models.py:738
 #: maintenance/entretien/models.py:833 maintenance/essuyage/models.py:712
 #: maintenance/freins/models.py:341 maintenance/jeux_pieces/models.py:1067
 #: maintenance/nettoyage_exterieur/models.py:133
 #: maintenance/nettoyage_interieur/models.py:153
 #: maintenance/niveaux/models.py:147 maintenance/pneus/models.py:243
-#: maintenance/silent_blocs/models.py:610 theme/templates/dashboard.html:619
-#: theme/templates/dashboard.html:631
+#: maintenance/silent_blocs/models.py:610 theme/templates/dashboard.html:620
+#: theme/templates/dashboard.html:632
 msgid "Main d'oeuvre"
 msgstr ""
 
@@ -5910,18 +5910,18 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/turbo/models.py:13
 #: maintenance/autres_interventions/refroidissement/models.py:22
 #: maintenance/carrosserie_interne/models.py:13
-#: maintenance/check_up/models.py:27 maintenance/check_up/models.py:33
-#: maintenance/check_up/models.py:38 maintenance/check_up/models.py:43
-#: maintenance/check_up/models.py:55 maintenance/check_up/models.py:60
-#: maintenance/check_up/models.py:67 maintenance/check_up/models.py:80
-#: maintenance/check_up/models.py:87 maintenance/checkup_track/models.py:25
-#: maintenance/checkup_track/models.py:34
-#: maintenance/checkup_track/models.py:38
-#: maintenance/checkup_track/models.py:50
-#: maintenance/checkup_track/models.py:57
-#: maintenance/checkup_track/models.py:63
-#: maintenance/checkup_track/models.py:90
-#: maintenance/checkup_track/models.py:98 maintenance/essuyage/models.py:18
+#: maintenance/check_up/models.py:27 maintenance/check_up/models.py:34
+#: maintenance/check_up/models.py:39 maintenance/check_up/models.py:44
+#: maintenance/check_up/models.py:56 maintenance/check_up/models.py:61
+#: maintenance/check_up/models.py:68 maintenance/check_up/models.py:81
+#: maintenance/check_up/models.py:88 maintenance/checkup_track/models.py:25
+#: maintenance/checkup_track/models.py:35
+#: maintenance/checkup_track/models.py:39
+#: maintenance/checkup_track/models.py:51
+#: maintenance/checkup_track/models.py:58
+#: maintenance/checkup_track/models.py:64
+#: maintenance/checkup_track/models.py:91
+#: maintenance/checkup_track/models.py:99 maintenance/essuyage/models.py:18
 #: maintenance/freins/models.py:17 maintenance/jeux_pieces/models.py:14
 #: maintenance/niveaux/models.py:18 maintenance/pneus/models.py:22
 #: maintenance/silent_blocs/models.py:14
@@ -5958,15 +5958,15 @@ msgstr ""
 #: maintenance/autres_interventions/refroidissement/models.py:24
 #: maintenance/autres_interventions/refroidissement/models.py:38
 #: maintenance/carrosserie_interne/models.py:15
-#: maintenance/check_up/models.py:29 maintenance/check_up/models.py:35
-#: maintenance/check_up/models.py:40 maintenance/check_up/models.py:63
-#: maintenance/check_up/models.py:69 maintenance/check_up/models.py:83
-#: maintenance/check_up/models.py:90 maintenance/checkup_track/models.py:27
-#: maintenance/checkup_track/models.py:40
-#: maintenance/checkup_track/models.py:59
-#: maintenance/checkup_track/models.py:65
-#: maintenance/checkup_track/models.py:93
-#: maintenance/checkup_track/models.py:101 maintenance/entretien/models.py:32
+#: maintenance/check_up/models.py:29 maintenance/check_up/models.py:36
+#: maintenance/check_up/models.py:41 maintenance/check_up/models.py:64
+#: maintenance/check_up/models.py:70 maintenance/check_up/models.py:84
+#: maintenance/check_up/models.py:91 maintenance/checkup_track/models.py:27
+#: maintenance/checkup_track/models.py:41
+#: maintenance/checkup_track/models.py:60
+#: maintenance/checkup_track/models.py:66
+#: maintenance/checkup_track/models.py:94
+#: maintenance/checkup_track/models.py:102 maintenance/entretien/models.py:32
 #: maintenance/essuyage/models.py:20 maintenance/freins/models.py:19
 #: maintenance/jeux_pieces/models.py:17 maintenance/pneus/models.py:24
 #: maintenance/silent_blocs/models.py:16
@@ -6090,63 +6090,63 @@ msgstr ""
 #: maintenance/autres_interventions/refroidissement/models.py:566
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:768
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1834
-#: maintenance/check_up/models.py:145 maintenance/check_up/models.py:156
-#: maintenance/check_up/models.py:185 maintenance/check_up/models.py:195
-#: maintenance/check_up/models.py:205 maintenance/check_up/models.py:213
-#: maintenance/check_up/models.py:219 maintenance/check_up/models.py:228
-#: maintenance/check_up/models.py:243 maintenance/check_up/models.py:259
-#: maintenance/check_up/models.py:274 maintenance/check_up/models.py:297
-#: maintenance/check_up/models.py:320 maintenance/check_up/models.py:375
-#: maintenance/check_up/models.py:398 maintenance/check_up/models.py:421
-#: maintenance/check_up/models.py:444 maintenance/check_up/models.py:467
-#: maintenance/check_up/models.py:490 maintenance/check_up/models.py:513
-#: maintenance/check_up/models.py:536 maintenance/check_up/models.py:559
-#: maintenance/check_up/models.py:582 maintenance/check_up/models.py:605
-#: maintenance/check_up/models.py:628 maintenance/check_up/models.py:651
-#: maintenance/check_up/models.py:674 maintenance/check_up/models.py:697
-#: maintenance/check_up/models.py:720 maintenance/check_up/models.py:743
-#: maintenance/check_up/models.py:766 maintenance/check_up/models.py:789
-#: maintenance/check_up/models.py:812 maintenance/check_up/models.py:835
-#: maintenance/check_up/models.py:858 maintenance/check_up/models.py:881
-#: maintenance/check_up/models.py:904 maintenance/check_up/models.py:927
-#: maintenance/check_up/models.py:950 maintenance/check_up/models.py:973
-#: maintenance/check_up/models.py:996 maintenance/check_up/models.py:1019
-#: maintenance/check_up/models.py:1042 maintenance/check_up/models.py:1065
-#: maintenance/check_up/models.py:1088 maintenance/check_up/models.py:1111
-#: maintenance/check_up/models.py:1134 maintenance/check_up/models.py:1157
-#: maintenance/check_up/models.py:1180 maintenance/check_up/models.py:1203
-#: maintenance/check_up/models.py:1226 maintenance/check_up/models.py:1249
-#: maintenance/check_up/models.py:1272 maintenance/check_up/models.py:1295
-#: maintenance/check_up/models.py:1401 maintenance/check_up/models.py:1430
-#: maintenance/check_up/models.py:1463 maintenance/check_up/models.py:1494
-#: maintenance/check_up/models.py:1525 maintenance/check_up/models.py:1556
-#: maintenance/check_up/models.py:1586 maintenance/check_up/models.py:1617
-#: maintenance/check_up/models.py:1647 maintenance/check_up/models.py:1678
+#: maintenance/check_up/models.py:146 maintenance/check_up/models.py:157
+#: maintenance/check_up/models.py:186 maintenance/check_up/models.py:196
+#: maintenance/check_up/models.py:206 maintenance/check_up/models.py:214
+#: maintenance/check_up/models.py:220 maintenance/check_up/models.py:229
+#: maintenance/check_up/models.py:244 maintenance/check_up/models.py:260
+#: maintenance/check_up/models.py:275 maintenance/check_up/models.py:298
+#: maintenance/check_up/models.py:321 maintenance/check_up/models.py:376
+#: maintenance/check_up/models.py:399 maintenance/check_up/models.py:422
+#: maintenance/check_up/models.py:445 maintenance/check_up/models.py:468
+#: maintenance/check_up/models.py:491 maintenance/check_up/models.py:514
+#: maintenance/check_up/models.py:537 maintenance/check_up/models.py:560
+#: maintenance/check_up/models.py:583 maintenance/check_up/models.py:606
+#: maintenance/check_up/models.py:629 maintenance/check_up/models.py:652
+#: maintenance/check_up/models.py:675 maintenance/check_up/models.py:698
+#: maintenance/check_up/models.py:721 maintenance/check_up/models.py:744
+#: maintenance/check_up/models.py:767 maintenance/check_up/models.py:790
+#: maintenance/check_up/models.py:813 maintenance/check_up/models.py:836
+#: maintenance/check_up/models.py:859 maintenance/check_up/models.py:882
+#: maintenance/check_up/models.py:905 maintenance/check_up/models.py:928
+#: maintenance/check_up/models.py:951 maintenance/check_up/models.py:974
+#: maintenance/check_up/models.py:997 maintenance/check_up/models.py:1020
+#: maintenance/check_up/models.py:1043 maintenance/check_up/models.py:1066
+#: maintenance/check_up/models.py:1089 maintenance/check_up/models.py:1112
+#: maintenance/check_up/models.py:1135 maintenance/check_up/models.py:1158
+#: maintenance/check_up/models.py:1181 maintenance/check_up/models.py:1204
+#: maintenance/check_up/models.py:1227 maintenance/check_up/models.py:1250
+#: maintenance/check_up/models.py:1273 maintenance/check_up/models.py:1296
+#: maintenance/check_up/models.py:1402 maintenance/check_up/models.py:1431
+#: maintenance/check_up/models.py:1464 maintenance/check_up/models.py:1495
+#: maintenance/check_up/models.py:1526 maintenance/check_up/models.py:1557
+#: maintenance/check_up/models.py:1587 maintenance/check_up/models.py:1618
+#: maintenance/check_up/models.py:1648 maintenance/check_up/models.py:1679
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:863
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1252
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2850
-#: maintenance/checkup_track/models.py:153
-#: maintenance/checkup_track/models.py:163
-#: maintenance/checkup_track/models.py:185
-#: maintenance/checkup_track/models.py:194
-#: maintenance/checkup_track/models.py:203
-#: maintenance/checkup_track/models.py:211
-#: maintenance/checkup_track/models.py:220
-#: maintenance/checkup_track/models.py:234
-#: maintenance/checkup_track/models.py:243
-#: maintenance/checkup_track/models.py:253
-#: maintenance/checkup_track/models.py:266
-#: maintenance/checkup_track/models.py:274
-#: maintenance/checkup_track/models.py:327
-#: maintenance/checkup_track/models.py:356
-#: maintenance/checkup_track/models.py:386
-#: maintenance/checkup_track/models.py:416
-#: maintenance/checkup_track/models.py:445
-#: maintenance/checkup_track/models.py:474
-#: maintenance/checkup_track/models.py:503
-#: maintenance/checkup_track/models.py:532
-#: maintenance/checkup_track/models.py:561
-#: maintenance/checkup_track/models.py:590
+#: maintenance/checkup_track/models.py:154
+#: maintenance/checkup_track/models.py:164
+#: maintenance/checkup_track/models.py:186
+#: maintenance/checkup_track/models.py:195
+#: maintenance/checkup_track/models.py:204
+#: maintenance/checkup_track/models.py:212
+#: maintenance/checkup_track/models.py:221
+#: maintenance/checkup_track/models.py:235
+#: maintenance/checkup_track/models.py:244
+#: maintenance/checkup_track/models.py:254
+#: maintenance/checkup_track/models.py:267
+#: maintenance/checkup_track/models.py:275
+#: maintenance/checkup_track/models.py:328
+#: maintenance/checkup_track/models.py:357
+#: maintenance/checkup_track/models.py:387
+#: maintenance/checkup_track/models.py:417
+#: maintenance/checkup_track/models.py:446
+#: maintenance/checkup_track/models.py:475
+#: maintenance/checkup_track/models.py:504
+#: maintenance/checkup_track/models.py:533
+#: maintenance/checkup_track/models.py:562
+#: maintenance/checkup_track/models.py:591
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:661
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:765
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:929
@@ -6290,7 +6290,7 @@ msgstr ""
 
 #: maintenance/autres_interventions/abs/models.py:125
 #: maintenance/autres_interventions/embrayage/models.py:147
-#: maintenance/check_up/models.py:292 maintenance/checkup_track/models.py:265
+#: maintenance/check_up/models.py:293 maintenance/checkup_track/models.py:266
 #: maintenance/freins/models.py:196
 msgid "État liquide de frein"
 msgstr ""
@@ -6306,7 +6306,7 @@ msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/abs/models.py:134
 #: maintenance/autres_interventions/embrayage/models.py:157
-#: maintenance/check_up/models.py:299 maintenance/checkup_track/models.py:267
+#: maintenance/check_up/models.py:300 maintenance/checkup_track/models.py:268
 #: maintenance/freins/models.py:203
 msgid "Spécification liquide de frein"
 msgstr ""
@@ -6377,12 +6377,12 @@ msgstr "Tableau de Bord"
 #: maintenance/carrosserie_interne/models.py:672
 #: maintenance/carrosserie_interne/views.py:710
 #: maintenance/carrosserie_interne/views.py:1206
-#: maintenance/check_up/models.py:1386
+#: maintenance/check_up/models.py:1387
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2377
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2381
 #: maintenance/check_up/templates/check_up/controle_total.html:1640
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1652
-#: maintenance/checkup_track/models.py:664
+#: maintenance/checkup_track/models.py:665
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1778
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1790
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1634
@@ -6435,7 +6435,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/rodage/models.py:456
 #: maintenance/autres_interventions/moteur/turbo/models.py:110
 #: maintenance/carrosserie_interne/models.py:650
-#: maintenance/check_up/models.py:1752 maintenance/checkup_track/models.py:717
+#: maintenance/check_up/models.py:1753 maintenance/checkup_track/models.py:718
 #: maintenance/entretien/models.py:773 maintenance/essuyage/models.py:694
 #: maintenance/freins/models.py:323 maintenance/jeux_pieces/models.py:1045
 #: maintenance/models.py:48 maintenance/nettoyage_exterieur/models.py:109
@@ -6465,7 +6465,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/rodage/models.py:457
 #: maintenance/autres_interventions/moteur/turbo/models.py:111
 #: maintenance/carrosserie_interne/models.py:651
-#: maintenance/check_up/models.py:1753 maintenance/checkup_track/models.py:718
+#: maintenance/check_up/models.py:1754 maintenance/checkup_track/models.py:719
 #: maintenance/entretien/models.py:774 maintenance/essuyage/models.py:695
 #: maintenance/freins/models.py:324 maintenance/jeux_pieces/models.py:1046
 #: maintenance/models.py:49 maintenance/nettoyage_exterieur/models.py:110
@@ -6495,7 +6495,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/rodage/models.py:458
 #: maintenance/autres_interventions/moteur/turbo/models.py:112
 #: maintenance/carrosserie_interne/models.py:652
-#: maintenance/check_up/models.py:1754 maintenance/checkup_track/models.py:719
+#: maintenance/check_up/models.py:1755 maintenance/checkup_track/models.py:720
 #: maintenance/entretien/models.py:775 maintenance/essuyage/models.py:696
 #: maintenance/freins/models.py:325 maintenance/jeux_pieces/models.py:1047
 #: maintenance/models.py:50 maintenance/nettoyage_exterieur/models.py:111
@@ -6524,7 +6524,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/rodage/models.py:465
 #: maintenance/autres_interventions/moteur/turbo/models.py:119
 #: maintenance/carrosserie_interne/models.py:659
-#: maintenance/check_up/models.py:1761 maintenance/checkup_track/models.py:726
+#: maintenance/check_up/models.py:1762 maintenance/checkup_track/models.py:727
 #: maintenance/entretien/models.py:782 maintenance/essuyage/models.py:703
 #: maintenance/freins/models.py:332 maintenance/jeux_pieces/models.py:1054
 #: maintenance/nettoyage_exterieur/models.py:118
@@ -6554,7 +6554,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/turbo/models.py:142
 #: maintenance/autres_interventions/refroidissement/models.py:614
 #: maintenance/carrosserie_interne/models.py:685
-#: maintenance/check_up/models.py:1795 maintenance/checkup_track/models.py:751
+#: maintenance/check_up/models.py:1796 maintenance/checkup_track/models.py:752
 #: maintenance/entretien/models.py:796 maintenance/essuyage/models.py:729
 #: maintenance/freins/models.py:355 maintenance/jeux_pieces/models.py:1083
 #: maintenance/nettoyage_exterieur/models.py:147
@@ -6583,7 +6583,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/turbo/models.py:148
 #: maintenance/autres_interventions/refroidissement/models.py:620
 #: maintenance/carrosserie_interne/models.py:691
-#: maintenance/check_up/models.py:1801 maintenance/checkup_track/models.py:757
+#: maintenance/check_up/models.py:1802 maintenance/checkup_track/models.py:758
 #: maintenance/entretien/models.py:802 maintenance/essuyage/models.py:735
 #: maintenance/freins/models.py:361 maintenance/jeux_pieces/models.py:1089
 #: maintenance/nettoyage_exterieur/models.py:153
@@ -6653,12 +6653,12 @@ msgstr ""
 #: maintenance/carrosserie_interne/models.py:710
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:338
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:344
-#: maintenance/check_up/models.py:1820
+#: maintenance/check_up/models.py:1821
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2804
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2810
 #: maintenance/check_up/templates/check_up/controle_total.html:1714
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1725
-#: maintenance/checkup_track/models.py:776
+#: maintenance/checkup_track/models.py:777
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2376
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2382
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1707
@@ -7578,7 +7578,7 @@ msgstr ""
 #: maintenance/autres_interventions/embrayage/views.py:738
 #: maintenance/check_up/templates/check_up/controle_total.html:706
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:714
-#: maintenance/checkup_track/models.py:946
+#: maintenance/checkup_track/models.py:947
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1237
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:677
 #: maintenance/freins/models.py:567
@@ -7665,13 +7665,13 @@ msgstr ""
 #: maintenance/autres_interventions/refroidissement/models.py:23
 #: maintenance/autres_interventions/refroidissement/models.py:37
 #: maintenance/carrosserie_interne/models.py:14
-#: maintenance/check_up/models.py:28 maintenance/check_up/models.py:34
-#: maintenance/check_up/models.py:39 maintenance/check_up/models.py:61
-#: maintenance/check_up/models.py:68 maintenance/checkup_track/models.py:26
-#: maintenance/checkup_track/models.py:35
-#: maintenance/checkup_track/models.py:39
-#: maintenance/checkup_track/models.py:58
-#: maintenance/checkup_track/models.py:64 maintenance/freins/models.py:18
+#: maintenance/check_up/models.py:28 maintenance/check_up/models.py:35
+#: maintenance/check_up/models.py:40 maintenance/check_up/models.py:62
+#: maintenance/check_up/models.py:69 maintenance/checkup_track/models.py:26
+#: maintenance/checkup_track/models.py:36
+#: maintenance/checkup_track/models.py:40
+#: maintenance/checkup_track/models.py:59
+#: maintenance/checkup_track/models.py:65 maintenance/freins/models.py:18
 #: maintenance/jeux_pieces/models.py:16 maintenance/pneus/models.py:23
 #: maintenance/silent_blocs/models.py:15
 msgid "À remplacer"
@@ -7691,8 +7691,8 @@ msgstr ""
 #: maintenance/entretien/models.py:52 maintenance/freins/models.py:37
 #: maintenance/jeux_pieces/models.py:64 maintenance/models.py:156
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_detail.html:51
-#: maintenance/pneus/models.py:75 theme/templates/dashboard.html:61
-#: theme/templates/dashboard.html:73 theme/templates/dashboard.html:207
+#: maintenance/pneus/models.py:75 theme/templates/dashboard.html:62
+#: theme/templates/dashboard.html:74 theme/templates/dashboard.html:208
 msgid "Maintenance"
 msgstr ""
 
@@ -7890,67 +7890,67 @@ msgstr ""
 #: maintenance/carrosserie_interne/models.py:548
 #: maintenance/carrosserie_interne/models.py:558
 #: maintenance/carrosserie_interne/models.py:567
-#: maintenance/check_up/models.py:151 maintenance/check_up/models.py:163
-#: maintenance/check_up/models.py:177 maintenance/check_up/models.py:188
-#: maintenance/check_up/models.py:198 maintenance/check_up/models.py:208
-#: maintenance/check_up/models.py:215 maintenance/check_up/models.py:222
-#: maintenance/check_up/models.py:233 maintenance/check_up/models.py:253
-#: maintenance/check_up/models.py:264 maintenance/check_up/models.py:284
-#: maintenance/check_up/models.py:314 maintenance/check_up/models.py:323
-#: maintenance/check_up/models.py:357 maintenance/check_up/models.py:385
-#: maintenance/check_up/models.py:408 maintenance/check_up/models.py:431
-#: maintenance/check_up/models.py:454 maintenance/check_up/models.py:477
-#: maintenance/check_up/models.py:500 maintenance/check_up/models.py:523
-#: maintenance/check_up/models.py:546 maintenance/check_up/models.py:569
-#: maintenance/check_up/models.py:592 maintenance/check_up/models.py:615
-#: maintenance/check_up/models.py:638 maintenance/check_up/models.py:661
-#: maintenance/check_up/models.py:684 maintenance/check_up/models.py:707
-#: maintenance/check_up/models.py:730 maintenance/check_up/models.py:753
-#: maintenance/check_up/models.py:776 maintenance/check_up/models.py:799
-#: maintenance/check_up/models.py:822 maintenance/check_up/models.py:845
-#: maintenance/check_up/models.py:868 maintenance/check_up/models.py:891
-#: maintenance/check_up/models.py:914 maintenance/check_up/models.py:937
-#: maintenance/check_up/models.py:960 maintenance/check_up/models.py:983
-#: maintenance/check_up/models.py:1006 maintenance/check_up/models.py:1029
-#: maintenance/check_up/models.py:1052 maintenance/check_up/models.py:1075
-#: maintenance/check_up/models.py:1098 maintenance/check_up/models.py:1121
-#: maintenance/check_up/models.py:1144 maintenance/check_up/models.py:1167
-#: maintenance/check_up/models.py:1190 maintenance/check_up/models.py:1213
-#: maintenance/check_up/models.py:1236 maintenance/check_up/models.py:1259
-#: maintenance/check_up/models.py:1282 maintenance/check_up/models.py:1305
-#: maintenance/check_up/models.py:1365 maintenance/check_up/models.py:1380
-#: maintenance/check_up/models.py:1417 maintenance/check_up/models.py:1447
-#: maintenance/check_up/models.py:1480 maintenance/check_up/models.py:1510
-#: maintenance/check_up/models.py:1541 maintenance/check_up/models.py:1572
-#: maintenance/check_up/models.py:1602 maintenance/check_up/models.py:1633
-#: maintenance/check_up/models.py:1663 maintenance/check_up/models.py:1695
-#: maintenance/check_up/models.py:1715 maintenance/check_up/models.py:1739
+#: maintenance/check_up/models.py:152 maintenance/check_up/models.py:164
+#: maintenance/check_up/models.py:178 maintenance/check_up/models.py:189
+#: maintenance/check_up/models.py:199 maintenance/check_up/models.py:209
+#: maintenance/check_up/models.py:216 maintenance/check_up/models.py:223
+#: maintenance/check_up/models.py:234 maintenance/check_up/models.py:254
+#: maintenance/check_up/models.py:265 maintenance/check_up/models.py:285
+#: maintenance/check_up/models.py:315 maintenance/check_up/models.py:324
+#: maintenance/check_up/models.py:358 maintenance/check_up/models.py:386
+#: maintenance/check_up/models.py:409 maintenance/check_up/models.py:432
+#: maintenance/check_up/models.py:455 maintenance/check_up/models.py:478
+#: maintenance/check_up/models.py:501 maintenance/check_up/models.py:524
+#: maintenance/check_up/models.py:547 maintenance/check_up/models.py:570
+#: maintenance/check_up/models.py:593 maintenance/check_up/models.py:616
+#: maintenance/check_up/models.py:639 maintenance/check_up/models.py:662
+#: maintenance/check_up/models.py:685 maintenance/check_up/models.py:708
+#: maintenance/check_up/models.py:731 maintenance/check_up/models.py:754
+#: maintenance/check_up/models.py:777 maintenance/check_up/models.py:800
+#: maintenance/check_up/models.py:823 maintenance/check_up/models.py:846
+#: maintenance/check_up/models.py:869 maintenance/check_up/models.py:892
+#: maintenance/check_up/models.py:915 maintenance/check_up/models.py:938
+#: maintenance/check_up/models.py:961 maintenance/check_up/models.py:984
+#: maintenance/check_up/models.py:1007 maintenance/check_up/models.py:1030
+#: maintenance/check_up/models.py:1053 maintenance/check_up/models.py:1076
+#: maintenance/check_up/models.py:1099 maintenance/check_up/models.py:1122
+#: maintenance/check_up/models.py:1145 maintenance/check_up/models.py:1168
+#: maintenance/check_up/models.py:1191 maintenance/check_up/models.py:1214
+#: maintenance/check_up/models.py:1237 maintenance/check_up/models.py:1260
+#: maintenance/check_up/models.py:1283 maintenance/check_up/models.py:1306
+#: maintenance/check_up/models.py:1366 maintenance/check_up/models.py:1381
+#: maintenance/check_up/models.py:1418 maintenance/check_up/models.py:1448
+#: maintenance/check_up/models.py:1481 maintenance/check_up/models.py:1511
+#: maintenance/check_up/models.py:1542 maintenance/check_up/models.py:1573
+#: maintenance/check_up/models.py:1603 maintenance/check_up/models.py:1634
+#: maintenance/check_up/models.py:1664 maintenance/check_up/models.py:1696
+#: maintenance/check_up/models.py:1716 maintenance/check_up/models.py:1740
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:806
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:870
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1190
-#: maintenance/checkup_track/models.py:188
-#: maintenance/checkup_track/models.py:197
-#: maintenance/checkup_track/models.py:206
-#: maintenance/checkup_track/models.py:214
-#: maintenance/checkup_track/models.py:237
-#: maintenance/checkup_track/models.py:246
-#: maintenance/checkup_track/models.py:257
-#: maintenance/checkup_track/models.py:269
-#: maintenance/checkup_track/models.py:277
-#: maintenance/checkup_track/models.py:343
-#: maintenance/checkup_track/models.py:373
-#: maintenance/checkup_track/models.py:403
-#: maintenance/checkup_track/models.py:432
-#: maintenance/checkup_track/models.py:461
-#: maintenance/checkup_track/models.py:490
-#: maintenance/checkup_track/models.py:519
-#: maintenance/checkup_track/models.py:548
-#: maintenance/checkup_track/models.py:577
-#: maintenance/checkup_track/models.py:607
-#: maintenance/checkup_track/models.py:650
-#: maintenance/checkup_track/models.py:659
-#: maintenance/checkup_track/models.py:682
-#: maintenance/checkup_track/models.py:706 maintenance/entretien/models.py:113
+#: maintenance/checkup_track/models.py:189
+#: maintenance/checkup_track/models.py:198
+#: maintenance/checkup_track/models.py:207
+#: maintenance/checkup_track/models.py:215
+#: maintenance/checkup_track/models.py:238
+#: maintenance/checkup_track/models.py:247
+#: maintenance/checkup_track/models.py:258
+#: maintenance/checkup_track/models.py:270
+#: maintenance/checkup_track/models.py:278
+#: maintenance/checkup_track/models.py:344
+#: maintenance/checkup_track/models.py:374
+#: maintenance/checkup_track/models.py:404
+#: maintenance/checkup_track/models.py:433
+#: maintenance/checkup_track/models.py:462
+#: maintenance/checkup_track/models.py:491
+#: maintenance/checkup_track/models.py:520
+#: maintenance/checkup_track/models.py:549
+#: maintenance/checkup_track/models.py:578
+#: maintenance/checkup_track/models.py:608
+#: maintenance/checkup_track/models.py:651
+#: maintenance/checkup_track/models.py:660
+#: maintenance/checkup_track/models.py:683
+#: maintenance/checkup_track/models.py:707 maintenance/entretien/models.py:113
 #: maintenance/entretien/models.py:136 maintenance/entretien/models.py:142
 #: maintenance/entretien/models.py:165 maintenance/entretien/models.py:189
 #: maintenance/entretien/models.py:213 maintenance/entretien/models.py:236
@@ -8269,14 +8269,14 @@ msgstr ""
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:484
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:136
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:470
-#: maintenance/check_up/models.py:184 maintenance/check_up/models.py:194
-#: maintenance/check_up/models.py:204
+#: maintenance/check_up/models.py:185 maintenance/check_up/models.py:195
+#: maintenance/check_up/models.py:205
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:594
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:664
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:734
-#: maintenance/checkup_track/models.py:184
-#: maintenance/checkup_track/models.py:193
-#: maintenance/checkup_track/models.py:202
+#: maintenance/checkup_track/models.py:185
+#: maintenance/checkup_track/models.py:194
+#: maintenance/checkup_track/models.py:203
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:635
 msgid "Niveau d'huile"
 msgstr ""
@@ -8285,8 +8285,8 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:155
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:510
 #: maintenance/autres_interventions/moteur/rodage/models.py:132
-#: maintenance/check_up/models.py:186 maintenance/check_up/models.py:196
-#: maintenance/check_up/models.py:206
+#: maintenance/check_up/models.py:187 maintenance/check_up/models.py:197
+#: maintenance/check_up/models.py:207
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:676
 #: maintenance/entretien/models.py:140 maintenance/entretien/models.py:345
 #: maintenance/niveaux/models.py:69 maintenance/niveaux/models.py:76
@@ -8305,7 +8305,7 @@ msgstr ""
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:202
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:227
-#: maintenance/check_up/models.py:1781
+#: maintenance/check_up/models.py:1782
 msgid "Dernière maintenance effectuée par"
 msgstr ""
 
@@ -8797,7 +8797,7 @@ msgstr ""
 #: maintenance/autres_interventions/embrayage/models.py:261
 #: maintenance/autres_interventions/embrayage/views.py:1003
 #: maintenance/models.py:41 piece/piece_embrayage/models.py:72
-#: theme/templates/dashboard.html:357
+#: theme/templates/dashboard.html:358
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:59
 msgid "Embrayage"
 msgstr ""
@@ -8932,7 +8932,7 @@ msgstr "Tableau de Bord"
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:434
 #: maintenance/entretien/templates/entretien/entretien_check.html:358
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:365
-#: theme/templates/dashboard.html:335
+#: theme/templates/dashboard.html:336
 #: voiture/voiture_boite/templates/voiture_boite/modifier_boite.html:57
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:83
 msgid "Boite de vitesse"
@@ -8999,8 +8999,9 @@ msgstr "Tableau de Bord"
 #: maintenance/autres_interventions/echappement/models.py:21
 #: maintenance/autres_interventions/moteur/admission/models.py:18
 #: maintenance/autres_interventions/moteur/allumage/models.py:18
-#: maintenance/check_up/models.py:79 maintenance/checkup_track/models.py:97
-#: maintenance/jeux_pieces/models.py:18
+#: maintenance/check_up/models.py:30 maintenance/check_up/models.py:80
+#: maintenance/checkup_track/models.py:28
+#: maintenance/checkup_track/models.py:98 maintenance/jeux_pieces/models.py:18
 msgid "Non présent"
 msgstr ""
 
@@ -9391,7 +9392,7 @@ msgstr ""
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:17
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Contrôle Boite automatique pour :"
+msgid "Contrôle boite automatique pour :"
 msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:22
@@ -9432,8 +9433,8 @@ msgstr ""
 #: maintenance/autres_interventions/climatisation/models.py:27
 #: maintenance/autres_interventions/moteur/rodage/models.py:27
 #: maintenance/autres_interventions/refroidissement/models.py:30
-#: maintenance/check_up/models.py:44 maintenance/check_up/models.py:49
-#: maintenance/checkup_track/models.py:44 maintenance/choices.py:8
+#: maintenance/check_up/models.py:45 maintenance/check_up/models.py:50
+#: maintenance/checkup_track/models.py:45 maintenance/choices.py:8
 #: maintenance/entretien/models.py:25
 #: maintenance/nettoyage_exterieur/models.py:14
 #: maintenance/nettoyage_interieur/models.py:19
@@ -10114,7 +10115,7 @@ msgid ""
 msgstr ""
 
 #: maintenance/autres_interventions/courroie_accessoires/models.py:204
-#: maintenance/check_up/models.py:1861 maintenance/checkup_track/models.py:822
+#: maintenance/check_up/models.py:1862 maintenance/checkup_track/models.py:823
 msgid ""
 "Vous devez indiquer si le serrage des roues a été effectué avant "
 "d'enregistrer ce contrôle."
@@ -10292,10 +10293,10 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/admission/models.py:163
 #: maintenance/autres_interventions/moteur/alternateur/models.py:108
 #: maintenance/autres_interventions/moteur/alternateur/models.py:114
-#: maintenance/checkup_track/models.py:159
-#: maintenance/checkup_track/models.py:169
-#: maintenance/checkup_track/models.py:179
-#: maintenance/checkup_track/models.py:223
+#: maintenance/checkup_track/models.py:160
+#: maintenance/checkup_track/models.py:170
+#: maintenance/checkup_track/models.py:180
+#: maintenance/checkup_track/models.py:224
 msgid "Prix d'achat htva"
 msgstr ""
 
@@ -10704,7 +10705,7 @@ msgid "Joint spi vilebrequin"
 msgstr ""
 
 #: maintenance/autres_interventions/embrayage/models.py:262
-#: piece/piece_embrayage/models.py:73 theme/templates/dashboard.html:345
+#: piece/piece_embrayage/models.py:73 theme/templates/dashboard.html:346
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:102
 msgid "Embrayages"
 msgstr ""
@@ -11139,8 +11140,8 @@ msgstr ""
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:951
 #: maintenance/freins/views.py:417 maintenance/models.py:17
 #: maintenance/templates/maintenance/choisir_type.html:75
-#: maintenance/types_maintenances.py:7 theme/templates/dashboard.html:367
-#: theme/templates/dashboard.html:372
+#: maintenance/types_maintenances.py:7 theme/templates/dashboard.html:368
+#: theme/templates/dashboard.html:373
 msgid "Freins"
 msgstr ""
 
@@ -11149,7 +11150,7 @@ msgstr ""
 #: maintenance/pneus/views.py:630
 #: maintenance/templates/maintenance/choisir_type.html:85
 #: maintenance/types_maintenances.py:8 piece/piece_pneus/models.py:55
-#: theme/templates/dashboard.html:382 theme/templates/dashboard.html:394
+#: theme/templates/dashboard.html:383 theme/templates/dashboard.html:395
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:188
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/lier_pneus.html:36
 msgid "Pneus"
@@ -11241,7 +11242,7 @@ msgid "Type de maintenance"
 msgstr ""
 
 #: maintenance/autres_interventions/models.py:152 maintenance/models.py:157
-#: theme/templates/dashboard.html:195
+#: theme/templates/dashboard.html:196
 msgid "Maintenances"
 msgstr ""
 
@@ -11869,7 +11870,7 @@ msgstr ""
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:818
 #: maintenance/check_up/templates/check_up/controle_total.html:427
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:433
-#: maintenance/checkup_track/models.py:912
+#: maintenance/checkup_track/models.py:913
 #: maintenance/entretien/templates/entretien/entretien_check.html:502
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:815
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:507
@@ -11895,15 +11896,15 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/rodage/models.py:158
 #: maintenance/autres_interventions/moteur/rodage/models.py:166
 #: maintenance/autres_interventions/refroidissement/models.py:235
-#: maintenance/check_up/models.py:187 maintenance/check_up/models.py:197
-#: maintenance/check_up/models.py:207 maintenance/check_up/models.py:220
-#: maintenance/check_up/models.py:306 maintenance/check_up/models.py:321
-#: maintenance/checkup_track/models.py:186
-#: maintenance/checkup_track/models.py:195
-#: maintenance/checkup_track/models.py:204
-#: maintenance/checkup_track/models.py:212
-#: maintenance/checkup_track/models.py:268
-#: maintenance/checkup_track/models.py:276 maintenance/entretien/models.py:141
+#: maintenance/check_up/models.py:188 maintenance/check_up/models.py:198
+#: maintenance/check_up/models.py:208 maintenance/check_up/models.py:221
+#: maintenance/check_up/models.py:307 maintenance/check_up/models.py:322
+#: maintenance/checkup_track/models.py:187
+#: maintenance/checkup_track/models.py:196
+#: maintenance/checkup_track/models.py:205
+#: maintenance/checkup_track/models.py:213
+#: maintenance/checkup_track/models.py:269
+#: maintenance/checkup_track/models.py:277 maintenance/entretien/models.py:141
 #: maintenance/entretien/models.py:346 maintenance/entretien/models.py:367
 #: maintenance/entretien/models.py:378 maintenance/entretien/models.py:390
 #: maintenance/entretien/models.py:403 maintenance/entretien/models.py:415
@@ -11959,11 +11960,11 @@ msgstr "Tableau de Bord"
 #: maintenance/autres_interventions/moteur/rodage/models.py:157
 #: maintenance/autres_interventions/moteur/rodage/models.py:165
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:546
-#: maintenance/check_up/models.py:322 maintenance/checkup_track/models.py:187
-#: maintenance/checkup_track/models.py:196
-#: maintenance/checkup_track/models.py:205
-#: maintenance/checkup_track/models.py:213
-#: maintenance/checkup_track/models.py:275 maintenance/entretien/models.py:379
+#: maintenance/check_up/models.py:323 maintenance/checkup_track/models.py:188
+#: maintenance/checkup_track/models.py:197
+#: maintenance/checkup_track/models.py:206
+#: maintenance/checkup_track/models.py:214
+#: maintenance/checkup_track/models.py:276 maintenance/entretien/models.py:379
 #: maintenance/entretien/models.py:391 maintenance/entretien/models.py:404
 #: maintenance/entretien/models.py:416
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:780
@@ -12585,7 +12586,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:177
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:543
 #: maintenance/autres_interventions/moteur/rodage/models.py:155
-#: maintenance/checkup_track/models.py:210
+#: maintenance/checkup_track/models.py:211
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:903
 #: maintenance/entretien/models.py:401 maintenance/niveaux/models.py:88
 msgid "Niveau de liquide de refroidissement"
@@ -12720,7 +12721,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:457
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:218
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:366
-#: maintenance/checkup_track/models.py:890 maintenance/niveaux/models.py:418
+#: maintenance/checkup_track/models.py:891 maintenance/niveaux/models.py:418
 #: maintenance/niveaux/templates/niveaux/modifier_niveaux.html:260
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:344
 #: maintenance/niveaux/templates/niveaux/niveau_form.html:255
@@ -12792,15 +12793,15 @@ msgid ""
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:26
-#: maintenance/check_up/models.py:45 maintenance/check_up/models.py:48
-#: maintenance/checkup_track/models.py:43 maintenance/entretien/models.py:24
+#: maintenance/check_up/models.py:46 maintenance/check_up/models.py:49
+#: maintenance/checkup_track/models.py:44 maintenance/entretien/models.py:24
 #: maintenance/nettoyage_exterieur/models.py:13
 #: maintenance/nettoyage_interieur/models.py:18
 msgid "A faire"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:28
-#: maintenance/check_up/models.py:50 maintenance/checkup_track/models.py:45
+#: maintenance/check_up/models.py:51 maintenance/checkup_track/models.py:46
 #: maintenance/entretien/models.py:26
 #: maintenance/nettoyage_exterieur/models.py:15
 #: maintenance/nettoyage_interieur/models.py:20
@@ -12815,9 +12816,9 @@ msgid "Bon"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:33
-#: maintenance/check_up/models.py:56 maintenance/check_up/models.py:62
-#: maintenance/checkup_track/models.py:51
-#: maintenance/checkup_track/models.py:91 maintenance/entretien/models.py:31
+#: maintenance/check_up/models.py:57 maintenance/check_up/models.py:63
+#: maintenance/checkup_track/models.py:52
+#: maintenance/checkup_track/models.py:92 maintenance/entretien/models.py:31
 #: maintenance/nettoyage_exterieur/models.py:20
 #: maintenance/niveaux/models.py:19 piece/piece_fluides/models.py:50
 msgid "Ajouter"
@@ -12829,25 +12830,25 @@ msgid "Remplacer"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:37
-#: maintenance/check_up/models.py:73 maintenance/checkup_track/models.py:84
+#: maintenance/check_up/models.py:74 maintenance/checkup_track/models.py:85
 #: maintenance/choices.py:1924 piece/piece_fluides/models.py:54
 msgid "DOT 3"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:38
-#: maintenance/check_up/models.py:74 maintenance/checkup_track/models.py:85
+#: maintenance/check_up/models.py:75 maintenance/checkup_track/models.py:86
 #: maintenance/choices.py:1925 piece/piece_fluides/models.py:55
 msgid "DOT 4"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:39
-#: maintenance/check_up/models.py:75 maintenance/checkup_track/models.py:86
+#: maintenance/check_up/models.py:76 maintenance/checkup_track/models.py:87
 #: maintenance/choices.py:1926 piece/piece_fluides/models.py:56
 msgid "DOT 5"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:40
-#: maintenance/check_up/models.py:76 maintenance/checkup_track/models.py:87
+#: maintenance/check_up/models.py:77 maintenance/checkup_track/models.py:88
 #: maintenance/choices.py:1927 piece/piece_fluides/models.py:57
 msgid "DOT 5.1"
 msgstr ""
@@ -12898,7 +12899,7 @@ msgid "Niveau de liquide de freins"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:163
-#: maintenance/check_up/models.py:319 maintenance/entretien/models.py:413
+#: maintenance/check_up/models.py:320 maintenance/entretien/models.py:413
 #: maintenance/niveaux/models.py:109
 msgid "Niveau de liquide de direction"
 msgstr ""
@@ -12910,9 +12911,9 @@ msgid "Réglage phares"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:179
-#: maintenance/check_up/models.py:1395
+#: maintenance/check_up/models.py:1396
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2227
-#: maintenance/checkup_track/models.py:321
+#: maintenance/checkup_track/models.py:322
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1986
 #: maintenance/entretien/models.py:432
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:855
@@ -12929,21 +12930,21 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/rodage/models.py:346
 #: maintenance/autres_interventions/moteur/rodage/models.py:369
 #: maintenance/autres_interventions/moteur/rodage/models.py:392
-#: maintenance/check_up/models.py:1407 maintenance/check_up/models.py:1436
-#: maintenance/check_up/models.py:1469 maintenance/check_up/models.py:1500
-#: maintenance/check_up/models.py:1531 maintenance/check_up/models.py:1562
-#: maintenance/check_up/models.py:1592 maintenance/check_up/models.py:1623
-#: maintenance/check_up/models.py:1653 maintenance/check_up/models.py:1684
-#: maintenance/checkup_track/models.py:333
-#: maintenance/checkup_track/models.py:362
-#: maintenance/checkup_track/models.py:392
-#: maintenance/checkup_track/models.py:422
-#: maintenance/checkup_track/models.py:451
-#: maintenance/checkup_track/models.py:480
-#: maintenance/checkup_track/models.py:509
-#: maintenance/checkup_track/models.py:538
-#: maintenance/checkup_track/models.py:567
-#: maintenance/checkup_track/models.py:596 maintenance/entretien/models.py:444
+#: maintenance/check_up/models.py:1408 maintenance/check_up/models.py:1437
+#: maintenance/check_up/models.py:1470 maintenance/check_up/models.py:1501
+#: maintenance/check_up/models.py:1532 maintenance/check_up/models.py:1563
+#: maintenance/check_up/models.py:1593 maintenance/check_up/models.py:1624
+#: maintenance/check_up/models.py:1654 maintenance/check_up/models.py:1685
+#: maintenance/checkup_track/models.py:334
+#: maintenance/checkup_track/models.py:363
+#: maintenance/checkup_track/models.py:393
+#: maintenance/checkup_track/models.py:423
+#: maintenance/checkup_track/models.py:452
+#: maintenance/checkup_track/models.py:481
+#: maintenance/checkup_track/models.py:510
+#: maintenance/checkup_track/models.py:539
+#: maintenance/checkup_track/models.py:568
+#: maintenance/checkup_track/models.py:597 maintenance/entretien/models.py:444
 #: maintenance/entretien/models.py:473 maintenance/entretien/models.py:503
 #: maintenance/entretien/models.py:533 maintenance/entretien/models.py:562
 #: maintenance/entretien/models.py:591 maintenance/entretien/models.py:620
@@ -12953,18 +12954,18 @@ msgid "Type d'ampoule"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:202
-#: maintenance/check_up/models.py:1424
+#: maintenance/check_up/models.py:1425
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2242
-#: maintenance/checkup_track/models.py:350
+#: maintenance/checkup_track/models.py:351
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2001
 #: maintenance/entretien/models.py:461
 msgid "Grands phares"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:225
-#: maintenance/check_up/models.py:1457
+#: maintenance/check_up/models.py:1458
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2257
-#: maintenance/checkup_track/models.py:380
+#: maintenance/checkup_track/models.py:381
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2016
 #: maintenance/entretien/models.py:491
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:881
@@ -12972,9 +12973,9 @@ msgid "Clignotants"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:248
-#: maintenance/check_up/models.py:1488
+#: maintenance/check_up/models.py:1489
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2272
-#: maintenance/checkup_track/models.py:410
+#: maintenance/checkup_track/models.py:411
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2031
 #: maintenance/entretien/models.py:521
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:894
@@ -12982,9 +12983,9 @@ msgid "Feux de recul"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:271
-#: maintenance/check_up/models.py:1519
+#: maintenance/check_up/models.py:1520
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2287
-#: maintenance/checkup_track/models.py:439
+#: maintenance/checkup_track/models.py:440
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2046
 #: maintenance/entretien/models.py:550
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:907
@@ -12992,9 +12993,9 @@ msgid "Phares anti-brouillard avant"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:294
-#: maintenance/check_up/models.py:1550
+#: maintenance/check_up/models.py:1551
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2302
-#: maintenance/checkup_track/models.py:468
+#: maintenance/checkup_track/models.py:469
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2061
 #: maintenance/entretien/models.py:579
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:920
@@ -13002,9 +13003,9 @@ msgid "Phares anti-brouillard arrière"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:317
-#: maintenance/check_up/models.py:1580
+#: maintenance/check_up/models.py:1581
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2317
-#: maintenance/checkup_track/models.py:497
+#: maintenance/checkup_track/models.py:498
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2076
 #: maintenance/entretien/models.py:608
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:933
@@ -13013,18 +13014,18 @@ msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:340
 #: maintenance/carrosserie_interne/models.py:510
-#: maintenance/check_up/models.py:1611
+#: maintenance/check_up/models.py:1612
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2332
-#: maintenance/checkup_track/models.py:526
+#: maintenance/checkup_track/models.py:527
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2091
 #: maintenance/entretien/models.py:637 piece/piece_feux/models.py:13
 msgid "Troisième feu stop"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:363
-#: maintenance/check_up/models.py:1641
+#: maintenance/check_up/models.py:1642
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2347
-#: maintenance/checkup_track/models.py:555
+#: maintenance/checkup_track/models.py:556
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2106
 #: maintenance/entretien/models.py:666
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:958
@@ -13032,9 +13033,9 @@ msgid "Feux de position avant"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:386
-#: maintenance/check_up/models.py:1672
+#: maintenance/check_up/models.py:1673
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2362
-#: maintenance/checkup_track/models.py:584
+#: maintenance/checkup_track/models.py:585
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2121
 #: maintenance/entretien/models.py:695
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:971
@@ -13042,25 +13043,25 @@ msgid "Feux de position arrière"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:411
-#: maintenance/check_up/models.py:1332 maintenance/checkup_track/models.py:623
+#: maintenance/check_up/models.py:1333 maintenance/checkup_track/models.py:624
 #: maintenance/entretien/models.py:728 maintenance/pneus/models.py:134
 msgid "Pression du pneu avant droit en bar"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:419
-#: maintenance/check_up/models.py:1338 maintenance/checkup_track/models.py:629
+#: maintenance/check_up/models.py:1339 maintenance/checkup_track/models.py:630
 #: maintenance/entretien/models.py:736 maintenance/pneus/models.py:142
 msgid "Pression du pneu avant gauche en bar"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:427
-#: maintenance/check_up/models.py:1344 maintenance/checkup_track/models.py:635
+#: maintenance/check_up/models.py:1345 maintenance/checkup_track/models.py:636
 #: maintenance/entretien/models.py:744 maintenance/pneus/models.py:150
 msgid "Pression du pneu arrière droit en bar"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:435
-#: maintenance/check_up/models.py:1350 maintenance/checkup_track/models.py:641
+#: maintenance/check_up/models.py:1351 maintenance/checkup_track/models.py:642
 #: maintenance/entretien/models.py:752 maintenance/pneus/models.py:158
 msgid "Pression du pneu arrière gauche en bar"
 msgstr ""
@@ -13137,7 +13138,7 @@ msgstr ""
 #: maintenance/entretien/templates/entretien/entretien_check.html:253
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:456
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:260
-#: theme/templates/dashboard.html:313
+#: theme/templates/dashboard.html:314
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:64
 #: voiture/voiture_moteur/templates/voiture_moteur/modifier_moteur.html:58
 msgid "Moteur"
@@ -13976,11 +13977,11 @@ msgstr ""
 #: maintenance/autres_interventions/refroidissement/models.py:1005
 #: maintenance/autres_interventions/refroidissement/views.py:458
 #: maintenance/autres_interventions/refroidissement/views.py:728
-#: maintenance/check_up/models.py:212
+#: maintenance/check_up/models.py:213
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:766
 #: maintenance/check_up/templates/check_up/controle_total.html:391
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:397
-#: maintenance/checkup_track/models.py:209
+#: maintenance/checkup_track/models.py:210
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:877
 msgid "Radiateur"
 msgstr ""
@@ -14595,12 +14596,12 @@ msgid "Support de radiateur"
 msgstr ""
 
 #: maintenance/carrosserie_interne/models.py:371
-#: maintenance/check_up/models.py:1723
+#: maintenance/check_up/models.py:1724
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2579
 #: maintenance/check_up/templates/check_up/controle_total.html:302
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:310
-#: maintenance/checkup_track/models.py:690
-#: maintenance/checkup_track/models.py:984
+#: maintenance/checkup_track/models.py:691
+#: maintenance/checkup_track/models.py:985
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2149
 #: maintenance/nettoyage_interieur/models.py:79
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:342
@@ -14839,8 +14840,8 @@ msgstr ""
 msgid "Moteur & Transmission"
 msgstr ""
 
-#: maintenance/check_up/admin.py:138 theme/templates/dashboard.html:588
-#: theme/templates/dashboard.html:592 utilisateurs/models.py:93
+#: maintenance/check_up/admin.py:138 theme/templates/dashboard.html:589
+#: theme/templates/dashboard.html:593 utilisateurs/models.py:93
 #: utilisateurs/views.py:276
 msgid "Direction"
 msgstr ""
@@ -14866,28 +14867,28 @@ msgstr "Tableau de Bord"
 msgid "Ajouter les produits"
 msgstr "Tableau de Bord"
 
-#: maintenance/check_up/models.py:51 maintenance/checkup_track/models.py:46
+#: maintenance/check_up/models.py:52 maintenance/checkup_track/models.py:47
 #: maintenance/nettoyage_exterieur/models.py:16
 #: maintenance/nettoyage_interieur/models.py:21
 msgid "Propre"
 msgstr ""
 
-#: maintenance/check_up/models.py:81 maintenance/checkup_track/models.py:99
+#: maintenance/check_up/models.py:82 maintenance/checkup_track/models.py:100
 msgid "Petit Jeu"
 msgstr ""
 
-#: maintenance/check_up/models.py:82 maintenance/check_up/models.py:89
-#: maintenance/checkup_track/models.py:52
-#: maintenance/checkup_track/models.py:92
-#: maintenance/checkup_track/models.py:100
+#: maintenance/check_up/models.py:83 maintenance/check_up/models.py:90
+#: maintenance/checkup_track/models.py:53
+#: maintenance/checkup_track/models.py:93
+#: maintenance/checkup_track/models.py:101
 msgid "A remplacer"
 msgstr ""
 
-#: maintenance/check_up/models.py:88
+#: maintenance/check_up/models.py:89
 msgid "Petit bruit"
 msgstr ""
 
-#: maintenance/check_up/models.py:112
+#: maintenance/check_up/models.py:113
 #: maintenance/check_up/templates/check_up/checkup_detail.html:52
 #: maintenance/check_up/views.py:211 maintenance/check_up/views.py:450
 #: maintenance/templates/maintenance/choisir_type.html:45
@@ -14895,105 +14896,105 @@ msgstr ""
 msgid "Checkup"
 msgstr ""
 
-#: maintenance/check_up/models.py:132
+#: maintenance/check_up/models.py:133
 msgid "Kilométrage au moment du Checkup"
 msgstr ""
 
-#: maintenance/check_up/models.py:144
+#: maintenance/check_up/models.py:145
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:432
-#: maintenance/checkup_track/models.py:152
+#: maintenance/checkup_track/models.py:153
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:506
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Etat des balais avant"
 msgstr "Tableau de Bord"
 
-#: maintenance/check_up/models.py:155 maintenance/checkup_track/models.py:162
+#: maintenance/check_up/models.py:156 maintenance/checkup_track/models.py:163
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Etat des balais arrières"
 msgstr "Tableau de Bord"
 
-#: maintenance/check_up/models.py:168
+#: maintenance/check_up/models.py:169
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:480
-#: maintenance/checkup_track/models.py:172
+#: maintenance/checkup_track/models.py:173
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:553
 msgid "Pare-brise sans coups"
 msgstr ""
 
-#: maintenance/check_up/models.py:170
+#: maintenance/check_up/models.py:171
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:503
-#: maintenance/checkup_track/models.py:173
+#: maintenance/checkup_track/models.py:174
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:576
 msgid "Pare-brise à remplacer"
 msgstr ""
 
-#: maintenance/check_up/models.py:180
+#: maintenance/check_up/models.py:181
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:534
 msgid "Fuite moteur"
 msgstr ""
 
-#: maintenance/check_up/models.py:181
+#: maintenance/check_up/models.py:182
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:549
 msgid "Bruit moteur"
 msgstr ""
 
-#: maintenance/check_up/models.py:182
+#: maintenance/check_up/models.py:183
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:564
 msgid "Perte de puissance"
 msgstr ""
 
-#: maintenance/check_up/models.py:183
+#: maintenance/check_up/models.py:184
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:579
 msgid "Moteur à remplacer"
 msgstr ""
 
-#: maintenance/check_up/models.py:191
+#: maintenance/check_up/models.py:192
 msgid "Fuite boîte de vitesse"
 msgstr ""
 
-#: maintenance/check_up/models.py:192
+#: maintenance/check_up/models.py:193
 msgid "Bruits boîte de vitesse"
 msgstr ""
 
-#: maintenance/check_up/models.py:193
+#: maintenance/check_up/models.py:194
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:649
 msgid "Problème d'embrayage"
 msgstr ""
 
-#: maintenance/check_up/models.py:201
+#: maintenance/check_up/models.py:202
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:689
-#: maintenance/checkup_track/models.py:201
+#: maintenance/checkup_track/models.py:202
 msgid "Fuite pont arrière"
 msgstr ""
 
-#: maintenance/check_up/models.py:202
+#: maintenance/check_up/models.py:203
 msgid "Bruits pont arrière"
 msgstr ""
 
-#: maintenance/check_up/models.py:203
+#: maintenance/check_up/models.py:204
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:719
 msgid "Jeu pont arrière"
 msgstr ""
 
-#: maintenance/check_up/models.py:218
+#: maintenance/check_up/models.py:219
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Liquide de refroidissement "
 msgstr "Tableau de Bord"
 
-#: maintenance/check_up/models.py:221
+#: maintenance/check_up/models.py:222
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Qualité de liquide"
 msgstr "Tableau de Bord"
 
-#: maintenance/check_up/models.py:226 maintenance/checkup_track/models.py:218
+#: maintenance/check_up/models.py:227 maintenance/checkup_track/models.py:219
 #: maintenance/freins/models.py:77
 msgid "Usure des plaquettes avant (%)"
 msgstr ""
 
-#: maintenance/check_up/models.py:227
+#: maintenance/check_up/models.py:228
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:898
 #: maintenance/freins/models.py:78
 #: maintenance/freins/templates/freins/freins_check.html:255
@@ -15002,18 +15003,18 @@ msgstr ""
 msgid "Plaquettes avant"
 msgstr ""
 
-#: maintenance/check_up/models.py:236 maintenance/checkup_track/models.py:230
+#: maintenance/check_up/models.py:237 maintenance/checkup_track/models.py:231
 #: maintenance/freins/models.py:90 voiture/voiture_freins_av/forms.py:40
 msgid "Épaisseur des disques avant (mm)"
 msgstr ""
 
-#: maintenance/check_up/models.py:237
+#: maintenance/check_up/models.py:238
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:928
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1048
 msgid "Présence de fentes sur les disques avant"
 msgstr ""
 
-#: maintenance/check_up/models.py:238
+#: maintenance/check_up/models.py:239
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:951
 #: maintenance/check_up/templates/check_up/controle_total.html:575
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:582
@@ -15024,27 +15025,27 @@ msgstr ""
 msgid "Disques avant"
 msgstr ""
 
-#: maintenance/check_up/models.py:257 maintenance/checkup_track/models.py:241
+#: maintenance/check_up/models.py:258 maintenance/checkup_track/models.py:242
 #: maintenance/freins/models.py:118
 msgid "Usure des plaquettes arrière (%)"
 msgstr ""
 
-#: maintenance/check_up/models.py:258 maintenance/checkup_track/models.py:242
+#: maintenance/check_up/models.py:259 maintenance/checkup_track/models.py:243
 msgid "Plaquettes arrière à remplacer"
 msgstr ""
 
-#: maintenance/check_up/models.py:267 maintenance/checkup_track/models.py:250
+#: maintenance/check_up/models.py:268 maintenance/checkup_track/models.py:251
 #: maintenance/freins/models.py:153 voiture/voiture_freins_ar/forms.py:42
 msgid "Épaisseur des disques arrière (mm)"
 msgstr ""
 
-#: maintenance/check_up/models.py:268
+#: maintenance/check_up/models.py:269
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1011
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1184
 msgid "Présence de fentes sur les disques arrière"
 msgstr ""
 
-#: maintenance/check_up/models.py:269
+#: maintenance/check_up/models.py:270
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1034
 #: maintenance/freins/models.py:167
 #: maintenance/freins/templates/freins/freins_check.html:376
@@ -15053,296 +15054,296 @@ msgstr ""
 msgid "Disques arrière"
 msgstr ""
 
-#: maintenance/check_up/models.py:288
+#: maintenance/check_up/models.py:289
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1057
-#: maintenance/checkup_track/models.py:263 maintenance/freins/models.py:190
+#: maintenance/checkup_track/models.py:264 maintenance/freins/models.py:190
 msgid "Présence de fuite"
 msgstr ""
 
-#: maintenance/check_up/models.py:318
+#: maintenance/check_up/models.py:319
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1211
 msgid "Fuite direction assistée / crémaillère"
 msgstr ""
 
-#: maintenance/check_up/models.py:327
+#: maintenance/check_up/models.py:328
 msgid "État roulement de roue avant droit"
 msgstr ""
 
-#: maintenance/check_up/models.py:328
+#: maintenance/check_up/models.py:329
 msgid "État roulement de roue avant gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:329
+#: maintenance/check_up/models.py:330
 msgid "État roulement de roue arrière droit"
 msgstr ""
 
-#: maintenance/check_up/models.py:330
+#: maintenance/check_up/models.py:331
 msgid "État roulement de roue arrière gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:334
+#: maintenance/check_up/models.py:335
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1132
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1931
 msgid "État batterie"
 msgstr ""
 
-#: maintenance/check_up/models.py:339
+#: maintenance/check_up/models.py:340
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1155
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Fabricant de la batterie"
 msgstr "Tableau de Bord"
 
-#: maintenance/check_up/models.py:341
+#: maintenance/check_up/models.py:342
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1162
 msgid "Tension de batterie"
 msgstr ""
 
-#: maintenance/check_up/models.py:345
+#: maintenance/check_up/models.py:346
 msgid "Ampère heure"
 msgstr ""
 
-#: maintenance/check_up/models.py:350
+#: maintenance/check_up/models.py:351
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1176
 msgid "Courant maximum de démarrage"
 msgstr ""
 
-#: maintenance/check_up/models.py:369 maintenance/jeux_pieces/models.py:101
+#: maintenance/check_up/models.py:370 maintenance/jeux_pieces/models.py:101
 msgid "Jeu rotule de direction avant droite"
 msgstr ""
 
-#: maintenance/check_up/models.py:392 maintenance/jeux_pieces/models.py:124
+#: maintenance/check_up/models.py:393 maintenance/jeux_pieces/models.py:124
 msgid "Jeu rotule de direction avant gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:415 maintenance/jeux_pieces/models.py:147
+#: maintenance/check_up/models.py:416 maintenance/jeux_pieces/models.py:147
 msgid "Jeu rotule de direction arrière droite"
 msgstr ""
 
-#: maintenance/check_up/models.py:438 maintenance/jeux_pieces/models.py:170
+#: maintenance/check_up/models.py:439 maintenance/jeux_pieces/models.py:170
 msgid "Jeu rotule de direction arrière gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:461 maintenance/jeux_pieces/models.py:193
+#: maintenance/check_up/models.py:462 maintenance/jeux_pieces/models.py:193
 msgid "Jeu rotule de suspension inférieure avant droite"
 msgstr ""
 
-#: maintenance/check_up/models.py:484 maintenance/jeux_pieces/models.py:216
+#: maintenance/check_up/models.py:485 maintenance/jeux_pieces/models.py:216
 msgid "Jeu rotule de suspension inférieure avant gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:507 maintenance/jeux_pieces/models.py:239
+#: maintenance/check_up/models.py:508 maintenance/jeux_pieces/models.py:239
 msgid "Jeu rotule de suspension inférieure arrière droite"
 msgstr ""
 
-#: maintenance/check_up/models.py:530 maintenance/jeux_pieces/models.py:262
+#: maintenance/check_up/models.py:531 maintenance/jeux_pieces/models.py:262
 msgid "Jeu rotule de suspension inférieure arrière gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:553 maintenance/jeux_pieces/models.py:285
+#: maintenance/check_up/models.py:554 maintenance/jeux_pieces/models.py:285
 msgid "Jeu rotule de suspension supérieure avant droite"
 msgstr ""
 
-#: maintenance/check_up/models.py:576 maintenance/jeux_pieces/models.py:308
+#: maintenance/check_up/models.py:577 maintenance/jeux_pieces/models.py:308
 msgid "Jeu rotule de suspension supérieure avant gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:599 maintenance/jeux_pieces/models.py:331
+#: maintenance/check_up/models.py:600 maintenance/jeux_pieces/models.py:331
 msgid "Jeu rotule de suspension supérieure arrière droite"
 msgstr ""
 
-#: maintenance/check_up/models.py:622 maintenance/jeux_pieces/models.py:354
+#: maintenance/check_up/models.py:623 maintenance/jeux_pieces/models.py:354
 msgid "Jeu rotule de suspension supérieure arrière gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:645 maintenance/jeux_pieces/models.py:377
+#: maintenance/check_up/models.py:646 maintenance/jeux_pieces/models.py:377
 msgid "Jeu biellette de barre stabilisatrice avant droite"
 msgstr ""
 
-#: maintenance/check_up/models.py:668 maintenance/jeux_pieces/models.py:400
+#: maintenance/check_up/models.py:669 maintenance/jeux_pieces/models.py:400
 msgid "Jeu biellette de barre stabilisatrice avant gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:691 maintenance/jeux_pieces/models.py:423
+#: maintenance/check_up/models.py:692 maintenance/jeux_pieces/models.py:423
 msgid "Jeu biellette de barre stabilisatrice arrière droite"
 msgstr ""
 
-#: maintenance/check_up/models.py:714 maintenance/jeux_pieces/models.py:446
+#: maintenance/check_up/models.py:715 maintenance/jeux_pieces/models.py:446
 msgid "Jeu biellette de barre stabilisatrice arrière gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:737 maintenance/jeux_pieces/models.py:469
+#: maintenance/check_up/models.py:738 maintenance/jeux_pieces/models.py:469
 msgid "Jeu barre stabilisatrice avant"
 msgstr ""
 
-#: maintenance/check_up/models.py:760 maintenance/jeux_pieces/models.py:492
+#: maintenance/check_up/models.py:761 maintenance/jeux_pieces/models.py:492
 msgid "Jeu barre stabilisatrice arrière"
 msgstr ""
 
-#: maintenance/check_up/models.py:783 maintenance/jeux_pieces/models.py:515
+#: maintenance/check_up/models.py:784 maintenance/jeux_pieces/models.py:515
 msgid "Jeu biellette de direction droite"
 msgstr ""
 
-#: maintenance/check_up/models.py:806 maintenance/jeux_pieces/models.py:538
+#: maintenance/check_up/models.py:807 maintenance/jeux_pieces/models.py:538
 msgid "Jeu biellette de direction gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:829 maintenance/jeux_pieces/models.py:561
+#: maintenance/check_up/models.py:830 maintenance/jeux_pieces/models.py:561
 msgid "Jeu du cardan avant droit"
 msgstr ""
 
-#: maintenance/check_up/models.py:852 maintenance/jeux_pieces/models.py:584
+#: maintenance/check_up/models.py:853 maintenance/jeux_pieces/models.py:584
 msgid "Jeu du cardan avant gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:875 maintenance/jeux_pieces/models.py:607
+#: maintenance/check_up/models.py:876 maintenance/jeux_pieces/models.py:607
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Jeu du cardan arrière droit"
 msgstr "Tableau de Bord"
 
-#: maintenance/check_up/models.py:898 maintenance/jeux_pieces/models.py:630
+#: maintenance/check_up/models.py:899 maintenance/jeux_pieces/models.py:630
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Jeu du cardan arrière gauche"
 msgstr "Tableau de Bord"
 
-#: maintenance/check_up/models.py:921 maintenance/checkup_track/models.py:302
+#: maintenance/check_up/models.py:922 maintenance/checkup_track/models.py:303
 #: maintenance/jeux_pieces/models.py:653
 msgid "Jeu dans l'arbre de transmission"
 msgstr ""
 
-#: maintenance/check_up/models.py:944 maintenance/jeux_pieces/models.py:676
+#: maintenance/check_up/models.py:945 maintenance/jeux_pieces/models.py:676
 msgid "Jeu amortisseur avant droit"
 msgstr ""
 
-#: maintenance/check_up/models.py:967 maintenance/jeux_pieces/models.py:699
+#: maintenance/check_up/models.py:968 maintenance/jeux_pieces/models.py:699
 msgid "Jeu amortisseur avant gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:990 maintenance/jeux_pieces/models.py:722
+#: maintenance/check_up/models.py:991 maintenance/jeux_pieces/models.py:722
 msgid "Jeu amortisseur arrière droit"
 msgstr ""
 
-#: maintenance/check_up/models.py:1013 maintenance/jeux_pieces/models.py:745
+#: maintenance/check_up/models.py:1014 maintenance/jeux_pieces/models.py:745
 msgid "Jeu amortisseur arrière gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:1036 maintenance/jeux_pieces/models.py:768
+#: maintenance/check_up/models.py:1037 maintenance/jeux_pieces/models.py:768
 msgid "Jeu roulement avant droit"
 msgstr ""
 
-#: maintenance/check_up/models.py:1059 maintenance/jeux_pieces/models.py:791
+#: maintenance/check_up/models.py:1060 maintenance/jeux_pieces/models.py:791
 msgid "Jeu roulement avant gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:1082 maintenance/jeux_pieces/models.py:814
+#: maintenance/check_up/models.py:1083 maintenance/jeux_pieces/models.py:814
 msgid "Jeu roulement arrière droit"
 msgstr ""
 
-#: maintenance/check_up/models.py:1105 maintenance/jeux_pieces/models.py:837
+#: maintenance/check_up/models.py:1106 maintenance/jeux_pieces/models.py:837
 msgid "Jeu roulement arrière gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:1128 maintenance/jeux_pieces/models.py:860
+#: maintenance/check_up/models.py:1129 maintenance/jeux_pieces/models.py:860
 msgid "Jeu triangle avant droit"
 msgstr ""
 
-#: maintenance/check_up/models.py:1151 maintenance/jeux_pieces/models.py:883
+#: maintenance/check_up/models.py:1152 maintenance/jeux_pieces/models.py:883
 msgid "Jeu triangle avant gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:1174 maintenance/jeux_pieces/models.py:906
+#: maintenance/check_up/models.py:1175 maintenance/jeux_pieces/models.py:906
 msgid "Jeu triangle arrière droit"
 msgstr ""
 
-#: maintenance/check_up/models.py:1197 maintenance/jeux_pieces/models.py:929
+#: maintenance/check_up/models.py:1198 maintenance/jeux_pieces/models.py:929
 msgid "Jeu triangle arrière gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:1220 maintenance/jeux_pieces/models.py:952
+#: maintenance/check_up/models.py:1221 maintenance/jeux_pieces/models.py:952
 msgid "Jeu suspension multi-bras avant droit"
 msgstr ""
 
-#: maintenance/check_up/models.py:1243 maintenance/jeux_pieces/models.py:975
+#: maintenance/check_up/models.py:1244 maintenance/jeux_pieces/models.py:975
 msgid "Jeu suspension multi-bras avant gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:1266 maintenance/jeux_pieces/models.py:998
+#: maintenance/check_up/models.py:1267 maintenance/jeux_pieces/models.py:998
 msgid "Jeu suspension multi-bras arrière droit"
 msgstr ""
 
-#: maintenance/check_up/models.py:1289 maintenance/jeux_pieces/models.py:1021
+#: maintenance/check_up/models.py:1290 maintenance/jeux_pieces/models.py:1021
 msgid "Jeu suspension multi-bras arrière gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:1310
+#: maintenance/check_up/models.py:1311
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Pneu avant droit"
 msgstr "Tableau de Bord"
 
-#: maintenance/check_up/models.py:1312
+#: maintenance/check_up/models.py:1313
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Pneu avant gauche"
 msgstr "Tableau de Bord"
 
-#: maintenance/check_up/models.py:1314
+#: maintenance/check_up/models.py:1315
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Pneu arrière droit"
 msgstr "Tableau de Bord"
 
-#: maintenance/check_up/models.py:1316
+#: maintenance/check_up/models.py:1317
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Pneu arrière gauche"
 msgstr "Tableau de Bord"
 
-#: maintenance/check_up/models.py:1319 maintenance/checkup_track/models.py:612
+#: maintenance/check_up/models.py:1320 maintenance/checkup_track/models.py:613
 #: maintenance/pneus/models.py:119
 msgid "Épaisseur du pneu avant droit (mm)"
 msgstr ""
 
-#: maintenance/check_up/models.py:1320 maintenance/checkup_track/models.py:613
+#: maintenance/check_up/models.py:1321 maintenance/checkup_track/models.py:614
 #: maintenance/pneus/models.py:120
 msgid "Épaisseur du pneu avant gauche (mm)"
 msgstr ""
 
-#: maintenance/check_up/models.py:1321 maintenance/checkup_track/models.py:614
+#: maintenance/check_up/models.py:1322 maintenance/checkup_track/models.py:615
 #: maintenance/pneus/models.py:121
 msgid "Épaisseur du pneu arrière droit (mm)"
 msgstr ""
 
-#: maintenance/check_up/models.py:1322 maintenance/checkup_track/models.py:615
+#: maintenance/check_up/models.py:1323 maintenance/checkup_track/models.py:616
 #: maintenance/pneus/models.py:122
 msgid "Épaisseur du pneu arrière gauche (mm)"
 msgstr ""
 
-#: maintenance/check_up/models.py:1324
+#: maintenance/check_up/models.py:1325
 msgid "flanc du pneu avant droit"
 msgstr ""
 
-#: maintenance/check_up/models.py:1325
+#: maintenance/check_up/models.py:1326
 msgid "flanc du pneu avant gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:1326
+#: maintenance/check_up/models.py:1327
 msgid "flanc du pneu arrière droit"
 msgstr ""
 
-#: maintenance/check_up/models.py:1327
+#: maintenance/check_up/models.py:1328
 msgid "flanc du pneu arrière gauche"
 msgstr ""
 
-#: maintenance/check_up/models.py:1353 maintenance/pneus/models.py:161
+#: maintenance/check_up/models.py:1354 maintenance/pneus/models.py:161
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Pneus avant à remplacer"
 msgstr "Tableau de Bord"
 
-#: maintenance/check_up/models.py:1358 maintenance/check_up/models.py:1374
+#: maintenance/check_up/models.py:1359 maintenance/check_up/models.py:1375
 #: maintenance/pneus/models.py:168 maintenance/pneus/models.py:185
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:578
 #: piece/piece_pneus/models.py:26
@@ -15352,31 +15353,31 @@ msgstr "Tableau de Bord"
 msgid "Manufacturier"
 msgstr ""
 
-#: maintenance/check_up/models.py:1369 maintenance/pneus/models.py:180
+#: maintenance/check_up/models.py:1370 maintenance/pneus/models.py:180
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Pneus arrière à remplacer"
 msgstr "Tableau de Bord"
 
-#: maintenance/check_up/models.py:1389 maintenance/checkup_track/models.py:315
+#: maintenance/check_up/models.py:1390 maintenance/checkup_track/models.py:316
 #: maintenance/entretien/models.py:426
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Réglage des phares"
 msgstr "Tableau de Bord"
 
-#: maintenance/check_up/models.py:1702
+#: maintenance/check_up/models.py:1703
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2406
-#: maintenance/checkup_track/models.py:669
+#: maintenance/checkup_track/models.py:670
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1822
 #: maintenance/nettoyage_exterieur/models.py:70
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:324
 msgid "Traces de gomme"
 msgstr ""
 
-#: maintenance/check_up/models.py:1704
+#: maintenance/check_up/models.py:1705
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2461
-#: maintenance/checkup_track/models.py:671
+#: maintenance/checkup_track/models.py:672
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1876
 #: maintenance/nettoyage_exterieur/models.py:82
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:358
@@ -15384,82 +15385,82 @@ msgstr ""
 msgid "Jantes"
 msgstr ""
 
-#: maintenance/check_up/models.py:1705
+#: maintenance/check_up/models.py:1706
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2488
-#: maintenance/checkup_track/models.py:672
+#: maintenance/checkup_track/models.py:673
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1902
 #: maintenance/nettoyage_exterieur/models.py:88
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:375
 msgid "Séchage"
 msgstr ""
 
-#: maintenance/check_up/models.py:1710 maintenance/check_up/models.py:1734
+#: maintenance/check_up/models.py:1711 maintenance/check_up/models.py:1735
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2515
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2768
-#: maintenance/checkup_track/models.py:677
-#: maintenance/checkup_track/models.py:701
+#: maintenance/checkup_track/models.py:678
+#: maintenance/checkup_track/models.py:702
 #: maintenance/nettoyage_exterieur/models.py:95
 #: maintenance/nettoyage_interieur/models.py:117
 msgid "Produits"
 msgstr ""
 
-#: maintenance/check_up/models.py:1722
+#: maintenance/check_up/models.py:1723
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2552
-#: maintenance/checkup_track/models.py:689
+#: maintenance/checkup_track/models.py:690
 #: maintenance/nettoyage_interieur/models.py:72
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:325
 msgid "Vitres"
 msgstr ""
 
-#: maintenance/check_up/models.py:1724
+#: maintenance/check_up/models.py:1725
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2606
-#: maintenance/checkup_track/models.py:691
+#: maintenance/checkup_track/models.py:692
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2176
 #: maintenance/nettoyage_interieur/models.py:85
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:359
 msgid "Aspirateur"
 msgstr ""
 
-#: maintenance/check_up/models.py:1725
+#: maintenance/check_up/models.py:1726
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2633
-#: maintenance/checkup_track/models.py:692
+#: maintenance/checkup_track/models.py:693
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2203
 msgid "Intérieurs de porte"
 msgstr ""
 
-#: maintenance/check_up/models.py:1726
+#: maintenance/check_up/models.py:1727
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2660
-#: maintenance/checkup_track/models.py:693
+#: maintenance/checkup_track/models.py:694
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2230
 #: piece/piece_habitacle/models.py:30
 msgid "Sièges"
 msgstr ""
 
-#: maintenance/check_up/models.py:1727
+#: maintenance/check_up/models.py:1728
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2687
-#: maintenance/checkup_track/models.py:694
+#: maintenance/checkup_track/models.py:695
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2257
 msgid "Carpettes"
 msgstr ""
 
-#: maintenance/check_up/models.py:1729
+#: maintenance/check_up/models.py:1730
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2741
-#: maintenance/checkup_track/models.py:696
+#: maintenance/checkup_track/models.py:697
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2311
 #: maintenance/nettoyage_interieur/models.py:103
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:410
 msgid "Plastiques"
 msgstr ""
 
-#: maintenance/check_up/models.py:1836 maintenance/checkup_track/models.py:792
+#: maintenance/check_up/models.py:1837 maintenance/checkup_track/models.py:793
 msgid "Contrôle général"
 msgstr ""
 
-#: maintenance/check_up/models.py:1837 maintenance/checkup_track/models.py:793
+#: maintenance/check_up/models.py:1838 maintenance/checkup_track/models.py:794
 msgid "Contrôles généraux"
 msgstr ""
 
-#: maintenance/check_up/models.py:1907
+#: maintenance/check_up/models.py:1908
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Checkup complet"
@@ -15612,7 +15613,7 @@ msgid "Direction et roulements"
 msgstr ""
 
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1234
-#: maintenance/checkup_track/models.py:273
+#: maintenance/checkup_track/models.py:274
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1336
 #, fuzzy
 #| msgid "Tableau de bord"
@@ -15899,7 +15900,7 @@ msgstr ""
 
 #: maintenance/check_up/templates/check_up/controle_total.html:815
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:825
-#: maintenance/checkup_track/models.py:286
+#: maintenance/checkup_track/models.py:287
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:755
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:751
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux.html:227
@@ -16010,7 +16011,7 @@ msgstr ""
 
 #: maintenance/check_up/templates/check_up/controle_total.html:1305
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1316
-#: maintenance/checkup_track/models.py:617
+#: maintenance/checkup_track/models.py:618
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1688
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1246
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1243
@@ -16026,7 +16027,7 @@ msgstr ""
 
 #: maintenance/check_up/templates/check_up/controle_total.html:1788
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1789
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:102
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:103
 msgid "Retour à la liste des checkups piste"
 msgstr ""
 
@@ -16052,293 +16053,293 @@ msgstr ""
 msgid "Checkup modifié avec succès !"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:30
+#: maintenance/checkup_track/models.py:31
 msgid "Monté"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:31
+#: maintenance/checkup_track/models.py:32
 msgid "Démonté"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:70
+#: maintenance/checkup_track/models.py:71
 msgid "Spa-Francorchamps 200 km"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:71
+#: maintenance/checkup_track/models.py:72
 msgid "Spa-Francorchamps 300 km"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:72
+#: maintenance/checkup_track/models.py:73
 msgid "Spa-Francorchamps 400 km"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:73
+#: maintenance/checkup_track/models.py:74
 msgid "Nürburgring 2 tours"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:74
+#: maintenance/checkup_track/models.py:75
 msgid "Nürburgring 5 tours"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:75
+#: maintenance/checkup_track/models.py:76
 msgid "Nürburgring 7 tours"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:76
+#: maintenance/checkup_track/models.py:77
 msgid "Nürburgring 10 tours"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:77
+#: maintenance/checkup_track/models.py:78
 msgid "Nürburgring 12 tours"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:78
+#: maintenance/checkup_track/models.py:79
 msgid "Nürburgring 15 tours"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:79
+#: maintenance/checkup_track/models.py:80
 msgid "Autre circuit 200 km"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:80
+#: maintenance/checkup_track/models.py:81
 msgid "Autre circuit 300 km"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:81
+#: maintenance/checkup_track/models.py:82
 msgid "Autre circuit 400 km"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:121
+#: maintenance/checkup_track/models.py:122
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Checkup Track"
 msgstr "Tableau de Bord"
 
-#: maintenance/checkup_track/models.py:141
+#: maintenance/checkup_track/models.py:142
 msgid "Kilométrage au moment du checkup piste"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:183
+#: maintenance/checkup_track/models.py:184
 msgid "État du moteur"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:191
+#: maintenance/checkup_track/models.py:192
 msgid "État de la boîte de vitesse"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:192
+#: maintenance/checkup_track/models.py:193
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:719
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "État de l'embrayage"
 msgstr "Tableau de Bord"
 
-#: maintenance/checkup_track/models.py:219
+#: maintenance/checkup_track/models.py:220
 msgid "Plaquettes avant à remplacer"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:222
-#: maintenance/checkup_track/models.py:244
+#: maintenance/checkup_track/models.py:223
+#: maintenance/checkup_track/models.py:245
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Matière des plaquettes"
 msgstr "Tableau de Bord"
 
-#: maintenance/checkup_track/models.py:231
+#: maintenance/checkup_track/models.py:232
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Disques avant à remplacer"
 msgstr "Tableau de Bord"
 
-#: maintenance/checkup_track/models.py:232
-#: maintenance/checkup_track/models.py:252 maintenance/freins/models.py:91
+#: maintenance/checkup_track/models.py:233
+#: maintenance/checkup_track/models.py:253 maintenance/freins/models.py:91
 #: maintenance/freins/models.py:160
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Présence de fentes"
 msgstr "Tableau de Bord"
 
-#: maintenance/checkup_track/models.py:235
-#: maintenance/checkup_track/models.py:254
+#: maintenance/checkup_track/models.py:236
+#: maintenance/checkup_track/models.py:255
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Matière des disques"
 msgstr "Tableau de Bord"
 
-#: maintenance/checkup_track/models.py:236
+#: maintenance/checkup_track/models.py:237
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Type de disques"
 msgstr "Tableau de Bord"
 
-#: maintenance/checkup_track/models.py:251
+#: maintenance/checkup_track/models.py:252
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Disques arrière à remplacer"
 msgstr "Tableau de Bord"
 
-#: maintenance/checkup_track/models.py:255
+#: maintenance/checkup_track/models.py:256
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Type des disques"
 msgstr "Tableau de Bord"
 
-#: maintenance/checkup_track/models.py:272
+#: maintenance/checkup_track/models.py:273
 msgid "Etat direction assistée / crémaillère"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:280
+#: maintenance/checkup_track/models.py:281
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1377
 msgid "Bruit de roulement de roue"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:282
+#: maintenance/checkup_track/models.py:283
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1400
 msgid "Jeu roulement de roue"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:289
+#: maintenance/checkup_track/models.py:290
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:790
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:786
 msgid "Jeux rotules de suspension"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:293
+#: maintenance/checkup_track/models.py:294
 msgid "Jeu biellettes de barre stabilisatrice"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:295
+#: maintenance/checkup_track/models.py:296
 msgid "Jeu barre stabilisatrice"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:298
+#: maintenance/checkup_track/models.py:299
 msgid "Jeu biellette de direction"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:300
+#: maintenance/checkup_track/models.py:301
 msgid "Jeu des cardan"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:305
+#: maintenance/checkup_track/models.py:306
 msgid "Jeu amortisseur"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:308
+#: maintenance/checkup_track/models.py:309
 msgid "Jeu triangle"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:310
+#: maintenance/checkup_track/models.py:311
 msgid "Jeu suspension multi-bras"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:645
+#: maintenance/checkup_track/models.py:646
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Etat du train avant"
 msgstr "Tableau de Bord"
 
-#: maintenance/checkup_track/models.py:654
+#: maintenance/checkup_track/models.py:655
 msgid "Etat du train arrière"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:666
+#: maintenance/checkup_track/models.py:667
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1463
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1458
 msgid "Crochet de remorquage"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:729
+#: maintenance/checkup_track/models.py:730
 msgid "Prête pour :"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:813
+#: maintenance/checkup_track/models.py:814
 #: maintenance/nettoyage_exterieur/models.py:202
 #: maintenance/nettoyage_interieur/models.py:230
 msgid "ne peut pas être inférieur au kilométrage actuel de la voiture "
 msgstr ""
 
-#: maintenance/checkup_track/models.py:863
+#: maintenance/checkup_track/models.py:864
 #: maintenance/checkup_track/views.py:736
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Checkup piste"
 msgstr "Tableau de Bord"
 
-#: maintenance/checkup_track/models.py:891
-#: maintenance/checkup_track/models.py:898
-#: maintenance/checkup_track/models.py:905
-#: maintenance/checkup_track/models.py:913
-#: maintenance/checkup_track/models.py:947
-#: maintenance/checkup_track/models.py:955
+#: maintenance/checkup_track/models.py:892
+#: maintenance/checkup_track/models.py:899
+#: maintenance/checkup_track/models.py:906
+#: maintenance/checkup_track/models.py:914
+#: maintenance/checkup_track/models.py:948
+#: maintenance/checkup_track/models.py:956
 msgid "L"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:897 maintenance/niveaux/models.py:422
+#: maintenance/checkup_track/models.py:898 maintenance/niveaux/models.py:422
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Huile de boîte de vitesses"
 msgstr "Tableau de Bord"
 
-#: maintenance/checkup_track/models.py:904 maintenance/niveaux/models.py:426
+#: maintenance/checkup_track/models.py:905 maintenance/niveaux/models.py:426
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:374
 #: piece/piece_fluides/models.py:10
 msgid "Huile de pont"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:919
-#: maintenance/checkup_track/models.py:926
-#: maintenance/checkup_track/models.py:932
-#: maintenance/checkup_track/models.py:938
+#: maintenance/checkup_track/models.py:920
+#: maintenance/checkup_track/models.py:927
+#: maintenance/checkup_track/models.py:933
+#: maintenance/checkup_track/models.py:939
 msgid "Set"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:954 maintenance/niveaux/models.py:442
+#: maintenance/checkup_track/models.py:955 maintenance/niveaux/models.py:442
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:434
 msgid "Liquide de direction assistée"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:960
+#: maintenance/checkup_track/models.py:961
 msgid "Pneus du train avant"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:961
-#: maintenance/checkup_track/models.py:967
+#: maintenance/checkup_track/models.py:962
+#: maintenance/checkup_track/models.py:968
 msgid "pneu"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:966
+#: maintenance/checkup_track/models.py:967
 msgid "Pneus du train arrière"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:972
+#: maintenance/checkup_track/models.py:973
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Produits de nettoyage extérieur"
 msgstr "Tableau de Bord"
 
-#: maintenance/checkup_track/models.py:973
-#: maintenance/checkup_track/models.py:979
-#: maintenance/checkup_track/models.py:985
+#: maintenance/checkup_track/models.py:974
+#: maintenance/checkup_track/models.py:980
+#: maintenance/checkup_track/models.py:986
 msgid "unité"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:978
+#: maintenance/checkup_track/models.py:979
 #: maintenance/nettoyage_interieur/models.py:362
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Produits de nettoyage intérieur"
 msgstr "Tableau de Bord"
 
-#: maintenance/checkup_track/models.py:1191
+#: maintenance/checkup_track/models.py:1192
 #, python-format
 msgid "%(piece)s — %(type)s"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:1198
+#: maintenance/checkup_track/models.py:1199
 msgid "ampoule"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:1200
+#: maintenance/checkup_track/models.py:1201
 msgid "pièce"
 msgstr ""
 
@@ -21015,13 +21016,13 @@ msgid "Apprenti"
 msgstr ""
 
 #: maintenance/jeux_pieces/models.py:47 maintenance/models.py:73
-#: theme/templates/dashboard.html:179 theme/templates/dashboard.html:183
+#: theme/templates/dashboard.html:180 theme/templates/dashboard.html:184
 #: utilisateurs/models.py:85 utilisateurs/views.py:268
 msgid "Mécanicien"
 msgstr ""
 
 #: maintenance/jeux_pieces/models.py:48 maintenance/models.py:91
-#: theme/templates/dashboard.html:270
+#: theme/templates/dashboard.html:271
 msgid "Chef mécanicien"
 msgstr ""
 
@@ -22403,7 +22404,7 @@ msgstr ""
 msgid "Outillage"
 msgstr ""
 
-#: outillage/models.py:82 theme/templates/dashboard.html:466
+#: outillage/models.py:82 theme/templates/dashboard.html:467
 msgid "Outillages"
 msgstr ""
 
@@ -24732,7 +24733,7 @@ msgid "Tableau de bord propriétaires :"
 msgstr "Tableau de Bord"
 
 #: proprietaire/templates/proprietaire/proprietaire_dashboard.html:25
-#: theme/templates/dashboard.html:641
+#: theme/templates/dashboard.html:642
 msgid "Propriétaires"
 msgstr ""
 
@@ -24754,7 +24755,7 @@ msgid "Retour à la liste des proprietaires"
 msgstr ""
 
 #: proprietaire/templates/proprietaire/proprietaire_form.html:13
-#: theme/templates/dashboard.html:653
+#: theme/templates/dashboard.html:654
 msgid "Propriétaire"
 msgstr ""
 
@@ -24936,7 +24937,7 @@ msgstr ""
 
 #: recharge/templates/recharge/electricite_exemplaire_stat.html:9
 #: recharge/templates/recharge/electricite_stat.html:19
-#: theme/templates/dashboard.html:251
+#: theme/templates/dashboard.html:252
 msgid "Recharge électrique"
 msgstr ""
 
@@ -25002,7 +25003,7 @@ msgid "Ajouter une recharge électrique"
 msgstr ""
 
 #: recharge/templates/recharge/electricite_stat.html:11
-#: theme/templates/dashboard.html:239
+#: theme/templates/dashboard.html:240
 msgid "Recharges électriques"
 msgstr ""
 
@@ -25295,7 +25296,7 @@ msgid "Administrateurs"
 msgstr ""
 
 #: theme/templates/admin/dashboard_admin.html:50
-#: theme/templates/dashboard.html:663
+#: theme/templates/dashboard.html:664
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:13
 msgid "Créer un utilisateur"
 msgstr ""
@@ -25346,107 +25347,107 @@ msgstr ""
 msgid "Tous droits réservés."
 msgstr ""
 
-#: theme/templates/dashboard.html:15
+#: theme/templates/dashboard.html:16
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:8
 msgid "Bienvenue sur le tableau de bord"
 msgstr ""
 
-#: theme/templates/dashboard.html:41 theme/templates/dashboard.html:54
+#: theme/templates/dashboard.html:42 theme/templates/dashboard.html:55
 msgid "Utilisateurs"
 msgstr ""
 
-#: theme/templates/dashboard.html:65
+#: theme/templates/dashboard.html:66
 msgid "Effectuées :"
 msgstr ""
 
-#: theme/templates/dashboard.html:80 theme/templates/dashboard.html:90
+#: theme/templates/dashboard.html:81 theme/templates/dashboard.html:91
 msgid "Notifications"
 msgstr ""
 
-#: theme/templates/dashboard.html:84
+#: theme/templates/dashboard.html:85
 msgid "Messages non lus :"
 msgstr ""
 
-#: theme/templates/dashboard.html:105
+#: theme/templates/dashboard.html:106
 msgid "Dernières activités"
 msgstr ""
 
-#: theme/templates/dashboard.html:126
+#: theme/templates/dashboard.html:127
 msgid "Action"
 msgstr ""
 
-#: theme/templates/dashboard.html:158
+#: theme/templates/dashboard.html:159
 msgid "Aucune activité enregistrée"
 msgstr ""
 
-#: theme/templates/dashboard.html:274 utilisateurs/models.py:88
+#: theme/templates/dashboard.html:275 utilisateurs/models.py:88
 #: utilisateurs/views.py:270
 msgid "Chef Mécanicien"
 msgstr ""
 
-#: theme/templates/dashboard.html:301
+#: theme/templates/dashboard.html:302
 msgid "Moteurs"
 msgstr ""
 
-#: theme/templates/dashboard.html:323
+#: theme/templates/dashboard.html:324
 msgid "Boites de vitesses"
 msgstr ""
 
-#: theme/templates/dashboard.html:428 theme/templates/dashboard.html:432
+#: theme/templates/dashboard.html:429 theme/templates/dashboard.html:433
 #: utilisateurs/models.py:86 utilisateurs/views.py:271
 msgid "Magasinier"
 msgstr ""
 
-#: theme/templates/dashboard.html:478
+#: theme/templates/dashboard.html:479
 msgid "Outils"
 msgstr ""
 
-#: theme/templates/dashboard.html:497 theme/templates/dashboard.html:501
+#: theme/templates/dashboard.html:498 theme/templates/dashboard.html:502
 #: utilisateurs/models.py:91 utilisateurs/views.py:274
 msgid "Vendeur"
 msgstr ""
 
-#: theme/templates/dashboard.html:513
+#: theme/templates/dashboard.html:514
 msgid "Clients"
 msgstr ""
 
-#: theme/templates/dashboard.html:535
+#: theme/templates/dashboard.html:536
 msgid "Sociétés clientes"
 msgstr ""
 
-#: theme/templates/dashboard.html:667
+#: theme/templates/dashboard.html:668
 msgid "Ajouter un nouvel employé"
 msgstr ""
 
-#: theme/templates/dashboard.html:682
+#: theme/templates/dashboard.html:683
 #: utilisateurs/templates/utilisateurs/liste_utilisateurs.html:8
 msgid "Liste des utilisateurs"
 msgstr ""
 
-#: theme/templates/dashboard.html:697
+#: theme/templates/dashboard.html:698
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:12
 msgid "Créer une paie mensuelle"
 msgstr ""
 
-#: theme/templates/dashboard.html:702
+#: theme/templates/dashboard.html:703
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Compléter utilisateur"
 msgstr "Tableau de Bord"
 
-#: theme/templates/dashboard.html:721 theme/templates/dashboard.html:725
+#: theme/templates/dashboard.html:722 theme/templates/dashboard.html:726
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Administrateur"
 msgstr "Tableau de Bord"
 
-#: theme/templates/dashboard.html:736
+#: theme/templates/dashboard.html:737
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Tableau de bord Admin"
 msgstr "Tableau de Bord"
 
-#: theme/templates/dashboard.html:741
+#: theme/templates/dashboard.html:742
 msgid "Admin"
 msgstr ""
 
