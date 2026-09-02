@@ -513,6 +513,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 
     {% if controle.jeu_rotule_direction_arg != "NON_PRESENT" %}
     <tr>
@@ -529,6 +530,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 </table>
 
 <h2>{% trans "Rotules de suspension inférieures" %}</h2>
@@ -622,6 +624,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
     {% if controle.jeu_rotule_suspension_superieure_avg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Avant gauche" %}</td>
@@ -637,6 +640,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
     {% if controle.jeu_rotule_suspension_superieure_ard != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière droite" %}</td>
@@ -652,6 +656,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
    {% if controle.jeu_rotule_suspension_superieure_arg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière gauche" %}</td>
@@ -667,6 +672,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 </table>
 
 <h2>{% trans "Barres stabilisatrices et biellettes" %}</h2>
@@ -997,6 +1003,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
     {% if controle.jeu_multi_bras_avg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Avant gauche" %}</td>
@@ -1012,6 +1019,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
     {% if controle.jeu_multi_bras_ard != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière droit" %}</td>
@@ -1027,6 +1035,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
     {% if controle.jeu_multi_bras_arg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière gauche" %}</td>
@@ -1042,6 +1051,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 </table>
 
 <h2>{% trans "Cardans" %}</h2>
@@ -1065,6 +1075,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
     {% if controle.jeu_cardan_avg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Avant gauche" %}</td>
@@ -1080,6 +1091,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
     {% if controle.jeu_cardan_ard != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière droit" %}</td>
@@ -1095,6 +1107,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
     {% if controle.jeu_cardan_arg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière gauche" %}</td>
@@ -1110,6 +1123,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 </table>
 
 
@@ -1136,6 +1150,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 </table>
 
 <!-- ================= MAIN D'ŒUVRE ================= -->
