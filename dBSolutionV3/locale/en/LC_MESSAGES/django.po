@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-01 14:53+0200\n"
+"POT-Creation-Date: 2026-09-02 08:31+0200\n"
 "PO-Revision-Date: 2025-12-13 12:10+0100\n"
 "Last-Translator: Pierre de Bournonville [EMAIL@ADDRESS]"
 "(mailto:EMAIL@ADDRESS)\n"
@@ -23659,7 +23659,9 @@ msgid "Date de la recharge"
 msgstr "Recharge Date"
 
 #: recharge/models.py:135
-msgid "Capacité en kW"
+#, fuzzy
+#| msgid "Capacité en kW"
+msgid "Capacité en KW"
 msgstr "Capacity in kW"
 
 #: recharge/models.py:136
