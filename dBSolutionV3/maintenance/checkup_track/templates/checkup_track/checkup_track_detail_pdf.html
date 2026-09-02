@@ -524,7 +524,7 @@
                 {% endif %}
             </td>
         </tr>
-
+        {% if checkup_track.balais_essuie != "NON_PRESENT" %}
         <tr>
             <td>{% trans "État des balais arrière" %}</td>
             <td>
@@ -1555,7 +1555,7 @@
                 {% endif %}
             </td>
         </tr>
-
+        {% if checkup_track.jeu_arbre != "NON_PRESENT" %}
         <tr>
             <td>{% trans "Arbre de transmission" %}</td>
             <td>
@@ -1624,7 +1624,7 @@
                 {% endif %}
             </td>
         </tr>
-
+        {% if checkup_track.jeu_multi_bras != "NON_PRESENT" %}
         <tr>
             <td>{% trans "Suspension multi-bras" %}</td>
             <td>

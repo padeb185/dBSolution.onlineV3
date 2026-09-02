@@ -94,6 +94,7 @@ class LiquideFreinEtat(models.TextChoices):
 
 
 class JeuEtat(models.TextChoices):
+    NON_PRESENT = "NON_PRESENT", _("Non présent")
     OK = "OK", _("OK")
     JEU = "JEU", _("Petit Jeu")
     A_REMPLACER = "A_REMPLACER", _("A remplacer")

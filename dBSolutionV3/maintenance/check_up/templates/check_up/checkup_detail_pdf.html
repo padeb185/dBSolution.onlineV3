@@ -451,6 +451,7 @@
             </td>
         </tr>
 
+        {% if checkup.balais_essuie != "NON_PRESENT" %}
         <tr>
             <td>{% trans "État des balais arrière" %}</td>
             <td>
@@ -473,6 +474,7 @@
                 {% endif %}
             </td>
         </tr>
+
 
         <tr>
             <td>{% trans "Pare-brise sans coups" %}</td>
@@ -1473,7 +1475,7 @@
         <th>{% trans "Pièce" %}</th>
         <th>{% trans "État" %}</th>
     </tr>
-
+    {% if checkup.jeu_rotule_suspension_superieure_avd != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Avant droite" %}</td>
         <td>
@@ -1489,6 +1491,7 @@
         </td>
     </tr>
 
+    {% if checkup.jeu_rotule_suspension_superieure_avg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Avant gauche" %}</td>
         <td>
@@ -1503,7 +1506,7 @@
             {% endif %}
         </td>
     </tr>
-
+    {% if checkup.jeu_rotule_suspension_superieure_ard != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière droite" %}</td>
         <td>
@@ -1519,6 +1522,7 @@
         </td>
     </tr>
 
+    {% if checkup.jeu_rotule_suspension_superieure_arg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière gauche" %}</td>
         <td>
@@ -1848,7 +1852,7 @@
         <th>{% trans "Pièce" %}</th>
         <th>{% trans "État" %}</th>
     </tr>
-
+    {% if checkup.jeu_multi_bras_avd != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Avant droit" %}</td>
         <td>
@@ -1863,7 +1867,7 @@
             {% endif %}
         </td>
     </tr>
-
+    {% if checkup.jeu_multi_bras_avg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Avant gauche" %}</td>
         <td>
@@ -1878,7 +1882,7 @@
             {% endif %}
         </td>
     </tr>
-
+    {% if checkup.jeu_multi_bras_ard != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière droit" %}</td>
         <td>
@@ -1893,7 +1897,7 @@
             {% endif %}
         </td>
     </tr>
-
+    {% if checkup.jeu_multi_bras_arg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière gauche" %}</td>
         <td>

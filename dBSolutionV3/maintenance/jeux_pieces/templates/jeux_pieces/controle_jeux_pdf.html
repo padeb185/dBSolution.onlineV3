@@ -498,7 +498,7 @@
             {% endif %}
         </td>
     </tr>
-
+    {% if controle.jeu_rotule_direction_ard != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière droite" %}</td>
         <td>
@@ -514,6 +514,7 @@
         </td>
     </tr>
 
+    {% if controle.jeu_rotule_direction_arg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière gauche" %}</td>
         <td>
@@ -606,7 +607,7 @@
         <th>{% trans "Pièce" %}</th>
         <th>{% trans "État" %}</th>
     </tr>
-
+    {% if controle.jeu_rotule_suspension_superieure_avd != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Avant droite" %}</td>
         <td>
@@ -621,7 +622,7 @@
             {% endif %}
         </td>
     </tr>
-
+    {% if controle.jeu_rotule_suspension_superieure_avg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Avant gauche" %}</td>
         <td>
@@ -636,7 +637,7 @@
             {% endif %}
         </td>
     </tr>
-
+    {% if controle.jeu_rotule_suspension_superieure_ard != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière droite" %}</td>
         <td>
@@ -651,7 +652,7 @@
             {% endif %}
         </td>
     </tr>
-
+   {% if controle.jeu_rotule_suspension_superieure_arg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière gauche" %}</td>
         <td>
@@ -981,7 +982,7 @@
         <th>{% trans "Pièce" %}</th>
         <th>{% trans "État" %}</th>
     </tr>
-
+   {% if controle.jeu_multi_bras_avd != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Avant droit" %}</td>
         <td>
@@ -996,7 +997,7 @@
             {% endif %}
         </td>
     </tr>
-
+    {% if controle.jeu_multi_bras_avg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Avant gauche" %}</td>
         <td>
@@ -1011,7 +1012,7 @@
             {% endif %}
         </td>
     </tr>
-
+    {% if controle.jeu_multi_bras_ard != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière droit" %}</td>
         <td>
@@ -1026,7 +1027,7 @@
             {% endif %}
         </td>
     </tr>
-
+    {% if controle.jeu_multi_bras_arg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière gauche" %}</td>
         <td>
@@ -1049,7 +1050,7 @@
         <th>{% trans "Pièce" %}</th>
         <th>{% trans "État" %}</th>
     </tr>
-
+    {% if controle.jeu_cardan_avd != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Avant droit" %}</td>
         <td>
@@ -1064,7 +1065,7 @@
             {% endif %}
         </td>
     </tr>
-
+    {% if controle.jeu_cardan_avg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Avant gauche" %}</td>
         <td>
@@ -1079,7 +1080,7 @@
             {% endif %}
         </td>
     </tr>
-
+    {% if controle.jeu_cardan_ard != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière droit" %}</td>
         <td>
@@ -1094,7 +1095,7 @@
             {% endif %}
         </td>
     </tr>
-
+    {% if controle.jeu_cardan_arg != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arrière gauche" %}</td>
         <td>
@@ -1120,7 +1121,7 @@
         <th>{% trans "Pièce" %}</th>
         <th>{% trans "État" %}</th>
     </tr>
-
+    {% if controle.jeu_arbre != "NON_PRESENT" %}
     <tr>
         <td>{% trans "Arbre de transmission" %}</td>
         <td>

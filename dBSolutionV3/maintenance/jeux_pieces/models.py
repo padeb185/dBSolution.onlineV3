@@ -15,6 +15,7 @@ class EtatOKNotOK(models.TextChoices):
     PETIT = "PETIT", _("Petit jeu")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
+    NON_PRESENT = "NON_PRESENT", _("Non présent")
 
 class TypePieceControle(models.TextChoices):
     ROTULE_DIRECTION = "ROTULE_DIRECTION", _("Rotule de direction")
