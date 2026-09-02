@@ -235,26 +235,28 @@ class Entretien(TechnicienMixin, models.Model):
         default=0,
         verbose_name=_("Prix d'achat HTVA"),
     )
-    filtre_huile_boite = models.CharField(
+
+
+    filtre_huile_bte = models.CharField(
         max_length=25,
         choices=EntretienEtat.choices,
         default=EntretienEtat.A_FAIRE,
         verbose_name=_("Remplacer le filtre à huile de boîte de vitesses"),
     )
 
-    filtre_huile_boite_fabricant = models.CharField(
+    filtre_huile_bte_fabricant = models.CharField(
         max_length=25,
         choices=FabricantFiltre.choices,
         default=FabricantFiltre.CHOISIR,
         verbose_name=_("Fabricant"),
     )
 
-    filtre_huile_boite_quantite = models.PositiveIntegerField(
+    filtre_huile_bte_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité"),
     )
 
-    filtre_huile_boite_prix = models.DecimalField(
+    filtre_huile_bte_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
@@ -384,7 +386,7 @@ class Entretien(TechnicienMixin, models.Model):
 
 
     frein_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de freins"))
-    frein_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Fabricant"))
+    frein_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.CHOISIR,verbose_name=_("Fabricant"))
     frein_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité ajoutée en litres"))
     frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité"))
     frein_liquide_prix = models.DecimalField(
@@ -397,7 +399,7 @@ class Entretien(TechnicienMixin, models.Model):
 
 
     refroidissement_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de refroidissement"))
-    refroidissement_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Fabricant"))
+    refroidissement_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.CHOISIR,verbose_name=_("Fabricant"))
     refroidissement_liquide_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité ajoutée en litres"))
     refroidissement_liquide_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité"))
     refroidissement_liquide_prix = models.DecimalField(

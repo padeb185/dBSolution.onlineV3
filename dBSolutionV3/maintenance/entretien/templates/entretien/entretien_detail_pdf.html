@@ -622,19 +622,19 @@
     <tr>
     <td>{% trans "Filtre à huile de boîte" %}</td>
     <td>
-        {% if entretien.filtre_huile_boite == "A_FAIRE" %}
+        {% if entretien.filtre_huile_bte == "A_FAIRE" %}
             <span class="etat-rouge">
-                {{ entretien.get_filtre_huile_boite_display }}
+                {{ entretien.get_filtre_huile_bte_display }}
             </span>
 
-        {% elif entretien.filtre_huile_boite == "FAIT" %}
+        {% elif entretien.filtre_huile_bte == "FAIT" %}
             <span class="etat-bleu">
-                {{ entretien.get_filtre_huile_boite_display }}
+                {{ entretien.get_filtre_huile_bte_display }}
             </span>
 
-        {% elif entretien.filtre_huile_boite == "REPORTER" %}
+        {% elif entretien.filtre_huile_bte == "REPORTER" %}
             <span class="etat-jaune">
-                {{ entretien.get_filtre_huile_boite_display }}
+                {{ entretien.get_filtre_huile_bte_display }}
             </span>
         {% endif %}
     </td>
@@ -642,17 +642,17 @@
 
     <tr>
         <td>{% trans "Fabricant du filtre à huile de boîte" %}</td>
-        <td>{{ entretien.get_filtre_huile_boite_fabricant_display }}</td>
+        <td>{{ entretien.get_filtre_huile_bte_fabricant_display }}</td>
     </tr>
 
     <tr>
         <td>{% trans "Quantité de filtres à huile de boîte" %}</td>
-        <td>{{ entretien.filtre_huile_boite_quantite }}</td>
+        <td>{{ entretien.filtre_huile_bte_quantite }}</td>
     </tr>
 
     <tr>
         <td>{% trans "Prix d'achat HTVA du filtre à huile de boîte" %}</td>
-        <td>{{ entretien.filtre_huile_boite_prix|floatformat:2 }} €</td>
+        <td>{{ entretien.filtre_huile_bte_prix|floatformat:2 }} €</td>
     </tr>
 
     <tr>
@@ -784,16 +784,16 @@
         <tr>
             <td>{% trans "Lave-glace" %}</td>
             <td>
-                {% if entretien.lave_glace_liquide_etat == "BON" %}
-                    <span class="etat-vert">{{ entretien.get_lave_glace_liquide_etat_display }}</span>
-                {% elif entretien.lave_glace_liquide_etat == "AJOUTER" %}
-                    <span class="etat-bleu">{{ entretien.get_lave_glace_liquide_etat_display }}</span>
-                {% elif entretien.lave_glace_liquide_etat == "REMPLACER" %}
-                    <span class="etat-bleu">{{ entretien.get_lave_glace_liquide_etat_display }}</span>
+                {% if entretien.lave_glace_liquide == "BON" %}
+                    <span class="etat-vert">{{ entretien.get_lave_glace_liquide_display }}</span>
+                {% elif entretien.lave_glace_liquide == "AJOUTER" %}
+                    <span class="etat-bleu">{{ entretien.get_lave_glace_liquide_display }}</span>
+                {% elif entretien.lave_glace_liquide == "REMPLACER" %}
+                    <span class="etat-bleu">{{ entretien.get_lave_glace_liquide_display }}</span>
                 {% endif %}
             </td>
-            <td>{{ entretien.lave_glace_quantite }} L</td>
-            <td>{{ entretien.get_lave_glace_qualite_display }}</td>
+            <td>{{ entretien.lave_glace_liquide_quantite }} L</td>
+            <td>{{ entretien.get_lave_glace_liquide_qualite_display }}</td>
         </tr>
 
         <tr>
