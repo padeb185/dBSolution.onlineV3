@@ -196,14 +196,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA")
     )
 
+
     roulement_auto = models.CharField(
         max_length=25,
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Roulements internes")
     )
-
-
 
     roulement_auto_quantite = models.PositiveIntegerField(
         default=0,
