@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-02 19:33+0200\n"
+"POT-Creation-Date: 2026-09-04 15:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -357,13 +357,13 @@ msgstr "Metadaten"
 #: fuel/models.py:182 fuel/templates/fuel/fuel_detail.html:123
 #: maindoeuvre/models.py:73
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:125
-#: maintenance/autres_interventions/abs/models.py:226
+#: maintenance/autres_interventions/abs/models.py:223
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail.html:92
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:285
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:257
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail.html:91
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_detail.html:101
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1262
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1218
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail.html:86
 #: maintenance/autres_interventions/climatisation/models.py:550
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:94
@@ -373,7 +373,7 @@ msgstr "Metadaten"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:96
 #: maintenance/autres_interventions/embrayage/models.py:250
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:92
-#: maintenance/autres_interventions/geometrie/models.py:233
+#: maintenance/autres_interventions/geometrie/models.py:242
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:91
 #: maintenance/autres_interventions/moteur/admission/models.py:237
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail.html:92
@@ -460,13 +460,13 @@ msgstr "Erstellt am"
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:114
 #: fuel/models.py:183 maindoeuvre/models.py:74
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:130
-#: maintenance/autres_interventions/abs/models.py:227
+#: maintenance/autres_interventions/abs/models.py:224
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail.html:96
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:286
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:258
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail.html:95
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_detail.html:105
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1263
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1219
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail.html:90
 #: maintenance/autres_interventions/climatisation/models.py:557
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:98
@@ -476,7 +476,7 @@ msgstr "Erstellt am"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:100
 #: maintenance/autres_interventions/embrayage/models.py:251
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:96
-#: maintenance/autres_interventions/geometrie/models.py:234
+#: maintenance/autres_interventions/geometrie/models.py:243
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:95
 #: maintenance/autres_interventions/moteur/admission/models.py:238
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail.html:96
@@ -580,8 +580,8 @@ msgstr "Wareneinkauf"
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_form.html:125
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:785
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:787
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:786
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:782
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2422
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2420
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_form.html:247
 #: maintenance/autres_interventions/climatisation/templates/climatisation/modifier_clim.html:250
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_form.html:247
@@ -590,8 +590,8 @@ msgstr "Wareneinkauf"
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:1339
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_form.html:247
 #: maintenance/autres_interventions/embrayage/templates/embrayage/modifier_embrayage.html:253
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:248
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_modifier.html:255
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:250
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_modifier.html:258
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_check.html:252
 #: maintenance/autres_interventions/moteur/admission/templates/admission/modifier_admission.html:254
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_check.html:253
@@ -705,9 +705,9 @@ msgstr "Speichern"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:176
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:791
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:176
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:791
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2427
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:176
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:786
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2424
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_form.html:168
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_form.html:252
 #: maintenance/autres_interventions/climatisation/templates/climatisation/modifier_clim.html:172
@@ -725,9 +725,9 @@ msgstr "Speichern"
 #: maintenance/autres_interventions/embrayage/templates/embrayage/modifier_embrayage.html:173
 #: maintenance/autres_interventions/embrayage/templates/embrayage/modifier_embrayage.html:259
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:168
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:253
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:255
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_modifier.html:172
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_modifier.html:259
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_modifier.html:262
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_check.html:173
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_check.html:257
 #: maintenance/autres_interventions/moteur/admission/templates/admission/modifier_admission.html:172
@@ -1390,8 +1390,8 @@ msgstr "Stadt"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:543
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:548
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:31
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:531
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:531
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2167
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2167
 #: maintenance/autres_interventions/climatisation/models.py:63
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:365
 #: maintenance/autres_interventions/climatisation/views.py:480
@@ -1528,7 +1528,7 @@ msgstr "Weitere Arbeiten"
 #: fuel/templates/fuel/fuel_detail.html:78 maindoeuvre/forms.py:45
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:92
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:327
-#: maintenance/autres_interventions/abs/models.py:158
+#: maintenance/autres_interventions/abs/models.py:155
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail.html:57
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:733
 #: maintenance/autres_interventions/abs/views.py:281
@@ -1543,11 +1543,11 @@ msgstr "Weitere Arbeiten"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:886
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_detail.html:68
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:624
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1204
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:607
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1160
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2243
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail.html:56
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:728
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:606
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1539
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2243
 #: maintenance/autres_interventions/climatisation/models.py:478
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:56
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:1014
@@ -1568,9 +1568,9 @@ msgstr "Weitere Arbeiten"
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:783
 #: maintenance/autres_interventions/embrayage/views.py:565
 #: maintenance/autres_interventions/embrayage/views.py:756
-#: maintenance/autres_interventions/geometrie/models.py:175
+#: maintenance/autres_interventions/geometrie/models.py:184
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:57
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:648
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:653
 #: maintenance/autres_interventions/geometrie/views.py:577
 #: maintenance/autres_interventions/geometrie/views.py:755
 #: maintenance/autres_interventions/moteur/admission/models.py:169
@@ -3056,27 +3056,27 @@ msgstr "Beschreibung"
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:150
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:169
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:189
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:210
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:236
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:258
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:280
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:302
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:331
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:353
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:375
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:397
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:419
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:441
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:463
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:485
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:507
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:529
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:551
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:573
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:595
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:617
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:639
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:661
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:209
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:235
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:257
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:279
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:301
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:330
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:352
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:374
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:396
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:418
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:440
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:462
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:484
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:506
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:528
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:550
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:572
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:594
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:616
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:638
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:660
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:683
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:705
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:727
@@ -3098,9 +3098,7 @@ msgstr "Beschreibung"
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1079
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1101
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1123
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1145
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1167
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:601
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1412
 #: maintenance/autres_interventions/climatisation/models.py:230
 #: maintenance/autres_interventions/climatisation/models.py:305
 #: maintenance/autres_interventions/climatisation/models.py:327
@@ -3144,7 +3142,7 @@ msgstr "Beschreibung"
 #: maintenance/autres_interventions/embrayage/models.py:134
 #: maintenance/autres_interventions/embrayage/models.py:141
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:650
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:507
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:512
 #: maintenance/autres_interventions/moteur/admission/models.py:99
 #: maintenance/autres_interventions/moteur/admission/models.py:104
 #: maintenance/autres_interventions/moteur/admission/models.py:111
@@ -4512,7 +4510,7 @@ msgstr "14,32 Liter"
 #: fuel/templates/fuel/fuel_list.html:66 fuel/templates/fuel/fuel_list.html:88
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:262
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:74
-#: maintenance/autres_interventions/abs/models.py:224
+#: maintenance/autres_interventions/abs/models.py:221
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:310
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:102
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:283
@@ -4521,7 +4519,7 @@ msgstr "14,32 Liter"
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:113
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:303
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:100
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1260
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1216
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:276
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:102
 #: maintenance/autres_interventions/climatisation/models.py:546
@@ -4536,7 +4534,7 @@ msgstr "14,32 Liter"
 #: maintenance/autres_interventions/embrayage/models.py:248
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:311
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:102
-#: maintenance/autres_interventions/geometrie/models.py:231
+#: maintenance/autres_interventions/geometrie/models.py:240
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:340
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:102
 #: maintenance/autres_interventions/moteur/admission/models.py:235
@@ -4811,12 +4809,12 @@ msgstr "Zeit (Minuten)"
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:570
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:583
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:729
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:575
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1386
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:853
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:457
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1117
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:620
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:485
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:490
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:766
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:708
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:503
@@ -4955,11 +4953,11 @@ msgstr "Kilometerstand"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_detail.html:53
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:98
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:587
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:570
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2206
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail.html:47
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:311
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:100
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:569
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2206
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:45
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:370
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:100
@@ -5045,7 +5043,7 @@ msgstr "Tag"
 
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:65
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:267
-#: maintenance/autres_interventions/abs/models.py:191
+#: maintenance/autres_interventions/abs/models.py:188
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail.html:47
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:315
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:83
@@ -5067,13 +5065,13 @@ msgstr "Tag"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:81
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:99
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:698
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1239
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:681
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1195
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2317
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail.html:48
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:281
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:82
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:101
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:679
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2317
 #: maintenance/autres_interventions/climatisation/models.py:512
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:46
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:327
@@ -5103,7 +5101,7 @@ msgstr "Tag"
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:101
 #: maintenance/autres_interventions/embrayage/views.py:583
 #: maintenance/autres_interventions/embrayage/views.py:766
-#: maintenance/autres_interventions/geometrie/models.py:209
+#: maintenance/autres_interventions/geometrie/models.py:218
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:48
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:341
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:83
@@ -5265,12 +5263,12 @@ msgstr "Techniker"
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_form.html:16
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:549
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:708
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:554
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1365
 #: maintenance/autres_interventions/climatisation/models.py:500
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:832
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:436
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:599
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:464
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:469
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:537
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1001
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:607
@@ -5342,7 +5340,7 @@ msgstr "Interventionsdatum"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:88
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:101
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail.html:57
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:559
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1370
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:89
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:103
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:54
@@ -5360,7 +5358,7 @@ msgstr "Interventionsdatum"
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:604
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:90
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:103
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:469
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:474
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:90
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:103
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail.html:55
@@ -5498,14 +5496,14 @@ msgid "Détail de la main d'oeuvre"
 msgstr "Details der Arbeitsleistung"
 
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:272
-#: maintenance/autres_interventions/abs/models.py:212
+#: maintenance/autres_interventions/abs/models.py:209
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:320
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:270
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:20
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:231
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:312
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:318
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1249
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1205
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:291
 #: maintenance/autres_interventions/climatisation/models.py:533
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:337
@@ -5515,7 +5513,7 @@ msgstr "Details der Arbeitsleistung"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:365
 #: maintenance/autres_interventions/embrayage/models.py:236
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:321
-#: maintenance/autres_interventions/geometrie/models.py:219
+#: maintenance/autres_interventions/geometrie/models.py:228
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:343
 #: maintenance/autres_interventions/moteur/admission/models.py:223
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:316
@@ -5592,15 +5590,15 @@ msgid "Kilométrage chassis"
 msgstr "Fahrgestell-Kilometerstand"
 
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:296
-#: maintenance/autres_interventions/abs/models.py:182
+#: maintenance/autres_interventions/abs/models.py:179
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:240
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:248
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1230
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1186
 #: maintenance/autres_interventions/courroie_accessoires/models.py:174
 #: maintenance/autres_interventions/echappement/models.py:272
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1084
 #: maintenance/autres_interventions/embrayage/models.py:206
-#: maintenance/autres_interventions/geometrie/models.py:200
+#: maintenance/autres_interventions/geometrie/models.py:209
 #: maintenance/autres_interventions/moteur/admission/models.py:193
 #: maintenance/autres_interventions/moteur/admission/views.py:555
 #: maintenance/autres_interventions/moteur/allumage/models.py:434
@@ -5626,12 +5624,12 @@ msgstr "Arbeitskraft"
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:262
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_form.html:136
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:797
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:798
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2434
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_form.html:258
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_form.html:258
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:1352
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_form.html:258
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:259
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:261
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_check.html:263
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_check.html:264
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_check.html:262
@@ -5906,7 +5904,7 @@ msgstr "Zu ersetzen"
 #: maintenance/autres_interventions/abs/models.py:21
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:18
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:20
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1501
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1705
 #: maintenance/autres_interventions/climatisation/models.py:22
 #: maintenance/autres_interventions/courroie_accessoires/models.py:17
 #: maintenance/autres_interventions/echappement/models.py:20
@@ -5956,8 +5954,8 @@ msgstr "ABS-Pumpe"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:755
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:81
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:108
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:326
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1182
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:325
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1138
 #: maintenance/autres_interventions/climatisation/models.py:301
 #: maintenance/autres_interventions/climatisation/models.py:323
 #: maintenance/autres_interventions/climatisation/models.py:345
@@ -6281,7 +6279,7 @@ msgstr "Bremsflüssigkeitsmenge (L)"
 msgid "Prix d'achat du liquide HTVA"
 msgstr "Einkaufspreis der Bremsflüssigkeit ohne MwSt."
 
-#: maintenance/autres_interventions/abs/models.py:155
+#: maintenance/autres_interventions/abs/models.py:152
 #: maintenance/autres_interventions/abs/views.py:286
 #: maintenance/autres_interventions/abs/views.py:565
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:232
@@ -6290,9 +6288,9 @@ msgstr "Einkaufspreis der Bremsflüssigkeit ohne MwSt."
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:406
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:654
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:661
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1222
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:644
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:642
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1178
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2280
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2280
 #: maintenance/autres_interventions/courroie_accessoires/models.py:108
 #: maintenance/autres_interventions/courroie_accessoires/views.py:288
 #: maintenance/autres_interventions/courroie_accessoires/views.py:448
@@ -6302,7 +6300,7 @@ msgstr "Einkaufspreis der Bremsflüssigkeit ohne MwSt."
 #: maintenance/autres_interventions/embrayage/models.py:179
 #: maintenance/autres_interventions/embrayage/views.py:574
 #: maintenance/autres_interventions/embrayage/views.py:761
-#: maintenance/autres_interventions/geometrie/models.py:180
+#: maintenance/autres_interventions/geometrie/models.py:189
 #: maintenance/autres_interventions/geometrie/views.py:586
 #: maintenance/autres_interventions/geometrie/views.py:760
 #: maintenance/autres_interventions/moteur/admission/models.py:185
@@ -6373,15 +6371,15 @@ msgstr "Einkaufspreis der Bremsflüssigkeit ohne MwSt."
 msgid "Serrage des roues"
 msgstr "Anziehen der Radschrauben"
 
-#: maintenance/autres_interventions/abs/models.py:164
+#: maintenance/autres_interventions/abs/models.py:161
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:219
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:132
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1210
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1166
 #: maintenance/autres_interventions/climatisation/models.py:482
 #: maintenance/autres_interventions/courroie_accessoires/models.py:118
 #: maintenance/autres_interventions/echappement/models.py:252
 #: maintenance/autres_interventions/embrayage/models.py:188
-#: maintenance/autres_interventions/geometrie/models.py:183
+#: maintenance/autres_interventions/geometrie/models.py:192
 #: maintenance/autres_interventions/models.py:87
 #: maintenance/autres_interventions/moteur/admission/models.py:172
 #: maintenance/autres_interventions/moteur/allumage/models.py:414
@@ -6403,15 +6401,15 @@ msgstr "Anziehen der Radschrauben"
 msgid "Vert"
 msgstr "Grün"
 
-#: maintenance/autres_interventions/abs/models.py:165
+#: maintenance/autres_interventions/abs/models.py:162
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:220
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:133
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1211
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1167
 #: maintenance/autres_interventions/climatisation/models.py:483
 #: maintenance/autres_interventions/courroie_accessoires/models.py:119
 #: maintenance/autres_interventions/echappement/models.py:253
 #: maintenance/autres_interventions/embrayage/models.py:189
-#: maintenance/autres_interventions/geometrie/models.py:184
+#: maintenance/autres_interventions/geometrie/models.py:193
 #: maintenance/autres_interventions/models.py:88
 #: maintenance/autres_interventions/moteur/admission/models.py:173
 #: maintenance/autres_interventions/moteur/allumage/models.py:415
@@ -6433,15 +6431,15 @@ msgstr "Grün"
 msgid "Jaune"
 msgstr "Gelb"
 
-#: maintenance/autres_interventions/abs/models.py:166
+#: maintenance/autres_interventions/abs/models.py:163
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:221
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:134
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1212
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1168
 #: maintenance/autres_interventions/climatisation/models.py:484
 #: maintenance/autres_interventions/courroie_accessoires/models.py:120
 #: maintenance/autres_interventions/echappement/models.py:254
 #: maintenance/autres_interventions/embrayage/models.py:190
-#: maintenance/autres_interventions/geometrie/models.py:185
+#: maintenance/autres_interventions/geometrie/models.py:194
 #: maintenance/autres_interventions/models.py:89
 #: maintenance/autres_interventions/moteur/admission/models.py:174
 #: maintenance/autres_interventions/moteur/allumage/models.py:416
@@ -6463,15 +6461,15 @@ msgstr "Gelb"
 msgid "Rouge"
 msgstr "Rot"
 
-#: maintenance/autres_interventions/abs/models.py:173
+#: maintenance/autres_interventions/abs/models.py:170
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:228
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:141
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1218
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1174
 #: maintenance/autres_interventions/climatisation/models.py:491
 #: maintenance/autres_interventions/courroie_accessoires/models.py:127
 #: maintenance/autres_interventions/echappement/models.py:261
 #: maintenance/autres_interventions/embrayage/models.py:197
-#: maintenance/autres_interventions/geometrie/models.py:191
+#: maintenance/autres_interventions/geometrie/models.py:200
 #: maintenance/autres_interventions/moteur/admission/models.py:181
 #: maintenance/autres_interventions/moteur/allumage/models.py:423
 #: maintenance/autres_interventions/moteur/alternateur/models.py:133
@@ -6492,15 +6490,15 @@ msgstr "Rot"
 msgid "État visuel / Tag"
 msgstr "Visueller Zustand / Tag"
 
-#: maintenance/autres_interventions/abs/models.py:196
+#: maintenance/autres_interventions/abs/models.py:193
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:254
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:215
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1242
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1198
 #: maintenance/autres_interventions/climatisation/models.py:517
 #: maintenance/autres_interventions/courroie_accessoires/models.py:141
 #: maintenance/autres_interventions/echappement/models.py:284
 #: maintenance/autres_interventions/embrayage/models.py:220
-#: maintenance/autres_interventions/geometrie/models.py:212
+#: maintenance/autres_interventions/geometrie/models.py:221
 #: maintenance/autres_interventions/moteur/admission/models.py:207
 #: maintenance/autres_interventions/moteur/allumage/models.py:448
 #: maintenance/autres_interventions/moteur/alternateur/models.py:159
@@ -6521,15 +6519,15 @@ msgstr "Visueller Zustand / Tag"
 msgid "Nom du technicien"
 msgstr "Name des Technikers"
 
-#: maintenance/autres_interventions/abs/models.py:202
+#: maintenance/autres_interventions/abs/models.py:199
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:260
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:221
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1243
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1199
 #: maintenance/autres_interventions/climatisation/models.py:523
 #: maintenance/autres_interventions/courroie_accessoires/models.py:147
 #: maintenance/autres_interventions/echappement/models.py:285
 #: maintenance/autres_interventions/embrayage/models.py:226
-#: maintenance/autres_interventions/geometrie/models.py:213
+#: maintenance/autres_interventions/geometrie/models.py:222
 #: maintenance/autres_interventions/moteur/admission/models.py:213
 #: maintenance/autres_interventions/moteur/allumage/models.py:454
 #: maintenance/autres_interventions/moteur/alternateur/models.py:165
@@ -6550,7 +6548,7 @@ msgstr "Name des Technikers"
 msgid "Rôle du technicien"
 msgstr "Rolle des Technikers"
 
-#: maintenance/autres_interventions/abs/models.py:221
+#: maintenance/autres_interventions/abs/models.py:218
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:560
 #: maintenance/autres_interventions/abs/views.py:296
 #: maintenance/autres_interventions/abs/views.py:583
@@ -6560,8 +6558,8 @@ msgstr "Rolle des Technikers"
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:270
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:420
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:719
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1257
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:565
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1213
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1376
 #: maintenance/autres_interventions/climatisation/models.py:541
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:843
 #: maintenance/autres_interventions/climatisation/views.py:514
@@ -6577,8 +6575,8 @@ msgstr "Rolle des Technikers"
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:610
 #: maintenance/autres_interventions/embrayage/views.py:592
 #: maintenance/autres_interventions/embrayage/views.py:771
-#: maintenance/autres_interventions/geometrie/models.py:228
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:475
+#: maintenance/autres_interventions/geometrie/models.py:237
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:480
 #: maintenance/autres_interventions/geometrie/views.py:600
 #: maintenance/autres_interventions/geometrie/views.py:770
 #: maintenance/autres_interventions/moteur/admission/models.py:231
@@ -6659,17 +6657,17 @@ msgstr "Rolle des Technikers"
 msgid "Taux horaire"
 msgstr "Stundenlohn"
 
-#: maintenance/autres_interventions/abs/models.py:237
+#: maintenance/autres_interventions/abs/models.py:234
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:186
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:199
 msgid "Système ABS"
 msgstr "ABS-System"
 
-#: maintenance/autres_interventions/abs/models.py:238
+#: maintenance/autres_interventions/abs/models.py:235
 msgid "Systèmes ABS"
 msgstr "ABS-System"
 
-#: maintenance/autres_interventions/abs/models.py:297
+#: maintenance/autres_interventions/abs/models.py:294
 msgid "Controle du système ABS"
 msgstr "Kontrolle des ABS-Systems"
 
@@ -6740,7 +6738,7 @@ msgstr "Komponente"
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:611
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:387
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:754
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:600
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1411
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:634
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:877
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:479
@@ -6748,7 +6746,7 @@ msgstr "Komponente"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1156
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:379
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:648
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:506
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:511
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:374
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:788
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:383
@@ -6835,11 +6833,11 @@ msgstr "Bremsflüssigkeit"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:565
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:724
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:570
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1381
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:848
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:452
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:615
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:480
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:485
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:553
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1020
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:623
@@ -6855,11 +6853,11 @@ msgstr "Berechneter Preis"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:574
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:733
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:579
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1390
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:857
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:461
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:624
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:489
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:494
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:562
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1031
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:632
@@ -6883,7 +6881,7 @@ msgstr "Keine zugeordnete Arbeitsleistung"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:588
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:744
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:590
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1401
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:867
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:469
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1144
@@ -6902,12 +6900,12 @@ msgstr "Verwendete Teile, Produkte und Arbeitskosten"
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:597
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:610
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:753
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:599
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1410
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:876
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:478
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1155
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:647
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:505
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:510
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:787
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:729
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:524
@@ -6931,12 +6929,12 @@ msgstr "Teil / Produkt"
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:601
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:613
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:757
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:602
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1413
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:880
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:482
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1162
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:651
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:508
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:513
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:792
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:736
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:530
@@ -6964,12 +6962,12 @@ msgstr "Stückpreis (ohne MwSt.)"
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:602
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:614
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:758
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:603
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1414
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:881
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:483
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1165
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:652
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:509
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:514
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:794
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:739
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:533
@@ -6998,12 +6996,12 @@ msgstr "Gesamt netto (ohne MwSt.)"
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:661
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:672
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:817
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:659
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1470
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:941
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:543
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1236
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:711
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:566
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:571
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:848
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:795
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:585
@@ -7026,8 +7024,8 @@ msgstr "Gesamtsumme Teile und Produkte ohne MwSt."
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:710
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:827
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:859
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:669
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:701
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1480
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1512
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:951
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:983
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:553
@@ -7036,8 +7034,8 @@ msgstr "Gesamtsumme Teile und Produkte ohne MwSt."
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1289
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:721
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:753
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:579
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:617
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:584
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:622
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:858
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:888
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:805
@@ -7087,8 +7085,8 @@ msgstr "Arbeitslohn (zzgl. MwSt.)"
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:718
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:837
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:871
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:679
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:713
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1490
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1524
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:961
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:995
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:563
@@ -7097,8 +7095,8 @@ msgstr "Arbeitslohn (zzgl. MwSt.)"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1306
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:731
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:765
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:592
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:629
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:597
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:634
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:868
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:898
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:815
@@ -7144,12 +7142,12 @@ msgstr "Gesamtsumme einschließlich Arbeitskosten ohne MwSt."
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:695
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:851
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:693
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1504
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:975
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:577
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1278
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:745
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:609
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:614
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:881
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:829
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:619
@@ -7171,12 +7169,12 @@ msgstr "Keine Teile oder Produkte verwendet."
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:739
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:740
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:892
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:734
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1545
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:1020
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:620
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1338
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:789
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:654
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:659
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:923
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:872
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:662
@@ -7203,12 +7201,12 @@ msgstr "Keine Bemerkung."
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:745
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:745
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:898
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:740
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1551
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:1025
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:626
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1347
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:795
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:661
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:666
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:929
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:878
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:668
@@ -7236,12 +7234,12 @@ msgstr "Dokument automatisch von CarsCosts.com erstellt."
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:747
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:747
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:900
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:742
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1553
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:1027
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:628
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1351
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:797
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:663
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:668
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:931
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:880
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:670
@@ -7278,8 +7276,8 @@ msgstr "ABS-Prüfung für:"
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_form.html:110
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:767
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:772
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:769
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:767
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2405
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2405
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_form.html:232
 #: maintenance/autres_interventions/climatisation/templates/climatisation/modifier_clim.html:235
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_form.html:232
@@ -7288,8 +7286,8 @@ msgstr "ABS-Prüfung für:"
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:1324
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_form.html:232
 #: maintenance/autres_interventions/embrayage/templates/embrayage/modifier_embrayage.html:238
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:233
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_modifier.html:237
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:235
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_modifier.html:240
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_check.html:237
 #: maintenance/autres_interventions/moteur/admission/templates/admission/modifier_admission.html:239
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_check.html:238
@@ -7598,7 +7596,7 @@ msgstr "Fehler bei der Änderung: %(error)s"
 
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:17
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:19
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1500
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1704
 #: maintenance/autres_interventions/climatisation/models.py:21
 #: maintenance/autres_interventions/moteur/allumage/models.py:16
 #: maintenance/autres_interventions/moteur/injection/models.py:31
@@ -7679,27 +7677,27 @@ msgstr "Kupplungsscheibe"
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:156
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:175
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:196
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:217
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:243
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:265
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:287
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:309
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:338
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:360
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:382
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:404
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:426
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:448
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:470
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:492
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:514
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:536
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:558
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:580
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:602
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:624
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:646
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:668
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:216
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:242
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:264
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:286
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:308
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:337
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:359
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:381
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:403
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:425
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:447
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:469
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:491
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:513
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:535
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:557
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:579
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:601
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:623
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:645
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:667
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:690
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:712
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:734
@@ -7721,9 +7719,7 @@ msgstr "Kupplungsscheibe"
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1086
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1108
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1130
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1152
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1174
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1199
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1155
 #: maintenance/autres_interventions/climatisation/models.py:178
 #: maintenance/autres_interventions/climatisation/models.py:213
 #: maintenance/autres_interventions/climatisation/models.py:312
@@ -7987,8 +7983,8 @@ msgstr "Primärwelle"
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:103
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:442
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:184
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1480
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:457
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1436
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:480
 #: piece/piece_boite/models.py:45
 msgid "Arbre secondaire"
 msgstr "Nebenwelle"
@@ -8066,7 +8062,7 @@ msgstr "Schaltgabel"
 
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:194
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:685
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1178
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1134
 #: maintenance/niveaux/templates/niveaux/modifier_niveaux.html:370
 #: maintenance/niveaux/templates/niveaux/niveau_form.html:365
 msgid "Huile de boite de vitesse"
@@ -8075,15 +8071,15 @@ msgstr "Getriebeöl"
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:198
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:521
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:343
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1186
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:534
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:538
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1142
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1345
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1349
 msgid "Qualité de l'huile"
 msgstr "Flüssigkeitsqualität"
 
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:203
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:167
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1192
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1148
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:147
 msgid "Quantité d'huile ajoutée en litres"
 msgstr "Zugefügte Ölmenge in Litern"
@@ -8496,7 +8492,7 @@ msgstr "Ölhersteller"
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:531
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:348
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:543
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1354
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:481
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:503
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:669
@@ -8700,8 +8696,8 @@ msgstr "Primär- / Sekundärwelle"
 
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:358
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:362
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:458
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:458
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:559
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:559
 msgid "Roulement de boite de vitesses"
 msgstr "Getriebelager"
 
@@ -8717,8 +8713,8 @@ msgstr "Getriebeöl"
 
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:730
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:735
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:717
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:715
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2353
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2353
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:696
 #: maintenance/autres_interventions/refroidissement/views.py:556
 #: maintenance/autres_interventions/refroidissement/views.py:825
@@ -8887,235 +8883,372 @@ msgid "Kilométrage au moment du contrôle"
 msgstr "Kilometerstand zum Zeitpunkt des kontrolle"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:74
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1450
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:342
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1406
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:345
 #: piece/piece_boite/models.py:98
 msgid "Convertisseur de couple"
 msgstr "Drehmomentwandler"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:101
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1456
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1412
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:304
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:303
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:372
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:304
 msgid "Double embrayage"
 msgstr "Doppelkupplung"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:127
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:388
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:399
 msgid "Pompes à huile"
 msgstr "Ölpumpen"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:146
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1468
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:411
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1424
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:426
 msgid "Valves de contrôle"
 msgstr "Steuerventile"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:164
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1474
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:434
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1430
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:455
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:453
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:455
 msgid "Arbre de couple"
 msgstr "Drehmomentwelle"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:203
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1486
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:480
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:204
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1442
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:507
 msgid "Roulements internes"
 msgstr "Interne Lager"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:231
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:230
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1449
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:594
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:534
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:594
 #: piece/piece_boite/models.py:133
 msgid "Bloc hydraulique"
 msgstr "Hydraulikblock"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:253
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:252
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1455
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:644
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:553
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:644
 msgid "Unité mécatronique"
 msgstr "Mechatronikeinheit"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:275
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:274
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1461
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:572
 #: piece/piece_boite/models.py:140
 msgid "Solénoïdes"
 msgstr "Magnetventile"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:297
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:296
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1467
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:591
 msgid "Électrovannes"
 msgstr "Magnetventil"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:319
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:318
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1473
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:610
 msgid "Filtre de boîte automatique"
 msgstr "Automatikgetriebefilter"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:348
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:347
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1479
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:629
 msgid "Carter d'huile de boîte"
 msgstr "Getriebeölwanne"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:370
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:369
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1485
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:648
 msgid "Joint de carter de boîte"
 msgstr "Getriebeölwannendichtung"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:392
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:391
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1491
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:667
 msgid "Crépine de boîte automatique"
 msgstr "Automatikgetriebe-Ölsieb"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:414
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:413
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1497
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:354
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:994
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:686
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:354
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:994
 msgid "Pompe hydraulique"
 msgstr "Hydraulikpumpe"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:436
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:435
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1503
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:705
 msgid "Embrayages internes"
 msgstr "Interne Kupplungen"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:458
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:457
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1509
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:724
 msgid "Disques d'embrayage internes"
 msgstr "Interne Kupplungsscheiben"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:480
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:479
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1515
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:743
 msgid "Disques acier d'embrayage"
 msgstr "Stahllamellen der Kupplung"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:502
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:501
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1521
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:762
 msgid "Tambours d'embrayage"
 msgstr "Kupplungstrommeln"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:524
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:523
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1527
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1244
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:781
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1244
 msgid "Pistons d'embrayage"
 msgstr "Kupplungskolben"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:546
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:545
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1533
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1294
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:800
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1294
 msgid "Joints de pistons"
 msgstr "Kolbendichtungen"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:568
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:567
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1539
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1344
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:819
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1344
 msgid "Train épicycloïdal"
 msgstr "Planetenradsatz"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:590
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:589
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1545
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1395
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:838
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1395
 msgid "Pignon planétaire"
 msgstr "Sonnenrad"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:612
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:611
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1551
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1446
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:857
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1446
 msgid "Pignons satellites"
 msgstr "Planetenräder"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:634
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:633
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1557
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:876
 msgid "Couronne du train épicycloïdal"
 msgstr "Hohlrad des Planetenradsatzes"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:656
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:655
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1563
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:895
 msgid "Porte-satellites"
 msgstr "Planetenträger"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:678
-msgid "Arbre d'entrée"
-msgstr "Eingangswelle"
-
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:700
-msgid "Arbre de sortie"
-msgstr "Ausgangswelle"
-
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:722
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1569
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1601
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:914
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1601
 msgid "Pignons internes"
 msgstr "Interne Zahnräder"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:744
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:700
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1575
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1638
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:933
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1638
 msgid "Roue libre"
 msgstr "Freilauf"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:766
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:722
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1581
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1668
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:952
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1668
 msgid "Freins internes"
 msgstr "Interne Bremsen"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:788
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:744
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1587
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1692
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:971
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1692
 msgid "Bandes de frein"
 msgstr "Bremsbänder"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:810
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:766
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1593
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1716
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:990
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1716
 msgid "Capteur de vitesse d'entrée"
 msgstr "Eingangsdrehzahlsensor"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:832
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:788
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1599
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1740
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1009
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1740
 msgid "Capteur de vitesse de sortie"
 msgstr "Ausgangsdrehzahlsensor"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:854
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:810
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1605
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1764
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1028
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1764
 msgid "Capteur de température d'huile"
 msgstr "Getriebeöltemperatursensor"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:876
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:832
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1611
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1788
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1047
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1788
 msgid "Capteur de pression d'huile"
 msgstr "Getriebeöldrucksensor"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:898
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:854
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1617
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1812
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1066
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1812
 msgid "Calculateur de boîte automatique"
 msgstr "Automatikgetriebe-Steuergerät"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:920
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:876
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1623
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1836
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1085
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1836
 msgid "Faisceau électrique de boîte"
 msgstr "Getriebekabelbaum"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:942
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:898
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1629
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1860
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1104
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1860
 msgid "Connecteur électrique de boîte"
 msgstr "Elektrischer Getriebestecker"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:964
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:920
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1635
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1884
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1123
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1884
 msgid "Sélecteur de boîte"
 msgstr "Gangwahlhebel"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:986
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:942
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1641
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1908
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1142
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1908
 msgid "Capteur de position du sélecteur"
 msgstr "Gangwahlsensor"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1008
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:964
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1647
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1932
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1161
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1932
 msgid "Différentiel"
 msgstr "Differential"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1030
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:986
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1653
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1956
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1180
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1956
 msgid "Pignons de différentiel"
 msgstr "Differentialzahnräder"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1052
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1008
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1659
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1980
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1199
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1980
 msgid "Joints spi de boîte"
 msgstr "Getriebe-Wellendichtringe"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1074
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1030
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1665
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2004
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1218
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2004
 msgid "Joints toriques de boîte"
 msgstr "Getriebe-O-Ringe"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1096
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1052
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1671
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2028
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1237
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2028
 msgid "Bagues de boîte automatique"
 msgstr "Automatikgetriebe-Buchsen"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1118
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1074
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1677
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2052
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1256
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2052
 msgid "Échangeur d'huile de boîte"
 msgstr "Getriebeölkühler"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1140
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1096
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1683
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2076
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1275
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2076
 msgid "Durites d'huile de boîte"
 msgstr "Getriebeölleitungen"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1162
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1118
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1689
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2100
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1294
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2100
 msgid "Supports de boîte automatique"
 msgstr "Automatikgetriebelager"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1299
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1255
 msgid "Checkup boite de vitesse automatique"
 msgstr "Automatikgetriebeprüfung"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1396
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1352
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:327
 msgid "Contrôle boîte automatique"
 msgstr "Automatikgetriebe Kontrolle"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1397
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1353
 msgid "Contrôles boîtes automatiques"
 msgstr "Automatikgetriebe Kontrollen"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1462
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1418
 msgid "Pompe à huile"
 msgstr "Ölpumpen"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1492
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:528
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1696
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1339
 msgid "Huile de boîte automatique"
 msgstr "Automatikgetriebeöl"
 
@@ -9123,24 +9256,88 @@ msgstr "Automatikgetriebeöl"
 msgid "Contrôle de la boite automatique pour :"
 msgstr "Automatikgetriebe Kontrolle für:"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:354
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:354
-msgid "Pompe / Valves"
-msgstr "Pumpe / Ventile"
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:404
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:404
+#: maintenance/autres_interventions/climatisation/views.py:405
+#: maintenance/autres_interventions/climatisation/views.py:701
+#: piece/piece_climatisation/models.py:16
+msgid "Valves"
+msgstr "Ventile"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:405
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:405
-msgid "Arbres"
-msgstr "Wellen"
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:506
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:506
+msgid "Arbre de sortie"
+msgstr "Ausgangswelle"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:495
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:502
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:495
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:694
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:694
+msgid "Solenoide"
+msgstr ""
+
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:744
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:744
+msgid "Electrovannes"
+msgstr "Magnetventil"
+
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:794
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:794
+#: piece/piece_filtres/models.py:8
+msgid "Filtre à huile"
+msgstr "Ölfilter"
+
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:844
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:844
+msgid "Carter d'huile"
+msgstr "Ölwanne"
+
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:894
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:894
+msgid "Joint de Carter"
+msgstr "Gehäusedichtung"
+
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:944
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:944
+msgid "Crépine"
+msgstr "Getriebeölsieb"
+
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1044
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1044
+msgid "Embrayages interne"
+msgstr "Interne Kupplungen"
+
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1094
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1094
+msgid "Disques d'embrayage"
+msgstr "Kupplungsscheibe"
+
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1144
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1144
+msgid "Disques d'acier"
+msgstr "Stahllamellen"
+
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1194
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1194
+msgid "Tambour d'embrayage"
+msgstr "Kupplungstrommeln"
+
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1497
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1497
+msgid "Couronne épicycloïdal"
+msgstr "Hohlrad des Planetenradsatzes"
+
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1546
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1546
+msgid "Porte-satellite"
+msgstr "Planetenträger"
+
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2131
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1313
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2131
 msgid "Huile de boite automatique"
 msgstr "Automatikgetriebeöl"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:806
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:795
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2442
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2433
 msgid "Retour à la liste des boites automatiques"
 msgstr "Zurück zur Liste der Automatikgetriebe"
 
@@ -9193,10 +9390,6 @@ msgstr "Geprüftes Element"
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:410
 msgid "Résultat"
 msgstr "Ergebnis"
-
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:365
-msgid "Embrayages automatiques"
-msgstr "Hydraulische Kupplung"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:4
 msgid "Liste des contrôles de boite automatique"
@@ -9764,12 +9957,6 @@ msgstr "Öl"
 #: maintenance/autres_interventions/climatisation/views.py:692
 msgid "Tuyaux"
 msgstr "Schläuche"
-
-#: maintenance/autres_interventions/climatisation/views.py:405
-#: maintenance/autres_interventions/climatisation/views.py:701
-#: piece/piece_climatisation/models.py:16
-msgid "Valves"
-msgstr "Ventile"
 
 #: maintenance/autres_interventions/climatisation/views.py:459
 #: maintenance/autres_interventions/climatisation/views.py:757
@@ -10484,46 +10671,58 @@ msgid "Kilométrage au moment de la géometrie"
 msgstr "Kilometerstand bei der Achsvermessung"
 
 #: maintenance/autres_interventions/geometrie/models.py:144
-msgid "Hauteur de caisse (mm)"
-msgstr "Fahrzeughöhe (mm)"
+msgid "Hauteur de caisse AVD (mm)"
+msgstr "Fahrzeughöhe vorne rechts (mm)"
 
 #: maintenance/autres_interventions/geometrie/models.py:146
+msgid "Hauteur de caisse AVG (mm)"
+msgstr "Fahrzeughöhe vorne links (mm)"
+
+#: maintenance/autres_interventions/geometrie/models.py:148
+msgid "Hauteur de caisse ARD (mm)"
+msgstr "Fahrzeughöhe hinten rechts (mm)"
+
+#: maintenance/autres_interventions/geometrie/models.py:150
+msgid "Hauteur de caisse ARG (mm)"
+msgstr "Fahrzeughöhe hinten links (mm)"
+
+#: maintenance/autres_interventions/geometrie/models.py:155
 msgid "Débattement avant (mm)"
 msgstr "Vorderer Federweg (mm)"
 
-#: maintenance/autres_interventions/geometrie/models.py:147
+#: maintenance/autres_interventions/geometrie/models.py:156
 msgid "Débattement arrière (mm)"
 msgstr "Hinterer Federweg (mm)"
 
-#: maintenance/autres_interventions/geometrie/models.py:149
+#: maintenance/autres_interventions/geometrie/models.py:158
 msgid "Raideur ressort avant"
 msgstr "Federrate vorne"
 
-#: maintenance/autres_interventions/geometrie/models.py:150
+#: maintenance/autres_interventions/geometrie/models.py:159
 msgid "Raideur ressort arrière"
 msgstr "Federrate hinten"
 
-#: maintenance/autres_interventions/geometrie/models.py:152
+#: maintenance/autres_interventions/geometrie/models.py:161
 msgid "Marque des amortisseurs"
 msgstr "Stoßdämpfermarke"
 
-#: maintenance/autres_interventions/geometrie/models.py:155
+#: maintenance/autres_interventions/geometrie/models.py:164
 msgid "Amortissement avant rebond"
 msgstr "Zugstufe vorne"
 
-#: maintenance/autres_interventions/geometrie/models.py:160
+#: maintenance/autres_interventions/geometrie/models.py:169
 msgid "Amortissement avant compression"
 msgstr "Druckstufe vorne"
 
-#: maintenance/autres_interventions/geometrie/models.py:165
+#: maintenance/autres_interventions/geometrie/models.py:174
 msgid "Amortissement arrière rebond"
 msgstr "Zugstufe hinten"
 
-#: maintenance/autres_interventions/geometrie/models.py:170
+#: maintenance/autres_interventions/geometrie/models.py:179
 msgid "Amortissement arrière compression"
 msgstr "Druckstufe hinten"
 
-#: maintenance/autres_interventions/geometrie/models.py:297
+#: maintenance/autres_interventions/geometrie/models.py:306
 #: maintenance/autres_interventions/geometrie/views.py:845
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:154
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:167
@@ -10531,11 +10730,11 @@ msgstr "Druckstufe hinten"
 msgid "Géométrie"
 msgstr "Achsvermessung"
 
-#: maintenance/autres_interventions/geometrie/models.py:372
+#: maintenance/autres_interventions/geometrie/models.py:381
 msgid "Contrôle Géometrie"
 msgstr "Achskontrolle"
 
-#: maintenance/autres_interventions/geometrie/models.py:373
+#: maintenance/autres_interventions/geometrie/models.py:382
 msgid "Contrôles Géometrie"
 msgstr "Achskontrollen"
 
@@ -10543,9 +10742,9 @@ msgstr "Achskontrollen"
 msgid "Intervention sur la geometrie pour :"
 msgstr "Achseinstellung für:"
 
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:267
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_check.html:269
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:107
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_modifier.html:268
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_modifier.html:271
 msgid "Retour à la liste des géométries"
 msgstr "Zurück zur Liste der Achsvermessungen"
 
@@ -10650,42 +10849,54 @@ msgid "Suspension"
 msgstr "Federung"
 
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:435
-msgid "Hauteur caisse"
-msgstr "Karosseriehöhe"
+msgid "Hauteur caisse AVD"
+msgstr "Fahrzeughöhe vorne rechts"
 
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:436
+msgid "Hauteur caisse AVG"
+msgstr "Fahrzeughöhe vorne links"
+
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:437
+msgid "Hauteur caisse ARD"
+msgstr "Fahrzeughöhe hinten rechts"
+
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:438
+msgid "Hauteur caisse ARG"
+msgstr "Fahrzeughöhe hinten links"
+
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:441
 msgid "Débattement avant"
 msgstr "Federweg vorne"
 
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:437
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:442
 msgid "Débattement arrière"
 msgstr "Federweg hinten"
 
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:439
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:444
 msgid "Raideur AV"
 msgstr "Steifigkeit vorne"
 
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:440
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:445
 msgid "Raideur AR"
 msgstr "Steifigkeit hinten"
 
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:442
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:447
 msgid "Marque des Amortisseurs"
 msgstr "Stoßdämpfermarke"
 
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:450
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:455
 msgid "Amortisseurs avant compression"
 msgstr "Druckstufe vorne"
 
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:451
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:456
 msgid "Amortisseurs avant rebond"
 msgstr "Zugstufe vorne"
 
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:453
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:458
 msgid "Amortisseurs arrière compression"
 msgstr "Druckstufe hinten"
 
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:454
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:459
 msgid "Amortisseurs arrière rebond"
 msgstr "Zugstufe hinten"
 
@@ -22422,10 +22633,6 @@ msgstr "Typ / Position des Lichts"
 msgid "%(organe)s - %(type)s"
 msgstr "%(organe)s - %(type)s"
 
-#: piece/piece_filtres/models.py:8
-msgid "Filtre à huile"
-msgstr "Ölfilter"
-
 #: piece/piece_filtres/models.py:10
 msgid "Filtre à pollen"
 msgstr "Pollenfilter"
@@ -24741,10 +24948,12 @@ msgstr "Der Code muss genau sechs Ziffern enthalten."
 #: utilisateurs/views.py:499
 msgid ""
 "La vérification à deux facteurs est activée. Connectez-vous maintenant avec "
-"votre adresse e-mail, votre mot de passe et votre code Authy."
+"votre adresse e-mail, votre mot de passe et votre code Authy ou Google "
+"Authenticator."
 msgstr ""
 "Die Zwei-Faktor-Authentifizierung wurde aktiviert. Melden Sie sich jetzt mit "
-"Ihrer E-Mail-Adresse, Ihrem Passwort und Ihrem Authy-Code an."
+"Ihrer E-Mail-Adresse, Ihrem Passwort und Ihrem Authy- oder Google-"
+"Authenticator-Code an."
 
 #: utilisateurs/views.py:509
 msgid "Le code Authy est invalide ou expiré."
@@ -26589,6 +26798,18 @@ msgstr "Reifen erfolgreich ersetzt."
 #: voiture/voiture_pneus/views.py:145
 msgid "Pneu mis à jour avec succès."
 msgstr "Reifen erfolgreich aktualisiert."
+
+#~ msgid "Arbre d'entrée"
+#~ msgstr "Eingangswelle"
+
+#~ msgid "Pompe / Valves"
+#~ msgstr "Pumpe / Ventile"
+
+#~ msgid "Arbres"
+#~ msgstr "Wellen"
+
+#~ msgid "Embrayages automatiques"
+#~ msgstr "Hydraulische Kupplung"
 
 #~ msgid "Bienvenue sur le tableau de bord boite"
 #~ msgstr "Willkommen im Getriebe-Dashboard"
