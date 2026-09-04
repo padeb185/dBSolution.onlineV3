@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-04 15:16+0200\n"
+"POT-Creation-Date: 2026-09-04 15:27+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -9177,7 +9177,9 @@ msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:567
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1539
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1344
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:819
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1344
 msgid "Train épicycloïdal"
 msgstr ""
 
@@ -9513,19 +9515,14 @@ msgstr "Tableau de Bord"
 msgid "Tambour d'embrayage"
 msgstr "Tableau de Bord"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1344
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1344
-msgid "Train epicycloidal"
-msgstr ""
-
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1497
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1497
-msgid "Couronne epicycloidale"
+msgid "Couronne épicycloïdal"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1546
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1546
-msgid "Porte satellite"
+msgid "Porte-satellite"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2131
@@ -26008,8 +26005,8 @@ msgstr ""
 #: utilisateurs/views.py:499
 msgid ""
 "La vérification à deux facteurs est activée. Connectez-vous maintenant avec "
-"votre adresse e-mail, votre mot de passe et votre code Authyou google "
-"authenticator."
+"votre adresse e-mail, votre mot de passe et votre code Authy ou Google "
+"Authenticator."
 msgstr ""
 
 #: utilisateurs/views.py:509
