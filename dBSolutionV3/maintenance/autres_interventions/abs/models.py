@@ -149,9 +149,6 @@ class Abs(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat du liquide HTVA")
     )
 
-
-
-
     serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,verbose_name=_("Serrage des roues"))
 
     remarques = models.TextField(
