@@ -362,19 +362,19 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
     # -------------------------
     # Joint de carter
     # -------------------------
-    joint_carter_boite_auto = models.CharField(
+    joint_c_boite_auto = models.CharField(
         max_length=25,
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Joint de carter de boîte")
     )
 
-    joint_carter_boite_auto_quantite = models.PositiveIntegerField(
+    joint_c_boite_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
     )
 
-    joint_carter_boite_auto_prix = models.DecimalField(
+    joint_c_boite_auto_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
@@ -538,19 +538,19 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
     # -------------------------
     # Joints de pistons
     # -------------------------
-    joints_pistons_auto = models.CharField(
+    joints_p_auto = models.CharField(
         max_length=25,
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Joints de pistons")
     )
 
-    joints_pistons_auto_quantite = models.PositiveIntegerField(
+    joints_p_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
     )
 
-    joints_pistons_auto_prix = models.DecimalField(
+    joints_p_auto_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,

@@ -198,7 +198,7 @@
     <form method="post" id="bte-auto-form" class="space-y-4">
         {% csrf_token %}
 
-          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/compteur-de-vitesse.png' %}" alt="Kilometrage"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Kilométrage" %}
@@ -249,7 +249,7 @@
         <br>
 
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/disque-dembrayage.png' %}" alt="Embrayage"
+            <img src="{% static 'icons/convertisseur.png' %}" alt="Convertisseur"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Embrayage" %}
         </h2>
@@ -297,8 +297,9 @@
         {% endfor %}
 
         <br>
-    <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/double-embrayage.png' %}" alt="Double embrayage"
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/boite-double-embrayage.png' %}" alt="Double embrayage"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Double embrayage" %}
         </h2>
@@ -347,14 +348,63 @@
 
         <br>
 
-
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/pompe.png' %}" alt="Pompe à huile"
+            <img src="{% static 'icons/pompe-hydraulique.png' %}" alt="Pompe à huile"
                  style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Pompe / Valves" %}
+            {% trans "Pompe hydraulique" %}
         </h2>
          {% for field in form %}
-            {% if "pompes" in field.name %}
+            {% if "pompes_h" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/valve-hydraulique.png' %}" alt="valve hydraulique"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Valves" %}
+        </h2>
+         {% for field in form %}
+            {% if "pompes_valves" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -400,12 +450,63 @@
 
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/arbre-de-boite.png' %}" alt="Arbres de boites"
+            <img src="{% static 'icons/boite-arbre entrée.png' %}" alt="Arbre de couple"
                  style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Arbres" %}
+            {% trans "Arbre de couple" %}
         </h2>
          {% for field in form %}
-            {% if "arbre_bte" in field.name %}
+            {% if "arbre_bte_to" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/boite-arbre-sortie.png' %}" alt="Arbre de sortie"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Arbre de sortie" %}
+        </h2>
+         {% for field in form %}
+            {% if "arbre_bte_sec" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -487,15 +588,1498 @@
 
         <br>
 
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/bloc-hydraulique.png' %}" alt="Bloc hydraulique"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Bloc hydraulique" %}
+        </h2>
+         {% for field in form %}
+            {% if "bloc_hydraulique" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
 
-        <!-- Section freins -->
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/unite-mecatronic.png' %}" alt="Unité mécatronique"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Unité mécatronique" %}
+        </h2>
+         {% for field in form %}
+            {% if "mecatronique" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/solenoide.png' %}" alt="Solenoide"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Solenoide" %}
+        </h2>
+         {% for field in form %}
+            {% if "solenoides" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/electrovanne.png' %}" alt="Electrovannes"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Electrovannes" %}
+        </h2>
+         {% for field in form %}
+            {% if "electrovannes" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/boite-filtre-huile.png' %}" alt="Filtre à huile de boite"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Filtre à huile" %}
+        </h2>
+         {% for field in form %}
+            {% if "filtre_boite_auto" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/boite-carter.png' %}" alt="Carter d'huile de boite"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Carter d'huile" %}
+        </h2>
+         {% for field in form %}
+            {% if "carter_huile_boite" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/boite-joint-carter.png' %}" alt="Joint de carter"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Joint de Carter" %}
+        </h2>
+         {% for field in form %}
+            {% if "joint_c_boite" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/boite-crepine.png' %}" alt="Crépine"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Crépine" %}
+        </h2>
+         {% for field in form %}
+            {% if "crepine" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pompe-hydraulique.png' %}" alt="Pompe hydraulique"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Pompe hydraulique" %}
+        </h2>
+         {% for field in form %}
+            {% if "pompe_hydraulique" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/boite-embraye-interne.png' %}" alt="Embrayages interne"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Embrayages interne" %}
+        </h2>
+         {% for field in form %}
+            {% if "embrayages_internes" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/boite-disque-embrayage.png' %}" alt="Disques d'embrayage"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Disques d'embrayage" %}
+        </h2>
+         {% for field in form %}
+            {% if "disques_embrayage_auto" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/boite-disque-acier.png' %}" alt="disques d'acier"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Disques d'acier" %}
+        </h2>
+         {% for field in form %}
+            {% if "disques_acier_auto" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/boite-tambour.png' %}" alt="Tambours d'embrayage"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Tambour d'embrayage" %}
+        </h2>
+         {% for field in form %}
+            {% if "tambours" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/piston-embrayage.png' %}" alt="Piston d'embrayage"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Pistons d'embrayage" %}
+        </h2>
+         {% for field in form %}
+            {% if "pistons" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/joint-piston.png' %}" alt="Joints de piston"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Joints de pistons" %}
+        </h2>
+         {% for field in form %}
+            {% if "joints_p_auto" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/train-epicycloidal.png' %}" alt="Train epicycloidal"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Train epicycloidal" %}
+        </h2>
+         {% for field in form %}
+            {% if "train_epicycloidal" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pignon-planetaire.png' %}" alt="Pignon planétaire"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Pignon planétaire" %}
+        </h2>
+         {% for field in form %}
+            {% if "pignon_planetaire" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/couronne-epi.png' %}" alt="Couronnes"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Couronne epicycloidale" %}
+        </h2>
+         {% for field in form %}
+            {% if "couronne" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/porte-satelite.png' %}" alt="Porte satellite"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Porte satellite" %}
+        </h2>
+         {% for field in form %}
+            {% if "porte" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# PIGNONS INTERNES #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pigon-interne.png' %}" alt="Pignons internes"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Pignons internes" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "pignons_internes_auto" in field.name %}
+                <div class="mb-4">
+                    {% if field.field.widget.input_type == "checkbox" %}
+                        <label class="inline-flex items-center gap-2">
+                            {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                            <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                        </label>
+                    {% else %}
+                        <label class="block font-semibold mb-1">{{ field.label }}</label>
+                        {{ field|add_class:"input" }}
+                    {% endif %}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# ROUE LIBRE #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/roue-libre.png' %}" alt="Roue libre"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Roue libre" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "roue_libre_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# FREINS INTERNES #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/frein-interne.png' %}" alt="Freins internes"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Freins internes" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "freins_internes_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# BANDES DE FREIN #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/bande-frein.png' %}" alt="Bandes de frein"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Bandes de frein" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "bandes_frein_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# CAPTEUR VITESSE ENTREE #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/capteur-vitesse.png' %}" alt="Capteur vitesse entrée"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Capteur de vitesse d'entrée" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "capteur_vitesse_entree_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# CAPTEUR VITESSE SORTIE #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/capteur-vitesse.png' %}" alt="Capteur vitesse sortie"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Capteur de vitesse de sortie" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "capteur_vitesse_sortie_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# CAPTEUR TEMPERATURE HUILE #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/capteur-température-huile.png' %}" alt="Capteur température huile"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Capteur de température d'huile" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "capteur_temperature_huile_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# CAPTEUR PRESSION HUILE #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/capteur-prssion_huile.png' %}" alt="Capteur pression huile"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Capteur de pression d'huile" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "capteur_pression_huile_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# CALCULATEUR BOITE #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/calculateur-boite.png' %}" alt="Calculateur boîte"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Calculateur de boîte automatique" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "calculateur_boite_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# FAISCEAU ELECTRIQUE #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/faisceau-boite.png' %}" alt="Faisceau électrique"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Faisceau électrique de boîte" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "faisceau_boite_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# CONNECTEUR BOITE #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/connecteur-boite.png' %}" alt="Connecteur boîte"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Connecteur électrique de boîte" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "connecteur_boite_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# SELECTEUR BOITE #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/selecteur-boite.png' %}" alt="Sélecteur boîte"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Sélecteur de boîte" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "selecteur_boite_auto" in field.name and "capteur_position" not in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# CAPTEUR POSITION SELECTEUR #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/capteur-position -selecteur.png' %}" alt="Capteur position sélecteur"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Capteur de position du sélecteur" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "capteur_position_selecteur_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# DIFFERENTIEL #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/differentiel.png' %}" alt="Différentiel"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Différentiel" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "differentiel_auto" in field.name and "pignons_" not in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# PIGNONS DIFFERENTIEL #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pignon-differentiel.png' %}" alt="Pignons différentiel"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Pignons de différentiel" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "pignons_differentiel_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# JOINTS SPI #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/joint-spi.png' %}" alt="Joints spi"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Joints spi de boîte" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "joints_spi_boite_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# JOINTS TORIQUES #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/joint-torique.png' %}" alt="Joints toriques"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Joints toriques de boîte" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "joints_toriques_boite_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# BAGUES #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/bagues-boite-auto.png' %}" alt="Bagues"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Bagues de boîte automatique" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "bagues_boite_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# ECHANGEUR HUILE BOITE #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/echangeur.png' %}" alt="Échangeur huile boîte"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Échangeur d'huile de boîte" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "echangeur_huile_boite_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# DURITES HUILE BOITE #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/durites-boite.png' %}" alt="Durites huile boîte"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Durites d'huile de boîte" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "durites_huile_boite_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        {# ============================================================ #}
+        {# SUPPORTS BOITE #}
+        {# ============================================================ #}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/support-boite.png' %}" alt="Supports boîte"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Supports de boîte automatique" %}
+        </h2>
+
+        {% for field in form %}
+            {% if "supports_boite_auto" in field.name %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        <!-- Section Huile -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/huile-moteur.png' %}" alt="Huile de boite automatique"
                  style="width:60px; height:60px; margin-right:10px;">
              {% trans "Huile de boite automatique" %}
          </h2>
         {% for field in form %}
-            {% if "huile" in field.name %}
+            {% if "huile_bte_auto_vitesse" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -559,6 +2143,7 @@
         {% endfor %}
 
         <br>
+
 
 
 
@@ -635,6 +2220,7 @@
 
 
         <br>
+
      <!-- Section serrage des roues -->
        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/roue.png' %}" alt="Serrage des roues"
@@ -710,7 +2296,7 @@
         <br>
 
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/taux.png' %}" alt="Taux horaire"
+            <img src="{% static 'icons/taux.png' %}" alt="taux horaire"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Taux Horaire" %}
         </h2>
