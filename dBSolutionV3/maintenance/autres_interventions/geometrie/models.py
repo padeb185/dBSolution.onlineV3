@@ -141,7 +141,16 @@ class GeometrieVoiture(models.Model):
     )
 
     # Suspension
-    hauteur_caisse = models.FloatField(null=True, blank=True, verbose_name=_("Hauteur de caisse (mm)"))
+    hauteur_caisse_avd = models.FloatField(null=True, blank=True, verbose_name=_("Hauteur de caisse AVD (mm)"))
+
+    hauteur_caisse_avg = models.FloatField(null=True, blank=True, verbose_name=_("Hauteur de caisse AVG (mm)"))
+
+    hauteur_caisse_ard = models.FloatField(null=True, blank=True, verbose_name=_("Hauteur de caisse ARD (mm)"))
+
+    hauteur_caisse_arg = models.FloatField(null=True, blank=True, verbose_name=_("Hauteur de caisse ARG (mm)"))
+
+
+
 
     debattement_suspension_avant = models.FloatField(null=True, blank=True, verbose_name=_("Débattement avant (mm)"))
     debattement_suspension_arriere = models.FloatField(null=True, blank=True, verbose_name=_("Débattement arrière (mm)"))
