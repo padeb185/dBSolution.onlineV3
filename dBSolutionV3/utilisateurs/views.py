@@ -498,7 +498,7 @@ def totp_setup_view(request):
                     _(
                         "La vérification à deux facteurs est activée. "
                         "Connectez-vous maintenant avec votre adresse "
-                        "e-mail, votre mot de passe et votre code Authyou google authenticator."
+                        "e-mail, votre mot de passe et votre code Authy ou Google Authenticator."
                     ),
                 )
 
