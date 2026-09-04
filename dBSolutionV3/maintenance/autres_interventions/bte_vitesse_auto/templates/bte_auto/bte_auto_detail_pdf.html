@@ -338,6 +338,9 @@
 
         <tbody>
 
+            {# ====================================================== #}
+            {# CONVERTISSEUR DE COUPLE #}
+            {# ====================================================== #}
             <tr>
                 <td>{% trans "Convertisseur de couple" %}</td>
                 <td>
@@ -361,52 +364,64 @@
                 </td>
             </tr>
 
+
+            {# ====================================================== #}
+            {# DOUBLE EMBRAYAGE #}
+            {# ====================================================== #}
             <tr>
-                <td>{% trans "Embrayages automatiques" %}</td>
+                <td>{% trans "Double embrayage" %}</td>
                 <td>
-                    {% if bte_auto.auto_emb_embrayages_auto == "OK" %}
+                    {% if bte_auto.double_embrayage == "OK" %}
                         <span class="etat-vert">
-                            {{ bte_auto.get_auto_emb_embrayages_auto_display }}
+                            {{ bte_auto.get_double_embrayage_display }}
                         </span>
-                    {% elif bte_auto.auto_emb_embrayages_auto == "NOT_OK" %}
+                    {% elif bte_auto.double_embrayage == "NOT_OK" %}
                         <span class="etat-rouge">
-                            {{ bte_auto.get_auto_emb_embrayages_auto_display }}
+                            {{ bte_auto.get_double_embrayage_display }}
                         </span>
-                    {% elif bte_auto.auto_emb_embrayages_auto == "REMPLACE" %}
+                    {% elif bte_auto.double_embrayage == "REMPLACE" %}
                         <span class="etat-bleu">
-                            {{ bte_auto.get_auto_emb_embrayages_auto_display }}
+                            {{ bte_auto.get_double_embrayage_display }}
                         </span>
                     {% else %}
                         <span class="etat-gris">
-                            {{ bte_auto.get_auto_emb_embrayages_auto_display|default:"-" }}
+                            {{ bte_auto.get_double_embrayage_display|default:"-" }}
                         </span>
                     {% endif %}
                 </td>
             </tr>
 
+
+            {# ====================================================== #}
+            {# POMPE A HUILE #}
+            {# ====================================================== #}
             <tr>
                 <td>{% trans "Pompes à huile" %}</td>
                 <td>
-                    {% if bte_auto.pompes_huile == "OK" %}
+                    {% if bte_auto.pompes_h == "OK" %}
                         <span class="etat-vert">
-                            {{ bte_auto.get_pompes_huile_display }}
+                            {{ bte_auto.get_pompes_h_display }}
                         </span>
-                    {% elif bte_auto.pompes_huile == "NOT_OK" %}
+                    {% elif bte_auto.pompes_h == "NOT_OK" %}
                         <span class="etat-rouge">
-                            {{ bte_auto.get_pompes_huile_display }}
+                            {{ bte_auto.get_pompes_h_display }}
                         </span>
-                    {% elif bte_auto.pompes_huile == "REMPLACE" %}
+                    {% elif bte_auto.pompes_h == "REMPLACE" %}
                         <span class="etat-bleu">
-                            {{ bte_auto.get_pompes_huile_display }}
+                            {{ bte_auto.get_pompes_h_display }}
                         </span>
                     {% else %}
                         <span class="etat-gris">
-                            {{ bte_auto.get_pompes_huile_display|default:"-" }}
+                            {{ bte_auto.get_pompes_h_display|default:"-" }}
                         </span>
                     {% endif %}
                 </td>
             </tr>
 
+
+            {# ====================================================== #}
+            {# VALVES DE CONTROLE #}
+            {# ====================================================== #}
             <tr>
                 <td>{% trans "Valves de contrôle" %}</td>
                 <td>
@@ -430,6 +445,10 @@
                 </td>
             </tr>
 
+
+            {# ====================================================== #}
+            {# ARBRE DE COUPLE #}
+            {# ====================================================== #}
             <tr>
                 <td>{% trans "Arbre de couple" %}</td>
                 <td>
@@ -453,6 +472,10 @@
                 </td>
             </tr>
 
+
+            {# ====================================================== #}
+            {# ARBRE SECONDAIRE #}
+            {# ====================================================== #}
             <tr>
                 <td>{% trans "Arbre secondaire" %}</td>
                 <td>
@@ -476,6 +499,10 @@
                 </td>
             </tr>
 
+
+            {# ====================================================== #}
+            {# ROULEMENTS INTERNES #}
+            {# ====================================================== #}
             <tr>
                 <td>{% trans "Roulements internes" %}</td>
                 <td>
@@ -498,7 +525,791 @@
                     {% endif %}
                 </td>
             </tr>
-           <tr>
+
+
+            {# ====================================================== #}
+            {# BLOC HYDRAULIQUE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Bloc hydraulique" %}</td>
+                <td>
+                    {% if bte_auto.bloc_hydraulique == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_bloc_hydraulique_display }}</span>
+                    {% elif bte_auto.bloc_hydraulique == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_bloc_hydraulique_display }}</span>
+                    {% elif bte_auto.bloc_hydraulique == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_bloc_hydraulique_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_bloc_hydraulique_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# MECATRONIQUE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Unité mécatronique" %}</td>
+                <td>
+                    {% if bte_auto.mecatronique == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_mecatronique_display }}</span>
+                    {% elif bte_auto.mecatronique == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_mecatronique_display }}</span>
+                    {% elif bte_auto.mecatronique == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_mecatronique_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_mecatronique_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# SOLENOIDES #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Solénoïdes" %}</td>
+                <td>
+                    {% if bte_auto.solenoides == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_solenoides_display }}</span>
+                    {% elif bte_auto.solenoides == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_solenoides_display }}</span>
+                    {% elif bte_auto.solenoides == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_solenoides_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_solenoides_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# ELECTROVANNES #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Électrovannes" %}</td>
+                <td>
+                    {% if bte_auto.electrovannes == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_electrovannes_display }}</span>
+                    {% elif bte_auto.electrovannes == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_electrovannes_display }}</span>
+                    {% elif bte_auto.electrovannes == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_electrovannes_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_electrovannes_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# FILTRE BOITE AUTO #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Filtre de boîte automatique" %}</td>
+                <td>
+                    {% if bte_auto.filtre_boite_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_filtre_boite_auto_display }}</span>
+                    {% elif bte_auto.filtre_boite_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_filtre_boite_auto_display }}</span>
+                    {% elif bte_auto.filtre_boite_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_filtre_boite_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_filtre_boite_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# CARTER HUILE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Carter d'huile de boîte" %}</td>
+                <td>
+                    {% if bte_auto.carter_huile_boite_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_carter_huile_boite_auto_display }}</span>
+                    {% elif bte_auto.carter_huile_boite_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_carter_huile_boite_auto_display }}</span>
+                    {% elif bte_auto.carter_huile_boite_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_carter_huile_boite_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_carter_huile_boite_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# JOINT CARTER #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Joint de carter de boîte" %}</td>
+                <td>
+                    {% if bte_auto.joint_c_boite_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_joint_c_boite_auto_display }}</span>
+                    {% elif bte_auto.joint_c_boite_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_joint_c_boite_auto_display }}</span>
+                    {% elif bte_auto.joint_c_boite_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_joint_c_boite_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_joint_c_boite_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# CREPINE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Crépine de boîte automatique" %}</td>
+                <td>
+                    {% if bte_auto.crepine_boite_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_crepine_boite_auto_display }}</span>
+                    {% elif bte_auto.crepine_boite_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_crepine_boite_auto_display }}</span>
+                    {% elif bte_auto.crepine_boite_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_crepine_boite_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_crepine_boite_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# POMPE HYDRAULIQUE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Pompe hydraulique" %}</td>
+                <td>
+                    {% if bte_auto.pompe_hydraulique_boite == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_pompe_hydraulique_boite_display }}</span>
+                    {% elif bte_auto.pompe_hydraulique_boite == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_pompe_hydraulique_boite_display }}</span>
+                    {% elif bte_auto.pompe_hydraulique_boite == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_pompe_hydraulique_boite_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_pompe_hydraulique_boite_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# EMBRAYAGES INTERNES #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Embrayages internes" %}</td>
+                <td>
+                    {% if bte_auto.embrayages_internes_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_embrayages_internes_auto_display }}</span>
+                    {% elif bte_auto.embrayages_internes_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_embrayages_internes_auto_display }}</span>
+                    {% elif bte_auto.embrayages_internes_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_embrayages_internes_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_embrayages_internes_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# DISQUES EMBRAYAGE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Disques d'embrayage internes" %}</td>
+                <td>
+                    {% if bte_auto.disques_embrayage_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_disques_embrayage_auto_display }}</span>
+                    {% elif bte_auto.disques_embrayage_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_disques_embrayage_auto_display }}</span>
+                    {% elif bte_auto.disques_embrayage_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_disques_embrayage_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_disques_embrayage_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# DISQUES ACIER #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Disques acier d'embrayage" %}</td>
+                <td>
+                    {% if bte_auto.disques_acier_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_disques_acier_auto_display }}</span>
+                    {% elif bte_auto.disques_acier_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_disques_acier_auto_display }}</span>
+                    {% elif bte_auto.disques_acier_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_disques_acier_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_disques_acier_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# TAMBOURS EMBRAYAGE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Tambours d'embrayage" %}</td>
+                <td>
+                    {% if bte_auto.tambours_embrayage_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_tambours_embrayage_auto_display }}</span>
+                    {% elif bte_auto.tambours_embrayage_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_tambours_embrayage_auto_display }}</span>
+                    {% elif bte_auto.tambours_embrayage_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_tambours_embrayage_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_tambours_embrayage_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# PISTONS EMBRAYAGE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Pistons d'embrayage" %}</td>
+                <td>
+                    {% if bte_auto.pistons_embrayage_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_pistons_embrayage_auto_display }}</span>
+                    {% elif bte_auto.pistons_embrayage_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_pistons_embrayage_auto_display }}</span>
+                    {% elif bte_auto.pistons_embrayage_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_pistons_embrayage_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_pistons_embrayage_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# JOINTS PISTONS #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Joints de pistons" %}</td>
+                <td>
+                    {% if bte_auto.joints_p_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_joints_p_auto_display }}</span>
+                    {% elif bte_auto.joints_p_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_joints_p_auto_display }}</span>
+                    {% elif bte_auto.joints_p_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_joints_p_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_joints_p_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# TRAIN EPICYCLOIDAL #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Train épicycloïdal" %}</td>
+                <td>
+                    {% if bte_auto.train_epicycloidal == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_train_epicycloidal_display }}</span>
+                    {% elif bte_auto.train_epicycloidal == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_train_epicycloidal_display }}</span>
+                    {% elif bte_auto.train_epicycloidal == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_train_epicycloidal_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_train_epicycloidal_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# PIGNON PLANETAIRE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Pignon planétaire" %}</td>
+                <td>
+                    {% if bte_auto.pignon_planetaire == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_pignon_planetaire_display }}</span>
+                    {% elif bte_auto.pignon_planetaire == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_pignon_planetaire_display }}</span>
+                    {% elif bte_auto.pignon_planetaire == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_pignon_planetaire_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_pignon_planetaire_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# PIGNONS SATELLITES #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Pignons satellites" %}</td>
+                <td>
+                    {% if bte_auto.pignons_satellites == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_pignons_satellites_display }}</span>
+                    {% elif bte_auto.pignons_satellites == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_pignons_satellites_display }}</span>
+                    {% elif bte_auto.pignons_satellites == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_pignons_satellites_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_pignons_satellites_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# COURONNE EPICYCLOIDALE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Couronne du train épicycloïdal" %}</td>
+                <td>
+                    {% if bte_auto.couronne_epicycloidale == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_couronne_epicycloidale_display }}</span>
+                    {% elif bte_auto.couronne_epicycloidale == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_couronne_epicycloidale_display }}</span>
+                    {% elif bte_auto.couronne_epicycloidale == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_couronne_epicycloidale_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_couronne_epicycloidale_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# PORTE-SATELLITES #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Porte-satellites" %}</td>
+                <td>
+                    {% if bte_auto.porte_satellites == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_porte_satellites_display }}</span>
+                    {% elif bte_auto.porte_satellites == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_porte_satellites_display }}</span>
+                    {% elif bte_auto.porte_satellites == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_porte_satellites_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_porte_satellites_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# PIGNONS INTERNES #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Pignons internes" %}</td>
+                <td>
+                    {% if bte_auto.pignons_internes_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_pignons_internes_auto_display }}</span>
+                    {% elif bte_auto.pignons_internes_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_pignons_internes_auto_display }}</span>
+                    {% elif bte_auto.pignons_internes_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_pignons_internes_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_pignons_internes_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# ROUE LIBRE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Roue libre" %}</td>
+                <td>
+                    {% if bte_auto.roue_libre_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_roue_libre_auto_display }}</span>
+                    {% elif bte_auto.roue_libre_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_roue_libre_auto_display }}</span>
+                    {% elif bte_auto.roue_libre_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_roue_libre_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_roue_libre_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# FREINS INTERNES #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Freins internes" %}</td>
+                <td>
+                    {% if bte_auto.freins_internes_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_freins_internes_auto_display }}</span>
+                    {% elif bte_auto.freins_internes_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_freins_internes_auto_display }}</span>
+                    {% elif bte_auto.freins_internes_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_freins_internes_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_freins_internes_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# BANDES DE FREIN #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Bandes de frein" %}</td>
+                <td>
+                    {% if bte_auto.bandes_frein_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_bandes_frein_auto_display }}</span>
+                    {% elif bte_auto.bandes_frein_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_bandes_frein_auto_display }}</span>
+                    {% elif bte_auto.bandes_frein_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_bandes_frein_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_bandes_frein_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# CAPTEUR VITESSE ENTREE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Capteur de vitesse d'entrée" %}</td>
+                <td>
+                    {% if bte_auto.capteur_vitesse_entree_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_capteur_vitesse_entree_auto_display }}</span>
+                    {% elif bte_auto.capteur_vitesse_entree_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_capteur_vitesse_entree_auto_display }}</span>
+                    {% elif bte_auto.capteur_vitesse_entree_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_capteur_vitesse_entree_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_capteur_vitesse_entree_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# CAPTEUR VITESSE SORTIE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Capteur de vitesse de sortie" %}</td>
+                <td>
+                    {% if bte_auto.capteur_vitesse_sortie_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_capteur_vitesse_sortie_auto_display }}</span>
+                    {% elif bte_auto.capteur_vitesse_sortie_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_capteur_vitesse_sortie_auto_display }}</span>
+                    {% elif bte_auto.capteur_vitesse_sortie_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_capteur_vitesse_sortie_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_capteur_vitesse_sortie_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# CAPTEUR TEMPERATURE HUILE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Capteur de température d'huile" %}</td>
+                <td>
+                    {% if bte_auto.capteur_temperature_huile_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_capteur_temperature_huile_auto_display }}</span>
+                    {% elif bte_auto.capteur_temperature_huile_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_capteur_temperature_huile_auto_display }}</span>
+                    {% elif bte_auto.capteur_temperature_huile_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_capteur_temperature_huile_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_capteur_temperature_huile_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# CAPTEUR PRESSION HUILE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Capteur de pression d'huile" %}</td>
+                <td>
+                    {% if bte_auto.capteur_pression_huile_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_capteur_pression_huile_auto_display }}</span>
+                    {% elif bte_auto.capteur_pression_huile_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_capteur_pression_huile_auto_display }}</span>
+                    {% elif bte_auto.capteur_pression_huile_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_capteur_pression_huile_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_capteur_pression_huile_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# CALCULATEUR #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Calculateur de boîte automatique" %}</td>
+                <td>
+                    {% if bte_auto.calculateur_boite_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_calculateur_boite_auto_display }}</span>
+                    {% elif bte_auto.calculateur_boite_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_calculateur_boite_auto_display }}</span>
+                    {% elif bte_auto.calculateur_boite_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_calculateur_boite_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_calculateur_boite_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# FAISCEAU #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Faisceau électrique de boîte" %}</td>
+                <td>
+                    {% if bte_auto.faisceau_boite_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_faisceau_boite_auto_display }}</span>
+                    {% elif bte_auto.faisceau_boite_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_faisceau_boite_auto_display }}</span>
+                    {% elif bte_auto.faisceau_boite_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_faisceau_boite_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_faisceau_boite_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# CONNECTEUR #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Connecteur électrique de boîte" %}</td>
+                <td>
+                    {% if bte_auto.connecteur_boite_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_connecteur_boite_auto_display }}</span>
+                    {% elif bte_auto.connecteur_boite_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_connecteur_boite_auto_display }}</span>
+                    {% elif bte_auto.connecteur_boite_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_connecteur_boite_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_connecteur_boite_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# SELECTEUR #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Sélecteur de boîte" %}</td>
+                <td>
+                    {% if bte_auto.selecteur_boite_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_selecteur_boite_auto_display }}</span>
+                    {% elif bte_auto.selecteur_boite_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_selecteur_boite_auto_display }}</span>
+                    {% elif bte_auto.selecteur_boite_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_selecteur_boite_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_selecteur_boite_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# POSITION SELECTEUR #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Capteur de position du sélecteur" %}</td>
+                <td>
+                    {% if bte_auto.capteur_position_selecteur_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_capteur_position_selecteur_auto_display }}</span>
+                    {% elif bte_auto.capteur_position_selecteur_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_capteur_position_selecteur_auto_display }}</span>
+                    {% elif bte_auto.capteur_position_selecteur_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_capteur_position_selecteur_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_capteur_position_selecteur_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# DIFFERENTIEL #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Différentiel" %}</td>
+                <td>
+                    {% if bte_auto.differentiel_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_differentiel_auto_display }}</span>
+                    {% elif bte_auto.differentiel_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_differentiel_auto_display }}</span>
+                    {% elif bte_auto.differentiel_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_differentiel_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_differentiel_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# PIGNONS DIFFERENTIEL #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Pignons de différentiel" %}</td>
+                <td>
+                    {% if bte_auto.pignons_differentiel_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_pignons_differentiel_auto_display }}</span>
+                    {% elif bte_auto.pignons_differentiel_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_pignons_differentiel_auto_display }}</span>
+                    {% elif bte_auto.pignons_differentiel_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_pignons_differentiel_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_pignons_differentiel_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# JOINTS SPI #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Joints spi de boîte" %}</td>
+                <td>
+                    {% if bte_auto.joints_spi_boite_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_joints_spi_boite_auto_display }}</span>
+                    {% elif bte_auto.joints_spi_boite_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_joints_spi_boite_auto_display }}</span>
+                    {% elif bte_auto.joints_spi_boite_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_joints_spi_boite_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_joints_spi_boite_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# JOINTS TORIQUES #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Joints toriques de boîte" %}</td>
+                <td>
+                    {% if bte_auto.joints_toriques_boite_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_joints_toriques_boite_auto_display }}</span>
+                    {% elif bte_auto.joints_toriques_boite_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_joints_toriques_boite_auto_display }}</span>
+                    {% elif bte_auto.joints_toriques_boite_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_joints_toriques_boite_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_joints_toriques_boite_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# BAGUES #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Bagues de boîte automatique" %}</td>
+                <td>
+                    {% if bte_auto.bagues_boite_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_bagues_boite_auto_display }}</span>
+                    {% elif bte_auto.bagues_boite_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_bagues_boite_auto_display }}</span>
+                    {% elif bte_auto.bagues_boite_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_bagues_boite_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_bagues_boite_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# ECHANGEUR HUILE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Échangeur d'huile de boîte" %}</td>
+                <td>
+                    {% if bte_auto.echangeur_huile_boite_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_echangeur_huile_boite_auto_display }}</span>
+                    {% elif bte_auto.echangeur_huile_boite_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_echangeur_huile_boite_auto_display }}</span>
+                    {% elif bte_auto.echangeur_huile_boite_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_echangeur_huile_boite_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_echangeur_huile_boite_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# DURITES HUILE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Durites d'huile de boîte" %}</td>
+                <td>
+                    {% if bte_auto.durites_huile_boite_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_durites_huile_boite_auto_display }}</span>
+                    {% elif bte_auto.durites_huile_boite_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_durites_huile_boite_auto_display }}</span>
+                    {% elif bte_auto.durites_huile_boite_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_durites_huile_boite_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_durites_huile_boite_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# SUPPORTS BOITE #}
+            {# ====================================================== #}
+            <tr>
+                <td>{% trans "Supports de boîte automatique" %}</td>
+                <td>
+                    {% if bte_auto.supports_boite_auto == "OK" %}
+                        <span class="etat-vert">{{ bte_auto.get_supports_boite_auto_display }}</span>
+                    {% elif bte_auto.supports_boite_auto == "NOT_OK" %}
+                        <span class="etat-rouge">{{ bte_auto.get_supports_boite_auto_display }}</span>
+                    {% elif bte_auto.supports_boite_auto == "REMPLACE" %}
+                        <span class="etat-bleu">{{ bte_auto.get_supports_boite_auto_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ bte_auto.get_supports_boite_auto_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# ====================================================== #}
+            {# HUILE BOITE AUTOMATIQUE #}
+            {# ====================================================== #}
+            <tr>
                 <td>{% trans "Huile de boite automatique" %}</td>
                 <td>
                     {% if bte_auto.huile_bte_auto_vitesse == "OK" %}

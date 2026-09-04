@@ -667,49 +667,6 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA")
     )
 
-    # -------------------------
-    # Arbre d'entrée
-    # -------------------------
-    arbre_entree_auto = models.CharField(
-        max_length=25,
-        choices=BoiteVitesseEtat.choices,
-        default=BoiteVitesseEtat.OK,
-        verbose_name=_("Arbre d'entrée")
-    )
-
-    arbre_entree_auto_quantite = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("Quantité")
-    )
-
-    arbre_entree_auto_prix = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=0,
-        verbose_name=_("Prix d'achat HTVA")
-    )
-
-    # -------------------------
-    # Arbre de sortie
-    # -------------------------
-    arbre_sortie_auto = models.CharField(
-        max_length=25,
-        choices=BoiteVitesseEtat.choices,
-        default=BoiteVitesseEtat.OK,
-        verbose_name=_("Arbre de sortie")
-    )
-
-    arbre_sortie_auto_quantite = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("Quantité")
-    )
-
-    arbre_sortie_auto_prix = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=0,
-        verbose_name=_("Prix d'achat HTVA")
-    )
 
     # -------------------------
     # Pignons internes
@@ -1487,6 +1444,254 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
                 "prix": self.roulement_auto_prix,
                 "quantite": self.roulement_auto_quantite,
             },
+
+            {
+                "champ": _("Bloc hydraulique"),
+                "etat": self.bloc_hydraulique,
+                "prix": self.bloc_hydraulique_prix,
+                "quantite": self.bloc_hydraulique_quantite,
+            },
+            {
+                "champ": _("Unité mécatronique"),
+                "etat": self.mecatronique,
+                "prix": self.mecatronique_prix,
+                "quantite": self.mecatronique_quantite,
+            },
+            {
+                "champ": _("Solénoïdes"),
+                "etat": self.solenoides,
+                "prix": self.solenoides_prix,
+                "quantite": self.solenoides_quantite,
+            },
+            {
+                "champ": _("Électrovannes"),
+                "etat": self.electrovannes,
+                "prix": self.electrovannes_prix,
+                "quantite": self.electrovannes_quantite,
+            },
+            {
+                "champ": _("Filtre de boîte automatique"),
+                "etat": self.filtre_boite_auto,
+                "prix": self.filtre_boite_auto_prix,
+                "quantite": self.filtre_boite_auto_quantite,
+            },
+            {
+                "champ": _("Carter d'huile de boîte"),
+                "etat": self.carter_huile_boite_auto,
+                "prix": self.carter_huile_boite_auto_prix,
+                "quantite": self.carter_huile_boite_auto_quantite,
+            },
+            {
+                "champ": _("Joint de carter de boîte"),
+                "etat": self.joint_c_boite_auto,
+                "prix": self.joint_c_boite_auto_prix,
+                "quantite": self.joint_c_boite_auto_quantite,
+            },
+            {
+                "champ": _("Crépine de boîte automatique"),
+                "etat": self.crepine_boite_auto,
+                "prix": self.crepine_boite_auto_prix,
+                "quantite": self.crepine_boite_auto_quantite,
+            },
+            {
+                "champ": _("Pompe hydraulique"),
+                "etat": self.pompe_hydraulique_boite,
+                "prix": self.pompe_hydraulique_boite_prix,
+                "quantite": self.pompe_hydraulique_boite_quantite,
+            },
+            {
+                "champ": _("Embrayages internes"),
+                "etat": self.embrayages_internes_auto,
+                "prix": self.embrayages_internes_auto_prix,
+                "quantite": self.embrayages_internes_auto_quantite,
+            },
+            {
+                "champ": _("Disques d'embrayage internes"),
+                "etat": self.disques_embrayage_auto,
+                "prix": self.disques_embrayage_auto_prix,
+                "quantite": self.disques_embrayage_auto_quantite,
+            },
+            {
+                "champ": _("Disques acier d'embrayage"),
+                "etat": self.disques_acier_auto,
+                "prix": self.disques_acier_auto_prix,
+                "quantite": self.disques_acier_auto_quantite,
+            },
+            {
+                "champ": _("Tambours d'embrayage"),
+                "etat": self.tambours_embrayage_auto,
+                "prix": self.tambours_embrayage_auto_prix,
+                "quantite": self.tambours_embrayage_auto_quantite,
+            },
+            {
+                "champ": _("Pistons d'embrayage"),
+                "etat": self.pistons_embrayage_auto,
+                "prix": self.pistons_embrayage_auto_prix,
+                "quantite": self.pistons_embrayage_auto_quantite,
+            },
+            {
+                "champ": _("Joints de pistons"),
+                "etat": self.joints_p_auto,
+                "prix": self.joints_p_auto_prix,
+                "quantite": self.joints_p_auto_quantite,
+            },
+            {
+                "champ": _("Train épicycloïdal"),
+                "etat": self.train_epicycloidal,
+                "prix": self.train_epicycloidal_prix,
+                "quantite": self.train_epicycloidal_quantite,
+            },
+            {
+                "champ": _("Pignon planétaire"),
+                "etat": self.pignon_planetaire,
+                "prix": self.pignon_planetaire_prix,
+                "quantite": self.pignon_planetaire_quantite,
+            },
+            {
+                "champ": _("Pignons satellites"),
+                "etat": self.pignons_satellites,
+                "prix": self.pignons_satellites_prix,
+                "quantite": self.pignons_satellites_quantite,
+            },
+            {
+                "champ": _("Couronne du train épicycloïdal"),
+                "etat": self.couronne_epicycloidale,
+                "prix": self.couronne_epicycloidale_prix,
+                "quantite": self.couronne_epicycloidale_quantite,
+            },
+            {
+                "champ": _("Porte-satellites"),
+                "etat": self.porte_satellites,
+                "prix": self.porte_satellites_prix,
+                "quantite": self.porte_satellites_quantite,
+            },
+            {
+                "champ": _("Pignons internes"),
+                "etat": self.pignons_internes_auto,
+                "prix": self.pignons_internes_auto_prix,
+                "quantite": self.pignons_internes_auto_quantite,
+            },
+            {
+                "champ": _("Roue libre"),
+                "etat": self.roue_libre_auto,
+                "prix": self.roue_libre_auto_prix,
+                "quantite": self.roue_libre_auto_quantite,
+            },
+            {
+                "champ": _("Freins internes"),
+                "etat": self.freins_internes_auto,
+                "prix": self.freins_internes_auto_prix,
+                "quantite": self.freins_internes_auto_quantite,
+            },
+            {
+                "champ": _("Bandes de frein"),
+                "etat": self.bandes_frein_auto,
+                "prix": self.bandes_frein_auto_prix,
+                "quantite": self.bandes_frein_auto_quantite,
+            },
+            {
+                "champ": _("Capteur de vitesse d'entrée"),
+                "etat": self.capteur_vitesse_entree_auto,
+                "prix": self.capteur_vitesse_entree_auto_prix,
+                "quantite": self.capteur_vitesse_entree_auto_quantite,
+            },
+            {
+                "champ": _("Capteur de vitesse de sortie"),
+                "etat": self.capteur_vitesse_sortie_auto,
+                "prix": self.capteur_vitesse_sortie_auto_prix,
+                "quantite": self.capteur_vitesse_sortie_auto_quantite,
+            },
+            {
+                "champ": _("Capteur de température d'huile"),
+                "etat": self.capteur_temperature_huile_auto,
+                "prix": self.capteur_temperature_huile_auto_prix,
+                "quantite": self.capteur_temperature_huile_auto_quantite,
+            },
+            {
+                "champ": _("Capteur de pression d'huile"),
+                "etat": self.capteur_pression_huile_auto,
+                "prix": self.capteur_pression_huile_auto_prix,
+                "quantite": self.capteur_pression_huile_auto_quantite,
+            },
+            {
+                "champ": _("Calculateur de boîte automatique"),
+                "etat": self.calculateur_boite_auto,
+                "prix": self.calculateur_boite_auto_prix,
+                "quantite": self.calculateur_boite_auto_quantite,
+            },
+            {
+                "champ": _("Faisceau électrique de boîte"),
+                "etat": self.faisceau_boite_auto,
+                "prix": self.faisceau_boite_auto_prix,
+                "quantite": self.faisceau_boite_auto_quantite,
+            },
+            {
+                "champ": _("Connecteur électrique de boîte"),
+                "etat": self.connecteur_boite_auto,
+                "prix": self.connecteur_boite_auto_prix,
+                "quantite": self.connecteur_boite_auto_quantite,
+            },
+            {
+                "champ": _("Sélecteur de boîte"),
+                "etat": self.selecteur_boite_auto,
+                "prix": self.selecteur_boite_auto_prix,
+                "quantite": self.selecteur_boite_auto_quantite,
+            },
+            {
+                "champ": _("Capteur de position du sélecteur"),
+                "etat": self.capteur_position_selecteur_auto,
+                "prix": self.capteur_position_selecteur_auto_prix,
+                "quantite": self.capteur_position_selecteur_auto_quantite,
+            },
+            {
+                "champ": _("Différentiel"),
+                "etat": self.differentiel_auto,
+                "prix": self.differentiel_auto_prix,
+                "quantite": self.differentiel_auto_quantite,
+            },
+            {
+                "champ": _("Pignons de différentiel"),
+                "etat": self.pignons_differentiel_auto,
+                "prix": self.pignons_differentiel_auto_prix,
+                "quantite": self.pignons_differentiel_auto_quantite,
+            },
+            {
+                "champ": _("Joints spi de boîte"),
+                "etat": self.joints_spi_boite_auto,
+                "prix": self.joints_spi_boite_auto_prix,
+                "quantite": self.joints_spi_boite_auto_quantite,
+            },
+            {
+                "champ": _("Joints toriques de boîte"),
+                "etat": self.joints_toriques_boite_auto,
+                "prix": self.joints_toriques_boite_auto_prix,
+                "quantite": self.joints_toriques_boite_auto_quantite,
+            },
+            {
+                "champ": _("Bagues de boîte automatique"),
+                "etat": self.bagues_boite_auto,
+                "prix": self.bagues_boite_auto_prix,
+                "quantite": self.bagues_boite_auto_quantite,
+            },
+            {
+                "champ": _("Échangeur d'huile de boîte"),
+                "etat": self.echangeur_huile_boite_auto,
+                "prix": self.echangeur_huile_boite_auto_prix,
+                "quantite": self.echangeur_huile_boite_auto_quantite,
+            },
+            {
+                "champ": _("Durites d'huile de boîte"),
+                "etat": self.durites_huile_boite_auto,
+                "prix": self.durites_huile_boite_auto_prix,
+                "quantite": self.durites_huile_boite_auto_quantite,
+            },
+            {
+                "champ": _("Supports de boîte automatique"),
+                "etat": self.supports_boite_auto,
+                "prix": self.supports_boite_auto_prix,
+                "quantite": self.supports_boite_auto_quantite,
+            },
+
             {
                 "champ": _("Huile de boîte automatique"),
                 "etat": self.huile_bte_auto_vitesse,
