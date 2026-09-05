@@ -142,12 +142,31 @@ def essuyage_form_view(request, exemplaire_id):
                         # Calcul AVANT mise à jour du véhicule
                         kilometrage_variation = km - ancien_kilometrage
 
-                        # Mise à jour du kilométrage véhicule
-                        exemplaire.kilometres_chassis = km
-                        exemplaire.save(
-                            update_fields=["kilometres_chassis"]
-                        )
+                        # =========================
+                        # VÉHICULE
+                        # =========================
+                        if km is not None:
+                            # Sauvegarde du kilométrage AVANT intervention
+                            exemplaire.kilometres_rollback = ancien_kilometrage
 
+                            # Nouveau kilométrage
+                            exemplaire.kilometres_chassis = km
+
+                            exemplaire.date_derniere_intervention = (
+                                timezone.localtime(
+                                    timezone.now()
+                                ).date()
+                            )
+
+                            exemplaire.update_kilometres()
+
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                    "kilometres_rollback",
+                                    "date_derniere_intervention",
+                                ]
+                            )
                     # 🔴 maintenance unique
                     maintenance = Maintenance.objects.create(
                         societe=request.user.societe,
@@ -651,6 +670,167 @@ def modifier_essuyage_view(request, essuyage_id):
             "exemplaire": exemplaire,
         }
     )
+
+
+
+
+@never_cache
+@login_required
+def delete_essuyage_view(request, essuyage_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    essuyage = get_object_or_404(
+        Essuyage.objects.select_related(
+            "voiture_exemplaire",
+
+        ),
+        id=essuyage_id,
+    )
+
+    exemplaire = essuyage.voiture_exemplaire
+
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                    exemplaire.kilometres_rollback or 0
+                )
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                    ]
+                )
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                essuyage.delete()
+
+
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_ESSUYAGE = gettext_noop(
+                    "Suppression du contrôle su système d'essuyage"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_ESSUYAGE} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Essuyage supprimé avec succès.")
+            )
+
+            return redirect(
+                "essuyage:essuyage_list",
+                exemplaire_id=exemplaire.id
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+            return redirect(
+                "essuyage:essuyage_detail",
+                essuyage_id=essuyage.id,
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "essuyage/delete_essuyage.html",
+        {
+            "essuyage": essuyage,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
+
+
+
+
+
+
 
 
 

@@ -129,10 +129,23 @@ class Checkup(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres chassis")
     )
 
+    kilometres_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        editable=False,
+        verbose_name=_("Kilomètres rollback")
+    )
+
+
     kilometrage_checkup = models.PositiveIntegerField(
         verbose_name=_("Kilométrage au moment du Checkup"),
 
     )
+
+
+
+
     kilometrage_variation = models.PositiveIntegerField(
         default=0,
         editable=False,

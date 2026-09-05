@@ -132,6 +132,13 @@ class VoitureExemplaire(models.Model):
     # 📏 Kilométrage châssis
     kilometres_chassis = models.PositiveIntegerField(default=0, null=True, blank=True, verbose_name="Kilomètres châssis")
 
+    kilometres_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres rollback")
+    )
+
     kilometres_rodage = models.PositiveIntegerField(
         choices=KilometresRodage.choices,
         default=KilometresRodage.KM_1000,

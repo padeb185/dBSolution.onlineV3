@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+
+{% block content %}
+
+<div class="max-w-xl mx-auto mt-10 p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-4">
+        {% trans "Supprimer l'entretien" %}
+    </h1>
+
+    <p class="mb-6">
+        {% trans "Voulez-vous vraiment supprimer l'entretien pour" %}
+        <strong>
+            {{ exemplaire.immatriculation }}
+        </strong>
+        ?
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+
+       <div class="flex gap-4 w-full">
+
+            <button
+                type="submit"
+                class="
+                    flex-1
+                    flex items-center justify-center
+                    bg-red-700 hover:bg-red-400
+                    text-white
+                    px-4 py-3
+                    rounded
+                    font-semibold
+                "
+            >
+                {% trans "Supprimer" %}
+            </button>
+
+            <a
+                href="{% url 'entretien:entretien_detail' entretien.id %}"
+                class="
+                    flex-1
+                    flex items-center justify-center
+                    bg-gray-300 hover:bg-gray-500
+                    text-black
+                    px-4 py-3
+                    rounded
+                    font-semibold
+                "
+            >
+                {% trans "Annuler" %}
+            </a>
+
+        </div>
+    </form>
+
+</div>
+
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+
+    if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+
+            if (cookie.startsWith(name + "=")) {
+                cookieValue = decodeURIComponent(
+                    cookie.substring(name.length + 1)
+                );
+                break;
+            }
+        }
+    }
+
+    return cookieValue;
+}
+
+const csrftoken = getCookie("csrftoken");
+</script>
+{% endblock %}

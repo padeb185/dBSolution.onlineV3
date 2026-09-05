@@ -72,6 +72,16 @@
             </a>
         </div>
 
+        {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}
+        <div class="mt-auto w-full">
+            <a href="{% url 'check_up:delete_checkup' checkup.id %}" class="block w-full">
+                <button type="button" class="w-full bg-red-700 text-white px-4 py-2 rounded hover:hover:bg-red-400 font-semibold">
+                    {% trans "Supprimer le checkup" %}
+                </button>
+            </a>
+        </div>
+        {% endif %}
+
     </div>
 
         <!-- Métadonnées -->

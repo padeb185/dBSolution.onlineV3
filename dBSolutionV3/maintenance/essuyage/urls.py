@@ -1,7 +1,7 @@
 # maintenance/check_up/urls.py
 from django.urls import path
 from .views import EssuyageListView, essuyage_form_view, modifier_essuyage_view, essuyage_detail_view, \
-    essuyage_detail_pdf_view
+    essuyage_detail_pdf_view, delete_essuyage_view
 
 app_name = "essuyage"
 
@@ -19,6 +19,8 @@ urlpatterns = [
     path('essuyage/<int:essuyage_id>/detail/', essuyage_detail_view, name='essuyage_detail'),
 
     path("<int:pk>/", essuyage_detail_pdf_view, name="essuyage_detail_pdf"),
+
+    path("essuyage/<int:essuyage_id>/delete/", delete_essuyage_view, name="delete_essuyage"),
 
 
 ]

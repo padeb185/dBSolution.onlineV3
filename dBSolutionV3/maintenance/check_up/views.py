@@ -65,6 +65,8 @@ class CheckupListView(ListView):
 
         return context
 
+
+
 @never_cache
 @login_required
 def controle_total_view(request, exemplaire_id):
@@ -112,108 +114,168 @@ def controle_total_view(request, exemplaire_id):
 
                     km = form.cleaned_data.get("kilometrage_checkup")
 
-                    # ✅ On conserve le kilométrage précédent
-                    ancien_kilometrage = exemplaire.kilometres_chassis or 0
+                    # ==================================================
+                    # KILOMÉTRAGE AVANT LE CHECKUP
+                    # ==================================================
+                    ancien_kilometrage = (
+                        exemplaire.kilometres_chassis or 0
+                    )
 
-                    # ✅ Variation calculée dynamiquement
                     kilometrage_variation = 0
 
                     if km is not None:
 
-                        # Validation
+                        # ==================================================
+                        # VALIDATION
+                        # ==================================================
                         if km < ancien_kilometrage:
                             raise ValueError(
-                                _("Le kilométrage du Checkup ne peut pas être inférieur "
-                                  "au kilométrage actuel du véhicule.")
+                                _(
+                                    "Le kilométrage du Checkup ne peut pas être "
+                                    "inférieur au kilométrage actuel du véhicule."
+                                )
                             )
 
-                        # Calcul AVANT mise à jour du véhicule
-                        kilometrage_variation = km - ancien_kilometrage
-
-                        # Mise à jour du kilométrage véhicule
-                        exemplaire.kilometres_chassis = km
-                        exemplaire.save(
-                            update_fields=["kilometres_chassis"]
+                        # ==================================================
+                        # CALCUL VARIATION
+                        # ==================================================
+                        kilometrage_variation = (
+                            km - ancien_kilometrage
                         )
 
-                    # 🔴 création maintenance
+                        # ==================================================
+                        # SAUVEGARDE DU KILOMÉTRAGE PRÉCÉDENT
+                        #
+                        # kilometres_rollback reste la valeur du véhicule
+                        # AVANT cette modification.
+                        # ==================================================
+                        exemplaire.kilometres_rollback = (
+                            ancien_kilometrage
+                        )
+
+                        # ==================================================
+                        # NOUVEAU KILOMÉTRAGE
+                        # ==================================================
+                        exemplaire.kilometres_chassis = km
+
+                        # Sauvegarde simultanée des deux valeurs
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis",
+                            ]
+                        )
+
+                    # ==================================================
+                    # CRÉATION MAINTENANCE
+                    # ==================================================
                     maintenance = Maintenance.objects.create(
                         societe=request.user.societe,
                         voiture_exemplaire=exemplaire,
                         immatriculation=exemplaire.immatriculation,
                         date_intervention=timezone.now().date(),
 
-                        # kilométrage actuel après mise à jour
-                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        # kilométrage actuel APRÈS mise à jour
+                        kilometres_chassis=(
+                            exemplaire.kilometres_chassis
+                        ),
 
                         kilometres_dernier_entretien=(
                             exemplaire.kilometres_dernier_entretien
                         ),
 
-                        type_maintenance=Maintenance.TypeMaintenance.CHECKUP,
+                        type_maintenance=(
+                            Maintenance.TypeMaintenance.CHECKUP
+                        ),
+
                         tag=Maintenance.Tag.JAUNE,
                     )
 
-                    # 🔴 rôle
+                    # ==================================================
+                    # RÔLE
+                    # ==================================================
                     if role == "mecanicien":
-                        maintenance.mecanicien = Mecanicien.objects.get(
-                            id=request.user.id
+                        maintenance.mecanicien = (
+                            Mecanicien.objects.get(
+                                id=request.user.id
+                            )
                         )
 
                     elif role == "chef_mecanicien":
-                        maintenance.chef_mecanicien = ChefMecanicien.objects.get(
-                            id=request.user.id
+                        maintenance.chef_mecanicien = (
+                            ChefMecanicien.objects.get(
+                                id=request.user.id
+                            )
                         )
 
                     elif role == "apprenti":
-                        maintenance.apprentis = Apprenti.objects.get(
-                            id=request.user.id
+                        maintenance.apprentis = (
+                            Apprenti.objects.get(
+                                id=request.user.id
+                            )
                         )
 
                     elif role == "magasinier":
-                        maintenance.magasinier = Magasinier.objects.get(
-                            id=request.user.id
+                        maintenance.magasinier = (
+                            Magasinier.objects.get(
+                                id=request.user.id
+                            )
                         )
 
                     elif role == "direction":
-                        maintenance.direction = Direction.objects.get(
-                            id=request.user.id
+                        maintenance.direction = (
+                            Direction.objects.get(
+                                id=request.user.id
+                            )
                         )
 
                     maintenance.save()
 
-                    # 🔴 checkup
+                    # ==================================================
+                    # CRÉATION CHECKUP
+                    # ==================================================
                     checkup = form.save(commit=False)
 
                     checkup.voiture_exemplaire = exemplaire
                     checkup.maintenance = maintenance
 
-                    # ✅ kilométrage saisi lors du Checkup
+                    # kilométrage saisi lors du Checkup
                     checkup.kilometrage_checkup = km
 
-                    # ✅ ancien kilométrage avant le Checkup
-                    checkup.kilometres_chassis = ancien_kilometrage
+                    # kilométrage AVANT le Checkup
+                    checkup.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
 
-                    # ✅ différence entre les deux
-                    checkup.kilometrage_variation = kilometrage_variation
+                    # différence entre ancien et nouveau kilométrage
+                    checkup.kilometrage_variation = (
+                        kilometrage_variation
+                    )
 
                     # 👨‍🔧 technicien
-                    checkup.assign_technicien(request.user)
+                    checkup.assign_technicien(
+                        request.user
+                    )
 
                     # 👨‍🔧 dernier technicien maintenance
-                    checkup.tech_last_maintained_by = request.user
+                    checkup.tech_last_maintained_by = (
+                        request.user
+                    )
 
                     checkup.save()
 
-
-
+                    # ==================================================
+                    # USER LOG
+                    # ==================================================
                     ACTION_CHECKUP = gettext_noop(
                         "Checkup"
                     )
 
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=f"{ACTION_CHECKUP} - {exemplaire.immatriculation}"
+                        action=(
+                            f"{ACTION_CHECKUP} - "
+                            f"{exemplaire.immatriculation}"
+                        )
                     )
 
                 messages.success(
@@ -247,10 +309,16 @@ def controle_total_view(request, exemplaire_id):
 
         checkup = Checkup(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis
+
+            # kilométrage actuel du véhicule
+            kilometres_chassis=(
+                exemplaire.kilometres_chassis
+            )
         )
 
-        checkup.assign_technicien(request.user)
+        checkup.assign_technicien(
+            request.user
+        )
 
         form = CheckupForm(
             instance=checkup,
@@ -288,22 +356,21 @@ def checkup_detail_view(request, checkup_id):
 
 
 
-
-
 @login_required
 def modifier_checkup_view(request, checkup_id):
     tenant = request.user.societe
 
-    # Récupération du checkup avec son exemplaire
     checkup = get_object_or_404(
-        Checkup.objects.select_related("voiture_exemplaire"),
+        Checkup.objects.select_related(
+            "voiture_exemplaire"
+        ),
         id=checkup_id,
-
     )
 
     exemplaire = checkup.voiture_exemplaire
 
     if request.method == "POST":
+
         form = CheckupForm(
             request.POST,
             instance=checkup,
@@ -312,24 +379,97 @@ def modifier_checkup_view(request, checkup_id):
         )
 
         if form.is_valid():
+
             try:
-                checkup = form.save(commit=False)
-                checkup.assign_technicien(request.user)
-                checkup.save()
+                with transaction.atomic():
 
-                # À conserver uniquement si le formulaire contient des ManyToMany
-                form.save_m2m()
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    nouveau_kilometrage = (
+                        form.cleaned_data.get(
+                            "kilometrage_checkup"
+                        )
+                    )
 
+                    # ==================================================
+                    # KILOMÉTRAGE ACTUEL
+                    # ==================================================
+                    ancien_kilometrage = (
+                        exemplaire.kilometres_chassis or 0
+                    )
 
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if nouveau_kilometrage is not None:
 
-                ACTION_MODIFICATION_CHECKUP = gettext_noop(
-                    "Modification du checkup"
-                )
+                        if nouveau_kilometrage < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
 
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=f"{ACTION_MODIFICATION_CHECKUP} - {exemplaire.immatriculation}"
-                )
+                        # ==============================================
+                        # IMPORTANT :
+                        # NE PAS MODIFIER kilometres_rollback
+                        # ==============================================
+
+                        exemplaire.kilometres_chassis = (
+                            nouveau_kilometrage
+                        )
+
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis",
+                            ]
+                        )
+
+                    # ==================================================
+                    # MISE À JOUR CHECKUP
+                    # ==================================================
+                    checkup = form.save(
+                        commit=False
+                    )
+
+                    checkup.kilometrage_checkup = (
+                        nouveau_kilometrage
+                    )
+
+                    checkup.kilometrage_variation = (
+                        nouveau_kilometrage
+                        - ancien_kilometrage
+                        if nouveau_kilometrage is not None
+                        else 0
+                    )
+
+                    checkup.assign_technicien(
+                        request.user
+                    )
+
+                    checkup.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    checkup.save()
+
+                    form.save_m2m()
+
+                    ACTION_MODIFICATION_CHECKUP = (
+                        gettext_noop(
+                            "Modification du checkup"
+                        )
+                    )
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=(
+                            f"{ACTION_MODIFICATION_CHECKUP} - "
+                            f"{exemplaire.immatriculation}"
+                        )
+                    )
 
                 messages.success(
                     request,
@@ -342,8 +482,16 @@ def modifier_checkup_view(request, checkup_id):
                 )
 
             except ValidationError as e:
-                form.add_error(None, e)
-                messages.error(request, _("Kilométrage invalide"))
+
+                form.add_error(
+                    None,
+                    e
+                )
+
+                messages.error(
+                    request,
+                    _("Kilométrage invalide")
+                )
 
         else:
             messages.error(
@@ -352,6 +500,7 @@ def modifier_checkup_view(request, checkup_id):
             )
 
     else:
+
         form = CheckupForm(
             instance=checkup,
             user=request.user,
@@ -367,6 +516,164 @@ def modifier_checkup_view(request, checkup_id):
             "exemplaire": exemplaire,
         },
     )
+
+
+
+@never_cache
+@login_required
+def delete_checkup_view(request, checkup_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    checkup = get_object_or_404(
+        Checkup.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=checkup_id,
+    )
+
+    exemplaire = checkup.voiture_exemplaire
+    maintenance = checkup.maintenance
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                    exemplaire.kilometres_rollback or 0
+                )
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                    ]
+                )
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                checkup.delete()
+
+                # ==================================================
+                # SUPPRESSION MAINTENANCE ASSOCIÉE
+                # ==================================================
+                if maintenance:
+                    maintenance.delete()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_CHECKUP = gettext_noop(
+                    "Suppression du checkup"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_CHECKUP} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Checkup supprimé avec succès.")
+            )
+
+            return redirect(
+                "check_up:checkup_list",
+                exemplaire_id=exemplaire.id
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+            return redirect(
+                "check_up:checkup_detail",
+                checkup_id=checkup.id,
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "check_up/delete_checkup.html",
+        {
+            "checkup": checkup,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
 
 
 

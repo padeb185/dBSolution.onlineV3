@@ -215,7 +215,10 @@ def track_check_form_view(request, exemplaire_id):
                     # =========================
 
                     if km is not None:
+                        # Sauvegarde du kilométrage AVANT intervention
+                        exemplaire.kilometres_rollback = ancien_kilometrage
 
+                        # Nouveau kilométrage
                         exemplaire.kilometres_chassis = km
 
                         exemplaire.date_derniere_intervention = (
@@ -226,7 +229,12 @@ def track_check_form_view(request, exemplaire_id):
 
                         exemplaire.update_kilometres()
 
-                        exemplaire.save()
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis",
+                                "date_derniere_intervention",
+                            ]
+                        )
 
                     # =========================
                     # MAINTENANCE
@@ -421,6 +429,9 @@ def checkup_track_detail_view(request, checkup_track_id):
     return render(request, "checkup_track/checkup_track_detail.html", context)
 
 
+
+
+
 @never_cache
 @login_required
 def modifier_checkup_track_view(request, checkup_track_id):
@@ -534,28 +545,48 @@ def modifier_checkup_track_view(request, checkup_track_id):
                         if hasattr(form, "save_m2m"):
                             form.save_m2m()
 
+
                         # =========================
                         # MISE À JOUR DU VÉHICULE
                         # =========================
+                        #
+                        # IMPORTANT :
+                        # NE JAMAIS MODIFIER :
+                        #
+                        # exemplaire.kilometres_rollback
+                        #
+                        # Le rollback reste celui enregistré
+                        # lors de la CRÉATION du check-up piste.
+                        # =========================
 
-                        # On augmente uniquement le kilométrage
-                        # actuel du véhicule.
-                        if (
-                            km is not None
-                            and km >
-                            (exemplaire.kilometres_chassis or 0)
-                        ):
+                        if km is not None:
 
-                            exemplaire.kilometres_chassis = km
-
-                            exemplaire.date_derniere_intervention = (
-                                timezone.now().date()
+                            kilometrage_actuel = (
+                                exemplaire.kilometres_chassis
+                                or 0
                             )
 
-                            exemplaire.update_kilometres()
+                            if km > kilometrage_actuel:
 
-                            exemplaire.save()
+                                exemplaire.kilometres_chassis = (
+                                    km
+                                )
 
+                                exemplaire.date_derniere_intervention = (
+                                    timezone.localtime(
+                                        timezone.now()
+                                    ).date()
+                                )
+
+                                exemplaire.update_kilometres()
+
+                                exemplaire.save(
+                                    update_fields=[
+                                        "kilometres_chassis",
+                                        "kilometres_rollback"
+                                        "date_derniere_intervention",
+                                    ]
+                                )
                         # =========================
                         # MAINTENANCE ASSOCIÉE
                         # =========================
@@ -652,6 +683,165 @@ def modifier_checkup_track_view(request, checkup_track_id):
             "km_reference": km_reference,
         }
     )
+
+
+
+
+
+
+@never_cache
+@login_required
+def delete_checkup_track_view(request, checkup_track_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    checkup_track = get_object_or_404(
+        CheckupTrack.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=checkup_track_id,
+    )
+
+    exemplaire = checkup_track.voiture_exemplaire
+    maintenance = checkup_track.maintenance
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                    exemplaire.kilometres_rollback or 0
+                )
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                    ]
+                )
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                checkup_track.delete()
+
+                # ==================================================
+                # SUPPRESSION MAINTENANCE ASSOCIÉE
+                # ==================================================
+                if maintenance:
+                    maintenance.delete()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_CHECKUP_TRACK = gettext_noop(
+                    "Suppression du checkup piste"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_CHECKUP_TRACK} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Checkup piste supprimé avec succès.")
+            )
+
+            return redirect(
+                "checkup_track:checkup_track_list",
+                exemplaire_id=exemplaire.id
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+            return redirect(
+                "checkup_track:checkup_track_detail",
+                checkup_track_id=checkup_track.id,
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "checkup_track/delete_checkup_track.html",
+        {
+            "checkup_track": checkup_track,
+            "exemplaire": exemplaire,
+        }
+    )
+
 
 
 
