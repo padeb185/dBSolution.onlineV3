@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import controle_jeux_pieces_view, JeuListView, modifier_jeux_pieces_view, jeux_pieces_detail_view, \
-    controle_jeux_pdf_view
+    controle_jeux_pdf_view, delete_jeu_view
 
 app_name = "jeux_pieces"
 
@@ -17,6 +17,8 @@ urlpatterns = [
     path('<int:jeu_id>/detail/', jeux_pieces_detail_view, name='jeux_pieces_detail'),
 
     path("controle/<int:controle_id>/pdf/", controle_jeux_pdf_view, name="controle_jeux_pdf"),
+
+    path("jeux/<int:jeu_id>/delete/", delete_jeu_view, name="delete_jeux"),
 ]
 
 

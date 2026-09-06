@@ -145,18 +145,28 @@ def controle_jeux_pieces_view(request, exemplaire_id):
                         # Calcul AVANT mise à jour du véhicule
                         kilometrage_variation = km - ancien_kilometrage
 
-                        # Mise à jour du kilométrage véhicule
+                        exemplaire.kilometres_rollback = ancien_kilometrage
+
+                        # Nouveau kilométrage
                         exemplaire.kilometres_chassis = km
-                        exemplaire.save(
-                            update_fields=["kilometres_chassis"]
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
                         )
 
-                        # 🔗 checkup UNIQUE
-                        controle = form.save(commit=False)
-                        controle.assign_technicien(request.user)
+                        exemplaire.update_kilometres()
 
-                        controle.kilometres_chassis = exemplaire.kilometres_chassis
-                        controle.kilometrage_jeu = km
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis",
+                                "kilometres_rollback",
+                                "date_derniere_intervention",
+                            ]
+                        )
+
+
 
                     # 🔴 maintenance unique
                     maintenance = Maintenance.objects.create(
@@ -333,6 +343,165 @@ def modifier_jeux_pieces_view(request, jeu_id):
             "exemplaire": exemplaire,
         }
     )
+
+
+
+@never_cache
+@login_required
+def delete_jeu_view(request, jeu_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    jeu = get_object_or_404(
+        ControleJeuxPieces.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=jeu_id,
+    )
+
+    exemplaire = jeu.voiture_exemplaire
+    maintenance = jeu.maintenance
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                    exemplaire.kilometres_rollback or 0
+                )
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                    ]
+                )
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                jeu.delete()
+
+                # ==================================================
+                # SUPPRESSION MAINTENANCE ASSOCIÉE
+                # ==================================================
+                if maintenance:
+                    maintenance.delete()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_JEUX = gettext_noop(
+                    "Suppression du contrôle des jeux"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_JEUX} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Contrôle des jeux supprimé avec succès.")
+            )
+
+            return redirect(
+                "jeux_pieces:jeux_pieces_list",
+                exemplaire_id=exemplaire.id
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+            return redirect(
+                "jeux_pieces:jeux_pieces_detail",
+                 jeu_id=jeu.id,
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "jeux_pieces/delete_jeux.html",
+        {
+            "jeu": jeu,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
+
 
 
 

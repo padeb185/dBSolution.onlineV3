@@ -1,7 +1,7 @@
 # maintenance/check_up/urls.py
 from django.urls import path
 from .views import FreinsListView, controle_freins_view, modifier_freins_view, freins_detail_view, \
-    controle_freins_pdf_view
+    controle_freins_pdf_view, delete_freins_view
 
 app_name = "freins"
 
@@ -11,13 +11,14 @@ urlpatterns = [
 
     path('controle-freins/<uuid:exemplaire_id>/', controle_freins_view, name='freins_check'),
 
-
     path('<int:frein_id>/modifier/', modifier_freins_view, name='modifier_freins'),
-
 
     path('<int:frein_id>/detail/', freins_detail_view, name='freins_detail'),
 
     path("freins/<int:controle_freins_id>/pdf/", controle_freins_pdf_view, name="controle_freins_pdf"),
+
+    path("freins/<int:frein_id>/delete/", delete_freins_view, name="delete_freins"),
+
 ]
 
 
