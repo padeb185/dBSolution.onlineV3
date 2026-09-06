@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import NettoyageInterieurListView, nettoyage_interieur_view, \
-    modifier_nettoyage_int_view, nettoyage_int_detail, nettoyage_interieur_pdf_view
+    modifier_nettoyage_int_view, nettoyage_int_detail, nettoyage_interieur_pdf_view, delete_nettoyage_interieur_view
 
 app_name = "nettoyage_interieur"
 
@@ -18,5 +18,6 @@ urlpatterns = [
 
     path("nettoyage/<int:nettoyage_id>/pdf/", nettoyage_interieur_pdf_view, name="nettoyage_interieur_pdf"),
 
+    path("nettoyage/<int:nettoyage_id>/delete/", delete_nettoyage_interieur_view, name="delete_nettoyage_int"),
 
 ]

@@ -1,6 +1,7 @@
 # maintenance/check_up/urls.py
 from django.urls import path
-from .views import NiveauxListView, niveau_form_view, niveau_detail_view, modifier_niveau_view, niveau_pdf_view
+from .views import NiveauxListView, niveau_form_view, niveau_detail_view, modifier_niveau_view, niveau_pdf_view, \
+    delete_niveau_view
 
 app_name = "niveaux"
 
@@ -17,7 +18,10 @@ urlpatterns = [
 
     path('<int:niveau_id>/detail/', niveau_detail_view, name='niveaux_detail'),
 
-    path("niveau/<int:niveau_id>/pdf/", niveau_pdf_view,name="niveau_pdf"),
+    path("niveaux/<int:niveau_id>/pdf/", niveau_pdf_view,name="niveau_pdf"),
+
+    path("niveaux/<int:niveau_id>/delete/", delete_niveau_view, name="delete_niveau"),
+
 ]
 
 

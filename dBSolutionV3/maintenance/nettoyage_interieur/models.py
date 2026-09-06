@@ -55,6 +55,14 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
         verbose_name=_("Kilomètres chassis")
     )
 
+    kilometres_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        editable=False,
+        verbose_name=_("Kilomètres rollback")
+    )
+
     kilometrage_net_int = models.PositiveIntegerField(
         verbose_name=_("Kilométrage au moment du Nettoyage intérieur"),
     )

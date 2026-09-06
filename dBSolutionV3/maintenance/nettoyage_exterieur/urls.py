@@ -1,7 +1,7 @@
 # maintenance/nettoyage_exterieur/urls.py
 from django.urls import path
 from .views import modifier_nettoyage_ext_view, NettoyageExterieurListView, nettoyage_exterieur_view, \
-    nettoyage_ext_detail, nettoyage_exterieur_pdf_view
+    nettoyage_ext_detail, nettoyage_exterieur_pdf_view, delete_nettoyage_exterieur_view
 
 urlpatterns = [
     # Liste des nettoyages pour un exemplaire
@@ -15,4 +15,6 @@ urlpatterns = [
     path('<int:nettoyage_id>/detail/', nettoyage_ext_detail, name='nettoyage_ext_detail'),
 
     path("nettoyage/<int:nettoyage_id>/pdf/", nettoyage_exterieur_pdf_view, name="nettoyage_exterieur_pdf"),
+
+    path("nettoyage/<int:nettoyage_id>/delete/", delete_nettoyage_exterieur_view, name="delete_nettoyage_ext"),
 ]

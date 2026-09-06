@@ -144,10 +144,25 @@ def controle_freins_view(request, exemplaire_id):
                         # Calcul AVANT mise à jour du véhicule
                         kilometrage_variation = km - ancien_kilometrage
 
-                        # Mise à jour du kilométrage véhicule
+                        exemplaire.kilometres_rollback = ancien_kilometrage
+
+                        # Nouveau kilométrage
                         exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        exemplaire.update_kilometres()
+
                         exemplaire.save(
-                            update_fields=["kilometres_chassis"]
+                            update_fields=[
+                                "kilometres_chassis",
+                                "kilometres_rollback",
+                                "date_derniere_intervention",
+                            ]
                         )
 
                     maintenance = Maintenance.objects.create(
@@ -338,6 +353,160 @@ def modifier_freins_view(request, frein_id):
         }
     )
 
+
+
+@never_cache
+@login_required
+def delete_freins_view(request, frein_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    frein = get_object_or_404(
+        ControleFreins.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=frein_id,
+    )
+
+    exemplaire = frein.voiture_exemplaire
+    maintenance = frein.maintenance
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                    exemplaire.kilometres_rollback or 0
+                )
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                    ]
+                )
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                frein.delete()
+
+                # ==================================================
+                # SUPPRESSION MAINTENANCE ASSOCIÉE
+                # ==================================================
+                if maintenance:
+                    maintenance.delete()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_FREINS = gettext_noop(
+                    "Suppression du contrôle freins"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_FREINS} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Contrôle des freins supprimé avec succès.")
+            )
+
+            return redirect(
+                "freins:freins_list",
+                exemplaire_id=exemplaire.id
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+            return redirect(
+                "freins:freins_detail",
+                 frein_id=frein.id,
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "freins/delete_freins.html",
+        {
+            "frein": frein,
+            "exemplaire": exemplaire,
+        }
+    )
 
 
 

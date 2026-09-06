@@ -129,6 +129,8 @@ def nettoyage_interieur_view(request, exemplaire_id):
             try:
                 with transaction.atomic():
 
+                    nettoyage_int = form.save(commit=False)
+
                     nettoyage_int.assign_technicien(request.user)
                     nettoyage_int.voiture_exemplaire = exemplaire
                     nettoyage_int.immatriculation = exemplaire.immatriculation
@@ -156,17 +158,27 @@ def nettoyage_interieur_view(request, exemplaire_id):
                         kilometrage_variation = km - ancien_kilometrage
 
                         # Mise à jour du kilométrage véhicule
+                        exemplaire.kilometres_rollback = ancien_kilometrage
+
+                        # Nouveau kilométrage
                         exemplaire.kilometres_chassis = km
-                        exemplaire.save(
-                            update_fields=["kilometres_chassis"]
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
                         )
 
-                        # 🔗 checkup UNIQUE
-                        nettoyage_int = form.save(commit=False)
-                        nettoyage_int.assign_technicien(request.user)
+                        exemplaire.update_kilometres()
 
-                        nettoyage_int.kilometres_chassis = exemplaire.kilometres_chassis
-                        nettoyage_int.kilometrage_net_int = km
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis",
+                                "kilometres_rollback",
+                                "date_derniere_intervention",
+                            ]
+                        )
+
 
                     # ====================================================
                     # MAINTENANCE
@@ -401,6 +413,165 @@ def modifier_nettoyage_int_view(request, nettoyage_int_id):
             "exemplaire": nettoyage_interieur.voiture_exemplaire,
         }
     )
+
+
+
+
+@never_cache
+@login_required
+def delete_nettoyage_interieur_view(request, nettoyage_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    nettoyage_interieur = get_object_or_404(
+        NettoyageInterieur.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=nettoyage_id,
+    )
+
+    exemplaire = nettoyage_interieur.voiture_exemplaire
+    maintenance = nettoyage_interieur.maintenance
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                    exemplaire.kilometres_rollback or 0
+                )
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                    ]
+                )
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                nettoyage_interieur.delete()
+
+                # ==================================================
+                # SUPPRESSION MAINTENANCE ASSOCIÉE
+                # ==================================================
+                if maintenance:
+                    maintenance.delete()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_NETTOYAGE_INT = gettext_noop(
+                    "Suppression du nettoyage intérieur"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_NETTOYAGE_INT} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Nettoyage extérieur supprimé avec succès.")
+            )
+
+            return redirect(
+                "nettoyage_interieur:nettoyage_int_list",
+                exemplaire_id=exemplaire.id
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+            return redirect(
+                "nettoyage_interieur:nettoyage_int_detail",
+                 nettoyage_id=nettoyage_interieur.id,
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "nettoyage_interieur/delete_nettoyage_int.html",
+        {
+            "nettoyage_interieur": nettoyage_interieur,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
 
 
 
