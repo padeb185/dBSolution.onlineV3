@@ -125,6 +125,9 @@ def remplacement_boite_form_view(request, exemplaire_id):
                         )
                         raise ValueError("invalid km")
 
+
+
+
                     # 🔴 maintenance unique
                     maintenance = Maintenance.objects.create(
                         societe=request.user.societe,
@@ -429,6 +432,163 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
         "sections": sections,
         "exemplaire": exemplaire,
     })
+
+
+
+
+@never_cache
+@login_required
+def delete_remplacement_boite_view(request, remplacement_boite_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    remplacement_boite = get_object_or_404(
+        RemplacementBoite.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=remplacement_boite_id,
+    )
+
+    exemplaire = remplacement_boite.voiture_exemplaire
+    maintenance = remplacement_boite.maintenance
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                    exemplaire.kilometres_rollback or 0
+                )
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                    ]
+                )
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                remplacement_boite.delete()
+
+                # ==================================================
+                # SUPPRESSION MAINTENANCE ASSOCIÉE
+                # ==================================================
+                if maintenance:
+                    maintenance.delete()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_REMPLACEMENT_BOITE = gettext_noop(
+                    "Suppression du remplacement de la boite de vitesse"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_REMPLACEMENT_BOITE} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Remplacement de la boite supprimé avec succès.")
+            )
+
+            return redirect(
+                "remplacement_boite:remplacement_boite_list",
+                exemplaire_id=exemplaire.id
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+            return redirect(
+                "remplacement_boite:remplacement_boite_detail",
+                 abs_id=remplacement_boite.id,
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "remplacement_boite/delete_remplacement_boite.html",
+        {
+            "remplacement_boite": remplacement_boite,
+            "exemplaire": exemplaire,
+        }
+    )
+
 
 
 

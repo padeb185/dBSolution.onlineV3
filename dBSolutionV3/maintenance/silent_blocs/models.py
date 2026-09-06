@@ -61,6 +61,14 @@ class SilentBloc(TechnicienMixin, models.Model):
         verbose_name=_("Variation du kilométrage"),
     )
 
+    kilometres_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        editable=False,
+        verbose_name=_("Kilomètres rollback")
+    )
+
     # --- Silent Bloc ---
 
 

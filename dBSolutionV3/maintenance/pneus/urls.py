@@ -1,6 +1,7 @@
 # maintenance/check_up/urls.py
 from django.urls import path
-from .views import PneusListView, controle_pneus_view, modifier_pneus_view, pneus_detail_view, controle_pneus_pdf_view
+from .views import PneusListView, controle_pneus_view, modifier_pneus_view, pneus_detail_view, controle_pneus_pdf_view, \
+    delete_pneus_view
 
 app_name = "pneus"
 
@@ -16,8 +17,11 @@ urlpatterns = [
 
     path('<int:pneu_id>/detail/', pneus_detail_view, name='pneus_detail'),
 
-path(
-        "pneus/<int:controle_pneus_id>/pdf/", controle_pneus_pdf_view, name="controle_pneus_pdf"),
+    path("pneus/<int:controle_pneus_id>/pdf/", controle_pneus_pdf_view, name="controle_pneus_pdf"),
+
+    path("pneus/<int:pneu_id>/delete/", delete_pneus_view, name="delete_pneus"),
+
+
 ]
 
 

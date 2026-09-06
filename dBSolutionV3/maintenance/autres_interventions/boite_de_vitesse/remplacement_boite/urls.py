@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import RemplacementBoiteListView, remplacement_boite_form_view, remplacement_boite_detail_view, \
-    modifier_remplacement_boite_view, remplacement_boite_pdf_view
+    modifier_remplacement_boite_view, remplacement_boite_pdf_view, delete_remplacement_boite_view
 
 app_name = "remplacement_moteur"
 
@@ -20,6 +20,8 @@ urlpatterns = [
         remplacement_boite_pdf_view,
         name="remplacement_boite_pdf"
     ),
+
+    path("remplacement_boite/<uuid:remplacement_boite_id>//delete/", delete_remplacement_boite_view, name="delete_remplacement_boite"),
 
 ]
 

@@ -1,6 +1,7 @@
 # maintenance/check_up/urls.py
 from django.urls import path
-from .views import SilentListView, silent_check_view, modifier_silent_view, silent_detail_view, silent_bloc_pdf_view
+from .views import SilentListView, silent_check_view, modifier_silent_view, silent_detail_view, silent_bloc_pdf_view, \
+    delete_silent_view
 
 app_name = "silent_blocs"
 
@@ -18,6 +19,8 @@ urlpatterns = [
     path('<int:silent_id>/detail/', silent_detail_view, name='silent_detail'),
 
     path("silent-blocs/<int:silent_id>/pdf/", silent_bloc_pdf_view, name="silent_bloc_pdf"),
+
+    path("silent/<int:silent_id>/delete/", delete_silent_view, name="delete_silent"),
 
 ]
 

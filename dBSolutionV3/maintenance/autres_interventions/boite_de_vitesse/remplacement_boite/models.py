@@ -75,8 +75,24 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres chassis")
     )
 
+    kilometres_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        editable=False,
+        verbose_name=_("Kilomètres rollback")
+    )
+
     kilometres_boite = models.PositiveIntegerField(
         verbose_name=_("Kilometres de la boite à remplacer")
+    )
+
+    kilometres_rollback_boite = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        editable=False,
+        verbose_name=_("Kilomètres rollback")
     )
 
 
