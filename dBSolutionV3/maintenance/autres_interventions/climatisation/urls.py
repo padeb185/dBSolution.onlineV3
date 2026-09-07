@@ -1,7 +1,7 @@
 # maintenance/check_up/urls.py
 from django.urls import path
 from .views import ClimListView, clim_form_view, \
-    modifier_clim_view, clim_detail_view, clim_detail_pdf_view
+    modifier_clim_view, clim_detail_view, clim_detail_pdf_view, delete_clim_view
 
 app_name = "climatisation"
 
@@ -24,5 +24,6 @@ urlpatterns = [
         name="clim_detail_pdf",
     ),
 
+    path("climatisation/<int:climatisation_id>/delete/", delete_clim_view, name="delete_clim"),
 
 ]

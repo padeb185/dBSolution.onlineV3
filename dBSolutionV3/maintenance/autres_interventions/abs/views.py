@@ -754,7 +754,7 @@ def delete_abs_view(request, abs_id):
             )
 
             return redirect(
-                "silent_blocs:silent_detail",
+                "abs:abs_detail",
                  abs_id=abs_del.id,
             )
 

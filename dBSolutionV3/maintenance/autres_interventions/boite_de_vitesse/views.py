@@ -153,21 +153,30 @@ def boite_check_view(request, exemplaire_id):
                                 km - ancien_kilometrage
                         )
 
-                        # Mise à jour véhicule
+                        # Mise à jour du kilométrage véhicule
+                        exemplaire.kilometres_rollback = ancien_kilometrage
+
+                        # Nouveau kilométrage
                         exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        exemplaire.update_kilometres()
 
                         exemplaire.save(
                             update_fields=[
-                                "kilometres_chassis"
+                                "kilometres_chassis",
+                                "kilometres_rollback",
+                                "date_derniere_intervention",
                             ]
                         )
 
-                        # 🔗 checkup UNIQUE
-                        boite = form.save(commit=False)
-                        boite.assign_technicien(request.user)
 
-                        boite.kilometres_chassis = exemplaire.kilometres_chassis
-                        boite.kilometrage_controle_boite = km
+
 
                     # 🔴 maintenance unique
                     maintenance = Maintenance.objects.create(
@@ -351,6 +360,160 @@ def modifier_boite_view(request, boite_id):
 
 
 
+
+
+@never_cache
+@login_required
+def delete_boite_view(request, boite_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    boite = get_object_or_404(
+        ControleBoite.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=boite_id,
+    )
+
+    exemplaire = boite.voiture_exemplaire
+    maintenance = boite.maintenance
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                    exemplaire.kilometres_rollback or 0
+                )
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                    ]
+                )
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                boite.delete()
+
+                # ==================================================
+                # SUPPRESSION MAINTENANCE ASSOCIÉE
+                # ==================================================
+                if maintenance:
+                    maintenance.delete()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_BOITE = gettext_noop(
+                    "Suppression du contrôle de la boite de vitesse"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_BOITE} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Contrôle de la boite de vitesse supprimé avec succès.")
+            )
+
+            return redirect(
+                "boite_de_vitesse:boite_list",
+                exemplaire_id=exemplaire.id
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+            return redirect(
+                "boite_de_vitesse:boite_detail",
+                 boite_id=boite.id,
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "boite_de_vitesse/delete_boite.html",
+        {
+            "boite": boite,
+            "exemplaire": exemplaire,
+        }
+    )
 
 
 

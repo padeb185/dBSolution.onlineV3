@@ -57,7 +57,15 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
     # INFOS
     # -------------------------
     kilometrage_access = models.PositiveIntegerField(
-        verbose_name= _("Kilométrage de la courroie d'accessoires")
+        verbose_name= _("Kilométrage du contrôle de la courroie d'accessoires")
+    )
+
+    kilometres_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        editable=False,
+        verbose_name=_("Kilomètres rollback")
     )
 
 

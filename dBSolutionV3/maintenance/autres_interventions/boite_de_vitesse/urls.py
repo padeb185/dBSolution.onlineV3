@@ -1,7 +1,7 @@
 # maintenance/check_up/urls.py
 from django.urls import path
 from .views import BoiteListView, boite_check_view, modifier_boite_view, boite_detail_view, dashboard_boite_view, \
-    boite_check_pdf_view
+    boite_check_pdf_view, delete_boite_view
 
 app_name = "boite_de_vitesse"
 
@@ -20,6 +20,9 @@ urlpatterns = [
     path('boite/<int:boite_id>/detail/', boite_detail_view, name='boite_detail'),
 
     path("<int:pk>/", boite_check_pdf_view, name="boite_check_pdf"),
+
+    path("boite/<int:boite_id>/delete/", delete_boite_view, name="delete_boite"),
+
 ]
 
 

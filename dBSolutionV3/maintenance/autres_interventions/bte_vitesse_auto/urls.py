@@ -1,7 +1,7 @@
 # maintenance/check_up/urls.py
 from django.urls import path
 from .views import BteVitesseAutoListView, bte_auto_check_view, modifier_bte_auto_view, bte_auto_detail_view, \
-    bte_auto_pdf_view
+    bte_auto_pdf_view, delete_bte_auto_view
 
 app_name = "bte_auto"
 
@@ -19,6 +19,7 @@ urlpatterns = [
 
     path("<int:bte_auto_id>/ pdf/", bte_auto_pdf_view,name="bte_auto_pdf"),
 
+    path("bte_auto/<int:bte_auto_id>/delete/", delete_bte_auto_view, name="delete_bte_auto"),
     
 ]
 

@@ -154,12 +154,26 @@ def bte_auto_check_view(request, exemplaire_id):
                                 km - ancien_kilometrage
                         )
 
-                        # Mise à jour véhicule
+
+                        # Mise à jour du kilométrage véhicule
+                        exemplaire.kilometres_rollback = ancien_kilometrage
+
+                        # Nouveau kilométrage
                         exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        exemplaire.update_kilometres()
 
                         exemplaire.save(
                             update_fields=[
-                                "kilometres_chassis"
+                                "kilometres_chassis",
+                                "kilometres_rollback",
+                                "date_derniere_intervention",
                             ]
                         )
 
@@ -358,6 +372,164 @@ def modifier_bte_auto_view(request, bte_auto_id):
             "exemplaire": exemplaire,
         }
     )
+
+
+
+
+@never_cache
+@login_required
+def delete_bte_auto_view(request, bte_auto_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    bte_auto = get_object_or_404(
+        ControleBteVitesseAuto.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=bte_auto_id,
+    )
+
+    exemplaire = bte_auto.voiture_exemplaire
+    maintenance = bte_auto.maintenance
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                    exemplaire.kilometres_rollback or 0
+                )
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                    ]
+                )
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                bte_auto.delete()
+
+                # ==================================================
+                # SUPPRESSION MAINTENANCE ASSOCIÉE
+                # ==================================================
+                if maintenance:
+                    maintenance.delete()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_BOITE_AUTO = gettext_noop(
+                    "Suppression du contrôle de la boite automatique"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_BOITE_AUTO} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Contrôle de la boite automatique supprimé avec succès.")
+            )
+
+            return redirect(
+                "bte_auto:bte_auto_list",
+                exemplaire_id=exemplaire.id
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+            return redirect(
+                "bte_auto:bte_auto_detail",
+                 bte_auto_id=bte_auto.id,
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "bte_auto/delete_bte_auto.html",
+        {
+            "bte_auto": bte_auto,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
 
 
 
