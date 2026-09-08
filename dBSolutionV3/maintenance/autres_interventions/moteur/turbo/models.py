@@ -52,6 +52,15 @@ class Turbo(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres chassis")
     )
 
+
+    kilometres_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        editable=False,
+        verbose_name=_("Kilomètres rollback")
+    )
+
     kilometres_turbo = models.PositiveIntegerField(
         verbose_name=_("Kilométrage au moment du controle"),
         
@@ -486,30 +495,93 @@ class Turbo(TechnicienMixin, models.Model):
             "total_general": total_general,
         }
 
-
-
-
-
     def calcul_piece(self, prefix):
-        prix = getattr(self, f"{prefix}_prix", 0)
-        quantite = getattr(self, f"{prefix}_quantite", 0)
+        prix = getattr(
+            self,
+            f"{prefix}_prix",
+            0
+        )
+
+        quantite = getattr(
+            self,
+            f"{prefix}_quantite",
+            0
+        )
 
         if not prix or not self.pays:
             return
 
-        tva_rate = Decimal(self.TVA_PIECES.get(self.pays, 0)) / 100
+        # =========================================
+        # TVA
+        # =========================================
 
-        prix_htva = prix  # pas de marge dans ton modèle
+        taux_tva = TVAConfig.get_tva(
+            self.pays
+        )
 
-        prix_htva = prix_htva.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        tva_rate = (
+                Decimal(str(taux_tva))
+                / Decimal("100")
+        )
 
-        tva = (prix_htva * tva_rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
-        prix_ttc = prix_htva + tva
+        # =========================================
+        # PRIX HTVA
+        # =========================================
 
-        setattr(self, f"{prefix}_prix_vente_htva", prix_htva)
-        setattr(self, f"{prefix}_tva_vente", tva)
-        setattr(self, f"{prefix}_prix_ttc", prix_ttc)
+        prix_htva = Decimal(
+            str(prix)
+        )
 
+        prix_htva = prix_htva.quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP
+        )
+
+        # =========================================
+        # TVA
+        # =========================================
+
+        tva = (
+                prix_htva
+                * tva_rate
+        ).quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP
+        )
+
+        # =========================================
+        # PRIX TTC
+        # =========================================
+
+        prix_ttc = (
+                prix_htva
+                + tva
+        ).quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP
+        )
+
+        # =========================================
+        # SAUVEGARDE DES VALEURS
+        # =========================================
+
+        setattr(
+            self,
+            f"{prefix}_prix_vente_htva",
+            prix_htva
+        )
+
+        setattr(
+            self,
+            f"{prefix}_tva_vente",
+            tva
+        )
+
+        setattr(
+            self,
+            f"{prefix}_prix_ttc",
+            prix_ttc
+        )
 
 
 

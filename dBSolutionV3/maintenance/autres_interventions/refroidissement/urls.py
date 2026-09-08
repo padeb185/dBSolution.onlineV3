@@ -1,6 +1,6 @@
 # maintenance/check_up/urls.py
 from django.urls import path
-from .views import ref_detail_pdf_view, ref_detail_view, modifier_ref_view, ref_form_view, RefListView
+from .views import ref_detail_pdf_view, ref_detail_view, modifier_ref_view, ref_form_view, RefListView, delete_ref_view
 
 app_name = "refroidissement"
 
@@ -22,4 +22,7 @@ urlpatterns = [
         ref_detail_pdf_view,
         name="ref_detail_pdf",
     ),
+
+    path("refroidissement/<int:ref_id>/delete/", delete_ref_view, name="delete_ref"),
+
 ]

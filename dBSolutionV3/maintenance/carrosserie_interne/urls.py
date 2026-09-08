@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import carrosserie_interne_create_view, carrosserie_interne_detail_view, modifier_carrosserie_interne_view, \
-    CarrosserieInterneListView, rapport_view, carrosserie_interne_pdf_view
+    CarrosserieInterneListView, rapport_view, carrosserie_interne_pdf_view, delete_carrosserie_interne_view
 
 app_name = "carrosserie_interne"
 
@@ -25,6 +25,9 @@ urlpatterns = [
         carrosserie_interne_pdf_view,
         name="carrosserie_interne_pdf"
     ),
+
+    path("carrosserie/<int:carrosserie_interne_id>/delete/", delete_carrosserie_interne_view, name="delete_carrosserie_interne"),
+
 ]
 
 

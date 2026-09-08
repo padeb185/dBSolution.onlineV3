@@ -186,14 +186,26 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                     # MISE À JOUR VÉHICULE
                     # =========================
 
+                    exemplaire.kilometres_rollback = ancien_kilometrage
+
+                    # Nouveau kilométrage
                     exemplaire.kilometres_chassis = km
+
+                    exemplaire.date_derniere_intervention = (
+                        timezone.localtime(
+                            timezone.now()
+                        ).date()
+                    )
+
+                    exemplaire.update_kilometres()
 
                     exemplaire.save(
                         update_fields=[
-                            "kilometres_chassis"
+                            "kilometres_chassis",
+                            "kilometres_rollback",
+                            "date_derniere_intervention",
                         ]
                     )
-
                     # =========================
                     # MAINTENANCE
                     # =========================
@@ -1229,6 +1241,164 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
             "sections": sections,
         }
     )
+
+
+
+@never_cache
+@login_required
+def delete_carrosserie_interne_view(request, carrosserie_interne_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    carrosserie_interne = get_object_or_404(
+        CarrosserieInterne.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=carrosserie_interne_id,
+    )
+
+    exemplaire = carrosserie_interne.voiture_exemplaire
+    maintenance = carrosserie_interne.maintenance
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                    exemplaire.kilometres_rollback or 0
+                )
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                    ]
+                )
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                carrosserie_interne.delete()
+
+                # ==================================================
+                # SUPPRESSION MAINTENANCE ASSOCIÉE
+                # ==================================================
+                if maintenance:
+                    maintenance.delete()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_CAR_INT = gettext_noop(
+                    "Suppression du contrôle de la carrosserie"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_CAR_INT} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Contrôle de la carrosserie supprimé avec succès.")
+            )
+
+            return redirect(
+                "carrosserie_interne:carrosserie_interne_list",
+                exemplaire_id=exemplaire.id
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+            return redirect(
+                "carrosserie_interne:carrosserie_interne_detail",
+                 carrosserie_interne_id=carrosserie_interne.id,
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "carrosserie_interne/delete_carrosserie_interne.html",
+        {
+            "carrosserie_interne": carrosserie_interne,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
 
 
 

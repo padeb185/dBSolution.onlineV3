@@ -1,6 +1,7 @@
 # maintenance/check_up/urls.py
 from django.urls import path
-from .views import TurboListView, turbo_check_view, modifier_turbo_view, turbo_detail_view, turbo_detail_pdf_view
+from .views import TurboListView, turbo_check_view, modifier_turbo_view, turbo_detail_view, turbo_detail_pdf_view, \
+    delete_turbo_view
 
 app_name = "turbo"
 
@@ -18,6 +19,7 @@ urlpatterns = [
 
     path("<int:pk>/detail/", turbo_detail_pdf_view, name="turbo_detail_pdf"),
 
+    path("turbo/<int:turbo_id>/delete/", delete_turbo_view, name="delete_turbo"),
 ]
 
 
