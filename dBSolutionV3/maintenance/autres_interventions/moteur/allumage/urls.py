@@ -1,7 +1,7 @@
 # maintenance/check_up/urls.py
 from django.urls import path
 from .views import AllumageListView, allumage_check_view, modifier_allumage_view, allumage_detail_view, \
-    allumage_detail_pdf_view
+    allumage_detail_pdf_view, delete_allumage_view
 
 app_name = "allumage"
 
@@ -19,6 +19,8 @@ urlpatterns = [
     path('allumage/<int:allumage_id>/detail/', allumage_detail_view, name='allumage_detail'),
 
     path("<int:pk>/detail/", allumage_detail_pdf_view, name="allumage_detail_pdf"),
+
+    path("allumage/<int:allumage_id>/delete/", delete_allumage_view, name="delete_allumage"),
 
 ]
 

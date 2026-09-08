@@ -43,7 +43,7 @@
             </p>
             <p><strong>{% trans "Kilométrage" %} :</strong> {{ alternateur.kilometrage_alte }}</p>
             <p><strong>{% trans "Tag" %} :</strong> {{ alternateur.get_tag_display }}</p>
-            <p><strong>{% trans "Technicien" %} :</strong> {{ alternateur.tech_nom_technicien }} {{ allumage.tech_role_technicien }}</p>
+            <p><strong>{% trans "Technicien" %} :</strong> {{ alternateur.tech_nom_technicien }} {{ alternateur.tech_role_technicien }}</p>
         </div>
 
 
@@ -79,6 +79,17 @@
             </a>
         </div>
     </div>
+
+      {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}
+        <div class="mt-auto w-full">
+            <a href="{% url 'alternateur:delete_alternateur' alternateur.id %}" class="block w-full">
+                <button type="button" class="w-full bg-red-700 text-white px-4 py-2 rounded hover:hover:bg-red-400 font-semibold">
+                    {% trans "Supprimer le contrôle de l'alternateur" %}
+                </button>
+            </a>
+        </div>
+    {% endif %}
+    <br>
 
      <!-- Métadonnées -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">

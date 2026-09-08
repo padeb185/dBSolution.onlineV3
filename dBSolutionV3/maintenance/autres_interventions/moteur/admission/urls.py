@@ -1,6 +1,7 @@
 # maintenance/check_up/urls.py
 from .views import AdmissionListView, \
-    admission_check_view, modifier_admission_view, admission_detail_view, admission_detail_pdf_view
+    admission_check_view, modifier_admission_view, admission_detail_view, admission_detail_pdf_view, \
+    delete_admission_view
 
 from django.urls import path
 
@@ -28,6 +29,8 @@ urlpatterns = [
     path('admission/<int:admission_id>/detail/', admission_detail_view, name='admission_detail'),
 
     path("rapport/<int:pk>/", admission_detail_pdf_view, name="admission_detail_pdf"),
+
+    path("admission/<int:admission_id>/delete/", delete_admission_view, name="delete_admission"),
 ]
 
 

@@ -9,7 +9,7 @@ from maindoeuvre.models import MainDoeuvre
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 from .forms import AdmissionForm
 from django.contrib.auth.decorators import login_required
@@ -185,6 +185,28 @@ def admission_check_view(request, exemplaire_id):
                     else:
                         kilometrage_variation = (
                             km - ancien_kilometrage
+                        )
+
+                        # Mise à jour du kilométrage véhicule
+                        exemplaire.kilometres_rollback = ancien_kilometrage
+
+                        # Nouveau kilométrage
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        exemplaire.update_kilometres()
+
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis",
+                                "kilometres_rollback",
+                                "date_derniere_intervention",
+                            ]
                         )
 
                         # =========================================
@@ -384,7 +406,7 @@ def admission_check_view(request, exemplaire_id):
                             # =====================================
                             # LOG
                             # =====================================
-                            from django.utils.translation import gettext_noop
+
 
                             ACTION_CONTROLE_ADMISSION = gettext_noop(
                                 "Contrôle de l'admission"
@@ -422,11 +444,6 @@ def admission_check_view(request, exemplaire_id):
                 )
 
         else:
-            print(
-                "FORM ADMISSION INVALID:",
-                form.errors
-            )
-
             messages.error(
                 request,
                 _(
@@ -794,7 +811,7 @@ def modifier_admission_view(request, admission_id):
                             # =====================================
                             # LOG
                             # =====================================
-                            from django.utils.translation import gettext_noop
+
 
                             ACTION_MODIFICATION_CONTROLE_ADMISSION = gettext_noop(
                                 "Modification du contrôle de l'admission"
@@ -1058,6 +1075,168 @@ def modifier_admission_view(request, admission_id):
             ),
         },
     )
+
+
+
+
+
+@never_cache
+@login_required
+def delete_admission_view(request, admission_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    admission = get_object_or_404(
+        Admission.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=admission_id,
+    )
+
+    exemplaire = admission.voiture_exemplaire
+    maintenance = admission.maintenance
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                    exemplaire.kilometres_rollback or 0
+                )
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                    ]
+                )
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                admission.delete()
+
+                # ==================================================
+                # SUPPRESSION MAINTENANCE ASSOCIÉE
+                # ==================================================
+                if maintenance:
+                    maintenance.delete()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_ADMISSION = gettext_noop(
+                    "Suppression du contrôle de l'admission"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_ADMISSION} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Contrôle de l'admission supprimé avec succès.")
+            )
+
+            return redirect(
+                "admission:admission_list",
+                exemplaire_id=exemplaire.id
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+            return redirect(
+                "admission:admission_detail",
+                 admission_id=admission.id,
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "admission/delete_admission.html",
+        {
+            "admission": admission,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
+
+
 
 
 @login_required

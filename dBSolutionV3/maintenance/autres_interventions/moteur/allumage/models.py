@@ -61,6 +61,14 @@ class Allumage(models.Model):
         verbose_name=_("Kilomètres châssis"),
     )
 
+    kilometres_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        editable=False,
+        verbose_name=_("Kilomètres rollback")
+    )
+
     kilometrage_allumage = models.PositiveIntegerField(
         verbose_name=_("Kilométrage au moment du controle de l'allumage"),
 

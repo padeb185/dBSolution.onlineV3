@@ -1,7 +1,7 @@
 # maintenance/check_up/urls.py
 from django.urls import path
-from .views import alternateur_check_view, modifier_alternateur_view, alternateur_detail_view,  \
-    AlternateurListView, alternateur_detail_pdf_view
+from .views import alternateur_check_view, modifier_alternateur_view, alternateur_detail_view, \
+    AlternateurListView, alternateur_detail_pdf_view, delete_alternateur_view
 
 app_name = "alternateur"
 
@@ -19,6 +19,8 @@ urlpatterns = [
     path('alternateur/<int:alternateur_id>/detail/', alternateur_detail_view, name='alternateur_detail'),
 
     path("<int:pk>/detail/", alternateur_detail_pdf_view, name="alternateur_detail_pdf"),
+
+    path("alternateur/<int:alternateur_id>/delete/", delete_alternateur_view, name="delete_alternateur"),
 
 ]
 
