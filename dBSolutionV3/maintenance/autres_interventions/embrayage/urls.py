@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import EmbrayageListView, embrayage_form_view, embrayage_detail_view, embrayage_detail_pdf_view, modifier_embrayage_view
+from .views import EmbrayageListView, embrayage_form_view, embrayage_detail_view, embrayage_detail_pdf_view, \
+    modifier_embrayage_view, delete_embrayage_view
 
 app_name = "embrayage"
 
@@ -17,6 +18,8 @@ urlpatterns = [
     path('embrayage/<int:embrayage_id>/detail/', embrayage_detail_view, name='embrayage_detail'),
 
     path("<int:pk>/", embrayage_detail_pdf_view, name="embrayage_detail_pdf"),
+
+    path("embrayage/<int:embrayage_id>/delete/", delete_embrayage_view,name="delete_embrayage"),
 
 
 ]

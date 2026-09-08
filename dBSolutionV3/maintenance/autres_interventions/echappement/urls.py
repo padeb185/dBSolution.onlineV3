@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import dashboard_echappement_view, EchappementListView, echappement_check_view, modifier_echappement_view, \
-    echappement_detail_view, echappement_check_pdf_view
+    echappement_detail_view, echappement_check_pdf_view, delete_echappement_view
 
 app_name = "echappement"
 
@@ -25,5 +25,7 @@ urlpatterns = [
 
 
     path("<int:pk>/", echappement_check_pdf_view, name="echappement_check_pdf"),
+
+    path("echappement/<int:echappement_id>/delete/", delete_echappement_view,name="delete_echappement"),
 
 ]

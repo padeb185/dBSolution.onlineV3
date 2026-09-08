@@ -21,6 +21,7 @@ from django.db import connection, transaction
 
 
 
+
 @method_decorator([login_required, never_cache], name="dispatch")
 class EmbrayageListView(ListView):
     model = Embrayage
@@ -178,18 +179,22 @@ def embrayage_form_view(request, exemplaire_id):
 
             try:
 
-                # -------------------------------------------------
+                # =====================================================
                 # KILOMÉTRAGE
-                # -------------------------------------------------
+                # =====================================================
 
                 km = form.cleaned_data.get(
                     "kilometrage_embrayage"
                 )
 
                 ancien_kilometrage = (
-                    exemplaire.kilometres_chassis
-                    or 0
+                        exemplaire.kilometres_chassis
+                        or 0
                 )
+
+                # -----------------------------------------------------
+                # Kilométrage obligatoire
+                # -----------------------------------------------------
 
                 if km is None:
 
@@ -203,6 +208,10 @@ def embrayage_form_view(request, exemplaire_id):
                 else:
 
                     km = int(km)
+
+                    # -------------------------------------------------
+                    # Vérification kilométrage
+                    # -------------------------------------------------
 
                     if km < ancien_kilometrage:
 
@@ -219,19 +228,41 @@ def embrayage_form_view(request, exemplaire_id):
                     else:
 
                         kilometrage_variation = (
-                            km
-                            - ancien_kilometrage
+                                km
+                                - ancien_kilometrage
                         )
 
-                        # =========================================
+                        # Mise à jour du kilométrage véhicule
+                        exemplaire.kilometres_rollback = ancien_kilometrage
+
+                        # Nouveau kilométrage
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        exemplaire.update_kilometres()
+
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis",
+                                "kilometres_rollback",
+                                "date_derniere_intervention",
+                            ]
+                        )
+
+                        # =================================================
                         # TRANSACTION
-                        # =========================================
+                        # =================================================
 
                         with transaction.atomic():
 
-                            # =====================================
+                            # =============================================
                             # MAINTENANCE
-                            # =====================================
+                            # =============================================
 
                             maintenance = (
                                 Maintenance.objects.create(
@@ -261,26 +292,30 @@ def embrayage_form_view(request, exemplaire_id):
                                 )
                             )
 
-                            # =====================================
+                            # =============================================
                             # PERSONNEL
-                            # =====================================
+                            # =============================================
 
                             if role == "mecanicien":
+
                                 maintenance.mecanicien = (
                                     request.user
                                 )
 
                             elif role == "chef_mecanicien":
+
                                 maintenance.chef_mecanicien = (
                                     request.user
                                 )
 
                             elif role == "magasinier":
+
                                 maintenance.magasinier = (
                                     request.user
                                 )
 
                             elif role == "direction":
+
                                 maintenance.direction = (
                                     request.user
                                 )
@@ -292,9 +327,9 @@ def embrayage_form_view(request, exemplaire_id):
                                     request.user
                                 )
 
-                            # =====================================
+                            # =============================================
                             # EMBRAYAGE
-                            # =====================================
+                            # =============================================
 
                             embrayage = form.save(
                                 commit=False
@@ -308,22 +343,34 @@ def embrayage_form_view(request, exemplaire_id):
                                 maintenance
                             )
 
-                            # Snapshot kilométrage AVANT
+                            # ---------------------------------------------
+                            # Snapshot du kilométrage AVANT remplacement
+                            # ---------------------------------------------
+
                             embrayage.kilometres_chassis = (
                                 ancien_kilometrage
                             )
 
-                            # Kilométrage du remplacement
+                            # ---------------------------------------------
+                            # Nouveau kilométrage
+                            # ---------------------------------------------
+
                             embrayage.kilometrage_embrayage = (
                                 km
                             )
 
-                            # Variation
+                            # ---------------------------------------------
+                            # Variation kilométrique
+                            # ---------------------------------------------
+
                             embrayage.kilometrage_variation = (
                                 kilometrage_variation
                             )
 
+                            # ---------------------------------------------
                             # Technicien
+                            # ---------------------------------------------
+
                             embrayage.assign_technicien(
                                 request.user
                             )
@@ -332,52 +379,44 @@ def embrayage_form_view(request, exemplaire_id):
                                 request.user
                             )
 
-                            # =====================================
-                            # SAUVEGARDE
-                            # =====================================
+                            # =============================================
+                            # SAUVEGARDE EMBRAYAGE
+                            # =============================================
 
                             embrayage.save()
 
-
-
-                            # =====================================
+                            # =============================================
                             # M2M
-                            # =====================================
+                            # =============================================
 
                             form.save_m2m()
 
-                            # =====================================
-                            # MISE À JOUR VÉHICULE
-                            # =====================================
+                            # =============================================
+                            # MISE À JOUR DU VÉHICULE
+                            # =============================================
 
-                            exemplaire.kilometres_chassis = (
-                                km
-                            )
 
-                            exemplaire.save(
-                                update_fields=[
-                                    "kilometres_chassis",
-                                ]
-                            )
-
-                            # =====================================
+                            # =============================================
                             # LOG
-                            # =====================================
+                            # =============================================
 
-
-
-                            ACTION_REMPLACEMENT_EMBRAYAGE = gettext_noop(
-                                "Remplacement de l'embrayage"
+                            ACTION_REMPLACEMENT_EMBRAYAGE = (
+                                gettext_noop(
+                                    "Remplacement de l'embrayage"
+                                )
                             )
 
                             UserLog.objects.create(
                                 utilisateur=request.user,
-                                action=f"{ACTION_REMPLACEMENT_EMBRAYAGE} - {exemplaire.immatriculation}"
+                                action=(
+                                    f"{ACTION_REMPLACEMENT_EMBRAYAGE} - "
+                                    f"{exemplaire.immatriculation}"
+                                ),
                             )
 
-                        # =========================================
+                        # =================================================
                         # SUCCÈS
-                        # =========================================
+                        # =================================================
 
                         messages.success(
                             request,
@@ -413,6 +452,7 @@ def embrayage_form_view(request, exemplaire_id):
         # =====================================================
 
         else:
+
             messages.error(
                 request,
                 _(
@@ -785,6 +825,165 @@ def modifier_embrayage_view(request, embrayage_id):
             "exemplaire": exemplaire,
         }
     )
+
+
+
+@never_cache
+@login_required
+def delete_embrayage_view(request, embrayage_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    embrayage = get_object_or_404(
+        Embrayage.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=embrayage_id,
+    )
+
+    exemplaire = embrayage.voiture_exemplaire
+    maintenance = embrayage.maintenance
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                    exemplaire.kilometres_rollback or 0
+                )
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                    ]
+                )
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                embrayage.delete()
+
+                # ==================================================
+                # SUPPRESSION MAINTENANCE ASSOCIÉE
+                # ==================================================
+                if maintenance:
+                    maintenance.delete()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_EMBRAYAGE = gettext_noop(
+                    "Suppression du contrôle de l'embrayage"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_EMBRAYAGE} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Contrôle de l'embrayage supprimé avec succès.")
+            )
+
+            return redirect(
+                "embrayage:embrayage_list",
+                exemplaire_id=exemplaire.id
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+            return redirect(
+                "embrayage:embrayage_detail",
+                 embrayage_id=embrayage.id,
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "embrayage/delete_embrayage.html",
+        {
+            "embrayage": embrayage,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
+
 
 
 

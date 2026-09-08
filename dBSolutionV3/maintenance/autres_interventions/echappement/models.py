@@ -91,6 +91,14 @@ class Echappement(models.Model):
         blank=True
     )
 
+    kilometres_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        editable=False,
+        verbose_name=_("Kilomètres rollback")
+    )
+
     kilometrage_variation = models.PositiveIntegerField(
         default=0,
         editable=False,
