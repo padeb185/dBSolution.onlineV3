@@ -1,7 +1,7 @@
 # maintenance/check_up/urls.py
 from django.urls import path
 from .views import CourroieDistributionListView, courroie_form_view, modifier_courroie_view, courroie_detail_view, \
-    rapport_courroie_view, CourroieDistributionRapportDetailView, courroie_detail_pdf_view
+    rapport_courroie_view, CourroieDistributionRapportDetailView, courroie_detail_pdf_view, delete_courroie_view
 
 app_name = "courroie"
 
@@ -23,6 +23,8 @@ urlpatterns = [
     path("courroiePDF/<int:pk>/", CourroieDistributionRapportDetailView.as_view(), name="rapport_pdf_courroie"),
 
     path("<int:pk>/detail/", courroie_detail_pdf_view, name="courroie_detail_pdf"),
+
+    path("courroie/<int:courroie_id>/delete/", delete_courroie_view, name="delete_courroie"),
 
 ]
 

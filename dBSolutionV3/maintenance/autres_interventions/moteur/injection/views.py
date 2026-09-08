@@ -162,6 +162,27 @@ def injection_form_view(request, exemplaire_id):
                                 km - ancien_kilometrage
                         )
 
+                        exemplaire.kilometres_rollback = ancien_kilometrage
+
+                        # Nouveau kilométrage
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        exemplaire.update_kilometres()
+
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis",
+                                "kilometres_rollback",
+                                "date_derniere_intervention",
+                            ]
+                        )
+
                         # ==================================================
                         # TRANSACTION
                         # ==================================================
@@ -840,45 +861,160 @@ def modifier_injection_view(request, injection_id):
     )
 
 
+
+@never_cache
 @login_required
-def rapport_injection_view(request, pk):
-    obj = get_object_or_404(Injection, pk=pk)
+def delete_injection_view(request, injection_id):
 
-    rapport = obj.generer_rapport_remplacement()
+    tenant = request.user.societe
+    role = request.user.role
 
-    return render(request, "injection/rapport_injection.html", {
-        "rapport": rapport,
-        "obj": obj
-    })
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
 
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
 
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    injection = get_object_or_404(
+        Injection.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=injection_id,
+    )
 
+    exemplaire = injection.voiture_exemplaire
+    maintenance = injection.maintenance
 
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
 
-class InjectionRapportDetailView(DetailView):
-    model = Injection
-    template_name = "injection/rapport_pdf_injection.html"
-    context_object_name = "obj"
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        try:
+            with transaction.atomic():
 
-        obj = self.object
+                immatriculation = exemplaire.immatriculation
 
-        rapport = obj.generer_rapport_remplacement()
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                    exemplaire.kilometres_rollback or 0
+                )
 
-        if not rapport:
-            rapport = {"lignes": [], "total_general": Decimal("0")}
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
 
-        # 🔥 AJOUT DU TAUX TVA DANS CHAQUE LIGNE
-        taux_tva = obj.TVA_PIECES.get(obj.pays, 0)
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                    ]
+                )
 
-        for ligne in rapport["lignes"]:
-            ligne["taux_tva"] = taux_tva
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                injection.delete()
 
-        context["rapport"] = rapport
+                # ==================================================
+                # SUPPRESSION MAINTENANCE ASSOCIÉE
+                # ==================================================
+                if maintenance:
+                    maintenance.delete()
 
-        return context
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_INJECTION = gettext_noop(
+                    "Suppression du contrôle de l'injection"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_INJECTION} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Contrôle de l'injection supprimé avec succès.")
+            )
+
+            return redirect(
+                "injection:injection_list",
+                exemplaire_id=exemplaire.id
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+            return redirect(
+                "injection:injection_detail",
+                 injection_id=injection.id,
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "injection/delete_injection.html",
+        {
+            "injection": injection,
+            "exemplaire": exemplaire,
+        }
+    )
+
 
 
 
