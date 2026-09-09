@@ -8,26 +8,46 @@
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
     <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold flex items-center gap-4">
-            <img src="{% static 'icons/checkup.png' %}" alt="Maintenance"
-                 style="width:60px; height:60px; margin-right:10px;">
-            <span>
+    <div class="mb-6">
+
+        <!-- Ligne 1 : icône + titre -->
+        <div class="flex items-center gap-3">
+            <img src="{% static 'icons/checkup.png' %}"
+                 alt="Maintenance"
+                 style="width:60px; height:60px;">
+
+            <h1 class="text-2xl font-bold">
                 {% trans "Modification du checkup pour :" %}
-                {{ exemplaire.voiture_marque.nom_marque }}
+            </h1>
+        </div>
+        <br>
+        <!-- Ligne 2 : marque + modèle + variante -->
+        <div class="flex items-center gap-3 mt-4">
+
+            {% static 'images/marques/' as marques_path %}
+
+            <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                 alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                 class="w-16 h-16 object-contain">
+
+            <span class="font-semibold text-lg">
                 {{ exemplaire.voiture_modele.nom_modele }}
-                {{ exemplaire.voiture_modele.nom_variante }}
 
-
+                {% if exemplaire.voiture_modele.nom_variante %}
+                    {{ exemplaire.voiture_modele.nom_variante }}
+                {% endif %}
             </span>
-        </h1>
-    </div>
 
-    <!-- Plaque -->
-    <div class="mb-4">
-        {% include "maintenance/partials/plaque.html" %}
-    </div>
+        </div>
 
+        <!-- Ligne 3 : immatriculation centrée -->
+        <div class="mt-4 text-center">
+            <span class="text-xl font-bold">
+               {% include "maintenance/partials/plaque.html" %}
+            </span>
+        </div>
+        <br>
+    </div>
 
     <!-- Messages -->
     {% if messages %}
@@ -43,26 +63,34 @@
         {% endfor %}
     {% endif %}
 
-    {% if form.errors %}
-        <div style="background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 10px; border-radius: 6px;">
-            <strong>Erreurs :</strong>
+      {% if form.errors %}
+        <div style="
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+            padding: 10px;
+            border-radius: 6px;
+        ">
+            <strong>{% trans "Erreurs :" %}</strong>
+
             <ul>
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <li>{{ field.label }} : {{ error }}</li>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }} : {{ error }}</li>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
+
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
             </ul>
         </div>
     {% endif %}
 
 
-<!-- ========================= -->
+<!-- ============================== -->
 <!-- POPUP VARIATION KILOMÉTRAGE -->
-<!-- ========================= -->
+<!-- ============================== -->
 
 <style>
     #kilometrage-popup {
@@ -135,15 +163,14 @@
     }
 
     .kilometrage-popup-confirmer {
-        background-color: #991b1b;;
-        color: white;
+        background-color: #991b1b;
+        color: #ffffff;
     }
 
     .kilometrage-popup-confirmer:hover {
         background-color: #7f1d1d;
     }
 </style>
-
 
 
 <div id="kilometrage-popup">
@@ -196,12 +223,6 @@
 
     <form method="post" id="checkup-form" class="space-y-4">
         {% csrf_token %}
-
-    <!-- le reste de ton formulaire ici -->
-
-        <h2 class="text-lg font-semibold mb-2">{% trans "Détails du checkup" %}</h2>
-
-        <br>
 
 
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">

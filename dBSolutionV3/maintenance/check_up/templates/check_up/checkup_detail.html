@@ -11,9 +11,19 @@
                  alt="{{ checkup.voiture_exemplaire.immatriculation }}"
                  class="w-12 h-12">
             <span>{% trans "Détails du checkup" %}</span>
-                    {{ exemplaire.voiture_marque.nom_marque }}
+                    {% static 'images/marques/' as marques_path %}
+
+            <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                 alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                 class="w-16 h-16 object-contain">
+
+            <span class="font-semibold">
                 {{ exemplaire.voiture_modele.nom_modele }}
-                {{ exemplaire.voiture_modele.nom_variante }}
+
+                {% if exemplaire.voiture_modele.nom_variante %}
+                    {{ exemplaire.voiture_modele.nom_variante }}
+                {% endif %}
+            </span>
         </h1>
 
     </div>
@@ -71,8 +81,9 @@
                 </button>
             </a>
         </div>
+    </div>
 
-        {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}
+       {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}
         <div class="mt-auto w-full">
             <a href="{% url 'check_up:delete_checkup' checkup.id %}" class="block w-full">
                 <button type="button" class="w-full bg-red-700 text-white px-4 py-2 rounded hover:hover:bg-red-400 font-semibold">
@@ -81,8 +92,7 @@
             </a>
         </div>
         {% endif %}
-
-    </div>
+    <br>
 
         <!-- Métadonnées -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">

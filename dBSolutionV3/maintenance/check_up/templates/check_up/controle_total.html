@@ -5,27 +5,47 @@
 <br>
 <br>
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+<!-- Header -->
+<div class="mb-6">
 
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold flex items-center gap-4">
-            <img src="{% static 'icons/checkup.png' %}" alt="Maintenance"
-                 style="width:60px; height:60px; margin-right:10px;">
-            <span>
-                {% trans "Contrôle complet pour :" %}
-                {{ exemplaire.voiture_marque.nom_marque }}
-                {{ exemplaire.voiture_modele.nom_modele }}
-                {{ exemplaire.voiture_modele.nom_variante }}
+    <!-- Ligne 1 : icône + titre -->
+    <div class="flex items-center gap-3">
+        <img src="{% static 'icons/checkup.png' %}"
+             alt="Maintenance"
+             style="width:60px; height:60px;">
 
-
-            </span>
+        <h1 class="text-2xl font-bold">
+            {% trans "Checkup pour :" %}
         </h1>
     </div>
+    <br>
+    <!-- Ligne 2 : logo marque + modèle + variante -->
+    <div class="flex items-center gap-3 mt-4">
 
-    <!-- Plaque -->
-    <div class="mb-4">
-        {% include "maintenance/partials/plaque.html" %}
+        {% static 'images/marques/' as marques_path %}
+
+        <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+             alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+             class="w-16 h-16 object-contain">
+
+        <span class="font-semibold text-lg">
+            {{ exemplaire.voiture_modele.nom_modele }}
+
+            {% if exemplaire.voiture_modele.nom_variante %}
+                {{ exemplaire.voiture_modele.nom_variante }}
+            {% endif %}
+        </span>
+
     </div>
+
+    <!-- Ligne 3 : immatriculation centrée -->
+    <div class="mt-4 text-center">
+        <span class="text-xl font-bold">
+               {% include "maintenance/partials/plaque.html" %}
+        </span>
+    </div>
+
+</div>
 
 
     <!-- Messages -->
