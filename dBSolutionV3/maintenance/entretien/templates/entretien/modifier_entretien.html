@@ -1016,41 +1016,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function calculerVariation() {
 
-        const valeurEntretien = (
-            kmEntretien.value.trim()
-        );
+        const valeurEntretien = kmEntretien.value.trim();
 
         if (valeurEntretien === "") {
-
             kmVariation.value = "";
-
-            variationConfirmee = false;
-
             return null;
         }
 
         const km = Number(valeurEntretien);
 
         if (Number.isNaN(km)) {
-
             kmVariation.value = "";
-
-            variationConfirmee = false;
-
             return null;
         }
 
-        // IMPORTANT :
-        // nouveau kilométrage - kilométrage historique
+        // Nouveau kilométrage - kilométrage historique
         const variation = km - kmReference;
 
         kmVariation.value = variation;
 
-        variationConfirmee = false;
-
         return variation;
     }
-
 
     // =========================================
     // RECALCUL À CHAQUE MODIFICATION
