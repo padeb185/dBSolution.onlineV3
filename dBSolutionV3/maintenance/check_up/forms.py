@@ -26,14 +26,26 @@ class CheckupForm(forms.ModelForm):
     class Meta:
         model = Checkup
         fields = "__all__"
-        widgets = {
-            'maintenance': forms.HiddenInput(),
-            'remarques': forms.Textarea(attrs={
-                'rows': 4,
-                'placeholder': _("Ajoutez des remarques ici...")
-            }),
-            "tech_last_maintained_by": forms.Select(attrs={"disabled": "disabled"}),
 
+        widgets = {
+            "maintenance": forms.HiddenInput(),
+
+            "remarques": forms.Textarea(
+                attrs={
+                    "rows": 4,
+                    "placeholder": _("Ajoutez des remarques ici..."),
+                }
+            ),
+
+            "tech_last_maintained_by": forms.Select(
+                attrs={
+                    "disabled": "disabled",
+                }
+            ),
+
+            # =========================
+            # DIRECTION
+            # =========================
             "direction_liquide_niveau": forms.NumberInput(
                 attrs={
                     "step": "0.1",
@@ -55,27 +67,79 @@ class CheckupForm(forms.ModelForm):
                 }
             ),
 
-            "pneu_epaisseur_avd": forms.NumberInput(attrs={
-                "step": "0.5",
-                "min": "0",
-            }),
-            "pneu_epaisseur_avg": forms.NumberInput(attrs={
-                "step": "0.5",
-                "min": "0",
-            }),
-            "pneu_epaisseur_ard": forms.NumberInput(attrs={
-                "step": "0.5",
-                "min": "0",
-            }),
-            "pneu_epaisseur_arg": forms.NumberInput(attrs={
-                "step": "0.5",
-                "min": "0",
-            }),
-            "pneu_pression_bar_avd": forms.NumberInput(attrs={"step": "0.1"}),
-            "pneu_pression_bar_avg": forms.NumberInput(attrs={"step": "0.1"}),
-            "pneu_pression_bar_ard": forms.NumberInput(attrs={"step": "0.1"}),
-            "pneu_pression_bar_arg": forms.NumberInput(attrs={"step": "0.1"}),
+            # =========================
+            # PNEUS
+            # =========================
+            "pneu_epaisseur_avd": forms.NumberInput(
+                attrs={
+                    "step": "0.5",
+                    "min": "0",
+                }
+            ),
+
+            "pneu_epaisseur_avg": forms.NumberInput(
+                attrs={
+                    "step": "0.5",
+                    "min": "0",
+                }
+            ),
+
+            "pneu_epaisseur_ard": forms.NumberInput(
+                attrs={
+                    "step": "0.5",
+                    "min": "0",
+                }
+            ),
+
+            "pneu_epaisseur_arg": forms.NumberInput(
+                attrs={
+                    "step": "0.5",
+                    "min": "0",
+                }
+            ),
+
+            "pneu_pression_bar_avd": forms.NumberInput(
+                attrs={
+                    "step": "0.1",
+                }
+            ),
+
+            "pneu_pression_bar_avg": forms.NumberInput(
+                attrs={
+                    "step": "0.1",
+                }
+            ),
+
+            "pneu_pression_bar_ard": forms.NumberInput(
+                attrs={
+                    "step": "0.1",
+                }
+            ),
+
+            "pneu_pression_bar_arg": forms.NumberInput(
+                attrs={
+                    "step": "0.1",
+                }
+            ),
+
+            # =========================
+            # KILOMÉTRAGES
+            # =========================
             "kilometres_chassis": forms.NumberInput(
+                attrs={
+                    "readonly": "readonly",
+                    "class": "bg-gray-100 cursor-not-allowed",
+                }
+            ),
+
+            "kilometres_moteur": forms.NumberInput(
+                attrs={
+                    "readonly": "readonly",
+                    "class": "bg-gray-100 cursor-not-allowed",
+                }
+            ),
+
+            "kilometres_boite": forms.NumberInput(
                 attrs={
                     "readonly": "readonly",
                     "class": "bg-gray-100 cursor-not-allowed",
@@ -83,31 +147,50 @@ class CheckupForm(forms.ModelForm):
             ),
         }
 
-
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
 
-      
+        if self.instance and self.instance.pk:
+
+            if "kilometres_chassis" in self.fields:
+                self.fields["kilometres_chassis"].initial = (
+                        self.instance.kilometres_chassis or 0
+                )
+
+            if "kilometres_moteur" in self.fields:
+                self.fields["kilometres_moteur"].initial = (
+                        self.instance.kilometres_moteur or 0
+                )
+
+            if "kilometres_boite" in self.fields:
+                self.fields["kilometres_boite"].initial = (
+                        self.instance.kilometres_boite or 0
+                )
 
         # =========================
         # VARIATION KILOMÉTRAGE
         # =========================
         if "kilometrage_variation" in self.fields:
 
+            # Valeur par défaut
             variation = 0
 
+            # Si le Checkup existe déjà,
+            # reprendre la variation enregistrée en base
             if (
                     self.instance
                     and self.instance.pk
-                    and self.instance.kilometrage_checkup is not None
+                    and self.instance.kilometrage_variation is not None
             ):
-                # À adapter suivant l'endroit où tu stockes
-                # le kilométrage précédent
-                variation = self.instance.kilometrage_variation or 0
+                variation = self.instance.kilometrage_variation
 
             self.fields["kilometrage_variation"].initial = variation
+
+
+
+
 
         # -------- MAIN D'ŒUVRE QUERYSET --------
         if "main_oeuvre" in self.fields:

@@ -149,10 +149,30 @@ class VoitureExemplaire(models.Model):
 
     kilometres_embrayage = models.PositiveIntegerField(default=0, null=True, blank=True)
     kilometres_remplacement_embrayage = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+
     kilometres_boite = models.PositiveIntegerField(default=0, null=True, blank=True)
+
     kilometres_remplacement_boite = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_boite_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres rollback boite")
+    )
+
     kilometres_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
     kilometres_remplacement_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_rollback_moteur = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres rollback boite")
+    )
+
+
     variation_kilometres = models.PositiveIntegerField(
         default=0,
         editable=False,

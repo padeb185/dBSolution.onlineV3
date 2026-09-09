@@ -118,7 +118,15 @@ def controle_total_view(request, exemplaire_id):
                     # KILOMÉTRAGE AVANT LE CHECKUP
                     # ==================================================
                     ancien_kilometrage = (
-                        exemplaire.kilometres_chassis or 0
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
                     )
 
                     kilometrage_variation = 0
@@ -137,20 +145,26 @@ def controle_total_view(request, exemplaire_id):
                             )
 
                         # ==================================================
-                        # CALCUL VARIATION
+                        # VARIATION
                         # ==================================================
                         kilometrage_variation = (
-                            km - ancien_kilometrage
+                                km - ancien_kilometrage
                         )
 
                         # ==================================================
-                        # SAUVEGARDE DU KILOMÉTRAGE PRÉCÉDENT
-                        #
-                        # kilometres_rollback reste la valeur du véhicule
-                        # AVANT cette modification.
+                        # ROLLBACK
+                        # Valeurs AVANT le Checkup
                         # ==================================================
                         exemplaire.kilometres_rollback = (
                             ancien_kilometrage
+                        )
+
+                        exemplaire.kilometres_boite_rollback = (
+                            ancien_kilometrage_boite
+                        )
+
+                        exemplaire.kilometres_moteur_rollback = (
+                            ancien_kilometrage_moteur
                         )
 
                         # ==================================================
@@ -158,13 +172,24 @@ def controle_total_view(request, exemplaire_id):
                         # ==================================================
                         exemplaire.kilometres_chassis = km
 
-                        # Sauvegarde simultanée des deux valeurs
+                        # update_kilometres() sera appelé automatiquement
+                        # par VoitureExemplaire.save()
                         exemplaire.save(
                             update_fields=[
                                 "kilometres_chassis",
+
+                                # Rollback
+                                "kilometres_rollback",
+                                "kilometres_boite_rollback",
+                                "kilometres_moteur_rollback",
+
+                                # Valeurs recalculées par save()
+                                "kilometres_moteur",
+                                "kilometres_boite",
+                                "kilometres_embrayage",
+                                "variation_kilometres",
                             ]
                         )
-
                     # ==================================================
                     # CRÉATION MAINTENANCE
                     # ==================================================
@@ -245,6 +270,12 @@ def controle_total_view(request, exemplaire_id):
                     checkup.kilometres_chassis = (
                         ancien_kilometrage
                     )
+                    checkup.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+                    checkup.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
 
                     # différence entre ancien et nouveau kilométrage
                     checkup.kilometrage_variation = (
@@ -310,10 +341,17 @@ def controle_total_view(request, exemplaire_id):
         checkup = Checkup(
             voiture_exemplaire=exemplaire,
 
-            # kilométrage actuel du véhicule
             kilometres_chassis=(
-                exemplaire.kilometres_chassis
-            )
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
 
         checkup.assign_technicien(
@@ -398,6 +436,12 @@ def modifier_checkup_view(request, checkup_id):
                     ancien_kilometrage = (
                         exemplaire.kilometres_chassis or 0
                     )
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
 
                     # ==================================================
                     # VALIDATION
@@ -420,10 +464,18 @@ def modifier_checkup_view(request, checkup_id):
                         exemplaire.kilometres_chassis = (
                             nouveau_kilometrage
                         )
+                        exemplaire.kilometres_boite = (
+                            nouveau_kilometrage
+                        )
+                        exemplaire.kilometres_moteur = (
+                            nouveau_kilometrage
+                        )
 
                         exemplaire.save(
                             update_fields=[
                                 "kilometres_chassis",
+                                "kilometres_moteurs",
+                                "kilometres_boite"
                             ]
                         )
 
@@ -598,14 +650,29 @@ def delete_checkup_view(request, checkup_id):
                 kilometrage_rollback = (
                     exemplaire.kilometres_rollback or 0
                 )
+                kilometrage_rollback_boite =  (
+                    exemplaire.kilometres_rollback_boite or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_rollback_moteur or 0
+                )
+
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
+                )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
                 )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 
