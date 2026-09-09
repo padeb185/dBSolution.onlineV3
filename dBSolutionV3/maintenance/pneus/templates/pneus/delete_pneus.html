@@ -12,11 +12,10 @@
 
     <p class="mb-6">
         {% trans "Voulez-vous vraiment supprimer le contrôle des pneus pour" %}
-        <strong>
-            {{ exemplaire.immatriculation }}
-        </strong>
-        ?
+        {% include "maintenance/partials/plaque.html" %}
+
     </p>
+    <br>
 
     <form method="post">
         {% csrf_token %}
