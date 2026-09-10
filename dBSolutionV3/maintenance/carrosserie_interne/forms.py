@@ -38,6 +38,11 @@ class CarrosserieInterneForm(forms.ModelForm):
             "total_tva",
             "total_tvac",
             "date",
+            "kilometres_boite_rollback",
+            "kilometres_moteur_rollback",
+            "kilometres_boite",
+            "kilometres_moteur",
+
         ]
         widgets = {
             'remarques': forms.Textarea(attrs={

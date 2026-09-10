@@ -24,7 +24,14 @@ class ClimForm(forms.ModelForm):
     class Meta:
         model = Climatisation
         fields = "__all__"
-        exclude = ["voiture_exemplaire"]
+        exclude = ["voiture_exemplaire",
+
+            "kilometres_boite_rollback",
+            "kilometres_moteur_rollback",
+            "kilometres_boite",
+            "kilometres_moteur",
+
+        ]
         widgets = {
             'maintenance': forms.HiddenInput(),
             'remarques': forms.Textarea(attrs={

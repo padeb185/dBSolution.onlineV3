@@ -25,7 +25,12 @@ class SilentBlocForm(forms.ModelForm):
 
     class Meta:
         model = SilentBloc
-        fields = "__all__"
+        exclude = {
+            "kilometres_boite_rollback",
+            "kilometres_moteur_rollback",
+            "kilometres_boite",
+            "kilometres_moteur",
+        }
         widgets = {
             'maintenance': forms.HiddenInput(),
             'remarques': forms.Textarea(attrs={

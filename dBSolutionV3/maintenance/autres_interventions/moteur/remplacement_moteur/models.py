@@ -68,6 +68,23 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Kilometres du moteur à remplacer")
     )
 
+    kilometres_boite = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_boite_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres rollback boite")
+    )
+
+
+
+    kilometres_moteur_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres rollback moteur")
+    )
 
     kilometres_remplacement_moteur = models.PositiveIntegerField(
         default=0,

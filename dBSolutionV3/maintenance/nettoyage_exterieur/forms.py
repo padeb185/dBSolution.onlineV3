@@ -39,6 +39,12 @@ class NettoyageExterieurForm(forms.ModelForm):
             "created_at",
             "updated_at",
             "date",
+
+            "kilometres_boite_rollback",
+            "kilometres_moteur_rollback",
+            "kilometres_boite",
+            "kilometres_moteur",
+
         ]
         widgets = {
             "remarques": forms.Textarea(attrs={

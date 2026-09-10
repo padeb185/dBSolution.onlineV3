@@ -31,7 +31,12 @@ class NettoyageInterieurForm(forms.ModelForm):
 
     class Meta:
         model = NettoyageInterieur
-        exclude = ['maintenance', 'voiture_exemplaire']
+        exclude = ['maintenance', 'voiture_exemplaire',
+            "kilometres_boite_rollback",
+            "kilometres_moteur_rollback",
+            "kilometres_boite",
+            "kilometres_moteur",
+        ]
         widgets = {
             'remarques': forms.Textarea(attrs={
                 'rows': 4,

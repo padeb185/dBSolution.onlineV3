@@ -37,6 +37,11 @@ class AllumageForm(forms.ModelForm):
         exclude = [
                 "voiture_exemplaire",
                 "immatriculation",
+            "kilometres_boite_rollback",
+            "kilometres_moteur_rollback",
+            "kilometres_boite",
+            "kilometres_moteur",
+
         ]
 
         widgets = {

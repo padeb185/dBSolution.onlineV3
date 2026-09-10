@@ -23,7 +23,12 @@ class NiveauForm(forms.ModelForm):
 
     class Meta:
         model = Niveau
-        fields = "__all__"
+        exclude = {
+            "kilometres_boite_rollback",
+            "kilometres_moteur_rollback",
+            "kilometres_boite",
+            "kilometres_moteur",
+        }
         widgets = {
             'maintenance': forms.HiddenInput(),
 

@@ -48,6 +48,11 @@ class AlternateurForm(forms.ModelForm):
             "courroie_accessoires_prix_ttc",
             "courroie_accessoires_prix_vente_htva",
             "courroie_accessoires_tva_vente",
+            "kilometres_boite_rollback",
+            "kilometres_moteur_rollback",
+            "kilometres_boite",
+            "kilometres_moteur",
+
         )
 
         widgets = {

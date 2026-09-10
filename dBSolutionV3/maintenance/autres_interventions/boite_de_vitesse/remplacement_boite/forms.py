@@ -36,6 +36,11 @@ class RemplacementBoiteForm(forms.ModelForm):
             "variation_kilometres",
             "kilometres_dernier_entretien",
             "remplacement_boite_nombre",
+            "kilometres_boite_rollback",
+            "kilometres_moteur_rollback",
+            "kilometres_boite",
+            "kilometres_moteur",
+
         ]
 
         widgets = {

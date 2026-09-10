@@ -63,6 +63,25 @@ class ControleBoite(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres rollback")
     )
 
+
+    kilometres_boite = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_boite_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres rollback boite")
+    )
+
+    kilometres_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_moteur_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres rollback moteur")
+    )
+
     kilometrage_controle_boite = models.PositiveIntegerField(
         verbose_name=_("Kilométrage au moment du controle"),
     )

@@ -116,18 +116,20 @@ def controle_freins_view(request, exemplaire_id):
 
             try:
                 with transaction.atomic():
-                    controle_frein = form.save(commit=False)
-
-                    controle_frein.assign_technicien(request.user)
-                    controle_frein.voiture_exemplaire = exemplaire
-                    controle_frein.immatriculation = exemplaire.immatriculation
-                    controle_frein.societe = tenant
-                    controle_frein.kilometres_chassis = exemplaire.kilometres_chassis
 
                     km = form.cleaned_data.get("kilometrage_controle_brake")
 
-                    # ✅ On conserve le kilométrage précédent
-                    ancien_kilometrage = exemplaire.kilometres_chassis or 0
+                    # Kilométrage AVANT intervention
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
 
                     # ✅ Variation calculée dynamiquement
                     kilometrage_variation = 0
@@ -144,27 +146,70 @@ def controle_freins_view(request, exemplaire_id):
                         # Calcul AVANT mise à jour du véhicule
                         kilometrage_variation = km - ancien_kilometrage
 
-                        exemplaire.kilometres_rollback = ancien_kilometrage
+                        # =========================
+                        # VÉHICULE
+                        # =========================
+                        if km is not None:
+                            # =========================
+                            # ROLLBACK AVANT INTERVENTION
+                            # =========================
 
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
+                            exemplaire.kilometres_rollback = (
+                                ancien_kilometrage
+                            )
 
-                        exemplaire.date_derniere_intervention = (
-                            timezone.localtime(
-                                timezone.now()
-                            ).date()
-                        )
+                            exemplaire.kilometres_boite_rollback = (
+                                ancien_kilometrage_boite
+                            )
 
-                        exemplaire.update_kilometres()
+                            exemplaire.kilometres_moteur_rollback = (
+                                ancien_kilometrage_moteur
+                            )
 
-                        exemplaire.save(
-                            update_fields=[
-                                "kilometres_chassis",
-                                "kilometres_rollback",
-                                "date_derniere_intervention",
-                            ]
-                        )
+                            # =========================
+                            # DATE INTERVENTION
+                            # =========================
 
+                            exemplaire.date_derniere_intervention = (
+                                timezone.localtime(
+                                    timezone.now()
+                                ).date()
+                            )
+
+                            # =========================
+                            # NOUVEAU KILOMÉTRAGE
+                            # =========================
+
+                            exemplaire.kilometres_chassis = km
+
+                            # Recalcule :
+                            # - kilometres_moteur
+                            # - kilometres_boite
+                            # - variation_kilometres
+                            exemplaire.update_kilometres()
+
+                            # =========================
+                            # UNE SEULE SAUVEGARDE
+                            # =========================
+
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                    "date_derniere_intervention",
+
+                                    # Rollback
+                                    "kilometres_rollback",
+                                    "kilometres_boite_rollback",
+                                    "kilometres_moteur_rollback",
+
+                                    # Valeurs recalculées
+                                    "kilometres_moteur",
+                                    "kilometres_boite",
+                                    "variation_kilometres",
+                                ]
+                            )
+
+                    # 🔴 maintenance unique
                     maintenance = Maintenance.objects.create(
                         societe=request.user.societe,
                         voiture_exemplaire=exemplaire,
@@ -193,30 +238,51 @@ def controle_freins_view(request, exemplaire_id):
                         maintenance.direction = request.user
 
                     maintenance.save()
+
+                    # ==================================================
+                    # CRÉATION CHECKUP
+                    # ==================================================
                     controle_frein = form.save(commit=False)
 
                     controle_frein.voiture_exemplaire = exemplaire
                     controle_frein.maintenance = maintenance
 
-                    # ✅ kilométrage saisi lors du controle_frein
-                    controle_frein.kilometrage_controle_brake = km
+                    # kilométrage saisi lors du controle_frein
+                    controle_frein.kilometrage_controle_frein = km
 
-                    # ✅ ancien kilométrage avant le controle_frein
-                    controle_frein.kilometres_chassis = ancien_kilometrage
+                    # kilométrage AVANT le controle_frein
+                    controle_frein.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+                    controle_frein.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+                    controle_frein.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
 
-                    # ✅ différence entre les deux
-                    controle_frein.kilometrage_variation = kilometrage_variation
+                    # différence entre ancien et nouveau kilométrage
+                    controle_frein.kilometrage_variation = (
+                        kilometrage_variation
+                    )
 
                     # 👨‍🔧 technicien
-                    controle_frein.assign_technicien(request.user)
+                    controle_frein.assign_technicien(
+                        request.user
+                    )
 
                     # 👨‍🔧 dernier technicien maintenance
-                    controle_frein.tech_last_maintained_by = request.user
+                    controle_frein.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    controle_frein.maintenance = maintenance
 
                     controle_frein.save()
-
-
-
+                    # =========================
+                    # MANY TO MANY
+                    # =========================
+                 
                 ACTION_CONTROLE_FREINS = gettext_noop(
                     "Contrôle des freins"
                 )
@@ -243,9 +309,19 @@ def controle_freins_view(request, exemplaire_id):
     else:
 
         controle_frein = ControleFreins(
-            societe=tenant,
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis
+
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
 
         controle_frein.assign_technicien(request.user)
@@ -306,10 +382,132 @@ def modifier_freins_view(request, frein_id):
         )
 
         if form.is_valid():
+
             try:
-                frein = form.save(commit=False)
-                frein.assign_technicien(request.user)
-                frein.save()
+                with transaction.atomic():
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get(
+                        "kilometrage_controle_brake"
+                    )
+
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    rollback_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # ESSUYAGE
+                    # ==================================================
+                    controle_frein = form.save(
+                        commit=False
+                    )
+
+                    controle_frein.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    controle_frein.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    controle_frein.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    controle_frein.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    controle_frein.kilometrage_controle_brake = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        controle_frein.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        controle_frein.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    controle_frein.assign_technicien(
+                        request.user
+                    )
+
+                    controle_frein.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # Le save() du modèle VoitureExemplaire
+                        # doit gérer update_kilometres()
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE Freins
+                    # ==================================================
+                    controle_frein.save()
+
+                    form.save_m2m()
 
 
                 ACTION_MODIFICATION_CONTROLE_FREINS = gettext_noop(
@@ -431,17 +629,35 @@ def delete_freins_view(request, frein_id):
                 # ==================================================
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 

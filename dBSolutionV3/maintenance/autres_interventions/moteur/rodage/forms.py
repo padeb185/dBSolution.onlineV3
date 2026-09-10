@@ -39,7 +39,13 @@ class RodageForm(forms.ModelForm):
 
     class Meta:
         model = Rodage
-        exclude = ["pieces"]
+        exclude = ["pieces",
+
+            "kilometres_boite_rollback",
+            "kilometres_moteur_rollback",
+            "kilometres_boite",
+            "kilometres_moteur",
+        ]
 
         widgets = {
             "maintenance": forms.HiddenInput(),

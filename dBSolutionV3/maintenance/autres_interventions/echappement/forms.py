@@ -26,7 +26,12 @@ class ControleEchappementForm(forms.ModelForm):
 
     class Meta:
         model = Echappement
-        fields = "__all__"
+        exclude = {
+            "kilometres_boite_rollback",
+            "kilometres_moteur_rollback",
+            "kilometres_boite",
+            "kilometres_moteur",
+        }
         exclude = ["voiture_exemplaire",]
         widgets = {
             'maintenance': forms.HiddenInput(),

@@ -25,7 +25,12 @@ class ControlePneusForm(forms.ModelForm):
 
     class Meta:
         model = ControlePneus
-        fields = "__all__"
+        exclude = {
+            "kilometres_boite_rollback",
+            "kilometres_moteur_rollback",
+            "kilometres_boite",
+            "kilometres_moteur",
+        }
         widgets = {
             "maintenance": forms.HiddenInput(),
 

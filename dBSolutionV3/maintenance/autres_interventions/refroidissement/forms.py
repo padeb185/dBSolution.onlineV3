@@ -25,8 +25,14 @@ class RefForm(forms.ModelForm):
 
     class Meta:
         model = Refroidissement
-        fields = "__all__"
-        exclude = ["voiture_exemplaire"]
+        exclude = {
+            "kilometres_boite_rollback",
+            "kilometres_moteur_rollback",
+            "kilometres_boite",
+            "kilometres_moteur",
+            "voiture_exemplaire",
+        }
+
         widgets = {
             'maintenance': forms.HiddenInput(),
             'remarques': forms.Textarea(attrs={
