@@ -1,4 +1,7 @@
 from decimal import Decimal
+
+from django.core.exceptions import ValidationError
+
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
@@ -128,7 +131,17 @@ def controle_jeux_pieces_view(request, exemplaire_id):
                     km = form.cleaned_data.get("kilometrage_jeu")
 
                     # ✅ On conserve le kilométrage précédent
-                    ancien_kilometrage = exemplaire.kilometres_chassis or 0
+                    # Kilométrage AVANT intervention
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
 
                     # ✅ Variation calculée dynamiquement
                     kilometrage_variation = 0
@@ -145,28 +158,68 @@ def controle_jeux_pieces_view(request, exemplaire_id):
                         # Calcul AVANT mise à jour du véhicule
                         kilometrage_variation = km - ancien_kilometrage
 
-                        exemplaire.kilometres_rollback = ancien_kilometrage
+                        # =========================
+                        # VÉHICULE
+                        # =========================
+                        if km is not None:
+                            # =========================
+                            # ROLLBACK AVANT INTERVENTION
+                            # =========================
 
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
+                            exemplaire.kilometres_rollback = (
+                                ancien_kilometrage
+                            )
 
-                        exemplaire.date_derniere_intervention = (
-                            timezone.localtime(
-                                timezone.now()
-                            ).date()
-                        )
+                            exemplaire.kilometres_boite_rollback = (
+                                ancien_kilometrage_boite
+                            )
 
-                        exemplaire.update_kilometres()
+                            exemplaire.kilometres_moteur_rollback = (
+                                ancien_kilometrage_moteur
+                            )
 
-                        exemplaire.save(
-                            update_fields=[
-                                "kilometres_chassis",
-                                "kilometres_rollback",
-                                "date_derniere_intervention",
-                            ]
-                        )
+                            # =========================
+                            # DATE INTERVENTION
+                            # =========================
 
+                            exemplaire.date_derniere_intervention = (
+                                timezone.localtime(
+                                    timezone.now()
+                                ).date()
+                            )
 
+                            # =========================
+                            # NOUVEAU KILOMÉTRAGE
+                            # =========================
+
+                            exemplaire.kilometres_chassis = km
+
+                            # Recalcule :
+                            # - kilometres_moteur
+                            # - kilometres_boite
+                            # - variation_kilometres
+                            exemplaire.update_kilometres()
+
+                            # =========================
+                            # UNE SEULE SAUVEGARDE
+                            # =========================
+
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                    "date_derniere_intervention",
+
+                                    # Rollback
+                                    "kilometres_rollback",
+                                    "kilometres_boite_rollback",
+                                    "kilometres_moteur_rollback",
+
+                                    # Valeurs recalculées
+                                    "kilometres_moteur",
+                                    "kilometres_boite",
+                                    "variation_kilometres",
+                                ]
+                            )
 
                     # 🔴 maintenance unique
                     maintenance = Maintenance.objects.create(
@@ -205,20 +258,35 @@ def controle_jeux_pieces_view(request, exemplaire_id):
                     # ✅ kilométrage saisi lors du controle
                     controle.kilometrage_jeu = km
 
-                    # ✅ ancien kilométrage avant le controle
-                    controle.kilometres_chassis = ancien_kilometrage
+                    # # kilométrage AVANT le controle
+                    controle.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+                    controle.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+                    controle.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
 
-                    # ✅ différence entre les deux
-                    controle.kilometrage_variation = kilometrage_variation
+                    # différence entre ancien et nouveau kilométrage
+                    controle.kilometrage_variation = (
+                        kilometrage_variation
+                    )
 
                     # 👨‍🔧 technicien
-                    controle.assign_technicien(request.user)
+                    controle.assign_technicien(
+                        request.user
+                    )
 
                     # 👨‍🔧 dernier technicien maintenance
-                    controle.tech_last_maintained_by = request.user
+                    controle.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    controle.maintenance = maintenance
 
                     controle.save()
-
 
                     ACTION_CONTROLE_JEUX = gettext_noop(
                         "Contrôle des jeux"
@@ -241,7 +309,20 @@ def controle_jeux_pieces_view(request, exemplaire_id):
     else:
         controle = ControleJeuxPieces(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis
+
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
+
+
         )
 
         controle.assign_technicien(request.user)
@@ -305,24 +386,151 @@ def modifier_jeux_pieces_view(request, jeu_id):
             exemplaire=jeu.voiture_exemplaire
         )
         if form.is_valid():
-            form.save()
+
+            try:
+                with transaction.atomic():
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get(
+                        "kilometrage_controle_brake"
+                    )
+
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    rollback_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # ESSUYAGE
+                    # ==================================================
+                    controle = form.save(
+                        commit=False
+                    )
+
+                    controle.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    controle.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    controle.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    controle.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    controle.kilometrage_controle_brake = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        controle.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        controle.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    controle.assign_technicien(
+                        request.user
+                    )
+
+                    controle.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # Le save() du modèle VoitureExemplaire
+                        # doit gérer update_kilometres()
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE Freins
+                    # ==================================================
+                    controle.save()
+
+                    form.save_m2m()
 
 
 
-            ACTION_MODIFICATION_CONTROLE_JEUX = gettext_noop(
-                "Modification du contrôle des jeux"
-            )
+                ACTION_MODIFICATION_CONTROLE_JEUX = gettext_noop(
+                    "Modification du contrôle des jeux"
+                )
 
-            UserLog.objects.create(
-                utilisateur=request.user,
-                action=f"{ACTION_MODIFICATION_CONTROLE_JEUX} - {exemplaire.immatriculation}"
-            )
-            messages.success(request, _("Contrôle des jeux modifié avec succès !"))
-            return redirect("jeux_pieces:jeux_pieces_detail", jeu_id=jeu_id)
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_MODIFICATION_CONTROLE_JEUX} - {exemplaire.immatriculation}"
+                )
+                messages.success(request, _("Contrôle des jeux modifié avec succès !"))
+                return redirect("jeux_pieces:jeux_pieces_detail", jeu_id=jeu_id)
 
+            except ValidationError as e:
+                form.add_error(None, e)
+                messages.error(request, _("Kilométrage invalide"))
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
-            print(form.errors)
 
     # -------------------------
     # GET
@@ -419,20 +627,35 @@ def delete_jeu_view(request, jeu_id):
 
                 immatriculation = exemplaire.immatriculation
 
+
                 # ==================================================
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 

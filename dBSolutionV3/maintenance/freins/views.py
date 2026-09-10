@@ -626,9 +626,7 @@ def delete_freins_view(request, frein_id):
 
                 immatriculation = exemplaire.immatriculation
 
-                # ==================================================
-                # RESTAURATION DU KILOMÉTRAGE
-                # ==================================================
+
 
                 # ==================================================
                 # RESTAURATION DU KILOMÉTRAGE
