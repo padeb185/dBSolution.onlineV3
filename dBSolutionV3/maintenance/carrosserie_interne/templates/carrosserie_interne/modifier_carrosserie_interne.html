@@ -249,13 +249,38 @@
             {% trans "Temps de main d'œuvre" %}
         </h2>
 
-        <div class="flex gap-2 items-center">
-            {{ form.temps_heures }}
-            <span>h</span>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label for="{{ form.temps_heures.id_for_label }}"
+                       class="block font-semibold mb-1">
+                    {% trans "Heures" %}
+                </label>
 
-            {{ form.temps_minutes }}
-            <span>min</span>
+                {{ form.temps_heures|add_class:"input" }}
+
+                {% if form.temps_heures.errors %}
+                    <p class="text-red-600 text-sm mt-1">
+                        {{ form.temps_heures.errors|striptags }}
+                    </p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="{{ form.temps_minutes.id_for_label }}"
+                       class="block font-semibold mb-1">
+                    {% trans "Minutes" %}
+                </label>
+
+                {{ form.temps_minutes|add_class:"input" }}
+
+                {% if form.temps_minutes.errors %}
+                    <p class="text-red-600 text-sm mt-1">
+                        {{ form.temps_minutes.errors|striptags }}
+                    </p>
+                {% endif %}
+            </div>
         </div>
+        <br>
 
 
         <div class="flex gap-3 mt-6">
