@@ -132,8 +132,16 @@ def niveau_form_view(request, exemplaire_id):
                     # KILOMÉTRAGE
                     # ====================================================
 
+                    # ✅ On conserve le kilométrage précédent
                     ancien_kilometrage = (
                             exemplaire.kilometres_chassis or 0
+                    )
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
                     )
 
                     km = form.cleaned_data.get(
@@ -157,12 +165,25 @@ def niveau_form_view(request, exemplaire_id):
                                 km - ancien_kilometrage
                         )
 
+                        # =========================
+                        # ROLLBACK AVANT INTERVENTION
+                        # =========================
 
-                        # Mise à jour du kilométrage véhicule
-                        exemplaire.kilometres_rollback = ancien_kilometrage
+                        exemplaire.kilometres_rollback = (
+                            ancien_kilometrage
+                        )
 
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
+                        exemplaire.kilometres_boite_rollback = (
+                            ancien_kilometrage_boite
+                        )
+
+                        exemplaire.kilometres_moteur_rollback = (
+                            ancien_kilometrage_moteur
+                        )
+
+                        # =========================
+                        # DATE INTERVENTION
+                        # =========================
 
                         exemplaire.date_derniere_intervention = (
                             timezone.localtime(
@@ -170,13 +191,36 @@ def niveau_form_view(request, exemplaire_id):
                             ).date()
                         )
 
+                        # =========================
+                        # NOUVEAU KILOMÉTRAGE
+                        # =========================
+
+                        exemplaire.kilometres_chassis = km
+
+                        # Recalcule :
+                        # - kilometres_moteur
+                        # - kilometres_boite
+                        # - variation_kilometres
                         exemplaire.update_kilometres()
+
+                        # =========================
+                        # UNE SEULE SAUVEGARDE
+                        # =========================
 
                         exemplaire.save(
                             update_fields=[
                                 "kilometres_chassis",
-                                "kilometres_rollback",
                                 "date_derniere_intervention",
+
+                                # Rollback
+                                "kilometres_rollback",
+                                "kilometres_boite_rollback",
+                                "kilometres_moteur_rollback",
+
+                                # Valeurs recalculées
+                                "kilometres_moteur",
+                                "kilometres_boite",
+                                "variation_kilometres",
                             ]
                         )
 
@@ -221,13 +265,30 @@ def niveau_form_view(request, exemplaire_id):
                     # Kilométrage saisi
                     niveau.kilometrage_niveaux = km
 
-                    # Kilométrage AVANT intervention
-                    niveau.kilometres_chassis = ancien_kilometrage
-
                     # Variation
+                    # # kilométrage AVANT le niveau
+                    niveau.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+                    niveau.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+                    niveau.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
+
+                    # différence entre ancien et nouveau kilométrage
                     niveau.kilometrage_variation = (
                         kilometrage_variation
                     )
+
+                    # 👨‍🔧 technicien
+                    niveau.assign_technicien(request.user)
+
+                    # 👨‍🔧 dernier technicien maintenance
+                    niveau.tech_last_maintained_by = request.user
+
+                    niveau.save()
 
                     # Technicien
                     niveau.assign_technicien(
@@ -238,6 +299,8 @@ def niveau_form_view(request, exemplaire_id):
                     niveau.tech_last_maintained_by = (
                         request.user
                     )
+
+
 
                     niveau.save()
 
@@ -264,7 +327,17 @@ def niveau_form_view(request, exemplaire_id):
     else:
         niveau = Niveau(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
 
         niveau.assign_technicien(request.user)  # 👈 AJOUT IMPORTANT
@@ -339,53 +412,98 @@ def modifier_niveau_view(request, niveau_id):
             try:
                 with transaction.atomic():
 
-                    niveau = form.save(commit=False)
-
-                    # =========================
-                    # KILOMÉTRAGE
-                    # =========================
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
                     km = form.cleaned_data.get(
-                        "kilometrage_niveau"
+                        "kilometrage_net_int"
                     )
-
-                    # Snapshot déjà enregistré lors de la création
-                    ancien_kilometrage = (
-                        niveau.kilometres_chassis or 0
-                    )
-
-                    kilometrage_variation = 0
 
                     if km is not None:
-
                         km = int(km)
 
-                        if km < ancien_kilometrage:
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    rollback_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
                             raise ValidationError(
                                 _(
-                                    "Le kilométrage du contrôle des niveaux "
-                                    "ne peut pas être inférieur au kilométrage "
-                                    "enregistré avant l'intervention."
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
                                 )
                             )
 
-                        kilometrage_variation = (
-                            km - ancien_kilometrage
-                        )
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
 
-                    # =========================
-                    # NIVEAU
-                    # =========================
-
-                    niveau.kilometrage_niveau = km
-
-                    # On conserve le snapshot d'origine
-                    niveau.kilometres_chassis = ancien_kilometrage
-
-                    # Nouvelle variation
-                    niveau.kilometrage_variation = (
-                        kilometrage_variation
+                    # ==================================================
+                    # ESSUYAGE
+                    # ==================================================
+                    niveau = form.save(
+                        commit=False
                     )
 
+                    niveau.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    niveau.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    niveau.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    niveau.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    niveau.kilometrage_net_ext = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        niveau.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        niveau.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
                     niveau.assign_technicien(
                         request.user
                     )
@@ -394,7 +512,28 @@ def modifier_niveau_view(request, niveau_id):
                         request.user
                     )
 
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # Le save() du modèle VoitureExemplaire
+                        # doit gérer update_kilometres()
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE Freins
+                    # ==================================================
                     niveau.save()
+
+                    form.save_m2m()
 
                     # =========================
                     # LOG
@@ -547,16 +686,30 @@ def delete_niveau_view(request, niveau_id):
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 

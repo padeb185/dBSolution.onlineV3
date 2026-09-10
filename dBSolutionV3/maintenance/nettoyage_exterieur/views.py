@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
@@ -127,7 +129,17 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                     km = form.cleaned_data.get("kilometrage_net_ext")
 
                     # ✅ On conserve le kilométrage précédent
-                    ancien_kilometrage = exemplaire.kilometres_chassis or 0
+                    # Kilométrage AVANT intervention
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
 
                     # ✅ Variation calculée dynamiquement
                     kilometrage_variation = 0
@@ -145,26 +157,64 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                         kilometrage_variation = km - ancien_kilometrage
 
                         exemplaire.kilometres_rollback = ancien_kilometrage
+                        # =========================
+                        # ROLLBACK AVANT INTERVENTION
+                        # =========================
 
-                            # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
+                        exemplaire.kilometres_rollback = (
+                            ancien_kilometrage
+                        )
+
+                        exemplaire.kilometres_boite_rollback = (
+                            ancien_kilometrage_boite
+                        )
+
+                        exemplaire.kilometres_moteur_rollback = (
+                            ancien_kilometrage_moteur
+                        )
+
+                        # =========================
+                        # DATE INTERVENTION
+                        # =========================
 
                         exemplaire.date_derniere_intervention = (
-                                timezone.localtime(
-                                    timezone.now()
-                                ).date()
-                            )
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
 
+                        # =========================
+                        # NOUVEAU KILOMÉTRAGE
+                        # =========================
+
+                        exemplaire.kilometres_chassis = km
+
+                        # Recalcule :
+                        # - kilometres_moteur
+                        # - kilometres_boite
+                        # - variation_kilometres
                         exemplaire.update_kilometres()
+
+                        # =========================
+                        # UNE SEULE SAUVEGARDE
+                        # =========================
 
                         exemplaire.save(
                             update_fields=[
                                 "kilometres_chassis",
-                                "kilometres_rollback",
                                 "date_derniere_intervention",
+
+                                # Rollback
+                                "kilometres_rollback",
+                                "kilometres_boite_rollback",
+                                "kilometres_moteur_rollback",
+
+                                # Valeurs recalculées
+                                "kilometres_moteur",
+                                "kilometres_boite",
+                                "variation_kilometres",
                             ]
                         )
-
                     maintenance = Maintenance.objects.create(
                         societe=tenant,
                         voiture_exemplaire=exemplaire,
@@ -203,8 +253,21 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                     # ✅ ancien kilométrage avant le nettoyage_ext
                     nettoyage_ext.kilometres_chassis = ancien_kilometrage
 
-                    # ✅ différence entre les deux
-                    nettoyage_ext.kilometrage_variation = kilometrage_variation
+                    # # kilométrage AVANT le nettoyage_ext
+                    nettoyage_ext.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+                    nettoyage_ext.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+                    nettoyage_ext.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
+
+                    # différence entre ancien et nouveau kilométrage
+                    nettoyage_ext.kilometrage_variation = (
+                        kilometrage_variation
+                    )
 
                     # 👨‍🔧 technicien
                     nettoyage_ext.assign_technicien(request.user)
@@ -247,7 +310,18 @@ def nettoyage_exterieur_view(request, exemplaire_id):
 
         nettoyage_ext = NettoyageExterieur(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis
+
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
 
         nettoyage_ext.assign_technicien(request.user)
@@ -308,24 +382,154 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
     if request.method == "POST":
         form = NettoyageExterieurForm(request.POST, instance=nettoyage_exterieur, user=request.user)
         if form.is_valid():
-            form.save()
+
+            try:
+                with transaction.atomic():
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get(
+                        "kilometrage_nettoyage_ext_brake"
+                    )
+
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    rollback_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # ESSUYAGE
+                    # ==================================================
+                    nettoyage_ext = form.save(
+                        commit=False
+                    )
+
+                    nettoyage_ext.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    nettoyage_ext.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    nettoyage_ext.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    nettoyage_ext.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    nettoyage_ext.kilometrage_net_ext = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        nettoyage_ext.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        nettoyage_ext.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    nettoyage_ext.assign_technicien(
+                        request.user
+                    )
+
+                    nettoyage_ext.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # Le save() du modèle VoitureExemplaire
+                        # doit gérer update_kilometres()
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE Freins
+                    # ==================================================
+                    nettoyage_ext.save()
+
+                    form.save_m2m()
 
 
+                ACTION_MODIFICATION_NETTOYAGE_EXTERIEUR = gettext_noop(
+                    "Modification du nettoyage extérieur"
+                )
 
-            ACTION_MODIFICATION_NETTOYAGE_EXTERIEUR = gettext_noop(
-                "Modification du nettoyage extérieur"
-            )
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_MODIFICATION_NETTOYAGE_EXTERIEUR} - {exemplaire.immatriculation}"
+                )
 
-            UserLog.objects.create(
-                utilisateur=request.user,
-                action=f"{ACTION_MODIFICATION_NETTOYAGE_EXTERIEUR} - {exemplaire.immatriculation}"
-            )
+                messages.success(request, _("Nettoyage extérieur modifié avec succès !"))
+                return redirect(
+                    "nettoyage_exterieur:nettoyage_ext_detail",
+                    nettoyage_id=nettoyage_exterieur.id,
+                )
 
-            messages.success(request, _("Nettoyage extérieur modifié avec succès !"))
-            return redirect(
-                "nettoyage_exterieur:nettoyage_ext_detail",
-                nettoyage_id=nettoyage_exterieur.id,
-            )
+            except ValidationError as e:
+                form.add_error(None, e)
+                messages.error(request, _("Kilométrage invalide"))
+        else:
+            messages.error(request, _("Le formulaire contient des erreurs."))
 
     else:
         form = NettoyageExterieurForm(instance=nettoyage_exterieur, user=request.user)
@@ -418,16 +622,30 @@ def delete_nettoyage_exterieur_view(request, nettoyage_id):
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 
