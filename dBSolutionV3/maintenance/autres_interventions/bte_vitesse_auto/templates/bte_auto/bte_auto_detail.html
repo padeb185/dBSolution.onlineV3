@@ -59,13 +59,13 @@
 
 
             <!-- Bouton Modifier -->
-        <div class="mb-6">
+         <div class="mt-auto w-full">
             <a href="{% url 'bte_auto:modifier_bte_auto' bte_auto.id %}"
                class="block w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold text-center">
                 {% trans "Modifier le contrôle de la boite automatique" %}
             </a>
         </div>
-        <div class="mb-6">
+        <div class="mt-auto w-full">
             <a href="{% url 'bte_auto:bte_auto_pdf' bte_auto.id %}"
                target="_blank"
                class="block w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold text-center">

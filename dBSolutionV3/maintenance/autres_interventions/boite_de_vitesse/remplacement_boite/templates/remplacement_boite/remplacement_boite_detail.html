@@ -84,7 +84,7 @@
 
        {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}
         <div class="mt-auto w-full">
-            <a href="{% url 'remplacement_boite:delete_remplacement_boite' abs.id %}" class="block w-full">
+            <a href="{% url 'remplacement_boite:delete_remplacement_boite' remplacement_boite.id %}" class="block w-full">
                 <button type="button" class="w-full bg-red-700 text-white px-4 py-2 rounded hover:hover:bg-red-400 font-semibold">
                     {% trans "Supprimer le remplacement de la boite de vitesse" %}
                 </button>

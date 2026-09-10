@@ -75,15 +75,17 @@
 
 
         <!-- Bouton Modifier -->
-        <div class="mb-6">
+         <div class="mt-auto w-full">
             <a href="{% url 'boite_de_vitesse:modifier_boite' boite.id %}"
                class="block w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold text-center">
                 {% trans "Modifier le contrôle" %}
             </a>
         </div>
 
-        <div class="mb-6">
+         <div class="mt-auto w-full">
             <a href="{% url 'boite_de_vitesse:boite_check_pdf' boite.id %}"
+               target="_blank"
+               rel="noopener noreferrer"
                  class="block w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold text-center">
                     {% trans "Télécharger le PDF" %}
             </a>

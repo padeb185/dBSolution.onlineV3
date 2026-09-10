@@ -18,6 +18,8 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
+from django.utils.text import slugify
+from urllib.parse import quote
 
 
 
@@ -650,19 +652,6 @@ def delete_cour_access_view(request, courroie_accessoires_id):
 
 
 
-@login_required
-def rapport_courroie_access_view(request, pk):
-    obj = get_object_or_404(CourroieAccessoires, pk=pk)
-
-    rapport = obj.generer_rapport_remplacement()
-
-    return render(request, "courroie_access/rapport_courroie.html", {
-        "rapport": rapport,
-        "obj": obj
-    })
-
-
-
 
 
 
@@ -671,7 +660,13 @@ def rapport_courroie_access_view(request, pk):
 
 @login_required
 def courroie_access_detail_pdf_view(request, pk):
-    courroie_accessoires = get_object_or_404(CourroieAccessoires, pk=pk)
+
+    courroie_accessoires = get_object_or_404(
+        CourroieAccessoires.objects.select_related(
+            "voiture_exemplaire"
+        ),
+        pk=pk
+    )
 
     rapport = courroie_accessoires.generer_rapport_remplacement()
 
@@ -680,7 +675,7 @@ def courroie_access_detail_pdf_view(request, pk):
         {
             "courroie_accessoires": courroie_accessoires,
             "rapport": rapport,
-            "date_export": datetime.now(),
+            "date_export": timezone.now(),
             "societe": request.user.societe,
         }
     )
@@ -694,9 +689,11 @@ def courroie_access_detail_pdf_view(request, pk):
     # IMMATRICULATION
     # =========================================================
 
+    exemplaire = courroie_accessoires.voiture_exemplaire
+
     immatriculation = (
-        courroie_accessoires.voiture_exemplaire.immatriculation
-        if courroie_accessoires.voiture_exemplaire
+        exemplaire.immatriculation
+        if exemplaire and exemplaire.immatriculation
         else "sans_immatriculation"
     )
 
@@ -705,13 +702,9 @@ def courroie_access_detail_pdf_view(request, pk):
     # =========================================================
 
     technicien = (
-            courroie_accessoires.tech_nom_technicien
-            or "technicien_inconnu"
+        courroie_accessoires.tech_nom_technicien
+        or "technicien_inconnu"
     )
-
-    # Nettoyage pour le nom du fichier
-    technicien = str(technicien).replace(" ", "_")
-    immatriculation = str(immatriculation).replace(" ", "_")
 
     # =========================================================
     # DATE
@@ -724,20 +717,43 @@ def courroie_access_detail_pdf_view(request, pk):
     )
 
     # =========================================================
-    # TITRE / NOM DU PDF
+    # NETTOYAGE
+    # =========================================================
+
+    technicien = str(technicien).strip().replace(" ", "_")
+    immatriculation = str(immatriculation).strip().replace(" ", "_")
+
+    # =========================================================
+    # NOM DU PDF
     # =========================================================
 
     nom_fichier = (
-        f"{_('Courroie d’accessoires')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
+        f"Courroie_accessoires_"
+        f"{technicien}_"
+        f"{immatriculation}_"
+        f"{date_pdf}.pdf"
     )
+
+    # Nom ASCII de secours pour les navigateurs
+    nom_ascii = (
+        f"Courroie_accessoires_"
+        f"{slugify(technicien)}_"
+        f"{slugify(immatriculation)}_"
+        f"{date_pdf}.pdf"
+    )
+
+    # =========================================================
+    # RESPONSE
+    # =========================================================
 
     response = HttpResponse(
         pdf,
-        content_type="application/pdf",
+        content_type="application/pdf"
     )
 
     response["Content-Disposition"] = (
-        f'inline; filename="{nom_fichier}"'
+        f'inline; filename="{nom_ascii}"; '
+        f"filename*=UTF-8''{quote(nom_fichier)}"
     )
 
     return response
