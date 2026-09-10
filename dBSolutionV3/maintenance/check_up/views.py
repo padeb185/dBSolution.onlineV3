@@ -186,7 +186,6 @@ def controle_total_view(request, exemplaire_id):
                                 # Valeurs recalculées par save()
                                 "kilometres_moteur",
                                 "kilometres_boite",
-                                "kilometres_embrayage",
                                 "variation_kilometres",
                             ]
                         )
@@ -393,7 +392,6 @@ def checkup_detail_view(request, checkup_id):
     return render(request, "check_up/checkup_detail.html", context)
 
 
-
 @login_required
 def modifier_checkup_view(request, checkup_id):
     tenant = request.user.societe
@@ -422,7 +420,7 @@ def modifier_checkup_view(request, checkup_id):
                 with transaction.atomic():
 
                     # ==================================================
-                    # NOUVEAU KILOMÉTRAGE
+                    # NOUVEAU KILOMÉTRAGE SAISI
                     # ==================================================
                     nouveau_kilometrage = (
                         form.cleaned_data.get(
@@ -431,16 +429,21 @@ def modifier_checkup_view(request, checkup_id):
                     )
 
                     # ==================================================
-                    # KILOMÉTRAGE ACTUEL
+                    # VALEURS LOCALES ACTUELLES
+                    #
+                    # Ce sont ELLES qui servent de rollback.
+                    # On ne reprend PAS les valeurs du controle_total.
                     # ==================================================
-                    ancien_kilometrage = (
+                    rollback_chassis = (
                         exemplaire.kilometres_chassis or 0
                     )
-                    ancien_kilometrage_boite = (
-                            exemplaire.kilometres_boite or 0
+
+                    rollback_moteur = (
+                        exemplaire.kilometres_moteur or 0
                     )
-                    ancien_kilometrage_moteur = (
-                            exemplaire.kilometres_moteur or 0
+
+                    rollback_boite = (
+                        exemplaire.kilometres_boite or 0
                     )
 
                     # ==================================================
@@ -456,28 +459,15 @@ def modifier_checkup_view(request, checkup_id):
                                 )
                             )
 
-                        # ==============================================
-                        # IMPORTANT :
-                        # NE PAS MODIFIER kilometres_rollback
-                        # ==============================================
-
-                        exemplaire.kilometres_chassis = (
-                            nouveau_kilometrage
-                        )
-                        exemplaire.kilometres_boite = (
-                            nouveau_kilometrage
-                        )
-                        exemplaire.kilometres_moteur = (
-                            nouveau_kilometrage
-                        )
-
-                        exemplaire.save(
-                            update_fields=[
-                                "kilometres_chassis",
-                                "kilometres_moteurs",
-                                "kilometres_boite"
-                            ]
-                        )
+                        # On ne descend pas sous la valeur locale actuelle
+                        if nouveau_kilometrage < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur au kilométrage actuel "
+                                    "du véhicule."
+                                )
+                            )
 
                     # ==================================================
                     # MISE À JOUR CHECKUP
@@ -486,17 +476,59 @@ def modifier_checkup_view(request, checkup_id):
                         commit=False
                     )
 
+                    checkup.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # SAUVEGARDE DES VALEURS LOCALES POUR ROLLBACK
+                    # ==================================================
+                    checkup.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    checkup.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    checkup.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE DU CHECKUP
+                    # ==================================================
                     checkup.kilometrage_checkup = (
                         nouveau_kilometrage
                     )
 
-                    checkup.kilometrage_variation = (
-                        nouveau_kilometrage
-                        - ancien_kilometrage
-                        if nouveau_kilometrage is not None
-                        else 0
-                    )
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if nouveau_kilometrage is not None:
+                        checkup.kilometrage_variation = (
+                            nouveau_kilometrage
+                            - rollback_chassis
+                        )
+                    else:
+                        checkup.kilometrage_variation = 0
 
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if nouveau_kilometrage is not None:
+
+                        exemplaire.kilometres_chassis = (
+                            nouveau_kilometrage
+                        )
+
+                        # update_kilometres() est appelé
+                        # par VoitureExemplaire.save()
+                        exemplaire.save()
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
                     checkup.assign_technicien(
                         request.user
                     )
@@ -509,6 +541,9 @@ def modifier_checkup_view(request, checkup_id):
 
                     form.save_m2m()
 
+                    # ==================================================
+                    # USER LOG
+                    # ==================================================
                     ACTION_MODIFICATION_CHECKUP = (
                         gettext_noop(
                             "Modification du checkup"
@@ -545,6 +580,15 @@ def modifier_checkup_view(request, checkup_id):
                     _("Kilométrage invalide")
                 )
 
+            except Exception as e:
+
+                messages.error(
+                    request,
+                    _("Erreur : %(erreur)s") % {
+                        "erreur": str(e)
+                    }
+                )
+
         else:
             messages.error(
                 request,
@@ -568,7 +612,6 @@ def modifier_checkup_view(request, checkup_id):
             "exemplaire": exemplaire,
         },
     )
-
 
 
 @never_cache
@@ -651,10 +694,10 @@ def delete_checkup_view(request, checkup_id):
                     exemplaire.kilometres_rollback or 0
                 )
                 kilometrage_rollback_boite =  (
-                    exemplaire.kilometres_rollback_boite or 0
+                    exemplaire.kilometres_boite_rollback or 0
                 )
                 kilometrage_rollback_moteur = (
-                        exemplaire.kilometres_rollback_moteur or 0
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
 

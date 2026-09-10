@@ -1,4 +1,7 @@
 from datetime import datetime
+
+from django.core.exceptions import ValidationError
+
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -124,8 +127,18 @@ def essuyage_form_view(request, exemplaire_id):
 
                     km = form.cleaned_data.get("kilometrage_essuyage")
 
-                    # ✅ On conserve le kilométrage précédent
-                    ancien_kilometrage = exemplaire.kilometres_chassis or 0
+
+                    # Kilométrage AVANT intervention
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
 
                     # ✅ Variation calculée dynamiquement
                     kilometrage_variation = 0
@@ -146,11 +159,25 @@ def essuyage_form_view(request, exemplaire_id):
                         # VÉHICULE
                         # =========================
                         if km is not None:
-                            # Sauvegarde du kilométrage AVANT intervention
-                            exemplaire.kilometres_rollback = ancien_kilometrage
+                            # =========================
+                            # ROLLBACK AVANT INTERVENTION
+                            # =========================
 
-                            # Nouveau kilométrage
-                            exemplaire.kilometres_chassis = km
+                            exemplaire.kilometres_rollback = (
+                                ancien_kilometrage
+                            )
+
+                            exemplaire.kilometres_boite_rollback = (
+                                ancien_kilometrage_boite
+                            )
+
+                            exemplaire.kilometres_moteur_rollback = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            # =========================
+                            # DATE INTERVENTION
+                            # =========================
 
                             exemplaire.date_derniere_intervention = (
                                 timezone.localtime(
@@ -158,15 +185,40 @@ def essuyage_form_view(request, exemplaire_id):
                                 ).date()
                             )
 
+                            # =========================
+                            # NOUVEAU KILOMÉTRAGE
+                            # =========================
+
+                            exemplaire.kilometres_chassis = km
+
+                            # Recalcule :
+                            # - kilometres_moteur
+                            # - kilometres_boite
+                            # - variation_kilometres
                             exemplaire.update_kilometres()
+
+                            # =========================
+                            # UNE SEULE SAUVEGARDE
+                            # =========================
 
                             exemplaire.save(
                                 update_fields=[
                                     "kilometres_chassis",
-                                    "kilometres_rollback",
                                     "date_derniere_intervention",
+
+                                    # Rollback
+                                    "kilometres_rollback",
+                                    "kilometres_boite_rollback",
+                                    "kilometres_moteur_rollback",
+
+                                    # Valeurs recalculées
+                                    "kilometres_moteur",
+                                    "kilometres_boite",
+                                    "variation_kilometres",
                                 ]
                             )
+
+
                     # 🔴 maintenance unique
                     maintenance = Maintenance.objects.create(
                         societe=request.user.societe,
@@ -197,28 +249,51 @@ def essuyage_form_view(request, exemplaire_id):
 
                     maintenance.save()
 
+                    # ==================================================
+                    # CRÉATION CHECKUP
+                    # ==================================================
                     essuyage = form.save(commit=False)
 
                     essuyage.voiture_exemplaire = exemplaire
                     essuyage.maintenance = maintenance
 
-                    # ✅ kilométrage saisi lors du essuyage
+                    # kilométrage saisi lors du essuyage
                     essuyage.kilometrage_essuyage = km
 
-                    # ✅ ancien kilométrage avant le essuyage
-                    essuyage.kilometres_chassis = ancien_kilometrage
+                    # kilométrage AVANT le essuyage
+                    essuyage.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+                    essuyage.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+                    essuyage.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
 
-                    # ✅ différence entre les deux
-                    essuyage.kilometrage_variation = kilometrage_variation
+                    # différence entre ancien et nouveau kilométrage
+                    essuyage.kilometrage_variation = (
+                        kilometrage_variation
+                    )
 
                     # 👨‍🔧 technicien
-                    essuyage.assign_technicien(request.user)
+                    essuyage.assign_technicien(
+                        request.user
+                    )
 
                     # 👨‍🔧 dernier technicien maintenance
-                    essuyage.tech_last_maintained_by = request.user
+                    essuyage.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    essuyage.maintenance = maintenance
 
                     essuyage.save()
-
+                    # =========================
+                    # MANY TO MANY
+                    # =========================
+                    form.instance = essuyage
+                    form.save_m2m()
 
                     ACTION_CONTROLE_ESSUYAGE = gettext_noop(
                         "Contrôle de l'essuyage"
@@ -242,8 +317,20 @@ def essuyage_form_view(request, exemplaire_id):
             messages.error(request, _("Le formulaire contient des erreurs."))
     else:
         essuyage = Essuyage(
+
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis
+
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
         essuyage.assign_technicien(request.user)
 
@@ -442,59 +529,222 @@ def essuyage_detail_view(request, essuyage_id):
     }
     return render(request, "essuyage/essuyage_detail.html", context)
 
-
-
 @login_required
 def modifier_essuyage_view(request, essuyage_id):
     tenant = request.user.societe
 
-
-
     essuyage = get_object_or_404(
-        Essuyage.objects.select_related("voiture_exemplaire"),
+        Essuyage.objects.select_related(
+            "voiture_exemplaire"
+        ),
         id=essuyage_id
     )
+
     exemplaire = essuyage.voiture_exemplaire
-    # -------------------------
+
+    # =========================
     # POST
-    # -------------------------
+    # =========================
     if request.method == "POST":
+
         form = EssuyageForm(
             request.POST,
             instance=essuyage,
             user=request.user,
-            exemplaire=essuyage.voiture_exemplaire
+            exemplaire=exemplaire
         )
 
         if form.is_valid():
-            form.save()
+
+            try:
+                with transaction.atomic():
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get(
+                        "kilometrage_essuyage"
+                    )
+
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                        exemplaire.kilometres_chassis or 0
+                    )
+
+                    rollback_moteur = (
+                        exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                        exemplaire.kilometres_boite or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # ESSUYAGE
+                    # ==================================================
+                    essuyage = form.save(
+                        commit=False
+                    )
+
+                    essuyage.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    essuyage.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    essuyage.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    essuyage.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    essuyage.kilometrage_essuyage = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        essuyage.kilometrage_variation = (
+                            km - rollback_chassis
+                        )
+                    else:
+                        essuyage.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    essuyage.assign_technicien(
+                        request.user
+                    )
+
+                    essuyage.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # Le save() du modèle VoitureExemplaire
+                        # doit gérer update_kilometres()
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE ESSUYAGE
+                    # ==================================================
+                    essuyage.save()
+
+                    form.save_m2m()
 
 
+                    # ==================================================
+                    # USER LOG
+                    # ==================================================
+                    ACTION_MODIFICATION_CONTROLE_ESSUYAGE = (
+                        gettext_noop(
+                            "Modification contrôle du système "
+                            "d'essuyage"
+                        )
+                    )
 
-            ACTION_MODIFICATION_CONTROLE_ESSUYAGE = gettext_noop(
-                "Modification contrôle du système d'essuyage"
-            )
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=(
+                            f"{ACTION_MODIFICATION_CONTROLE_ESSUYAGE}"
+                            f" - {exemplaire.immatriculation}"
+                        )
+                    )
 
-            UserLog.objects.create(
-                utilisateur=request.user,
-                action=f"{ACTION_MODIFICATION_CONTROLE_ESSUYAGE} - {exemplaire.immatriculation}"
-            )
+                    messages.success(
+                        request,
+                        _(
+                            "Contrôle du système d'essuyage "
+                            "modifié avec succès !"
+                        )
+                    )
 
-            messages.success(request, _("Contrôle du système d'essuyage modifié avec succès !"))
-            return redirect("essuyage:essuyage_detail", essuyage_id=essuyage.id)
+                    return redirect(
+                        "essuyage:essuyage_detail",
+                        essuyage_id=essuyage.id
+                    )
+
+            except ValidationError as e:
+
+                form.add_error(
+                    "kilometrage_essuyage",
+                    e.message
+                )
+
+                messages.error(
+                    request,
+                    e.message
+                )
+
         else:
-            messages.error(request, _("Le formulaire contient des erreurs."))
+            messages.error(
+                request,
+                _("Le formulaire contient des erreurs.")
+            )
 
-
-    # -------------------------
+    # =========================
     # GET
-    # -------------------------
+    # =========================
     else:
+
         form = EssuyageForm(
             instance=essuyage,
             user=request.user,
-            exemplaire=essuyage.voiture_exemplaire
+            exemplaire=exemplaire
         )
+
+
 
     # -------------------------
     # Sections pour le template
@@ -747,20 +997,35 @@ def delete_essuyage_view(request, essuyage_id):
 
                 immatriculation = exemplaire.immatriculation
 
+
                 # ==================================================
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 

@@ -165,7 +165,7 @@ class VoitureExemplaire(models.Model):
     kilometres_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
     kilometres_remplacement_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
 
-    kilometres_rollback_moteur = models.PositiveIntegerField(
+    kilometres_moteur_rollback = models.PositiveIntegerField(
         default=0,
         null=True,
         blank=True,

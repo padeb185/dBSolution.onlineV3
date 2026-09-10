@@ -25,8 +25,12 @@ class CheckupForm(forms.ModelForm):
 
     class Meta:
         model = Checkup
-        fields = "__all__"
-
+        exclude = {
+            "kilometres_boite_rollback",
+            "kilometres_moteur_rollback",
+            "kilometres_boite",
+            "kilometres_moteur",
+        }
         widgets = {
             "maintenance": forms.HiddenInput(),
 

@@ -26,7 +26,13 @@ class EntretienForm(forms.ModelForm):
     class Meta:
         model = Entretien
 
-        exclude = ["pieces"]
+        exclude =  {
+            "kilometres_boite_rollback",
+            "kilometres_moteur_rollback",
+            "kilometres_boite",
+            "kilometres_moteur",
+            "pieces",
+        }
         widgets = {
             "maintenance": forms.HiddenInput(),
             "remarques": forms.Textarea(attrs={

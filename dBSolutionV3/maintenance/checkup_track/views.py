@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -135,7 +137,13 @@ def track_check_form_view(request, exemplaire_id):
             ancien_kilometrage = (
                 exemplaire.kilometres_chassis or 0
             )
+            ancien_kilometrage_boite = (
+                    exemplaire.kilometres_boite or 0
+            )
 
+            ancien_kilometrage_moteur = (
+                    exemplaire.kilometres_moteur or 0
+            )
             # =========================
             # VALIDATION KILOMÉTRAGE
             # =========================
@@ -210,16 +218,31 @@ def track_check_form_view(request, exemplaire_id):
                         request.user
                     )
 
+
                     # =========================
                     # MISE À JOUR DU VÉHICULE
                     # =========================
 
                     if km is not None:
-                        # Sauvegarde du kilométrage AVANT intervention
-                        exemplaire.kilometres_rollback = ancien_kilometrage
+                        # =========================
+                        # ROLLBACK AVANT INTERVENTION
+                        # =========================
 
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
+                        exemplaire.kilometres_rollback = (
+                            ancien_kilometrage
+                        )
+
+                        exemplaire.kilometres_boite_rollback = (
+                            ancien_kilometrage_boite
+                        )
+
+                        exemplaire.kilometres_moteur_rollback = (
+                            ancien_kilometrage_moteur
+                        )
+
+                        # =========================
+                        # DATE INTERVENTION
+                        # =========================
 
                         exemplaire.date_derniere_intervention = (
                             timezone.localtime(
@@ -227,12 +250,36 @@ def track_check_form_view(request, exemplaire_id):
                             ).date()
                         )
 
+                        # =========================
+                        # NOUVEAU KILOMÉTRAGE
+                        # =========================
+
+                        exemplaire.kilometres_chassis = km
+
+                        # Recalcule :
+                        # - kilometres_moteur
+                        # - kilometres_boite
+                        # - variation_kilometres
                         exemplaire.update_kilometres()
+
+                        # =========================
+                        # UNE SEULE SAUVEGARDE
+                        # =========================
 
                         exemplaire.save(
                             update_fields=[
                                 "kilometres_chassis",
                                 "date_derniere_intervention",
+
+                                # Rollback
+                                "kilometres_rollback",
+                                "kilometres_boite_rollback",
+                                "kilometres_moteur_rollback",
+
+                                # Valeurs recalculées
+                                "kilometres_moteur",
+                                "kilometres_boite",
+                                "variation_kilometres",
                             ]
                         )
 
@@ -309,9 +356,44 @@ def track_check_form_view(request, exemplaire_id):
 
                     maintenance.save()
 
-                    # =========================
-                    # LIEN CHECKUP / MAINTENANCE
-                    # =========================
+
+                    # ==================================================
+                    # CRÉATION CHECKUP
+                    # ==================================================
+                    checkup_track = form.save(commit=False)
+
+                    checkup_track.voiture_exemplaire = exemplaire
+                    checkup_track.maintenance = maintenance
+
+                    # kilométrage saisi lors du checkup_track
+                    checkup_track.kilometrage_checkup_track = km
+
+                    # kilométrage AVANT le checkup_track
+                    checkup_track.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+                    checkup_track.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+                    checkup_track.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
+
+                    # différence entre ancien et nouveau kilométrage
+                    checkup_track.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    # 👨‍🔧 technicien
+                    checkup_track.assign_technicien(
+                        request.user
+                    )
+
+                    # 👨‍🔧 dernier technicien maintenance
+                    checkup_track.tech_last_maintained_by = (
+                        request.user
+                    )
+
 
                     checkup_track.maintenance = maintenance
 
@@ -372,15 +454,17 @@ def track_check_form_view(request, exemplaire_id):
         checkup_track = CheckupTrack(
             voiture_exemplaire=exemplaire,
 
-            # Seulement le kilométrage châssis est pré-rempli
             kilometres_chassis=(
-                exemplaire.kilometres_chassis
+                    exemplaire.kilometres_chassis or 0
             ),
 
-            # Variation initiale
-            kilometrage_variation=0,
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
 
-            # PAS de kilometrage_checkup_track ici
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
 
         checkup_track.assign_technicien(
@@ -431,17 +515,15 @@ def checkup_track_detail_view(request, checkup_track_id):
 
 
 
-
 @never_cache
 @login_required
 def modifier_checkup_track_view(request, checkup_track_id):
 
     tenant = request.user.societe
 
-    # =========================
+    # ==================================================
     # RÉCUPÉRATION CHECKUP TRACK
-    # =========================
-
+    # ==================================================
     checkup_track = get_object_or_404(
         CheckupTrack.objects.select_related(
             "voiture_exemplaire",
@@ -453,13 +535,9 @@ def modifier_checkup_track_view(request, checkup_track_id):
 
     exemplaire = checkup_track.voiture_exemplaire
 
-    # Kilométrage historique AVANT ce checkup piste
-    km_reference = checkup_track.kilometres_chassis or 0
-
-    # =========================
+    # ==================================================
     # POST
-    # =========================
-
+    # ==================================================
     if request.method == "POST":
 
         form = CheckupTrackForm(
@@ -471,182 +549,225 @@ def modifier_checkup_track_view(request, checkup_track_id):
 
         if form.is_valid():
 
-            km = form.cleaned_data.get(
-                "kilometrage_checkup_track"
-            )
+            try:
 
-            if km is not None:
-                km = int(km)
+                with transaction.atomic():
 
-            # =========================
-            # VALIDATION
-            # =========================
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get(
+                        "kilometrage_checkup_track"
+                    )
 
-            if (
-                km is not None
-                and km < km_reference
-            ):
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS LOCALES ACTUELLES
+                    #
+                    # Ces valeurs deviennent le rollback
+                    # de CETTE modification.
+                    #
+                    # On ne reprend PAS les anciens rollback
+                    # du controle total ou du checkup piste initial.
+                    # ==================================================
+                    rollback_chassis = (
+                        exemplaire.kilometres_chassis or 0
+                    )
+
+                    rollback_moteur = (
+                        exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                        exemplaire.kilometres_boite or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # CHECKUP TRACK
+                    # ==================================================
+                    checkup_track = form.save(
+                        commit=False
+                    )
+
+                    checkup_track.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    checkup_track.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    checkup_track.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    checkup_track.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE CHECKUP PISTE
+                    # ==================================================
+                    checkup_track.kilometrage_checkup_track = (
+                        km
+                    )
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+
+                        checkup_track.kilometrage_variation = (
+                            km - rollback_chassis
+                        )
+
+                    else:
+
+                        checkup_track.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    checkup_track.assign_technicien(
+                        request.user
+                    )
+
+                    checkup_track.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # ----------------------------------------------
+                        # IMPORTANT
+                        #
+                        # Le save() du véhicule doit appeler
+                        # update_kilometres().
+                        #
+                        # On ne touche PAS directement à :
+                        #
+                        # kilometres_moteur
+                        # kilometres_boite
+                        #
+                        # Ils doivent être recalculés.
+                        # ----------------------------------------------
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE CHECKUP TRACK
+                    # ==================================================
+                    checkup_track.save()
+
+                    form.save_m2m()
+
+                    # ==================================================
+                    # MAINTENANCE ASSOCIÉE
+                    # ==================================================
+                    if checkup_track.maintenance:
+
+                        maintenance = (
+                            checkup_track.maintenance
+                        )
+
+                        if km is not None:
+
+                            maintenance.kilometres_chassis = km
+
+                            maintenance.save(
+                                update_fields=[
+                                    "kilometres_chassis"
+                                ]
+                            )
+
+                    # ==================================================
+                    # LOG
+                    # ==================================================
+                    ACTION_MODIFICATION_CHECKUP_PISTE = (
+                        gettext_noop(
+                            "Modification du check-up piste"
+                        )
+                    )
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=(
+                            f"{ACTION_MODIFICATION_CHECKUP_PISTE} - "
+                            f"{exemplaire.immatriculation}"
+                        )
+                    )
+
+                messages.success(
+                    request,
+                    _("Checkup piste modifié avec succès !")
+                )
+
+                return redirect(
+                    "checkup_track:checkup_track_detail",
+                    checkup_track_id=checkup_track.id,
+                )
+
+            except ValidationError as e:
 
                 form.add_error(
                     "kilometrage_checkup_track",
-                    _(
-                        "Le kilométrage ne peut pas être inférieur "
-                        "à %(km)s km."
-                    ) % {
-                        "km": km_reference
-                    }
+                    e
                 )
 
                 messages.error(
                     request,
-                    _("Le kilométrage ne peut pas diminuer.")
+                    _("Kilométrage invalide.")
                 )
 
-            else:
+            except Exception as e:
 
-                try:
-
-                    with transaction.atomic():
-
-                        # =========================
-                        # CHECKUP TRACK
-                        # =========================
-
-                        checkup_modifie = form.save(
-                            commit=False
-                        )
-
-                        # IMPORTANT :
-                        # garder le kilométrage historique
-                        checkup_modifie.kilometres_chassis = (
-                            km_reference
-                        )
-
-                        # Nouveau kilométrage saisi
-                        checkup_modifie.kilometrage_checkup_track = km
-
-                        # Calcul variation
-                        if km is not None:
-
-                            checkup_modifie.kilometrage_variation = (
-                                km - km_reference
-                            )
-
-                        else:
-
-                            checkup_modifie.kilometrage_variation = 0
-
-                        checkup_modifie.assign_technicien(
-                            request.user
-                        )
-
-                        checkup_modifie.save()
-
-                        if hasattr(form, "save_m2m"):
-                            form.save_m2m()
-
-
-                        # =========================
-                        # MISE À JOUR DU VÉHICULE
-                        # =========================
-                        #
-                        # IMPORTANT :
-                        # NE JAMAIS MODIFIER :
-                        #
-                        # exemplaire.kilometres_rollback
-                        #
-                        # Le rollback reste celui enregistré
-                        # lors de la CRÉATION du check-up piste.
-                        # =========================
-
-                        if km is not None:
-
-                            kilometrage_actuel = (
-                                exemplaire.kilometres_chassis
-                                or 0
-                            )
-
-                            if km > kilometrage_actuel:
-
-                                exemplaire.kilometres_chassis = (
-                                    km
-                                )
-
-                                exemplaire.date_derniere_intervention = (
-                                    timezone.localtime(
-                                        timezone.now()
-                                    ).date()
-                                )
-
-                                exemplaire.update_kilometres()
-
-                                exemplaire.save(
-                                    update_fields=[
-                                        "kilometres_chassis",
-                                        "kilometres_rollback"
-                                        "date_derniere_intervention",
-                                    ]
-                                )
-                        # =========================
-                        # MAINTENANCE ASSOCIÉE
-                        # =========================
-
-                        if checkup_modifie.maintenance:
-
-                            maintenance = (
-                                checkup_modifie.maintenance
-                            )
-
-                            if (
-                                km is not None
-                                and km >
-                                (maintenance.kilometres_chassis or 0)
-                            ):
-
-                                maintenance.kilometres_chassis = km
-
-                                maintenance.save(
-                                    update_fields=[
-                                        "kilometres_chassis"
-                                    ]
-                                )
-
-                        # =========================
-                        # LOG
-                        # =========================
-
-
-
-                        ACTION_MODIFICATION_CHECKUP_PISTE = gettext_noop(
-                            "Modification du check-up piste"
-                        )
-
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=f"{ACTION_MODIFICATION_CHECKUP_PISTE} - {exemplaire.immatriculation}"
-                        )
-
-                    messages.success(
-                        request,
-                        _("Checkup piste modifié avec succès !")
-                    )
-
-                    return redirect(
-                        "checkup_track:checkup_track_detail",
-                        checkup_track_id=checkup_modifie.id,
-                    )
-
-                except Exception as e:
-
-                    messages.error(
-                        request,
-                        _(
-                            "Erreur lors de la modification : "
-                            "%(erreur)s"
-                        ) % {
-                            "erreur": str(e)
-                        }
-                    )
+                messages.error(
+                    request,
+                    _(
+                        "Erreur lors de la modification : "
+                        "%(erreur)s"
+                    ) % {
+                        "erreur": str(e)
+                    }
+                )
 
         else:
 
@@ -655,10 +776,9 @@ def modifier_checkup_track_view(request, checkup_track_id):
                 _("Le formulaire contient des erreurs.")
             )
 
-    # =========================
+    # ==================================================
     # GET
-    # =========================
-
+    # ==================================================
     else:
 
         form = CheckupTrackForm(
@@ -667,10 +787,9 @@ def modifier_checkup_track_view(request, checkup_track_id):
             exemplaire=exemplaire,
         )
 
-    # =========================
+    # ==================================================
     # TEMPLATE
-    # =========================
-
+    # ==================================================
     return render(
         request,
         "checkup_track/modifier_checkup_track.html",
@@ -679,12 +798,12 @@ def modifier_checkup_track_view(request, checkup_track_id):
             "checkup_track": checkup_track,
             "exemplaire": exemplaire,
 
-            # Référence historique pour JavaScript
-            "km_reference": km_reference,
+            # Valeur locale actuelle
+            "km_reference": (
+                exemplaire.kilometres_chassis or 0
+            ),
         }
     )
-
-
 
 
 
@@ -766,16 +885,30 @@ def delete_checkup_track_view(request, checkup_track_id):
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 
