@@ -118,13 +118,23 @@ def abs_form_view(request, exemplaire_id):
                     # =========================
                     # KILOMÉTRAGE
                     # =========================
+                    # ====================================================
+                    # KILOMÉTRAGE
+                    # ====================================================
+                    # ✅ On conserve le kilométrage précédent
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
 
                     km = form.cleaned_data.get(
                         "kilometrage_abs"
-                    )
-
-                    ancien_kilometrage = (
-                            exemplaire.kilometres_chassis or 0
                     )
 
                     kilometrage_variation = 0
@@ -146,11 +156,25 @@ def abs_form_view(request, exemplaire_id):
                                 km - ancien_kilometrage
                         )
 
-                        # Mise à jour du kilométrage véhicule
-                        exemplaire.kilometres_rollback = ancien_kilometrage
+                        # =========================
+                        # ROLLBACK AVANT INTERVENTION
+                        # =========================
 
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
+                        exemplaire.kilometres_rollback = (
+                            ancien_kilometrage
+                        )
+
+                        exemplaire.kilometres_boite_rollback = (
+                            ancien_kilometrage_boite
+                        )
+
+                        exemplaire.kilometres_moteur_rollback = (
+                            ancien_kilometrage_moteur
+                        )
+
+                        # =========================
+                        # DATE INTERVENTION
+                        # =========================
 
                         exemplaire.date_derniere_intervention = (
                             timezone.localtime(
@@ -158,13 +182,36 @@ def abs_form_view(request, exemplaire_id):
                             ).date()
                         )
 
+                        # =========================
+                        # NOUVEAU KILOMÉTRAGE
+                        # =========================
+
+                        exemplaire.kilometres_chassis = km
+
+                        # Recalcule :
+                        # - kilometres_moteur
+                        # - kilometres_boite
+                        # - variation_kilometres
                         exemplaire.update_kilometres()
+
+                        # =========================
+                        # UNE SEULE SAUVEGARDE
+                        # =========================
 
                         exemplaire.save(
                             update_fields=[
                                 "kilometres_chassis",
-                                "kilometres_rollback",
                                 "date_derniere_intervention",
+
+                                # Rollback
+                                "kilometres_rollback",
+                                "kilometres_boite_rollback",
+                                "kilometres_moteur_rollback",
+
+                                # Valeurs recalculées
+                                "kilometres_moteur",
+                                "kilometres_boite",
+                                "variation_kilometres",
                             ]
                         )
 
@@ -202,21 +249,28 @@ def abs_form_view(request, exemplaire_id):
 
                     abs.kilometrage_abs = km
 
+                    # Variation
+                    # # kilométrage AVANT le abs
                     abs.kilometres_chassis = (
                         ancien_kilometrage
                     )
+                    abs.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+                    abs.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
 
+                    # différence entre ancien et nouveau kilométrage
                     abs.kilometrage_variation = (
                         kilometrage_variation
                     )
 
-                    abs.assign_technicien(
-                        request.user
-                    )
+                    # 👨‍🔧 technicien
+                    abs.assign_technicien(request.user)
 
-                    abs.tech_last_maintained_by = (
-                        request.user
-                    )
+                    # 👨‍🔧 dernier technicien maintenance
+                    abs.tech_last_maintained_by = request.user
 
                     abs.save()
 
@@ -241,7 +295,17 @@ def abs_form_view(request, exemplaire_id):
     else:
         Abs_qs = Abs(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
         Abs_qs.assign_technicien(request.user)
 
@@ -372,67 +436,99 @@ def modifier_abs_view(request, abs_id):
             try:
                 with transaction.atomic():
 
-                    abs = form.save(commit=False)
-
-                    # =========================
-                    # KILOMÉTRAGE
-                    # =========================
-                    km = form.cleaned_data.get(
-                        "kilometrage_abs"
-                    )
-
-                    # Snapshot enregistré lors
-                    # de la création de l'intervention
-                    ancien_kilometrage = (
-                        abs.kilometres_chassis or 0
-                    )
-
-                    kilometrage_variation = 0
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get("kilometrage_abs")
 
                     if km is not None:
-
                         km = int(km)
 
-                        if km < ancien_kilometrage:
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = exemplaire.kilometres_chassis or 0
+                    rollback_moteur = exemplaire.kilometres_moteur or 0
+                    rollback_boite = exemplaire.kilometres_boite or 0
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
                             raise ValidationError(
-                                _(
-                                    "Le kilométrage du contrôle ABS "
-                                    "ne peut pas être inférieur au kilométrage "
-                                    "enregistré avant l'intervention."
-                                )
+                                _("Le kilométrage ne peut pas être négatif.")
                             )
 
-                        kilometrage_variation = (
-                            km - ancien_kilometrage
-                        )
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
 
-                    # =========================
-                    # ABS
-                    # =========================
+                    # ==================================================
+                    # abs BLOCS
+                    # ==================================================
+                    abs = form.save(commit=False)
 
-                    # Kilométrage corrigé de l'intervention
+                    abs.voiture_exemplaire = exemplaire
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    abs.kilometres_chassis = rollback_chassis
+                    abs.kilometres_moteur = rollback_moteur
+                    abs.kilometres_boite = rollback_boite
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
                     abs.kilometrage_abs = km
 
-                    # On conserve le snapshot d'origine
-                    abs.kilometres_chassis = (
-                        ancien_kilometrage
-                    )
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        abs.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        abs.kilometrage_variation = 0
 
-                    # Recalcul de la variation
-                    abs.kilometrage_variation = (
-                        kilometrage_variation
-                    )
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    abs.assign_technicien(request.user)
 
-                    # Technicien
-                    abs.assign_technicien(
-                        request.user
-                    )
+                    abs.tech_last_maintained_by = request.user
 
-                    abs.tech_last_maintained_by = (
-                        request.user
-                    )
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
 
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # Le save() du modèle VoitureExemplaire
+                        # doit gérer update_kilometres()
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE abs
+                    # ==================================================
                     abs.save()
+
+                    form.save_m2m()
 
                     # =========================
                     # LOG
@@ -690,20 +786,35 @@ def delete_abs_view(request, abs_id):
 
                 immatriculation = exemplaire.immatriculation
 
+ 
                 # ==================================================
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 

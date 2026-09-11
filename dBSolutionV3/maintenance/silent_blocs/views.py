@@ -118,17 +118,26 @@ def silent_check_view(request, exemplaire_id):
 
                     silent = form.save(commit=False)
 
-                    # =========================
+
+                    # ====================================================
                     # KILOMÉTRAGE
-                    # =========================
+                    # ====================================================
+                    # ✅ On conserve le kilométrage précédent
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
 
                     km = form.cleaned_data.get(
                         "kilometrage_silent"
                     )
 
-                    ancien_kilometrage = (
-                        exemplaire.kilometres_chassis or 0
-                    )
 
                     kilometrage_variation = 0
 
@@ -145,17 +154,31 @@ def silent_check_view(request, exemplaire_id):
                                 )
                             )
 
+                        # Calcul avant mise à jour véhicule
                         kilometrage_variation = (
-                            km - ancien_kilometrage
+                                km - ancien_kilometrage
                         )
 
-                        # Mise à jour véhicule
-
                         # Mise à jour du kilométrage véhicule
-                        exemplaire.kilometres_rollback = ancien_kilometrage
+                        # =========================
+                        # ROLLBACK AVANT INTERVENTION
+                        # =========================
 
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
+                        exemplaire.kilometres_rollback = (
+                            ancien_kilometrage
+                        )
+
+                        exemplaire.kilometres_boite_rollback = (
+                            ancien_kilometrage_boite
+                        )
+
+                        exemplaire.kilometres_moteur_rollback = (
+                            ancien_kilometrage_moteur
+                        )
+
+                        # =========================
+                        # DATE INTERVENTION
+                        # =========================
 
                         exemplaire.date_derniere_intervention = (
                             timezone.localtime(
@@ -163,79 +186,118 @@ def silent_check_view(request, exemplaire_id):
                             ).date()
                         )
 
+                        # =========================
+                        # NOUVEAU KILOMÉTRAGE
+                        # =========================
+
+                        exemplaire.kilometres_chassis = km
+
+                        # Recalcule :
+                        # - kilometres_moteur
+                        # - kilometres_boite
+                        # - variation_kilometres
                         exemplaire.update_kilometres()
+
+                        # =========================
+                        # UNE SEULE SAUVEGARDE
+                        # =========================
 
                         exemplaire.save(
                             update_fields=[
                                 "kilometres_chassis",
-                                "kilometres_rollback",
                                 "date_derniere_intervention",
+
+                                # Rollback
+                                "kilometres_rollback",
+                                "kilometres_boite_rollback",
+                                "kilometres_moteur_rollback",
+
+                                # Valeurs recalculées
+                                "kilometres_moteur",
+                                "kilometres_boite",
+                                "variation_kilometres",
                             ]
                         )
 
-                    maintenance = Maintenance.objects.create(
-                        societe=request.user.societe,
-                        voiture_exemplaire=exemplaire,
-                        immatriculation=exemplaire.immatriculation,
-                        date_intervention=timezone.now().date(),
-                        kilometres_chassis=exemplaire.kilometres_chassis,
-                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                        type_maintenance=Maintenance.TypeMaintenance.SILENT_BLOC,
-                        tag=Maintenance.Tag.JAUNE,
-                    )
+                        maintenance = Maintenance.objects.create(
+                            societe=request.user.societe,
+                            voiture_exemplaire=exemplaire,
+                            immatriculation=exemplaire.immatriculation,
+                            date_intervention=timezone.now().date(),
+                            kilometres_chassis=exemplaire.kilometres_chassis,
+                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                            type_maintenance=Maintenance.TypeMaintenance.SILENT_BLOC,
+                            tag=Maintenance.Tag.JAUNE,
+                        )
 
-                    # 🔧 affectation rôle
-                    if role == "mecanicien":
-                        maintenance.mecanicien = request.user
+                        # 🔧 affectation rôle
+                        if role == "mecanicien":
+                            maintenance.mecanicien = request.user
 
-                    elif role == "chef_mecanicien":
-                        maintenance.chef_mecanicien = request.user
+                        elif role == "chef_mecanicien":
+                            maintenance.chef_mecanicien = request.user
 
-                    elif role == "apprenti":
-                        maintenance.apprentis.add(request.user)
+                        elif role == "apprenti":
+                            maintenance.apprentis.add(request.user)
 
-                    elif role == "magasinier":
-                        maintenance.magasinier = request.user
+                        elif role == "magasinier":
+                            maintenance.magasinier = request.user
 
-                    elif role == "direction":
-                        maintenance.direction = request.user
+                        elif role == "direction":
+                            maintenance.direction = request.user
 
-                    maintenance.save()
+                        maintenance.save()
 
-                    silent.assign_technicien(request.user)
+                        # ====================================================
+                        # CONTRÔLE silent
+                        # ====================================================
+                        silent.maintenance = maintenance
+                        silent.voiture_exemplaire = exemplaire
+                        silent.societe = tenant
+                        silent.immatriculation = (
+                            exemplaire.immatriculation
+                        )
 
-                    silent.kilometrage_silent = km
+                        # Kilométrage saisi
+                        silent.kilometrage_silent = km
 
-                    silent.kilometres_chassis = (
-                        ancien_kilometrage
-                    )
+                        # Variation
+                        # # kilométrage AVANT le silent
+                        silent.kilometres_chassis = (
+                            ancien_kilometrage
+                        )
+                        silent.kilometres_boite = (
+                            ancien_kilometrage_boite
+                        )
+                        silent.kilometres_moteur = (
+                            ancien_kilometrage_moteur
+                        )
 
-                    silent.kilometrage_variation = (
-                        kilometrage_variation
-                    )
+                        # différence entre ancien et nouveau kilométrage
+                        silent.kilometrage_variation = (
+                            kilometrage_variation
+                        )
 
-                    silent.assign_technicien(
-                        request.user
-                    )
+                        # 👨‍🔧 technicien
+                        silent.assign_technicien(request.user)
 
-                    silent.tech_last_maintained_by = (
-                        request.user
-                    )
+                        # 👨‍🔧 dernier technicien maintenance
+                        silent.tech_last_maintained_by = request.user
 
-                    silent.save()
+                        silent.save()
 
 
-                    ACTION_CONTROLE_SILENT_BLOCS = gettext_noop(
-                        "Contrôle des silent blocs"
-                    )
+                        ACTION_CONTROLE_SILENT_BLOCS = gettext_noop(
+                            "Contrôle des silent blocs"
+                        )
 
-                    UserLog.objects.create(
-                        utilisateur=request.user,
-                        action=f"{ACTION_CONTROLE_SILENT_BLOCS} - {exemplaire.immatriculation}"
-                    )
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=f"{ACTION_CONTROLE_SILENT_BLOCS} - {exemplaire.immatriculation}"
+                        )
 
-                messages.success(request, _("Controle des silent blocs enregistré avec succès."))
-                return redirect("silent_blocs:silent_list", exemplaire_id=exemplaire.id)
+                    messages.success(request, _("Controle des silent blocs enregistré avec succès."))
+                    return redirect("silent_blocs:silent_list", exemplaire_id=exemplaire.id)
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -245,7 +307,17 @@ def silent_check_view(request, exemplaire_id):
     else:
         silent = SilentBloc(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
 
         silent.assign_technicien(request.user)  # 👈 AJOUT IMPORTANT
@@ -307,25 +379,147 @@ def modifier_silent_view(request, silent_id):
             user=request.user,       # 🔑 important pour initialiser technicien/societe
             exemplaire=exemplaire
         )
+
         if form.is_valid():
-            form.save()
 
+            try:
+                with transaction.atomic():
 
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get("kilometrage_silent")
 
-            ACTION_MODIFICATION_CONTROLE_SILENT_BLOCS = gettext_noop(
-                "Modification du contrôle des silent blocs"
-            )
+                    if km is not None:
+                        km = int(km)
 
-            UserLog.objects.create(
-                utilisateur=request.user,
-                action=f"{ACTION_MODIFICATION_CONTROLE_SILENT_BLOCS} - {exemplaire.immatriculation}"
-            )
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = exemplaire.kilometres_chassis or 0
+                    rollback_moteur = exemplaire.kilometres_moteur or 0
+                    rollback_boite = exemplaire.kilometres_boite or 0
 
-            messages.success(request, _("Contrôle des silent blocs modifié avec succès !"))
-            return redirect("silent_blocs:silent_detail", silent_id=silent.id)
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _("Le kilométrage ne peut pas être négatif.")
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # SILENT BLOCS
+                    # ==================================================
+                    silent = form.save(commit=False)
+
+                    silent.voiture_exemplaire = exemplaire
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    silent.kilometres_chassis = rollback_chassis
+                    silent.kilometres_moteur = rollback_moteur
+                    silent.kilometres_boite = rollback_boite
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    silent.kilometrage_silent = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        silent.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        silent.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    silent.assign_technicien(request.user)
+
+                    silent.tech_last_maintained_by = request.user
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # Le save() du modèle VoitureExemplaire
+                        # doit gérer update_kilometres()
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE SILENT BLOCS
+                    # ==================================================
+                    silent.save()
+
+                    form.save_m2m()
+
+                    # ==================================================
+                    # USER LOG
+                    # ==================================================
+                    ACTION_MODIFICATION_CONTROLE_SILENT_BLOCS = gettext_noop(
+                        "Modification du contrôle des silent blocs"
+                    )
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=(
+                            f"{ACTION_MODIFICATION_CONTROLE_SILENT_BLOCS} - "
+                            f"{exemplaire.immatriculation}"
+                        )
+                    )
+
+                # ==================================================
+                # SUCCÈS
+                # ==================================================
+                messages.success(
+                    request,
+                    _("Contrôle des silent blocs modifié avec succès !")
+                )
+
+                return redirect(
+                    "silent_blocs:silent_detail",
+                    silent_id=silent.id
+                )
+
+            except Exception as e:
+                messages.error(
+                    request,
+                    _("Erreur lors de la modification : %(erreur)s") % {
+                        "erreur": str(e)
+                    }
+                )
 
         else:
-            messages.error(request, _("Le formulaire contient des erreurs."))
+            messages.error(
+                request,
+                _("Le formulaire contient des erreurs.")
+            )
 
 
     # -------------------------
@@ -429,16 +623,30 @@ def delete_silent_view(request, silent_id):
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 

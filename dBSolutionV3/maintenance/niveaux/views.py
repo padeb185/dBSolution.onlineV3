@@ -416,7 +416,7 @@ def modifier_niveau_view(request, niveau_id):
                     # NOUVEAU KILOMÉTRAGE SAISI
                     # ==================================================
                     km = form.cleaned_data.get(
-                        "kilometrage_net_int"
+                        "kilometrage_niveaux"
                     )
 
                     if km is not None:

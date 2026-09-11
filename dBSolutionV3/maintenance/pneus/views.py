@@ -132,8 +132,16 @@ def controle_pneus_view(request, exemplaire_id):
                     # ====================================================
                     # KILOMÉTRAGE
                     # ====================================================
+                    # ✅ On conserve le kilométrage précédent
                     ancien_kilometrage = (
-                        exemplaire.kilometres_chassis or 0
+                            exemplaire.kilometres_chassis or 0
+                    )
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
                     )
 
                     km = form.cleaned_data.get(
@@ -162,10 +170,25 @@ def controle_pneus_view(request, exemplaire_id):
 
 
                         # Mise à jour du kilométrage véhicule
-                        exemplaire.kilometres_rollback = ancien_kilometrage
+                        # =========================
+                        # ROLLBACK AVANT INTERVENTION
+                        # =========================
 
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
+                        exemplaire.kilometres_rollback = (
+                            ancien_kilometrage
+                        )
+
+                        exemplaire.kilometres_boite_rollback = (
+                            ancien_kilometrage_boite
+                        )
+
+                        exemplaire.kilometres_moteur_rollback = (
+                            ancien_kilometrage_moteur
+                        )
+
+                        # =========================
+                        # DATE INTERVENTION
+                        # =========================
 
                         exemplaire.date_derniere_intervention = (
                             timezone.localtime(
@@ -173,17 +196,38 @@ def controle_pneus_view(request, exemplaire_id):
                             ).date()
                         )
 
+                        # =========================
+                        # NOUVEAU KILOMÉTRAGE
+                        # =========================
+
+                        exemplaire.kilometres_chassis = km
+
+                        # Recalcule :
+                        # - kilometres_moteur
+                        # - kilometres_boite
+                        # - variation_kilometres
                         exemplaire.update_kilometres()
+
+                        # =========================
+                        # UNE SEULE SAUVEGARDE
+                        # =========================
 
                         exemplaire.save(
                             update_fields=[
                                 "kilometres_chassis",
-                                "kilometres_rollback",
                                 "date_derniere_intervention",
+
+                                # Rollback
+                                "kilometres_rollback",
+                                "kilometres_boite_rollback",
+                                "kilometres_moteur_rollback",
+
+                                # Valeurs recalculées
+                                "kilometres_moteur",
+                                "kilometres_boite",
+                                "variation_kilometres",
                             ]
                         )
-
-
 
                     # ====================================================
                     # MAINTENANCE
@@ -246,27 +290,31 @@ def controle_pneus_view(request, exemplaire_id):
                     # Kilométrage saisi
                     pneus.kilometrage_pneus = km
 
-                    # Kilométrage AVANT intervention
+                    # Variation
+                    # # kilométrage AVANT le pneus
                     pneus.kilometres_chassis = (
                         ancien_kilometrage
                     )
+                    pneus.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+                    pneus.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
 
-                    # Variation
+                    # différence entre ancien et nouveau kilométrage
                     pneus.kilometrage_variation = (
                         kilometrage_variation
                     )
 
-                    # Technicien
-                    pneus.assign_technicien(
-                        request.user
-                    )
+                    # 👨‍🔧 technicien
+                    pneus.assign_technicien(request.user)
 
-                    # Dernier technicien
-                    pneus.tech_last_maintained_by = (
-                        request.user
-                    )
+                    # 👨‍🔧 dernier technicien maintenance
+                    pneus.tech_last_maintained_by = request.user
 
                     pneus.save()
+
 
                     # ====================================================
                     # LOG
@@ -316,8 +364,16 @@ def controle_pneus_view(request, exemplaire_id):
         pneus = ControlePneus(
             voiture_exemplaire=exemplaire,
             kilometres_chassis=(
-                exemplaire.kilometres_chassis
-            )
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
 
         pneus.assign_technicien(
@@ -395,62 +451,98 @@ def modifier_pneus_view(request, pneu_id):
             try:
                 with transaction.atomic():
 
-                    pneus = form.save(commit=False)
-
-                    # =========================
-                    # KILOMÉTRAGE
-                    # =========================
-
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
                     km = form.cleaned_data.get(
                         "kilometrage_pneus"
                     )
 
-                    ancien_kilometrage = (
-                        exemplaire.kilometres_chassis or 0
-                    )
-
-                    kilometrage_variation = 0
-
                     if km is not None:
-
                         km = int(km)
 
-                        if km < ancien_kilometrage:
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    rollback_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
                             raise ValidationError(
                                 _(
-                                    "Le kilométrage du contrôle des pneus "
-                                    "ne peut pas être inférieur au kilométrage "
-                                    "actuel du véhicule."
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
                                 )
                             )
 
-                        kilometrage_variation = (
-                            km - ancien_kilometrage
-                        )
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
 
-                        # Mise à jour véhicule
-                        exemplaire.kilometres_chassis = km
+                    # ==================================================
+                    # ESSUYAGE
+                    # ==================================================
+                    pneus = form.save(
+                        commit=False
+                    )
 
-                        exemplaire.save(
-                            update_fields=[
-                                "kilometres_chassis"
-                            ]
-                        )
+                    pneus.voiture_exemplaire = (
+                        exemplaire
+                    )
 
-                    # =========================
-                    # CONTRÔLE PNEUS
-                    # =========================
-
-                    pneus.kilometrage_pneus = km
-
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
                     pneus.kilometres_chassis = (
-                        ancien_kilometrage
+                        rollback_chassis
                     )
 
-                    pneus.kilometrage_variation = (
-                        kilometrage_variation
+                    pneus.kilometres_moteur = (
+                        rollback_moteur
                     )
 
+                    pneus.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    pneus.kilometrage_net_ext = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        pneus.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        pneus.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
                     pneus.assign_technicien(
                         request.user
                     )
@@ -459,24 +551,28 @@ def modifier_pneus_view(request, pneu_id):
                         request.user
                     )
 
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # Le save() du modèle VoitureExemplaire
+                        # doit gérer update_kilometres()
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE Freins
+                    # ==================================================
                     pneus.save()
 
-                    # =========================
-                    # MAINTENANCE
-                    # =========================
-
-                    if pneus.maintenance_id:
-
-                        pneus.maintenance.kilometres_chassis = (
-                            exemplaire.kilometres_chassis
-                        )
-
-                        pneus.maintenance.save(
-                            update_fields=[
-                                "kilometres_chassis"
-                            ]
-                        )
-
+                    form.save_m2m()
                     # =========================
                     # LOG
                     # =========================
@@ -633,16 +729,30 @@ def delete_pneus_view(request, pneu_id):
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 
@@ -693,7 +803,7 @@ def delete_pneus_view(request, pneu_id):
             )
 
             return redirect(
-                "niveaux:niveaux_detail",
+                "pneus:pneus_detail",
                  pneu_id=pneus.id,
             )
 

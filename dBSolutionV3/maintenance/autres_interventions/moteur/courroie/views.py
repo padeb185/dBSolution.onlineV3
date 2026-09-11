@@ -605,47 +605,6 @@ def modifier_courroie_view(request, courroie_id):
     )
 
 
-@login_required
-def rapport_courroie_view(request, pk):
-    obj = get_object_or_404(CourroieDistribution, pk=pk)
-
-    rapport = obj.generer_rapport_remplacement()
-
-    return render(request, "courroie/rapport_courroie.html", {
-        "rapport": rapport,
-        "obj": obj
-    })
-
-
-
-
-
-class CourroieDistributionRapportDetailView(DetailView):
-    model = CourroieDistribution
-    template_name = "courroie/rapport_pdf_courroie.html"
-    context_object_name = "obj"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        obj = self.object
-
-        rapport = obj.generer_rapport_remplacement()
-
-        if not rapport:
-            rapport = {"lignes": [], "total_general": Decimal("0")}
-
-        # 🔥 AJOUT DU TAUX TVA DANS CHAQUE LIGNE
-        taux_tva = obj.TVA_PIECES.get(obj.pays, 0)
-
-        for ligne in rapport["lignes"]:
-            ligne["taux_tva"] = taux_tva
-
-        context["rapport"] = rapport
-
-        return context
-
-
 
 
 @never_cache
