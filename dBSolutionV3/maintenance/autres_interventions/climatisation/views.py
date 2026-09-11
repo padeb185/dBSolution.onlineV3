@@ -124,13 +124,20 @@ def clim_form_view(request, exemplaire_id):
                     # =========================
                     # KILOMÉTRAGE
                     # =========================
+                    # ✅ On conserve le kilométrage précédent
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
 
                     km = form.cleaned_data.get(
                         "kilometrage_clim"
-                    )
-
-                    ancien_kilometrage = (
-                            exemplaire.kilometres_chassis or 0
                     )
 
                     kilometrage_variation = 0
@@ -152,11 +159,21 @@ def clim_form_view(request, exemplaire_id):
                                 km - ancien_kilometrage
                         )
 
-                        # Mise à jour du kilométrage véhicule
-                        exemplaire.kilometres_rollback = ancien_kilometrage
+                        exemplaire.kilometres_rollback = (
+                            ancien_kilometrage
+                        )
 
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
+                        exemplaire.kilometres_boite_rollback = (
+                            ancien_kilometrage_boite
+                        )
+
+                        exemplaire.kilometres_moteur_rollback = (
+                            ancien_kilometrage_moteur
+                        )
+
+                        # =========================
+                        # DATE INTERVENTION
+                        # =========================
 
                         exemplaire.date_derniere_intervention = (
                             timezone.localtime(
@@ -164,22 +181,38 @@ def clim_form_view(request, exemplaire_id):
                             ).date()
                         )
 
+                        # =========================
+                        # NOUVEAU KILOMÉTRAGE
+                        # =========================
+
+                        exemplaire.kilometres_chassis = km
+
+                        # Recalcule :
+                        # - kilometres_moteur
+                        # - kilometres_boite
+                        # - variation_kilometres
                         exemplaire.update_kilometres()
+
+                        # =========================
+                        # UNE SEULE SAUVEGARDE
+                        # =========================
 
                         exemplaire.save(
                             update_fields=[
                                 "kilometres_chassis",
-                                "kilometres_rollback",
                                 "date_derniere_intervention",
+
+                                # Rollback
+                                "kilometres_rollback",
+                                "kilometres_boite_rollback",
+                                "kilometres_moteur_rollback",
+
+                                # Valeurs recalculées
+                                "kilometres_moteur",
+                                "kilometres_boite",
+                                "variation_kilometres",
                             ]
                         )
-
-                        # 🔗 checkup UNIQUE
-                        clim = form.save(commit=False)
-                        clim.assign_technicien(request.user)
-
-                        clim.kilometres_chassis = exemplaire.kilometres_chassis
-                        clim.kilometrage_clim = km
 
                     # ------------------------------------------
                     # Création de la maintenance
@@ -233,21 +266,28 @@ def clim_form_view(request, exemplaire_id):
 
                     clim.kilometrage_clim = km
 
+                    # Variation
+                    # # kilométrage AVANT le abs
                     clim.kilometres_chassis = (
                         ancien_kilometrage
                     )
+                    clim.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+                    clim.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
 
+                    # différence entre ancien et nouveau kilométrage
                     clim.kilometrage_variation = (
                         kilometrage_variation
                     )
 
-                    clim.assign_technicien(
-                        request.user
-                    )
+                    # 👨‍🔧 technicien
+                    clim.assign_technicien(request.user)
 
-                    clim.tech_last_maintained_by = (
-                        request.user
-                    )
+                    # 👨‍🔧 dernier technicien maintenance
+                    clim.tech_last_maintained_by = request.user
 
                     clim.save()
                     # Nécessaire si le formulaire contient
@@ -307,7 +347,18 @@ def clim_form_view(request, exemplaire_id):
     else:
         clim_instance = Climatisation(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis,
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
+
         )
 
         clim_instance.assign_technicien(request.user)
@@ -585,24 +636,132 @@ def modifier_clim_view(request, climatisation_id):
         )
 
         if form.is_valid():
-            form.save()
+
+            try:
+                with transaction.atomic():
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get("kilometrage_clim")
+
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = exemplaire.kilometres_chassis or 0
+                    rollback_moteur = exemplaire.kilometres_moteur or 0
+                    rollback_boite = exemplaire.kilometres_boite or 0
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _("Le kilométrage ne peut pas être négatif.")
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # clim BLOCS
+                    # ==================================================
+                    clim = form.save(commit=False)
+
+                    clim.voiture_exemplaire = exemplaire
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    clim.kilometres_chassis = rollback_chassis
+                    clim.kilometres_moteur = rollback_moteur
+                    clim.kilometres_boite = rollback_boite
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    clim.kilometrage_clim = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        clim.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        clim.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    clim.assign_technicien(request.user)
+
+                    clim.tech_last_maintained_by = request.user
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # Le save() du modèle VoitureExemplaire
+                        # doit gérer update_kilometres()
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE clim
+                    # ==================================================
+                    clim.save()
+
+                    form.save_m2m()
 
 
 
-            ACTION_MODIFICATION_CONTROLE_CLIMATISATION = gettext_noop(
-                "Modification du contrôle de la climatisation"
-            )
+                    ACTION_MODIFICATION_CONTROLE_CLIMATISATION = gettext_noop(
+                        "Modification du contrôle de la climatisation"
+                    )
 
-            UserLog.objects.create(
-                utilisateur=request.user,
-                action=f"{ACTION_MODIFICATION_CONTROLE_CLIMATISATION} - {exemplaire.immatriculation}"
-            )
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=f"{ACTION_MODIFICATION_CONTROLE_CLIMATISATION} - {exemplaire.immatriculation}"
+                    )
 
-            messages.success(request, _("Contrôle du système de climatisation modifié avec succès !"))
-            return redirect("climatisation:clim_detail", climatisation_id=clim.id)
+                    messages.success(request, _("Contrôle du système de climatisation modifié avec succès !"))
+                    return redirect("climatisation:clim_detail", climatisation_id=clim.id)
+
+            except ValidationError as e:
+
+                form.add_error(
+                    "kilometrage_clim",
+                    e
+                )
+
+                messages.error(
+                    request,
+                    _("Kilométrage invalide.")
+                )
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
-            print(form.errors)
+
 
     # -------------------------
     # GET
@@ -919,16 +1078,30 @@ def delete_clim_view(request, climatisation_id):
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 

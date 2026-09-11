@@ -10,7 +10,6 @@ from maintenance.autres_interventions.climatisation.models import Climatisation
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from maintenance.autres_interventions.echappement.models import Echappement
 from maintenance.autres_interventions.embrayage.models import Embrayage
-from maintenance.autres_interventions.moteur import allumage
 from maintenance.autres_interventions.moteur.allumage.models import Allumage
 from maintenance.autres_interventions.refroidissement.models import Refroidissement
 from maintenance.models import Maintenance

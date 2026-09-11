@@ -125,13 +125,20 @@ def boite_check_view(request, exemplaire_id):
                     # =========================
                     # KILOMÉTRAGE
                     # =========================
+                    # ✅ On conserve le kilométrage précédent
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
 
                     km = form.cleaned_data.get(
                         "kilometrage_controle_boite"
-                    )
-
-                    ancien_kilometrage = (
-                            exemplaire.kilometres_chassis or 0
                     )
 
                     kilometrage_variation = 0
@@ -153,11 +160,25 @@ def boite_check_view(request, exemplaire_id):
                                 km - ancien_kilometrage
                         )
 
-                        # Mise à jour du kilométrage véhicule
-                        exemplaire.kilometres_rollback = ancien_kilometrage
+                        # =========================
+                        # ROLLBACK AVANT INTERVENTION
+                        # =========================
 
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
+                        exemplaire.kilometres_rollback = (
+                            ancien_kilometrage
+                        )
+
+                        exemplaire.kilometres_boite_rollback = (
+                            ancien_kilometrage_boite
+                        )
+
+                        exemplaire.kilometres_moteur_rollback = (
+                            ancien_kilometrage_moteur
+                        )
+
+                        # =========================
+                        # DATE INTERVENTION
+                        # =========================
 
                         exemplaire.date_derniere_intervention = (
                             timezone.localtime(
@@ -165,18 +186,38 @@ def boite_check_view(request, exemplaire_id):
                             ).date()
                         )
 
+                        # =========================
+                        # NOUVEAU KILOMÉTRAGE
+                        # =========================
+
+                        exemplaire.kilometres_chassis = km
+
+                        # Recalcule :
+                        # - kilometres_moteur
+                        # - kilometres_boite
+                        # - variation_kilometres
                         exemplaire.update_kilometres()
+
+                        # =========================
+                        # UNE SEULE SAUVEGARDE
+                        # =========================
 
                         exemplaire.save(
                             update_fields=[
                                 "kilometres_chassis",
-                                "kilometres_rollback",
                                 "date_derniere_intervention",
+
+                                # Rollback
+                                "kilometres_rollback",
+                                "kilometres_boite_rollback",
+                                "kilometres_moteur_rollback",
+
+                                # Valeurs recalculées
+                                "kilometres_moteur",
+                                "kilometres_boite",
+                                "variation_kilometres",
                             ]
                         )
-
-
-
 
                     # 🔴 maintenance unique
                     maintenance = Maintenance.objects.create(
@@ -207,6 +248,7 @@ def boite_check_view(request, exemplaire_id):
                         maintenance.direction = request.user
 
                     maintenance.save()
+
                     boite.assign_technicien(request.user)
 
                     boite.kilometrage_controle_boite = km
@@ -215,17 +257,30 @@ def boite_check_view(request, exemplaire_id):
                         ancien_kilometrage
                     )
 
+                    boite.kilometrage_boite = km
+
+                    # Variation
+                    # # kilométrage AVANT le boite
+                    boite.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+                    boite.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+                    boite.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
+
+                    # différence entre ancien et nouveau kilométrage
                     boite.kilometrage_variation = (
                         kilometrage_variation
                     )
 
-                    boite.assign_technicien(
-                        request.user
-                    )
+                    # 👨‍🔧 technicien
+                    boite.assign_technicien(request.user)
 
-                    boite.tech_last_maintained_by = (
-                        request.user
-                    )
+                    # 👨‍🔧 dernier technicien maintenance
+                    boite.tech_last_maintained_by = request.user
 
                     boite.save()
 
@@ -253,7 +308,17 @@ def boite_check_view(request, exemplaire_id):
     else:
         boite = ControleBoite(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
 
         boite.assign_technicien(request.user)
@@ -316,22 +381,129 @@ def modifier_boite_view(request, boite_id):
             exemplaire=boite.voiture_exemplaire
         )
         if form.is_valid():
-            form.save()
 
-            ACTION_MODIFICATION_BOITE_VITESSE = gettext_noop(
-                "Modification contrôle de la boite de vitesse"
-            )
+            try:
+                with transaction.atomic():
 
-            UserLog.objects.create(
-                utilisateur=request.user,
-                action=f"{ACTION_MODIFICATION_BOITE_VITESSE} - {exemplaire.immatriculation}"
-            )
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get("kilometrage_controle_boite")
 
-            messages.success(request, _("Checkup de la boite de vitesse modifié avec succès !"))
-            return redirect(
-                "boite_de_vitesse:boite_detail",
-                boite_id=boite.id,
-            )
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = exemplaire.kilometres_chassis or 0
+                    rollback_moteur = exemplaire.kilometres_moteur or 0
+                    rollback_boite = exemplaire.kilometres_boite or 0
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _("Le kilométrage ne peut pas être négatif.")
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # boite BLOCS
+                    # ==================================================
+                    boite = form.save(commit=False)
+
+                    boite.voiture_exemplaire = exemplaire
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    boite.kilometres_chassis = rollback_chassis
+                    boite.kilometres_moteur = rollback_moteur
+                    boite.kilometres_boite = rollback_boite
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    boite.kilometrage_boite = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        boite.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        boite.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    boite.assign_technicien(request.user)
+
+                    boite.tech_last_maintained_by = request.user
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # Le save() du modèle VoitureExemplaire
+                        # doit gérer update_kilometres()
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE boite
+                    # ==================================================
+                    boite.save()
+
+                    form.save_m2m()
+
+                ACTION_MODIFICATION_BOITE_VITESSE = gettext_noop(
+                    "Modification contrôle de la boite de vitesse"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_MODIFICATION_BOITE_VITESSE} - {exemplaire.immatriculation}"
+                )
+
+                messages.success(request, _("Checkup de la boite de vitesse modifié avec succès !"))
+                return redirect(
+                    "boite_de_vitesse:boite_detail",
+                    boite_id=boite.id,
+                )
+            except ValidationError as e:
+
+                form.add_error(
+                    "kilometrage_controle_boite",
+                    e
+                )
+
+                messages.error(
+                    request,
+                    _("Kilométrage invalide.")
+                )
 
 
         else:
@@ -438,17 +610,34 @@ def delete_boite_view(request, boite_id):
                 # ==================================================
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 
