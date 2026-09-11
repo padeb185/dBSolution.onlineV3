@@ -112,13 +112,20 @@ def courroie_access_form_view(request, exemplaire_id):
                     # =========================
                     # KILOMÉTRAGE
                     # =========================
+                    # ✅ On conserve le kilométrage précédent
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
 
                     km = form.cleaned_data.get(
                         "kilometrage_access"
-                    )
-
-                    ancien_kilometrage = (
-                            exemplaire.kilometres_chassis or 0
                     )
 
                     kilometrage_variation = 0
@@ -140,11 +147,21 @@ def courroie_access_form_view(request, exemplaire_id):
                                 km - ancien_kilometrage
                         )
 
-                        # Mise à jour du kilométrage véhicule
-                        exemplaire.kilometres_rollback = ancien_kilometrage
+                        exemplaire.kilometres_rollback = (
+                            ancien_kilometrage
+                        )
 
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
+                        exemplaire.kilometres_boite_rollback = (
+                            ancien_kilometrage_boite
+                        )
+
+                        exemplaire.kilometres_moteur_rollback = (
+                            ancien_kilometrage_moteur
+                        )
+
+                        # =========================
+                        # DATE INTERVENTION
+                        # =========================
 
                         exemplaire.date_derniere_intervention = (
                             timezone.localtime(
@@ -152,22 +169,38 @@ def courroie_access_form_view(request, exemplaire_id):
                             ).date()
                         )
 
+                        # =========================
+                        # NOUVEAU KILOMÉTRAGE
+                        # =========================
+
+                        exemplaire.kilometres_chassis = km
+
+                        # Recalcule :
+                        # - kilometres_moteur
+                        # - kilometres_boite
+                        # - variation_kilometres
                         exemplaire.update_kilometres()
+
+                        # =========================
+                        # UNE SEULE SAUVEGARDE
+                        # =========================
 
                         exemplaire.save(
                             update_fields=[
                                 "kilometres_chassis",
-                                "kilometres_rollback",
                                 "date_derniere_intervention",
+
+                                # Rollback
+                                "kilometres_rollback",
+                                "kilometres_boite_rollback",
+                                "kilometres_moteur_rollback",
+
+                                # Valeurs recalculées
+                                "kilometres_moteur",
+                                "kilometres_boite",
+                                "variation_kilometres",
                             ]
                         )
-
-                        # 🔗 checkup UNIQUE
-                        courroie_access = form.save(commit=False)
-                        courroie_access.assign_technicien(request.user)
-
-                        courroie_access.kilometres_chassis = exemplaire.kilometres_chassis
-                        courroie_access.kilometrage_access = km
 
                     maintenance = Maintenance.objects.create(
                         societe=request.user.societe,
@@ -215,6 +248,24 @@ def courroie_access_form_view(request, exemplaire_id):
                         request.user
                     )
 
+                    courroie_access.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+                    courroie_access.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
+
+                    # différence entre ancien et nouveau kilométrage
+                    courroie_access.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    # 👨‍🔧 technicien
+                    courroie_access.assign_technicien(request.user)
+
+                    # 👨‍🔧 dernier technicien maintenance
+                    courroie_access.tech_last_maintained_by = request.user
+
                     courroie_access.save()
                     form.save_m2m()
 
@@ -253,7 +304,18 @@ def courroie_access_form_view(request, exemplaire_id):
     else:
         courroie_accessoires = CourroieAccessoires(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
+
         )
         courroie_accessoires.assign_technicien(request.user)
 
@@ -374,17 +436,105 @@ def modifier_courroie_access_view(request, courroie_accessoires_id):
         )
 
         if form.is_valid():
+
             try:
-                courroie_accessoires = form.save(commit=False)
+                with transaction.atomic():
 
-                # 🔧 Réaffectation technicien + société
-                courroie_accessoires.assign_technicien(request.user)
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get("kilometrage_access")
 
-                courroie_accessoires.save()
+                    if km is not None:
+                        km = int(km)
 
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = exemplaire.kilometres_chassis or 0
+                    rollback_moteur = exemplaire.kilometres_moteur or 0
+                    rollback_boite = exemplaire.kilometres_boite or 0
 
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
 
-                ACTION_MODIFICATION_CONTROLE_COURROIE_ACCESSOIRES = gettext_noop(
+                        if km < 0:
+                            raise ValidationError(
+                                _("Le kilométrage ne peut pas être négatif.")
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # courroie_access BLOCS
+                    # ==================================================
+                    courroie_access = form.save(commit=False)
+
+                    courroie_access.voiture_exemplaire = exemplaire
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    courroie_access.kilometres_chassis = rollback_chassis
+                    courroie_access.kilometres_moteur = rollback_moteur
+                    courroie_access.kilometres_boite = rollback_boite
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    courroie_access.kilometrage_access = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        courroie_access.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        courroie_access.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    courroie_access.assign_technicien(request.user)
+
+                    courroie_access.tech_last_maintained_by = request.user
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # Le save() du modèle VoitureExemplaire
+                        # doit gérer update_kilometres()
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE courroie_access
+                    # ==================================================
+                    courroie_access.save()
+
+                    form.save_m2m()
+
+                    ACTION_MODIFICATION_CONTROLE_COURROIE_ACCESSOIRES = gettext_noop(
                     "Modification du contrôle de la courroie d'accessoires"
                 )
 
@@ -406,7 +556,6 @@ def modifier_courroie_access_view(request, courroie_accessoires_id):
 
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
-            print(form.errors)
 
     # -------------------------
     # GET
@@ -567,20 +716,35 @@ def delete_cour_access_view(request, courroie_accessoires_id):
 
                 immatriculation = exemplaire.immatriculation
 
+
                 # ==================================================
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 

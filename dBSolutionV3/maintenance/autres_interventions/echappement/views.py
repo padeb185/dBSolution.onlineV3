@@ -207,7 +207,17 @@ def echappement_check_view(request, exemplaire_id):
         # Instance liée au véhicule avant validation du formulaire
         instance_echappement = Echappement(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis,
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
 
         instance_echappement.assign_technicien(
@@ -232,15 +242,23 @@ def echappement_check_view(request, exemplaire_id):
                 # =====================================================
                 # KILOMÉTRAGE
                 # =====================================================
+                # ✅ On conserve le kilométrage précédent
+                ancien_kilometrage = (
+                        exemplaire.kilometres_chassis or 0
+                )
+                ancien_kilometrage_boite = (
+                        exemplaire.kilometres_boite or 0
+                )
+
+                ancien_kilometrage_moteur = (
+                        exemplaire.kilometres_moteur or 0
+                )
 
                 km = form.cleaned_data.get(
                     "kilometrage_echappement"
                 )
 
-                ancien_kilometrage = (
-                        exemplaire.kilometres_chassis
-                        or 0
-                )
+
 
                 # -----------------------------------------------------
                 # Kilométrage obligatoire
@@ -281,11 +299,22 @@ def echappement_check_view(request, exemplaire_id):
                                 km - ancien_kilometrage
                         )
 
-                        # Mise à jour du kilométrage véhicule
-                        exemplaire.kilometres_rollback = ancien_kilometrage
 
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
+                        exemplaire.kilometres_rollback = (
+                            ancien_kilometrage
+                        )
+
+                        exemplaire.kilometres_boite_rollback = (
+                            ancien_kilometrage_boite
+                        )
+
+                        exemplaire.kilometres_moteur_rollback = (
+                            ancien_kilometrage_moteur
+                        )
+
+                        # =========================
+                        # DATE INTERVENTION
+                        # =========================
 
                         exemplaire.date_derniere_intervention = (
                             timezone.localtime(
@@ -293,13 +322,36 @@ def echappement_check_view(request, exemplaire_id):
                             ).date()
                         )
 
+                        # =========================
+                        # NOUVEAU KILOMÉTRAGE
+                        # =========================
+
+                        exemplaire.kilometres_chassis = km
+
+                        # Recalcule :
+                        # - kilometres_moteur
+                        # - kilometres_boite
+                        # - variation_kilometres
                         exemplaire.update_kilometres()
+
+                        # =========================
+                        # UNE SEULE SAUVEGARDE
+                        # =========================
 
                         exemplaire.save(
                             update_fields=[
                                 "kilometres_chassis",
-                                "kilometres_rollback",
                                 "date_derniere_intervention",
+
+                                # Rollback
+                                "kilometres_rollback",
+                                "kilometres_boite_rollback",
+                                "kilometres_moteur_rollback",
+
+                                # Valeurs recalculées
+                                "kilometres_moteur",
+                                "kilometres_boite",
+                                "variation_kilometres",
                             ]
                         )
 
@@ -420,9 +472,6 @@ def echappement_check_view(request, exemplaire_id):
                                 kilometrage_variation
                             )
 
-                            # ---------------------------------------------
-                            # Technicien
-                            # ---------------------------------------------
 
                             echappement.assign_technicien(
                                 request.user
@@ -432,42 +481,27 @@ def echappement_check_view(request, exemplaire_id):
                                 request.user
                             )
 
-                            # =============================================
-                            # SAUVEGARDE ÉCHAPPEMENT
-                            # =============================================
+                            echappement.kilometres_boite = (
+                                ancien_kilometrage_boite
+                            )
+                            echappement.kilometres_moteur = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            # différence entre ancien et nouveau kilométrage
+                            echappement.kilometrage_variation = (
+                                kilometrage_variation
+                            )
+
+                            # 👨‍🔧 technicien
+                            echappement.assign_technicien(request.user)
+
+                            # 👨‍🔧 dernier technicien maintenance
+                            echappement.tech_last_maintained_by = request.user
 
                             echappement.save()
-
-                            # =============================================
-                            # MANY TO MANY
-                            # =============================================
-
                             form.save_m2m()
 
-                            # =============================================
-                            # MISE À JOUR DU VÉHICULE
-                            # =============================================
-
-                            # Sauvegarde du kilométrage précédent
-                            exemplaire.kilometres_rollback = (
-                                ancien_kilometrage
-                            )
-
-                            # Nouveau kilométrage
-                            exemplaire.kilometres_chassis = (
-                                km
-                            )
-
-                            # Date de dernière intervention
-                            exemplaire.date_derniere_intervention = (
-                                timezone.localdate()
-                            )
-
-                            # Recalcul des kilométrages
-                            exemplaire.update_kilometres()
-
-                            # Sauvegarde du véhicule
-                            exemplaire.save()
 
                             # =============================================
                             # LOG
@@ -540,7 +574,17 @@ def echappement_check_view(request, exemplaire_id):
 
         instance_echappement = Echappement(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis,
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
 
         instance_echappement.assign_technicien(
@@ -592,7 +636,6 @@ def echappement_detail_view(request,echappement_id):
 def modifier_echappement_view(request, echappement_id):
     tenant = request.user.societe
 
-
     # Récupération du contrôle échappement avec son exemplaire
     echappement = get_object_or_404(
         Echappement.objects.select_related("voiture_exemplaire"),
@@ -605,6 +648,7 @@ def modifier_echappement_view(request, echappement_id):
     # POST
     # -------------------------
     if request.method == "POST":
+
         form = ControleEchappementForm(
             request.POST,
             instance=echappement,
@@ -613,46 +657,209 @@ def modifier_echappement_view(request, echappement_id):
         )
 
         if form.is_valid():
-            form.save()
 
+            try:
+                with transaction.atomic():
 
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get(
+                        "kilometrage_echappement"
+                    )
 
-            ACTION_MODIFICATION_CONTROLE_ECHAPPEMENT = gettext_noop(
-                "Modification contrôle de l'échappement"
-            )
+                    if km is not None:
+                        km = int(km)
 
-            UserLog.objects.create(
-                utilisateur=request.user,
-                action=f"{ACTION_MODIFICATION_CONTROLE_ECHAPPEMENT} - {exemplaire.immatriculation}"
-            )
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                        exemplaire.kilometres_chassis or 0
+                    )
 
-            messages.success(
+                    rollback_moteur = (
+                        exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                        exemplaire.kilometres_boite or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # ÉCHAPPEMENT
+                    # ==================================================
+                    echappement = form.save(
+                        commit=False
+                    )
+
+                    echappement.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    echappement.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    echappement.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    echappement.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    echappement.kilometrage_echappement = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        echappement.kilometrage_variation = (
+                            km - rollback_chassis
+                        )
+                    else:
+                        echappement.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    echappement.assign_technicien(
+                        request.user
+                    )
+
+                    echappement.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE ÉCHAPPEMENT
+                    # ==================================================
+                    echappement.save()
+
+                    form.save_m2m()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_MODIFICATION_CONTROLE_ECHAPPEMENT = gettext_noop(
+                    "Modification contrôle de l'échappement"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_MODIFICATION_CONTROLE_ECHAPPEMENT} - "
+                        f"{exemplaire.immatriculation}"
+                    )
+                )
+
+                # ==================================================
+                # SUCCÈS
+                # ==================================================
+                messages.success(
+                    request,
+                    _(
+                        "Checkup de l'échappement "
+                        "modifié avec succès !"
+                    ),
+                )
+
+                return redirect(
+                    "echappement:echappement_detail",
+                    echappement_id=echappement.id,
+                )
+
+            except ValidationError as e:
+
+                form.add_error(
+                    "kilometrage_echappement",
+                    e
+                )
+
+                messages.error(
+                    request,
+                    _("Kilométrage invalide.")
+                )
+
+            except Exception as e:
+
+                messages.error(
+                    request,
+                    _(
+                        "Erreur lors de la modification : "
+                        "%(error)s"
+                    ) % {
+                        "error": str(e)
+                    }
+                )
+
+        else:
+
+            messages.error(
                 request,
-                _("Checkup de l'échappement modifié avec succès !"),
+                _("Le formulaire contient des erreurs.")
             )
-
-            return redirect(
-                "echappement:echappement_detail",
-                echappement_id=echappement.id,
-            )
-
-        messages.error(
-            request,
-            _("Le formulaire contient des erreurs."),
-        )
-        print(form.errors)
 
     # -------------------------
     # GET
     # -------------------------
     else:
+
         form = ControleEchappementForm(
             instance=echappement,
             user=request.user,
             exemplaire=exemplaire,
         )
 
-        return render(
+    # -------------------------
+    # RENDER
+    # -------------------------
+    return render(
         request,
         "echappement/modifier_echappement.html",
         {
@@ -660,8 +867,7 @@ def modifier_echappement_view(request, echappement_id):
             "echappement": echappement,
             "exemplaire": exemplaire,
         },
-        )
-
+    )
 
 
 
@@ -738,20 +944,35 @@ def delete_echappement_view(request, echappement_id):
 
                 immatriculation = exemplaire.immatriculation
 
+
                 # ==================================================
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 
