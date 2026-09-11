@@ -1,10 +1,18 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load i18n static %}
 
 {% block content %}
-<div class="p-6 w-full">
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
 
-    <h1 class="text-2xl font-bold mb-6">{% trans "Liste de tous les véhicules" %}</h1>
+    <h1 class="text-2xl font-bold mb-6 flex items-center gap-4">
+        <img src="{% static 'icons/mecanique.png' %}" alt="Mécanique"
+             style="width:60px; height:60px; margin-right:10px;">
+        {% trans "Liste des véhicules :" %}
+        {{ modele.voiture_marque.nom_marque }} {{ modele.nom_modele }}
+        {% if modele.nom_variante %}- {{ modele.nom_variante }}{% endif %}
+    </h1>
+
+    {% if exemplaires %}
 
     <!-- Recherche -->
     <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -22,103 +30,116 @@
         >
     </div>
 
-    <!-- Liste des véhicules -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {% for exemplaire in exemplaires %}
-            <div class="bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-4 flex flex-col md:flex-row justify-between items-center cursor-pointer vehicle-card"
-                 onclick="window.location.href='{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=exemplaire.id %}'"
-                 data-marque="{{ exemplaire.voiture_marque.nom_marque|lower }}"
-                 data-immatriculation="{{ exemplaire.immatriculation|lower }}">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="exemplaires-container">
 
-                <!-- Gauche : Plaque + infos voiture -->
-                <div class="flex flex-col gap-3 w-full md:w-auto">
+        {% for ex in exemplaires %}
+        <a href="{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=ex.id %}"
+           class="exemplaire-card bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-4 flex flex-col gap-4 cursor-pointer"
+           data-marque="{{ ex.voiture_marque.nom_marque|lower }}"
+           data-immatriculation="{{ ex.immatriculation|lower }}">
 
-                    <!-- Plaque Belgique -->
+            {% comment %} Gestion des plaques par pays {% endcomment %}
+            {% if ex.pays == 'Belgique' %}
+                <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                        <span>🇪🇺</span>
+                        <span>B</span>
+                    </div>
+                    <input type="text" value="{{ ex.immatriculation }}" readonly
+                           class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
+                </div>
+            {% elif ex.pays == 'Luxembourg' %}
+                <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial] mb-4">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                        <span>🇪🇺</span>
+                        <span>L</span>
+                    </div>
+                    <input type="text" value="{{ ex.immatriculation }}" readonly
+                           class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
+                </div>
+            {% elif ex.pays == 'Allemagne' %}
+                <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial] mb-4">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                        <span>🇪🇺</span>
+                        <span>D</span>
+                    </div>
+                    <input type="text" value="{{ ex.immatriculation }}" readonly
+                           class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
+                </div>
+            {% endif %}
 
+            <!-- Infos voiture -->
+            <!-- Infos voiture + logo à droite -->
+            <div class="flex items-center justify-between">
 
+                <!-- Texte -->
+                <div>
+                    <p class="font-semibold">
+                        {{ ex.voiture_marque.nom_marque }} {{ ex.voiture_modele.nom_modele }}
+                    </p>
 
-                    {% if exemplaire.pays == 'Belgique' %}
-                        <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
-                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-                                <span>🇪🇺</span>
-                                <span>B</span>
-                            </div>
-                            <input
-                                type="text"
-                                value="{{ exemplaire.immatriculation }}"
-                                oninput="this.value = this.value.toUpperCase();"
-                                class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0"
-                                readonly
-                            >
-                        </div>
-                    {% elif exemplaire.pays == 'Luxembourg' %}
-                        <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial] mb-4">
-                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-                                <span>🇪🇺</span>
-                                <span>L</span>
-                            </div>
-                            <input
-                                type="text"
-                                value="{{ exemplaire.immatriculation }}"
-                                oninput="this.value = this.value.toUpperCase();"
-                                class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0"
-                                readonly
-                            >
-                        </div>
-
-                    {% elif exemplaire.pays == 'Allemagne' %}
-                        <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial] mb-4">
-                            <!-- Bande UE -->
-                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-                                <span>🇪🇺</span>
-                                <span>D</span>
-                            </div>
-                            <input
-                                type="text"
-                                value="{{ exemplaire.immatriculation }}"
-                                oninput="this.value = this.value.toUpperCase();"
-                                class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0"
-                                readonly
-                            >
-                        </div>
+                    {% if ex.voiture_modele.nom_variante %}
+                        <p class="text-gray-600 text-sm">
+                            {{ ex.voiture_modele.nom_variante }}
+                        </p>
                     {% endif %}
 
+                    <p class="text-gray-500 text-sm">
+                        {% trans "Année" %}: {{ ex.annee_production }}/{{ ex.mois_production }}
+                    </p>
 
-                    <!-- Infos voiture -->
-                    <div>
-                        <p class="font-semibold">{{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }}</p>
-                        {% if exemplaire.voiture_modele.nom_variante %}
-                            <p class="text-gray-600 text-sm">{{ exemplaire.voiture_modele.nom_variante }}</p>
-                        {% endif %}
-                    </div>
+                    <p class="text-gray-500 text-sm">
+                        {% trans "Vin simplifié" %}: {{ ex.vin_simplifie }}
+                    </p>
+
+                    <p class="text-gray-500 text-sm">
+                        {% trans "Kilométrage" %}: {{ ex.kilometres_chassis }} km
+                    </p>
+                     <p class="text-gray-500 text-sm">
+                        {% trans "Kilométrage du moteur" %}: {{ ex.kilometres_moteur }} km
+                    </p>
+                     <p class="text-gray-500 text-sm">
+                        {% trans "Kilométrage de la boite de vitesse" %}: {{ ex.kilometres_boite }} km
+                    </p>
+
+                    {% if ex.couleur %}
+                        <p class="text-gray-500 text-sm">
+                            {% trans "Couleur" %}: {{ ex.couleur }}
+                        </p>
+                    {% endif %}
                 </div>
 
-                <!-- Droite : Icône marque -->
-                <img src="{% static 'images/marques/' %}{{ exemplaire.voiture_marque.nom_marque|lower }}.png"
-                     class="w-[60px] h-[60px] mt-3 md:mt-0 md:ml-4 object-contain"
-                     onerror="this.src='{% static 'images/marques/default.png' %}'">
+                <img
+                    src="{% static 'images/marques/' %}{{ ex.voiture_marque.nom_marque|lower }}.png"
+                    alt="{{ ex.voiture_marque.nom_marque }}"
+                    style="width: 80px !important;
+                           height: auto !important;
+                           max-width: 80px !important;
+                           object-fit: contain;"
+                    onerror="this.style.display='none';"
+                >
+
             </div>
-        {% empty %}
-            <p class="text-gray-500">{% trans "Aucun véhicule trouvé." %}</p>
-        {% endfor %}
-    </div>
-     <br>
-    <br>
-    <div class="mb-4">
-        <a href="{% url 'utilisateurs:dashboard' %}"
-            class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-            {% trans "Retour au tableau de bord" %}
         </a>
+        {% endfor %}
+
     </div>
+
+    {% else %}
+    <div class="bg-red-50 border border-red-200 shadow-md rounded-lg p-6 text-center">
+        <p class="text-red-700 font-semibold">
+            {% trans "Aucun exemplaire disponible pour la maintenance." %}
+        </p>
+    </div>
+    {% endif %}
 
 </div>
-
 
 <script>
 (function(){
     const inputMarque = document.getElementById("search-marque");
     const inputImmat = document.getElementById("search-immatriculation");
-    const cards = document.querySelectorAll(".vehicle-card");
+    const cards = document.querySelectorAll(".exemplaire-card");
 
     function filterCards() {
         const marqueValue = inputMarque.value.trim().toLowerCase();
