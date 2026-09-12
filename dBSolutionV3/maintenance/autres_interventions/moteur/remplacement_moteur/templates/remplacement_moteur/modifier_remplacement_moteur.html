@@ -6,28 +6,49 @@
 <br>
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold flex items-center gap-4">
+   <!-- Header -->
+    <div class="mb-6">
 
-            <!-- Image société (corrigé : plus de alternateur) -->
-            {% if remplacement_moteur.tech_societe %}
-                {% with image_name=courroie.tech_societe.nom|slugify %}
-                    <img src="{% static 'remplacement_moteur/'|add:image_name|add:'.png' %}"
-                         alt="{{ remplacement_moteur.tech_societe.nom }}"
-                         class="w-12 h-12 rounded"
-                         onerror="this.onerror=null; this.src='{% static 'icons/engine.png' %}';">
-                {% endwith %}
-            {% else %}
-                <img src="{% static 'icons/engine.png' %}" class="w-12 h-12 rounded">
-            {% endif %}
+        <h1 class="text-2xl font-bold">
 
-            <span>{% trans "Modifier le remplacement du moteur" %}</span>
-            <span class="text-gray-700 font-medium">#{{ remplacement_moteur.nombre_remplacements }}</span>
+            <!-- Ligne 1 : icône + titre -->
+            <div class="flex items-center gap-4">
+                <img src="{% static 'icons/alternateur.png' %}"
+                     alt="alternateur"
+                     style="width:60px; height:60px;">
+
+                <span>
+                    {% trans "Modifier le remplacement du moteur" %}
+                </span>
+            </div>
+
+            <!-- Ligne 2 : marque + modèle + variante -->
+            <div class="flex items-center justify-center gap-4 mt-3">
+
+                {% static 'images/marques/' as marques_path %}
+
+                <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                     alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                     class="w-16 h-16 object-contain">
+
+                <span class="font-semibold">
+                    {{ exemplaire.voiture_modele.nom_modele }}
+
+                    {% if exemplaire.voiture_modele.nom_variante %}
+                        {{ exemplaire.voiture_modele.nom_variante }}
+                    {% endif %}
+                </span>
+
+            </div>
+
         </h1>
+
     </div>
 
-    <div class="mb-4">
+
+
+       <!-- Plaque -->
+    <div class="mb-4 flex justify-center">
         {% include "maintenance/partials/plaque.html" %}
     </div>
 
