@@ -117,11 +117,22 @@ def ref_form_view(request, exemplaire_id):
                 # ==================================================
                 # KILOMÉTRAGE
                 # ==================================================
-                km = form.cleaned_data.get("kilometrage_refroidissement")
-
                 ancien_kilometrage = (
                         exemplaire.kilometres_chassis or 0
                 )
+
+                ancien_kilometrage_boite = (
+                        exemplaire.kilometres_boite or 0
+                )
+
+                ancien_kilometrage_moteur = (
+                        exemplaire.kilometres_moteur or 0
+                )
+
+
+                km = form.cleaned_data.get("kilometrage_refroidissement")
+
+
 
                 if km is None:
                     form.add_error(
@@ -147,31 +158,68 @@ def ref_form_view(request, exemplaire_id):
                                 km - ancien_kilometrage
                         )
 
-                        exemplaire.kilometres_rollback = ancien_kilometrage
-
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
-
-                        exemplaire.date_derniere_intervention = (
-                            timezone.localtime(
-                                timezone.now()
-                            ).date()
-                        )
-
-                        exemplaire.update_kilometres()
-
-                        exemplaire.save(
-                            update_fields=[
-                                "kilometres_chassis",
-                                "kilometres_rollback",
-                                "date_derniere_intervention",
-                            ]
-                        )
 
                         # ==================================================
                         # TRANSACTION
                         # ==================================================
                         with transaction.atomic():
+
+                            # =============================================
+                            # ROLLBACK VÉHICULE
+                            # =============================================
+                            exemplaire.kilometres_rollback = (
+                                ancien_kilometrage
+                            )
+
+                            exemplaire.kilometres_boite_rollback = (
+                                ancien_kilometrage_boite
+                            )
+
+                            exemplaire.kilometres_moteur_rollback = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            # =============================================
+                            # DATE INTERVENTION
+                            # =============================================
+                            exemplaire.date_derniere_intervention = (
+                                timezone.localtime(
+                                    timezone.now()
+                                ).date()
+                            )
+
+                            # =============================================
+                            # NOUVEAU KILOMÉTRAGE
+                            # =============================================
+                            exemplaire.kilometres_chassis = km
+
+                            # Recalcule :
+                            # - kilometres_moteur
+                            # - kilometres_boite
+                            # - variation_kilometres
+                            exemplaire.update_kilometres()
+
+                            # =============================================
+                            # SAUVEGARDE VÉHICULE
+                            # =============================================
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                    "date_derniere_intervention",
+
+                                    # Rollback
+                                    "kilometres_rollback",
+                                    "kilometres_boite_rollback",
+                                    "kilometres_moteur_rollback",
+
+                                    # Valeurs recalculées
+                                    "kilometres_moteur",
+                                    "kilometres_boite",
+                                    "variation_kilometres",
+                                ]
+                            )
+
+
 
                             maintenance = Maintenance.objects.create(
                                 societe=tenant,
@@ -217,25 +265,45 @@ def ref_form_view(request, exemplaire_id):
 
                             refroidissement = form.save(commit=False)
 
-                            refroidissement.voiture_exemplaire = exemplaire
-                            refroidissement.maintenance = maintenance
 
-                            # Snapshot AVANT intervention
+                            refroidissement.voiture_exemplaire = (
+                                exemplaire
+                            )
+
+                            refroidissement.maintenance = (
+                                maintenance
+                            )
+
+                            # ---------------------------------------------
+                            # Kilométrage AVANT intervention
+                            # ---------------------------------------------
                             refroidissement.kilometres_chassis = (
                                 ancien_kilometrage
                             )
 
-                            # Kilométrage du contrôle
-                            refroidissement.kilometrage_refroidissement = km
+                            refroidissement.kilometres_boite = (
+                                ancien_kilometrage_boite
+                            )
 
-                            # Variation kilométrage
+                            refroidissement.kilometres_moteur = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            # ---------------------------------------------
+                            # Kilométrage refroidissement
+                            # ---------------------------------------------
+                            refroidissement.kilometrage_alte = km
+
+                            # ---------------------------------------------
+                            # Variation kilométrique
+                            # ---------------------------------------------
                             refroidissement.kilometrage_variation = (
                                 kilometrage_variation
                             )
 
-                            # ==================================================
+                            # =============================================
                             # TECHNICIEN
-                            # ==================================================
+                            # =============================================
                             refroidissement.assign_technicien(
                                 request.user
                             )
@@ -324,6 +392,8 @@ def ref_form_view(request, exemplaire_id):
                             exemplaire.save(
                                 update_fields=[
                                     "kilometres_chassis",
+                                    "kilometres_boite",
+                                    "kilometres_moteur"
                                 ]
                             )
 
@@ -385,7 +455,17 @@ def ref_form_view(request, exemplaire_id):
     else:
         ref_instance = Refroidissement(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis,
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
 
         ref_instance.assign_technicien(request.user)
@@ -638,20 +718,148 @@ def modifier_ref_view(request, ref_id):
         )
 
         if form.is_valid():
-            form.save()
+
+            try:
+                with transaction.atomic():
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get(
+                        "kilometrage_refroidissement"
+                    )
+
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    rollback_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # ÉCHAPPEMENT
+                    # ==================================================
+                    refroidissement = form.save(
+                        commit=False
+                    )
+
+                    refroidissement.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    refroidissement.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    refroidissement.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    refroidissement.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    refroidissement.kilometrage_alte = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        refroidissement.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        refroidissement.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    refroidissement.assign_technicien(
+                        request.user
+                    )
+
+                    refroidissement.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE ÉCHAPPEMENT
+                    # ==================================================
+                    refroidissement.save()
+
+                    form.save_m2m()
 
 
-            ACTION_MODIFICATION_CONTROLE_REFROIDISSEMENT = gettext_noop(
-                "Modification du contrôle du refroidissement"
-            )
+                ACTION_MODIFICATION_CONTROLE_REFROIDISSEMENT = gettext_noop(
+                    "Modification du contrôle du refroidissement"
+                )
 
-            UserLog.objects.create(
-                utilisateur=request.user,
-                action=f"{ACTION_MODIFICATION_CONTROLE_REFROIDISSEMENT} - {exemplaire.immatriculation}"
-            )
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_MODIFICATION_CONTROLE_REFROIDISSEMENT} - {exemplaire.immatriculation}"
+                )
 
-            messages.success(request, _("Contrôle du système de refroidissement modifié avec succès !"))
-            return redirect("refroidissement:ref_detail", ref_id=ref.id)
+                messages.success(request, _("Contrôle du système de refroidissement modifié avec succès !"))
+                return redirect("refroidissement:ref_detail", ref_id=ref.id)
+
+            except ValidationError as e:
+                form.add_error(None, e)
+                messages.error(request, _("Kilométrage invalide"))
+
 
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
@@ -944,17 +1152,34 @@ def delete_ref_view(request, ref_id):
                 # ==================================================
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 

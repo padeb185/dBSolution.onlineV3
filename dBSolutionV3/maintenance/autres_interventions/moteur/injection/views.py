@@ -132,11 +132,20 @@ def injection_form_view(request, exemplaire_id):
                 # ==================================================
                 # KILOMÉTRAGE
                 # ==================================================
-                km = form.cleaned_data.get("kilometrage_injection")
-
                 ancien_kilometrage = (
                         exemplaire.kilometres_chassis or 0
                 )
+
+                ancien_kilometrage_boite = (
+                        exemplaire.kilometres_boite or 0
+                )
+
+                ancien_kilometrage_moteur = (
+                        exemplaire.kilometres_moteur or 0
+                )
+
+                km = form.cleaned_data.get("kilometrage_injection")
+
 
                 if km is None:
                     form.add_error(
@@ -162,31 +171,70 @@ def injection_form_view(request, exemplaire_id):
                                 km - ancien_kilometrage
                         )
 
-                        exemplaire.kilometres_rollback = ancien_kilometrage
-
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
-
-                        exemplaire.date_derniere_intervention = (
-                            timezone.localtime(
-                                timezone.now()
-                            ).date()
-                        )
-
-                        exemplaire.update_kilometres()
-
-                        exemplaire.save(
-                            update_fields=[
-                                "kilometres_chassis",
-                                "kilometres_rollback",
-                                "date_derniere_intervention",
-                            ]
-                        )
 
                         # ==================================================
                         # TRANSACTION
                         # ==================================================
                         with transaction.atomic():
+
+
+                            # =============================================
+                            # ROLLBACK VÉHICULE
+                            # =============================================
+                            exemplaire.kilometres_rollback = (
+                                ancien_kilometrage
+                            )
+
+                            exemplaire.kilometres_boite_rollback = (
+                                ancien_kilometrage_boite
+                            )
+
+                            exemplaire.kilometres_moteur_rollback = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            # =============================================
+                            # DATE INTERVENTION
+                            # =============================================
+                            exemplaire.date_derniere_intervention = (
+                                timezone.localtime(
+                                    timezone.now()
+                                ).date()
+                            )
+
+                            # =============================================
+                            # NOUVEAU KILOMÉTRAGE
+                            # =============================================
+                            exemplaire.kilometres_chassis = km
+
+                            # Recalcule :
+                            # - kilometres_moteur
+                            # - kilometres_boite
+                            # - variation_kilometres
+                            exemplaire.update_kilometres()
+
+                            # =============================================
+                            # SAUVEGARDE VÉHICULE
+                            # =============================================
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                    "date_derniere_intervention",
+
+                                    # Rollback
+                                    "kilometres_rollback",
+                                    "kilometres_boite_rollback",
+                                    "kilometres_moteur_rollback",
+
+                                    # Valeurs recalculées
+                                    "kilometres_moteur",
+                                    "kilometres_boite",
+                                    "variation_kilometres",
+                                ]
+                            )
+
+
+
 
                             # ==================================================
                             # MAINTENANCE
@@ -233,25 +281,44 @@ def injection_form_view(request, exemplaire_id):
 
                             injection = form.save(commit=False)
 
-                            injection.voiture_exemplaire = exemplaire
-                            injection.maintenance = maintenance
+                            injection.voiture_exemplaire = (
+                                exemplaire
+                            )
 
-                            # Snapshot AVANT intervention
+                            injection.maintenance = (
+                                maintenance
+                            )
+
+                            # ---------------------------------------------
+                            # Kilométrage AVANT intervention
+                            # ---------------------------------------------
                             injection.kilometres_chassis = (
                                 ancien_kilometrage
                             )
 
-                            # Kilométrage du contrôle
-                            injection.kilometrage_injection = km
+                            injection.kilometres_boite = (
+                                ancien_kilometrage_boite
+                            )
 
-                            # Variation kilométrage
+                            injection.kilometres_moteur = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            # ---------------------------------------------
+                            # Kilométrage injection
+                            # ---------------------------------------------
+                            injection.kilometrage_alte = km
+
+                            # ---------------------------------------------
+                            # Variation kilométrique
+                            # ---------------------------------------------
                             injection.kilometrage_variation = (
                                 kilometrage_variation
                             )
 
-                            # ==================================================
+                            # =============================================
                             # TECHNICIEN
-                            # ==================================================
+                            # =============================================
                             injection.assign_technicien(
                                 request.user
                             )
@@ -259,6 +326,7 @@ def injection_form_view(request, exemplaire_id):
                             injection.tech_last_maintained_by = (
                                 request.user
                             )
+
 
                             # ==================================================
                             # MAIN-D'ŒUVRE
@@ -340,6 +408,8 @@ def injection_form_view(request, exemplaire_id):
                             exemplaire.save(
                                 update_fields=[
                                     "kilometres_chassis",
+                                    "kilometres_boite",
+                                    "kilometres_moteur"
                                 ]
                             )
 
@@ -402,7 +472,15 @@ def injection_form_view(request, exemplaire_id):
         injection = Injection(
             voiture_exemplaire=exemplaire,
             kilometres_chassis=(
-                exemplaire.kilometres_chassis or 0
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
             ),
         )
 
@@ -637,33 +715,149 @@ def modifier_injection_view(request, injection_id):
         )
 
         if form.is_valid():
+
             try:
-                injection = form.save(commit=False)
+                with transaction.atomic():
 
-                # 🔧 Réaffectation technicien + société
-                injection.assign_technicien(request.user)
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get(
+                        "kilometrage_injection"
+                    )
 
-                injection.save()
+                    if km is not None:
+                        km = int(km)
 
-                from django.utils.translation import gettext_noop
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                            exemplaire.kilometres_chassis or 0
+                    )
 
-                ACTION_MODIFICATION_CONTROLE_INJECTION = gettext_noop(
-                    "Modification du contrôle de l'injection"
-                )
+                    rollback_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
 
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=f"{ACTION_MODIFICATION_CONTROLE_INJECTION} - {exemplaire.immatriculation}"
-                )
+                    rollback_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
 
-                messages.success(
-                    request,
-                    _("Contrôle de l'injection modifié avec succès !")
-                )
-                return redirect(
-                    "injection:injection_detail",
-                    injection_id=injection.id
-                )
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # ÉCHAPPEMENT
+                    # ==================================================
+                    injection = form.save(
+                        commit=False
+                    )
+
+                    injection.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    injection.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    injection.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    injection.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    injection.kilometrage_alte = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        injection.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        injection.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    injection.assign_technicien(
+                        request.user
+                    )
+
+                    injection.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE ÉCHAPPEMENT
+                    # ==================================================
+                    injection.save()
+
+                    form.save_m2m()
+
+
+                    ACTION_MODIFICATION_CONTROLE_INJECTION = gettext_noop(
+                        "Modification du contrôle de l'injection"
+                    )
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=f"{ACTION_MODIFICATION_CONTROLE_INJECTION} - {exemplaire.immatriculation}"
+                    )
+
+                    messages.success(
+                        request,
+                        _("Contrôle de l'injection modifié avec succès !")
+                    )
+                    return redirect(
+                        "injection:injection_detail",
+                        injection_id=injection.id
+                    )
 
             except ValidationError as e:
                 form.add_error(None, e)
@@ -935,20 +1129,36 @@ def delete_injection_view(request, injection_id):
 
                 immatriculation = exemplaire.immatriculation
 
+
+
                 # ==================================================
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 

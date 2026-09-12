@@ -1,4 +1,7 @@
 from datetime import datetime
+
+from django.core.exceptions import ValidationError
+
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -119,11 +122,19 @@ def alternateur_check_view(request, exemplaire_id):
                 # ==================================================
                 # KILOMÉTRAGE
                 # ==================================================
-                km = form.cleaned_data.get("kilometrage_alte")
-
                 ancien_kilometrage = (
-                    exemplaire.kilometres_chassis or 0
+                        exemplaire.kilometres_chassis or 0
                 )
+
+                ancien_kilometrage_boite = (
+                        exemplaire.kilometres_boite or 0
+                )
+
+                ancien_kilometrage_moteur = (
+                        exemplaire.kilometres_moteur or 0
+                )
+
+                km = form.cleaned_data.get("kilometrage_alte")
 
                 if km is None:
                     form.add_error(
@@ -149,31 +160,65 @@ def alternateur_check_view(request, exemplaire_id):
                             km - ancien_kilometrage
                         )
 
-                        exemplaire.kilometres_rollback = ancien_kilometrage
-
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
-
-                        exemplaire.date_derniere_intervention = (
-                            timezone.localtime(
-                                timezone.now()
-                            ).date()
-                        )
-
-                        exemplaire.update_kilometres()
-
-                        exemplaire.save(
-                            update_fields=[
-                                "kilometres_chassis",
-                                "kilometres_rollback",
-                                "date_derniere_intervention",
-                            ]
-                        )
-
                         # ==================================================
                         # TRANSACTION
                         # ==================================================
                         with transaction.atomic():
+
+                            # =============================================
+                            # ROLLBACK VÉHICULE
+                            # =============================================
+                            exemplaire.kilometres_rollback = (
+                                ancien_kilometrage
+                            )
+
+                            exemplaire.kilometres_boite_rollback = (
+                                ancien_kilometrage_boite
+                            )
+
+                            exemplaire.kilometres_moteur_rollback = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            # =============================================
+                            # DATE INTERVENTION
+                            # =============================================
+                            exemplaire.date_derniere_intervention = (
+                                timezone.localtime(
+                                    timezone.now()
+                                ).date()
+                            )
+
+                            # =============================================
+                            # NOUVEAU KILOMÉTRAGE
+                            # =============================================
+                            exemplaire.kilometres_chassis = km
+
+                            # Recalcule :
+                            # - kilometres_moteur
+                            # - kilometres_boite
+                            # - variation_kilometres
+                            exemplaire.update_kilometres()
+
+                            # =============================================
+                            # SAUVEGARDE VÉHICULE
+                            # =============================================
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                    "date_derniere_intervention",
+
+                                    # Rollback
+                                    "kilometres_rollback",
+                                    "kilometres_boite_rollback",
+                                    "kilometres_moteur_rollback",
+
+                                    # Valeurs recalculées
+                                    "kilometres_moteur",
+                                    "kilometres_boite",
+                                    "variation_kilometres",
+                                ]
+                            )
 
                             # ==================================================
                             # MAINTENANCE
@@ -223,25 +268,44 @@ def alternateur_check_view(request, exemplaire_id):
                             # ==================================================
                             alternateur = form.save(commit=False)
 
-                            alternateur.voiture_exemplaire = exemplaire
-                            alternateur.maintenance = maintenance
+                            alternateur.voiture_exemplaire = (
+                                exemplaire
+                            )
 
-                            # Snapshot AVANT intervention
+                            alternateur.maintenance = (
+                                maintenance
+                            )
+
+                            # ---------------------------------------------
+                            # Kilométrage AVANT intervention
+                            # ---------------------------------------------
                             alternateur.kilometres_chassis = (
                                 ancien_kilometrage
                             )
 
-                            # Kilométrage du contrôle
+                            alternateur.kilometres_boite = (
+                                ancien_kilometrage_boite
+                            )
+
+                            alternateur.kilometres_moteur = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            # ---------------------------------------------
+                            # Kilométrage alternateur
+                            # ---------------------------------------------
                             alternateur.kilometrage_alte = km
 
-                            # Variation kilométrage
+                            # ---------------------------------------------
+                            # Variation kilométrique
+                            # ---------------------------------------------
                             alternateur.kilometrage_variation = (
                                 kilometrage_variation
                             )
 
-                            # ==================================================
+                            # =============================================
                             # TECHNICIEN
-                            # ==================================================
+                            # =============================================
                             alternateur.assign_technicien(
                                 request.user
                             )
@@ -330,6 +394,8 @@ def alternateur_check_view(request, exemplaire_id):
                             exemplaire.save(
                                 update_fields=[
                                     "kilometres_chassis",
+                                    "kilometres_boite",
+                                    "kilometres_moteur"
                                 ]
                             )
 
@@ -399,7 +465,17 @@ def alternateur_check_view(request, exemplaire_id):
 
         controle_alternateur_initial = Alternateur(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis,
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
 
         controle_alternateur_initial.assign_technicien(
@@ -570,24 +646,159 @@ def modifier_alternateur_view(request, alternateur_id):
         )
 
         if form.is_valid():
-            form.save()
+
+            try:
+                with transaction.atomic():
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get(
+                        "kilometrage_alte"
+                    )
+
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    rollback_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # ÉCHAPPEMENT
+                    # ==================================================
+                    alternateur = form.save(
+                        commit=False
+                    )
+
+                    alternateur.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    alternateur.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    alternateur.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    alternateur.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    alternateur.kilometrage_alte = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        alternateur.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        alternateur.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    alternateur.assign_technicien(
+                        request.user
+                    )
+
+                    alternateur.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE ÉCHAPPEMENT
+                    # ==================================================
+                    alternateur.save()
+
+                    form.save_m2m()
+
+                    ACTION_MODIFICATION_CONTROLE_ALTERNATEUR = gettext_noop(
+                        "Modification du contrôle de l'alternateur"
+                    )
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=f"{ACTION_MODIFICATION_CONTROLE_ALTERNATEUR} - {exemplaire.immatriculation}"
+                    )
+
+                    messages.success(request, _("Contrôle de l'alternateur modifié avec succès !"))
+                    return redirect("alternateur:alternateur_detail", alternateur_id=alternateur.id)
 
 
+            except Exception as e:
 
-            ACTION_MODIFICATION_CONTROLE_ALTERNATEUR = gettext_noop(
-                "Modification du contrôle de l'alternateur"
-            )
+                messages.error(
+                    request,
+                    _(
+                        "Erreur lors de la modification : "
+                        "%(erreur)s"
+                    ) % {
+                        "erreur": str(e)
+                    },
+                )
 
-            UserLog.objects.create(
-                utilisateur=request.user,
-                action=f"{ACTION_MODIFICATION_CONTROLE_ALTERNATEUR} - {exemplaire.immatriculation}"
-            )
 
-            messages.success(request, _("Contrôle de l'alternateur modifié avec succès !"))
-            return redirect("alternateur:alternateur_detail", alternateur_id=alternateur.id)
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
-            print(form.errors)
 
     # -------------------------
     # GET
@@ -754,16 +965,30 @@ def delete_alternateur_view(request, alternateur_id):
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 

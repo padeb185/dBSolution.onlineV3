@@ -1,4 +1,7 @@
 from datetime import datetime
+
+from django.core.exceptions import ValidationError
+
 from maindoeuvre.models import MainDoeuvre
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -142,13 +145,20 @@ def geometrie_check_view(request, exemplaire_id):
 
             try:
 
-                km = form.cleaned_data.get(
-                    "kilometrage_geometrie"
+                ancien_kilometrage = (
+                        exemplaire.kilometres_chassis or 0
                 )
 
-                ancien_kilometrage = (
-                    exemplaire.kilometres_chassis
-                    or 0
+                ancien_kilometrage_boite = (
+                        exemplaire.kilometres_boite or 0
+                )
+
+                ancien_kilometrage_moteur = (
+                        exemplaire.kilometres_moteur or 0
+                )
+
+                km = form.cleaned_data.get(
+                    "kilometrage_geometrie"
                 )
 
                 # =================================================
@@ -184,29 +194,64 @@ def geometrie_check_view(request, exemplaire_id):
                             km - ancien_kilometrage
                         )
 
-                        # Mise à jour du kilométrage véhicule
-                        exemplaire.kilometres_rollback = ancien_kilometrage
 
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
-
-                        exemplaire.date_derniere_intervention = (
-                            timezone.localtime(
-                                timezone.now()
-                            ).date()
-                        )
-
-                        exemplaire.update_kilometres()
-
-                        exemplaire.save(
-                            update_fields=[
-                                "kilometres_chassis",
-                                "kilometres_rollback",
-                                "date_derniere_intervention",
-                            ]
-                        )
 
                         with transaction.atomic():
+
+                            # =============================================
+                            # ROLLBACK VÉHICULE
+                            # =============================================
+                            exemplaire.kilometres_rollback = (
+                                ancien_kilometrage
+                            )
+
+                            exemplaire.kilometres_boite_rollback = (
+                                ancien_kilometrage_boite
+                            )
+
+                            exemplaire.kilometres_moteur_rollback = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            # =============================================
+                            # DATE INTERVENTION
+                            # =============================================
+                            exemplaire.date_derniere_intervention = (
+                                timezone.localtime(
+                                    timezone.now()
+                                ).date()
+                            )
+
+                            # =============================================
+                            # NOUVEAU KILOMÉTRAGE
+                            # =============================================
+                            exemplaire.kilometres_chassis = km
+
+                            # Recalcule :
+                            # - kilometres_moteur
+                            # - kilometres_boite
+                            # - variation_kilometres
+                            exemplaire.update_kilometres()
+
+                            # =============================================
+                            # SAUVEGARDE VÉHICULE
+                            # =============================================
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                    "date_derniere_intervention",
+
+                                    # Rollback
+                                    "kilometres_rollback",
+                                    "kilometres_boite_rollback",
+                                    "kilometres_moteur_rollback",
+
+                                    # Valeurs recalculées
+                                    "kilometres_moteur",
+                                    "kilometres_boite",
+                                    "variation_kilometres",
+                                ]
+                            )
 
                             # =====================================
                             # MAINTENANCE
@@ -277,7 +322,6 @@ def geometrie_check_view(request, exemplaire_id):
                                 commit=False
                             )
 
-                            # IMPORTANT
                             geometrie.voiture_exemplaire = (
                                 exemplaire
                             )
@@ -286,18 +330,36 @@ def geometrie_check_view(request, exemplaire_id):
                                 maintenance
                             )
 
+                            # ---------------------------------------------
+                            # Kilométrage AVANT intervention
+                            # ---------------------------------------------
                             geometrie.kilometres_chassis = (
                                 ancien_kilometrage
                             )
 
-                            geometrie.kilometrage_geometrie = (
-                                km
+                            geometrie.kilometres_boite = (
+                                ancien_kilometrage_boite
                             )
 
+                            geometrie.kilometres_moteur = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            # ---------------------------------------------
+                            # Kilométrage geometrie
+                            # ---------------------------------------------
+                            geometrie.kilometrage_geometrie = km
+
+                            # ---------------------------------------------
+                            # Variation kilométrique
+                            # ---------------------------------------------
                             geometrie.kilometrage_variation = (
                                 kilometrage_variation
                             )
 
+                            # =============================================
+                            # TECHNICIEN
+                            # =============================================
                             geometrie.assign_technicien(
                                 request.user
                             )
@@ -305,6 +367,7 @@ def geometrie_check_view(request, exemplaire_id):
                             geometrie.tech_last_maintained_by = (
                                 request.user
                             )
+
 
                             # =====================================
                             # MAIN D'ŒUVRE
@@ -394,6 +457,8 @@ def geometrie_check_view(request, exemplaire_id):
                             exemplaire.save(
                                 update_fields=[
                                     "kilometres_chassis",
+                                    "kilometres_boite",
+                                    "kilometres_moteur"
                                 ]
                             )
 
@@ -468,7 +533,15 @@ def geometrie_check_view(request, exemplaire_id):
         geometrie = GeometrieVoiture(
             voiture_exemplaire=exemplaire,
             kilometres_chassis=(
-                exemplaire.kilometres_chassis
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
             ),
         )
 
@@ -685,15 +758,151 @@ def geometrie_modifier_view(request, geometrie_id):
         )
 
         if form.is_valid():
-            form.save()
 
-            UserLog.objects.create(
-                utilisateur=request.user,
-                action=_("Modification du contrôle de la géométrie")  + f" - {exemplaire.immatriculation}"
-            )
+            try:
+                with transaction.atomic():
 
-            messages.success(request, _("Contrôle de la géométrie modifié avec succès !"))
-            return redirect("geometrie:geometrie_detail", geometrie_id=geometrie.id)
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get(
+                        "kilometrage_geometrie"
+                    )
+
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    rollback_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # ÉCHAPPEMENT
+                    # ==================================================
+                    geometrie = form.save(
+                        commit=False
+                    )
+
+                    geometrie.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    geometrie.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    geometrie.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    geometrie.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    geometrie.kilometrage_geometrie = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        geometrie.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        geometrie.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    geometrie.assign_technicien(
+                        request.user
+                    )
+
+                    geometrie.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE ÉCHAPPEMENT
+                    # ==================================================
+                    geometrie.save()
+
+                    form.save_m2m()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification du contrôle de la géométrie")  + f" - {exemplaire.immatriculation}"
+                )
+
+                messages.success(request, _("Contrôle de la géométrie modifié avec succès !"))
+                return redirect("geometrie:geometrie_detail", geometrie_id=geometrie.id)
+
+            except Exception as e:
+
+                messages.error(
+                    request,
+                    _(
+                        "Erreur lors de la modification : "
+                        "%(error)s"
+                    ) % {
+                        "error": str(e)
+                    }
+                )
+
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
 
@@ -887,16 +1096,30 @@ def delete_geometrie_view(request, geometrie_id):
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 

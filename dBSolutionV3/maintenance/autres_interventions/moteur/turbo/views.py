@@ -1,4 +1,7 @@
 from datetime import datetime
+
+from django.core.exceptions import ValidationError
+
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -132,11 +135,20 @@ def turbo_check_view(request, exemplaire_id):
                 # ==================================================
                 # KILOMÉTRAGE
                 # ==================================================
-                km = form.cleaned_data.get("kilometres_turbo")
-
                 ancien_kilometrage = (
                         exemplaire.kilometres_chassis or 0
                 )
+
+                ancien_kilometrage_boite = (
+                        exemplaire.kilometres_boite or 0
+                )
+
+                ancien_kilometrage_moteur = (
+                        exemplaire.kilometres_moteur or 0
+                )
+
+                km = form.cleaned_data.get("kilometres_turbo")
+
 
                 if km is None:
                     form.add_error(
@@ -162,31 +174,65 @@ def turbo_check_view(request, exemplaire_id):
                                 km - ancien_kilometrage
                         )
 
-                        exemplaire.kilometres_rollback = ancien_kilometrage
-
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
-
-                        exemplaire.date_derniere_intervention = (
-                            timezone.localtime(
-                                timezone.now()
-                            ).date()
-                        )
-
-                        exemplaire.update_kilometres()
-
-                        exemplaire.save(
-                            update_fields=[
-                                "kilometres_chassis",
-                                "kilometres_rollback",
-                                "date_derniere_intervention",
-                            ]
-                        )
-
                         # ==================================================
                         # TRANSACTION
                         # ==================================================
                         with transaction.atomic():
+
+                            # =============================================
+                            # ROLLBACK VÉHICULE
+                            # =============================================
+                            exemplaire.kilometres_rollback = (
+                                ancien_kilometrage
+                            )
+
+                            exemplaire.kilometres_boite_rollback = (
+                                ancien_kilometrage_boite
+                            )
+
+                            exemplaire.kilometres_moteur_rollback = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            # =============================================
+                            # DATE INTERVENTION
+                            # =============================================
+                            exemplaire.date_derniere_intervention = (
+                                timezone.localtime(
+                                    timezone.now()
+                                ).date()
+                            )
+
+                            # =============================================
+                            # NOUVEAU KILOMÉTRAGE
+                            # =============================================
+                            exemplaire.kilometres_chassis = km
+
+                            # Recalcule :
+                            # - kilometres_moteur
+                            # - kilometres_boite
+                            # - variation_kilometres
+                            exemplaire.update_kilometres()
+
+                            # =============================================
+                            # SAUVEGARDE VÉHICULE
+                            # =============================================
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                    "date_derniere_intervention",
+
+                                    # Rollback
+                                    "kilometres_rollback",
+                                    "kilometres_boite_rollback",
+                                    "kilometres_moteur_rollback",
+
+                                    # Valeurs recalculées
+                                    "kilometres_moteur",
+                                    "kilometres_boite",
+                                    "variation_kilometres",
+                                ]
+                            )
 
                             maintenance = Maintenance.objects.create(
                                 societe=request.user.societe,
@@ -219,25 +265,44 @@ def turbo_check_view(request, exemplaire_id):
 
                             turbo = form.save(commit=False)
 
-                            turbo.voiture_exemplaire = exemplaire
-                            turbo.maintenance = maintenance
+                            turbo.voiture_exemplaire = (
+                                exemplaire
+                            )
 
-                            # Snapshot AVANT intervention
+                            turbo.maintenance = (
+                                maintenance
+                            )
+
+                            # ---------------------------------------------
+                            # Kilométrage AVANT intervention
+                            # ---------------------------------------------
                             turbo.kilometres_chassis = (
                                 ancien_kilometrage
                             )
 
-                            # Kilométrage du contrôle
-                            turbo.kilometres_turbo = km
+                            turbo.kilometres_boite = (
+                                ancien_kilometrage_boite
+                            )
 
-                            # Variation kilométrage
+                            turbo.kilometres_moteur = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            # ---------------------------------------------
+                            # Kilométrage turbo
+                            # ---------------------------------------------
+                            turbo.kilometrage_alte = km
+
+                            # ---------------------------------------------
+                            # Variation kilométrique
+                            # ---------------------------------------------
                             turbo.kilometrage_variation = (
                                 kilometrage_variation
                             )
 
-                            # ==================================================
+                            # =============================================
                             # TECHNICIEN
-                            # ==================================================
+                            # =============================================
                             turbo.assign_technicien(
                                 request.user
                             )
@@ -326,6 +391,8 @@ def turbo_check_view(request, exemplaire_id):
                             exemplaire.save(
                                 update_fields=[
                                     "kilometres_chassis",
+                                    "kilometres_boite",
+                                    "kilometres_moteur"
                                 ]
                             )
 
@@ -357,7 +424,18 @@ def turbo_check_view(request, exemplaire_id):
 
         turbo = Turbo(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis
+
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
 
         turbo.assign_technicien(request.user)
@@ -431,21 +509,147 @@ def modifier_turbo_view(request, turbo_id):
         )
 
         if form.is_valid():
-            form.save()
 
+            try:
+                with transaction.atomic():
 
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get(
+                        "kilometres_turbo"
+                    )
 
-            ACTION_MODIFICATION_CONTROLE_TURBO = gettext_noop(
-                "Modification du contrôle du turbo"
-            )
+                    if km is not None:
+                        km = int(km)
 
-            UserLog.objects.create(
-                utilisateur=request.user,
-                action=f"{ACTION_MODIFICATION_CONTROLE_TURBO} - {exemplaire.immatriculation}"
-            )
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                            exemplaire.kilometres_chassis or 0
+                    )
 
-            messages.success(request, _("Contrôle du turbo modifié avec succès !"))
-            return redirect("turbo:turbo_detail", turbo_id=turbo.id)
+                    rollback_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # ÉCHAPPEMENT
+                    # ==================================================
+                    turbo = form.save(
+                        commit=False
+                    )
+
+                    turbo.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    turbo.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    turbo.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    turbo.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    turbo.kilometrage_alte = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        turbo.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        turbo.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    turbo.assign_technicien(
+                        request.user
+                    )
+
+                    turbo.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE ÉCHAPPEMENT
+                    # ==================================================
+                    turbo.save()
+
+                    form.save_m2m()
+
+                ACTION_MODIFICATION_CONTROLE_TURBO = gettext_noop(
+                    "Modification du contrôle du turbo"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_MODIFICATION_CONTROLE_TURBO} - {exemplaire.immatriculation}"
+                )
+
+                messages.success(request, _("Contrôle du turbo modifié avec succès !"))
+                return redirect("turbo:turbo_detail", turbo_id=turbo.id)
+
+            except ValidationError as e:
+                form.add_error(None, e)
+                messages.error(request, _("Kilométrage invalide"))
+
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
             print(form.errors)
@@ -582,16 +786,30 @@ def delete_turbo_view(request, turbo_id):
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 

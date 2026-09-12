@@ -1,4 +1,7 @@
 from datetime import datetime
+
+from django.core.exceptions import ValidationError
+
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -116,14 +119,24 @@ def allumage_check_view(request, exemplaire_id):
                 # =================================================
                 # KILOMÉTRAGE
                 # =================================================
+
+                ancien_kilometrage = (
+                        exemplaire.kilometres_chassis or 0
+                )
+
+                ancien_kilometrage_boite = (
+                        exemplaire.kilometres_boite or 0
+                )
+
+                ancien_kilometrage_moteur = (
+                        exemplaire.kilometres_moteur or 0
+                )
+
                 km = form.cleaned_data.get(
                     "kilometrage_allumage"
                 )
 
-                ancien_kilometrage = (
-                        exemplaire.kilometres_chassis
-                        or 0
-                )
+
 
                 if km is None:
                     form.add_error(
@@ -152,32 +165,66 @@ def allumage_check_view(request, exemplaire_id):
                                 km - ancien_kilometrage
                         )
 
-                        # Mise à jour du kilométrage véhicule
-                        exemplaire.kilometres_rollback = ancien_kilometrage
-
-                        # Nouveau kilométrage
-                        exemplaire.kilometres_chassis = km
-
-                        exemplaire.date_derniere_intervention = (
-                            timezone.localtime(
-                                timezone.now()
-                            ).date()
-                        )
-
-                        exemplaire.update_kilometres()
-
-                        exemplaire.save(
-                            update_fields=[
-                                "kilometres_chassis",
-                                "kilometres_rollback",
-                                "date_derniere_intervention",
-                            ]
-                        )
 
                         # =========================================
                         # TRANSACTION
                         # =========================================
                         with transaction.atomic():
+
+                            # =============================================
+                            # ROLLBACK VÉHICULE
+                            # =============================================
+                            exemplaire.kilometres_rollback = (
+                                ancien_kilometrage
+                            )
+
+                            exemplaire.kilometres_boite_rollback = (
+                                ancien_kilometrage_boite
+                            )
+
+                            exemplaire.kilometres_moteur_rollback = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            # =============================================
+                            # DATE INTERVENTION
+                            # =============================================
+                            exemplaire.date_derniere_intervention = (
+                                timezone.localtime(
+                                    timezone.now()
+                                ).date()
+                            )
+
+                            # =============================================
+                            # NOUVEAU KILOMÉTRAGE
+                            # =============================================
+                            exemplaire.kilometres_chassis = km
+
+                            # Recalcule :
+                            # - kilometres_moteur
+                            # - kilometres_boite
+                            # - variation_kilometres
+                            exemplaire.update_kilometres()
+
+                            # =============================================
+                            # SAUVEGARDE VÉHICULE
+                            # =============================================
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                    "date_derniere_intervention",
+
+                                    # Rollback
+                                    "kilometres_rollback",
+                                    "kilometres_boite_rollback",
+                                    "kilometres_moteur_rollback",
+
+                                    # Valeurs recalculées
+                                    "kilometres_moteur",
+                                    "kilometres_boite",
+                                    "variation_kilometres",
+                                ]
+                            )
 
                             # ==================================================
                             # MAINTENANCE
@@ -221,22 +268,51 @@ def allumage_check_view(request, exemplaire_id):
                             # =====================================
                             allumage = form.save(commit=False)
 
-                            allumage.voiture_exemplaire = exemplaire
-                            allumage.maintenance = maintenance
+                            allumage.voiture_exemplaire = (
+                                exemplaire
+                            )
 
-                            # Snapshot AVANT intervention
-                            allumage.kilometres_chassis = ancien_kilometrage
+                            allumage.maintenance = (
+                                maintenance
+                            )
 
-                            # Kilométrage du contrôle
+                            # ---------------------------------------------
+                            # Kilométrage AVANT intervention
+                            # ---------------------------------------------
+                            allumage.kilometres_chassis = (
+                                ancien_kilometrage
+                            )
+
+                            allumage.kilometres_boite = (
+                                ancien_kilometrage_boite
+                            )
+
+                            allumage.kilometres_moteur = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            # ---------------------------------------------
+                            # Kilométrage allumage
+                            # ---------------------------------------------
                             allumage.kilometrage_allumage = km
 
-                            # Variation
-                            allumage.kilometrage_variation = kilometrage_variation
+                            # ---------------------------------------------
+                            # Variation kilométrique
+                            # ---------------------------------------------
+                            allumage.kilometrage_variation = (
+                                kilometrage_variation
+                            )
 
-                            # Technicien
-                            allumage.assign_technicien(request.user)
+                            # =============================================
+                            # TECHNICIEN
+                            # =============================================
+                            allumage.assign_technicien(
+                                request.user
+                            )
 
-                            allumage.tech_last_maintained_by = request.user
+                            allumage.tech_last_maintained_by = (
+                                request.user
+                            )
 
                             # =====================================
                             # MAIN D'ŒUVRE
@@ -297,6 +373,8 @@ def allumage_check_view(request, exemplaire_id):
                             exemplaire.save(
                                 update_fields=[
                                     "kilometres_chassis",
+                                    "kilometres_boite",
+                                    "kilometres_moteur"
                                 ]
                             )
 
@@ -358,7 +436,17 @@ def allumage_check_view(request, exemplaire_id):
     else:
         allumage_initial = Allumage(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis,
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
 
         allumage_initial.assign_technicien(
@@ -563,23 +651,158 @@ def modifier_allumage_view(request, allumage_id):
             user=request.user,
             exemplaire=allumage.voiture_exemplaire
         )
-
         if form.is_valid():
-            form.save()
+
+            try:
+                with transaction.atomic():
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get(
+                        "kilometrage_allumage"
+                    )
+
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    rollback_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # ÉCHAPPEMENT
+                    # ==================================================
+                    allumage = form.save(
+                        commit=False
+                    )
+
+                    allumage.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    allumage.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    allumage.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    allumage.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    allumage.kilometrage_allumage = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        allumage.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        allumage.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    allumage.assign_technicien(
+                        request.user
+                    )
+
+                    allumage.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE ÉCHAPPEMENT
+                    # ==================================================
+                    allumage.save()
+
+                    form.save_m2m()
 
 
 
-            ACTION_MODIFICATION_CONTROLE_ALLUMAGE = gettext_noop(
-                "Modification du contrôle de l'allumage"
-            )
+                    ACTION_MODIFICATION_CONTROLE_ALLUMAGE = gettext_noop(
+                        "Modification du contrôle de l'allumage"
+                    )
 
-            UserLog.objects.create(
-                utilisateur=request.user,
-                action=f"{ACTION_MODIFICATION_CONTROLE_ALLUMAGE} - {exemplaire.immatriculation}"
-            )
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=f"{ACTION_MODIFICATION_CONTROLE_ALLUMAGE} - {exemplaire.immatriculation}"
+                    )
 
-            messages.success(request, _("Contrôle de l'allumage modifié avec succès !"))
-            return redirect("allumage:allumage_detail", allumage_id=allumage.id)
+                    messages.success(request, _("Contrôle de l'allumage modifié avec succès !"))
+                    return redirect("allumage:allumage_detail", allumage_id=allumage.id)
+
+            except Exception as e:
+
+                messages.error(
+                    request,
+                    _(
+                        "Erreur lors de la modification : "
+                        "%(erreur)s"
+                    ) % {
+                        "erreur": str(e)
+                    },
+                )
+
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
 
@@ -828,16 +1051,30 @@ def delete_allumage_view(request, allumage_id):
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur"
                     ]
                 )
 

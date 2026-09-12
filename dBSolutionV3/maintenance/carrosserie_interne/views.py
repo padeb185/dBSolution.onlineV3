@@ -11,6 +11,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _, gettext_noop
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
+from maindoeuvre.models import MainDoeuvre
 from utilisateurs.models import UserLog
 from weasyprint import HTML
 from .forms import CarrosserieInterneForm
@@ -129,12 +130,20 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                     # =========================
                     # KILOMÉTRAGE
                     # =========================
-
-                    km = form.cleaned_data["kilometrage_intervention"]
-
                     ancien_kilometrage = (
                             exemplaire.kilometres_chassis or 0
                     )
+
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+
+                    km = form.cleaned_data["kilometrage_intervention"]
+
 
                     if km < ancien_kilometrage:
                         raise ValueError(
@@ -182,30 +191,63 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                         request.user
                     )
 
-                    # =========================
-                    # MISE À JOUR VÉHICULE
-                    # =========================
+                    # =============================================
+                    # ROLLBACK VÉHICULE
+                    # =============================================
+                    exemplaire.kilometres_rollback = (
+                        ancien_kilometrage
+                    )
 
-                    exemplaire.kilometres_rollback = ancien_kilometrage
+                    exemplaire.kilometres_boite_rollback = (
+                        ancien_kilometrage_boite
+                    )
 
-                    # Nouveau kilométrage
-                    exemplaire.kilometres_chassis = km
+                    exemplaire.kilometres_moteur_rollback = (
+                        ancien_kilometrage_moteur
+                    )
 
+                    # =============================================
+                    # DATE INTERVENTION
+                    # =============================================
                     exemplaire.date_derniere_intervention = (
                         timezone.localtime(
                             timezone.now()
                         ).date()
                     )
 
+                    # =============================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # =============================================
+                    exemplaire.kilometres_chassis = km
+
+                    # Recalcule :
+                    # - kilometres_moteur
+                    # - kilometres_boite
+                    # - variation_kilometres
                     exemplaire.update_kilometres()
 
+                    # =============================================
+                    # SAUVEGARDE VÉHICULE
+                    # =============================================
                     exemplaire.save(
                         update_fields=[
                             "kilometres_chassis",
-                            "kilometres_rollback",
                             "date_derniere_intervention",
+
+                            # Rollback
+                            "kilometres_rollback",
+                            "kilometres_boite_rollback",
+                            "kilometres_moteur_rollback",
+
+                            # Valeurs recalculées
+                            "kilometres_moteur",
+                            "kilometres_boite",
+                            "variation_kilometres",
                         ]
                     )
+
+
+
                     # =========================
                     # MAINTENANCE
                     # =========================
@@ -264,23 +306,146 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                             )
                         )
 
-                    maintenance.save()
+                        # ------------------------------------------
+                        # Enregistrement du contrôle
+                        # ------------------------------------------
 
-                    # =========================
-                    # RELATION MAINTENANCE
-                    # =========================
+                        carrosserie_interne = form.save(commit=False)
 
-                    carrosserie_interne.maintenance = maintenance
+                        carrosserie_interne.voiture_exemplaire = (
+                            exemplaire
+                        )
 
-                    # =========================
-                    # SAUVEGARDE CARROSSERIE
-                    # =========================
+                        carrosserie_interne.maintenance = (
+                            maintenance
+                        )
 
-                    carrosserie_interne.save()
+                        # ---------------------------------------------
+                        # Kilométrage AVANT intervention
+                        # ---------------------------------------------
+                        carrosserie_interne.kilometres_chassis = (
+                            ancien_kilometrage
+                        )
 
-                    # =========================
-                    # LOG
-                    # =========================
+                        carrosserie_interne.kilometres_boite = (
+                            ancien_kilometrage_boite
+                        )
+
+                        carrosserie_interne.kilometres_moteur = (
+                            ancien_kilometrage_moteur
+                        )
+
+                        # ---------------------------------------------
+                        # Kilométrage carrosserie_interne
+                        # ---------------------------------------------
+                        carrosserie_interne.kilometrage_alte = km
+
+                        # ---------------------------------------------
+                        # Variation kilométrique
+                        # ---------------------------------------------
+                        carrosserie_interne.kilometrage_variation = (
+                            kilometrage_variation
+                        )
+
+                        # =============================================
+                        # TECHNICIEN
+                        # =============================================
+                        carrosserie_interne.assign_technicien(
+                            request.user
+                        )
+
+                        carrosserie_interne.tech_last_maintained_by = (
+                            request.user
+                        )
+
+                        # ==================================================
+                        # MAIN-D'ŒUVRE
+                        # ==================================================
+                        heures = (
+                                form.cleaned_data.get("temps_heures")
+                                or 0
+                        )
+
+                        minutes = (
+                                form.cleaned_data.get("temps_minutes")
+                                or 0
+                        )
+
+                        total_minutes = (
+                                heures * 60 + minutes
+                        )
+
+                        taux_horaire = (
+                                form.cleaned_data.get("taux_horaire")
+                                or 0
+                        )
+
+                        # --------------------------------------------------
+                        # Mise à jour main-d'œuvre existante
+                        # --------------------------------------------------
+                        if carrosserie_interne.main_oeuvre_id:
+
+                            main_oeuvre = (
+                                carrosserie_interne.main_oeuvre
+                            )
+
+                            main_oeuvre.temps_minutes = (
+                                total_minutes
+                            )
+
+                            main_oeuvre.taux_horaire = (
+                                taux_horaire
+                            )
+
+                            main_oeuvre.save(
+                                update_fields=[
+                                    "temps_minutes",
+                                    "taux_horaire",
+                                ]
+                            )
+
+                        # --------------------------------------------------
+                        # Création main-d'œuvre
+                        # --------------------------------------------------
+                        else:
+
+                            main_oeuvre = (
+                                MainDoeuvre.objects.create(
+                                    utilisateur=request.user,
+                                    temps_minutes=total_minutes,
+                                    taux_horaire=taux_horaire,
+                                )
+                            )
+
+                            carrosserie_interne.main_oeuvre = (
+                                main_oeuvre
+                            )
+
+                        # ==================================================
+                        # SAUVEGARDE carrosserie_interne
+                        # IMPORTANT :
+                        # EN DEHORS DU IF/ELSE MAIN-D'ŒUVRE
+                        # ==================================================
+                        carrosserie_interne.save()
+
+                        form.save_m2m()
+
+                        # ==================================================
+                        # MISE À JOUR DU VÉHICULE
+                        # ==================================================
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis",
+                                "kilometres_boite",
+                                "kilometres_moteur"
+                            ]
+                        )
+
+                        # Nécessaire si le formulaire contient
+                        # éventuellement des champs ManyToMany
+                        form.save_m2m()
 
 
 
