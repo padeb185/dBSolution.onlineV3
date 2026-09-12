@@ -73,7 +73,7 @@
 
 
 <!-- Table -->
-<table id="fuel-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+<table id="fuels-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
             <th class="border px-4 py-2 cursor-pointer">{% trans "Utilisateur" %}</th>
@@ -84,7 +84,6 @@
             <th class="border px-4 py-2 cursor-pointer">{% trans "Litres" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Prix Total" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Prix au litre" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Montant TVA" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
@@ -185,12 +184,6 @@
                 {{ fuel.prix_litre|floatformat:3 }} €
             </td>
 
-            <!-- 8 Montant TVA -->
-            <td class="border px-4 py-2"
-                data-order="{{ fuel.montant_tva|default:0 }}">
-                {{ fuel.montant_tva|floatformat:2 }} €
-            </td>
-
             <!-- 9 Date -->
             <td class="border px-4 py-2"
                 data-order="{{ fuel.date|date:'Y-m-d' }}">
@@ -225,7 +218,8 @@
 <script>
 $(document).ready(function () {
 
-    const table = $('#fuel-table').DataTable({
+    const table = $('#fuels-table').DataTable({
+
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
@@ -240,58 +234,89 @@ $(document).ready(function () {
             }
         },
 
-        // Tri initial sur la date
-        order: [[9, 'desc']],
+        // =========================
+        // TRI INITIAL PAR DATE
+        // =========================
+        order: [[8, 'desc']],
 
-        // Colonnes non triables
+        // =========================
+        // CONFIGURATION COLONNES
+        // =========================
         columnDefs: [
+
+            // Colonne Info
             {
-                targets: [10], // colonne Info
+                targets: 9,
                 orderable: false,
                 searchable: false
             },
+
+            // Colonnes numériques
             {
-                targets: [3, 5, 6, 7, 8],
+                targets: [3, 5, 6, 7],
                 type: 'num'
             }
         ]
     });
 
-    // Utilisateur
+
+    // =========================
+    // UTILISATEUR
+    // =========================
     $('#search-utilisateur').on('keyup change', function () {
         table.column(0).search(this.value).draw();
     });
 
-    // Immatriculation
+
+    // =========================
+    // IMMATRICULATION
+    // =========================
     $('#search-immatriculation').on('keyup change', function () {
         table.column(1).search(this.value).draw();
     });
 
-    // Véhicule
+
+    // =========================
+    // VÉHICULE
+    // =========================
     $('#search-exemplaire').on('keyup change', function () {
         table.column(2).search(this.value).draw();
     });
 
-    // Type de carburant
+
+    // =========================
+    // TYPE CARBURANT
+    // =========================
     $('#search-type_carburant').on('keyup change', function () {
         table.column(4).search(this.value).draw();
     });
 
-    // Litres
+
+    // =========================
+    // LITRES
+    // =========================
     $('#search-litres').on('keyup change', function () {
         table.column(5).search(this.value).draw();
     });
 
-    // Date
+
+    // =========================
+    // DATE
+    // =========================
     $('#search-date').on('change', function () {
+
         let date = this.value;
 
         if (date) {
             const morceaux = date.split('-');
-            date = morceaux[2] + '/' + morceaux[1] + '/' + morceaux[0];
+
+            date =
+                morceaux[2] + '/' +
+                morceaux[1] + '/' +
+                morceaux[0];
         }
 
-        table.column(9).search(date).draw();
+        table.column(8).search(date).draw();
     });
 
 });

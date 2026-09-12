@@ -85,7 +85,6 @@
             <th class="border px-4 py-2 cursor-pointer">{% trans "Kilo Watts" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Prix Total" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Prix au kW" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Montant TVA" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
@@ -135,7 +134,6 @@
             <!-- Véhicule -->
             <td class="border px-4 py-2">
                 {{ recharge.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}
-                {{ recharge.voiture_exemplaire.voiture_modele.nom_modele }}
             </td>
 
             <!-- Kilomètres -->
@@ -152,9 +150,6 @@
 
             <!-- Prix au litre -->
             <td class="border px-4 py-2">{{ recharge.prix_watt|floatformat:3 }}</td>
-
-            <!-- Montant TVA -->
-            <td class="border px-4 py-2">{{ recharge.montant_tva|floatformat:2 }} €</td>
     
                       <!-- Date -->
             <td class="border px-4 py-2"
@@ -221,7 +216,7 @@ $(document).ready(function() {
         table.column(4).search(this.value).draw();
     });
      $('#search-date_recharge').on('keyup', function () {
-        table.column(9).search(this.value).draw();
+        table.column(8).search(this.value).draw();
     });
 
 });
