@@ -220,11 +220,13 @@
 
 
         {% for section in sections %}
+            <br>
             <div class="mb-16">
-               <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
                     <img src="{% static section.icon %}" class="w-16 h-16">
                     {% trans section.title %}
                 </h2>
+
 
                 {% for field in section.fields %}
                     <div class="mb-4">
@@ -253,6 +255,8 @@
                 {% endfor %}
             </div>
         {% endfor %}
+
+        <br>
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
