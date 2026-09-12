@@ -6,26 +6,52 @@
 <br>
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold flex items-center gap-4">
-            <img src="{% static 'icons/rodage.png' %}" alt="Rodage"
-                 style="width:60px; height:60px; margin-right:10px;">
-            <span>
-                {% trans "Rodage pour :" %}
-                {{ exemplaire.voiture_marque.nom_marque }}
-                {{ exemplaire.voiture_modele.nom_modele }}
-                {{ exemplaire.voiture_modele.nom_variante }}
+       <!-- Header -->
+    <div class="mb-6">
 
+        <h1 class="text-2xl font-bold">
 
-            </span>
+            <!-- Ligne 1 : icône + titre -->
+            <div class="flex items-center gap-4">
+                <img src="{% static 'icons/engine.png' %}"
+                     alt="engine"
+                     style="width:60px; height:60px;">
+
+                <span>
+                    {% trans "Rodage du moteur pour :" %}
+                </span>
+            </div>
+
+            <!-- Ligne 2 : marque + modèle + variante -->
+            <div class="flex items-center justify-center gap-4 mt-3">
+
+                {% static 'images/marques/' as marques_path %}
+
+                <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                     alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                     class="w-20 h-20 object-contain">
+
+                <span class="font-semibold">
+                    {{ exemplaire.voiture_modele.nom_modele }}
+
+                    {% if exemplaire.voiture_modele.nom_variante %}
+                        {{ exemplaire.voiture_modele.nom_variante }}
+                    {% endif %}
+                </span>
+
+            </div>
+
         </h1>
+
     </div>
 
-    <!-- Plaque -->
-    <div class="mb-4">
+
+
+       <!-- Plaque -->
+    <div class="mb-4 flex justify-center">
         {% include "maintenance/partials/plaque.html" %}
     </div>
+
 
 
     <!-- Messages -->
@@ -141,53 +167,53 @@
 </style>
 
 
-<div id="kilometrage-popup">
+    <div id="kilometrage-popup">
 
-    <div class="kilometrage-popup-box">
+        <div class="kilometrage-popup-box">
 
-        <h3 class="kilometrage-popup-title">
-            {% trans "Confirmer le kilométrage" %}
-        </h3>
+            <h3 class="kilometrage-popup-title">
+                {% trans "Confirmer le kilométrage" %}
+            </h3>
 
-        <p class="kilometrage-popup-text">
-            {% trans "La variation du kilométrage est de" %}
-            <span class="kilometrage-popup-variation">
-                <span id="popup-variation">0</span> km
-            </span>.
-        </p>
+            <p class="kilometrage-popup-text">
+                {% trans "La variation du kilométrage est de" %}
+                <span class="kilometrage-popup-variation">
+                    <span id="popup-variation">0</span> km
+                </span>.
+            </p>
 
-        <p class="kilometrage-popup-text">
-            {% trans "Cette variation est supérieure à 2 000 km. Voulez-vous vraiment enregistrer ce kilométrage ?" %}
-        </p>
+            <p class="kilometrage-popup-text">
+                {% trans "Cette variation est supérieure à 2 000 km. Voulez-vous vraiment enregistrer ce kilométrage ?" %}
+            </p>
 
-        <div class="kilometrage-popup-buttons">
+            <div class="kilometrage-popup-buttons">
 
-            <button
-                type="button"
-                id="popup-annuler"
-                class="kilometrage-popup-button kilometrage-popup-annuler"
-            >
-                {% trans "Annuler" %}
-            </button>
+                <button
+                    type="button"
+                    id="popup-annuler"
+                    class="kilometrage-popup-button kilometrage-popup-annuler"
+                >
+                    {% trans "Annuler" %}
+                </button>
 
-            <button
-                type="button"
-                id="popup-confirmer"
-                class="kilometrage-popup-button kilometrage-popup-confirmer"
-            >
-                {% trans "Confirmer" %}
-            </button>
+                <button
+                    type="button"
+                    id="popup-confirmer"
+                    class="kilometrage-popup-button kilometrage-popup-confirmer"
+                >
+                    {% trans "Confirmer" %}
+                </button>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
 
-
-<!-- ========================= -->
-<!-- FORMULAIRE -->
-<!-- ========================= -->
+    <!-- ========================= -->
+    <!-- FORMULAIRE -->
+    <!-- ========================= -->
 
     <form method="post" id="rodage-form" class="space-y-4">
         {% csrf_token %}

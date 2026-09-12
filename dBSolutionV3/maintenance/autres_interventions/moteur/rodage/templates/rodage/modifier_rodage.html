@@ -7,37 +7,54 @@
 
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
-    <!-- ================================================== -->
-    <!-- EN-TÊTE -->
-    <!-- ================================================== -->
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold flex items-center gap-4">
+       <!-- Header -->
+    <div class="mb-6">
 
-            {% if rodage.tech_societe %}
-                {% with image_name=rodage.tech_societe.nom|slugify %}
-                    <img
-                        src="{% static 'societe/'|add:image_name|add:'.png' %}"
-                        alt="{{ rodage.tech_societe.nom }}"
-                        class="w-12 h-12 rounded"
-                        onerror="this.onerror=null; this.src='{% static 'icons/rodage.png' %}';"
-                    >
-                {% endwith %}
-            {% else %}
-                <img
-                    src="{% static 'icons/rodage.png' %}"
-                    alt="{% trans 'Rodage' %}"
-                    class="w-12 h-12 rounded"
-                >
-            {% endif %}
+        <h1 class="text-2xl font-bold">
 
-            <span>{% trans "Modifier le rodage" %}</span>
+            <!-- Ligne 1 : icône + titre -->
+            <div class="flex items-center gap-4">
+                <img src="{% static 'icons/engine.png' %}"
+                     alt="engine"
+                     style="width:60px; height:60px;">
+
+                <span>
+                    {% trans "Modifier le rodage :" %}
+                </span>
+            </div>
+
+            <!-- Ligne 2 : marque + modèle + variante -->
+            <div class="flex items-center justify-center gap-4 mt-3">
+
+                {% static 'images/marques/' as marques_path %}
+
+                <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                     alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                     class="w-20 h-20 object-contain">
+
+                <span class="font-semibold">
+                    {{ exemplaire.voiture_modele.nom_modele }}
+
+                    {% if exemplaire.voiture_modele.nom_variante %}
+                        {{ exemplaire.voiture_modele.nom_variante }}
+                    {% endif %}
+                </span>
+
+            </div>
+
         </h1>
+
     </div>
 
-    <!-- Plaque -->
-    <div class="mb-4">
+
+
+       <!-- Plaque -->
+    <div class="mb-4 flex justify-center">
         {% include "maintenance/partials/plaque.html" %}
     </div>
+
+
+
 
     <!-- ================================================== -->
     <!-- MESSAGES -->
@@ -212,11 +229,6 @@
         {% for hidden in form.hidden_fields %}
             {{ hidden }}
         {% endfor %}
-
-        <h2 class="text-lg font-semibold mb-2">
-            {% trans "Détails du rodage" %}
-        </h2>
-
         <!-- ================================================== -->
         <!-- KILOMÉTRAGE -->
         <!-- ================================================== -->

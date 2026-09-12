@@ -18,7 +18,7 @@
                      style="width:60px; height:60px;">
 
                 <span>
-                    {% trans "Modifier l'intervention" %}
+                    {% trans "Modifier le contrôle de l'allumage" %}
                 </span>
             </div>
 
@@ -29,7 +29,7 @@
 
                 <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
                      alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
-                     class="w-16 h-16 object-contain">
+                     class="w-20 h-20 object-contain">
 
                 <span class="font-semibold">
                     {{ exemplaire.voiture_modele.nom_modele }}
@@ -217,11 +217,12 @@
 
 
        {% for section in sections %}
+           <br>
         <div class="mb-16">
-            <h2 class="text-xl font-semibold mb-2 flex items-center gap-3">
-                <img src="{% static section.icon %}" class="w-16 h-16">
-                {% trans section.title %}
-            </h2>
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+                    <img src="{% static section.icon %}" class="w-16 h-16">
+                    {% trans section.title %}
+                </h2>
 
             {% for field in section.fields %}
                 <div class="mb-4">
@@ -254,7 +255,7 @@
             {% endfor %}
         </div>
         {% endfor %}
-
+        <br>
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
                  style="width:60px; height:60px; margin-right:10px;">
