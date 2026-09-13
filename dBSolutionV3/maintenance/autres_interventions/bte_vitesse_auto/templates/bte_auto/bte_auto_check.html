@@ -8,26 +8,50 @@
 
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold flex items-center gap-4">
-            <img src="{% static 'icons/boite-auto.png' %}" alt="Maintenance boite automatique"
-                 style="width:60px; height:60px; margin-right:10px;">
-            <span>
-                {% trans "Contrôle de la boite automatique pour :" %}
-                {{ exemplaire.voiture_marque.nom_marque }}
-                {{ exemplaire.voiture_modele.nom_modele }}
-                {{ exemplaire.voiture_modele.nom_variante }}
+     <div class="mb-6">
 
+        <h1 class="text-2xl font-bold">
 
-            </span>
+            <!-- Ligne 1 : icône + titre -->
+            <div class="flex items-center gap-4">
+                <img src="{% static 'icons/boite-auto.png' %}"
+                     alt="boite automatique"
+                     style="width:60px; height:60px;">
+
+                <span>
+                    {% trans "Contrôle de la boite automatique" %}
+                </span>
+            </div>
+
+            <!-- Ligne 2 : marque + modèle + variante -->
+            <div class="flex items-center justify-center gap-4 mt-3">
+
+                {% static 'images/marques/' as marques_path %}
+
+                <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                     alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                     class="w-20 h-20 object-contain">
+
+                <span class="font-semibold">
+                    {{ exemplaire.voiture_modele.nom_modele }}
+
+                    {% if exemplaire.voiture_modele.nom_variante %}
+                        {{ exemplaire.voiture_modele.nom_variante }}
+                    {% endif %}
+                </span>
+
+            </div>
+
         </h1>
+
     </div>
 
-    <!-- Plaque -->
-    <div class="mb-4">
+       <!-- Plaque -->
+    <div class="mb-4 flex justify-center">
         {% include "maintenance/partials/plaque.html" %}
     </div>
+
+
 
 
     <!-- Messages -->
@@ -59,9 +83,9 @@
             </ul>
         </div>
     {% endif %}
-
     <br>
-                        <!-- ========================= -->
+
+<!-- ========================= -->
 <!-- POPUP VARIATION KILOMÉTRAGE -->
 <!-- ========================= -->
 
@@ -198,7 +222,7 @@
     <form method="post" id="bte-auto-form" class="space-y-4">
         {% csrf_token %}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/compteur-de-vitesse.png' %}" alt="Kilometrage"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Kilométrage" %}
@@ -248,10 +272,10 @@
 
         <br>
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/convertisseur.png' %}" alt="Convertisseur"
                  style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Embrayage" %}
+            {% trans "Convertisseur de couple" %}
         </h2>
         {% for field in form %}
             {% if "auto_emb" in field.name %}
@@ -298,7 +322,7 @@
 
         <br>
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/boite-double-embrayage.png' %}" alt="Double embrayage"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Double embrayage" %}
@@ -348,7 +372,7 @@
 
         <br>
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pompe-hydraulique.png' %}" alt="Pompe à huile"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Pompe hydraulique" %}
@@ -398,7 +422,7 @@
 
         <br>
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/valve-hydraulique.png' %}" alt="valve hydraulique"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Valves" %}
@@ -449,7 +473,7 @@
         <br>
 
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/boite-arbre entrée.png' %}" alt="Arbre de couple"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Arbre de couple" %}
@@ -500,7 +524,7 @@
         <br>
 
 
-          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/boite-arbre-sortie.png' %}" alt="Arbre de sortie"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Arbre de sortie" %}
@@ -553,7 +577,7 @@
 
 
         <!-- Section Moteur -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roulement.png' %}" alt="roulement de boite"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Roulement de boite de vitesses" %}
@@ -588,7 +612,7 @@
 
         <br>
 
-          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/bloc-hydraulique.png' %}" alt="Bloc hydraulique"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Bloc hydraulique" %}
@@ -638,7 +662,7 @@
 
         <br>
 
-          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/unite-mecatronic.png' %}" alt="Unité mécatronique"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Unité mécatronique" %}
@@ -688,7 +712,7 @@
 
         <br>
 
-          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/solenoide.png' %}" alt="Solenoide"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Solenoide" %}
@@ -738,7 +762,7 @@
 
         <br>
 
-          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/electrovanne.png' %}" alt="Electrovannes"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Electrovannes" %}
@@ -788,7 +812,7 @@
 
         <br>
 
-                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                    <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/boite-filtre-huile.png' %}" alt="Filtre à huile de boite"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Filtre à huile" %}
@@ -838,7 +862,7 @@
 
         <br>
 
-                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                    <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/boite-carter.png' %}" alt="Carter d'huile de boite"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Carter d'huile" %}
@@ -888,7 +912,7 @@
 
         <br>
 
-                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                    <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/boite-joint-carter.png' %}" alt="Joint de carter"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Joint de Carter" %}
@@ -938,7 +962,7 @@
 
         <br>
 
-                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                    <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/boite-crepine.png' %}" alt="Crépine"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Crépine" %}
@@ -988,7 +1012,7 @@
 
         <br>
 
-              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pompe-hydraulique.png' %}" alt="Pompe hydraulique"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Pompe hydraulique" %}
@@ -1038,7 +1062,7 @@
 
         <br>
 
-              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/boite-embraye-interne.png' %}" alt="Embrayages interne"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Embrayages interne" %}
@@ -1088,7 +1112,7 @@
 
         <br>
 
-              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/boite-disque-embrayage.png' %}" alt="Disques d'embrayage"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Disques d'embrayage" %}
@@ -1138,7 +1162,7 @@
 
         <br>
 
-                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                    <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/boite-disque-acier.png' %}" alt="disques d'acier"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Disques d'acier" %}
@@ -1188,7 +1212,7 @@
 
         <br>
 
-                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                    <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/boite-tambour.png' %}" alt="Tambours d'embrayage"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Tambour d'embrayage" %}
@@ -1238,7 +1262,7 @@
 
         <br>
 
-                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                    <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/piston-embrayage.png' %}" alt="Piston d'embrayage"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Pistons d'embrayage" %}
@@ -1288,7 +1312,7 @@
 
         <br>
 
-                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                    <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/joint-piston.png' %}" alt="Joints de piston"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Joints de pistons" %}
@@ -1338,7 +1362,7 @@
 
         <br>
 
-                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                    <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/train-epicycloidal.png' %}" alt="Train epicycloidal"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Train épicycloïdal" %}
@@ -1389,7 +1413,7 @@
         <br>
 
 
-                  <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                    <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pignon-planetaire.png' %}" alt="Pignon planétaire"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Pignon planétaire" %}
@@ -1440,7 +1464,7 @@
         <br>
 
          <br>
-              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pignons-satellite.png' %}" alt="Pignon satellite"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Pignons satellites" %}
@@ -1491,7 +1515,7 @@
         <br>
 
 
-              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/couronne-epi.png' %}" alt="Couronnes"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Couronne épicycloïdal" %}
@@ -1540,7 +1564,7 @@
         {% endfor %}
 
         <br>
-              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/porte-satelite.png' %}" alt="Porte satellite"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Porte-satellite" %}
@@ -1595,7 +1619,7 @@
         {# PIGNONS INTERNES #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pigon-interne.png' %}" alt="Pignons internes"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Pignons internes" %}
@@ -1632,7 +1656,7 @@
         {# ROUE LIBRE #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roue-libre.png' %}" alt="Roue libre"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Roue libre" %}
@@ -1662,7 +1686,7 @@
         {# FREINS INTERNES #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/frein-interne.png' %}" alt="Freins internes"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Freins internes" %}
@@ -1686,7 +1710,7 @@
         {# BANDES DE FREIN #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/bande-frein.png' %}" alt="Bandes de frein"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Bandes de frein" %}
@@ -1710,7 +1734,7 @@
         {# CAPTEUR VITESSE ENTREE #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/capteur-vitesse.png' %}" alt="Capteur vitesse entrée"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Capteur de vitesse d'entrée" %}
@@ -1734,7 +1758,7 @@
         {# CAPTEUR VITESSE SORTIE #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/capteur-vitesse.png' %}" alt="Capteur vitesse sortie"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Capteur de vitesse de sortie" %}
@@ -1758,7 +1782,7 @@
         {# CAPTEUR TEMPERATURE HUILE #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/capteur-température-huile.png' %}" alt="Capteur température huile"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Capteur de température d'huile" %}
@@ -1782,7 +1806,7 @@
         {# CAPTEUR PRESSION HUILE #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/capteur-prssion_huile.png' %}" alt="Capteur pression huile"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Capteur de pression d'huile" %}
@@ -1806,7 +1830,7 @@
         {# CALCULATEUR BOITE #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/calculateur-boite.png' %}" alt="Calculateur boîte"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Calculateur de boîte automatique" %}
@@ -1830,7 +1854,7 @@
         {# FAISCEAU ELECTRIQUE #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/faisceau-boite.png' %}" alt="Faisceau électrique"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Faisceau électrique de boîte" %}
@@ -1854,7 +1878,7 @@
         {# CONNECTEUR BOITE #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/connecteur-boite.png' %}" alt="Connecteur boîte"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Connecteur électrique de boîte" %}
@@ -1878,7 +1902,7 @@
         {# SELECTEUR BOITE #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/selecteur-boite.png' %}" alt="Sélecteur boîte"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Sélecteur de boîte" %}
@@ -1902,7 +1926,7 @@
         {# CAPTEUR POSITION SELECTEUR #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/capteur-position -selecteur.png' %}" alt="Capteur position sélecteur"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Capteur de position du sélecteur" %}
@@ -1926,7 +1950,7 @@
         {# DIFFERENTIEL #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/differentiel.png' %}" alt="Différentiel"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Différentiel" %}
@@ -1950,7 +1974,7 @@
         {# PIGNONS DIFFERENTIEL #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pignon-différentiel.png' %}" alt="Pignons différentiel"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Pignons de différentiel" %}
@@ -1974,7 +1998,7 @@
         {# JOINTS SPI #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/joint-spi.png' %}" alt="Joints spi"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Joints spi de boîte" %}
@@ -1998,7 +2022,7 @@
         {# JOINTS TORIQUES #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/joint-torique.png' %}" alt="Joints toriques"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Joints toriques de boîte" %}
@@ -2022,7 +2046,7 @@
         {# BAGUES #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/bagues-boite-auto.png' %}" alt="Bagues"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Bagues de boîte automatique" %}
@@ -2046,7 +2070,7 @@
         {# ECHANGEUR HUILE BOITE #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/echangeur.png' %}" alt="Échangeur huile boîte"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Échangeur d'huile de boîte" %}
@@ -2070,7 +2094,7 @@
         {# DURITES HUILE BOITE #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/durites-boite.png' %}" alt="Durites huile boîte"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Durites d'huile de boîte" %}
@@ -2094,7 +2118,7 @@
         {# SUPPORTS BOITE #}
         {# ============================================================ #}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/support-boite.png' %}" alt="Supports boîte"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Supports de boîte automatique" %}
@@ -2125,7 +2149,7 @@
 
 
         <!-- Section Huile -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/huile-moteur.png' %}" alt="Huile de boite automatique"
                  style="width:60px; height:60px; margin-right:10px;">
              {% trans "Huile de boite automatique" %}
@@ -2161,7 +2185,7 @@
         <br>
 
          <!-- Section pays tva -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pays.png' %}" alt="pays tva"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Pays" %}
@@ -2200,7 +2224,7 @@
 
 
          <!-- Section Boite auto Tag -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/tag.png' %}" alt="Etiquette"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Tag" %}
@@ -2237,7 +2261,7 @@
 
 
         <!-- Section remarques -->
-       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/notes.png' %}" alt="Remarques"
                  style="width:60px; height:60px; margin-right:10px;">
            {% trans "Remarques" %}
@@ -2274,7 +2298,7 @@
         <br>
 
      <!-- Section serrage des roues -->
-       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roue.png' %}" alt="Serrage des roues"
                  style="width:60px; height:60px; margin-right:10px;">
            {% trans "Serrage des roues" %}
@@ -2311,7 +2335,7 @@
         <br>
 
         <!-- Section technicien -->
-       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/mecanicien.png' %}" alt="Technicien"
                  style="width:60px; height:60px; margin-right:10px;">
            {% trans "Technicien" %}
@@ -2347,7 +2371,7 @@
 
         <br>
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/taux.png' %}" alt="taux horaire"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Taux Horaire" %}
@@ -2399,7 +2423,7 @@
 
 
                      <!-- Section temps main d'œuvre -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Temps de main d'œuvre" %}
