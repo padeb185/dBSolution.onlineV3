@@ -4,18 +4,37 @@
 {% block content %}
 <div class="p-6 w-full">
 
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold flex items-center gap-4">
+    <h1 class="text-2xl font-bold mb-6 flex flex-col md:flex-row md:items-center gap-3">
+        <div class="flex items-center gap-3">
+
             <img src="{% static 'icons/radiateur.png' %}"
-                 alt="{{ ref.voiture_exemplaire.immatriculation }}"
-                 class="w-12 h-12">
-            <span>{% trans "Détails du contrôle" %}</span>
-              {{ exemplaire.voiture_marque.nom_marque }}
-                {{ exemplaire.voiture_modele.nom_modele }}
-                {{ exemplaire.voiture_modele.nom_variante }}
-        </h1>
-    </div>
+                 alt="refroidissement"
+                 class="w-16 h-16">
+
+            <div class="flex items-center gap-2">
+
+                {% trans "Détails du contrôle du refroidissement" %}
+
+                {% static 'images/marques/' as marques_path %}
+
+                <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                     alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                     class="w-20 h-20">
+
+                <span class="font-semibold">
+                    {{ exemplaire.voiture_modele.nom_modele }}
+
+                    {% if exemplaire.voiture_modele.nom_variante %}
+                        {{ exemplaire.voiture_modele.nom_variante }}
+                    {% endif %}
+                </span>
+
+            </div>
+        </div>
+    </h1>
+
+
+
   <!-- Messages -->
     {% if messages %}
         {% for message in messages %}
