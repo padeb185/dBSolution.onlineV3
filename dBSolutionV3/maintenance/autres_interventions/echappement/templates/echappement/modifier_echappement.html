@@ -6,27 +6,50 @@
 <br>
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold flex items-center gap-4">
-            {% if echappement.tech_societe %}
-                {% with image_name=echappement.tech_societe.nom|slugify %}
-                    <img src="{% static 'echappement/'|add:image_name|add:'.png' %}"
-                         alt="{{ echappement.tech_societe.nom }}"
-                         class="w-12 h-12 rounded"
-                         onerror="this.onerror=null; this.src='{% static 'icons/echappement.png' %}';">
-                {% endwith %}
-            {% else %}
-                <img src="{% static 'icons/echappement.png' %}" class="w-12 h-12 rounded">
-            {% endif %}
-            <span>{% trans "Modifier le checkup de l'échappement" %}</span>
-            <span class="text-gray-700 font-medium">#{{ echappement.id }}</span>
+
+   <div class="mb-6">
+
+        <h1 class="text-2xl font-bold">
+
+            <!-- Ligne 1 : icône + titre -->
+            <div class="flex items-center gap-4">
+                <img src="{% static 'icons/echappement.png' %}"
+                     alt="échappement"
+                     style="width:60px; height:60px;">
+
+                <span>
+                    {% trans "Modifier le contrôle de l'échappement" %}
+                </span>
+            </div>
+
+            <!-- Ligne 2 : marque + modèle + variante -->
+            <div class="flex items-center justify-center gap-4 mt-3">
+
+                {% static 'images/marques/' as marques_path %}
+
+                <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                     alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                     class="w-20 h-20 object-contain">
+
+                <span class="font-semibold">
+                    {{ exemplaire.voiture_modele.nom_modele }}
+
+                    {% if exemplaire.voiture_modele.nom_variante %}
+                        {{ exemplaire.voiture_modele.nom_variante }}
+                    {% endif %}
+                </span>
+
+            </div>
+
         </h1>
+
     </div>
 
-     <div class="mb-4">
+       <!-- Plaque -->
+    <div class="mb-4 flex justify-center">
         {% include "maintenance/partials/plaque.html" %}
     </div>
+
 
     <!-- Messages -->
     {% if messages %}
@@ -193,12 +216,7 @@
         {% csrf_token %}
 
 
-        <h2 class="text-lg font-semibold mb-2">{% trans "Détails du controle de l'échappement" %}</h2>
-
-        <br>
-
-
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/compteur-de-vitesse.png' %}" alt="Kilometrage"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Kilométrage" %}
@@ -248,7 +266,7 @@
 
         <br>
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/collecteur.png' %}" alt="Collecteur"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Collecteur" %}
@@ -298,7 +316,7 @@
 
         <br>
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/catalyseur.png' %}" alt="catalyseur"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Catalyseur" %}
@@ -351,7 +369,7 @@
 
 
         <!-- Section ligne complete -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/ligne.png' %}" alt="Ligne complète"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Ligne complete" %}
@@ -387,7 +405,7 @@
         <br>
 
           <!-- Section FAP -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/fap.png' %}" alt="Filtre à particules"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Filtre à particules" %}
@@ -424,7 +442,7 @@
 
 
         <!-- Section Pot DeNOx -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pot-denox.png' %}" alt="Pot DeNOx"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Pot DeNOx" %}
@@ -461,7 +479,7 @@
 
 
          <!-- Section silencieux -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/silencieux.png' %}" alt="Silencieux"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Silencieux" %}
@@ -500,7 +518,7 @@
 
 
         <!-- Section sonde lambda aval -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/sonde-lambda.png' %}" alt="Sonde Lambda amont"
                  style="width:60px; height:60px; margin-right:10px;">
              {% trans "Sonde Lambda amont" %}
@@ -540,7 +558,7 @@
 
 
          <!-- Section sonde lambda aval-->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/sonde-lambda.png' %}" alt="Sonde Lambda aval"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Sonde Lambda aval" %}
@@ -576,7 +594,7 @@
         <br>
 
            <!-- Section sonde fap aval-->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/sonde-fap.png' %}" alt="Sonde FAP amont"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Sonde FAP amont" %}
@@ -612,7 +630,7 @@
         <br>
 
            <!-- Section sonde fap aval-->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/sonde-fap.png' %}" alt="Sonde FAP aval"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Sonde FAP aval" %}
@@ -648,7 +666,7 @@
         <br>
 
        <!-- Section capteur fap-->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/capteur-fap.png' %}" alt="Capteur de pression FAP"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Capteur de pression FAP" %}
@@ -684,7 +702,7 @@
         <br>
 
        <!-- Section tuyaux fap -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/tuyau-fap.png' %}" alt="Tuyaux FAP"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Tuyaux FAP" %}
@@ -720,7 +738,7 @@
         <br>
 
        <!-- Section Régénération FAP-->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/regeneration-fap.png' %}" alt="Régénération FAP"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Régénération FAP" %}
@@ -756,7 +774,7 @@
         <br>
 
     <!-- Section colmatage-->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/colmatage.png' %}" alt="Colmatage FAP"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Colmatage FAP" %}
@@ -792,7 +810,7 @@
         <br>
 
     <!-- Section -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/suie.png' %}" alt="Suies FAP"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Suies FAP" %}
@@ -828,7 +846,7 @@
         <br>
 
     <!-- Section -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/cendre.png' %}" alt="Cendres FAP"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Cendres FAP" %}
@@ -864,7 +882,7 @@
         <br>
 
     <!-- Section -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/injecteur-ad.png' %}" alt="Injecteur AdBlue"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Injecteur AdBlue" %}
@@ -900,7 +918,7 @@
         <br>
 
          <!-- Section valve-->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/valve-echappement.png' %}" alt="Valve d'échappement"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Valve d'échappement" %}
@@ -937,7 +955,7 @@
 
 
     <!-- Section collier-->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/collier.png' %}" alt="Collier d'échappement"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Collier d'échappement" %}
@@ -973,7 +991,7 @@
         <br>
 
     <!-- Section Manchon -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/manchon.png' %}" alt="Manchon d'échappement"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Manchon d'échappement" %}
@@ -1009,7 +1027,7 @@
         <br>
 
     <!-- Section joints -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/joint.png' %}" alt="Joint d'échappement"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Joint d'échappement" %}
@@ -1045,7 +1063,7 @@
         <br>
 
     <!-- Section silent bloc -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/silent.png' %}" alt="Silent bloc d'échappement"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Silent bloc d'échappement" %}
@@ -1082,7 +1100,7 @@
 
 
         <!-- Section remarques -->
-       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/notes.png' %}" alt="Remarques"
                  style="width:60px; height:60px; margin-right:10px;">
            {% trans "Remarques" %}
@@ -1120,7 +1138,7 @@
 
 
           <!-- Section remarques -->
-       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/tag.png' %}" alt="Tag"
                  style="width:60px; height:60px; margin-right:10px;">
            {% trans "Tag" %}
@@ -1157,7 +1175,7 @@
         <br>
 
           <!-- Section remarques -->
-       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pays.png' %}" alt="Pays"
                  style="width:60px; height:60px; margin-right:10px;">
            {% trans "Pays" %}
@@ -1194,7 +1212,7 @@
         <br>
 
          <!-- Section serrage des roues -->
-       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roue.png' %}" alt="Serrage des roues"
                  style="width:60px; height:60px; margin-right:10px;">
            {% trans "Serrage des roues" %}
@@ -1232,7 +1250,7 @@
 
 
         <!-- Section technicien -->
-       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/mecanicien.png' %}" alt="Technicien"
                  style="width:60px; height:60px; margin-right:10px;">
            {% trans "Technicien" %}
@@ -1267,7 +1285,7 @@
 
 
         <br>
-     <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+      <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/taux.png' %}" alt="Taux horaire"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Taux horaire" %}
@@ -1318,7 +1336,7 @@
         <br>
 
                      <!-- Section temps main d'œuvre -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Temps de main d'œuvre" %}

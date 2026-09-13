@@ -6,30 +6,50 @@
 <br>
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold flex items-center gap-4">
 
-            <!-- Image société (corrigé : plus de alternateur) -->
-            {% if courroie_accessoires.tech_societe %}
-                {% with image_name=courroie_accessoires.tech_societe.nom|slugify %}
-                    <img src="{% static 'courroie_accessoires/'|add:image_name|add:'.png' %}"
-                         alt="{{ courroie_accessoires.tech_societe.nom }}"
-                         class="w-12 h-12 rounded"
-                         onerror="this.onerror=null; this.src='{% static 'icons/courroie-daccess.png' %}';">
-                {% endwith %}
-            {% else %}
-                <img src="{% static 'icons/courroie-daccess.png' %}" class="w-12 h-12 rounded">
-            {% endif %}
+       <div class="mb-6">
 
-            <span>{% trans "Modifier le remplacement de la courroie d'accessoires" %}</span>
-            <span class="text-gray-700 font-medium">#{{ courroie_accessoires.id }}</span>
-        </h1>
-    </div>
+            <h1 class="text-2xl font-bold">
 
-    <div class="mb-4">
-        {% include "maintenance/partials/plaque.html" %}
-    </div>
+                <!-- Ligne 1 : icône + titre -->
+                <div class="flex items-center gap-4">
+                    <img src="{% static 'icons/courroie-daccess.png' %}"
+{#                         alt="courroie d'accessoires"#}
+                         style="width:60px; height:60px;">
+
+                    <span>
+                        {% trans "Modifier le contrôle de la courroie d'accessoires" %}
+                    </span>
+                </div>
+
+                <!-- Ligne 2 : marque + modèle + variante -->
+                <div class="flex items-center justify-center gap-4 mt-3">
+
+                    {% static 'images/marques/' as marques_path %}
+
+                    <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                         alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                         class="w-20 h-20 object-contain">
+
+                    <span class="font-semibold">
+                        {{ exemplaire.voiture_modele.nom_modele }}
+
+                        {% if exemplaire.voiture_modele.nom_variante %}
+                            {{ exemplaire.voiture_modele.nom_variante }}
+                        {% endif %}
+                    </span>
+
+                </div>
+
+            </h1>
+
+       </div>
+
+           <!-- Plaque -->
+        <div class="mb-4 flex justify-center">
+            {% include "maintenance/partials/plaque.html" %}
+        </div>
+
 
     <!-- Messages -->
     {% if messages %}
@@ -198,8 +218,9 @@
          {% csrf_token %}
 
         {% for section in sections %}
+            <br>
         <div class="mb-16">
-            <h2 class="text-xl font-semibold mb-2 flex items-center gap-3">
+             <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
                 <img src="{% static section.icon %}" class="w-16 h-16">
                 {% trans section.title %}
             </h2>

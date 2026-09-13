@@ -31,8 +31,8 @@ class ControleEchappementForm(forms.ModelForm):
             "kilometres_moteur_rollback",
             "kilometres_boite",
             "kilometres_moteur",
+            "voiture_exemplaire",
         }
-        exclude = ["voiture_exemplaire",]
         widgets = {
             'maintenance': forms.HiddenInput(),
             'remarques': forms.Textarea(attrs={
