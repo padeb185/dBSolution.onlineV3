@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-13 14:46+0200\n"
+"POT-Creation-Date: 2026-09-13 15:08+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -11518,7 +11518,7 @@ msgstr "Tableau de Bord"
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:16
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Détaiils du remplacement de l'embrayage"
+msgid "Détails du remplacement de l'embrayage"
 msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:137
@@ -11926,7 +11926,7 @@ msgstr "Tableau de Bord"
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_modifier.html:21
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "modifier le contrôle de la géométrie"
+msgid "Modifier le contrôle de la géométrie"
 msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/geometrie/views.py:184
@@ -12884,7 +12884,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:16
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "détails du contrôle de la courroie de distribution"
+msgid "Détails du contrôle de la courroie de distribution"
 msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:108
