@@ -7,46 +7,47 @@
 <br>
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
-    <!-- Header -->
     <div class="mb-6">
 
-        <!-- Ligne 1 : icône + titre -->
-        <div class="flex items-center gap-3">
-            <img src="{% static 'icons/checkup.png' %}"
-                 alt="Maintenance"
-                 style="width:60px; height:60px;">
+        <h1 class="text-2xl font-bold">
 
-            <h1 class="text-2xl font-bold">
-                {% trans "Modification du checkup pour :" %}
-            </h1>
-        </div>
-        <br>
-        <!-- Ligne 2 : marque + modèle + variante -->
-        <div class="flex items-center gap-3 mt-4">
+            <!-- Ligne 1 : icône + titre -->
+            <div class="flex items-center gap-4">
+                <img src="{% static 'icons/checkup.png' %}"
+                     alt="checkup"
+                     style="width:60px; height:60px;">
 
-            {% static 'images/marques/' as marques_path %}
+                <span>
+                    {% trans "Modifier le checkup" %}
+                </span>
+            </div>
 
-            <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
-                 alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
-                 class="w-16 h-16 object-contain">
+            <!-- Ligne 2 : marque + modèle + variante -->
+            <div class="flex items-center justify-center gap-4 mt-3">
 
-            <span class="font-semibold text-lg">
-                {{ exemplaire.voiture_modele.nom_modele }}
+                {% static 'images/marques/' as marques_path %}
 
-                {% if exemplaire.voiture_modele.nom_variante %}
-                    {{ exemplaire.voiture_modele.nom_variante }}
-                {% endif %}
-            </span>
+                <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                     alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                     class="w-20 h-20 object-contain">
 
-        </div>
+                <span class="font-semibold">
+                    {{ exemplaire.voiture_modele.nom_modele }}
 
-        <!-- Ligne 3 : immatriculation centrée -->
-        <div class="mt-4 text-center">
-            <span class="text-xl font-bold">
-               {% include "maintenance/partials/plaque.html" %}
-            </span>
-        </div>
-        <br>
+                    {% if exemplaire.voiture_modele.nom_variante %}
+                        {{ exemplaire.voiture_modele.nom_variante }}
+                    {% endif %}
+                </span>
+
+            </div>
+
+        </h1>
+
+    </div>
+
+       <!-- Plaque -->
+    <div class="mb-4 flex justify-center">
+        {% include "maintenance/partials/plaque.html" %}
     </div>
 
     <!-- Messages -->
@@ -63,7 +64,7 @@
         {% endfor %}
     {% endif %}
 
-      {% if form.errors %}
+    {% if form.errors %}
         <div style="
             background-color: #fee2e2;
             color: #991b1b;
@@ -84,15 +85,15 @@
                     <li>{{ error }}</li>
                 {% endfor %}
             </ul>
-        </div>
+         </div>
     {% endif %}
 
 
-<!-- ============================== -->
-<!-- POPUP VARIATION KILOMÉTRAGE -->
-<!-- ============================== -->
-
-<style>
+    <!-- ============================== -->
+    <!-- POPUP VARIATION KILOMÉTRAGE -->
+    <!-- ============================== -->
+    
+    <style>
     #kilometrage-popup {
         display: none;
         position: fixed;
@@ -225,7 +226,7 @@
         {% csrf_token %}
 
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/compteur-de-vitesse.png' %}" alt="Kilometrage"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Kilométrage" %}
@@ -275,7 +276,7 @@
 
         <br>
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/essuie-glace.png' %}" alt="Essuie-glace"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Essuie-glace" %}
@@ -325,7 +326,7 @@
 
         <br>
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pare-brise-casse.png' %}" alt="Pare-brise"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Pare-brise" %}
@@ -376,7 +377,7 @@
         <br>
 
         <!-- Section Moteur -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/engine.png' %}" alt="moteur"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Moteur" %}
@@ -412,7 +413,7 @@
         <br>
 
           <!-- Section Refroidissement -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/radiateur.png' %}" alt="Radiateur"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Radiateur" %}
@@ -448,7 +449,7 @@
         <br>
 
            <!-- Section Refroidissement -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/anti-gel.png' %}" alt="Anti-gel"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Liquide de refroidissement" %}
@@ -486,7 +487,7 @@
 
 
         <!-- Section Boite -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Boite de vitesse"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Boite de vitesse" %}
@@ -523,7 +524,7 @@
 
 
          <!-- Section Pont -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pont.png' %}" alt="Pont"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Pont arrière" %}
@@ -562,7 +563,7 @@
 
 
         <!-- Section freins -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/plaquettes-de-frein.png' %}" alt="plaquettes frein av"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Plaquettes de frein avant" %}</h2>
 
@@ -598,7 +599,7 @@
         <br>
 
             <!-- Section freins -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/disque-de-frein.png' %}" alt="Disques de frein avant"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Disques avant" %}</h2>
 
@@ -646,7 +647,7 @@
         <br>
 
        <!-- Section freins ar plaquettes -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/plaquettes-de-frein.png' %}" alt="plaquettes frein arrière"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Plaquettes de frein arrière" %}</h2>
 
@@ -681,7 +682,7 @@
         <br>
 
            <!-- Section freins -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/disque-de-frein.png' %}" alt="Disques de frein arrière"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Disques de frein arrière" %}</h2>
 
@@ -730,7 +731,7 @@
 
         <br>
         <!-- Section freins liquide -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/liquide_frein.png' %}" alt="Liquide de frein"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Liquide de frein" %}</h2>
 
@@ -768,7 +769,7 @@
 
 
         <!-- Section Batterie -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/batterie.png' %}" alt="batterie"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Batterie" %}
@@ -804,7 +805,7 @@
         <br>
 
          <!-- Section Direction -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/direction.png' %}" alt="Liquide de direction"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Liquide de direction" %}
@@ -841,7 +842,7 @@
 
         <!-- Section jeux rotules -->
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pieces-de-voiture.png' %}" alt="Jeux rotules"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Jeux rotules de direction" %}</h2>
         {% for field in form %}
@@ -874,7 +875,7 @@
 
         <br>
   <!-- Section jeux rotules -->
-          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/rotule-suspension.png' %}" alt="Jeux rotules suspension inférieures"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Jeux rotules de suspension inférieures" %}</h2>
         {% for field in form %}
@@ -908,7 +909,7 @@
         <br>
 
          <!-- Section jeux rotules -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/rotule-suspension.png' %}" alt="Jeux rotules suspension supérieures"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Jeux rotules de suspension supérieures" %}</h2>
         {% for field in form %}
@@ -942,7 +943,7 @@
         <br>
 
          <!-- Section jeux biellettes -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/biellette-barre-stab.png' %}" alt="Jeu barre stabilisatrice"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Jeux biellettes de barre stabilisatrice" %}</h2>
         {% for field in form %}
@@ -978,7 +979,7 @@
 
 
         <!-- Section jeux barre -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/barre-stabilisatrice.png' %}" alt="Jeu barre stabilisatrice"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Jeux barres stabilisatrice" %}</h2>
         {% for field in form %}
@@ -1013,7 +1014,7 @@
 
 
               <!-- Section jeux biellettes -->
-           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+             <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/biellette-direction.png' %}" alt="Jeu biellette de direction"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Jeux biellettes de direction" %}</h2>
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux biellettes de direction" %}</h2>
@@ -1048,7 +1049,7 @@
         <br>
 
          <!-- Section jeux cardan -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/cardan.png' %}" alt="cardans"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Jeux dans les cardans" %}
@@ -1084,7 +1085,7 @@
         <br>
 
           <!-- Section arbre de transmission-->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/arbre-de-transmission.png' %}" alt="arbre de transmission"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Jeux dans l'arbre de transmission" %}
@@ -1123,7 +1124,7 @@
 
 
          <!-- Section jeux roulement -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roulement.png' %}" alt="roulement de roue"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Jeux roulements de roues" %}
@@ -1160,7 +1161,7 @@
 
 
           <!-- Section jeux triangle -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/triangle.png' %}" alt="triangle"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Jeux triangles" %}
@@ -1195,7 +1196,7 @@
         <br>
 
           <!-- Section jeux suspension multi-bras -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/suspension-multi.png' %}" alt="suspension multi bras"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Jeux suspension multi-bras" %}
@@ -1231,7 +1232,7 @@
         <br>
 
           <!-- Section jeux barre -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/amortisseur.png' %}" alt="jeu amortisseur"
                  style="width:60px; height:60px; margin-right:10px;">
              {% trans "Jeux amortisseurs" %}
@@ -1267,7 +1268,7 @@
         <br>
 
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pneus.png' %}" alt="épaisseur pneus"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Epaisseur pneus en mm" %}</h2>
         {% for field in form %}
@@ -1300,7 +1301,7 @@
 
         <br>
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pneus.png' %}" alt="état de la bandes de roulement pneus"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Etat de la bande de roulement" %}</h2>
         {% for field in form %}
@@ -1365,7 +1366,7 @@
 
         <br>
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pression-des-pneus.png' %}" alt="triangle"
                  style="width:60px; height:60px; margin-right:10px;">
              {% trans "Pression des Pneus" %}
@@ -1400,7 +1401,7 @@
 
         <br>
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pneus-train.png' %}" alt="Remplacer train de pneus"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Remplacer train" %}</h2>
         {% for field in form %}
@@ -1436,7 +1437,7 @@
 
 
             <!-- Section Phares -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/phares.png' %}" alt="Phares"
                  style="width:60px; height:60px; margin-right:10px;">
                  {% trans "Phares" %}
@@ -1474,7 +1475,7 @@
 
 
         <!-- Section nettoyage ext -->
-       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/nettoyage_ext.png' %}" alt="nettoyage extérieur"
                  style="width:60px; height:60px; margin-right:10px;">
            {% trans "Nettoyage extérieur" %}
@@ -1510,7 +1511,7 @@
         <br>
 
         <!-- Section nettoyage int -->
-       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/nettoyage_int.png' %}" alt="nettoyage intérieur"
                  style="width:60px; height:60px; margin-right:10px;">
            {% trans "Nettoyage intérieur" %}
@@ -1546,7 +1547,7 @@
 
         <br>
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pays.png' %}" alt="pays"
                  style="width:60px; height:60px; margin-right:10px;">
            {% trans "Pays" %}
@@ -1583,7 +1584,7 @@
         <br>
 
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/tag.png' %}" alt="étiquette"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Etiquette" %}</h2>
         {% for field in form %}
@@ -1632,7 +1633,7 @@
         <br>
 
         <!-- Section remarques -->
-       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/notes.png' %}" alt="triangle"
                  style="width:60px; height:60px; margin-right:10px;">
            {% trans "Remarques" %}
@@ -1668,7 +1669,7 @@
 
         <br>
 
-                 <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+                   <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roue.png' %}" alt="Serrage des roues"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Serrage des roues" %}</h2>
         {% for field in form %}
@@ -1704,7 +1705,7 @@
 
 
         <!-- Section technicien -->
-       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/mecanicien.png' %}" alt="triangle"
                  style="width:60px; height:60px; margin-right:10px;">
            {% trans "Technicien" %}
@@ -1740,7 +1741,7 @@
 
         <br>
      <!-- Section technicien -->
-       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/taux.png' %}" alt="taux horaire"
                  style="width:60px; height:60px; margin-right:10px;">
            {% trans "Taux horaire" %}
@@ -1777,7 +1778,7 @@
         <br>
 
                  <!-- Section temps main d'œuvre -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Temps de main d'œuvre" %}

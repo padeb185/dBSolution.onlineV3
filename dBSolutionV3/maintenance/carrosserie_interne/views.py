@@ -1126,27 +1126,27 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
 
         {
             "title": "Joint de coffre",
-            "icon": "icons/joint.png",
+            "icon": "icons/joint-coffre.png",
             "fields": [f for f in form if "joint_coffre" in f.name],
         },
         {
             "title": "Joint de porte avant droite",
-            "icon": "icons/joint.png",
+            "icon": "icons/joint-porte.png",
             "fields": [f for f in form if "joint_porte_avd" in f.name],
         },
         {
             "title": "Joint de porte avant gauche",
-            "icon": "icons/joint.png",
+            "icon": "icons/joint-porte.png",
             "fields": [f for f in form if "joint_porte_avg" in f.name],
         },
         {
             "title": "Joint de porte arrière droite",
-            "icon": "icons/joint.png",
+            "icon": "icons/joint-porte.png",
             "fields": [f for f in form if "joint_porte_ard" in f.name],
         },
         {
             "title": "Joint de porte arrière gauche",
-            "icon": "icons/joint.png",
+            "icon": "icons/joint-porte.png",
             "fields": [f for f in form if "joint_porte_arg" in f.name],
         },
         {
@@ -1373,16 +1373,15 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
             "icon": "icons/tag.png",
             "fields": [f for f in form if "tag" in f.name],
         },
-
-        {
-            "title": "Remarques",
-            "icon": "icons/notes.png",
-            "fields": [f for f in form if "remarques" in f.name],
-        },
         {
             "title": _("Serrage des roues"),
             "icon": "icons/roue.png",
             "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
+        {
+            "title": "Remarques",
+            "icon": "icons/notes.png",
+            "fields": [f for f in form if "remarques" in f.name],
         },
         {
             "title": "Technicien",

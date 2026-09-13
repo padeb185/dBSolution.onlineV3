@@ -6,34 +6,50 @@
 <br>
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold flex items-center gap-4">
-            {% if carrosserie_interne.tech_societe %}
-                {% with image_name=carrosserie.tech_societe.nom|slugify %}
-                    <img src="{% static 'carrosserie_interne/'|add:image_name|add:'.png' %}"
-                         alt="{{ carrosserie.tech_societe.nom }}"
-                         class="w-12 h-12 rounded"
-                         onerror="this.onerror=null; this.src='{% static 'icons/carrosserie.png' %}';">
-                {% endwith %}
-            {% else %}
-                <img src="{% static 'icons/carrosserie.png' %}" class="w-12 h-12 rounded">
-            {% endif %}
-            <span>{% trans "Modifier l'intervention carrosserie" %}</span>
-            <span class="text-gray-700 font-medium">#{{ carrosserie_interne.id }}</span>
+
+   <div class="mb-6">
+
+        <h1 class="text-2xl font-bold">
+
+            <!-- Ligne 1 : icône + titre -->
+            <div class="flex items-center gap-4">
+                <img src="{% static 'icons/carrosserie.png' %}"
+                     alt="Carrosserie"
+                     style="width:60px; height:60px;">
+
+                <span>
+                    {% trans "Modifier le contrôle de la carrosserie" %}
+                </span>
+            </div>
+
+            <!-- Ligne 2 : marque + modèle + variante -->
+            <div class="flex items-center justify-center gap-4 mt-3">
+
+                {% static 'images/marques/' as marques_path %}
+
+                <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                     alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                     class="w-20 h-20 object-contain">
+
+                <span class="font-semibold">
+                    {{ exemplaire.voiture_modele.nom_modele }}
+
+                    {% if exemplaire.voiture_modele.nom_variante %}
+                        {{ exemplaire.voiture_modele.nom_variante }}
+                    {% endif %}
+                </span>
+
+            </div>
 
         </h1>
 
     </div>
-     <h1 class="text-2xl font-bold flex items-center gap-4">
-         {{ carrosserie_interne.voiture_exemplaire.voiture_marque.nom_marque }}
-         {{ carrosserie_interne.voiture_exemplaire.voiture_modele.nom_modele }}
-         {{ carrosserie_interne.voiture_exemplaire.voiture_modele.nom_variante }}
-     </h1><br>
 
-     <div class="mb-4">
+       <!-- Plaque -->
+    <div class="mb-4 flex justify-center">
         {% include "maintenance/partials/plaque.html" %}
     </div>
+
 
     <!-- Messages -->
     {% if messages %}
@@ -204,8 +220,9 @@
         {% csrf_token %}
 
        {% for section in sections %}
+           <br>
         <div class="mb-16">
-            <h2 class="text-xl font-semibold mb-2 flex items-center gap-3">
+              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
                 <img src="{% static section.icon %}" class="w-16 h-16">
                 {% trans section.title %}
             </h2>
@@ -242,6 +259,7 @@
         </div>
         {% endfor %}
 
+        <br>
                    <!-- Section temps main d'œuvre -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
@@ -293,6 +311,12 @@
                {% trans "Annuler" %}
             </a>
         </div>
+
+         <!-- Date -->
+        <p class="text-sm text-gray-500 mt-4">
+            {% trans "Date actuelle" %} : {{ now|date:"Y-m-d H:i" }}
+        </p>
+
     </form>
 
 </div>
