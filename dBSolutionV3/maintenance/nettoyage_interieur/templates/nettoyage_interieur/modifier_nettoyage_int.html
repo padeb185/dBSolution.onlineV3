@@ -8,23 +8,48 @@
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
     <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold flex items-center gap-4">
-            {% if nettoyage_interieur.tech_societe %}
-                {% with image_name=nettoyage_interieur.tech_societe.nom|slugify %}
-                    <img src="{% static 'nettoyage_interieur/'|add:image_name|add:'.png' %}"
-                         alt="{{ nettoyage_interieur.tech_societe.nom }}"
-                         class="w-12 h-12 rounded"
-                         onerror="this.onerror=null; this.src='{% static 'icons/nettoyage_int.png' %}';">
-                {% endwith %}
-            {% else %}
-                <img src="{% static 'icons/nettoyage_int.png' %}" class="w-12 h-12 rounded">
-            {% endif %}
-            <span>{% trans "Modifier le nettoyage intérieur" %}</span>
-            <span class="text-gray-700 font-medium">#{{ nettoyage_interieur.id }}</span>
+    <div class="mb-6">
+
+        <h1 class="text-2xl font-bold">
+
+            <!-- Ligne 1 : icône + titre -->
+            <div class="flex items-center gap-4">
+                <img src="{% static 'icons/nettoyage_int.png' %}"
+                     alt="essuyage"
+                     style="width:60px; height:60px;">
+
+                <span>
+                    {% trans "Modifier le nettoyage intérieur" %}
+                </span>
+            </div>
+
+            <!-- Ligne 2 : marque + modèle + variante -->
+            <div class="flex items-center justify-center gap-4 mt-3">
+
+                {% static 'images/marques/' as marques_path %}
+
+                <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                     alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                     class="w-20 h-20 object-contain">
+
+                <span class="font-semibold">
+                    {{ exemplaire.voiture_modele.nom_modele }}
+
+                    {% if exemplaire.voiture_modele.nom_variante %}
+                        {{ exemplaire.voiture_modele.nom_variante }}
+                    {% endif %}
+                </span>
+
+            </div>
+
         </h1>
+
     </div>
 
+       <!-- Plaque -->
+    <div class="mb-4 flex justify-center">
+        {% include "maintenance/partials/plaque.html" %}
+    </div>
     <!-- Messages -->
     {% if messages %}
         {% for message in messages %}
@@ -199,7 +224,7 @@
     <form method="post" id="nettoyage-int-form" class="space-y-4">
         {% csrf_token %}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/compteur.png' %}" alt="Kilometrage"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Kilométrage" %}</h2>
@@ -222,7 +247,7 @@
 
         <br>
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/nettoyage_int.png' %}" alt="Nettoyage interieur"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Nettoyage intérieur" %}</h2>
@@ -244,7 +269,7 @@
 
             <br>
 
-            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+             <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pays.png' %}" alt="pays"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Pays" %}
@@ -266,7 +291,7 @@
         <br>
 
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/notes.png' %}" alt="Remarques"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Remarques" %}</h2>
@@ -288,7 +313,7 @@
 
             <br>
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/tag.png' %}" alt="Tag"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Étiquette" %}</h2>
@@ -310,7 +335,7 @@
             {% endfor %}
             <br>
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/mecanicien.png' %}" alt="Technicien"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Technicien" %}</h2>
@@ -333,7 +358,7 @@
 
 
      <!-- Section taux -->
-       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/taux.png' %}" alt="taux horaire"
                  style="width:60px; height:60px; margin-right:10px;">
            {% trans "Taux horaire" %}
@@ -371,7 +396,7 @@
 
 
                      <!-- Section temps main d'œuvre -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Temps de main d'œuvre" %}
