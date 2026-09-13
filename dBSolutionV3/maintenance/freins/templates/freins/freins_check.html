@@ -6,26 +6,49 @@
 <br>
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold flex items-center gap-4">
-            <img src="{% static 'icons/freins.png' %}" alt="Controle des freins"
-                 style="width:60px; height:60px; margin-right:10px;">
-            <span>
-                {% trans "Contrôle complet pour :" %}
-                {{ exemplaire.voiture_marque.nom_marque }}
-                {{ exemplaire.voiture_modele.nom_modele }}
-                {{ exemplaire.voiture_modele.nom_variante }}
+   <div class="mb-6">
 
+        <h1 class="text-2xl font-bold">
 
-            </span>
+            <!-- Ligne 1 : icône + titre -->
+            <div class="flex items-center gap-4">
+                <img src="{% static 'icons/freins.png' %}"
+                     alt="freins"
+                     style="width:60px; height:60px;">
+
+                <span>
+                    {% trans "Contrôle des freins" %}
+                </span>
+            </div>
+
+            <!-- Ligne 2 : marque + modèle + variante -->
+            <div class="flex items-center justify-center gap-4 mt-3">
+
+                {% static 'images/marques/' as marques_path %}
+
+                <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                     alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                     class="w-20 h-20 object-contain">
+
+                <span class="font-semibold">
+                    {{ exemplaire.voiture_modele.nom_modele }}
+
+                    {% if exemplaire.voiture_modele.nom_variante %}
+                        {{ exemplaire.voiture_modele.nom_variante }}
+                    {% endif %}
+                </span>
+
+            </div>
+
         </h1>
+
     </div>
 
-    <!-- Plaque -->
-    <div class="mb-4">
+       <!-- Plaque -->
+    <div class="mb-4 flex justify-center">
         {% include "maintenance/partials/plaque.html" %}
     </div>
+
 
 
     <!-- Messages -->
@@ -58,14 +81,14 @@
         </div>
     {% endif %}
 
-    <br>
+        <br>
 
-      <!-- ========================= -->
-<!-- POPUP VARIATION KILOMÉTRAGE -->
-<!-- ========================= -->
-
-
-<style>
+          <!-- ========================= -->
+    <!-- POPUP VARIATION KILOMÉTRAGE -->
+    <!-- ========================= -->
+    
+    
+    <style>
     #kilometrage-popup {
         display: none;
         position: fixed;
@@ -198,11 +221,11 @@
     <form method="post" id="frein-form" class="space-y-4">
         {% csrf_token %}
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/compteur.png' %}" alt="Kilometrage"
-                 style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Kilométrage" %}
-        </h2>
+             <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+                <img src="{% static 'icons/compteur.png' %}" alt="Kilometrage"
+                     style="width:60px; height:60px; margin-right:10px;">
+                {% trans "Kilométrage" %}
+            </h2>
         {% for field in form %}
             {% if "kilo" in field.name %}
             <div class="mb-4">
@@ -224,17 +247,17 @@
                         </p>
                     {% endif %}
                 {% else %}
-                    <label class="block font-semibold mb-1">
-                        {{ field.label }}
-                    </label>
+                        <label class="block font-semibold mb-1">
+                            {{ field.label }}
+                        </label>
 
-                    {{ field|add_class:"input" }}
+                        {{ field|add_class:"input" }}
 
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1">
-                            {{ field.help_text }}
-                        </p>
-                    {% endif %}
+                        {% if field.help_text %}
+                            <p class="text-gray-500 text-sm mt-1">
+                                {{ field.help_text }}
+                            </p>
+                        {% endif %}
 
                     {% if field.errors %}
                         <p class="text-red-600 text-sm mt-1">
@@ -246,10 +269,10 @@
             {% endif %}
         {% endfor %}
 
-        <div class="espace-section"></div>
+            <div class="espace-section"></div>
 
         <!-- Section plaquettes avant -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/plaquettes-de-frein.png' %}" alt="plaquettes avant"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Plaquettes avant" %}
@@ -285,7 +308,7 @@
        <div class="espace-section"></div>
 
          <!-- Section disques avant -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/disque-de-frein.png' %}" alt="disques de freins avant"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Disques avant" %}
@@ -335,7 +358,7 @@
 
 
         <!-- Section plaquettes arriere -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/plaquettes-de-frein.png' %}" alt="plaquettes arrières"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Plaquettes arrière" %}
@@ -370,7 +393,7 @@
 
         <div class="espace-section"></div>
          <!-- Section disques arriere -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/disque-de-frein.png' %}" alt="disques de freins arrières"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Disques arrière" %}
@@ -418,7 +441,7 @@
       <div class="espace-section"></div>
 
          <!-- Section freins machoire -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/etrier.png' %}" alt="etrier de frein"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Mâchoires de freins" %}
@@ -454,7 +477,7 @@
        <div class="espace-section"></div>
 
          <!-- Section fuites -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/fuite-deau.png' %}" alt="Fuite"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Fuites" %}
@@ -491,7 +514,7 @@
 
 
          <!-- Section liquides -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/liquide_frein.png' %}" alt="liquide de frein"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Liquide de freins" %}
@@ -528,7 +551,7 @@
 
 
 
-           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pays.png' %}" alt="pays"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Pays" %}</h2>
         {% for field in form %}
@@ -561,7 +584,7 @@
 
       <div class="espace-section"></div>
 
-          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/tag.png' %}" alt="etiquette"
                  style="width:60px; height:60px; margin-right:10px;">
               {% trans "Etiquette" %}
@@ -612,7 +635,7 @@
        <div class="espace-section"></div>
 
         <!-- Section remarques -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/notes.png' %}" alt="remarques"
                  style="width:60px; height:60px; margin-right:10px;">
              {% trans "Remarques" %}
@@ -649,7 +672,7 @@
         <div class="espace-section"></div>
 
 
-          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roue.png' %}" alt="Serrage des roues"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Serrage des roues" %}</h2>
         {% for field in form %}
@@ -683,7 +706,7 @@
         <div class="espace-section"></div>
 
         <!-- Section technicien -->
-      <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/mecanicien.png' %}" alt="Technicien"
                  style="width:60px; height:60px; margin-right:10px;">
           {% trans "Technicien" %}
@@ -719,7 +742,7 @@
 
        <div class="espace-section"></div>
       <!-- Section taux horaire -->
-      <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/taux.png' %}" alt="Taux horaire"
                  style="width:60px; height:60px; margin-right:10px;">
           {% trans "Taux horaire" %}
@@ -757,7 +780,7 @@
 
 
                      <!-- Section temps main d'œuvre -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Temps de main d'œuvre" %}
