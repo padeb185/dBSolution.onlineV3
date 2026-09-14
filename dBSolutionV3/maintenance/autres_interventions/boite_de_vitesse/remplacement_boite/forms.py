@@ -32,13 +32,11 @@ class RemplacementBoiteForm(forms.ModelForm):
     class Meta:
         model = RemplacementBoite
         exclude = [
-            "kilometres_remplacement_boite",
             "variation_kilometres",
             "kilometres_dernier_entretien",
             "remplacement_boite_nombre",
             "kilometres_boite_rollback",
             "kilometres_moteur_rollback",
-            "kilometres_boite",
             "kilometres_moteur",
 
         ]
@@ -191,6 +189,9 @@ class RemplacementBoiteForm(forms.ModelForm):
             self.initial["nombre_remplacements"] = prochain_numero
             self.fields["nombre_remplacements"].widget.attrs["value"] = prochain_numero
 
+
+
+
     def clean(self):
         cleaned_data = super().clean()
 
@@ -209,30 +210,59 @@ class RemplacementBoiteForm(forms.ModelForm):
 
         return cleaned_data
 
+
+
+
+
+    def clean_kilometres_remplacement(self):
+
+        nouveau_km = self.cleaned_data.get(
+            "kilometres_remplacement"
+        )
+
+        voiture = self.exemplaire
+
+        if voiture and nouveau_km is not None:
+
+            ancien_km = voiture.kilometres_chassis or 0
+
+            if nouveau_km < ancien_km:
+                raise ValidationError(
+                    _(
+                        "Le nouveau kilométrage ne peut pas être "
+                        "inférieur au dernier kilométrage du véhicule."
+                    )
+                )
+
+        return nouveau_km
+
+
+
+
+
+
+        # ==========================================================
+        # SAVE
+        # ==========================================================
+
     def save(self, commit=True):
+
         instance = super().save(commit=False)
 
-        voiture = self.exemplaire or instance.voiture_exemplaire
+        voiture = (
+                self.exemplaire
+                or instance.voiture_exemplaire
+        )
 
+        # ==========================================================
+        # EXEMPLAIRE
+        # ==========================================================
         if voiture:
             instance.voiture_exemplaire = voiture
 
-        km_chassis = self.cleaned_data.get("kilometres_chassis")
-
-        if voiture and km_chassis is not None:
-            km_voiture = voiture.kilometres_chassis or 0
-
-            if km_chassis < km_voiture:
-                raise ValidationError(_("Kilométrage invalide"))
-
-            voiture.kilometres_chassis = km_chassis
-            voiture.save(update_fields=["kilometres_chassis"])
-
-            instance.kilometres_chassis = km_chassis
-
-        # -----------------------
+        # ==========================================================
         # NOMBRE DE REMPLACEMENTS
-        # -----------------------
+        # ==========================================================
         is_new = instance.pk is None
 
         if is_new and voiture:
@@ -243,18 +273,31 @@ class RemplacementBoiteForm(forms.ModelForm):
                     ).count() + 1
             )
 
-        # -----------------------
+        # ==========================================================
         # MAIN-D'ŒUVRE
-        # -----------------------
-        heures = self.cleaned_data.get("temps_heures") or 0
-        minutes = self.cleaned_data.get("temps_minutes") or 0
-        taux_horaire = self.cleaned_data.get("taux_horaire")
+        # ==========================================================
+        heures = (
+                self.cleaned_data.get("temps_heures")
+                or 0
+        )
 
-        total_minutes = (heures * 60) + minutes
+        minutes = (
+                self.cleaned_data.get("temps_minutes")
+                or 0
+        )
+
+        taux_horaire = (
+            self.cleaned_data.get("taux_horaire")
+        )
+
+        total_minutes = (
+                                heures * 60
+                        ) + minutes
 
         main = instance.main_oeuvre
 
         if main:
+
             main.temps_minutes = total_minutes
 
             if taux_horaire is not None:
@@ -268,20 +311,29 @@ class RemplacementBoiteForm(forms.ModelForm):
             )
 
         elif self.user:
+
             main = MainDoeuvre.objects.create(
                 utilisateur=self.user,
                 temps_minutes=total_minutes,
-                taux_horaire=taux_horaire or Decimal("50.00"),
+                taux_horaire=(
+                        taux_horaire
+                        or Decimal("50.00")
+                ),
             )
 
             instance.main_oeuvre = main
 
-        # -----------------------
+        # ==========================================================
         # TECHNICIEN
-        # -----------------------
+        # ==========================================================
         if self.user:
-            instance.assign_technicien(self.user)
+            instance.assign_technicien(
+                self.user
+            )
 
+        # ==========================================================
+        # SAUVEGARDE
+        # ==========================================================
         if commit:
             instance.save()
             self.save_m2m()

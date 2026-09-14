@@ -75,6 +75,13 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres chassis")
     )
 
+    kilometres_remplacement = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres au moment du remplacement")
+    )
+
     kilometres_rollback = models.PositiveIntegerField(
         default=0,
         null=True,
@@ -83,13 +90,14 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres rollback")
     )
 
+
     kilometres_boite = models.PositiveIntegerField(
         verbose_name=_("Kilometres de la boite à remplacer")
     )
 
 
     kilometres_boite_rollback = models.PositiveIntegerField(
-        default=0,
+        default=None,
         null=True,
         blank=True,
         verbose_name=_("Kilomètres rollback boite")
@@ -110,11 +118,6 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         blank=True,
         editable=False,
         verbose_name=_("Kilomètres rollback")
-    )
-
-
-    kilometres_remplacement_boite = models.PositiveIntegerField(
-        verbose_name=_("Kilomètres au remplacement de la boite")
     )
 
 
@@ -347,11 +350,11 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         # --------------------------------------------------
         if self.remplacement_effectue:
 
-            if not self.kilometres_remplacement_boite:
-                self.kilometres_remplacement_boite = km
+            if self.kilometres_remplacement is None:
+                self.kilometres_remplacement = km
 
             self.voiture_exemplaire.kilometres_boite = (
-                    km - (self.kilometres_remplacement_boite or km)
+                    km - (self.kilometres_remplacement or km)
             )
 
             if self.voiture_exemplaire.kilometres_boite < 0:

@@ -106,8 +106,7 @@
             <th>{% trans "Immatriculation" %}</th>
             <th>{% trans "Km boite" %}</th>
             <th>{% trans "Km châssis" %}</th>
-            <th>{% trans "Nombre de remplacements" %}</th>
-            <th>{% trans "Nombre de boites total" %}</th>
+            <th>{% trans "Nombre de boites" %}</th>
             <th>{% trans "Tag" %}</th>
             <th>{% trans "Technicien" %}</th>
             <th>{% trans "Date" %}</th>
@@ -166,11 +165,6 @@
             <!-- KM CHASSIS -->
             <td class="border px-4 py-2">
                 {{ remplacement.kilometres_chassis|default:"-" }}
-            </td>
-
-            <!-- nombre de remplacment -->
-            <td class="border px-4 py-2">
-                {{ remplacement.nombre_remplacements|default:"-" }}
             </td>
 
             <td class="border px-4 py-2">
@@ -265,29 +259,35 @@ $(document).ready(function() {
                 previous: "{% trans 'Précédent' %}"
             }
         },
-        order: [[5, "desc"]]
+        order: [[7, "desc"]]
     });
 
     $('#search-immatriculation').on('keyup', function () {
-        table.column(0).search(this.value).draw();
+    table.column(0).search(this.value).draw();
     });
+
     $('#search-kilometres_boite').on('keyup', function () {
         table.column(1).search(this.value).draw();
     });
+
     $('#search-kilometres_chassis').on('keyup', function () {
         table.column(2).search(this.value).draw();
     });
+
     $('#search-nombre_remplacements').on('keyup', function () {
         table.column(3).search(this.value).draw();
     });
+
     $('#search-utilisateur').on('keyup', function () {
-        table.column(4).search(this.value).draw();
-    });
-    $('#search-date').on('change', function () {
-        table.column(5).search(this.value).draw();
-    });
-     $('#search-temps').on('keyup', function () {
         table.column(6).search(this.value).draw();
+    });
+
+    $('#search-date').on('change', function () {
+        table.column(7).search(this.value).draw();
+    });
+
+    $('#search-temps').on('keyup', function () {
+        table.column(8).search(this.value).draw();
     });
 });
 </script>

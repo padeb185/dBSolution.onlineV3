@@ -188,9 +188,18 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                         ancien_kilometrage_boite
                     )
 
-                    exemplaire.kilometres_moteur_rollback = (
-                        ancien_kilometrage_moteur
-                    )
+                    # ==========================================================
+                    # ROLLBACK KILOMÉTRAGE MOTEUR
+                    #
+                    # Dès qu'un kilométrage de remplacement est introduit,
+                    # on mémorise UNE SEULE FOIS le kilométrage moteur actuel.
+                    # ==========================================================
+                    if nouveau_km is not None:
+
+                        if exemplaire.kilometres_moteur_rollback is None:
+                            exemplaire.kilometres_moteur_rollback = (
+                                ancien_kilometrage_moteur
+                            )
 
                     exemplaire.date_derniere_intervention = (
                         timezone.localtime(
@@ -710,131 +719,227 @@ def remplacement_moteur_detail_view(request, remplacement_moteur_id):
 def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
     tenant = request.user.societe
 
-
-
+    # ==========================================================
+    # REMPLACEMENT MOTEUR EXISTANT
+    # ==========================================================
     remplacement_moteur = get_object_or_404(
-        RemplacementMoteur.objects.select_related("voiture_exemplaire"),
+        RemplacementMoteur.objects.select_related(
+            "voiture_exemplaire"
+        ),
         id=remplacement_moteur_id
     )
+
     exemplaire = remplacement_moteur.voiture_exemplaire
-    # -------------------------
+
+    # ==========================================================
+    # SÉCURITÉ TENANT
+    # ==========================================================
+    if (
+        exemplaire.client
+        and exemplaire.client.societe != tenant
+    ):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # ==========================================================
+    # KILOMÉTRAGE MOTEUR DE RÉFÉRENCE
+    #
+    # Cette valeur vient de remplacement_moteur_form_view
+    # et ne doit PAS être recalculée lors d'une modification.
+    # ==========================================================
+    km_moteur_reference = remplacement_moteur.kilometres_moteur_rollback
+
+    # ==========================================================
     # POST
-    # -------------------------
+    # ==========================================================
     if request.method == "POST":
+
         form = RemplacementMoteurForm(
             request.POST,
             instance=remplacement_moteur,
             user=request.user,
-            exemplaire=remplacement_moteur.voiture_exemplaire
+            exemplaire=exemplaire,
         )
 
         if form.is_valid():
             try:
-                form.save()
+                with transaction.atomic():
 
+                    remplacement = form.save(commit=False)
 
+                    # --------------------------------------------------
+                    # On conserve le kilométrage moteur enregistré
+                    # lors de la création
+                    # --------------------------------------------------
+                    remplacement.kilometres_moteur = km_moteur_reference
 
-                ACTION_MODIFICATION_REMPLACEMENT_MOTEUR = gettext_noop(
-                    "Modification du remplacement moteur"
-                )
+                    remplacement.save()
+                    form.save_m2m()
 
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=f"{ACTION_MODIFICATION_REMPLACEMENT_MOTEUR} - {exemplaire.immatriculation}"
-                )
+                    # --------------------------------------------------
+                    # LOG
+                    # --------------------------------------------------
+                    ACTION_MODIFICATION_REMPLACEMENT_MOTEUR = gettext_noop(
+                        "Modification du remplacement moteur"
+                    )
 
-                messages.success(request, _("Remplacement du moteur modifié avec succès !"))
-                return redirect(
-                    "remplacement_moteur:remplacement_moteur_detail",
-                    remplacement_moteur_id=remplacement_moteur.id
-                )
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=(
+                            f"{ACTION_MODIFICATION_REMPLACEMENT_MOTEUR}"
+                            f" - {exemplaire.immatriculation}"
+                        )
+                    )
+
+                    messages.success(
+                        request,
+                        _("Remplacement du moteur modifié avec succès !")
+                    )
+
+                    return redirect(
+                        "remplacement_moteur:remplacement_moteur_detail",
+                        remplacement_moteur_id=remplacement.id
+                    )
 
             except ValidationError as e:
                 form.add_error(None, e)
-                messages.error(request, _("Kilométrage invalide"))
+                messages.error(
+                    request,
+                    _("Kilométrage invalide")
+                )
 
         else:
-            messages.error(request, _("Le formulaire contient des erreurs."))
-            print(form.errors)
-    # -------------------------
+            messages.error(
+                request,
+                _("Le formulaire contient des erreurs.")
+            )
+
+    # ==========================================================
     # GET
-    # -------------------------
+    # ==========================================================
     else:
         form = RemplacementMoteurForm(
             instance=remplacement_moteur,
             user=request.user,
-            exemplaire=remplacement_moteur.voiture_exemplaire
+            exemplaire=exemplaire,
         )
 
-    # -------------------------
+    # ==========================================================
     # SECTIONS
-    # -------------------------
+    # ==========================================================
     sections = [
         {
             "title": _("Kilométrage"),
             "icon": "icons/compteur.png",
-            "fields": [form[f.name] for f in form if "kilometres" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "kilometres" in f.name
+            ],
         },
         {
             "title": _("Remplacement du moteur"),
             "icon": "icons/engine.png",
-            "fields": [form[f.name] for f in form if "moteurs" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "moteurs" in f.name
+            ],
         },
         {
             "title": _("Huile moteur"),
             "icon": "icons/huile-moteur.png",
-            "fields": [form[f.name] for f in form if "niveau" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "niveau" in f.name
+            ],
         },
         {
             "title": _("Liquide de refroidissement"),
             "icon": "icons/anti-gel.png",
-            "fields": [form[f.name] for f in form if "refroidissement" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "refroidissement" in f.name
+            ],
         },
         {
             "title": _("Remise à Zéro des kilomètres moteurs"),
             "icon": "icons/km.png",
-            "fields": [form[f.name] for f in form if "remplacement_effectue" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "remplacement_effectue" in f.name
+            ],
         },
         {
             "title": _("Etiquette"),
             "icon": "icons/tag.png",
-            "fields": [form[f.name] for f in form if "tag" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "tag" in f.name
+            ],
         },
         {
             "title": _("Pays"),
             "icon": "icons/pays.png",
-            "fields": [form[f.name] for f in form if "pays" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "pays" in f.name
+            ],
         },
         {
             "title": _("Remarques"),
             "icon": "icons/notes.png",
-            "fields": [form[f.name] for f in form if "remarques" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "remarques" in f.name
+            ],
         },
         {
             "title": _("Serrage des roues"),
             "icon": "icons/roue.png",
-            "fields": [form[f.name] for f in form if "serrage" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "serrage" in f.name
+            ],
         },
         {
             "title": _("Technicien"),
             "icon": "icons/mecanicien.png",
-            "fields": [form[f.name] for f in form if "tech" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "tech" in f.name
+            ],
         },
         {
             "title": _("Taux horaire"),
             "icon": "icons/taux.png",
-            "fields": [form[f.name] for f in form if "taux" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "taux" in f.name
+            ],
         },
     ]
 
-    return render(request, "remplacement_moteur/modifier_remplacement_moteur.html", {
-        "remplacement_moteur": remplacement_moteur,
-        "form": form,
-        "sections": sections,
-        "exemplaire": exemplaire,
-    })
-
-
+    return render(
+        request,
+        "remplacement_moteur/modifier_remplacement_moteur.html",
+        {
+            "remplacement_moteur": remplacement_moteur,
+            "form": form,
+            "sections": sections,
+            "exemplaire": exemplaire,
+            "km_moteur_reference": km_moteur_reference,
+        }
+    )
 
 
 

@@ -203,5 +203,102 @@ function getCookie(name) {
 }
 
 const csrftoken = getCookie("csrftoken");
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const kmChassisInput =
+        document.getElementById("id_kilometres_chassis");
+
+    const kmRemplacementInput =
+        document.getElementById("id_kilometres_remplacement");
+
+    const kmBoiteInput =
+        document.getElementById("id_kilometres_boite");
+
+    if (
+        !kmChassisInput ||
+        !kmRemplacementInput ||
+        !kmBoiteInput
+    ) {
+        return;
+    }
+
+    // ==================================================
+    // VALEURS DE L'EXEMPLAIRE
+    // ==================================================
+
+    // Dernier kilométrage châssis enregistré
+    const ancienKmChassis = Number(
+        "{{ exemplaire.kilometres_chassis|default_if_none:'0' }}"
+    );
+
+    // Dernier kilométrage BOÎTE enregistré
+    const ancienKmBoite = Number(
+        "{{ exemplaire.kilometres_boite|default_if_none:'0' }}"
+    );
+
+    // ==================================================
+    // FORCER LES BONNES VALEURS AU CHARGEMENT
+    // ==================================================
+
+    kmChassisInput.value = ancienKmChassis;
+    kmBoiteInput.value = ancienKmBoite;
+
+    // ==================================================
+    // CALCUL DU KILOMÉTRAGE BOÎTE
+    // ==================================================
+
+    function calculerKilometrageBoite() {
+
+        const nouveauKm = Number(
+            kmRemplacementInput.value || 0
+        );
+
+        // Aucun nouveau kilométrage saisi
+        if (!nouveauKm) {
+
+            kmBoiteInput.value =
+                ancienKmBoite;
+
+            return;
+        }
+
+        // Empêcher une diminution
+        if (nouveauKm < ancienKmChassis) {
+
+            kmBoiteInput.value =
+                ancienKmBoite;
+
+            return;
+        }
+
+        // ==================================================
+        // DISTANCE PARCOURUE DEPUIS LE DERNIER KILOMÉTRAGE
+        // ==================================================
+
+        const difference =
+            nouveauKm - ancienKmChassis;
+
+        // ==================================================
+        // NOUVEAU KILOMÉTRAGE BOÎTE
+        // ==================================================
+
+        const nouveauKmBoite =
+            ancienKmBoite + difference;
+
+        kmBoiteInput.value =
+            nouveauKmBoite;
+    }
+
+    // ==================================================
+    // CALCUL EN DIRECT
+    // ==================================================
+
+    kmRemplacementInput.addEventListener(
+        "input",
+        calculerKilometrageBoite
+    );
+
+});
 </script>
 {% endblock %}

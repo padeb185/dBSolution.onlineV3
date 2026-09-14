@@ -2,6 +2,7 @@ import re
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db import models, transaction
+from maindoeuvre.models import MainDoeuvre
 from utilisateurs.models import UserLog
 from django.contrib import messages
 from maintenance.models import Maintenance
@@ -115,17 +116,120 @@ def remplacement_boite_form_view(request, exemplaire_id):
             try:
                 with transaction.atomic():
 
-                    km_checkup = form.cleaned_data.get("kilometres_chassis")
+                    # ==========================================================
+                    # VALEURS AVANT MODIFICATION
+                    # ==========================================================
+                    ancien_km_chassis = (
+                            exemplaire.kilometres_chassis
+                            or 0
+                    )
 
-                    # 🔴 validation métier
-                    if km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis
+                            or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur
+                            or 0
+                    )
+
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite
+                            or 0
+                    )
+
+                    # ==========================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==========================================================
+                    nouveau_km = form.cleaned_data.get(
+                        "kilometres_remplacement"
+                    )
+
+                    # ==========================================================
+                    # VALIDATION
+                    # ==========================================================
+                    if (
+                            nouveau_km is not None
+                            and nouveau_km < ancien_km_chassis
+                    ):
                         form.add_error(
-                            "kilometres_chassis",
-                            _("Le kilométrage ne peut pas être inférieur.")
+                            "kilometres_remplacement",
+                            _(
+                                "Le kilométrage ne peut pas être "
+                                "inférieur au dernier kilométrage."
+                            )
                         )
-                        raise ValueError("invalid km")
 
+                        raise ValidationError(
+                            _(
+                                "Le kilométrage ne peut pas être "
+                                "inférieur au dernier kilométrage."
+                            )
+                        )
 
+                    # ==========================================================
+                    # VARIATION
+                    # ==========================================================
+                    kilometrage_variation = (
+                            nouveau_km - ancien_kilometrage
+                    )
+
+                    # ==========================================================
+                    # ROLLBACK CHÂSSIS
+                    # ==========================================================
+                    exemplaire.kilometres_rollback = (
+                        ancien_kilometrage
+                    )
+
+                    # ==========================================================
+                    # ROLLBACK KILOMÉTRAGE BOÎTE
+                    #
+                    # Sauvegarde UNE SEULE FOIS du kilométrage boîte actuel.
+                    # ==========================================================
+                    if nouveau_km is not None:
+
+                        if exemplaire.kilometres_boite_rollback is None:
+                            exemplaire.kilometres_boite_rollback = (
+                                ancien_kilometrage_boite
+                            )
+
+                    # ==========================================================
+                    # DATE INTERVENTION
+                    # ==========================================================
+                    exemplaire.date_derniere_intervention = (
+                        timezone.localtime(
+                            timezone.now()
+                        ).date()
+                    )
+
+                    # ==========================================================
+                    # NOUVEAU KILOMÉTRAGE CHÂSSIS
+                    # ==========================================================
+                    exemplaire.kilometres_chassis = nouveau_km
+
+                    # Recalcule :
+                    # - kilometres_moteur
+                    # - kilometres_boite
+                    # - variation_kilometres
+                    exemplaire.update_kilometres()
+
+                    # ==========================================================
+                    # SAUVEGARDE VÉHICULE
+                    # ==========================================================
+                    exemplaire.save(
+                        update_fields=[
+                            "kilometres_chassis",
+                            "date_derniere_intervention",
+
+                            "kilometres_rollback",
+                            "kilometres_boite_rollback",
+
+                            "kilometres_moteur",
+                            "kilometres_boite",
+                            "variation_kilometres",
+                        ]
+                    )
 
 
                     # 🔴 maintenance unique
@@ -154,17 +258,116 @@ def remplacement_boite_form_view(request, exemplaire_id):
 
                     maintenance.save()
 
-                    # 🧾 remplacement boîte
                     remplacement_boite = form.save(commit=False)
-                    remplacement_boite.voiture_exemplaire = exemplaire
 
-                    # 🚗 km update (CORRIGÉ)
-                    if km_checkup is not None:
-                        exemplaire.kilometres_chassis = km_checkup
-                        exemplaire.kilometres_remplacement_boite = km_checkup  # ✔ CORRECT
-                        exemplaire.save()
+                    remplacement_boite.voiture_exemplaire = (
+                        exemplaire
+                    )
 
+                    remplacement_boite.maintenance = (
+                        maintenance
+                    )
+
+                    # ==========================================================
+                    # KILOMÉTRAGES AVANT INTERVENTION
+                    # ==========================================================
+                    remplacement_boite.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+
+                    remplacement_boite.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
+
+                    remplacement_boite.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+
+                    # ==========================================================
+                    # KILOMÉTRAGE DU REMPLACEMENT
+                    # ==========================================================
+                    remplacement_boite.kilometres_remplacement = (
+                        nouveau_km
+                    )
+
+                    # ==========================================================
+                    # VARIATION
+                    # ==========================================================
+                    remplacement_boite.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    # ==================================================
+                    # MAIN-D'ŒUVRE
+                    # ==================================================
+                    heures = (
+                            form.cleaned_data.get("temps_heures")
+                            or 0
+                    )
+
+                    minutes = (
+                            form.cleaned_data.get("temps_minutes")
+                            or 0
+                    )
+
+                    total_minutes = (
+                            heures * 60 + minutes
+                    )
+
+                    taux_horaire = (
+                            form.cleaned_data.get("taux_horaire")
+                            or 0
+                    )
+
+                    # --------------------------------------------------
+                    # Mise à jour main-d'œuvre existante
+                    # --------------------------------------------------
+                    if remplacement_boite.main_oeuvre_id:
+
+                        main_oeuvre = (
+                            remplacement_boite.main_oeuvre
+                        )
+
+                        main_oeuvre.temps_minutes = (
+                            total_minutes
+                        )
+
+                        main_oeuvre.taux_horaire = (
+                            taux_horaire
+                        )
+
+                        main_oeuvre.save(
+                            update_fields=[
+                                "temps_minutes",
+                                "taux_horaire",
+                            ]
+                        )
+
+                    # --------------------------------------------------
+                    # Création main-d'œuvre
+                    # --------------------------------------------------
+                    else:
+
+                        main_oeuvre = (
+                            MainDoeuvre.objects.create(
+                                utilisateur=request.user,
+                                temps_minutes=total_minutes,
+                                taux_horaire=taux_horaire,
+                            )
+                        )
+
+                        remplacement_boite.main_oeuvre = (
+                            main_oeuvre
+                        )
+
+                    # ==================================================
+                    # SAUVEGARDE remplacement_boite
+                    # IMPORTANT :
+                    # EN DEHORS DU IF/ELSE MAIN-D'ŒUVRE
+                    # ==================================================
                     remplacement_boite.save()
+
+                    form.save_m2m()
 
 
 
@@ -204,7 +407,18 @@ def remplacement_boite_form_view(request, exemplaire_id):
     else:
         remplacement_boite = RemplacementBoite(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis
+                    or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur
+                    or 0
+            ),
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
 
         remplacement_boite.assign_technicien(request.user)
@@ -285,6 +499,9 @@ def remplacement_boite_form_view(request, exemplaire_id):
     })
 
 
+
+
+
 @login_required
 def remplacement_boite_detail_view(request, remplacement_boite_id):
     remplacement_boite = get_object_or_404(
@@ -308,13 +525,31 @@ from django.core.exceptions import ValidationError
 def modifier_remplacement_boite_view(request, remplacement_boite_id):
     tenant = request.user.societe
 
-
     remplacement_boite = get_object_or_404(
-        RemplacementBoite.objects.select_related("voiture_exemplaire"),
+        RemplacementBoite.objects.select_related(
+            "voiture_exemplaire"
+        ),
         id=remplacement_boite_id
     )
 
     exemplaire = remplacement_boite.voiture_exemplaire
+
+    # ==========================================================
+    # VALEUR BOÎTE ENREGISTRÉE LORS DE LA CRÉATION
+    # ==========================================================
+    ancien_kilometrage_boite = (
+        remplacement_boite.kilometres_boite
+        if remplacement_boite.kilometres_boite is not None
+        else (exemplaire.kilometres_boite or 0)
+    )
+
+    # ==========================================================
+    # KILOMÉTRAGE boite DE RÉFÉRENCE
+    #
+    # Cette valeur vient de remplacement_boite_form_view
+    # et ne doit PAS être recalculée lors d'une modification.
+    # ==========================================================
+    km_boite_reference = remplacement_boite.kilometres_boite_rollback
 
     if request.method == "POST":
         form = RemplacementBoiteForm(
@@ -326,9 +561,19 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
 
         if form.is_valid():
             try:
-                remplacement_boite = form.save()
+                with transaction.atomic():
 
+                    remplacement = form.save(commit=False)
 
+                    # ======================================================
+                    # NE PAS PERDRE LE KILOMÉTRAGE BOÎTE D'ORIGINE
+                    # ======================================================
+                    remplacement.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+
+                    remplacement.save()
+                    form.save_m2m()
 
                 ACTION_MODIFICATION_REMPLACEMENT_BOITE_VITESSE = gettext_noop(
                     "Modification du remplacement de la boite de vitesse"

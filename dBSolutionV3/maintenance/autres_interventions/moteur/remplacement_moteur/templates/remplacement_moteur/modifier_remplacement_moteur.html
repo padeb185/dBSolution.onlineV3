@@ -216,5 +216,98 @@ function getCookie(name) {
 }
 
 const csrftoken = getCookie("csrftoken");
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const kmChassisInput =
+        document.getElementById("id_kilometres_chassis");
+
+    const kmRemplacementInput =
+        document.getElementById("id_kilometres_remplacement");
+
+    const kmMoteurInput =
+        document.getElementById("id_kilometres_moteur");
+
+    if (
+        !kmChassisInput ||
+        !kmRemplacementInput ||
+        !kmMoteurInput
+    ) {
+        return;
+    }
+
+    // ==================================================
+    // VALEURS DE L'EXEMPLAIRE
+    // ==================================================
+
+    // Dernier kilométrage châssis enregistré
+    const ancienKmChassis = Number(
+        "{{ exemplaire.kilometres_chassis|default_if_none:'0' }}"
+    );
+
+    // IMPORTANT :
+    // dernier kilométrage MOTEUR enregistré sur l'exemplaire
+    const ancienKmMoteur = Number(
+        "{{ exemplaire.kilometres_moteur|default_if_none:'0' }}"
+    );
+
+    // ==================================================
+    // FORCER LES BONNES VALEURS AU CHARGEMENT
+    // ==================================================
+
+    kmChassisInput.value = ancienKmChassis;
+    kmMoteurInput.value = ancienKmMoteur;
+
+
+    // ==================================================
+    // CALCUL DU KILOMÉTRAGE MOTEUR
+    // ==================================================
+
+    function calculerKilometrageMoteur() {
+
+        const nouveauKm = Number(
+            kmRemplacementInput.value || 0
+        );
+
+        // Aucun nouveau kilométrage saisi
+        if (!nouveauKm) {
+            kmMoteurInput.value = ancienKmMoteur;
+            return;
+        }
+
+        // Empêcher une diminution du kilométrage
+        if (nouveauKm < ancienKmChassis) {
+            kmMoteurInput.value = ancienKmMoteur;
+            return;
+        }
+
+        // Distance parcourue depuis le dernier contrôle
+        const difference =
+            nouveauKm - ancienKmChassis;
+
+        // Nouveau kilométrage moteur
+        const nouveauKmMoteur =
+            ancienKmMoteur + difference;
+
+        kmMoteurInput.value =
+            nouveauKmMoteur;
+    }
+
+
+    // ==================================================
+    // CALCUL EN DIRECT
+    // ==================================================
+
+    kmRemplacementInput.addEventListener(
+        "input",
+        calculerKilometrageMoteur
+    );
+
+});
 </script>
+
 {% endblock %}
