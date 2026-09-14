@@ -92,6 +92,11 @@ class ControleJeuxPiecesForm(forms.ModelForm):
             self.fields["temps_heures"].initial = mo.heures
             self.fields["temps_minutes"].initial = mo.minutes
 
+            self.fields["taux_horaire"].initial = str(mo.taux_horaire)
+
+        else:
+            self.fields["taux_horaire"].initial = "50.00"
+
 
 
         # ✅ initialisation date seulement si le champ existe
@@ -111,6 +116,8 @@ class ControleJeuxPiecesForm(forms.ModelForm):
 
 
 
+
+
     def clean_kilometrage_jeu(self):
         km = self.cleaned_data.get("kilometrage_jeu")
         exemplaire = self.exemplaire
@@ -123,6 +130,9 @@ class ControleJeuxPiecesForm(forms.ModelForm):
 
         return km
 
+
+
+
     def clean(self):
         cleaned = super().clean()
 
@@ -134,42 +144,61 @@ class ControleJeuxPiecesForm(forms.ModelForm):
 
         return cleaned
 
-
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        voiture = getattr(self, "exemplaire", None)
-        if voiture:
-            instance.voiture_exemplaire = voiture
+        if self.exemplaire:
+            instance.voiture_exemplaire = self.exemplaire
+            instance.kilometres_chassis = self.exemplaire.kilometres_chassis
 
-        km = self.cleaned_data.get("kilometrage_jeu")
+        if self.user:
+            instance.assign_technicien(self.user)
+            instance._user = self.user
+
+        km = self.cleaned_data.get("kilometrage_net_ext")
 
         if km is not None:
-            instance.kilometrage_jeu = km
+            instance.kilometrage_net_ext = km
+            instance.kilometres_chassis = km
 
-            # -------- MAIN D'ŒUVRE --------
-            heures = self.cleaned_data.get("temps_heures") or 0
-            minutes = self.cleaned_data.get("temps_minutes") or 0
+        heures = self.cleaned_data.get("temps_heures") or 0
+        minutes = self.cleaned_data.get("temps_minutes") or 0
+        total_minutes = heures * 60 + minutes
 
-            total_minutes = heures * 60 + minutes
+        taux_horaire = Decimal(
+            self.cleaned_data.get("taux_horaire") or "50.00"
+        )
 
-            main = instance.main_oeuvre
+        main = instance.main_oeuvre
 
+        if total_minutes > 0:
             if main:
                 main.temps_minutes = total_minutes
-                main.save(update_fields=["temps_minutes"])
+                main.taux_horaire = taux_horaire
+
+                main.save(
+                    update_fields=[
+                        "temps_minutes",
+                        "taux_horaire",
+                    ]
+                )
+
             else:
                 main = MainDoeuvre.objects.create(
                     utilisateur=self.user,
-                    temps_minutes=total_minutes
+                    temps_minutes=total_minutes,
+                    taux_horaire=taux_horaire,
                 )
+
                 instance.main_oeuvre = main
 
-        # Sauvegarde finale
         if commit:
             instance.save()
 
         return instance
+
+
+
 
     def clean_serrage_roues(self):
         serrage_roues = self.cleaned_data.get("serrage_roues")

@@ -118,6 +118,9 @@ class NettoyageExterieurForm(forms.ModelForm):
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
 
+
+
+
     def clean_kilometrage_net_ext(self):
         km = self.cleaned_data.get("kilometrage_net_ext")
 
@@ -126,6 +129,8 @@ class NettoyageExterieurForm(forms.ModelForm):
                 raise ValidationError("Le kilométrage ne peut pas diminuer.")
 
         return km
+
+
 
     def clean(self):
         cleaned = super().clean()
@@ -137,6 +142,9 @@ class NettoyageExterieurForm(forms.ModelForm):
             raise ValidationError("Les minutes ne peuvent pas dépasser 59.")
 
         return cleaned
+
+
+
 
     def save(self, commit=True):
         instance = super().save(commit=False)
