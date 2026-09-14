@@ -307,7 +307,7 @@ def injection_form_view(request, exemplaire_id):
                             # ---------------------------------------------
                             # Kilométrage injection
                             # ---------------------------------------------
-                            injection.kilometrage_alte = km
+                            injection.kilometrage_injection = km
 
                             # ---------------------------------------------
                             # Variation kilométrique

@@ -7,8 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
 from maintenance.choices import FabricantLubrifiant, RefroidissementFabricant, TVAConfig, RouesSerrageEtat
-from maintenance.niveaux.models import  (NiveauxEtat,
-                                         HuileEtat, RefroidissementQualiteEtat)
+from maintenance.niveaux.models import  (NiveauxEtat,HuileEtat, RefroidissementQualiteEtat)
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 
@@ -61,6 +60,14 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres chassis")
     )
 
+    kilometres_remplacement = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres au moment du remplacement")
+    )
+
+
     kilometres_moteur = models.PositiveIntegerField(
         default=0,
         null=True,
@@ -77,8 +84,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres rollback boite")
     )
 
-
-
     kilometres_moteur_rollback = models.PositiveIntegerField(
         default=0,
         null=True,
@@ -93,11 +98,10 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres au remplacement moteur")
     )
 
-    variation_kilometres = models.PositiveIntegerField(
+    kilometrage_variation = models.PositiveIntegerField(
         default=0,
         editable=False,
-        verbose_name=_("Variation de kilomètres depuis le dernier entretien"),
-        help_text=_("Calculé automatiquement : total - dernier entretien")
+        verbose_name=_("Variation du kilométrage"),
     )
 
     remplacement_numero_moteurs= models.CharField(
@@ -158,6 +162,12 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         default=FabricantLubrifiant.MOBIL,
         verbose_name=_("Fabricant")
     )
+    niveau_huile_qualite = models.CharField(
+        max_length=25,
+        choices=HuileEtat.choices,
+        default=HuileEtat.ZERO_30,
+        verbose_name=_("Qualité d'huile")
+    )
 
     niveau_huile_quantite = models.FloatField(
         default=0,
@@ -165,12 +175,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         validators=[StepValueValidator(0.1)]
     )
 
-    niveau_huile_qualite = models.CharField(
-        max_length=25,
-        choices=HuileEtat.choices,
-        default=HuileEtat.ZERO_30,
-        verbose_name=_("Qualité d'huile")
-    )
+
     niveau_huile_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -194,6 +199,13 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Niveau de liquide de refroidissement")
     )
 
+    refroidissement_qualite = models.CharField(
+        max_length=25,
+        choices=RefroidissementQualiteEtat.choices,
+        default=RefroidissementQualiteEtat.G13,
+        verbose_name=_("Qualité de liquide de refroidissement")
+    )
+
     refroidissement_quantite = models.FloatField(
         default=0,
         verbose_name=_("Quantité ajoutée en litres"),
@@ -202,12 +214,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
 
 
 
-    refroidissement_qualite = models.CharField(
-        max_length=25,
-        choices=RefroidissementQualiteEtat.choices,
-        default=RefroidissementQualiteEtat.G13,
-        verbose_name=_("Qualité de liquide de refroidissement")
-    )
 
     refroidissement_prix = models.DecimalField(
         max_digits=10,
@@ -314,97 +320,256 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
             f"{self.voiture_exemplaire.immatriculation}"
         )
 
-
-
     def clean(self):
-        if self.voiture_exemplaire and self.voiture_exemplaire.kilometres_moteur is not None:
-            if self.voiture_exemplaire.kilometres_moteur > self.voiture_exemplaire.kilometres_chassis:
-                raise ValidationError({
-                    "kilometres_moteur": _(
-                        "Le kilométrage du moteur ne peut pas être supérieur au kilométrage du véhicule."
-                    )
-                })
+        super().clean()
+
+        if not self.voiture_exemplaire:
+            return
+
+        # ======================================================
+        # VALEURS ACTUELLES DE L'EXEMPLAIRE
+        # ======================================================
+        ancien_km_chassis = (
+                self.voiture_exemplaire.kilometres_chassis or 0
+        )
+
+        ancien_km_moteur = (
+                self.voiture_exemplaire.kilometres_moteur or 0
+        )
+
+        # ======================================================
+        # NOUVEAU KILOMÉTRAGE SAISI
+        # ======================================================
+        nouveau_km = (
+            self.kilometres_remplacement
+        )
+
+        if nouveau_km is None:
+            return
+
+        # ======================================================
+        # VALIDATION
+        # ======================================================
+        if nouveau_km < ancien_km_chassis:
+            raise ValidationError({
+                "kilometres_remplacement": _(
+                    "Le nouveau kilométrage ne peut pas être "
+                    "inférieur au dernier kilométrage du véhicule."
+                )
+            })
+
+
+
 
     def activer_remplacement(self):
-        self.kilometres_remplacement_moteur = self.kilometres_chassis
+        self.kilometres_remplacement_moteur = self.kilometres_remplacement
         self.remplacement_effectue = True
         self.save()
 
     def save(self, *args, **kwargs):
-        self.nombre_moteurs_montes = self.nombre_remplacements_moteurs + 1
 
-        km = self.kilometres_chassis or 0
+        # ==========================================================
+        # VOITURE
+        # ==========================================================
+        voiture = self.voiture_exemplaire
 
-        is_new = not RemplacementMoteur.objects.filter(pk=self.pk).exists()
+        # ==========================================================
+        # NOUVEL ENREGISTREMENT ?
+        # ==========================================================
+        is_new = self._state.adding
 
-        if is_new and self.voiture_exemplaire_id:
+        # ==========================================================
+        # TECHNICIEN / DERNIÈRE MODIFICATION
+        # ==========================================================
+        if self.tech_technicien:
+            self.tech_last_maintained_by = (
+                self.tech_technicien
+            )
+
+        # ==========================================================
+        # TRAITEMENT DES KILOMÉTRAGES
+        # ==========================================================
+        if voiture:
+
+            # ------------------------------------------------------
+            # VALEURS ACTUELLES DE L'EXEMPLAIRE
+            # AVANT LA MODIFICATION
+            # ------------------------------------------------------
+            ancien_km_chassis = (
+                    voiture.kilometres_chassis or 0
+            )
+
+            ancien_km_moteur = (
+                    voiture.kilometres_moteur or 0
+            )
+
+            # ------------------------------------------------------
+            # NOUVEAU KILOMÉTRAGE SAISI
+            # ------------------------------------------------------
+            nouveau_km = (
+                self.kilometres_remplacement
+            )
+
+            if nouveau_km is not None:
+
+                # ==================================================
+                # VALIDATION
+                # ==================================================
+                if nouveau_km < ancien_km_chassis:
+                    raise ValidationError(
+                        {
+                            "kilometres_remplacement": _(
+                                "Le nouveau kilométrage ne peut pas être "
+                                "inférieur au dernier kilométrage du véhicule."
+                            )
+                        }
+                    )
+
+                # ==================================================
+                # DISTANCE PARCOURUE DEPUIS LE DERNIER CONTRÔLE
+                # ==================================================
+                difference = (
+                        nouveau_km
+                        - ancien_km_chassis
+                )
+
+                # ==================================================
+                # NOUVEAU KILOMÉTRAGE MOTEUR
+                #
+                # Exemple :
+                #
+                # chassis = 25 000
+                # moteur  = 4 000
+                # nouveau = 26 000
+                #
+                # différence = 1 000
+                # moteur = 4 000 + 1 000 = 5 000
+                # ==================================================
+                nouveau_km_moteur = (
+                        ancien_km_moteur
+                        + difference
+                )
+
+                # ==================================================
+                # VALEURS DE L'INTERVENTION
+                # ==================================================
+                self.kilometres_chassis = (
+                    ancien_km_chassis
+                )
+
+                self.kilometres_moteur = (
+                    nouveau_km_moteur
+                )
+
+                # ==================================================
+                # SI REMPLACEMENT EFFECTUÉ
+                # ==================================================
+                if self.remplacement_effectue:
+                    self.kilometres_remplacement_moteur = (
+                        nouveau_km
+                    )
+
+                    voiture.kilometres_remplacement_moteur = (
+                        nouveau_km
+                    )
+
+                # ==================================================
+                # MISE À JOUR DE L'EXEMPLAIRE
+                # ==================================================
+                voiture.kilometres_chassis = (
+                    nouveau_km
+                )
+
+                voiture.kilometres_moteur = (
+                    nouveau_km_moteur
+                )
+
+                update_fields = [
+                    "kilometres_chassis",
+                    "kilometres_moteur",
+                ]
+
+                if self.remplacement_effectue:
+                    update_fields.append(
+                        "kilometres_remplacement_moteur"
+                    )
+
+                voiture.save(
+                    update_fields=update_fields
+                )
+
+        # ==========================================================
+        # NOMBRE DE REMPLACEMENTS
+        # ==========================================================
+        if is_new and voiture:
+
+            nb_remplacements = (
+                RemplacementMoteur.objects.filter(
+                    voiture_exemplaire=voiture,
+                    remplacement_effectue=True,
+                ).count()
+            )
+
+            if self.remplacement_effectue:
+                nb_remplacements += 1
+
             self.nombre_remplacements_moteurs = (
-                    RemplacementMoteur.objects.filter(
-                        voiture_exemplaire_id=self.voiture_exemplaire_id,
-                        remplacement_effectue=True
-                    ).count() + 1
+                nb_remplacements
             )
 
-        if is_new and self.voiture_exemplaire_id:
-            self.nombre_moteurs_total = (
-                    RemplacementMoteur.objects.filter(
-                        voiture_exemplaire=self.voiture_exemplaire,
-                        remplacement_effectue=True
-                    ).count() + 2
+            self.nombre_moteurs_montes = (
+                    nb_remplacements + 1
             )
 
-
-        if not self.voiture_exemplaire:
-            super().save(*args, **kwargs)
-            return
-
-        if self.remplacement_effectue:
-            if not self.kilometres_remplacement_moteur:
-                self.kilometres_remplacement_moteur = km
-
-            self.voiture_exemplaire.kilometres_moteur = max(
-                0,
-                km - self.kilometres_remplacement_moteur
-            )
-        else:
-            self.voiture_exemplaire.kilometres_moteur = km
-
-        self.voiture_exemplaire.save(update_fields=["kilometres_moteur"])
-
+        # ==========================================================
+        # SAUVEGARDE DU REMPLACEMENT MOTEUR
+        # ==========================================================
         super().save(*args, **kwargs)
 
-        if self.main_oeuvre_id and self.voiture_exemplaire_id:
-            task_name = _("Remplacement moteur") + " " + str(self.voiture_exemplaire)
+        # ==========================================================
+        # MAIN D'ŒUVRE — DESCRIPTIF AUTOMATIQUE
+        # ==========================================================
+        if (
+                self.main_oeuvre_id
+                and self.voiture_exemplaire_id
+        ):
+
+            task_name = (
+                    _("Remplacement moteur")
+                    + " "
+                    + str(self.voiture_exemplaire)
+            )
 
             if self.main_oeuvre.descriptif != task_name:
-                self.main_oeuvre.descriptif = task_name
-                self.main_oeuvre.save(update_fields=["descriptif"])
+                self.main_oeuvre.descriptif = (
+                    task_name
+                )
 
-        if not self.voiture_exemplaire:
-            super().save(*args, **kwargs)
-            return
+                self.main_oeuvre.save(
+                    update_fields=[
+                        "descriptif"
+                    ]
+                )
 
-        if self.remplacement_effectue and self.kilometres_remplacement_moteur:
-            self.voiture_exemplaire.kilometres_moteur = max(
-                0,
-                km - self.kilometres_remplacement_moteur
+
+
+    def clean_kilometres_remplacement(self):
+        nouveau_km = self.cleaned_data.get(
+            "kilometres_remplacement"
+        )
+
+        if (
+                nouveau_km is not None
+                and self.exemplaire
+                and nouveau_km < self.exemplaire.kilometres_chassis
+        ):
+            raise ValidationError(
+                _("Le kilométrage ne peut pas diminuer.")
             )
-        else:
-            self.voiture_exemplaire.kilometres_moteur = km
 
-        self.voiture_exemplaire.save(update_fields=["kilometres_moteur"])
+        return nouveau_km
 
 
-        # ----------------------------
-        # MAIN D'OEUVRE AUTO DESCRIPTIF
-        # ----------------------------
-        if self.main_oeuvre_id and self.voiture_exemplaire_id:
-            task_name = _("Remplacement moteur") + " " + str(self.voiture_exemplaire)
-            self.main_oeuvre.descriptif = task_name
-            self.main_oeuvre.save(update_fields=["descriptif"])
-
-
-        super().save(*args, **kwargs)
 
     def generer_rapport_remplacement(self):
         rapport = []
@@ -537,6 +702,11 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
                 rounding=ROUND_HALF_UP,
             ),
         }
+
+
+
+
+
         # ======================================================
         # MAIN-D'ŒUVRE
         # ======================================================

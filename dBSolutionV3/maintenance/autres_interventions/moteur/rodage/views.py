@@ -290,7 +290,7 @@ def rodage_check_view(request, exemplaire_id):
                             # ---------------------------------------------
                             # Kilométrage rodage
                             # ---------------------------------------------
-                            rodage.kilometrage_alte = km
+                            rodage.kilometrage_rodage = km
 
                             # ---------------------------------------------
                             # Variation kilométrique

@@ -292,7 +292,7 @@ def ref_form_view(request, exemplaire_id):
                             # ---------------------------------------------
                             # Kilométrage refroidissement
                             # ---------------------------------------------
-                            refroidissement.kilometrage_alte = km
+                            refroidissement.kilometrage_refroidissement = km
 
                             # ---------------------------------------------
                             # Variation kilométrique

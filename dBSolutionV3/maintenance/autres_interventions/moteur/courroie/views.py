@@ -282,7 +282,7 @@ def courroie_form_view(request, exemplaire_id):
                             # ---------------------------------------------
                             # Kilométrage courroie_distri
                             # ---------------------------------------------
-                            courroie_distri.kilometrage_alte = km
+                            courroie_distri.kilometrage_cour = km
 
                             # ---------------------------------------------
                             # Variation kilométrique

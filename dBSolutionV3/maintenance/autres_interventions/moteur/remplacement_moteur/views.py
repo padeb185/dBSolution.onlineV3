@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db import models, transaction
+from maindoeuvre.models import MainDoeuvre
 from utilisateurs.models import UserLog
 from django.contrib import messages
 from maintenance.models import Maintenance
@@ -62,8 +63,6 @@ class RemplacementMoteurListView(ListView):
         return context
 
 
-
-
 @never_cache
 @login_required
 def remplacement_moteur_form_view(request, exemplaire_id):
@@ -71,31 +70,46 @@ def remplacement_moteur_form_view(request, exemplaire_id):
     tenant = request.user.societe
     role = request.user.role
 
-    remplacement_moteur = None
-
+    # ==========================================================
+    # EXEMPLAIRE
+    # ==========================================================
     exemplaire = get_object_or_404(
         VoitureExemplaire.objects.filter(
-            Q(client__societe=tenant) |
-            Q(client__isnull=True, societe=tenant)
+            Q(client__societe=tenant)
+            | Q(
+                client__isnull=True,
+                societe=tenant
+            )
         ),
         id=exemplaire_id
     )
 
+    # ==========================================================
+    # DROITS
+    # ==========================================================
     roles_autorises = [
         "mecanicien",
         "apprenti",
         "magasinier",
         "chef_mecanicien",
-        "direction"
+        "direction",
     ]
 
     if role not in roles_autorises:
-        messages.error(request, _("Accès refusé"))
-        return redirect("utilisateurs:dashboard")
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
 
-    # =========================
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    remplacement_moteur = None
+
+    # ==========================================================
     # POST
-    # =========================
+    # ==========================================================
     if request.method == "POST":
 
         form = RemplacementMoteurForm(
@@ -109,90 +123,427 @@ def remplacement_moteur_form_view(request, exemplaire_id):
             try:
                 with transaction.atomic():
 
-                    km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                    # 🔴 validation métier
-                    if km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
-                        form.add_error(
-                            "kilometres_chassis",
-                            _("Le kilométrage ne peut pas être inférieur.")
+                    # ==================================================
+                    # VALEURS AVANT MODIFICATION
+                    # ==================================================
+                    ancien_km_chassis = (
+                        exemplaire.kilometres_chassis
+                        or 0
+                    )
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+                    ancien_km_moteur = (
+                        exemplaire.kilometres_moteur
+                        or 0
+                    )
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur
+                            or 0
+                    )
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    nouveau_km = (
+                        form.cleaned_data.get(
+                            "kilometres_remplacement"
                         )
-                        raise ValueError("invalid km")
+                    )
 
-                    # 🔴 maintenance unique
+                    # ==================================================
+                    # VALIDATION SUPPLÉMENTAIRE
+                    # ==================================================
+                    if (
+                        nouveau_km is not None
+                        and nouveau_km < ancien_km_chassis
+                    ):
+                        form.add_error(
+                            "kilometres_remplacement",
+                            _(
+                                "Le kilométrage ne peut pas être "
+                                "inférieur au dernier kilométrage."
+                            )
+                        )
+
+                        raise ValidationError(
+                            _(
+                                "Le kilométrage ne peut pas être "
+                                "inférieur au dernier kilométrage."
+                            )
+                        )
+
+                    else:
+                        kilometrage_variation = (
+                                nouveau_km - ancien_kilometrage
+                        )
+
+                    exemplaire.kilometres_rollback = (
+                        ancien_kilometrage
+                    )
+
+                    exemplaire.kilometres_boite_rollback = (
+                        ancien_kilometrage_boite
+                    )
+
+                    exemplaire.kilometres_moteur_rollback = (
+                        ancien_kilometrage_moteur
+                    )
+
+                    exemplaire.date_derniere_intervention = (
+                        timezone.localtime(
+                            timezone.now()
+                        ).date()
+                    )
+
+                    # =============================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # =============================================
+                    exemplaire.kilometres_chassis = nouveau_km
+
+                    # Recalcule :
+                    # - kilometres_moteur
+                    # - kilometres_boite
+                    # - variation_kilometres
+                    exemplaire.update_kilometres()
+
+                    # =============================================
+                    # SAUVEGARDE VÉHICULE
+                    # =============================================
+                    exemplaire.save(
+                        update_fields=[
+                            "kilometres_chassis",
+                            "date_derniere_intervention",
+
+                            # Rollback
+                            "kilometres_rollback",
+                            "kilometres_boite_rollback",
+                            "kilometres_moteur_rollback",
+
+                            # Valeurs recalculées
+                            "kilometres_moteur",
+                            "kilometres_boite",
+                            "variation_kilometres",
+                        ]
+                    )
+
+                    # ==================================================
+                    # MAINTENANCE
+                    # ==================================================
                     maintenance = Maintenance.objects.create(
                         societe=request.user.societe,
                         voiture_exemplaire=exemplaire,
-                        immatriculation=exemplaire.immatriculation,
-                        date_intervention=timezone.now().date(),
-                        kilometres_chassis=exemplaire.kilometres_chassis,
-                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                        type_maintenance=Maintenance.TypeMaintenance.REMPLACEMENT_BOITE,
+                        immatriculation=(
+                            exemplaire.immatriculation
+                        ),
+                        date_intervention=(
+                            timezone.now().date()
+                        ),
+
+                        # Ancienne valeur avant le contrôle
+                        kilometres_chassis=(
+                            ancien_km_chassis
+                        ),
+
+                        kilometres_dernier_entretien=(
+                            exemplaire.kilometres_dernier_entretien
+                        ),
+
+                        type_maintenance=(
+                            Maintenance.TypeMaintenance.REMPLACEMENT_MOTEUR
+                        ),
+
                         tag=Maintenance.Tag.JAUNE,
                     )
 
-                    # 🔧 rôle
+                    # ==================================================
+                    # UTILISATEUR / RÔLE SUR MAINTENANCE
+                    # ==================================================
                     if role == "mecanicien":
-                        maintenance.mecanicien = request.user
+
+                        maintenance.mecanicien = (
+                            request.user
+                        )
+
                     elif role == "chef_mecanicien":
-                        maintenance.chef_mecanicien = request.user
-                    elif role == "apprenti":
-                        maintenance.apprentis.add(request.user)
+
+                        maintenance.chef_mecanicien = (
+                            request.user
+                        )
+
                     elif role == "magasinier":
-                        maintenance.magasinier = request.user
+
+                        maintenance.magasinier = (
+                            request.user
+                        )
+
                     elif role == "direction":
-                        maintenance.direction = request.user
+
+                        maintenance.direction = (
+                            request.user
+                        )
 
                     maintenance.save()
 
-                    # 🧾 remplacement boîte
+                    # M2M après sauvegarde
+                    if role == "apprenti":
+                        maintenance.apprentis.add(
+                            request.user
+                        )
+
+                    # ==================================================
+                    # PRÉPARATION DU REMPLACEMENT MOTEUR
+                    # ==================================================
+                    form.instance.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # Si ton modèle RemplacementMoteur
+                    # possède bien le champ maintenance
+                    if hasattr(
+                        form.instance,
+                        "maintenance"
+                    ):
+                        form.instance.maintenance = (
+                            maintenance
+                        )
+
+                    # ==================================================
+                    # IMPORTANT
+                    #
+                    # Une seule sauvegarde du formulaire.
+                    #
+                    # RemplacementMoteurForm.save() doit :
+                    #
+                    # ancien chassis = exemplaire.kilometres_chassis
+                    # ancien moteur  = exemplaire.kilometres_moteur
+                    #
+                    # différence =
+                    # nouveau km - ancien chassis
+                    #
+                    # nouveau moteur =
+                    # ancien moteur + différence
+                    #
+                    # puis mettre à jour l'exemplaire.
+                    # ==================================================
+
                     remplacement_moteur = form.save(commit=False)
-                    remplacement_moteur.voiture_exemplaire = exemplaire
 
-                    # 🚗 km update (CORRIGÉ)
-                    if km_checkup is not None:
-                        exemplaire.kilometres_chassis = km_checkup
-                        exemplaire.kilometres_remplacement_moteur = km_checkup  # ✔ CORRECT
-                        exemplaire.save()
+                    remplacement_moteur.voiture_exemplaire = (
+                        exemplaire
+                    )
 
+                    remplacement_moteur.maintenance = (
+                        maintenance
+                    )
+
+                    # ---------------------------------------------
+                    # Kilométrage AVANT intervention
+                    # ---------------------------------------------
+                    remplacement_moteur.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+
+                    remplacement_moteur.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+
+                    remplacement_moteur.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
+
+                    # ---------------------------------------------
+                    # Kilométrage remplacement_moteur
+                    # ---------------------------------------------
+                    remplacement_moteur.kilometrage_remplacement_moteur = nouveau_km
+
+                    # ---------------------------------------------
+                    # Variation kilométrique
+                    # ---------------------------------------------
+                    remplacement_moteur.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    # =============================================
+                    # TECHNICIEN
+                    # =============================================
+                    remplacement_moteur.assign_technicien(
+                        request.user
+                    )
+
+                    remplacement_moteur.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MAIN-D'ŒUVRE
+                    # ==================================================
+                    heures = (
+                            form.cleaned_data.get("temps_heures")
+                            or 0
+                    )
+
+                    minutes = (
+                            form.cleaned_data.get("temps_minutes")
+                            or 0
+                    )
+
+                    total_minutes = (
+                            heures * 60 + minutes
+                    )
+
+                    taux_horaire = (
+                            form.cleaned_data.get("taux_horaire")
+                            or 0
+                    )
+
+                    # --------------------------------------------------
+                    # Mise à jour main-d'œuvre existante
+                    # --------------------------------------------------
+                    if remplacement_moteur.main_oeuvre_id:
+
+                        main_oeuvre = (
+                            remplacement_moteur.main_oeuvre
+                        )
+
+                        main_oeuvre.temps_minutes = (
+                            total_minutes
+                        )
+
+                        main_oeuvre.taux_horaire = (
+                            taux_horaire
+                        )
+
+                        main_oeuvre.save(
+                            update_fields=[
+                                "temps_minutes",
+                                "taux_horaire",
+                            ]
+                        )
+
+                    # --------------------------------------------------
+                    # Création main-d'œuvre
+                    # --------------------------------------------------
+                    else:
+
+                        main_oeuvre = (
+                            MainDoeuvre.objects.create(
+                                utilisateur=request.user,
+                                temps_minutes=total_minutes,
+                                taux_horaire=taux_horaire,
+                            )
+                        )
+
+                        remplacement_moteur.main_oeuvre = (
+                            main_oeuvre
+                        )
+
+                    # ==================================================
+                    # SAUVEGARDE remplacement_moteur
+                    # IMPORTANT :
+                    # EN DEHORS DU IF/ELSE MAIN-D'ŒUVRE
+                    # ==================================================
                     remplacement_moteur.save()
 
+                    form.save_m2m()
 
 
-                    ACTION_REMPLACEMENT_MOTEUR = gettext_noop(
-                        "Remplacement moteur"
+
+                    # ==================================================
+                    # LOG
+                    # ==================================================
+                    ACTION_REMPLACEMENT_MOTEUR = (
+                        gettext_noop(
+                            "Remplacement moteur"
+                        )
                     )
 
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=f"{ACTION_REMPLACEMENT_MOTEUR} - {exemplaire.immatriculation}"
+                        action=(
+                            f"{ACTION_REMPLACEMENT_MOTEUR} - "
+                            f"{exemplaire.immatriculation}"
+                        )
                     )
-                    # ➕ compteur (si champ existe)
-                    if remplacement_moteur.pk:
-                        exemplaire.nombre_remplacements_moteurs = F("nombre_remplacements_moteurs")
-                        exemplaire.save(update_fields=["nombre_remplacements_moteurs"])
-                        exemplaire.refresh_from_db()
 
+                    # ==================================================
+                    # RAFRAÎCHIR L'EXEMPLAIRE
+                    # ==================================================
+                    exemplaire.refresh_from_db()
+
+                # ======================================================
+                # SUCCESS
+                # ======================================================
                 messages.success(
                     request,
-                    _("Remplacement du moteur enregistré avec succès")
+                    _(
+                        "Remplacement du moteur "
+                        "enregistré avec succès"
+                    )
                 )
-                return redirect("remplacement_moteur:remplacement_moteur_list", exemplaire_id=exemplaire.id)
+
+                return redirect(
+                    "remplacement_moteur:"
+                    "remplacement_moteur_list",
+                    exemplaire_id=exemplaire.id
+                )
+
+            except ValidationError:
+                # Les erreurs sont déjà ajoutées au formulaire
+                pass
 
             except Exception as e:
-                messages.error(request, str(e))
+
+                messages.error(
+                    request,
+                    str(e)
+                )
 
         else:
-            messages.error(request, _("Veuillez corriger les erreurs du formulaire"))
-            print(form.errors)  # 🔥 DEBUG IMPORTANT
 
+            messages.error(
+                request,
+                _(
+                    "Veuillez corriger les erreurs "
+                    "du formulaire"
+                )
+            )
+
+            print(form.errors)
+
+    # ==========================================================
+    # GET
+    # ==========================================================
     else:
+
+        # ------------------------------------------------------
+        # IMPORTANT
+        #
+        # kilometres_moteur vient de :
+        # exemplaire.kilometres_moteur
+        #
+        # et PAS de :
+        # exemplaire.kilometres_chassis
+        # ------------------------------------------------------
         remplacement_moteur = RemplacementMoteur(
             voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis
+
+            kilometres_chassis=(
+                exemplaire.kilometres_chassis
+                or 0
+            ),
+
+            kilometres_moteur=(
+                exemplaire.kilometres_moteur
+                or 0
+            ),
         )
 
-        remplacement_moteur.assign_technicien(request.user)
+        remplacement_moteur.assign_technicien(
+            request.user
+        )
 
         form = RemplacementMoteurForm(
             instance=remplacement_moteur,
@@ -200,76 +551,140 @@ def remplacement_moteur_form_view(request, exemplaire_id):
             exemplaire=exemplaire
         )
 
-    # =========================
-    # RENDER
-    # =========================
+    # ==========================================================
+    # SECTIONS
+    # ==========================================================
     sections = [
         {
             "title": _("Kilométrage"),
             "icon": "icons/compteur.png",
-            "fields": [form[f.name] for f in form if "kilometres" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "kilometres" in f.name
+            ],
         },
+
         {
             "title": _("Remplacement du moteur"),
             "icon": "icons/engine.png",
-            "fields": [form[f.name] for f in form if "moteurs" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "moteurs" in f.name
+            ],
         },
+
         {
             "title": _("Huile moteur"),
             "icon": "icons/huile-moteur.png",
-            "fields": [form[f.name] for f in form if "niveau" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "niveau" in f.name
+            ],
         },
+
         {
             "title": _("Liquide de refroidissement"),
             "icon": "icons/anti-gel.png",
-            "fields": [form[f.name] for f in form if "refroidissement" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "refroidissement" in f.name
+            ],
         },
+
         {
-            "title": _("Remise à Zéro des kilomètres moteurs"),
+            "title": _(
+                "Remise à Zéro des kilomètres moteurs"
+            ),
             "icon": "icons/km.png",
-            "fields": [form[f.name] for f in form if "remplacement_effectue" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "remplacement_effectue" in f.name
+            ],
         },
+
         {
             "title": _("Etiquette"),
             "icon": "icons/tag.png",
-            "fields": [form[f.name] for f in form if "tag" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "tag" in f.name
+            ],
         },
+
         {
             "title": _("Pays"),
             "icon": "icons/pays.png",
-            "fields": [form[f.name] for f in form if "pays" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "pays" in f.name
+            ],
         },
+
         {
             "title": _("Remarques"),
             "icon": "icons/notes.png",
-            "fields": [form[f.name] for f in form if "remarques" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "remarques" in f.name
+            ],
         },
+
         {
             "title": _("Serrage des roues"),
             "icon": "icons/roue.png",
-            "fields": [form[f.name] for f in form if "serrage" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "serrage" in f.name
+            ],
         },
+
         {
             "title": _("Technicien"),
             "icon": "icons/mecanicien.png",
-            "fields": [form[f.name] for f in form if "tech" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "tech" in f.name
+            ],
         },
+
         {
             "title": _("Taux horaire"),
             "icon": "icons/taux.png",
-            "fields": [form[f.name] for f in form if "taux" in f.name],
+            "fields": [
+                form[f.name]
+                for f in form
+                if "taux" in f.name
+            ],
         },
     ]
 
-    return render(request, "remplacement_moteur/remplacement_moteur_form.html", {
-        "remplacement_moteur": remplacement_moteur,
-        "exemplaire": exemplaire,
-        "form": form,
-        "sections": sections,
-        "now": timezone.now(),
-    })
-
-
+    # ==========================================================
+    # RENDER
+    # ==========================================================
+    return render(
+        request,
+        "remplacement_moteur/"
+        "remplacement_moteur_form.html",
+        {
+            "remplacement_moteur": (
+                remplacement_moteur
+            ),
+            "exemplaire": exemplaire,
+            "form": form,
+            "sections": sections,
+            "now": timezone.now(),
+        }
+    )
 
 @login_required
 def remplacement_moteur_detail_view(request, remplacement_moteur_id):

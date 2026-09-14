@@ -338,7 +338,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                         # ---------------------------------------------
                         # Kilométrage carrosserie_interne
                         # ---------------------------------------------
-                        carrosserie_interne.kilometrage_alte = km
+                        carrosserie_interne.kilometrage_intervention = km
 
                         # ---------------------------------------------
                         # Variation kilométrique

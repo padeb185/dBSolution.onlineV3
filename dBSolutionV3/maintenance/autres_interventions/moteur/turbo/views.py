@@ -291,7 +291,7 @@ def turbo_check_view(request, exemplaire_id):
                             # ---------------------------------------------
                             # Kilométrage turbo
                             # ---------------------------------------------
-                            turbo.kilometrage_alte = km
+                            turbo.kilometrage_turbo = km
 
                             # ---------------------------------------------
                             # Variation kilométrique
