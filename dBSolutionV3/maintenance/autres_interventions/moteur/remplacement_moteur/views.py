@@ -539,6 +539,9 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 exemplaire.kilometres_moteur
                 or 0
             ),
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
         )
 
         remplacement_moteur.assign_technicien(

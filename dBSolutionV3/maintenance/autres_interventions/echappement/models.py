@@ -86,7 +86,7 @@ class Echappement(models.Model):
     )
 
     kilometrage_echappement = models.IntegerField(
-        _("Kilométrage échappement"),
+        _("Kilométrage du contrôle"),
         null=True,
         blank=True
     )
