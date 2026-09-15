@@ -391,17 +391,44 @@ def abs_form_view(request, exemplaire_id):
 # Vue détail boite
 # -----------------------------
 @login_required
-def abs_detail_view(request, abs_id):
-    abs = get_object_or_404(
-        Abs.objects.select_related("voiture_exemplaire"),
-        id=abs_id
+def abs_detail_view(request, exemplaire_id, abs_id):
+
+    tenant = request.user.societe
+
+    exemplaire = get_object_or_404(
+        VoitureExemplaire,
+        id=exemplaire_id,
     )
 
-    context = {
-        "abs": abs,
-        "exemplaire": abs.voiture_exemplaire,
-    }
-    return render(request, "abs/abs_detail.html", context)
+    abs_obj = get_object_or_404(
+        Abs.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+            "tech_societe",
+        ),
+        id=abs_id,
+        voiture_exemplaire_id=exemplaire_id,
+    )
+
+    # ==========================================================
+    # SÉCURITÉ TENANT
+    # ==========================================================
+    if (
+        exemplaire.client
+        and exemplaire.client.societe != tenant
+    ):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    return render(
+        request,
+        "abs/abs_detail.html",
+        {
+            "abs": abs_obj,
+            "exemplaire": exemplaire,
+        },
+    )
+
 
 
 

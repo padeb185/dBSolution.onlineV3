@@ -176,7 +176,7 @@
 
             <!-- Actions -->
             <td class="border px-4 py-2 text-center">
-               <a href="{% url 'abs:abs_detail' abs.id %}"
+               <a href="{% url 'abs:abs_detail' exemplaire_id=exemplaire.id abs_id=abs.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Infos" %}
                </a>

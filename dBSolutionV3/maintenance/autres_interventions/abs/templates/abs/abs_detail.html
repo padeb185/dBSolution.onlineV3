@@ -131,15 +131,14 @@
 
     <br>
     <!-- Actions -->
-    <div>
-        <a href="{% if abs.voiture_exemplaire %}
-                   {% url 'abs:abs_list' abs.voiture_exemplaire.id %}
-               {% else %}# {% endif %}"
-                  class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center"
-        >
-            {% trans "Retour à la liste des contrôles ABS" %}
-        </a>
-    </div>
+
+       <div>
+            <a href="{% url 'abs:abs_list' exemplaire_id=exemplaire.id %}"
+               class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Retour à la liste des contrôles ABS" %}
+            </a>
+       </div>
+
 
 </div>
 

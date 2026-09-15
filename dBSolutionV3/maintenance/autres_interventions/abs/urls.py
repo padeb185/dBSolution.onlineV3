@@ -14,8 +14,11 @@ urlpatterns = [
 
     path('abs/<int:abs_id>/modifier/', modifier_abs_view, name='modifier_abs'),
 
-
-    path('abs/<int:abs_id>/detail/', abs_detail_view, name='abs_detail'),
+    path(
+        "<uuid:exemplaire_id>/abs/<int:abs_id>/detail/",
+        abs_detail_view,
+        name="abs_detail",
+    ),
 
     path("<int:pk>/", abs_detail_pdf_view, name="abs_detail_pdf"),
 
