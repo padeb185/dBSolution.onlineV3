@@ -2541,14 +2541,15 @@
 
      {% else %}
 
-        <p>
-            {% trans "Aucune pièce ou produit utilisé." %}
-        </p>
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
 
-        <table class="rapport-vide-table">
+        <table class="table-2-cols">
             <tbody>
+
                 <tr class="total">
-                    <td>
+                    <td class="text-right">
                         <strong>
                             {% trans "Main-d'œuvre HTVA" %}
                         </strong>
@@ -2562,7 +2563,7 @@
                 </tr>
 
                 <tr class="total-general">
-                    <td>
+                    <td class="text-right">
                         <strong>
                             {% trans "Total général avec main-d'œuvre HTVA" %}
                         </strong>
@@ -2574,9 +2575,9 @@
                         </strong>
                     </td>
                 </tr>
+
             </tbody>
         </table>
-
     {% endif %}
 
 </div>

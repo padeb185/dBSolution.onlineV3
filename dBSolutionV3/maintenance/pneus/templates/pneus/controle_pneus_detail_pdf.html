@@ -710,16 +710,18 @@
 
     {% else %}
 
-        <p>
-            {% trans "Aucune pièce à remplacer ou remplacée." %}
-        </p>
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
 
         <table class="table-2-cols">
             <tbody>
 
                 <tr class="total">
-                    <td class="text-left">
-                        <strong>{% trans "Main-d'œuvre HTVA" %}</strong>
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
 
                     <td class="text-right">
@@ -730,8 +732,10 @@
                 </tr>
 
                 <tr class="total-general">
-                    <td class="text-left">
-                        <strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong>
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
 
                     <td class="text-right">

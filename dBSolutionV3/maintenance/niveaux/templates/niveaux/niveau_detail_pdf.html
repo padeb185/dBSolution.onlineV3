@@ -114,6 +114,23 @@
             color: #991b1b;
         }
 
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -606,16 +623,18 @@
 
     {% else %}
 
-        <p>
-            {% trans "Aucun liquide ou produit ajouté." %}
-        </p>
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
 
-        <table>
+        <table class="table-2-cols">
             <tbody>
 
                 <tr class="total">
                     <td class="text-right">
-                        <strong>{% trans "Main-d'œuvre HTVA" %}</strong>
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
 
                     <td class="text-right">
@@ -627,7 +646,9 @@
 
                 <tr class="total-general">
                     <td class="text-right">
-                        <strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong>
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
 
                     <td class="text-right">

@@ -130,6 +130,23 @@
             font-weight: bold;
         }
 
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+
         .tag {
             padding: 3px 8px;
             border-radius: 4px;
@@ -418,7 +435,7 @@
 
 <div>
 
-    <table>
+    <table class="table-2-cols">
 
         <thead>
             <tr>
@@ -1183,50 +1200,42 @@
 
     {% else %}
 
-        <p>
-            {% trans "Aucune pièce ou produit utilisé." %}
-        </p>
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
 
-
-        <table>
-
+        <table class="table-2-cols">
             <tbody>
 
                 <tr class="total">
-
-                    <td>
-
-                        <div>
-                            <strong>{% trans "Main-d'œuvre HTVA" %}</strong>
-                        </div>
-
-                        <div class="text-right" style="margin-top: 4px;">
-                            {{ injection.cout_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
-
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
 
+                    <td class="text-right">
+                        <strong>
+                            {{ injection.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
                 </tr>
 
-
                 <tr class="total-general">
-
-                    <td>
-
-                        <div>
-                            <strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong>
-                        </div>
-
-                        <div class="text-right" style="margin-top: 4px;">
-                            {{ injection.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
-
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
 
+                    <td class="text-right">
+                        <strong>
+                            {{ injection.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
                 </tr>
 
             </tbody>
-
         </table>
 
     {% endif %}
