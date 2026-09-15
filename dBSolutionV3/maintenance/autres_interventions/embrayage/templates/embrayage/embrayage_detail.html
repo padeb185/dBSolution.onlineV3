@@ -91,13 +91,16 @@
         </div>
 
          <!-- Bouton Rapport -->
-        <div class="mt-auto w-full">
-            <a href="{% url 'embrayage:embrayage_detail_pdf' embrayage.id %}" class="block w-full">
-                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                    {% trans "Télécharger le PDF" %}
-                </button>
+       <div class="mt-auto w-full">
+            <a
+                href="{% url 'embrayage:embrayage_detail_pdf' embrayage.id %}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold text-center"
+            >
+                {% trans "Télécharger le PDF" %}
             </a>
-        </div>
+       </div>
     </div>
 
      {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}

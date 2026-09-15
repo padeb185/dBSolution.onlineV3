@@ -117,6 +117,28 @@
             font-weight: bold;
         }
 
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -367,7 +389,7 @@
 <h2>{% trans "État des composants de l'admission" %}</h2>
 
 
-    <table>
+    <table class="table-2-cols">
         <thead>
             <tr>
                 <th>{% trans "Élément contrôlé" %}</th>
@@ -876,30 +898,40 @@
             </tbody>
         </table>
 
-    {% else %}
+     {% else %}
 
-        <p>{% trans "Aucune pièce ou produit utilisé." %}</p>
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
 
-        <table>
+        <table class="table-2-cols">
             <tbody>
 
                 <tr class="total">
-                    <td>
-                        {% trans "Main-d'œuvre HTVA" %}
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
 
                     <td class="text-right">
-                        {{ admission.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        <strong>
+                            {{ admission.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
                     </td>
                 </tr>
 
                 <tr class="total-general">
-                    <td>
-                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
 
                     <td class="text-right">
-                        {{ admission.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        <strong>
+                            {{ admission.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
                     </td>
                 </tr>
 

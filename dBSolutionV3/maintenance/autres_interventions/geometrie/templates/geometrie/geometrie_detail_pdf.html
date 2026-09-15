@@ -157,6 +157,30 @@
             background: #dc2626;
         }
 
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -608,42 +632,45 @@
     </table>
 
 
-{% else %}
+    {% else %}
 
-    <p>
-        {% trans "Aucune pièce ou produit utilisé." %}
-    </p>
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
 
-    <table>
-        <tbody>
+        <table class="table-2-cols">
+            <tbody>
 
-            <tr class="total">
-                <td class="text-right">
-                    <strong>{% trans "Main-d'œuvre HTVA" %}</strong>
-                </td>
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
 
-                <td class="text-right">
-                    <strong>
-                        {{ geometrie.cout_main_oeuvre|default:0|floatformat:2 }} €
-                    </strong>
-                </td>
-            </tr>
+                    <td class="text-right">
+                        <strong>
+                            {{ geometrie.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
 
-            <tr class="total-general">
-                <td class="text-right">
-                    <strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong>
-                </td>
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
 
-                <td class="text-right">
-                    <strong>
-                        {{ geometrie.cout_main_oeuvre|default:0|floatformat:2 }} €
-                    </strong>
-                </td>
-            </tr>
+                    <td class="text-right">
+                        <strong>
+                            {{ geometrie.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
 
-        </tbody>
-    </table>
-
+            </tbody>
+        </table>
 {% endif %}
 
 <!-- ================================================== -->

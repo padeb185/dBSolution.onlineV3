@@ -448,7 +448,6 @@ def admission_check_view(request, exemplaire_id):
                             # =====================================
                             admission.save()
 
-                            form.save_m2m()
 
                             # =====================================
                             # MISE À JOUR DU VÉHICULE
@@ -459,9 +458,9 @@ def admission_check_view(request, exemplaire_id):
 
                             exemplaire.save(
                                 update_fields=[
-                                    "kilometres_chassis"
+                                    "kilometres_chassis",
                                     "kilometres_boite",
-                                    "kilometres_moteur"
+                                    "kilometres_moteur",
                                 ]
                             )
 

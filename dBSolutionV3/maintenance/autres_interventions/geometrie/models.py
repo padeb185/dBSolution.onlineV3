@@ -457,13 +457,12 @@ class GeometrieVoiture(models.Model):
     def total_general_avec_main_oeuvre(self):
         rapport = self.generer_rapport_remplacement()
 
-        return (
-                rapport["total_general"]
-                + self.cout_main_oeuvre
-        ).quantize(
+        return rapport["total_general"].quantize(
             Decimal("0.01"),
             rounding=ROUND_HALF_UP,
         )
+
+    
 
     def generer_rapport_remplacement(self):
 

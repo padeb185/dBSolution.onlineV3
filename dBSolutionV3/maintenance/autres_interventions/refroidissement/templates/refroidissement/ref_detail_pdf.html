@@ -917,7 +917,7 @@
 
 <div>
 
-    <table>
+    <table class="table-2-cols">
 
         <thead>
 
@@ -1967,54 +1967,42 @@
 
     {% else %}
 
-        <p>
-            {% trans "Aucune pièce ou produit utilisé." %}
-        </p>
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
 
-
-        <table>
-
+        <table class="table-2-cols">
             <tbody>
 
                 <tr class="total">
-
-                    <td>
-
-                        <div>
-                            <strong>
-                                {% trans "Main-d'œuvre HTVA" %}
-                            </strong>
-                        </div>
-
-                        <div class="text-right" style="margin-top: 4px;">
-                            {{ ref.cout_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
-
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
 
+                    <td class="text-right">
+                        <strong>
+                            {{ ref.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
                 </tr>
 
-
                 <tr class="total-general">
-
-                    <td>
-
-                        <div>
-                            <strong>
-                                {% trans "Total général avec main-d'œuvre HTVA" %}
-                            </strong>
-                        </div>
-
-                        <div class="text-right" style="margin-top: 4px;">
-                            {{ ref.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
-
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
 
+                    <td class="text-right">
+                        <strong>
+                            {{ ref.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
                 </tr>
 
             </tbody>
-
         </table>
 
     {% endif %}

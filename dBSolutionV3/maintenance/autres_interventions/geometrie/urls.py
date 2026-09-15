@@ -3,7 +3,7 @@ from django.urls import path
 
 from .models import GeometrieVoiture
 from .views import geometrie_detail_view, \
-    geometrie_modifier_view, geometrie_check_view, GeometrieListView, geometrie_pdf_view, geometrie_detail_pdf_view, \
+    geometrie_modifier_view, geometrie_check_view, GeometrieListView, geometrie_detail_pdf_view, \
     delete_geometrie_view
 
 app_name = "geometrie"
@@ -21,8 +21,6 @@ urlpatterns = [
     path('geometrie/<int:geometrie_id>/detail/', geometrie_detail_view, name='geometrie_detail'),
 
     path("<int:pk>/detail/", geometrie_detail_pdf_view, name="geometrie_detail_pdf"),
-
-    path("rapport/<int:pk>/", geometrie_pdf_view, name="rapport"),
 
     path("geometrie/<int:geometrie_id>/delete/", delete_geometrie_view, name="delete_geometrie"),
 ]

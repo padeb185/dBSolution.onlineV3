@@ -132,6 +132,22 @@
             color: #991b1b;
         }
 
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
 
 
         table {
@@ -167,6 +183,11 @@
             margin-bottom: 25px;
             padding-bottom: 15px;
             border-bottom: 2px solid #1e3a8a;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
         }
 
         .societe-informations {
@@ -298,7 +319,6 @@
     </div>
 {% endif %}
 
-<br>
 <h1>{% trans "Détail du remplacement de l'embrayage" %}</h1>
 
 <!-- ================= INFOS GÉNÉRALES ================= -->
@@ -367,12 +387,12 @@
 </div>
 
 <!-- ================= ETAT DES PIÈCES ================= -->
-<br>
+
 <h2>{% trans "État des composants" %}</h2>
 
 <div>
 
-    <table>
+    <table class="table-2-cols">
         <thead>
             <tr>
                 <th>{% trans "Composant" %}</th>
@@ -595,7 +615,7 @@
 </div>
 
 <!-- ================= MAIN D'ŒUVRE ================= -->
-<br>
+
 <h2>{% trans "Main d'œuvre" %}</h2>
 
 <div class="box">
@@ -625,9 +645,7 @@
         {% endif %}
     </div>
 </div>
-<br>
-<br>
-<br>
+
 
 
 
@@ -745,32 +763,45 @@
             {% trans "Aucune pièce ou produit utilisé." %}
         </p>
 
-        <table>
+        <table class="table-2-cols">
+
             <tbody>
-                <tr class="total">
-                    <td>
-                        <div>
-                            <strong>{% trans "Main-d'œuvre HTVA" %}</strong>
-                        </div>
 
-                        <div class="text-right" style="margin-top: 4px;">
+                <tr class="total">
+
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
                             {{ embrayage.cout_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
+                        </strong>
                     </td>
+
                 </tr>
 
-                <tr class="total">
-                    <td>
-                        <div>
-                            <strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong>
-                        </div>
 
-                        <div class="text-right" style="margin-top: 4px;">
+                <tr class="total-general">
+
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
                             {{ embrayage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
+                        </strong>
                     </td>
+
                 </tr>
+
             </tbody>
+
         </table>
 
     {% endif %}

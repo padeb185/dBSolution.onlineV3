@@ -123,6 +123,29 @@
             background: #dbeafe;
         }
 
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -363,7 +386,6 @@
 <!-- ================================================== -->
 <!-- MESURES DU DIAGNOSTIC -->
 <!-- ================================================== -->
-<br>
 <h2>{% trans "Mesures du diagnostic alternateur" %}</h2>
 
 <div class="box">
@@ -385,12 +407,12 @@
 <!-- ================================================== -->
 <!-- ÉTAT DES COMPOSANTS -->
 <!-- ================================================== -->
-<br>
+
 <h2>{% trans "État des composants" %}</h2>
 
 <div>
 
-    <table>
+    <table class="table-2-cols">
         <thead>
             <tr>
                 <th>{% trans "Élément contrôlé" %}</th>
@@ -462,7 +484,7 @@
 <!-- ================================================== -->
 <!-- MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
-<br>
+
 <h2>{% trans "Main-d'œuvre" %}</h2>
 
 <div class="box">
@@ -615,30 +637,38 @@
 
     {% else %}
 
-        <p>
-            {% trans "Aucune pièce ou produit utilisé." %}
-        </p>
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
 
-        <table>
+        <table class="table-2-cols">
             <tbody>
 
                 <tr class="total">
-                    <td>
-                        {% trans "Main-d'œuvre HTVA" %}
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
 
                     <td class="text-right">
-                        {{ alternateur.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        <strong>
+                            {{ alternateur.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
                     </td>
                 </tr>
 
                 <tr class="total-general">
-                    <td>
-                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
 
                     <td class="text-right">
-                        {{ alternateur.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        <strong>
+                            {{ alternateur.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
                     </td>
                 </tr>
 

@@ -1263,10 +1263,3 @@ def geometrie_detail_pdf_view(request, pk):
     return response
 
 
-
-def geometrie_pdf_view(request, pk):
-    geometrie = get_object_or_404(GeometrieVoiture, pk=pk)
-    return generate_geometrie_pdf(geometrie)
-
-
-
