@@ -137,13 +137,13 @@
 
     <br>
     <!-- Actions -->
+
     <div>
-        <a href="{% if boite.voiture_exemplaire %}
-                   {% url 'boite_de_vitesse:boite_list' boite.voiture_exemplaire.id %}
-               {% else %}# {% endif %}"
-           class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        <button type="button"
+                onclick="window.history.back();"
+                class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
             {% trans "Retour à la liste des contrôles" %}
-        </a>
+        </button>
     </div>
 
 </div>
