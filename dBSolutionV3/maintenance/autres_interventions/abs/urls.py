@@ -11,14 +11,9 @@ urlpatterns = [
 
     path('abs/<uuid:exemplaire_id>/', abs_form_view, name='abs_form'),
 
-
     path('abs/<int:abs_id>/modifier/', modifier_abs_view, name='modifier_abs'),
 
-    path(
-        "<uuid:exemplaire_id>/abs/<int:abs_id>/detail/",
-        abs_detail_view,
-        name="abs_detail",
-    ),
+    path("abs/<int:abs_id>/detail/",abs_detail_view,name="abs_detail"),
 
     path("<int:pk>/", abs_detail_pdf_view, name="abs_detail_pdf"),
 

@@ -25,6 +25,7 @@ from ...checkup_track.models import EtatOKNotOK
 
 
 
+
 @method_decorator([login_required, never_cache], name='dispatch')
 class AbsListView(ListView):
     model = Abs
@@ -63,6 +64,8 @@ class AbsListView(ListView):
         context["is_checkup_allowed"] = self.request.user.role in roles_autorises
 
         return context
+
+
 
 
 @never_cache
@@ -387,19 +390,17 @@ def abs_form_view(request, exemplaire_id):
     })
 
 
-# ------------
-# Vue détail boite
+# -----------------------------
+# Vue détail ABS
 # -----------------------------
 @login_required
-def abs_detail_view(request, exemplaire_id, abs_id):
+def abs_detail_view(request, abs_id):
 
     tenant = request.user.societe
 
-    exemplaire = get_object_or_404(
-        VoitureExemplaire,
-        id=exemplaire_id,
-    )
-
+    # ==========================================================
+    # RÉCUPÉRATION DU CONTRÔLE ABS
+    # ==========================================================
     abs_obj = get_object_or_404(
         Abs.objects.select_related(
             "voiture_exemplaire",
@@ -407,19 +408,16 @@ def abs_detail_view(request, exemplaire_id, abs_id):
             "tech_societe",
         ),
         id=abs_id,
-        voiture_exemplaire_id=exemplaire_id,
     )
 
     # ==========================================================
-    # SÉCURITÉ TENANT
+    # RÉCUPÉRATION DE L'EXEMPLAIRE
     # ==========================================================
-    if (
-        exemplaire.client
-        and exemplaire.client.societe != tenant
-    ):
-        messages.error(request, _("Accès refusé"))
-        return redirect("utilisateurs:dashboard")
+    exemplaire = abs_obj.voiture_exemplaire
 
+    # ==========================================================
+    # CONTEXTE
+    # ==========================================================
     return render(
         request,
         "abs/abs_detail.html",
@@ -428,8 +426,6 @@ def abs_detail_view(request, exemplaire_id, abs_id):
             "exemplaire": exemplaire,
         },
     )
-
-
 
 
 @login_required
