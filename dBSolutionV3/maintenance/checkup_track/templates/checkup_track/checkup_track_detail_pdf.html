@@ -2539,6 +2539,44 @@
 
         </table>
 
+     {% else %}
+
+        <p>
+            {% trans "Aucune pièce ou produit utilisé." %}
+        </p>
+
+        <table class="rapport-vide-table">
+            <tbody>
+                <tr class="total">
+                    <td>
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ checkup_track.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td>
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ checkup_track.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
     {% endif %}
 
 </div>

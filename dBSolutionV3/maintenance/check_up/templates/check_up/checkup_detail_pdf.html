@@ -169,7 +169,7 @@
         }
 
         .table-2-cols {
-            width: 95%;
+            width: 96%;
             table-layout: fixed;
             border-collapse: collapse;
         }
@@ -2383,7 +2383,7 @@
             {% if checkup.serrage_roues|upper == "A_FAIRE" %}
                 <span class="etat-rouge">{{ checkup.get_serrage_roues_display }}</span>
             {% elif checkup.serrage_roues|upper == "FAIT" %}
-                <span class="etat-vert">{{ checkup.get_serrage_roues_display }}</span>
+                <span class="etat-bleu">{{ checkup.get_serrage_roues_display }}</span>
             {% else %}
                 <span class="etat-gris">{{ checkup.get_serrage_roues_display|default:checkup.serrage_roues|default:"-" }}</span>
             {% endif %}
@@ -2969,6 +2969,44 @@
 
             </tbody>
 
+        </table>
+
+    {% else %}
+
+        <p>
+            {% trans "Aucune pièce ou produit utilisé." %}
+        </p>
+
+        <table class="rapport-vide-table">
+            <tbody>
+                <tr class="total">
+                    <td>
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ checkup.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td>
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ checkup.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+            </tbody>
         </table>
 
     {% endif %}
