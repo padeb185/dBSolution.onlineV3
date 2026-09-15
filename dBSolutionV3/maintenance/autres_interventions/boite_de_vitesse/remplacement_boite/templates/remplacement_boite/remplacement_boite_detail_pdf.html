@@ -700,28 +700,52 @@
         </table>
 
     {% else %}
+
         <p>
-            {% trans "Aucune pièce ou aucun produit utilisé." %}
+            {% trans "Aucune pièce ou produit utilisé." %}
         </p>
 
-        <table>
+        <table class="table-2-cols">
+
             <tbody>
+
+                <!-- MAIN-D'ŒUVRE -->
                 <tr class="total">
-                    <td>{% trans "Main-d'œuvre HTVA" %}</td>
 
                     <td class="text-right">
-                        {{ remplacement.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ remplacement.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+
                 </tr>
 
+
+                <!-- TOTAL GÉNÉRAL -->
                 <tr class="total-general">
-                    <td>{% trans "Total général avec main-d'œuvre HTVA" %}</td>
 
                     <td class="text-right">
-                        {{ remplacement.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
                     </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ remplacement.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+
                 </tr>
+
             </tbody>
+
         </table>
     {% endif %}
 

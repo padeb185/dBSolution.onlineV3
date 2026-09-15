@@ -157,6 +157,22 @@
             text-align: right;
         }
 
+        .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
         .total {
             font-weight: bold;
             background: #f8fafc;
@@ -332,7 +348,7 @@
 
 <h2>{% trans "Silent blocs" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <thead>
         <tr>
             <th>{% trans "Élément contrôlé" %}</th>
@@ -821,7 +837,7 @@
             {% trans "Aucune pièce à remplacer ou remplacée." %}
         </p>
 
-        <table>
+        <table class="table-2-cols">
             <tbody>
 
                 <tr class="total">

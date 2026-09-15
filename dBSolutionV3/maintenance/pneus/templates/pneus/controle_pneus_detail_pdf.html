@@ -131,13 +131,33 @@
             background: #fee2e2;
             color: #991b1b;
         }
+        .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
 
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
 
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
+            margin-top: 8px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
         }
 
        th,
@@ -152,7 +172,6 @@
             color: #1e3a8a;
             text-align: left;
         }
-
         .text-right {
             text-align: right;
         }
@@ -410,7 +429,7 @@
 
 <h2>{% trans "Flancs des pneus" %}</h2>
 
-<table>
+<table class="table-2-cols">
     <thead>
         <tr>
             <th>{% trans "Position" %}</th>
@@ -695,7 +714,7 @@
             {% trans "Aucune pièce à remplacer ou remplacée." %}
         </p>
 
-        <table>
+        <table class="table-2-cols">
             <tbody>
 
                 <tr class="total">
