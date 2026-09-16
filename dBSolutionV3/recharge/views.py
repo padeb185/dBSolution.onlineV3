@@ -332,28 +332,85 @@ def check_immatriculation_elect(request):
 
 
 
-
 @login_required
 def electricite_delete(request, electricite_id):
-    if request.user.role not in ["direction", "chef_mecanicien"]:
+
+    # ==========================================================
+    # RÉCUPÉRATION DE LA RECHARGE
+    # ==========================================================
+    electricite = get_object_or_404(
+        Electricite.objects.select_related(
+            "voiture_exemplaire",
+        ),
+        id=electricite_id,
+    )
+
+    exemplaire = electricite.voiture_exemplaire
+
+    # ==========================================================
+    # SÉCURITÉ TENANT
+    # ==========================================================
+    if exemplaire.societe != request.user.societe:
         messages.error(
             request,
-            _("Vous n'avez pas l'autorisation de supprimer cette recharge.")
+            _("Accès refusé")
         )
-        return redirect("recharge:electricite_list")
+        return redirect(
+            "utilisateurs:dashboard"
+        )
 
-    electricite = get_object_or_404(Electricite, id=electricite_id)
+    # ==========================================================
+    # AUTORISATIONS
+    # ==========================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
 
+    if (
+        request.user.role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==========================================================
+    # SUPPRESSION D'UNE SEULE RECHARGE
+    # ==========================================================
     if request.method == "POST":
+
+        # On conserve l'ID du véhicule avant suppression
+        exemplaire_id = exemplaire.id
+
+        # Suppression UNIQUEMENT de cette recharge
         electricite.delete()
-        messages.success(request, _("Recharge électrique supprimée avec succès."))
 
+        messages.success(
+            request,
+            _("Recharge électrique supprimée avec succès.")
+        )
 
-    return render(request, "recharge/electricite_delete.html", {"electricite": electricite})
+        return redirect(
+            "recharge:recharge_list",
 
+        )
 
-
-
+    # ==========================================================
+    # PAGE DE CONFIRMATION
+    # ==========================================================
+    return render(
+        request,
+        "recharge/electricite_delete.html",
+        {
+            "electricite": electricite,
+            "exemplaire": exemplaire,
+        }
+    )
 
 
 

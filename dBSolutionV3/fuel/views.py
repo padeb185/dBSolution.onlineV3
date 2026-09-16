@@ -274,28 +274,80 @@ def fuel_edit(request, pk):
 
 
 
-
 @login_required
 def fuel_delete(request, fuel_id):
 
-    if request.user.role not in ["direction", "chef_mecanicien"]:
+    # ==========================================================
+    # RÉCUPÉRATION DU CARBURANT
+    # ==========================================================
+    fuel = get_object_or_404(
+        Fuel.objects.select_related(
+            "voiture_exemplaire",
+        ),
+        id=fuel_id,
+    )
+
+    exemplaire = fuel.voiture_exemplaire
+
+    # ==========================================================
+    # SÉCURITÉ TENANT
+    # ==========================================================
+    if exemplaire.societe != request.user.societe:
         messages.error(
             request,
-            _("Vous n'avez pas l'autorisation de supprimer ce plein.")
+            _("Accès refusé")
         )
-        return redirect("fuel:fuel_list")
+        return redirect(
+            "utilisateurs:dashboard"
+        )
 
-    fuel = get_object_or_404(Fuel, id=fuel_id)
+    # ==========================================================
+    # AUTORISATIONS
+    # ==========================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
 
+    if (
+        request.user.role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==========================================================
+    # SUPPRESSION
+    # ==========================================================
     if request.method == "POST":
+
         fuel.delete()
-        messages.success(request, _("Carburant supprimé avec succès."))
 
+        messages.success(
+            request,
+            _("Carburant supprimé avec succès.")
+        )
 
+        return redirect(
+            "fuel:fuel_list"
+        )
 
-    return render(request, "fuel/fuel_delete.html", {"fuel": fuel})
-
-
+    # ==========================================================
+    # PAGE DE CONFIRMATION
+    # ==========================================================
+    return render(
+        request,
+        "fuel/fuel_delete.html",
+        {
+            "fuel": fuel,
+            "exemplaire": exemplaire,
+        }
+    )
 
 
 
