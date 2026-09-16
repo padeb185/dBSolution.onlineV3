@@ -77,7 +77,11 @@
                 </button>
             </a>
         </div>
-        {% if request.user.role == "direction" %}
+    </div>
+
+
+
+        {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}
         <div class="mt-auto w-full">
             <a href="{% url 'recharge:electricite_delete' electricite_id=electricite.id %}"
                class="block w-full text-center px-4 py-2 rounded font-semibold"
@@ -87,7 +91,7 @@
             </a>
         </div>
         {% endif %}
-    </div>
+        <br>
 
 
 
@@ -109,20 +113,15 @@
     </div>
 
 
-    <br>
-    <!-- Actions -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <br>
+        <!-- Actions -->
+
         <div>
             <a href="{% url 'recharge:recharge_list' %}"
                   class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
                         {% trans "Retour à la liste des recharges" %}
                   </button>
             </a>
-
-
-
         </div>
     </div>
-
-</div>
 {% endblock %}
