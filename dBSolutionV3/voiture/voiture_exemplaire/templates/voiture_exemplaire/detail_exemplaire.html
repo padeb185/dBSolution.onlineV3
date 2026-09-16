@@ -8,9 +8,20 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
             <span>{% trans "Détails du véhicule : " %}</span>
-                  {{ exemplaire.voiture_marque.nom_marque }}
+            {% static 'images/marques/' as marques_path %}
+
+            <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                 alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                 class="w-20 h-20 object-contain">
+
+            <span class="font-semibold">
                 {{ exemplaire.voiture_modele.nom_modele }}
-                {{ exemplaire.voiture_modele.nom_variante }}
+
+                {% if exemplaire.voiture_modele.nom_variante %}
+                    {{ exemplaire.voiture_modele.nom_variante }}
+                {% endif %}
+            </span>
+
         </h1>
     </div>
      <!-- Messages -->
