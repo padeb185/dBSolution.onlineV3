@@ -11,7 +11,7 @@ class VoitureModeleForm(forms.ModelForm):
     MOIS_CHOICES = [(i, str(i)) for i in range(1, 13)]
 
     # 🔹 Choix pour les années (1850 → année actuelle)
-    ANNEE_CHOICES = [(i, str(i)) for i in range(1900, date.today().year + 1)]
+    ANNEE_CHOICES = [(i, str(i)) for i in range(1900, date.today().year + 10)]
 
     mois_debut = forms.ChoiceField(
         choices=MOIS_CHOICES,
@@ -19,7 +19,7 @@ class VoitureModeleForm(forms.ModelForm):
         required=True,
     )
     mois_fin = forms.ChoiceField(
-        choices=[("", "---------")] + MOIS_CHOICES,
+        choices=MOIS_CHOICES,
         widget=forms.Select(attrs={"class": "form-select"}),
         required=False,
     )
