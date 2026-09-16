@@ -10206,8 +10206,6 @@ msgid "Le poids de gaz injecté ne peut pas être négatif."
 msgstr "The injected refrigerant weight cannot be negative."
 
 #: maintenance/autres_interventions/climatisation/models.py:696
-#, fuzzy
-#| msgid "Checkup Climatisation"
 msgid "Checkup climatisation"
 msgstr "Air conditioning checkup"
 
@@ -26854,8 +26852,6 @@ msgid "L’année de début doit être comprise entre 1850 et %(annee)s."
 msgstr "The start year must be between 1850 and %(annee)s."
 
 #: voiture/voiture_modele/forms.py:151
-#, fuzzy, python-format
-#| msgid "L’année de début doit être comprise entre 1850 et %(annee)s."
 msgid "L’année de fin doit être comprise entre 1850 et %(annee)s."
 msgstr "The start year must be between 1850 and %(annee)s."
 
@@ -26868,14 +26864,10 @@ msgid "Le mois de fin doit être supérieur ou égal au mois de début."
 msgstr "The end month must be greater than or equal to the start month."
 
 #: voiture/voiture_modele/models.py:39
-#, fuzzy
-#| msgid "Litres"
 msgid "En litres"
 msgstr "Liters"
 
 #: voiture/voiture_modele/models.py:40
-#, fuzzy
-#| msgid "Capacité de la batterie en kWh"
 msgid "Capacité batterie en kWh"
 msgstr "Battery capacity (kWh)"
 
@@ -27025,8 +27017,6 @@ msgid "Créer le modèle"
 msgstr "Create model"
 
 #: voiture/voiture_modele/views.py:106
-#, fuzzy
-#| msgid "Le plein de carburant a été mis à jour avec succès."
 msgid "Le modèle de voiture à été mise à jour avec succès."
 msgstr "Fuel fill-up updated successfully."
 
