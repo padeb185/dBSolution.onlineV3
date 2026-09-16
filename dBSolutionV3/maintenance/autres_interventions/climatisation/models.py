@@ -693,7 +693,7 @@ class Climatisation(TechnicienMixin, models.Model):
         # =========================
         if self.main_oeuvre_id and self.voiture_exemplaire_id:
             task_name = (
-                    _("Checkup Climatisation")
+                    _("Checkup climatisation")
                     + " "
                     + str(self.voiture_exemplaire)
             )

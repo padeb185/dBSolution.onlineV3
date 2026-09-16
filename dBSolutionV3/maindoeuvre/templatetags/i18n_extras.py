@@ -16,6 +16,14 @@ DESCRIPTIFS_TRADUISIBLES = [
     "Checkup boite",
     "Checkup piste",
     "Checkup complet",
+    "Checkup climatisation",
+    "Checkup échappement",
+    "Checkup courroie d'accessoires",
+    "Remplacement boite",
+    "Remplacement de l'embrayage",
+
+
+
 
     # Anciennes valeurs déjà traduites enregistrées en DB
     "Automatic transmission checkup",

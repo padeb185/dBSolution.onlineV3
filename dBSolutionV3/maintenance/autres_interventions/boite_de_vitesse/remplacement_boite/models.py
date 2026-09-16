@@ -377,8 +377,11 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         # --------------------------------------------------
         if self.main_oeuvre_id and self.voiture_exemplaire_id:
 
-            task_name = f"{_('Remplacement boite')} {self.voiture_exemplaire} "
-
+            task_name = (
+                    _("Remplacement boite")
+                    + " "
+                    + str(self.voiture_exemplaire)
+            )
             if self.main_oeuvre.descriptif != task_name:
                 self.main_oeuvre.descriptif = task_name
                 self.main_oeuvre.save(update_fields=["descriptif"])
