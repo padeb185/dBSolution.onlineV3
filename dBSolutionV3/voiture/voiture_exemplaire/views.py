@@ -14,8 +14,7 @@ from ..voiture_embrayage.models import VoitureEmbrayage
 from ..voiture_freins_av.models import VoitureFreinsAV
 from ..voiture_freins_ar.models import VoitureFreinsAR
 from ..voiture_pneus.models import VoiturePneus
-
-
+from django.db.models.deletion import ProtectedError
 
 
 
@@ -457,11 +456,12 @@ def ajouter_exemplaire_all(request, modele_id):
 
 
 
+
 @login_required
 def supprimer_exemplaire_all(request, exemplaire_id):
 
     # ==========================================================
-    # RÉCUPÉRATION DE L'EXEMPLAIRE
+    # RÉCUPÉRATION DU VÉHICULE
     # ==========================================================
     exemplaire = get_object_or_404(
         VoitureExemplaire.objects.select_related(
@@ -474,7 +474,6 @@ def supprimer_exemplaire_all(request, exemplaire_id):
 
     modele = exemplaire.voiture_modele
     marque = exemplaire.voiture_marque
-
 
     # ==========================================================
     # SÉCURITÉ TENANT
@@ -491,16 +490,14 @@ def supprimer_exemplaire_all(request, exemplaire_id):
     # ==========================================================
     # AUTORISATIONS
     # ==========================================================
-    role = request.user.role
-
     roles_autorises = [
         "direction",
         "chef_mecanicien",
     ]
 
     if (
-            role not in roles_autorises
-            and not request.user.is_superuser
+        request.user.role not in roles_autorises
+        and not request.user.is_superuser
     ):
         messages.error(
             request,
@@ -509,25 +506,36 @@ def supprimer_exemplaire_all(request, exemplaire_id):
         return redirect(
             "utilisateurs:dashboard"
         )
+
     # ==========================================================
     # SUPPRESSION
     # ==========================================================
     if request.method == "POST":
 
-        immatriculation = exemplaire.immatriculation
+        try:
+            exemplaire.delete()
 
-        exemplaire.delete()
+            messages.success(
+                request,
+                _("Véhicule '%(vehicule)s' supprimé avec succès.") % {
+                    "vehicule": (
+                        f"{marque} "
+                        f"{exemplaire.immatriculation}"
+                    )
+                }
+            )
 
-        messages.success(
-            request,
-            _("Véhicule '%(vehicule)s' supprimé avec succès.") % {
-                "vehicule": (
-                    f"{marque} "
-                    f"{immatriculation}"
+        except ProtectedError:
+            messages.error(
+                request,
+                _(
+                    "Impossible de supprimer ce véhicule car "
+                    "des données lui sont encore associées."
                 )
-            }
-        )
+            )
 
+        # Succès OU ProtectedError :
+        # retour vers la liste des véhicules du modèle
         return redirect(
             "voiture_exemplaire:voiture_exemplaire",
             modele_id=modele.id,

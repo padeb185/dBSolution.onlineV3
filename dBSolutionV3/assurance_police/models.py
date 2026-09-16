@@ -32,7 +32,7 @@ class AssurancePolice(models.Model):
 
     assurance = models.ForeignKey(
         'assurance.Assurance',
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name='polices',
         null=True,
         blank=True,

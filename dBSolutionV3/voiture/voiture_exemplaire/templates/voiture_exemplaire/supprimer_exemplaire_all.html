@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<br>
+<br>
+<div class="w-full mx-auto mt-8 bg-white rounded-2xl shadow p-6"
+     style="max-width: 600px;">
+
+    <h1 class="text-2xl font-bold mb-6 text-center">
+        {% trans "Suppression du véhicule" %}
+    </h1>
+
+    <div class="text-center mb-6">
+
+        <p class="text-lg">
+            {% trans "Voulez-vous vraiment supprimer ce véhicule ?" %}
+        </p>
+
+        <p class="font-bold text-xl mt-4">
+            {{ marque }}
+            {{ modele }}
+            -
+            {{ exemplaire.immatriculation }}
+        </p>
+
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="flex justify-center gap-4">
+
+            <button
+                type="submit"
+                class="w-1/2 bg-red-700 text-white px-4 py-3 rounded hover:bg-red-500 font-semibold text-center"
+            >
+                {% trans "Supprimer" %}
+            </button>
+
+            <a
+                href="{% url 'voiture_exemplaire:voiture_exemplaire' modele.id %}"
+                class="w-1/2 bg-gray-600 text-white px-4 py-3 rounded hover:bg-gray-400 font-semibold text-center"
+            >
+                {% trans "Annuler" %}
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+{% endblock %}
