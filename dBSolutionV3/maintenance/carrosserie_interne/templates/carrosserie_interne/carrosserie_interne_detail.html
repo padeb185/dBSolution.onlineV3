@@ -124,14 +124,17 @@
     </div>
 
     <br>
+
     <!-- Actions -->
-    <div>
-        <a href="{% url 'carrosserie_interne:carrosserie_interne_list' carrosserie_interne.voiture_exemplaire.id %}"
-                class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center"
-        >
-            {% trans "Retour à la liste des interventions" %}
-        </a>
+
+      <div>
+        <button type="button"
+                onclick="window.history.back();"
+                class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Retour à la liste des interventions" %}
+        </button>
     </div>
+
 
 </div>
 {% endblock %}

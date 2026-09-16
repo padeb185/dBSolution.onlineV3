@@ -132,15 +132,18 @@
     </div>
 
     <br>
+
     <!-- Actions -->
+
+
     <div>
-        <a href="{% if ref.voiture_exemplaire %}
-                   {% url 'refroidissement:ref_list' ref.voiture_exemplaire.id %}
-               {% else %}# {% endif %}"
-            class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-            {% trans "Retour à la liste des contrôles du refroidissement" %}
-        </a>
+        <button type="button"
+                onclick="window.history.back();"
+                class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+               {% trans "Retour à la liste des contrôles du refroidissement" %}
+        </button>
     </div>
+
 
 </div>
 

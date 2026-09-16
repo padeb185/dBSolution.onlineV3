@@ -129,15 +129,18 @@
     </div>
 
     <br>
+
     <!-- Actions -->
+
+
     <div>
-        <a href="{% if courroie.voiture_exemplaire %}
-                   {% url 'courroie:courroie_list' courroie.voiture_exemplaire.id %}
-               {% else %}# {% endif %}"
-            class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-            {% trans "Retour à la liste des remplacements" %}
-        </a>
+        <button type="button"
+                onclick="window.history.back();"
+                class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+               {% trans "Retour à la liste des remplacements" %}
+        </button>
     </div>
+
 
 </div>
 {% endblock %}

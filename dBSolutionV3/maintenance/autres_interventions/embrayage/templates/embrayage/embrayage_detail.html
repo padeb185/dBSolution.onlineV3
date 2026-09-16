@@ -131,15 +131,18 @@
     </div>
 
     <br>
+
     <!-- Actions -->
-    <div>
-        <a href="{% if embrayage.voiture_exemplaire %}
-                   {% url 'embrayage:embrayage_list' embrayage.voiture_exemplaire.id %}
-               {% else %}# {% endif %}"
-             class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-            {% trans "Retour à la liste des remplacements de l'embrayage" %}
-        </a>
+
+
+      <div>
+        <button type="button"
+                onclick="window.history.back();"
+                class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Retour à la liste des remplacements de l'embrayage" %}
+        </button>
     </div>
+
 
 </div>
 

@@ -133,15 +133,17 @@
     </div>
 
     <br>
+
     <!-- Actions -->
-    <div>
-        <a href="{% if turbo.voiture_exemplaire %}
-                   {% url 'turbo:turbo_list' turbo.voiture_exemplaire.id %}
-               {% else %}# {% endif %}"
-             class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-            {% trans "Retour à la liste des interventions" %}
-        </a>
+
+      <div>
+        <button type="button"
+                onclick="window.history.back();"
+                class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+              {% trans "Retour à la liste des interventions" %}
+        </button>
     </div>
+
 
 </div>
 {% endblock %}

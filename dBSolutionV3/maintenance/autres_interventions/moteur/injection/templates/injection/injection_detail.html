@@ -128,15 +128,18 @@
     </div>
 
     <br>
+
     <!-- Actions -->
-    <div>
-        <a href="{% if injection.voiture_exemplaire %}
-                   {% url 'injection:injection_list' injection.voiture_exemplaire.id %}
-               {% else %}# {% endif %}"
-           class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-            {% trans "Retour à la liste des remplacements" %}
-        </a>
+
+
+      <div>
+        <button type="button"
+                onclick="window.history.back();"
+                class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+               {% trans "Retour à la liste des interventions" %}
+        </button>
     </div>
+
 
 </div>
 {% endblock %}

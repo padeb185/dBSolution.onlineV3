@@ -133,15 +133,18 @@
     </div>
 
     <br>
+
+
     <!-- Actions -->
-    <div>
-        <a href="{% if echappement.voiture_exemplaire %}
-                   {% url 'echappement:echappement_list' echappement.voiture_exemplaire.id %}
-               {% else %}# {% endif %}"
-          class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-            {% trans "Retour à la liste des contrôles" %}
-        </a>
+
+      <div>
+        <button type="button"
+                onclick="window.history.back();"
+                class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+               {% trans "Retour à la liste des contrôles" %}
+        </button>
     </div>
+
 
 </div>
 {% endblock %}

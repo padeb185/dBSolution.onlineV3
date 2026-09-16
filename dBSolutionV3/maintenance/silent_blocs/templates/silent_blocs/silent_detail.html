@@ -119,13 +119,16 @@
     <br>
 
     <!-- Actions -->
+
+
     <div>
-       <a href="{% url 'silent_blocs:silent_list' silent.voiture_exemplaire.id %}"
-                 class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center"
-        >
-            {% trans "Retour à la liste des contrôles des silent blocs" %}
-       </a>
+        <button type="button"
+                onclick="window.history.back();"
+                class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Retour à la liste des contrôles des silent blocs" %}
+        </button>
     </div>
+
 
 </div>
 {% endblock %}

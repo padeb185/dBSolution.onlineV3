@@ -212,16 +212,14 @@
     <!-- RETOUR -->
     <!-- ===================================================== -->
 
-    <div class="mb-6">
-
-        <a
-            href="{% url 'freins:freins_list' frein.voiture_exemplaire.id %}"
-            class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center"
-        >
-            {% trans "Retour à la liste des contrôles freins" %}
-        </a>
-
+    <div>
+        <button type="button"
+                onclick="window.history.back();"
+                class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+               {% trans "Retour à la liste des contrôles freins" %}
+        </button>
     </div>
+
 
 </div>
 

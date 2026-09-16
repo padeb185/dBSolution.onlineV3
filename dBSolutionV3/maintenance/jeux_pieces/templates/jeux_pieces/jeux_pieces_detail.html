@@ -119,15 +119,16 @@
 
     <br>
     <!-- Actions -->
+
+
     <div>
-        <a href="{% if jeu.voiture_exemplaire %}
-                   {% url 'jeux_pieces:jeux_pieces_list' jeu.voiture_exemplaire.id %}
-               {% else %}# {% endif %}"
-                 class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center"
-        >
-            {% trans "Retour à la liste des contrôles jeux" %}
-        </a>
+        <button type="button"
+                onclick="window.history.back();"
+                class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+               {% trans "Retour à la liste des contrôles jeux" %}
+        </button>
     </div>
+
 
 </div>
 {% endblock %}

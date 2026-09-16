@@ -170,15 +170,16 @@
     </div>
 
     <br>
-    <br>
     <!-- Actions -->
+
     <div>
-       <a href="{% url 'niveaux:niveaux_list' niveau.voiture_exemplaire.id %}"
-                  class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center"
-        >
-            {% trans "Retour à la liste des niveaux" %}
-       </a>
+        <button type="button"
+                onclick="window.history.back();"
+                class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+               {% trans "Retour à la liste des niveaux" %}
+        </button>
     </div>
+
 
 </div>
 {% endblock %}
