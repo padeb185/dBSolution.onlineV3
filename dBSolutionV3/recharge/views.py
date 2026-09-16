@@ -18,10 +18,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from .forms import ElectriciteForm
-from .models import Electricite
-
-
-
+from .models import Electricite, RechargeCarburant
 
 
 @method_decorator([login_required, never_cache], name="dispatch")
@@ -476,7 +473,7 @@ class ElectriciteStatView(TemplateView):
         # ==========================================================
         # TVA PAR PAYS
         # ==========================================================
-        pays_labels = dict(Electricite.PAYS_CHOICES)
+        pays_labels = dict(RechargeCarburant.PAYS_CHOICES_ELECT)
 
         totaux_par_pays_qs = (
             electricites

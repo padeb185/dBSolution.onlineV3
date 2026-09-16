@@ -12,7 +12,7 @@ class TypeCarburant(models.TextChoices):
 
 class RechargeCarburant(models.Model):
     # Choix des pays
-    PAYS_CHOICES = [
+    PAYS_CHOICES_ELECT = [
         ('AT', _("Autriche")),
         ('BE', _("Belgique")),
         ('BG', _("Bulgarie")),
@@ -144,7 +144,7 @@ class Electricite(models.Model):
 
     pays = models.CharField(
         max_length=2,
-        choices=RechargeCarburant.PAYS_CHOICES,
+        choices=RechargeCarburant.PAYS_CHOICES_ELECT,
         verbose_name=_("Pays de la recharge")
     )
 
@@ -325,7 +325,7 @@ class Electricite(models.Model):
             qs = qs.filter(date__year=year)
 
         result = {}
-        for code, nom in RechargeCarburant.PAYS_CHOICES:
+        for code, nom in RechargeCarburant.PAYS_CHOICES_ELECT:
             total = qs.filter(pays=code).aggregate(total=Sum('montant_tva'))['total'] or Decimal('0.00')
             result[code] = total
         return result
