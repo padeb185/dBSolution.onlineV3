@@ -12,6 +12,7 @@ from django.utils.translation import gettext as _
 
 
 
+
 class VoitureModeleListView(LoginRequiredMixin, ListView):
     model = VoitureModele
     template_name = "voiture_modele/voituremodele_list.html"  # ton template actuel
@@ -102,13 +103,13 @@ def modifier_voiture_modele(request, voiture_modele_id):
 
         if form_voiture_modele.is_valid():
             form_voiture_modele.save()
-            messages.success(request, "VoitureModele mise à jour avec succès.")
+            messages.success(request, _("Le modèle de voiture à été mise à jour avec succès."))
             return redirect(
                 "voiture_modele:voiture_modele_detail",
                 voiture_modele_id=voiture_modele.id,
             )
 
-        messages.error(request, "Le formulaire contient des erreurs.")
+        messages.error(request, _("Le formulaire contient des erreurs."))
 
     else:
         form_voiture_modele = VoitureModeleForm(

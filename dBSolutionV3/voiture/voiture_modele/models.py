@@ -36,8 +36,8 @@ class VoitureModele(models.Model):
     nom_variante = models.CharField(max_length=100, blank=True, null=True)
     nombre_portes = models.IntegerField(choices=NombrePortes.choices)
     nbre_places = models.PositiveSmallIntegerField()
-    taille_reservoir = models.DecimalField(max_digits=5, decimal_places=2, help_text="En litres")
-    capacite_batterie = models.PositiveIntegerField(null=True, blank=True, help_text="Capacité batterie en kWh")
+    taille_reservoir = models.DecimalField(max_digits=5, decimal_places=2, help_text=_("En litres"))
+    capacite_batterie = models.PositiveIntegerField(null=True, blank=True, help_text=_("Capacité batterie en kWh"))
 
     annee_debut = models.IntegerField(null=True, blank=True)
     annee_fin = models.IntegerField(null=True, blank=True)

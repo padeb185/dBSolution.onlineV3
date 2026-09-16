@@ -11,7 +11,7 @@ class VoitureModeleForm(forms.ModelForm):
     MOIS_CHOICES = [(i, str(i)) for i in range(1, 13)]
 
     # 🔹 Choix pour les années (1850 → année actuelle)
-    ANNEE_CHOICES = [(i, str(i)) for i in range(1850, date.today().year + 1)]
+    ANNEE_CHOICES = [(i, str(i)) for i in range(1900, date.today().year + 1)]
 
     mois_debut = forms.ChoiceField(
         choices=MOIS_CHOICES,
@@ -19,19 +19,20 @@ class VoitureModeleForm(forms.ModelForm):
         required=True,
     )
     mois_fin = forms.ChoiceField(
-        choices=MOIS_CHOICES,
+        choices=[("", "---------")] + MOIS_CHOICES,
         widget=forms.Select(attrs={"class": "form-select"}),
-        required=True,
+        required=False,
     )
     annee_debut = forms.ChoiceField(
         choices=ANNEE_CHOICES,
         widget=forms.Select(attrs={"class": "form-select"}),
-        initial=date.today().year,
+        initial=2020,
         required=True,
     )
     annee_fin = forms.ChoiceField(
-        choices=[('', '---------')] + ANNEE_CHOICES,  # ✅ permet de rester vide
+        choices= ANNEE_CHOICES,
         widget=forms.Select(attrs={"class": "form-select"}),
+        initial=2026,
         required=False,
     )
 
@@ -104,13 +105,24 @@ class VoitureModeleForm(forms.ModelForm):
                 raise ValidationError(_("Le mois de début doit être compris entre 1 et 12."))
         return mois
 
+
+
     def clean_mois_fin(self):
         mois = self.cleaned_data.get("mois_fin")
-        if mois is not None:
-            mois = int(mois)
-            if not (1 <= mois <= 12):
-                raise ValidationError(_("Le mois de fin doit être compris entre 1 et 12."))
+
+        if not mois:
+            return None
+
+        mois = int(mois)
+
+        if not 1 <= mois <= 12:
+            raise ValidationError(
+                _("Le mois de fin doit être compris entre 1 et 12.")
+            )
+
         return mois
+
+
 
     def clean_annee_debut(self):
         annee = self.cleaned_data.get("annee_debut")
@@ -126,8 +138,20 @@ class VoitureModeleForm(forms.ModelForm):
 
     def clean_annee_fin(self):
         annee_fin = self.cleaned_data.get("annee_fin")
-        if annee_fin:
-            annee_fin = int(annee_fin)
+
+        if not annee_fin:
+            return None
+
+        annee_fin = int(annee_fin)
+
+        annee_actuelle = date.today().year
+
+        if not 1850 <= annee_fin <= annee_actuelle:
+            raise ValidationError(
+                _("L’année de fin doit être comprise entre 1850 et %(annee)s."),
+                params={"annee": annee_actuelle},
+            )
+
         return annee_fin
 
     def clean(self):
@@ -138,16 +162,33 @@ class VoitureModeleForm(forms.ModelForm):
         mois_debut = cleaned_data.get("mois_debut")
         mois_fin = cleaned_data.get("mois_fin")
 
-        if annee_debut and annee_fin:
+        # ==========================================
+        # PAS D'ANNÉE DE FIN = TOUJOURS EN PRODUCTION
+        # ==========================================
+        if annee_fin is None:
+            cleaned_data["mois_fin"] = None
+            return cleaned_data
+
+        # ==========================================
+        # ANNÉE DE FIN PRÉSENTE
+        # ==========================================
+        if annee_debut is not None:
+
             if annee_fin < annee_debut:
-                raise ValidationError(
+                self.add_error(
+                    "annee_fin",
                     _("L’année de fin doit être supérieure ou égale à l’année de début.")
                 )
-            # Même année → vérifier les mois
-            if annee_fin == annee_debut and mois_debut and mois_fin:
-                if mois_fin < mois_debut:
-                    raise ValidationError(
-                        _("Le mois de fin doit être supérieur ou égal au mois de début.")
-                    )
+
+            elif (
+                    annee_fin == annee_debut
+                    and mois_debut is not None
+                    and mois_fin is not None
+                    and mois_fin < mois_debut
+            ):
+                self.add_error(
+                    "mois_fin",
+                    _("Le mois de fin doit être supérieur ou égal au mois de début.")
+                )
 
         return cleaned_data
