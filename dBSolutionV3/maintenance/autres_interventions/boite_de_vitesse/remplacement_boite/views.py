@@ -139,6 +139,10 @@ def remplacement_boite_form_view(request, exemplaire_id):
                             or 0
                     )
 
+                    ancien_kilometrage_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
                     # ==========================================================
                     # NOUVEAU KILOMÉTRAGE
                     # ==========================================================
@@ -182,6 +186,17 @@ def remplacement_boite_form_view(request, exemplaire_id):
                         ancien_kilometrage
                     )
 
+                    exemplaire.kilometres_boite_rollback = (
+                        ancien_kilometrage_boite
+                    )
+
+                    exemplaire.kilometres_moteur_rollback = (
+                        ancien_kilometrage_moteur
+                    )
+                    exemplaire.kilometres_embrayage_rollback = (
+                        ancien_kilometrage_embrayage
+                    )
+
                     # ==========================================================
                     # ROLLBACK KILOMÉTRAGE BOÎTE
                     #
@@ -222,11 +237,16 @@ def remplacement_boite_form_view(request, exemplaire_id):
                             "kilometres_chassis",
                             "date_derniere_intervention",
 
+                            # Rollback
                             "kilometres_rollback",
                             "kilometres_boite_rollback",
+                            "kilometres_moteur_rollback",
+                            "kilometres_embrayage_rollback",
 
+                            # Valeurs recalculées
                             "kilometres_moteur",
                             "kilometres_boite",
+                            "kilometres_embrayage",
                             "variation_kilometres",
                         ]
                     )
@@ -399,7 +419,7 @@ def remplacement_boite_form_view(request, exemplaire_id):
 
         else:
             messages.error(request, _("Veuillez corriger les erreurs du formulaire"))
-            print(form.errors)  # 🔥 DEBUG IMPORTANT
+
 
     # =========================
     # GET
@@ -418,6 +438,9 @@ def remplacement_boite_form_view(request, exemplaire_id):
             ),
             kilometres_boite=(
                     exemplaire.kilometres_boite or 0
+            ),
+            kilometres_embrayage=(
+                    exemplaire.kilometres_embrayage or 0
             ),
         )
 
@@ -597,7 +620,6 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
 
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
-            print(form.errors)
 
     else:
         form = RemplacementBoiteForm(

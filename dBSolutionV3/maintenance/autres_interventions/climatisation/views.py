@@ -136,6 +136,10 @@ def clim_form_view(request, exemplaire_id):
                             exemplaire.kilometres_moteur or 0
                     )
 
+                    ancien_kilometrage_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
                     km = form.cleaned_data.get(
                         "kilometrage_clim"
                     )
@@ -169,6 +173,10 @@ def clim_form_view(request, exemplaire_id):
 
                         exemplaire.kilometres_moteur_rollback = (
                             ancien_kilometrage_moteur
+                        )
+
+                        exemplaire.kilometres_embrayage_rollback = (
+                            ancien_kilometrage_embrayage
                         )
 
                         # =========================
@@ -206,10 +214,12 @@ def clim_form_view(request, exemplaire_id):
                                 "kilometres_rollback",
                                 "kilometres_boite_rollback",
                                 "kilometres_moteur_rollback",
+                                "kilometres_embrayage_rollback",
 
                                 # Valeurs recalculées
                                 "kilometres_moteur",
                                 "kilometres_boite",
+                                "kilometres_embrayage",
                                 "variation_kilometres",
                             ]
                         )
@@ -276,6 +286,9 @@ def clim_form_view(request, exemplaire_id):
                     )
                     clim.kilometres_moteur = (
                         ancien_kilometrage_moteur
+                    )
+                    clim.kilometres_embrayage = (
+                        ancien_kilometrage_embrayage
                     )
 
                     # différence entre ancien et nouveau kilométrage
@@ -357,6 +370,9 @@ def clim_form_view(request, exemplaire_id):
 
             kilometres_boite=(
                     exemplaire.kilometres_boite or 0
+            ),
+            kilometres_embrayage=(
+                    exemplaire.kilometres_embrayage or 0
             ),
 
         )
@@ -595,6 +611,11 @@ def clim_form_view(request, exemplaire_id):
         },
     )
 
+
+
+
+
+
 # ------------
 # Vue détail boite
 # -----------------------------
@@ -610,6 +631,11 @@ def clim_detail_view(request, climatisation_id):
         "exemplaire": clim.voiture_exemplaire,
     }
     return render(request, "climatisation/clim_detail.html", context)
+
+
+
+
+
 
 
 
@@ -654,6 +680,7 @@ def modifier_clim_view(request, climatisation_id):
                     rollback_chassis = exemplaire.kilometres_chassis or 0
                     rollback_moteur = exemplaire.kilometres_moteur or 0
                     rollback_boite = exemplaire.kilometres_boite or 0
+                    rollback_embrayage = exemplaire.kilometres_embrayage or 0
 
                     # ==================================================
                     # VALIDATION
@@ -688,6 +715,7 @@ def modifier_clim_view(request, climatisation_id):
                     clim.kilometres_chassis = rollback_chassis
                     clim.kilometres_moteur = rollback_moteur
                     clim.kilometres_boite = rollback_boite
+                    clim.kilometres_embrayage = rollback_embrayage
 
                     # ==================================================
                     # NOUVEAU KILOMÉTRAGE
@@ -1086,6 +1114,9 @@ def delete_clim_view(request, climatisation_id):
                 kilometrage_rollback_moteur = (
                         exemplaire.kilometres_moteur_rollback or 0
                 )
+                kilometrage_rollback_embrayage = (
+                        exemplaire.kilometres_embrayage_rollback or 0
+                )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
@@ -1096,12 +1127,16 @@ def delete_clim_view(request, climatisation_id):
                 exemplaire.kilometres_moteur = (
                     kilometrage_rollback_moteur
                 )
+                exemplaire.kilometres_embrayage = (
+                    kilometrage_rollback_embrayage
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
                         "kilometres_boite",
-                        "kilometres_moteur"
+                        "kilometres_moteur",
+                        "kilometres_embrayage",
                     ]
                 )
 
