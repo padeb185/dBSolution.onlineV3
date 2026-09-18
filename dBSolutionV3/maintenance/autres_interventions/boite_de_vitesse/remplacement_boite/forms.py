@@ -37,7 +37,9 @@ class RemplacementBoiteForm(forms.ModelForm):
             "remplacement_boite_nombre",
             "kilometres_boite_rollback",
             "kilometres_moteur_rollback",
+            "kilometres_embrayage_rollback",
             "kilometres_moteur",
+            "kilometres_embrayage",
 
         ]
 

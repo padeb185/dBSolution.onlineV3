@@ -39,7 +39,9 @@ class RemplacementMoteurForm(forms.ModelForm):
             "tva",
             "kilometres_boite_rollback",
             "kilometres_moteur_rollback",
+            "kilometres_embrayage_rollback",
             "kilometres_boite",
+            "kilometres_embrayage",
         ]
 
         widgets = {

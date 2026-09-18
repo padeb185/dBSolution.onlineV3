@@ -27,8 +27,11 @@ class EmbrayageForm(forms.ModelForm):
         exclude = {
             "kilometres_boite_rollback",
             "kilometres_moteur_rollback",
+            "kilometres_embrayage_rollback",
             "kilometres_boite",
             "kilometres_moteur",
+            "kilometres_embrayage",
+
         }
         widgets = {
             'maintenance': forms.HiddenInput(),

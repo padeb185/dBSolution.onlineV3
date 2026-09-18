@@ -28,11 +28,12 @@ class InjectionForm(forms.ModelForm):
         model = Injection
         exclude = [
             "voiture_exemplaire",
-
             "kilometres_boite_rollback",
             "kilometres_moteur_rollback",
+            "kilometres_embrayage_rollback",
             "kilometres_boite",
             "kilometres_moteur",
+            "kilometres_embrayage",
 
         ]
         widgets = {

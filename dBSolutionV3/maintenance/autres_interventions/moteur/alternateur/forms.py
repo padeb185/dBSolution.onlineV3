@@ -52,7 +52,8 @@ class AlternateurForm(forms.ModelForm):
             "kilometres_moteur_rollback",
             "kilometres_boite",
             "kilometres_moteur",
-
+            "kilometres_embrayage_rollback",
+            "kilometres_embrayage",
         )
 
         widgets = {
