@@ -94,8 +94,27 @@ class Entretien(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres rollback moteur")
     )
 
+    kilometres_embrayage = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_embrayage_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres rollback embrayage")
+    )
+
     kilometrage_entretien = models.PositiveIntegerField(
         verbose_name=_("Kilométrage au moment de l'entretien"),
+    )
+
+    kilometres_dernier_entretien = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_entretien_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        editable=False,
+        verbose_name=_("Kilomètres rollback entretien"),
     )
 
     kilometrage_variation = models.PositiveIntegerField(
@@ -900,46 +919,94 @@ class Entretien(TechnicienMixin, models.Model):
                 })
 
     def save(self, *args, **kwargs):
-        # Si checkup > km actuel, mettre à jour la voiture
-        if self.voiture_exemplaire and self.kilometrage_entretien:
-            if self.kilometrage_entretien > self.voiture_exemplaire.kilometres_chassis:
-                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_entretien
-                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
 
+        # ==========================================================
+        # ROLLBACK ENTRETIEN
+        # Conserver l'ancien kilométrage uniquement à la création
+        # ==========================================================
+        if self._state.adding and self.voiture_exemplaire:
+            self.kilometres_entretien_rollback = (
+                    self.voiture_exemplaire.kilometres_dernier_entretien or 0
+            )
 
+        # ==========================================================
+        # NOUVEAU DERNIER ENTRETIEN
+        # ==========================================================
+        if self.kilometrage_entretien is not None:
 
+            self.kilometres_dernier_entretien = (
+                self.kilometrage_entretien
+            )
 
-            # =========================
-            # 2. COPIE SNAPSHOT
-            # =========================
-        if self.voiture_exemplaire:
-            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+            if self.voiture_exemplaire:
+                self.voiture_exemplaire.kilometres_dernier_entretien = (
+                    self.kilometrage_entretien
+                )
 
+        # ==========================================================
+        # KILOMÉTRAGE DE L'ENTRETIEN
+        # ==========================================================
+        if self.kilometrage_entretien is not None:
+            self.kilometres_dernier_entretien = self.kilometrage_entretien
+
+        # ==========================================================
+        # MISE À JOUR DU KILOMÉTRAGE CHÂSSIS
+        # ==========================================================
+        if self.voiture_exemplaire and self.kilometrage_entretien is not None:
+
+            if (
+                    self.voiture_exemplaire.kilometres_chassis is None
+                    or self.kilometrage_entretien
+                    > self.voiture_exemplaire.kilometres_chassis
+            ):
+                self.voiture_exemplaire.kilometres_chassis = (
+                    self.kilometrage_entretien
+                )
+
+                self.voiture_exemplaire.save(
+                    update_fields=["kilometres_chassis"]
+                )
+
+       
+
+        # ==========================================================
+        # VARIATION
+        # ==========================================================
         if (
                 self.kilometrage_entretien is not None
                 and self.kilometres_chassis is not None
         ):
             self.kilometrage_variation = (
-                    self.kilometrage_entretien - self.kilometres_chassis
+                    self.kilometrage_entretien
+                    - self.kilometres_chassis
             )
 
-
-
-
-        if not self.tech_technicien and hasattr(self, '_user'):
+        # ==========================================================
+        # TECHNICIEN
+        # ==========================================================
+        if not self.tech_technicien and hasattr(self, "_user"):
             self.assign_technicien(self._user)
 
-            # ----------------------------
-            # MAIN D'OEUVRE AUTO DESCRIPTIF
-            # ----------------------------
+        # ==========================================================
+        # MAIN D'OEUVRE AUTO DESCRIPTIF
+        # ==========================================================
         if self.main_oeuvre_id and self.voiture_exemplaire_id:
-            task_name = _("Entretien") + " " + str(self.voiture_exemplaire)
+            task_name = _("Entretien") + " " + str(
+                self.voiture_exemplaire
+            )
+
             self.main_oeuvre.descriptif = task_name
-            self.main_oeuvre.save(update_fields=["descriptif"])
+            self.main_oeuvre.save(
+                update_fields=["descriptif"]
+            )
 
         super().save(*args, **kwargs)
 
-    from decimal import Decimal, ROUND_HALF_UP
+
+
+
+
+
 
     def generer_rapport_remplacement(self):
         rapport = []

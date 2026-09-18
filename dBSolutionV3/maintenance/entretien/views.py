@@ -139,6 +139,13 @@ def entretien_check_view(request, exemplaire_id):
             ancien_kilometrage_moteur = (
                     exemplaire.kilometres_moteur or 0
             )
+            ancien_kilometrage_embrayage = (
+                    exemplaire.kilometres_embrayage or 0
+            )
+
+            ancien_kilometrage_dernier_entretien = (
+                    exemplaire.kilometres_dernier_entretien or 0
+            )
 
             # =========================
             # VALIDATION KM
@@ -228,6 +235,14 @@ def entretien_check_view(request, exemplaire_id):
                             ancien_kilometrage_moteur
                         )
 
+                        exemplaire.kilometres_embrayage_rollback = (
+                            ancien_kilometrage_embrayage
+                        )
+
+                        exemplaire.kilometres_entretien_rollback = (
+                            ancien_kilometrage_dernier_entretien
+                        )
+
                         # =========================
                         # DATE INTERVENTION
                         # =========================
@@ -243,6 +258,8 @@ def entretien_check_view(request, exemplaire_id):
                         # =========================
 
                         exemplaire.kilometres_chassis = km
+
+                        exemplaire.kilometres_dernier_entretien = km
 
                         # Recalcule :
                         # - kilometres_moteur
@@ -263,6 +280,11 @@ def entretien_check_view(request, exemplaire_id):
                                 "kilometres_rollback",
                                 "kilometres_boite_rollback",
                                 "kilometres_moteur_rollback",
+                                "kilometres_embrayage",
+                                "kilometres_embrayage_rollback",
+                                "kilometres_dernier_entretien",
+                                "kilometres_entretien_rollback",
+
 
                                 # Valeurs recalculées
                                 "kilometres_moteur",
@@ -359,6 +381,13 @@ def entretien_check_view(request, exemplaire_id):
                     entretien.kilometres_moteur = (
                         ancien_kilometrage_moteur
                     )
+                    entretien.kilometres_embrayage = (
+                        ancien_kilometrage_embrayage
+                    )
+
+                    entretien.kilometres_dernier_entretien = (
+                        ancien_kilometrage_dernier_entretien
+                    )
 
                     # différence entre ancien et nouveau kilométrage
                     entretien.kilometrage_variation = (
@@ -451,6 +480,10 @@ def entretien_check_view(request, exemplaire_id):
             kilometres_boite=(
                     exemplaire.kilometres_boite or 0
             ),
+            kilometres_dernier_entretien=(
+                    exemplaire.kilometres_dernier_entretien or 0
+            ),
+
         )
 
         entretien.assign_technicien(request.user)
@@ -497,20 +530,19 @@ def entretien_detail_view(request, entretien_id):
     return render(request, "entretien/entretien_detail.html", context)
 
 
-#---------------------
-
+# ---------------------
 # Modifier entretien
+# ---------------------
 
-#---------------------
 @never_cache
 @login_required
 def modifier_entretien_view(request, entretien_id):
 
     tenant = request.user.societe
 
-    # =========================
+    # ==================================================
     # RÉCUPÉRATION ENTRETIEN
-    # =========================
+    # ==================================================
     entretien = get_object_or_404(
         Entretien.objects.select_related(
             "voiture_exemplaire",
@@ -521,26 +553,38 @@ def modifier_entretien_view(request, entretien_id):
         id=entretien_id,
     )
 
-    # =========================
-    # VÉHICULE
-    # =========================
+    # ==================================================
+    # VÉHICULE + SÉCURITÉ TENANT
+    # ==================================================
     exemplaire = get_object_or_404(
         VoitureExemplaire.objects.filter(
-            Q(client__societe=tenant) |
-            Q(client__isnull=True, societe=tenant)
+            Q(client__societe=tenant)
+            |
+            Q(
+                client__isnull=True,
+                societe=tenant
+            )
         ),
         id=entretien.voiture_exemplaire_id
     )
 
-    # =========================
-    # KILOMÉTRAGE DE RÉFÉRENCE
-    # =========================
-    # Kilométrage historique avant cet entretien
-    km_reference = entretien.kilometres_chassis or 0
+    # ==================================================
+    # KILOMÉTRAGE HISTORIQUE
+    #
+    # IMPORTANT :
+    # Cette valeur correspond au kilométrage AVANT
+    # la création de l'entretien.
+    #
+    # Elle ne doit jamais être remplacée pendant
+    # une modification.
+    # ==================================================
+    km_reference = (
+        entretien.kilometres_chassis or 0
+    )
 
-    # =========================
+    # ==================================================
     # POST
-    # =========================
+    # ==================================================
     if request.method == "POST":
 
         form = EntretienForm(
@@ -553,7 +597,6 @@ def modifier_entretien_view(request, entretien_id):
         if form.is_valid():
 
             try:
-
                 with transaction.atomic():
 
                     # ==================================================
@@ -567,24 +610,13 @@ def modifier_entretien_view(request, entretien_id):
                         km = int(km)
 
                     # ==================================================
-                    # VALEURS LOCALES ACTUELLES
+                    # KILOMÉTRAGE ACTUEL DU VÉHICULE
                     #
-                    # Ces valeurs deviennent le rollback
-                    # de CETTE modification.
-                    #
-                    # On ne reprend PAS les anciens rollback
-                    # du controle total ou du checkup piste initial.
+                    # Utilisé uniquement pour la validation.
+                    # Ce n'est PAS un nouveau rollback.
                     # ==================================================
-                    rollback_chassis = (
-                            exemplaire.kilometres_chassis or 0
-                    )
-
-                    rollback_moteur = (
-                            exemplaire.kilometres_moteur or 0
-                    )
-
-                    rollback_boite = (
-                            exemplaire.kilometres_boite or 0
+                    km_actuel_chassis = (
+                        exemplaire.kilometres_chassis or 0
                     )
 
                     # ==================================================
@@ -600,18 +632,31 @@ def modifier_entretien_view(request, entretien_id):
                                 )
                             )
 
-                        if km < rollback_chassis:
+                        # ----------------------------------------------
+                        # Lors d'une modification d'un entretien,
+                        # on autorise une valeur >= au kilométrage
+                        # historique avant cet entretien.
+                        #
+                        # Exemple :
+                        #
+                        # avant entretien : 100000
+                        # création        : 105000
+                        # modification    : 103000
+                        #
+                        # 103000 reste valide car >= 100000.
+                        # ----------------------------------------------
+                        if km < km_reference:
                             raise ValidationError(
                                 _(
                                     "Le kilométrage ne peut pas être "
                                     "inférieur à %(km)s km."
                                 ) % {
-                                    "km": rollback_chassis
+                                    "km": km_reference
                                 }
                             )
 
                     # ==================================================
-                    # CHECKUP TRACK
+                    # ENTRETIEN
                     # ==================================================
                     entretien = form.save(
                         commit=False
@@ -622,22 +667,22 @@ def modifier_entretien_view(request, entretien_id):
                     )
 
                     # ==================================================
-                    # ROLLBACK LOCAL
+                    # IMPORTANT : ROLLBACK
+                    #
+                    # NE PAS modifier les champs suivants :
+                    #
+                    # entretien.kilometres_chassis
+                    # entretien.kilometres_moteur
+                    # entretien.kilometres_boite
+                    # entretien.kilometres_embrayage
+                    # entretien.kilometres_dernier_entretien
+                    #
+                    # Ils contiennent l'état du véhicule AVANT
+                    # la création initiale de cet entretien.
                     # ==================================================
-                    entretien.kilometres_chassis = (
-                        rollback_chassis
-                    )
-
-                    entretien.kilometres_moteur = (
-                        rollback_moteur
-                    )
-
-                    entretien.kilometres_boite = (
-                        rollback_boite
-                    )
 
                     # ==================================================
-                    # NOUVEAU KILOMÉTRAGE CHECKUP PISTE
+                    # NOUVEAU KILOMÉTRAGE ENTRETIEN
                     # ==================================================
                     entretien.kilometrage_entretien = (
                         km
@@ -645,11 +690,14 @@ def modifier_entretien_view(request, entretien_id):
 
                     # ==================================================
                     # VARIATION
+                    #
+                    # Toujours calculée depuis le kilométrage
+                    # historique avant création.
                     # ==================================================
                     if km is not None:
 
                         entretien.kilometrage_variation = (
-                                km - rollback_chassis
+                            km - km_reference
                         )
 
                     else:
@@ -671,8 +719,27 @@ def modifier_entretien_view(request, entretien_id):
                     # MISE À JOUR DU VÉHICULE
                     # ==================================================
                     if km is not None:
-                        exemplaire.kilometres_chassis = km
 
+                        # ----------------------------------------------
+                        # CHÂSSIS
+                        # ----------------------------------------------
+                        exemplaire.kilometres_chassis = (
+                            km
+                        )
+
+                        # ----------------------------------------------
+                        # DERNIER ENTRETIEN
+                        #
+                        # Le kilométrage actuellement saisi devient
+                        # le dernier kilométrage d'entretien du véhicule.
+                        # ----------------------------------------------
+                        exemplaire.kilometres_dernier_entretien = (
+                            km
+                        )
+
+                        # ----------------------------------------------
+                        # DATE DERNIÈRE INTERVENTION
+                        # ----------------------------------------------
                         exemplaire.date_derniere_intervention = (
                             timezone.localtime(
                                 timezone.now()
@@ -680,25 +747,26 @@ def modifier_entretien_view(request, entretien_id):
                         )
 
                         # ----------------------------------------------
-                        # IMPORTANT
+                        # RECALCUL MOTEUR / BOÎTE
                         #
-                        # Le save() du véhicule doit appeler
-                        # update_kilometres().
-                        #
-                        # On ne touche PAS directement à :
-                        #
-                        # kilometres_moteur
-                        # kilometres_boite
-                        #
-                        # Ils doivent être recalculés.
+                        # Si save() de VoitureExemplaire appelle déjà
+                        # update_kilometres(), ne pas l'appeler ici
+                        # une deuxième fois.
                         # ----------------------------------------------
                         exemplaire.save()
 
                     # ==================================================
-                    # SAUVEGARDE CHECKUP TRACK
+                    # SAUVEGARDE ENTRETIEN
+                    #
+                    # ATTENTION :
+                    # Entretien.save() ne doit PAS réécrire les champs
+                    # historiques kilometres_* depuis l'exemplaire.
                     # ==================================================
                     entretien.save()
 
+                    # ==================================================
+                    # MANY TO MANY
+                    # ==================================================
                     form.save_m2m()
 
                     # ==================================================
@@ -711,40 +779,55 @@ def modifier_entretien_view(request, entretien_id):
                         )
 
                         if km is not None:
-                            maintenance.kilometres_chassis = km
+
+                            maintenance.kilometres_chassis = (
+                                km
+                            )
+
+                            # Le dernier entretien de la maintenance
+                            # correspond également au nouveau km.
+                            maintenance.kilometres_dernier_entretien = (
+                                km
+                            )
 
                             maintenance.save(
                                 update_fields=[
-                                    "kilometres_chassis"
+                                    "kilometres_chassis",
+                                    "kilometres_dernier_entretien",
                                 ]
                             )
 
-                        # =========================
-                        # LOG
-                        # =========================
-
-
-                        ACTION_MODIFICATION_ENTRETIEN = gettext_noop(
+                    # ==================================================
+                    # LOG
+                    # ==================================================
+                    ACTION_MODIFICATION_ENTRETIEN = (
+                        gettext_noop(
                             "Modification de l'entretien"
                         )
+                    )
 
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=f"{ACTION_MODIFICATION_ENTRETIEN} - {exemplaire.immatriculation}"
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=(
+                            f"{ACTION_MODIFICATION_ENTRETIEN} - "
+                            f"{exemplaire.immatriculation}"
                         )
-
-                    # =========================
-                    # SUCCÈS
-                    # =========================
-                    messages.success(
-                        request,
-                        _("Entretien modifié avec succès !")
                     )
 
-                    return redirect(
-                        "entretien:entretien_detail",
-                        entretien_id=entretien.id
+                # ==================================================
+                # SUCCÈS
+                # ==================================================
+                messages.success(
+                    request,
+                    _(
+                        "Entretien modifié avec succès !"
                     )
+                )
+
+                return redirect(
+                    "entretien:entretien_detail",
+                    entretien_id=entretien.id
+                )
 
             except Exception as e:
 
@@ -765,12 +848,14 @@ def modifier_entretien_view(request, entretien_id):
 
             messages.error(
                 request,
-                _("Le formulaire contient des erreurs.")
+                _(
+                    "Le formulaire contient des erreurs."
+                )
             )
 
-    # =========================
+    # ==================================================
     # GET
-    # =========================
+    # ==================================================
     else:
 
         form = EntretienForm(
@@ -779,9 +864,9 @@ def modifier_entretien_view(request, entretien_id):
             exemplaire=exemplaire,
         )
 
-    # =========================
+    # ==================================================
     # TEMPLATE
-    # =========================
+    # ==================================================
     return render(
         request,
         "entretien/modifier_entretien.html",
@@ -792,8 +877,6 @@ def modifier_entretien_view(request, entretien_id):
             "km_reference": km_reference,
         }
     )
-
-
 
 
 @never_cache
@@ -824,7 +907,7 @@ def delete_entretien_view(request, entretien_id):
         )
 
     # ==================================================
-    # RÉCUPÉRATION CHECKUP
+    # RÉCUPÉRATION ENTRETIEN
     # ==================================================
     entretien = get_object_or_404(
         Entretien.objects.select_related(
@@ -868,52 +951,94 @@ def delete_entretien_view(request, entretien_id):
             with transaction.atomic():
 
                 immatriculation = exemplaire.immatriculation
+                exemplaire_id = exemplaire.id
 
                 # ==================================================
-                # RESTAURATION DU KILOMÉTRAGE
+                # VALEURS HISTORIQUES
+                #
+                # Ces valeurs correspondent à l'état du véhicule
+                # AVANT la création de cet entretien.
                 # ==================================================
-                kilometrage_rollback = (
-                        exemplaire.kilometres_rollback or 0
+
+                ancien_km_chassis = (
+                    entretien.kilometres_chassis or 0
                 )
-                kilometrage_rollback_boite = (
-                        exemplaire.kilometres_boite_rollback or 0
+
+                ancien_km_boite = (
+                    entretien.kilometres_boite or 0
                 )
-                kilometrage_rollback_moteur = (
-                        exemplaire.kilometres_moteur_rollback or 0
+
+                ancien_km_moteur = (
+                    entretien.kilometres_moteur or 0
                 )
+
+                ancien_km_embrayage = (
+                    entretien.kilometres_embrayage or 0
+                )
+
+                ancien_km_dernier_entretien = (
+                        exemplaire.kilometres_entretien_rollback or 0
+                )
+
+                # ==================================================
+                # RESTAURATION DU VÉHICULE
+                # ==================================================
 
                 exemplaire.kilometres_chassis = (
-                    kilometrage_rollback
+                    ancien_km_chassis
                 )
+
                 exemplaire.kilometres_boite = (
-                    kilometrage_rollback_boite
+                    ancien_km_boite
                 )
+
                 exemplaire.kilometres_moteur = (
-                    kilometrage_rollback_moteur
+                    ancien_km_moteur
                 )
+
+                exemplaire.kilometres_embrayage = (
+                    ancien_km_embrayage
+                )
+
+                exemplaire.kilometres_dernier_entretien = (
+                    ancien_km_dernier_entretien
+                )
+
+                # ==================================================
+                # SAUVEGARDE DIRECTE
+                #
+                # IMPORTANT :
+                # update_fields empêche de sauvegarder inutilement
+                # d'autres champs.
+                # ==================================================
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
                         "kilometres_boite",
-                        "kilometres_moteur"
+                        "kilometres_moteur",
+                        "kilometres_embrayage",
+                        "kilometres_dernier_entretien",
                     ]
                 )
 
                 # ==================================================
-                # SUPPRESSION CHECKUP
+                # SUPPRESSION ENTRETIEN
                 # ==================================================
+
                 entretien.delete()
 
                 # ==================================================
                 # SUPPRESSION MAINTENANCE ASSOCIÉE
                 # ==================================================
+
                 if maintenance:
                     maintenance.delete()
 
                 # ==================================================
                 # USER LOG
                 # ==================================================
+
                 ACTION_SUPPRESSION_ENTRETIEN = gettext_noop(
                     "Suppression de l'entretien"
                 )
@@ -926,6 +1051,10 @@ def delete_entretien_view(request, entretien_id):
                     )
                 )
 
+            # ==================================================
+            # SUCCÈS
+            # ==================================================
+
             messages.success(
                 request,
                 _("Entretien supprimé avec succès.")
@@ -933,7 +1062,7 @@ def delete_entretien_view(request, entretien_id):
 
             return redirect(
                 "entretien:entretien_list",
-                exemplaire_id=exemplaire.id
+                exemplaire_id=exemplaire_id
             )
 
         except Exception as e:
@@ -948,12 +1077,13 @@ def delete_entretien_view(request, entretien_id):
 
             return redirect(
                 "entretien:entretien_detail",
-                 entretien_id=entretien.id,
+                entretien_id=entretien.id,
             )
 
     # ==================================================
     # GET → CONFIRMATION
     # ==================================================
+
     return render(
         request,
         "entretien/delete_entretien.html",
@@ -962,7 +1092,6 @@ def delete_entretien_view(request, entretien_id):
             "exemplaire": exemplaire,
         }
     )
-
 
 
 
