@@ -87,6 +87,15 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres rollback moteur")
     )
 
+    kilometres_embrayage = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_embrayage_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres rollback embrayage")
+    )
+
     kilometrage_variation = models.PositiveIntegerField(
         default=0,
         editable=False,

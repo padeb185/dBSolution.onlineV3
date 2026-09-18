@@ -78,6 +78,16 @@ class Abs(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres rollback moteur")
     )
 
+    kilometres_embrayage = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_embrayage_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres rollback embrayage")
+    )
+
+
     # -------------------------
     # INFOS
     # -------------------------
@@ -89,8 +99,8 @@ class Abs(TechnicienMixin, models.Model):
         default=0,
         editable=False,
         verbose_name=_("Variation du kilométrage"),
-    )
 
+    )
     pays = models.CharField(
         max_length=5,
         choices=TVAConfig.PAYS_CHOICES,
