@@ -62,7 +62,7 @@
                     {% include "maintenance/partials/plaque.html" %}
                 </div>
             </p>
-            <p><strong>{% trans "Kilométrage" %} :</strong> {{ admission.kilometres_chassis }}</p>
+            <p><strong>{% trans "Kilométrage" %} :</strong> {{ geometrie.kilometres_chassis }}</p>
             <p><strong>{% trans "Tag" %} :</strong> {{ geometrie.get_tag_display }}</p>
             <p><strong>{% trans "Technicien" %} :</strong> {{ geometrie.tech_nom_technicien }} {{ geometrie.tech_role_technicien }}</p>
         </div>
