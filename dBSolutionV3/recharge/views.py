@@ -1010,7 +1010,7 @@ class ElectriciteExemplaireStatView(
         # ==========================================================
         # TVA PAR PAYS
         # ==========================================================
-        pays_labels = dict(Electricite.PAYS_CHOICES)
+        pays_labels = dict(RechargeCarburant.PAYS_CHOICES_ELECT)
 
         totaux_par_pays_qs = (
             recharges
