@@ -16,8 +16,6 @@ from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _, gettext_noop
-from django.views.generic import DetailView
-from decimal import Decimal
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
 from maintenance.autres_interventions.moteur.courroie.forms import CourroieDistributionForm
 from weasyprint import HTML
@@ -66,6 +64,8 @@ class CourroieDistributionListView(ListView):
         context["is_checkup_allowed"] = self.request.user.role in roles_autorises
 
         return context
+
+
 
 
 
@@ -131,6 +131,10 @@ def courroie_form_view(request, exemplaire_id):
                         exemplaire.kilometres_moteur or 0
                 )
 
+                ancien_kilometrage_embrayage = (
+                        exemplaire.kilometres_embrayage or 0
+                )
+
                 km = form.cleaned_data.get("kilometrage_cour")
 
 
@@ -180,6 +184,10 @@ def courroie_form_view(request, exemplaire_id):
                                 ancien_kilometrage_moteur
                             )
 
+                            exemplaire.kilometres_embrayage_rollback = (
+                                ancien_kilometrage_embrayage
+                            )
+
                             # =============================================
                             # DATE INTERVENTION
                             # =============================================
@@ -212,10 +220,12 @@ def courroie_form_view(request, exemplaire_id):
                                     "kilometres_rollback",
                                     "kilometres_boite_rollback",
                                     "kilometres_moteur_rollback",
+                                    "kilometres_embrayage_rollback",
 
                                     # Valeurs recalculées
                                     "kilometres_moteur",
                                     "kilometres_boite",
+                                    "kilometres_embrayage",
                                     "variation_kilometres",
                                 ]
                             )
@@ -278,6 +288,11 @@ def courroie_form_view(request, exemplaire_id):
                             courroie_distri.kilometres_moteur = (
                                 ancien_kilometrage_moteur
                             )
+
+                            courroie_distri.kilometres_embrayage = (
+                                ancien_kilometrage_embrayage
+                            )
+
 
                             # ---------------------------------------------
                             # Kilométrage courroie_distri
@@ -421,6 +436,9 @@ def courroie_form_view(request, exemplaire_id):
             kilometres_boite=(
                     exemplaire.kilometres_boite or 0
             ),
+            kilometres_embrayage=(
+                    exemplaire.kilometres_embrayage or 0
+            ),
         )
         courroie_distribution.assign_technicien(request.user)
 
@@ -511,6 +529,10 @@ def courroie_form_view(request, exemplaire_id):
     })
 
 
+
+
+
+
 # ------------
 # Vue détail courroie
 # -----------------------------
@@ -526,6 +548,10 @@ def courroie_detail_view(request, courroie_id):
         "exemplaire": courroie.voiture_exemplaire,
     }
     return render(request, "courroie/courroie_detail.html", context)
+
+
+
+
 
 
 
@@ -579,6 +605,10 @@ def modifier_courroie_view(request, courroie_id):
                             exemplaire.kilometres_boite or 0
                     )
 
+                    rollback_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
                     # ==================================================
                     # VALIDATION
                     # ==================================================
@@ -626,6 +656,10 @@ def modifier_courroie_view(request, courroie_id):
 
                     courroie_distri.kilometres_boite = (
                         rollback_boite
+                    )
+
+                    courroie_distri.kilometres_embrayage = (
+                        rollback_embrayage
                     )
 
                     # ==================================================
@@ -888,6 +922,9 @@ def delete_courroie_view(request, courroie_id):
                 kilometrage_rollback_moteur = (
                         exemplaire.kilometres_moteur_rollback or 0
                 )
+                kilometrage_rollback_embrayage = (
+                        exemplaire.kilometres_embrayage_rollback or 0
+                )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
@@ -898,12 +935,17 @@ def delete_courroie_view(request, courroie_id):
                 exemplaire.kilometres_moteur = (
                     kilometrage_rollback_moteur
                 )
+                exemplaire.kilometres_embrayage = (
+                    kilometrage_rollback_embrayage
+                )
+
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
                         "kilometres_boite",
-                        "kilometres_moteur"
+                        "kilometres_moteur",
+                        "kilometres_embrayage"
                     ]
                 )
 

@@ -67,6 +67,8 @@ class TurboListView(ListView):
 
 
 
+
+
 @never_cache
 @login_required
 def turbo_check_view(request, exemplaire_id):
@@ -147,6 +149,10 @@ def turbo_check_view(request, exemplaire_id):
                         exemplaire.kilometres_moteur or 0
                 )
 
+                ancien_kilometrage_embrayage = (
+                        exemplaire.kilometres_embrayage or 0
+                )
+
                 km = form.cleaned_data.get("kilometres_turbo")
 
 
@@ -194,6 +200,10 @@ def turbo_check_view(request, exemplaire_id):
                                 ancien_kilometrage_moteur
                             )
 
+                            exemplaire.kilometres_embrayage_rollback = (
+                                ancien_kilometrage_embrayage
+                            )
+
                             # =============================================
                             # DATE INTERVENTION
                             # =============================================
@@ -226,11 +236,13 @@ def turbo_check_view(request, exemplaire_id):
                                     "kilometres_rollback",
                                     "kilometres_boite_rollback",
                                     "kilometres_moteur_rollback",
+                                    "kilometres_embrayage_rollback",
 
                                     # Valeurs recalculées
                                     "kilometres_moteur",
                                     "kilometres_boite",
-                                    "variation_kilometres",
+                                    "kilometres_embrayage",
+                                    "variation_kilometres"
                                 ]
                             )
 
@@ -286,6 +298,10 @@ def turbo_check_view(request, exemplaire_id):
 
                             turbo.kilometres_moteur = (
                                 ancien_kilometrage_moteur
+                            )
+
+                            turbo.kilometres_embrayage = (
+                                ancien_kilometrage_embrayage
                             )
 
                             # ---------------------------------------------
@@ -392,7 +408,8 @@ def turbo_check_view(request, exemplaire_id):
                                 update_fields=[
                                     "kilometres_chassis",
                                     "kilometres_boite",
-                                    "kilometres_moteur"
+                                    "kilometres_moteur",
+                                    "kilometres_embrayage"
                                 ]
                             )
 
@@ -538,6 +555,10 @@ def modifier_turbo_view(request, turbo_id):
                             exemplaire.kilometres_boite or 0
                     )
 
+                    rollback_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
                     # ==================================================
                     # VALIDATION
                     # ==================================================
@@ -585,6 +606,10 @@ def modifier_turbo_view(request, turbo_id):
 
                     turbo.kilometres_boite = (
                         rollback_boite
+                    )
+
+                    turbo.kilometres_embrayage = (
+                        rollback_embrayage
                     )
 
                     # ==================================================
@@ -794,6 +819,11 @@ def delete_turbo_view(request, turbo_id):
                 kilometrage_rollback_moteur = (
                         exemplaire.kilometres_moteur_rollback or 0
                 )
+                kilometrage_rollback_embrayage = (
+                        exemplaire.kilometres_embrayage_rollback or 0
+                )
+
+
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
@@ -804,12 +834,17 @@ def delete_turbo_view(request, turbo_id):
                 exemplaire.kilometres_moteur = (
                     kilometrage_rollback_moteur
                 )
+                exemplaire.kilometres_embrayage = (
+                    kilometrage_rollback_embrayage
+                )
+
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
                         "kilometres_boite",
-                        "kilometres_moteur"
+                        "kilometres_moteur",
+                        "kilometres_embrayage"
                     ]
                 )
 
