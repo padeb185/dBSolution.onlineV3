@@ -129,6 +129,10 @@ def controle_total_view(request, exemplaire_id):
                             exemplaire.kilometres_moteur or 0
                     )
 
+                    ancien_kilometrage_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
                     kilometrage_variation = 0
 
                     if km is not None:
@@ -167,6 +171,10 @@ def controle_total_view(request, exemplaire_id):
                             ancien_kilometrage_moteur
                         )
 
+                        exemplaire.kilometres_embrayage_rollback = (
+                            ancien_kilometrage_embrayage
+                        )
+
                         # ==================================================
                         # NOUVEAU KILOMÉTRAGE
                         # ==================================================
@@ -182,11 +190,13 @@ def controle_total_view(request, exemplaire_id):
                                 "kilometres_rollback",
                                 "kilometres_boite_rollback",
                                 "kilometres_moteur_rollback",
+                                "kilometres_embrayage_rollback",
 
                                 # Valeurs recalculées par save()
                                 "kilometres_moteur",
                                 "kilometres_boite",
-                                "variation_kilometres",
+                                "kilometres_embrayage",
+                                "variation_kilometres"
                             ]
                         )
                     # ==================================================
@@ -275,6 +285,9 @@ def controle_total_view(request, exemplaire_id):
                     checkup.kilometres_moteur = (
                         ancien_kilometrage_moteur
                     )
+                    checkup.kilometres_embrayage = (
+                        ancien_kilometrage_embrayage
+                    )
 
                     # différence entre ancien et nouveau kilométrage
                     checkup.kilometrage_variation = (
@@ -351,6 +364,10 @@ def controle_total_view(request, exemplaire_id):
             kilometres_boite=(
                     exemplaire.kilometres_boite or 0
             ),
+
+            kilometres_embrayage=(
+                    exemplaire.kilometres_embrayage or 0
+            ),
         )
 
         checkup.assign_technicien(
@@ -375,6 +392,9 @@ def controle_total_view(request, exemplaire_id):
     )
 
 
+
+
+
 # ------------
 # Vue détail checkup
 # -----------------------------
@@ -390,6 +410,10 @@ def checkup_detail_view(request, checkup_id):
         "exemplaire": checkup.voiture_exemplaire,
     }
     return render(request, "check_up/checkup_detail.html", context)
+
+
+
+
 
 
 @login_required
@@ -446,6 +470,10 @@ def modifier_checkup_view(request, checkup_id):
                         exemplaire.kilometres_boite or 0
                     )
 
+                    rollback_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
                     # ==================================================
                     # VALIDATION
                     # ==================================================
@@ -493,6 +521,10 @@ def modifier_checkup_view(request, checkup_id):
 
                     checkup.kilometres_boite = (
                         rollback_boite
+                    )
+
+                    checkup.kilometres_embrayage = (
+                        rollback_embrayage
                     )
 
                     # ==================================================
@@ -614,6 +646,9 @@ def modifier_checkup_view(request, checkup_id):
     )
 
 
+
+
+
 @never_cache
 @login_required
 def delete_checkup_view(request, checkup_id):
@@ -699,6 +734,10 @@ def delete_checkup_view(request, checkup_id):
                 kilometrage_rollback_moteur = (
                         exemplaire.kilometres_moteur_rollback or 0
                 )
+                kilometrage_rollback_embrayage = (
+                        exemplaire.kilometres_embrayage_rollback or 0
+                )
+
 
 
                 exemplaire.kilometres_chassis = (
@@ -710,11 +749,15 @@ def delete_checkup_view(request, checkup_id):
                 exemplaire.kilometres_moteur = (
                     kilometrage_rollback_moteur
                 )
+                exemplaire.kilometres_embrayage = (
+                    kilometrage_rollback_embrayage
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
                         "kilometres_boite",
+                        "kilometres_embrayage",
                         "kilometres_moteur"
                     ]
                 )

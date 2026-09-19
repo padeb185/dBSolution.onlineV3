@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from django.template.loader import render_to_string
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -142,6 +144,10 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                             exemplaire.kilometres_moteur or 0
                     )
 
+                    ancien_kilometrage_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
                     km = form.cleaned_data["kilometrage_intervention"]
 
 
@@ -206,6 +212,10 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                         ancien_kilometrage_moteur
                     )
 
+                    exemplaire.kilometres_embrayage_rollback = (
+                        ancien_kilometrage_embrayage
+                    )
+
                     # =============================================
                     # DATE INTERVENTION
                     # =============================================
@@ -238,11 +248,13 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                             "kilometres_rollback",
                             "kilometres_boite_rollback",
                             "kilometres_moteur_rollback",
+                            "kilometres_embrayage_rollback",
 
                             # Valeurs recalculées
                             "kilometres_moteur",
                             "kilometres_boite",
-                            "variation_kilometres",
+                            "kilometres_embrayage",
+                            "variation_kilometres"
                         ]
                     )
 
@@ -333,6 +345,10 @@ def carrosserie_interne_create_view(request, exemplaire_id):
 
                         carrosserie_interne.kilometres_moteur = (
                             ancien_kilometrage_moteur
+                        )
+
+                        carrosserie_interne.kilometres_embrayage = (
+                            ancien_kilometrage_embrayage
                         )
 
                         # ---------------------------------------------
@@ -439,7 +455,8 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                             update_fields=[
                                 "kilometres_chassis",
                                 "kilometres_boite",
-                                "kilometres_moteur"
+                                "kilometres_moteur",
+                                "kilometres_embrayage"
                             ]
                         )
 
@@ -489,7 +506,20 @@ def carrosserie_interne_create_view(request, exemplaire_id):
     carrosserie_interne = CarrosserieInterne(
         societe=tenant,
         voiture_exemplaire=exemplaire,
-        kilometres_chassis=exemplaire.kilometres_chassis
+        kilometres_chassis=(
+                exemplaire.kilometres_chassis or 0
+        ),
+
+        kilometres_moteur=(
+                exemplaire.kilometres_moteur or 0
+        ),
+
+        kilometres_boite=(
+                exemplaire.kilometres_boite or 0
+        ),
+        kilometres_embrayage=(
+                exemplaire.kilometres_embrayage or 0
+        ),
 
     )
 
@@ -961,21 +991,158 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
             exemplaire=carrosserie_interne.voiture_exemplaire
         )
         if form.is_valid():
-            form.save()
+
+            try:
+                with transaction.atomic():
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get(
+                        "kilometrage_intervention"
+                    )
+
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    rollback_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    rollback_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # ÉCHAPPEMENT
+                    # ==================================================
+                    carrosserie_interne = form.save(
+                        commit=False
+                    )
+
+                    carrosserie_interne.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    carrosserie_interne.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    carrosserie_interne.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    carrosserie_interne.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    carrosserie_interne.kilometres_embrayage = (
+                        rollback_embrayage
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    carrosserie_interne.kilometrage_alte = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        carrosserie_interne.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        carrosserie_interne.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    carrosserie_interne.assign_technicien(
+                        request.user
+                    )
+
+                    carrosserie_interne.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE ÉCHAPPEMENT
+                    # ==================================================
+                    carrosserie_interne.save()
+
+                    form.save_m2m()
 
 
 
-            ACTION_MODIFICATION_CARROSSERIE = gettext_noop(
-                "Modification de la carrosserie"
-            )
+                ACTION_MODIFICATION_CARROSSERIE = gettext_noop(
+                    "Modification de la carrosserie"
+                )
 
-            UserLog.objects.create(
-                utilisateur=request.user,
-                action=f"{ACTION_MODIFICATION_CARROSSERIE} - {exemplaire.immatriculation}"
-            )
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_MODIFICATION_CARROSSERIE} - {exemplaire.immatriculation}"
+                )
 
-            messages.success(request, _("Carrosserie modifiée avec succès !"))
-            return redirect("carrosserie_interne:carrosserie_interne_detail", carrosserie_interne_id=carrosserie_interne_id)
+                messages.success(request, _("Carrosserie modifiée avec succès !"))
+                return redirect("carrosserie_interne:carrosserie_interne_detail", carrosserie_interne_id=carrosserie_interne_id)
+
+
+            except ValidationError as e:
+                form.add_error(None, e)
+                messages.error(request, _("Kilométrage invalide"))
+
 
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
@@ -1485,16 +1652,37 @@ def delete_carrosserie_interne_view(request, carrosserie_interne_id):
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================
                 kilometrage_rollback = (
-                    exemplaire.kilometres_rollback or 0
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
+                )
+                kilometrage_rollback_embrayage = (
+                        exemplaire.kilometres_embrayage_rollback or 0
                 )
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
                 )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
+                exemplaire.kilometres_embrayage = (
+                    kilometrage_rollback_embrayage
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur",
+                        "kilometres_embrayage"
                     ]
                 )
 
@@ -1508,7 +1696,6 @@ def delete_carrosserie_interne_view(request, carrosserie_interne_id):
                 # ==================================================
                 if maintenance:
                     maintenance.delete()
-
                 # ==================================================
                 # USER LOG
                 # ==================================================
