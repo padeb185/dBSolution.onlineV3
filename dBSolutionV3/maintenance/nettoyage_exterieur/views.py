@@ -66,6 +66,11 @@ class NettoyageExterieurListView(ListView):
         return context
 
 
+
+
+
+
+
 @login_required
 def nettoyage_exterieur_view(request, exemplaire_id):
 
@@ -141,6 +146,10 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                             exemplaire.kilometres_moteur or 0
                     )
 
+                    ancien_kilometrage_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
                     # ✅ Variation calculée dynamiquement
                     kilometrage_variation = 0
 
@@ -171,6 +180,10 @@ def nettoyage_exterieur_view(request, exemplaire_id):
 
                         exemplaire.kilometres_moteur_rollback = (
                             ancien_kilometrage_moteur
+                        )
+
+                        exemplaire.kilometres_embrayage_rollback = (
+                            ancien_kilometrage_embrayage
                         )
 
                         # =========================
@@ -208,10 +221,12 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                                 "kilometres_rollback",
                                 "kilometres_boite_rollback",
                                 "kilometres_moteur_rollback",
+                                "kilometres_embrayage_rollback",
 
                                 # Valeurs recalculées
                                 "kilometres_moteur",
                                 "kilometres_boite",
+                                "kilometres_embrayage",
                                 "variation_kilometres",
                             ]
                         )
@@ -262,6 +277,9 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                     )
                     nettoyage_ext.kilometres_moteur = (
                         ancien_kilometrage_moteur
+                    )
+                    nettoyage_ext.kilometres_embrayage = (
+                        ancien_kilometrage_embrayage
                     )
 
                     # différence entre ancien et nouveau kilométrage
@@ -322,6 +340,10 @@ def nettoyage_exterieur_view(request, exemplaire_id):
             kilometres_boite=(
                     exemplaire.kilometres_boite or 0
             ),
+
+            kilometres_embrayage=(
+                    exemplaire.kilometres_embrayage or 0
+            ),
         )
 
         nettoyage_ext.assign_technicien(request.user)
@@ -365,6 +387,8 @@ def nettoyage_ext_detail(request, nettoyage_id):
 
 
 
+
+
 @login_required
 def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
     tenant = request.user.societe
@@ -389,13 +413,19 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
                     # ==================================================
                     # NOUVEAU KILOMÉTRAGE SAISI
                     # ==================================================
-                    km = form.cleaned_data.get(
-                        "kilometrage_nettoyage_ext_brake"
-                    )
+                    km = form.cleaned_data.get("kilometrage_net_ext")
 
-                    if km is not None:
-                        km = int(km)
+                    # Si le champ n'est pas présent dans le formulaire
+                    # ou n'a pas été envoyé, on conserve la valeur existante
+                    if km is None:
+                        km = nettoyage_exterieur.kilometrage_net_ext
 
+                    # Sécurité supplémentaire pour les anciennes données
+                    if km is None:
+                        km = exemplaire.kilometres_chassis or 0
+
+                    km = int(km)
+                    
                     # ==================================================
                     # VALEURS ACTUELLES = ROLLBACK LOCAL
                     # ==================================================
@@ -411,6 +441,9 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
                             exemplaire.kilometres_boite or 0
                     )
 
+                    rollback_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
                     # ==================================================
                     # VALIDATION
                     # ==================================================
@@ -458,6 +491,10 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
 
                     nettoyage_ext.kilometres_boite = (
                         rollback_boite
+                    )
+
+                    nettoyage_ext.kilometres_embrayage = (
+                        rollback_embrayage
                     )
 
                     # ==================================================
@@ -630,6 +667,10 @@ def delete_nettoyage_exterieur_view(request, nettoyage_id):
                 kilometrage_rollback_moteur = (
                         exemplaire.kilometres_moteur_rollback or 0
                 )
+                kilometrage_rollback_embrayage = (
+                        exemplaire.kilometres_embrayage_rollback or 0
+                )
+
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
@@ -640,11 +681,15 @@ def delete_nettoyage_exterieur_view(request, nettoyage_id):
                 exemplaire.kilometres_moteur = (
                     kilometrage_rollback_moteur
                 )
+                exemplaire.kilometres_embrayage = (
+                    kilometrage_rollback_embrayage
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
                         "kilometres_boite",
+                        "kilometres_embrayage",
                         "kilometres_moteur"
                     ]
                 )
