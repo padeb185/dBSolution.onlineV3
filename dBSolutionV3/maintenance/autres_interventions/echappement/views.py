@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 from django.contrib import messages
 from django.db import models, transaction
 from django.db.models import Q
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.shortcuts import get_object_or_404, redirect, render
@@ -548,12 +549,11 @@ def echappement_check_view(request, exemplaire_id):
                             ),
                         )
 
+
                         return redirect(
-                            "echappement:echappement_list",
-                            exemplaire_id=(
-                                exemplaire.id
-                            ),
+                            f"{reverse('echappement:echappement_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                         )
+
 
             except Exception as e:
 
@@ -844,8 +844,7 @@ def modifier_echappement_view(request, echappement_id):
                 )
 
                 return redirect(
-                    "echappement:echappement_detail",
-                    echappement_id=echappement.id,
+                    f"{reverse('echappement:echappement_detail', kwargs={'echappement_id': echappement.id})}?saved=1"
                 )
 
             except ValidationError as e:

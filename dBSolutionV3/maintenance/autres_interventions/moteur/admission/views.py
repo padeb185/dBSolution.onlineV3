@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction
@@ -503,11 +504,9 @@ def admission_check_view(request, exemplaire_id):
                         )
 
                         return redirect(
-                            "admission:admission_list",
-                            exemplaire_id=(
-                                exemplaire.id
-                            ),
+                            f"{reverse('admission:admission_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                         )
+
 
             except Exception as e:
                 messages.error(
@@ -931,9 +930,9 @@ def modifier_admission_view(request, admission_id):
                             ),
                         )
 
+
                         return redirect(
-                            "admission:admission_detail",
-                            admission_id=admission.id,
+                            f"{reverse('admission:admission_detail', kwargs={'admission_id': admission.id})}?saved=1"
                         )
 
             except Exception as e:

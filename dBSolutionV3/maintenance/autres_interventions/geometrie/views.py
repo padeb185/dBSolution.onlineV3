@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 
 from maindoeuvre.models import MainDoeuvre
 from django.http import HttpResponse
@@ -500,11 +501,9 @@ def geometrie_check_view(request, exemplaire_id):
                         )
 
                         return redirect(
-                            "geometrie:geometrie_list",
-                            exemplaire_id=(
-                                exemplaire.id
-                            ),
+                            f"{reverse('geometrie:geometrie_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                         )
+
 
             except Exception as e:
 
@@ -914,8 +913,10 @@ def geometrie_modifier_view(request, geometrie_id):
                 )
 
                 messages.success(request, _("Contrôle de la géométrie modifié avec succès !"))
-                return redirect("geometrie:geometrie_detail", geometrie_id=geometrie.id)
 
+                return redirect(
+                    f"{reverse('geometrie:geometrie_detail', kwargs={'geometrie_id': geometrie.id})}?saved=1"
+                )
             except Exception as e:
 
                 messages.error(

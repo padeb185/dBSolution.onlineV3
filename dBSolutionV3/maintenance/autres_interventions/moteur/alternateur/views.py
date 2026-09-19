@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
@@ -440,9 +441,9 @@ def alternateur_check_view(request, exemplaire_id):
                         )
 
                         return redirect(
-                            "alternateur:alternateur_list",
-                            exemplaire_id=exemplaire.id,
+                            f"{reverse('alternateur:alternateur_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                         )
+
 
             except ValueError as erreur:
                 messages.error(
@@ -813,8 +814,10 @@ def modifier_alternateur_view(request, alternateur_id):
                     )
 
                     messages.success(request, _("Contrôle de l'alternateur modifié avec succès !"))
-                    return redirect("alternateur:alternateur_detail", alternateur_id=alternateur.id)
 
+                    return redirect(
+                        f"{reverse('alternateur:alternateur_detail', kwargs={'alternateur_id': alternateur.id})}?saved=1"
+                    )
 
             except Exception as e:
 

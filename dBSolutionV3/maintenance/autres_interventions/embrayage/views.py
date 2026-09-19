@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.utils.decorators import method_decorator
@@ -410,9 +411,9 @@ def embrayage_form_view(request, exemplaire_id):
                         )
 
                         return redirect(
-                            "embrayage:embrayage_list",
-                            exemplaire_id=exemplaire.id,
+                            f"{reverse('embrayage:embrayage_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                         )
+
 
             except Exception as e:
 
@@ -817,7 +818,10 @@ def modifier_embrayage_view(request, embrayage_id):
                 )
 
                 messages.success(request, _("Remplacement de l'embrayage modifié avec succès !"))
-                return redirect("embrayage:embrayage_detail", embrayage_id=embrayage.id)
+
+                return redirect(
+                    f"{reverse('embrayage:embrayage_detail', kwargs={'embrayage_id': embrayage.id})}?saved=1"
+                )
 
             except Exception as e:
 

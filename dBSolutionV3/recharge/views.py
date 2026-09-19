@@ -1,10 +1,7 @@
 from django.http import JsonResponse
-from django.views.decorators.http import require_GET
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from guardian.mixins import LoginRequiredMixin
-from voiture.voiture_marque.models import VoitureMarque
-from voiture.voiture_modele.models import VoitureModele
 from decimal import Decimal
 from django.db.models import Count, Max, Min, Sum
 from django.db.models.functions import TruncMonth, TruncYear
@@ -19,6 +16,9 @@ from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from .forms import ElectriciteForm
 from .models import Electricite, RechargeCarburant
+
+
+
 
 
 @method_decorator([login_required, never_cache], name="dispatch")
