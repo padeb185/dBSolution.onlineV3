@@ -144,6 +144,10 @@ def niveau_form_view(request, exemplaire_id):
                             exemplaire.kilometres_moteur or 0
                     )
 
+                    ancien_kilometrage_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
                     km = form.cleaned_data.get(
                         "kilometrage_niveaux"
                     )
@@ -181,6 +185,10 @@ def niveau_form_view(request, exemplaire_id):
                             ancien_kilometrage_moteur
                         )
 
+                        exemplaire.kilometres_embrayage_rollback = (
+                            ancien_kilometrage_embrayage
+                        )
+
                         # =========================
                         # DATE INTERVENTION
                         # =========================
@@ -216,10 +224,12 @@ def niveau_form_view(request, exemplaire_id):
                                 "kilometres_rollback",
                                 "kilometres_boite_rollback",
                                 "kilometres_moteur_rollback",
+                                "kilometres_embrayage_rollback",
 
                                 # Valeurs recalculées
                                 "kilometres_moteur",
                                 "kilometres_boite",
+                                "kilometres_embrayage",
                                 "variation_kilometres",
                             ]
                         )
@@ -275,6 +285,9 @@ def niveau_form_view(request, exemplaire_id):
                     )
                     niveau.kilometres_moteur = (
                         ancien_kilometrage_moteur
+                    )
+                    niveau.kilometres_embrayage = (
+                        ancien_kilometrage_embrayage
                     )
 
                     # différence entre ancien et nouveau kilométrage
@@ -338,6 +351,10 @@ def niveau_form_view(request, exemplaire_id):
             kilometres_boite=(
                     exemplaire.kilometres_boite or 0
             ),
+
+            kilometres_embrayage=(
+                    exemplaire.kilometres_embrayage or 0
+            ),
         )
 
         niveau.assign_technicien(request.user)  # 👈 AJOUT IMPORTANT
@@ -374,6 +391,10 @@ def niveau_detail_view(request, niveau_id):
         "exemplaire": niveau.voiture_exemplaire,
     }
     return render(request, "niveaux/niveaux_detail.html", context)
+
+
+
+
 
 
 
@@ -437,6 +458,10 @@ def modifier_niveau_view(request, niveau_id):
                             exemplaire.kilometres_boite or 0
                     )
 
+                    rollback_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
                     # ==================================================
                     # VALIDATION
                     # ==================================================
@@ -484,6 +509,10 @@ def modifier_niveau_view(request, niveau_id):
 
                     niveau.kilometres_boite = (
                         rollback_boite
+                    )
+
+                    niveau.kilometres_embrayage = (
+                        rollback_embrayage
                     )
 
                     # ==================================================
@@ -609,6 +638,11 @@ def modifier_niveau_view(request, niveau_id):
     )
 
 
+
+
+
+
+
 @never_cache
 @login_required
 def delete_niveau_view(request, niveau_id):
@@ -694,6 +728,12 @@ def delete_niveau_view(request, niveau_id):
                 kilometrage_rollback_moteur = (
                         exemplaire.kilometres_moteur_rollback or 0
                 )
+                kilometrage_rollback_embrayage = (
+                        exemplaire.kilometres_embrayage_rollback or 0
+                )
+
+
+
 
                 exemplaire.kilometres_chassis = (
                     kilometrage_rollback
@@ -704,11 +744,15 @@ def delete_niveau_view(request, niveau_id):
                 exemplaire.kilometres_moteur = (
                     kilometrage_rollback_moteur
                 )
+                exemplaire.kilometres_embrayage = (
+                    kilometrage_rollback_embrayage
+                )
 
                 exemplaire.save(
                     update_fields=[
                         "kilometres_chassis",
                         "kilometres_boite",
+                        "kilometres_embrayage",
                         "kilometres_moteur"
                     ]
                 )
