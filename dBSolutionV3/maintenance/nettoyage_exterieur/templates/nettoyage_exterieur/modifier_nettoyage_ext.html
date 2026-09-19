@@ -500,14 +500,15 @@ function getCookie(name) {
 const csrftoken = getCookie("csrftoken");
 
 
+
 document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    const form = document.getElementById("nettoyage-ext-form");
+    const form = document.getElementById("jeu-form");
 
     const kmChassis = document.getElementById("id_kilometres_chassis");
-    const kmCheckup = document.getElementById("id_kilometrage_net_ext");
+    const kmCheckup = document.getElementById("id_kilometrage_jeu");
     const kmVariation = document.getElementById("id_kilometrage_variation");
 
     const popup = document.getElementById("kilometrage-popup");
@@ -633,7 +634,6 @@ document.addEventListener("DOMContentLoaded", function () {
     calculerVariation();
 
 });
-
 
 </script>
 {% endblock %}
