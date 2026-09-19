@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
@@ -298,8 +299,7 @@ def abs_form_view(request, exemplaire_id):
 
                 messages.success(request, _("Contrôle du système ABS enregistré avec succès."))
                 return redirect(
-                    "abs:abs_list",
-                    exemplaire_id=exemplaire.id,
+                    f"{reverse('abs:abs_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                 )
 
             except Exception as e:
@@ -587,9 +587,9 @@ def modifier_abs_view(request, abs_id):
                     )
                 )
 
+
                 return redirect(
-                    "abs:abs_detail",
-                    abs_id=abs.id
+                    f"{reverse('abs:abs_detail', kwargs={'abs_id': abs.id})}?saved=1"
                 )
 
             except ValidationError as e:

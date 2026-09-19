@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
@@ -327,9 +328,10 @@ def bte_auto_check_view(request, exemplaire_id):
                 )
 
                 return redirect(
-                    "bte_auto:bte_auto_list",
-                    exemplaire_id=exemplaire.id,
+                    f"{reverse('bte_auto:bte_auto_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                 )
+
+
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -532,7 +534,11 @@ def modifier_bte_auto_view(request, bte_auto_id):
                     action=f"{ACTION_MODIFICATION_CONTROLE_BOITE_AUTOMATIQUE} - {exemplaire.immatriculation}"
                 )
                 messages.success(request, _("Contrôle de la boite automatique modifié avec succès !"))
-                return redirect("bte_auto:bte_auto_detail", bte_auto_id=bte_auto.id)
+
+
+                return redirect(
+                    f"{reverse('bte_auto:bte_auto_detail', kwargs={'bte_auto_id': bte_auto.id})}?saved=1"
+                )
 
             except ValidationError as e:
 

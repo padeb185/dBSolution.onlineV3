@@ -153,4 +153,12 @@
 </script>
 
 </body>
+<script>
+    window.addEventListener("pageshow", function () {
+        if (sessionStorage.getItem("reloadAfterBack") === "1") {
+            sessionStorage.removeItem("reloadAfterBack");
+            window.location.reload();
+        }
+    });
+</script>
 </html>

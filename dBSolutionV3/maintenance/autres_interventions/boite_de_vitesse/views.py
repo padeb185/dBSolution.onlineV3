@@ -6,6 +6,7 @@ from django.http import request, HttpResponse
 from django.template.loader import render_to_string
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
@@ -307,10 +308,11 @@ def boite_check_view(request, exemplaire_id):
 
 
                 messages.success(request, _("Checkup de la boite de vitesse enregistré avec succès."))
+
                 return redirect(
-                    "boite_de_vitesse:boite_list",
-                    exemplaire_id=boite.voiture_exemplaire_id,
+                    f"{reverse('boite_de_vitesse:boite_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                 )
+
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -507,10 +509,11 @@ def modifier_boite_view(request, boite_id):
                 )
 
                 messages.success(request, _("Checkup de la boite de vitesse modifié avec succès !"))
+
                 return redirect(
-                    "boite_de_vitesse:boite_detail",
-                    boite_id=boite.id,
+                    f"{reverse('boite_de_vitesse:boite_detail', kwargs={'boite_id': boite.id})}?saved=1"
                 )
+            
             except ValidationError as e:
 
                 form.add_error(

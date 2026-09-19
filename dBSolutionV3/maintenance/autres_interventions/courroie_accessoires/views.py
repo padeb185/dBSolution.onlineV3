@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
@@ -300,9 +301,9 @@ def courroie_access_form_view(request, exemplaire_id):
                     )
 
                     return redirect(
-                        "courroie_accessoires:courroie_list",
-                        exemplaire_id=exemplaire.id
+                        f"{reverse('courroie_accessoires:courroie_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                     )
+
 
             except Exception as e:
                 messages.error(
@@ -571,9 +572,10 @@ def modifier_courroie_access_view(request, courroie_accessoires_id):
                     request,
                     _("Remplacement de la courroie d'accessoires modifié avec succès !")
                 )
-                return redirect("courroie_accessoires:courroie_access_detail",
-                                courroie_accessoires_id=courroie_accessoires.id
-                                )
+        
+                return redirect(
+                    f"{reverse('courroie_accessoires:courroie_access_detail', kwargs={'courroie_accessoires_id': courroie_accessoires.id})}?saved=1"
+                )
 
             except ValidationError as e:
                 form.add_error(None, e)

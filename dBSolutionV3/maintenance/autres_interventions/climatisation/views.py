@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.utils.text import slugify
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse
@@ -325,11 +326,10 @@ def clim_form_view(request, exemplaire_id):
                         "enregistré avec succès."
                     ),
                 )
-
                 return redirect(
-                    "climatisation:clim_list",
-                    exemplaire_id=exemplaire.id,
+                    f"{reverse('climatisation:clim_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                 )
+
 
             except ValidationError:
                 messages.error(
@@ -774,7 +774,11 @@ def modifier_clim_view(request, climatisation_id):
                     )
 
                     messages.success(request, _("Contrôle du système de climatisation modifié avec succès !"))
-                    return redirect("climatisation:clim_detail", climatisation_id=clim.id)
+                    
+
+                    return redirect(
+                        f"{reverse('climatisation:clim_detail', kwargs={'climatisation_id': clim.id})}?saved=1"
+                    )
 
             except ValidationError as e:
 

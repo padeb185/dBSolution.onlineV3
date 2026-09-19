@@ -239,5 +239,16 @@ $(document).ready(function() {
         table.column(4).search(this.value).draw();
     });
 });
+
 </script>
+{% if request.GET.saved == "1" %}
+<script>
+    setTimeout(function () {
+        sessionStorage.setItem("reloadAfterBack", "1");
+        window.history.go(-2);
+    }, 5000);
+</script>
+{% endif %}
+
+
 {% endblock %}
