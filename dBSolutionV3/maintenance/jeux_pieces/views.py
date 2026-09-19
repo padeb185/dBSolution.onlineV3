@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -312,7 +313,11 @@ def controle_jeux_pieces_view(request, exemplaire_id):
 
 
                 messages.success(request, _("Contrôle des jeux enregistré avec succès."))
-                return redirect("jeux_pieces:jeux_pieces_list", exemplaire_id=exemplaire.id)
+
+                return redirect(
+                    f"{reverse('jeux_pieces:jeux_pieces_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
+                )
+
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -547,7 +552,10 @@ def modifier_jeux_pieces_view(request, jeu_id):
                     action=f"{ACTION_MODIFICATION_CONTROLE_JEUX} - {exemplaire.immatriculation}"
                 )
                 messages.success(request, _("Contrôle des jeux modifié avec succès !"))
-                return redirect("jeux_pieces:jeux_pieces_detail", jeu_id=jeu_id)
+
+                return redirect(
+                    f"{reverse('jeux_pieces:jeux_pieces_detail', kwargs={'jeu_id': jeu.id})}?saved=1"
+                )
 
             except ValidationError as e:
                 form.add_error(None, e)

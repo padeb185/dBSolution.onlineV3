@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -311,7 +312,12 @@ def silent_check_view(request, exemplaire_id):
                         )
 
                     messages.success(request, _("Controle des silent blocs enregistré avec succès."))
-                    return redirect("silent_blocs:silent_list", exemplaire_id=exemplaire.id)
+
+                    return redirect(
+                        f"{reverse('silent_blocs:silent_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
+                    )
+
+
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -525,8 +531,7 @@ def modifier_silent_view(request, silent_id):
                 )
 
                 return redirect(
-                    "silent_blocs:silent_detail",
-                    silent_id=silent.id
+                    f"{reverse('silent_blocs:silent_detail', kwargs={'silent_id': silent.id})}?saved=1"
                 )
 
             except Exception as e:

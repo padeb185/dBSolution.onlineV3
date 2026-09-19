@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -353,9 +354,9 @@ def controle_pneus_view(request, exemplaire_id):
                 )
 
                 return redirect(
-                    "pneus:pneus_list",
-                    exemplaire_id=exemplaire.id
+                    f"{reverse('pneus:pneus_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                 )
+
 
             except Exception as e:
 
@@ -630,8 +631,7 @@ def modifier_pneus_view(request, pneu_id):
                 )
 
                 return redirect(
-                    "pneus:pneus_detail",
-                    pneu_id=pneus.id
+                    f"{reverse('pneus:pneus_detail', kwargs={'pneu_id': pneus.id})}?saved=1"
                 )
 
             except ValidationError as e:

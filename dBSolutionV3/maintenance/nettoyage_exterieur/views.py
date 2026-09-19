@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -310,7 +311,11 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                     request,
                     _("Nettoyage extérieur enregistré avec succès.")
                 )
-                return redirect("nettoyage_exterieur:nettoyage_ext_list", exemplaire_id=exemplaire.id)
+
+                return redirect(
+                    f"{reverse('nettoyage_exterieur:nettoyage_ext_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
+                )
+
 
             except Exception as e:
                 messages.error(
@@ -557,9 +562,9 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
                 )
 
                 messages.success(request, _("Nettoyage extérieur modifié avec succès !"))
+
                 return redirect(
-                    "nettoyage_exterieur:nettoyage_ext_detail",
-                    nettoyage_id=nettoyage_exterieur.id,
+                    f"{reverse('nettoyage_exterieur:nettoyage_ext_detail', kwargs={'nettoyage_id': nettoyage_exterieur.id})}?saved=1"
                 )
 
             except ValidationError as e:

@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -330,7 +331,11 @@ def niveau_form_view(request, exemplaire_id):
 
 
                 messages.success(request, _("Controle des niveaux enregistré avec succès."))
-                return redirect("niveaux:niveaux_list", exemplaire_id=exemplaire.id)
+
+                return redirect(
+                    f"{reverse('niveaux:niveaux_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
+                )
+
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -584,8 +589,7 @@ def modifier_niveau_view(request, niveau_id):
                 )
 
                 return redirect(
-                    "niveaux:niveaux_detail",
-                    niveau_id=niveau.id
+                    f"{reverse('niveaux:niveaux_detail', kwargs={'niveau_id': niveau.id})}?saved=1"
                 )
 
             except ValidationError as e:

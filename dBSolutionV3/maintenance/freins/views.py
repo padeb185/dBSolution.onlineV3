@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -309,9 +310,10 @@ def controle_freins_view(request, exemplaire_id):
 
 
                 messages.success(request, _("Contrôle freins enregistré avec succès."))
-                return redirect("freins:freins_list", exemplaire_id=exemplaire.id)
 
-
+                return redirect(
+                    f"{reverse('freins:freins_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
+                )
 
             except Exception as e:
                 messages.error(request, f"Erreur : {e}")
@@ -551,8 +553,7 @@ def modifier_freins_view(request, frein_id):
                 messages.success(request, _("Contrôle freins modifié avec succès !"))
 
                 return redirect(
-                    "freins:freins_detail",
-                    frein_id=frein.id
+                    f"{reverse('freins:freins_detail', kwargs={'frein_id': frein.id})}?saved=1"
                 )
 
             except ValidationError as e:
