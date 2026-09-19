@@ -8,6 +8,7 @@ from django.db import models, transaction
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _, gettext_noop
@@ -474,18 +475,12 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                         utilisateur=request.user,
                         action=f"{ACTION_CARROSSERIE} - {exemplaire.immatriculation}"
                     )
-                messages.success(
-                    request,
-                    _(
-                        "Intervention carrosserie "
-                        "enregistrée avec succès."
-                    ),
-                )
+                messages.success(request,_( "Intervention carrosserie enregistrée avec succès."),)
 
                 return redirect(
-                    "carrosserie_interne:carrosserie_interne_list",
-                    exemplaire_id=exemplaire.id,
+                    f"{reverse('carrosserie_interne:carrosserie_interne_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                 )
+
 
             except Exception as e:
                 messages.error(
@@ -1136,8 +1131,10 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
                 )
 
                 messages.success(request, _("Carrosserie modifiée avec succès !"))
-                return redirect("carrosserie_interne:carrosserie_interne_detail", carrosserie_interne_id=carrosserie_interne_id)
 
+                return redirect(
+                    f"{reverse('carrosserie_interne:carrosserie_interne_detail', kwargs={'carrosserie_interne_id': carrosserie_interne.id})}?saved=1"
+                )
 
             except ValidationError as e:
                 form.add_error(None, e)

@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
@@ -414,7 +415,12 @@ def courroie_form_view(request, exemplaire_id):
                         )
 
                         messages.success(request, _("Check de la  courroie de distribution enregistré avec succès."))
-                        return redirect("courroie:courroie_list", exemplaire_id=exemplaire.id)
+
+
+                        return redirect(
+                            f"{reverse('courroie:courroie_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
+                        )
+
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -724,9 +730,9 @@ def modifier_courroie_view(request, courroie_id):
                         request,
                         _("Remplacement de la courroie de distribution modifié avec succès !")
                     )
+
                     return redirect(
-                        "courroie:courroie_detail",
-                        courroie_id=courroie.id
+                        f"{reverse('courroie:courroie_detail', kwargs={'courroie_id': courroie.id})}?saved=1"
                     )
 
             except ValidationError as e:

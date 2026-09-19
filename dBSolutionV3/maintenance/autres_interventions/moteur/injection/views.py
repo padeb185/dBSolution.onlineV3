@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
@@ -449,9 +450,9 @@ def injection_form_view(request, exemplaire_id):
                     )
 
                     return redirect(
-                        "injection:injection_list",
-                        exemplaire_id=exemplaire.id,
+                        f"{reverse('injection:injection_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                     )
+
 
             except ValueError as e:
                 messages.error(
@@ -886,9 +887,9 @@ def modifier_injection_view(request, injection_id):
                         request,
                         _("Contrôle de l'injection modifié avec succès !")
                     )
+
                     return redirect(
-                        "injection:injection_detail",
-                        injection_id=injection.id
+                        f"{reverse('injection:injection_detail', kwargs={'injection_id': injection.id})}?saved=1"
                     )
 
             except ValidationError as e:

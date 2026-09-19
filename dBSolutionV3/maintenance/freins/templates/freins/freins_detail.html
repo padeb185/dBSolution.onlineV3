@@ -223,4 +223,13 @@
 
 </div>
 
+{% if request.GET.saved == "1" %}
+<script>
+    setTimeout(function () {
+        sessionStorage.setItem("reloadAfterBack", "1");
+        window.history.go(-2);
+    }, 5000);
+</script>
+{% endif %}
+
 {% endblock %}

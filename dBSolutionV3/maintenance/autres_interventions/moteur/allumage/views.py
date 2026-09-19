@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
@@ -411,9 +412,9 @@ def allumage_check_view(request, exemplaire_id):
                         )
 
                         return redirect(
-                            "allumage:allumage_list",
-                            exemplaire_id=exemplaire.id,
+                            f"{reverse('allumage:allumage_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                         )
+
 
             except ValueError as erreur:
                 if str(erreur) != "kilometrage_invalide":
@@ -823,7 +824,10 @@ def modifier_allumage_view(request, allumage_id):
                     )
 
                     messages.success(request, _("Contrôle de l'allumage modifié avec succès !"))
-                    return redirect("allumage:allumage_detail", allumage_id=allumage.id)
+
+                    return redirect(
+                        f"{reverse('allumage:allumage_detail', kwargs={'allumage_id': allumage.id})}?saved=1"
+                    )
 
             except Exception as e:
 

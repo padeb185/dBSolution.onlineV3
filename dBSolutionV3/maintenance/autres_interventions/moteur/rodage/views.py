@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -422,7 +423,11 @@ def rodage_check_view(request, exemplaire_id):
                             )
 
                     messages.success(request, _("Rodage enregistré avec succès."))
-                    return redirect("rodage:rodage_list", exemplaire_id=exemplaire.id)
+
+                    return redirect(
+                        f"{reverse('rodage:rodage_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
+                    )
+
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -667,7 +672,11 @@ def modifier_rodage_view(request, rodage_id):
                     )
 
                     messages.success(request, _("Rodage modifié avec succès !"))
-                    return redirect("rodage:rodage_detail", rodage_id=rodage.id)
+
+                    return redirect(
+                        f"{reverse('rodage:rodage_detail', kwargs={'rodage_id': rodage.id})}?saved=1"
+                    )
+
 
             except ValidationError as e:
                 form.add_error(None, e)

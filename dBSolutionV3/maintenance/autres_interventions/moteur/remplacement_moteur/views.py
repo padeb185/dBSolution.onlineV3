@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db import models, transaction
@@ -494,10 +495,9 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 )
 
                 return redirect(
-                    "remplacement_moteur:"
-                    "remplacement_moteur_list",
-                    exemplaire_id=exemplaire.id
+                    f"{reverse('remplacement_moteur:remplacement_moteur_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                 )
+
 
             except ValidationError:
                 # Les erreurs sont déjà ajoutées au formulaire
@@ -796,9 +796,9 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
                         _("Remplacement du moteur modifié avec succès !")
                     )
 
+
                     return redirect(
-                        "remplacement_moteur:remplacement_moteur_detail",
-                        remplacement_moteur_id=remplacement.id
+                        f"{reverse('remplacement_moteur:remplacement_moteur_detail', kwargs={'remplacement_moteur_id': remplacement.id})}?saved=1"
                     )
 
             except ValidationError as e:

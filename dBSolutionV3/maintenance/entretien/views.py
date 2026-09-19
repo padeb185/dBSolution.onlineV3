@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
@@ -437,15 +438,11 @@ def entretien_check_view(request, exemplaire_id):
                 )
 
                 return redirect(
-                    "entretien:entretien_list",
-                    exemplaire_id=exemplaire.id
+                    f"{reverse('entretien:entretien_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                 )
 
-            except Exception as e:
 
-                # TEMPORAIRE POUR DEBUG
-                import traceback
-                traceback.print_exc()
+            except Exception as e:
 
                 messages.error(
                     request,
@@ -825,8 +822,7 @@ def modifier_entretien_view(request, entretien_id):
                 )
 
                 return redirect(
-                    "entretien:entretien_detail",
-                    entretien_id=entretien.id
+                    f"{reverse('entretien:entretien_detail', kwargs={'entretien_id': entretien.id})}?saved=1"
                 )
 
             except Exception as e:

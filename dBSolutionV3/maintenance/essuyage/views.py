@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
@@ -320,10 +321,11 @@ def essuyage_form_view(request, exemplaire_id):
                     )
 
                 messages.success(request, _("Contrôle du système d'essuyage enregistré avec succès."))
+
                 return redirect(
-                    "essuyage:essuyage_list",
-                    exemplaire_id=exemplaire.id,
+                    f"{reverse('essuyage:essuyage_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                 )
+
 
             except Exception as e:
                 messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -745,8 +747,7 @@ def modifier_essuyage_view(request, essuyage_id):
                     )
 
                     return redirect(
-                        "essuyage:essuyage_detail",
-                        essuyage_id=essuyage.id
+                        f"{reverse('essuyage:essuyage_detail', kwargs={'essuyage_id': essuyage.id})}?saved=1"
                     )
 
             except ValidationError as e:

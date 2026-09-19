@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
@@ -437,9 +438,9 @@ def track_check_form_view(request, exemplaire_id):
                 )
 
                 return redirect(
-                    "checkup_track:checkup_track_list",
-                    exemplaire_id=exemplaire.id,
+                    f"{reverse('checkup_track:checkup_track_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                 )
+
 
             except Exception as e:
 
@@ -767,9 +768,9 @@ def modifier_checkup_track_view(request, checkup_track_id):
                     _("Checkup piste modifié avec succès !")
                 )
 
+
                 return redirect(
-                    "checkup_track:checkup_track_detail",
-                    checkup_track_id=checkup_track.id,
+                    f"{reverse('checkup_track:checkup_track_detail', kwargs={'checkup_track_id': checkup_track.id})}?saved=1"
                 )
 
             except ValidationError as e:

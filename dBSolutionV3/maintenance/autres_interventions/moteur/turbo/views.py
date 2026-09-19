@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
@@ -428,13 +429,17 @@ def turbo_check_view(request, exemplaire_id):
                             request,
                             _("Check turbo enregistré avec succès.")
                         )
-                        return redirect("turbo:turbo_list", exemplaire_id=exemplaire.id)
+
+
+                        return redirect(
+                            f"{reverse('turbo:turbo_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
+                        )
+
 
             except Exception as e:
                 messages.error(request,_(f"Erreur lors de l'enregistrement : {str(e)}")
                 )
         else:
-            print("FORM INVALID:", form.errors)
             messages.error(request, _("Formulaire invalide"))
 
     else:
@@ -669,7 +674,10 @@ def modifier_turbo_view(request, turbo_id):
                 )
 
                 messages.success(request, _("Contrôle du turbo modifié avec succès !"))
-                return redirect("turbo:turbo_detail", turbo_id=turbo.id)
+
+                return redirect(
+                    f"{reverse('turbo:turbo_detail', kwargs={'turbo_id': turbo.id})}?saved=1"
+                )
 
             except ValidationError as e:
                 form.add_error(None, e)

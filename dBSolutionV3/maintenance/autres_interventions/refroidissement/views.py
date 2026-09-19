@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.utils.text import slugify
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse
@@ -438,9 +439,9 @@ def ref_form_view(request, exemplaire_id):
                         )
 
                         return redirect(
-                            "refroidissement:ref_list",
-                            exemplaire_id=exemplaire.id,
+                            f"{reverse('refroidissement:ref_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
                         )
+
 
             except ValidationError:
                 messages.error(
@@ -888,7 +889,10 @@ def modifier_ref_view(request, ref_id):
                 )
 
                 messages.success(request, _("Contrôle du système de refroidissement modifié avec succès !"))
-                return redirect("refroidissement:ref_detail", ref_id=ref.id)
+
+                return redirect(
+                    f"{reverse('refroidissement:ref_detail', kwargs={'ref_id': ref.id})}?saved=1"
+                )
 
             except ValidationError as e:
                 form.add_error(None, e)
