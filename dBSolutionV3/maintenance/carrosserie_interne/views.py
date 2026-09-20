@@ -638,7 +638,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
             ],
         },
         {
-            "title": _("Support pare-chocs avant"),
+            "title": _("Support de pare-chocs avant"),
             "icon": "icons/pare-chocs.png",
             "fields": [
                 f for f in form
@@ -646,7 +646,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
             ],
         },
         {
-            "title": _("Support pare-chocs arrière"),
+            "title": _("Support de pare-chocs arrière"),
             "icon": "icons/pare-chocs.png",
             "fields": [
                 f for f in form
@@ -1074,7 +1074,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
             ],
         },
         {
-            "title": _("Peinture aile avant droite"),
+            "title": _("Peinture de l'aile avant droite"),
             "icon": "icons/pistolet-a-peinture.png",
             "fields": [
                 f for f in form
@@ -1082,7 +1082,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
             ],
         },
         {
-            "title": _("Peinture aile avant gauche"),
+            "title": _("Peinture de l'aile avant gauche"),
             "icon": "icons/pistolet-a-peinture.png",
             "fields": [
                 f for f in form
@@ -1090,7 +1090,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
             ],
         },
         {
-            "title": _("Peinture aile arrière droite"),
+            "title": _("Peinture de l'aile arrière droite"),
             "icon": "icons/pistolet-a-peinture.png",
             "fields": [
                 f for f in form
@@ -1098,7 +1098,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
             ],
         },
         {
-            "title": _("Peinture aile arrière gauche"),
+            "title": _("Peinture de l'aile arrière gauche"),
             "icon": "icons/pistolet-a-peinture.png",
             "fields": [
                 f for f in form
@@ -1106,7 +1106,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
             ],
         },
         {
-            "title": _("Peinture face avant"),
+            "title": _("Peinture de la face avant"),
             "icon": "icons/pistolet-a-peinture.png",
             "fields": [
                 f for f in form
@@ -1114,7 +1114,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
             ],
         },
         {
-            "title": _("Peinture capot"),
+            "title": _("Peinture du capot"),
             "icon": "icons/pistolet-a-peinture.png",
             "fields": [
                 f for f in form
