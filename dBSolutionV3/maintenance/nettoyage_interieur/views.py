@@ -242,25 +242,25 @@ def nettoyage_interieur_view(request, exemplaire_id):
                     # MAINTENANCE
                     # ====================================================
 
+                    # 🔴 maintenance unique
                     maintenance = Maintenance.objects.create(
-                        societe=tenant,
+                        societe=request.user.societe,
                         voiture_exemplaire=exemplaire,
                         immatriculation=exemplaire.immatriculation,
                         date_intervention=timezone.now().date(),
                         kilometres_chassis=exemplaire.kilometres_chassis,
-                        kilometres_dernier_entretien=(
-                            exemplaire.kilometres_dernier_entretien
-                        ),
-                        type_maintenance=(
-                            Maintenance.TypeMaintenance.NETTOYAGE_INTERIEUR
-                        ),
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.NETTOYAGE_INTERIEUR,
                         tag=Maintenance.Tag.JAUNE,
+
+                        # 👨‍🔧 utilisateur ayant réalisé la maintenance
+                        tech_technicien=request.user,
+                        tech_societe=request.user.societe,
+                        tech_nom_technicien=f"{request.user.prenom} {request.user.nom}",
+                        tech_role_technicien=request.user.role,
                     )
 
-                    # ====================================================
-                    # TECHNICIEN MAINTENANCE
-                    # ====================================================
-
+                    # 🔧 Affectation spécifique selon le rôle
                     if role == "mecanicien":
                         maintenance.mecanicien = request.user
 
@@ -268,15 +268,7 @@ def nettoyage_interieur_view(request, exemplaire_id):
                         maintenance.chef_mecanicien = request.user
 
                     elif role == "apprenti":
-                        maintenance.apprentis.add(
-                            request.user
-                        )
-
-                    elif role == "magasinier":
-                        maintenance.magasinier = request.user
-
-                    elif role == "direction":
-                        maintenance.direction = request.user
+                        maintenance.apprentis = request.user
 
                     maintenance.save()
 

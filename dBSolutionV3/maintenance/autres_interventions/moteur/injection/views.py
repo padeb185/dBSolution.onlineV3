@@ -249,40 +249,32 @@ def injection_form_view(request, exemplaire_id):
                             # MAINTENANCE
                             # ==================================================
 
+                            # 🔴 maintenance unique
                             maintenance = Maintenance.objects.create(
-                                societe=tenant,
+                                societe=request.user.societe,
                                 voiture_exemplaire=exemplaire,
                                 immatriculation=exemplaire.immatriculation,
                                 date_intervention=timezone.now().date(),
-                                kilometres_chassis=(
-                                    exemplaire.kilometres_chassis or 0
-                                ),
-                                kilometres_dernier_entretien=(
-                                    exemplaire.kilometres_dernier_entretien
-                                ),
-                                type_maintenance=(
-                                    Maintenance.TypeMaintenance.INJECTION
-                                ),
+                                kilometres_chassis=exemplaire.kilometres_chassis,
+                                kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                                type_maintenance=Maintenance.TypeMaintenance.INJECTION,
                                 tag=Maintenance.Tag.JAUNE,
                             )
 
-                            # ==================================================
-                            # RÔLE DANS MAINTENANCE
-                            # ==================================================
-
+                            # 🔧 rôle
                             if role == "mecanicien":
                                 maintenance.mecanicien = request.user
-
                             elif role == "chef_mecanicien":
                                 maintenance.chef_mecanicien = request.user
-
+                            elif role == "apprenti":
+                                maintenance.apprentis.add(request.user)
                             elif role == "magasinier":
                                 maintenance.magasinier = request.user
-
                             elif role == "direction":
                                 maintenance.direction = request.user
 
                             maintenance.save()
+
 
                             # M2M : après sauvegarde de Maintenance
                             if role == "apprenti":

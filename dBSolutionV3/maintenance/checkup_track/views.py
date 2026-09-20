@@ -297,76 +297,35 @@ def track_check_form_view(request, exemplaire_id):
                     # =========================
                     # MAINTENANCE
                     # =========================
-
+                    # 🔴 maintenance unique
                     maintenance = Maintenance.objects.create(
-                        societe=tenant,
+                        societe=request.user.societe,
                         voiture_exemplaire=exemplaire,
-                        immatriculation=(
-                            exemplaire.immatriculation
-                        ),
-                        date_intervention=(
-                            timezone.localtime(
-                                timezone.now()
-                            ).date()
-                        ),
-                        kilometres_chassis=(
-                            exemplaire.kilometres_chassis
-                        ),
-                        kilometres_dernier_entretien=(
-                            exemplaire.kilometres_dernier_entretien
-                        ),
-                        type_maintenance=(
-                            Maintenance.TypeMaintenance.CHECKUP_TRACK
-                        ),
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
                         tag=Maintenance.Tag.JAUNE,
+
+                        # 👨‍🔧 utilisateur ayant réalisé la maintenance
+                        tech_technicien=request.user,
+                        tech_societe=request.user.societe,
+                        tech_nom_technicien=f"{request.user.prenom} {request.user.nom}",
+                        tech_role_technicien=request.user.role,
                     )
 
-                    # =========================
-                    # AFFECTATION DU RÔLE
-                    # =========================
-
+                    # 🔧 Affectation spécifique selon le rôle
                     if role == "mecanicien":
-
-                        maintenance.mecanicien = (
-                            Mecanicien.objects.get(
-                                id=request.user.id
-                            )
-                        )
+                        maintenance.mecanicien = request.user
 
                     elif role == "chef_mecanicien":
-
-                        maintenance.chef_mecanicien = (
-                            ChefMecanicien.objects.get(
-                                id=request.user.id
-                            )
-                        )
+                        maintenance.chef_mecanicien = request.user
 
                     elif role == "apprenti":
-
-                        maintenance.apprentis = (
-                            Apprenti.objects.get(
-                                id=request.user.id
-                            )
-                        )
-
-                    elif role == "magasinier":
-
-                        maintenance.magasinier = (
-                            Magasinier.objects.get(
-                                id=request.user.id
-                            )
-                        )
-
-                    elif role == "direction":
-
-                        maintenance.direction = (
-                            Direction.objects.get(
-                                id=request.user.id
-                            )
-                        )
+                        maintenance.apprentis = request.user
 
                     maintenance.save()
-
 
                     # ==================================================
                     # CRÉATION CHECKUP

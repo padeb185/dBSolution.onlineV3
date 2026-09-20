@@ -203,65 +203,33 @@ def controle_total_view(request, exemplaire_id):
                     # ==================================================
                     # CRÉATION MAINTENANCE
                     # ==================================================
+                    # 🔴 maintenance unique
                     maintenance = Maintenance.objects.create(
                         societe=request.user.societe,
                         voiture_exemplaire=exemplaire,
                         immatriculation=exemplaire.immatriculation,
                         date_intervention=timezone.now().date(),
-
-                        # kilométrage actuel APRÈS mise à jour
-                        kilometres_chassis=(
-                            exemplaire.kilometres_chassis
-                        ),
-
-                        kilometres_dernier_entretien=(
-                            exemplaire.kilometres_dernier_entretien
-                        ),
-
-                        type_maintenance=(
-                            Maintenance.TypeMaintenance.CHECKUP
-                        ),
-
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.CHECKUP,
                         tag=Maintenance.Tag.JAUNE,
+
+                        # 👨‍🔧 utilisateur ayant réalisé la maintenance
+                        tech_technicien=request.user,
+                        tech_societe=request.user.societe,
+                        tech_nom_technicien=f"{request.user.prenom} {request.user.nom}",
+                        tech_role_technicien=request.user.role,
                     )
 
-                    # ==================================================
-                    # RÔLE
-                    # ==================================================
+                    # 🔧 Affectation spécifique selon le rôle
                     if role == "mecanicien":
-                        maintenance.mecanicien = (
-                            Mecanicien.objects.get(
-                                id=request.user.id
-                            )
-                        )
+                        maintenance.mecanicien = request.user
 
                     elif role == "chef_mecanicien":
-                        maintenance.chef_mecanicien = (
-                            ChefMecanicien.objects.get(
-                                id=request.user.id
-                            )
-                        )
+                        maintenance.chef_mecanicien = request.user
 
                     elif role == "apprenti":
-                        maintenance.apprentis = (
-                            Apprenti.objects.get(
-                                id=request.user.id
-                            )
-                        )
-
-                    elif role == "magasinier":
-                        maintenance.magasinier = (
-                            Magasinier.objects.get(
-                                id=request.user.id
-                            )
-                        )
-
-                    elif role == "direction":
-                        maintenance.direction = (
-                            Direction.objects.get(
-                                id=request.user.id
-                            )
-                        )
+                        maintenance.apprentis = request.user
 
                     maintenance.save()
 

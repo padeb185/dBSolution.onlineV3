@@ -240,6 +240,7 @@ def rodage_check_view(request, exemplaire_id):
 
 
                             # 🔴 Création maintenance UNIQUE
+                            # 🔴 maintenance unique
                             maintenance = Maintenance.objects.create(
                                 societe=request.user.societe,
                                 voiture_exemplaire=exemplaire,
@@ -251,21 +252,17 @@ def rodage_check_view(request, exemplaire_id):
                                 tag=Maintenance.Tag.JAUNE,
                             )
 
-                            # 🔧 Affectation rôle
+                            # 🔧 rôle
                             if role == "mecanicien":
-                                maintenance.mecanicien = Mecanicien.objects.get(id=request.user.id)
-
+                                maintenance.mecanicien = request.user
                             elif role == "chef_mecanicien":
-                                maintenance.chef_mecanicien = ChefMecanicien.objects.get(id=request.user.id)
-
+                                maintenance.chef_mecanicien = request.user
                             elif role == "apprenti":
-                                maintenance.apprentis = Apprenti.objects.get(id=request.user.id)
-
+                                maintenance.apprentis.add(request.user)
                             elif role == "magasinier":
-                                maintenance.magasinier = Magasinier.objects.get(id=request.user.id)
-
-                            elif role == 'direction':
-                                maintenance.direction = Direction.objects.get(id=request.user.id)
+                                maintenance.magasinier = request.user
+                            elif role == "direction":
+                                maintenance.direction = request.user
 
                             maintenance.save()
 

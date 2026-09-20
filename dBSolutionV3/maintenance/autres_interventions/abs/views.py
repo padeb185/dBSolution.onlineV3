@@ -237,9 +237,15 @@ def abs_form_view(request, exemplaire_id):
                         kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
                         type_maintenance=Maintenance.TypeMaintenance.ABS,
                         tag=Maintenance.Tag.JAUNE,
+
+                        # Utilisateur ayant réalisé la maintenance
+                        tech_technicien=request.user,
+                        tech_societe=request.user.societe,
+                        tech_nom_technicien=f"{request.user.prenom} {request.user.nom}",
+                        tech_role_technicien=request.user.role,
                     )
 
-                    # 🔧 affectation rôle
+                    # Relations spécifiques
                     if role == "mecanicien":
                         maintenance.mecanicien = request.user
 
@@ -247,13 +253,7 @@ def abs_form_view(request, exemplaire_id):
                         maintenance.chef_mecanicien = request.user
 
                     elif role == "apprenti":
-                        maintenance.apprentis.add(request.user)
-
-                    elif role == "magasinier":
-                        maintenance.magasinier = request.user
-
-                    elif role == "direction":
-                        maintenance.direction = request.user
+                        maintenance.apprentis = request.user
 
                     maintenance.save()
 

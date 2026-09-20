@@ -20,6 +20,7 @@ from django_tenants.utils import (
     get_public_schema_name,
     schema_context,
 )
+from maintenance.models import Maintenance
 
 
 Utilisateur = get_user_model()
@@ -365,11 +366,52 @@ def login_totp(request):
 # =====================================================
 # DASHBOARD
 # =====================================================
+from django.utils import timezone
 
 @never_cache
 @login_required(login_url="/fr/connexion/")
 def dashboard_view(request):
 
+    print(
+        "\n\n===== DASHBOARD VIEW EXECUTEE =====",
+        flush=True
+    )
+
+    societe = getattr(
+        request.user,
+        "societe",
+        None
+    )
+
+    print(
+        "SOCIETE:",
+        societe,
+        flush=True
+    )
+
+    print(
+        "TOTAL Maintenance:",
+        Maintenance.objects.count(),
+        flush=True
+    )
+
+    print(
+        "TOTAL tech_societe:",
+        Maintenance.objects.filter(
+            tech_societe=societe
+        ).count(),
+        flush=True
+    )
+    print(
+        "=== DASHBOARD APPELÉ ===",
+        timezone.now()
+    )
+
+    societe = getattr(
+        request.user,
+        "societe",
+        None
+    )
     societe = getattr(request.user, "societe", None)
 
 
@@ -461,6 +503,7 @@ def dashboard_view(request):
 
         return redirect("/fr/connexion/")
 
+
     return render(
         request,
         "dashboard.html",
@@ -468,9 +511,9 @@ def dashboard_view(request):
             "message": _(
                 "Bienvenue sur ton tableau de bord"
             ),
+
         },
     )
-
 
 # =====================================================
 # DÉCONNEXION

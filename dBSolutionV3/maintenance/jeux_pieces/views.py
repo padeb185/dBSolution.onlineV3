@@ -242,9 +242,15 @@ def controle_jeux_pieces_view(request, exemplaire_id):
                         kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
                         type_maintenance=Maintenance.TypeMaintenance.JEUX_PIECES,
                         tag=Maintenance.Tag.JAUNE,
+
+                        # 👨‍🔧 utilisateur ayant réalisé la maintenance
+                        tech_technicien=request.user,
+                        tech_societe=request.user.societe,
+                        tech_nom_technicien=f"{request.user.prenom} {request.user.nom}",
+                        tech_role_technicien=request.user.role,
                     )
 
-                    # 🔧 affectation rôle
+                    # 🔧 Affectation spécifique selon le rôle
                     if role == "mecanicien":
                         maintenance.mecanicien = request.user
 
@@ -252,15 +258,11 @@ def controle_jeux_pieces_view(request, exemplaire_id):
                         maintenance.chef_mecanicien = request.user
 
                     elif role == "apprenti":
-                        maintenance.apprentis.add(request.user)
-
-                    elif role == "magasinier":
-                        maintenance.magasinier = request.user
-
-                    elif role == "direction":
-                        maintenance.direction = request.user
+                        maintenance.apprentis = request.user
 
                     maintenance.save()
+
+
                     controle = form.save(commit=False)
 
                     controle.voiture_exemplaire = exemplaire

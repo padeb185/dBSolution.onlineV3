@@ -164,15 +164,26 @@ def dashboard_view(request):
             total_carburant = carburant.count()
             total_assurance_police = assurance_police.count()
             total_client_atelier = client_atelier.count()
-            total_maintenances_user = maintenance.count()
 
-            total_maintenances_user = Maintenance.objects.filter(
-                societe=societe
-            ).filter(
-                Q(mecanicien_id=user.id) |
-                Q(chef_mecanicien_id=user.id) |
-                Q(apprentis__id=user.id)
-            ).distinct().count()
+
+            #total_maintenances_user = maintenance.count()
+
+
+            # ==========================================
+            # TOTAL DES MAINTENANCES DE L'UTILISATEUR
+            # ==========================================
+
+            total_maintenances_user = (
+                maintenance
+                .filter(
+                    Q(mecanicien_id=user.id)
+                    | Q(chef_mecanicien_id=user.id)
+                    | Q(apprentis_id=user.id)
+                    | Q(tech_technicien_id=user.id)
+                )
+                .distinct()
+                .count()
+            )
 
             total_client = client_particulier.count() + client_atelier.count() + client_pilotage.count()
 

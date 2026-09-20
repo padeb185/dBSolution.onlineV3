@@ -238,7 +238,7 @@ def bte_auto_check_view(request, exemplaire_id):
                         bte_auto.kilometres_chassis = exemplaire.kilometres_chassis
                         bte_auto.kilometrage_controle_boite_auto = km
 
-                    # 🔴 MAINTENANCE UNIQUE
+                    # 🔴 maintenance unique
                     maintenance = Maintenance.objects.create(
                         societe=request.user.societe,
                         voiture_exemplaire=exemplaire,
@@ -248,9 +248,15 @@ def bte_auto_check_view(request, exemplaire_id):
                         kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
                         type_maintenance=Maintenance.TypeMaintenance.BOITE_AUTO,
                         tag=Maintenance.Tag.JAUNE,
+
+                        # 👨‍🔧 utilisateur ayant réalisé la maintenance
+                        tech_technicien=request.user,
+                        tech_societe=request.user.societe,
+                        tech_nom_technicien=f"{request.user.prenom} {request.user.nom}",
+                        tech_role_technicien=request.user.role,
                     )
 
-                    # 🔧 affectation rôle
+                    # 🔧 Affectation spécifique selon le rôle
                     if role == "mecanicien":
                         maintenance.mecanicien = request.user
 
@@ -258,13 +264,7 @@ def bte_auto_check_view(request, exemplaire_id):
                         maintenance.chef_mecanicien = request.user
 
                     elif role == "apprenti":
-                        maintenance.apprentis.add(request.user)
-
-                    elif role == "magasinier":
-                        maintenance.magasinier = request.user
-
-                    elif role == "direction":
-                        maintenance.direction = request.user
+                        maintenance.apprentis = request.user
 
                     maintenance.save()
 

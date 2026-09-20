@@ -273,59 +273,30 @@ def admission_check_view(request, exemplaire_id):
                             # =====================================
                             # MAINTENANCE
                             # =====================================
-                            maintenance = (
-                                Maintenance.objects.create(
-                                    societe=tenant,
-                                    voiture_exemplaire=exemplaire,
-                                    immatriculation=(
-                                        exemplaire.immatriculation
-                                    ),
-                                    date_intervention=(
-                                        timezone.localdate()
-                                    ),
-                                    kilometres_chassis=km,
-                                    kilometres_dernier_entretien=(
-                                        exemplaire
-                                        .kilometres_dernier_entretien
-                                        or 0
-                                    ),
-                                    type_maintenance=(
-                                        Maintenance
-                                        .TypeMaintenance
-                                        .ADMISSION
-                                    ),
-                                    tag=(
-                                        Maintenance.Tag.JAUNE
-                                    ),
-                                )
+                            # 🔴 maintenance unique
+                            maintenance = Maintenance.objects.create(
+                                societe=request.user.societe,
+                                voiture_exemplaire=exemplaire,
+                                immatriculation=exemplaire.immatriculation,
+                                date_intervention=timezone.now().date(),
+                                kilometres_chassis=exemplaire.kilometres_chassis,
+                                kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                                type_maintenance=Maintenance.TypeMaintenance.ADMISSION,
+                                tag=Maintenance.Tag.JAUNE,
                             )
 
-                            # =====================================
-                            # PERSONNEL
-                            # =====================================
+                            # 🔧 rôle
                             if role == "mecanicien":
-                                maintenance.mecanicien = (
-                                    request.user
-                                )
-
+                                maintenance.mecanicien = request.user
                             elif role == "chef_mecanicien":
-                                maintenance.chef_mecanicien = (
-                                    request.user
-                                )
-
+                                maintenance.chef_mecanicien = request.user
+                            elif role == "apprenti":
+                                maintenance.apprentis.add(request.user)
                             elif role == "magasinier":
-                                maintenance.magasinier = (
-                                    request.user
-                                )
-
+                                maintenance.magasinier = request.user
                             elif role == "direction":
-                                maintenance.direction = (
-                                    request.user
-                                )
+                                maintenance.direction = request.user
 
-                            # Maintenance déjà créée par
-                            # objects.create(), mais nécessaire
-                            # après modification du personnel.
                             maintenance.save()
 
                             # ManyToMany APRÈS sauvegarde

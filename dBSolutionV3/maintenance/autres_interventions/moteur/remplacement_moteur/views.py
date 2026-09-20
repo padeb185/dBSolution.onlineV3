@@ -242,67 +242,31 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                     # ==================================================
                     # MAINTENANCE
                     # ==================================================
+                    # 🔴 maintenance unique
                     maintenance = Maintenance.objects.create(
                         societe=request.user.societe,
                         voiture_exemplaire=exemplaire,
-                        immatriculation=(
-                            exemplaire.immatriculation
-                        ),
-                        date_intervention=(
-                            timezone.now().date()
-                        ),
-
-                        # Ancienne valeur avant le contrôle
-                        kilometres_chassis=(
-                            ancien_km_chassis
-                        ),
-
-                        kilometres_dernier_entretien=(
-                            exemplaire.kilometres_dernier_entretien
-                        ),
-
-                        type_maintenance=(
-                            Maintenance.TypeMaintenance.REMPLACEMENT_MOTEUR
-                        ),
-
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.REMPLACEMENT_MOTEUR,
                         tag=Maintenance.Tag.JAUNE,
                     )
 
-                    # ==================================================
-                    # UTILISATEUR / RÔLE SUR MAINTENANCE
-                    # ==================================================
+                    # 🔧 rôle
                     if role == "mecanicien":
-
-                        maintenance.mecanicien = (
-                            request.user
-                        )
-
+                        maintenance.mecanicien = request.user
                     elif role == "chef_mecanicien":
-
-                        maintenance.chef_mecanicien = (
-                            request.user
-                        )
-
+                        maintenance.chef_mecanicien = request.user
+                    elif role == "apprenti":
+                        maintenance.apprentis.add(request.user)
                     elif role == "magasinier":
-
-                        maintenance.magasinier = (
-                            request.user
-                        )
-
+                        maintenance.magasinier = request.user
                     elif role == "direction":
-
-                        maintenance.direction = (
-                            request.user
-                        )
+                        maintenance.direction = request.user
 
                     maintenance.save()
-
-                    # M2M après sauvegarde
-                    if role == "apprenti":
-                        maintenance.apprentis.add(
-                            request.user
-                        )
-
                     # ==================================================
                     # PRÉPARATION DU REMPLACEMENT MOTEUR
                     # ==================================================

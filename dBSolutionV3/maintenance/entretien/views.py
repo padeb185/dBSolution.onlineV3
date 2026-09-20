@@ -297,67 +297,33 @@ def entretien_check_view(request, exemplaire_id):
                     # =========================
                     # MAINTENANCE
                     # =========================
-                    maintenance = Maintenance(
-                        societe=tenant,
+                    # 🔴 maintenance unique
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
                         voiture_exemplaire=exemplaire,
                         immatriculation=exemplaire.immatriculation,
                         date_intervention=timezone.now().date(),
-
-                        kilometres_chassis=(
-                            exemplaire.kilometres_chassis
-                        ),
-
-                        kilometres_dernier_entretien=(
-                            exemplaire.kilometres_dernier_entretien
-                        ),
-
-                        type_maintenance=(
-                            Maintenance.TypeMaintenance.ENTRETIEN
-                        ),
-
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.ENTRETIEN,
                         tag=Maintenance.Tag.JAUNE,
+
+                        # 👨‍🔧 utilisateur ayant réalisé la maintenance
+                        tech_technicien=request.user,
+                        tech_societe=request.user.societe,
+                        tech_nom_technicien=f"{request.user.prenom} {request.user.nom}",
+                        tech_role_technicien=request.user.role,
                     )
 
-                    # =========================
-                    # AFFECTATION UTILISATEUR
-                    # =========================
-                    #
-                    # IMPORTANT :
-                    # ne pas utiliser systématiquement
-                    # Mecanicien.objects.get(id=request.user.id)
-                    #
-                    # Si tes modèles ont un lien `utilisateur`,
-                    # utilise plutôt celui-ci.
-                    #
-
-                    # =========================
-                    # AFFECTATION DU RÔLE
-                    # =========================
-
+                    # 🔧 Affectation spécifique selon le rôle
                     if role == "mecanicien":
-                        maintenance.mecanicien = Mecanicien.objects.filter(
-                            pk=request.user.pk
-                        ).first()
+                        maintenance.mecanicien = request.user
 
                     elif role == "chef_mecanicien":
-                        maintenance.chef_mecanicien = ChefMecanicien.objects.filter(
-                            pk=request.user.pk
-                        ).first()
+                        maintenance.chef_mecanicien = request.user
 
                     elif role == "apprenti":
-                        maintenance.apprentis = Apprenti.objects.filter(
-                            pk=request.user.pk
-                        ).first()
-
-                    elif role == "magasinier":
-                        maintenance.magasinier = Magasinier.objects.filter(
-                            pk=request.user.pk
-                        ).first()
-
-                    elif role == "direction":
-                        maintenance.direction = Direction.objects.filter(
-                            pk=request.user.pk
-                        ).first()
+                        maintenance.apprentis = request.user
 
                     maintenance.save()
 

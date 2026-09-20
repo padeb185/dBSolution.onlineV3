@@ -243,19 +243,15 @@ def courroie_form_view(request, exemplaire_id):
                                 tag=Maintenance.Tag.JAUNE,
                             )
 
-                            # 🔧 affectation rôle
+                            # 🔧 rôle
                             if role == "mecanicien":
                                 maintenance.mecanicien = request.user
-
                             elif role == "chef_mecanicien":
                                 maintenance.chef_mecanicien = request.user
-
                             elif role == "apprenti":
                                 maintenance.apprentis.add(request.user)
-
                             elif role == "magasinier":
                                 maintenance.magasinier = request.user
-
                             elif role == "direction":
                                 maintenance.direction = request.user
 

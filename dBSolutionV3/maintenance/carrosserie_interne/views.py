@@ -79,7 +79,6 @@ class CarrosserieInterneListView(LoginRequiredMixin, ListView):
 
         return context
 
-
 @never_cache
 @login_required
 def carrosserie_interne_create_view(request, exemplaire_id):
@@ -87,35 +86,55 @@ def carrosserie_interne_create_view(request, exemplaire_id):
     tenant = request.user.societe
     role = request.user.role
 
+    # ==========================================================
+    # RÉCUPÉRATION DU VÉHICULE
+    # ==========================================================
 
-
-    # 🔎 Récupération exemplaire
     exemplaire = get_object_or_404(
         VoitureExemplaire.objects.filter(
-            Q(client__societe=tenant) |
-            Q(client__isnull=True, societe=tenant)
+            Q(client__societe=tenant)
+            | Q(
+                client__isnull=True,
+                societe=tenant,
+            )
         ),
-        id=exemplaire_id
+        id=exemplaire_id,
     )
 
-    # 🔐 Vérification rôles
+    # ==========================================================
+    # VÉRIFICATION DES RÔLES
+    # ==========================================================
+
     roles_autorises = [
         "mecanicien",
         "apprenti",
         "magasinier",
         "chef_mecanicien",
-        "direction"
+        "direction",
     ]
 
-    if role not in roles_autorises:
-        messages.error(request, _("Accès refusé"))
-        return redirect("utilisateurs:dashboard")
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé"),
+        )
 
-    # =========================
-    # POST
-    # =========================
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==========================================================
+    # MAINTENANCE
+    # ==========================================================
 
     maintenance = None
+
+    # ==========================================================
+    # POST
+    # ==========================================================
 
     if request.method == "POST":
 
@@ -128,31 +147,53 @@ def carrosserie_interne_create_view(request, exemplaire_id):
         if form.is_valid():
 
             try:
+
                 with transaction.atomic():
 
-                    # =========================
-                    # KILOMÉTRAGE
-                    # =========================
+                    # ==================================================
+                    # KILOMÉTRAGE AVANT INTERVENTION
+                    # ==================================================
+
                     ancien_kilometrage = (
-                            exemplaire.kilometres_chassis or 0
+                        exemplaire.kilometres_chassis
+                        or 0
                     )
 
                     ancien_kilometrage_boite = (
-                            exemplaire.kilometres_boite or 0
+                        exemplaire.kilometres_boite
+                        or 0
                     )
 
                     ancien_kilometrage_moteur = (
-                            exemplaire.kilometres_moteur or 0
+                        exemplaire.kilometres_moteur
+                        or 0
                     )
 
                     ancien_kilometrage_embrayage = (
-                            exemplaire.kilometres_embrayage or 0
+                        exemplaire.kilometres_embrayage
+                        or 0
                     )
 
-                    km = form.cleaned_data["kilometrage_intervention"]
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
 
+                    km = form.cleaned_data.get(
+                        "kilometrage_intervention"
+                    )
+
+                    if km is None:
+                        raise ValueError(
+                            _(
+                                "Le kilométrage de l'intervention "
+                                "est obligatoire."
+                            )
+                        )
+
+                    km = int(km)
 
                     if km < ancien_kilometrage:
+
                         raise ValueError(
                             _(
                                 "Le kilométrage du contrôle carrosserie "
@@ -162,45 +203,74 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                         )
 
                     kilometrage_variation = (
-                            km - ancien_kilometrage
+                        km
+                        - ancien_kilometrage
                     )
 
-                    # =========================
-                    # CARROSSERIE
-                    # =========================
+                    # ==================================================
+                    # PRÉPARATION CARROSSERIE INTERNE
+                    # ==================================================
 
-                    carrosserie_interne = form.save(
-                        commit=False
+                    carrosserie_interne = (
+                        form.save(
+                            commit=False
+                        )
                     )
 
-                    carrosserie_interne.societe = tenant
-                    carrosserie_interne.voiture_exemplaire = exemplaire
+                    carrosserie_interne.societe = (
+                        tenant
+                    )
+
+                    carrosserie_interne.voiture_exemplaire = (
+                        exemplaire
+                    )
+
                     carrosserie_interne.immatriculation = (
                         exemplaire.immatriculation
                     )
 
-                    carrosserie_interne.kilometrage_intervention = km
+                    # Kilométrage de l'intervention
+                    carrosserie_interne.kilometrage_intervention = (
+                        km
+                    )
 
-                    # kilométrage avant intervention
+                    # Kilométrages AVANT intervention
                     carrosserie_interne.kilometres_chassis = (
                         ancien_kilometrage
+                    )
+
+                    carrosserie_interne.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+
+                    carrosserie_interne.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
+
+                    carrosserie_interne.kilometres_embrayage = (
+                        ancien_kilometrage_embrayage
                     )
 
                     carrosserie_interne.kilometrage_variation = (
                         kilometrage_variation
                     )
 
-                    carrosserie_interne.tech_last_maintained_by = (
-                        request.user
-                    )
+                    # ==================================================
+                    # TECHNICIEN CARROSSERIE
+                    # ==================================================
 
                     carrosserie_interne.assign_technicien(
                         request.user
                     )
 
-                    # =============================================
-                    # ROLLBACK VÉHICULE
-                    # =============================================
+                    carrosserie_interne.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # ROLLBACK DU VÉHICULE
+                    # ==================================================
+
                     exemplaire.kilometres_rollback = (
                         ancien_kilometrage
                     )
@@ -217,29 +287,36 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                         ancien_kilometrage_embrayage
                     )
 
-                    # =============================================
-                    # DATE INTERVENTION
-                    # =============================================
+                    # ==================================================
+                    # DATE DERNIÈRE INTERVENTION
+                    # ==================================================
+
                     exemplaire.date_derniere_intervention = (
                         timezone.localtime(
                             timezone.now()
                         ).date()
                     )
 
-                    # =============================================
-                    # NOUVEAU KILOMÉTRAGE
-                    # =============================================
-                    exemplaire.kilometres_chassis = km
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE DU VÉHICULE
+                    # ==================================================
 
-                    # Recalcule :
+                    exemplaire.kilometres_chassis = (
+                        km
+                    )
+
+                    # Recalcule notamment :
                     # - kilometres_moteur
                     # - kilometres_boite
+                    # - kilometres_embrayage
                     # - variation_kilometres
+
                     exemplaire.update_kilometres()
 
-                    # =============================================
-                    # SAUVEGARDE VÉHICULE
-                    # =============================================
+                    # ==================================================
+                    # SAUVEGARDE DU VÉHICULE
+                    # ==================================================
+
                     exemplaire.save(
                         update_fields=[
                             "kilometres_chassis",
@@ -255,234 +332,206 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                             "kilometres_moteur",
                             "kilometres_boite",
                             "kilometres_embrayage",
-                            "variation_kilometres"
+                            "variation_kilometres",
                         ]
                     )
 
+                    # ==================================================
+                    # CRÉATION MAINTENANCE
+                    # ==================================================
 
+                    maintenance = (
+                        Maintenance.objects.create(
+                            societe=tenant,
+                            voiture_exemplaire=exemplaire,
+                            immatriculation=(
+                                exemplaire.immatriculation
+                            ),
+                            date_intervention=(
+                                timezone.now().date()
+                            ),
+                            kilometres_chassis=(
+                                exemplaire.kilometres_chassis
+                            ),
+                            kilometres_dernier_entretien=(
+                                exemplaire.kilometres_dernier_entretien
+                            ),
 
-                    # =========================
-                    # MAINTENANCE
-                    # =========================
+                            # ⚠️ Vérifier que ce choix existe
+                            type_maintenance=(
+                                Maintenance.TypeMaintenance.CARROSSERIE_INTERNE
+                            ),
 
-                    maintenance = Maintenance.objects.create(
-                        societe=tenant,
-                        voiture_exemplaire=exemplaire,
-                        immatriculation=exemplaire.immatriculation,
-                        date_intervention=timezone.now().date(),
-                        kilometres_chassis=km,
-                        kilometres_dernier_entretien=(
-                            exemplaire.kilometres_dernier_entretien
-                        ),
-                        type_maintenance=(
-                            Maintenance.TypeMaintenance.CARROSSERIE_INTERNE
-                        ),
-                        tag=Maintenance.Tag.JAUNE,
+                            tag=Maintenance.Tag.JAUNE,
+
+                            # Utilisateur ayant réalisé
+                            # la maintenance
+                            tech_technicien=request.user,
+                            tech_societe=tenant,
+                            tech_nom_technicien=(
+                                f"{request.user.prenom} "
+                                f"{request.user.nom}"
+                            ),
+                            tech_role_technicien=(
+                                request.user.role
+                            ),
+                        )
                     )
 
-                    # =========================
-                    # TECHNICIEN MAINTENANCE
-                    # =========================
+                    # ==================================================
+                    # RÔLE DE L'UTILISATEUR
+                    # ==================================================
 
                     if role == "mecanicien":
+
                         maintenance.mecanicien = (
-                            Mecanicien.objects.get(
-                                id=request.user.id
-                            )
+                            request.user
                         )
 
                     elif role == "chef_mecanicien":
+
                         maintenance.chef_mecanicien = (
-                            ChefMecanicien.objects.get(
-                                id=request.user.id
-                            )
+                            request.user
                         )
 
                     elif role == "apprenti":
+
                         maintenance.apprentis = (
-                            Apprenti.objects.get(
-                                id=request.user.id
-                            )
-                        )
-
-                    elif role == "magasinier":
-                        maintenance.magasinier = (
-                            Magasinier.objects.get(
-                                id=request.user.id
-                            )
-                        )
-
-                    elif role == "direction":
-                        maintenance.direction = (
-                            Direction.objects.get(
-                                id=request.user.id
-                            )
-                        )
-
-                        # ------------------------------------------
-                        # Enregistrement du contrôle
-                        # ------------------------------------------
-
-                        carrosserie_interne = form.save(commit=False)
-
-                        carrosserie_interne.voiture_exemplaire = (
-                            exemplaire
-                        )
-
-                        carrosserie_interne.maintenance = (
-                            maintenance
-                        )
-
-                        # ---------------------------------------------
-                        # Kilométrage AVANT intervention
-                        # ---------------------------------------------
-                        carrosserie_interne.kilometres_chassis = (
-                            ancien_kilometrage
-                        )
-
-                        carrosserie_interne.kilometres_boite = (
-                            ancien_kilometrage_boite
-                        )
-
-                        carrosserie_interne.kilometres_moteur = (
-                            ancien_kilometrage_moteur
-                        )
-
-                        carrosserie_interne.kilometres_embrayage = (
-                            ancien_kilometrage_embrayage
-                        )
-
-                        # ---------------------------------------------
-                        # Kilométrage carrosserie_interne
-                        # ---------------------------------------------
-                        carrosserie_interne.kilometrage_intervention = km
-
-                        # ---------------------------------------------
-                        # Variation kilométrique
-                        # ---------------------------------------------
-                        carrosserie_interne.kilometrage_variation = (
-                            kilometrage_variation
-                        )
-
-                        # =============================================
-                        # TECHNICIEN
-                        # =============================================
-                        carrosserie_interne.assign_technicien(
                             request.user
                         )
 
-                        carrosserie_interne.tech_last_maintained_by = (
-                            request.user
+                    maintenance.save()
+
+                    # ==================================================
+                    # LIEN CARROSSERIE -> MAINTENANCE
+                    # ==================================================
+
+                    carrosserie_interne.maintenance = (
+                        maintenance
+                    )
+
+                    # ==================================================
+                    # MAIN-D'ŒUVRE
+                    # ==================================================
+
+                    heures = (
+                        form.cleaned_data.get(
+                            "temps_heures"
+                        )
+                        or 0
+                    )
+
+                    minutes = (
+                        form.cleaned_data.get(
+                            "temps_minutes"
+                        )
+                        or 0
+                    )
+
+                    total_minutes = (
+                        heures * 60
+                        + minutes
+                    )
+
+                    taux_horaire = (
+                        form.cleaned_data.get(
+                            "taux_horaire"
+                        )
+                        or 0
+                    )
+
+                    # ==================================================
+                    # MAIN-D'ŒUVRE EXISTANTE
+                    # ==================================================
+
+                    if carrosserie_interne.main_oeuvre_id:
+
+                        main_oeuvre = (
+                            carrosserie_interne.main_oeuvre
                         )
 
-                        # ==================================================
-                        # MAIN-D'ŒUVRE
-                        # ==================================================
-                        heures = (
-                                form.cleaned_data.get("temps_heures")
-                                or 0
+                        main_oeuvre.temps_minutes = (
+                            total_minutes
                         )
 
-                        minutes = (
-                                form.cleaned_data.get("temps_minutes")
-                                or 0
+                        main_oeuvre.taux_horaire = (
+                            taux_horaire
                         )
 
-                        total_minutes = (
-                                heures * 60 + minutes
-                        )
-
-                        taux_horaire = (
-                                form.cleaned_data.get("taux_horaire")
-                                or 0
-                        )
-
-                        # --------------------------------------------------
-                        # Mise à jour main-d'œuvre existante
-                        # --------------------------------------------------
-                        if carrosserie_interne.main_oeuvre_id:
-
-                            main_oeuvre = (
-                                carrosserie_interne.main_oeuvre
-                            )
-
-                            main_oeuvre.temps_minutes = (
-                                total_minutes
-                            )
-
-                            main_oeuvre.taux_horaire = (
-                                taux_horaire
-                            )
-
-                            main_oeuvre.save(
-                                update_fields=[
-                                    "temps_minutes",
-                                    "taux_horaire",
-                                ]
-                            )
-
-                        # --------------------------------------------------
-                        # Création main-d'œuvre
-                        # --------------------------------------------------
-                        else:
-
-                            main_oeuvre = (
-                                MainDoeuvre.objects.create(
-                                    utilisateur=request.user,
-                                    temps_minutes=total_minutes,
-                                    taux_horaire=taux_horaire,
-                                )
-                            )
-
-                            carrosserie_interne.main_oeuvre = (
-                                main_oeuvre
-                            )
-
-                        # ==================================================
-                        # SAUVEGARDE carrosserie_interne
-                        # IMPORTANT :
-                        # EN DEHORS DU IF/ELSE MAIN-D'ŒUVRE
-                        # ==================================================
-                        carrosserie_interne.save()
-
-                        form.save_m2m()
-
-                        # ==================================================
-                        # MISE À JOUR DU VÉHICULE
-                        # ==================================================
-                        exemplaire.kilometres_chassis = km
-
-                        exemplaire.save(
+                        main_oeuvre.save(
                             update_fields=[
-                                "kilometres_chassis",
-                                "kilometres_boite",
-                                "kilometres_moteur",
-                                "kilometres_embrayage"
+                                "temps_minutes",
+                                "taux_horaire",
                             ]
                         )
 
-                        # Nécessaire si le formulaire contient
-                        # éventuellement des champs ManyToMany
-                        form.save_m2m()
+                    # ==================================================
+                    # NOUVELLE MAIN-D'ŒUVRE
+                    # ==================================================
 
+                    else:
 
+                        main_oeuvre = (
+                            MainDoeuvre.objects.create(
+                                utilisateur=request.user,
+                                temps_minutes=(
+                                    total_minutes
+                                ),
+                                taux_horaire=(
+                                    taux_horaire
+                                ),
+                            )
+                        )
 
-                    ACTION_CARROSSERIE = gettext_noop(
-                        "Carrosserie"
+                        carrosserie_interne.main_oeuvre = (
+                            main_oeuvre
+                        )
+
+                    # ==================================================
+                    # SAUVEGARDE CARROSSERIE INTERNE
+                    # ==================================================
+
+                    carrosserie_interne.save()
+
+                    # Champs ManyToMany éventuels
+                    form.save_m2m()
+
+                    # ==================================================
+                    # USER LOG
+                    # ==================================================
+
+                    ACTION_CARROSSERIE = (
+                        gettext_noop(
+                            "Carrosserie"
+                        )
                     )
 
                     UserLog.objects.create(
                         utilisateur=request.user,
-                        action=f"{ACTION_CARROSSERIE} - {exemplaire.immatriculation}"
+                        action=(
+                            f"{ACTION_CARROSSERIE} - "
+                            f"{exemplaire.immatriculation}"
+                        ),
                     )
-                messages.success(request,_( "Intervention carrosserie enregistrée avec succès."),)
 
-                return redirect(
-                    f"{reverse('carrosserie_interne:carrosserie_interne_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
+                # ======================================================
+                # SUCCÈS
+                # ======================================================
+
+                messages.success(
+                    request,
+                    _(
+                        "Intervention carrosserie "
+                        "enregistrée avec succès."
+                    ),
                 )
 
+                return redirect(
+                    f"{reverse('carrosserie_interne:carrosserie_interne_list',kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
+                )
 
             except Exception as e:
+
                 messages.error(
                     request,
                     _("Erreur : %(erreur)s") % {
@@ -492,454 +541,667 @@ def carrosserie_interne_create_view(request, exemplaire_id):
 
         else:
 
-
             messages.error(
                 request,
-                _("Le formulaire contient des erreurs."),
+                _(
+                    "Le formulaire contient "
+                    "des erreurs."
+                ),
             )
 
-    carrosserie_interne = CarrosserieInterne(
-        societe=tenant,
-        voiture_exemplaire=exemplaire,
-        kilometres_chassis=(
-                exemplaire.kilometres_chassis or 0
-        ),
+    # ==========================================================
+    # GET
+    # ==========================================================
 
-        kilometres_moteur=(
-                exemplaire.kilometres_moteur or 0
-        ),
+    else:
 
-        kilometres_boite=(
-                exemplaire.kilometres_boite or 0
-        ),
-        kilometres_embrayage=(
-                exemplaire.kilometres_embrayage or 0
-        ),
+        carrosserie_interne = (
+            CarrosserieInterne(
+                societe=tenant,
+                voiture_exemplaire=exemplaire,
 
-    )
+                kilometres_chassis=(
+                    exemplaire.kilometres_chassis
+                    or 0
+                ),
 
-    carrosserie_interne.assign_technicien(request.user)
+                kilometres_moteur=(
+                    exemplaire.kilometres_moteur
+                    or 0
+                ),
 
-    form = CarrosserieInterneForm(
-        instance=carrosserie_interne,
-        user=request.user,
-        exemplaire=exemplaire
+                kilometres_boite=(
+                    exemplaire.kilometres_boite
+                    or 0
+                ),
 
-    )
+                kilometres_embrayage=(
+                    exemplaire.kilometres_embrayage
+                    or 0
+                ),
+            )
+        )
 
-    # 🔥 SECTIONS (remplace ton get_context_data)
+        carrosserie_interne.assign_technicien(
+            request.user
+        )
+
+        form = CarrosserieInterneForm(
+            instance=carrosserie_interne,
+            user=request.user,
+            exemplaire=exemplaire,
+        )
+
+    # ==========================================================
+    # SECTIONS
+    # ==========================================================
+
     sections = [
         {
-            "title": "Kilométrage",
+            "title": _("Kilométrage"),
             "icon": "icons/compteur.png",
-            "fields": [f for f in form if "kilo" in f.name],
+            "fields": [
+                f for f in form
+                if "kilo" in f.name
+            ],
         },
         {
-            "title": "Pare-chocs avant",
+            "title": _("Pare-chocs avant"),
             "icon": "icons/pare-chocs.png",
-            "fields": [f for f in form if "pare_choc_av" in f.name],
+            "fields": [
+                f for f in form
+                if "pare_choc_av" in f.name
+            ],
         },
         {
-            "title": "Pare-chocs arrière",
+            "title": _("Pare-chocs arrière"),
             "icon": "icons/pare-chocs.png",
-            "fields": [f for f in form if "pare_choc_ar" in f.name],
+            "fields": [
+                f for f in form
+                if "pare_choc_ar" in f.name
+            ],
         },
         {
-            "title": "Traverse avant",
+            "title": _("Traverse avant"),
             "icon": "icons/pare-chocs.png",
-            "fields": [f for f in form if "bouclier_av" in f.name],
+            "fields": [
+                f for f in form
+                if "bouclier_av" in f.name
+            ],
         },
         {
-            "title": "Traverse arrière",
+            "title": _("Traverse arrière"),
             "icon": "icons/pare-chocs.png",
-            "fields": [f for f in form if "bouclier_ar" in f.name],
+            "fields": [
+                f for f in form
+                if "bouclier_ar" in f.name
+            ],
         },
-
         {
-            "title": "Support pare-chocs avant",
+            "title": _("Support pare-chocs avant"),
             "icon": "icons/pare-chocs.png",
-            "fields": [f for f in form if "support_pa_choc_av" in f.name],
+            "fields": [
+                f for f in form
+                if "support_pa_choc_av" in f.name
+            ],
         },
         {
-            "title": "Support pare-chocs arrière",
+            "title": _("Support pare-chocs arrière"),
             "icon": "icons/pare-chocs.png",
-            "fields": [f for f in form if "support_pa_choc_ar" in f.name],
+            "fields": [
+                f for f in form
+                if "support_pa_choc_ar" in f.name
+            ],
         },
-
         {
-            "title": "Calandre",
+            "title": _("Calandre"),
             "icon": "icons/calandre.png",
-            "fields": [f for f in form if "calandre" in f.name],
+            "fields": [
+                f for f in form
+                if "calandre" in f.name
+            ],
         },
         {
-            "title": "Aile avant droite",
+            "title": _("Aile avant droite"),
             "icon": "icons/aile.png",
-            "fields": [f for f in form if "aile_avd" in f.name],
+            "fields": [
+                f for f in form
+                if "aile_avd" in f.name
+            ],
         },
-
         {
-            "title": "Aile avant gauche",
+            "title": _("Aile avant gauche"),
             "icon": "icons/aile.png",
-            "fields": [f for f in form if "aile_avg" in f.name],
+            "fields": [
+                f for f in form
+                if "aile_avg" in f.name
+            ],
         },
         {
-            "title": "Aile arrière droite",
+            "title": _("Aile arrière droite"),
             "icon": "icons/aile_ar.png",
-            "fields": [f for f in form if "aile_ard" in f.name],
+            "fields": [
+                f for f in form
+                if "aile_ard" in f.name
+            ],
         },
-
         {
-            "title": "Aile arrière gauche",
+            "title": _("Aile arrière gauche"),
             "icon": "icons/aile_ar.png",
-            "fields": [f for f in form if "aile_arg" in f.name],
+            "fields": [
+                f for f in form
+                if "aile_arg" in f.name
+            ],
         },
-
         {
-            "title": "Élargisseur d'aile avant droite",
+            "title": _(
+                "Élargisseur d'aile avant droite"
+            ),
             "icon": "icons/elargisseur.png",
-            "fields": [f for f in form if "elargisseur_ail_avd" in f.name],
+            "fields": [
+                f for f in form
+                if "elargisseur_ail_avd" in f.name
+            ],
         },
         {
-            "title": "Élargisseur d'aile avant gauche",
+            "title": _(
+                "Élargisseur d'aile avant gauche"
+            ),
             "icon": "icons/elargisseur.png",
-            "fields": [f for f in form if "elargisseur_ail_avg" in f.name],
+            "fields": [
+                f for f in form
+                if "elargisseur_ail_avg" in f.name
+            ],
         },
         {
-            "title": "Élargisseur d'aile arrière droite",
+            "title": _(
+                "Élargisseur d'aile arrière droite"
+            ),
             "icon": "icons/elargisseur.png",
-            "fields": [f for f in form if "elargisseur_ail_ard" in f.name],
+            "fields": [
+                f for f in form
+                if "elargisseur_ail_ard" in f.name
+            ],
         },
         {
-            "title": "Élargisseur d'aile arrière gauche",
+            "title": _(
+                "Élargisseur d'aile arrière gauche"
+            ),
             "icon": "icons/elargisseur.png",
-            "fields": [f for f in form if "elargisseur_ail_arg" in f.name],
+            "fields": [
+                f for f in form
+                if "elargisseur_ail_arg" in f.name
+            ],
         },
-
         {
-            "title": "Bas de caisse droit",
+            "title": _("Bas de caisse droit"),
             "icon": "icons/bas-de-caisse.png",
-            "fields": [f for f in form if "bas_de_caisse_d" in f.name],
+            "fields": [
+                f for f in form
+                if "bas_de_caisse_d" in f.name
+            ],
         },
         {
-            "title": "Bas de caisse gauche",
+            "title": _("Bas de caisse gauche"),
             "icon": "icons/bas-de-caisse.png",
-            "fields": [f for f in form if "bas_de_caisse_g" in f.name],
+            "fields": [
+                f for f in form
+                if "bas_de_caisse_g" in f.name
+            ],
         },
         {
-            "title": "Porte avant droite",
+            "title": _("Porte avant droite"),
             "icon": "icons/porte-de-voiture.png",
-            "fields": [f for f in form if "porte_avd_po" in f.name],
+            "fields": [
+                f for f in form
+                if "porte_avd_po" in f.name
+            ],
         },
         {
-            "title": "Porte avant gauche",
+            "title": _("Porte avant gauche"),
             "icon": "icons/porte-de-voiture.png",
-            "fields": [f for f in form if "porte_avg_po" in f.name],
+            "fields": [
+                f for f in form
+                if "porte_avg_po" in f.name
+            ],
         },
         {
-            "title": "Porte arrière droite",
+            "title": _("Porte arrière droite"),
             "icon": "icons/porte-de-voiture.png",
-            "fields": [f for f in form if "porte_ard_po" in f.name],
+            "fields": [
+                f for f in form
+                if "porte_ard_po" in f.name
+            ],
         },
         {
-            "title": "Porte arrière gauche",
+            "title": _("Porte arrière gauche"),
             "icon": "icons/porte-de-voiture.png",
-            "fields": [f for f in form if "porte_arg_po" in f.name],
+            "fields": [
+                f for f in form
+                if "porte_arg_po" in f.name
+            ],
         },
-
         {
-            "title": "Coffre",
+            "title": _("Coffre"),
             "icon": "icons/coffre.png",
-            "fields": [f for f in form if "coffre_hai" in f.name],
+            "fields": [
+                f for f in form
+                if "coffre_hai" in f.name
+            ],
         },
-
         {
-            "title": "Capot",
+            "title": _("Capot"),
             "icon": "icons/capot.png",
-            "fields": [f for f in form if "capot_pi" in f.name],
+            "fields": [
+                f for f in form
+                if "capot_pi" in f.name
+            ],
         },
-
         {
-            "title": "Joint de coffre",
+            "title": _("Joint de coffre"),
             "icon": "icons/joint-coffre.png",
-            "fields": [f for f in form if "joint_coffre" in f.name],
+            "fields": [
+                f for f in form
+                if "joint_coffre" in f.name
+            ],
         },
         {
-            "title": "Joint de porte avant droite",
+            "title": _("Joint de porte avant droite"),
             "icon": "icons/joint-porte.png",
-            "fields": [f for f in form if "joint_porte_avd" in f.name],
+            "fields": [
+                f for f in form
+                if "joint_porte_avd" in f.name
+            ],
         },
         {
-            "title": "Joint de porte avant gauche",
+            "title": _("Joint de porte avant gauche"),
             "icon": "icons/joint-porte.png",
-            "fields": [f for f in form if "joint_porte_avg" in f.name],
+            "fields": [
+                f for f in form
+                if "joint_porte_avg" in f.name
+            ],
         },
         {
-            "title": "Joint de porte arrière droite",
+            "title": _("Joint de porte arrière droite"),
             "icon": "icons/joint-porte.png",
-            "fields": [f for f in form if "joint_porte_ard" in f.name],
+            "fields": [
+                f for f in form
+                if "joint_porte_ard" in f.name
+            ],
         },
         {
-            "title": "Joint de porte arrière gauche",
+            "title": _("Joint de porte arrière gauche"),
             "icon": "icons/joint-porte.png",
-            "fields": [f for f in form if "joint_porte_arg" in f.name],
+            "fields": [
+                f for f in form
+                if "joint_porte_arg" in f.name
+            ],
         },
         {
-            "title": "Coquille d'aile avant droite",
+            "title": _(
+                "Coquille d'aile avant droite"
+            ),
             "icon": "icons/aile.png",
-            "fields": [f for f in form if "coquille_ai_avd" in f.name],
+            "fields": [
+                f for f in form
+                if "coquille_ai_avd" in f.name
+            ],
         },
         {
-            "title": "Coquille d'aile avant gauche",
+            "title": _(
+                "Coquille d'aile avant gauche"
+            ),
             "icon": "icons/aile.png",
-            "fields": [f for f in form if "coquille_ai_avg" in f.name],
+            "fields": [
+                f for f in form
+                if "coquille_ai_avg" in f.name
+            ],
         },
         {
-            "title": "Coquille d'aile arrière droite",
+            "title": _(
+                "Coquille d'aile arrière droite"
+            ),
             "icon": "icons/aile.png",
-            "fields": [f for f in form if "coquille_ai_ard" in f.name],
+            "fields": [
+                f for f in form
+                if "coquille_ai_ard" in f.name
+            ],
         },
         {
-            "title": "Coquille d'aile arrière gauche",
+            "title": _(
+                "Coquille d'aile arrière gauche"
+            ),
             "icon": "icons/aile.png",
-            "fields": [f for f in form if "coquille_ai_arg" in f.name],
+            "fields": [
+                f for f in form
+                if "coquille_ai_arg" in f.name
+            ],
         },
-
         {
-            "title": "Support de radiateur",
+            "title": _("Support de radiateur"),
             "icon": "icons/radiateur.png",
-            "fields": [f for f in form if "support_radiateur" in f.name],
+            "fields": [
+                f for f in form
+                if "support_radiateur" in f.name
+            ],
         },
-
-        # Pare-brise
         {
-            "title": "Pare-brise",
+            "title": _("Pare-brise"),
             "icon": "icons/pare-brise-casse.png",
-            "fields": [f for f in form if "pa_brise" in f.name],
+            "fields": [
+                f for f in form
+                if "pa_brise" in f.name
+            ],
         },
-
-        # Vitres de portes
         {
-            "title": "Vitre de porte avant droite",
+            "title": _("Vitre de porte avant droite"),
             "icon": "icons/vitre.png",
-            "fields": [f for f in form if "vitre_porte_avd" in f.name],
+            "fields": [
+                f for f in form
+                if "vitre_porte_avd" in f.name
+            ],
         },
         {
-            "title": "Vitre de porte avant gauche",
+            "title": _("Vitre de porte avant gauche"),
             "icon": "icons/vitre.png",
-            "fields": [f for f in form if "vitre_porte_avg" in f.name],
+            "fields": [
+                f for f in form
+                if "vitre_porte_avg" in f.name
+            ],
         },
         {
-            "title": "Vitre de porte arrière droite",
+            "title": _("Vitre de porte arrière droite"),
             "icon": "icons/vitre.png",
-            "fields": [f for f in form if "vitre_porte_ard" in f.name],
+            "fields": [
+                f for f in form
+                if "vitre_porte_ard" in f.name
+            ],
         },
         {
-            "title": "Vitre de porte arrière gauche",
+            "title": _("Vitre de porte arrière gauche"),
             "icon": "icons/vitre.png",
-            "fields": [f for f in form if "vitre_porte_arg" in f.name],
+            "fields": [
+                f for f in form
+                if "vitre_porte_arg" in f.name
+            ],
         },
-
-        # Lunette arrière
         {
-            "title": "Lunette / vitre arrière",
+            "title": _("Lunette / vitre arrière"),
             "icon": "icons/lunette.png",
-            "fields": [f for f in form if "lunette" in f.name],
+            "fields": [
+                f for f in form
+                if "lunette" in f.name
+            ],
         },
-
-        # Rétroviseurs
         {
-            "title": "Rétroviseur droit",
+            "title": _("Rétroviseur droit"),
             "icon": "icons/retro.png",
-            "fields": [f for f in form if "retroviseur_d" in f.name],
+            "fields": [
+                f for f in form
+                if "retroviseur_d" in f.name
+            ],
         },
         {
-            "title": "Rétroviseur gauche",
+            "title": _("Rétroviseur gauche"),
             "icon": "icons/retro.png",
-            "fields": [f for f in form if "retroviseur_g" in f.name],
+            "fields": [
+                f for f in form
+                if "retroviseur_g" in f.name
+            ],
         },
-
-        # Phares
         {
-            "title": "Phare avant droit",
+            "title": _("Phare avant droit"),
             "icon": "icons/phares.png",
-            "fields": [f for f in form if "phare_avd" in f.name],
+            "fields": [
+                f for f in form
+                if "phare_avd" in f.name
+            ],
         },
         {
-            "title": "Phare avant gauche",
+            "title": _("Phare avant gauche"),
             "icon": "icons/phares.png",
-            "fields": [f for f in form if "phare_avg" in f.name],
+            "fields": [
+                f for f in form
+                if "phare_avg" in f.name
+            ],
         },
         {
-            "title": "Feu arrière droit",
+            "title": _("Feu arrière droit"),
             "icon": "icons/phares.png",
-            "fields": [f for f in form if "phare_ard" in f.name],
+            "fields": [
+                f for f in form
+                if "phare_ard" in f.name
+            ],
         },
         {
-            "title": "Feu arrière gauche",
+            "title": _("Feu arrière gauche"),
             "icon": "icons/phares.png",
-            "fields": [f for f in form if "phare_arg" in f.name],
+            "fields": [
+                f for f in form
+                if "phare_arg" in f.name
+            ],
         },
-        # Anti-brouillards
         {
-            "title": "Anti-brouillard avant droit",
+            "title": _(
+                "Anti-brouillard avant droit"
+            ),
             "icon": "icons/phares.png",
-            "fields": [f for f in form if "anti_brouillard_avd" in f.name],
+            "fields": [
+                f for f in form
+                if "anti_brouillard_avd" in f.name
+            ],
         },
         {
-            "title": "Anti-brouillard avant gauche",
+            "title": _(
+                "Anti-brouillard avant gauche"
+            ),
             "icon": "icons/phares.png",
-            "fields": [f for f in form if "anti_brouillard_avg" in f.name],
+            "fields": [
+                f for f in form
+                if "anti_brouillard_avg" in f.name
+            ],
         },
         {
-            "title": "Anti-brouillard arrière",
+            "title": _("Anti-brouillard arrière"),
             "icon": "icons/phares.png",
-            "fields": [f for f in form if "anti_brouillard_ar" in f.name],
+            "fields": [
+                f for f in form
+                if "anti_brouillard_ar" in f.name
+            ],
         },
-
         {
-            "title": "Clignotant avant droit",
+            "title": _("Clignotant avant droit"),
             "icon": "icons/clignotant.png",
-            "fields": [f for f in form if "clignotant_avd" in f.name],
+            "fields": [
+                f for f in form
+                if "clignotant_avd" in f.name
+            ],
         },
         {
-            "title": "Clignotant avant gauche",
+            "title": _("Clignotant avant gauche"),
             "icon": "icons/clignotant.png",
-            "fields": [f for f in form if "clignotant_avg" in f.name],
+            "fields": [
+                f for f in form
+                if "clignotant_avg" in f.name
+            ],
         },
         {
-            "title": "Clignotant arrière droit",
+            "title": _("Clignotant arrière droit"),
             "icon": "icons/clignotant.png",
-            "fields": [f for f in form if "clignotant_ard" in f.name],
+            "fields": [
+                f for f in form
+                if "clignotant_ard" in f.name
+            ],
         },
         {
-            "title": "Clignotant arrière gauche",
+            "title": _("Clignotant arrière gauche"),
             "icon": "icons/clignotant.png",
-            "fields": [f for f in form if "clignotant_arg" in f.name],
+            "fields": [
+                f for f in form
+                if "clignotant_arg" in f.name
+            ],
         },
-
-        # Troisième feu stop
         {
-            "title": "Troisième feu stop",
+            "title": _("Troisième feu stop"),
             "icon": "icons/feu-stop.png",
-            "fields": [f for f in form if "troisieme_feu_stop" in f.name],
+            "fields": [
+                f for f in form
+                if "troisieme_feu_stop" in f.name
+            ],
         },
-
-        # Capteur de recul
         {
-            "title": "Capteur de recul",
+            "title": _("Capteur de recul"),
             "icon": "icons/capteurs.png",
-            "fields": [f for f in form if "capteur_recul" in f.name],
+            "fields": [
+                f for f in form
+                if "capteur_recul" in f.name
+            ],
         },
-
-
-        # Clips et visserie
         {
-            "title": "Clips",
+            "title": _("Clips"),
             "icon": "icons/clips.png",
-            "fields": [f for f in form if "clips" in f.name],
+            "fields": [
+                f for f in form
+                if "clips" in f.name
+            ],
         },
-
         {
-            "title": "Visserie",
+            "title": _("Visserie"),
             "icon": "icons/visserie.png",
-            "fields": [f for f in form if "visserie" in f.name],
+            "fields": [
+                f for f in form
+                if "visserie" in f.name
+            ],
         },
-
         {
-            "title": "Peinture aile avant droite",
+            "title": _("Peinture aile avant droite"),
             "icon": "icons/pistolet-a-peinture.png",
-            "fields": [f for f in form if "peinture_avant_droit" in f.name],
+            "fields": [
+                f for f in form
+                if "peinture_avant_droit" in f.name
+            ],
         },
         {
-            "title": "Peinture aile avant gauche",
+            "title": _("Peinture aile avant gauche"),
             "icon": "icons/pistolet-a-peinture.png",
-            "fields": [f for f in form if "peinture_avant_gauche" in f.name],
+            "fields": [
+                f for f in form
+                if "peinture_avant_gauche" in f.name
+            ],
         },
-        # Aile arrière droite
         {
-            "title": "Peinture aile arrière droite",
+            "title": _("Peinture aile arrière droite"),
             "icon": "icons/pistolet-a-peinture.png",
-            "fields": [f for f in form if "peinture_arriere_droit" in f.name],
+            "fields": [
+                f for f in form
+                if "peinture_arriere_droit" in f.name
+            ],
         },
-
-        # Aile arrière gauche
         {
-            "title": "Peinture aile arrière gauche",
+            "title": _("Peinture aile arrière gauche"),
             "icon": "icons/pistolet-a-peinture.png",
-            "fields": [f for f in form if "peinture_arriere_gauche" in f.name],
+            "fields": [
+                f for f in form
+                if "peinture_arriere_gauche" in f.name
+            ],
         },
-
-        # Face avant
         {
-            "title": "Peinture face avant",
+            "title": _("Peinture face avant"),
             "icon": "icons/pistolet-a-peinture.png",
-            "fields": [f for f in form if "peinture_face_avant" in f.name],
+            "fields": [
+                f for f in form
+                if "peinture_face_avant" in f.name
+            ],
         },
-
-        # Capot
         {
-            "title": "Peinture capot",
+            "title": _("Peinture capot"),
             "icon": "icons/pistolet-a-peinture.png",
-            "fields": [f for f in form if "peinture_capot" in f.name],
+            "fields": [
+                f for f in form
+                if "peinture_capot" in f.name
+            ],
         },
-
-        # Arrière complet
         {
-            "title": "Peinture arrière complete",
+            "title": _("Peinture arrière complete"),
             "icon": "icons/pistolet-a-peinture.png",
-            "fields": [f for f in form if "peinture_arriere_complete" in f.name],
+            "fields": [
+                f for f in form
+                if "peinture_arriere_complete" in f.name
+            ],
         },
-
-        # Peinture complète
         {
-            "title": "Peinture complète",
+            "title": _("Peinture complète"),
             "icon": "icons/pistolet-a-peinture.png",
-            "fields": [f for f in form if "peinture_complete" in f.name],
+            "fields": [
+                f for f in form
+                if "peinture_complete" in f.name
+            ],
         },
-
         {
-            "title": "Pays",
+            "title": _("Pays"),
             "icon": "icons/pays.png",
-            "fields": [f for f in form if "pays" in f.name],
+            "fields": [
+                f for f in form
+                if "pays" in f.name
+            ],
         },
-
         {
-            "title": "Etiquette",
+            "title": _("Etiquette"),
             "icon": "icons/tag.png",
-            "fields": [f for f in form if "tag" in f.name],
+            "fields": [
+                f for f in form
+                if "tag" in f.name
+            ],
         },
         {
             "title": _("Serrage des roues"),
             "icon": "icons/roue.png",
-            "fields": [form[f.name] for f in form if "serrage" in f.name],
+            "fields": [
+                f for f in form
+                if "serrage" in f.name
+            ],
         },
         {
-            "title": "Remarques",
+            "title": _("Remarques"),
             "icon": "icons/notes.png",
-            "fields": [f for f in form if "remarques" in f.name],
+            "fields": [
+                f for f in form
+                if "remarques" in f.name
+            ],
         },
         {
-            "title": "Technicien",
+            "title": _("Technicien"),
             "icon": "icons/mecanicien.png",
-            "fields": [f for f in form if "tech" in f.name],
+            "fields": [
+                f for f in form
+                if "tech" in f.name
+            ],
         },
         {
-            "title": "Taux horaire",
+            "title": _("Taux horaire"),
             "icon": "icons/taux.png",
-            "fields": [f for f in form if "taux" in f.name],
+            "fields": [
+                f for f in form
+                if "taux" in f.name
+            ],
         },
     ]
 
-    return render(request, 'carrosserie_interne/carrosserie_interne_create.html', {
-        "exemplaire": exemplaire,
-        "maintenance": maintenance,
-        "form": form,
-        "sections": sections,  # 🔥 IMPORTANT
-        "now": timezone.now(),
-    })
+    # ==========================================================
+    # RENDER
+    # ==========================================================
 
-
-
+    return render(
+        request,
+        "carrosserie_interne/carrosserie_interne_create.html",
+        {
+            "exemplaire": exemplaire,
+            "maintenance": maintenance,
+            "form": form,
+            "sections": sections,
+            "now": timezone.now(),
+        },
+    )
 
 # ------------
 # Vue détail carrosserie_interne
