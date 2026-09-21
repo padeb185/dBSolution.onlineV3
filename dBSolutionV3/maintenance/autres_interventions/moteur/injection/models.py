@@ -30,6 +30,13 @@ class EtatInjection(models.TextChoices):
     A_CONTROLER = "A_CONTROLER", _("À contrôler")
     NOT_OK = "NOT_OK", _("À remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
+    NON_APPLICABLE = "NON_APPLICABLE", _("Non applicable")
+
+class EtatInjectionNettoye(models.TextChoices):
+    OK = "OK", _("OK")
+    A_CONTROLER = "A_CONTROLER", _("À contrôler")
+    NOT_OK = "NOT_OK", _("À remplacer")
+    REMPLACE = "REMPLACE", _("Remplacé")
     NETTOYE = "NETTOYE", _("Nettoyé")
     NON_APPLICABLE = "NON_APPLICABLE", _("Non applicable")
 
@@ -418,8 +425,8 @@ class Injection(models.Model):
 
     nettoyage_injecteurs_etat = models.CharField(
         max_length=20,
-        choices=EtatInjection.choices,
-        default=EtatInjection.OK,
+        choices=EtatInjectionNettoye.choices,
+        default=EtatInjectionNettoye.OK,
         verbose_name=_("Nettoyage des injecteurs effectué"),
     )
 
