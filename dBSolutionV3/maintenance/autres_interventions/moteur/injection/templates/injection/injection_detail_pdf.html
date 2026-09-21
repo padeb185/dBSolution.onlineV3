@@ -771,17 +771,7 @@
                 <span class="etat-vert">
                     {{ injection.get_injecteurs_etat_display }}
                 </span>
-
-            {% elif injection.injecteurs_etat == "NOT_OK" %}
-                <span class="etat-rouge">
-                    {{ injection.get_injecteurs_etat_display }}
-                </span>
-
-            {% elif injection.injecteurs_etat == "REMPLACE" %}
-                <span class="etat-bleu">
-                    {{ injection.get_injecteurs_etat_display }}
-                </span>
-
+                
             {% elif injection.injecteurs_etat == "NETTOYE" %}
                 <span class="etat-bleu">
                     {{ injection.get_injecteurs_etat_display }}
