@@ -34,9 +34,6 @@ class EtatInjection(models.TextChoices):
 
 class EtatInjectionNettoye(models.TextChoices):
     OK = "OK", _("OK")
-    A_CONTROLER = "A_CONTROLER", _("À contrôler")
-    NOT_OK = "NOT_OK", _("À remplacer")
-    REMPLACE = "REMPLACE", _("Remplacé")
     NETTOYE = "NETTOYE", _("Nettoyé")
     NON_APPLICABLE = "NON_APPLICABLE", _("Non applicable")
 
@@ -439,7 +436,7 @@ class Injection(models.Model):
         max_digits=10,
         decimal_places=2,
         default=Decimal("0.00"),
-        verbose_name=_("Prix du nettoyage des injecteurs"),
+        verbose_name=_("Prix du nettoyage par injecteur"),
     )
 
     # ==========================================================
