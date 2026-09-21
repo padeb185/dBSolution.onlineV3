@@ -402,7 +402,6 @@ def modifier_boite_view(request, boite_id):
 
             try:
                 with transaction.atomic():
-
                     # ==================================================
                     # NOUVEAU KILOMÉTRAGE SAISI
                     # ==================================================
@@ -454,7 +453,6 @@ def modifier_boite_view(request, boite_id):
                     boite.kilometres_boite = rollback_boite
                     boite.kilometres_embrayage = rollback_embrayage
 
-
                     # ==================================================
                     # NOUVEAU KILOMÉTRAGE
                     # ==================================================
@@ -499,6 +497,7 @@ def modifier_boite_view(request, boite_id):
                     boite.save()
 
                     form.save_m2m()
+
 
                 ACTION_MODIFICATION_BOITE_VITESSE = gettext_noop(
                     "Modification contrôle de la boite de vitesse"
@@ -629,9 +628,7 @@ def delete_boite_view(request, boite_id):
 
                 immatriculation = exemplaire.immatriculation
 
-                # ==================================================
-                # RESTAURATION DU KILOMÉTRAGE
-                # ==================================================
+
                 # ==================================================
                 # RESTAURATION DU KILOMÉTRAGE
                 # ==================================================

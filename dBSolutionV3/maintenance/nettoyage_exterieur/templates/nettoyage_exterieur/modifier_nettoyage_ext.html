@@ -217,7 +217,7 @@
 <!-- FORMULAIRE -->
 <!-- ========================= -->
 
-    <form method="post" id="nettoyage-int-form" class="space-y-4">
+    <form method="post" id="nettoyage-ext-form" class="space-y-4">
         {% csrf_token %}
 
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
@@ -505,10 +505,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    const form = document.getElementById("jeu-form");
+    const form = document.getElementById("nettoyage-ext-form");
 
     const kmChassis = document.getElementById("id_kilometres_chassis");
-    const kmCheckup = document.getElementById("id_kilometrage_jeu");
+    const kmCheckup = document.getElementById("id_kilometrage_net_ext");
     const kmVariation = document.getElementById("id_kilometrage_variation");
 
     const popup = document.getElementById("kilometrage-popup");
@@ -634,6 +634,6 @@ document.addEventListener("DOMContentLoaded", function () {
     calculerVariation();
 
 });
-
 </script>
+
 {% endblock %}
