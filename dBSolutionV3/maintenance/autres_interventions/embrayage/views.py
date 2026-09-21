@@ -175,23 +175,14 @@ def embrayage_form_view(request, exemplaire_id):
 
             try:
                 # =====================================================
-                # KILOMÉTRAGE
+                # KILOMÉTRAGE (valeurs avant modification)
                 # =====================================================
-                ancien_kilometrage = (
-                    exemplaire.kilometres_chassis or 0
-                )
+                ancien_kilometrage = exemplaire.kilometres_chassis or 0
+                ancien_kilometrage_boite = exemplaire.kilometres_boite or 0
+                ancien_kilometrage_moteur = exemplaire.kilometres_moteur or 0
+                ancien_kilometrage_embrayage = exemplaire.kilometres_embrayage or 0
 
-                ancien_kilometrage_boite = (
-                    exemplaire.kilometres_boite or 0
-                )
-
-                ancien_kilometrage_moteur = (
-                    exemplaire.kilometres_moteur or 0
-                )
-
-                km = form.cleaned_data.get(
-                    "kilometrage_embrayage"
-                )
+                km = form.cleaned_data.get("kilometres_remplacement_embrayage")
 
                 # -----------------------------------------------------
                 # Kilométrage obligatoire
@@ -199,7 +190,7 @@ def embrayage_form_view(request, exemplaire_id):
                 if km is None:
 
                     form.add_error(
-                        "kilometrage_embrayage",
+                        "kilometres_remplacement_embrayage",
                         _("Le kilométrage est obligatoire."),
                     )
 
@@ -212,7 +203,7 @@ def embrayage_form_view(request, exemplaire_id):
                     if km < ancien_kilometrage:
 
                         form.add_error(
-                            "kilometrage_embrayage",
+                            "kilometres_remplacement_embrayage",
                             _(
                                 "Le kilométrage du remplacement "
                                 "de l'embrayage ne peut pas être "
@@ -222,74 +213,51 @@ def embrayage_form_view(request, exemplaire_id):
                         )
 
                     else:
-                        kilometrage_variation = (
-                            km - ancien_kilometrage
-                        )
+                        kilometrage_variation = km - ancien_kilometrage
 
                         # =================================================
                         # TRANSACTION
                         # =================================================
                         with transaction.atomic():
 
-                            # =============================================
-                            # ROLLBACK VÉHICULE
-                            # =============================================
-                            exemplaire.kilometres_rollback = (
-                                ancien_kilometrage
-                            )
+                            # ---------------- VÉHICULE ----------------
+                            exemplaire.kilometres_rollback = ancien_kilometrage
+                            exemplaire.kilometres_boite_rollback = ancien_kilometrage_boite
+                            exemplaire.kilometres_moteur_rollback = ancien_kilometrage_moteur
+                            exemplaire.kilometres_embrayage_rollback = ancien_kilometrage_embrayage
 
-                            exemplaire.kilometres_boite_rollback = (
-                                ancien_kilometrage_boite
-                            )
-
-                            exemplaire.kilometres_moteur_rollback = (
-                                ancien_kilometrage_moteur
-                            )
-
-                            # =============================================
-                            # DATE INTERVENTION
-                            # =============================================
                             exemplaire.date_derniere_intervention = (
-                                timezone.localtime(
-                                    timezone.now()
-                                ).date()
+                                timezone.localtime(timezone.now()).date()
                             )
 
-                            # =============================================
-                            # NOUVEAU KILOMÉTRAGE
-                            # =============================================
                             exemplaire.kilometres_chassis = km
 
-                            # Recalcule :
-                            # - kilometres_moteur
-                            # - kilometres_boite
-                            # - variation_kilometres
+                            # Point de départ du nouvel embrayage
+                            exemplaire.kilometres_remplacement_embrayage = km
+
+                            # → kilometres_embrayage = km - km = 0
                             exemplaire.update_kilometres()
 
-                            # =============================================
-                            # SAUVEGARDE VÉHICULE
-                            # =============================================
                             exemplaire.save(
                                 update_fields=[
                                     "kilometres_chassis",
                                     "date_derniere_intervention",
 
-                                    # Rollback
                                     "kilometres_rollback",
                                     "kilometres_boite_rollback",
                                     "kilometres_moteur_rollback",
+                                    "kilometres_embrayage_rollback",
 
-                                    # Valeurs recalculées
+                                    "kilometres_remplacement_embrayage",
+
                                     "kilometres_moteur",
                                     "kilometres_boite",
+                                    "kilometres_embrayage",
                                     "variation_kilometres",
                                 ]
                             )
 
-                            # =============================================
-                            # MAINTENANCE
-                            # =============================================
-                            # 🔴 maintenance unique
+                            # ---------------- MAINTENANCE ----------------
                             maintenance = Maintenance.objects.create(
                                 societe=request.user.societe,
                                 voiture_exemplaire=exemplaire,
@@ -299,77 +267,44 @@ def embrayage_form_view(request, exemplaire_id):
                                 kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
                                 type_maintenance=Maintenance.TypeMaintenance.EMBRAYAGE,
                                 tag=Maintenance.Tag.JAUNE,
-
-                                # 👨‍🔧 utilisateur ayant réalisé la maintenance
                                 tech_technicien=request.user,
                                 tech_societe=request.user.societe,
                                 tech_nom_technicien=f"{request.user.prenom} {request.user.nom}",
                                 tech_role_technicien=request.user.role,
                             )
 
-                            # 🔧 Affectation spécifique selon le rôle
                             if role == "mecanicien":
                                 maintenance.mecanicien = request.user
-
                             elif role == "chef_mecanicien":
                                 maintenance.chef_mecanicien = request.user
-
                             elif role == "apprenti":
-                                maintenance.apprentis = request.user
+                                maintenance.apprentis.add(request.user)
+                            elif role == "magasinier":
+                                maintenance.magasinier = request.user
+                            elif role == "direction":
+                                maintenance.direction = request.user
 
                             maintenance.save()
-                            # =============================================
-                            # EMBRAYAGE
-                            # =============================================
-                            embrayage = form.save(
-                                commit=False
-                            )
 
-                            embrayage.voiture_exemplaire = (
-                                exemplaire
-                            )
+                            # ---------------- EMBRAYAGE ----------------
+                            embrayage = form.save(commit=False)  # ← embrayage est défini ICI
 
-                            embrayage.maintenance = (
-                                maintenance
-                            )
+                            embrayage.voiture_exemplaire = exemplaire
+                            embrayage.maintenance = maintenance
 
-                            # ---------------------------------------------
-                            # Kilométrage AVANT intervention
-                            # ---------------------------------------------
-                            embrayage.kilometres_chassis = (
-                                ancien_kilometrage
-                            )
+                            # Kilométrages AVANT intervention
+                            embrayage.kilometres_chassis = ancien_kilometrage
+                            embrayage.kilometres_boite = ancien_kilometrage_boite
+                            embrayage.kilometres_moteur = ancien_kilometrage_moteur
+                            embrayage.kilometres_embrayage = ancien_kilometrage_embrayage
 
-                            embrayage.kilometres_boite = (
-                                ancien_kilometrage_boite
-                            )
+                            # Kilométrage du remplacement + variation
+                            embrayage.kilometres_remplacement_embrayage = km
+                            embrayage.kilometrage_embrayage = km  # ← remis : colonne NOT NULL
+                            embrayage.kilometrage_variation = kilometrage_variation
 
-                            embrayage.kilometres_moteur = (
-                                ancien_kilometrage_moteur
-                            )
-
-                            # ---------------------------------------------
-                            # Kilométrage embrayage
-                            # ---------------------------------------------
-                            embrayage.kilometrage_embrayage = km
-
-                            # ---------------------------------------------
-                            # Variation kilométrique
-                            # ---------------------------------------------
-                            embrayage.kilometrage_variation = (
-                                kilometrage_variation
-                            )
-
-                            # =============================================
-                            # TECHNICIEN
-                            # =============================================
-                            embrayage.assign_technicien(
-                                request.user
-                            )
-
-                            embrayage.tech_last_maintained_by = (
-                                request.user
-                            )
+                            embrayage.assign_technicien(request.user)
+                            embrayage.tech_last_maintained_by = request.user
 
                             embrayage.save()
                             form.save_m2m()
@@ -452,6 +387,10 @@ def embrayage_form_view(request, exemplaire_id):
             kilometres_boite=(
                 exemplaire.kilometres_boite or 0
             ),
+            kilometres_embrayage=(
+                    exemplaire.kilometres_embrayage or 0
+            ),
+
         )
 
         instance_embrayage.assign_technicien(
@@ -661,6 +600,27 @@ def modifier_embrayage_view(request, embrayage_id):
         id=embrayage_id
     )
     exemplaire = embrayage.voiture_exemplaire
+
+    # -------------------------
+    # SÉCURITÉ TENANT
+    # -------------------------
+    if not (
+        (exemplaire.client and exemplaire.client.societe == tenant)
+        or (exemplaire.client is None and exemplaire.societe == tenant)
+    ):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # -------------------------
+    # VALEURS D'AVANT INTERVENTION
+    # (à lire AVANT de créer le formulaire : is_valid() modifie l'instance)
+    # -------------------------
+    avant_chassis = embrayage.kilometres_chassis or 0
+    avant_moteur = embrayage.kilometres_moteur or 0
+    avant_boite = embrayage.kilometres_boite or 0
+    avant_embrayage = embrayage.kilometres_embrayage or 0
+    ancien_km_remplacement = embrayage.kilometres_remplacement_embrayage or 0
+
     # -------------------------
     # POST
     # -------------------------
@@ -669,7 +629,7 @@ def modifier_embrayage_view(request, embrayage_id):
             request.POST,
             instance=embrayage,
             user=request.user,
-            exemplaire=embrayage.voiture_exemplaire
+            exemplaire=exemplaire
         )
 
         if form.is_valid():
@@ -677,128 +637,80 @@ def modifier_embrayage_view(request, embrayage_id):
             try:
                 with transaction.atomic():
 
-                    # ==================================================
-                    # NOUVEAU KILOMÉTRAGE SAISI
-                    # ==================================================
-                    km = form.cleaned_data.get(
-                        "kilometrage_embrayage"
-                    )
+                    km = form.cleaned_data.get("kilometres_remplacement_embrayage")
 
-                    if km is not None:
-                        km = int(km)
-
-                    # ==================================================
-                    # VALEURS ACTUELLES = ROLLBACK LOCAL
-                    # ==================================================
-                    rollback_chassis = (
-                            exemplaire.kilometres_chassis or 0
-                    )
-
-                    rollback_moteur = (
-                            exemplaire.kilometres_moteur or 0
-                    )
-
-                    rollback_boite = (
-                            exemplaire.kilometres_boite or 0
-                    )
-
-                    # ==================================================
-                    # VALIDATION
-                    # ==================================================
-                    if km is not None:
-
-                        if km < 0:
-                            raise ValidationError(
-                                _(
-                                    "Le kilométrage ne peut pas "
-                                    "être négatif."
-                                )
-                            )
-
-                        if km < rollback_chassis:
-                            raise ValidationError(
-                                _(
-                                    "Le kilométrage ne peut pas être "
-                                    "inférieur à %(km)s km."
-                                ) % {
-                                    "km": rollback_chassis
-                                }
-                            )
-
-                    # ==================================================
-                    # ÉCHAPPEMENT
-                    # ==================================================
-                    embrayage = form.save(
-                        commit=False
-                    )
-
-                    embrayage.voiture_exemplaire = (
-                        exemplaire
-                    )
-
-                    # ==================================================
-                    # ROLLBACK LOCAL
-                    # ==================================================
-                    embrayage.kilometres_chassis = (
-                        rollback_chassis
-                    )
-
-                    embrayage.kilometres_moteur = (
-                        rollback_moteur
-                    )
-
-                    embrayage.kilometres_boite = (
-                        rollback_boite
-                    )
-
-                    # ==================================================
-                    # NOUVEAU KILOMÉTRAGE
-                    # ==================================================
-                    embrayage.kilometrage_embrayage = km
-
-                    # ==================================================
-                    # VARIATION
-                    # ==================================================
-                    if km is not None:
-                        embrayage.kilometrage_variation = (
-                                km - rollback_chassis
+                    if km is None:
+                        raise ValidationError(
+                            _("Le kilométrage du remplacement est obligatoire.")
                         )
-                    else:
-                        embrayage.kilometrage_variation = 0
+                    km = int(km)
+
+                    # form.save(commit=False) gère aussi la main-d'œuvre
+                    embrayage = form.save(commit=False)
+                    embrayage.voiture_exemplaire = exemplaire
+
+                    # On conserve les valeurs d'avant intervention
+                    embrayage.kilometres_chassis = avant_chassis
+                    embrayage.kilometres_moteur = avant_moteur
+                    embrayage.kilometres_boite = avant_boite
+                    embrayage.kilometres_embrayage = avant_embrayage
+
+                    # Colonne NOT NULL : toujours renseignée
+                    embrayage.kilometrage_embrayage = km
+                    embrayage.kilometres_remplacement_embrayage = km
 
                     # ==================================================
-                    # TECHNICIEN
+                    # LE KILOMÉTRAGE DU REMPLACEMENT A CHANGÉ
                     # ==================================================
-                    embrayage.assign_technicien(
-                        request.user
-                    )
+                    if km != ancien_km_remplacement:
 
-                    embrayage.tech_last_maintained_by = (
-                        request.user
-                    )
+                        if km < avant_chassis:
+                            raise ValidationError(
+                                _("Le kilométrage ne peut pas être inférieur à %(km)s km.")
+                                % {"km": avant_chassis}
+                            )
 
-                    # ==================================================
-                    # MISE À JOUR DU VÉHICULE
-                    # ==================================================
-                    if km is not None:
-                        exemplaire.kilometres_chassis = km
+                        # Seul le remplacement pris en compte par le véhicule
+                        # peut modifier ses compteurs
+                        if (exemplaire.kilometres_remplacement_embrayage or 0) != ancien_km_remplacement:
+                            raise ValidationError(
+                                _("Seul le dernier remplacement de l'embrayage peut "
+                                  "voir son kilométrage modifié.")
+                            )
+
+                        # Le châssis ne recule jamais (sinon valeurs négatives)
+                        exemplaire.kilometres_chassis = max(
+                            exemplaire.kilometres_chassis or 0, km
+                        )
+
+                        # Nouveau point de départ de l'embrayage → embrayage = 0
+                        exemplaire.kilometres_remplacement_embrayage = km
 
                         exemplaire.date_derniere_intervention = (
-                            timezone.localtime(
-                                timezone.now()
-                            ).date()
+                            timezone.localtime(timezone.now()).date()
                         )
 
-                        exemplaire.save()
+                        exemplaire.update_kilometres()
+                        exemplaire.save(update_fields=[
+                            "kilometres_chassis",
+                            "date_derniere_intervention",
+                            "kilometres_remplacement_embrayage",
+                            "kilometres_moteur",
+                            "kilometres_boite",
+                            "kilometres_embrayage",
+                            "variation_kilometres",
+                        ])
+
+                        embrayage.kilometrage_variation = km - avant_chassis
 
                     # ==================================================
-                    # SAUVEGARDE ÉCHAPPEMENT
+                    # TECHNICIEN + SAUVEGARDE
                     # ==================================================
+                    embrayage.assign_technicien(request.user)
+                    embrayage.tech_last_maintained_by = request.user
+
                     embrayage.save()
-
                     form.save_m2m()
-
-
 
                 ACTION_MODIFICATION_REMPLACEMENT_EMBRAYAGE = gettext_noop(
                     "Modification du remplacement de l'embrayage"
@@ -815,16 +727,14 @@ def modifier_embrayage_view(request, embrayage_id):
                     f"{reverse('embrayage:embrayage_detail', kwargs={'embrayage_id': embrayage.id})}?saved=1"
                 )
 
-            except Exception as e:
+            except ValidationError as e:
+                form.add_error(None, e)
+                messages.error(request, _("Kilométrage invalide"))
 
+            except Exception as e:
                 messages.error(
                     request,
-                    _(
-                        "Erreur lors de la modification : "
-                        "%(error)s"
-                    ) % {
-                        "error": str(e)
-                    }
+                    _("Erreur lors de la modification : %(error)s") % {"error": str(e)}
                 )
 
         else:
@@ -1028,24 +938,20 @@ def delete_embrayage_view(request, embrayage_id):
                 kilometrage_rollback_moteur = (
                         exemplaire.kilometres_moteur_rollback or 0
                 )
-
-                exemplaire.kilometres_chassis = (
-                    kilometrage_rollback
-                )
-                exemplaire.kilometres_boite = (
-                    kilometrage_rollback_boite
-                )
-                exemplaire.kilometres_moteur = (
-                    kilometrage_rollback_moteur
+                kilometrage_rollback_embrayage = (
+                        exemplaire.kilometres_embrayage_rollback or 0
                 )
 
-                exemplaire.save(
-                    update_fields=[
-                        "kilometres_chassis",
-                        "kilometres_boite",
-                        "kilometres_moteur"
-                    ]
+                exemplaire.kilometres_chassis = kilometrage_rollback
+                exemplaire.kilometres_remplacement_embrayage = max(
+                    0, kilometrage_rollback - kilometrage_rollback_embrayage
                 )
+                exemplaire.update_kilometres()
+                exemplaire.save(update_fields=[
+                    "kilometres_chassis", "kilometres_remplacement_embrayage",
+                    "kilometres_moteur", "kilometres_boite", "kilometres_embrayage",
+                    "variation_kilometres",
+                ])
 
                 # ==================================================
                 # SUPPRESSION CHECKUP

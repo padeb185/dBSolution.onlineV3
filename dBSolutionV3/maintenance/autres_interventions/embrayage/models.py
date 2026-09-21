@@ -67,6 +67,13 @@ class Embrayage(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres rollback")
     )
 
+    kilometres_remplacement_embrayage = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres au moment du remplacement")
+    )
+
 
     kilometres_boite = models.PositiveIntegerField(default=0, null=True, blank=True)
 

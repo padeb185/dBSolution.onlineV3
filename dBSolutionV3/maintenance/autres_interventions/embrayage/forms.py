@@ -31,6 +31,7 @@ class EmbrayageForm(forms.ModelForm):
             "kilometres_boite",
             "kilometres_moteur",
             "kilometres_embrayage",
+            "kilometrage_embrayage",
 
         }
         widgets = {
@@ -63,12 +64,12 @@ class EmbrayageForm(forms.ModelForm):
             if (
                     self.instance
                     and self.instance.pk
-                    and self.instance.kilometrage_embrayage is not None
+                    and self.instance.kilometres_remplacement_embrayage is not None
                     and self.exemplaire
                     and self.exemplaire.kilometres_chassis is not None
             ):
                 variation = (
-                        self.instance.kilometrage_embrayage
+                        self.instance.kilometres_remplacement_embrayage
                         - self.exemplaire.kilometres_chassis
                 )
 
@@ -126,66 +127,65 @@ class EmbrayageForm(forms.ModelForm):
 
         return cleaned
 
-    def clean_kilometrage_embrayage(self):
-        km = self.cleaned_data.get("kilometrage_embrayage")
-        exemplaire = self.exemplaire
+    def clean_kilometres_remplacement_embrayage(self):
+        km = self.cleaned_data.get("kilometres_remplacement_embrayage")
 
-        if km is not None and exemplaire:
-            if km < exemplaire.kilometres_chassis:
-                raise ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
+        if km is not None:
+            if self.instance and self.instance.pk:
+                minimum = self.instance.kilometres_chassis or 0  # châssis avant l'intervention
+            elif self.exemplaire:
+                minimum = self.exemplaire.kilometres_chassis or 0  # création
+            else:
+                minimum = 0
+
+            if km < minimum:
+                raise ValidationError("Le kilométrage ne peut pas diminuer.")
 
         return km
 
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        km = self.cleaned_data.get("kilometrage_embrayage")
         voiture = self.exemplaire
-
-        if km is not None and voiture:
-            instance.kilometrage_embrayage = km
+        if voiture:
             instance.voiture_exemplaire = voiture
 
-            # -------- MAIN D'ŒUVRE --------
-            heures = self.cleaned_data.get("temps_heures") or 0
-            minutes = self.cleaned_data.get("temps_minutes") or 0
-            taux_horaire = self.cleaned_data.get("taux_horaire")
+        # Colonne NOT NULL du modèle
+        km = self.cleaned_data.get("kilometres_remplacement_embrayage")
+        if km is not None:
+            instance.kilometrage_embrayage = km
 
-            total_minutes = heures * 60 + minutes
+        # ==================================================
+        # MAIN-D'ŒUVRE (toujours, indépendamment du kilométrage)
+        # ==================================================
+        heures = self.cleaned_data.get("temps_heures") or 0
+        minutes = self.cleaned_data.get("temps_minutes") or 0
+        taux_horaire = self.cleaned_data.get("taux_horaire")
 
-            main = instance.main_oeuvre
+        total_minutes = heures * 60 + minutes
 
-            if main:
-                main.temps_minutes = total_minutes
+        main = instance.main_oeuvre if instance.main_oeuvre_id else None
 
-                if taux_horaire is not None:
-                    main.taux_horaire = taux_horaire
+        if main:
+            main.temps_minutes = total_minutes
 
-                main.save(
-                    update_fields=[
-                        "temps_minutes",
-                        "taux_horaire",
-                    ]
-                )
+            if taux_horaire is not None:
+                main.taux_horaire = taux_horaire
 
-            else:
-                main = MainDoeuvre.objects.create(
-                    utilisateur=self.user,
-                    temps_minutes=total_minutes,
-                    taux_horaire=taux_horaire,
-                )
+            main.save(update_fields=["temps_minutes", "taux_horaire"])
 
-                instance.main_oeuvre = main
+        else:
+            main = MainDoeuvre.objects.create(
+                utilisateur=self.user,
+                temps_minutes=total_minutes,
+                taux_horaire=taux_horaire or 0,  # évite un NULL sur le taux
+            )
+            instance.main_oeuvre = main
 
-        # Sauvegarde finale
         if commit:
             instance.save()
 
         return instance
-
-
 
     def clean_serrage_roues(self):
         serrage_roues = self.cleaned_data.get("serrage_roues")
