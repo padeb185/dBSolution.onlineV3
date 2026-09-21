@@ -127,101 +127,52 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                     # ==================================================
                     # VALEURS AVANT MODIFICATION
                     # ==================================================
-                    ancien_km_chassis = (
-                        exemplaire.kilometres_chassis
-                        or 0
-                    )
-                    ancien_kilometrage = (
-                            exemplaire.kilometres_chassis or 0
-                    )
-                    ancien_km_moteur = (
-                        exemplaire.kilometres_moteur
-                        or 0
-                    )
-                    ancien_kilometrage_moteur = (
-                            exemplaire.kilometres_moteur
-                            or 0
-                    )
-                    ancien_kilometrage_boite = (
-                            exemplaire.kilometres_boite or 0
-                    )
-                    # ==================================================
-                    # NOUVEAU KILOMÉTRAGE
-                    # ==================================================
-                    nouveau_km = (
-                        form.cleaned_data.get(
-                            "kilometres_remplacement"
-                        )
-                    )
+                    ancien_kilometrage = exemplaire.kilometres_chassis or 0
+                    ancien_kilometrage_moteur = exemplaire.kilometres_moteur or 0
+                    ancien_kilometrage_boite = exemplaire.kilometres_boite or 0
+                    ancien_kilometrage_embrayage = exemplaire.kilometres_embrayage or 0
 
                     # ==================================================
-                    # VALIDATION SUPPLÉMENTAIRE
+                    # NOUVEAU KILOMÉTRAGE + VALIDATION
                     # ==================================================
-                    if (
-                        nouveau_km is not None
-                        and nouveau_km < ancien_km_chassis
-                    ):
-                        form.add_error(
-                            "kilometres_remplacement",
-                            _(
-                                "Le kilométrage ne peut pas être "
-                                "inférieur au dernier kilométrage."
-                            )
-                        )
+                    nouveau_km = form.cleaned_data.get("kilometres_remplacement")
 
-                        raise ValidationError(
-                            _(
-                                "Le kilométrage ne peut pas être "
-                                "inférieur au dernier kilométrage."
-                            )
-                        )
+                    if nouveau_km is None:
+                        msg = _("Le kilométrage du remplacement est obligatoire.")
+                        form.add_error("kilometres_remplacement", msg)
+                        raise ValidationError(msg)
 
-                    else:
-                        kilometrage_variation = (
-                                nouveau_km - ancien_kilometrage
-                        )
+                    if nouveau_km < ancien_kilometrage:
+                        msg = _("Le kilométrage ne peut pas être inférieur au dernier kilométrage.")
+                        form.add_error("kilometres_remplacement", msg)
+                        raise ValidationError(msg)
 
-                    exemplaire.kilometres_rollback = (
-                        ancien_kilometrage
-                    )
+                    kilometrage_variation = nouveau_km - ancien_kilometrage
 
-                    exemplaire.kilometres_boite_rollback = (
-                        ancien_kilometrage_boite
-                    )
-
-                    # ==========================================================
-                    # ROLLBACK KILOMÉTRAGE MOTEUR
-                    #
-                    # Dès qu'un kilométrage de remplacement est introduit,
-                    # on mémorise UNE SEULE FOIS le kilométrage moteur actuel.
-                    # ==========================================================
-                    if nouveau_km is not None:
-
-                        if exemplaire.kilometres_moteur_rollback is None:
-                            exemplaire.kilometres_moteur_rollback = (
-                                ancien_kilometrage_moteur
-                            )
+                    # ==================================================
+                    # ROLLBACK (valeurs avant remplacement)
+                    # ==================================================
+                    exemplaire.kilometres_rollback = ancien_kilometrage
+                    exemplaire.kilometres_boite_rollback = ancien_kilometrage_boite
+                    exemplaire.kilometres_moteur_rollback = ancien_kilometrage_moteur
+                    exemplaire.kilometres_embrayage_rollback = ancien_kilometrage_embrayage
 
                     exemplaire.date_derniere_intervention = (
-                        timezone.localtime(
-                            timezone.now()
-                        ).date()
+                        timezone.localtime(timezone.now()).date()
                     )
 
-                    # =============================================
-                    # NOUVEAU KILOMÉTRAGE
-                    # =============================================
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE + MOTEUR REMIS À ZÉRO
+                    # ==================================================
                     exemplaire.kilometres_chassis = nouveau_km
 
-                    # Recalcule :
-                    # - kilometres_moteur
-                    # - kilometres_boite
-                    # - variation_kilometres
+                    # Point de départ du nouveau moteur
+                    exemplaire.kilometres_remplacement_moteur = nouveau_km
+
+                    # → kilometres_moteur = nouveau_km - nouveau_km = 0
+                    #   (boîte et embrayage gardent leur propre point de départ)
                     exemplaire.update_kilometres()
 
-                    # =============================================
-                    # SAUVEGARDE VÉHICULE
-                    # =============================================
                     exemplaire.save(
                         update_fields=[
                             "kilometres_chassis",
@@ -231,10 +182,15 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                             "kilometres_rollback",
                             "kilometres_boite_rollback",
                             "kilometres_moteur_rollback",
+                            "kilometres_embrayage_rollback",  # ← manquait
+
+                            # Point de départ moteur
+                            "kilometres_remplacement_moteur",  # ← manquait
 
                             # Valeurs recalculées
                             "kilometres_moteur",
                             "kilometres_boite",
+                            "kilometres_embrayage",  # ← manquait
                             "variation_kilometres",
                         ]
                     )
@@ -331,7 +287,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                     # ---------------------------------------------
                     # Kilométrage remplacement_moteur
                     # ---------------------------------------------
-                    remplacement_moteur.kilometrage_remplacement_moteur = nouveau_km
+                    remplacement_moteur.kilometres_remplacement = nouveau_km
 
                     # ---------------------------------------------
                     # Variation kilométrique
@@ -662,6 +618,10 @@ def remplacement_moteur_form_view(request, exemplaire_id):
         }
     )
 
+
+
+
+
 @login_required
 def remplacement_moteur_detail_view(request, remplacement_moteur_id):
     remplacement_moteur = get_object_or_404(
@@ -706,12 +666,14 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
         return redirect("utilisateurs:dashboard")
 
     # ==========================================================
-    # KILOMÉTRAGE MOTEUR DE RÉFÉRENCE
-    #
-    # Cette valeur vient de remplacement_moteur_form_view
-    # et ne doit PAS être recalculée lors d'une modification.
+    # VALEURS D'AVANT INTERVENTION (lues AVANT le formulaire)
     # ==========================================================
-    km_moteur_reference = remplacement_moteur.kilometres_moteur_rollback
+    avant_chassis = remplacement_moteur.kilometres_chassis or 0
+    avant_moteur = remplacement_moteur.kilometres_moteur or 0
+    avant_boite = remplacement_moteur.kilometres_boite or 0
+    ancien_km_remplacement = remplacement_moteur.kilometres_remplacement or 0
+
+    km_moteur_reference = avant_moteur  # gardé pour le template
 
     # ==========================================================
     # POST
@@ -729,16 +691,67 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
             try:
                 with transaction.atomic():
 
+                    km = form.cleaned_data.get("kilometres_remplacement")
+
+                    if km is None:
+                        raise ValidationError(_("Le kilométrage du remplacement est obligatoire."))
+
                     remplacement = form.save(commit=False)
 
-                    # --------------------------------------------------
-                    # On conserve le kilométrage moteur enregistré
-                    # lors de la création
-                    # --------------------------------------------------
-                    remplacement.kilometres_moteur = km_moteur_reference
+                    # On conserve les valeurs d'avant intervention
+                    remplacement.kilometres_chassis = avant_chassis
+                    remplacement.kilometres_moteur = avant_moteur
+                    remplacement.kilometres_boite = avant_boite
+
+                    # ==================================================
+                    # LE KILOMÉTRAGE DU REMPLACEMENT A CHANGÉ
+                    # ==================================================
+                    if km != ancien_km_remplacement:
+
+                        if km < avant_chassis:
+                            raise ValidationError(
+                                _("Le kilométrage ne peut pas être inférieur à %(km)s km.")
+                                % {"km": avant_chassis}
+                            )
+
+                        # Seul le remplacement actuellement pris en compte par
+                        # le véhicule peut modifier ses compteurs
+                        if (exemplaire.kilometres_remplacement_moteur or 0) != ancien_km_remplacement:
+                            raise ValidationError(
+                                _("Seul le dernier remplacement du moteur peut voir "
+                                  "son kilométrage modifié.")
+                            )
+
+                        # Le châssis ne recule jamais (sinon moteur négatif)
+                        exemplaire.kilometres_chassis = max(
+                            exemplaire.kilometres_chassis or 0, km
+                        )
+
+                        # Nouveau point de départ du moteur → moteur = 0
+                        exemplaire.kilometres_remplacement_moteur = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(timezone.now()).date()
+                        )
+
+                        exemplaire.update_kilometres()
+                        exemplaire.save(update_fields=[
+                            "kilometres_chassis",
+                            "date_derniere_intervention",
+                            "kilometres_remplacement_moteur",
+                            "kilometres_moteur",
+                            "kilometres_boite",
+                            "kilometres_embrayage",
+                            "variation_kilometres",
+                        ])
+
+                        remplacement.kilometres_remplacement = km
+                        remplacement.kilometrage_variation = km - avant_chassis
 
                     remplacement.save()
                     form.save_m2m()
+
+                    # LOG + message + redirect : inchangés
 
                     # --------------------------------------------------
                     # LOG
@@ -904,6 +917,186 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
             "km_moteur_reference": km_moteur_reference,
         }
     )
+
+
+
+
+
+@never_cache
+@login_required
+def delete_moteur_view(request, remplacement_moteur_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    remplacement_moteur = get_object_or_404(
+        RemplacementMoteur.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=remplacement_moteur_id,
+    )
+
+    exemplaire = remplacement_moteur.voiture_exemplaire
+    maintenance = remplacement_moteur.maintenance
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                #
+                # Uniquement si ce remplacement est celui pris en compte
+                # par le véhicule (le rollback ne garde qu'un niveau).
+                # ==================================================
+                est_dernier = (
+                        (exemplaire.kilometres_remplacement_moteur or 0)
+                        == (remplacement_moteur.kilometres_remplacement or 0)
+                )
+
+                if est_dernier:
+                    kilometrage_rollback = exemplaire.kilometres_rollback or 0
+                    kilometrage_rollback_moteur = exemplaire.kilometres_moteur_rollback or 0
+
+                    exemplaire.kilometres_chassis = kilometrage_rollback
+
+                    # Ancien point de départ du moteur :
+                    # 0 = moteur d'origine (kilometres_moteur = châssis)
+                    exemplaire.kilometres_remplacement_moteur = max(
+                        0,
+                        kilometrage_rollback - kilometrage_rollback_moteur
+                    )
+
+                    # Recalcule moteur / boîte / embrayage / variation
+                    exemplaire.update_kilometres()
+
+                    exemplaire.save(
+                        update_fields=[
+                            "kilometres_chassis",
+                            "kilometres_remplacement_moteur",
+                            "kilometres_moteur",
+                            "kilometres_boite",
+                            "kilometres_embrayage",
+                            "variation_kilometres",
+                        ]
+                    )
+
+                # ==================================================
+                # SUPPRESSION REMPLACEMENT + MAINTENANCE
+                # ==================================================
+                remplacement_moteur.delete()
+
+                if maintenance:
+                    maintenance.delete()
+
+                # USER LOG : inchangé
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_BOITE = gettext_noop(
+                    "Suppression du remplacement moteur"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_BOITE} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Remplacement moteur supprimé avec succès.")
+            )
+
+            return redirect(
+                "remplacement_moteur:remplacement_moteur_list",
+                exemplaire_id=exemplaire.id
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+            return redirect(
+                "remplacement_moteur:remplacement_moteur_detail",
+                 remplacement_moteur_id=remplacement_moteur.id,
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "remplacement_moteur/delete_remplacement_moteur.html",
+        {
+            "remplacement_moteur": remplacement_moteur,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
 
 
 

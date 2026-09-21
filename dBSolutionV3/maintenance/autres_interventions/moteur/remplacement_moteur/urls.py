@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import RemplacementMoteurListView, remplacement_moteur_form_view, remplacement_moteur_detail_view, \
-    modifier_remplacement_moteur_view, remplacement_moteur_pdf_view
+    modifier_remplacement_moteur_view, remplacement_moteur_pdf_view, delete_moteur_view
 
 app_name = "remplacement_moteur"
 
@@ -16,6 +16,8 @@ urlpatterns = [
     path('<uuid:remplacement_moteur_id>/modifier/', modifier_remplacement_moteur_view, name='modifier_remplacement_moteur'),
 
     path("remplacement-moteur/<uuid:remplacement_moteur_id>/pdf/", remplacement_moteur_pdf_view, name="remplacement_moteur_pdf"),
+
+    path("remplacement_moteur/<uuid:remplacement_moteur_id>/delete/", delete_moteur_view, name="delete_remplacement_moteur"),
 
 ]
 
