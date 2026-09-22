@@ -366,7 +366,7 @@ class Entretien(TechnicienMixin, models.Model):
     boite_joint_vidange_fabricant = models.CharField(
         max_length=25,
         choices=FabricantPiece.choices,
-        default=FabricantPiece.AUTRE,
+        default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
     boite_joint_vidange_quantite = models.PositiveIntegerField(
