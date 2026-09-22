@@ -1,5 +1,4 @@
 from django.core.exceptions import ValidationError
-
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
@@ -13,11 +12,7 @@ from django.db.models import Q
 from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.check_up.forms import CheckupForm
 from maintenance.check_up.models import Checkup
-from utilisateurs.apprentis.models import Apprenti
-from utilisateurs.chef_mecanicien.models import ChefMecanicien
-from utilisateurs.models import Mecanicien, UserLog
-from utilisateurs.magasinier.models import Magasinier
-from utilisateurs.direction.models import Direction
+from utilisateurs.models import UserLog
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.http import HttpResponse
@@ -25,6 +20,9 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django_tenants.utils import tenant_context
 from weasyprint import HTML
+
+
+
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -762,9 +760,10 @@ def delete_checkup_view(request, checkup_id):
             )
 
             return redirect(
-                "check_up:checkup_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('check_up:checkup_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
             )
+
+
 
         except Exception as e:
 
@@ -778,7 +777,7 @@ def delete_checkup_view(request, checkup_id):
 
             return redirect(
                 "check_up:checkup_detail",
-                checkup_id=checkup.id,
+                checkup_id=checkup.id
             )
 
     # ==================================================
