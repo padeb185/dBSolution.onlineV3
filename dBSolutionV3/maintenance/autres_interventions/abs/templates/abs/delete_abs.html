@@ -12,9 +12,11 @@
 
     <p class="mb-6">
         {% trans "Voulez-vous vraiment supprimer le contrôle de l'ABS pour" %}
-        {% include "maintenance/partials/plaque.html" %}
     </p>
-    <br>
+
+    <div class="flex justify-center mb-6">
+        {% include "maintenance/partials/plaque.html" %}
+    </div>
 
     <form method="post">
         {% csrf_token %}
