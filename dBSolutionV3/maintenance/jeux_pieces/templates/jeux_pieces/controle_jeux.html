@@ -220,7 +220,7 @@
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/compteur.png' %}" alt="Kilometrage"
-                  class="w-20 h-20object-contain">
+                  class="w-20 h-20 object-contain">
             {% trans "Kilométrage" %}
         </h2>
         {% for field in form %}
@@ -245,7 +245,7 @@
         <!-- Section jeux rotules -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/rotule-direction.png' %}" alt="rotule-direction"
-                  class="w-20 h-20object-contain">
+                  class="w-20 h-20 object-contain">
             {% trans "Jeux rotules de direction" %}</h2>
         {% for field in form %}
             {% if "jeu_rotule_dir" in field.name %}
@@ -267,7 +267,7 @@
          <!-- Section jeux rotules -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/rotule-suspension.png' %}" alt="rotule suspension"
-                  class="w-20 h-20object-contain">
+                  class="w-20 h-20 object-contain">
             {% trans "Jeux rotules de suspensions inférieures" %}</h2>
         {% for field in form %}
             {% if "jeu_rotule_suspension_inf" in field.name %}
@@ -289,7 +289,7 @@
          <!-- Section jeux rotules -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/rotule-suspension-superieure.png' %}" alt="rotule suspension supérieure"
-                  class="w-20 h-20object-contain">
+                  class="w-20 h-20 object-contain">
             {% trans "Jeux rotules de suspensions supérieures" %}
         </h2>
         {% for field in form %}
@@ -312,7 +312,7 @@
          <!-- Section jeux biellettes -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/biellette.png' %}" alt="biellette"
-                  class="w-20 h-20object-contain">
+                  class="w-20 h-20 object-contain">
             {% trans "Jeux biellettes" %}
         </h2>
         {% for field in form %}
@@ -335,7 +335,7 @@
         <!-- Section jeux barre -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/barre-stab.png' %}" alt="barre stabilisatrice"
-                  class="w-20 h-20object-contain">
+                  class="w-20 h-20 object-contain">
             {% trans "Jeux barres stabilisatrice" %}</h2>
         {% for field in form %}
             {% if "jeu_barre" in field.name %}
@@ -358,7 +358,7 @@
          <!-- Section jeux roulement -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roulement-roue.png' %}" alt="roulement de roue"
-                  class="w-20 h-20object-contain">
+                  class="w-20 h-20 object-contain">
             {% trans "Jeux roulements de roues" %}
         </h2>
         {% for field in form %}
@@ -382,7 +382,7 @@
           <!-- Section jeux triangle -->
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/triangle-sus.png' %}" alt="jeux triangles"
-                  class="w-20 h-20object-contain">{% trans "Jeux triangles" %}</h2>
+                  class="w-20 h-20 object-contain">{% trans "Jeux triangles" %}</h2>
         {% for field in form %}
             {% if "jeu_tri" in field.name %}
             <div class="mb-4">
@@ -403,7 +403,7 @@
           <!-- Section jeux suspension multi-bras -->
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/suspension-multi-bras.png' %}" alt="suspension-multi"
-                  class="w-20 h-20object-contain">
+                  class="w-20 h-20 object-contain">
              {% trans "Jeux suspension multi-bras" %}
          </h2>
         {% for field in form %}
@@ -426,7 +426,7 @@
           <!-- Section jeux barre -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/amortisseur.png' %}" alt="amortisseur"
-                  class="w-20 h-20object-contain">
+                  class="w-20 h-20 object-contain">
             {% trans "Jeux amortisseurs" %}
         </h2>
         {% for field in form %}
@@ -472,7 +472,7 @@
             <!-- Section jeux arbre de transmission -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/arbre-de-transmission.png' %}" alt="Jeu arbre de transmission"
-                  class="w-20 h-20object-contain">
+                  class="w-20 h-20 object-contain">
             {% trans "Jeux dans l'arbre de transmission" %}
         </h2>
         {% for field in form %}
@@ -495,7 +495,7 @@
 
       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pays.png' %}" alt="pays"
-                  class="w-20 h-20object-contain">
+                  class="w-20 h-20 object-contain">
             {% trans "Pays" %}
         </h2>
         {% for field in form %}
@@ -518,7 +518,7 @@
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/notes.png' %}" alt="remarques"
-                  class="w-20 h-20object-contain">
+                  class="w-20 h-20 object-contain">
             {% trans "Remarques" %}
         </h2>
         {% for field in form %}
@@ -539,7 +539,7 @@
 
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/tag.png' %}" alt="étiquette"
-                  class="w-20 h-20object-contain">
+                  class="w-20 h-20 object-contain">
              {% trans "Étiquette" %}
          </h2>
         {% for field in form %}
@@ -561,7 +561,7 @@
 
                <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roue.png' %}" alt="serrage des roues"
-                  class="w-20 h-20object-contain">
+                  class="w-20 h-20 object-contain">
             {% trans "Serrage des roues" %}
         </h2>
         {% for field in form %}
@@ -583,7 +583,7 @@
 
            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/mecanicien.png' %}" alt="mecanicien"
-                  class="w-20 h-20object-contain">
+                  class="w-20 h-20 object-contain">
               {% trans "Technicien" %}
           </h2>
         {% for field in form %}
@@ -607,7 +607,7 @@
        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/taux.png' %}"
                  alt="taux horaire"
-                 class="w-20 h-20object-contain">
+                 class="w-20 h-20 object-contain">
         
             <span>
                 {% trans "Taux horaire" %}
@@ -646,7 +646,7 @@
             <!-- Section temps main d'œuvre -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
-                  class="w-20 h-20object-contain">
+                  class="w-20 h-20 object-contain">
             {% trans "Temps de main d'œuvre" %}
         </h2>
 

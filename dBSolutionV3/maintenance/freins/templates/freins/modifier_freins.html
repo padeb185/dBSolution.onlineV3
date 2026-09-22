@@ -221,7 +221,7 @@
 
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/compteur.png' %}" alt="Kilometrage"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
             {% trans "Kilométrage" %}
         </h2>
         {% for field in form %}
@@ -272,7 +272,7 @@
         <!-- Section plaquettes avant -->
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/plaquettes-de-frein.png' %}" alt="plaquettes avant"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
             {% trans "Plaquettes avant" %}
         </h2>
         {% for field in form %}
@@ -308,7 +308,7 @@
          <!-- Section disques avant -->
            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/disque-de-frein.png' %}" alt="disques de freins avant"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
             {% trans "Disques avant" %}
         </h2>
 
@@ -358,7 +358,7 @@
         <!-- Section plaquettes arriere -->
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/plaquettes-de-frein.png' %}" alt="plaquettes arrières"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
             {% trans "Plaquettes arrière" %}
         </h2>
         {% for field in form %}
@@ -393,7 +393,7 @@
          <!-- Section disques arriere -->
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/disque-de-frein.png' %}" alt="disques de freins arrières"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
             {% trans "Disques arrière" %}
         </h2>
         <div class="mb-4">
@@ -441,7 +441,7 @@
          <!-- Section freins machoire -->
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/etrier.png' %}" alt="etrier de frein"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
             {% trans "Mâchoires de freins" %}
         </h2>
         {% for field in form %}
@@ -477,7 +477,7 @@
          <!-- Section fuites -->
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/fuite-deau.png' %}" alt="Fuite"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
             {% trans "Fuites" %}
         </h2>
         {% for field in form %}
@@ -514,7 +514,7 @@
          <!-- Section liquides -->
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/liquide_frein.png' %}" alt="liquide de frein"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
             {% trans "Liquide de freins" %}
         </h2>
         {% for field in form %}
@@ -551,7 +551,7 @@
 
              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pays.png' %}" alt="pays"
-                 style="width:60px; height:60px; margin-right:10px;">{% trans "Pays" %}</h2>
+                  class="w-20 h-20">{% trans "Pays" %}</h2>
         {% for field in form %}
             {% if "pays" in field.name %}
             <div class="mb-4">
@@ -584,7 +584,7 @@
 
             <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/tag.png' %}" alt="etiquette"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
               {% trans "Etiquette" %}
           </h2>
         {% for field in form %}
@@ -635,7 +635,7 @@
         <!-- Section remarques -->
            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/notes.png' %}" alt="remarques"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
              {% trans "Remarques" %}
          </h2>
         {% for field in form %}
@@ -672,7 +672,7 @@
 
             <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roue.png' %}" alt="Serrage des roues"
-                 style="width:60px; height:60px; margin-right:10px;">{% trans "Serrage des roues" %}</h2>
+                  class="w-20 h-20">{% trans "Serrage des roues" %}</h2>
         {% for field in form %}
             {% if "serrage_roues" in field.name %}
             <div class="mb-4">
@@ -706,7 +706,7 @@
         <!-- Section technicien -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/mecanicien.png' %}" alt="Technicien"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
           {% trans "Technicien" %}
       </h2>
         {% for field in form %}
@@ -742,7 +742,7 @@
       <!-- Section taux horaire -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/taux.png' %}" alt="Taux horaire"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
           {% trans "Taux horaire" %}
       </h2>
         {% for field in form %}
@@ -780,7 +780,7 @@
                      <!-- Section temps main d'œuvre -->
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
             {% trans "Temps de main d'œuvre" %}
         </h2>
 

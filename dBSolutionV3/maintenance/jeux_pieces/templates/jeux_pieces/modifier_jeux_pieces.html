@@ -28,7 +28,7 @@
 
                 <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
                      alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
-                      class="w-16 h-16 object-contain">
+                        class="w-20 h-20 object-contain">
 
 
                 <span class="font-semibold">
@@ -222,7 +222,7 @@
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/compteur.png' %}" alt="Kilometrage"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
             {% trans "Kilométrage" %}
         </h2>
@@ -249,7 +249,7 @@
       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
 
             <img src="{% static 'icons/rotule-direction.png' %}" alt="rotule-direction"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
             {% trans "Jeux rotules de direction" %}</h2>
         {% for field in form %}
@@ -273,7 +273,7 @@
       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
 
             <img src="{% static 'icons/rotule-suspension.png' %}" alt="rotule suspension"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
             {% trans "Jeux rotules de suspensions inférieures" %}</h2>
         {% for field in form %}
@@ -297,7 +297,7 @@
       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
 
             <img src="{% static 'icons/rotule-suspension-superieure.png' %}" alt="rotule suspension supérieure"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
             {% trans "Jeux rotules de suspensions supérieures" %}
         </h2>
@@ -322,7 +322,7 @@
       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
 
             <img src="{% static 'icons/biellette.png' %}" alt="biellette"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
             {% trans "Jeux biellettes" %}
         </h2>
@@ -347,7 +347,7 @@
       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
 
             <img src="{% static 'icons/barre-stab.png' %}" alt="barre stabilisatrice"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
             {% trans "Jeux barres stabilisatrice" %}</h2>
         {% for field in form %}
@@ -371,7 +371,7 @@
          <!-- Section jeux roulement -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roulement-roue.png' %}" alt="roulement de roue"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
             {% trans "Jeux roulements de roues" %}
         </h2>
@@ -396,7 +396,7 @@
           <!-- Section jeux triangle -->
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/triangle-sus.png' %}" alt="jeux triangles"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 {% trans "Jeux triangles" %}</h2>
         {% for field in form %}
             {% if "jeu_tri" in field.name %}
@@ -418,7 +418,7 @@
           <!-- Section jeux suspension multi-bras -->
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/suspension-multi-bras.png' %}" alt="suspension-multi"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
              {% trans "Jeux suspension multi-bras" %}
          </h2>
@@ -442,7 +442,7 @@
           <!-- Section jeux barre -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/amortisseur.png' %}" alt="amortisseur"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
             {% trans "Jeux amortisseurs" %}
         </h2>
@@ -466,7 +466,7 @@
             <!-- Section jeux cardans -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/cardan.png' %}" alt="jeu cardans"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
             {% trans "Jeux cardans" %}
         </h2>
@@ -490,7 +490,7 @@
             <!-- Section jeux arbre de transmission -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/arbre-de-transmission.png' %}" alt="Jeu arbre de transmission"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
             {% trans "Jeux dans l'arbre de transmission" %}
         </h2>
@@ -514,7 +514,7 @@
 
       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pays.png' %}" alt="pays"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
             {% trans "Pays" %}
         </h2>
@@ -538,7 +538,7 @@
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/notes.png' %}" alt="remarques"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
             {% trans "Remarques" %}
         </h2>
@@ -560,7 +560,7 @@
 
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/tag.png' %}" alt="étiquette"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
              {% trans "Étiquette" %}
          </h2>
@@ -583,7 +583,7 @@
 
                <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roue.png' %}" alt="serrage des roues"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
             {% trans "Serrage des roues" %}
         </h2>
@@ -606,7 +606,7 @@
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/mecanicien.png' %}" alt="mecanicien"
-                  class="w-16 h-16 object-contain">
+                    class="w-20 h-20 object-contain">
 
               {% trans "Technicien" %}
           </h2>
@@ -630,7 +630,7 @@
      <!-- Section taux horaire -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/taux.png' %}" alt="taux horaire"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
            {% trans "Taux horaire" %}
        </h2>
@@ -667,7 +667,7 @@
             <!-- Section temps main d'œuvre -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
-                 class="w-16 h-16 object-contain">
+                   class="w-20 h-20 object-contain">
 
             {% trans "Temps de main d'œuvre" %}
         </h2>

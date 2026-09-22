@@ -15,7 +15,7 @@
             <div class="flex items-center gap-4">
                 <img src="{% static 'icons/niveaux.png' %}"
                      alt="niveaux"
-                     style="width:60px; height:60px;">
+                      class="w-20 h-20">
 
                 <span>
                     {% trans "Modifier le contrôle des niveaux" %}
@@ -227,10 +227,10 @@
         <br>
 
              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/compteur.png' %}" alt="Kilometrage"
-                 style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Kilométrage" %}
-        </h2>
+                <img src="{% static 'icons/compteur.png' %}" alt="Kilometrage"
+                      class="w-20 h-20">
+                {% trans "Kilométrage" %}
+            </h2>
         {% for field in form %}
             {% if "kilo" in field.name %}
             <div class="mb-4">
@@ -280,7 +280,7 @@
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/engine.png' %}" alt="Niveaux d'huile moteur"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
             {% trans "Huile moteur" %}
        </h2>
         {% for field in form %}
@@ -534,7 +534,7 @@
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pays.png' %}" alt="pays"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
             {% trans "Pays" %}
         </h2>
         {% for field in form %}
@@ -641,7 +641,7 @@
 
            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roue.png' %}" alt="serrage des roues"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
             {% trans "Serrage des roues" %}
         </h2>
         {% for field in form %}
@@ -698,7 +698,7 @@
      <!-- Section technicien -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/taux.png' %}" alt="taux horaire"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
            {% trans "Taux horaire" %}
        </h2>
         {% for field in form %}
@@ -734,7 +734,7 @@
                  <!-- Section temps main d'œuvre -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
-                 style="width:60px; height:60px; margin-right:10px;">
+                  class="w-20 h-20">
             {% trans "Temps de main d'œuvre" %}
         </h2>
 
