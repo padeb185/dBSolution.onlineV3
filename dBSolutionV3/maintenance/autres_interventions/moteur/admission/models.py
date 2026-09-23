@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.choices import TAUX_HORAIRE_CHOICES, FabricantPiece, FabricantCapteurEchappement, FabricantTurbo, \
-    FabricantIntercooler, FabricantVanneEGR, FabricantDurite, TVAConfig, RouesSerrageEtat
+    FabricantIntercooler, FabricantVanneEGR, FabricantDurite, TVAConfig, RouesSerrageEtat, FabricantFiltre
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -130,7 +130,7 @@ class Admission(TechnicienMixin, models.Model):
     # -------------------------
     # FILTRATION
     filtre_air_pc = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Filtre à air"))
-    filtre_air_pc_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
+    filtre_air_pc_fabricant = models.CharField(max_length=25, choices=FabricantFiltre.choices,default=FabricantFiltre.CHOISIR, verbose_name=_("Fabricant"),blank=True)
     filtre_air_pc_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
     filtre_air_pc_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 

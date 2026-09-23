@@ -577,8 +577,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
 
         return nouveau_km
 
-
-
     def generer_rapport_remplacement(self):
         rapport = []
         total_general = Decimal("0.00")
@@ -607,6 +605,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
             nom_champ_prix = f"{champ_base}_prix"
             nom_champ_quantite = f"{champ_base}_quantite"
             nom_champ_oem = f"{champ_base}_oem"
+            nom_champ_fabricant = f"{champ_base}_fabricant"
 
             prix = getattr(
                 self,
@@ -640,6 +639,26 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
                 "",
             ) or ""
 
+            # Valeur brute du fabricant (code en majuscules)
+            fabricant = getattr(
+                self,
+                nom_champ_fabricant,
+                "",
+            ) or ""
+
+            # Libellé écrit correspondant, via le get_<champ>_display
+            # auto-généré par Django grâce aux choices du champ
+            get_fabricant_display = getattr(
+                self,
+                f"get_{nom_champ_fabricant}_display",
+                None,
+            )
+            fabricant_label = (
+                get_fabricant_display()
+                if get_fabricant_display is not None
+                else fabricant
+            )
+
             total = (
                     prix * quantite
             ).quantize(
@@ -657,6 +676,8 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
                     NiveauxEtat.choices
                 ).get(etat, etat),
                 "oem": numero_oem,
+                "fabricant": fabricant,
+                "fabricant_label": fabricant_label,
                 "prix": prix,
                 "quantite": quantite,
                 "total": total,
@@ -698,6 +719,8 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
                     else _("À remplacer")
                 ),
                 "oem": self.remplacement_numero_moteurs or "",
+                "fabricant": "",
+                "fabricant_label": "",
                 "prix": moteur_prix,
                 "quantite": moteur_quantite,
                 "total": moteur_total,

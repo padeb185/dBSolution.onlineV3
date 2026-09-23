@@ -862,7 +862,7 @@
 
         <br>
 
-                    <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/boite-carter.png' %}" alt="Carter d'huile de boite"
                   class="w-20 h-20">
             {% trans "Carter d'huile" %}
@@ -912,7 +912,7 @@
 
         <br>
 
-                    <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/boite-joint-carter.png' %}" alt="Joint de carter"
                   class="w-20 h-20">
             {% trans "Joint de Carter" %}
@@ -1012,55 +1012,7 @@
 
         <br>
 
-                <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/pompe-hydraulique.png' %}" alt="Pompe hydraulique"
-                  class="w-20 h-20">
-            {% trans "Pompe hydraulique" %}
-        </h2>
-         {% for field in form %}
-            {% if "pompe_hydraulique" in field.name %}
-            <div class="mb-4">
-                {% if field.field.widget.input_type == "checkbox" %}
-                    <label class="inline-flex items-center gap-2">
-                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
-                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
-                    </label>
 
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1 ml-7">
-                            {{ field.help_text }}
-                        </p>
-                    {% endif %}
-
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1 ml-7">
-                            {{ field.errors|striptags }}
-                        </p>
-                    {% endif %}
-                {% else %}
-                    <label class="block font-semibold mb-1">
-                        {{ field.label }}
-                    </label>
-
-                    {{ field|add_class:"input" }}
-
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1">
-                            {{ field.help_text }}
-                        </p>
-                    {% endif %}
-
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1">
-                            {{ field.errors|striptags }}
-                        </p>
-                    {% endif %}
-                {% endif %}
-            </div>
-            {% endif %}
-        {% endfor %}
-
-        <br>
 
                 <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/boite-embraye-interne.png' %}" alt="Embrayages interne"

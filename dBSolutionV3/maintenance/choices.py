@@ -1192,6 +1192,7 @@ class FabricantDurite(models.TextChoices):
 
 
 class FabricantAlternateur(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
     BOSCH = "BOSCH", _("Bosch")
     VALEO = "VALEO", _("Valeo")
     DENSO = "DENSO", _("Denso")
@@ -1244,13 +1245,14 @@ class FabricantAlternateur(models.TextChoices):
     ERA_BENELUX = "ERA_BENELUX", _("ERA Benelux")
 
     AUTRE = "AUTRE", _("Autre")
-    CHOISIR = "CHOISIR", _("Choisir")
+
 
 
 
 
 
 class FabricantCourroie(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
     CONTINENTAL = "CONTINENTAL", _("Continental / ContiTech")
     GATES = "GATES", _("Gates")
     DAYCO = "DAYCO", _("Dayco")
@@ -1287,7 +1289,7 @@ class FabricantCourroie(models.TextChoices):
     VALEO = "VALEO", _("Valeo")
 
     AUTRE = "AUTRE", _("Autre")
-    CHOISIR = "CHOISIR", _("Choisir")
+
 
 
 
