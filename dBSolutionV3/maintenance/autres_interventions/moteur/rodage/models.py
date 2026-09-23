@@ -25,13 +25,14 @@ def validate_step_0_1(value):
 class RodageEtat(models.TextChoices):
     A_FAIRE = "A_FAIRE", _("A faire")
     FAIT = "FAIT", _("Fait")
+    REMPLACE = "REMPLACE", _("Remplacé")
     REPORTER = "REPORTER", _("Reporter")
 
 
 class NiveauxEtat(models.TextChoices):
     BON = "BON", _("Bon")
-    AJOUTER = "AJOUTER", _("Ajouter")
-    REMPLACER = "REMPLACER", _("Remplacer")
+    AJOUTER = "AJOUTER", _("Ajouté")
+    REMPLACE = "REMPLACE", _("Remplacé")
 
 class LiquideFreinsQualite(models.TextChoices):
     DOT3 = 'DOT 3', _("DOT 3")
@@ -133,14 +134,14 @@ class Rodage(TechnicienMixin, models.Model):
 
     moteur_rodage_vidange = models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Vidange de l'huile moteur"))
 
-    moteur_filtre_huile =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Remplacement du filtre à huile moteur"))
+    moteur_filtre_huile =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Filtre à huile moteur"))
     moteur_filtre_huile_fabricant = models.CharField(max_length=25, choices=FabricantFiltre.choices, default=FabricantFiltre.CHOISIR,verbose_name=_("Fabricant"))
     moteur_filtre_huile_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
     moteur_filtre_huile_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
 
 
 
-    moteur_bouchon_vidange =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Remplacer le bouchon de vidange"))
+    moteur_bouchon_vidange =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Bouchon de vidange"))
     moteur_bouchon_vidange_fabricant = models.CharField(
         max_length=25,
         choices=FabricantPiece.choices,
@@ -152,7 +153,7 @@ class Rodage(TechnicienMixin, models.Model):
 
 
 
-    moteur_joint_vidange =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Remplacer le joint du bouchon de vidange"))
+    moteur_joint_vidange =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Joint du bouchon de vidange"))
     moteur_joint_vidange_fabricant = models.CharField(
         max_length=25,
         choices=FabricantPiece.choices,
@@ -163,7 +164,7 @@ class Rodage(TechnicienMixin, models.Model):
     moteur_joint_vidange_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
 
 
-    moteur_ajout_huile =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Ajout de la nouvelle huile moteur"))
+    moteur_ajout_huile =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Ajout de l'huile moteur"))
     moteur_ajout_huile_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL, verbose_name=_("Fabricant"))
     moteur_ajout_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30,verbose_name=_("Qualité d'huile"))
     moteur_ajout_huile_quantite = models.DecimalField(default=0.0, decimal_places=2, max_digits=4,verbose_name=_("Quantité ajoutée en litres"),validators=[StepValueValidator(0.1)])
@@ -172,15 +173,15 @@ class Rodage(TechnicienMixin, models.Model):
 
 
 
-    lave_glace_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de lave-glace"))
-    lave_glace_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL, verbose_name=_("Fabricant"))
+    lave_glace_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Liquide de lave-glace"))
+    lave_glace_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.CHOISIR, verbose_name=_("Fabricant"))
     lave_glace_qualite = models.CharField(max_length=25, choices=LaveGlaceQualite.choices,default=LaveGlaceQualite.HIVER,verbose_name=_("Qualité"))
     lave_glace_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2, verbose_name=_("Quantité ajoutée en litres"),validators=[StepValueValidator(0.1)])
     lave_glace_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
 
 
 
-    frein_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de freins"))
+    frein_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Liquide de freins"))
     frein_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL, verbose_name=_("Fabricant"))
     frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité"))
     frein_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=2, verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
@@ -189,16 +190,16 @@ class Rodage(TechnicienMixin, models.Model):
 
 
     refroidissement_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de refroidissement"))
-    refroidissement_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Fabricant"))
+    refroidissement_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.CHOISIR,verbose_name=_("Fabricant"))
     refroidissement_liquide_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité"))
     refroidissement_liquide_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2, verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
     refroidissement_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
 
 
 
-    liquide_direction_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de direction"))
+    liquide_direction_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Liquide de direction"))
     liquide_direction_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Fabricant"))
-    liquide_direction_qualite = models.CharField(max_length=25, choices=LiquideDirectionQualite.choices,default=LiquideDirectionQualite.UNIVERSAL_PSF,verbose_name=_("Qualité"))
+    liquide_direction_qualite = models.CharField(max_length=25, choices=LiquideDirectionQualite.choices,default=LiquideDirectionQualite.CHOISIR,verbose_name=_("Qualité"))
     liquide_direction_quantite =  models.DecimalField(default=0.0,  max_digits=4, decimal_places=2, verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
     liquide_direction_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2, verbose_name=_("Prix d'achat HTVA"))
 

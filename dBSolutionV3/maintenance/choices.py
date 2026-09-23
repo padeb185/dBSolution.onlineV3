@@ -88,6 +88,8 @@ class FabricantLubrifiant(models.TextChoices):
 
 
 class FabricantFiltre(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     BOSCH = "BOSCH", "Bosch"
     MANN_FILTER = "MANN_FILTER", "MANN-Filter"
     MAHLE = "MAHLE", "Mahle"
@@ -129,8 +131,6 @@ class FabricantFiltre(models.TextChoices):
     OPEN_PARTS = "OPEN_PARTS", "Open Parts"
     AUTRE = "AUTRE", _("Autre")
     CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
-    CHOISIR = "CHOISIR", _("Choisir")
-
 
 
 
@@ -1771,7 +1771,7 @@ class TVAConfig:
 
 
 class LiquideDirectionQualite(models.TextChoices):
-
+    CHOISIR = "CHOISIR", _("Choisir")
     # Hydraulique direction assistée (Pentosin / CHF)
     CHF_7_1 = "CHF_7_1", _("CHF 7.1")
     CHF_11S = "CHF_11S", _("CHF 11S")

@@ -435,6 +435,10 @@
                     <span class="etat etat-bleu">
                         {{ rodage.get_moteur_filtre_huile_display }}
                     </span>
+                 {% elif rodage.moteur_filtre_huile == "REMPLACE" %}
+                    <span class="etat etat-bleu">
+                        {{ rodage.get_moteur_filtre_huile_display }}
+                    </span>
 
                 {% elif rodage.moteur_filtre_huile == "REPORTER" %}
                     <span class="etat etat-jaune">
@@ -460,6 +464,10 @@
                     <span class="etat etat-bleu">
                         {{ rodage.get_moteur_bouchon_vidange_display }}
                     </span>
+                 {% elif rodage.moteur_bouchon_vidange == "REMPLACE" %}
+                    <span class="etat etat-bleu">
+                        {{ rodage.get_moteur_bouchon_vidange_display }}
+                    </span>
 
                 {% elif rodage.moteur_bouchon_vidange == "REPORTER" %}
                     <span class="etat etat-jaune">
@@ -482,6 +490,10 @@
                     </span>
 
                 {% elif rodage.moteur_joint_vidange == "FAIT" %}
+                    <span class="etat etat-bleu">
+                        {{ rodage.get_moteur_joint_vidange_display }}
+                    </span>
+                 {% elif rodage.moteur_joint_vidange == "REMPLACE" %}
                     <span class="etat etat-bleu">
                         {{ rodage.get_moteur_joint_vidange_display }}
                     </span>
@@ -589,7 +601,7 @@
             <td>{% trans "Liquide de freins" %}</td>
 
             <td>
-                {% if rodage.frein_liquide_etat == "AJOUTER" or rodage.frein_liquide_etat == "REMPLACER" %}
+                {% if rodage.frein_liquide_etat == "AJOUTER" or rodage.frein_liquide_etat == "REMPLACE" %}
                     <span class="etat etat-bleu">
                         {{ rodage.get_frein_liquide_etat_display }}
                     </span>
