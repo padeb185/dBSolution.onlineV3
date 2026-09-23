@@ -300,6 +300,8 @@ const csrftoken = getCookie('csrftoken');
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    const LANGUE_ACTUELLE = "{{ LANGUAGE_CODE|default:'fr' }}";
+
     // ============================================================
     // ELEMENTS
     // ============================================================
@@ -365,16 +367,20 @@ document.addEventListener("DOMContentLoaded", function () {
     // POPUP
     // ============================================================
 
+
+
+    // ============================================================
+    // ELEMENTS
+    // ============================================================
+
+
     function ouvrirPopup(variation) {
 
         if (!popup || !popupVariation) {
             return;
         }
 
-        popupVariation.textContent =
-            variation.toLocaleString(
-                "{{ LANGUAGE_CODE|default:'fr' }}"
-            );
+        popupVariation.textContent = variation.toLocaleString(LANGUE_ACTUELLE);
 
         popup.classList.add("popup-visible");
 
@@ -382,6 +388,8 @@ document.addEventListener("DOMContentLoaded", function () {
             boutonConfirmer.focus();
         }
     }
+
+
 
 
     function fermerPopup() {
