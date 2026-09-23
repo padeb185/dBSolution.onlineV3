@@ -143,7 +143,7 @@ class Injection(models.Model):
         max_length=50,
         choices=FabricantPompeCarburant.choices,
         default=FabricantPompeCarburant.CHOISIR,
-        verbose_name=_("Fabricant de la pompe à carburant"),
+        verbose_name=_("Fabricant"),
     )
 
     pompe_carburant_pression_bar = models.DecimalField(
@@ -154,18 +154,19 @@ class Injection(models.Model):
         validators=[MinValueValidator(Decimal("0.00"))],
         verbose_name=_("Pression de la pompe à carburant en bar"),
     )
+    pompe_carburant_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
     pompe_carburant_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=Decimal("0.00"),
-        verbose_name=_("Prix de la pompe à carburant"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
-    pompe_carburant_quantite = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("Quantité de pompes à carburant"),
-    )
+
 
     # ==========================================================
     # DIESEL / INJECTION HAUTE PRESSION
@@ -183,7 +184,7 @@ class Injection(models.Model):
         max_length=50,
         choices=FabricantPompeHautePression.choices,
         default=FabricantPompeHautePression.CHOISIR,
-        verbose_name=_("Fabricant de la pompe haute pression"),
+        verbose_name=_("Fabricant"),
     )
 
     pompe_haute_pression_pression_bar = models.DecimalField(
@@ -195,18 +196,19 @@ class Injection(models.Model):
         verbose_name=_("Pression de la pompe haute pression en bar"),
     )
 
+    pompe_haute_pression_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
     pompe_haute_pression_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=Decimal("0.00"),
-        verbose_name=_("Prix de la pompe haute pression"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
-    pompe_haute_pression_quantite = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("Quantité de pompes haute pression"),
-    )
+
 
     # ==========================================================
     # RAMPE D'INJECTION
@@ -224,20 +226,22 @@ class Injection(models.Model):
         max_length=50,
         choices=FabricantRampeInjection.choices,
         default=FabricantRampeInjection.CHOISIR,
-        verbose_name=_("Fabricant de la rampe d'injection"),
+        verbose_name=_("Fabricant"),
+    )
+
+    rampe_injection_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
     )
 
     rampe_injection_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=Decimal("0.00"),
-        verbose_name=_("Prix de la rampe d'injection"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
-    rampe_injection_quantite = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("Quantité de rampes d'injection"),
-    )
+
 
     # ==========================================================
     # CAPTEUR DE PRESSION DE RAMPE
@@ -253,7 +257,7 @@ class Injection(models.Model):
         max_length=50,
         choices=FabricantCapteurPressionRampe.choices,
         default=FabricantCapteurPressionRampe.CHOISIR,
-        verbose_name=_("Fabricant du capteur de pression de rampe"),
+        verbose_name=_("Fabricant"),
     )
 
     pression_rampe_bar = models.DecimalField(
@@ -265,17 +269,19 @@ class Injection(models.Model):
         verbose_name=_("Pression de rampe mesurée en bar"),
     )
 
+    capteur_pression_rampe_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+
     capteur_pression_rampe_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=Decimal("0.00"),
-        verbose_name=_("Prix du capteur de pression de rampe"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
-    capteur_pression_rampe_quantite = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("Quantité de capteurs de pression de rampe"),
-    )
 
     # ==========================================================
     # TUYAUX HAUTE PRESSION
@@ -291,20 +297,21 @@ class Injection(models.Model):
         max_length=50,
         choices=FabricantTuyauxHautePression.choices,
         default=FabricantTuyauxHautePression.CHOISIR,
-        verbose_name=_("Fabricant des tuyaux haute pression"),
+        verbose_name=_("Fabricant"),
+    )
+
+    tuyaux_haute_pression_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
     )
 
     tuyaux_haute_pression_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=Decimal("0.00"),
-        verbose_name=_("Prix des tuyaux haute pression"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
-    tuyaux_haute_pression_quantite = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("Quantité de tuyaux haute pression"),
-    )
 
     # ==========================================================
     # INJECTEURS
@@ -325,20 +332,22 @@ class Injection(models.Model):
         max_length=50,
         choices=FabricantInjecteur.choices,
         default=FabricantInjecteur.CHOISIR,
-        verbose_name=_("Fabricant des injecteurs"),
+        verbose_name=_("Fabricant"),
+    )
+
+
+    injecteurs_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
     )
 
     injecteurs_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=Decimal("0.00"),
-        verbose_name=_("Prix unitaire d'un injecteur"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
-    injecteurs_quantite = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("Quantité d'injecteurs remplacés"),
-    )
 
     # ==========================================================
     # RÉSISTANCE INJECTEURS
@@ -453,21 +462,20 @@ class Injection(models.Model):
         max_length=50,
         choices=FabricantConnecteurInjecteur.choices,
         default=FabricantConnecteurInjecteur.CHOISIR,
-        verbose_name=_("Fabricant des connecteurs d'injecteurs"),
+        verbose_name=_("Fabricant"),
+    )
+
+    connecteurs_injecteurs_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
     )
 
     connecteurs_injecteurs_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=Decimal("0.00"),
-        verbose_name=_("Prix des connecteurs d'injecteurs"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
-
-    connecteurs_injecteurs_quantite = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("Quantité de connecteurs d'injecteurs remplacés"),
-    )
-
 
 
     # ==========================================================
@@ -831,7 +839,7 @@ class Injection(models.Model):
             if etat not in [
                 EtatInjection.NOT_OK,
                 EtatInjection.REMPLACE,
-                EtatInjection.NETTOYE,
+                EtatInjectionNettoye.NETTOYE
             ]:
                 continue
 
@@ -840,7 +848,7 @@ class Injection(models.Model):
             # ==================================================
 
             etat_label = dict(
-                EtatInjection.choices
+                list(EtatInjection.choices) + list(EtatInjectionNettoye.choices)
             ).get(
                 etat,
                 etat,
