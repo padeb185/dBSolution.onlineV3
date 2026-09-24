@@ -1007,6 +1007,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const kmChassis = document.getElementById("id_kilometres_chassis");
     const kmCheckup = document.getElementById("id_kilometres_rodage");
     const kmVariation = document.getElementById("id_kilometrage_variation");
+        const kmMoteur = document.getElementById("id_kilometres_moteur");
+
+    // Valeur moteur au chargement de la page (avant variation)
+    const moteurInitial = kmMoteur && kmMoteur.value.trim() !== ""
+        ? Number(kmMoteur.value)
+        : 0;
 
     const popup = document.getElementById("kilometrage-popup");
     const popupVariation = document.getElementById("popup-variation");
@@ -1027,15 +1033,21 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+    function majMoteur(variation) {
+        if (!kmMoteur) return;
+        kmMoteur.value = moteurInitial + variation;
+    }
+
     let variationConfirmee = false;
 
-    function calculerVariation() {
+       function calculerVariation() {
 
         if (
             kmChassis.value.trim() === "" ||
             kmCheckup.value.trim() === ""
         ) {
             kmVariation.value = "";
+            majMoteur(0);
             variationConfirmee = false;
             return;
         }
@@ -1048,6 +1060,7 @@ document.addEventListener("DOMContentLoaded", function () {
             Number.isNaN(checkup)
         ) {
             kmVariation.value = "";
+            majMoteur(0);
             variationConfirmee = false;
             return;
         }
@@ -1055,6 +1068,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const variation = checkup - chassis;
 
         kmVariation.value = variation;
+        majMoteur(variation);
 
         variationConfirmee = false;
     }

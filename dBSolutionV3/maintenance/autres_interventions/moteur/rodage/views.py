@@ -205,6 +205,13 @@ def rodage_check_view(request, exemplaire_id):
                             # =============================================
                             exemplaire.kilometres_chassis = km
 
+                            variation = form.cleaned_data.get("kilometrage_variation") or 0
+
+                            # Sauvegarde pour un éventuel rollback lors d'une suppression
+                            exemplaire.kilometres_moteur_rollback = exemplaire.kilometres_moteur or 0
+
+                            exemplaire.kilometres_moteur = (exemplaire.kilometres_moteur or 0) + variation
+
                             # Recalcule :
                             # - kilometres_moteur
                             # - kilometres_boite
@@ -491,24 +498,45 @@ def rodage_detail_view(request, rodage_id):
 
 
 
-
 #---------------------
-
 # Modifier rodage
-
 #---------------------
 
 @login_required
 def modifier_rodage_view(request, rodage_id):
     tenant = request.user.societe
 
-    # Récupération de l'entretien avec son exemplaire
     rodage = get_object_or_404(
         Rodage.objects.select_related("voiture_exemplaire"),
         id=rodage_id
     )
 
     exemplaire = rodage.voiture_exemplaire
+
+    # ==================================================
+    # BASE = VALEURS D'AVANT LE RODAGE (stockées à la création)
+    # À lire AVANT form.is_valid(), qui modifie l'instance
+    # ==================================================
+    base_chassis = (
+        rodage.kilometres_chassis
+        if rodage.kilometres_chassis is not None
+        else (exemplaire.kilometres_chassis or 0)
+    )
+    base_moteur = (
+        rodage.kilometres_moteur
+        if rodage.kilometres_moteur is not None
+        else (exemplaire.kilometres_moteur or 0)
+    )
+    base_boite = (
+        rodage.kilometres_boite
+        if rodage.kilometres_boite is not None
+        else (exemplaire.kilometres_boite or 0)
+    )
+    base_embrayage = (
+        rodage.kilometres_embrayage
+        if rodage.kilometres_embrayage is not None
+        else (exemplaire.kilometres_embrayage or 0)
+    )
 
     # -------------------------
     # POST
@@ -518,7 +546,7 @@ def modifier_rodage_view(request, rodage_id):
             request.POST,
             instance=rodage,
             user=request.user,
-            exemplaire=rodage.voiture_exemplaire
+            exemplaire=exemplaire
         )
         if form.is_valid():
 
@@ -528,31 +556,10 @@ def modifier_rodage_view(request, rodage_id):
                     # ==================================================
                     # NOUVEAU KILOMÉTRAGE SAISI
                     # ==================================================
-                    km = form.cleaned_data.get(
-                        "kilometres_rodage"
-                    )
+                    km = form.cleaned_data.get("kilometres_rodage")
 
                     if km is not None:
                         km = int(km)
-
-                    # ==================================================
-                    # VALEURS ACTUELLES = ROLLBACK LOCAL
-                    # ==================================================
-                    rollback_chassis = (
-                            exemplaire.kilometres_chassis or 0
-                    )
-
-                    rollback_moteur = (
-                            exemplaire.kilometres_moteur or 0
-                    )
-
-                    rollback_boite = (
-                            exemplaire.kilometres_boite or 0
-                    )
-
-                    rollback_embrayage = (
-                            exemplaire.kilometres_embrayage or 0
-                    )
 
                     # ==================================================
                     # VALIDATION
@@ -561,98 +568,58 @@ def modifier_rodage_view(request, rodage_id):
 
                         if km < 0:
                             raise ValidationError(
-                                _(
-                                    "Le kilométrage ne peut pas "
-                                    "être négatif."
-                                )
+                                _("Le kilométrage ne peut pas être négatif.")
                             )
 
-                        if km < rollback_chassis:
+                        if km < base_chassis:
                             raise ValidationError(
                                 _(
                                     "Le kilométrage ne peut pas être "
                                     "inférieur à %(km)s km."
-                                ) % {
-                                    "km": rollback_chassis
-                                }
+                                ) % {"km": base_chassis}
                             )
 
-                    # ==================================================
-                    # ÉCHAPPEMENT
-                    # ==================================================
-                    rodage = form.save(
-                        commit=False
-                    )
-
-                    rodage.voiture_exemplaire = (
-                        exemplaire
-                    )
+                    rodage = form.save(commit=False)
+                    rodage.voiture_exemplaire = exemplaire
 
                     # ==================================================
-                    # ROLLBACK LOCAL
+                    # ROLLBACK LOCAL (inchangé depuis la création)
                     # ==================================================
-                    rodage.kilometres_chassis = (
-                        rollback_chassis
-                    )
-
-                    rodage.kilometres_moteur = (
-                        rollback_moteur
-                    )
-
-                    rodage.kilometres_boite = (
-                        rollback_boite
-                    )
-
-                    rodage.kilometres_embrayage = (
-                        rollback_embrayage
-                    )
-                    # ==================================================
-                    # NOUVEAU KILOMÉTRAGE
-                    # ==================================================
-                    rodage.kilometrage_alte = km
+                    rodage.kilometres_chassis = base_chassis
+                    rodage.kilometres_moteur = base_moteur
+                    rodage.kilometres_boite = base_boite
+                    rodage.kilometres_embrayage = base_embrayage
 
                     # ==================================================
                     # VARIATION
                     # ==================================================
-                    if km is not None:
-                        rodage.kilometrage_variation = (
-                                km - rollback_chassis
-                        )
-                    else:
-                        rodage.kilometrage_variation = 0
+                    variation = (km - base_chassis) if km is not None else 0
+                    rodage.kilometrage_variation = variation
 
                     # ==================================================
                     # TECHNICIEN
                     # ==================================================
-                    rodage.assign_technicien(
-                        request.user
-                    )
-
-                    rodage.tech_last_maintained_by = (
-                        request.user
-                    )
+                    rodage.assign_technicien(request.user)
+                    rodage.tech_last_maintained_by = request.user
 
                     # ==================================================
                     # MISE À JOUR DU VÉHICULE
                     # ==================================================
                     if km is not None:
                         exemplaire.kilometres_chassis = km
+                        exemplaire.kilometres_moteur = base_moteur + variation
 
                         exemplaire.date_derniere_intervention = (
-                            timezone.localtime(
-                                timezone.now()
-                            ).date()
+                            timezone.localtime(timezone.now()).date()
                         )
 
                         exemplaire.save()
 
                     # ==================================================
-                    # SAUVEGARDE ÉCHAPPEMENT
+                    # SAUVEGARDE RODAGE
                     # ==================================================
                     rodage.save()
-
                     form.save_m2m()
-
 
                     ACTION_MODIFICATION_RODAGE = gettext_noop(
                         "Modification du rodage"
@@ -663,12 +630,11 @@ def modifier_rodage_view(request, rodage_id):
                         action=f"{ACTION_MODIFICATION_RODAGE} - {exemplaire.immatriculation}"
                     )
 
-                    messages.success(request, _("Rodage modifié avec succès !"))
+                messages.success(request, _("Rodage modifié avec succès !"))
 
-                    return redirect(
-                        f"{reverse('rodage:rodage_detail', kwargs={'rodage_id': rodage.id})}?saved=1"
-                    )
-
+                return redirect(
+                    f"{reverse('rodage:rodage_detail', kwargs={'rodage_id': rodage.id})}?saved=1"
+                )
 
             except ValidationError as e:
                 form.add_error(None, e)
@@ -677,7 +643,6 @@ def modifier_rodage_view(request, rodage_id):
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
 
-
     # -------------------------
     # GET
     # -------------------------
@@ -685,7 +650,7 @@ def modifier_rodage_view(request, rodage_id):
         form = RodageForm(
             instance=rodage,
             user=request.user,
-            exemplaire=rodage.voiture_exemplaire
+            exemplaire=exemplaire
         )
 
     return render(
@@ -694,10 +659,10 @@ def modifier_rodage_view(request, rodage_id):
         {
             "form": form,
             "rodage": rodage,
-            "exemplaire": rodage.voiture_exemplaire,
+            "exemplaire": exemplaire,
+            "moteur_initial": base_moteur,
         }
     )
-
 
 
 

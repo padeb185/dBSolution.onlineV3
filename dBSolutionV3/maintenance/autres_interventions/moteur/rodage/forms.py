@@ -45,7 +45,6 @@ class RodageForm(forms.ModelForm):
             "kilometres_moteur_rollback",
             "kilometres_embrayage_rollback",
             "kilometres_boite",
-            "kilometres_moteur",
             "kilometres_embrayage",
         ]
 

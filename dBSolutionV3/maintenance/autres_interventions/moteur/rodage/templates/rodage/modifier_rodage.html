@@ -1052,7 +1052,7 @@
     }
 </style>
 
-    <script>
+<script>
 function getCookie(name) {
     let cookieValue = null;
 
@@ -1079,13 +1079,15 @@ const csrftoken = getCookie("csrftoken");
 
 document.addEventListener("DOMContentLoaded", function () {
 
-
-
     const form = document.getElementById("rodage-form");
 
     const kmChassis = document.getElementById("id_kilometres_chassis");
     const kmCheckup = document.getElementById("id_kilometres_rodage");
     const kmVariation = document.getElementById("id_kilometrage_variation");
+    const kmMoteur = document.getElementById("id_kilometres_moteur");
+
+    // Moteur AVANT le rodage (fourni par la vue)
+    const moteurInitial = Number("{{ moteur_initial|default:0|stringformat:'d' }}");
 
     const popup = document.getElementById("kilometrage-popup");
     const popupVariation = document.getElementById("popup-variation");
@@ -1108,6 +1110,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let variationConfirmee = false;
 
+    function majMoteur(variation) {
+        if (!kmMoteur) return;
+        kmMoteur.value = moteurInitial + variation;
+    }
+
     function calculerVariation() {
 
         if (
@@ -1115,6 +1122,7 @@ document.addEventListener("DOMContentLoaded", function () {
             kmCheckup.value.trim() === ""
         ) {
             kmVariation.value = "";
+            majMoteur(0);
             variationConfirmee = false;
             return;
         }
@@ -1127,6 +1135,7 @@ document.addEventListener("DOMContentLoaded", function () {
             Number.isNaN(checkup)
         ) {
             kmVariation.value = "";
+            majMoteur(0);
             variationConfirmee = false;
             return;
         }
@@ -1134,6 +1143,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const variation = checkup - chassis;
 
         kmVariation.value = variation;
+        majMoteur(variation);
 
         variationConfirmee = false;
     }
@@ -1171,38 +1181,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     boutonAnnuler.addEventListener("click", function () {
-
         fermerPopup();
-
         kmCheckup.focus();
     });
 
     boutonConfirmer.addEventListener("click", function () {
-
         variationConfirmee = true;
-
         fermerPopup();
-
         form.requestSubmit();
     });
 
     document.addEventListener("keydown", function (event) {
-
         if (
             event.key === "Escape" &&
             popup.classList.contains("popup-visible")
         ) {
             fermerPopup();
-
             kmCheckup.focus();
         }
     });
 
     popup.addEventListener("click", function (event) {
-
         if (event.target === popup) {
             fermerPopup();
-
             kmCheckup.focus();
         }
     });
@@ -1210,8 +1211,6 @@ document.addEventListener("DOMContentLoaded", function () {
     calculerVariation();
 
 });
-
-
 </script>
 
 
