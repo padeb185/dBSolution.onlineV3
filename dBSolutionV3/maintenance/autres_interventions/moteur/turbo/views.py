@@ -885,9 +885,9 @@ def delete_turbo_view(request, turbo_id):
             )
 
             return redirect(
-                "turbo:turbo_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('turbo:turbo_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
+
 
         except Exception as e:
 
@@ -897,11 +897,6 @@ def delete_turbo_view(request, turbo_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                "turbo:turbo_detail",
-                 turbo_id=turbo.id,
             )
 
     # ==================================================

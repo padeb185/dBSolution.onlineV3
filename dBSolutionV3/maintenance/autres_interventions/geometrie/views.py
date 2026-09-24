@@ -22,7 +22,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 from .forms import GeometrieVoitureForm
 from .models import GeometrieVoiture
-from .pdf_report import generate_geometrie_pdf
+
 
 
 
@@ -1155,8 +1155,7 @@ def delete_geometrie_view(request, geometrie_id):
             )
 
             return redirect(
-                "geometrie:geometrie_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('geometrie:geometrie_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
 
         except Exception as e:
@@ -1169,10 +1168,7 @@ def delete_geometrie_view(request, geometrie_id):
                 }
             )
 
-            return redirect(
-                "geometrie:geometrie_detail",
-                 geometrie_id=geometrie.id,
-            )
+
 
     # ==================================================
     # GET → CONFIRMATION

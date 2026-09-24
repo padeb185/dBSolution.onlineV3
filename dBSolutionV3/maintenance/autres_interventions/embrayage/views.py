@@ -985,9 +985,9 @@ def delete_embrayage_view(request, embrayage_id):
             )
 
             return redirect(
-                "embrayage:embrayage_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('embrayage:embrayage_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
+
 
         except Exception as e:
 
@@ -997,11 +997,6 @@ def delete_embrayage_view(request, embrayage_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                "embrayage:embrayage_detail",
-                 embrayage_id=embrayage.id,
             )
 
     # ==================================================

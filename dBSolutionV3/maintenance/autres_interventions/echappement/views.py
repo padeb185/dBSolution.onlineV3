@@ -1020,8 +1020,7 @@ def delete_echappement_view(request, echappement_id):
             )
 
             return redirect(
-                "echappement:echappement_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('echappement:echappement_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
 
         except Exception as e:
@@ -1034,10 +1033,7 @@ def delete_echappement_view(request, echappement_id):
                 }
             )
 
-            return redirect(
-                "echappement:echappement_detail",
-                 echappement_id=echappement.id,
-            )
+
 
     # ==================================================
     # GET → CONFIRMATION

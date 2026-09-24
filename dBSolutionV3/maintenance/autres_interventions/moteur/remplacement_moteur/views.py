@@ -23,6 +23,10 @@ from django.utils.translation import gettext as _
 from weasyprint import HTML, pdf
 
 
+
+
+
+
 @method_decorator([login_required, never_cache], name="dispatch")
 class RemplacementMoteurListView(ListView):
     model = RemplacementMoteur
@@ -62,6 +66,11 @@ class RemplacementMoteurListView(ListView):
         context["is_checkup_allowed"] = self.request.user.role in roles_autorises
 
         return context
+
+
+
+
+
 
 
 @never_cache
@@ -1064,8 +1073,7 @@ def delete_moteur_view(request, remplacement_moteur_id):
             )
 
             return redirect(
-                "remplacement_moteur:remplacement_moteur_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('remplacement_moteur:remplacement_moteur_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
 
         except Exception as e:
@@ -1076,11 +1084,6 @@ def delete_moteur_view(request, remplacement_moteur_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                "remplacement_moteur:remplacement_moteur_detail",
-                 remplacement_moteur_id=remplacement_moteur.id,
             )
 
     # ==================================================

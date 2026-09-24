@@ -302,4 +302,14 @@ $(document).ready(function() {
 </script>
 {% endif %}
 
+
+{% if request.GET.deleted == "1" %}
+<script>
+    setTimeout(function () {
+        sessionStorage.setItem("reloadAfterBack", "1");
+        window.history.go(-3);
+    }, 5000);
+</script>
+{% endif %}
+
 {% endblock %}

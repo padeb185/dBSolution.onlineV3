@@ -985,8 +985,7 @@ def delete_courroie_view(request, courroie_id):
             )
 
             return redirect(
-                "courroie:courroie_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('courroie:courroie_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
 
         except Exception as e:
@@ -997,11 +996,6 @@ def delete_courroie_view(request, courroie_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                "courroie:courroie_detail",
-                 courroie_id=courroie.id,
             )
 
     # ==================================================

@@ -1228,8 +1228,7 @@ def delete_injection_view(request, injection_id):
             )
 
             return redirect(
-                "injection:injection_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('injection:injection_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
 
         except Exception as e:
@@ -1240,11 +1239,6 @@ def delete_injection_view(request, injection_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                "injection:injection_detail",
-                 injection_id=injection.id,
             )
 
     # ==================================================

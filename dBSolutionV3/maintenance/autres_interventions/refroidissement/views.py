@@ -1246,8 +1246,7 @@ def delete_ref_view(request, ref_id):
             )
 
             return redirect(
-                "ref:ref_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('refroidissement:ref_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
 
         except Exception as e:
@@ -1260,10 +1259,6 @@ def delete_ref_view(request, ref_id):
                 }
             )
 
-            return redirect(
-                "ref:ref_detail",
-                 ref_id=ref.id,
-            )
 
     # ==================================================
     # GET → CONFIRMATION

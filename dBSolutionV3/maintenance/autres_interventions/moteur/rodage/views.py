@@ -15,11 +15,6 @@ from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _, gettext_noop
-from utilisateurs.apprentis.models import Apprenti
-from utilisateurs.chef_mecanicien.models import ChefMecanicien
-from utilisateurs.direction.models import Direction
-from utilisateurs.magasinier.models import Magasinier
-from utilisateurs.mecanicien.models import Mecanicien
 from decimal import Decimal
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -853,9 +848,9 @@ def delete_rodage_view(request, rodage_id):
             )
 
             return redirect(
-                "rodage:rodage_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('rodage:rodage_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
+
 
         except Exception as e:
 
@@ -865,11 +860,6 @@ def delete_rodage_view(request, rodage_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                "rodage:rodage_detail",
-                 rodage_id=rodage.id,
             )
 
     # ==================================================

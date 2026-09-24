@@ -1147,9 +1147,9 @@ def delete_allumage_view(request, allumage_id):
             )
 
             return redirect(
-                "allumage:allumage_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('allumage:allumage_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
+
 
         except Exception as e:
 
@@ -1159,11 +1159,6 @@ def delete_allumage_view(request, allumage_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                "allumage:allumage_detail",
-                 allumage_id=allumage.id,
             )
 
     # ==================================================

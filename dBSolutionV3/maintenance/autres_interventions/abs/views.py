@@ -897,8 +897,7 @@ def delete_abs_view(request, abs_id):
             )
 
             return redirect(
-                "abs:abs_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('abs:abs_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
 
         except Exception as e:
@@ -909,11 +908,6 @@ def delete_abs_view(request, abs_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                "abs:abs_detail",
-                 abs_id=abs_del.id,
             )
 
     # ==================================================

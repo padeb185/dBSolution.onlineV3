@@ -900,9 +900,9 @@ def delete_remplacement_boite_view(request, remplacement_boite_id):
             )
 
             return redirect(
-                "remplacement_boite:remplacement_boite_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('remplacement_boite:remplacement_boite_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
+
 
         except Exception as e:
 
@@ -912,10 +912,6 @@ def delete_remplacement_boite_view(request, remplacement_boite_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                f"{reverse('remplacement_boite:remplacement_boite_detail', kwargs={'remplacement_boite_id': remplacement_boite.id})}?saved=1"
             )
 
     # ==================================================

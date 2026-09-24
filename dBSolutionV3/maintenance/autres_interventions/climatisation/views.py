@@ -1168,9 +1168,9 @@ def delete_clim_view(request, climatisation_id):
             )
 
             return redirect(
-                "climatisation:clim_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('climatisation:clim_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
+
 
         except Exception as e:
 
@@ -1180,11 +1180,6 @@ def delete_clim_view(request, climatisation_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                "climatisation:clim_detail",
-                 climatisation_id=clim.id,
             )
 
     # ==================================================

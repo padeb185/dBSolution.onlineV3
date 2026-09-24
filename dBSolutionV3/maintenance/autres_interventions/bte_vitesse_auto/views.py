@@ -721,8 +721,7 @@ def delete_bte_auto_view(request, bte_auto_id):
             )
 
             return redirect(
-                "bte_auto:bte_auto_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('bte_auto:bte_auto_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
 
         except Exception as e:
@@ -733,11 +732,6 @@ def delete_bte_auto_view(request, bte_auto_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                "bte_auto:bte_auto_detail",
-                 bte_auto_id=bte_auto.id,
             )
 
     # ==================================================

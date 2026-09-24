@@ -1292,9 +1292,9 @@ def delete_admission_view(request, admission_id):
             )
 
             return redirect(
-                "admission:admission_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('admission:admission_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
+
 
         except Exception as e:
 
@@ -1304,11 +1304,6 @@ def delete_admission_view(request, admission_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                "admission:admission_detail",
-                 admission_id=admission.id,
             )
 
     # ==================================================

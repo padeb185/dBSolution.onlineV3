@@ -1053,8 +1053,7 @@ def delete_alternateur_view(request, alternateur_id):
             )
 
             return redirect(
-                "alternateur:alternateur_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('alternateur:alternateur_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
 
         except Exception as e:
@@ -1067,10 +1066,6 @@ def delete_alternateur_view(request, alternateur_id):
                 }
             )
 
-            return redirect(
-                "alternateur:alternateur_detail",
-                 alternateur_id=alternateur.id,
-            )
 
     # ==================================================
     # GET → CONFIRMATION
