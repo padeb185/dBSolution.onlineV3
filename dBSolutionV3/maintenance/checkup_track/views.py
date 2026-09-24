@@ -19,11 +19,6 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 from .forms import CheckupTrackForm
 from .models import CheckupTrack
-from utilisateurs.mecanicien.models import Mecanicien
-from utilisateurs.chef_mecanicien.models import ChefMecanicien
-from utilisateurs.apprentis.models import Apprenti
-from utilisateurs.direction.models import Direction
-from utilisateurs.magasinier.models import Magasinier
 
 
 
@@ -940,10 +935,9 @@ def delete_checkup_track_view(request, checkup_track_id):
             )
 
             return redirect(
-                "checkup_track:checkup_track_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('checkup_track:checkup_track_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
-
+        
         except Exception as e:
 
             messages.error(
@@ -954,10 +948,6 @@ def delete_checkup_track_view(request, checkup_track_id):
                 }
             )
 
-            return redirect(
-                "checkup_track:checkup_track_detail",
-                checkup_track_id=checkup_track.id,
-            )
 
     # ==================================================
     # GET → CONFIRMATION

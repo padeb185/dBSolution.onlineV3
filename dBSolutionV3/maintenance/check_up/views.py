@@ -760,8 +760,9 @@ def delete_checkup_view(request, checkup_id):
             )
 
             return redirect(
-                f"{reverse('check_up:checkup_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
+                f"{reverse('check_up:checkup_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
+
 
         except Exception as e:
 

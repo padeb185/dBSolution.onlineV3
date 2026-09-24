@@ -49,8 +49,9 @@ class NettoyageEtat(models.TextChoices):
 
 class NiveauxEtat(models.TextChoices):
     OK = "OK", _("OK")
-    AJOUTER = "AJOUTER", _("Ajouter")
-    REMPLACER = "REMPLACER", _("A remplacer")
+    AJOUTER = "AJOUTER", _("Ajouté")
+    AREMPLACER = "AREMPLACER", _("A remplacer")
+    REMPLACER = "REMPLACER", _("Remplacé")
 
 
 

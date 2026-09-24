@@ -907,12 +907,12 @@
                         {{ checkup_track.get_refroidissement_etat_display }}
                     </span>
 
-                {% elif checkup_track.refroidissement_etat == "AJOUTER" %}
+                {% elif checkup_track.refroidissement_etat == "AJOUTER" or checkup_track.refroidissement_etat == "REMPLACER" %}
                     <span class="etat-bleu">
                         {{ checkup_track.get_refroidissement_etat_display }}
                     </span>
 
-                {% elif checkup_track.refroidissement_etat == "REMPLACER" %}
+                {% elif checkup_track.refroidissement_etat == "AREMPLACER" %}
                     <span class="etat-rouge">
                         {{ checkup_track.get_refroidissement_etat_display }}
                     </span>
@@ -1807,152 +1807,6 @@
     </tbody>
 </table>
 
-<h2>{% trans "Nettoyage extérieur" %}</h2>
-
-<table class="table-2-cols">
-    <thead>
-        <tr>
-            <th>{% trans "Élément contrôlé" %}</th>
-            <th>{% trans "État / Valeur" %}</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <tr>
-            <td>{% trans "Traces de gomme" %}</td>
-            <td>
-                {% if checkup_track.nettoyage_exterieur_traces_gomme == "PROPRE" %}
-                    <span class="etat-vert">
-                        {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display }}
-                    </span>
-                 {% elif checkup_track.nettoyage_exterieur_traces_gomme == "FAIT" %}
-                    <span class="etat-bleu">
-                        {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display }}
-                    </span>
-                {% elif checkup_track.nettoyage_exterieur_traces_gomme == "A_FAIRE" %}
-                    <span class="etat-rouge">
-                        {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display }}
-                    </span>
-                {% elif checkup_track.nettoyage_exterieur_traces_gomme == "REPORTER" %}
-                    <span class="etat-jaune">
-                        {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display }}
-                    </span>
-                {% else %}
-                    <span class="etat-gris">
-                        {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display|default:"-" }}
-                    </span>
-                {% endif %}
-            </td>
-        </tr>
-
-        <tr>
-            <tr>
-            <td>{% trans "Carrosserie" %}</td>
-            <td>
-                {% if checkup_track.nettoyage_exterieur_carrosserie == "PROPRE" %}
-                    <span class="etat-vert">
-                        {{ checkup_track.get_nettoyage_exterieur_carrosserie_display }}
-                    </span>
-
-                {% elif checkup_track.nettoyage_exterieur_carrosserie == "FAIT" %}
-                    <span class="etat-bleu">
-                        {{ checkup_track.get_nettoyage_exterieur_carrosserie_display }}
-                    </span>
-
-                {% elif checkup_track.nettoyage_exterieur_carrosserie == "A_FAIRE" or checkup_track.nettoyage_exterieur_carrosserie == "REPORTER" %}
-                    <span class="etat-rouge">
-                        {{ checkup_track.get_nettoyage_exterieur_carrosserie_display }}
-                    </span>
-
-                {% else %}
-                    <span class="etat-gris">
-                        {{ checkup_track.get_nettoyage_exterieur_carrosserie_display|default:"-" }}
-                    </span>
-                {% endif %}
-            </td>
-        </tr>
-
-        <tr>
-            <td>{% trans "Jantes" %}</td>
-            <td>
-                {% if checkup_track.nettoyage_exterieur_jantes == "PROPRE" %}
-                    <span class="etat-vert">
-                        {{ checkup_track.get_nettoyage_exterieur_jantes_display }}
-                    </span>
-
-                {% elif checkup_track.nettoyage_exterieur_jantes == "FAIT" %}
-                    <span class="etat-bleu">
-                        {{ checkup_track.get_nettoyage_exterieur_jantes_display }}
-                    </span>
-
-                {% elif checkup_track.nettoyage_exterieur_jantes == "A_FAIRE" or checkup_track.nettoyage_exterieur_jantes == "REPORTER" %}
-                    <span class="etat-rouge">
-                        {{ checkup_track.get_nettoyage_exterieur_jantes_display }}
-                    </span>
-
-                {% else %}
-                    <span class="etat-gris">
-                        {{ checkup_track.get_nettoyage_exterieur_jantes_display|default:"-" }}
-                    </span>
-                {% endif %}
-            </td>
-        </tr>
-
-        <tr>
-            <td>{% trans "Séchage" %}</td>
-            <td>
-                {% if checkup_track.nettoyage_exterieur_sechage == "PROPRE" %}
-                    <span class="etat-vert">
-                        {{ checkup_track.get_nettoyage_exterieur_sechage_display }}
-                    </span>
-
-                {% elif checkup_track.nettoyage_exterieur_sechage == "FAIT" %}
-                    <span class="etat-bleu">
-                        {{ checkup_track.get_nettoyage_exterieur_sechage_display }}
-                    </span>
-
-                {% elif checkup_track.nettoyage_exterieur_sechage == "A_FAIRE" or checkup_track.nettoyage_exterieur_sechage == "REPORTER" %}
-                    <span class="etat-rouge">
-                        {{ checkup_track.get_nettoyage_exterieur_sechage_display }}
-                    </span>
-
-                {% else %}
-                    <span class="etat-gris">
-                        {{ checkup_track.get_nettoyage_exterieur_sechage_display|default:"-" }}
-                    </span>
-                {% endif %}
-            </td>
-        </tr>
-
-       <tr>
-            <td>{% trans "Produits utilisés" %}</td>
-            <td>
-                {% if checkup_track.nettoyage_exterieur_produits == "SANS" %}
-                    <span class="etat-vert">
-                        {{ checkup_track.get_nettoyage_exterieur_produits_display }}
-                    </span>
-
-                {% elif checkup_track.nettoyage_exterieur_produits == "AJOUTER" %}
-                    <span class="etat-bleu">
-                        {{ checkup_track.get_nettoyage_exterieur_produits_display }}
-                    </span>
-
-                {% else %}
-                    <span class="etat-gris">
-                        {{ checkup_track.get_nettoyage_exterieur_produits_display|default:"-" }}
-                    </span>
-                {% endif %}
-            </td>
-        </tr>
-
-        <tr>
-            <td>{% trans "Quantité de produits" %}</td>
-            <td>
-                {{ checkup_track.nettoyage_exterieur_produits_quantite|default:0 }}
-            </td>
-        </tr>
-    </tbody>
-</table>
 
 <h2>{% trans "Phares" %}</h2>
 
@@ -2131,6 +1985,154 @@
             {% endif %}
         </td>
     </tr>
+</table>
+
+
+<h2>{% trans "Nettoyage extérieur" %}</h2>
+
+<table class="table-2-cols">
+    <thead>
+        <tr>
+            <th>{% trans "Élément contrôlé" %}</th>
+            <th>{% trans "État / Valeur" %}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{% trans "Traces de gomme" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_exterieur_traces_gomme == "PROPRE" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display }}
+                    </span>
+                 {% elif checkup_track.nettoyage_exterieur_traces_gomme == "FAIT" %}
+                    <span class="etat-bleu">
+                        {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_exterieur_traces_gomme == "A_FAIRE" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_exterieur_traces_gomme == "REPORTER" %}
+                    <span class="etat-jaune">
+                        {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <tr>
+            <td>{% trans "Carrosserie" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_exterieur_carrosserie == "PROPRE" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_exterieur_carrosserie_display }}
+                    </span>
+
+                {% elif checkup_track.nettoyage_exterieur_carrosserie == "FAIT" %}
+                    <span class="etat-bleu">
+                        {{ checkup_track.get_nettoyage_exterieur_carrosserie_display }}
+                    </span>
+
+                {% elif checkup_track.nettoyage_exterieur_carrosserie == "A_FAIRE" or checkup_track.nettoyage_exterieur_carrosserie == "REPORTER" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_nettoyage_exterieur_carrosserie_display }}
+                    </span>
+
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_exterieur_carrosserie_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Jantes" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_exterieur_jantes == "PROPRE" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_exterieur_jantes_display }}
+                    </span>
+
+                {% elif checkup_track.nettoyage_exterieur_jantes == "FAIT" %}
+                    <span class="etat-bleu">
+                        {{ checkup_track.get_nettoyage_exterieur_jantes_display }}
+                    </span>
+
+                {% elif checkup_track.nettoyage_exterieur_jantes == "A_FAIRE" or checkup_track.nettoyage_exterieur_jantes == "REPORTER" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_nettoyage_exterieur_jantes_display }}
+                    </span>
+
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_exterieur_jantes_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Séchage" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_exterieur_sechage == "PROPRE" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_exterieur_sechage_display }}
+                    </span>
+
+                {% elif checkup_track.nettoyage_exterieur_sechage == "FAIT" %}
+                    <span class="etat-bleu">
+                        {{ checkup_track.get_nettoyage_exterieur_sechage_display }}
+                    </span>
+
+                {% elif checkup_track.nettoyage_exterieur_sechage == "A_FAIRE" or checkup_track.nettoyage_exterieur_sechage == "REPORTER" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_nettoyage_exterieur_sechage_display }}
+                    </span>
+
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_exterieur_sechage_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+
+       <tr>
+            <td>{% trans "Produits utilisés" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_exterieur_produits == "SANS" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_exterieur_produits_display }}
+                    </span>
+
+                {% elif checkup_track.nettoyage_exterieur_produits == "AJOUTER" %}
+                    <span class="etat-bleu">
+                        {{ checkup_track.get_nettoyage_exterieur_produits_display }}
+                    </span>
+
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_exterieur_produits_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Quantité de produits" %}</td>
+            <td>
+                {{ checkup_track.nettoyage_exterieur_produits_quantite|default:0 }}
+            </td>
+        </tr>
+    </tbody>
 </table>
 
 

@@ -16,14 +16,12 @@ from django.db.models import Q
 from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.entretien.models import Entretien
 from maintenance.entretien.forms import EntretienForm
-from utilisateurs.apprentis.models import Apprenti
-from utilisateurs.chef_mecanicien.models import ChefMecanicien
-from utilisateurs.direction.models import Direction
-from utilisateurs.magasinier.models import Magasinier
-from utilisateurs.mecanicien.models import Mecanicien
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from weasyprint import HTML
+
+
+
 
 
 
@@ -72,6 +70,9 @@ class EntretienListView(ListView):
         ]
 
         return context
+
+
+
 
 
 
@@ -473,6 +474,8 @@ def entretien_check_view(request, exemplaire_id):
     )
 
 
+
+
 # ------------
 # Vue détail entretien
 # -----------------------------
@@ -491,6 +494,9 @@ def entretien_detail_view(request, entretien_id):
         "exemplaire": entretien.voiture_exemplaire,
     }
     return render(request, "entretien/entretien_detail.html", context)
+
+
+
 
 
 # ---------------------
@@ -1023,9 +1029,9 @@ def delete_entretien_view(request, entretien_id):
             )
 
             return redirect(
-                "entretien:entretien_list",
-                exemplaire_id=exemplaire_id
+                f"{reverse('entretien:entretien_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
+
 
         except Exception as e:
 
