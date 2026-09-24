@@ -735,9 +735,9 @@ def delete_nettoyage_exterieur_view(request, nettoyage_id):
             )
 
             return redirect(
-                "nettoyage_exterieur:nettoyage_ext_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('nettoyage_exterieur:nettoyage_ext_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
+
 
         except Exception as e:
 
@@ -747,11 +747,6 @@ def delete_nettoyage_exterieur_view(request, nettoyage_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                "nettoyage_exterieur:nettoyage_ext_detail",
-                 nettoyage_id=nettoyage_exterieur.id,
             )
 
     # ==================================================

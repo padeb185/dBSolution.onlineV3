@@ -21,6 +21,8 @@ from .models import ControlePneus
 from django.core.exceptions import ValidationError
 
 
+
+
 # -----------------------------
 # Classe ListView pour checkup
 # -----------------------------
@@ -817,10 +819,8 @@ def delete_pneus_view(request, pneu_id):
             )
 
             return redirect(
-                "pneus:pneus_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('pneus:pneus_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
-
         except Exception as e:
 
             messages.error(

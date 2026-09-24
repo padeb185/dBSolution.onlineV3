@@ -21,12 +21,6 @@ from .forms import CarrosserieInterneForm
 from .models import CarrosserieInterne
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from maintenance.models import Maintenance
-from utilisateurs.apprentis.models import Apprenti
-from utilisateurs.chef_mecanicien.models import ChefMecanicien
-from utilisateurs.direction.models import Direction
-from utilisateurs.magasinier.models import Magasinier
-from utilisateurs.mecanicien.models import Mecanicien
-
 
 
 
@@ -1991,8 +1985,7 @@ def delete_carrosserie_interne_view(request, carrosserie_interne_id):
             )
 
             return redirect(
-                "carrosserie_interne:carrosserie_interne_detail",
-                 carrosserie_interne_id=carrosserie_interne.id,
+                f"{reverse('carrosserie_interne:carrosserie_interne_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
 
     # ==================================================

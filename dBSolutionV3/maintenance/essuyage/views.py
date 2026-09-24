@@ -1099,8 +1099,7 @@ def delete_essuyage_view(request, essuyage_id):
             )
 
             return redirect(
-                "essuyage:essuyage_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('essuyage:essuyage_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
 
         except Exception as e:

@@ -781,10 +781,8 @@ def delete_nettoyage_interieur_view(request, nettoyage_id):
             )
 
             return redirect(
-                "nettoyage_interieur:nettoyage_int_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('nettoyage_interieur:nettoyage_int_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
-
         except Exception as e:
 
             messages.error(
@@ -793,11 +791,6 @@ def delete_nettoyage_interieur_view(request, nettoyage_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                "nettoyage_interieur:nettoyage_int_detail",
-                 nettoyage_id=nettoyage_interieur.id,
             )
 
     # ==================================================

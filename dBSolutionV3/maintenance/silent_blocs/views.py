@@ -720,8 +720,7 @@ def delete_silent_view(request, silent_id):
             )
 
             return redirect(
-                "silent_blocs:silent_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('silent_blocs:silent_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
 
         except Exception as e:
@@ -732,11 +731,6 @@ def delete_silent_view(request, silent_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                "silent_blocs:silent_detail",
-                 silent_id=silent.id,
             )
 
     # ==================================================

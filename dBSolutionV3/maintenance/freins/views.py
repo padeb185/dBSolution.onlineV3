@@ -747,8 +747,7 @@ def delete_freins_view(request, frein_id):
             )
 
             return redirect(
-                "freins:freins_detail",
-                 frein_id=frein.id,
+                f"{reverse('freins:freins_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
 
     # ==================================================

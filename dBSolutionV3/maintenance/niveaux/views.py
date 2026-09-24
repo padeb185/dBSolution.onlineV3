@@ -790,9 +790,9 @@ def delete_niveau_view(request, niveau_id):
             )
 
             return redirect(
-                "niveaux:niveaux_list",
-                exemplaire_id=exemplaire.id
+                f"{reverse('niveaux:niveaux_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
+
 
         except Exception as e:
 
@@ -802,11 +802,6 @@ def delete_niveau_view(request, niveau_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                "niveaux:niveaux_detail",
-                 niveau_id=niveau.id,
             )
 
     # ==================================================
