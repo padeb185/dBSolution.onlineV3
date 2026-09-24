@@ -41,6 +41,8 @@ TAUX_HORAIRE_CHOICES = [
 
 
 class FabricantLubrifiant(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     CASTROL = "CASTROL", _("Castrol")
     MOTUL = "MOTUL", _("Motul")
     MOBIL = "MOBIL", _("Mobil 1")
@@ -82,7 +84,6 @@ class FabricantLubrifiant(models.TextChoices):
     MOPAR = "MOPAR", _("Mopar")
     AUTRE = "AUTRE", _("Autre")
     CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
-    CHOISIR = "CHOISIR", _("Choisir")
 
 
 
@@ -216,6 +217,7 @@ class AmpouleAutomobile(models.TextChoices):
 
 
 class FabricantPiece(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
     # Groupe Bosch
     BOSCH = "BOSCH", "Bosch"
 
@@ -333,10 +335,11 @@ class FabricantPiece(models.TextChoices):
 
     AUTRE = "AUTRE", _("Autre")
     CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
-    CHOISIR = "CHOISIR", _("Choisir")
+
 
 
 class TypeHuileDirection(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
     ATF_DEXRON_II = "ATF_DEXRON_II", _("ATF Dexron II")
     ATF_DEXRON_III = "ATF_DEXRON_III", _("ATF Dexron III")
     ATF_DEXRON_VI = "ATF_DEXRON_VI", _("ATF Dexron VI")
@@ -361,13 +364,15 @@ class TypeHuileDirection(models.TextChoices):
     SYNTHETIQUE = "SYNTHETIQUE", _("Huile synthétique")
     CONSTRUCTEUR = "CONSTRUCTEUR", _("Spécification constructeur")
     AUTRE = "AUTRE", _("Autre")
-    CHOISIR = "CHOISIR", _("Choisir")
+
 
 
 
 
 
 class FabricantFrein(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     ATE = "ATE", _("ATE")
     BREMBO = "BREMBO", _("Brembo")
     BOSCH = "BOSCH", _("Bosch")
@@ -413,13 +418,14 @@ class FabricantFrein(models.TextChoices):
     DIXCEL = "DIXCEL", _("Dixcel")
     AUTRE = "AUTRE", _("Autre")
     CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
-    CHOISIR = "CHOISIR", _("Choisir")
+
 
 
 
 
 
 class RefroidissementFabricant(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
     ABRO = "ABRO", _("ABRO")
     AISIN = "AISIN", _("AISIN")
     ARECA = "ARECA", _("Areca")
@@ -491,7 +497,7 @@ class RefroidissementFabricant(models.TextChoices):
     YAMAHA = "YAMAHA", _("Yamaha")
     AUTRE = "AUTRE", _("Autre")
     CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
-    CHOISIR = "CHOISIR", _("Choisir")
+
 
 
 
@@ -747,6 +753,7 @@ class FabricantPneus(models.TextChoices):
 
 
 class FabricantBougies(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
     NGK = "NGK", _("NGK")
     DENSO = "DENSO", _("DENSO")
     BOSCH = "BOSCH", _("Bosch")
@@ -769,7 +776,7 @@ class FabricantBougies(models.TextChoices):
     NPS = "NPS", _("NPS")
     AUTOLITE = "AUTOLITE", _("Autolite")
     BRISK = "BRISK", _("Brisk")
-    CHOISIR = "CHOISIR", _("Choisir")
+
 
 
 
@@ -803,6 +810,8 @@ class TypeDisqueFrein(models.TextChoices):
 
 
 class FabricantBatterie(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     BOSCH = "BOSCH", _("Bosch")
     VARTA = "VARTA", _("Varta")
     EXIDE = "EXIDE", _("Exide")
@@ -823,7 +832,7 @@ class FabricantBatterie(models.TextChoices):
     MOLL = "MOLL", _("Moll")
     CONTINENTAL = "CONTINENTAL", _("Continental")
     AUTRE = "AUTRE", _("Autre")
-    CHOISIR = "CHOISIR", _("Choisir")
+
     CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
 
 
@@ -1193,6 +1202,7 @@ class FabricantDurite(models.TextChoices):
 
 class FabricantAlternateur(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+
     BOSCH = "BOSCH", _("Bosch")
     VALEO = "VALEO", _("Valeo")
     DENSO = "DENSO", _("Denso")
@@ -1253,6 +1263,7 @@ class FabricantAlternateur(models.TextChoices):
 
 class FabricantCourroie(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+
     CONTINENTAL = "CONTINENTAL", _("Continental / ContiTech")
     GATES = "GATES", _("Gates")
     DAYCO = "DAYCO", _("Dayco")
@@ -1570,6 +1581,8 @@ class FabricantJointSpi(models.TextChoices):
 
 
 class FabricantPompeCarburant(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     BOSCH = "BOSCH", _("Bosch")
     DELPHI = "DELPHI", _("Delphi")
     DENSO = "DENSO", _("Denso")
@@ -1582,10 +1595,12 @@ class FabricantPompeCarburant(models.TextChoices):
     OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
-    CHOISIR = "CHOISIR", _("Choisir")
+
 
 
 class FabricantPompeHautePression(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     BOSCH = "BOSCH", _("Bosch")
     DELPHI = "DELPHI", _("Delphi")
     DENSO = "DENSO", _("Denso")
@@ -1595,10 +1610,11 @@ class FabricantPompeHautePression(models.TextChoices):
     OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
-    CHOISIR = "CHOISIR", _("Choisir")
+
 
 
 class FabricantRampeInjection(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
     BOSCH = "BOSCH", _("Bosch")
     DELPHI = "DELPHI", _("Delphi")
     DENSO = "DENSO", _("Denso")
@@ -1608,10 +1624,12 @@ class FabricantRampeInjection(models.TextChoices):
     OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
-    CHOISIR = "CHOISIR", _("Choisir")
+
 
 
 class FabricantCapteurPressionRampe(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     BOSCH = "BOSCH", _("Bosch")
     DELPHI = "DELPHI", _("Delphi")
     DENSO = "DENSO", _("Denso")
@@ -1623,10 +1641,11 @@ class FabricantCapteurPressionRampe(models.TextChoices):
     OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
-    CHOISIR = "CHOISIR", _("Choisir")
 
 
 class FabricantTuyauxHautePression(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     BOSCH = "BOSCH", _("Bosch")
     DELPHI = "DELPHI", _("Delphi")
     DENSO = "DENSO", _("Denso")
@@ -1634,10 +1653,11 @@ class FabricantTuyauxHautePression(models.TextChoices):
     OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
-    CHOISIR = "CHOISIR", _("Choisir")
 
 
 class FabricantInjecteur(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     BOSCH = "BOSCH", _("Bosch")
     DELPHI = "DELPHI", _("Delphi")
     DENSO = "DENSO", _("Denso")
@@ -1650,10 +1670,11 @@ class FabricantInjecteur(models.TextChoices):
     OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
-    CHOISIR = "CHOISIR", _("Choisir")
 
 
 class FabricantConnecteurInjecteur(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     BOSCH = "BOSCH", _("Bosch")
     DELPHI = "DELPHI", _("Delphi")
     DENSO = "DENSO", _("Denso")
@@ -1663,11 +1684,12 @@ class FabricantConnecteurInjecteur(models.TextChoices):
     OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
-    CHOISIR = "CHOISIR", _("Choisir")
+
 
 
 class FabricantAmpoule(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+
     BOSCH = "BOSCH", _("Bosch")
     OSRAM = "OSRAM", _("Osram")
     PHILIPS = "PHILIPS", _("Philips")
@@ -1810,6 +1832,8 @@ class LiquideDirectionQualite(models.TextChoices):
 
 
 class HuileEtat(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     ZERO_16 = "0W16", _("0W16")
     ZERO_20 = "0W20", _("0W20")
     ZERO_30 = "0W30", _("0W30")
@@ -1826,6 +1850,8 @@ class HuileEtat(models.TextChoices):
 
 
 class HuileBoiteNiveauxEtat(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     SEPTANTE_CINQ = "75W", _("75W")
     SEPTANTE_5_80 = "75W80", _("75W80")
     SEPTANTE_CINQ90  = "75W90", _("75W90")
@@ -1857,6 +1883,8 @@ class HuileBoiteNiveauxEtat(models.TextChoices):
 
 
 class HuilePontEtat(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     SEPTANTE_CINQ80 = "75W80", _("75W80")
     SEPTANTE_CINQ85 = "75W85", _("75W85")
     SEPTANTE_CINQ90 = "75W90", _("75W90")
@@ -1879,6 +1907,7 @@ class HuilePontEtat(models.TextChoices):
     INCONNUE = "INCONNUE", _("Huile inconnue")
 
 class RefroidissementQualiteEtat(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
     # Volkswagen Group
     G11 = "G11", _("G 11")
     G12 = "G12", _("G 12")
@@ -1922,6 +1951,7 @@ class RefroidissementQualiteEtat(models.TextChoices):
 
     CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
 
+
 class LiquideFreinsQualite(models.TextChoices):
         DOT3 = 'DOT 3', _("DOT 3")
         DOT4 = 'DOT 4', _("DOT 4")
@@ -1940,6 +1970,7 @@ class LaveGlaceQualite(models.TextChoices):
 
 
 class HuileBoiteEtat(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
     # =========================================================
     # HUILES BOÎTES MANUELLES
     # =========================================================
@@ -2025,6 +2056,8 @@ class HuileBoiteEtat(models.TextChoices):
 
 
 class HuileBoiteAutoEtat(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     ATF3 = "ATF_III", _("ATF III")
     ATF_DSG = "ATF_DSG", _("ATF DSG")
     ATF_DCT = "ATF_DCT", _("ATF DCT")

@@ -232,7 +232,7 @@
         <!-- ================================================== -->
         <!-- KILOMÉTRAGE -->
         <!-- ================================================== -->
-        <h2 class="section-title">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img
                 src="{% static 'icons/compteur.png' %}"
                 alt="{% trans 'Kilométrage' %}"
@@ -264,60 +264,201 @@
                 </div>
             {% endif %}
         {% endfor %}
-
+        <br>
         <!-- ================================================== -->
         <!-- MOTEUR -->
         <!-- ================================================== -->
-        <h2 class="section-title">
-            <img
-                src="{% static 'icons/engine.png' %}"
-                alt="{% trans 'Moteur' %}"
-                 class="w-20 h-20">
-            {% trans "Moteur" %}
-        </h2>
 
-        {% for field in form.visible_fields %}
-            {% if "moteur" in field.name %}
-                <div class="mb-4">
-                    {% if field.field.widget.input_type == "checkbox" %}
-                        <label class="inline-flex items-center gap-2">
-                            {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
-                            <span class="font-semibold text-gray-700">
-                                {{ field.label }}
-                            </span>
-                        </label>
-                    {% else %}
-                        <label for="{{ field.id_for_label }}"
-                               class="block font-semibold mb-1">
-                            {{ field.label }}
-                        </label>
 
-                        {{ field|add_class:"input" }}
-                    {% endif %}
-
+        <!-- Section Moteur -->
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/engine.png' %}" alt="entretien moteur"
+                  class="w-20 h-20">
+             {% trans "Vidange" %}
+         </h2>
+        {% for field in form %}
+            {% if "moteur_rodage" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
                     {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1">
-                            {{ field.help_text }}
-                        </p>
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
                     {% endif %}
-
                     {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1">
-                            {{ field.errors|striptags }}
-                        </p>
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
                     {% endif %}
-                </div>
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
             {% endif %}
         {% endfor %}
+
+        <br>
+
+        <!-- Section Moteur -->
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/filtre-a-air.png' %}" alt="filtre" class="w-20 h-20">
+             {% trans "Filtre à huile" %}
+         </h2>
+        {% for field in form %}
+            {% if "moteur_filtre" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+        <!-- Section Moteur -->
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/bouchon-vidange.png' %}" alt="Bouchon de vidange"
+                  class="w-20 h-20">
+             {% trans "Bouchon de vidange" %}
+         </h2>
+        {% for field in form %}
+            {% if "moteur_bouchon" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+        <!-- Section Moteur -->
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/joint.png' %}" alt="joint"
+                  class="w-20 h-20">
+             {% trans "Joint" %}
+         </h2>
+        {% for field in form %}
+            {% if "moteur_joint" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+         <!-- Section Moteur -->
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/huile-moteur.png' %}" alt="joint"
+                  class="w-20 h-20">
+             {% trans "Ajout de l'huile moteur" %}
+         </h2>
+        {% for field in form %}
+            {% if "moteur_ajout" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
 
         <!-- ================================================== -->
         <!-- LAVE-GLACE -->
         <!-- ================================================== -->
-        <h2 class="section-title">
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img
                 src="{% static 'icons/lave-glace.png' %}"
                 alt="{% trans 'Lave-glace' %}"
-                 class="w-20 h-20">
+                 class="w-20 h-20" >
 
             {% trans "Lave-glace" %}
         </h2>
@@ -356,10 +497,12 @@
             {% endif %}
         {% endfor %}
 
+        <br>
+
         <!-- ================================================== -->
         <!-- LIQUIDE DE FREINS -->
         <!-- ================================================== -->
-        <h2 class="section-title">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img
                 src="{% static 'icons/frein-temoin.png' %}"
                 alt="{% trans 'Liquide de freins' %}"
@@ -401,11 +544,12 @@
                 </div>
             {% endif %}
         {% endfor %}
+        <br>
 
         <!-- ================================================== -->
         <!-- LIQUIDE DE REFROIDISSEMENT -->
         <!-- ================================================== -->
-        <h2 class="section-title">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img
                 src="{% static 'icons/anti-gel.png' %}"
                 alt="{% trans 'Liquide de refroidissement' %}"
@@ -447,11 +591,12 @@
                 </div>
             {% endif %}
         {% endfor %}
+        <br>
 
         <!-- ================================================== -->
         <!-- LIQUIDE DE DIRECTION -->
         <!-- ================================================== -->
-        <h2 class="section-title">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img
                 src="{% static 'icons/direction.png' %}"
                 alt="{% trans 'Liquide de direction' %}"
@@ -493,11 +638,11 @@
                 </div>
             {% endif %}
         {% endfor %}
-
+        <br>
         <!-- ================================================== -->
         <!-- PHARES -->
         <!-- ================================================== -->
-        <h2 class="section-title">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img
                 src="{% static 'icons/phares.png' %}"
                 alt="{% trans 'Contrôle des phares' %}"
@@ -538,11 +683,12 @@
                 </div>
             {% endif %}
         {% endfor %}
+        <br>
 
         <!-- ================================================== -->
         <!-- PRESSION DES PNEUS -->
         <!-- ================================================== -->
-        <h2 class="section-title">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img
                 src="{% static 'icons/pression-des-pneus.png' %}"
                 alt="{% trans 'Pression des pneus' %}"
@@ -587,7 +733,7 @@
 
         <br>
 
-                      <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/pays.png' %}" alt="pays tva"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Pays" %}</h2>
         {% for field in form %}
@@ -624,7 +770,7 @@
         <!-- ================================================== -->
         <!-- ÉTIQUETTE -->
         <!-- ================================================== -->
-        <h2 class="section-title">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img
                 src="{% static 'icons/tag.png' %}"
                 alt="{% trans 'Étiquette' %}"
@@ -657,11 +803,11 @@
                 </div>
             {% endif %}
         {% endfor %}
-
+        <br>
         <!-- ================================================== -->
         <!-- REMARQUES -->
         <!-- ================================================== -->
-        <h2 class="section-title">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img
                 src="{% static 'icons/notes.png' %}"
                 alt="{% trans 'Remarques' %}"
@@ -691,11 +837,11 @@
                 {% endif %}
             </div>
         {% endif %}
-
+        <br>
          <!-- ================================================== -->
         <!-- SERRAGE DES ROUES -->
         <!-- ================================================== -->
-        <h2 class="section-title">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img
                 src="{% static 'icons/roue.png' %}"
                 alt="{% trans 'Serrage des roues' %}"
@@ -726,11 +872,11 @@
             </div>
         {% endif %}
 
-
+        <br>
         <!-- ================================================== -->
         <!-- TECHNICIEN -->
         <!-- ================================================== -->
-        <h2 class="section-title">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img
                 src="{% static 'icons/mecanicien.png' %}"
                 alt="{% trans 'Technicien' %}"
@@ -762,11 +908,11 @@
                 </div>
             {% endif %}
         {% endfor %}
-
+        <br>
         <!-- ================================================== -->
         <!-- TAUX HORAIRE -->
         <!-- ================================================== -->
-        <h2 class="section-title">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img
                 src="{% static 'icons/taux.png' %}"
                 alt="{% trans 'Taux horaire' %}"
@@ -796,11 +942,11 @@
                 {% endif %}
             </div>
         {% endif %}
-
+        <br>
         <!-- ================================================== -->
         <!-- TEMPS DE MAIN-D'ŒUVRE -->
         <!-- ================================================== -->
-        <h2 class="section-title">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img
                 src="{% static 'icons/main-doeuvre.png' %}"
                 alt="{% trans 'Temps de main-d’œuvre' %}"
@@ -840,6 +986,7 @@
             </div>
         </div>
         <br>
+
         <!-- ================================================== -->
         <!-- BOUTONS -->
         <!-- ================================================== -->
