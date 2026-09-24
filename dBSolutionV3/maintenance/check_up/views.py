@@ -763,8 +763,6 @@ def delete_checkup_view(request, checkup_id):
                 f"{reverse('check_up:checkup_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
             )
 
-
-
         except Exception as e:
 
             messages.error(
@@ -773,11 +771,6 @@ def delete_checkup_view(request, checkup_id):
                 % {
                     "erreur": str(e)
                 }
-            )
-
-            return redirect(
-                "check_up:checkup_detail",
-                checkup_id=checkup.id
             )
 
     # ==================================================

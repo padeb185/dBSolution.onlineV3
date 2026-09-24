@@ -2073,3 +2073,9 @@ class FabricantAllumage(models.TextChoices):
     AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
 
+
+class EtatOKNotOKNiveau(models.TextChoices):
+    OK = "OK", _("OK")
+    NOT_OK = "NOT_OK", _("A Faire")
+    REMPLACE = "REMPLACE", _("Fait")
+

@@ -8,7 +8,8 @@ from client_particulier.models import ClientParticulier
 from django.conf import settings
 from maintenance.autres_interventions.boite_de_vitesse.models import HuileBoiteEtat, BoiteVitesseEtat
 from maintenance.autres_interventions.moteur.turbo.models import EtatOKNotOK
-from maintenance.choices import TAUX_HORAIRE_CHOICES, FabricantLubrifiant, TVAConfig, RouesSerrageEtat
+from maintenance.choices import TAUX_HORAIRE_CHOICES, FabricantLubrifiant, TVAConfig, RouesSerrageEtat, \
+    EtatOKNotOKNiveau
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 
@@ -187,8 +188,8 @@ class RemplacementBoite(TechnicienMixin, models.Model):
 
     boite_niveau_huile_etat = models.CharField(
         max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
+        choices=EtatOKNotOKNiveau.choices,
+        default=EtatOKNotOKNiveau.OK,
         verbose_name=_("Niveau d'huile"),
     )
     boite_niveau_huile_fabricant = models.CharField(
