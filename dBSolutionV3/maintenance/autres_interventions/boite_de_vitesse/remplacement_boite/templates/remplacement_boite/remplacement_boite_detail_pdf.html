@@ -469,8 +469,15 @@
                 </td>
             </tr>
 
+              <tr>
+                <td>{% trans "Fabricant" %}</td>
+                <td>
+                    {{ remplacement.get_remplacement_boite_fabricant_display|default:"-" }}
+                </td>
+            </tr>
+
             <tr>
-                <td>{% trans "Quantité facturée" %}</td>
+                <td>{% trans "Quantité" %}</td>
                 <td>
                     {{ remplacement.remplacement_boite_quantite|default:0 }}
                 </td>
@@ -631,6 +638,7 @@
                 <tr>
                     <th>{% trans "Pièce / Produit" %}</th>
                     <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
                     <th class="text-right">{% trans "Quantité" %}</th>
                     <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
                     <th class="text-right">{% trans "Total HTVA" %}</th>
@@ -675,6 +683,11 @@
                             {% endif %}
                         </td>
 
+                          <td class="text-right">
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+
                         <td class="text-right">
                             {{ ligne.quantite|default:0 }}
                         </td>
@@ -690,7 +703,7 @@
                 {% endfor %}
 
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+                    <td colspan="5" class="text-right">
                         {% trans "Total pièces et produits HTVA" %}
                     </td>
 
@@ -700,7 +713,7 @@
                 </tr>
 
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+                    <td colspan="5" class="text-right">
                         {% trans "Main-d'œuvre HTVA" %}
                     </td>
 
@@ -710,7 +723,7 @@
                 </tr>
 
                 <tr class="total-general">
-                    <td colspan="4" class="text-right">
+                    <td colspan="5" class="text-right">
                         {% trans "Total général avec main-d'œuvre HTVA" %}
                     </td>
 

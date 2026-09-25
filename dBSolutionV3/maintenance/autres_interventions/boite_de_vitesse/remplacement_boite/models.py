@@ -9,7 +9,7 @@ from django.conf import settings
 from maintenance.autres_interventions.boite_de_vitesse.models import HuileBoiteEtat, BoiteVitesseEtat
 from maintenance.autres_interventions.moteur.turbo.models import EtatOKNotOK
 from maintenance.choices import TAUX_HORAIRE_CHOICES, FabricantLubrifiant, TVAConfig, RouesSerrageEtat, \
-    EtatOKNotOKNiveau
+    EtatOKNotOKNiveau, FabricantBoite
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 
@@ -130,13 +130,6 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres rollback embrayage")
     )
 
-    remplacement_boite_serie = models.CharField(
-        max_length=50,
-        null=True,
-        blank=True,
-        verbose_name=_("Numéro de série de la boite")
-    )
-
     remplacement_boite_nombre = models.PositiveIntegerField(
         default=1,
         null=True,
@@ -150,13 +143,27 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         verbose_name=_("Nombre de boites montées"),
     )
 
+
     remplacement_boite_etat = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Remplacement de la boite"))
+    remplacement_boite_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+    remplacement_boite_serie = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+        verbose_name=_("Numéro de série de la boite")
+    )
+
     remplacement_boite_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         blank=True,
         null=True,
-        verbose_name=_("Prix de la boite"),
+        verbose_name=_("Prix"),
     )
     remplacement_boite_quantite = models.PositiveIntegerField(
         default=0,
@@ -195,13 +202,13 @@ class RemplacementBoite(TechnicienMixin, models.Model):
     boite_niveau_huile_fabricant = models.CharField(
         max_length=25,
         choices=FabricantLubrifiant.choices,
-        default=FabricantLubrifiant.MOBIL,
+        default=FabricantLubrifiant.CHOISIR,
         verbose_name=_("Fabricant")
     )
     boite_niveau_huile_qualite = models.CharField(
         max_length=25,
         choices=HuileBoiteEtat.choices,
-        default=HuileBoiteEtat.SEPTANTE_CINQ,
+        default=HuileBoiteEtat.CHOISIR,
         verbose_name=_("Qualité d'huile")
     )
 
@@ -429,7 +436,28 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         prix_ttc = prix_htva + tva
         setattr(self, f"{prefix}_prix_ttc", prix_ttc)
 
-    from decimal import Decimal
+
+
+
+
+    def _get_display(self, nom_champ):
+        """
+        Retourne (valeur brute, libellé) d'un champ à choices.
+        Libellé vide si le champ est vide ou vaut "CHOISIR".
+        """
+        valeur = getattr(self, nom_champ, None) or ""
+
+        if not valeur or valeur == "CHOISIR":
+            return valeur, ""
+
+        methode = getattr(self, f"get_{nom_champ}_display", None)
+        label = methode() if callable(methode) else valeur
+
+        return valeur, str(label)
+
+
+
+
 
     def generer_rapport_remplacement(self):
         lignes = []
@@ -448,13 +476,15 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         ))
 
         if prix_boite > 0 and quantite_boite > 0:
-            total_boite = prix_boite * quantite_boite
+            total_boite = (prix_boite * quantite_boite).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
             total_general += total_boite
 
-            methode_etat_boite = getattr(
-                self,
-                "get_remplacement_boite_etat_display",
-                None,
+            etat, etat_label = self._get_display("remplacement_boite_etat")
+            fabricant, fabricant_label = self._get_display(
+                "remplacement_boite_fabricant"
             )
 
             lignes.append({
@@ -463,14 +493,12 @@ class RemplacementBoite(TechnicienMixin, models.Model):
                         "remplacement_boite_etat"
                     ).verbose_name
                 ),
-                "etat": self.remplacement_boite_etat,
-                "etat_label": (
-                    methode_etat_boite()
-                    if callable(methode_etat_boite)
-                    else self.remplacement_boite_etat
-                ),
-                "fabricant": "",
+                "etat": etat,
+                "etat_label": etat_label,
+                "fabricant": fabricant,
+                "fabricant_label": fabricant_label,
                 "qualite": "",
+                "qualite_label": "",
                 "oem": "",
                 "quantite": quantite_boite,
                 "prix": prix_boite,
@@ -490,49 +518,28 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         ))
 
         if prix_huile > 0 and quantite_huile > 0:
-            total_huile = prix_huile * quantite_huile
+            total_huile = (prix_huile * quantite_huile).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
             total_general += total_huile
 
-            methode_etat_huile = getattr(
-                self,
-                "get_boite_niveau_huile_etat_display",
-                None,
+            etat, etat_label = self._get_display("boite_niveau_huile_etat")
+            fabricant, fabricant_label = self._get_display(
+                "boite_niveau_huile_fabricant"
             )
-
-            methode_fabricant = getattr(
-                self,
-                "get_boite_niveau_huile_fabricant_display",
-                None,
-            )
-
-            methode_qualite = getattr(
-                self,
-                "get_boite_niveau_huile_qualite_display",
-                None,
-            )
-
-            fabricant = (
-                methode_fabricant()
-                if callable(methode_fabricant)
-                else self.boite_niveau_huile_fabricant or ""
-            )
-
-            qualite = (
-                methode_qualite()
-                if callable(methode_qualite)
-                else self.boite_niveau_huile_qualite or ""
+            qualite, qualite_label = self._get_display(
+                "boite_niveau_huile_qualite"
             )
 
             lignes.append({
-                "champ": "Huile de boîte",
-                "etat": self.boite_niveau_huile_etat,
-                "etat_label": (
-                    methode_etat_huile()
-                    if callable(methode_etat_huile)
-                    else self.boite_niveau_huile_etat
-                ),
+                "champ": _("Huile de boîte"),
+                "etat": etat,
+                "etat_label": etat_label,
                 "fabricant": fabricant,
+                "fabricant_label": fabricant_label,
                 "qualite": qualite,
+                "qualite_label": qualite_label,
                 "oem": "",
                 "quantite": quantite_huile,
                 "prix": prix_huile,
@@ -541,7 +548,10 @@ class RemplacementBoite(TechnicienMixin, models.Model):
 
         return {
             "lignes": lignes,
-            "total_general": total_general,
+            "total_general": total_general.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            ),
         }
 
         # ======================================================

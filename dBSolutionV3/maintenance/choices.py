@@ -1781,6 +1781,63 @@ class FabricantMoteur(models.TextChoices):
     AUTRE = "AUTRE", _("Autre")
 
 
+class FabricantBoite(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
+    # Constructeurs automobiles (boîtes maison)
+    ALFA_ROMEO = "ALFA_ROMEO", _("Alfa Romeo")
+    AUDI = "AUDI", _("Audi")
+    BMW = "BMW", _("BMW")
+    CITROEN = "CITROEN", _("Citroën")
+    FERRARI = "FERRARI", _("Ferrari")
+    FIAT = "FIAT", _("Fiat")
+    FORD = "FORD", _("Ford")
+    GM = "GM", _("General Motors")
+    HONDA = "HONDA", _("Honda")
+    HYUNDAI = "HYUNDAI", _("Hyundai")
+    MAZDA = "MAZDA", _("Mazda")
+    MERCEDES = "MERCEDES", _("Mercedes-Benz")
+    MITSUBISHI = "MITSUBISHI", _("Mitsubishi")
+    NISSAN = "NISSAN", _("Nissan")
+    OPEL = "OPEL", _("Opel")
+    PEUGEOT = "PEUGEOT", _("Peugeot")
+    PORSCHE = "PORSCHE", _("Porsche")
+    RENAULT = "RENAULT", _("Renault")
+    SUBARU = "SUBARU", _("Subaru")
+    TOYOTA = "TOYOTA", _("Toyota")
+    VOLKSWAGEN = "VOLKSWAGEN", _("Volkswagen")
+    VOLVO = "VOLVO", _("Volvo")
+
+    # Équipementiers boîtes de vitesses
+    AISIN = "AISIN", _("Aisin")
+    ALLISON = "ALLISON", _("Allison")
+    BORGWARNER = "BORGWARNER", _("BorgWarner")
+    DANA = "DANA", _("Dana")
+    EATON = "EATON", _("Eaton")
+    GETRAG = "GETRAG", _("Getrag (Magna)")
+    GRAZIANO = "GRAZIANO", _("Graziano")
+    HYUNDAI_TRANSYS = "HYUNDAI_TRANSYS", _("Hyundai Transys")
+    JATCO = "JATCO", _("Jatco")
+    PUNCH = "PUNCH", _("Punch Powertrain")
+    TREMEC = "TREMEC", _("Tremec")
+    VOITH = "VOITH", _("Voith")
+    ZF = "ZF", _("ZF")
+
+    # Boîtes compétition / préparateurs
+    ALBINS = "ALBINS", _("Albins")
+    DRENTH = "DRENTH", _("Drenth")
+    HEWLAND = "HEWLAND", _("Hewland")
+    HOLINGER = "HOLINGER", _("Holinger")
+    QUAIFE = "QUAIFE", _("Quaife")
+    RICARDO = "RICARDO", _("Ricardo")
+    SADEV = "SADEV", _("Sadev")
+    SAMSONAS = "SAMSONAS", _("Samsonas")
+    XTRAC = "XTRAC", _("Xtrac")
+
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
+    AUTRE = "AUTRE", _("Autre")
+
+
 class TVAConfig:
     """
     Configuration commune des pays et taux de TVA.
