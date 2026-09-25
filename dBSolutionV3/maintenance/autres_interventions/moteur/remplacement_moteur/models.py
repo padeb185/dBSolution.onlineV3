@@ -60,6 +60,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         blank=True,
         verbose_name=_("Kilomètres chassis")
     )
+    kilometres_rollback = models.PositiveIntegerField(default=0, null=True, blank=True, editable=False)
 
     kilometres_remplacement = models.PositiveIntegerField(
         default=0,

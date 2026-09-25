@@ -300,102 +300,95 @@
 }
 </style>
 
+
 <script>
+function getCookie(name) {
+    let cookieValue = null;
+
+    if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+
+            if (cookie.startsWith(name + "=")) {
+                cookieValue = decodeURIComponent(
+                    cookie.substring(name.length + 1)
+                );
+                break;
+            }
+        }
+    }
+
+    return cookieValue;
+}
+
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
 
-    const form = document.getElementById("moteur-form");
-
-    const kmChassis   = document.getElementById("id_kilometres_chassis");
-    const kmCheckup   = document.getElementById("id_kilometres_remplacement");
-    const kmVariation = document.getElementById("id_kilometrage_variation");
-    const kmMoteur    = document.getElementById("id_kilometres_moteur");
+    const kmChassisInput      = document.getElementById("id_kilometres_chassis");
+    const kmRemplacementInput = document.getElementById("id_kilometres_remplacement");
+    const kmMoteurInput        = document.getElementById("id_kilometres_moteur");
+    const kmVariation         = document.getElementById("id_kilometrage_variation"); // facultatif
 
     const popup           = document.getElementById("kilometrage-popup");
     const popupVariation  = document.getElementById("popup-variation");
     const boutonAnnuler   = document.getElementById("popup-annuler");
     const boutonConfirmer = document.getElementById("popup-confirmer");
 
-    if (
-        !form ||
-        !kmChassis ||
-        !kmCheckup ||
-        !kmVariation ||
-        !kmMoteur ||
-        !popup ||
-        !popupVariation ||
-        !boutonAnnuler ||
-        !boutonConfirmer
-    ) {
-        console.error("[km] élément manquant", {
-            form, kmChassis, kmCheckup, kmVariation, kmMoteur,
-            popup, popupVariation, boutonAnnuler, boutonConfirmer
-        });
+    if (!kmRemplacementInput || !kmMoteurInput || !popup || !popupVariation || !boutonAnnuler || !boutonConfirmer) {
+        console.error("[km] élément manquant");
         return;
     }
 
-    // ==================================================
-    // VALEURS DE L'EXEMPLAIRE (unlocalize => pas de "12 345")
-    // ==================================================
+    const form = kmRemplacementInput.closest("form");
+    const boutonEnregistrer = form.querySelector('button[type="submit"], input[type="submit"]');
 
-    const ancienKmChassis = Number(
-        "{{ exemplaire.kilometres_chassis|default_if_none:0|unlocalize }}"
-    ) || 0;
+    {% load l10n %}
 
-    const ancienKmMoteur = Number(
-        "{{ exemplaire.kilometres_moteur|default_if_none:0|unlocalize }}"
-    ) || 0;
+    const ancienKmChassis = Number("{{ exemplaire.kilometres_chassis|default_if_none:0|unlocalize }}") || 0;
+    const ancienKmMoteur   = Number("{{ exemplaire.kilometres_moteur|default_if_none:0|unlocalize }}") || 0;
+    const SEUIL_VARIATION = 2000;
 
-    // Pré-remplir le châssis s'il est vide
-    if (kmChassis.value.trim() === "") {
-        kmChassis.value = ancienKmChassis;
-    }
+    if (kmChassisInput) kmChassisInput.value = ancienKmChassis;
+    kmMoteurInput.value = ancienKmMoteur;
 
     let variationConfirmee = false;
 
     // ==================================================
-    // CALCUL VARIATION + KILOMÉTRAGE MOTEUR
+    // CALCUL
     // ==================================================
 
-    function calculerVariation() {
+    function calculer() {
+        const nouveauKm = Number(kmRemplacementInput.value || 0);
 
-        variationConfirmee = false;
-
-        if (
-            kmChassis.value.trim() === "" ||
-            kmCheckup.value.trim() === ""
-        ) {
-            kmVariation.value = "";
-            kmMoteur.value = ancienKmMoteur;
-            return;
+        if (!nouveauKm) {
+            kmMoteurInput.value = ancienKmMoteur;
+            if (kmVariation) kmVariation.value = "";
+            return 0;
         }
 
-        const chassis = Number(kmChassis.value);
-        const checkup = Number(kmCheckup.value);
+        const variation = nouveauKm - ancienKmChassis;
 
-        if (Number.isNaN(chassis) || Number.isNaN(checkup)) {
-            kmVariation.value = "";
-            kmMoteur.value = ancienKmMoteur;
-            return;
-        }
+        if (kmVariation) kmVariation.value = variation;
+        kmMoteurInput.value = variation > 0 ? ancienKmMoteur + variation : ancienKmMoteur;
 
-        const variation = checkup - chassis;
-
-        kmVariation.value = variation;
-
-        // Le moteur avance de la même distance que le châssis
-        kmMoteur.value = variation > 0
-            ? ancienKmMoteur + variation
-            : ancienKmMoteur;
+        return variation;
     }
+
+    kmRemplacementInput.addEventListener("input", function () {
+        variationConfirmee = false;
+        calculer();
+    });
 
     // ==================================================
     // POPUP
     // ==================================================
 
     function ouvrirPopup(variation) {
-        popupVariation.textContent = variation.toLocaleString(
-            "{{ LANGUAGE_CODE|default:'fr' }}"
-        );
+        popupVariation.textContent = variation.toLocaleString("{{ LANGUAGE_CODE|default:'fr' }}");
         popup.classList.add("popup-visible");
         boutonConfirmer.focus();
     }
@@ -404,46 +397,61 @@ document.addEventListener("DOMContentLoaded", function () {
         popup.classList.remove("popup-visible");
     }
 
-    kmChassis.addEventListener("input", calculerVariation);
-    kmCheckup.addEventListener("input", calculerVariation);
+    function annulerPopup() {
+        fermerPopup();
+        kmRemplacementInput.focus();
+    }
 
-    form.addEventListener("submit", function (event) {
+    // ==================================================
+    // INTERCEPTION DE L'ENREGISTREMENT
+    // ==================================================
 
-        const variation = Number(kmVariation.value);
+    function intercepter(event) {
+        const variation = calculer();
+        console.log("[km] enregistrement — variation :", variation, "| confirmée :", variationConfirmee);
 
-        if (variation > 2000 && !variationConfirmee) {
+        if (variation > SEUIL_VARIATION && !variationConfirmee) {
             event.preventDefault();
+            event.stopImmediatePropagation();
             ouvrirPopup(variation);
         }
-    });
+    }
 
-    boutonAnnuler.addEventListener("click", function () {
-        fermerPopup();
-        kmCheckup.focus();
-    });
+    // "true" = phase de capture : passe AVANT tous les autres scripts
+    if (boutonEnregistrer) {
+        boutonEnregistrer.addEventListener("click", intercepter, true);
+    }
+    form.addEventListener("submit", intercepter, true);
+
+    boutonAnnuler.addEventListener("click", annulerPopup);
 
     boutonConfirmer.addEventListener("click", function () {
         variationConfirmee = true;
         fermerPopup();
-        form.requestSubmit();
+
+        // Garde name="submit" dans les données envoyées
+        if (boutonEnregistrer) {
+            form.requestSubmit(boutonEnregistrer);
+        } else {
+            form.requestSubmit();
+        }
     });
 
     document.addEventListener("keydown", function (event) {
         if (event.key === "Escape" && popup.classList.contains("popup-visible")) {
-            fermerPopup();
-            kmCheckup.focus();
+            annulerPopup();
         }
     });
 
     popup.addEventListener("click", function (event) {
-        if (event.target === popup) {
-            fermerPopup();
-            kmCheckup.focus();
-        }
+        if (event.target === popup) annulerPopup();
     });
 
-    calculerVariation();
+    calculer();
+    console.log("[km] prêt — châssis :", ancienKmChassis, "| boîte :", ancienKmMoteur);
 });
 </script>
+
+
 
 {% endblock %}
