@@ -748,51 +748,35 @@
 <!-- MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
 
-<h2>{% trans "Main-d'œuvre" %}</h2>
+<h2>{% trans "Main d'œuvre" %}</h2>
 
 <div class="box">
     <div class="grid">
-
         <div>
-            <span class="label">{% trans "Temps de travail" %} :</span>
+            <span class="label">{% trans "Temps" %} :</span>
             {{ admission.temps_main_oeuvre_display|default:"0h00" }}
         </div>
 
-        <div>
-            <span class="label">{% trans "Taux horaire" %} :</span>
+        {% if admission.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ admission.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
 
-            {% if admission.main_oeuvre %}
-                {{ admission.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €
-            {% else %}
-                0,00 €
-            {% endif %}
-        </div>
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ admission.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
 
-        <div>
-            <span class="label">{% trans "Coût de la main-d'œuvre" %} :</span>
-            {{ admission.cout_main_oeuvre|default:0|floatformat:2 }} €
-        </div>
-
-        <div>
-            <span class="label">{% trans "Technicien" %} :</span>
-
-            {% if admission.main_oeuvre and admission.main_oeuvre.utilisateur %}
-                {{ admission.main_oeuvre.utilisateur }}
-            {% else %}
-                {{ admission.tech_nom_technicien|default:"-" }}
-            {% endif %}
-        </div>
-
-        {% if admission.main_oeuvre and admission.main_oeuvre.descriptif %}
             <div>
                 <span class="label">{% trans "Descriptif" %} :</span>
-                {{ admission.main_oeuvre.descriptif }}
+                {{ admission.main_oeuvre.descriptif|default:"-" }}
             </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
         {% endif %}
-
     </div>
 </div>
-
 <!-- ================================================== -->
 <!-- PIÈCES, PRODUITS ET TOTAUX -->
 <!-- ================================================== -->

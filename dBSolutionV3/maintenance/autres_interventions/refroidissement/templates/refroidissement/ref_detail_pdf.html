@@ -1762,7 +1762,7 @@
             <div>
 
                 <span class="label">
-                    {% trans "Taux horaire" %} :
+                    {% trans "Taux horaire HTVA" %} :
                 </span>
 
                 {{ ref.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €
@@ -1773,7 +1773,7 @@
             <div>
 
                 <span class="label">
-                    {% trans "Main-d'œuvre" %} :
+                    {% trans "Prix HTVA" %} :
                 </span>
 
                 {{ ref.cout_main_oeuvre|default:0|floatformat:2 }} €

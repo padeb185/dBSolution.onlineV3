@@ -557,13 +557,13 @@
         </div>
 
         <div>
-            <span class="label">{% trans "Taux horaire" %} :</span>
+            <span class="label">{% trans "Taux horaire HTVA" %} :</span>
             {{ controle_pneus.taux_horaire|floatformat:2 }} €
         </div>
 
         {% if controle_pneus.main_oeuvre %}
             <div>
-                <span class="label">{% trans "Prix facturé" %} :</span>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
                 {{ controle_pneus.cout_main_oeuvre|floatformat:2 }} €
             </div>
 

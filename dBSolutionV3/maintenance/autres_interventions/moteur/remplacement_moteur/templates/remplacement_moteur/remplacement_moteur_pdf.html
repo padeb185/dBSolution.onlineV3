@@ -632,12 +632,12 @@
 
         {% if remplacement.main_oeuvre %}
             <div>
-                <span class="label">{% trans "Taux horaire" %} :</span>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
                 {{ remplacement.main_oeuvre.taux_horaire|floatformat:2 }} €
             </div>
 
             <div>
-                <span class="label">{% trans "Prix facturé" %} :</span>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
                 {{ remplacement.main_oeuvre.prix_facture|floatformat:2 }} €
             </div>
 

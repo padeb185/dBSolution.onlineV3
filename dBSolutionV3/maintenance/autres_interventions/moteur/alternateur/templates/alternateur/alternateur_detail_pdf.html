@@ -496,7 +496,7 @@
         </div>
 
         <div>
-            <span class="label">{% trans "Taux horaire" %} :</span>
+            <span class="label">{% trans "Taux horaire HTVA" %} :</span>
 
             {% if alternateur.main_oeuvre %}
                 {{ alternateur.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €
@@ -506,7 +506,7 @@
         </div>
 
         <div>
-            <span class="label">{% trans "Coût de la main-d'œuvre" %} :</span>
+            <span class="label">{% trans "Prix HTVA" %} :</span>
             {{ alternateur.cout_main_oeuvre|default:0|floatformat:2 }} €
         </div>
 

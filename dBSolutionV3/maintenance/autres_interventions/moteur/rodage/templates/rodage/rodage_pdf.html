@@ -737,7 +737,7 @@
         </div>
 
         <div>
-            <span class="label">{% trans "Taux horaire" %} :</span>
+            <span class="label">{% trans "Taux horaire HTVA" %} :</span>
 
             {% if rodage.main_oeuvre %}
                 {{ rodage.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €
@@ -747,7 +747,7 @@
         </div>
 
         <div>
-            <span class="label">{% trans "Coût de la main-d'œuvre" %} :</span>
+            <span class="label">{% trans "Prix HTVA" %} :</span>
             {{ rodage.cout_main_oeuvre|default:0|floatformat:2 }} €
         </div>
 

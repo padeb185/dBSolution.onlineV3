@@ -418,13 +418,13 @@
             {{ nettoyage.temps_main_oeuvre_display|default:"0h00" }}
         </div>
          <div>
-            <span class="label">{% trans "Taux horaire" %} :</span>
+            <span class="label">{% trans "Taux horaire HTVA" %} :</span>
             {{ nettoyage.taux_horaire|floatformat:2 }} €
         </div>
 
         {% if nettoyage.main_oeuvre %}
             <div>
-                <span class="label">{% trans "Taux horaire" %} :</span>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
                 {{ nettoyage.cout_main_oeuvre|floatformat:2 }} €
             </div>
 

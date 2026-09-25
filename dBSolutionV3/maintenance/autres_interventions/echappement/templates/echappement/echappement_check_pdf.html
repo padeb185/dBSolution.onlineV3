@@ -1099,60 +1099,35 @@
 <!-- MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
 
-<h2>{% trans "Main d'oeuvre" %}</h2>
+<h2>{% trans "Main d'œuvre" %}</h2>
 
 <div class="box">
-
     <div class="grid">
-
         <div>
-            <span class="label">
-                {% trans "Temps de travail" %} :
-            </span>
-
-            {% if echappement.main_oeuvre %}
-                {{ echappement.main_oeuvre.temps_display|default:"0h00" }}
-            {% else %}
-                0h00
-            {% endif %}
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ echappement.temps_main_oeuvre_display|default:"0h00" }}
         </div>
 
-        <div>
-            <span class="label">
-                {% trans "Technicien" %} :
-            </span>
-
-            {% if echappement.main_oeuvre and echappement.main_oeuvre.utilisateur %}
-                {{ echappement.main_oeuvre.utilisateur }}
-            {% else %}
-                {{ echappement.tech_nom_technicien|default:"-" }}
-            {% endif %}
-        </div>
-
-        {% if echappement.main_oeuvre and echappement.main_oeuvre.descriptif %}
+        {% if echappement.main_oeuvre %}
             <div>
-                <span class="label">
-                    {% trans "Descriptif" %} :
-                </span>
-
-                {{ echappement.main_oeuvre.descriptif }}
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ echappement.main_oeuvre.taux_horaire|floatformat:2 }} €
             </div>
-        {% endif %}
 
-        {% if echappement.main_oeuvre and echappement.main_oeuvre.cout_total %}
             <div>
-                <span class="label">
-                    {% trans "Coût de la main d'œuvre" %} :
-                </span>
-
-                {{ echappement.main_oeuvre.cout_total|default:0|floatformat:2 }} €
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ echappement.main_oeuvre.prix_facture|floatformat:2 }} €
             </div>
-        {% endif %}
 
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ echappement.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
     </div>
-
 </div>
-
 
 <!-- ================================================== -->
 <!-- PIÈCES ET PRODUITS -->

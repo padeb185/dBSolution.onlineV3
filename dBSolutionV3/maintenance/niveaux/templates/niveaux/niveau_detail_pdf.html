@@ -475,13 +475,13 @@
             {{ niveau.temps_main_oeuvre_display|default:"0h00" }}
         </div>
          <div>
-            <span class="label">{% trans "Taux horaire" %} :</span>
+            <span class="label">{% trans "Taux horaire HTVA" %} :</span>
             {{ niveau.taux_horaire|floatformat:2 }} €
         </div>
 
         {% if niveau.main_oeuvre %}
             <div>
-                <span class="label">{% trans "Prix facturé" %} :</span>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
                 {{ niveau.cout_main_oeuvre|floatformat:2 }} €
             </div>
 
