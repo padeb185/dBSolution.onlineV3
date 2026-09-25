@@ -1707,7 +1707,78 @@ class FabricantAmpoule(models.TextChoices):
 
 
 
+class FabricantMoteur(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
 
+    # Constructeurs automobiles
+    ALFA_ROMEO = "ALFA_ROMEO", _("Alfa Romeo")
+    ALPINE = "ALPINE", _("Alpine")
+    ASTON_MARTIN = "ASTON_MARTIN", _("Aston Martin")
+    AUDI = "AUDI", _("Audi")
+    BENTLEY = "BENTLEY", _("Bentley")
+    BMW = "BMW", _("BMW")
+    BUGATTI = "BUGATTI", _("Bugatti")
+    CITROEN = "CITROEN", _("Citroën")
+    DACIA = "DACIA", _("Dacia")
+    FERRARI = "FERRARI", _("Ferrari")
+    FIAT = "FIAT", _("Fiat")
+    FORD = "FORD", _("Ford")
+    GM = "GM", _("General Motors")
+    HONDA = "HONDA", _("Honda")
+    HYUNDAI = "HYUNDAI", _("Hyundai")
+    JAGUAR = "JAGUAR", _("Jaguar")
+    KIA = "KIA", _("Kia")
+    LAMBORGHINI = "LAMBORGHINI", _("Lamborghini")
+    LAND_ROVER = "LAND_ROVER", _("Land Rover")
+    LEXUS = "LEXUS", _("Lexus")
+    LOTUS = "LOTUS", _("Lotus")
+    MASERATI = "MASERATI", _("Maserati")
+    MAZDA = "MAZDA", _("Mazda")
+    MCLAREN = "MCLAREN", _("McLaren")
+    MERCEDES = "MERCEDES", _("Mercedes-Benz")
+    MINI = "MINI", _("Mini")
+    MITSUBISHI = "MITSUBISHI", _("Mitsubishi")
+    NISSAN = "NISSAN", _("Nissan")
+    OPEL = "OPEL", _("Opel")
+    PEUGEOT = "PEUGEOT", _("Peugeot")
+    PORSCHE = "PORSCHE", _("Porsche")
+    RENAULT = "RENAULT", _("Renault")
+    ROLLS_ROYCE = "ROLLS_ROYCE", _("Rolls-Royce")
+    SEAT = "SEAT", _("Seat")
+    SKODA = "SKODA", _("Škoda")
+    SUBARU = "SUBARU", _("Subaru")
+    SUZUKI = "SUZUKI", _("Suzuki")
+    TOYOTA = "TOYOTA", _("Toyota")
+    VOLKSWAGEN = "VOLKSWAGEN", _("Volkswagen")
+    VOLVO = "VOLVO", _("Volvo")
+
+    # Motoristes / préparateurs
+    AMG = "AMG", _("AMG")
+    BMW_M = "BMW_M", _("BMW M")
+    COSWORTH = "COSWORTH", _("Cosworth")
+    COTAL = "COTAL", _("Cotal")
+    GORDINI = "GORDINI", _("Gordini")
+    HART = "HART", _("Hart")
+    ILMOR = "ILMOR", _("Ilmor")
+    JUDD = "JUDD", _("Judd")
+    MECACHROME = "MECACHROME", _("Mecachrome")
+    MUGEN = "MUGEN", _("Mugen")
+    NISMO = "NISMO", _("Nismo")
+    ORECA = "ORECA", _("Oreca")
+    AER = "AER", _("AER")
+    ALPINA = "ALPINA", _("Alpina")
+    ABARTH = "ABARTH", _("Abarth")
+    HPD = "HPD", _("HPD (Honda Performance Development)")
+    TRD = "TRD", _("TRD (Toyota Racing Development)")
+    YAMAHA = "YAMAHA", _("Yamaha")
+    ROTAX = "ROTAX", _("Rotax")
+    CUMMINS = "CUMMINS", _("Cummins")
+    PERKINS = "PERKINS", _("Perkins")
+    DEUTZ = "DEUTZ", _("Deutz")
+    VM_MOTORI = "VM_MOTORI", _("VM Motori")
+
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
+    AUTRE = "AUTRE", _("Autre")
 
 
 class TVAConfig:
@@ -1909,32 +1980,32 @@ class HuilePontEtat(models.TextChoices):
 class RefroidissementQualiteEtat(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
     # Volkswagen Group
-    G11 = "G11", _("G 11")
-    G12 = "G12", _("G 12")
-    G12_PLUS = "G12_PLUS", _("G 12+")
-    G12_PLUS_PLUS = "G12_PLUS_PLUS", _("G 12++")
+    G11 = "G11", _("G 11 VAG")
+    G12 = "G12", _("G 12 VAG")
+    G12_PLUS = "G12_PLUS", _("G 12+ VAG")
+    G12_PLUS_PLUS = "G12_PLUS_PLUS", _("G 12++ VAG")
     G13 = "G13", _("G 13")
 
     # BMW
-    G48 = "G48", _("G 48")
+    G48 = "G48", _("G 48 BMW")
 
     # Mercedes-Benz
-    MB_325_0 = "MB_325_0", _("MB 325.0")
-    MB_325_3 = "MB_325_3", _("MB 325.3")
-    MB_325_5 = "MB_325_5", _("MB 325.5")
+    MB_325_0 = "MB_325_0", _("MB 325.0 Mercedes")
+    MB_325_3 = "MB_325_3", _("MB 325.3 Mercedes")
+    MB_325_5 = "MB_325_5", _("MB 325.5 Mercedes")
 
     # Renault / Dacia
-    TYPE_D = "TYPE_D", _("Type D")
+    TYPE_D = "TYPE_D", _("Type D Renault")
 
     # PSA (Peugeot / Citroën)
-    PSA_B71_5110 = "PSA_B71_5110", _("PSA B71 5110")
+    PSA_B71_5110 = "PSA_B71_5110", _("B71 5110 PSA")
 
     # Ford
-    WSS_M97B44_D = "WSS_M97B44_D", _("WSS-M97B44-D")
-    WSS_M97B51_A1 = "WSS_M97B51_A1", _("WSS-M97B51-A1")
+    WSS_M97B44_D = "WSS_M97B44_D", _("WSS-M97B44-D Ford")
+    WSS_M97B51_A1 = "WSS_M97B51_A1", _("WSS-M97B51-A1 Ford")
 
     # General Motors
-    DEX_COOL = "DEX_COOL", _("Dex-Cool")
+    DEX_COOL = "DEX_COOL", _("Dex-Cool GM")
 
     # Toyota / Lexus
     TOYOTA_SLLC = "TOYOTA_SLLC", _("Toyota SLLC")

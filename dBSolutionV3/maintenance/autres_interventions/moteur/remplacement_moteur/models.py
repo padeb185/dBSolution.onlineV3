@@ -6,7 +6,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import FabricantLubrifiant, RefroidissementFabricant, TVAConfig, RouesSerrageEtat
+from maintenance.choices import FabricantLubrifiant, RefroidissementFabricant, TVAConfig, RouesSerrageEtat, \
+    FabricantMoteur
 from maintenance.niveaux.models import  (NiveauxEtat,HuileEtat, RefroidissementQualiteEtat)
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
@@ -112,6 +113,13 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Variation du kilométrage"),
     )
 
+    moteurs_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantMoteur.choices,
+        default=FabricantMoteur.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     remplacement_numero_moteurs= models.CharField(
         max_length=50,
         null=True,
@@ -130,6 +138,8 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         editable=False,
         verbose_name=_("Nombre de moteurs montés"),
     )
+
+
     moteur_quantite = models.PositiveIntegerField(
         default=1,
         editable=False,
@@ -167,13 +177,13 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     niveau_huile_fabricant = models.CharField(
         max_length=25,
         choices=FabricantLubrifiant.choices,
-        default=FabricantLubrifiant.MOBIL,
+        default=FabricantLubrifiant.CHOISIR,
         verbose_name=_("Fabricant")
     )
     niveau_huile_qualite = models.CharField(
         max_length=25,
         choices=HuileEtat.choices,
-        default=HuileEtat.ZERO_30,
+        default=HuileEtat.CHOISIR,
         verbose_name=_("Qualité d'huile")
     )
 
@@ -204,13 +214,13 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         max_length=25,
         choices=RefroidissementFabricant.choices,
         default=RefroidissementFabricant.CHOISIR,
-        verbose_name=_("Niveau de liquide de refroidissement")
+        verbose_name=_("Fabricant")
     )
 
     refroidissement_qualite = models.CharField(
         max_length=25,
         choices=RefroidissementQualiteEtat.choices,
-        default=RefroidissementQualiteEtat.G13,
+        default=RefroidissementQualiteEtat.CHOISIR,
         verbose_name=_("Qualité de liquide de refroidissement")
     )
 
@@ -705,6 +715,14 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
 
             total_general += moteur_total
 
+            # Fabricant du moteur (FabricantMoteur)
+            moteurs_fabricant = self.moteurs_fabricant or ""
+            moteurs_fabricant_label = (
+                self.get_moteurs_fabricant_display()
+                if moteurs_fabricant and moteurs_fabricant != FabricantMoteur.CHOISIR
+                else ""
+            )
+
             rapport.insert(0, {
                 "champ": _("Moteur de remplacement"),
                 "code": "moteur",
@@ -719,8 +737,8 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
                     else _("À remplacer")
                 ),
                 "oem": self.remplacement_numero_moteurs or "",
-                "fabricant": "",
-                "fabricant_label": "",
+                "fabricant": moteurs_fabricant,
+                "fabricant_label": moteurs_fabricant_label,
                 "prix": moteur_prix,
                 "quantite": moteur_quantite,
                 "total": moteur_total,
@@ -796,3 +814,16 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
             Decimal("0.01"),
             rounding=ROUND_HALF_UP,
         )
+
+    @property
+    def taux_tva(self):
+        return TVAConfig.get_tva(self.pays)
+
+    @property
+    def montant_tva(self):
+        montant = self.prix_htva * Decimal(str(self.taux_tva)) / Decimal("100")
+        return montant.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+    @property
+    def prix_tvac(self):
+        return self.prix_htva + self.montant_tva

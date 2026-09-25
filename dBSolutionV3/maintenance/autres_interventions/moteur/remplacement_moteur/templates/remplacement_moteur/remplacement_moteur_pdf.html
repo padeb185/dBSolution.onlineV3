@@ -414,6 +414,12 @@
         </thead>
 
         <tbody>
+             <tr>
+                <td>{% trans "Nom du Motoriste" %}</td>
+                <td>
+                    {{ remplacement.get_moteurs_fabricant_display|default:"-" }}
+                </td>
+            </tr>
             <tr>
                 <td>{% trans "Numéro de série du moteur" %}</td>
                 <td>
@@ -445,7 +451,7 @@
             <tr>
                 <td>{% trans "TVA" %}</td>
                 <td>
-                    {{ remplacement.tva|default:0|floatformat:2 }} %
+                    {{ remplacement.taux_tva|default:0|floatformat:2 }} %
                 </td>
             </tr>
 
