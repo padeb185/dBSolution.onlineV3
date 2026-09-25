@@ -7,7 +7,6 @@ from django.utils.translation import gettext_lazy as _
 from client_particulier.models import ClientParticulier
 from django.conf import settings
 from maintenance.autres_interventions.boite_de_vitesse.models import HuileBoiteEtat, BoiteVitesseEtat
-from maintenance.autres_interventions.moteur.turbo.models import EtatOKNotOK
 from maintenance.choices import TAUX_HORAIRE_CHOICES, FabricantLubrifiant, TVAConfig, RouesSerrageEtat, \
     EtatOKNotOKNiveau, FabricantBoite
 from maintenance.models import Maintenance

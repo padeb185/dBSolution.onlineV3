@@ -1,57 +1,44 @@
 {% extends 'base.html' %}
-{% load i18n widget_tweaks static %}
+{% load i18n widget_tweaks static l10n %}
 
 {% block content %}
 <br>
 <br>
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
-   <!-- Header -->
+    <!-- Header -->
     <div class="mb-6">
-
         <h1 class="text-2xl font-bold">
 
             <!-- Ligne 1 : icône + titre -->
             <div class="flex items-center gap-4">
                 <img src="{% static 'icons/engine.png' %}"
                      alt="engine"
-                      class="w-20 h-20">
-
-                <span>
-                    {% trans "Remplacement du moteur" %}
-                </span>
+                     class="w-20 h-20">
+                <span>{% trans "Remplacement du moteur" %}</span>
             </div>
 
             <!-- Ligne 2 : marque + modèle + variante -->
             <div class="flex items-center justify-center gap-4 mt-3">
-
                 {% static 'images/marques/' as marques_path %}
-
                 <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
                      alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
                      class="w-20 h-20 object-contain">
-
                 <span class="font-semibold">
                     {{ exemplaire.voiture_modele.nom_modele }}
-
                     {% if exemplaire.voiture_modele.nom_variante %}
                         {{ exemplaire.voiture_modele.nom_variante }}
                     {% endif %}
                 </span>
-
             </div>
 
         </h1>
-
     </div>
 
-
-
-       <!-- Plaque -->
+    <!-- Plaque -->
     <div class="mb-4 flex justify-center">
         {% include "maintenance/partials/plaque.html" %}
     </div>
-
 
     <!-- Messages -->
     {% if messages %}
@@ -67,7 +54,7 @@
         {% endfor %}
     {% endif %}
 
-    <!-- Form errors non-field -->
+    <!-- Form errors -->
     {% if form.errors %}
         <div class="bg-red-100 text-red-800 border border-red-300 p-4 rounded mb-6">
             <strong>{% trans "Erreurs :" %}</strong>
@@ -84,15 +71,134 @@
         </div>
     {% endif %}
 
-    <!-- Form -->
-    <form method="POST">
+
+<style>
+    #kilometrage-popup {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background-color: rgba(0, 0, 0, 0.45);
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    #kilometrage-popup.popup-visible {
+        display: flex;
+    }
+
+    .kilometrage-popup-box {
+        width: 100%;
+        max-width: 520px;
+        background-color: #fee2e2;
+        border: 1px solid #fca5a5;
+        border-radius: 10px;
+        padding: 24px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.20);
+    }
+
+    .kilometrage-popup-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #374151;
+        margin-bottom: 16px;
+    }
+
+    .kilometrage-popup-text {
+        color: #4b5563;
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .kilometrage-popup-variation {
+        font-weight: 700;
+        color: #991b1b;
+    }
+
+    .kilometrage-popup-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 22px;
+    }
+
+    .kilometrage-popup-button {
+        border: none;
+        border-radius: 6px;
+        padding: 9px 18px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .kilometrage-popup-annuler {
+        background-color: #d1d5db;
+        color: #374151;
+    }
+
+    .kilometrage-popup-annuler:hover {
+        background-color: #9ca3af;
+        color: #111827;
+    }
+
+    .kilometrage-popup-confirmer {
+        background-color: #991b1b;
+        color: white;
+    }
+
+    .kilometrage-popup-confirmer:hover {
+        background-color: #7f1d1d;
+    }
+</style>
+
+
+<div id="kilometrage-popup">
+    <div class="kilometrage-popup-box">
+
+        <h3 class="kilometrage-popup-title">
+            {% trans "Confirmer le kilométrage" %}
+        </h3>
+
+        <p class="kilometrage-popup-text">
+            {% trans "La variation du kilométrage est de" %}
+            <span class="kilometrage-popup-variation">
+                <span id="popup-variation">0</span> km
+            </span>.
+        </p>
+
+        <p class="kilometrage-popup-text">
+            {% trans "Cette variation est supérieure à 2 000 km. Voulez-vous vraiment enregistrer ce kilométrage ?" %}
+        </p>
+
+        <div class="kilometrage-popup-buttons">
+            <button type="button" id="popup-annuler"
+                    class="kilometrage-popup-button kilometrage-popup-annuler">
+                {% trans "Annuler" %}
+            </button>
+
+            <button type="button" id="popup-confirmer"
+                    class="kilometrage-popup-button kilometrage-popup-confirmer">
+                {% trans "Confirmer" %}
+            </button>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- ========================= -->
+<!-- FORMULAIRE -->
+<!-- ========================= -->
+
+    <form method="post" id="moteur-form" class="space-y-4">
         {% csrf_token %}
 
         {% for section in sections %}
-        <br>
+            <br>
             <div class="mb-16">
                 <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-                    <img src="{% static section.icon %}"  class="w-20 h-20">
+                    <img src="{% static section.icon %}" class="w-20 h-20">
                     {% trans section.title %}
                 </h2>
 
@@ -124,46 +230,38 @@
             </div>
         {% endfor %}
 
+        <br>
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
-                  class="w-20 h-20">
+        <!-- Temps main d'œuvre -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps" class="w-20 h-20">
             {% trans "Temps de main d'œuvre" %}
         </h2>
 
-         <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-4">
             <div>
-                <label for="{{ form.temps_heures.id_for_label }}"
-                       class="block font-semibold mb-1">
+                <label for="{{ form.temps_heures.id_for_label }}" class="block font-semibold mb-1">
                     {% trans "Heures" %}
                 </label>
-
                 {{ form.temps_heures|add_class:"input" }}
-
                 {% if form.temps_heures.errors %}
-                    <p class="text-red-600 text-sm mt-1">
-                        {{ form.temps_heures.errors|striptags }}
-                    </p>
+                    <p class="text-red-600 text-sm mt-1">{{ form.temps_heures.errors|striptags }}</p>
                 {% endif %}
             </div>
 
             <div>
-                <label for="{{ form.temps_minutes.id_for_label }}"
-                       class="block font-semibold mb-1">
+                <label for="{{ form.temps_minutes.id_for_label }}" class="block font-semibold mb-1">
                     {% trans "Minutes" %}
                 </label>
-
                 {{ form.temps_minutes|add_class:"input" }}
-
                 {% if form.temps_minutes.errors %}
-                    <p class="text-red-600 text-sm mt-1">
-                        {{ form.temps_minutes.errors|striptags }}
-                    </p>
+                    <p class="text-red-600 text-sm mt-1">{{ form.temps_minutes.errors|striptags }}</p>
                 {% endif %}
             </div>
         </div>
 
         <br>
+
         <!-- Boutons -->
         <div class="flex gap-3 mt-6">
             <button type="submit" name="submit"
@@ -184,12 +282,14 @@
     </form>
 
 </div>
+
 <div class="max-w-xl mx-auto mt-4">
     <a href="{% url 'remplacement_moteur:remplacement_moteur_list' exemplaire.id %}"
-        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Retour à la liste des remplacements moteur" %}
     </a>
 </div>
+
 <style>
 .input {
     width: 100% !important;
@@ -199,118 +299,151 @@
     box-sizing: border-box !important;
 }
 </style>
+
 <script>
-function getCookie(name) {
-    let cookieValue = null;
-
-    if (document.cookie && document.cookie !== "") {
-        const cookies = document.cookie.split(";");
-
-        for (let cookie of cookies) {
-            cookie = cookie.trim();
-
-            if (cookie.startsWith(name + "=")) {
-                cookieValue = decodeURIComponent(
-                    cookie.substring(name.length + 1)
-                );
-                break;
-            }
-        }
-    }
-
-    return cookieValue;
-}
-
-const csrftoken = getCookie("csrftoken");
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
 
-    const kmChassisInput =
-        document.getElementById("id_kilometres_chassis");
+    const form = document.getElementById("moteur-form");
 
-    const kmRemplacementInput =
-        document.getElementById("id_kilometres_remplacement");
+    const kmChassis   = document.getElementById("id_kilometres_chassis");
+    const kmCheckup   = document.getElementById("id_kilometres_remplacement");
+    const kmVariation = document.getElementById("id_kilometrage_variation");
+    const kmMoteur    = document.getElementById("id_kilometres_moteur");
 
-    const kmMoteurInput =
-        document.getElementById("id_kilometres_moteur");
+    const popup           = document.getElementById("kilometrage-popup");
+    const popupVariation  = document.getElementById("popup-variation");
+    const boutonAnnuler   = document.getElementById("popup-annuler");
+    const boutonConfirmer = document.getElementById("popup-confirmer");
 
     if (
-        !kmChassisInput ||
-        !kmRemplacementInput ||
-        !kmMoteurInput
+        !form ||
+        !kmChassis ||
+        !kmCheckup ||
+        !kmVariation ||
+        !kmMoteur ||
+        !popup ||
+        !popupVariation ||
+        !boutonAnnuler ||
+        !boutonConfirmer
     ) {
+        console.error("[km] élément manquant", {
+            form, kmChassis, kmCheckup, kmVariation, kmMoteur,
+            popup, popupVariation, boutonAnnuler, boutonConfirmer
+        });
         return;
     }
 
     // ==================================================
-    // VALEURS DE L'EXEMPLAIRE
+    // VALEURS DE L'EXEMPLAIRE (unlocalize => pas de "12 345")
     // ==================================================
 
-    // Dernier kilométrage châssis enregistré
     const ancienKmChassis = Number(
-        "{{ exemplaire.kilometres_chassis|default_if_none:'0' }}"
-    );
+        "{{ exemplaire.kilometres_chassis|default_if_none:0|unlocalize }}"
+    ) || 0;
 
-    // IMPORTANT :
-    // dernier kilométrage MOTEUR enregistré sur l'exemplaire
     const ancienKmMoteur = Number(
-        "{{ exemplaire.kilometres_moteur|default_if_none:'0' }}"
-    );
+        "{{ exemplaire.kilometres_moteur|default_if_none:0|unlocalize }}"
+    ) || 0;
 
-    // ==================================================
-    // FORCER LES BONNES VALEURS AU CHARGEMENT
-    // ==================================================
-
-    kmChassisInput.value = ancienKmChassis;
-    kmMoteurInput.value = ancienKmMoteur;
-
-
-    // ==================================================
-    // CALCUL DU KILOMÉTRAGE MOTEUR
-    // ==================================================
-
-    function calculerKilometrageMoteur() {
-
-        const nouveauKm = Number(
-            kmRemplacementInput.value || 0
-        );
-
-        // Aucun nouveau kilométrage saisi
-        if (!nouveauKm) {
-            kmMoteurInput.value = ancienKmMoteur;
-            return;
-        }
-
-        // Empêcher une diminution du kilométrage
-        if (nouveauKm < ancienKmChassis) {
-            kmMoteurInput.value = ancienKmMoteur;
-            return;
-        }
-
-        // Distance parcourue depuis le dernier contrôle
-        const difference =
-            nouveauKm - ancienKmChassis;
-
-        // Nouveau kilométrage moteur
-        const nouveauKmMoteur =
-            ancienKmMoteur + difference;
-
-        kmMoteurInput.value =
-            nouveauKmMoteur;
+    // Pré-remplir le châssis s'il est vide
+    if (kmChassis.value.trim() === "") {
+        kmChassis.value = ancienKmChassis;
     }
 
+    let variationConfirmee = false;
 
     // ==================================================
-    // CALCUL EN DIRECT
+    // CALCUL VARIATION + KILOMÉTRAGE MOTEUR
     // ==================================================
 
-    kmRemplacementInput.addEventListener(
-        "input",
-        calculerKilometrageMoteur
-    );
+    function calculerVariation() {
 
+        variationConfirmee = false;
+
+        if (
+            kmChassis.value.trim() === "" ||
+            kmCheckup.value.trim() === ""
+        ) {
+            kmVariation.value = "";
+            kmMoteur.value = ancienKmMoteur;
+            return;
+        }
+
+        const chassis = Number(kmChassis.value);
+        const checkup = Number(kmCheckup.value);
+
+        if (Number.isNaN(chassis) || Number.isNaN(checkup)) {
+            kmVariation.value = "";
+            kmMoteur.value = ancienKmMoteur;
+            return;
+        }
+
+        const variation = checkup - chassis;
+
+        kmVariation.value = variation;
+
+        // Le moteur avance de la même distance que le châssis
+        kmMoteur.value = variation > 0
+            ? ancienKmMoteur + variation
+            : ancienKmMoteur;
+    }
+
+    // ==================================================
+    // POPUP
+    // ==================================================
+
+    function ouvrirPopup(variation) {
+        popupVariation.textContent = variation.toLocaleString(
+            "{{ LANGUAGE_CODE|default:'fr' }}"
+        );
+        popup.classList.add("popup-visible");
+        boutonConfirmer.focus();
+    }
+
+    function fermerPopup() {
+        popup.classList.remove("popup-visible");
+    }
+
+    kmChassis.addEventListener("input", calculerVariation);
+    kmCheckup.addEventListener("input", calculerVariation);
+
+    form.addEventListener("submit", function (event) {
+
+        const variation = Number(kmVariation.value);
+
+        if (variation > 2000 && !variationConfirmee) {
+            event.preventDefault();
+            ouvrirPopup(variation);
+        }
+    });
+
+    boutonAnnuler.addEventListener("click", function () {
+        fermerPopup();
+        kmCheckup.focus();
+    });
+
+    boutonConfirmer.addEventListener("click", function () {
+        variationConfirmee = true;
+        fermerPopup();
+        form.requestSubmit();
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && popup.classList.contains("popup-visible")) {
+            fermerPopup();
+            kmCheckup.focus();
+        }
+    });
+
+    popup.addEventListener("click", function (event) {
+        if (event.target === popup) {
+            fermerPopup();
+            kmCheckup.focus();
+        }
+    });
+
+    calculerVariation();
 });
 </script>
+
 {% endblock %}

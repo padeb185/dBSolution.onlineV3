@@ -1,5 +1,6 @@
 import re
 
+from django.db.models.functions import Greatest
 from django.urls import reverse
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
@@ -820,78 +821,34 @@ def delete_remplacement_boite_view(request, remplacement_boite_id):
 
                 immatriculation = exemplaire.immatriculation
 
-                # ==================================================
-                # RESTAURATION DU KILOMÉTRAGE
-                # ==================================================
-                kilometrage_rollback = (
-                        exemplaire.kilometres_rollback or 0
-                )
-                kilometrage_rollback_boite = (
-                        exemplaire.kilometres_boite_rollback or 0
-                )
-                kilometrage_rollback_moteur = (
-                        exemplaire.kilometres_moteur_rollback or 0
-                )
-                kilometrage_rollback_embrayage = (
-                        exemplaire.kilometres_embrayage_rollback or 0
-                )
+                # Valeurs AVANT intervention, stockées sur le remplacement
+                km_chassis = remplacement_boite.kilometres_rollback or remplacement_boite.kilometres_chassis or 0
+                km_boite = remplacement_boite.kilometres_boite_rollback or remplacement_boite.kilometres_boite or 0
+                km_moteur = remplacement_boite.kilometres_moteur_rollback or remplacement_boite.kilometres_moteur or 0
+                km_embrayage = remplacement_boite.kilometres_embrayage_rollback or remplacement_boite.kilometres_embrayage or 0
 
-                # ==================================================
-                # RESTAURATION DU KILOMÉTRAGE
-                # ==================================================
-                kilometrage_rollback = exemplaire.kilometres_rollback or 0
-                kilometrage_rollback_boite = exemplaire.kilometres_boite_rollback or 0
-                kilometrage_rollback_moteur = exemplaire.kilometres_moteur_rollback or 0
-                kilometrage_rollback_embrayage = exemplaire.kilometres_embrayage_rollback or 0
-
-                exemplaire.kilometres_chassis = kilometrage_rollback
-
-                # Ancien point de départ de la boîte :
-                # 0 = boîte d'origine (kilometres_boite = châssis)
-                exemplaire.kilometres_remplacement_boite = max(
-                    0,
-                    kilometrage_rollback - kilometrage_rollback_boite
+                # Restauration directe en base
+                VoitureExemplaire.objects.filter(pk=exemplaire.pk).update(
+                    kilometres_chassis=km_chassis,
+                    kilometres_boite=km_boite,
+                    kilometres_moteur=km_moteur,
+                    kilometres_embrayage=km_embrayage,
+                    kilometres_remplacement_boite=max(0, km_chassis - km_boite),
+                    nombre_remplacements_boites=Greatest(F("nombre_remplacements_boites") - 1, 0),
                 )
 
-                # Recalcule boîte / moteur / embrayage / variation de façon cohérente
-                exemplaire.update_kilometres()
-
-                exemplaire.save(
-                    update_fields=[
-                        "kilometres_chassis",
-                        "kilometres_remplacement_boite",
-                        "kilometres_boite",
-                        "kilometres_moteur",
-                        "kilometres_embrayage",
-                        "variation_kilometres",
-                    ]
-                )
-
-
-                # ==================================================
-                # SUPPRESSION CHECKUP
-                # ==================================================
                 remplacement_boite.delete()
 
-                # ==================================================
-                # SUPPRESSION MAINTENANCE ASSOCIÉE
-                # ==================================================
                 if maintenance:
                     maintenance.delete()
 
-                # ==================================================
-                # USER LOG
-                # ==================================================
                 ACTION_SUPPRESSION_REMPLACEMENT_BOITE = gettext_noop(
                     "Suppression du remplacement de la boite de vitesse"
                 )
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=(
-                        f"{ACTION_SUPPRESSION_REMPLACEMENT_BOITE} - "
-                        f"{immatriculation}"
-                    )
+                    action=f"{ACTION_SUPPRESSION_REMPLACEMENT_BOITE} - {immatriculation}",
                 )
 
             messages.success(
@@ -903,17 +860,11 @@ def delete_remplacement_boite_view(request, remplacement_boite_id):
                 f"{reverse('remplacement_boite:remplacement_boite_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
             )
 
-
         except Exception as e:
-
             messages.error(
                 request,
-                _("Erreur lors de la suppression : %(erreur)s")
-                % {
-                    "erreur": str(e)
-                }
+                _("Erreur lors de la suppression : %(erreur)s") % {"erreur": str(e)}
             )
-
     # ==================================================
     # GET → CONFIRMATION
     # ==================================================

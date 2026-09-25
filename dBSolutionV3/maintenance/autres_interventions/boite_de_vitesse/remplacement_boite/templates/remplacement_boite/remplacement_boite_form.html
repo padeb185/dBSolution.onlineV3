@@ -81,6 +81,137 @@
         </div>
     {% endif %}
 
+
+<!-- ========================= -->
+<!-- POPUP VARIATION KILOMÉTRAGE -->
+<!-- ========================= -->
+
+
+<style>
+    #kilometrage-popup {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background-color: rgba(0, 0, 0, 0.45);
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    #kilometrage-popup.popup-visible {
+        display: flex;
+    }
+
+    .kilometrage-popup-box {
+        width: 100%;
+        max-width: 520px;
+        background-color: #fee2e2;
+        border: 1px solid #fca5a5;
+        border-radius: 10px;
+        padding: 24px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.20);
+    }
+
+    .kilometrage-popup-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #374151;
+        margin-bottom: 16px;
+    }
+
+    .kilometrage-popup-text {
+        color: #4b5563;
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .kilometrage-popup-variation {
+        font-weight: 700;
+        color: #991b1b;
+    }
+
+    .kilometrage-popup-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 22px;
+    }
+
+    .kilometrage-popup-button {
+        border: none;
+        border-radius: 6px;
+        padding: 9px 18px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .kilometrage-popup-annuler {
+        background-color: #d1d5db;
+        color: #374151;
+    }
+
+    .kilometrage-popup-annuler:hover {
+        background-color: #9ca3af;
+        color: #111827;
+    }
+
+    .kilometrage-popup-confirmer {
+        background-color: #991b1b;;
+        color: white;
+    }
+
+    .kilometrage-popup-confirmer:hover {
+        background-color: #7f1d1d;
+    }
+</style>
+
+
+
+<div id="kilometrage-popup">
+
+    <div class="kilometrage-popup-box">
+
+        <h3 class="kilometrage-popup-title">
+            {% trans "Confirmer le kilométrage" %}
+        </h3>
+
+        <p class="kilometrage-popup-text">
+            {% trans "La variation du kilométrage est de" %}
+            <span class="kilometrage-popup-variation">
+                <span id="popup-variation">0</span> km
+            </span>.
+        </p>
+
+        <p class="kilometrage-popup-text">
+            {% trans "Cette variation est supérieure à 2 000 km. Voulez-vous vraiment enregistrer ce kilométrage ?" %}
+        </p>
+
+        <div class="kilometrage-popup-buttons">
+
+            <button
+                type="button"
+                id="popup-annuler"
+                class="kilometrage-popup-button kilometrage-popup-annuler"
+            >
+                {% trans "Annuler" %}
+            </button>
+
+            <button
+                type="button"
+                id="popup-confirmer"
+                class="kilometrage-popup-button kilometrage-popup-confirmer"
+            >
+                {% trans "Confirmer" %}
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
     <!-- Form -->
     <form method="POST">
         {% csrf_token %}
@@ -227,103 +358,135 @@ function getCookie(name) {
     return cookieValue;
 }
 
-const csrftoken = getCookie("csrftoken");
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const kmChassisInput =
-        document.getElementById("id_kilometres_chassis");
+    const kmChassisInput      = document.getElementById("id_kilometres_chassis");
+    const kmRemplacementInput = document.getElementById("id_kilometres_remplacement");
+    const kmBoiteInput        = document.getElementById("id_kilometres_boite");
+    const kmVariation         = document.getElementById("id_kilometrage_variation"); // facultatif
 
-    const kmRemplacementInput =
-        document.getElementById("id_kilometres_remplacement");
+    const popup           = document.getElementById("kilometrage-popup");
+    const popupVariation  = document.getElementById("popup-variation");
+    const boutonAnnuler   = document.getElementById("popup-annuler");
+    const boutonConfirmer = document.getElementById("popup-confirmer");
 
-    const kmBoiteInput =
-        document.getElementById("id_kilometres_boite");
-
-    if (
-        !kmChassisInput ||
-        !kmRemplacementInput ||
-        !kmBoiteInput
-    ) {
+    if (!kmRemplacementInput || !kmBoiteInput || !popup || !popupVariation || !boutonAnnuler || !boutonConfirmer) {
+        console.error("[km] élément manquant");
         return;
     }
 
-    // ==================================================
-    // VALEURS DE L'EXEMPLAIRE
-    // ==================================================
+    const form = kmRemplacementInput.closest("form");
+    const boutonEnregistrer = form.querySelector('button[type="submit"], input[type="submit"]');
 
-    // Dernier kilométrage châssis enregistré
-    const ancienKmChassis = Number(
-        "{{ exemplaire.kilometres_chassis|default_if_none:'0' }}"
-    );
+    {% load l10n %}
 
-    // Dernier kilométrage BOÎTE enregistré
-    const ancienKmBoite = Number(
-        "{{ exemplaire.kilometres_boite|default_if_none:'0' }}"
-    );
+    const ancienKmChassis = Number("{{ exemplaire.kilometres_chassis|default_if_none:0|unlocalize }}") || 0;
+    const ancienKmBoite   = Number("{{ exemplaire.kilometres_boite|default_if_none:0|unlocalize }}") || 0;
+    const SEUIL_VARIATION = 2000;
 
-    // ==================================================
-    // FORCER LES BONNES VALEURS AU CHARGEMENT
-    // ==================================================
-
-    kmChassisInput.value = ancienKmChassis;
+    if (kmChassisInput) kmChassisInput.value = ancienKmChassis;
     kmBoiteInput.value = ancienKmBoite;
 
+    let variationConfirmee = false;
+
     // ==================================================
-    // CALCUL DU KILOMÉTRAGE BOÎTE
+    // CALCUL
     // ==================================================
 
-    function calculerKilometrageBoite() {
+    function calculer() {
+        const nouveauKm = Number(kmRemplacementInput.value || 0);
 
-        const nouveauKm = Number(
-            kmRemplacementInput.value || 0
-        );
-
-        // Aucun nouveau kilométrage saisi
         if (!nouveauKm) {
-
-            kmBoiteInput.value =
-                ancienKmBoite;
-
-            return;
+            kmBoiteInput.value = ancienKmBoite;
+            if (kmVariation) kmVariation.value = "";
+            return 0;
         }
 
-        // Empêcher une diminution
-        if (nouveauKm < ancienKmChassis) {
+        const variation = nouveauKm - ancienKmChassis;
 
-            kmBoiteInput.value =
-                ancienKmBoite;
+        if (kmVariation) kmVariation.value = variation;
+        kmBoiteInput.value = variation > 0 ? ancienKmBoite + variation : ancienKmBoite;
 
-            return;
-        }
+        return variation;
+    }
 
-        // ==================================================
-        // DISTANCE PARCOURUE DEPUIS LE DERNIER KILOMÉTRAGE
-        // ==================================================
+    kmRemplacementInput.addEventListener("input", function () {
+        variationConfirmee = false;
+        calculer();
+    });
 
-        const difference =
-            nouveauKm - ancienKmChassis;
+    // ==================================================
+    // POPUP
+    // ==================================================
 
-        // ==================================================
-        // NOUVEAU KILOMÉTRAGE BOÎTE
-        // ==================================================
+    function ouvrirPopup(variation) {
+        popupVariation.textContent = variation.toLocaleString("{{ LANGUAGE_CODE|default:'fr' }}");
+        popup.classList.add("popup-visible");
+        boutonConfirmer.focus();
+    }
 
-        const nouveauKmBoite =
-            ancienKmBoite + difference;
+    function fermerPopup() {
+        popup.classList.remove("popup-visible");
+    }
 
-        kmBoiteInput.value =
-            nouveauKmBoite;
+    function annulerPopup() {
+        fermerPopup();
+        kmRemplacementInput.focus();
     }
 
     // ==================================================
-    // CALCUL EN DIRECT
+    // INTERCEPTION DE L'ENREGISTREMENT
     // ==================================================
 
-    kmRemplacementInput.addEventListener(
-        "input",
-        calculerKilometrageBoite
-    );
+    function intercepter(event) {
+        const variation = calculer();
+        console.log("[km] enregistrement — variation :", variation, "| confirmée :", variationConfirmee);
 
+        if (variation > SEUIL_VARIATION && !variationConfirmee) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            ouvrirPopup(variation);
+        }
+    }
+
+    // "true" = phase de capture : passe AVANT tous les autres scripts
+    if (boutonEnregistrer) {
+        boutonEnregistrer.addEventListener("click", intercepter, true);
+    }
+    form.addEventListener("submit", intercepter, true);
+
+    boutonAnnuler.addEventListener("click", annulerPopup);
+
+    boutonConfirmer.addEventListener("click", function () {
+        variationConfirmee = true;
+        fermerPopup();
+
+        // Garde name="submit" dans les données envoyées
+        if (boutonEnregistrer) {
+            form.requestSubmit(boutonEnregistrer);
+        } else {
+            form.requestSubmit();
+        }
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && popup.classList.contains("popup-visible")) {
+            annulerPopup();
+        }
+    });
+
+    popup.addEventListener("click", function (event) {
+        if (event.target === popup) annulerPopup();
+    });
+
+    calculer();
+    console.log("[km] prêt — châssis :", ancienKmChassis, "| boîte :", ancienKmBoite);
 });
 </script>
+
+
+
 {% endblock %}

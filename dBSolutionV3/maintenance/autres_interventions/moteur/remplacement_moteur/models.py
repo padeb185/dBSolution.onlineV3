@@ -68,7 +68,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres au moment du remplacement")
     )
 
-
     kilometres_moteur = models.PositiveIntegerField(
         default=0,
         null=True,

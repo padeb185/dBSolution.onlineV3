@@ -480,6 +480,8 @@ class ControleBoite(TechnicienMixin, models.Model):
         prix_ttc = prix_htva + tva
         setattr(self, f"{prefix}_prix_ttc", prix_ttc)
 
+
+
     def generer_rapport_remplacement(self):
             rapport = []
             total_general = Decimal("0.00")

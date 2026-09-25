@@ -34,7 +34,6 @@ class RemplacementMoteurForm(forms.ModelForm):
 
         exclude = [
             "kilometres_remplacement_moteur",
-            "variation_kilometres",
             "kilometres_dernier_entretien",
             "tva",
             "kilometres_boite_rollback",

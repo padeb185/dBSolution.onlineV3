@@ -243,15 +243,20 @@
 
 {% endif %}
 <script>
-$(document).ready(function() {
+$(document).ready(function () {
+
+    // Colonnes : 0 Immat | 1 Km boîte | 2 Km châssis | 3 Nombre | 4 Tag
+    //            5 Technicien | 6 Date | 7 Temps | 8 Actions
+
     var table = $('#remplacement_boite-table').DataTable({
         pageLength: 10,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
-            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ remplacement de boite de vitesse' %}",
-            infoEmpty: "{% trans 'Aucun contrôle trouvé' %}",
-            zeroRecords: "{% trans 'Aucun contrôle trouvé' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ remplacements de boite de vitesse' %}",
+            infoEmpty: "{% trans 'Aucun remplacement trouvé' %}",
+            zeroRecords: "{% trans 'Aucun remplacement trouvé' %}",
+            emptyTable: "{% trans 'Aucun remplacement de boite enregistré.' %}",
             paginate: {
                 first: "{% trans 'Premier' %}",
                 last: "{% trans 'Dernier' %}",
@@ -259,11 +264,14 @@ $(document).ready(function() {
                 previous: "{% trans 'Précédent' %}"
             }
         },
-        order: [[7, "desc"]]
+        order: [[6, "desc"]],
+        columnDefs: [
+            { orderable: false, searchable: false, targets: 8 }
+        ]
     });
 
     $('#search-immatriculation').on('keyup', function () {
-    table.column(0).search(this.value).draw();
+        table.column(0).search(this.value).draw();
     });
 
     $('#search-kilometres_boite').on('keyup', function () {
@@ -279,15 +287,15 @@ $(document).ready(function() {
     });
 
     $('#search-utilisateur').on('keyup', function () {
-        table.column(6).search(this.value).draw();
+        table.column(5).search(this.value).draw();
     });
 
     $('#search-date').on('change', function () {
-        table.column(7).search(this.value).draw();
+        table.column(6).search(this.value).draw();
     });
 
     $('#search-temps').on('keyup', function () {
-        table.column(8).search(this.value).draw();
+        table.column(7).search(this.value).draw();
     });
 });
 </script>
