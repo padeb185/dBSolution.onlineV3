@@ -70,6 +70,10 @@
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Immatriculation' %}" >
 
+        <input id="search-kilometres_embrayage" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Km embrayage' %}">
+
         <input id="search-kilometres" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Kilomètres' %}">
@@ -96,7 +100,8 @@
     <thead>
         <tr class="bg-gray-100">
             <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Kilomètres" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Km embrayage" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Km chassis" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Tag" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Technicien" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
@@ -148,6 +153,10 @@
             <!-- Kilométrage -->
             <td class="border px-4 py-2">
                 {{ embrayage.kilometrage_embrayage|default:"-" }}
+            </td>
+
+               <td class="border px-4 py-2">
+                {{ embrayage.kilometres_chassis|default:"-" }}
             </td>
 
 
@@ -226,17 +235,20 @@ $(document).ready(function() {
     $('#search-immatriculation').on('keyup', function () {
         table.column(0).search(this.value).draw();
     });
-    $('#search-kilometres').on('keyup', function () {
+    $('#search-kilometres_embrayage').on('keyup', function () {
         table.column(1).search(this.value).draw();
     });
-    $('#search-tag').on('keyup', function () {
+     $('#search-kilometres').on('keyup', function () {
         table.column(2).search(this.value).draw();
     });
-    $('#search-utilisateur').on('keyup', function () {
+    $('#search-tag').on('keyup', function () {
         table.column(3).search(this.value).draw();
     });
-    $('#search-date').on('change', function () {
+    $('#search-utilisateur').on('keyup', function () {
         table.column(4).search(this.value).draw();
+    });
+    $('#search-date').on('change', function () {
+        table.column(5).search(this.value).draw();
     });
 });
 </script>
