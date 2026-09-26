@@ -1,18 +1,23 @@
+from django.core.exceptions import ValidationError
+from django.db import transaction
+
 from django.http import JsonResponse
+from django.utils import timezone
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from guardian.mixins import LoginRequiredMixin
 from decimal import Decimal
-from django.db.models import Count, Max, Min, Sum
+from django.db.models import Count, Max, Min, Sum, Q
 from django.db.models.functions import TruncMonth, TruncYear
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import TemplateView
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils.translation import get_language
+from django.utils.translation import get_language, gettext_noop
 from django.utils.translation import gettext_lazy as _
 from .forms import ElectriciteForm
 from .models import Electricite, RechargeCarburant
@@ -47,112 +52,196 @@ class ElectriciteListView(ListView):
 
 
 
+def _definir(obj, champ, valeur):
+    """Affecte la valeur seulement si le modèle possède ce champ."""
+    if hasattr(obj, champ):
+        setattr(obj, champ, valeur)
 
 
 @login_required
-def ajouter_recharge_all(request):
+def ajouter_recharge_all(request, exemplaire_id=None):
+
     societe = request.user.societe
 
+    vehicules_societe = VoitureExemplaire.objects.filter(
+        Q(client__societe=societe) | Q(client__isnull=True, societe=societe)
+    )
+
+    # Véhicule de l'URL : facultatif
+    exemplaire = (
+        get_object_or_404(vehicules_societe, id=exemplaire_id)
+        if exemplaire_id
+        else None
+    )
+
     if request.method == "POST":
-        form = ElectriciteForm(
-            request.POST,
-            societe=societe,
-        )
 
-        immatriculation = (
-            request.POST.get("immatriculation", "")
-            .strip()
-        )
+        data = request.POST.copy()
 
-        voiture_exemplaire_id = request.POST.get(
-            "voiture_exemplaire"
-        )
+        # ==================================================
+        # AUTO-DÉTECTION DU VÉHICULE PAR IMMATRICULATION
+        # ==================================================
+        immatriculation = (data.get("immatriculation") or "").strip()
+        erreur_immat = None
 
-        # Recherche du véhicule si le champ caché n'a pas été rempli.
-        if immatriculation and not voiture_exemplaire_id:
-            voiture = (
-                VoitureExemplaire.objects
-                .filter(
-                    immatriculation__iexact=immatriculation,
-                    societe=societe,
-                )
-                .first()
-            )
-
-            if voiture:
-                data = request.POST.copy()
+        if immatriculation and not data.get("voiture_exemplaire"):
+            try:
+                voiture = vehicules_societe.get(immatriculation__iexact=immatriculation)
                 data["voiture_exemplaire"] = str(voiture.pk)
+            except VoitureExemplaire.DoesNotExist:
+                erreur_immat = _("Voiture introuvable.")
+            except VoitureExemplaire.MultipleObjectsReturned:
+                erreur_immat = _("Plusieurs véhicules possèdent cette immatriculation.")
 
-                form = ElectriciteForm(
-                    data,
-                    societe=societe,
-                )
-            else:
-                form.add_error(
-                    "immatriculation",
-                    _("Voiture introuvable."),
-                )
+        form = ElectriciteForm(data, societe=societe)
+
+        if erreur_immat:
+            form.add_error("immatriculation", erreur_immat)
 
         if form.is_valid():
-            recharge = form.save(commit=False)
+            try:
+                with transaction.atomic():
 
-            recharge.utilisateur = request.user
-            recharge.societe = societe
+                    # ==========================================
+                    # VÉHICULE CONCERNÉ
+                    # ==========================================
+                    vehicule = form.cleaned_data.get("voiture_exemplaire") or exemplaire
 
-            voiture = recharge.voiture_exemplaire
+                    if vehicule is None:
+                        form.add_error("immatriculation", _("Veuillez indiquer une immatriculation."))
+                        raise ValidationError("vehicule_manquant")
 
-            if voiture:
-                recharge.immatriculation = voiture.immatriculation or ""
+                    if not vehicules_societe.filter(pk=vehicule.pk).exists():
+                        form.add_error("immatriculation", _("Véhicule non autorisé."))
+                        raise ValidationError("vehicule_interdit")
 
-                # Kilométrage actuel du véhicule
-                if hasattr(recharge, "kilometres_chassis"):
-                    recharge.kilometres_chassis = voiture.kilometres_chassis or 0
+                    # ==========================================
+                    # VALEURS AVANT LA RECHARGE
+                    # ==========================================
+                    ancien_chassis = vehicule.kilometres_chassis or 0
+                    ancien_moteur = vehicule.kilometres_moteur or 0
+                    ancien_boite = vehicule.kilometres_boite or 0
+                    ancien_embrayage = vehicule.kilometres_embrayage or 0
 
-                # Modèle du véhicule
-                if hasattr(recharge, "voiture_modele"):
-                    recharge.voiture_modele = voiture.voiture_modele
+                    km = form.cleaned_data.get("kilometrage_electricite")
+                    variation = 0
 
-                # Marque du véhicule
-                if (
-                        hasattr(recharge, "voiture_marque")
-                        and voiture.voiture_modele
-                ):
-                    recharge.voiture_marque = (
-                        voiture.voiture_modele.voiture_marque
+                    if km is not None:
+                        km = int(km)
+
+                        if km < ancien_chassis:
+                            form.add_error(
+                                "kilometrage_electricite",
+                                _("Le kilométrage ne peut pas être inférieur au kilométrage "
+                                  "actuel du véhicule (%(km)s km).") % {"km": ancien_chassis},
+                            )
+                            raise ValidationError("km_inferieur")
+
+                        variation = km - ancien_chassis
+
+                        # ======================================
+                        # MISE À JOUR DU VÉHICULE
+                        # ======================================
+                        vehicule.kilometres_rollback = ancien_chassis
+                        vehicule.kilometres_moteur_rollback = ancien_moteur
+                        vehicule.kilometres_boite_rollback = ancien_boite
+                        vehicule.kilometres_embrayage_rollback = ancien_embrayage
+
+                        vehicule.kilometres_chassis = km
+                        vehicule.date_derniere_intervention = timezone.localtime(timezone.now()).date()
+
+                        vehicule.update_kilometres()
+
+                        vehicule.save(update_fields=[
+                            "kilometres_chassis",
+                            "date_derniere_intervention",
+                            "kilometres_rollback",
+                            "kilometres_moteur_rollback",
+                            "kilometres_boite_rollback",
+                            "kilometres_embrayage_rollback",
+                            "kilometres_moteur",
+                            "kilometres_boite",
+                            "kilometres_embrayage",
+                            "variation_kilometres",
+                        ])
+
+                    # ==========================================
+                    # RECHARGE
+                    # ==========================================
+                    recharge = form.save(commit=False)
+
+                    recharge.voiture_exemplaire = vehicule
+                    recharge.utilisateur = request.user
+                    recharge.societe = societe
+                    recharge.kilometrage_electricite = km
+
+                    _definir(recharge, "immatriculation", vehicule.immatriculation or "")
+                    _definir(recharge, "voiture_modele", vehicule.voiture_modele)
+
+                    if vehicule.voiture_modele:
+                        _definir(recharge, "voiture_marque", vehicule.voiture_modele.voiture_marque)
+
+                    _definir(recharge, "kilometrage_variation", variation)
+
+                    # Kilométrages AVANT la recharge
+                    _definir(recharge, "kilometres_chassis", ancien_chassis)
+                    _definir(recharge, "kilometres_moteur", ancien_moteur)
+                    _definir(recharge, "kilometres_boite", ancien_boite)
+                    _definir(recharge, "kilometres_embrayage", ancien_embrayage)
+
+                    # Sauvegardes
+                    _definir(recharge, "kilometres_rollback", ancien_chassis)
+                    _definir(recharge, "kilometres_moteur_rollback", ancien_moteur)
+                    _definir(recharge, "kilometres_boite_rollback", ancien_boite)
+                    _definir(recharge, "kilometres_embrayage_rollback", ancien_embrayage)
+
+                    # Technicien
+                    _definir(recharge, "tech_technicien", request.user)
+                    _definir(recharge, "tech_nom_technicien", f"{request.user.prenom} {request.user.nom}")
+                    _definir(recharge, "tech_role_technicien", request.user.role)
+                    _definir(recharge, "tech_societe", societe)
+
+                    recharge.save()
+                    form.save_m2m()
+
+                    # ==========================================
+                    # LOG
+                    # ==========================================
+                    ACTION_AJOUT_RECHARGE = gettext_noop("Ajout d'une recharge électrique")
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=f"{ACTION_AJOUT_RECHARGE} - {vehicule.immatriculation}",
                     )
 
-            recharge.save()
+                messages.success(request, _("Recharge ajoutée avec succès."))
 
-            messages.success(
-                request,
-                _("Recharge ajoutée avec succès."),
-            )
+                langue = get_language() or "fr"
 
-            langue = get_language() or "fr"
-            schema_name = societe.schema_name
+                return redirect(f"/tenant/{societe.schema_name}/{langue}/recharge/recharge/")
 
-            return redirect(
-                f"/tenant/{schema_name}/{langue}/"
-                "recharge/recharge/"
-            )
+            except ValidationError:
+                messages.error(request, _("Veuillez corriger les erreurs ci-dessous."))
 
-        messages.error(
-            request,
-            _("Veuillez corriger les erreurs ci-dessous."),
-        )
+            except Exception as e:
+                messages.error(request, _("Erreur lors de l'enregistrement : %(erreur)s") % {"erreur": str(e)})
+
+        else:
+            messages.error(request, _("Veuillez corriger les erreurs ci-dessous."))
 
     else:
-        form = ElectriciteForm(
-            societe=societe,
-        )
+        initial = {}
+        if exemplaire:
+            initial = {
+                "voiture_exemplaire": exemplaire.pk,
+                "immatriculation": exemplaire.immatriculation,
+            }
+        form = ElectriciteForm(initial=initial, societe=societe)
 
-    return render(
-        request,
-        "recharge/electricite_form.html",
-        {
-            "form": form,
-        },
-    )
+    return render(request, "recharge/electricite_form.html", {
+        "form": form,
+        "exemplaire": exemplaire,
+    })
 
 
 
@@ -331,90 +420,113 @@ def check_immatriculation_elect(request):
 
 
 
-
+@never_cache
 @login_required
 def electricite_delete(request, electricite_id):
+
+    societe = request.user.societe
+
+    # ==========================================================
+    # AUTORISATIONS
+    # ==========================================================
+    roles_autorises = ["direction", "chef_mecanicien"]
+
+    if request.user.role not in roles_autorises and not request.user.is_superuser:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
 
     # ==========================================================
     # RÉCUPÉRATION DE LA RECHARGE
     # ==========================================================
     electricite = get_object_or_404(
-        Electricite.objects.select_related(
-            "voiture_exemplaire",
-        ),
+        Electricite.objects.select_related("voiture_exemplaire"),
         id=electricite_id,
+        societe=societe,
     )
 
     exemplaire = electricite.voiture_exemplaire
 
     # ==========================================================
-    # SÉCURITÉ TENANT
+    # SÉCURITÉ TENANT (véhicule société ou véhicule client)
     # ==========================================================
-    if exemplaire.societe != request.user.societe:
-        messages.error(
-            request,
-            _("Accès refusé")
-        )
-        return redirect(
-            "utilisateurs:dashboard"
-        )
-
-    # ==========================================================
-    # AUTORISATIONS
-    # ==========================================================
-    roles_autorises = [
-        "direction",
-        "chef_mecanicien",
-    ]
-
-    if (
-        request.user.role not in roles_autorises
-        and not request.user.is_superuser
+    if exemplaire and not (
+        (exemplaire.client and exemplaire.client.societe == societe)
+        or (exemplaire.client is None and exemplaire.societe == societe)
     ):
-        messages.error(
-            request,
-            _("Accès refusé")
-        )
-        return redirect(
-            "utilisateurs:dashboard"
-        )
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
 
     # ==========================================================
-    # SUPPRESSION D'UNE SEULE RECHARGE
+    # SUPPRESSION
     # ==========================================================
     if request.method == "POST":
 
-        # On conserve l'ID du véhicule avant suppression
-        exemplaire_id = exemplaire.id
+        try:
+            with transaction.atomic():
 
-        # Suppression UNIQUEMENT de cette recharge
-        electricite.delete()
+                immatriculation = exemplaire.immatriculation if exemplaire else "-"
+                km_recharge = electricite.kilometrage_electricite
 
-        messages.success(
-            request,
-            _("Recharge électrique supprimée avec succès.")
-        )
+                if exemplaire and km_recharge is not None:
 
-        return redirect(
-            "recharge:recharge_list",
+                    # ------------------------------------------
+                    # Valeurs AVANT la recharge
+                    # ------------------------------------------
+                    if getattr(electricite, "kilometres_rollback", None):
+                        km_chassis = electricite.kilometres_rollback
+                        km_moteur = getattr(electricite, "kilometres_moteur_rollback", None) or 0
+                        km_boite = getattr(electricite, "kilometres_boite_rollback", None) or 0
+                        km_embrayage = getattr(electricite, "kilometres_embrayage_rollback", None) or 0
+                    else:
+                        km_chassis = getattr(electricite, "kilometres_chassis", None) or 0
+                        km_moteur = getattr(electricite, "kilometres_moteur", None) or 0
+                        km_boite = getattr(electricite, "kilometres_boite", None) or 0
+                        km_embrayage = getattr(electricite, "kilometres_embrayage", None) or 0
 
-        )
+                    # ------------------------------------------
+                    # Cette recharge est-elle la dernière intervention ?
+                    # (km_chassis > 0 : on ne restaure jamais un compteur à 0
+                    #  pour une ancienne recharge sans sauvegarde)
+                    # ------------------------------------------
+                    est_derniere = (exemplaire.kilometres_chassis or 0) == km_recharge
+
+                    if est_derniere and km_chassis > 0:
+                        VoitureExemplaire.objects.filter(pk=exemplaire.pk).update(
+                            kilometres_chassis=km_chassis,
+                            kilometres_moteur=km_moteur,
+                            kilometres_boite=km_boite,
+                            kilometres_embrayage=km_embrayage,
+                            variation_kilometres=0,
+                        )
+
+                    # Sinon : une intervention plus récente a fixé
+                    # le kilométrage → on ne touche pas au véhicule
+
+                electricite.delete()
+
+                ACTION_SUPPRESSION_RECHARGE = gettext_noop("Suppression d'une recharge électrique")
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_SUPPRESSION_RECHARGE} - {immatriculation}",
+                )
+
+            messages.success(request, _("Recharge électrique supprimée avec succès."))
+            return redirect("recharge:recharge_list")
+
+        except Exception as e:
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s") % {"erreur": str(e)}
+            )
 
     # ==========================================================
     # PAGE DE CONFIRMATION
     # ==========================================================
-    return render(
-        request,
-        "recharge/electricite_delete.html",
-        {
-            "electricite": electricite,
-            "exemplaire": exemplaire,
-        }
-    )
-
-
-
-
+    return render(request, "recharge/electricite_delete.html", {
+        "electricite": electricite,
+        "exemplaire": exemplaire,
+    })
 
 @method_decorator([login_required, never_cache], name="dispatch")
 class ElectriciteStatView(TemplateView):

@@ -90,17 +90,26 @@ class FuelListView(ListView):
 
         return context
 
+
+
+
+
 @login_required
-def ajouter_fuel_all(request, exemplaire_id):
+def ajouter_fuel_all(request, exemplaire_id=None):
 
     tenant = request.user.societe
 
-    # Véhicules de la société uniquement
     vehicules_societe = VoitureExemplaire.objects.filter(
         Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
     )
 
-    exemplaire = get_object_or_404(vehicules_societe, id=exemplaire_id)
+    # Véhicule de l'URL : facultatif
+    exemplaire = (
+        get_object_or_404(vehicules_societe, id=exemplaire_id)
+        if exemplaire_id
+        else None
+    )
+
 
     if request.method == "POST":
 
@@ -137,6 +146,10 @@ def ajouter_fuel_all(request, exemplaire_id):
                     # (celui du formulaire, sinon celui de l'URL)
                     # ==========================================
                     vehicule = form.cleaned_data.get("voiture_exemplaire") or exemplaire
+
+                    if vehicule is None:
+                        form.add_error("immatriculation", _("Veuillez indiquer une immatriculation."))
+                        raise ValidationError("vehicule_manquant")
 
                     if not vehicules_societe.filter(pk=vehicule.pk).exists():
                         form.add_error("immatriculation", _("Véhicule non autorisé."))
@@ -201,7 +214,15 @@ def ajouter_fuel_all(request, exemplaire_id):
                     fuel.voiture_exemplaire = vehicule
                     fuel.utilisateur = request.user
                     fuel.societe = tenant
-                    fuel.assign_technicien(request.user)
+                    # Technicien (seulement si le modèle a ces champs)
+                    if hasattr(fuel, "tech_technicien"):
+                        fuel.tech_technicien = request.user
+                    if hasattr(fuel, "tech_nom_technicien"):
+                        fuel.tech_nom_technicien = f"{request.user.prenom} {request.user.nom}"
+                    if hasattr(fuel, "tech_role_technicien"):
+                        fuel.tech_role_technicien = request.user.role
+                    if hasattr(fuel, "tech_societe"):
+                        fuel.tech_societe = request.user.societe
 
                     fuel.kilometrage_fuel = km
                     fuel.kilometrage_variation = variation
@@ -237,11 +258,21 @@ def ajouter_fuel_all(request, exemplaire_id):
 
         messages.error(request, _("Veuillez corriger les erreurs ci-dessous."))
 
+
     else:
-        form = FuelForm(initial={
-            "voiture_exemplaire": exemplaire.pk,
-            "immatriculation": exemplaire.immatriculation,
-        })
+
+        initial = {}
+
+        if exemplaire:
+            initial = {
+
+                "voiture_exemplaire": exemplaire.pk,
+
+                "immatriculation": exemplaire.immatriculation,
+
+            }
+
+        form = FuelForm(initial=initial)
 
     return render(request, "fuel/fuel_form.html", {
         "form": form,
