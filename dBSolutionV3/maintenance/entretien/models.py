@@ -180,7 +180,7 @@ class Entretien(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA"),
     )
     moteur_ajout_huile =  models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE, verbose_name=_("Ajout de la nouvelle huile moteur"))
-    moteur_ajout_huile_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.MOBIL,verbose_name=_("Fabricant"))
+    moteur_ajout_huile_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.CHOISIR,verbose_name=_("Fabricant"))
     moteur_ajout_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30,verbose_name=_("Qualité d'huile"))
     moteur_ajout_huile_quantite =  models.DecimalField(default=0.0, decimal_places=2,  max_digits=4,  verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
     moteur_ajout_huile_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
@@ -399,7 +399,42 @@ class Entretien(TechnicienMixin, models.Model):
 
     pont_entretien_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices,default=EntretienEtat.A_FAIRE,verbose_name=_("Vidange de l'huile de pont"))
     pont_bouchon_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices,default=EntretienEtat.A_FAIRE,verbose_name=_("Remplacer le bouchon de vidange"))
+    pont_bouchon_vidange_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    pont_bouchon_vidange_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité"),
+    )
+    pont_bouchon_vidange_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+
     pont_joint_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE,verbose_name=_("Remplacer le joint du bouchon de vidange"))
+    pont_joint_vidange_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    pont_joint_vidange_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    pont_joint_vidange_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
     pont_ajout_huile = models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE,verbose_name=_("Ajout de la nouvelle huile de pont"))
     pont_ajout_huile_fabricant = models.CharField(
         max_length=25,
@@ -431,8 +466,9 @@ class Entretien(TechnicienMixin, models.Model):
 
     frein_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de freins"))
     frein_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.CHOISIR,verbose_name=_("Fabricant"))
+    frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4, verbose_name=_("Qualité"))
     frein_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité ajoutée en litres"))
-    frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité"))
+
     frein_liquide_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
