@@ -266,7 +266,6 @@ def delete_frein_av_view(request, frein_av_id):
                     utilisateur=request.user,
                     action=(
                         f"{ACTION_SUPPRESSION_FREIN_AV} "
-                        f"(ID {frein_av_pk})"
                         + (f" – {exemplaires_str}" if exemplaires_str else "")
                     ),
                 )
@@ -279,7 +278,7 @@ def delete_frein_av_view(request, frein_av_id):
             if exemplaire:
                 return redirect(
                     # ⚠️ nom d'URL à vérifier
-                    f"{reverse('voiture_freins_av:frein_av_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
+                    f"{reverse('voiture_freins_av:freins_av_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
                 )
             return redirect("utilisateurs:dashboard")
 

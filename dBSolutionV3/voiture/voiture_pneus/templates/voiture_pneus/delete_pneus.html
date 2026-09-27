@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-4 text-red-700">
+        {% trans "Supprimer les pneus" %}
+    </h1>
+
+    <p class="mb-6">
+        {% trans "Voulez-vous vraiment supprimer cette monte de pneus ? Cette action est irréversible." %}
+    </p>
+
+    {# ================================================== #}
+    {# VÉHICULES / MODÈLES LIÉS                            #}
+    {# ================================================== #}
+    {% if exemplaires_lies or modeles_lies %}
+        <div class="mb-6 p-4 bg-yellow-50 border border-yellow-300 rounded text-sm">
+            {% if exemplaires_lies %}
+                <h2 class="font-semibold mb-1">{% trans "Véhicule(s) concerné(s)" %}</h2>
+                <ul class="list-disc list-inside mb-2">
+                    {% for ex in exemplaires_lies %}<li>{{ ex }}</li>{% endfor %}
+                </ul>
+            {% endif %}
+            {% if modeles_lies %}
+                <h2 class="font-semibold mb-1">{% trans "Modèle(s) concerné(s)" %}</h2>
+                <ul class="list-disc list-inside">
+                    {% for mo in modeles_lies %}<li>{{ mo }}</li>{% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if nb_historiques %}
+        <div class="mb-6 p-4 bg-red-50 border border-red-300 rounded text-sm">
+            {% blocktrans count counter=nb_historiques %}
+                Attention : {{ counter }} entrée d'historique est liée à ces pneus.
+            {% plural %}
+                Attention : {{ counter }} entrées d'historique sont liées à ces pneus.
+            {% endblocktrans %}
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# IDENTIFICATION                                      #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Pneus" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Manufacturier" %}</dt>
+            <dd class="font-medium">{{ pneus.manufacturier|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Modèle" %}</dt>
+            <dd class="font-medium">{{ pneus.nom_type|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Type" %}</dt>
+            <dd class="font-medium">{{ pneus.get_type_pneus_display }}</dd>
+
+            <dt class="text-gray-600">{% trans "Emplacement" %}</dt>
+            <dd class="font-medium">{{ pneus.get_emplacement_display }}</dd>
+
+            <dt class="text-gray-600">{% trans "N° OEM" %}</dt>
+            <dd class="font-medium">{{ pneus.numero_oem|default:"—" }}</dd>
+        </dl>
+    </div>
+
+    {# ================================================== #}
+    {# DIMENSIONS / INDICES                                #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Dimensions et indices" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Dimension" %}</dt>
+            <dd class="font-medium">
+                {{ pneus.pneus_largeur }}/{{ pneus.pneus_hauteur }} R{{ pneus.pneus_jante }}
+                {{ pneus.indice_charge }}{{ pneus.indice_vitesse }}
+            </dd>
+
+            <dt class="text-gray-600">{% trans "Indice de charge" %}</dt>
+            <dd class="font-medium">{{ pneus.get_indice_charge_display }}</dd>
+
+            <dt class="text-gray-600">{% trans "Indice de vitesse" %}</dt>
+            <dd class="font-medium">{{ pneus.get_indice_vitesse_display }}</dd>
+
+            <dt class="text-gray-600">{% trans "Trains avant" %}</dt>
+            <dd class="font-medium">{{ pneus.nombre_trains_av|default_if_none:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Trains arrière" %}</dt>
+            <dd class="font-medium">{{ pneus.nombre_trains_ar|default_if_none:"—" }}</dd>
+        </dl>
+    </div>
+
+    {# ================================================== #}
+    {# KILOMÉTRAGE / REMPLACEMENT                          #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Kilométrage" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Km pneus avant" %}</dt>
+            <dd class="font-medium">
+                {% if pneus.kilometre_pneus_av is not None %}{{ pneus.kilometre_pneus_av }} km{% else %}—{% endif %}
+            </dd>
+
+            <dt class="text-gray-600">{% trans "Km pneus arrière" %}</dt>
+            <dd class="font-medium">
+                {% if pneus.kilometre_pneus_ar is not None %}{{ pneus.kilometre_pneus_ar }} km{% else %}—{% endif %}
+            </dd>
+
+            <dt class="text-gray-600">{% trans "Date de remplacement" %}</dt>
+            <dd class="font-medium">{{ pneus.date_remplacement|date:"d/m/Y"|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Km au remplacement" %}</dt>
+            <dd class="font-medium">
+                {% if pneus.kilometre_remplacement is not None %}{{ pneus.kilometre_remplacement }} km{% else %}—{% endif %}
+            </dd>
+        </dl>
+    </div>
+
+    {% if pneus.remarques %}
+        <div class="mb-4 border rounded">
+            <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Remarques" %}</h2>
+            <p class="p-4 text-sm whitespace-pre-line">{{ pneus.remarques }}</p>
+        </div>
+    {% endif %}
+
+    <p class="text-xs text-gray-500 mb-6">
+        {% trans "Créé le" %} {{ pneus.created_at|date:"d/m/Y H:i"|default:"—" }}
+        · {% trans "Mis à jour le" %} {{ pneus.updated_at|date:"d/m/Y H:i"|default:"—" }}
+    </p>
+
+    {# ================================================== #}
+    {# FORMULAIRE                                          #}
+    {# ================================================== #}
+    <form method="post">
+        {% csrf_token %}
+
+        {% if exemplaire %}
+            <input type="hidden" name="exemplaire_id" value="{{ exemplaire.id }}">
+        {% endif %}
+
+        <div class="flex gap-4 w-full">
+            <button
+                type="submit"
+                class="w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold"
+            >
+                {% trans "Supprimer" %}
+            </button>
+
+            {# ⚠️ nom d'URL à vérifier #}
+            <a href="{% url 'voiture_pneus:pneus_detail' pneus.id %}" class="block w-full">
+                <button
+                    type="button"
+                    class="w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold"
+                >
+                    {% trans "Annuler" %}
+                </button>
+            </a>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

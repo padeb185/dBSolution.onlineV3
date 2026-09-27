@@ -292,7 +292,6 @@ def delete_frein_ar_view(request, frein_ar_id):
                     utilisateur=request.user,
                     action=(
                         f"{ACTION_SUPPRESSION_FREIN_AR} "
-                        f"(ID {frein_ar_pk})"
                         + (f" – {exemplaires_str}" if exemplaires_str else "")
                     ),
                 )

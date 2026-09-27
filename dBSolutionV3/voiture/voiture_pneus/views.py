@@ -1,8 +1,12 @@
+from django.apps import apps
+from django.db import transaction
+from django.db.models import Q, ProtectedError
+from django.urls import reverse
+from django.utils.translation import  gettext_noop
+from utilisateurs.models import UserLog  # adapte le chemin si besoin
 from django.contrib import messages
 from django.views.decorators.cache import never_cache
-from django_tenants.utils import tenant_context
 from .forms import VoiturePneusForm
-from .. import voiture_pneus
 from ..voiture_pneus.admin_forms import RemplacementPneusForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -164,5 +168,142 @@ def modifier_pneus_view(request, pneu_id):
         {
             "form": form,
             "pneus": pneus,
+        },
+    )
+
+
+
+@never_cache
+@login_required
+def delete_pneus_view(request, pneus_id):
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if role not in roles_autorises and not request.user.is_superuser:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # ==================================================
+    # RÉCUPÉRATION PNEUS (filtré par tenant)
+    # ==================================================
+    pneus = get_object_or_404(
+        VoiturePneus.objects.filter(
+            Q(societe=tenant)
+            | Q(voitures_exemplaires__client__societe=tenant)
+            | Q(
+                voitures_exemplaires__client__isnull=True,
+                voitures_exemplaires__societe=tenant,
+            )
+        ).distinct(),
+        id=pneus_id,
+    )
+
+    # ==================================================
+    # EXEMPLAIRE DE RETOUR
+    # ==================================================
+    exemplaire_id = (
+        request.POST.get("exemplaire_id")
+        or request.GET.get("exemplaire_id")
+    )
+
+    exemplaires_lies = pneus.voitures_exemplaires.all()
+    modeles_lies = pneus.voitures_modeles.all()
+
+    exemplaire = None
+    if exemplaire_id:
+        exemplaire = exemplaires_lies.filter(id=exemplaire_id).first()
+    if exemplaire is None:
+        exemplaire = exemplaires_lies.first()
+
+    # ==================================================
+    # HISTORIQUE LIÉ (info pour l'utilisateur)
+    # ==================================================
+    nb_historiques = 0
+    try:
+        VoiturePneusHistorique = apps.get_model(
+            "voiture_pneus_historique", "VoiturePneusHistorique"
+        )
+        nb_historiques = VoiturePneusHistorique.objects.filter(
+            voiture_pneus=pneus
+        ).count()
+    except LookupError:
+        pass
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        # Infos à conserver AVANT suppression
+        pneus_pk = pneus.pk
+        pneus_str = (
+            f"{pneus.manufacturier} {pneus.nom_type or ''} "
+            f"{pneus.pneus_largeur}/{pneus.pneus_hauteur} R{pneus.pneus_jante}"
+        ).strip()
+        exemplaires_str = ", ".join(str(e) for e in exemplaires_lies)
+        exemplaire_retour_id = exemplaire.id if exemplaire else None
+
+        try:
+            with transaction.atomic():
+
+                pneus.delete()
+
+                ACTION_SUPPRESSION_PNEUS = gettext_noop(
+                    "Suppression des pneus"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_PNEUS} "
+                        f"{pneus_str} (ID {pneus_pk})"
+                        + (f" – {exemplaires_str}" if exemplaires_str else "")
+                    ),
+                )
+
+        except ProtectedError:
+            pneus.pk = pneus_pk
+            messages.error(
+                request,
+                _("Impossible de supprimer ces pneus : ils sont encore référencés par d'autres données."),
+            )
+
+        except Exception as e:
+            pneus.pk = pneus_pk
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s") % {"erreur": str(e)},
+            )
+
+        else:
+            messages.success(request, _("Pneus supprimés avec succès."))
+
+            if exemplaire_retour_id:
+                return redirect(
+                    # ⚠️ nom d'URL à vérifier
+                    f"{reverse('voiture_pneus:pneus_list', kwargs={'exemplaire_id': exemplaire_retour_id})}?deleted=1"
+                )
+            return redirect("utilisateurs:dashboard")
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "voiture_pneus/delete_pneus.html",
+        {
+            "pneus": pneus,
+            "exemplaire": exemplaire,
+            "exemplaires_lies": exemplaires_lies,
+            "modeles_lies": modeles_lies,
+            "nb_historiques": nb_historiques,
         },
     )
