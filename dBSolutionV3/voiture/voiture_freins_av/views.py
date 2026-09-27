@@ -1,15 +1,23 @@
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect
-from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context, schema_context
-from django.shortcuts import render
-from ..voiture_freins_av.models import VoitureFreinsAV
 from .forms import VoitureFreinsAVForm
 from ..voiture_freins_ar.models import VoitureFreinsAR
-from ..voiture_modele.models import VoitureModele
 from societe.models import Societe
 from django.utils.translation import gettext_lazy as _
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from django.db.models import Q
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
+from django.utils.translation import gettext as _, gettext_noop
+from django.views.decorators.cache import never_cache
+
+from voiture.voiture_freins_av.models import VoitureFreinsAV
+from utilisateurs.models import UserLog
+
+
+
+
 
 
 
@@ -180,3 +188,116 @@ def dashboard_frein_view(request):
     return render(request, "voiture_freins_av/dashboard_frein.html", context)
 
 
+
+
+@never_cache
+@login_required
+def delete_frein_av_view(request, frein_av_id):
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if role not in roles_autorises and not request.user.is_superuser:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # ==================================================
+    # RÉCUPÉRATION FREIN AV (filtré par tenant)
+    # ==================================================
+    frein_av = get_object_or_404(
+        VoitureFreinsAV.objects.filter(
+            Q(societe=tenant)
+            | Q(voitures_exemplaires__client__societe=tenant)
+            | Q(
+                voitures_exemplaires__client__isnull=True,
+                voitures_exemplaires__societe=tenant,
+            )
+        ).distinct(),
+        id=frein_av_id,
+    )
+
+    # ==================================================
+    # EXEMPLAIRE DE RETOUR (pour la redirection)
+    # ==================================================
+    exemplaire_id = (
+        request.POST.get("exemplaire_id")
+        or request.GET.get("exemplaire_id")
+    )
+
+    exemplaires_lies = frein_av.voitures_exemplaires.all()
+
+    exemplaire = None
+    if exemplaire_id:
+        exemplaire = exemplaires_lies.filter(id=exemplaire_id).first()
+    if exemplaire is None:
+        exemplaire = exemplaires_lies.first()
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+        try:
+            with transaction.atomic():
+
+                # Infos pour le log AVANT suppression
+                exemplaires_str = ", ".join(str(e) for e in exemplaires_lies)
+                frein_av_pk = frein_av.pk
+
+                # ==================================================
+                # SUPPRESSION FREIN AV
+                # ==================================================
+                frein_av.delete()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_FREIN_AV = gettext_noop(
+                    "Suppression du système de freinage avant"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_FREIN_AV} "
+                        f"(ID {frein_av_pk})"
+                        + (f" – {exemplaires_str}" if exemplaires_str else "")
+                    ),
+                )
+
+            messages.success(
+                request,
+                _("Système de freinage avant supprimé avec succès."),
+            )
+
+            if exemplaire:
+                return redirect(
+                    # ⚠️ nom d'URL à vérifier
+                    f"{reverse('voiture_freins_av:frein_av_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
+                )
+            return redirect("utilisateurs:dashboard")
+
+        except Exception as e:
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s") % {"erreur": str(e)},
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "voiture_freins_av/delete_frein_av.html",
+        {
+            "frein_av": frein_av,
+            "exemplaire": exemplaire,
+            "exemplaires_lies": exemplaires_lies,
+        },
+    )

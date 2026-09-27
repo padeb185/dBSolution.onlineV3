@@ -3,7 +3,7 @@ from .views import (
     liste_freins_ar,
     ajouter_freins_ar_simple,
     freins_ar_detail_view,
-    modifier_freins_ar_view,
+    modifier_freins_ar_view, delete_frein_ar_view,
 )
 
 app_name = "voiture_freins_ar"
@@ -18,4 +18,6 @@ urlpatterns = [
 
     # ⚡ Modification des freins arrière
     path("modifier_arriere/<uuid:frein_ar_id>/", modifier_freins_ar_view , name="modifier_freins_ar"),
+
+    path("delete_frein_arriere/<uuid:frein_ar_id>/", delete_frein_ar_view, name="delete_frein_ar"),
 ]

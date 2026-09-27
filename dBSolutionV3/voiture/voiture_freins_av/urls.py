@@ -4,7 +4,7 @@ from .views import (
     liste_freins_av,
     freins_av_detail_view,
     ajouter_freins_av_simple,
-    dashboard_frein_view, modifier_freins_av_view
+    dashboard_frein_view, modifier_freins_av_view, delete_frein_av_view
 )
 
 app_name = "voiture_freins_av"
@@ -23,6 +23,9 @@ urlpatterns = [
     ),
 
     path("modifier_avant/<uuid:frein_av_id>/", modifier_freins_av_view, name="modifier_freins_av"),
+
+    path("delete_frein_avant/<uuid:frein_av_id>/",delete_frein_av_view,name="delete_frein_av",
+),
 ]
 
 

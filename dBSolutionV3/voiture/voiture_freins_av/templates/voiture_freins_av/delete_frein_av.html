@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-4 text-red-700">
+        {% trans "Supprimer le système de freinage avant" %}
+    </h1>
+
+    <p class="mb-6">
+        {% trans "Voulez-vous vraiment supprimer ce système de freinage avant ? Cette action est irréversible." %}
+    </p>
+
+    {# ================================================== #}
+    {# VÉHICULES LIÉS                                      #}
+    {# ================================================== #}
+    {% if exemplaires_lies %}
+        <div class="mb-6 p-4 bg-yellow-50 border border-yellow-300 rounded">
+            <h2 class="font-semibold mb-2">{% trans "Véhicule(s) concerné(s)" %}</h2>
+            <ul class="list-disc list-inside text-sm">
+                {% for ex in exemplaires_lies %}
+                    <li>{{ ex }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# DISQUES                                             #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Disques avant" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Marque" %}</dt>
+            <dd class="font-medium">{{ frein_av.marque_disques_av|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "N° OEM" %}</dt>
+            <dd class="font-medium">{{ frein_av.numero_oem_disques_av|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Matière" %}</dt>
+            <dd class="font-medium">{{ frein_av.get_frein_av_matiere_display }}</dd>
+
+            <dt class="text-gray-600">{% trans "Type" %}</dt>
+            <dd class="font-medium">{{ frein_av.get_type_disques_av_display }}</dd>
+
+            <dt class="text-gray-600">{% trans "Diamètre" %}</dt>
+            <dd class="font-medium">
+                {% if frein_av.taille_disque_av is not None %}{{ frein_av.taille_disque_av }} mm{% else %}—{% endif %}
+            </dd>
+
+            <dt class="text-gray-600">{% trans "Épaisseur" %}</dt>
+            <dd class="font-medium">
+                {% if frein_av.epaisseur_disque_av is not None %}{{ frein_av.epaisseur_disque_av }} mm{% else %}—{% endif %}
+            </dd>
+
+            <dt class="text-gray-600">{% trans "Épaisseur minimum" %}</dt>
+            <dd class="font-medium">
+                {% if frein_av.epaisseur_min_disque_av is not None %}{{ frein_av.epaisseur_min_disque_av }} mm{% else %}—{% endif %}
+            </dd>
+        </dl>
+    </div>
+
+    {# ================================================== #}
+    {# PLAQUETTES                                          #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Plaquettes avant" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Marque" %}</dt>
+            <dd class="font-medium">{{ frein_av.marque_plaquettes_av|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "N° OEM" %}</dt>
+            <dd class="font-medium">{{ frein_av.numero_oem_plaquettes_av|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Matière" %}</dt>
+            <dd class="font-medium">{{ frein_av.get_plaquette_av_matiere_display }}</dd>
+
+            <dt class="text-gray-600">{% trans "Épaisseur" %}</dt>
+            <dd class="font-medium">
+                {% if frein_av.plaquettes_av is not None %}{{ frein_av.plaquettes_av }} mm{% else %}—{% endif %}
+            </dd>
+        </dl>
+    </div>
+
+    {# ================================================== #}
+    {# REMARQUES / DATES                                   #}
+    {# ================================================== #}
+    {% if frein_av.remarques %}
+        <div class="mb-4 border rounded">
+            <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Remarques" %}</h2>
+            <p class="p-4 text-sm whitespace-pre-line">{{ frein_av.remarques }}</p>
+        </div>
+    {% endif %}
+
+    <p class="text-xs text-gray-500 mb-6">
+        {% trans "Créé le" %} {{ frein_av.created_at|date:"d/m/Y H:i"|default:"—" }}
+        · {% trans "Mis à jour le" %} {{ frein_av.updated_at|date:"d/m/Y H:i"|default:"—" }}
+    </p>
+
+    {# ================================================== #}
+    {# FORMULAIRE                                          #}
+    {# ================================================== #}
+    <form method="post">
+        {% csrf_token %}
+
+        {% if exemplaire %}
+            <input type="hidden" name="exemplaire_id" value="{{ exemplaire.id }}">
+        {% endif %}
+
+        <div class="flex gap-4 w-full">
+
+            <button
+                type="submit"
+                class="w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold"
+            >
+                {% trans "Supprimer" %}
+            </button>
+
+            {# ⚠️ nom d'URL à vérifier #}
+            <a href="{% url 'voiture_freins_av:freins_av_detail' frein_av.id %}" class="block w-full">
+                <button
+                    type="button"
+                    class="w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold"
+                >
+                    {% trans "Annuler" %}
+                </button>
+            </a>
+
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}
