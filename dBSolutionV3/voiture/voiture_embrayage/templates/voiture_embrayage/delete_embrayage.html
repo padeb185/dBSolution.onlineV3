@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-4 text-red-700">
+        {% trans "Supprimer l'embrayage" %}
+    </h1>
+
+    <p class="mb-6">
+        {% trans "Voulez-vous vraiment supprimer cet embrayage ? Cette action est irréversible." %}
+    </p>
+
+    {# ================================================== #}
+    {# VÉHICULES / MODÈLES LIÉS                            #}
+    {# ================================================== #}
+    {% if exemplaires_lies or modeles_lies %}
+        <div class="mb-6 p-4 bg-yellow-50 border border-yellow-300 rounded text-sm">
+            {% if exemplaires_lies %}
+                <h2 class="font-semibold mb-1">{% trans "Véhicule(s) concerné(s)" %}</h2>
+                <ul class="list-disc list-inside mb-2">
+                    {% for ex in exemplaires_lies %}<li>{{ ex }}</li>{% endfor %}
+                </ul>
+            {% endif %}
+            {% if modeles_lies %}
+                <h2 class="font-semibold mb-1">{% trans "Modèle(s) concerné(s)" %}</h2>
+                <ul class="list-disc list-inside">
+                    {% for mo in modeles_lies %}<li>{{ mo }}</li>{% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# IDENTIFICATION                                      #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Embrayage" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "N° d'embrayage" %}</dt>
+            <dd class="font-medium">{{ embrayage.numero_embrayage|default_if_none:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Fabricant" %}</dt>
+            <dd class="font-medium">{{ embrayage.fabricant|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "N° OEM" %}</dt>
+            <dd class="font-medium">{{ embrayage.oem|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Kilomètres châssis" %}</dt>
+            <dd class="font-medium">
+                {% if embrayage.kilometres_chassis is not None %}{{ embrayage.kilometres_chassis }} km{% else %}—{% endif %}
+            </dd>
+        </dl>
+    </div>
+
+    {# ================================================== #}
+    {# COMPOSANTS                                          #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Composants" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Type d'embrayage" %}</dt>
+            <dd class="font-medium">{{ embrayage.get_type_embrayage_display|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Volant moteur" %}</dt>
+            <dd class="font-medium">{{ embrayage.get_volant_moteur_display|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Plateau de pression" %}</dt>
+            <dd class="font-medium">{{ embrayage.get_plateau_pression_display|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Butée d'embrayage" %}</dt>
+            <dd class="font-medium">{{ embrayage.get_butee_embrayage_display|default:"—" }}</dd>
+        </dl>
+    </div>
+
+    {% if embrayage.remarques %}
+        <div class="mb-4 border rounded">
+            <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Remarques" %}</h2>
+            <p class="p-4 text-sm whitespace-pre-line">{{ embrayage.remarques }}</p>
+        </div>
+    {% endif %}
+
+    <p class="text-xs text-gray-500 mb-6">
+        {% trans "Créé le" %} {{ embrayage.created_at|date:"d/m/Y H:i"|default:"—" }}
+        · {% trans "Mis à jour le" %} {{ embrayage.updated_at|date:"d/m/Y H:i"|default:"—" }}
+    </p>
+
+    {# ================================================== #}
+    {# FORMULAIRE                                          #}
+    {# ================================================== #}
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="flex gap-4 w-full">
+            <button
+                type="submit"
+                class="w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold"
+            >
+                {% trans "Supprimer" %}
+            </button>
+
+            {# "as" : ne plante pas si le nom d'URL n'existe pas #}
+            {% url 'voiture_embrayage:list' as url_liste_embrayages %}
+            <a href="{{ request.META.HTTP_REFERER|default:url_liste_embrayages|default:'javascript:history.back()' }}" class="block w-full">
+                <button
+                    type="button"
+                    class="w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold"
+                >
+                    {% trans "Annuler" %}
+                </button>
+            </a>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

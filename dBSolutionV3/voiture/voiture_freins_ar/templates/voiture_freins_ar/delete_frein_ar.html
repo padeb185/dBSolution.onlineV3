@@ -118,7 +118,9 @@
                 {% trans "Supprimer" %}
             </button>
 
-            <a href="{% url 'voiture_freins_ar:freins_ar_detail' frein_ar.id %}" class="block w-full">
+            {# "as" : ne plante pas si le nom d'URL n'existe pas #}
+            {% url 'voiture_freins-ar:freins_ar_list' as url_liste_embrayages %}
+            <a href="{{ request.META.HTTP_REFERER|default:url_liste_embrayages|default:'javascript:history.back()' }}" class="block w-full">
                 <button
                     type="button"
                     class="w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold"
