@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import ClientPilotageListView, client_pilotage_form_view, client_pilotage_detail_view, \
-    modifier_client_pilotage_view
+    modifier_client_pilotage_view, delete_client_pilotage_view
 from client_particulier.views import check_prenom
 
 app_name = "client_pilotage"
@@ -34,5 +34,7 @@ urlpatterns = [
 
 
     path('api/check_prenom/', check_prenom, name='check_prenom'),
+
+    path("<int:pk>/supprimer/", delete_client_pilotage_view, name="delete_client_pilotage"),
 
 ]

@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-4 text-red-700">
+        {% trans "Supprimer le client pilotage" %}
+    </h1>
+
+    {% if objets_bloquants %}
+        <p class="mb-6">
+            {% trans "Ce client pilotage ne peut pas être supprimé car il est encore utilisé." %}
+        </p>
+    {% else %}
+        <p class="mb-6">
+            {% trans "Voulez-vous vraiment supprimer ce client pilotage ? Cette action est irréversible." %}
+        </p>
+    {% endif %}
+
+    {# ================================================== #}
+    {# ÉLÉMENTS BLOQUANTS (PROTECT / RESTRICT)             #}
+    {# ================================================== #}
+    {% if objets_bloquants %}
+        <div class="mb-6 p-4 bg-red-50 border border-red-300 rounded text-sm">
+            <h2 class="font-semibold mb-1 text-red-700">
+                {% trans "Élément(s) qui empêchent la suppression" %}
+            </h2>
+            {% for label, objets in objets_bloquants %}
+                <h3 class="font-medium mt-2">{{ label|capfirst }} ({{ objets|length }})</h3>
+                <ul class="list-disc list-inside">
+                    {% for obj in objets|slice:":10" %}<li>{{ obj }}</li>{% endfor %}
+                    {% if objets|length > 10 %}<li class="text-gray-500">…</li>{% endif %}
+                </ul>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# ÉLÉMENTS SUPPRIMÉS EN CASCADE                       #}
+    {# ================================================== #}
+    {% if objets_supprimes or client_pilotage.adresse %}
+        <div class="mb-6 p-4 bg-yellow-50 border border-yellow-300 rounded text-sm">
+            <h2 class="font-semibold mb-1">{% trans "Élément(s) qui seront également supprimé(s)" %}</h2>
+            {% if client_pilotage.adresse %}
+                <h3 class="font-medium mt-2">{% trans "Adresse" %}</h3>
+                <ul class="list-disc list-inside">
+                    <li>{{ client_pilotage.adresse }}</li>
+                </ul>
+            {% endif %}
+            {% for label, objets in objets_supprimes %}
+                <h3 class="font-medium mt-2">{{ label|capfirst }} ({{ objets|length }})</h3>
+                <ul class="list-disc list-inside">
+                    {% for obj in objets|slice:":10" %}<li>{{ obj }}</li>{% endfor %}
+                    {% if objets|length > 10 %}<li class="text-gray-500">…</li>{% endif %}
+                </ul>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# CLIENT                                              #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Client pilotage" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Client particulier" %}</dt>
+            <dd class="font-medium">
+                {% if client_pilotage.client_particulier %}
+                    {{ client_pilotage.client_particulier.nom }} {{ client_pilotage.client_particulier.prenom }}
+                {% else %}—{% endif %}
+            </dd>
+
+            <dt class="text-gray-600">{% trans "Téléphone" %}</dt>
+            <dd class="font-medium">{{ client_pilotage.client_particulier.numero_telephone|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Email" %}</dt>
+            <dd class="font-medium">{{ client_pilotage.client_particulier.email|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Adresse" %}</dt>
+            <dd class="font-medium">{{ client_pilotage.adresse|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Niveau de pilotage" %}</dt>
+            <dd class="font-medium">{{ client_pilotage.get_niveau_display|default:"—" }}</dd>
+        </dl>
+        <p class="px-4 pb-3 text-xs text-gray-500">
+            {% trans "La fiche du client particulier n'est pas supprimée." %}
+        </p>
+    </div>
+
+    {# ================================================== #}
+    {# HISTORIQUES                                         #}
+    {# ================================================== #}
+    {% if client_pilotage.historique %}
+        <div class="mb-4 border rounded">
+            <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Historique pilotage" %}</h2>
+            <p class="p-4 text-sm whitespace-pre-line max-h-48 overflow-y-auto">{{ client_pilotage.historique }}</p>
+        </div>
+    {% endif %}
+
+    {% if client_pilotage.location %}
+        <div class="mb-6 border rounded">
+            <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Historique des locations" %}</h2>
+            <p class="p-4 text-sm whitespace-pre-line max-h-48 overflow-y-auto">{{ client_pilotage.location }}</p>
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# FORMULAIRE                                          #}
+    {# ================================================== #}
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="flex gap-4 w-full">
+            {% if objets_bloquants %}
+                <button
+                    type="button"
+                    disabled
+                    class="w-full bg-gray-200 text-gray-500 px-4 py-2 rounded font-semibold cursor-not-allowed"
+                >
+                    {% trans "Suppression impossible" %}
+                </button>
+            {% else %}
+                <button
+                    type="submit"
+                    class="w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold"
+                >
+                    {% trans "Supprimer" %}
+                </button>
+            {% endif %}
+
+            {# "as" : ne plante pas si le nom d'URL n'existe pas #}
+            {% url 'client_pilotage:list' as url_liste_clients_pilotage %}
+            <a href="{{ request.META.HTTP_REFERER|default:url_liste_clients_pilotage|default:'javascript:history.back()' }}" class="block w-full">
+                <button
+                    type="button"
+                    class="w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold"
+                >
+                    {% trans "Annuler" %}
+                </button>
+            </a>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

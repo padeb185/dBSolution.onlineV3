@@ -1,16 +1,21 @@
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from .forms import ClientPilotageForm
-from .models import  ClientPilotage
-from django.utils.translation import gettext as _
 from client_particulier.models import ClientParticulier
-from django.db import transaction
 from adresse.models import Adresse
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db import router, transaction
+from django.db.models import ProtectedError, RestrictedError
+from django.db.models.deletion import Collector
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import gettext as _
+
+from .models import ClientPilotage
+
+
+
 
 
 
@@ -242,4 +247,81 @@ def client_pilotage_form_view(request):
         {
             "form": form,
         }
+    )
+
+
+
+
+
+
+
+
+def _analyse_suppression(obj):
+    """
+    Retourne (objets_supprimes, objets_bloquants), chacun sous la forme
+    [(verbose_name_plural, [objets]), ...]
+    """
+    collector = Collector(using=router.db_for_write(obj.__class__, instance=obj))
+    try:
+        collector.collect([obj])
+    except (ProtectedError, RestrictedError) as e:
+        bloquants = getattr(e, "protected_objects", None) or getattr(e, "restricted_objects", [])
+        groupes = {}
+        for o in bloquants:
+            groupes.setdefault(o._meta.verbose_name_plural, []).append(o)
+        return [], list(groupes.items())
+
+    supprimes = []
+    for model, instances in collector.data.items():
+        if model is obj.__class__:
+            continue
+        instances = list(instances)
+        if instances:
+            supprimes.append((model._meta.verbose_name_plural, instances))
+    return supprimes, []
+
+
+@login_required
+def delete_client_pilotage_view(request, pk):
+    client_pilotage = get_object_or_404(
+        ClientPilotage.objects.select_related("client_particulier", "adresse", "societe"),
+        pk=pk,
+    )
+    objets_supprimes, objets_bloquants = _analyse_suppression(client_pilotage)
+
+    if request.method == "POST":
+        libelle = str(client_pilotage)
+
+        if objets_bloquants:
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : ce client est encore utilisé ailleurs.") % {"nom": libelle},
+            )
+            return redirect("client_pilotage:delete_client_pilotage", pk=pk)
+
+        try:
+            with transaction.atomic():
+                adresse = client_pilotage.adresse
+                client_pilotage.delete()
+                # OneToOne : l'adresse n'appartient qu'à ce client → on la supprime aussi
+                if adresse:
+                    adresse.delete()
+        except (ProtectedError, RestrictedError):
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : ce client est encore utilisé ailleurs.") % {"nom": libelle},
+            )
+            return redirect("client_pilotage:delete_client_pilotage", pk=pk)
+
+        messages.success(request, _("« %(nom)s » a bien été supprimé.") % {"nom": libelle})
+        return redirect("client_pilotage:client_pilotage_list")
+
+    return render(
+        request,
+        "client_pilotage/delete_client_pilotage.html",
+        {
+            "client_pilotage": client_pilotage,
+            "objets_supprimes": objets_supprimes,
+            "objets_bloquants": objets_bloquants,
+        },
     )

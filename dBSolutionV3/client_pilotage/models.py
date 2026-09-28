@@ -1,8 +1,7 @@
-from datetime import date
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from stdnum.be import iban
+from stdnum import iban
 
 
 def validate_iban(value):
@@ -69,6 +68,9 @@ class ClientPilotage(models.Model):
         blank=True,
     )
 
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
     class Meta:
         verbose_name = _("Client pilotage")
         verbose_name_plural = _("Clients pilotages")
@@ -79,5 +81,5 @@ class ClientPilotage(models.Model):
 
     def __str__(self):
         cp = self.client_particulier
-        return f"{cp.prenom} {cp.nom} ({self.niveau})"
+        return f"{cp.prenom} {cp.nom} ({self.get_niveau_display()})"
 
