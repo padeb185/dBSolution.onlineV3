@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models import ProtectedError, RestrictedError
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _, gettext_noop
+from utilisateurs.models import UserLog
 
 from .models import AchatMds
 
@@ -128,6 +129,10 @@ def modifier_achat_view(request, achat_id):
 
 
 
+
+ACTION_SUPPRESSION_ACHAT = gettext_noop("Suppression de l'achat")
+
+
 @login_required
 def delete_achat_view(request, pk):
     achat = get_object_or_404(
@@ -137,9 +142,23 @@ def delete_achat_view(request, pk):
 
     if request.method == "POST":
         libelle = achat.reference_facture or achat.libelle_facture or str(achat)
+
+        # Libellé pour le log (capturé AVANT la suppression)
+        fournisseur_nom = achat.fournisseur.nom if achat.fournisseur else "—"
+        date_facture = achat.date_facture.strftime("%d/%m/%Y") if achat.date_facture else "—"
+        nom_log = (
+            f"{libelle} – {fournisseur_nom} – {date_facture} – "
+            f"{achat.total_tvac:.2f} € TVAC"
+        )
+
         try:
             with transaction.atomic():
                 achat.delete()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_SUPPRESSION_ACHAT} : {nom_log}",
+                )
         except (ProtectedError, RestrictedError):
             messages.error(
                 request,
@@ -151,6 +170,3 @@ def delete_achat_view(request, pk):
         return redirect("achat_mds:achat_list")
 
     return render(request, "achat_mds/delete_achat.html", {"achat": achat})
-
-
-

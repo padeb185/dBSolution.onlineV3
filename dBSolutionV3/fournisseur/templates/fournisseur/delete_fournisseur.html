@@ -22,23 +22,20 @@
     {# ================================================== #}
     {# ÉLÉMENTS BLOQUANTS (PROTECT / RESTRICT)             #}
     {# ================================================== #}
-    {% if objets_bloquants %}
-        <div class="mb-6 p-4 bg-red-50 border border-red-300 rounded text-sm">
-            <h2 class="font-semibold mb-1 text-red-700">
-                {% trans "Élément(s) qui empêchent la suppression" %}
-            </h2>
-            <ul class="list-disc list-inside">
-                {% for obj in objets_bloquants|slice:":20" %}
-                    <li>{{ obj }} <span class="text-gray-500">({{ obj|default:""|stringformat:"s"|yesno:"," }}{{ obj.meta_verbose_name }})</span></li>
+        {% if objets_bloquants %}
+            <div class="mb-6 p-4 bg-red-50 border border-red-300 rounded text-sm">
+                <h2 class="font-semibold mb-1 text-red-700">
+                    {% trans "Élément(s) qui empêchent la suppression" %}
+                </h2>
+                {% for label, objets in objets_bloquants %}
+                    <h3 class="font-medium mt-2">{{ label|capfirst }} ({{ objets|length }})</h3>
+                    <ul class="list-disc list-inside">
+                        {% for obj in objets|slice:":10" %}<li>{{ obj }}</li>{% endfor %}
+                        {% if objets|length > 10 %}<li class="text-gray-500">…</li>{% endif %}
+                    </ul>
                 {% endfor %}
-            </ul>
-            {% if objets_bloquants|length > 20 %}
-                <p class="mt-1 text-gray-600">
-                    {% blocktrans count n=objets_bloquants|length %}… {{ n }} élément au total{% plural %}… {{ n }} éléments au total{% endblocktrans %}
-                </p>
-            {% endif %}
-        </div>
-    {% endif %}
+            </div>
+        {% endif %}
 
     {# ================================================== #}
     {# ÉLÉMENTS SUPPRIMÉS EN CASCADE                       #}

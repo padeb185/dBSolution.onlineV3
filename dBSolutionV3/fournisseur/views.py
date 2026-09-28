@@ -1,6 +1,8 @@
+from core.suppression import analyser_suppression
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import  ListView
+from utilisateurs.models import UserLog
 from .forms import FournisseurForm
 from adresse.models import Adresse
 from achat_mds.models import AchatMds
@@ -12,7 +14,7 @@ from django.db import router, transaction
 from django.db.models import ProtectedError, RestrictedError
 from django.db.models.deletion import Collector
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _, gettext_noop
 
 from .models import Fournisseur
 
@@ -236,26 +238,43 @@ def _analyse_suppression(obj):
     return supprimes, []
 
 
+
+
+
+
+ACTION_SUPPRESSION_FOUR = gettext_noop("Suppression du fournisseur")
+
+
 @login_required
 def delete_fournisseur_view(request, pk):
     fournisseur = get_object_or_404(
         Fournisseur.objects.select_related("adresse", "societe"),
         pk=pk,
     )
-    objets_supprimes, objets_bloquants = _analyse_suppression(fournisseur)
+
+    analyse = analyser_suppression(fournisseur)
+    objets_bloquants = analyse["bloquants"]
+    objets_supprimes = analyse["supprimes"]
 
     if request.method == "POST":
+        nom = fournisseur.nom
+        numero_tva = fournisseur.numero_tva
+
         if objets_bloquants:
             messages.error(
                 request,
-                _("Impossible de supprimer « %(nom)s » : il est encore utilisé ailleurs.") % {"nom": fournisseur.nom},
+                _("Impossible de supprimer « %(nom)s » : il est encore utilisé ailleurs.") % {"nom": nom},
             )
-            return redirect("fournisseur:delete_fournisseur", pk=fournisseur.pk)
+            return redirect("fournisseur:delete_fournisseur", pk=pk)
 
-        nom = fournisseur.nom
         try:
             with transaction.atomic():
                 fournisseur.delete()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_SUPPRESSION_FOUR} : {nom} (TVA {numero_tva})",
+                )
         except (ProtectedError, RestrictedError):
             messages.error(
                 request,

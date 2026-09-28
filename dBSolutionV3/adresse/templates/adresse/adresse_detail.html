@@ -74,13 +74,25 @@
         </div>
 
         <div class="mt-auto w-full">
-                <a href="{% url 'adresse:modifier_adresse' adresse.id %}" class="block w-full">
-                    <button type="button"
-                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier l'adresse" %}
+            <a href="{% url 'adresse:modifier_adresse' adresse.id %}" class="block w-full">
+                <button type="button"
+                        class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Modifier l'adresse" %}
+                </button>
+            </a>
+        </div>
+
+         {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}
+            <div class="mt-auto w-full">
+                <a href="{% url 'adresse:delete_adresse' adresse.pk %}" class="block w-full">
+                    <button type="button" class="w-full bg-red-700 text-white px-4 py-2 rounded hover:hover:bg-red-400 font-semibold">
+                        {% trans "Supprimer l'adresse" %}
                     </button>
                 </a>
-        </div>
+            </div>
+        {% endif %}
+    <br>
+
     </div>
 
 

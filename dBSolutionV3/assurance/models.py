@@ -33,10 +33,10 @@ class Assurance(models.Model):
 
     adresse = models.ForeignKey(
         "adresse.Adresse",
-        on_delete=models.SET_NULL,
+        on_delete=models.RESTRICT,
         null=True,
         blank=True,
-        related_name="assurances"
+        related_name="assurances",
     )
     remarques = models.TextField(_("Remarques"), blank=True, null=True)
 

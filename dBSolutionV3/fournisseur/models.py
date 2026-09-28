@@ -25,9 +25,12 @@ class Fournisseur(models.Model):
     adresse = models.ForeignKey(
         "adresse.Adresse",
         verbose_name=_("Adresse"),
-        on_delete=models.CASCADE,
-        related_name="fournisseurs"
+        on_delete=models.RESTRICT,  # ← au lieu de CASCADE
+        related_name="fournisseurs",
+        null=True,
+        blank=True,
     )
+
 
     numero_tva = models.CharField(
         _("Numéro de TVA"),

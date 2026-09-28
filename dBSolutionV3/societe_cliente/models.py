@@ -93,12 +93,13 @@ class SocieteCliente(models.Model):
         blank=True
     )
     adresse = models.ForeignKey(
-        'adresse.Adresse',
-        on_delete=models.CASCADE,
-        related_name='societe_cliente',
-        verbose_name='Adresse',
+        "adresse.Adresse",
+        verbose_name=_("Adresse"),
+        on_delete=models.RESTRICT,
         null=True,
-        blank=True
+        blank=True,
+        # ← au lieu de CASCADE
+        related_name="societe_cliente",
     )
 
 

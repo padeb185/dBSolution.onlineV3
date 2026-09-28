@@ -1,11 +1,16 @@
 from django.urls import path
-from .views import AdresseListView, modifier_adresse, adresse_detail, ajouter_adresse_all
+from .views import AdresseListView, modifier_adresse, adresse_detail, ajouter_adresse_all, delete_adresse_view
 
 app_name = "adresse"
 
 urlpatterns = [
     path("", AdresseListView.as_view(), name="adresse_list"),
+
     path("creer/", ajouter_adresse_all, name="adresse_form"),
+
     path("<uuid:adresse_id>/", adresse_detail, name="adresse_detail"),
+
     path("carrosserie/<uuid:adresse_id>/modifier/", modifier_adresse, name="modifier_adresse"),
+
+    path("<uuid:pk>/supprimer/", delete_adresse_view, name="delete_adresse"),
 ]

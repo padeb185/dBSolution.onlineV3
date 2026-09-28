@@ -1,3 +1,5 @@
+import client_particulier
+from core.suppression import analyser_suppression
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -13,7 +15,8 @@ from django.db import router, transaction
 from django.db.models import ProtectedError, RestrictedError
 from django.db.models.deletion import Collector
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _, gettext_noop
+from utilisateurs.models import UserLog
 
 from .models import ClientParticulier
 
@@ -274,29 +277,24 @@ def _masquer(valeur, visibles=4):
     return "•" * (len(valeur) - visibles) + valeur[-visibles:]
 
 
-def _analyse_suppression(obj):
-    """
-    Retourne (objets_supprimes, objets_bloquants), chacun sous la forme
-    [(verbose_name_plural, [objets]), ...]
-    """
-    collector = Collector(using=router.db_for_write(obj.__class__, instance=obj))
-    try:
-        collector.collect([obj])
-    except (ProtectedError, RestrictedError) as e:
-        bloquants = getattr(e, "protected_objects", None) or getattr(e, "restricted_objects", [])
-        groupes = {}
-        for o in bloquants:
-            groupes.setdefault(o._meta.verbose_name_plural, []).append(o)
-        return [], list(groupes.items())
 
-    supprimes = []
-    for model, instances in collector.data.items():
-        if model is obj.__class__:
-            continue
-        instances = list(instances)
-        if instances:
-            supprimes.append((model._meta.verbose_name_plural, instances))
-    return supprimes, []
+
+
+
+
+
+
+ACTION_SUPPRESSION_CLIENT = gettext_noop("Suppression du client particulier")
+
+
+def _masquer(valeur, visibles=4):
+    """Masque une donnée sensible : ne garde que les derniers caractères."""
+    if not valeur:
+        return None
+    valeur = str(valeur).replace(" ", "")
+    if len(valeur) <= visibles:
+        return "•" * len(valeur)
+    return "•" * (len(valeur) - visibles) + valeur[-visibles:]
 
 
 @login_required
@@ -305,10 +303,18 @@ def delete_client_view(request, pk):
         ClientParticulier.objects.select_related("adresse", "societe"),
         pk=pk,
     )
-    objets_supprimes, objets_bloquants = _analyse_suppression(client)
+
+    analyse = analyser_suppression(client)
+    objets_bloquants = analyse["bloquants"]
+    objets_supprimes = analyse["supprimes"]
 
     if request.method == "POST":
         nom_complet = f"{client.prenom} {client.nom}"
+
+        # Libellé pour le log (capturé AVANT la suppression)
+        nom_log = f"{client.nom} {client.prenom}"
+        if client.email:
+            nom_log += f" ({client.email})"
 
         if objets_bloquants:
             messages.error(
@@ -324,6 +330,11 @@ def delete_client_view(request, pk):
                 # OneToOne : l'adresse n'appartient qu'à ce client → on la supprime aussi
                 if adresse:
                     adresse.delete()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_SUPPRESSION_CLIENT} : {nom_log}",
+                )
         except (ProtectedError, RestrictedError):
             messages.error(
                 request,

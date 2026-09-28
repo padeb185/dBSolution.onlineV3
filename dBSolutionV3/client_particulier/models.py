@@ -32,12 +32,11 @@ class ClientParticulier(models.Model):
         blank=True,
     )
 
-
-
-    adresse = models.OneToOneField(
+    adresse = models.ForeignKey(
         "adresse.Adresse",
         verbose_name=_("Adresse"),
-        on_delete=models.CASCADE,
+        on_delete=models.RESTRICT,  # ← au lieu de CASCADE
+        related_name="client_particulier",
         null=True,
         blank=True,
     )

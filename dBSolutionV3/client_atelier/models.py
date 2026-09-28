@@ -48,14 +48,15 @@ class ClientAtelier(models.Model):
         blank=True,
     )
 
-    adresse = models.OneToOneField(
+    adresse = models.ForeignKey(
         "adresse.Adresse",
         verbose_name=_("Adresse"),
-        on_delete=models.CASCADE,
+        on_delete=models.RESTRICT,
         null=True,
         blank=True,
+        # ← au lieu de CASCADE
+        related_name="client_atelier",
     )
-
 
     voitures = models.ManyToManyField(
         "voiture_exemplaire.VoitureExemplaire",

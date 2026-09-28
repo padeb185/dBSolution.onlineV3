@@ -1,3 +1,4 @@
+import client_atelier
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -15,7 +16,8 @@ from django.db import router, transaction
 from django.db.models import ProtectedError, RestrictedError
 from django.db.models.deletion import Collector
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _, gettext_noop
+from utilisateurs.models import UserLog
 
 from .models import ClientAtelier
 
@@ -383,29 +385,13 @@ def dashboard_client_view(request):
 
 
 
-def _analyse_suppression(obj):
-    """
-    Retourne (objets_supprimes, objets_bloquants), chacun sous la forme
-    [(verbose_name_plural, [objets]), ...]
-    """
-    collector = Collector(using=router.db_for_write(obj.__class__, instance=obj))
-    try:
-        collector.collect([obj])
-    except (ProtectedError, RestrictedError) as e:
-        bloquants = getattr(e, "protected_objects", None) or getattr(e, "restricted_objects", [])
-        groupes = {}
-        for o in bloquants:
-            groupes.setdefault(o._meta.verbose_name_plural, []).append(o)
-        return [], list(groupes.items())
+from core.suppression import analyser_suppression
 
-    supprimes = []
-    for model, instances in collector.data.items():
-        if model is obj.__class__:
-            continue
-        instances = list(instances)
-        if instances:
-            supprimes.append((model._meta.verbose_name_plural, instances))
-    return supprimes, []
+
+
+
+
+ACTION_SUPPRESSION_CLIENT_ATELIER = gettext_noop("Suppression du client atelier")
 
 
 @login_required
@@ -416,11 +402,25 @@ def delete_client_atelier_view(request, pk):
         .prefetch_related("voitures"),
         pk=pk,
     )
-    objets_supprimes, objets_bloquants = _analyse_suppression(client_atelier)
+
+    analyse = analyser_suppression(client_atelier)
+    objets_bloquants = analyse["bloquants"]
+    objets_supprimes = analyse["supprimes"]
+
     voitures_liees = list(client_atelier.voitures.all())
 
     if request.method == "POST":
         libelle = str(client_atelier)
+
+        # Libellé pour le log (capturé AVANT la suppression)
+        if client_atelier.client_particulier:
+            cp = client_atelier.client_particulier
+            nom_log = f"{cp.nom} {cp.prenom}"
+        elif client_atelier.societe_cliente:
+            nom_log = str(client_atelier.societe_cliente)
+        else:
+            nom_log = f"#{client_atelier.pk}"
+        nb_voitures = len(voitures_liees)
 
         if objets_bloquants:
             messages.error(
@@ -436,6 +436,11 @@ def delete_client_atelier_view(request, pk):
                 # OneToOne : l'adresse n'appartient qu'à ce client → on la supprime aussi
                 if adresse:
                     adresse.delete()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_SUPPRESSION_CLIENT_ATELIER} : {nom_log} ({nb_voitures} véhicule(s) détaché(s))",
+                )
         except (ProtectedError, RestrictedError):
             messages.error(
                 request,
