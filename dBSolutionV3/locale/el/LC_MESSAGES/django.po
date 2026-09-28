@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 16:40+0200\n"
+"POT-Creation-Date: 2026-09-28 08:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -332,12 +332,12 @@ msgstr "Δεν έχει καταχωρηθεί διεύθυνση."
 #: recharge/templates/recharge/electricite_detail.html:101
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:124
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:107
-#: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:100
-#: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:113
-#: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:112
+#: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:110
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:123
+#: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:123
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:94
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:117
-#: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:94
+#: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:104
 msgid "Métadonnées"
 msgstr "Μεταδεδομένα"
 
@@ -395,7 +395,7 @@ msgstr "Μεταδεδομένα"
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:125
 #: maintenance/carrosserie_interne/models.py:751
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:117
-#: maintenance/check_up/models.py:1866
+#: maintenance/check_up/models.py:1872
 #: maintenance/check_up/templates/check_up/checkup_detail.html:109
 #: maintenance/checkup_track/models.py:819
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:111
@@ -430,18 +430,22 @@ msgstr "Μεταδεδομένα"
 #: voiture/voiture_boite/models.py:70
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:111
 #: voiture/voiture_embrayage/models.py:105
-#: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:104
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:86
+#: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:114
 #: voiture/voiture_exemplaire/models.py:285
 #: voiture/voiture_freins_ar/models.py:82
-#: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:117
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:98
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:127
 #: voiture/voiture_freins_av/models.py:104
-#: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:116
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:98
+#: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:127
 #: voiture/voiture_modele/models.py:53
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:98
 #: voiture/voiture_moteur/models.py:77
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:121
 #: voiture/voiture_pneus/models.py:191
-#: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:98
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:129
+#: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:108
 msgid "Créé le"
 msgstr "Δημιουργήθηκε στις"
 
@@ -498,7 +502,7 @@ msgstr "Δημιουργήθηκε στις"
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:129
 #: maintenance/carrosserie_interne/models.py:752
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:121
-#: maintenance/check_up/models.py:1867
+#: maintenance/check_up/models.py:1873
 #: maintenance/check_up/templates/check_up/checkup_detail.html:113
 #: maintenance/checkup_track/models.py:820
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:115
@@ -530,18 +534,22 @@ msgstr "Δημιουργήθηκε στις"
 #: voiture/voiture_boite/models.py:71
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:115
 #: voiture/voiture_embrayage/models.py:106
-#: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:108
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:87
+#: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:118
 #: voiture/voiture_exemplaire/models.py:286
 #: voiture/voiture_freins_ar/models.py:83
-#: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:121
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:99
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:131
 #: voiture/voiture_freins_av/models.py:105
-#: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:120
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:99
+#: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:131
 #: voiture/voiture_modele/models.py:54
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:102
 #: voiture/voiture_moteur/models.py:78
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:125
 #: voiture/voiture_pneus/models.py:192
-#: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:102
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:130
+#: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:112
 msgid "Mis à jour le"
 msgstr "Ενημερώθηκε στις"
 
@@ -605,20 +613,20 @@ msgstr "Αγορά εμπορευμάτων"
 #: maintenance/autres_interventions/moteur/injection/templates/injection/modifier_injection.html:299
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/modifier_remplacement_moteur.html:167
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_form.html:269
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:998
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:944
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1346
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:1301
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/modifier_turbo.html:306
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_check.html:301
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/modifier_ref.html:298
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_form.html:301
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_create.html:310
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/modifier_carrosserie_interne.html:307
-#: maintenance/check_up/templates/check_up/controle_total.html:1813
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:1825
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1844
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1847
-#: maintenance/entretien/templates/entretien/entretien_check.html:940
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:944
+#: maintenance/check_up/templates/check_up/controle_total.html:2276
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:2181
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:2203
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:2205
+#: maintenance/entretien/templates/entretien/entretien_check.html:1298
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:1304
 #: maintenance/essuyage/templates/essuyage/essuyage_form.html:327
 #: maintenance/essuyage/templates/essuyage/modifier_essuyage.html:302
 #: maintenance/freins/templates/freins/freins_check.html:828
@@ -771,9 +779,9 @@ msgstr "Αποθήκευση"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_form.html:274
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/delete_rodage.html:54
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:203
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1006
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1354
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:196
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:949
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:1306
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/delete_turbo.html:55
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/modifier_turbo.html:197
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/modifier_turbo.html:310
@@ -790,20 +798,20 @@ msgstr "Αποθήκευση"
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/modifier_carrosserie_interne.html:197
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/modifier_carrosserie_interne.html:311
 #: maintenance/check_up/templates/check_up/controle_total.html:196
-#: maintenance/check_up/templates/check_up/controle_total.html:1818
+#: maintenance/check_up/templates/check_up/controle_total.html:2281
 #: maintenance/check_up/templates/check_up/delete_checkup.html:55
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:203
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:1829
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:2185
 #: maintenance/checkup_track/templates/checkup_track/delete_checkup_track.html:54
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:197
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1848
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:2207
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:199
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1852
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:2210
 #: maintenance/entretien/templates/entretien/delete_entretien.html:54
 #: maintenance/entretien/templates/entretien/entretien_check.html:196
-#: maintenance/entretien/templates/entretien/entretien_check.html:945
+#: maintenance/entretien/templates/entretien/entretien_check.html:1303
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:197
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:949
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:1309
 #: maintenance/essuyage/templates/essuyage/delete_essuyage.html:54
 #: maintenance/essuyage/templates/essuyage/essuyage_form.html:198
 #: maintenance/essuyage/templates/essuyage/essuyage_form.html:332
@@ -865,13 +873,16 @@ msgstr "Αποθήκευση"
 #: voiture/voiture_boite/templates/voiture_boite/ajouter_boite.html:75
 #: voiture/voiture_boite/templates/voiture_boite/modifier_boite.html:75
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:83
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:111
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:90
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:88
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/modifier_exemplaire.html:86
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/supprimer_exemplaire_all.html:45
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/ajouter_freins_ar_simple.html:83
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:128
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/modifier_freins_ar.html:91
 #: voiture/voiture_freins_av/templates/voiture_freins_av/ajouter_freins_simple.html:82
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:127
 #: voiture/voiture_freins_av/templates/voiture_freins_av/modifier_freins_av.html:92
 #: voiture/voiture_marque/templates/voiture_marque/ajouter_marque.html:49
 #: voiture/voiture_modele/templates/voiture_modele/ajouter_modele.html:171
@@ -879,6 +890,7 @@ msgstr "Αποθήκευση"
 #: voiture/voiture_moteur/templates/voiture_moteur/ajouter_moteur.html:80
 #: voiture/voiture_moteur/templates/voiture_moteur/modifier_moteur.html:76
 #: voiture/voiture_pneus/templates/voiture_pneus/ajouter_pneus_simple.html:78
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:157
 #: voiture/voiture_pneus/templates/voiture_pneus/modifier_pneus.html:92
 msgid "Annuler"
 msgstr "Ακύρωση"
@@ -1463,8 +1475,8 @@ msgstr "Πόλη"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:445
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:633
 #: maintenance/autres_interventions/moteur/rodage/models.py:52
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:738
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:666
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1086
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:1023
 #: maintenance/autres_interventions/moteur/turbo/models.py:28
 #: maintenance/autres_interventions/moteur/turbo/views.py:117
 #: maintenance/autres_interventions/moteur/turbo/views.py:712
@@ -1475,14 +1487,14 @@ msgstr "Πόλη"
 #: maintenance/carrosserie_interne/models.py:29
 #: maintenance/carrosserie_interne/views.py:1135
 #: maintenance/check_up/models.py:106
-#: maintenance/check_up/templates/check_up/controle_total.html:1539
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:1553
+#: maintenance/check_up/templates/check_up/controle_total.html:2002
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:1909
 #: maintenance/checkup_track/models.py:116
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1483
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1481
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1842
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1839
 #: maintenance/entretien/models.py:43
-#: maintenance/entretien/templates/entretien/entretien_check.html:662
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:666
+#: maintenance/entretien/templates/entretien/entretien_check.html:1020
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:1026
 #: maintenance/essuyage/models.py:30 maintenance/essuyage/views.py:484
 #: maintenance/essuyage/views.py:905 maintenance/freins/models.py:29
 #: maintenance/freins/templates/freins/freins_check.html:556
@@ -1636,9 +1648,9 @@ msgstr "Άλλες πληροφορίες"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:819
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:634
 #: maintenance/autres_interventions/moteur/rodage/models.py:490
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:813
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:815
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:754
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1161
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1163
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:1111
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:73
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:945
 #: maintenance/autres_interventions/moteur/turbo/models.py:143
@@ -1655,21 +1667,21 @@ msgstr "Άλλες πληροφορίες"
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:71
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:533
 #: maintenance/carrosserie_interne/views.py:1159
-#: maintenance/check_up/models.py:1789
+#: maintenance/check_up/models.py:1795
 #: maintenance/check_up/templates/check_up/checkup_detail.html:70
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:3026
-#: maintenance/check_up/templates/check_up/controle_total.html:1624
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:1639
+#: maintenance/check_up/templates/check_up/controle_total.html:2087
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:1995
 #: maintenance/checkup_track/models.py:751
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:71
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2592
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1656
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1654
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:2015
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:2012
 #: maintenance/entretien/models.py:854
-#: maintenance/entretien/templates/entretien/entretien_check.html:752
+#: maintenance/entretien/templates/entretien/entretien_check.html:1110
 #: maintenance/entretien/templates/entretien/entretien_detail.html:72
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1220
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:756
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:1116
 #: maintenance/essuyage/models.py:722
 #: maintenance/essuyage/templates/essuyage/essuyage_detail.html:75
 #: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:1030
@@ -1719,12 +1731,15 @@ msgstr "Άλλες πληροφορίες"
 #: voiture/voiture_boite/forms.py:41
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:85
 #: voiture/voiture_embrayage/forms.py:27
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:80
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:78
 #: voiture/voiture_freins_ar/forms.py:46 voiture/voiture_freins_ar/models.py:80
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:92
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:88
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:92
 #: voiture/voiture_freins_av/forms.py:44
 #: voiture/voiture_freins_av/models.py:101
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:92
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:88
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:92
 #: voiture/voiture_modele/models.py:48
@@ -1733,6 +1748,7 @@ msgstr "Άλλες πληροφορίες"
 #: voiture/voiture_moteur/models.py:75
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:97
 #: voiture/voiture_pneus/models.py:189
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:123
 #: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:73
 msgid "Remarques"
 msgstr "Παρατηρήσεις"
@@ -2116,11 +2132,11 @@ msgstr ""
 #: maintenance/silent_blocs/views.py:326 maintenance/silent_blocs/views.py:549
 #: outillage/views.py:80 proprietaire/views.py:289 recharge/views.py:327
 #: voiture/voiture_boite/views.py:55 voiture/voiture_boite/views.py:114
-#: voiture/voiture_embrayage/views.py:136
-#: voiture/voiture_freins_ar/views.py:191
-#: voiture/voiture_freins_av/views.py:118 voiture/voiture_modele/views.py:112
-#: voiture/voiture_moteur/views.py:83 voiture/voiture_pneus/views.py:112
-#: voiture/voiture_pneus/views.py:155
+#: voiture/voiture_embrayage/views.py:143
+#: voiture/voiture_freins_ar/views.py:199
+#: voiture/voiture_freins_av/views.py:126 voiture/voiture_modele/views.py:112
+#: voiture/voiture_moteur/views.py:83 voiture/voiture_pneus/views.py:116
+#: voiture/voiture_pneus/views.py:159
 msgid "Le formulaire contient des erreurs."
 msgstr "Η φόρμα περιέχει σφάλματα."
 
@@ -2475,7 +2491,7 @@ msgstr "Αριθμός ΦΠΑ"
 
 #: carrosserie/models.py:67 maintenance/carrosserie_interne/views.py:499
 #: maintenance/carrosserie_interne/views.py:2096
-#: maintenance/check_up/models.py:1743
+#: maintenance/check_up/models.py:1749
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2440
 #: maintenance/checkup_track/models.py:707
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2031
@@ -2560,7 +2576,7 @@ msgstr "Δεν βρέθηκε κανένα αμάξωμα"
 
 #: carrosserie/templates/carrosserie/dashboard_carrosserie.html:4
 #: fournisseur/templates/fournisseur/fournisseur_dashboard.html:4
-#: maintenance/check_up/models.py:1768
+#: maintenance/check_up/models.py:1774
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2720
 #: maintenance/checkup_track/models.py:732
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2286
@@ -2584,8 +2600,8 @@ msgstr "Τροποποίηση αμαξώματος:"
 #: client_particulier/views.py:90 client_particulier/views.py:183
 #: client_pilotage/views.py:127 client_pilotage/views.py:232
 #: proprietaire/views.py:106 proprietaire/views.py:216
-#: voiture/voiture_embrayage/views.py:43 voiture/voiture_freins_ar/views.py:118
-#: voiture/voiture_freins_av/views.py:74
+#: voiture/voiture_embrayage/views.py:50 voiture/voiture_freins_ar/views.py:126
+#: voiture/voiture_freins_av/views.py:82
 msgid "Veuillez corriger les erreurs du formulaire."
 msgstr "Παρακαλώ διορθώστε τα σφάλματα στη φόρμα."
 
@@ -3255,37 +3271,37 @@ msgstr "Περιγραφή"
 #: maintenance/carrosserie_interne/models.py:288
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:377
 #: maintenance/check_up/models.py:187 maintenance/check_up/models.py:198
-#: maintenance/check_up/models.py:212 maintenance/check_up/models.py:254
-#: maintenance/check_up/models.py:269 maintenance/check_up/models.py:287
-#: maintenance/check_up/models.py:300 maintenance/check_up/models.py:318
-#: maintenance/check_up/models.py:395 maintenance/check_up/models.py:419
-#: maintenance/check_up/models.py:442 maintenance/check_up/models.py:465
-#: maintenance/check_up/models.py:488 maintenance/check_up/models.py:511
-#: maintenance/check_up/models.py:534 maintenance/check_up/models.py:557
-#: maintenance/check_up/models.py:580 maintenance/check_up/models.py:603
-#: maintenance/check_up/models.py:626 maintenance/check_up/models.py:649
-#: maintenance/check_up/models.py:672 maintenance/check_up/models.py:695
-#: maintenance/check_up/models.py:718 maintenance/check_up/models.py:741
-#: maintenance/check_up/models.py:764 maintenance/check_up/models.py:787
-#: maintenance/check_up/models.py:810 maintenance/check_up/models.py:833
-#: maintenance/check_up/models.py:856 maintenance/check_up/models.py:879
-#: maintenance/check_up/models.py:902 maintenance/check_up/models.py:925
-#: maintenance/check_up/models.py:948 maintenance/check_up/models.py:971
-#: maintenance/check_up/models.py:994 maintenance/check_up/models.py:1017
-#: maintenance/check_up/models.py:1040 maintenance/check_up/models.py:1063
-#: maintenance/check_up/models.py:1086 maintenance/check_up/models.py:1109
-#: maintenance/check_up/models.py:1132 maintenance/check_up/models.py:1155
-#: maintenance/check_up/models.py:1178 maintenance/check_up/models.py:1201
-#: maintenance/check_up/models.py:1224 maintenance/check_up/models.py:1247
-#: maintenance/check_up/models.py:1270 maintenance/check_up/models.py:1293
-#: maintenance/check_up/models.py:1316 maintenance/check_up/models.py:1339
-#: maintenance/check_up/models.py:1407 maintenance/check_up/models.py:1422
-#: maintenance/check_up/models.py:1451 maintenance/check_up/models.py:1480
-#: maintenance/check_up/models.py:1513 maintenance/check_up/models.py:1544
-#: maintenance/check_up/models.py:1575 maintenance/check_up/models.py:1606
-#: maintenance/check_up/models.py:1636 maintenance/check_up/models.py:1667
-#: maintenance/check_up/models.py:1697 maintenance/check_up/models.py:1728
-#: maintenance/check_up/models.py:1759 maintenance/check_up/models.py:1783
+#: maintenance/check_up/models.py:212 maintenance/check_up/models.py:257
+#: maintenance/check_up/models.py:272 maintenance/check_up/models.py:290
+#: maintenance/check_up/models.py:303 maintenance/check_up/models.py:321
+#: maintenance/check_up/models.py:398 maintenance/check_up/models.py:422
+#: maintenance/check_up/models.py:445 maintenance/check_up/models.py:468
+#: maintenance/check_up/models.py:491 maintenance/check_up/models.py:514
+#: maintenance/check_up/models.py:537 maintenance/check_up/models.py:560
+#: maintenance/check_up/models.py:583 maintenance/check_up/models.py:606
+#: maintenance/check_up/models.py:629 maintenance/check_up/models.py:652
+#: maintenance/check_up/models.py:675 maintenance/check_up/models.py:698
+#: maintenance/check_up/models.py:721 maintenance/check_up/models.py:744
+#: maintenance/check_up/models.py:767 maintenance/check_up/models.py:790
+#: maintenance/check_up/models.py:813 maintenance/check_up/models.py:836
+#: maintenance/check_up/models.py:859 maintenance/check_up/models.py:882
+#: maintenance/check_up/models.py:905 maintenance/check_up/models.py:928
+#: maintenance/check_up/models.py:951 maintenance/check_up/models.py:974
+#: maintenance/check_up/models.py:997 maintenance/check_up/models.py:1020
+#: maintenance/check_up/models.py:1043 maintenance/check_up/models.py:1066
+#: maintenance/check_up/models.py:1089 maintenance/check_up/models.py:1112
+#: maintenance/check_up/models.py:1135 maintenance/check_up/models.py:1158
+#: maintenance/check_up/models.py:1181 maintenance/check_up/models.py:1204
+#: maintenance/check_up/models.py:1227 maintenance/check_up/models.py:1250
+#: maintenance/check_up/models.py:1273 maintenance/check_up/models.py:1296
+#: maintenance/check_up/models.py:1319 maintenance/check_up/models.py:1342
+#: maintenance/check_up/models.py:1410 maintenance/check_up/models.py:1425
+#: maintenance/check_up/models.py:1457 maintenance/check_up/models.py:1486
+#: maintenance/check_up/models.py:1519 maintenance/check_up/models.py:1550
+#: maintenance/check_up/models.py:1581 maintenance/check_up/models.py:1612
+#: maintenance/check_up/models.py:1642 maintenance/check_up/models.py:1673
+#: maintenance/check_up/models.py:1703 maintenance/check_up/models.py:1734
+#: maintenance/check_up/models.py:1765 maintenance/check_up/models.py:1789
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:805
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1189
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2858
@@ -3540,7 +3556,11 @@ msgstr "Τα πεδία διεύθυνσης είναι υποχρεωτικά."
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:45
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:56
 #: piece/templates/piece/piece_detail.html:5 recharge/models.py:109
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:36
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:71
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:46
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:36
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:71
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:46
 #: voiture/voiture_marque/templates/voiture_marque/ajouter_marque.html:32
 #: voiture/voiture_modele/templates/voiture_modele/ajouter_modele.html:66
@@ -3557,6 +3577,7 @@ msgstr "Μάρκα"
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:49
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:45
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:76
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:55
 msgid "Modèle"
 msgstr "Μοντέλο"
 
@@ -4746,7 +4767,7 @@ msgstr "14,32 Λίτρα"
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:101
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:100
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:278
-#: maintenance/check_up/models.py:1864
+#: maintenance/check_up/models.py:1870
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:405
 #: maintenance/check_up/templates/check_up/checkup_list.html:101
 #: maintenance/checkup_track/models.py:817
@@ -4881,7 +4902,7 @@ msgstr "Σφάλμα κατά την αποθήκευση: %(erreur)s"
 
 #: fuel/views.py:259 fuel/views.py:494 maindoeuvre/views.py:91
 #: maintenance/check_up/views.py:593 recharge/views.py:224
-#: recharge/views.py:230 voiture/voiture_freins_ar/views.py:60
+#: recharge/views.py:230 voiture/voiture_freins_ar/views.py:68
 msgid "Veuillez corriger les erreurs ci-dessous."
 msgstr "Παρακαλώ διορθώστε τα σφάλματα παρακάτω."
 
@@ -5024,8 +5045,11 @@ msgstr "Τροποποίηση πλήρωσης"
 #: maintenance/pneus/views.py:733 maintenance/silent_blocs/views.py:100
 #: maintenance/silent_blocs/views.py:598 maintenance/silent_blocs/views.py:634
 #: recharge/views.py:435 recharge/views.py:456
+#: voiture/voiture_embrayage/views.py:177
 #: voiture/voiture_exemplaire/views.py:484
 #: voiture/voiture_exemplaire/views.py:504
+#: voiture/voiture_freins_ar/views.py:228
+#: voiture/voiture_freins_av/views.py:208 voiture/voiture_pneus/views.py:191
 msgid "Accès refusé"
 msgstr "Πρόσβαση απαγορευμένη."
 
@@ -5063,6 +5087,9 @@ msgstr "Το καύσιμο διαγράφηκε με επιτυχία."
 #: maintenance/nettoyage_interieur/views.py:790
 #: maintenance/niveaux/views.py:801 maintenance/pneus/views.py:828
 #: maintenance/silent_blocs/views.py:730 recharge/views.py:520
+#: voiture/voiture_embrayage/views.py:243
+#: voiture/voiture_freins_ar/views.py:313
+#: voiture/voiture_freins_av/views.py:288 voiture/voiture_pneus/views.py:283
 #, python-format
 msgid "Erreur lors de la suppression : %(erreur)s"
 msgstr "Σφάλμα κατά τη διαγραφή: %(erreur)s"
@@ -5321,6 +5348,7 @@ msgstr "Λεπτομέρειες εργασίας"
 #: maintenance/templates/maintenance/list.html:97
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/list.html:97
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/liste_exemplaires.html:103
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:99
 msgid "Kilométrage"
 msgstr "Χιλιομετρική απόσταση"
 
@@ -5533,9 +5561,9 @@ msgstr "Ετικέτα"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:320
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:636
 #: maintenance/autres_interventions/moteur/rodage/models.py:512
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:882
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:884
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:825
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1230
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1232
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:1182
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:65
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:79
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:97
@@ -5562,27 +5590,27 @@ msgstr "Ετικέτα"
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:99
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:283
 #: maintenance/carrosserie_interne/views.py:1167
-#: maintenance/check_up/admin.py:67 maintenance/check_up/models.py:1830
+#: maintenance/check_up/admin.py:67 maintenance/check_up/models.py:1836
 #: maintenance/check_up/templates/check_up/checkup_detail.html:62
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:406
 #: maintenance/check_up/templates/check_up/checkup_list.html:82
 #: maintenance/check_up/templates/check_up/checkup_list.html:100
-#: maintenance/check_up/templates/check_up/controle_total.html:1697
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:1711
+#: maintenance/check_up/templates/check_up/controle_total.html:2160
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:2067
 #: maintenance/checkup_track/models.py:783
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:63
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:444
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:89
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:103
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1727
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1727
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:2086
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:2085
 #: maintenance/entretien/models.py:875
-#: maintenance/entretien/templates/entretien/entretien_check.html:823
+#: maintenance/entretien/templates/entretien/entretien_check.html:1181
 #: maintenance/entretien/templates/entretien/entretien_detail.html:64
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:438
 #: maintenance/entretien/templates/entretien/entretien_list.html:80
 #: maintenance/entretien/templates/entretien/entretien_list.html:98
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:827
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:1187
 #: maintenance/essuyage/models.py:758
 #: maintenance/essuyage/templates/essuyage/essuyage_detail.html:65
 #: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:328
@@ -5917,7 +5945,7 @@ msgstr "Λεπτομέρειες εργασίας"
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:360
 #: maintenance/carrosserie_interne/models.py:736
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:293
-#: maintenance/check_up/models.py:1851
+#: maintenance/check_up/models.py:1857
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:408
 #: maintenance/checkup_track/models.py:804
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:449
@@ -5989,7 +6017,7 @@ msgstr "Χιλιομετρική απόσταση πλαισίου"
 #: maintenance/autres_interventions/moteur/rodage/models.py:554
 #: maintenance/autres_interventions/moteur/turbo/models.py:164
 #: maintenance/carrosserie_interne/models.py:703
-#: maintenance/check_up/models.py:1810 maintenance/checkup_track/models.py:774
+#: maintenance/check_up/models.py:1816 maintenance/checkup_track/models.py:774
 #: maintenance/entretien/models.py:917 maintenance/essuyage/models.py:746
 #: maintenance/freins/models.py:375 maintenance/jeux_pieces/models.py:1103
 #: maintenance/nettoyage_exterieur/models.py:168
@@ -6017,15 +6045,15 @@ msgstr "Εργατικά"
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_form.html:309
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_form.html:315
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_form.html:280
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:956
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:1313
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_check.html:312
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_form.html:312
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_create.html:322
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/modifier_carrosserie_interne.html:317
-#: maintenance/check_up/templates/check_up/controle_total.html:1825
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1859
-#: maintenance/entretien/templates/entretien/entretien_check.html:952
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:956
+#: maintenance/check_up/templates/check_up/controle_total.html:2288
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:2217
+#: maintenance/entretien/templates/entretien/entretien_check.html:1310
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:1316
 #: maintenance/essuyage/templates/essuyage/essuyage_form.html:339
 #: maintenance/freins/templates/freins/freins_check.html:840
 #: maintenance/freins/templates/freins/modifier_freins.html:838
@@ -6450,37 +6478,37 @@ msgstr "Αντλία ABS"
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:768
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1834
 #: maintenance/check_up/models.py:185 maintenance/check_up/models.py:196
-#: maintenance/check_up/models.py:225 maintenance/check_up/models.py:235
-#: maintenance/check_up/models.py:245 maintenance/check_up/models.py:253
-#: maintenance/check_up/models.py:259 maintenance/check_up/models.py:268
-#: maintenance/check_up/models.py:283 maintenance/check_up/models.py:299
-#: maintenance/check_up/models.py:314 maintenance/check_up/models.py:337
-#: maintenance/check_up/models.py:360 maintenance/check_up/models.py:415
-#: maintenance/check_up/models.py:438 maintenance/check_up/models.py:461
-#: maintenance/check_up/models.py:484 maintenance/check_up/models.py:507
-#: maintenance/check_up/models.py:530 maintenance/check_up/models.py:553
-#: maintenance/check_up/models.py:576 maintenance/check_up/models.py:599
-#: maintenance/check_up/models.py:622 maintenance/check_up/models.py:645
-#: maintenance/check_up/models.py:668 maintenance/check_up/models.py:691
-#: maintenance/check_up/models.py:714 maintenance/check_up/models.py:737
-#: maintenance/check_up/models.py:760 maintenance/check_up/models.py:783
-#: maintenance/check_up/models.py:806 maintenance/check_up/models.py:829
-#: maintenance/check_up/models.py:852 maintenance/check_up/models.py:875
-#: maintenance/check_up/models.py:898 maintenance/check_up/models.py:921
-#: maintenance/check_up/models.py:944 maintenance/check_up/models.py:967
-#: maintenance/check_up/models.py:990 maintenance/check_up/models.py:1013
-#: maintenance/check_up/models.py:1036 maintenance/check_up/models.py:1059
-#: maintenance/check_up/models.py:1082 maintenance/check_up/models.py:1105
-#: maintenance/check_up/models.py:1128 maintenance/check_up/models.py:1151
-#: maintenance/check_up/models.py:1174 maintenance/check_up/models.py:1197
-#: maintenance/check_up/models.py:1220 maintenance/check_up/models.py:1243
-#: maintenance/check_up/models.py:1266 maintenance/check_up/models.py:1289
-#: maintenance/check_up/models.py:1312 maintenance/check_up/models.py:1335
-#: maintenance/check_up/models.py:1441 maintenance/check_up/models.py:1470
-#: maintenance/check_up/models.py:1503 maintenance/check_up/models.py:1534
-#: maintenance/check_up/models.py:1565 maintenance/check_up/models.py:1596
-#: maintenance/check_up/models.py:1626 maintenance/check_up/models.py:1657
-#: maintenance/check_up/models.py:1687 maintenance/check_up/models.py:1718
+#: maintenance/check_up/models.py:226 maintenance/check_up/models.py:237
+#: maintenance/check_up/models.py:248 maintenance/check_up/models.py:256
+#: maintenance/check_up/models.py:262 maintenance/check_up/models.py:271
+#: maintenance/check_up/models.py:286 maintenance/check_up/models.py:302
+#: maintenance/check_up/models.py:317 maintenance/check_up/models.py:340
+#: maintenance/check_up/models.py:363 maintenance/check_up/models.py:418
+#: maintenance/check_up/models.py:441 maintenance/check_up/models.py:464
+#: maintenance/check_up/models.py:487 maintenance/check_up/models.py:510
+#: maintenance/check_up/models.py:533 maintenance/check_up/models.py:556
+#: maintenance/check_up/models.py:579 maintenance/check_up/models.py:602
+#: maintenance/check_up/models.py:625 maintenance/check_up/models.py:648
+#: maintenance/check_up/models.py:671 maintenance/check_up/models.py:694
+#: maintenance/check_up/models.py:717 maintenance/check_up/models.py:740
+#: maintenance/check_up/models.py:763 maintenance/check_up/models.py:786
+#: maintenance/check_up/models.py:809 maintenance/check_up/models.py:832
+#: maintenance/check_up/models.py:855 maintenance/check_up/models.py:878
+#: maintenance/check_up/models.py:901 maintenance/check_up/models.py:924
+#: maintenance/check_up/models.py:947 maintenance/check_up/models.py:970
+#: maintenance/check_up/models.py:993 maintenance/check_up/models.py:1016
+#: maintenance/check_up/models.py:1039 maintenance/check_up/models.py:1062
+#: maintenance/check_up/models.py:1085 maintenance/check_up/models.py:1108
+#: maintenance/check_up/models.py:1131 maintenance/check_up/models.py:1154
+#: maintenance/check_up/models.py:1177 maintenance/check_up/models.py:1200
+#: maintenance/check_up/models.py:1223 maintenance/check_up/models.py:1246
+#: maintenance/check_up/models.py:1269 maintenance/check_up/models.py:1292
+#: maintenance/check_up/models.py:1315 maintenance/check_up/models.py:1338
+#: maintenance/check_up/models.py:1447 maintenance/check_up/models.py:1476
+#: maintenance/check_up/models.py:1509 maintenance/check_up/models.py:1540
+#: maintenance/check_up/models.py:1571 maintenance/check_up/models.py:1602
+#: maintenance/check_up/models.py:1632 maintenance/check_up/models.py:1663
+#: maintenance/check_up/models.py:1693 maintenance/check_up/models.py:1724
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:869
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1258
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2855
@@ -6595,6 +6623,7 @@ msgstr "Αντλία ABS"
 #: maintenance/silent_blocs/models.py:602 voiture/voiture_boite/forms.py:16
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:52
 #: voiture/voiture_embrayage/forms.py:21
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:45
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:50
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:42
 msgid "Fabricant"
@@ -6650,7 +6679,7 @@ msgstr "Τιμή αισθητήρα ABS πίσω αριστερά"
 
 #: maintenance/autres_interventions/abs/models.py:162
 #: maintenance/autres_interventions/embrayage/models.py:189
-#: maintenance/check_up/models.py:332 maintenance/checkup_track/models.py:302
+#: maintenance/check_up/models.py:335 maintenance/checkup_track/models.py:302
 #: maintenance/freins/models.py:230
 msgid "État liquide de frein"
 msgstr "Κατάσταση υγρού φρένων"
@@ -6664,7 +6693,7 @@ msgstr "Κατασκευαστής του υγρού φρένων"
 
 #: maintenance/autres_interventions/abs/models.py:171
 #: maintenance/autres_interventions/embrayage/models.py:199
-#: maintenance/check_up/models.py:339 maintenance/checkup_track/models.py:304
+#: maintenance/check_up/models.py:342 maintenance/checkup_track/models.py:304
 #: maintenance/freins/models.py:237
 msgid "Spécification liquide de frein"
 msgstr "Προδιαγραφή υγρού φρένων"
@@ -6721,9 +6750,9 @@ msgstr "Τιμή αγοράς του υγρού χωρίς ΦΠΑ"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:260
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:635
 #: maintenance/autres_interventions/moteur/rodage/models.py:475
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:847
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:849
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:790
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1195
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1197
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:1147
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:698
 #: maintenance/autres_interventions/refroidissement/models.py:634
 #: maintenance/autres_interventions/refroidissement/views.py:648
@@ -6731,21 +6760,21 @@ msgstr "Τιμή αγοράς του υγρού χωρίς ΦΠΑ"
 #: maintenance/carrosserie_interne/models.py:707
 #: maintenance/carrosserie_interne/views.py:1151
 #: maintenance/carrosserie_interne/views.py:1797
-#: maintenance/check_up/models.py:1426
+#: maintenance/check_up/models.py:1429
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2383
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2387
-#: maintenance/check_up/templates/check_up/controle_total.html:1660
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:1674
+#: maintenance/check_up/templates/check_up/controle_total.html:2123
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:2030
 #: maintenance/checkup_track/models.py:701
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1778
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1790
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1691
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1691
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:2050
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:2049
 #: maintenance/entretien/models.py:839
-#: maintenance/entretien/templates/entretien/entretien_check.html:787
+#: maintenance/entretien/templates/entretien/entretien_check.html:1145
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:997
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1007
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:790
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:1150
 #: maintenance/essuyage/models.py:750
 #: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:756
 #: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:766
@@ -6789,7 +6818,7 @@ msgstr "Σφίξιμο των τροχών"
 #: maintenance/autres_interventions/moteur/rodage/models.py:493
 #: maintenance/autres_interventions/moteur/turbo/models.py:146
 #: maintenance/carrosserie_interne/models.py:685
-#: maintenance/check_up/models.py:1792 maintenance/checkup_track/models.py:754
+#: maintenance/check_up/models.py:1798 maintenance/checkup_track/models.py:754
 #: maintenance/entretien/models.py:857 maintenance/essuyage/models.py:728
 #: maintenance/freins/models.py:357 maintenance/jeux_pieces/models.py:1081
 #: maintenance/models.py:48 maintenance/nettoyage_exterieur/models.py:144
@@ -6819,7 +6848,7 @@ msgstr "Πράσινο"
 #: maintenance/autres_interventions/moteur/rodage/models.py:494
 #: maintenance/autres_interventions/moteur/turbo/models.py:147
 #: maintenance/carrosserie_interne/models.py:686
-#: maintenance/check_up/models.py:1793 maintenance/checkup_track/models.py:755
+#: maintenance/check_up/models.py:1799 maintenance/checkup_track/models.py:755
 #: maintenance/entretien/models.py:858 maintenance/essuyage/models.py:729
 #: maintenance/freins/models.py:358 maintenance/jeux_pieces/models.py:1082
 #: maintenance/models.py:49 maintenance/nettoyage_exterieur/models.py:145
@@ -6849,7 +6878,7 @@ msgstr "Κίτρινο"
 #: maintenance/autres_interventions/moteur/rodage/models.py:495
 #: maintenance/autres_interventions/moteur/turbo/models.py:148
 #: maintenance/carrosserie_interne/models.py:687
-#: maintenance/check_up/models.py:1794 maintenance/checkup_track/models.py:756
+#: maintenance/check_up/models.py:1800 maintenance/checkup_track/models.py:756
 #: maintenance/entretien/models.py:859 maintenance/essuyage/models.py:730
 #: maintenance/freins/models.py:359 maintenance/jeux_pieces/models.py:1083
 #: maintenance/models.py:50 maintenance/nettoyage_exterieur/models.py:146
@@ -6878,7 +6907,7 @@ msgstr "Κόκκινο"
 #: maintenance/autres_interventions/moteur/rodage/models.py:502
 #: maintenance/autres_interventions/moteur/turbo/models.py:155
 #: maintenance/carrosserie_interne/models.py:694
-#: maintenance/check_up/models.py:1801 maintenance/checkup_track/models.py:763
+#: maintenance/check_up/models.py:1807 maintenance/checkup_track/models.py:763
 #: maintenance/entretien/models.py:866 maintenance/essuyage/models.py:737
 #: maintenance/freins/models.py:366 maintenance/jeux_pieces/models.py:1090
 #: maintenance/nettoyage_exterieur/models.py:153
@@ -6908,7 +6937,7 @@ msgstr "Οπτική κατάσταση / Ετικέτα"
 #: maintenance/autres_interventions/moteur/turbo/models.py:178
 #: maintenance/autres_interventions/refroidissement/models.py:650
 #: maintenance/carrosserie_interne/models.py:720
-#: maintenance/check_up/models.py:1835 maintenance/checkup_track/models.py:788
+#: maintenance/check_up/models.py:1841 maintenance/checkup_track/models.py:788
 #: maintenance/entretien/models.py:880 maintenance/essuyage/models.py:763
 #: maintenance/freins/models.py:389 maintenance/jeux_pieces/models.py:1119
 #: maintenance/nettoyage_exterieur/models.py:182
@@ -6937,7 +6966,7 @@ msgstr "Όνομα τεχνικού"
 #: maintenance/autres_interventions/moteur/turbo/models.py:184
 #: maintenance/autres_interventions/refroidissement/models.py:656
 #: maintenance/carrosserie_interne/models.py:726
-#: maintenance/check_up/models.py:1841 maintenance/checkup_track/models.py:794
+#: maintenance/check_up/models.py:1847 maintenance/checkup_track/models.py:794
 #: maintenance/entretien/models.py:886 maintenance/essuyage/models.py:769
 #: maintenance/freins/models.py:395 maintenance/jeux_pieces/models.py:1125
 #: maintenance/nettoyage_exterieur/models.py:188
@@ -6978,23 +7007,23 @@ msgstr "Ρόλος του τεχνικού"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:306
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:637
 #: maintenance/autres_interventions/moteur/rodage/models.py:542
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:918
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:920
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1266
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1268
 #: maintenance/autres_interventions/moteur/turbo/models.py:203
 #: maintenance/autres_interventions/moteur/turbo/views.py:120
 #: maintenance/autres_interventions/moteur/turbo/views.py:715
 #: maintenance/autres_interventions/refroidissement/models.py:675
 #: maintenance/carrosserie_interne/models.py:745
 #: maintenance/carrosserie_interne/views.py:1175
-#: maintenance/check_up/models.py:1860
-#: maintenance/check_up/templates/check_up/controle_total.html:1734
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:1747
+#: maintenance/check_up/models.py:1866
+#: maintenance/check_up/templates/check_up/controle_total.html:2197
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:2103
 #: maintenance/checkup_track/models.py:813
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1764
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1764
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:2123
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:2122
 #: maintenance/entretien/models.py:905
-#: maintenance/entretien/templates/entretien/entretien_check.html:859
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:863
+#: maintenance/entretien/templates/entretien/entretien_check.html:1217
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:1223
 #: maintenance/essuyage/models.py:788 maintenance/essuyage/views.py:516
 #: maintenance/essuyage/views.py:937 maintenance/freins/models.py:414
 #: maintenance/freins/templates/freins/freins_check.html:748
@@ -7719,19 +7748,19 @@ msgstr "Έλεγχος ABS"
 #: maintenance/autres_interventions/moteur/injection/templates/injection/modifier_injection.html:258
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/modifier_remplacement_moteur.html:126
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_form.html:238
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:899
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:1256
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/modifier_turbo.html:265
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_check.html:260
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/modifier_ref.html:258
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_form.html:261
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_create.html:267
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/modifier_carrosserie_interne.html:267
-#: maintenance/check_up/templates/check_up/controle_total.html:1771
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:1784
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1801
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1802
-#: maintenance/entretien/templates/entretien/entretien_check.html:897
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:899
+#: maintenance/check_up/templates/check_up/controle_total.html:2234
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:2140
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:2160
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:2160
+#: maintenance/entretien/templates/entretien/entretien_check.html:1255
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:1259
 #: maintenance/essuyage/templates/essuyage/essuyage_form.html:286
 #: maintenance/essuyage/templates/essuyage/modifier_essuyage.html:261
 #: maintenance/freins/templates/freins/freins_check.html:786
@@ -7784,20 +7813,20 @@ msgstr "Χρόνος εργασίας"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/modifier_remplacement_moteur.html:133
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_form.html:244
 #: maintenance/autres_interventions/moteur/rodage/forms.py:19
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:961
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:906
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1309
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:1263
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/modifier_turbo.html:272
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_check.html:267
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/modifier_ref.html:265
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_form.html:268
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_create.html:274
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/modifier_carrosserie_interne.html:274
-#: maintenance/check_up/templates/check_up/controle_total.html:1778
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:1791
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1808
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1809
-#: maintenance/entretien/templates/entretien/entretien_check.html:904
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:906
+#: maintenance/check_up/templates/check_up/controle_total.html:2241
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:2147
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:2167
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:2167
+#: maintenance/entretien/templates/entretien/entretien_check.html:1262
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:1266
 #: maintenance/essuyage/templates/essuyage/essuyage_form.html:293
 #: maintenance/essuyage/templates/essuyage/modifier_essuyage.html:268
 #: maintenance/freins/templates/freins/freins_check.html:793
@@ -7850,20 +7879,20 @@ msgstr "Ώρες"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/modifier_remplacement_moteur.html:148
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_form.html:254
 #: maintenance/autres_interventions/moteur/rodage/forms.py:26
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:976
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:921
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1324
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:1278
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/modifier_turbo.html:287
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_check.html:282
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/modifier_ref.html:280
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_form.html:283
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_create.html:289
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/modifier_carrosserie_interne.html:289
-#: maintenance/check_up/templates/check_up/controle_total.html:1793
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:1806
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1823
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1824
-#: maintenance/entretien/templates/entretien/entretien_check.html:919
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:921
+#: maintenance/check_up/templates/check_up/controle_total.html:2256
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:2162
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:2182
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:2182
+#: maintenance/entretien/templates/entretien/entretien_check.html:1277
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:1281
 #: maintenance/essuyage/templates/essuyage/essuyage_form.html:308
 #: maintenance/essuyage/templates/essuyage/modifier_essuyage.html:283
 #: maintenance/freins/templates/freins/freins_check.html:808
@@ -7930,8 +7959,8 @@ msgstr "Προσθήκη ελέγχου"
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:80
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:80
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:85
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:776
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:779
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1124
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1127
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:75
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:77
 #: maintenance/autres_interventions/refroidissement/models.py:629
@@ -8047,8 +8076,12 @@ msgstr "Θέλετε πραγματικά να διαγράψετε τον έλ�
 #: maintenance/silent_blocs/templates/silent_blocs/delete_silent.html:39
 #: maintenance/templates/maintenance/entretien/creer_entretien.html:51
 #: piece/templates/piece/piece_detail.html:49
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:101
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:232
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/supprimer_exemplaire_all.html:38
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:118
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:118
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:148
 msgid "Supprimer"
 msgstr "Διαγραφή"
 
@@ -8083,7 +8116,7 @@ msgstr "Αισθητήρας ABS"
 #: maintenance/autres_interventions/abs/views.py:678
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:590
 #: maintenance/autres_interventions/embrayage/views.py:673
-#: maintenance/check_up/templates/check_up/controle_total.html:726
+#: maintenance/check_up/templates/check_up/controle_total.html:834
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:736
 #: maintenance/checkup_track/models.py:983
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1237
@@ -8110,15 +8143,15 @@ msgstr "Υγρό φρένων"
 #: maintenance/autres_interventions/moteur/injection/views.py:632
 #: maintenance/autres_interventions/moteur/injection/views.py:1033
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:632
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:703
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:1060
 #: maintenance/autres_interventions/moteur/turbo/views.py:116
 #: maintenance/autres_interventions/moteur/turbo/views.py:711
 #: maintenance/carrosserie_interne/views.py:1143
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:1589
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1555
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1553
-#: maintenance/entretien/templates/entretien/entretien_check.html:701
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:705
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:1945
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1914
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1911
+#: maintenance/entretien/templates/entretien/entretien_check.html:1059
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:1065
 #: maintenance/essuyage/views.py:475 maintenance/essuyage/views.py:896
 #: maintenance/freins/templates/freins/freins_check.html:590
 #: maintenance/freins/templates/freins/modifier_freins.html:588
@@ -8431,40 +8464,40 @@ msgstr "Δίσκος συμπλέκτη"
 #: maintenance/carrosserie_interne/models.py:593
 #: maintenance/carrosserie_interne/models.py:602
 #: maintenance/check_up/models.py:191 maintenance/check_up/models.py:203
-#: maintenance/check_up/models.py:217 maintenance/check_up/models.py:228
-#: maintenance/check_up/models.py:238 maintenance/check_up/models.py:248
-#: maintenance/check_up/models.py:255 maintenance/check_up/models.py:262
-#: maintenance/check_up/models.py:273 maintenance/check_up/models.py:293
-#: maintenance/check_up/models.py:304 maintenance/check_up/models.py:324
-#: maintenance/check_up/models.py:354 maintenance/check_up/models.py:363
-#: maintenance/check_up/models.py:397 maintenance/check_up/models.py:425
-#: maintenance/check_up/models.py:448 maintenance/check_up/models.py:471
-#: maintenance/check_up/models.py:494 maintenance/check_up/models.py:517
-#: maintenance/check_up/models.py:540 maintenance/check_up/models.py:563
-#: maintenance/check_up/models.py:586 maintenance/check_up/models.py:609
-#: maintenance/check_up/models.py:632 maintenance/check_up/models.py:655
-#: maintenance/check_up/models.py:678 maintenance/check_up/models.py:701
-#: maintenance/check_up/models.py:724 maintenance/check_up/models.py:747
-#: maintenance/check_up/models.py:770 maintenance/check_up/models.py:793
-#: maintenance/check_up/models.py:816 maintenance/check_up/models.py:839
-#: maintenance/check_up/models.py:862 maintenance/check_up/models.py:885
-#: maintenance/check_up/models.py:908 maintenance/check_up/models.py:931
-#: maintenance/check_up/models.py:954 maintenance/check_up/models.py:977
-#: maintenance/check_up/models.py:1000 maintenance/check_up/models.py:1023
-#: maintenance/check_up/models.py:1046 maintenance/check_up/models.py:1069
-#: maintenance/check_up/models.py:1092 maintenance/check_up/models.py:1115
-#: maintenance/check_up/models.py:1138 maintenance/check_up/models.py:1161
-#: maintenance/check_up/models.py:1184 maintenance/check_up/models.py:1207
-#: maintenance/check_up/models.py:1230 maintenance/check_up/models.py:1253
-#: maintenance/check_up/models.py:1276 maintenance/check_up/models.py:1299
-#: maintenance/check_up/models.py:1322 maintenance/check_up/models.py:1345
-#: maintenance/check_up/models.py:1405 maintenance/check_up/models.py:1420
-#: maintenance/check_up/models.py:1457 maintenance/check_up/models.py:1487
-#: maintenance/check_up/models.py:1520 maintenance/check_up/models.py:1550
-#: maintenance/check_up/models.py:1581 maintenance/check_up/models.py:1612
-#: maintenance/check_up/models.py:1642 maintenance/check_up/models.py:1673
-#: maintenance/check_up/models.py:1703 maintenance/check_up/models.py:1735
-#: maintenance/check_up/models.py:1755 maintenance/check_up/models.py:1779
+#: maintenance/check_up/models.py:217 maintenance/check_up/models.py:229
+#: maintenance/check_up/models.py:240 maintenance/check_up/models.py:251
+#: maintenance/check_up/models.py:258 maintenance/check_up/models.py:265
+#: maintenance/check_up/models.py:276 maintenance/check_up/models.py:296
+#: maintenance/check_up/models.py:307 maintenance/check_up/models.py:327
+#: maintenance/check_up/models.py:357 maintenance/check_up/models.py:366
+#: maintenance/check_up/models.py:400 maintenance/check_up/models.py:428
+#: maintenance/check_up/models.py:451 maintenance/check_up/models.py:474
+#: maintenance/check_up/models.py:497 maintenance/check_up/models.py:520
+#: maintenance/check_up/models.py:543 maintenance/check_up/models.py:566
+#: maintenance/check_up/models.py:589 maintenance/check_up/models.py:612
+#: maintenance/check_up/models.py:635 maintenance/check_up/models.py:658
+#: maintenance/check_up/models.py:681 maintenance/check_up/models.py:704
+#: maintenance/check_up/models.py:727 maintenance/check_up/models.py:750
+#: maintenance/check_up/models.py:773 maintenance/check_up/models.py:796
+#: maintenance/check_up/models.py:819 maintenance/check_up/models.py:842
+#: maintenance/check_up/models.py:865 maintenance/check_up/models.py:888
+#: maintenance/check_up/models.py:911 maintenance/check_up/models.py:934
+#: maintenance/check_up/models.py:957 maintenance/check_up/models.py:980
+#: maintenance/check_up/models.py:1003 maintenance/check_up/models.py:1026
+#: maintenance/check_up/models.py:1049 maintenance/check_up/models.py:1072
+#: maintenance/check_up/models.py:1095 maintenance/check_up/models.py:1118
+#: maintenance/check_up/models.py:1141 maintenance/check_up/models.py:1164
+#: maintenance/check_up/models.py:1187 maintenance/check_up/models.py:1210
+#: maintenance/check_up/models.py:1233 maintenance/check_up/models.py:1256
+#: maintenance/check_up/models.py:1279 maintenance/check_up/models.py:1302
+#: maintenance/check_up/models.py:1325 maintenance/check_up/models.py:1348
+#: maintenance/check_up/models.py:1408 maintenance/check_up/models.py:1423
+#: maintenance/check_up/models.py:1463 maintenance/check_up/models.py:1493
+#: maintenance/check_up/models.py:1526 maintenance/check_up/models.py:1556
+#: maintenance/check_up/models.py:1587 maintenance/check_up/models.py:1618
+#: maintenance/check_up/models.py:1648 maintenance/check_up/models.py:1679
+#: maintenance/check_up/models.py:1709 maintenance/check_up/models.py:1741
+#: maintenance/check_up/models.py:1761 maintenance/check_up/models.py:1785
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:812
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:876
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1196
@@ -8791,8 +8824,8 @@ msgstr "Τιμή"
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:513
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:175
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:493
-#: maintenance/check_up/models.py:224 maintenance/check_up/models.py:234
-#: maintenance/check_up/models.py:244
+#: maintenance/check_up/models.py:225 maintenance/check_up/models.py:236
+#: maintenance/check_up/models.py:247
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:600
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:670
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:740
@@ -8807,8 +8840,8 @@ msgstr "Επίπεδο λαδιού"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:187
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:533
 #: maintenance/autres_interventions/moteur/rodage/models.py:169
-#: maintenance/check_up/models.py:226 maintenance/check_up/models.py:236
-#: maintenance/check_up/models.py:246
+#: maintenance/check_up/models.py:227 maintenance/check_up/models.py:238
+#: maintenance/check_up/models.py:249
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:676
 #: maintenance/entretien/models.py:184 maintenance/entretien/models.py:389
 #: maintenance/niveaux/models.py:105 maintenance/niveaux/models.py:112
@@ -8827,7 +8860,7 @@ msgstr "Αντικατάσταση πραγματοποιήθηκε"
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:253
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:268
-#: maintenance/check_up/models.py:1821
+#: maintenance/check_up/models.py:1827
 msgid "Dernière maintenance effectuée par"
 msgstr "Τελευταία συντήρηση πραγματοποιήθηκε από"
 
@@ -9215,6 +9248,7 @@ msgstr "Παρακαλώ διορθώστε τα σφάλματα στη φόρ�
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:324
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:565
+#: maintenance/check_up/templates/check_up/controle_total.html:557
 msgid "Niveau de la boite de vitesse"
 msgstr "Επίπεδο του κιβωτίου ταχυτήτων"
 
@@ -9272,6 +9306,7 @@ msgstr "Έλεγχος κιβωτίου ταχυτήτων"
 #: maintenance/autres_interventions/embrayage/views.py:898
 #: maintenance/models.py:41 piece/piece_embrayage/models.py:72
 #: theme/templates/dashboard.html:358
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:40
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:59
 msgid "Embrayage"
 msgstr "Συμπλέκτης"
@@ -9302,7 +9337,7 @@ msgstr "Λάδι κιβωτίου ταχυτήτων"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:756
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:2329
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:2376
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:862
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:1219
 #: maintenance/autres_interventions/refroidissement/views.py:663
 #: maintenance/autres_interventions/refroidissement/views.py:1077
 msgid "Taux Horaire"
@@ -9420,7 +9455,7 @@ msgstr "Επιλέξτε μια εργασία για:"
 
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/dashboard_boite.html:46
 #: maintenance/autres_interventions/boite_de_vitesse/views.py:880
-#: maintenance/check_up/templates/check_up/controle_total.html:484
+#: maintenance/check_up/templates/check_up/controle_total.html:521
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:493
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:494
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:494
@@ -10139,6 +10174,7 @@ msgstr "R744 / CO₂"
 #: maintenance/autres_interventions/climatisation/models.py:89
 #: maintenance/autres_interventions/moteur/allumage/models.py:61
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:81
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:51
 msgid "Kilomètres châssis"
 msgstr "Χιλιόμετρα πλαισίου"
 
@@ -10683,7 +10719,7 @@ msgstr ""
 "χιλιόμετρα του οχήματος."
 
 #: maintenance/autres_interventions/courroie_accessoires/models.py:239
-#: maintenance/check_up/models.py:1901 maintenance/checkup_track/models.py:859
+#: maintenance/check_up/models.py:1907 maintenance/checkup_track/models.py:859
 msgid ""
 "Vous devez indiquer si le serrage des roues a été effectué avant "
 "d'enregistrer ce contrôle."
@@ -11185,6 +11221,7 @@ msgstr "Χιλιομετρική ένδειξη ελέγχου συμπλέκτ�
 
 #: maintenance/autres_interventions/embrayage/models.py:139
 #: piece/piece_embrayage/models.py:14 voiture/voiture_embrayage/forms.py:25
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:70
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:62
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:54
 msgid "Plateau de pression"
@@ -11195,6 +11232,7 @@ msgstr "Πλάκα πίεσης συμπλέκτη"
 #: maintenance/autres_interventions/embrayage/views.py:667
 #: piece/piece_embrayage/models.py:15 piece/piece_embrayage/models.py:56
 #: voiture/voiture_embrayage/forms.py:26
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:73
 msgid "Butée d'embrayage"
 msgstr "Ρουλεμάν αποσύμπλεξης"
 
@@ -11209,6 +11247,7 @@ msgstr "Οδηγός ρουλεμάν αποσύμπλεξης"
 
 #: maintenance/autres_interventions/embrayage/models.py:167
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:521
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:67
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:50
 msgid "Volant moteur"
 msgstr "Σφόνδυλος"
@@ -11709,17 +11748,18 @@ msgstr "Φρένα"
 #: theme/templates/dashboard.html:383 theme/templates/dashboard.html:395
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:199
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/lier_pneus.html:36
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:50
 msgid "Pneus"
 msgstr "Ελαστικά"
 
 #: maintenance/autres_interventions/models.py:13
 #: maintenance/check_up/admin.py:183
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2400
-#: maintenance/check_up/templates/check_up/controle_total.html:1467
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:1481
+#: maintenance/check_up/templates/check_up/controle_total.html:1930
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:1837
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1991
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1411
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1409
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1770
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1767
 #: maintenance/models.py:19 maintenance/nettoyage_exterieur/models.py:36
 #: maintenance/nettoyage_exterieur/models.py:222
 #: maintenance/nettoyage_exterieur/models.py:257
@@ -11736,11 +11776,11 @@ msgstr "Καθαρισμός εξωτερικού"
 #: maintenance/autres_interventions/models.py:14
 #: maintenance/check_up/admin.py:191
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2546
-#: maintenance/check_up/templates/check_up/controle_total.html:1503
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:1517
+#: maintenance/check_up/templates/check_up/controle_total.html:1966
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:1873
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2139
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1447
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1445
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1806
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1803
 #: maintenance/models.py:20 maintenance/nettoyage_interieur/models.py:244
 #: maintenance/nettoyage_interieur/models.py:286
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/modifier_nettoyage_int.html:251
@@ -12407,7 +12447,7 @@ msgstr "Αντλία νερού"
 #: maintenance/autres_interventions/refroidissement/views.py:538
 #: maintenance/autres_interventions/refroidissement/views.py:953
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:824
-#: maintenance/check_up/templates/check_up/controle_total.html:447
+#: maintenance/check_up/templates/check_up/controle_total.html:484
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:455
 #: maintenance/checkup_track/models.py:949
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:456
@@ -12437,9 +12477,9 @@ msgstr "Ποιότητα ψυκτικού υγρού"
 #: maintenance/autres_interventions/moteur/rodage/models.py:195
 #: maintenance/autres_interventions/moteur/rodage/models.py:203
 #: maintenance/autres_interventions/refroidissement/models.py:271
-#: maintenance/check_up/models.py:227 maintenance/check_up/models.py:237
-#: maintenance/check_up/models.py:247 maintenance/check_up/models.py:260
-#: maintenance/check_up/models.py:346 maintenance/check_up/models.py:361
+#: maintenance/check_up/models.py:228 maintenance/check_up/models.py:239
+#: maintenance/check_up/models.py:250 maintenance/check_up/models.py:263
+#: maintenance/check_up/models.py:349 maintenance/check_up/models.py:364
 #: maintenance/checkup_track/models.py:222
 #: maintenance/checkup_track/models.py:231
 #: maintenance/checkup_track/models.py:240
@@ -12504,7 +12544,7 @@ msgstr "Κατάσταση του ψυκτικού υγρού"
 #: maintenance/autres_interventions/moteur/rodage/models.py:194
 #: maintenance/autres_interventions/moteur/rodage/models.py:202
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:561
-#: maintenance/check_up/models.py:362 maintenance/checkup_track/models.py:223
+#: maintenance/check_up/models.py:365 maintenance/checkup_track/models.py:223
 #: maintenance/checkup_track/models.py:232
 #: maintenance/checkup_track/models.py:241
 #: maintenance/checkup_track/models.py:250
@@ -13299,8 +13339,8 @@ msgstr "Υγρό φρένων"
 #: maintenance/autres_interventions/moteur/rodage/models.py:200
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:602
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:605
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:596
-#: maintenance/check_up/templates/check_up/controle_total.html:799
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:953
+#: maintenance/check_up/templates/check_up/controle_total.html:907
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:811
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:773
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:772
@@ -13317,7 +13357,7 @@ msgid "Réglage phares"
 msgstr "Ρύθμιση φώτων"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:216
-#: maintenance/check_up/models.py:1435
+#: maintenance/check_up/models.py:1441
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2233
 #: maintenance/checkup_track/models.py:358
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1840
@@ -13336,11 +13376,11 @@ msgstr "Μακριά φώτα"
 #: maintenance/autres_interventions/moteur/rodage/models.py:383
 #: maintenance/autres_interventions/moteur/rodage/models.py:406
 #: maintenance/autres_interventions/moteur/rodage/models.py:429
-#: maintenance/check_up/models.py:1447 maintenance/check_up/models.py:1476
-#: maintenance/check_up/models.py:1509 maintenance/check_up/models.py:1540
-#: maintenance/check_up/models.py:1571 maintenance/check_up/models.py:1602
-#: maintenance/check_up/models.py:1632 maintenance/check_up/models.py:1663
-#: maintenance/check_up/models.py:1693 maintenance/check_up/models.py:1724
+#: maintenance/check_up/models.py:1453 maintenance/check_up/models.py:1482
+#: maintenance/check_up/models.py:1515 maintenance/check_up/models.py:1546
+#: maintenance/check_up/models.py:1577 maintenance/check_up/models.py:1608
+#: maintenance/check_up/models.py:1638 maintenance/check_up/models.py:1669
+#: maintenance/check_up/models.py:1699 maintenance/check_up/models.py:1730
 #: maintenance/checkup_track/models.py:370
 #: maintenance/checkup_track/models.py:399
 #: maintenance/checkup_track/models.py:429
@@ -13360,26 +13400,42 @@ msgid "Type d'ampoule"
 msgstr "Τύπος λάμπας"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:239
-#: maintenance/check_up/models.py:1464
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:717
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:632
+#: maintenance/check_up/models.py:1470
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2248
+#: maintenance/check_up/templates/check_up/controle_total.html:1606
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:1512
 #: maintenance/checkup_track/models.py:387
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1855
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1442
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1309
 #: maintenance/entretien/models.py:545
+#: maintenance/entretien/templates/entretien/entretien_check.html:662
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:666
 msgid "Grands phares"
 msgstr "Κοντά φώτα"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:262
-#: maintenance/check_up/models.py:1497
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:751
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:666
+#: maintenance/check_up/models.py:1503
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2263
+#: maintenance/check_up/templates/check_up/controle_total.html:1640
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:1546
 #: maintenance/checkup_track/models.py:417
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1870
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1476
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1343
 #: maintenance/entretien/models.py:575
+#: maintenance/entretien/templates/entretien/entretien_check.html:696
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:884
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:700
 msgid "Clignotants"
 msgstr "Φλας"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:285
-#: maintenance/check_up/models.py:1528
+#: maintenance/check_up/models.py:1534
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2278
 #: maintenance/checkup_track/models.py:447
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1885
@@ -13389,86 +13445,135 @@ msgid "Feux de recul"
 msgstr "Φώτα όπισθεν"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:308
-#: maintenance/check_up/models.py:1559
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:827
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:742
+#: maintenance/check_up/models.py:1565
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2293
+#: maintenance/check_up/templates/check_up/controle_total.html:1716
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:1622
 #: maintenance/checkup_track/models.py:476
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1900
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1552
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1419
 #: maintenance/entretien/models.py:634
+#: maintenance/entretien/templates/entretien/entretien_check.html:772
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:910
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:776
 msgid "Phares anti-brouillard avant"
 msgstr "Εμπρός προβολείς ομίχλης"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:331
-#: maintenance/check_up/models.py:1590
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:862
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:777
+#: maintenance/check_up/models.py:1596
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2308
+#: maintenance/check_up/templates/check_up/controle_total.html:1751
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:1657
 #: maintenance/checkup_track/models.py:505
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1915
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1587
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1454
 #: maintenance/entretien/models.py:663
+#: maintenance/entretien/templates/entretien/entretien_check.html:807
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:923
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:811
 msgid "Phares anti-brouillard arrière"
 msgstr "Πίσω προβολείς ομίχλης"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:354
-#: maintenance/check_up/models.py:1620
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:897
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:812
+#: maintenance/check_up/models.py:1626
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2323
+#: maintenance/check_up/templates/check_up/controle_total.html:1786
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:1692
 #: maintenance/checkup_track/models.py:534
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1930
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1622
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1489
 #: maintenance/entretien/models.py:692
+#: maintenance/entretien/templates/entretien/entretien_check.html:842
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:936
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:846
 msgid "Feux stop"
 msgstr "Φώτα φρένων"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:377
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:933
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:848
 #: maintenance/carrosserie_interne/models.py:545
 #: maintenance/carrosserie_interne/views.py:1039
-#: maintenance/check_up/models.py:1651
+#: maintenance/check_up/models.py:1657
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2338
+#: maintenance/check_up/templates/check_up/controle_total.html:1822
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:1728
 #: maintenance/checkup_track/models.py:563
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1945
-#: maintenance/entretien/models.py:721 piece/piece_feux/models.py:13
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1658
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1525
+#: maintenance/entretien/models.py:721
+#: maintenance/entretien/templates/entretien/entretien_check.html:878
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:882
+#: piece/piece_feux/models.py:13
 msgid "Troisième feu stop"
 msgstr "Τρίτο φανάρι φρένων"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:400
-#: maintenance/check_up/models.py:1681
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:968
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:883
+#: maintenance/check_up/models.py:1687
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2353
+#: maintenance/check_up/templates/check_up/controle_total.html:1857
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:1763
 #: maintenance/checkup_track/models.py:592
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1960
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1693
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1560
 #: maintenance/entretien/models.py:750
+#: maintenance/entretien/templates/entretien/entretien_check.html:913
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:961
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:917
 msgid "Feux de position avant"
 msgstr "Εμπρός φώτα θέσης"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:423
-#: maintenance/check_up/models.py:1712
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1004
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:919
+#: maintenance/check_up/models.py:1718
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2368
+#: maintenance/check_up/templates/check_up/controle_total.html:1893
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:1799
 #: maintenance/checkup_track/models.py:621
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1975
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1729
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1596
 #: maintenance/entretien/models.py:779
+#: maintenance/entretien/templates/entretien/entretien_check.html:949
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:974
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:953
 msgid "Feux de position arrière"
 msgstr "Πίσω φώτα θέσης"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:448
-#: maintenance/check_up/models.py:1372 maintenance/checkup_track/models.py:660
+#: maintenance/check_up/models.py:1375 maintenance/checkup_track/models.py:660
 #: maintenance/entretien/models.py:812 maintenance/pneus/models.py:171
 msgid "Pression du pneu avant droit en bar"
 msgstr "Πίεση ελαστικού εμπρός δεξιά σε bar"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:456
-#: maintenance/check_up/models.py:1378 maintenance/checkup_track/models.py:666
+#: maintenance/check_up/models.py:1381 maintenance/checkup_track/models.py:666
 #: maintenance/entretien/models.py:820 maintenance/pneus/models.py:179
 msgid "Pression du pneu avant gauche en bar"
 msgstr "Πίεση ελαστικού εμπρός αριστερά σε bar"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:464
-#: maintenance/check_up/models.py:1384 maintenance/checkup_track/models.py:672
+#: maintenance/check_up/models.py:1387 maintenance/checkup_track/models.py:672
 #: maintenance/entretien/models.py:828 maintenance/pneus/models.py:187
 msgid "Pression du pneu arrière droit en bar"
 msgstr "Πίεση ελαστικού πίσω δεξιά σε bar"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:472
-#: maintenance/check_up/models.py:1390 maintenance/checkup_track/models.py:678
+#: maintenance/check_up/models.py:1393 maintenance/checkup_track/models.py:678
 #: maintenance/entretien/models.py:836 maintenance/pneus/models.py:195
 msgid "Pression du pneu arrière gauche en bar"
 msgstr "Πίεση ελαστικού πίσω αριστερά σε bar"
@@ -13542,36 +13647,58 @@ msgid "Lave-glace"
 msgstr "Υγρό υαλοκαθαριστήρα"
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:648
-msgid "Contrôle des phares"
-msgstr "Έλεγχος φώτων"
-
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:650
-#: maintenance/check_up/admin.py:172
-#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2204
-#: maintenance/check_up/templates/check_up/controle_total.html:1429
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:563
+#: maintenance/check_up/models.py:1435
+#: maintenance/check_up/templates/check_up/controle_total.html:1537
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1443
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1811
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:849
-msgid "Phares"
-msgstr "Φώτα"
+#: maintenance/checkup_track/models.py:352
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1373
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1240
+#: maintenance/entretien/models.py:510
+#: maintenance/entretien/templates/entretien/entretien_check.html:593
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:597
+msgid "Réglage des phares"
+msgstr "Ρύθμιση φώτων"
 
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:694
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:697
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:683
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:598
+#: maintenance/check_up/templates/check_up/controle_total.html:1572
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:1478
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1408
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1275
+#: maintenance/entretien/templates/entretien/entretien_check.html:628
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:632
+msgid "Phares avant"
+msgstr "Μπροστινοί προβολείς"
+
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:790
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:705
+#: maintenance/check_up/templates/check_up/controle_total.html:1679
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:1585
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1515
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1382
+#: maintenance/entretien/templates/entretien/entretien_check.html:735
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:739
+msgid "Feu de recul"
+msgstr "Φώτα όπισθεν"
+
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1042
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1045
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:665
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:987
 msgid "Pression des pneus"
 msgstr "Πίεση ελαστικών"
 
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:952
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1300
 msgid "Temps de main-d’œuvre"
 msgstr "Χρόνος εργασίας"
 
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:954
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1302
 msgid "Temps de main-d'œuvre"
 msgstr "Χρόνος εργασίας"
 
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1022
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:964
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1370
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:1321
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:129
 msgid "Retour à la liste des rodages"
 msgstr "Επιστροφή στη λίστα στρωσιμάτων"
@@ -13590,22 +13717,13 @@ msgstr "Φίλτρο"
 msgid "Test du liquide de freins"
 msgstr "Έλεγχος υγρού φρένων"
 
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:562
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1238
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1239
-#: maintenance/entretien/templates/entretien/entretien_check.html:592
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:596
-#: piece/piece_feux/models.py:33
-msgid "Feux"
-msgstr "Φανάρια"
-
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:632
-#: maintenance/check_up/templates/check_up/controle_total.html:1359
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:989
+#: maintenance/check_up/templates/check_up/controle_total.html:1467
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1372
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1337
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1337
-#: maintenance/entretien/templates/entretien/entretien_check.html:626
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:630
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1305
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1695
+#: maintenance/entretien/templates/entretien/entretien_check.html:984
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:990
 #: maintenance/pneus/templates/pneus/controle_pneus.html:400
 #: maintenance/pneus/templates/pneus/modifier_pneus.html:402
 msgid "Pression des Pneus"
@@ -14315,9 +14433,9 @@ msgstr "Ανεμιστήρας"
 #: maintenance/autres_interventions/refroidissement/models.py:1041
 #: maintenance/autres_interventions/refroidissement/views.py:565
 #: maintenance/autres_interventions/refroidissement/views.py:980
-#: maintenance/check_up/models.py:252
+#: maintenance/check_up/models.py:255
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:772
-#: maintenance/check_up/templates/check_up/controle_total.html:411
+#: maintenance/check_up/templates/check_up/controle_total.html:448
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:419
 #: maintenance/checkup_track/models.py:245
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:877
@@ -14653,6 +14771,7 @@ msgid "Roulement de suspension"
 msgstr "Ρουλεμάν ανάρτησης"
 
 #: maintenance/bruits/models.py:30 piece/templates/piece/piece_list.html:56
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:61
 msgid "Emplacement"
 msgstr "Θέση"
 
@@ -14918,7 +15037,7 @@ msgstr "Στήριγμα ψυγείου"
 
 #: maintenance/carrosserie_interne/models.py:406
 #: maintenance/carrosserie_interne/views.py:883
-#: maintenance/check_up/models.py:1763
+#: maintenance/check_up/models.py:1769
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2585
 #: maintenance/check_up/templates/check_up/controle_total.html:322
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:332
@@ -15273,6 +15392,13 @@ msgstr "Θόρυβοι & Χαλαρότητα"
 msgid "Pneus & Pression"
 msgstr "Ελαστικά & Πίεση"
 
+#: maintenance/check_up/admin.py:172
+#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2204
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1811
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:849
+msgid "Phares"
+msgstr "Φώτα"
+
 #: maintenance/check_up/models.py:22
 #: maintenance/nettoyage_exterieur/models.py:19
 msgid "Sans produits"
@@ -15368,405 +15494,404 @@ msgstr "Απώλεια ισχύος"
 msgid "Moteur à remplacer"
 msgstr "Να αντικατασταθεί ο κινητήρας"
 
-#: maintenance/check_up/models.py:231
+#: maintenance/check_up/models.py:232
 msgid "Fuite boîte de vitesse"
 msgstr "Διαρροή κιβωτίου ταχυτήτων"
 
-#: maintenance/check_up/models.py:232
+#: maintenance/check_up/models.py:233
 msgid "Bruits boîte de vitesse"
 msgstr "Θόρυβοι κιβωτίου ταχυτήτων"
 
-#: maintenance/check_up/models.py:233
+#: maintenance/check_up/models.py:234
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:655
 msgid "Problème d'embrayage"
 msgstr "Πρόβλημα συμπλέκτη"
 
-#: maintenance/check_up/models.py:241
+#: maintenance/check_up/models.py:243
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:695
 #: maintenance/checkup_track/models.py:237
 msgid "Fuite pont arrière"
 msgstr "Διαρροή πίσω άξονα"
 
-#: maintenance/check_up/models.py:242
+#: maintenance/check_up/models.py:244
 msgid "Bruits pont arrière"
 msgstr "Θόρυβοι πίσω άξονα"
 
-#: maintenance/check_up/models.py:243
+#: maintenance/check_up/models.py:245
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:725
 msgid "Jeu pont arrière"
 msgstr "Χαλαρότητα πίσω άξονα"
 
-#: maintenance/check_up/models.py:258
+#: maintenance/check_up/models.py:261
 msgid "Liquide de refroidissement "
 msgstr "Υγρό ψύξης"
 
-#: maintenance/check_up/models.py:261
+#: maintenance/check_up/models.py:264
 msgid "Qualité de liquide"
 msgstr "Ποιότητα του υγρού"
 
-#: maintenance/check_up/models.py:266 maintenance/checkup_track/models.py:255
+#: maintenance/check_up/models.py:269 maintenance/checkup_track/models.py:255
 #: maintenance/freins/models.py:111
 msgid "Usure des plaquettes avant (%)"
 msgstr "Φθορά τακακιών εμπρός (%)"
 
-#: maintenance/check_up/models.py:267
+#: maintenance/check_up/models.py:270
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:904
 #: maintenance/freins/models.py:112
 #: maintenance/freins/templates/freins/freins_check.html:278
 #: maintenance/freins/templates/freins/freins_detail.html:101
 #: maintenance/freins/templates/freins/modifier_freins.html:276
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:69
 msgid "Plaquettes avant"
 msgstr "Μπροστινές τακάκια"
 
-#: maintenance/check_up/models.py:276 maintenance/checkup_track/models.py:267
+#: maintenance/check_up/models.py:279 maintenance/checkup_track/models.py:267
 #: maintenance/freins/models.py:124 voiture/voiture_freins_av/forms.py:40
 msgid "Épaisseur des disques avant (mm)"
 msgstr "Πάχος δίσκων εμπρός (mm)"
 
-#: maintenance/check_up/models.py:277
+#: maintenance/check_up/models.py:280
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:934
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1048
 msgid "Présence de fentes sur les disques avant"
 msgstr "Υπάρχουν ρωγμές στους εμπρόσθιους δίσκους"
 
-#: maintenance/check_up/models.py:278
+#: maintenance/check_up/models.py:281
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:957
-#: maintenance/check_up/templates/check_up/controle_total.html:595
+#: maintenance/check_up/templates/check_up/controle_total.html:703
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:604
 #: maintenance/freins/models.py:126
 #: maintenance/freins/templates/freins/freins_check.html:314
 #: maintenance/freins/templates/freins/freins_detail.html:96
 #: maintenance/freins/templates/freins/modifier_freins.html:312
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:34
 msgid "Disques avant"
 msgstr "Μπροστινοί δίσκοι"
 
-#: maintenance/check_up/models.py:297 maintenance/checkup_track/models.py:278
+#: maintenance/check_up/models.py:300 maintenance/checkup_track/models.py:278
 #: maintenance/freins/models.py:152
 msgid "Usure des plaquettes arrière (%)"
 msgstr "Φθορά τακακιών πίσω (%)"
 
-#: maintenance/check_up/models.py:298 maintenance/checkup_track/models.py:279
+#: maintenance/check_up/models.py:301 maintenance/checkup_track/models.py:279
 msgid "Plaquettes arrière à remplacer"
 msgstr "Πίσω τακάκια φρένων προς αντικατάσταση"
 
-#: maintenance/check_up/models.py:307 maintenance/checkup_track/models.py:287
+#: maintenance/check_up/models.py:310 maintenance/checkup_track/models.py:287
 #: maintenance/freins/models.py:187 voiture/voiture_freins_ar/forms.py:42
 msgid "Épaisseur des disques arrière (mm)"
 msgstr "Πάχος πίσω δίσκων (mm)"
 
-#: maintenance/check_up/models.py:308
+#: maintenance/check_up/models.py:311
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1017
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1184
 msgid "Présence de fentes sur les disques arrière"
 msgstr "Υπάρχουν ρωγμές στους πίσω δίσκους"
 
-#: maintenance/check_up/models.py:309
+#: maintenance/check_up/models.py:312
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1040
 #: maintenance/freins/models.py:201
 #: maintenance/freins/templates/freins/freins_check.html:399
 #: maintenance/freins/templates/freins/freins_detail.html:106
 #: maintenance/freins/templates/freins/modifier_freins.html:397
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:34
 msgid "Disques arrière"
 msgstr "Πίσω δίσκοι"
 
-#: maintenance/check_up/models.py:328
+#: maintenance/check_up/models.py:331
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1063
 #: maintenance/checkup_track/models.py:300 maintenance/freins/models.py:224
 msgid "Présence de fuite"
 msgstr "Παρουσία διαρροής"
 
-#: maintenance/check_up/models.py:358
+#: maintenance/check_up/models.py:361
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1217
 msgid "Fuite direction assistée / crémaillère"
 msgstr "Διαρροή υδραυλικού τιμονιού / κοχλία"
 
-#: maintenance/check_up/models.py:359 maintenance/entretien/models.py:496
+#: maintenance/check_up/models.py:362 maintenance/entretien/models.py:496
 #: maintenance/niveaux/models.py:145
 msgid "Niveau de liquide de direction"
 msgstr "Στάθμη υγρού υδραυλικού τιμονιού"
 
-#: maintenance/check_up/models.py:367
+#: maintenance/check_up/models.py:370
 msgid "État roulement de roue avant droit"
 msgstr "Κατάσταση ρουλεμάν εμπρός δεξιού τροχού"
 
-#: maintenance/check_up/models.py:368
+#: maintenance/check_up/models.py:371
 msgid "État roulement de roue avant gauche"
 msgstr "Κατάσταση ρουλεμάν εμπρός αριστερού τροχού"
 
-#: maintenance/check_up/models.py:369
+#: maintenance/check_up/models.py:372
 msgid "État roulement de roue arrière droit"
 msgstr "Κατάσταση ρουλεμάν πίσω δεξιού τροχού"
 
-#: maintenance/check_up/models.py:370
+#: maintenance/check_up/models.py:373
 msgid "État roulement de roue arrière gauche"
 msgstr "Κατάσταση ρουλεμάν πίσω αριστερού τροχού"
 
-#: maintenance/check_up/models.py:374
+#: maintenance/check_up/models.py:377
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1138
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1937
 msgid "État batterie"
 msgstr "Κατάσταση μπαταρίας"
 
-#: maintenance/check_up/models.py:379
+#: maintenance/check_up/models.py:382
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1161
 msgid "Fabricant de la batterie"
 msgstr "Κατασκευαστής της μπαταρίας"
 
-#: maintenance/check_up/models.py:381
+#: maintenance/check_up/models.py:384
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1168
 msgid "Tension de batterie"
 msgstr "Τάση μπαταρίας"
 
-#: maintenance/check_up/models.py:385
+#: maintenance/check_up/models.py:388
 msgid "Ampère heure"
 msgstr "Αμπερώρα"
 
-#: maintenance/check_up/models.py:390
+#: maintenance/check_up/models.py:393
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1182
 msgid "Courant maximum de démarrage"
 msgstr "Μέγιστο ρεύμα εκκίνησης"
 
-#: maintenance/check_up/models.py:409 maintenance/jeux_pieces/models.py:137
+#: maintenance/check_up/models.py:412 maintenance/jeux_pieces/models.py:137
 msgid "Jeu rotule de direction avant droite"
 msgstr "Χάσιμο σφαιρικής άρθρωσης εμπρός δεξιά"
 
-#: maintenance/check_up/models.py:432 maintenance/jeux_pieces/models.py:160
+#: maintenance/check_up/models.py:435 maintenance/jeux_pieces/models.py:160
 msgid "Jeu rotule de direction avant gauche"
 msgstr "Χάσιμο σφαιρικής άρθρωσης εμπρός αριστερά"
 
-#: maintenance/check_up/models.py:455 maintenance/jeux_pieces/models.py:183
+#: maintenance/check_up/models.py:458 maintenance/jeux_pieces/models.py:183
 msgid "Jeu rotule de direction arrière droite"
 msgstr "Χάσιμο σφαιρικής άρθρωσης πίσω δεξιά"
 
-#: maintenance/check_up/models.py:478 maintenance/jeux_pieces/models.py:206
+#: maintenance/check_up/models.py:481 maintenance/jeux_pieces/models.py:206
 msgid "Jeu rotule de direction arrière gauche"
 msgstr "Χάσιμο σφαιρικής άρθρωσης πίσω αριστερά"
 
-#: maintenance/check_up/models.py:501 maintenance/jeux_pieces/models.py:229
+#: maintenance/check_up/models.py:504 maintenance/jeux_pieces/models.py:229
 msgid "Jeu rotule de suspension inférieure avant droite"
 msgstr "Χάσιμο κάτω σφαιρικής άρθρωσης ανάρτησης εμπρός δεξιά"
 
-#: maintenance/check_up/models.py:524 maintenance/jeux_pieces/models.py:252
+#: maintenance/check_up/models.py:527 maintenance/jeux_pieces/models.py:252
 msgid "Jeu rotule de suspension inférieure avant gauche"
 msgstr "Χάσιμο κάτω σφαιρικής άρθρωσης ανάρτησης εμπρός αριστερά"
 
-#: maintenance/check_up/models.py:547 maintenance/jeux_pieces/models.py:275
+#: maintenance/check_up/models.py:550 maintenance/jeux_pieces/models.py:275
 msgid "Jeu rotule de suspension inférieure arrière droite"
 msgstr "Χάσιμο κάτω σφαιρικής άρθρωσης ανάρτησης πίσω δεξιά"
 
-#: maintenance/check_up/models.py:570 maintenance/jeux_pieces/models.py:298
+#: maintenance/check_up/models.py:573 maintenance/jeux_pieces/models.py:298
 msgid "Jeu rotule de suspension inférieure arrière gauche"
 msgstr "Χάσιμο κάτω σφαιρικής άρθρωσης ανάρτησης πίσω δεξιά"
 
-#: maintenance/check_up/models.py:593 maintenance/jeux_pieces/models.py:321
+#: maintenance/check_up/models.py:596 maintenance/jeux_pieces/models.py:321
 msgid "Jeu rotule de suspension supérieure avant droite"
 msgstr "Χάσιμο άνω σφαιρικής άρθρωσης ανάρτησης εμπρός δεξιά"
 
-#: maintenance/check_up/models.py:616 maintenance/jeux_pieces/models.py:344
+#: maintenance/check_up/models.py:619 maintenance/jeux_pieces/models.py:344
 msgid "Jeu rotule de suspension supérieure avant gauche"
 msgstr "Χάσιμο άνω σφαιρικής άρθρωσης ανάρτησης εμπρός αριστερά"
 
-#: maintenance/check_up/models.py:639 maintenance/jeux_pieces/models.py:367
+#: maintenance/check_up/models.py:642 maintenance/jeux_pieces/models.py:367
 msgid "Jeu rotule de suspension supérieure arrière droite"
 msgstr "Χάσιμο άνω σφαιρικής άρθρωσης ανάρτησης πίσω δεξιά"
 
-#: maintenance/check_up/models.py:662 maintenance/jeux_pieces/models.py:390
+#: maintenance/check_up/models.py:665 maintenance/jeux_pieces/models.py:390
 msgid "Jeu rotule de suspension supérieure arrière gauche"
 msgstr "Χάσιμο άνω σφαιρικής άρθρωσης ανάρτησης πίσω δεξιά"
 
-#: maintenance/check_up/models.py:685 maintenance/jeux_pieces/models.py:413
+#: maintenance/check_up/models.py:688 maintenance/jeux_pieces/models.py:413
 msgid "Jeu biellette de barre stabilisatrice avant droite"
 msgstr "Χάσιμο συνδέσμου αντιστρεπτικής εμπρός δεξιά"
 
-#: maintenance/check_up/models.py:708 maintenance/jeux_pieces/models.py:436
+#: maintenance/check_up/models.py:711 maintenance/jeux_pieces/models.py:436
 msgid "Jeu biellette de barre stabilisatrice avant gauche"
 msgstr "Χάσιμο συνδέσμου αντιστρεπτικής εμπρός αριστερά"
 
-#: maintenance/check_up/models.py:731 maintenance/jeux_pieces/models.py:459
+#: maintenance/check_up/models.py:734 maintenance/jeux_pieces/models.py:459
 msgid "Jeu biellette de barre stabilisatrice arrière droite"
 msgstr "Χάσιμο συνδέσμου αντιστρεπτικής πίσω δεξιά"
 
-#: maintenance/check_up/models.py:754 maintenance/jeux_pieces/models.py:482
+#: maintenance/check_up/models.py:757 maintenance/jeux_pieces/models.py:482
 msgid "Jeu biellette de barre stabilisatrice arrière gauche"
 msgstr "Χάσιμο συνδέσμου αντιστρεπτικής πίσω αριστερά"
 
-#: maintenance/check_up/models.py:777 maintenance/jeux_pieces/models.py:505
+#: maintenance/check_up/models.py:780 maintenance/jeux_pieces/models.py:505
 msgid "Jeu barre stabilisatrice avant"
 msgstr "Χάσιμο αντιστρεπτικής εμπρός"
 
-#: maintenance/check_up/models.py:800 maintenance/jeux_pieces/models.py:528
+#: maintenance/check_up/models.py:803 maintenance/jeux_pieces/models.py:528
 msgid "Jeu barre stabilisatrice arrière"
 msgstr "Χάσιμο αντιστρεπτικής πίσω"
 
-#: maintenance/check_up/models.py:823 maintenance/jeux_pieces/models.py:551
+#: maintenance/check_up/models.py:826 maintenance/jeux_pieces/models.py:551
 msgid "Jeu biellette de direction droite"
 msgstr "Δεξιός σύνδεσμος τιμονιού"
 
-#: maintenance/check_up/models.py:846 maintenance/jeux_pieces/models.py:574
+#: maintenance/check_up/models.py:849 maintenance/jeux_pieces/models.py:574
 msgid "Jeu biellette de direction gauche"
 msgstr "Αριστερός σύνδεσμος τιμονιού"
 
-#: maintenance/check_up/models.py:869 maintenance/jeux_pieces/models.py:597
+#: maintenance/check_up/models.py:872 maintenance/jeux_pieces/models.py:597
 msgid "Jeu du cardan avant droit"
 msgstr "Τζόγος στον εμπρόσθιο δεξιό ημιαξόνιο"
 
-#: maintenance/check_up/models.py:892 maintenance/jeux_pieces/models.py:620
+#: maintenance/check_up/models.py:895 maintenance/jeux_pieces/models.py:620
 msgid "Jeu du cardan avant gauche"
 msgstr "Τζόγος του αριστερού εμπρός ημιαξονίου"
 
-#: maintenance/check_up/models.py:915 maintenance/jeux_pieces/models.py:643
+#: maintenance/check_up/models.py:918 maintenance/jeux_pieces/models.py:643
 msgid "Jeu du cardan arrière droit"
 msgstr "Τζόγος του δεξιού πίσω ημιαξονίου"
 
-#: maintenance/check_up/models.py:938 maintenance/jeux_pieces/models.py:666
+#: maintenance/check_up/models.py:941 maintenance/jeux_pieces/models.py:666
 msgid "Jeu du cardan arrière gauche"
 msgstr "Τζόγος του αριστερού πίσω ημιαξονίου"
 
-#: maintenance/check_up/models.py:961 maintenance/checkup_track/models.py:339
+#: maintenance/check_up/models.py:964 maintenance/checkup_track/models.py:339
 #: maintenance/jeux_pieces/models.py:689
 msgid "Jeu dans l'arbre de transmission"
 msgstr "Τζόγος στον άξονα μετάδοσης"
 
-#: maintenance/check_up/models.py:984 maintenance/jeux_pieces/models.py:712
+#: maintenance/check_up/models.py:987 maintenance/jeux_pieces/models.py:712
 msgid "Jeu amortisseur avant droit"
 msgstr "Χάσιμο αμορτισέρ εμπρός δεξιά"
 
-#: maintenance/check_up/models.py:1007 maintenance/jeux_pieces/models.py:735
+#: maintenance/check_up/models.py:1010 maintenance/jeux_pieces/models.py:735
 msgid "Jeu amortisseur avant gauche"
 msgstr "Χάσιμο αμορτισέρ εμπρός αριστερά"
 
-#: maintenance/check_up/models.py:1030 maintenance/jeux_pieces/models.py:758
+#: maintenance/check_up/models.py:1033 maintenance/jeux_pieces/models.py:758
 msgid "Jeu amortisseur arrière droit"
 msgstr "Χάσιμο αμορτισέρ πίσω δεξιά"
 
-#: maintenance/check_up/models.py:1053 maintenance/jeux_pieces/models.py:781
+#: maintenance/check_up/models.py:1056 maintenance/jeux_pieces/models.py:781
 msgid "Jeu amortisseur arrière gauche"
 msgstr "Χάσιμο αμορτισέρ πίσω αριστερά"
 
-#: maintenance/check_up/models.py:1076 maintenance/jeux_pieces/models.py:804
+#: maintenance/check_up/models.py:1079 maintenance/jeux_pieces/models.py:804
 msgid "Jeu roulement avant droit"
 msgstr "Χάσιμο ρουλεμάν εμπρός δεξιά"
 
-#: maintenance/check_up/models.py:1099 maintenance/jeux_pieces/models.py:827
+#: maintenance/check_up/models.py:1102 maintenance/jeux_pieces/models.py:827
 msgid "Jeu roulement avant gauche"
 msgstr "Χάσιμο ρουλεμάν εμπρός αριστερά"
 
-#: maintenance/check_up/models.py:1122 maintenance/jeux_pieces/models.py:850
+#: maintenance/check_up/models.py:1125 maintenance/jeux_pieces/models.py:850
 msgid "Jeu roulement arrière droit"
 msgstr "Χάσιμο ρουλεμάν πίσω δεξιά"
 
-#: maintenance/check_up/models.py:1145 maintenance/jeux_pieces/models.py:873
+#: maintenance/check_up/models.py:1148 maintenance/jeux_pieces/models.py:873
 msgid "Jeu roulement arrière gauche"
 msgstr "Χάσιμο ρουλεμάν πίσω αριστερά"
 
-#: maintenance/check_up/models.py:1168 maintenance/jeux_pieces/models.py:896
+#: maintenance/check_up/models.py:1171 maintenance/jeux_pieces/models.py:896
 msgid "Jeu triangle avant droit"
 msgstr "Χάσιμο τριγώνου εμπρός δεξιά"
 
-#: maintenance/check_up/models.py:1191 maintenance/jeux_pieces/models.py:919
+#: maintenance/check_up/models.py:1194 maintenance/jeux_pieces/models.py:919
 msgid "Jeu triangle avant gauche"
 msgstr "Χάσιμο τριγώνου εμπρός αριστερά"
 
-#: maintenance/check_up/models.py:1214 maintenance/jeux_pieces/models.py:942
+#: maintenance/check_up/models.py:1217 maintenance/jeux_pieces/models.py:942
 msgid "Jeu triangle arrière droit"
 msgstr "Χάσιμο τριγώνου πίσω δεξιά"
 
-#: maintenance/check_up/models.py:1237 maintenance/jeux_pieces/models.py:965
+#: maintenance/check_up/models.py:1240 maintenance/jeux_pieces/models.py:965
 msgid "Jeu triangle arrière gauche"
 msgstr "Χάσιμο τριγώνου πίσω αριστερά"
 
-#: maintenance/check_up/models.py:1260 maintenance/jeux_pieces/models.py:988
+#: maintenance/check_up/models.py:1263 maintenance/jeux_pieces/models.py:988
 msgid "Jeu suspension multi-bras avant droit"
 msgstr "Χάσιμο πολυβραχιονικής ανάρτησης εμπρός δεξιά"
 
-#: maintenance/check_up/models.py:1283 maintenance/jeux_pieces/models.py:1011
+#: maintenance/check_up/models.py:1286 maintenance/jeux_pieces/models.py:1011
 msgid "Jeu suspension multi-bras avant gauche"
 msgstr "Χάσιμο πολυβραχιονικής ανάρτησης εμπρός αριστερά"
 
-#: maintenance/check_up/models.py:1306 maintenance/jeux_pieces/models.py:1034
+#: maintenance/check_up/models.py:1309 maintenance/jeux_pieces/models.py:1034
 msgid "Jeu suspension multi-bras arrière droit"
 msgstr "Χάσιμο πολυβραχιονικής ανάρτησης πίσω δεξιά"
 
-#: maintenance/check_up/models.py:1329 maintenance/jeux_pieces/models.py:1057
+#: maintenance/check_up/models.py:1332 maintenance/jeux_pieces/models.py:1057
 msgid "Jeu suspension multi-bras arrière gauche"
 msgstr "Χάσιμο πολυβραχιονικής ανάρτησης πίσω αριστερά"
 
-#: maintenance/check_up/models.py:1350
+#: maintenance/check_up/models.py:1353
 msgid "Pneu avant droit"
 msgstr "Μπροστινό δεξί ελαστικό"
 
-#: maintenance/check_up/models.py:1352
+#: maintenance/check_up/models.py:1355
 msgid "Pneu avant gauche"
 msgstr "Μπροστινό αριστερό ελαστικό"
 
-#: maintenance/check_up/models.py:1354
+#: maintenance/check_up/models.py:1357
 msgid "Pneu arrière droit"
 msgstr "Πίσω δεξί ελαστικό"
 
-#: maintenance/check_up/models.py:1356
+#: maintenance/check_up/models.py:1359
 msgid "Pneu arrière gauche"
 msgstr "Πίσω αριστερό ελαστικό"
 
-#: maintenance/check_up/models.py:1359 maintenance/checkup_track/models.py:649
+#: maintenance/check_up/models.py:1362 maintenance/checkup_track/models.py:649
 #: maintenance/pneus/models.py:156
 msgid "Épaisseur du pneu avant droit (mm)"
 msgstr "Πάχος ελαστικού εμπρός δεξιά (χιλ.)"
 
-#: maintenance/check_up/models.py:1360 maintenance/checkup_track/models.py:650
+#: maintenance/check_up/models.py:1363 maintenance/checkup_track/models.py:650
 #: maintenance/pneus/models.py:157
 msgid "Épaisseur du pneu avant gauche (mm)"
 msgstr "Πάχος ελαστικού εμπρός αριστερά (χιλ.)"
 
-#: maintenance/check_up/models.py:1361 maintenance/checkup_track/models.py:651
+#: maintenance/check_up/models.py:1364 maintenance/checkup_track/models.py:651
 #: maintenance/pneus/models.py:158
 msgid "Épaisseur du pneu arrière droit (mm)"
 msgstr "Πάχος ελαστικού πίσω δεξιά (χιλ.)"
 
-#: maintenance/check_up/models.py:1362 maintenance/checkup_track/models.py:652
+#: maintenance/check_up/models.py:1365 maintenance/checkup_track/models.py:652
 #: maintenance/pneus/models.py:159
 msgid "Épaisseur du pneu arrière gauche (mm)"
 msgstr "Πάχος ελαστικού πίσω αριστερά (χιλ.)"
 
-#: maintenance/check_up/models.py:1364
+#: maintenance/check_up/models.py:1367
 msgid "flanc du pneu avant droit"
 msgstr "Πλάι ελαστικού εμπρός δεξιά"
 
-#: maintenance/check_up/models.py:1365
+#: maintenance/check_up/models.py:1368
 msgid "flanc du pneu avant gauche"
 msgstr "Πλάι ελαστικού εμπρός αριστερά"
 
-#: maintenance/check_up/models.py:1366
+#: maintenance/check_up/models.py:1369
 msgid "flanc du pneu arrière droit"
 msgstr "Πλάι ελαστικού πίσω δεξιά"
 
-#: maintenance/check_up/models.py:1367
+#: maintenance/check_up/models.py:1370
 msgid "flanc du pneu arrière gauche"
 msgstr "Πλάι ελαστικού πίσω αριστερά"
 
-#: maintenance/check_up/models.py:1393 maintenance/pneus/models.py:198
+#: maintenance/check_up/models.py:1396 maintenance/pneus/models.py:198
 msgid "Pneus avant à remplacer"
 msgstr "Εμπρός ελαστικά προς αντικατάσταση"
 
-#: maintenance/check_up/models.py:1398 maintenance/check_up/models.py:1414
+#: maintenance/check_up/models.py:1401 maintenance/check_up/models.py:1417
 #: maintenance/pneus/models.py:205 maintenance/pneus/models.py:222
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:597
 #: piece/piece_pneus/models.py:26
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:52
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:39
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:83
 #: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:45
 msgid "Manufacturier"
 msgstr "Κατασκευαστής"
 
-#: maintenance/check_up/models.py:1409 maintenance/pneus/models.py:217
+#: maintenance/check_up/models.py:1412 maintenance/pneus/models.py:217
 msgid "Pneus arrière à remplacer"
 msgstr "Πίσω ελαστικά προς αντικατάσταση"
 
-#: maintenance/check_up/models.py:1429 maintenance/checkup_track/models.py:352
-#: maintenance/entretien/models.py:510
-msgid "Réglage des phares"
-msgstr "Ρύθμιση φώτων"
-
-#: maintenance/check_up/models.py:1742
+#: maintenance/check_up/models.py:1748
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2412
 #: maintenance/checkup_track/models.py:706
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2003
@@ -15775,7 +15900,7 @@ msgstr "Ρύθμιση φώτων"
 msgid "Traces de gomme"
 msgstr "Σημάδια ελαστικού"
 
-#: maintenance/check_up/models.py:1744
+#: maintenance/check_up/models.py:1750
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2467
 #: maintenance/checkup_track/models.py:708
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2057
@@ -15785,7 +15910,7 @@ msgstr "Σημάδια ελαστικού"
 msgid "Jantes"
 msgstr "Ζάντες"
 
-#: maintenance/check_up/models.py:1745
+#: maintenance/check_up/models.py:1751
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2494
 #: maintenance/checkup_track/models.py:709
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2083
@@ -15794,7 +15919,7 @@ msgstr "Ζάντες"
 msgid "Séchage"
 msgstr "Στέγνωμα"
 
-#: maintenance/check_up/models.py:1750 maintenance/check_up/models.py:1774
+#: maintenance/check_up/models.py:1756 maintenance/check_up/models.py:1780
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2521
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2774
 #: maintenance/checkup_track/models.py:714
@@ -15804,7 +15929,7 @@ msgstr "Στέγνωμα"
 msgid "Produits"
 msgstr "Προϊόντα"
 
-#: maintenance/check_up/models.py:1762
+#: maintenance/check_up/models.py:1768
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2558
 #: maintenance/checkup_track/models.py:726
 #: maintenance/nettoyage_interieur/models.py:108
@@ -15812,7 +15937,7 @@ msgstr "Προϊόντα"
 msgid "Vitres"
 msgstr "Παράθυρα"
 
-#: maintenance/check_up/models.py:1764
+#: maintenance/check_up/models.py:1770
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2612
 #: maintenance/checkup_track/models.py:728
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2178
@@ -15821,14 +15946,14 @@ msgstr "Παράθυρα"
 msgid "Aspirateur"
 msgstr "Σκούπα"
 
-#: maintenance/check_up/models.py:1765
+#: maintenance/check_up/models.py:1771
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2639
 #: maintenance/checkup_track/models.py:729
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2205
 msgid "Intérieurs de porte"
 msgstr "Εσωτερικά πόρτας"
 
-#: maintenance/check_up/models.py:1766
+#: maintenance/check_up/models.py:1772
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2666
 #: maintenance/checkup_track/models.py:730
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2232
@@ -15836,14 +15961,14 @@ msgstr "Εσωτερικά πόρτας"
 msgid "Sièges"
 msgstr "Καθίσματα"
 
-#: maintenance/check_up/models.py:1767
+#: maintenance/check_up/models.py:1773
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2693
 #: maintenance/checkup_track/models.py:731
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2259
 msgid "Carpettes"
 msgstr "Μοκέτες"
 
-#: maintenance/check_up/models.py:1769
+#: maintenance/check_up/models.py:1775
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2747
 #: maintenance/checkup_track/models.py:733
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2313
@@ -15852,15 +15977,15 @@ msgstr "Μοκέτες"
 msgid "Plastiques"
 msgstr "Πλαστικά"
 
-#: maintenance/check_up/models.py:1876 maintenance/checkup_track/models.py:829
+#: maintenance/check_up/models.py:1882 maintenance/checkup_track/models.py:829
 msgid "Contrôle général"
 msgstr "Γενικός έλεγχος"
 
-#: maintenance/check_up/models.py:1877 maintenance/checkup_track/models.py:830
+#: maintenance/check_up/models.py:1883 maintenance/checkup_track/models.py:830
 msgid "Contrôles généraux"
 msgstr "Γενικοί έλεγχοι"
 
-#: maintenance/check_up/models.py:1947
+#: maintenance/check_up/models.py:1953
 msgid "Checkup complet"
 msgstr "Πλήρης έλεγχος"
 
@@ -15879,8 +16004,8 @@ msgid "Supprimer le checkup"
 msgstr "Διαγραφή του ελέγχου"
 
 #: maintenance/check_up/templates/check_up/checkup_detail.html:127
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1857
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1867
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:2216
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:2225
 msgid "Retour à la liste des checkups"
 msgstr "Επιστροφή στη λίστα ελέγχων"
 
@@ -15911,7 +16036,7 @@ msgid "Bruit boîte"
 msgstr "Θόρυβος κιβωτίου ταχυτήτων"
 
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:689
-#: maintenance/check_up/templates/check_up/controle_total.html:521
+#: maintenance/check_up/templates/check_up/controle_total.html:594
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:530
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:787
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:531
@@ -15958,6 +16083,7 @@ msgstr "Φθορά τακακιών πίσω (%)"
 #: maintenance/freins/templates/freins/freins_check.html:364
 #: maintenance/freins/templates/freins/freins_detail.html:111
 #: maintenance/freins/templates/freins/modifier_freins.html:362
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:69
 msgid "Plaquettes arrière"
 msgstr "Πίσω τακάκια"
 
@@ -15987,7 +16113,7 @@ msgstr "Ποσότητα υγρού φρένων"
 
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1124
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1932
-#: maintenance/check_up/templates/check_up/controle_total.html:763
+#: maintenance/check_up/templates/check_up/controle_total.html:871
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:775
 #: piece/piece_electricite/models.py:9
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:61
@@ -16137,6 +16263,10 @@ msgstr "Κατάσταση των ελαστικών"
 
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1959
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:354
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:53
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:80
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:53
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:80
 msgid "Épaisseur"
 msgstr "Πάχος"
 
@@ -16219,7 +16349,16 @@ msgstr "Δεν υπάρχει καταγεγραμμένος έλεγχος γι
 msgid "Essuie-glace"
 msgstr "Υαλοκαθαριστήρας"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:559
+#: maintenance/check_up/templates/check_up/controle_total.html:412
+#: maintenance/niveaux/models.py:103
+msgid "Niveau d'huile moteur"
+msgstr "Στάθμη λαδιού κινητήρα"
+
+#: maintenance/check_up/templates/check_up/controle_total.html:630
+msgid "Niveau du pont arrière"
+msgstr "Στάθμη λαδιού πίσω διαφορικού"
+
+#: maintenance/check_up/templates/check_up/controle_total.html:667
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:568
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:569
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:569
@@ -16227,7 +16366,7 @@ msgstr "Υαλοκαθαριστήρας"
 msgid "Plaquettes de frein avant"
 msgstr "Εμπρός τακάκια φρένων"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:599
+#: maintenance/check_up/templates/check_up/controle_total.html:707
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:608
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:607
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:607
@@ -16236,7 +16375,7 @@ msgstr "Εμπρός τακάκια φρένων"
 msgid "Épaisseur disque avant constructeur (mm)"
 msgstr "Πάχος εμπρός δίσκου σύμφωνα με τον κατασκευαστή (mm)"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:643
+#: maintenance/check_up/templates/check_up/controle_total.html:751
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:652
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:653
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:653
@@ -16244,7 +16383,7 @@ msgstr "Πάχος εμπρός δίσκου σύμφωνα με τον κατα
 msgid "Plaquettes de frein arrière"
 msgstr "Πίσω τακάκια φρένων"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:678
+#: maintenance/check_up/templates/check_up/controle_total.html:786
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:687
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:692
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:692
@@ -16252,14 +16391,14 @@ msgstr "Πίσω τακάκια φρένων"
 msgid "Disques de frein arrière"
 msgstr "Πίσω δίσκοι φρένων"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:682
+#: maintenance/check_up/templates/check_up/controle_total.html:790
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:691
 #: maintenance/freins/templates/freins/freins_check.html:403
 #: maintenance/freins/templates/freins/modifier_freins.html:401
 msgid "Épaisseur disque arrière constructeur (mm)"
 msgstr "Πάχος πίσω δίσκου σύμφωνα με τον κατασκευαστή (mm)"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:835
+#: maintenance/check_up/templates/check_up/controle_total.html:943
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:847
 #: maintenance/checkup_track/models.py:323
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:812
@@ -16269,24 +16408,24 @@ msgstr "Πάχος πίσω δίσκου σύμφωνα με τον κατασκ
 msgid "Jeux rotules de direction"
 msgstr "Παιχνίδια σφαιρικών αρθρώσεων διεύθυνσης"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:869
+#: maintenance/check_up/templates/check_up/controle_total.html:977
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:880
 msgid "Jeux rotules de suspension inférieures"
 msgstr "Παιχνίδια σφαιρικών αρθρώσεων κάτω ανάρτησης"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:903
+#: maintenance/check_up/templates/check_up/controle_total.html:1011
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:914
 msgid "Jeux rotules de suspension supérieures"
 msgstr "Παιχνίδια σφαιρικών αρθρώσεων άνω ανάρτησης"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:937
+#: maintenance/check_up/templates/check_up/controle_total.html:1045
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:948
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:883
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:882
 msgid "Jeux biellettes de barre stabilisatrice"
 msgstr "Τζόγος στις μπαροστερίστρες της αντιστρεπτικής ράβδου"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:973
+#: maintenance/check_up/templates/check_up/controle_total.html:1081
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:984
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:919
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:918
@@ -16295,8 +16434,7 @@ msgstr "Τζόγος στις μπαροστερίστρες της αντιστ
 msgid "Jeux barres stabilisatrice"
 msgstr "Παιχνίδια αντιστρεπτικής ράβδου"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:1008
-#: maintenance/check_up/templates/check_up/controle_total.html:1009
+#: maintenance/check_up/templates/check_up/controle_total.html:1116
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1019
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1020
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:954
@@ -16304,14 +16442,14 @@ msgstr "Παιχνίδια αντιστρεπτικής ράβδου"
 msgid "Jeux biellettes de direction"
 msgstr "Τζόγος στις μπαρακούλες του συστήματος διεύθυνσης"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:1044
+#: maintenance/check_up/templates/check_up/controle_total.html:1152
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1055
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:988
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:988
 msgid "Jeux dans les cardans"
 msgstr "Τζόγος στα ημιαξόνια"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:1080
+#: maintenance/check_up/templates/check_up/controle_total.html:1188
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1091
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1024
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1024
@@ -16320,7 +16458,7 @@ msgstr "Τζόγος στα ημιαξόνια"
 msgid "Jeux dans l'arbre de transmission"
 msgstr "Τζόγος στον άξονα μετάδοσης"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:1119
+#: maintenance/check_up/templates/check_up/controle_total.html:1227
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1130
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1096
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1097
@@ -16329,7 +16467,7 @@ msgstr "Τζόγος στον άξονα μετάδοσης"
 msgid "Jeux roulements de roues"
 msgstr "Παιχνίδια ρουλεμάν τροχών"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:1156
+#: maintenance/check_up/templates/check_up/controle_total.html:1264
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1167
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1133
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1134
@@ -16338,7 +16476,7 @@ msgstr "Παιχνίδια ρουλεμάν τροχών"
 msgid "Jeux triangles"
 msgstr "Παιχνίδια τριγώνων ανάρτησης"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:1191
+#: maintenance/check_up/templates/check_up/controle_total.html:1299
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1202
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1168
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1169
@@ -16347,7 +16485,7 @@ msgstr "Παιχνίδια τριγώνων ανάρτησης"
 msgid "Jeux suspension multi-bras"
 msgstr "Παιχνίδια πολυβραχιόνιας ανάρτησης"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:1227
+#: maintenance/check_up/templates/check_up/controle_total.html:1335
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1238
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1204
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1205
@@ -16356,36 +16494,36 @@ msgstr "Παιχνίδια πολυβραχιόνιας ανάρτησης"
 msgid "Jeux amortisseurs"
 msgstr "Παιχνίδια αμορτισέρ"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:1261
+#: maintenance/check_up/templates/check_up/controle_total.html:1369
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1306
 msgid "Etat de la bande de roulement"
 msgstr "Κατάσταση του πέλματος του ελαστικού"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:1294
+#: maintenance/check_up/templates/check_up/controle_total.html:1402
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1273
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1272
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1272
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1240
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1630
 msgid "Epaisseur pneus en mm"
 msgstr "Πάχος ελαστικών σε χιλ."
 
-#: maintenance/check_up/templates/check_up/controle_total.html:1325
+#: maintenance/check_up/templates/check_up/controle_total.html:1433
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1338
 #: maintenance/checkup_track/models.py:654
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1688
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1303
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1303
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1271
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1661
 msgid "Flanc des pneus"
 msgstr "Πλάι ελαστικών"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:1393
+#: maintenance/check_up/templates/check_up/controle_total.html:1501
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:1406
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1371
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1371
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1339
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1729
 msgid "Remplacer train"
 msgstr "Αντικατάσταση άξονα/σετ τροχών"
 
-#: maintenance/check_up/templates/check_up/controle_total.html:1833
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:1838
+#: maintenance/check_up/templates/check_up/controle_total.html:2296
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:2194
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:129
 msgid "Retour à la liste des checkups piste"
 msgstr "Επιστροφή στη λίστα των ελέγχων πίστας"
@@ -16592,8 +16730,8 @@ msgid "Etat du train arrière"
 msgstr "Κατάσταση των πίσω ελαστικών"
 
 #: maintenance/checkup_track/models.py:703
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1520
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1518
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1879
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1876
 msgid "Crochet de remorquage"
 msgstr "Γάντζος ρυμούλκησης"
 
@@ -16983,8 +17121,8 @@ msgstr "Εμπρός δίσκοι φρένων"
 msgid "Bruit de roulements de roues"
 msgstr "Θόρυβος ρουλεμάν τροχού"
 
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1603
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1601
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1962
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1959
 msgid "Voiture prête pour :"
 msgstr "Όχημα έτοιμο για:"
 
@@ -20886,9 +21024,9 @@ msgstr "Θέλετε πραγματικά να διαγράψετε αυτή τ�
 msgid "Filtres"
 msgstr "Φίλτρα"
 
-#: maintenance/entretien/templates/entretien/entretien_check.html:960
+#: maintenance/entretien/templates/entretien/entretien_check.html:1318
 #: maintenance/entretien/templates/entretien/entretien_detail.html:126
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:964
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:1324
 msgid "Retour à la liste des entretiens"
 msgstr "Επιστροφή στη λίστα συντηρήσεων"
 
@@ -21927,10 +22065,6 @@ msgstr "Διαγραφή του εσωτερικού καθαρισμού"
 #: maintenance/niveaux/models.py:93
 msgid "Kilométrage au moment des niveaux"
 msgstr "Χιλιόμετρα κατά τον έλεγχο επιπέδων"
-
-#: maintenance/niveaux/models.py:103
-msgid "Niveau d'huile moteur"
-msgstr "Στάθμη λαδιού κινητήρα"
 
 #: maintenance/niveaux/models.py:110
 msgid "Niveau d'huile de boite"
@@ -23866,6 +24000,7 @@ msgid "Ressort"
 msgstr "Ελατήριο"
 
 #: piece/piece_embrayage/models.py:26 voiture/voiture_embrayage/forms.py:23
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:64
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:54
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:69
 msgid "Type d'embrayage"
@@ -23880,6 +24015,7 @@ msgid "Liste des composants présents dans cet embrayage"
 msgstr "Λίστα εξαρτημάτων στον συμπλέκτη"
 
 #: piece/piece_embrayage/models.py:62
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:62
 msgid "Composants"
 msgstr "Στοιχεία"
 
@@ -23954,6 +24090,10 @@ msgstr "Φλας Πίσω Δεξιά"
 #: piece/piece_feux/models.py:25
 msgid "Type / Position du feu"
 msgstr "Τύπος / Θέση φαναριού"
+
+#: piece/piece_feux/models.py:33
+msgid "Feux"
+msgstr "Φανάρια"
 
 #: piece/piece_feux/models.py:36
 #, python-format
@@ -24123,6 +24263,9 @@ msgstr "Λίστα υγρών"
 
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:41
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:54
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:45
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:45
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:58
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:84
 #: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:49
 msgid "Type"
@@ -24647,12 +24790,14 @@ msgid "Type de pneu"
 msgstr "Τύπος ελαστικού"
 
 #: piece/piece_pneus/models.py:31 voiture/voiture_pneus/models.py:178
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:81
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:68
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:90
 msgid "Indice de charge"
 msgstr "Δείκτης φορτίου"
 
 #: piece/piece_pneus/models.py:32 voiture/voiture_pneus/models.py:172
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:84
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:64
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:89
 msgid "Indice de vitesse"
@@ -26439,7 +26584,13 @@ msgid "Type de boite"
 msgstr "Τύπος κιβωτίου"
 
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:64
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:48
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:66
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:39
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:74
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:39
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:74
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:64
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:72
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:91
 #: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:61
@@ -26636,6 +26787,33 @@ msgstr "Προσθήκη συμπλέκτη"
 msgid "Retour à la liste des embrayages"
 msgstr "Επιστροφή στη λίστα συμπλεκτών"
 
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:9
+msgid "Supprimer l'embrayage"
+msgstr "Διαγραφή συμπλέκτη"
+
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:13
+msgid ""
+"Voulez-vous vraiment supprimer cet embrayage ? Cette action est irréversible."
+msgstr ""
+"Θέλετε πραγματικά να διαγράψετε αυτόν τον συμπλέκτη; Αυτή η ενέργεια είναι "
+"μη αναστρέψιμη."
+
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:22
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:21
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:21
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:22
+msgid "Véhicule(s) concerné(s)"
+msgstr "Επηρεαζόμενο(α) όχημα(τα)"
+
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:28
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:28
+msgid "Modèle(s) concerné(s)"
+msgstr "Επηρεαζόμενο(α) μοντέλο(α)"
+
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:42
+msgid "N° d'embrayage"
+msgstr "Αρ. συμπλέκτη"
+
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:19
 msgid "Détails de l'embrayage :"
 msgstr "Λεπτομέρειες συμπλέκτη"
@@ -26644,7 +26822,11 @@ msgstr "Λεπτομέρειες συμπλέκτη"
 msgid "Modifier l'embrayage"
 msgstr "Επεξεργασία συμπλέκτη"
 
-#: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:116
+#: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:97
+msgid "Supprimer le système d'embrayage"
+msgstr "Διαγραφή του συστήματος συμπλέκτη"
+
+#: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:126
 msgid "Retour a la liste des embrayages"
 msgstr "Επιστροφή στη λίστα συμπλεκτών"
 
@@ -26678,17 +26860,33 @@ msgstr "Επεξεργασία συμπλέκτη:"
 msgid "Retour aux détails de l'embrayage"
 msgstr "Επιστροφή στις λεπτομέρειες του συμπλέκτη"
 
-#: voiture/voiture_embrayage/views.py:40
+#: voiture/voiture_embrayage/views.py:47
 msgid "Embrayage ajouté avec succès !"
 msgstr "Ο συμπλέκτης προστέθηκε με επιτυχία!"
 
-#: voiture/voiture_embrayage/views.py:72
+#: voiture/voiture_embrayage/views.py:79
 msgid "L'embrayage a été lié au véhicule avec succès."
 msgstr "Ο συμπλέκτης συνδέθηκε με επιτυχία με το όχημα."
 
-#: voiture/voiture_embrayage/views.py:126
+#: voiture/voiture_embrayage/views.py:133
 msgid "Embrayage mis à jour avec succès."
 msgstr "Ο συμπλέκτης ενημερώθηκε με επιτυχία."
+
+#: voiture/voiture_embrayage/views.py:220
+msgid "Suppression de l'embrayage"
+msgstr "Διαγραφή του συμπλέκτη"
+
+#: voiture/voiture_embrayage/views.py:236
+msgid ""
+"Impossible de supprimer cet embrayage : il est encore référencé par d'autres "
+"données."
+msgstr ""
+"Δεν είναι δυνατή η διαγραφή αυτού του συμπλέκτη: εξακολουθεί να αναφέρεται "
+"από άλλα δεδομένα."
+
+#: voiture/voiture_embrayage/views.py:247
+msgid "Embrayage supprimé avec succès."
+msgstr "Ο συμπλέκτης διαγράφηκε με επιτυχία."
 
 #: voiture/voiture_exemplaire/forms.py:20
 msgid "Date de mise en circulation"
@@ -27091,10 +27289,41 @@ msgid "Ajouter un système de freinage arrière"
 msgstr "Προσθήκη συστήματος πίσω φρένων"
 
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/ajouter_freins_ar_simple.html:92
-#: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:148
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:158
 #: voiture/voiture_freins_av/templates/voiture_freins_av/ajouter_freins_simple.html:90
 msgid "Retour à la liste des freins arrière"
 msgstr "Επιστροφή στη λίστα πίσω φρένων"
+
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:9
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:110
+msgid "Supprimer le système de freinage arrière"
+msgstr "Διαγραφή του συστήματος πίσω φρένων"
+
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:13
+msgid ""
+"Voulez-vous vraiment supprimer ce système de freinage arrière ? Cette action "
+"est irréversible."
+msgstr ""
+"Θέλετε πραγματικά να διαγράψετε αυτό το σύστημα πίσω φρένων; Αυτή η ενέργεια "
+"είναι μη αναστρέψιμη."
+
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:42
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:77
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:42
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:77
+msgid "Matière"
+msgstr "Υλικό"
+
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:48
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:48
+#: voiture/voiture_pneus/templates/voiture_pneus/list.html:60
+msgid "Diamètre"
+msgstr "Διάμετρος"
+
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:58
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:58
+msgid "Épaisseur minimum"
+msgstr "Ελάχιστο πάχος"
 
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:16
 msgid "Détails des freins arrière :"
@@ -27211,13 +27440,21 @@ msgstr "Επεξεργασία πίσω φρένων"
 msgid "Retour aux détails des freins arrière"
 msgstr "Επιστροφή στις λεπτομέρειες πίσω φρένων"
 
-#: voiture/voiture_freins_ar/views.py:51 voiture/voiture_freins_ar/views.py:109
+#: voiture/voiture_freins_ar/views.py:59 voiture/voiture_freins_ar/views.py:117
 msgid "Freins arrière ajoutés avec succès !"
 msgstr "Τα πίσω φρένα προστέθηκαν με επιτυχία!"
 
-#: voiture/voiture_freins_ar/views.py:187
+#: voiture/voiture_freins_ar/views.py:195
 msgid "Freins arrière mis à jour avec succès."
 msgstr "Τα πίσω φρένα ενημερώθηκαν με επιτυχία."
+
+#: voiture/voiture_freins_ar/views.py:288
+msgid "Suppression du système de freinage arrière"
+msgstr "Διαγραφή του συστήματος πίσω φρένων"
+
+#: voiture/voiture_freins_ar/views.py:301
+msgid "Système de freinage arrière supprimé avec succès."
+msgstr "Το σύστημα πίσω φρένων διαγράφηκε με επιτυχία."
 
 #: voiture/voiture_freins_av/forms.py:27
 msgid "Veuillez entrer un nombre valide."
@@ -27298,6 +27535,19 @@ msgstr "Τύπος εμπρός δίσκου"
 msgid "Ajouter un système de freinage avant"
 msgstr "Προσθήκη συστήματος εμπρόσθιου φρένου"
 
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:9
+#: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:109
+msgid "Supprimer le système de freinage avant"
+msgstr "Διαγραφή του συστήματος εμπρόσθιων φρένων"
+
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:13
+msgid ""
+"Voulez-vous vraiment supprimer ce système de freinage avant ? Cette action "
+"est irréversible."
+msgstr ""
+"Θέλετε πραγματικά να διαγράψετε αυτό το σύστημα εμπρόσθιων φρένων; Αυτή η "
+"ενέργεια είναι μη αναστρέψιμη."
+
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:16
 msgid "Détails des freins avant :"
 msgstr "Λεπτομέρειες μπροστινών φρένων:"
@@ -27306,7 +27556,7 @@ msgstr "Λεπτομέρειες μπροστινών φρένων:"
 msgid "Modifier les freins avant"
 msgstr "Επεξεργασία μπροστινών φρένων"
 
-#: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:163
+#: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:174
 msgid "Retour à la liste des freins avant"
 msgstr "Επιστροφή στη λίστα μπροστινών φρένων"
 
@@ -27350,13 +27600,21 @@ msgstr "Επεξεργασία μπροστινών φρένων:"
 msgid "Retour aux details freins avant"
 msgstr "Επιστροφή στις λεπτομέρειες εμπρός φρένων"
 
-#: voiture/voiture_freins_av/views.py:71
+#: voiture/voiture_freins_av/views.py:79
 msgid "Freins avant ajoutés avec succès !"
 msgstr "Τα μπροστινά φρένα προστέθηκαν με επιτυχία!"
 
-#: voiture/voiture_freins_av/views.py:108
+#: voiture/voiture_freins_av/views.py:116
 msgid "Freins avant mis à jour avec succès."
 msgstr "Τα μπροστινά φρένα ενημερώθηκαν με επιτυχία."
+
+#: voiture/voiture_freins_av/views.py:262
+msgid "Suppression du système de freinage avant"
+msgstr "Διαγραφή του συστήματος εμπρός φρένων"
+
+#: voiture/voiture_freins_av/views.py:275
+msgid "Système de freinage avant supprimé avec succès."
+msgstr "Το σύστημα εμπρός φρένων διαγράφηκε με επιτυχία."
 
 #: voiture/voiture_marque/templates/voiture_marque/ajouter_marque.html:9
 msgid "Ajouter une Marque"
@@ -28142,6 +28400,73 @@ msgstr "Χιλιόμετρα οπίσθιων ελαστικών"
 msgid "Ajouter des Pneus"
 msgstr "Προσθήκη ελαστικών"
 
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:9
+msgid "Supprimer les pneus"
+msgstr "Διαγραφή των ελαστικών"
+
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:13
+msgid ""
+"Voulez-vous vraiment supprimer cette monte de pneus ? Cette action est "
+"irréversible."
+msgstr ""
+"Θέλετε πραγματικά να διαγράψετε αυτή την τοποθέτηση ελαστικών; Αυτή η "
+"ενέργεια είναι μη αναστρέψιμη."
+
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:38
+#, python-format
+msgid ""
+"\n"
+"                Attention : %(counter)s entrée d'historique est liée à ces "
+"pneus.\n"
+"            "
+msgid_plural ""
+"\n"
+"                Attention : %(counter)s entrées d'historique sont liées à "
+"ces pneus.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Προσοχή: %(counter)s καταχώριση ιστορικού συνδέεται με αυτά "
+"τα ελαστικά.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Προσοχή: %(counter)s καταχωρίσεις ιστορικού συνδέονται με "
+"αυτά τα ελαστικά.\n"
+"            "
+
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:73
+msgid "Dimensions et indices"
+msgstr "Διαστάσεις και δείκτες"
+
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:75
+msgid "Dimension"
+msgstr "Διάσταση"
+
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:87
+msgid "Trains avant"
+msgstr "Εμπρός άξονας"
+
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:90
+msgid "Trains arrière"
+msgstr "Πίσω άξονας"
+
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:101
+msgid "Km pneus avant"
+msgstr "Χιλιόμετρα εμπρός ελαστικών"
+
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:106
+msgid "Km pneus arrière"
+msgstr "Χιλιόμετρα πίσω ελαστικών"
+
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:111
+msgid "Date de remplacement"
+msgstr "Ημερομηνία αντικατάστασης"
+
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:114
+msgid "Km au remplacement"
+msgstr "Χιλιόμετρα κατά την αντικατάσταση"
+
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:3
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:10
 msgid "Liste des Pneus"
@@ -28159,10 +28484,6 @@ msgstr "Τύπος ελαστικού"
 #: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:53
 msgid "Nom du pneu"
 msgstr "Όνομα ελαστικού"
-
-#: voiture/voiture_pneus/templates/voiture_pneus/list.html:60
-msgid "Diamètre"
-msgstr "Διάμετρος"
 
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:87
 msgid "hauteur"
@@ -28197,634 +28518,34 @@ msgstr "Μέγεθος"
 msgid "Modifier le pneus"
 msgstr "Επεξεργασία ελαστικού"
 
-#: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:112
+#: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:91
+msgid "Supprimer le pneumatique"
+msgstr "Διαγραφή του ελαστικού"
+
+#: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:122
 msgid "Retour a la liste des pneus"
 msgstr "Επιστροφή στη λίστα ελαστικών"
 
-#: voiture/voiture_pneus/views.py:28
+#: voiture/voiture_pneus/views.py:32
 msgid "Pneus remplacés avec succès."
 msgstr "Τα ελαστικά αντικαταστάθηκαν με επιτυχία."
 
-#: voiture/voiture_pneus/views.py:145
+#: voiture/voiture_pneus/views.py:149
 msgid "Pneu mis à jour avec succès."
 msgstr "Το ελαστικό ενημερώθηκε με επιτυχία."
 
-#~ msgid "Prix facturé"
-#~ msgstr "Τιμή χρέωσης"
-
-#~ msgid "Prix de la boite"
-#~ msgstr "Τιμή κιβωτίου ταχυτήτων"
-
-#~ msgid "Quantité facturée"
-#~ msgstr "Τιμολογημένη ποσότητα"
-
-#~ msgid "Coût de la main-d'œuvre"
-#~ msgstr "Κόστος εργασίας"
-
-#~ msgid "Coût de la main d'œuvre"
-#~ msgstr "Κόστος εργασίας"
-
-#~ msgid "Contrôle de l'embrayage supprimé avec succès."
-#~ msgstr "Ο έλεγχος του συμπλέκτη διαγράφηκε με επιτυχία."
-
-#~ msgid "Total main d'oeuvre"
-#~ msgstr "Συνολικό κόστος εργασίας"
-
-#~ msgid "Fabricant de la pompe à carburant"
-#~ msgstr "Κατασκευαστής αντλίας καυσίμου"
-
-#~ msgid "Prix de la pompe à carburant"
-#~ msgstr "Τιμή αντλίας καυσίμου"
-
-#~ msgid "Quantité de pompes à carburant"
-#~ msgstr "Ποσότητα αντλιών καυσίμου"
-
-#~ msgid "Fabricant de la pompe haute pression"
-#~ msgstr "Κατασκευαστής αντλίας υψηλής πίεσης"
-
-#~ msgid "Prix de la pompe haute pression"
-#~ msgstr "Τιμή αντλίας υψηλής πίεσης"
-
-#~ msgid "Quantité de pompes haute pression"
-#~ msgstr "Ποσότητα αντλιών υψηλής πίεσης"
-
-#~ msgid "Fabricant de la rampe d'injection"
-#~ msgstr "Κατασκευαστής ράγας ψεκασμού"
-
-#~ msgid "Prix de la rampe d'injection"
-#~ msgstr "Τιμή ράγας ψεκασμού"
-
-#~ msgid "Quantité de rampes d'injection"
-#~ msgstr "Ποσότητα ραγών ψεκασμού"
-
-#~ msgid "Fabricant du capteur de pression de rampe"
-#~ msgstr "Κατασκευαστής αισθητήρα πίεσης ράγας"
-
-#~ msgid "Prix du capteur de pression de rampe"
-#~ msgstr "Τιμή αισθητήρα πίεσης ράγας"
-
-#~ msgid "Quantité de capteurs de pression de rampe"
-#~ msgstr "Ποσότητα αισθητήρων πίεσης ράγας"
-
-#~ msgid "Fabricant des tuyaux haute pression"
-#~ msgstr "Κατασκευαστής σωληνώσεων υψηλής πίεσης"
-
-#~ msgid "Prix des tuyaux haute pression"
-#~ msgstr "Τιμή σωληνώσεων υψηλής πίεσης"
-
-#~ msgid "Quantité de tuyaux haute pression"
-#~ msgstr "Ποσότητα σωληνώσεων υψηλής πίεσης"
-
-#~ msgid "Fabricant des injecteurs"
-#~ msgstr "Κατασκευαστής μπεκ ψεκασμού"
-
-#~ msgid "Prix unitaire d'un injecteur"
-#~ msgstr "Τιμή μονάδας μπεκ ψεκασμού"
-
-#~ msgid "Quantité d'injecteurs remplacés"
-#~ msgstr "Αριθμός αντικατεστημένων μπεκ ψεκασμού"
-
-#~ msgid "Fabricant des connecteurs d'injecteurs"
-#~ msgstr "Κατασκευαστής συνδέσμων μπεκ ψεκασμού"
-
-#~ msgid "Prix des connecteurs d'injecteurs"
-#~ msgstr "Τιμή συνδέσμων μπεκ ψεκασμού"
-
-#~ msgid "Quantité de connecteurs d'injecteurs remplacés"
-#~ msgstr "Αριθμός αντικατεστημένων συνδέσμων μπεκ ψεκασμού"
-
-#~ msgid "Utilisateurs"
-#~ msgstr "Χρήστες"
-
-#~ msgid "Vous n'avez pas l'autorisation de supprimer ce plein."
-#~ msgstr "Δεν έχετε άδεια να διαγράψετε αυτόν τον ανεφοδιασμό."
-
-#~ msgid "Kilométrage au moment du remplacement de l'embrayage "
-#~ msgstr "Χιλιόμετρα κατά τη στιγμή της αντικατάστασης του συμπλέκτη"
-
-#~ msgid "Vous n'avez pas l'autorisation de supprimer cette recharge."
-#~ msgstr "Δεν έχετε δικαιώματα πρόσβασης σε αυτή τη σελίδα."
-
-#~ msgid "Aucune pièce ou aucun produit utilisé."
-#~ msgstr "Δεν χρησιμοποιήθηκε κανένα ανταλλακτικό ή προϊόν."
-
-#~ msgid "Aucun liquide ou produit ajouté."
-#~ msgstr "Δεν προστέθηκε κανένα υγρό ή προϊόν."
-
-#~ msgid "Kilomètres au remplacement de la boite"
-#~ msgstr "Χιλιόμετρα κατά την αντικατάσταση του κιβωτίου ταχυτήτων"
-
-#~ msgid "Nombre de boites total"
-#~ msgstr "Συνολικός αριθμός κιβωτίων ταχυτήτων"
-
-#~ msgid "Le kilométrage ne peut pas être inférieur."
-#~ msgstr "Η χιλιομετρική απόσταση δεν μπορεί να είναι μικρότερη."
-
-#~ msgid "Kilométrage échappement"
-#~ msgstr "Χιλιομετρική ένδειξη εξάτμισης"
-
-#~ msgid ""
-#~ "Cochez pour remplacer le moteur (remise à zéro automatique du "
-#~ "kilométrage)."
-#~ msgstr ""
-#~ "Επιλέξτε για αντικατάσταση του κινητήρα (αυτόματη μηδενισμός του "
-#~ "χιλιομετρητή)."
-
-#~ msgid "Le kilométrage moteur ne peut pas dépasser celui du véhicule."
-#~ msgstr ""
-#~ "Η χιλιομετρική ένδειξη του κινητήρα δεν μπορεί να υπερβαίνει τη "
-#~ "χιλιομετρική ένδειξη του οχήματος."
-
-#~ msgid "Variation de kilomètres depuis le dernier entretien"
-#~ msgstr "Μεταβολή χιλιομέτρων από την τελευταία συντήρηση"
-
-#~ msgid "Calculé automatiquement : total - dernier entretien"
-#~ msgstr "Υπολογίζεται αυτόματα: σύνολο - τελευταία συντήρηση"
-
-#~ msgid ""
-#~ "Le kilométrage du moteur ne peut pas être supérieur au kilométrage du "
-#~ "véhicule."
-#~ msgstr ""
-#~ "Τα χιλιόμετρα του κινητήρα δεν μπορούν να είναι μεγαλύτερα από τα "
-#~ "χιλιόμετρα του οχήματος."
-
-#~ msgid ""
-#~ "Le kilométrage du contrôle ABS ne peut pas être inférieur au kilométrage "
-#~ "enregistré avant l'intervention."
-#~ msgstr ""
-#~ "Τα χιλιόμετρα κατά τον έλεγχο του συστήματος ABS δεν μπορούν να είναι "
-#~ "μικρότερα από τα χιλιόμετρα που καταγράφηκαν πριν από την επέμβαση."
-
-#~ msgid "Contrôle de la boite de vitesses pour :"
-#~ msgstr "Έλεγχος κιβωτίου ταχυτήτων για :"
-
-#~ msgid "Modifier le checkup de la boite de vitesses"
-#~ msgstr "Τροποποίηση του checkup του κιβωτίου ταχυτήτων"
-
-#~ msgid "Contrôle de la boite automatique pour :"
-#~ msgstr "Έλεγχος αυτόματου κιβωτίου για:"
-
-#~ msgid "Contrôle boite automatique pour :"
-#~ msgstr "Έλεγχος αυτόματου κιβωτίου για:"
-
-#~ msgid "Modifier le checkup de la boite automatique"
-#~ msgstr "Τροποποίηση του checkup του αυτόματου κιβωτίου"
-
-#~ msgid "Contrôle Climatisation pour :"
-#~ msgstr "Έλεγχος κλιματισμού για:"
-
-#~ msgid "Détails du remplacement"
-#~ msgstr "Λεπτομέρειες αντικατάστασης"
-
-#~ msgid "Remplacement de la courroie d'accessoires pour :"
-#~ msgstr "Αντικατάσταση ιμάντα βοηθητικών για:"
-
-#~ msgid "Contrôle de la courroie d'accessoires pour :"
-#~ msgstr "Έλεγχος του ιμάντα βοηθητικών για:"
-
-#~ msgid "Modifier le remplacement de la courroie d'accessoires"
-#~ msgstr "Τροποποίηση της αντικατάστασης του ιμάντα βοηθητικών"
-
-#~ msgid "Modifier le checkup de l'échappement"
-#~ msgstr "Τροποποίηση ελέγχου συστήματος εξάτμισης"
-
-#~ msgid "Intervention sur la geometrie pour :"
-#~ msgstr "Επέμβαση στη γεωμετρία για:"
-
-#~ msgid "Intervention sur l'admission pour :"
-#~ msgstr "Επέμβαση στην εισαγωγή για:"
-
-#~ msgid "Détails de l'intervention"
-#~ msgstr "Λεπτομέρειες επέμβασης"
-
-#~ msgid "Retour au dashboard moteur"
-#~ msgstr "Επιστροφή στον πίνακα ελέγχου κινητήρα"
-
-#~ msgid ""
-#~ "Le kilométrage du contrôle de l'admission ne peut pas être inférieur au "
-#~ "kilométrage précédemment enregistré."
-#~ msgstr ""
-#~ "Η χιλιομετρική ένδειξη κατά τον έλεγχο του συστήματος εισαγωγής δεν "
-#~ "μπορεί να είναι μικρότερη από την προηγουμένως καταχωρημένη χιλιομετρική "
-#~ "ένδειξη."
-
-#~ msgid "Intervention sur l'allumage pour :"
-#~ msgstr "Εργασία στο σύστημα ανάφλεξης για:"
-
-#~ msgid "Intervention sur l'alternateur pour :"
-#~ msgstr "Επέμβαση στον εναλλακτήρα για:"
-
-#~ msgid "Détails de l'inspection après rodage"
-#~ msgstr "Λεπτομέρειες επέμβασης:"
-
-#~ msgid "Intervention sur le turbo pour :"
-#~ msgstr "Παρέμβαση στον υπερσυμπιεστή για:"
-
-#~ msgid "Modifier le controle du système de refroidissement"
-#~ msgstr "Τροποποίηση του ελέγχου του συστήματος ψύξης"
-
-#~ msgid "Contrôle refroidissement pour :"
-#~ msgstr "Έλεγχος του συστήματος ψύξης για:"
-
-#~ msgid "Détails de l'intervention :"
-#~ msgstr "Λεπτομέρειες επέμβασης:"
-
-#~ msgid "Modifier l'intervention carrosserie"
-#~ msgstr "Τροποποίηση επέμβασης καροσερί"
-
-#~ msgid "Contrôle complet pour :"
-#~ msgstr "Πλήρης έλεγχος για :"
-
-#~ msgid "Modification du checkup pour :"
-#~ msgstr "Τροποποίηση του check-up για:"
-
-#~ msgid "Controle piste pour :"
-#~ msgstr "Έλεγχος πίστας για:"
-
-#, python-format
-#~ msgid ""
-#~ "Le kilométrage de l'entretien ne peut pas être inférieur à %(km)s km."
-#~ msgstr ""
-#~ "Η χιλιομετρική ένδειξη της συντήρησης δεν μπορεί να είναι μικρότερη από "
-#~ "%(km)s km."
-
-#~ msgid "Contrôles du système d'essuyage pour :"
-#~ msgstr "Έλεγχος συστήματος υαλοκαθαριστήρων για:"
-
-#~ msgid "Modifier le controle de l'essuyage"
-#~ msgstr "Τροποποίηση ελέγχου του συστήματος υαλοκαθαριστήρων"
-
-#~ msgid "Contrôles des freins pour :"
-#~ msgstr "Έλεγχοι φρένων για:"
-
-#~ msgid "Contrôle des jeux pour :"
-#~ msgstr "Έλεγχος εξαρτημάτων για:"
-
-#~ msgid "Nettoyage intérieur pour :"
-#~ msgstr "Εσωτερικός καθαρισμός για:"
-
-#~ msgid "Modifier le Contrôle des niveaux"
-#~ msgstr "Τροποποίηση ελέγχου επιπέδων"
-
-#~ msgid ""
-#~ "Le kilométrage du contrôle des niveaux ne peut pas être inférieur au "
-#~ "kilométrage enregistré avant l'intervention."
-#~ msgstr ""
-#~ "Τα χιλιόμετρα κατά τον έλεγχο των επιπέδων υγρών δεν μπορούν να είναι "
-#~ "μικρότερα από τα χιλιόμετρα που καταγράφηκαν πριν από την επέμβαση."
-
-#~ msgid "Détails du checkup des Pneus"
-#~ msgstr "Λεπτομέρειες ελέγχου ελαστικών"
-
-#~ msgid "Modifier le Contrôle des silent blocs"
-#~ msgstr "Τροποποίηση Ελέγχου των Silent Blocks"
-
-#~ msgid "Contrôle des silent blocs pour :"
-#~ msgstr "Έλεγχος silent blocks για:"
-
-#~ msgid "Retour à la liste des contrôles silent blocs"
-#~ msgstr "Επιστροφή στη λίστα ελέγχων silent blocks"
-
-#~ msgid "Liste de tous les véhicules"
-#~ msgstr "Λίστα όλων των οχημάτων"
-
-#~ msgid "Aucun véhicule trouvé."
-#~ msgstr "Δεν βρέθηκε κανένα όχημα."
-
-#~ msgid "Supprimer le controle de l'ABS"
-#~ msgstr "Διαγραφή του ελέγχου ABS"
-
-#~ msgid "Supprimer le controle de la boite de vitesse"
-#~ msgstr "Διαγραφή του ελέγχου κιβωτίου ταχυτήτων"
-
-#~ msgid "Arbre d'entrée"
-#~ msgstr "Άξονας εισόδου"
-
-#~ msgid "Pompe / Valves"
-#~ msgstr "Αντλία / Βαλβίδες"
-
-#~ msgid "Arbres"
-#~ msgstr "Άξονες"
-
-#~ msgid "Embrayages automatiques"
-#~ msgstr "Αυτόματοι συμπλέκτες"
-
-#~ msgid "Bienvenue sur le tableau de bord boite"
-#~ msgstr "Καλώς ήρθατε στον πίνακα ελέγχου του κιβωτίου ταχυτήτων"
-
-#~ msgid "Bienvenue sur le tableau de bord Echappement"
-#~ msgstr "Καλώς ήρθατε στον πίνακα ελέγχου του συστήματος εξάτμισης"
-
-#, python-format
-#~ msgid "Modification courroie de distribution - %(immatriculation)s"
-#~ msgstr "Τροποποίηση ιμάντα χρονισμού - %(immatriculation)s"
-
-#~ msgid "Liste des contrôles injection"
-#~ msgstr "Λίστα ελέγχων ψεκασμού"
-
-#~ msgid "Bienvenue sur le tableau de bord moteur"
-#~ msgstr "Καλώς ήρθατε στον πίνακα ελέγχου κινητήρα"
-
-#~ msgid "Autres maintenances"
-#~ msgstr "Άλλες εργασίες συντήρησης"
-
-#~ msgid "Liste des Nettoyages extérieurs"
-#~ msgstr "Λίστα εξωτερικών καθαρισμών"
-
-#~ msgid "Liste des Nettoyages intérieurs"
-#~ msgstr "Λίστα εσωτερικών καθαρισμών"
-
-#~ msgid "Liste des contrôles silent blocs"
-#~ msgstr "Λίστα ελέγχων silent blocks"
-
-#, python-format
-#~ msgid "Contrôle ABS - %(immatriculation)s"
-#~ msgstr "Έλεγχος ABS - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification contrôle ABS - %(immatriculation)s"
-#~ msgstr "Τροποποίηση ελέγχου ABS - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Remplacement boite de vitesse - %(immatriculation)s"
-#~ msgstr "Αντικατάσταση κιβωτίου ταχυτήτων - %(immatriculation)s"
-
-#, python-format
-#~ msgid ""
-#~ "Modification du remplacement de la boite de vitesse - %(immatriculation)s"
-#~ msgstr ""
-#~ "Τροποποίηση της αντικατάστασης του κιβωτίου ταχυτήτων - "
-#~ "%(immatriculation)s"
-
-#~ msgid "Rapport généré le"
-#~ msgstr "Η έκθεση δημιουργήθηκε στις"
-
-#, python-format
-#~ msgid "Contrôle Boite de vitesse - %(immatriculation)s"
-#~ msgstr "Έλεγχος κιβωτίου ταχυτήτων - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification contrôle Boite de vitesse - %(immatriculation)s"
-#~ msgstr "Τροποποίηση ελέγχου κιβωτίου ταχυτήτων - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Contrôle boite automatique - %(immatriculation)s"
-#~ msgstr "Έλεγχος αυτόματου κιβωτίου ταχυτήτων - %(immatriculation)s"
-
-#, python-format
-#~ msgid ""
-#~ "Modification du contrôle de la boite automatique - %(immatriculation)s"
-#~ msgstr ""
-#~ "Τροποποίηση ελέγχου αυτόματου κιβωτίου ταχυτήτων - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Contrôle climatisation - %(immatriculation)s"
-#~ msgstr "Έλεγχος κλιματισμού - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification contrôle climatisation - %(immatriculation)s"
-#~ msgstr "Τροποποίηση ελέγχου κλιματισμού - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Courroie d'accessoires - %(immatriculation)s"
-#~ msgstr "Ιμάντας βοηθητικών - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification courroie d'accessoires - %(immatriculation)s"
-#~ msgstr "Τροποποίηση του ιμάντα βοηθητικών - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Contrôle échappement - %(immatriculation)s"
-#~ msgstr "Έλεγχος συστήματος εξάτμισης - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Remplacement embrayage - %(immatriculation)s"
-#~ msgstr "Αντικατάσταση συμπλέκτη - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification du remplacement de l'embrayage - %(immatriculation)s"
-#~ msgstr "Τροποποίηση της αντικατάστασης συμπλέκτη - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Géométrie - %(immatriculation)s"
-#~ msgstr "Γεωμετρία τροχών - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification géométrie - %(immatriculation)s"
-#~ msgstr "Τροποποίηση γεωμετρίας τροχών - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Admission - %(immatriculation)s"
-#~ msgstr "Σύστημα εισαγωγής - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification admission - %(immatriculation)s"
-#~ msgstr "Τροποποίηση συστήματος εισαγωγής - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Allumage - %(immatriculation)s"
-#~ msgstr "Σύστημα ανάφλεξης - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification allumage - %(immatriculation)s"
-#~ msgstr "Τροποποίηση συστήματος ανάφλεξης - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Alternateur - %(immatriculation)s"
-#~ msgstr "Εναλλάκτης - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification alternateur - %(immatriculation)s"
-#~ msgstr "Τροποποίηση εναλλάκτη - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Courroie de distribution - %(immatriculation)s"
-#~ msgstr "Ιμάντας χρονισμού - %(immatriculation)s"
-
-#~ msgid "Observations"
-#~ msgstr "Παρατηρήσεις"
-
-#~ msgid "Aucune observation."
-#~ msgstr "Καμία παρατήρηση."
-
-#, python-format
-#~ msgid "Système d'injection - %(immatriculation)s"
-#~ msgstr "Σύστημα ψεκασμού - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification du contrôle de l' injection - %(immatriculation)s"
-#~ msgstr "Τροποποίηση ελέγχου ψεκασμού - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Remplacement moteur - %(immatriculation)s"
-#~ msgstr "Αντικατάσταση κινητήρα - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification remplacement moteur - %(immatriculation)s"
-#~ msgstr "Τροποποίηση αντικατάστασης κινητήρα - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Rodage - %(immatriculation)s"
-#~ msgstr "Στρώσιμο - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification rodage - %(immatriculation)s"
-#~ msgstr "Τροποποίηση στρωσίματος - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Turbo - %(immatriculation)s"
-#~ msgstr "Υπερσυμπιεστής - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification turbo - %(immatriculation)s"
-#~ msgstr "Τροποποίηση υπερσυμπιεστή - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Contrôle système de refroidissement - %(immatriculation)s"
-#~ msgstr "Έλεγχος του συστήματος ψύξης - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Carrosserie - %(immatriculation)s"
-#~ msgstr "Αμαξοποιία - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification carrosserie - %(immatriculation)s"
-#~ msgstr "Τροποποίηση αμαξοποιίας - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Checkup - %(immatriculation)s"
-#~ msgstr "Γενικός έλεγχος - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification checkup - %(immatriculation)s"
-#~ msgstr "Τροποποίηση γενικού ελέγχου - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Check-up piste - %(immatriculation)s"
-#~ msgstr "Έλεγχος πίστας - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification check-up piste - %(immatriculation)s"
-#~ msgstr "Τροποποίηση του check-up πίστας - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Entretien - %(immatriculation)s"
-#~ msgstr "Συντήρηση - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification entretien - %(immatriculation)s"
-#~ msgstr "Τροποποίηση συντήρησης - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Contrôle essuyage - %(immatriculation)s"
-#~ msgstr "Έλεγχος συστήματος υαλοκαθαριστήρων - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Freins - %(immatriculation)s"
-#~ msgstr "Φρένα - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification du contrôle des freins - %(immatriculation)s"
-#~ msgstr "Τροποποίηση ελέγχου φρένων - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Jeux - %(immatriculation)s"
-#~ msgstr "Έλεγχος τζόγων - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification jeux - %(immatriculation)s"
-#~ msgstr "Τροποποίηση ελέγχου τζόγων - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Nettoyage extérieur - %(immatriculation)s"
-#~ msgstr "Καθαρισμοί εξωτερικού - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification du nettoyage extérieur - %(immatriculation)s"
-#~ msgstr "Τροποποίηση εξωτερικού καθαρισμού - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Nettoyage intérieur - %(immatriculation)s"
-#~ msgstr "Εσωτερικός καθαρισμός - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification du nettoyage intérieur - %(immatriculation)s"
-#~ msgstr "Τροποποίηση εσωτερικού καθαρισμού - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Niveaux - %(immatriculation)s"
-#~ msgstr "Έλεγχος στάθμης υγρών - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification des niveaux - %(immatriculation)s"
-#~ msgstr "Τροποποίηση ελέγχου στάθμης υγρών - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Pneus - %(immatriculation)s"
-#~ msgstr "Ελαστικά - %(immatriculation)s"
-
-#, python-format
-#~ msgid "Modification du contrôle pneus - %(immatriculation)s"
-#~ msgstr "Τροποποίηση ελέγχου ελαστικών - %(immatriculation)s"
-
-#~ msgid "Une adresse est nécessaire"
-#~ msgstr "Η διεύθυνση είναι υποχρεωτική."
-
-#~ msgid "Une adresse est obligatoire pour une société."
-#~ msgstr "Απαιτείται διεύθυνση για μια εταιρεία."
-
-#~ msgid "Compte bancaire"
-#~ msgstr "Τραπεζικός λογαριασμός"
-
-#~ msgid "Checkup boite"
-#~ msgstr "Έλεγχος κιβωτίου ταχυτήτων"
-
-#~ msgid "Controle boite auto"
-#~ msgstr "Έλεγχος αυτόματου κιβωτίου ταχυτήτων"
-
-#, python-format
-#~ msgid "Contrôle Embrayage - %(immatriculation)s"
-#~ msgstr "Έλεγχος συμπλέκτη - %(immatriculation)s"
-
-#~ msgid "Filtration"
-#~ msgstr "Φιλτράρισμα"
-
-#~ msgid "Mesure d'air"
-#~ msgstr "Μέτρηση αέρα"
-
-#~ msgid "Admission principale"
-#~ msgstr "Κύριο σύστημα εισαγωγής"
-
-#~ msgid "Suralimentation"
-#~ msgstr "Υπερπλήρωση"
-
-#~ msgid "Système EGR"
-#~ msgstr "Σύστημα EGR"
-
-#~ msgid "Divers"
-#~ msgstr "Διάφορα"
-
-#~ msgid "Entraînement de l'alternateur"
-#~ msgstr "Σύστημα μετάδοσης κίνησης του εναλλάκτη"
-
-#, python-format
-#~ msgid "Contrôle du système de refroidissement — %(vehicule)s"
-#~ msgstr "Έλεγχος του συστήματος ψύξης — %(vehicule)s"
-
-#~ msgid "Prix du pare-chocs avant"
-#~ msgstr "Τιμή μπροστινού προφυλακτήρα"
-
-#~ msgid "Vitre de porte avant gauche oem"
-#~ msgstr "Γυαλί αριστερής μπροστινής πόρτας OEM"
-
-#~ msgid "Sans"
-#~ msgstr "Χωρίς"
-
-#~ msgid "Qualité de liquide de frein"
-#~ msgstr "Ποιότητα υγρού φρένων"
-
-#~ msgid "Plaquettes avant état"
-#~ msgstr "Κατάσταση εμπρός τακακιών"
-
-#~ msgid "Nettoyage Extérieur"
-#~ msgstr "Καθαρισμός εξωτερικού"
+#: voiture/voiture_pneus/views.py:260
+msgid "Suppression des pneus"
+msgstr "Διαγραφή των ελαστικών"
+
+#: voiture/voiture_pneus/views.py:276
+msgid ""
+"Impossible de supprimer ces pneus : ils sont encore référencés par d'autres "
+"données."
+msgstr ""
+"Δεν είναι δυνατή η διαγραφή αυτών των ελαστικών: εξακολουθούν να αναφέρονται "
+"από άλλα δεδομένα."
+
+#: voiture/voiture_pneus/views.py:287
+msgid "Pneus supprimés avec succès."
+msgstr "Τα ελαστικά διαγράφηκαν με επιτυχία."
