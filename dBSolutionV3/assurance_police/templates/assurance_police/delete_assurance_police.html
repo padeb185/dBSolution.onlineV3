@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-4 text-red-700">
+        {% trans "Supprimer la police d'assurance" %}
+    </h1>
+
+    <p class="mb-6">
+        {% trans "Voulez-vous vraiment supprimer cette police d'assurance ? Cette action est irréversible." %}
+    </p>
+
+    {# ================================================== #}
+    {# VÉHICULE / SINISTRES LIÉS                           #}
+    {# ================================================== #}
+    {% if police.voiture_exemplaire or sinistres_lies %}
+        <div class="mb-6 p-4 bg-yellow-50 border border-yellow-300 rounded text-sm">
+            {% if police.voiture_exemplaire %}
+                <h2 class="font-semibold mb-1">{% trans "Véhicule concerné" %}</h2>
+                <ul class="list-disc list-inside mb-2">
+                    <li>{{ police.voiture_exemplaire }}</li>
+                </ul>
+            {% endif %}
+            {% if sinistres_lies %}
+                <h2 class="font-semibold mb-1">
+                    {% trans "Sinistre(s) qui seront également supprimé(s)" %}
+                </h2>
+                <ul class="list-disc list-inside">
+                    {% for s in sinistres_lies %}
+                        <li>
+                            {{ s.date_sinistre|date:"d/m/Y" }}
+                            — {{ s.description|truncatechars:60 }}
+                            {% if s.montant_estime is not None %}({{ s.montant_estime|floatformat:2 }} €){% endif %}
+                            {% if s.cloture %}<span class="text-gray-500">· {% trans "clôturé" %}</span>{% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# CONTRAT                                             #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Contrat" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "N° de contrat" %}</dt>
+            <dd class="font-medium">{{ police.numero_contrat|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Compagnie" %}</dt>
+            <dd class="font-medium">{{ police.assurance.nom_compagnie|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Courtier" %}</dt>
+            <dd class="font-medium">{{ police.courtier|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Type de couverture" %}</dt>
+            <dd class="font-medium">{{ police.get_type_couverture_display|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Période" %}</dt>
+            <dd class="font-medium">
+                {{ police.date_debut|date:"d/m/Y"|default:"—" }}
+                → {{ police.date_fin|date:"d/m/Y"|default:"—" }}
+            </dd>
+
+            <dt class="text-gray-600">{% trans "Statut" %}</dt>
+            <dd class="font-medium">
+                {% if police.est_expiree %}
+                    <span class="text-red-700">{% trans "Expirée" %}</span>
+                {% elif police.expire_bientot %}
+                    <span class="text-orange-600">{% trans "Expire bientôt" %}</span>
+                {% elif police.actif %}
+                    <span class="text-green-700">{% trans "Active" %}</span>
+                {% else %}
+                    <span class="text-gray-500">{% trans "Inactive" %}</span>
+                {% endif %}
+            </dd>
+        </dl>
+    </div>
+
+    {# ================================================== #}
+    {# PAIEMENT                                            #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Paiement" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Prime mensuelle" %}</dt>
+            <dd class="font-medium">
+                {% if police.prime_mensuelle is not None %}{{ police.prime_mensuelle|floatformat:2 }} €{% else %}—{% endif %}
+            </dd>
+
+            <dt class="text-gray-600">{% trans "Prime annuelle" %}</dt>
+            <dd class="font-medium">
+                {% if police.prime_annuelle is not None %}{{ police.prime_annuelle|floatformat:2 }} €{% else %}—{% endif %}
+            </dd>
+
+            <dt class="text-gray-600">{% trans "Franchise" %}</dt>
+            <dd class="font-medium">
+                {% if police.franchise is not None %}{{ police.franchise|floatformat:2 }} €{% else %}—{% endif %}
+            </dd>
+
+            <dt class="text-gray-600">{% trans "Bonus-malus" %}</dt>
+            <dd class="font-medium">{{ police.bonus_malus|default_if_none:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Fréquence de paiement" %}</dt>
+            <dd class="font-medium">{{ police.get_frequence_paiement_display|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Mode de paiement" %}</dt>
+            <dd class="font-medium">{{ police.get_mode_paiement_display|default:"—" }}</dd>
+        </dl>
+    </div>
+
+    {% if police.document_pdf %}
+        <div class="mb-4 border rounded">
+            <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Document" %}</h2>
+            <p class="p-4 text-sm">
+                <a href="{{ police.document_pdf.url }}" target="_blank" class="text-blue-700 underline">
+                    {% trans "Voir le PDF de la police" %}
+                </a>
+                <span class="block text-xs text-gray-500 mt-1">
+                    {% trans "Le fichier sera supprimé avec la police." %}
+                </span>
+            </p>
+        </div>
+    {% endif %}
+
+    {% if police.remarques %}
+        <div class="mb-4 border rounded">
+            <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Remarques" %}</h2>
+            <p class="p-4 text-sm whitespace-pre-line">{{ police.remarques }}</p>
+        </div>
+    {% endif %}
+
+    <p class="text-xs text-gray-500 mb-6">
+        {% trans "Créé le" %} {{ police.created_at|date:"d/m/Y H:i"|default:"—" }}
+        · {% trans "Mis à jour le" %} {{ police.updated_at|date:"d/m/Y H:i"|default:"—" }}
+    </p>
+
+    {# ================================================== #}
+    {# FORMULAIRE                                          #}
+    {# ================================================== #}
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="flex gap-4 w-full">
+            <button
+                type="submit"
+                class="w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold"
+            >
+                {% trans "Supprimer" %}
+            </button>
+
+            {# "as" : ne plante pas si le nom d'URL n'existe pas #}
+            {% url 'assurance_police:list' as url_liste_polices %}
+            <a href="{{ request.META.HTTP_REFERER|default:url_liste_polices|default:'javascript:history.back()' }}" class="block w-full">
+                <button
+                    type="button"
+                    class="w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold"
+                >
+                    {% trans "Annuler" %}
+                </button>
+            </a>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

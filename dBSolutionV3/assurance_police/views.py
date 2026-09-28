@@ -1,15 +1,24 @@
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from datetime import timedelta
-from django.shortcuts import render, redirect, get_object_or_404
+
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from .forms import AssurancePoliceForm
-from .models import AssurancePolice, Sinistre
+from .models import Sinistre
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _
+
+from .models import AssurancePolice
+
+
+
+
+
 
 
 @login_required
@@ -148,4 +157,41 @@ def modifier_assurance_police(request, assurance_police_id):
             "form": form,
             "assurance_police": assurance_police,
         }
+    )
+
+
+
+
+
+@login_required
+def delete_assurance_police_view(request, pk):
+    police = get_object_or_404(
+        AssurancePolice.objects.select_related("assurance", "voiture_exemplaire", "societe"),
+        pk=pk,
+    )
+    sinistres_lies = police.sinistres.all()
+
+    if request.method == "POST":
+        numero = police.numero_contrat
+        fichier = police.document_pdf if police.document_pdf else None
+
+        with transaction.atomic():
+            police.delete()  # supprime aussi les sinistres (CASCADE)
+            # Le fichier PDF n'est pas supprimé automatiquement par Django
+            if fichier:
+                transaction.on_commit(lambda: fichier.storage.delete(fichier.name))
+
+        messages.success(
+            request,
+            _("La police « %(numero)s » a bien été supprimée.") % {"numero": numero},
+        )
+        return redirect("assurance_police:assurance_police_list")
+
+    return render(
+        request,
+        "assurance_police/delete_assurance_police.html",
+        {
+            "police": police,
+            "sinistres_lies": sinistres_lies,
+        },
     )
