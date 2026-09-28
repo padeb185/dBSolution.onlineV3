@@ -3,20 +3,18 @@
 
 
 {% block content %}
-<br>
-<br>
-<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-4">
 
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
             <span>{% trans "Modifier l'achat :" %}</span>
            {% with image_name=achat.fournisseur|slugify %}
                 <img src="{% static 'achat_mds/'|add:image_name|add:'.png' %}"
-                     alt="{{ achat_mds.fournisseur }}"
+                     alt="{{ achat.fournisseur }}"
                      class="w-12 h-12"
                      onerror="this.src='{% static 'icons/achatmds.png' %}';">
             {% endwith %}
-           <span class="text-black-700">{{ achat.fournisseur }}</span>
+           <span class="text-gray-900">{{ achat.fournisseur }}</span>
         </h1>
     </div>
 
@@ -51,7 +49,6 @@
     {% endif %}
 
 
-
     <form method="post" class="space-y-4">
         {% csrf_token %}
 
@@ -77,23 +74,30 @@
             </div>
         {% endfor %}
 
+        <div class="flex gap-3 mt-6">
+            <button type="submit"
+                    class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Enregistrer" %}
+            </button>
 
-          <div class="flex gap-3 mt-6">
-                <button type="submit"
-                        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-                    {% trans "Enregistrer" %}
-                </button>
-
-                <a href="{% url 'achat_mds:achat_detail' achat_id=achat.id %}"
-                   class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
-                    {% trans "Annuler" %}
-                </a>
-            </div>
-
-
+            <a href="{% url 'achat_mds:achat_detail' achat_id=achat.id %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                {% trans "Annuler" %}
+            </a>
+        </div>
 
     </form>
 </div>
+
+<div class="max-w-xl mx-auto mb-4">
+    <a href="{% url 'achat_mds:achat_detail' achat_id=achat.id %}"
+        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour aux détails de l'achat" %}
+    </a>
+</div>
+
+
+
 
 <style>
 .input {

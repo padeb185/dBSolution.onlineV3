@@ -86,6 +86,14 @@
     </form>
 </div>
 
+<div class="max-w-xl mx-auto mt-4">
+    <a href="{% url 'adresse:adresse_detail' adresse_id=adresse.id %}"
+        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour aux détails de l'adresse" %}
+    </a>
+</div>
+
+
 <style>
 .input {
     width: 100% !important;
