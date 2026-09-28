@@ -1,22 +1,31 @@
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.db import transaction
-from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context, schema_context
 from adresse.models import Adresse
-from django.utils.translation import gettext as _
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from client_atelier.forms import ClientAtelierForm
-from client_atelier.models import ClientAtelier
 from societe_cliente.models import SocieteCliente
 from client_particulier.models import ClientParticulier
-from voiture.voiture_exemplaire.models import VoitureExemplaire
 from client_pilotage.models import ClientPilotage
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db import router, transaction
+from django.db.models import ProtectedError, RestrictedError
+from django.db.models.deletion import Collector
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import gettext as _
+
+from .models import ClientAtelier
+
+
+
+
+
+
+
+
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -367,3 +376,83 @@ def dashboard_client_view(request):
     }
 
     return render(request, "client_atelier/dashboard_client.html", context)
+
+
+
+
+
+
+
+def _analyse_suppression(obj):
+    """
+    Retourne (objets_supprimes, objets_bloquants), chacun sous la forme
+    [(verbose_name_plural, [objets]), ...]
+    """
+    collector = Collector(using=router.db_for_write(obj.__class__, instance=obj))
+    try:
+        collector.collect([obj])
+    except (ProtectedError, RestrictedError) as e:
+        bloquants = getattr(e, "protected_objects", None) or getattr(e, "restricted_objects", [])
+        groupes = {}
+        for o in bloquants:
+            groupes.setdefault(o._meta.verbose_name_plural, []).append(o)
+        return [], list(groupes.items())
+
+    supprimes = []
+    for model, instances in collector.data.items():
+        if model is obj.__class__:
+            continue
+        instances = list(instances)
+        if instances:
+            supprimes.append((model._meta.verbose_name_plural, instances))
+    return supprimes, []
+
+
+@login_required
+def delete_client_atelier_view(request, pk):
+    client_atelier = get_object_or_404(
+        ClientAtelier.objects
+        .select_related("client_particulier", "societe_cliente", "adresse", "societe")
+        .prefetch_related("voitures"),
+        pk=pk,
+    )
+    objets_supprimes, objets_bloquants = _analyse_suppression(client_atelier)
+    voitures_liees = list(client_atelier.voitures.all())
+
+    if request.method == "POST":
+        libelle = str(client_atelier)
+
+        if objets_bloquants:
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : ce client est encore utilisé ailleurs.") % {"nom": libelle},
+            )
+            return redirect("client_atelier:delete_client_atelier", pk=pk)
+
+        try:
+            with transaction.atomic():
+                adresse = client_atelier.adresse
+                client_atelier.delete()  # retire aussi les liens M2M vers les voitures
+                # OneToOne : l'adresse n'appartient qu'à ce client → on la supprime aussi
+                if adresse:
+                    adresse.delete()
+        except (ProtectedError, RestrictedError):
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : ce client est encore utilisé ailleurs.") % {"nom": libelle},
+            )
+            return redirect("client_atelier:delete_client_atelier", pk=pk)
+
+        messages.success(request, _("« %(nom)s » a bien été supprimé.") % {"nom": libelle})
+        return redirect("client_atelier:client_atelier_list")
+
+    return render(
+        request,
+        "client_atelier/delete_client_atelier.html",
+        {
+            "client_atelier": client_atelier,
+            "voitures_liees": voitures_liees,
+            "objets_supprimes": objets_supprimes,
+            "objets_bloquants": objets_bloquants,
+        },
+    )

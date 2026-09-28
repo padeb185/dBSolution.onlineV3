@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-4 text-red-700">
+        {% trans "Supprimer le client atelier" %}
+    </h1>
+
+    {% if objets_bloquants %}
+        <p class="mb-6">
+            {% trans "Ce client atelier ne peut pas être supprimé car il est encore utilisé." %}
+        </p>
+    {% else %}
+        <p class="mb-6">
+            {% trans "Voulez-vous vraiment supprimer ce client atelier ? Cette action est irréversible." %}
+        </p>
+    {% endif %}
+
+    {# ================================================== #}
+    {# ÉLÉMENTS BLOQUANTS (PROTECT / RESTRICT)             #}
+    {# ================================================== #}
+    {% if objets_bloquants %}
+        <div class="mb-6 p-4 bg-red-50 border border-red-300 rounded text-sm">
+            <h2 class="font-semibold mb-1 text-red-700">
+                {% trans "Élément(s) qui empêchent la suppression" %}
+            </h2>
+            {% for label, objets in objets_bloquants %}
+                <h3 class="font-medium mt-2">{{ label|capfirst }} ({{ objets|length }})</h3>
+                <ul class="list-disc list-inside">
+                    {% for obj in objets|slice:":10" %}<li>{{ obj }}</li>{% endfor %}
+                    {% if objets|length > 10 %}<li class="text-gray-500">…</li>{% endif %}
+                </ul>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# VÉHICULES LIÉS (liens retirés, véhicules conservés) #}
+    {# ================================================== #}
+    {% if voitures_liees %}
+        <div class="mb-6 p-4 bg-blue-50 border border-blue-300 rounded text-sm">
+            <h2 class="font-semibold mb-1">{% trans "Véhicule(s) associé(s)" %}</h2>
+            <ul class="list-disc list-inside mb-2">
+                {% for v in voitures_liees %}<li>{{ v }}</li>{% endfor %}
+            </ul>
+            <p class="text-gray-600">
+                {% trans "Ces véhicules ne seront pas supprimés : seul leur lien avec ce client sera retiré." %}
+            </p>
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# ÉLÉMENTS SUPPRIMÉS EN CASCADE                       #}
+    {# ================================================== #}
+    {% if objets_supprimes or client_atelier.adresse %}
+        <div class="mb-6 p-4 bg-yellow-50 border border-yellow-300 rounded text-sm">
+            <h2 class="font-semibold mb-1">{% trans "Élément(s) qui seront également supprimé(s)" %}</h2>
+            {% if client_atelier.adresse %}
+                <h3 class="font-medium mt-2">{% trans "Adresse" %}</h3>
+                <ul class="list-disc list-inside">
+                    <li>{{ client_atelier.adresse }}</li>
+                </ul>
+            {% endif %}
+            {% for label, objets in objets_supprimes %}
+                <h3 class="font-medium mt-2">{{ label|capfirst }} ({{ objets|length }})</h3>
+                <ul class="list-disc list-inside">
+                    {% for obj in objets|slice:":10" %}<li>{{ obj }}</li>{% endfor %}
+                    {% if objets|length > 10 %}<li class="text-gray-500">…</li>{% endif %}
+                </ul>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# CLIENT                                              #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Client atelier" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Type" %}</dt>
+            <dd class="font-medium">
+                {% if client_atelier.client_particulier %}
+                    {% trans "Particulier" %}
+                {% elif client_atelier.societe_cliente %}
+                    {% trans "Société" %}
+                {% else %}—{% endif %}
+            </dd>
+
+            {% if client_atelier.client_particulier %}
+                <dt class="text-gray-600">{% trans "Client particulier" %}</dt>
+                <dd class="font-medium">
+                    {{ client_atelier.client_particulier.nom }} {{ client_atelier.client_particulier.prenom }}
+                </dd>
+
+                <dt class="text-gray-600">{% trans "Téléphone" %}</dt>
+                <dd class="font-medium">{{ client_atelier.client_particulier.numero_telephone|default:"—" }}</dd>
+
+                <dt class="text-gray-600">{% trans "Email" %}</dt>
+                <dd class="font-medium">{{ client_atelier.client_particulier.email|default:"—" }}</dd>
+            {% endif %}
+
+            {% if client_atelier.societe_cliente %}
+                <dt class="text-gray-600">{% trans "Société cliente" %}</dt>
+                <dd class="font-medium">{{ client_atelier.societe_cliente }}</dd>
+            {% endif %}
+
+            <dt class="text-gray-600">{% trans "Adresse" %}</dt>
+            <dd class="font-medium">{{ client_atelier.adresse|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Nombre de véhicules" %}</dt>
+            <dd class="font-medium">{{ voitures_liees|length }}</dd>
+        </dl>
+        {% if client_atelier.client_particulier or client_atelier.societe_cliente %}
+            <p class="px-4 pb-3 text-xs text-gray-500">
+                {% trans "La fiche du client particulier ou de la société cliente n'est pas supprimée." %}
+            </p>
+        {% endif %}
+    </div>
+
+    {% if client_atelier.remarques %}
+        <div class="mb-4 border rounded">
+            <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Remarques" %}</h2>
+            <p class="p-4 text-sm whitespace-pre-line">{{ client_atelier.remarques }}</p>
+        </div>
+    {% endif %}
+
+    <p class="text-xs text-gray-500 mb-6">
+        {% trans "Créé le" %} {{ client_atelier.created_at|date:"d/m/Y H:i"|default:"—" }}
+        · {% trans "Mis à jour le" %} {{ client_atelier.updated_at|date:"d/m/Y H:i"|default:"—" }}
+    </p>
+
+    {# ================================================== #}
+    {# FORMULAIRE                                          #}
+    {# ================================================== #}
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="flex gap-4 w-full">
+            {% if objets_bloquants %}
+                <button
+                    type="button"
+                    disabled
+                    class="w-full bg-gray-200 text-gray-500 px-4 py-2 rounded font-semibold cursor-not-allowed"
+                >
+                    {% trans "Suppression impossible" %}
+                </button>
+            {% else %}
+                <button
+                    type="submit"
+                    class="w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold"
+                >
+                    {% trans "Supprimer" %}
+                </button>
+            {% endif %}
+
+            {# "as" : ne plante pas si le nom d'URL n'existe pas #}
+            {% url 'client_atelier:list' as url_liste_clients_atelier %}
+            <a href="{{ request.META.HTTP_REFERER|default:url_liste_clients_atelier|default:'javascript:history.back()' }}" class="block w-full">
+                <button
+                    type="button"
+                    class="w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold"
+                >
+                    {% trans "Annuler" %}
+                </button>
+            </a>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

@@ -6,7 +6,7 @@ from .views import (
     client_atelier_detail_view,
     client_atelier_form_view,
     dashboard_client_view,
-    modifier_client_atelier_view,
+    modifier_client_atelier_view, delete_client_atelier_view,
 )
 
 app_name = "client_atelier"
@@ -47,4 +47,7 @@ urlpatterns = [
         modifier_client_atelier_view,
         name="modifier_client_atelier",
     ),
+
+    path("<int:pk>/supprimer/", delete_client_atelier_view, name="delete_client_atelier"),
+
 ]
