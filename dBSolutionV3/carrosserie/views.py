@@ -7,6 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context, schema_context
+from utilisateurs.models import UserLog
 from .forms import CarrosserieForm
 from .models import Carrosserie
 from django.utils.translation import gettext as _
@@ -170,3 +171,76 @@ def dashboard_carrosserie_view(request):
     })
     return render(request, "carrosserie/dashboard_carrosserie.html", context)
 
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from django.db.models import ProtectedError, RestrictedError
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import gettext as _, gettext_noop
+
+from core.suppression import analyser_suppression
+from .models import Carrosserie
+# from <ton_app>.models import UserLog
+
+ACTION_SUPPRESSION_CARROSSERIE = gettext_noop("Suppression de la carrosserie")
+
+
+@login_required
+def delete_carrosserie_view(request, pk):
+    carrosserie = get_object_or_404(
+        Carrosserie.objects.select_related("adresse", "societe"),
+        pk=pk,
+    )
+
+    analyse = analyser_suppression(carrosserie)
+    objets_bloquants = analyse["bloquants"]
+    objets_supprimes = analyse["supprimes"]
+
+    if request.method == "POST":
+        nom = carrosserie.nom_societe
+
+        if objets_bloquants:
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : elle est encore utilisée ailleurs.") % {"nom": nom},
+            )
+            return redirect("carrosserie:delete_carrosserie", pk=pk)
+
+        # Libellé pour le log (capturé AVANT la suppression)
+        nom_log = nom
+        if carrosserie.numero_tva:
+            nom_log += f" (TVA {carrosserie.numero_tva})"
+
+        try:
+            with transaction.atomic():
+                adresse = carrosserie.adresse
+                carrosserie.delete()
+
+                # L'adresse est supprimée avec la carrosserie
+                if adresse:
+                    adresse.delete()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_SUPPRESSION_CARROSSERIE} : {nom_log}",
+                )
+        except (ProtectedError, RestrictedError):
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : la carrosserie ou son adresse est encore utilisée ailleurs.") % {
+                    "nom": nom},
+            )
+            return redirect("carrosserie:delete_carrosserie", pk=pk)
+
+        messages.success(request, _("La carrosserie « %(nom)s » a bien été supprimée.") % {"nom": nom})
+        return redirect("carrosserie:carrosserie_list")
+
+    return render(
+        request,
+        "carrosserie/delete_carrosserie.html",
+        {
+            "carrosserie": carrosserie,
+            "objets_supprimes": objets_supprimes,
+            "objets_bloquants": objets_bloquants,
+        },
+    )

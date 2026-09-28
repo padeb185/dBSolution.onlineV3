@@ -24,8 +24,8 @@ class Carrosserie(models.Model):
     responsable_nom = models.CharField(_("Nom du responsable"), null=True, blank=True, max_length=100)
     responsable_prenom = models.CharField(_("Prenom du responsable"),null=True,blank=True, max_length=100)
     adresse = models.ForeignKey(
-        "adresse.Adresse",  # app_label.ModelName
-        on_delete=models.CASCADE,
+        "adresse.Adresse",
+        on_delete=models.CASCADE,  # ← au lieu de CASCADE
         null=True,
         blank=True,
         related_name="carrosserie",
