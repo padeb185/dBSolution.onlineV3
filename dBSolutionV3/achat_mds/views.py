@@ -1,14 +1,17 @@
 from django.views.generic import ListView
-from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from achat_mds.forms import AchatForm
-from achat_mds.models import AchatMds
 from fournisseur.models import Fournisseur
-from django.utils.translation import gettext as _
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from django.db.models import ProtectedError, RestrictedError
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import gettext as _
+
+from .models import AchatMds
+
 
 
 
@@ -120,6 +123,34 @@ def modifier_achat_view(request, achat_id):
         }
     )
 
+
+
+
+
+
+@login_required
+def delete_achat_view(request, pk):
+    achat = get_object_or_404(
+        AchatMds.objects.select_related("fournisseur", "societe"),
+        pk=pk,
+    )
+
+    if request.method == "POST":
+        libelle = achat.reference_facture or achat.libelle_facture or str(achat)
+        try:
+            with transaction.atomic():
+                achat.delete()
+        except (ProtectedError, RestrictedError):
+            messages.error(
+                request,
+                _("Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé ailleurs.") % {"ref": libelle},
+            )
+            return redirect("achat_mds:delete_achat", pk=pk)
+
+        messages.success(request, _("L'achat « %(ref)s » a bien été supprimé.") % {"ref": libelle})
+        return redirect("achat_mds:achat_list")
+
+    return render(request, "achat_mds/delete_achat.html", {"achat": achat})
 
 
 

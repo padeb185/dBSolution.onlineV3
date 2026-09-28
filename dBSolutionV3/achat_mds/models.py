@@ -84,15 +84,13 @@ class AchatMds(models.Model):
     # ------------------------
 
     @property
-    def montant_tva(self):
-        if not self.achat_montant_htva + self.transport_montant_htva:
-            return Decimal("0.00")
+    def montant_htva_total(self):
+        return (self.achat_montant_htva or Decimal("0.00")) + (self.transport_montant_htva or Decimal("0.00"))
 
-        return (self.achat_montant_htva + self.transport_montant_htva )* self.achat_tva / Decimal("100")
+    @property
+    def montant_tva(self):
+        return (self.montant_htva_total * (self.achat_tva or Decimal("0")) / Decimal("100")).quantize(Decimal("0.01"))
 
     @property
     def total_tvac(self):
-        if not self.achat_montant_htva + self.transport_montant_htva:
-            return Decimal("0.00")
-
-        return self.achat_montant_htva + self.transport_montant_htva + self.montant_tva
+        return self.montant_htva_total + self.montant_tva

@@ -19,6 +19,21 @@
 
     </div>
 
+     <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded border
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border-red-300
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+
     <!-- Infos principales -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
 
@@ -83,6 +98,16 @@
                 </button>
             </a>
         </div>
+         {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}
+            <div class="mt-auto w-full">
+                <a href="{% url 'achat_mds:delete_achat' achat.pk %}" class="block w-full">
+                    <button type="button" class="w-full bg-red-700 text-white px-4 py-2 rounded hover:hover:bg-red-400 font-semibold">
+                        {% trans "Supprimer l'achat" %}
+                    </button>
+                </a>
+            </div>
+        {% endif %}
+    <br>
     </div>
 
     <!-- Adresse -->

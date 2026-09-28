@@ -6,7 +6,7 @@ from .views import (
     check_nom_fournisseur_view,
     fournisseur_dashboard_view,
     fournisseur_detail,
-    modifier_fournisseur,
+    modifier_fournisseur, delete_fournisseur_view,
 )
 
 app_name = "fournisseur"
@@ -47,4 +47,9 @@ urlpatterns = [
         check_nom_fournisseur_view,
         name="check_nom_fournisseur",
     ),
+
+
+    path("<uuid:pk>/supprimer/", delete_fournisseur_view, name="delete_fournisseur"),
+
+
 ]

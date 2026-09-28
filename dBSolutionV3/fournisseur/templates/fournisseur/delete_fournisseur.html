@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-4 text-red-700">
+        {% trans "Supprimer le fournisseur" %}
+    </h1>
+
+    {% if objets_bloquants %}
+        <p class="mb-6">
+            {% trans "Ce fournisseur ne peut pas être supprimé car il est encore utilisé." %}
+        </p>
+    {% else %}
+        <p class="mb-6">
+            {% trans "Voulez-vous vraiment supprimer ce fournisseur ? Cette action est irréversible." %}
+        </p>
+    {% endif %}
+
+    {# ================================================== #}
+    {# ÉLÉMENTS BLOQUANTS (PROTECT / RESTRICT)             #}
+    {# ================================================== #}
+    {% if objets_bloquants %}
+        <div class="mb-6 p-4 bg-red-50 border border-red-300 rounded text-sm">
+            <h2 class="font-semibold mb-1 text-red-700">
+                {% trans "Élément(s) qui empêchent la suppression" %}
+            </h2>
+            <ul class="list-disc list-inside">
+                {% for obj in objets_bloquants|slice:":20" %}
+                    <li>{{ obj }} <span class="text-gray-500">({{ obj|default:""|stringformat:"s"|yesno:"," }}{{ obj.meta_verbose_name }})</span></li>
+                {% endfor %}
+            </ul>
+            {% if objets_bloquants|length > 20 %}
+                <p class="mt-1 text-gray-600">
+                    {% blocktrans count n=objets_bloquants|length %}… {{ n }} élément au total{% plural %}… {{ n }} éléments au total{% endblocktrans %}
+                </p>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# ÉLÉMENTS SUPPRIMÉS EN CASCADE                       #}
+    {# ================================================== #}
+    {% if objets_supprimes %}
+        <div class="mb-6 p-4 bg-yellow-50 border border-yellow-300 rounded text-sm">
+            <h2 class="font-semibold mb-1">{% trans "Élément(s) qui seront également supprimé(s)" %}</h2>
+            {% for label, objets in objets_supprimes %}
+                <h3 class="font-medium mt-2">{{ label|capfirst }} ({{ objets|length }})</h3>
+                <ul class="list-disc list-inside">
+                    {% for obj in objets|slice:":10" %}<li>{{ obj }}</li>{% endfor %}
+                    {% if objets|length > 10 %}<li class="text-gray-500">…</li>{% endif %}
+                </ul>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# IDENTIFICATION                                      #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Fournisseur" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Nom du fournisseur" %}</dt>
+            <dd class="font-medium">{{ fournisseur.nom|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Numéro de TVA" %}</dt>
+            <dd class="font-medium">{{ fournisseur.numero_tva|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Taux de TVA" %}</dt>
+            <dd class="font-medium">
+                {% if fournisseur.taux_tva is not None %}{{ fournisseur.taux_tva|floatformat:2 }} %{% else %}—{% endif %}
+            </dd>
+
+            <dt class="text-gray-600">{% trans "Identifiant Peppol" %}</dt>
+            <dd class="font-medium">{{ fournisseur.peppol_id|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Code pays" %}</dt>
+            <dd class="font-medium">{{ fournisseur.country_code|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Adresse" %}</dt>
+            <dd class="font-medium">{{ fournisseur.adresse|default:"—" }}</dd>
+        </dl>
+    </div>
+
+    {# ================================================== #}
+    {# CONTACT & BANQUE                                    #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Contact & banque" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Email" %}</dt>
+            <dd class="font-medium">{{ fournisseur.email|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Téléphone fixe" %}</dt>
+            <dd class="font-medium">{{ fournisseur.telephone_fixe|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "GSM" %}</dt>
+            <dd class="font-medium">{{ fournisseur.gsm|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Numéro de compte bancaire" %}</dt>
+            <dd class="font-medium">{{ fournisseur.numero_compte|default:"—" }}</dd>
+        </dl>
+    </div>
+
+    <p class="text-xs text-gray-500 mb-6">
+        {% trans "Créé le" %} {{ fournisseur.created_at|date:"d/m/Y H:i"|default:"—" }}
+        · {% trans "Mis à jour le" %} {{ fournisseur.updated_at|date:"d/m/Y H:i"|default:"—" }}
+    </p>
+
+    {# ================================================== #}
+    {# FORMULAIRE                                          #}
+    {# ================================================== #}
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="flex gap-4 w-full">
+            {% if objets_bloquants %}
+                <button
+                    type="button"
+                    disabled
+                    class="w-full bg-gray-200 text-gray-500 px-4 py-2 rounded font-semibold cursor-not-allowed"
+                >
+                    {% trans "Suppression impossible" %}
+                </button>
+            {% else %}
+                <button
+                    type="submit"
+                    class="w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold"
+                >
+                    {% trans "Supprimer" %}
+                </button>
+            {% endif %}
+
+            {# "as" : ne plante pas si le nom d'URL n'existe pas #}
+            {% url 'fournisseur:list' as url_liste_fournisseurs %}
+            <a href="{{ request.META.HTTP_REFERER|default:url_liste_fournisseurs|default:'javascript:history.back()' }}" class="block w-full">
+                <button
+                    type="button"
+                    class="w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold"
+                >
+                    {% trans "Annuler" %}
+                </button>
+            </a>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

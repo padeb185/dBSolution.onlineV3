@@ -1,17 +1,21 @@
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.db import transaction
-from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import  ListView
-from .models import Fournisseur
 from .forms import FournisseurForm
 from adresse.models import Adresse
-from django.utils.translation import gettext as _
 from achat_mds.models import AchatMds
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db import router, transaction
+from django.db.models import ProtectedError, RestrictedError
+from django.db.models.deletion import Collector
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import gettext as _
+
+from .models import Fournisseur
+
 
 
 
@@ -202,3 +206,72 @@ def check_nom_fournisseur_view(request):
         return JsonResponse({
             "error": str(e)
         }, status=500)
+
+
+
+
+
+
+
+def _analyse_suppression(obj):
+    """
+    Retourne (objets_supprimes, objets_bloquants) :
+    - objets_supprimes : liste de (verbose_name_plural, [objets]) supprimés en cascade
+    - objets_bloquants : liste d'objets qui empêchent la suppression (PROTECT / RESTRICT)
+    """
+    collector = Collector(using=router.db_for_write(obj.__class__, instance=obj))
+    try:
+        collector.collect([obj])
+    except (ProtectedError, RestrictedError) as e:
+        bloquants = getattr(e, "protected_objects", None) or getattr(e, "restricted_objects", [])
+        return [], list(bloquants)
+
+    supprimes = []
+    for model, instances in collector.data.items():
+        if model is obj.__class__:
+            continue
+        instances = list(instances)
+        if instances:
+            supprimes.append((model._meta.verbose_name_plural, instances))
+    return supprimes, []
+
+
+@login_required
+def delete_fournisseur_view(request, pk):
+    fournisseur = get_object_or_404(
+        Fournisseur.objects.select_related("adresse", "societe"),
+        pk=pk,
+    )
+    objets_supprimes, objets_bloquants = _analyse_suppression(fournisseur)
+
+    if request.method == "POST":
+        if objets_bloquants:
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : il est encore utilisé ailleurs.") % {"nom": fournisseur.nom},
+            )
+            return redirect("fournisseur:delete_fournisseur", pk=fournisseur.pk)
+
+        nom = fournisseur.nom
+        try:
+            with transaction.atomic():
+                fournisseur.delete()
+        except (ProtectedError, RestrictedError):
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : il est encore utilisé ailleurs.") % {"nom": nom},
+            )
+            return redirect("fournisseur:delete_fournisseur", pk=pk)
+
+        messages.success(request, _("Le fournisseur « %(nom)s » a bien été supprimé.") % {"nom": nom})
+        return redirect("fournisseur:fournisseur_list")
+
+    return render(
+        request,
+        "fournisseur/delete_fournisseur.html",
+        {
+            "fournisseur": fournisseur,
+            "objets_supprimes": objets_supprimes,
+            "objets_bloquants": objets_bloquants,
+        },
+    )
