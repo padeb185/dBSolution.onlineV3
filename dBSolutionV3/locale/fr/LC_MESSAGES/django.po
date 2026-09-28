@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-27 14:46+0200\n"
+"POT-Creation-Date: 2026-09-28 08:19+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -14110,11 +14110,19 @@ msgid "Type d'ampoule"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:239
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:717
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:632
 #: maintenance/check_up/models.py:1470
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2248
+#: maintenance/check_up/templates/check_up/controle_total.html:1606
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:1512
 #: maintenance/checkup_track/models.py:387
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1855
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1442
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1309
 #: maintenance/entretien/models.py:545
+#: maintenance/entretien/templates/entretien/entretien_check.html:662
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:666
 msgid "Grands phares"
 msgstr ""
 
@@ -14379,17 +14387,6 @@ msgstr "Tableau de Bord"
 #: maintenance/entretien/templates/entretien/entretien_check.html:628
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:632
 msgid "Phares avant"
-msgstr ""
-
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:717
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:632
-#: maintenance/check_up/templates/check_up/controle_total.html:1606
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:1512
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1442
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1309
-#: maintenance/entretien/templates/entretien/entretien_check.html:662
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:666
-msgid "Gros phares"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:790

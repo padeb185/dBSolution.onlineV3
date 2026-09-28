@@ -26838,6 +26838,7 @@ msgid ""
 "Impossible de supprimer cet embrayage : il est encore référencé par d'autres "
 "données."
 msgstr ""
+"Unable to delete this clutch: it is still referenced by other data."
 
 #: voiture/voiture_embrayage/views.py:247
 msgid "Embrayage supprimé avec succès."
@@ -28363,7 +28364,6 @@ msgid ""
 "irréversible."
 msgstr ""
 "Do you really want to delete this tire setup? This action cannot be undone."
-
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:38
 #, python-format
 msgid ""
@@ -28377,7 +28377,15 @@ msgid_plural ""
 "ces pneus.\n"
 "            "
 msgstr[0] ""
+"\n"
+"                Warning: %(counter)s history entry is linked to these "
+"tires.\n"
+"            "
 msgstr[1] ""
+"\n"
+"                Warning: %(counter)s history entries are linked to these "
+"tires.\n"
+"            "
 
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:73
 msgid "Dimensions et indices"
@@ -28487,6 +28495,7 @@ msgid ""
 "Impossible de supprimer ces pneus : ils sont encore référencés par d'autres "
 "données."
 msgstr ""
+"Unable to delete these tires: they are still referenced by other data."
 
 #: voiture/voiture_pneus/views.py:287
 msgid "Pneus supprimés avec succès."
