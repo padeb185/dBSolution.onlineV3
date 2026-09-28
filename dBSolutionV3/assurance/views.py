@@ -1,20 +1,20 @@
-# assurance/views.py
-import societe
+
+from core.suppression import analyser_suppression
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+from django.db.models import ProtectedError, RestrictedError
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context, schema_context
 from adresse.models import Adresse
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _, gettext_noop
 from assurance.models import Assurance
 from assurance.forms import AssuranceForm
 from adresse.forms import AdresseForm
 from assurance_police.models import AssurancePolice
+from utilisateurs.models import UserLog
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -209,31 +209,70 @@ def dashboard_assurance_view(request):
         context,
     )
 
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.db.models import ProtectedError
-from django.shortcuts import get_object_or_404, redirect, render
-from django.utils.translation import gettext as _
 
-from .models import Assurance
+
+
+
+
+
+ACTION_SUPPRESSION_ASSURANCE = gettext_noop("Suppression de l'assurance")
 
 
 @login_required
 def delete_assurance_view(request, pk):
-    assurance = get_object_or_404(Assurance, pk=pk)
+    assurance = get_object_or_404(
+        Assurance.objects.select_related("adresse", "societe"),
+        pk=pk,
+    )
+
+    analyse = analyser_suppression(assurance)
+    objets_bloquants = analyse["bloquants"]
+    objets_supprimes = analyse["supprimes"]
 
     if request.method == "POST":
         nom = assurance.nom_compagnie or _("Assurance")
-        try:
-            assurance.delete()
-        except ProtectedError:
+
+        if objets_bloquants:
             messages.error(
                 request,
                 _("Impossible de supprimer « %(nom)s » : elle est encore liée à d'autres éléments.") % {"nom": nom},
             )
-            return redirect("assurance:assurance_detail", pk=assurance.pk)
+            return redirect("assurance:delete_assurance", pk=pk)
+
+        # Libellé pour le log (capturé AVANT la suppression)
+        nom_log = assurance.nom_compagnie or f"#{assurance.pk}"
+        courtier = " ".join(filter(None, [assurance.courtier_prenom, assurance.courtier_nom]))
+        if courtier:
+            nom_log += f" (courtier : {courtier})"
+        nb_supprimes = sum(len(objets) for _label, objets in objets_supprimes)
+        if nb_supprimes:
+            detail = ", ".join(f"{len(objets)} {label}" for label, objets in objets_supprimes)
+            nom_log += f" – supprimé(s) en cascade : {detail}"
+
+        try:
+            with transaction.atomic():
+                assurance.delete()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_SUPPRESSION_ASSURANCE} : {nom_log}",
+                )
+        except (ProtectedError, RestrictedError):
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : elle est encore liée à d'autres éléments.") % {"nom": nom},
+            )
+            return redirect("assurance:delete_assurance", pk=pk)
 
         messages.success(request, _("L'assurance « %(nom)s » a bien été supprimée.") % {"nom": nom})
         return redirect("assurance:assurance_list")
 
-    return render(request, "assurance/delete_assurance.html", {"assurance": assurance})
+    return render(
+        request,
+        "assurance/delete_assurance.html",
+        {
+            "assurance": assurance,
+            "objets_supprimes": objets_supprimes,
+            "objets_bloquants": objets_bloquants,
+        },
+    )

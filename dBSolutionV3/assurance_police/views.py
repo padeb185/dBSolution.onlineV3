@@ -1,3 +1,4 @@
+from django.db.models import ProtectedError, RestrictedError
 from django.utils import timezone
 from datetime import timedelta
 
@@ -5,13 +6,14 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
+from utilisateurs.models import UserLog
 from .forms import AssurancePoliceForm
 from .models import Sinistre
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _, gettext_noop
 
 from .models import AssurancePolice
 
@@ -45,6 +47,8 @@ def dashboard_assurances(request):
     }
 
     return render(request, 'assurance_police/dashboard.html', context)
+
+
 
 
 @method_decorator([login_required, never_cache], name="dispatch")
@@ -163,6 +167,11 @@ def modifier_assurance_police(request, assurance_police_id):
 
 
 
+
+
+ACTION_SUPPRESSION_POLICE = gettext_noop("Suppression de la police d'assurance")
+
+
 @login_required
 def delete_assurance_police_view(request, pk):
     police = get_object_or_404(
@@ -173,13 +182,38 @@ def delete_assurance_police_view(request, pk):
 
     if request.method == "POST":
         numero = police.numero_contrat
-        fichier = police.document_pdf if police.document_pdf else None
 
-        with transaction.atomic():
-            police.delete()  # supprime aussi les sinistres (CASCADE)
-            # Le fichier PDF n'est pas supprimé automatiquement par Django
-            if fichier:
-                transaction.on_commit(lambda: fichier.storage.delete(fichier.name))
+        # Fichier PDF : on capture nom + stockage AVANT la suppression
+        nom_fichier = police.document_pdf.name if police.document_pdf else None
+        stockage = police.document_pdf.storage if police.document_pdf else None
+
+        # Libellé pour le log (capturé AVANT la suppression)
+        compagnie = police.assurance.nom_compagnie if police.assurance else "—"
+        voiture = str(police.voiture_exemplaire) if police.voiture_exemplaire_id else "—"
+        nb_sinistres = sinistres_lies.count()
+        nom_log = f"{numero} – {compagnie} – {voiture}"
+        if nb_sinistres:
+            nom_log += f" – {nb_sinistres} sinistre(s) supprimé(s)"
+
+        try:
+            with transaction.atomic():
+                police.delete()  # supprime aussi les sinistres (CASCADE)
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_SUPPRESSION_POLICE} : {nom_log}",
+                )
+
+                # Le fichier PDF n'est pas supprimé automatiquement par Django :
+                # on l'efface seulement si la transaction est validée
+                if nom_fichier:
+                    transaction.on_commit(lambda: stockage.delete(nom_fichier))
+        except (ProtectedError, RestrictedError):
+            messages.error(
+                request,
+                _("Impossible de supprimer la police « %(numero)s » : elle est encore liée à d'autres éléments.") % {"numero": numero},
+            )
+            return redirect("assurance_police:delete_assurance_police", pk=pk)
 
         messages.success(
             request,
