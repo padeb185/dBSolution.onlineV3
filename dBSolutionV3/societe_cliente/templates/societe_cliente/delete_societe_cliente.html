@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto mt-10 mb-10 p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-4 text-red-700">
+        {% trans "Supprimer la société cliente" %}
+    </h1>
+
+    {% if objets_bloquants %}
+        <p class="mb-6">
+            {% trans "Cette société cliente ne peut pas être supprimée car elle est encore utilisée." %}
+        </p>
+    {% else %}
+        <p class="mb-6">
+            {% trans "Voulez-vous vraiment supprimer cette société cliente ? Cette action est irréversible." %}
+        </p>
+    {% endif %}
+
+    {# ================================================== #}
+    {# ÉLÉMENTS BLOQUANTS (PROTECT / RESTRICT)             #}
+    {# ================================================== #}
+    {% if objets_bloquants %}
+        <div class="mb-6 p-4 bg-red-50 border border-red-300 rounded text-sm">
+            <h2 class="font-semibold mb-1 text-red-700">
+                {% trans "Élément(s) qui empêchent la suppression" %}
+            </h2>
+            {% for label, objets in objets_bloquants %}
+                <h3 class="font-medium mt-2">{{ label|capfirst }} ({{ objets|length }})</h3>
+                <ul class="list-disc list-inside">
+                    {% for obj in objets|slice:":10" %}<li>{{ obj }}</li>{% endfor %}
+                    {% if objets|length > 10 %}<li class="text-gray-500">…</li>{% endif %}
+                </ul>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# ÉLÉMENTS SUPPRIMÉS (adresse + cascade)              #}
+    {# ================================================== #}
+    {% if objets_supprimes or societe_cliente.adresse %}
+        <div class="mb-6 p-4 bg-yellow-50 border border-yellow-300 rounded text-sm">
+            <h2 class="font-semibold mb-1">{% trans "Élément(s) qui seront également supprimé(s)" %}</h2>
+            {% if societe_cliente.adresse %}
+                <h3 class="font-medium mt-2">{% trans "Adresse" %}</h3>
+                <ul class="list-disc list-inside">
+                    <li>{{ societe_cliente.adresse }}</li>
+                </ul>
+            {% endif %}
+            {% for label, objets in objets_supprimes %}
+                <h3 class="font-medium mt-2">{{ label|capfirst }} ({{ objets|length }})</h3>
+                <ul class="list-disc list-inside">
+                    {% for obj in objets|slice:":10" %}<li>{{ obj }}</li>{% endfor %}
+                    {% if objets|length > 10 %}<li class="text-gray-500">…</li>{% endif %}
+                </ul>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# SOCIÉTÉ                                             #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Société cliente" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Nom de la société" %}</dt>
+            <dd class="font-medium">{{ societe_cliente.nom_societe_cliente|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Numéro de TVA" %}</dt>
+            <dd class="font-medium">{{ societe_cliente.numero_tva|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Numéro d'entreprise" %}</dt>
+            <dd class="font-medium">{{ societe_cliente.numero_entreprise|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Taux de TVA" %}</dt>
+            <dd class="font-medium">
+                {% if societe_cliente.taux_tva is not None %}{{ societe_cliente.taux_tva|floatformat:2 }} %{% else %}—{% endif %}
+            </dd>
+
+            <dt class="text-gray-600">{% trans "Identifiant Peppol" %}</dt>
+            <dd class="font-medium">{{ societe_cliente.peppol_id|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Adresse" %}</dt>
+            <dd class="font-medium">{{ societe_cliente.adresse|default:"—" }}</dd>
+        </dl>
+    </div>
+
+    {# ================================================== #}
+    {# DIRECTION / CONTACT                                 #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Direction & contact" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Directeur" %}</dt>
+            <dd class="font-medium">{{ societe_cliente.directeur_nom_prenom|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Téléphone" %}</dt>
+            <dd class="font-medium">{{ societe_cliente.numero_telephone|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Email" %}</dt>
+            <dd class="font-medium">{{ societe_cliente.email|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Site internet" %}</dt>
+            <dd class="font-medium">
+                {% if societe_cliente.site_internet %}
+                    <a href="{{ societe_cliente.site_internet }}" target="_blank" rel="noopener" class="text-blue-700 underline">
+                        {{ societe_cliente.site_internet }}
+                    </a>
+                {% else %}—{% endif %}
+            </dd>
+        </dl>
+    </div>
+
+    {# ================================================== #}
+    {# BANQUE (masqué)                                     #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Banque" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Compte bancaire" %}</dt>
+            <dd class="font-medium font-mono">{{ compte_masque|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Carte bancaire" %}</dt>
+            <dd class="font-medium font-mono">{{ carte_bancaire_masquee|default:"—" }}</dd>
+        </dl>
+    </div>
+
+    {% if societe_cliente.historique %}
+        <div class="mb-4 border rounded">
+            <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Historique" %}</h2>
+            <p class="p-4 text-sm whitespace-pre-line max-h-48 overflow-y-auto">{{ societe_cliente.historique }}</p>
+        </div>
+    {% endif %}
+
+    {% if societe_cliente.remarques %}
+        <div class="mb-4 border rounded">
+            <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Remarques" %}</h2>
+            <p class="p-4 text-sm whitespace-pre-line">{{ societe_cliente.remarques }}</p>
+        </div>
+    {% endif %}
+
+    <p class="text-xs text-gray-500 mb-6">
+        {% trans "Créé le" %} {{ societe_cliente.created_at|date:"d/m/Y H:i"|default:"—" }}
+        · {% trans "Mis à jour le" %} {{ societe_cliente.updated_at|date:"d/m/Y H:i"|default:"—" }}
+    </p>
+
+    {# ================================================== #}
+    {# FORMULAIRE                                          #}
+    {# ================================================== #}
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="flex gap-4 w-full">
+            {% if objets_bloquants %}
+                <button
+                    type="button"
+                    disabled
+                    class="w-full bg-gray-200 text-gray-500 px-4 py-2 rounded font-semibold cursor-not-allowed"
+                >
+                    {% trans "Suppression impossible" %}
+                </button>
+            {% else %}
+                <button
+                    type="submit"
+                    class="w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold"
+                >
+                    {% trans "Supprimer" %}
+                </button>
+            {% endif %}
+
+            {% url 'societe_cliente:societe_cliente_list' as url_liste_societes %}
+            <a href="{{ request.META.HTTP_REFERER|default:url_liste_societes|default:'javascript:history.back()' }}" class="block w-full">
+                <button
+                    type="button"
+                    class="w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold"
+                >
+                    {% trans "Annuler" %}
+                </button>
+            </a>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

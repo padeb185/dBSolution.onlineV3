@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import SocieteClienteListView, ajouter_societe_cliente_all, societe_cliente_detail, modifier_societe_cliente
+from .views import SocieteClienteListView, ajouter_societe_cliente_all, societe_cliente_detail, \
+    modifier_societe_cliente, delete_societe_cliente_view
 
 app_name = "societe_cliente"
 
@@ -15,4 +16,9 @@ urlpatterns = [
 
     # Modifier une société cliente
     path("<uuid:societe_cliente_id>/modifier/", modifier_societe_cliente, name="modifier_societe_cliente"),
+
+    path("<uuid:pk>/supprimer/", delete_societe_cliente_view, name="delete_societe_cliente"),
+
+
+
 ]

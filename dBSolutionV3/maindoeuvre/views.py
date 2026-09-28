@@ -3,18 +3,25 @@ from django.template.loader import render_to_string
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib import messages
 from django.utils import timezone
-from django.db import transaction
 from django.views.decorators.cache import never_cache
-from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext_lazy as _
 from utilisateurs.models import UserLog
 from weasyprint import HTML
-from .models import MainDoeuvre
 from .forms import MainDoeuvreForm
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from django.db.models import ProtectedError, RestrictedError
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import NoReverseMatch
+from django.utils.translation import gettext as _, gettext_noop
+
+from core.suppression import analyser_suppression
+from .models import MainDoeuvre
+
+
+
 
 
 
@@ -231,3 +238,80 @@ def maindoeuvre_detail_pdf_view(request, id):
 
     HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf(response)
     return response
+
+
+
+
+
+
+ACTION_SUPPRESSION_MAIN_OEUVRE = gettext_noop("Suppression de la main-d'œuvre")
+
+
+def _redirect_apres_suppression(voiture_id):
+    """Retour à la fiche du véhicule si possible, sinon à la liste."""
+    if voiture_id:
+        try:
+            return redirect("voiture_exemplaire:detail", exemplaire_id=voiture_id)
+        except NoReverseMatch:
+            pass
+    return redirect("maindoeuvre:main_oeuvre_list")
+
+
+@login_required
+def delete_main_oeuvre_view(request, pk):
+    main_oeuvre = get_object_or_404(
+        MainDoeuvre.objects.select_related("utilisateur", "voiture_exemplaire", "societe"),
+        pk=pk,
+    )
+
+    analyse = analyser_suppression(main_oeuvre)
+    objets_bloquants = analyse["bloquants"]
+    objets_supprimes = analyse["supprimes"]
+
+    if request.method == "POST":
+        libelle = main_oeuvre.descriptif or main_oeuvre.temps_display
+        voiture_id = main_oeuvre.voiture_exemplaire_id
+
+        if objets_bloquants:
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : elle est encore utilisée ailleurs.") % {"nom": libelle},
+            )
+            return redirect("maindoeuvre:delete_main_oeuvre", pk=pk)
+
+        # Libellé pour le log (capturé AVANT la suppression)
+        voiture = str(main_oeuvre.voiture_exemplaire) if voiture_id else "—"
+        mecanicien = str(main_oeuvre.utilisateur) if main_oeuvre.utilisateur_id else "—"
+        date_mo = main_oeuvre.date.strftime("%d/%m/%Y") if main_oeuvre.date else "—"
+        nom_log = (
+            f"{libelle} – {voiture} – {mecanicien} – {date_mo} – "
+            f"{main_oeuvre.temps_display} – {main_oeuvre.cout_total:.2f} €"
+        )
+
+        try:
+            with transaction.atomic():
+                main_oeuvre.delete()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_SUPPRESSION_MAIN_OEUVRE} : {nom_log}",
+                )
+        except (ProtectedError, RestrictedError):
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : elle est encore utilisée ailleurs.") % {"nom": libelle},
+            )
+            return redirect("maindoeuvre:delete_main_oeuvre", pk=pk)
+
+        messages.success(request, _("La main-d'œuvre « %(nom)s » a bien été supprimée.") % {"nom": libelle})
+        return _redirect_apres_suppression(voiture_id)
+
+    return render(
+        request,
+        "maindoeuvre/delete_main_oeuvre.html",
+        {
+            "main_oeuvre": main_oeuvre,
+            "objets_supprimes": objets_supprimes,
+            "objets_bloquants": objets_bloquants,
+        },
+    )

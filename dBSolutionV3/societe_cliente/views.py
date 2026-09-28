@@ -1,5 +1,8 @@
+from core.suppression import analyser_suppression, masquer
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from django.db.models import ProtectedError, RestrictedError
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
@@ -8,11 +11,8 @@ from django_tenants.utils import tenant_context
 from adresse.models import Adresse
 from societe_cliente.models import SocieteCliente
 from societe_cliente.forms import SocieteClienteForm
-from django.utils.translation import gettext as _
-
-
-
-
+from django.utils.translation import gettext as _, gettext_noop
+from utilisateurs.models import UserLog
 
 
 @method_decorator([login_required, never_cache], name="dispatch")
@@ -198,3 +198,78 @@ def modifier_societe_cliente(request, societe_cliente_id):
             "societe_cliente": societe_cliente,
         }
     )
+
+
+
+
+
+ACTION_SUPPRESSION_SOCIETE_CLIENTE = gettext_noop("Suppression de la société cliente")
+
+
+@login_required
+def delete_societe_cliente_view(request, pk):
+    societe_cliente = get_object_or_404(
+        SocieteCliente.objects.select_related("adresse", "societe"),
+        pk=pk,
+    )
+
+    analyse = analyser_suppression(societe_cliente)
+    objets_bloquants = analyse["bloquants"]
+    objets_supprimes = analyse["supprimes"]
+
+    if request.method == "POST":
+        nom = societe_cliente.nom_societe_cliente or _("Sans nom")
+
+        if objets_bloquants:
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : elle est encore utilisée ailleurs.") % {"nom": nom},
+            )
+            return redirect("societe_cliente:delete_societe_cliente", pk=pk)
+
+        # Libellé pour le log (capturé AVANT la suppression)
+        nom_log = nom
+        if societe_cliente.numero_tva:
+            nom_log += f" (TVA {societe_cliente.numero_tva})"
+        nb_supprimes = sum(len(objets) for _label, objets in objets_supprimes)
+        if nb_supprimes:
+            detail = ", ".join(f"{len(objets)} {label}" for label, objets in objets_supprimes)
+            nom_log += f" – supprimé(s) en cascade : {detail}"
+
+        try:
+            with transaction.atomic():
+                adresse = societe_cliente.adresse
+                societe_cliente.delete()
+
+                # L'adresse est supprimée avec la société cliente
+                if adresse:
+                    adresse.delete()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_SUPPRESSION_SOCIETE_CLIENTE} : {nom_log}",
+                )
+        except (ProtectedError, RestrictedError):
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : la société ou son adresse est encore utilisée ailleurs.") % {"nom": nom},
+            )
+            return redirect("societe_cliente:delete_societe_cliente", pk=pk)
+
+        messages.success(request, _("La société cliente « %(nom)s » a bien été supprimée.") % {"nom": nom})
+        return redirect("societe_cliente:societe_cliente_list")
+
+    return render(
+        request,
+        "societe_cliente/delete_societe_cliente.html",
+        {
+            "societe_cliente": societe_cliente,
+            "objets_supprimes": objets_supprimes,
+            "objets_bloquants": objets_bloquants,
+            # Données sensibles masquées pour l'affichage
+            "compte_masque": masquer(societe_cliente.numero_compte),
+            "carte_bancaire_masquee": masquer(societe_cliente.numero_carte_bancaire),
+        },
+    )
+
+

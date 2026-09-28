@@ -100,14 +100,12 @@ class MainDoeuvre(models.Model):
         heures = Decimal(self.temps_minutes or 0) / Decimal("60")
         return (heures * self.taux_horaire).quantize(Decimal("0.01"))
 
-    
-
-
     @property
     def cout_interne(self):
-        salaire = self.utilisateur.salaire_brut_heure or Decimal("0.00")
+        salaire = getattr(self.utilisateur, "salaire_brut_heure", None) or Decimal("0.00")
+        return (self.temps_decimal * salaire).quantize(Decimal("0.01"))
 
-        return self.temps_decimal * salaire
+
 
     @property
     def cout_interne_display(self):

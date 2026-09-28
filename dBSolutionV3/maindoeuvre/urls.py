@@ -1,7 +1,7 @@
 import maindoeuvre
 from django.urls import path
 from .views import MainDoeuvreListView, main_oeuvre_form_view, modifier_maindoeuvre_view, maindoeuvre_detail_pdf_view, \
-    maindoeuvre_detail_view
+    maindoeuvre_detail_view, delete_main_oeuvre_view
 
 urlpatterns = [
     path("", MainDoeuvreListView.as_view(), name="main_oeuvre_list"),
@@ -24,5 +24,8 @@ urlpatterns = [
         "<uuid:id>/pdf/",
         maindoeuvre_detail_pdf_view,
         name="main_oeuvre_detail_pdf"
-    )
+    ),
+
+    path("<uuid:pk>/supprimer/", delete_main_oeuvre_view, name="delete_main_oeuvre"),
+
 ]

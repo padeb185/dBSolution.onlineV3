@@ -54,3 +54,30 @@ def analyser_suppression(obj):
         "supprimes": _grouper(supprimes),
         "modifies": _grouper(modifies),
     }
+
+
+
+def masquer(valeur, visibles=4, caractere="•"):
+    """
+    Masque une donnée sensible en ne laissant visibles que les derniers caractères.
+
+    Exemples :
+        masquer("BE68 5390 0754 7034")      -> "••••••••••••7034"
+        masquer("4111111111111111")         -> "••••••••••••1111"
+        masquer("85.07.30-033.61", 3)       -> "•••••••••••.61"
+        masquer(None)                       -> None
+        masquer("123")                      -> "•••"
+    """
+    if not valeur:
+        return None
+
+    valeur = str(valeur).replace(" ", "")
+
+    if visibles <= 0:
+        return caractere * len(valeur)
+
+    if len(valeur) <= visibles:
+        # Trop court : on masque tout pour ne rien révéler
+        return caractere * len(valeur)
+
+    return caractere * (len(valeur) - visibles) + valeur[-visibles:]
