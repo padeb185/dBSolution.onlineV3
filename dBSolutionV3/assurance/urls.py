@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import modifier_assurance, assurance_detail, ajouter_assurance_all, AssuranceListView, \
-    dashboard_assurance_view
+    dashboard_assurance_view, delete_assurance_view
 
 app_name = "assurance"
 
@@ -31,6 +31,8 @@ urlpatterns = [
         'assurance/<uuid:assurance_id>/modifier/',
         modifier_assurance,
         name='modifier_assurance'),
+
+    path("<uuid:pk>/supprimer/", delete_assurance_view, name="delete_assurance"),
 
 
 ]

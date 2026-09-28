@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-4 text-red-700">
+        {% trans "Supprimer l'assurance" %}
+    </h1>
+
+    <p class="mb-6">
+        {% trans "Voulez-vous vraiment supprimer cette assurance ? Cette action est irréversible." %}
+    </p>
+
+    {# ================================================== #}
+    {# SOCIÉTÉ LIÉE                                        #}
+    {# ================================================== #}
+    {% if assurance.societe %}
+        <div class="mb-6 p-4 bg-yellow-50 border border-yellow-300 rounded text-sm">
+            <h2 class="font-semibold mb-1">{% trans "Société concernée" %}</h2>
+            <ul class="list-disc list-inside">
+                <li>{{ assurance.societe }}</li>
+            </ul>
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# COMPAGNIE                                           #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Compagnie" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Nom de la compagnie" %}</dt>
+            <dd class="font-medium">{{ assurance.nom_compagnie|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Identifiant Peppol" %}</dt>
+            <dd class="font-medium">{{ assurance.peppol_id|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "IBAN" %}</dt>
+            <dd class="font-medium">{{ assurance.numero_iban|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Adresse" %}</dt>
+            <dd class="font-medium">{{ assurance.adresse|default:"—" }}</dd>
+        </dl>
+    </div>
+
+    {# ================================================== #}
+    {# COURTIER / CONTACT                                  #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Courtier & contact" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Courtier" %}</dt>
+            <dd class="font-medium">
+                {% if assurance.courtier_prenom or assurance.courtier_nom %}
+                    {{ assurance.courtier_prenom|default:"" }} {{ assurance.courtier_nom|default:"" }}
+                {% else %}—{% endif %}
+            </dd>
+
+            <dt class="text-gray-600">{% trans "Téléphone" %}</dt>
+            <dd class="font-medium">{{ assurance.telephone|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Email" %}</dt>
+            <dd class="font-medium">{{ assurance.email|default:"—" }}</dd>
+        </dl>
+    </div>
+
+    {% if assurance.remarques %}
+        <div class="mb-4 border rounded">
+            <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Remarques" %}</h2>
+            <p class="p-4 text-sm whitespace-pre-line">{{ assurance.remarques }}</p>
+        </div>
+    {% endif %}
+
+    <p class="text-xs text-gray-500 mb-6">
+        {% trans "Créé le" %} {{ assurance.created_at|date:"d/m/Y H:i"|default:"—" }}
+        · {% trans "Mis à jour le" %} {{ assurance.updated_at|date:"d/m/Y H:i"|default:"—" }}
+    </p>
+
+    {# ================================================== #}
+    {# FORMULAIRE                                          #}
+    {# ================================================== #}
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="flex gap-4 w-full">
+            <button
+                type="submit"
+                class="w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold"
+            >
+                {% trans "Supprimer" %}
+            </button>
+
+            {# "as" : ne plante pas si le nom d'URL n'existe pas #}
+            {% url 'assurance:list' as url_liste_assurances %}
+            <a href="{{ request.META.HTTP_REFERER|default:url_liste_assurances|default:'javascript:history.back()' }}" class="block w-full">
+                <button
+                    type="button"
+                    class="w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold"
+                >
+                    {% trans "Annuler" %}
+                </button>
+            </a>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

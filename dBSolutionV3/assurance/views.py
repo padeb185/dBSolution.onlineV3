@@ -208,3 +208,32 @@ def dashboard_assurance_view(request):
         "assurance/dashboard_assurance.html",
         context,
     )
+
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db.models import ProtectedError
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import gettext as _
+
+from .models import Assurance
+
+
+@login_required
+def delete_assurance_view(request, pk):
+    assurance = get_object_or_404(Assurance, pk=pk)
+
+    if request.method == "POST":
+        nom = assurance.nom_compagnie or _("Assurance")
+        try:
+            assurance.delete()
+        except ProtectedError:
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : elle est encore liée à d'autres éléments.") % {"nom": nom},
+            )
+            return redirect("assurance:assurance_detail", pk=assurance.pk)
+
+        messages.success(request, _("L'assurance « %(nom)s » a bien été supprimée.") % {"nom": nom})
+        return redirect("assurance:assurance_list")
+
+    return render(request, "assurance/delete_assurance.html", {"assurance": assurance})
