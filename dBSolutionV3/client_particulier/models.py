@@ -18,7 +18,7 @@ def validate_iban(value):
 
 
 class ClientParticulier(models.Model):
-    id_client_particulier = models.UUIDField(default=uuid.uuid4)  # sans unique pour commencer
+    id_client_particulier = models.UUIDField(default=uuid.uuid4, unique=True)  # sans unique pour commencer
 
     prenom = models.CharField(_("Prénom"), max_length=50)
 

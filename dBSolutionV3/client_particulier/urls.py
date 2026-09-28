@@ -5,7 +5,7 @@ from .views import (
     check_prenom,
     client_detail,
     client_particulier_form_view,
-    modifier_client_particulier_view,
+    modifier_client_particulier_view, delete_client_view,
 )
 
 app_name = "client_particulier"
@@ -40,4 +40,10 @@ urlpatterns = [
         modifier_client_particulier_view,
         name="modifier_client_particulier",
     ),
+
+
+    path("<int:pk>/supprimer/", delete_client_view, name="delete_client"),
+
+
+
 ]
