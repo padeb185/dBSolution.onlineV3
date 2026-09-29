@@ -1,7 +1,6 @@
 from django.db import models
 import uuid
 from django.db.models import Q
-from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 # Types d'entretien pour la boîte

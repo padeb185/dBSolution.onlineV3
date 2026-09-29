@@ -1,10 +1,15 @@
-from django.contrib import messages
-from django.shortcuts import get_object_or_404, redirect
+from utilisateurs.models import UserLog
 from voiture.voiture_boite.forms import VoitureBoiteForm
-from voiture.voiture_boite.models import VoitureBoite
-from django.utils.translation import gettext as _
+
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.db import transaction
+from django.db.models import ProtectedError, RestrictedError
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import gettext as _, gettext_noop
+
+from core.suppression import analyser_suppression
+from .models import VoitureBoite
 
 
 
@@ -123,5 +128,80 @@ def modifier_boite_view(request, boite_id):
         {
             "form": form,
             "boite": boite_instance,
+        },
+    )
+
+
+
+
+
+
+
+ACTION_SUPPRESSION_BOITE = gettext_noop("Suppression de la boîte de vitesses")
+
+
+@login_required
+def delete_boite_view(request, pk):
+    boite = get_object_or_404(
+        VoitureBoite.objects.prefetch_related("voitures_exemplaires", "voitures_modeles"),
+        pk=pk,
+    )
+
+    exemplaires_lies = list(boite.voitures_exemplaires.all())
+    modeles_lies = list(boite.voitures_modeles.all())
+
+    analyse = analyser_suppression(boite)
+    objets_bloquants = analyse["bloquants"]
+    objets_supprimes = analyse["supprimes"]
+
+    if request.method == "POST":
+        libelle = str(boite)
+
+        if objets_bloquants:
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : elle est encore utilisée ailleurs.") % {"nom": libelle},
+            )
+            return redirect("voiture_boite:delete_boite", pk=pk)
+
+        # Libellé pour le log (capturé AVANT la suppression)
+        nom_log = " ".join(filter(None, [
+            boite.fabricant,
+            boite.nom_du_type,
+            boite.get_type_de_boite_display() if boite.type_de_boite else None,
+            f"{boite.nombre_rapport} rapports" if boite.nombre_rapport else None,
+        ])) or f"#{boite.pk}"
+        if boite.oem:
+            nom_log += f" (OEM {boite.oem})"
+        if exemplaires_lies:
+            nom_log += " – véhicule(s) : " + ", ".join(str(v) for v in exemplaires_lies)
+
+        try:
+            with transaction.atomic():
+                boite.delete()  # retire aussi les liens M2M (véhicules / modèles conservés)
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_SUPPRESSION_BOITE} : {nom_log}",
+                )
+        except (ProtectedError, RestrictedError):
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : elle est encore utilisée ailleurs.") % {"nom": libelle},
+            )
+            return redirect("voiture_boite:delete_boite", pk=pk)
+
+        messages.success(request, _("La boîte « %(nom)s » a bien été supprimée.") % {"nom": libelle})
+        return redirect("voiture_boite:list")
+
+    return render(
+        request,
+        "voiture_boite/delete_boite.html",
+        {
+            "boite": boite,
+            "exemplaires_lies": exemplaires_lies,
+            "modeles_lies": modeles_lies,
+            "objets_supprimes": objets_supprimes,
+            "objets_bloquants": objets_bloquants,
         },
     )

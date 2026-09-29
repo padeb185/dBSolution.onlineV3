@@ -1,6 +1,6 @@
 # voiture_boite/urls.py
 from django.urls import path
-from .views import boite_detail_view, modifier_boite_view, liste_boite_view, ajouter_boite_view
+from .views import boite_detail_view, modifier_boite_view, liste_boite_view, ajouter_boite_view, delete_boite_view
 
 app_name = "voiture_boite"
 
@@ -25,4 +25,8 @@ urlpatterns = [
         modifier_boite_view,
         name="modifier_boite",
     ),
+
+    path("<uuid:pk>/supprimer/", delete_boite_view, name="delete_boite"),
+
+
 ]

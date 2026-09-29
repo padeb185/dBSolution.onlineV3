@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto mt-10 mb-10 p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-4 text-red-700">
+        {% trans "Supprimer la boîte de vitesses" %}
+    </h1>
+
+    {% if objets_bloquants %}
+        <p class="mb-6">
+            {% trans "Cette boîte ne peut pas être supprimée car elle est encore utilisée." %}
+        </p>
+    {% else %}
+        <p class="mb-6">
+            {% trans "Voulez-vous vraiment supprimer cette boîte de vitesses ? Cette action est irréversible." %}
+        </p>
+    {% endif %}
+
+    {# ================================================== #}
+    {# ÉLÉMENTS BLOQUANTS (PROTECT / RESTRICT)             #}
+    {# ================================================== #}
+    {% if objets_bloquants %}
+        <div class="mb-6 p-4 bg-red-50 border border-red-300 rounded text-sm">
+            <h2 class="font-semibold mb-1 text-red-700">{% trans "Élément(s) qui empêchent la suppression" %}</h2>
+            {% for label, objets in objets_bloquants %}
+                <h3 class="font-medium mt-2">{{ label|capfirst }} ({{ objets|length }})</h3>
+                <ul class="list-disc list-inside">
+                    {% for obj in objets|slice:":10" %}<li>{{ obj }}</li>{% endfor %}
+                    {% if objets|length > 10 %}<li class="text-gray-500">…</li>{% endif %}
+                </ul>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# VÉHICULES / MODÈLES LIÉS (liens retirés)            #}
+    {# ================================================== #}
+    {% if exemplaires_lies or modeles_lies %}
+        <div class="mb-6 p-4 bg-yellow-50 border border-yellow-300 rounded text-sm">
+            {% if exemplaires_lies %}
+                <h2 class="font-semibold mb-1">{% trans "Véhicule(s) concerné(s)" %}</h2>
+                <ul class="list-disc list-inside mb-2">
+                    {% for ex in exemplaires_lies %}<li>{{ ex }}</li>{% endfor %}
+                </ul>
+            {% endif %}
+            {% if modeles_lies %}
+                <h2 class="font-semibold mb-1">{% trans "Modèle(s) concerné(s)" %}</h2>
+                <ul class="list-disc list-inside mb-2">
+                    {% for mo in modeles_lies %}<li>{{ mo }}</li>{% endfor %}
+                </ul>
+            {% endif %}
+            <p class="text-gray-600">
+                {% trans "Ces véhicules et modèles ne seront pas supprimés : seul leur lien avec cette boîte sera retiré." %}
+            </p>
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# ÉLÉMENTS SUPPRIMÉS EN CASCADE                       #}
+    {# ================================================== #}
+    {% if objets_supprimes %}
+        <div class="mb-6 p-4 bg-yellow-50 border border-yellow-300 rounded text-sm">
+            <h2 class="font-semibold mb-1">{% trans "Élément(s) qui seront également supprimé(s)" %}</h2>
+            {% for label, objets in objets_supprimes %}
+                <h3 class="font-medium mt-2">{{ label|capfirst }} ({{ objets|length }})</h3>
+                <ul class="list-disc list-inside">
+                    {% for obj in objets|slice:":10" %}<li>{{ obj }}</li>{% endfor %}
+                    {% if objets|length > 10 %}<li class="text-gray-500">…</li>{% endif %}
+                </ul>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# IDENTIFICATION                                      #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Boîte de vitesses" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Fabricant" %}</dt>
+            <dd class="font-medium">{{ boite.fabricant|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Nom du type" %}</dt>
+            <dd class="font-medium">{{ boite.nom_du_type|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Type de boîte" %}</dt>
+            <dd class="font-medium">{{ boite.get_type_de_boite_display|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "N° OEM" %}</dt>
+            <dd class="font-medium">{{ boite.oem|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Nombre de rapports" %}</dt>
+            <dd class="font-medium">{{ boite.nombre_rapport|default_if_none:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "N° de boîte" %}</dt>
+            <dd class="font-medium">{{ boite.numero_boite|default_if_none:"—" }}</dd>
+        </dl>
+    </div>
+
+    {# ================================================== #}
+    {# LUBRIFICATION                                       #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Lubrification" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Qualité huile" %}</dt>
+            <dd class="font-medium">{{ boite.qualite_huile|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Quantité huile" %}</dt>
+            <dd class="font-medium">
+                {% if boite.quantite_huile_l is not None %}{{ boite.quantite_huile_l|floatformat:1 }} L{% else %}—{% endif %}
+            </dd>
+        </dl>
+    </div>
+
+    {# ================================================== #}
+    {# SUIVI & ENTRETIEN                                   #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Suivi & entretien" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Kilomètres châssis" %}</dt>
+            <dd class="font-medium">
+                {% if boite.kilometres_chassis is not None %}{{ boite.kilometres_chassis }} km{% else %}—{% endif %}
+            </dd>
+
+            <dt class="text-gray-600">{% trans "Intervalle entretien" %}</dt>
+            <dd class="font-medium">
+                {% if boite.intervalle_entretien_km is not None %}{{ boite.intervalle_entretien_km }} km{% else %}—{% endif %}
+            </dd>
+
+            <dt class="text-gray-600">{% trans "Dernier entretien" %}</dt>
+            <dd class="font-medium">{{ boite.get_dernier_entretien_display|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Remplacements" %}</dt>
+            <dd class="font-medium">{{ boite.nombre_remplacements_boites }}</dd>
+        </dl>
+    </div>
+
+    {% if boite.remarques %}
+        <div class="mb-4 border rounded">
+            <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Remarques" %}</h2>
+            <p class="p-4 text-sm whitespace-pre-line">{{ boite.remarques }}</p>
+        </div>
+    {% endif %}
+
+    <p class="text-xs text-gray-500 mb-6">
+        {% trans "Créé le" %} {{ boite.created_at|date:"d/m/Y H:i"|default:"—" }}
+        · {% trans "Mis à jour le" %} {{ boite.updated_at|date:"d/m/Y H:i"|default:"—" }}
+    </p>
+
+    {# ================================================== #}
+    {# FORMULAIRE                                          #}
+    {# ================================================== #}
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="flex gap-4 w-full">
+            {% if objets_bloquants %}
+                <button type="button" disabled
+                        class="w-full bg-gray-200 text-gray-500 px-4 py-2 rounded font-semibold cursor-not-allowed">
+                    {% trans "Suppression impossible" %}
+                </button>
+            {% else %}
+                <button type="submit"
+                        class="w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold">
+                    {% trans "Supprimer" %}
+                </button>
+            {% endif %}
+
+            {% url 'voiture_boite:list' as url_liste_boites %}
+            <a href="{{ request.META.HTTP_REFERER|default:url_liste_boites|default:'javascript:history.back()' }}" class="block w-full">
+                <button type="button"
+                        class="w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold">
+                    {% trans "Annuler" %}
+                </button>
+            </a>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}
