@@ -47,16 +47,30 @@
                 <strong>{% trans "Energie" %} :</strong>
                 {{ electricite.get_type_carburant_display }}
             </p>
+
+            <p>
+                <strong>{% trans "kiloWatts" %} :</strong>
+                {{ electricite.kW}} kW
+            </p>
+
+             <p>
+                <strong>{% trans "Prix de la recharge" %} :</strong>
+                {{ electricite.prix_recharge}} €
+            </p>
+
+
+
+
+
         </div>
 
         <!-- Peppol -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">
-                {% trans "Remarques" %}
+                {% trans "Remarques :" %}
             </h2>
 
             <p>
-                <strong>{% trans "Remarques" %} :</strong><br>
                 {{ electricite.remarque }}
             </p>
 
@@ -106,7 +120,7 @@
             {{ electricite.created_at|date:"d/m/Y H:i" }}
         </p>
           <p>
-            <strong>{% trans "Créé le" %} :</strong>
+            <strong>{% trans "Mis à jour le" %} :</strong>
             {{ electricite.updated_at|date:"d/m/Y H:i" }}
         </p>
 
