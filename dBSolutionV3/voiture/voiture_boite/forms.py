@@ -56,8 +56,8 @@ class VoitureBoiteForm(forms.ModelForm):
                 "placeholder": "Ex: 8HP, DSG7..."
             }),
 
-            "qualite_huile": forms.TextInput(attrs={
-                "class": "border rounded px-3 py-2 w-full text-sm",
+            "qualite_huile": forms.Select(attrs={
+                "class": "border rounded px-3 py-2 w-full text-sm h-10",
                 "placeholder": "Ex: ATF-III, 75W90..."
             }),
 

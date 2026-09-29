@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Q
 import uuid
 from django.utils.translation import gettext_lazy as _
+from maintenance.choices import HuileEtat
 from voiture.voiture_boite.models import VoitureBoite
 
 
@@ -61,7 +62,7 @@ class MoteurVoiture(models.Model):
     puissance_tr_min = models.IntegerField(verbose_name="Puissance à (tr/min)", null=True, blank=True)
     couple_nm = models.IntegerField(null=True, blank=True)
     couple_tr_min = models.PositiveIntegerField(verbose_name="Couple à (tr/min)", null=True, blank=True)
-    qualite_huile = models.CharField(max_length=50, null=True, blank=True)
+    qualite_huile = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30,verbose_name=_("Qualité d'huile"))
     quantite_huile_l = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
 
     kilometres_chassis = models.PositiveIntegerField(default=0, null=True, blank=True)

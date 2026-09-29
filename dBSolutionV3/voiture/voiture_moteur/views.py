@@ -66,9 +66,13 @@ def ajouter_moteur_view(request):
         "TypeMoteur": TypeMoteur,
         "TypeCarburant": TypeCarburant,
         "TypeDistribution": TypeDistribution,
+
     }
 
     return render(request, "voiture_moteur/ajouter_moteur.html", context)
+
+
+
 
 @login_required
 def modifier_moteur_view(request, moteur_id):

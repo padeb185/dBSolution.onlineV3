@@ -57,9 +57,8 @@ class MoteurVoitureForm(forms.ModelForm):
                 "class": "border rounded px-3 py-2 w-full text-sm"
             }),
 
-            "qualite_huile": forms.TextInput(attrs={
-                "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": _("0W30")
+            "qualite_huile": forms.Select(attrs={
+                "class": "border rounded px-3 py-2 w-full text-sm h-10"
             }),
             # -------------------------
             # SELECT

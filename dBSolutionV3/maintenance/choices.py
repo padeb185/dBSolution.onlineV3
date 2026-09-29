@@ -2179,6 +2179,9 @@ class HuileBoiteEtat(models.TextChoices):
     FERRARI_GETRAG = "FERRARI_GETRAG", _("Ferrari Getrag")
     FERRARI_ATF = "FERRARI_ATF", _("Ferrari ATF")
 
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
+    AUTRE = "AUTRE", _("Autre")
+
 
 
 
@@ -2205,6 +2208,53 @@ class HuileBoiteAutoEtat(models.TextChoices):
     ATF_VOLVO = "ATF_VOLVO", _("Volvo ATF")
     ATF_HONDA = "ATF_HONDA", _("Honda ATF DW-1")
     ATF_NISSAN = "ATF_NISSAN", _("Nissan Matic")
+
+    # =========================================================
+    # PORSCHE
+    # =========================================================
+    PORSCHE_PDK = "PORSCHE_PDK", _("Porsche PDK")
+    PORSCHE_DCT = "PORSCHE_DCT", _("Porsche DCT")
+    PORSCHE_TIPTRONIC = "PORSCHE_TIPTRONIC", _("Porsche Tiptronic")
+
+    # =========================================================
+    # VAG - VOLKSWAGEN / AUDI / SEAT / SKODA
+    # =========================================================
+    VAG_DSG_DQ250 = "VAG_DSG_DQ250", _("VAG DSG DQ250")
+    VAG_DSG_DQ381 = "VAG_DSG_DQ381", _("VAG DSG DQ381")
+    VAG_DSG_DQ500 = "VAG_DSG_DQ500", _("VAG DSG DQ500")
+    VAG_DSG_DQ200 = "VAG_DSG_DQ200", _("VAG DSG DQ200")
+    VAG_S_TRONIC = "VAG_S_TRONIC", _("Audi S tronic")
+    VAG_MULTITRONIC = "VAG_MULTITRONIC", _("Audi Multitronic")
+    VAG_TIPTRONIC = "VAG_TIPTRONIC", _("VAG Tiptronic")
+
+    # =========================================================
+    # FORD
+    # =========================================================
+    FORD_MERCON = "FORD_MERCON", _("Ford Mercon")
+    FORD_MERCON_V = "FORD_MERCON_V", _("Ford Mercon V")
+    FORD_MERCON_LV = "FORD_MERCON_LV", _("Ford Mercon LV")
+    FORD_MERCON_ULV = "FORD_MERCON_ULV", _("Ford Mercon ULV")
+    FORD_POWERSHIFT = "FORD_POWERSHIFT", _("Ford PowerShift")
+    FORD_CVT = "FORD_CVT", _("Ford CVT")
+
+    # =========================================================
+    # ALFA ROMEO
+    # =========================================================
+    ALFA_TCT = "ALFA_TCT", _("Alfa Romeo TCT")
+    ALFA_SELESPEED = "ALFA_SELESPEED", _("Alfa Romeo Selespeed")
+    ALFA_ATF = "ALFA_ATF", _("Alfa Romeo ATF")
+    ALFA_TUTELA = "ALFA_TUTELA", _("Alfa Romeo Tutela")
+
+    # =========================================================
+    # FERRARI
+    # =========================================================
+    FERRARI_DCT = "FERRARI_DCT", _("Ferrari DCT")
+    FERRARI_F1 = "FERRARI_F1", _("Ferrari F1")
+    FERRARI_GETRAG = "FERRARI_GETRAG", _("Ferrari Getrag")
+    FERRARI_ATF = "FERRARI_ATF", _("Ferrari ATF")
+
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
+    AUTRE = "AUTRE", _("Autre")
 
 
 class FabricantAllumage(models.TextChoices):

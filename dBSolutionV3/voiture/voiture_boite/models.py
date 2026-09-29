@@ -2,6 +2,8 @@ from django.db import models
 import uuid
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
+from maintenance.choices import HuileBoiteEtat
+
 
 # Types d'entretien pour la boîte
 class TypeEntretienBoite(models.TextChoices):
@@ -47,7 +49,7 @@ class VoitureBoite(models.Model):
     nombre_rapport = models.PositiveSmallIntegerField(default=5, help_text="nombre rapport", null=True, blank=True)
 
     # Lubrification
-    qualite_huile = models.CharField(max_length=100, verbose_name="Qualité huile boîte", null=True, blank=True)
+    qualite_huile = models.CharField(max_length=25, choices=HuileBoiteEtat.choices,default=HuileBoiteEtat.SEPTANTE_CINQ,verbose_name=_("Qualité de l'huile"))
     quantite_huile_l = models.FloatField(verbose_name="Quantité huile boîte (L)", null=True, blank=True)
 
     # Suivi kilométrique
