@@ -3,7 +3,7 @@
 
 
 {% block content %}
-<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-4">
 
     <!-- Header -->
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
@@ -261,16 +261,18 @@
             </a>
         </div>
     </form>
-
-    <div class="max-w-xl mx-auto mt-4">
-       {% get_current_language as LANGUAGE_CODE %}
-        <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/fuel/"
-             class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-            {% trans "Retour à la liste des pleins" %}
-        </a>
-    </div>
-
 </div>
+
+
+<div class="max-w-xl mx-auto mt-4">
+   {% get_current_language as LANGUAGE_CODE %}
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/fuel/"
+         class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour à la liste des pleins" %}
+    </a>
+</div>
+
+
 
 <style>
 .input {
