@@ -1,13 +1,22 @@
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
-from outillage.models import Outillage
 from outillage.forms import OutillageForm
 from django.utils.translation import gettext_lazy as _
+from utilisateurs.models import UserLog
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from django.db.models import ProtectedError, RestrictedError
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import gettext as _, gettext_noop
+
+from core.suppression import analyser_suppression
+from .models import Outillage
+
+
+
+
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -122,4 +131,68 @@ def modifier_outillage(request, outillage_id):
             "form": form_outillage,
             "outillage": outillage,
         }
+    )
+
+
+
+
+ACTION_SUPPRESSION_OUTILLAGE = gettext_noop("Suppression de l'outillage")
+
+
+@login_required
+def delete_outillage_view(request, pk):
+    outillage = get_object_or_404(
+        Outillage.objects.select_related("fournisseur", "societe"),
+        pk=pk,
+    )
+
+    analyse = analyser_suppression(outillage)
+    objets_bloquants = analyse["bloquants"]
+    objets_supprimes = analyse["supprimes"]
+
+    if request.method == "POST":
+        libelle = outillage.libelle
+
+        if objets_bloquants:
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : il est encore utilisé ailleurs.") % {"nom": libelle},
+            )
+            return redirect("outillage:delete_outillage", pk=pk)
+
+        # Libellé pour le log (capturé AVANT la suppression)
+        nom_log = libelle
+        if outillage.reference:
+            nom_log += f" (réf. {outillage.reference})"
+        nom_log += f" – {outillage.quantite} pcs"
+        nom_log += f" – {outillage.fournisseur.nom if outillage.fournisseur_id else '—'}"
+        if outillage.montant_calcule is not None:
+            nom_log += f" – {outillage.montant_calcule:.2f} € TVAC"
+
+        try:
+            with transaction.atomic():
+                outillage.delete()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_SUPPRESSION_OUTILLAGE} : {nom_log}",
+                )
+        except (ProtectedError, RestrictedError):
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : il est encore utilisé ailleurs.") % {"nom": libelle},
+            )
+            return redirect("outillage:delete_outillage", pk=pk)
+
+        messages.success(request, _("L'outillage « %(nom)s » a bien été supprimé.") % {"nom": libelle})
+        return redirect("outillage:outillage_list")
+
+    return render(
+        request,
+        "outillage/delete_outillage.html",
+        {
+            "outillage": outillage,
+            "objets_supprimes": objets_supprimes,
+            "objets_bloquants": objets_bloquants,
+        },
     )

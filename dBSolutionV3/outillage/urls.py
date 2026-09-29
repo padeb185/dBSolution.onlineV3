@@ -1,5 +1,5 @@
 from django.urls import path
-from outillage.views import OutillageListView
+from outillage.views import OutillageListView, delete_outillage_view
 from .views import modifier_outillage, outillage_detail, ajouter_outillage_all
 
 
@@ -28,6 +28,9 @@ urlpatterns = [
         modifier_outillage,
         name='modifier_outillage'
     ),
+
+
+    path("<int:pk>/supprimer/", delete_outillage_view, name="delete_outillage"),
 
 
 ]

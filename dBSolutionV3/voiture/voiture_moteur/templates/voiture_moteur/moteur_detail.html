@@ -100,13 +100,24 @@
         </div>
 
          <div class="mt-auto w-full">
-                <a href="{% url 'voiture_moteur:modifier_moteur' moteur_id=moteur.id %}" class="block w-full">
-                    <button type="button"
-                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier le moteur" %}
-                    </button>
-                </a>
-           </div>
+            <a href="{% url 'voiture_moteur:modifier_moteur' moteur_id=moteur.id %}" class="block w-full">
+                <button type="button"
+                        class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Modifier le moteur" %}
+                </button>
+            </a>
+         </div>
+         {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}
+        <div class="mt-auto w-full">
+            <a href="{% url 'voiture_moteur:delete_moteur' moteur.id %}"
+               class="block w-full text-center px-4 py-2 rounded font-semibold"
+               style="background-color:#b91c1c; color:white;">
+
+                {% trans "Supprimer le moteur" %}
+            </a>
+        </div>
+        {% endif %}
+        <br>
     </div>
 
 

@@ -81,6 +81,19 @@
                     </button>
                 </a>
          </div>
+
+         {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}
+        <div class="mt-auto w-full">
+            <a href="{% url 'outillage:delete_outillage' outillage.pk %}"
+               class="block w-full text-center px-4 py-2 rounded font-semibold"
+               style="background-color:#b91c1c; color:white;">
+
+                {% trans "Supprimer l'outil" %}
+            </a>
+        </div>
+        {% endif %}
+        <br>
+
     </div>
 
 
