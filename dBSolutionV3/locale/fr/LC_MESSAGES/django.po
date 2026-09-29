@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 10:04+0200\n"
+"POT-Creation-Date: 2026-09-29 12:22+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -477,7 +477,7 @@ msgstr ""
 #: societe_cliente/models.py:134
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:145
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:138
-#: voiture/voiture_boite/models.py:69
+#: voiture/voiture_boite/models.py:71
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:123
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:151
 #: voiture/voiture_embrayage/models.py:105
@@ -492,7 +492,7 @@ msgstr ""
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:127
 #: voiture/voiture_modele/models.py:53
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:98
-#: voiture/voiture_moteur/models.py:77
+#: voiture/voiture_moteur/models.py:78
 #: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:177
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:132
 #: voiture/voiture_pneus/models.py:191
@@ -599,7 +599,7 @@ msgstr ""
 #: societe_cliente/models.py:135
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:146
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:142
-#: voiture/voiture_boite/models.py:70
+#: voiture/voiture_boite/models.py:72
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:127
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:152
 #: voiture/voiture_embrayage/models.py:106
@@ -614,7 +614,7 @@ msgstr ""
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:131
 #: voiture/voiture_modele/models.py:54
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:102
-#: voiture/voiture_moteur/models.py:78
+#: voiture/voiture_moteur/models.py:79
 #: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:178
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:136
 #: voiture/voiture_pneus/models.py:192
@@ -1968,7 +1968,7 @@ msgstr ""
 #: voiture/voiture_modele/models.py:48
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:72
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:76
-#: voiture/voiture_moteur/models.py:75
+#: voiture/voiture_moteur/models.py:76
 #: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:171
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:97
 #: voiture/voiture_pneus/models.py:189
@@ -2504,7 +2504,7 @@ msgstr ""
 #: voiture/voiture_embrayage/views.py:143
 #: voiture/voiture_freins_ar/views.py:199
 #: voiture/voiture_freins_av/views.py:126 voiture/voiture_modele/views.py:112
-#: voiture/voiture_moteur/views.py:90 voiture/voiture_pneus/views.py:116
+#: voiture/voiture_moteur/views.py:94 voiture/voiture_pneus/views.py:116
 #: voiture/voiture_pneus/views.py:159
 msgid "Le formulaire contient des erreurs."
 msgstr ""
@@ -4477,8 +4477,8 @@ msgid "Suppression du fournisseur"
 msgstr "Tableau de Bord"
 
 #: fournisseur/views.py:266 fournisseur/views.py:281 outillage/views.py:159
-#: outillage/views.py:183 voiture/voiture_moteur/views.py:131
-#: voiture/voiture_moteur/views.py:160
+#: outillage/views.py:183 voiture/voiture_moteur/views.py:135
+#: voiture/voiture_moteur/views.py:164
 #, python-format
 msgid "Impossible de supprimer « %(nom)s » : il est encore utilisé ailleurs."
 msgstr ""
@@ -4593,7 +4593,7 @@ msgstr ""
 
 #: fuel/models.py:16
 #: maintenance/autres_interventions/moteur/injection/models.py:21
-#: voiture/voiture_moteur/models.py:20
+#: voiture/voiture_moteur/models.py:21
 msgid "Diesel"
 msgstr ""
 
@@ -4603,7 +4603,7 @@ msgstr ""
 
 #: fuel/models.py:18
 #: maintenance/autres_interventions/moteur/injection/models.py:24
-#: voiture/voiture_moteur/models.py:24
+#: voiture/voiture_moteur/models.py:25
 msgid "Hydrogène"
 msgstr ""
 
@@ -6143,7 +6143,8 @@ msgstr ""
 #: maintenance/choices.py:1198 maintenance/choices.py:1257
 #: maintenance/choices.py:1302 maintenance/choices.py:1706
 #: maintenance/choices.py:1781 maintenance/choices.py:1838
-#: maintenance/choices.py:2034 maintenance/pneus/models.py:52
+#: maintenance/choices.py:2034 maintenance/choices.py:2183
+#: maintenance/choices.py:2257 maintenance/pneus/models.py:52
 #: piece/piece_roue_rechange/models.py:10
 msgid "Autre"
 msgstr ""
@@ -7270,7 +7271,7 @@ msgstr ""
 #: maintenance/essuyage/forms.py:40 maintenance/freins/forms.py:43
 #: maintenance/jeux_pieces/forms.py:44 maintenance/niveaux/forms.py:47
 #: maintenance/pneus/forms.py:42 maintenance/silent_blocs/forms.py:41
-#: voiture/voiture_moteur/forms.py:124
+#: voiture/voiture_moteur/forms.py:123
 msgid "Ajoutez des remarques ici..."
 msgstr ""
 
@@ -7327,7 +7328,7 @@ msgstr ""
 #: maintenance/checkup_track/models.py:59
 #: maintenance/checkup_track/models.py:65
 #: maintenance/checkup_track/models.py:92
-#: maintenance/checkup_track/models.py:100 maintenance/choices.py:2239
+#: maintenance/checkup_track/models.py:100 maintenance/choices.py:2289
 #: maintenance/essuyage/models.py:18 maintenance/freins/models.py:17
 #: maintenance/jeux_pieces/models.py:14 maintenance/niveaux/models.py:18
 #: maintenance/pneus/models.py:22 maintenance/silent_blocs/models.py:14
@@ -9674,6 +9675,7 @@ msgstr ""
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1178
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1369
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1373
+#: voiture/voiture_boite/models.py:52
 msgid "Qualité de l'huile"
 msgstr ""
 
@@ -9813,7 +9815,7 @@ msgstr ""
 #: maintenance/niveaux/models.py:105 maintenance/niveaux/models.py:112
 #: maintenance/niveaux/models.py:119
 #: voiture/voiture_boite/templates/voiture_boite/list.html:62
-#: voiture/voiture_moteur/forms.py:26
+#: voiture/voiture_moteur/forms.py:26 voiture/voiture_moteur/models.py:65
 msgid "Qualité d'huile"
 msgstr ""
 
@@ -11248,7 +11250,7 @@ msgstr ""
 #: maintenance/autres_interventions/refroidissement/models.py:30
 #: maintenance/check_up/models.py:45 maintenance/check_up/models.py:50
 #: maintenance/checkup_track/models.py:45 maintenance/choices.py:8
-#: maintenance/choices.py:2241 maintenance/entretien/models.py:25
+#: maintenance/choices.py:2291 maintenance/entretien/models.py:25
 #: maintenance/nettoyage_exterieur/models.py:14
 #: maintenance/nettoyage_interieur/models.py:19
 msgid "Fait"
@@ -13271,7 +13273,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/turbo/views.py:707
 #: maintenance/autres_interventions/moteur/turbo/views.py:979
 #: maintenance/models.py:31 piece/piece_moteur/models.py:44
-#: voiture/voiture_moteur/models.py:11
+#: voiture/voiture_moteur/models.py:12
 msgid "Turbo"
 msgstr ""
 
@@ -14093,7 +14095,7 @@ msgid ""
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/injection/models.py:19
-#: voiture/voiture_moteur/models.py:19
+#: voiture/voiture_moteur/models.py:20
 msgid "Essence"
 msgstr ""
 
@@ -15208,7 +15210,7 @@ msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:277
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:278
-#: piece/piece_differentiel/models.py:12 voiture/voiture_boite/models.py:8
+#: piece/piece_differentiel/models.py:12 voiture/voiture_boite/models.py:10
 msgid "Vidange"
 msgstr ""
 
@@ -19225,7 +19227,7 @@ msgstr ""
 #: maintenance/choices.py:1924 maintenance/choices.py:1963
 #: maintenance/choices.py:1981 maintenance/choices.py:2014
 #: maintenance/choices.py:2038 maintenance/choices.py:2101
-#: maintenance/choices.py:2187 maintenance/choices.py:2211
+#: maintenance/choices.py:2190 maintenance/choices.py:2261
 #: voiture/voiture_freins_av/models.py:20
 msgid "Choisir"
 msgstr ""
@@ -19319,7 +19321,7 @@ msgstr ""
 #: maintenance/choices.py:589 maintenance/choices.py:764
 #: maintenance/choices.py:885 maintenance/choices.py:910
 #: maintenance/choices.py:953 maintenance/choices.py:1228
-#: maintenance/choices.py:1279 maintenance/choices.py:2232
+#: maintenance/choices.py:1279 maintenance/choices.py:2282
 msgid "Febi Bilstein"
 msgstr ""
 
@@ -19426,7 +19428,8 @@ msgstr ""
 #: maintenance/choices.py:648 maintenance/choices.py:836
 #: maintenance/choices.py:865 maintenance/choices.py:1705
 #: maintenance/choices.py:1780 maintenance/choices.py:1837
-#: maintenance/choices.py:2080
+#: maintenance/choices.py:2080 maintenance/choices.py:2182
+#: maintenance/choices.py:2256
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Constructeur"
@@ -19653,17 +19656,17 @@ msgid "LED P21/5W"
 msgstr ""
 
 #: maintenance/choices.py:343 maintenance/choices.py:1994
-#: maintenance/choices.py:2120 maintenance/choices.py:2193
+#: maintenance/choices.py:2120 maintenance/choices.py:2196
 msgid "ATF Dexron II"
 msgstr ""
 
 #: maintenance/choices.py:344 maintenance/choices.py:1995
-#: maintenance/choices.py:2121 maintenance/choices.py:2194
+#: maintenance/choices.py:2121 maintenance/choices.py:2197
 msgid "ATF Dexron III"
 msgstr ""
 
 #: maintenance/choices.py:345 maintenance/choices.py:1996
-#: maintenance/choices.py:2122 maintenance/choices.py:2195
+#: maintenance/choices.py:2122 maintenance/choices.py:2198
 msgid "ATF Dexron VI"
 msgstr ""
 
@@ -19760,7 +19763,7 @@ msgstr ""
 msgid "ATE"
 msgstr ""
 
-#: maintenance/choices.py:377 maintenance/choices.py:2222
+#: maintenance/choices.py:377 maintenance/choices.py:2272
 msgid "Brembo"
 msgstr ""
 
@@ -19773,7 +19776,7 @@ msgstr ""
 #: maintenance/choices.py:1604 maintenance/choices.py:1618
 #: maintenance/choices.py:1633 maintenance/choices.py:1649
 #: maintenance/choices.py:1661 maintenance/choices.py:1678
-#: maintenance/choices.py:1693 maintenance/choices.py:2215
+#: maintenance/choices.py:1693 maintenance/choices.py:2265
 msgid "Bosch"
 msgstr ""
 
@@ -19808,7 +19811,7 @@ msgstr ""
 #: maintenance/choices.py:1605 maintenance/choices.py:1619
 #: maintenance/choices.py:1634 maintenance/choices.py:1650
 #: maintenance/choices.py:1662 maintenance/choices.py:1679
-#: maintenance/choices.py:2219
+#: maintenance/choices.py:2269
 msgid "Delphi"
 msgstr ""
 
@@ -19817,14 +19820,14 @@ msgstr ""
 #: maintenance/choices.py:1038 maintenance/choices.py:1104
 #: maintenance/choices.py:1160 maintenance/choices.py:1207
 #: maintenance/choices.py:1300 maintenance/choices.py:1317
-#: maintenance/choices.py:1697 maintenance/choices.py:2221
+#: maintenance/choices.py:1697 maintenance/choices.py:2271
 msgid "Valeo"
 msgstr ""
 
 #: maintenance/choices.py:386 maintenance/choices.py:765
 #: maintenance/choices.py:880 maintenance/choices.py:1212
 #: maintenance/choices.py:1638 maintenance/choices.py:1696
-#: maintenance/choices.py:2220
+#: maintenance/choices.py:2270
 msgid "Hella"
 msgstr ""
 
@@ -19840,7 +19843,7 @@ msgstr ""
 #: maintenance/choices.py:536 maintenance/choices.py:604
 #: maintenance/choices.py:886 maintenance/choices.py:911
 #: maintenance/choices.py:952 maintenance/choices.py:1278
-#: maintenance/choices.py:2231
+#: maintenance/choices.py:2281
 msgid "Meyle"
 msgstr ""
 
@@ -20008,7 +20011,7 @@ msgid "BOLK"
 msgstr ""
 
 #: maintenance/choices.py:440 maintenance/choices.py:760
-#: maintenance/choices.py:2224
+#: maintenance/choices.py:2274
 msgid "Champion"
 msgstr ""
 
@@ -20242,7 +20245,7 @@ msgstr ""
 #: maintenance/choices.py:893 maintenance/choices.py:961
 #: maintenance/choices.py:1213 maintenance/choices.py:1299
 #: maintenance/choices.py:1328 maintenance/choices.py:1592
-#: maintenance/choices.py:1669 maintenance/choices.py:2223
+#: maintenance/choices.py:1669 maintenance/choices.py:2273
 msgid "Magneti Marelli"
 msgstr ""
 
@@ -20481,7 +20484,7 @@ msgstr ""
 #: maintenance/choices.py:1250 maintenance/choices.py:1329
 #: maintenance/choices.py:1607 maintenance/choices.py:1621
 #: maintenance/choices.py:1636 maintenance/choices.py:1652
-#: maintenance/choices.py:1664 maintenance/choices.py:2228
+#: maintenance/choices.py:1664 maintenance/choices.py:2278
 msgid "Continental"
 msgstr ""
 
@@ -20801,7 +20804,7 @@ msgstr ""
 msgid "Zeetex"
 msgstr ""
 
-#: maintenance/choices.py:757 maintenance/choices.py:2216
+#: maintenance/choices.py:757 maintenance/choices.py:2266
 msgid "NGK"
 msgstr ""
 
@@ -20809,7 +20812,7 @@ msgstr ""
 msgid "DENSO"
 msgstr ""
 
-#: maintenance/choices.py:761 maintenance/choices.py:2217
+#: maintenance/choices.py:761 maintenance/choices.py:2267
 msgid "Beru"
 msgstr ""
 
@@ -21049,7 +21052,7 @@ msgstr ""
 #: maintenance/choices.py:1588 maintenance/choices.py:1606
 #: maintenance/choices.py:1620 maintenance/choices.py:1635
 #: maintenance/choices.py:1651 maintenance/choices.py:1663
-#: maintenance/choices.py:1680 maintenance/choices.py:2218
+#: maintenance/choices.py:1680 maintenance/choices.py:2268
 msgid "Denso"
 msgstr ""
 
@@ -21061,12 +21064,12 @@ msgstr ""
 #: maintenance/choices.py:1251 maintenance/choices.py:1589
 #: maintenance/choices.py:1608 maintenance/choices.py:1622
 #: maintenance/choices.py:1637 maintenance/choices.py:1665
-#: maintenance/choices.py:2227
+#: maintenance/choices.py:2277
 msgid "VDO"
 msgstr ""
 
 #: maintenance/choices.py:884 maintenance/choices.py:1116
-#: maintenance/choices.py:1639 maintenance/choices.py:2229
+#: maintenance/choices.py:1639 maintenance/choices.py:2279
 msgid "Facet"
 msgstr ""
 
@@ -21075,7 +21078,7 @@ msgid "Vemo"
 msgstr ""
 
 #: maintenance/choices.py:888 maintenance/choices.py:1115
-#: maintenance/choices.py:1226 maintenance/choices.py:2230
+#: maintenance/choices.py:1226 maintenance/choices.py:2280
 msgid "ERA"
 msgstr ""
 
@@ -21096,7 +21099,7 @@ msgstr ""
 #: maintenance/choices.py:1106 maintenance/choices.py:1210
 #: maintenance/choices.py:1591 maintenance/choices.py:1609
 #: maintenance/choices.py:1623 maintenance/choices.py:1667
-#: maintenance/choices.py:2226
+#: maintenance/choices.py:2276
 msgid "Hitachi"
 msgstr ""
 
@@ -21119,7 +21122,7 @@ msgstr ""
 #: maintenance/choices.py:1595 maintenance/choices.py:1610
 #: maintenance/choices.py:1624 maintenance/choices.py:1641
 #: maintenance/choices.py:1653 maintenance/choices.py:1670
-#: maintenance/choices.py:1684 maintenance/choices.py:2213
+#: maintenance/choices.py:1684 maintenance/choices.py:2263
 msgid "Origine constructeur (OEM)"
 msgstr ""
 
@@ -21977,7 +21980,7 @@ msgstr ""
 #: maintenance/choices.py:1596 maintenance/choices.py:1611
 #: maintenance/choices.py:1625 maintenance/choices.py:1642
 #: maintenance/choices.py:1654 maintenance/choices.py:1671
-#: maintenance/choices.py:1685 maintenance/choices.py:2234
+#: maintenance/choices.py:1685 maintenance/choices.py:2284
 msgid "Autre fabricant"
 msgstr ""
 
@@ -21985,7 +21988,7 @@ msgstr ""
 #: maintenance/choices.py:1597 maintenance/choices.py:1612
 #: maintenance/choices.py:1626 maintenance/choices.py:1643
 #: maintenance/choices.py:1655 maintenance/choices.py:1672
-#: maintenance/choices.py:1686 maintenance/choices.py:2235
+#: maintenance/choices.py:1686 maintenance/choices.py:2285
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Fabricant inconnu"
@@ -22508,7 +22511,6 @@ msgid "0W20"
 msgstr ""
 
 #: maintenance/choices.py:1967 piece/piece_fluides/models.py:21
-#: voiture/voiture_moteur/forms.py:62
 msgid "0W30"
 msgstr ""
 
@@ -22578,82 +22580,82 @@ msgid "85W90"
 msgstr ""
 
 #: maintenance/choices.py:1990 maintenance/choices.py:2115
-#: maintenance/choices.py:2189 piece/piece_fluides/models.py:40
+#: maintenance/choices.py:2192 piece/piece_fluides/models.py:40
 msgid "ATF III"
 msgstr ""
 
 #: maintenance/choices.py:1991 maintenance/choices.py:2116
-#: maintenance/choices.py:2190 piece/piece_fluides/models.py:41
+#: maintenance/choices.py:2193 piece/piece_fluides/models.py:41
 msgid "ATF DSG"
 msgstr ""
 
 #: maintenance/choices.py:1992 maintenance/choices.py:2117
-#: maintenance/choices.py:2191
+#: maintenance/choices.py:2194
 msgid "ATF DCT"
 msgstr ""
 
 #: maintenance/choices.py:1993 maintenance/choices.py:2118
-#: maintenance/choices.py:2192
+#: maintenance/choices.py:2195
 msgid "ATF CVT"
 msgstr ""
 
 #: maintenance/choices.py:1997 maintenance/choices.py:2124
-#: maintenance/choices.py:2196
+#: maintenance/choices.py:2199
 msgid "ATF Mercon"
 msgstr ""
 
 #: maintenance/choices.py:1998 maintenance/choices.py:2125
-#: maintenance/choices.py:2197
+#: maintenance/choices.py:2200
 msgid "ATF Mercon V"
 msgstr ""
 
 #: maintenance/choices.py:1999 maintenance/choices.py:2126
-#: maintenance/choices.py:2198
+#: maintenance/choices.py:2201
 msgid "ATF Mercon LV"
 msgstr ""
 
 #: maintenance/choices.py:2000 maintenance/choices.py:2128
-#: maintenance/choices.py:2199
+#: maintenance/choices.py:2202
 msgid "ATF Multi Vehicle"
 msgstr ""
 
 #: maintenance/choices.py:2001 maintenance/choices.py:2129
-#: maintenance/choices.py:2200
+#: maintenance/choices.py:2203
 msgid "ATF Toyota WS"
 msgstr ""
 
 #: maintenance/choices.py:2002 maintenance/choices.py:2130
-#: maintenance/choices.py:2201
+#: maintenance/choices.py:2204
 msgid "ZF Lifeguard"
 msgstr ""
 
 #: maintenance/choices.py:2003 maintenance/choices.py:2131
-#: maintenance/choices.py:2202
+#: maintenance/choices.py:2205
 msgid "Mopar ATF+4"
 msgstr ""
 
 #: maintenance/choices.py:2004 maintenance/choices.py:2132
-#: maintenance/choices.py:2203
+#: maintenance/choices.py:2206
 msgid "Aisin ATF"
 msgstr ""
 
 #: maintenance/choices.py:2005 maintenance/choices.py:2133
-#: maintenance/choices.py:2204
+#: maintenance/choices.py:2207
 msgid "Mercedes MB 236.x"
 msgstr ""
 
 #: maintenance/choices.py:2006 maintenance/choices.py:2134
-#: maintenance/choices.py:2205
+#: maintenance/choices.py:2208
 msgid "Volvo ATF"
 msgstr ""
 
 #: maintenance/choices.py:2007 maintenance/choices.py:2135
-#: maintenance/choices.py:2206
+#: maintenance/choices.py:2209
 msgid "Honda ATF DW-1"
 msgstr ""
 
 #: maintenance/choices.py:2008 maintenance/choices.py:2136
-#: maintenance/choices.py:2207
+#: maintenance/choices.py:2210
 msgid "Nissan Matic"
 msgstr ""
 
@@ -22788,107 +22790,107 @@ msgstr ""
 msgid "80W"
 msgstr ""
 
-#: maintenance/choices.py:2141
+#: maintenance/choices.py:2141 maintenance/choices.py:2215
 msgid "Porsche PDK"
 msgstr ""
 
-#: maintenance/choices.py:2142
+#: maintenance/choices.py:2142 maintenance/choices.py:2216
 msgid "Porsche DCT"
 msgstr ""
 
-#: maintenance/choices.py:2143
+#: maintenance/choices.py:2143 maintenance/choices.py:2217
 msgid "Porsche Tiptronic"
 msgstr ""
 
-#: maintenance/choices.py:2148
+#: maintenance/choices.py:2148 maintenance/choices.py:2222
 msgid "VAG DSG DQ250"
 msgstr ""
 
-#: maintenance/choices.py:2149
+#: maintenance/choices.py:2149 maintenance/choices.py:2223
 msgid "VAG DSG DQ381"
 msgstr ""
 
-#: maintenance/choices.py:2150
+#: maintenance/choices.py:2150 maintenance/choices.py:2224
 msgid "VAG DSG DQ500"
 msgstr ""
 
-#: maintenance/choices.py:2151
+#: maintenance/choices.py:2151 maintenance/choices.py:2225
 msgid "VAG DSG DQ200"
 msgstr ""
 
-#: maintenance/choices.py:2152
+#: maintenance/choices.py:2152 maintenance/choices.py:2226
 msgid "Audi S tronic"
 msgstr ""
 
-#: maintenance/choices.py:2153
+#: maintenance/choices.py:2153 maintenance/choices.py:2227
 msgid "Audi Multitronic"
 msgstr ""
 
-#: maintenance/choices.py:2154
+#: maintenance/choices.py:2154 maintenance/choices.py:2228
 msgid "VAG Tiptronic"
 msgstr ""
 
-#: maintenance/choices.py:2159
+#: maintenance/choices.py:2159 maintenance/choices.py:2233
 msgid "Ford Mercon"
 msgstr ""
 
-#: maintenance/choices.py:2160
+#: maintenance/choices.py:2160 maintenance/choices.py:2234
 msgid "Ford Mercon V"
 msgstr ""
 
-#: maintenance/choices.py:2161
+#: maintenance/choices.py:2161 maintenance/choices.py:2235
 msgid "Ford Mercon LV"
 msgstr ""
 
-#: maintenance/choices.py:2162
+#: maintenance/choices.py:2162 maintenance/choices.py:2236
 msgid "Ford Mercon ULV"
 msgstr ""
 
-#: maintenance/choices.py:2163
+#: maintenance/choices.py:2163 maintenance/choices.py:2237
 msgid "Ford PowerShift"
 msgstr ""
 
-#: maintenance/choices.py:2164
+#: maintenance/choices.py:2164 maintenance/choices.py:2238
 msgid "Ford CVT"
 msgstr ""
 
-#: maintenance/choices.py:2169
+#: maintenance/choices.py:2169 maintenance/choices.py:2243
 msgid "Alfa Romeo TCT"
 msgstr ""
 
-#: maintenance/choices.py:2170
+#: maintenance/choices.py:2170 maintenance/choices.py:2244
 msgid "Alfa Romeo Selespeed"
 msgstr ""
 
-#: maintenance/choices.py:2171
+#: maintenance/choices.py:2171 maintenance/choices.py:2245
 msgid "Alfa Romeo ATF"
 msgstr ""
 
-#: maintenance/choices.py:2172
+#: maintenance/choices.py:2172 maintenance/choices.py:2246
 msgid "Alfa Romeo Tutela"
 msgstr ""
 
-#: maintenance/choices.py:2177
+#: maintenance/choices.py:2177 maintenance/choices.py:2251
 msgid "Ferrari DCT"
 msgstr ""
 
-#: maintenance/choices.py:2178
+#: maintenance/choices.py:2178 maintenance/choices.py:2252
 msgid "Ferrari F1"
 msgstr ""
 
-#: maintenance/choices.py:2179
+#: maintenance/choices.py:2179 maintenance/choices.py:2253
 msgid "Ferrari Getrag"
 msgstr ""
 
-#: maintenance/choices.py:2180
+#: maintenance/choices.py:2180 maintenance/choices.py:2254
 msgid "Ferrari ATF"
 msgstr ""
 
-#: maintenance/choices.py:2225
+#: maintenance/choices.py:2275
 msgid "Bremi"
 msgstr ""
 
-#: maintenance/choices.py:2240
+#: maintenance/choices.py:2290
 msgid "A Faire"
 msgstr ""
 
@@ -23942,7 +23944,7 @@ msgstr ""
 msgid "Check-up"
 msgstr ""
 
-#: maintenance/models.py:25 voiture/voiture_boite/models.py:10
+#: maintenance/models.py:25 voiture/voiture_boite/models.py:12
 msgid "Remplacement boîte"
 msgstr ""
 
@@ -28940,7 +28942,7 @@ msgstr ""
 msgid "Révision moteur"
 msgstr ""
 
-#: utilisateurs/views.py:265 voiture/voiture_boite/models.py:9
+#: utilisateurs/views.py:265 voiture/voiture_boite/models.py:11
 msgid "Changement filtre"
 msgstr ""
 
@@ -29043,19 +29045,19 @@ msgstr ""
 msgid "Numéro de boîte"
 msgstr ""
 
-#: voiture/voiture_boite/models.py:14
+#: voiture/voiture_boite/models.py:16
 msgid "Manuelle"
 msgstr ""
 
-#: voiture/voiture_boite/models.py:15
+#: voiture/voiture_boite/models.py:17
 msgid "Semi-automatique"
 msgstr ""
 
-#: voiture/voiture_boite/models.py:16 voiture/voiture_embrayage/models.py:10
+#: voiture/voiture_boite/models.py:18 voiture/voiture_embrayage/models.py:10
 msgid "Automatique"
 msgstr ""
 
-#: voiture/voiture_boite/models.py:17
+#: voiture/voiture_boite/models.py:19
 msgid "Electrique"
 msgstr ""
 
@@ -30568,75 +30570,75 @@ msgstr ""
 msgid "Ex: S14B23"
 msgstr ""
 
-#: voiture/voiture_moteur/forms.py:80
+#: voiture/voiture_moteur/forms.py:79
 msgid "Ex: 2.3"
 msgstr ""
 
-#: voiture/voiture_moteur/forms.py:86
+#: voiture/voiture_moteur/forms.py:85
 msgid "Ex: 4"
 msgstr ""
 
-#: voiture/voiture_moteur/forms.py:92
+#: voiture/voiture_moteur/forms.py:91
 msgid "120"
 msgstr ""
 
-#: voiture/voiture_moteur/forms.py:97
+#: voiture/voiture_moteur/forms.py:96
 msgid "3000"
 msgstr ""
 
-#: voiture/voiture_moteur/forms.py:102
+#: voiture/voiture_moteur/forms.py:101
 msgid "300"
 msgstr ""
 
-#: voiture/voiture_moteur/forms.py:107
+#: voiture/voiture_moteur/forms.py:106
 msgid "4000"
 msgstr ""
 
-#: voiture/voiture_moteur/forms.py:112
+#: voiture/voiture_moteur/forms.py:111
 msgid "6.50"
 msgstr ""
 
-#: voiture/voiture_moteur/forms.py:119
+#: voiture/voiture_moteur/forms.py:118
 msgid "10000"
 msgstr ""
 
-#: voiture/voiture_moteur/models.py:12
+#: voiture/voiture_moteur/models.py:13
 msgid "Atmosphérique"
 msgstr ""
 
-#: voiture/voiture_moteur/models.py:13
+#: voiture/voiture_moteur/models.py:14
 msgid "Wankel"
 msgstr ""
 
-#: voiture/voiture_moteur/models.py:14
+#: voiture/voiture_moteur/models.py:15
 msgid "Hybride essence"
 msgstr ""
 
-#: voiture/voiture_moteur/models.py:15
+#: voiture/voiture_moteur/models.py:16
 msgid "Hybride turbo essence"
 msgstr ""
 
-#: voiture/voiture_moteur/models.py:16
+#: voiture/voiture_moteur/models.py:17
 msgid "Machine électrique"
 msgstr ""
 
-#: voiture/voiture_moteur/models.py:21
+#: voiture/voiture_moteur/models.py:22
 msgid "Électricité"
 msgstr ""
 
-#: voiture/voiture_moteur/models.py:22
+#: voiture/voiture_moteur/models.py:23
 msgid "Gaz naturel (CNG)"
 msgstr ""
 
-#: voiture/voiture_moteur/models.py:23
+#: voiture/voiture_moteur/models.py:24
 msgid "GPL"
 msgstr ""
 
-#: voiture/voiture_moteur/models.py:27
+#: voiture/voiture_moteur/models.py:28
 msgid "Chaîne"
 msgstr ""
 
-#: voiture/voiture_moteur/models.py:28
+#: voiture/voiture_moteur/models.py:29
 msgid "Courroie"
 msgstr ""
 
@@ -30763,17 +30765,17 @@ msgstr ""
 msgid "Modifier le moteur"
 msgstr ""
 
-#: voiture/voiture_moteur/views.py:86
+#: voiture/voiture_moteur/views.py:90
 msgid "Moteur mis à jour avec succès."
 msgstr ""
 
-#: voiture/voiture_moteur/views.py:106
+#: voiture/voiture_moteur/views.py:110
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Suppression du moteur"
 msgstr "Tableau de Bord"
 
-#: voiture/voiture_moteur/views.py:164
+#: voiture/voiture_moteur/views.py:168
 #, python-format
 msgid "Le moteur « %(nom)s » a bien été supprimé."
 msgstr ""
