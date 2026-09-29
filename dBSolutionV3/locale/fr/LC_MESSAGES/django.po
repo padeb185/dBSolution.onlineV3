@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-28 08:19+0200\n"
+"POT-Creation-Date: 2026-09-29 10:04+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -18,7 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: achat_mds/forms.py:12 achat_mds/models.py:23
-#: achat_mds/templates/achat_mds/achat_detail.html:32 fournisseur/models.py:99
+#: achat_mds/templates/achat_mds/achat_detail.html:47 fournisseur/models.py:102
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:60
 #: investissements/models.py:19 outillage/forms.py:20 outillage/models.py:24
 #: outillage/templates/outillage/outillage_detail.html:47
 #: outillage/templates/outillage/outillage_list.html:41
@@ -32,6 +33,7 @@ msgid "Libellé facture"
 msgstr ""
 
 #: achat_mds/forms.py:34 achat_mds/models.py:34
+#: achat_mds/templates/achat_mds/delete_achat.html:42
 msgid "Référence facture"
 msgstr ""
 
@@ -48,11 +50,13 @@ msgid "TVA (%)"
 msgstr ""
 
 #: achat_mds/forms.py:38 achat_mds/models.py:62
-#: achat_mds/templates/achat_mds/achat_detail.html:56
+#: achat_mds/templates/achat_mds/achat_detail.html:71
+#: achat_mds/templates/achat_mds/delete_achat.html:45
 msgid "Date de la facture"
 msgstr ""
 
 #: achat_mds/forms.py:39 achat_mds/models.py:66
+#: achat_mds/templates/achat_mds/delete_achat.html:48
 msgid "Date de paiement"
 msgstr ""
 
@@ -72,19 +76,22 @@ msgstr ""
 msgid "21"
 msgstr ""
 
-#: achat_mds/models.py:27 achat_mds/templates/achat_mds/achat_detail.html:41
-#: achat_mds/templates/achat_mds/achat_list.html:31
-#: achat_mds/templates/achat_mds/achat_list.html:56
+#: achat_mds/models.py:27 achat_mds/templates/achat_mds/achat_detail.html:56
+#: achat_mds/templates/achat_mds/achat_list.html:48
+#: achat_mds/templates/achat_mds/achat_list.html:73
+#: achat_mds/templates/achat_mds/delete_achat.html:39
 #: investissements/models.py:40 outillage/forms.py:21 outillage/models.py:29
+#: outillage/templates/outillage/delete_outillage.html:74
 #: outillage/templates/outillage/outillage_detail.html:50
 #: outillage/templates/outillage/outillage_list.html:45
 #: outillage/templates/outillage/outillage_list.html:75
 msgid "Libellé"
 msgstr ""
 
-#: achat_mds/models.py:41 achat_mds/templates/achat_mds/achat_detail.html:46
-#: achat_mds/templates/achat_mds/achat_list.html:35
-#: achat_mds/templates/achat_mds/achat_list.html:58
+#: achat_mds/models.py:41 achat_mds/templates/achat_mds/achat_detail.html:61
+#: achat_mds/templates/achat_mds/achat_list.html:52
+#: achat_mds/templates/achat_mds/achat_list.html:75
+#: achat_mds/templates/achat_mds/delete_achat.html:65
 msgid "Montant HTVA"
 msgstr ""
 
@@ -92,7 +99,7 @@ msgstr ""
 msgid "Montant HTVA du transport"
 msgstr ""
 
-#: achat_mds/models.py:55 fournisseur/models.py:39 outillage/models.py:54
+#: achat_mds/models.py:55 fournisseur/models.py:42 outillage/models.py:54
 msgid "Taux de TVA (%)"
 msgstr ""
 
@@ -109,7 +116,7 @@ msgstr ""
 msgid "Détails du fournisseur :"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_detail.html:28
+#: achat_mds/templates/achat_mds/achat_detail.html:43
 #: adresse/templates/adresse/adresse_detail.html:24
 #: assurance/templates/assurance/assurance_detail.html:44
 #: assurance_police/templates/assurance_police/assurance_police_detail.html:44
@@ -167,31 +174,39 @@ msgstr ""
 msgid "Informations générales"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_detail.html:51
-#: achat_mds/templates/achat_mds/achat_list.html:40
-#: achat_mds/templates/achat_mds/achat_list.html:60 facture/models.py:124
+#: achat_mds/templates/achat_mds/achat_detail.html:66
+#: achat_mds/templates/achat_mds/achat_list.html:57
+#: achat_mds/templates/achat_mds/achat_list.html:77
+#: achat_mds/templates/achat_mds/delete_achat.html:75 facture/models.py:124
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:68
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:51
+#: outillage/templates/outillage/delete_outillage.html:94
 #: outillage/templates/outillage/outillage_list.html:62
 #: outillage/templates/outillage/outillage_list.html:79
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:77
 msgid "Taux de TVA"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_detail.html:64
+#: achat_mds/templates/achat_mds/achat_detail.html:79
 #: carrosserie/templates/carrosserie/carrosserie_detail.html:76
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:64
 msgid "Informations Peppol"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_detail.html:68 assurance/models.py:26
+#: achat_mds/templates/achat_mds/achat_detail.html:83 assurance/models.py:26
 #: assurance/templates/assurance/assurance_detail.html:72
+#: assurance/templates/assurance/delete_assurance.html:37
 #: carrosserie/models.py:48
 #: carrosserie/templates/carrosserie/carrosserie_detail.html:80
-#: facture/models.py:30 fournisseur/models.py:46
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:75
+#: facture/models.py:30 fournisseur/models.py:49
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:73
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:68
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:82
 msgid "Identifiant Peppol"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_detail.html:73
+#: achat_mds/templates/achat_mds/achat_detail.html:88
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:53
 #: client_particulier/templates/client_particulier/client_detail.html:58
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:58
@@ -232,69 +247,92 @@ msgstr ""
 msgid "Numéro de compte"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_detail.html:82
+#: achat_mds/templates/achat_mds/achat_detail.html:97
 msgid "Modifier l'achat"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_detail.html:91 adresse/models.py:33
+#: achat_mds/templates/achat_mds/achat_detail.html:105
+#: achat_mds/templates/achat_mds/delete_achat.html:9
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer l'achat"
+msgstr "Tableau de Bord"
+
+#: achat_mds/templates/achat_mds/achat_detail.html:116 adresse/models.py:33
 #: adresse/templates/adresse/adresse_form.html:13
-#: assurance/templates/assurance/assurance_detail.html:96
+#: adresse/templates/adresse/delete_adresse.html:63
+#: assurance/templates/assurance/assurance_detail.html:108
 #: assurance/templates/assurance/assurance_list.html:47
 #: assurance/templates/assurance/assurance_list.html:73
-#: carrosserie/templates/carrosserie/carrosserie_detail.html:98
+#: assurance/templates/assurance/delete_assurance.html:43
+#: carrosserie/templates/carrosserie/carrosserie_detail.html:107
 #: carrosserie/templates/carrosserie/carrosserie_form.html:90
 #: carrosserie/templates/carrosserie/carrosserie_list.html:46
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:48
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:81
 #: carrosserie/templates/carrosserie/modifier_carrosserie.html:80
 #: client_atelier/models.py:53
-#: client_atelier/templates/client_atelier/client_atelier_detail.html:104
-#: client_particulier/models.py:39
-#: client_particulier/templates/client_particulier/client_detail.html:106
+#: client_atelier/templates/client_atelier/client_atelier_detail.html:116
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:62
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:110
+#: client_particulier/models.py:37
+#: client_particulier/templates/client_particulier/client_detail.html:118
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:52
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:79
-#: client_pilotage/models.py:39
-#: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:110
+#: client_particulier/templates/client_particulier/delete_client.html:47
+#: client_particulier/templates/client_particulier/delete_client.html:82
+#: client_pilotage/models.py:38
+#: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:122
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:52
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:75
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:47
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:81
 #: facture/models.py:17 fournisseur/models.py:27
-#: fournisseur/templates/fournisseur/fournisseur_detail.html:86
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:79
+#: fournisseur/templates/fournisseur/fournisseur_detail.html:98
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:61
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:92
 #: proprietaire/templates/proprietaire/modifier_proprietaire_voiture.html:68
-#: proprietaire/templates/proprietaire/proprietaire_detail.html:99
+#: proprietaire/templates/proprietaire/proprietaire_detail.html:113
 #: proprietaire/templates/proprietaire/proprietaire_list.html:56
 #: proprietaire/templates/proprietaire/proprietaire_list.html:71
-#: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:88
+#: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:101
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:55
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:74
-#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:109
+#: societe_cliente/models.py:97
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:47
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:85
+#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:119
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:74
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:80
 msgid "Adresse"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_detail.html:98
-#: assurance/templates/assurance/assurance_detail.html:103
-#: assurance_police/templates/assurance_police/assurance_police_detail.html:136
-#: carrosserie/templates/carrosserie/carrosserie_detail.html:105
-#: client_atelier/templates/client_atelier/client_atelier_detail.html:115
-#: client_particulier/templates/client_particulier/client_detail.html:117
-#: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:121
-#: fournisseur/templates/fournisseur/fournisseur_detail.html:97
-#: proprietaire/templates/proprietaire/proprietaire_detail.html:106
-#: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:95
-#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:116
+#: achat_mds/templates/achat_mds/achat_detail.html:123
+#: assurance/templates/assurance/assurance_detail.html:115
+#: assurance_police/templates/assurance_police/assurance_police_detail.html:148
+#: carrosserie/templates/carrosserie/carrosserie_detail.html:114
+#: client_atelier/templates/client_atelier/client_atelier_detail.html:127
+#: client_particulier/templates/client_particulier/client_detail.html:129
+#: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:133
+#: fournisseur/templates/fournisseur/fournisseur_detail.html:109
+#: proprietaire/templates/proprietaire/proprietaire_detail.html:120
+#: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:108
+#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:126
 msgid "Aucune adresse renseignée."
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_detail.html:106
-#: adresse/templates/adresse/adresse_detail.html:90
-#: assurance/templates/assurance/assurance_detail.html:111
-#: assurance_police/templates/assurance_police/assurance_police_detail.html:144
-#: carrosserie/templates/carrosserie/carrosserie_detail.html:113
-#: client_atelier/templates/client_atelier/client_atelier_detail.html:123
-#: client_particulier/templates/client_particulier/client_detail.html:125
-#: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:129
-#: fournisseur/templates/fournisseur/fournisseur_detail.html:105
+#: achat_mds/templates/achat_mds/achat_detail.html:131
+#: adresse/templates/adresse/adresse_detail.html:102
+#: assurance/templates/assurance/assurance_detail.html:123
+#: assurance_police/templates/assurance_police/assurance_police_detail.html:156
+#: carrosserie/templates/carrosserie/carrosserie_detail.html:122
+#: client_atelier/templates/client_atelier/client_atelier_detail.html:135
+#: client_particulier/templates/client_particulier/client_detail.html:137
+#: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:141
+#: fournisseur/templates/fournisseur/fournisseur_detail.html:117
 #: fuel/templates/fuel/fuel_detail.html:117
-#: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:121
+#: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:132
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail.html:119
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail.html:114
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_detail.html:125
@@ -325,38 +363,48 @@ msgstr ""
 #: maintenance/niveaux/templates/niveaux/niveaux_detail.html:159
 #: maintenance/pneus/templates/pneus/pneus_detail.html:107
 #: maintenance/silent_blocs/templates/silent_blocs/silent_detail.html:107
-#: outillage/templates/outillage/outillage_detail.html:90
-#: proprietaire/templates/proprietaire/proprietaire_detail.html:114
-#: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:103
-#: recharge/templates/recharge/electricite_detail.html:101
-#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:124
-#: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:107
+#: outillage/templates/outillage/outillage_detail.html:103
+#: proprietaire/templates/proprietaire/proprietaire_detail.html:128
+#: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:116
+#: recharge/templates/recharge/electricite_detail.html:115
+#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:134
+#: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:119
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:110
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:123
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:123
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:94
-#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:117
+#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:128
 #: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:104
 msgid "Métadonnées"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_detail.html:110 adresse/models.py:29
-#: adresse/templates/adresse/adresse_detail.html:94 assurance/models.py:43
-#: assurance/templates/assurance/assurance_detail.html:115
+#: achat_mds/templates/achat_mds/achat_detail.html:135
+#: achat_mds/templates/achat_mds/delete_achat.html:89 adresse/models.py:29
+#: adresse/templates/adresse/adresse_detail.html:106
+#: adresse/templates/adresse/delete_adresse.html:89 assurance/models.py:43
+#: assurance/templates/assurance/assurance_detail.html:127
+#: assurance/templates/assurance/delete_assurance.html:77
 #: assurance_police/models.py:121
-#: assurance_police/templates/assurance_police/assurance_police_detail.html:148
+#: assurance_police/templates/assurance_police/assurance_police_detail.html:160
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:138
 #: carrosserie/models.py:63
-#: carrosserie/templates/carrosserie/carrosserie_detail.html:117
-#: client_atelier/models.py:74
-#: client_atelier/templates/client_atelier/client_atelier_detail.html:127
-#: client_particulier/models.py:106
-#: client_particulier/templates/client_particulier/client_detail.html:129
-#: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:133
-#: facture/models.py:41 fournisseur/models.py:94
-#: fournisseur/templates/fournisseur/fournisseur_detail.html:109
+#: carrosserie/templates/carrosserie/carrosserie_detail.html:126
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:108
+#: client_atelier/models.py:75
+#: client_atelier/templates/client_atelier/client_atelier_detail.html:139
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:131
+#: client_particulier/models.py:105
+#: client_particulier/templates/client_particulier/client_detail.html:141
+#: client_particulier/templates/client_particulier/delete_client.html:132
+#: client_pilotage/models.py:72
+#: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:145
+#: facture/models.py:41 fournisseur/models.py:97
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:105
+#: fournisseur/templates/fournisseur/fournisseur_detail.html:121
 #: fuel/models.py:215 fuel/templates/fuel/fuel_detail.html:121
 #: maindoeuvre/models.py:73
-#: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:125
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:111
+#: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:136
 #: maintenance/autres_interventions/abs/models.py:260
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail.html:123
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:321
@@ -417,17 +465,21 @@ msgstr ""
 #: maintenance/silent_blocs/models.py:651
 #: maintenance/silent_blocs/templates/silent_blocs/silent_detail.html:111
 #: outillage/models.py:77
-#: outillage/templates/outillage/outillage_detail.html:94
+#: outillage/templates/outillage/delete_outillage.html:113
+#: outillage/templates/outillage/outillage_detail.html:107
 #: proprietaire/models.py:82 proprietaire/models.py:125
-#: proprietaire/templates/proprietaire/proprietaire_detail.html:118
-#: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:107
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:139
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:113
+#: proprietaire/templates/proprietaire/proprietaire_detail.html:132
+#: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:120
 #: recharge/models.py:210
-#: recharge/templates/recharge/electricite_detail.html:105
-#: recharge/templates/recharge/electricite_detail.html:109
-#: societe_cliente/models.py:133
-#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:128
-#: voiture/voiture_boite/models.py:70
-#: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:111
+#: recharge/templates/recharge/electricite_detail.html:119
+#: societe_cliente/models.py:134
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:145
+#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:138
+#: voiture/voiture_boite/models.py:69
+#: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:123
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:151
 #: voiture/voiture_embrayage/models.py:105
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:86
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:114
@@ -441,29 +493,40 @@ msgstr ""
 #: voiture/voiture_modele/models.py:53
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:98
 #: voiture/voiture_moteur/models.py:77
-#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:121
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:177
+#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:132
 #: voiture/voiture_pneus/models.py:191
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:129
 #: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:108
 msgid "Créé le"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_detail.html:115 adresse/models.py:30
-#: adresse/templates/adresse/adresse_detail.html:98 assurance/models.py:44
-#: assurance/templates/assurance/assurance_detail.html:119
+#: achat_mds/templates/achat_mds/achat_detail.html:140
+#: achat_mds/templates/achat_mds/delete_achat.html:90 adresse/models.py:30
+#: adresse/templates/adresse/adresse_detail.html:110
+#: adresse/templates/adresse/delete_adresse.html:90 assurance/models.py:44
+#: assurance/templates/assurance/assurance_detail.html:131
+#: assurance/templates/assurance/delete_assurance.html:78
 #: assurance_police/models.py:122
-#: assurance_police/templates/assurance_police/assurance_police_detail.html:152
+#: assurance_police/templates/assurance_police/assurance_police_detail.html:164
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:139
 #: carrosserie/models.py:64
-#: carrosserie/templates/carrosserie/carrosserie_detail.html:121
-#: client_atelier/models.py:75
-#: client_atelier/templates/client_atelier/client_atelier_detail.html:132
-#: client_particulier/models.py:107
-#: client_particulier/templates/client_particulier/client_detail.html:134
-#: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:137
-#: facture/models.py:42 fournisseur/models.py:95
-#: fournisseur/templates/fournisseur/fournisseur_detail.html:114
+#: carrosserie/templates/carrosserie/carrosserie_detail.html:130
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:109
+#: client_atelier/models.py:76
+#: client_atelier/templates/client_atelier/client_atelier_detail.html:144
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:132
+#: client_particulier/models.py:106
+#: client_particulier/templates/client_particulier/client_detail.html:146
+#: client_particulier/templates/client_particulier/delete_client.html:133
+#: client_pilotage/models.py:73
+#: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:149
+#: facture/models.py:42 fournisseur/models.py:98
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:106
+#: fournisseur/templates/fournisseur/fournisseur_detail.html:126
 #: fuel/models.py:216 maindoeuvre/models.py:74
-#: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:130
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:112
+#: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:141
 #: maintenance/autres_interventions/abs/models.py:261
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail.html:127
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:322
@@ -524,14 +587,21 @@ msgstr ""
 #: maintenance/silent_blocs/models.py:652
 #: maintenance/silent_blocs/templates/silent_blocs/silent_detail.html:115
 #: outillage/models.py:78
-#: outillage/templates/outillage/outillage_detail.html:99
+#: outillage/templates/outillage/delete_outillage.html:114
+#: outillage/templates/outillage/outillage_detail.html:112
 #: proprietaire/models.py:83 proprietaire/models.py:126
-#: proprietaire/templates/proprietaire/proprietaire_detail.html:123
-#: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:111
-#: recharge/models.py:211 societe_cliente/models.py:134
-#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:132
-#: voiture/voiture_boite/models.py:71
-#: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:115
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:140
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:114
+#: proprietaire/templates/proprietaire/proprietaire_detail.html:137
+#: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:124
+#: recharge/models.py:211
+#: recharge/templates/recharge/electricite_detail.html:123
+#: societe_cliente/models.py:135
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:146
+#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:142
+#: voiture/voiture_boite/models.py:70
+#: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:127
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:152
 #: voiture/voiture_embrayage/models.py:106
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:87
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:118
@@ -545,14 +615,16 @@ msgstr ""
 #: voiture/voiture_modele/models.py:54
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:102
 #: voiture/voiture_moteur/models.py:78
-#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:125
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:178
+#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:136
 #: voiture/voiture_pneus/models.py:192
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:130
 #: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:112
 msgid "Mis à jour le"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_detail.html:138
+#: achat_mds/templates/achat_mds/achat_detail.html:163
+#: achat_mds/templates/achat_mds/achat_form.html:87
 msgid "Retour à la liste des achats"
 msgstr ""
 
@@ -561,7 +633,7 @@ msgid "Achat marchandises"
 msgstr ""
 
 #: achat_mds/templates/achat_mds/achat_form.html:72
-#: achat_mds/templates/achat_mds/modifier_achat_mds.html:84
+#: achat_mds/templates/achat_mds/modifier_achat_mds.html:80
 #: adresse/templates/adresse/adresse_form.html:77
 #: adresse/templates/adresse/modifier_adresse.html:78
 #: assurance/templates/assurance/assurance_form.html:74
@@ -659,11 +731,11 @@ msgstr ""
 #: voiture/voiture_boite/templates/voiture_boite/ajouter_boite.html:70
 #: voiture/voiture_boite/templates/voiture_boite/modifier_boite.html:71
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:78
-#: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:86
+#: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:87
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:83
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/modifier_exemplaire.html:81
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/ajouter_freins_ar_simple.html:78
-#: voiture/voiture_freins_ar/templates/voiture_freins_ar/modifier_freins_ar.html:86
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/modifier_freins_ar.html:94
 #: voiture/voiture_freins_av/templates/voiture_freins_av/ajouter_freins_simple.html:77
 #: voiture/voiture_freins_av/templates/voiture_freins_av/modifier_freins_av.html:87
 #: voiture/voiture_marque/templates/voiture_marque/ajouter_marque.html:44
@@ -677,21 +749,30 @@ msgid "Enregistrer"
 msgstr ""
 
 #: achat_mds/templates/achat_mds/achat_form.html:77
-#: achat_mds/templates/achat_mds/modifier_achat_mds.html:89
+#: achat_mds/templates/achat_mds/delete_achat.html:114
+#: achat_mds/templates/achat_mds/modifier_achat_mds.html:85
 #: adresse/templates/adresse/adresse_form.html:82
+#: adresse/templates/adresse/delete_adresse.html:124
 #: adresse/templates/adresse/modifier_adresse.html:83
 #: assurance/templates/assurance/assurance_form.html:79
+#: assurance/templates/assurance/delete_assurance.html:102
 #: assurance/templates/assurance/modifier_assurance.html:81
 #: assurance_police/templates/assurance_police/assurance_police_form.html:66
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:163
 #: assurance_police/templates/assurance_police/modifier_assurance_police.html:77
 #: carrosserie/templates/carrosserie/carrosserie_form.html:109
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:142
 #: carrosserie/templates/carrosserie/modifier_carrosserie.html:99
 #: client_atelier/templates/client_atelier/client_atelier_form.html:81
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:166
 #: client_atelier/templates/client_atelier/modifier_client_atelier.html:87
 #: client_particulier/templates/client_particulier/client_form.html:65
+#: client_particulier/templates/client_particulier/delete_client.html:167
 #: client_particulier/templates/client_particulier/modifier_client_particulier.html:87
 #: client_pilotage/templates/client_pilotage/client_pilotage_form.html:84
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:140
 #: client_pilotage/templates/client_pilotage/modifier_client_pilotage.html:87
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:140
 #: fournisseur/templates/fournisseur/fournisseur_form.html:69
 #: fournisseur/templates/fournisseur/modifier_fournisseur.html:89
 #: fuel/templates/fuel/fuel_delete.html:39
@@ -700,6 +781,7 @@ msgstr ""
 #: fuel/templates/fuel/fuel_form.html:260
 #: fuel/templates/fuel/modifier_fuel.html:165
 #: fuel/templates/fuel/modifier_fuel.html:209
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:144
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_form.html:87
 #: maindoeuvre/templates/maindoeuvre/modifier_maindoeuvre.html:100
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:196
@@ -851,10 +933,13 @@ msgstr ""
 #: maintenance/silent_blocs/templates/silent_blocs/modifier_silent.html:767
 #: maintenance/silent_blocs/templates/silent_blocs/silent_check.html:198
 #: maintenance/silent_blocs/templates/silent_blocs/silent_check.html:776
+#: outillage/templates/outillage/delete_outillage.html:140
 #: outillage/templates/outillage/modifier_outillage.html:66
 #: outillage/templates/outillage/outillage_form.html:75
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_form.html:158
 #: piece/templates/piece/piece_confirm_delete.html:14
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:166
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:139
 #: proprietaire/templates/proprietaire/modifier_proprietaire.html:87
 #: proprietaire/templates/proprietaire/modifier_proprietaire_voiture.html:85
 #: proprietaire/templates/proprietaire/proprietaire_form.html:77
@@ -865,21 +950,23 @@ msgstr ""
 #: recharge/templates/recharge/electricite_form.html:244
 #: recharge/templates/recharge/modifier_electricite.html:151
 #: recharge/templates/recharge/modifier_electricite.html:196
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:179
 #: societe_cliente/templates/societe_cliente/modifier_societe_cliente.html:84
 #: societe_cliente/templates/societe_cliente/societe_cliente_form.html:83
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:108
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:109
 #: voiture/voiture_boite/templates/voiture_boite/ajouter_boite.html:75
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:178
 #: voiture/voiture_boite/templates/voiture_boite/modifier_boite.html:75
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:83
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:111
-#: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:90
+#: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:91
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:88
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/modifier_exemplaire.html:86
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/supprimer_exemplaire_all.html:45
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/ajouter_freins_ar_simple.html:83
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:128
-#: voiture/voiture_freins_ar/templates/voiture_freins_ar/modifier_freins_ar.html:91
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/modifier_freins_ar.html:99
 #: voiture/voiture_freins_av/templates/voiture_freins_av/ajouter_freins_simple.html:82
 #: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:127
 #: voiture/voiture_freins_av/templates/voiture_freins_av/modifier_freins_av.html:92
@@ -887,6 +974,7 @@ msgstr ""
 #: voiture/voiture_modele/templates/voiture_modele/ajouter_modele.html:171
 #: voiture/voiture_modele/templates/voiture_modele/modifier_voiture_modele_view.html:70
 #: voiture/voiture_moteur/templates/voiture_moteur/ajouter_moteur.html:80
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:204
 #: voiture/voiture_moteur/templates/voiture_moteur/modifier_moteur.html:76
 #: voiture/voiture_pneus/templates/voiture_pneus/ajouter_pneus_simple.html:78
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:157
@@ -899,31 +987,33 @@ msgstr ""
 msgid "Liste des Factures"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:17
+#: achat_mds/templates/achat_mds/achat_list.html:34
 msgid "Encoder un achat"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:27 fournisseur/models.py:20
+#: achat_mds/templates/achat_mds/achat_list.html:44 fournisseur/models.py:20
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:62
 #: fournisseur/templates/fournisseur/fournisseur_list.html:41
 msgid "Nom du fournisseur"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:44
+#: achat_mds/templates/achat_mds/achat_list.html:61
 #: fournisseur/templates/fournisseur/fournisseur_list.html:58
 #: piece/templates/piece/piece_list.html:34
 msgid "0032"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:55
+#: achat_mds/templates/achat_mds/achat_list.html:72
 #: fournisseur/templates/fournisseur/fournisseur_list.html:69
 msgid "Nom du Fournisseur"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:57
+#: achat_mds/templates/achat_mds/achat_list.html:74
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:657
 #: maintenance/autres_interventions/moteur/allumage/models.py:138
 #: maintenance/autres_interventions/moteur/allumage/models.py:175
 #: outillage/forms.py:22 outillage/models.py:36
+#: outillage/templates/outillage/delete_outillage.html:77
 #: outillage/templates/outillage/outillage_detail.html:54
 #: piece/piece_fluides/forms.py:22 piece/piece_fluides/forms.py:56
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:33
@@ -931,26 +1021,27 @@ msgstr ""
 msgid "Référence"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:59
+#: achat_mds/templates/achat_mds/achat_list.html:76
+#: achat_mds/templates/achat_mds/delete_achat.html:70
 msgid "Transport HTVA"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:61
+#: achat_mds/templates/achat_mds/achat_list.html:78
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:63
 msgid "Total TVA"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:62
+#: achat_mds/templates/achat_mds/achat_list.html:79
 #: fuel/templates/fuel/fuel_detail.html:54
 msgid "Montant TVAC"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:63
+#: achat_mds/templates/achat_mds/achat_list.html:80
 msgid "Date de facturation"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:64
-#: achat_mds/templates/achat_mds/achat_list.html:95
+#: achat_mds/templates/achat_mds/achat_list.html:81
+#: achat_mds/templates/achat_mds/achat_list.html:112
 #: adresse/templates/adresse/adresse_list.html:86
 #: adresse/templates/adresse/adresse_list.html:102
 #: assurance/templates/assurance/assurance_list.html:77
@@ -995,8 +1086,7 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:108
-#: fournisseur/templates/fournisseur/fournisseur_dashboard.html:53
+#: achat_mds/templates/achat_mds/achat_list.html:125
 #: fournisseur/templates/fournisseur/fournisseur_list.html:110
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:164
 #, fuzzy
@@ -1004,7 +1094,7 @@ msgstr ""
 msgid "Retour au tableau de bord fournisseur"
 msgstr "Tableau de Bord"
 
-#: achat_mds/templates/achat_mds/achat_list.html:120
+#: achat_mds/templates/achat_mds/achat_list.html:137
 #: adresse/templates/adresse/adresse_list.html:132
 #: assurance/templates/assurance/assurance_list.html:118
 #: assurance_police/templates/assurance_police/assurance_police_list.html:153
@@ -1061,7 +1151,7 @@ msgstr "Tableau de Bord"
 msgid "Recherche globale :"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:121
+#: achat_mds/templates/achat_mds/achat_list.html:138
 #: adresse/templates/adresse/adresse_list.html:133
 #: assurance/templates/assurance/assurance_list.html:119
 #: assurance_police/templates/assurance_police/assurance_police_list.html:154
@@ -1120,16 +1210,16 @@ msgstr ""
 msgid "Afficher _MENU_ éléments"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:122
+#: achat_mds/templates/achat_mds/achat_list.html:139
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ achats marchandises"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:123
-#: achat_mds/templates/achat_mds/achat_list.html:124
+#: achat_mds/templates/achat_mds/achat_list.html:140
+#: achat_mds/templates/achat_mds/achat_list.html:141
 msgid "Aucune facture trouvée"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:127
+#: achat_mds/templates/achat_mds/achat_list.html:144
 #: adresse/templates/adresse/adresse_list.html:138
 #: assurance/templates/assurance/assurance_list.html:124
 #: assurance_police/templates/assurance_police/assurance_police_list.html:159
@@ -1188,7 +1278,7 @@ msgstr ""
 msgid "Premier"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:128
+#: achat_mds/templates/achat_mds/achat_list.html:145
 #: adresse/templates/adresse/adresse_list.html:139
 #: assurance/templates/assurance/assurance_list.html:125
 #: assurance_police/templates/assurance_police/assurance_police_list.html:160
@@ -1247,7 +1337,7 @@ msgstr ""
 msgid "Dernier"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:129
+#: achat_mds/templates/achat_mds/achat_list.html:146
 #: adresse/templates/adresse/adresse_list.html:140
 #: assurance/templates/assurance/assurance_list.html:126
 #: assurance_police/templates/assurance_police/assurance_police_list.html:161
@@ -1306,7 +1396,7 @@ msgstr ""
 msgid "Suivant"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/achat_list.html:130
+#: achat_mds/templates/achat_mds/achat_list.html:147
 #: adresse/templates/adresse/adresse_list.html:141
 #: assurance/templates/assurance/assurance_list.html:127
 #: assurance_police/templates/assurance_police/assurance_police_list.html:162
@@ -1365,30 +1455,148 @@ msgstr ""
 msgid "Précédent"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/modifier_achat_mds.html:12
+#: achat_mds/templates/achat_mds/delete_achat.html:13
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment supprimer cet achat ? Cette action est irréversible."
+msgstr "Tableau de Bord"
+
+#: achat_mds/templates/achat_mds/delete_achat.html:21
+#: outillage/templates/outillage/delete_outillage.html:44
+msgid "Fournisseur concerné"
+msgstr ""
+
+#: achat_mds/templates/achat_mds/delete_achat.html:37 facture/models.py:92
+#: facture/models.py:102
+msgid "Facture"
+msgstr ""
+
+#: achat_mds/templates/achat_mds/delete_achat.html:53
+msgid "Non payée"
+msgstr ""
+
+#: achat_mds/templates/achat_mds/delete_achat.html:63
+#: outillage/templates/outillage/delete_outillage.html:89
+msgid "Montants"
+msgstr ""
+
+#: achat_mds/templates/achat_mds/delete_achat.html:80
+#: fuel/templates/fuel/fuel_detail.html:58
+msgid "Montant TVA"
+msgstr ""
+
+#: achat_mds/templates/achat_mds/delete_achat.html:83
+#: outillage/templates/outillage/delete_outillage.html:100
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:68
+msgid "Total TVAC"
+msgstr ""
+
+#: achat_mds/templates/achat_mds/delete_achat.html:104
+#: adresse/templates/adresse/delete_adresse.html:105
+#: assurance/templates/assurance/delete_assurance.html:92
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:153
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:132
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:155
+#: client_particulier/templates/client_particulier/delete_client.html:156
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:129
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:129
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:135
+#: maintenance/autres_interventions/abs/templates/abs/delete_abs.html:38
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/delete_remplacement_boite.html:42
+#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/delete_boite.html:39
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/delete_bte_auto.html:41
+#: maintenance/autres_interventions/climatisation/templates/climatisation/delete_clim.html:40
+#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/delete_cour_access.html:39
+#: maintenance/autres_interventions/echappement/templates/echappement/delete_echappement.html:39
+#: maintenance/autres_interventions/embrayage/templates/embrayage/delete_embrayage.html:40
+#: maintenance/autres_interventions/geometrie/templates/geometrie/delete_geometrie.html:39
+#: maintenance/autres_interventions/moteur/admission/templates/admission/delete_admission.html:40
+#: maintenance/autres_interventions/moteur/allumage/templates/allumage/delete_allumage.html:40
+#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/delete_alternateur.html:40
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/delete_courroie.html:40
+#: maintenance/autres_interventions/moteur/injection/templates/injection/delete_injection.html:40
+#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/delete_remplacement_moteur.html:40
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/delete_rodage.html:39
+#: maintenance/autres_interventions/moteur/turbo/templates/turbo/delete_turbo.html:40
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/delete_ref.html:41
+#: maintenance/carrosserie_interne/templates/carrosserie_interne/delete_carrosserie_interne.html:40
+#: maintenance/check_up/templates/check_up/delete_checkup.html:40
+#: maintenance/checkup_track/templates/checkup_track/delete_checkup_track.html:39
+#: maintenance/entretien/templates/entretien/delete_entretien.html:39
+#: maintenance/essuyage/templates/essuyage/delete_essuyage.html:39
+#: maintenance/freins/templates/freins/delete_freins.html:39
+#: maintenance/jeux_pieces/templates/jeux_pieces/delete_jeux.html:39
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/delete_nettoyage_ext.html:38
+#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/delete_nettoyage_int.html:39
+#: maintenance/niveaux/templates/niveaux/delete_niveau.html:39
+#: maintenance/pneus/templates/pneus/delete_pneus.html:39
+#: maintenance/silent_blocs/templates/silent_blocs/delete_silent.html:39
+#: maintenance/templates/maintenance/entretien/creer_entretien.html:51
+#: outillage/templates/outillage/delete_outillage.html:132
+#: piece/templates/piece/piece_detail.html:49
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:158
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:169
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:170
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:101
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:232
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/supprimer_exemplaire_all.html:38
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:118
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:118
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:196
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:148
+msgid "Supprimer"
+msgstr ""
+
+#: achat_mds/templates/achat_mds/modifier_achat_mds.html:10
 msgid "Modifier l'achat :"
 msgstr ""
 
-#: achat_mds/views.py:35
+#: achat_mds/templates/achat_mds/modifier_achat_mds.html:95
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Retour aux détails de l'achat"
+msgstr "Tableau de Bord"
+
+#: achat_mds/views.py:39
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Achat enregistré avec succès."
 msgstr "Tableau de Bord"
 
-#: achat_mds/views.py:107
+#: achat_mds/views.py:111
 msgid "Achat modifié avec succès !"
+msgstr ""
+
+#: achat_mds/views.py:133
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression de l'achat"
+msgstr "Tableau de Bord"
+
+#: achat_mds/views.py:165
+#, python-format
+msgid ""
+"Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé ailleurs."
+msgstr ""
+
+#: achat_mds/views.py:169
+#, python-format
+msgid "L'achat « %(ref)s » a bien été supprimé."
 msgstr ""
 
 #: adresse/forms.py:24 adresse/models.py:20
 #: adresse/templates/adresse/adresse_detail.html:28
 #: adresse/templates/adresse/adresse_list.html:45
-#: adresse/templates/adresse/adresse_list.html:80 assurance/forms.py:16
+#: adresse/templates/adresse/adresse_list.html:80
+#: adresse/templates/adresse/delete_adresse.html:65 assurance/forms.py:16
 #: client_atelier/forms.py:112 fournisseur/forms.py:15 utilisateurs/forms.py:93
 msgid "Rue"
 msgstr ""
 
 #: adresse/forms.py:25 adresse/models.py:21
-#: adresse/templates/adresse/adresse_detail.html:33 assurance/forms.py:24
+#: adresse/templates/adresse/adresse_detail.html:33
+#: adresse/templates/adresse/delete_adresse.html:68 assurance/forms.py:24
 #: client_atelier/forms.py:120 fournisseur/forms.py:23 utilisateurs/forms.py:97
 msgid "Numéro"
 msgstr ""
@@ -1404,7 +1612,8 @@ msgstr ""
 
 #: adresse/forms.py:27 adresse/models.py:23
 #: adresse/templates/adresse/adresse_list.html:58
-#: adresse/templates/adresse/adresse_list.html:83 assurance/forms.py:39
+#: adresse/templates/adresse/adresse_list.html:83
+#: adresse/templates/adresse/delete_adresse.html:74 assurance/forms.py:39
 #: client_atelier/forms.py:136 fournisseur/forms.py:38
 #: utilisateurs/forms.py:101
 msgid "Code postal"
@@ -1413,7 +1622,8 @@ msgstr ""
 #: adresse/forms.py:28 adresse/models.py:24
 #: adresse/templates/adresse/adresse_detail.html:48
 #: adresse/templates/adresse/adresse_list.html:62
-#: adresse/templates/adresse/adresse_list.html:84 assurance/forms.py:47
+#: adresse/templates/adresse/adresse_list.html:84
+#: adresse/templates/adresse/delete_adresse.html:77 assurance/forms.py:47
 #: client_atelier/forms.py:144 fournisseur/forms.py:46
 #: utilisateurs/forms.py:105
 msgid "Ville"
@@ -1422,7 +1632,8 @@ msgstr ""
 #: adresse/forms.py:29 adresse/models.py:26
 #: adresse/templates/adresse/adresse_detail.html:53
 #: adresse/templates/adresse/adresse_list.html:67
-#: adresse/templates/adresse/adresse_list.html:85 assurance/forms.py:56
+#: adresse/templates/adresse/adresse_list.html:85
+#: adresse/templates/adresse/delete_adresse.html:80 assurance/forms.py:56
 #: assurance/templates/assurance/assurance_detail.html:60
 #: carrosserie/templates/carrosserie/carrosserie_list.html:50
 #: client_atelier/forms.py:152 fournisseur/forms.py:55
@@ -1528,7 +1739,8 @@ msgstr ""
 #: adresse/forms.py:30 adresse/models.py:27
 #: adresse/templates/adresse/adresse_detail.html:58 assurance/forms.py:65
 #: client_atelier/forms.py:161 facture/models.py:36 fournisseur/forms.py:64
-#: fournisseur/models.py:52
+#: fournisseur/models.py:55
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:76
 msgid "Code pays"
 msgstr ""
 
@@ -1541,7 +1753,7 @@ msgstr ""
 msgid "Cette adresse existe déjà pour cette société."
 msgstr ""
 
-#: adresse/models.py:73 adresse/views.py:89
+#: adresse/models.py:73 adresse/views.py:92
 msgid "Cette adresse existe déjà."
 msgstr ""
 
@@ -1567,14 +1779,19 @@ msgstr ""
 
 #: adresse/templates/adresse/adresse_detail.html:71 assurance/models.py:41
 #: assurance/templates/assurance/assurance_detail.html:77
+#: assurance/templates/assurance/delete_assurance.html:71
 #: assurance_police/templates/assurance_police/assurance_police_detail.html:113
-#: client_atelier/forms.py:215 client_atelier/models.py:69
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:132
+#: client_atelier/forms.py:215 client_atelier/models.py:70
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:74
-#: client_particulier/models.py:101
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:125
+#: client_particulier/models.py:100
 #: client_particulier/templates/client_particulier/client_detail.html:88
+#: client_particulier/templates/client_particulier/delete_client.html:126
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:92
 #: fuel/models.py:210 fuel/templates/fuel/fuel_detail.html:74
 #: fuel/templates/fuel/fuel_detail.html:78 maindoeuvre/forms.py:45
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:105
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:92
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:327
 #: maintenance/autres_interventions/abs/models.py:192
@@ -1723,16 +1940,19 @@ msgstr ""
 #: maintenance/silent_blocs/templates/silent_blocs/silent_check.html:584
 #: maintenance/silent_blocs/templates/silent_blocs/silent_detail.html:72
 #: outillage/models.py:72
+#: outillage/templates/outillage/delete_outillage.html:107
 #: outillage/templates/outillage/outillage_detail.html:71
 #: proprietaire/models.py:77 proprietaire/models.py:120
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:133
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:107
 #: proprietaire/templates/proprietaire/proprietaire_detail.html:81
 #: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:69
-#: recharge/templates/recharge/electricite_detail.html:55
-#: recharge/templates/recharge/electricite_detail.html:59
-#: societe_cliente/models.py:128
+#: societe_cliente/models.py:129
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:139
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:90
 #: voiture/voiture_boite/forms.py:41
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:85
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:145
 #: voiture/voiture_embrayage/forms.py:27
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:80
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:78
@@ -1749,6 +1969,7 @@ msgstr ""
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:72
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:76
 #: voiture/voiture_moteur/models.py:75
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:171
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:97
 #: voiture/voiture_pneus/models.py:189
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:123
@@ -1760,7 +1981,15 @@ msgstr ""
 msgid "Modifier l'adresse"
 msgstr ""
 
-#: adresse/templates/adresse/adresse_detail.html:109
+#: adresse/templates/adresse/adresse_detail.html:89
+#: adresse/templates/adresse/delete_adresse.html:9
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer l'adresse"
+msgstr "Tableau de Bord"
+
+#: adresse/templates/adresse/adresse_detail.html:121
+#: adresse/templates/adresse/adresse_form.html:94
 msgid "Retour à la liste des adresses"
 msgstr ""
 
@@ -1790,8 +2019,9 @@ msgstr ""
 
 #: adresse/templates/adresse/adresse_list.html:120
 #: assurance/templates/assurance/dashboard_assurance.html:45
-#: carrosserie/templates/carrosserie/carrosserie_list.html:106
+#: carrosserie/templates/carrosserie/dashboard_carrosserie.html:33
 #: client_atelier/templates/client_atelier/dashboard_client.html:56
+#: fournisseur/templates/fournisseur/fournisseur_dashboard.html:55
 #: fuel/templates/fuel/fuel_list.html:212
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:142
 #: maintenance/templates/maintenance/choisir_type.html:182
@@ -1803,7 +2033,6 @@ msgstr ""
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:101
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:45
 #: voiture/voiture_marque/templates/voiture_marque/dashboard_voiture.html:63
-#: voiture/voiture_marque/templates/voiture_marque/marques_list.html:136
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:114
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:95
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:133
@@ -1821,19 +2050,89 @@ msgstr ""
 msgid "Aucune adresse trouvée"
 msgstr ""
 
+#: adresse/templates/adresse/delete_adresse.html:14
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment supprimer cette adresse ? Cette action est irréversible."
+msgstr "Tableau de Bord"
+
+#: adresse/templates/adresse/delete_adresse.html:18
+msgid ""
+"Cette adresse ne peut pas être supprimée car elle est encore utilisée. "
+"Modifiez d'abord l'adresse des éléments ci-dessous."
+msgstr ""
+
+#: adresse/templates/adresse/delete_adresse.html:28
+msgid "Adresse utilisée par"
+msgstr ""
+
+#: adresse/templates/adresse/delete_adresse.html:45
+msgid "Élément(s) qui perdront cette adresse"
+msgstr ""
+
+#: adresse/templates/adresse/delete_adresse.html:54
+msgid ""
+"Ces éléments ne seront pas supprimés : leur champ adresse sera simplement "
+"vidé."
+msgstr ""
+
+#: adresse/templates/adresse/delete_adresse.html:71 client_atelier/forms.py:128
+msgid "Boîte"
+msgstr ""
+
+#: adresse/templates/adresse/delete_adresse.html:113
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:125
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:148
+#: client_particulier/templates/client_particulier/delete_client.html:149
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:122
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:122
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:128
+#: outillage/templates/outillage/delete_outillage.html:127
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:153
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:127
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:162
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:165
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:191
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression impossible"
+msgstr "Tableau de Bord"
+
 #: adresse/templates/adresse/modifier_adresse.html:14
 msgid "Modifier l'adresse :"
 msgstr ""
 
-#: adresse/views.py:75
+#: adresse/templates/adresse/modifier_adresse.html:92
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Retour aux détails de l'adresse"
+msgstr "Tableau de Bord"
+
+#: adresse/views.py:78
 #, fuzzy, python-format
 #| msgid "Tableau de bord"
 msgid "Adresse '%(rue)s, %(code_postal)s' ajoutée avec succès !"
 msgstr "Tableau de Bord"
 
-#: adresse/views.py:135
+#: adresse/views.py:138
 #, python-format
 msgid "Adresse '%(rue)s, %(cp)s' modifiée avec succès !"
+msgstr ""
+
+#: adresse/views.py:157
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression de l'adresse"
+msgstr "Tableau de Bord"
+
+#: adresse/views.py:175 adresse/views.py:199
+msgid "Impossible de supprimer cette adresse : elle est encore utilisée."
+msgstr ""
+
+#: adresse/views.py:203
+#, python-format
+msgid "L'adresse « %(adresse)s » a bien été supprimée."
 msgstr ""
 
 #: assurance/forms.py:53 fournisseur/forms.py:52 fuel/models.py:29
@@ -1869,7 +2168,9 @@ msgstr ""
 
 #: assurance/forms.py:145
 #: assurance/templates/assurance/assurance_detail.html:48
+#: assurance/templates/assurance/delete_assurance.html:32
 #: assurance_police/templates/assurance_police/assurance_police_detail.html:48
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:54
 msgid "Compagnie"
 msgstr ""
 
@@ -1880,11 +2181,18 @@ msgstr ""
 #: assurance/forms.py:147 assurance/models.py:23
 #: assurance/templates/assurance/assurance_detail.html:56
 #: assurance/templates/assurance/assurance_list.html:76
+#: assurance/templates/assurance/delete_assurance.html:61
 #: assurance_police/templates/assurance_police/assurance_police_detail.html:52
 #: carrosserie/models.py:44
 #: carrosserie/templates/carrosserie/carrosserie_detail.html:52
 #: carrosserie/templates/carrosserie/carrosserie_list.html:78
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:99
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:98
+#: client_particulier/templates/client_particulier/delete_client.html:93
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:75
 #: fournisseur/templates/fournisseur/fournisseur_list.html:73
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:103
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:99
 #: utilisateurs/forms.py:150
 #: utilisateurs/templates/utilisateurs/liste_utilisateurs.html:19
 msgid "Téléphone"
@@ -1892,6 +2200,7 @@ msgstr "Phone"
 
 #: assurance/models.py:19 assurance/templates/assurance/assurance_list.html:42
 #: assurance/templates/assurance/assurance_list.html:72
+#: assurance/templates/assurance/delete_assurance.html:34
 #: assurance_police/templates/assurance_police/assurance_police_list.html:48
 #: assurance_police/templates/assurance_police/assurance_police_list.html:72
 msgid "Nom de la compagnie"
@@ -1901,34 +2210,43 @@ msgstr ""
 #: assurance/templates/assurance/assurance_detail.html:52
 #: assurance/templates/assurance/assurance_list.html:56
 #: assurance/templates/assurance/assurance_list.html:75
+#: assurance/templates/assurance/delete_assurance.html:64
 #: carrosserie/models.py:45
 #: carrosserie/templates/carrosserie/carrosserie_detail.html:56
 #: carrosserie/templates/carrosserie/carrosserie_list.html:77
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:102
 #: client_atelier/forms.py:58
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:42
 #: client_atelier/templates/client_atelier/client_atelier_list.html:74
-#: client_particulier/models.py:88
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:101
+#: client_particulier/models.py:87
 #: client_particulier/templates/client_particulier/client_detail.html:42
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:81
+#: client_particulier/templates/client_particulier/delete_client.html:96
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:42
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:77
-#: fournisseur/models.py:61
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:78
+#: fournisseur/models.py:64
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:90
 #: fournisseur/templates/fournisseur/fournisseur_list.html:72
 #: proprietaire/forms.py:75 proprietaire/models.py:64
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:106
 #: proprietaire/templates/proprietaire/proprietaire_detail.html:42
 #: societe_cliente/models.py:52
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:102
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:59
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:77
 #: utilisateurs/templates/utilisateurs/liste_utilisateurs.html:17
 msgid "Email"
 msgstr ""
 
-#: assurance/models.py:28 carrosserie/models.py:50 fournisseur/models.py:48
+#: assurance/models.py:28 carrosserie/models.py:50 fournisseur/models.py:51
 msgid "Identifiant Peppol, ex : 0208:BE0123456789"
 msgstr ""
 
 #: assurance/models.py:48
 #: assurance/templates/assurance/modifier_assurance.html:62
+#: assurance/views.py:233
 #: assurance_police/templates/assurance_police/modifier_assurance_police.html:58
 #: theme/templates/dashboard.html:610
 msgid "Assurance"
@@ -1943,10 +2261,18 @@ msgid "Détails de la compagnie d'assurance :"
 msgstr ""
 
 #: assurance/templates/assurance/assurance_detail.html:87
-msgid "Modifier l'assureur"
-msgstr ""
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Modifier la compagnie d'assurance"
+msgstr "Tableau de Bord"
 
-#: assurance/templates/assurance/assurance_detail.html:130
+#: assurance/templates/assurance/assurance_detail.html:96
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer la compagnie d'assurance"
+msgstr "Tableau de Bord"
+
+#: assurance/templates/assurance/assurance_detail.html:142
 msgid "Retour à la liste des assureurs"
 msgstr ""
 
@@ -2079,6 +2405,39 @@ msgstr ""
 msgid "Police d'assurance"
 msgstr ""
 
+#: assurance/templates/assurance/delete_assurance.html:9
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer l'assurance"
+msgstr "Tableau de Bord"
+
+#: assurance/templates/assurance/delete_assurance.html:13
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment supprimer cette assurance ? Cette action est "
+"irréversible."
+msgstr "Tableau de Bord"
+
+#: assurance/templates/assurance/delete_assurance.html:21
+msgid "Société concernée"
+msgstr ""
+
+#: assurance/templates/assurance/delete_assurance.html:40
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:78
+#: societe/models.py:52
+msgid "IBAN"
+msgstr ""
+
+#: assurance/templates/assurance/delete_assurance.html:52
+msgid "Courtier & contact"
+msgstr ""
+
+#: assurance/templates/assurance/delete_assurance.html:54
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:57
+msgid "Courtier"
+msgstr ""
+
 #: assurance/templates/assurance/modifier_assurance.html:18
 msgid "Modifier la Compagnie d'assurance:"
 msgstr ""
@@ -2088,9 +2447,9 @@ msgid ""
 "Les champs d'adresse (rue, numéro, code postal, ville) sont obligatoires."
 msgstr ""
 
-#: assurance/views.py:120 assurance/views.py:168 assurance_police/views.py:78
-#: assurance_police/views.py:132 carrosserie/views.py:127
-#: fournisseur/views.py:113 fuel/views.py:469 maindoeuvre/views.py:181
+#: assurance/views.py:120 assurance/views.py:168 assurance_police/views.py:91
+#: assurance_police/views.py:145 carrosserie/views.py:128
+#: fournisseur/views.py:119 fuel/views.py:469 maindoeuvre/views.py:188
 #: maintenance/autres_interventions/abs/views.py:310
 #: maintenance/autres_interventions/abs/views.py:621
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:541
@@ -2140,18 +2499,36 @@ msgstr ""
 #: maintenance/niveaux/views.py:340 maintenance/niveaux/views.py:617
 #: maintenance/pneus/views.py:361 maintenance/pneus/views.py:651
 #: maintenance/silent_blocs/views.py:326 maintenance/silent_blocs/views.py:549
-#: outillage/views.py:80 proprietaire/views.py:289 recharge/views.py:327
-#: voiture/voiture_boite/views.py:55 voiture/voiture_boite/views.py:114
+#: outillage/views.py:89 proprietaire/views.py:294 recharge/views.py:327
+#: voiture/voiture_boite/views.py:60 voiture/voiture_boite/views.py:119
 #: voiture/voiture_embrayage/views.py:143
 #: voiture/voiture_freins_ar/views.py:199
 #: voiture/voiture_freins_av/views.py:126 voiture/voiture_modele/views.py:112
-#: voiture/voiture_moteur/views.py:83 voiture/voiture_pneus/views.py:116
+#: voiture/voiture_moteur/views.py:90 voiture/voiture_pneus/views.py:116
 #: voiture/voiture_pneus/views.py:159
 msgid "Le formulaire contient des erreurs."
 msgstr ""
 
 #: assurance/views.py:162
 msgid "Assurance et adresse mises à jour avec succès."
+msgstr ""
+
+#: assurance/views.py:218
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression de l'assurance"
+msgstr "Tableau de Bord"
+
+#: assurance/views.py:238 assurance/views.py:263
+#, python-format
+msgid ""
+"Impossible de supprimer « %(nom)s » : elle est encore liée à d'autres "
+"éléments."
+msgstr ""
+
+#: assurance/views.py:267
+#, python-format
+msgid "L'assurance « %(nom)s » a bien été supprimée."
 msgstr ""
 
 #: assurance_police/models.py:11
@@ -2175,6 +2552,9 @@ msgid "Cash"
 msgstr ""
 
 #: assurance_police/models.py:19
+#: client_particulier/templates/client_particulier/delete_client.html:119
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:126
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:125
 msgid "Carte bancaire"
 msgstr ""
 
@@ -2195,14 +2575,17 @@ msgid "Omnium financière"
 msgstr ""
 
 #: assurance_police/models.py:85
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:60
 msgid "Type de couverture"
 msgstr ""
 
 #: assurance_police/models.py:94
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:108
 msgid "Fréquence de paiement"
 msgstr ""
 
 #: assurance_police/models.py:102
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:111
 msgid "Mode de paiement"
 msgstr ""
 
@@ -2211,6 +2594,7 @@ msgid "Polices d'assurance"
 msgstr ""
 
 #: assurance_police/models.py:205
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:92
 msgid "Responsable"
 msgstr ""
 
@@ -2351,6 +2735,7 @@ msgstr ""
 
 #: assurance_police/templates/assurance_police/assurance_police_detail.html:101
 #: assurance_police/templates/assurance_police/assurance_police_list.html:75
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:95
 msgid "Prime annuelle"
 msgstr ""
 
@@ -2363,10 +2748,16 @@ msgid "Modifier la police"
 msgstr ""
 
 #: assurance_police/templates/assurance_police/assurance_police_detail.html:129
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer la police"
+msgstr "Tableau de Bord"
+
+#: assurance_police/templates/assurance_police/assurance_police_detail.html:141
 msgid "Adresse de l'assureur"
 msgstr ""
 
-#: assurance_police/templates/assurance_police/assurance_police_detail.html:164
+#: assurance_police/templates/assurance_police/assurance_police_detail.html:176
 msgid "Retour à la liste des assurances"
 msgstr ""
 
@@ -2393,6 +2784,7 @@ msgstr ""
 
 #: assurance_police/templates/assurance_police/assurance_police_list.html:64
 #: assurance_police/templates/assurance_police/assurance_police_list.html:76
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:100
 msgid "Franchise"
 msgstr ""
 
@@ -2409,12 +2801,116 @@ msgstr ""
 msgid "Aucune police trouvée"
 msgstr ""
 
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:9
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer la police d'assurance"
+msgstr "Tableau de Bord"
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:13
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment supprimer cette police d'assurance ? Cette action est "
+"irréversible."
+msgstr "Tableau de Bord"
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:22
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:46
+msgid "Véhicule concerné"
+msgstr ""
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:29
+msgid "Sinistre(s) qui seront également supprimé(s)"
+msgstr ""
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:37
+msgid "clôturé"
+msgstr ""
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:49
+msgid "Contrat"
+msgstr ""
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:51
+msgid "N° de contrat"
+msgstr ""
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:63
+#: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:66
+msgid "Période"
+msgstr ""
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:69
+msgid "Statut"
+msgstr ""
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:72
+msgid "Expirée"
+msgstr ""
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:74
+msgid "Expire bientôt"
+msgstr ""
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:76
+msgid "Active"
+msgstr ""
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:78
+msgid "Inactive"
+msgstr ""
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:88
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Paiement"
+msgstr "Tableau de Bord"
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:90
+msgid "Prime mensuelle"
+msgstr ""
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:105
+msgid "Bonus-malus"
+msgstr ""
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:118
+msgid "Document"
+msgstr ""
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:121
+msgid "Voir le PDF de la police"
+msgstr ""
+
+#: assurance_police/templates/assurance_police/delete_assurance_police.html:124
+msgid "Le fichier sera supprimé avec la police."
+msgstr ""
+
 #: assurance_police/templates/assurance_police/modifier_assurance_police.html:18
 msgid "Modifier la police d'assurance:"
 msgstr ""
 
-#: assurance_police/views.py:127
+#: assurance_police/views.py:140
 msgid "Police d'assurance mise à jour avec succès."
+msgstr ""
+
+#: assurance_police/views.py:172
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression de la police d'assurance"
+msgstr "Tableau de Bord"
+
+#: assurance_police/views.py:214
+#, python-format
+msgid ""
+"Impossible de supprimer la police « %(numero)s » : elle est encore liée à "
+"d'autres éléments."
+msgstr ""
+
+#: assurance_police/views.py:220
+#, python-format
+msgid "La police « %(numero)s » a bien été supprimée."
 msgstr ""
 
 #: carrosserie/forms.py:30
@@ -2444,11 +2940,13 @@ msgid "Prénom du responsable"
 msgstr ""
 
 #: carrosserie/models.py:16 client_atelier/models.py:16
-#: client_particulier/models.py:16 client_pilotage/models.py:15
+#: client_particulier/models.py:16 client_pilotage/models.py:14
 msgid "IBAN invalide"
 msgstr ""
 
 #: carrosserie/models.py:23
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:69
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:68
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:43
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:41
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:73
@@ -2461,7 +2959,9 @@ msgstr ""
 
 #: carrosserie/models.py:46
 #: carrosserie/templates/carrosserie/carrosserie_detail.html:61
-#: fournisseur/models.py:33
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:72
+#: fournisseur/models.py:36
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:65
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:46
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:229
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:295
@@ -2495,11 +2995,14 @@ msgstr ""
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:300
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:294
 #: societe/models.py:46
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:71
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:51
 msgid "Numéro de TVA"
 msgstr ""
 
-#: carrosserie/models.py:67 maintenance/carrosserie_interne/views.py:499
+#: carrosserie/models.py:67
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:67
+#: maintenance/carrosserie_interne/views.py:499
 #: maintenance/carrosserie_interne/views.py:2096
 #: maintenance/check_up/models.py:1749
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2440
@@ -2527,10 +3030,12 @@ msgstr ""
 #: client_atelier/templates/client_atelier/client_atelier_list.html:72
 #: client_particulier/forms.py:39 client_particulier/models.py:25
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:78
+#: client_particulier/templates/client_particulier/delete_client.html:68
 #: client_pilotage/forms.py:20
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:74
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:344
 #: piece/models.py:8 proprietaire/forms.py:70
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:83
 #: proprietaire/templates/proprietaire/proprietaire_list.html:48
 #: proprietaire/templates/proprietaire/proprietaire_list.html:69
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:47
@@ -2544,7 +3049,15 @@ msgstr ""
 msgid "Modifier la carrosserie"
 msgstr ""
 
-#: carrosserie/templates/carrosserie/carrosserie_detail.html:132
+#: carrosserie/templates/carrosserie/carrosserie_detail.html:97
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:10
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer la carrosserie"
+msgstr "Tableau de Bord"
+
+#: carrosserie/templates/carrosserie/carrosserie_detail.html:141
+#: carrosserie/templates/carrosserie/carrosserie_form.html:117
 msgid "Retour à la liste des carrosseries"
 msgstr ""
 
@@ -2571,6 +3084,12 @@ msgstr ""
 #: societe_cliente/models.py:59
 msgid "Numero de TVA"
 msgstr ""
+
+#: carrosserie/templates/carrosserie/carrosserie_list.html:106
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Retour au tableau de bord carrosserie"
+msgstr "Tableau de Bord"
 
 #: carrosserie/templates/carrosserie/carrosserie_list.html:118
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ carrosseries"
@@ -2604,30 +3123,111 @@ msgstr "Tableau de Bord"
 msgid "Bienvenue sur le tableau de bord carrosserie"
 msgstr "Tableau de Bord"
 
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:15
+msgid ""
+"Cette carrosserie ne peut pas être supprimée car elle est encore utilisée."
+msgstr ""
+
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:19
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment supprimer cette carrosserie ? Cette action est "
+"irréversible."
+msgstr "Tableau de Bord"
+
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:29
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:28
+#: client_particulier/templates/client_particulier/delete_client.html:28
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:28
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:28
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:28
+#: outillage/templates/outillage/delete_outillage.html:27
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:27
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:27
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:28
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:27
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:27
+msgid "Élément(s) qui empêchent la suppression"
+msgstr ""
+
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:46
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:60
+#: client_particulier/templates/client_particulier/delete_client.html:45
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:45
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:45
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:52
+#: outillage/templates/outillage/delete_outillage.html:56
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:43
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:77
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:45
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:66
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:66
+msgid "Élément(s) qui seront également supprimé(s)"
+msgstr ""
+
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:90
+msgid "Responsable & contact"
+msgstr ""
+
 #: carrosserie/templates/carrosserie/modifier_carrosserie.html:18
 msgid "Modifier le carrosserie :"
 msgstr ""
 
-#: carrosserie/views.py:87 client_atelier/views.py:134
-#: client_particulier/views.py:90 client_particulier/views.py:183
-#: client_pilotage/views.py:127 client_pilotage/views.py:232
-#: proprietaire/views.py:106 proprietaire/views.py:216
+#: carrosserie/templates/carrosserie/modifier_carrosserie.html:109
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Retour aux détails de la carrosserie"
+msgstr "Tableau de Bord"
+
+#: carrosserie/views.py:88 client_atelier/views.py:145
+#: client_particulier/views.py:101 client_particulier/views.py:194
+#: client_pilotage/views.py:134 client_pilotage/views.py:239
+#: proprietaire/views.py:111 proprietaire/views.py:221
 #: voiture/voiture_embrayage/views.py:50 voiture/voiture_freins_ar/views.py:126
 #: voiture/voiture_freins_av/views.py:82
 msgid "Veuillez corriger les erreurs du formulaire."
 msgstr ""
 
-#: carrosserie/views.py:123
+#: carrosserie/views.py:124
 msgid "Carrosserie et adresse mises à jour avec succès."
+msgstr ""
+
+#: carrosserie/views.py:185
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression de la carrosserie"
+msgstr "Tableau de Bord"
+
+#: carrosserie/views.py:205 maindoeuvre/views.py:278 maindoeuvre/views.py:301
+#: societe_cliente/views.py:226 voiture/voiture_boite/views.py:163
+#: voiture/voiture_boite/views.py:190
+#, python-format
+msgid ""
+"Impossible de supprimer « %(nom)s » : elle est encore utilisée ailleurs."
+msgstr ""
+
+#: carrosserie/views.py:230
+#, python-format
+msgid ""
+"Impossible de supprimer « %(nom)s » : la carrosserie ou son adresse est "
+"encore utilisée ailleurs."
+msgstr ""
+
+#: carrosserie/views.py:235
+#, python-format
+msgid "La carrosserie « %(nom)s » a bien été supprimée."
 msgstr ""
 
 #: client_atelier/forms.py:21
 #: client_atelier/templates/client_atelier/client_atelier_list.html:71
 #: client_particulier/forms.py:34 client_particulier/models.py:23
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:77
+#: client_particulier/templates/client_particulier/delete_client.html:71
 #: client_pilotage/forms.py:15
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:73
 #: proprietaire/forms.py:65
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:86
 #: proprietaire/templates/proprietaire/proprietaire_list.html:52
 #: proprietaire/templates/proprietaire/proprietaire_list.html:70
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:51
@@ -2637,10 +3237,12 @@ msgstr ""
 msgid "Prénom"
 msgstr ""
 
-#: client_atelier/forms.py:36 client_particulier/models.py:95
+#: client_atelier/forms.py:36 client_particulier/models.py:94
 #: client_particulier/templates/client_particulier/client_detail.html:52
+#: client_particulier/templates/client_particulier/delete_client.html:74
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:52
 #: proprietaire/models.py:71
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:89
 #: proprietaire/templates/proprietaire/proprietaire_detail.html:52
 msgid "Date de naissance"
 msgstr ""
@@ -2653,7 +3255,7 @@ msgstr ""
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:47
 #: client_atelier/templates/client_atelier/client_atelier_list.html:51
 #: client_atelier/templates/client_atelier/client_atelier_list.html:73
-#: client_particulier/models.py:46
+#: client_particulier/models.py:45
 #: client_particulier/templates/client_particulier/client_detail.html:47
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:56
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:80
@@ -2672,22 +3274,23 @@ msgstr ""
 msgid "Carte d'identité"
 msgstr ""
 
-#: client_atelier/forms.py:82 client_particulier/models.py:67
+#: client_atelier/forms.py:82 client_particulier/models.py:66
 #, fuzzy
 #| msgid "Téléphone"
 msgid "Numéro de registre national"
 msgstr "Phone"
 
 #: client_atelier/forms.py:90 client_particulier/forms.py:52
-#: client_particulier/models.py:74 client_pilotage/forms.py:38
-#: fournisseur/models.py:85 proprietaire/models.py:50
-#: societe_cliente/models.py:82
+#: client_particulier/models.py:73 client_pilotage/forms.py:38
+#: fournisseur/models.py:88
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:99
+#: proprietaire/models.py:50 societe_cliente/models.py:82
 msgid "Numéro de compte bancaire"
 msgstr ""
 
 #: client_atelier/forms.py:99
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:58
-#: client_particulier/forms.py:61 client_particulier/models.py:81
+#: client_particulier/forms.py:61 client_particulier/models.py:80
 #: client_particulier/templates/client_particulier/client_detail.html:63
 #: client_pilotage/forms.py:47
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:63
@@ -2698,16 +3301,15 @@ msgstr ""
 msgid "Numéro de carte bancaire"
 msgstr ""
 
-#: client_atelier/forms.py:128
-msgid "Boîte"
-msgstr ""
-
-#: client_atelier/forms.py:213 client_pilotage/forms.py:26 panier/models.py:42
+#: client_atelier/forms.py:213
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:106
+#: client_pilotage/forms.py:26 panier/models.py:42
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:66
 #: theme/templates/dashboard.html:548
 msgid "Société cliente"
 msgstr ""
 
-#: client_atelier/forms.py:214 client_atelier/models.py:62
+#: client_atelier/forms.py:214 client_atelier/models.py:63
 #: client_atelier/templates/client_atelier/client_atelier_list.html:60
 #: client_atelier/templates/client_atelier/client_atelier_list.html:75
 #: theme/templates/dashboard.html:287
@@ -2720,10 +3322,11 @@ msgid "Numéro de compte IBAN invalide"
 msgstr ""
 
 #: client_atelier/models.py:28
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:81
 msgid "Client atelier"
 msgstr ""
 
-#: client_atelier/models.py:80
+#: client_atelier/models.py:81
 #, python-format
 msgid "Client : %(nom)s %(prenom)s"
 msgstr ""
@@ -2734,7 +3337,7 @@ msgid "Détails du client :"
 msgstr ""
 
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:63
-#: client_particulier/models.py:60
+#: client_particulier/models.py:59
 #: client_particulier/templates/client_particulier/client_detail.html:68
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:68
 #: proprietaire/forms.py:84 proprietaire/models.py:43
@@ -2756,7 +3359,15 @@ msgstr ""
 msgid "Modifier le client"
 msgstr ""
 
-#: client_atelier/templates/client_atelier/client_atelier_detail.html:144
+#: client_atelier/templates/client_atelier/client_atelier_detail.html:104
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:9
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer le client atelier"
+msgstr "Tableau de Bord"
+
+#: client_atelier/templates/client_atelier/client_atelier_detail.html:156
+#: client_atelier/templates/client_atelier/client_atelier_form.html:93
 msgid "Retour à la liste des clients atelier"
 msgstr ""
 
@@ -2844,6 +3455,132 @@ msgstr ""
 msgid "Client Pilote"
 msgstr ""
 
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:14
+msgid "Ce client atelier ne peut pas être supprimé car il est encore utilisé."
+msgstr ""
+
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:18
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment supprimer ce client atelier ? Cette action est "
+"irréversible."
+msgstr "Tableau de Bord"
+
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:45
+msgid "Véhicule(s) associé(s)"
+msgstr ""
+
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:50
+msgid ""
+"Ces véhicules ne seront pas supprimés : seul leur lien avec ce client sera "
+"retiré."
+msgstr ""
+
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:83
+#: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:41
+#: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:54
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:45
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:45
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:58
+#: voiture/voiture_pneus/templates/voiture_pneus/list.html:84
+#: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:49
+msgid "Type"
+msgstr ""
+
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:86
+msgid "Particulier"
+msgstr ""
+
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:88
+#: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:272
+#: maintenance/autres_interventions/abs/models.py:246
+#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:336
+#: maintenance/autres_interventions/boite_de_vitesse/models.py:306
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:20
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:282
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:334
+#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:333
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1241
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:315
+#: maintenance/autres_interventions/climatisation/models.py:569
+#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:368
+#: maintenance/autres_interventions/courroie_accessoires/models.py:192
+#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:343
+#: maintenance/autres_interventions/echappement/models.py:327
+#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:383
+#: maintenance/autres_interventions/embrayage/models.py:278
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:341
+#: maintenance/autres_interventions/geometrie/models.py:264
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:367
+#: maintenance/autres_interventions/moteur/admission/models.py:259
+#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:338
+#: maintenance/autres_interventions/moteur/allumage/models.py:500
+#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:333
+#: maintenance/autres_interventions/moteur/alternateur/models.py:216
+#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:339
+#: maintenance/autres_interventions/moteur/courroie/models.py:223
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:336
+#: maintenance/autres_interventions/moteur/injection/models.py:550
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:379
+#: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:19
+#: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:297
+#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:335
+#: maintenance/autres_interventions/moteur/rodage/models.py:533
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:349
+#: maintenance/autres_interventions/moteur/turbo/models.py:194
+#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:352
+#: maintenance/autres_interventions/refroidissement/models.py:666
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:360
+#: maintenance/carrosserie_interne/models.py:736
+#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:293
+#: maintenance/check_up/models.py:1857
+#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:408
+#: maintenance/checkup_track/models.py:804
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:449
+#: maintenance/entretien/models.py:896
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:440
+#: maintenance/essuyage/models.py:779
+#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:333
+#: maintenance/freins/models.py:405
+#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:439
+#: maintenance/jeux_pieces/models.py:1135
+#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:431
+#: maintenance/nettoyage_exterieur/models.py:198
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:297
+#: maintenance/nettoyage_interieur/models.py:219
+#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:298
+#: maintenance/niveaux/models.py:216
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:329
+#: maintenance/pneus/models.py:310
+#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:329
+#: maintenance/silent_blocs/models.py:681
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:320
+#: piece/templates/piece/piece_detail.html:7
+#: proprietaire/templates/proprietaire/proprietaire_list.html:60
+#: proprietaire/templates/proprietaire/proprietaire_list.html:72
+#: utilisateurs/forms.py:70
+#: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:28
+#: voiture/voiture_exemplaire/models.py:12
+msgid "Société"
+msgstr ""
+
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:93
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:68
+msgid "Client particulier"
+msgstr ""
+
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:113
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Nombre de véhicules"
+msgstr "Tableau de Bord"
+
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:118
+msgid ""
+"La fiche du client particulier ou de la société cliente n'est pas supprimée."
+msgstr ""
+
 #: client_atelier/templates/client_atelier/modifier_client_atelier.html:15
 msgid "Modifier le client atelier :"
 msgstr ""
@@ -2854,36 +3591,55 @@ msgstr ""
 msgid "Retour aux détails du client"
 msgstr ""
 
-#: client_atelier/views.py:121
+#: client_atelier/views.py:132
 #, python-format
 msgid "Client '%(prenom)s %(nom)s' créé avec succès !"
 msgstr ""
 
-#: client_atelier/views.py:222
+#: client_atelier/views.py:233
 #, fuzzy, python-format
 #| msgid "Tableau de bord"
 msgid "Client '%(prenom)s %(nom)s' modifié avec succès !"
 msgstr "Tableau de Bord"
 
-#: client_atelier/views.py:232 client_atelier/views.py:292
-#: proprietaire/views.py:157
+#: client_atelier/views.py:243 client_atelier/views.py:303
+#: proprietaire/views.py:162
 msgid "Veuillez corriger les erreurs dans le formulaire."
 msgstr ""
 
-#: client_atelier/views.py:289
+#: client_atelier/views.py:300
 msgid "Client créé avec succès !"
 msgstr ""
 
-#: client_particulier/models.py:53 proprietaire/models.py:36
+#: client_atelier/views.py:394
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression du client atelier"
+msgstr "Tableau de Bord"
+
+#: client_atelier/views.py:428 client_atelier/views.py:447
+#: client_particulier/views.py:322 client_particulier/views.py:341
+#: client_pilotage/views.py:282 client_pilotage/views.py:301
+#, python-format
+msgid ""
+"Impossible de supprimer « %(nom)s » : ce client est encore utilisé ailleurs."
+msgstr ""
+
+#: client_atelier/views.py:451 client_pilotage/views.py:305
+#, python-format
+msgid "« %(nom)s » a bien été supprimé."
+msgstr ""
+
+#: client_particulier/models.py:52 proprietaire/models.py:36
 msgid "Numéro de permis de conduire"
 msgstr ""
 
-#: client_particulier/models.py:110
+#: client_particulier/models.py:109
 #, python-format
 msgid "%(nom)s %(prenom)s (Client)"
 msgstr ""
 
-#: client_particulier/models.py:127
+#: client_particulier/models.py:126
 msgid "La personne doit avoir au moins 18 ans."
 msgstr ""
 
@@ -2895,12 +3651,21 @@ msgstr ""
 
 #: client_particulier/templates/client_particulier/client_detail.html:83
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:87
-#: societe_cliente/models.py:121
+#: societe_cliente/models.py:122
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:132
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:84
 msgid "Historique"
 msgstr ""
 
-#: client_particulier/templates/client_particulier/client_detail.html:145
+#: client_particulier/templates/client_particulier/client_detail.html:106
+#: client_particulier/templates/client_particulier/delete_client.html:9
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer le client"
+msgstr "Tableau de Bord"
+
+#: client_particulier/templates/client_particulier/client_detail.html:157
+#: client_particulier/templates/client_particulier/client_form.html:77
 msgid "Retour à la liste des clients"
 msgstr ""
 
@@ -2922,11 +3687,82 @@ msgstr ""
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ client"
 msgstr ""
 
+#: client_particulier/templates/client_particulier/delete_client.html:14
+msgid "Ce client ne peut pas être supprimé car il est encore utilisé."
+msgstr ""
+
+#: client_particulier/templates/client_particulier/delete_client.html:18
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment supprimer ce client ? Cette action est irréversible."
+msgstr "Tableau de Bord"
+
+#: client_particulier/templates/client_particulier/delete_client.html:66
+#: facture/models.py:76
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:21
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:179
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:344
+#: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:20
+#: panier/models.py:33
+#: societe_cliente/templates/societe_cliente/societe_cliente_form.html:13
+#: theme/templates/dashboard.html:526 voiture/voiture_exemplaire/models.py:13
+msgid "Client"
+msgstr ""
+
+#: client_particulier/templates/client_particulier/delete_client.html:78
+msgid "ans"
+msgstr ""
+
+#: client_particulier/templates/client_particulier/delete_client.html:91
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:101
+msgid "Contact"
+msgstr ""
+
+#: client_particulier/templates/client_particulier/delete_client.html:105
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:115
+msgid "Documents & banque"
+msgstr ""
+
+#: client_particulier/templates/client_particulier/delete_client.html:107
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:117
+msgid "N° de permis"
+msgstr ""
+
+#: client_particulier/templates/client_particulier/delete_client.html:110
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:120
+msgid "N° de carte d'identité"
+msgstr ""
+
+#: client_particulier/templates/client_particulier/delete_client.html:113
+#, fuzzy
+#| msgid "Téléphone"
+msgid "N° de registre national"
+msgstr "Phone"
+
+#: client_particulier/templates/client_particulier/delete_client.html:116
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:123
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:122
+msgid "Compte bancaire"
+msgstr ""
+
 #: client_particulier/templates/client_particulier/modifier_client_particulier.html:15
 msgid "Modifier le client :"
 msgstr ""
 
-#: client_pilotage/models.py:24 client_pilotage/models.py:73
+#: client_particulier/views.py:287
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression du client particulier"
+msgstr "Tableau de Bord"
+
+#: client_particulier/views.py:345
+#, python-format
+msgid "Le client « %(nom)s » a bien été supprimé."
+msgstr ""
+
+#: client_pilotage/models.py:23 client_pilotage/models.py:76
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:66
 msgid "Client pilotage"
 msgstr ""
 
@@ -2956,12 +3792,14 @@ msgstr ""
 
 #: client_pilotage/models.py:54
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:82
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:84
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Niveau de pilotage"
 msgstr "Tableau de Bord"
 
 #: client_pilotage/models.py:61
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:97
 msgid "Historique pilotage"
 msgstr ""
 
@@ -2969,7 +3807,7 @@ msgstr ""
 msgid "historique des locations"
 msgstr ""
 
-#: client_pilotage/models.py:74
+#: client_pilotage/models.py:77
 msgid "Clients pilotages"
 msgstr ""
 
@@ -2981,7 +3819,13 @@ msgstr ""
 msgid "Modifier le pilote"
 msgstr ""
 
-#: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:149
+#: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:110
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer le pilote"
+msgstr "Tableau de Bord"
+
+#: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:161
 #: client_pilotage/templates/client_pilotage/client_pilotage_form.html:95
 #, fuzzy
 #| msgid "Tableau de bord"
@@ -3018,11 +3862,11 @@ msgstr ""
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:48
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:34
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:33
-#: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:38
+#: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:39
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:39
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/modifier_exemplaire.html:27
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/ajouter_freins_ar_simple.html:32
-#: voiture/voiture_freins_ar/templates/voiture_freins_ar/modifier_freins_ar.html:41
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/modifier_freins_ar.html:39
 msgid "Erreurs :"
 msgstr ""
 
@@ -3035,9 +3879,45 @@ msgstr ""
 msgid "Ajouter un pilote"
 msgstr ""
 
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:9
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer le client pilotage"
+msgstr "Tableau de Bord"
+
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:14
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Ce client pilotage ne peut pas être supprimé car il est encore utilisé."
+msgstr "Tableau de Bord"
+
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:18
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment supprimer ce client pilotage ? Cette action est "
+"irréversible."
+msgstr "Tableau de Bord"
+
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:88
+msgid "La fiche du client particulier n'est pas supprimée."
+msgstr ""
+
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:104
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Historique des locations"
+msgstr "Tableau de Bord"
+
 #: client_pilotage/templates/client_pilotage/modifier_client_pilotage.html:15
 msgid "Modifier le pilote :"
 msgstr ""
+
+#: client_pilotage/views.py:257
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression du client pilotage"
+msgstr "Tableau de Bord"
 
 #: facture/models.py:32
 msgid "Ex : 0208:BE0123456789"
@@ -3059,17 +3939,6 @@ msgstr ""
 msgid "Numéro de facture"
 msgstr ""
 
-#: facture/models.py:76
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:21
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:179
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:344
-#: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:20
-#: panier/models.py:33
-#: societe_cliente/templates/societe_cliente/societe_cliente_form.html:13
-#: theme/templates/dashboard.html:526 voiture/voiture_exemplaire/models.py:13
-msgid "Client"
-msgstr ""
-
 #: facture/models.py:83
 msgid "Date d’émission"
 msgstr ""
@@ -3080,10 +3949,6 @@ msgstr ""
 
 #: facture/models.py:86
 msgid "Total"
-msgstr ""
-
-#: facture/models.py:92 facture/models.py:102
-msgid "Facture"
 msgstr ""
 
 #: facture/models.py:93
@@ -3437,6 +4302,7 @@ msgstr ""
 #: maintenance/silent_blocs/models.py:606
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:725
 #: outillage/forms.py:23 outillage/forms.py:58 outillage/models.py:41
+#: outillage/templates/outillage/delete_outillage.html:80
 #: outillage/templates/outillage/outillage_list.html:54
 #: outillage/templates/outillage/outillage_list.html:77 panier/models.py:98
 #: piece/piece_roue_rechange/models.py:26
@@ -3464,39 +4330,64 @@ msgstr ""
 msgid "%(desc)s (%(facture)s)"
 msgstr ""
 
-#: fournisseur/models.py:55
+#: fournisseur/models.py:58
 msgid "ISO 3166-1 alpha-2"
 msgstr ""
 
-#: fournisseur/models.py:65
+#: fournisseur/models.py:68
 msgid "Email du fournisseur"
 msgstr ""
 
-#: fournisseur/models.py:69
+#: fournisseur/models.py:72
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:93
 msgid "Téléphone fixe"
 msgstr ""
 
-#: fournisseur/models.py:73
+#: fournisseur/models.py:76
 msgid "Numéro de téléphone fixe"
 msgstr ""
 
-#: fournisseur/models.py:77
+#: fournisseur/models.py:80
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:96
 msgid "GSM"
 msgstr ""
 
-#: fournisseur/models.py:81
+#: fournisseur/models.py:84
 msgid "Numéro de téléphone mobile"
 msgstr ""
 
-#: fournisseur/models.py:100
+#: fournisseur/models.py:103
 #: fournisseur/templates/fournisseur/fournisseur_dashboard.html:16
 #: theme/templates/dashboard.html:445
 msgid "Fournisseurs"
 msgstr ""
 
-#: fournisseur/models.py:107
+#: fournisseur/models.py:110
 #, python-format
 msgid "%(nom)s"
+msgstr ""
+
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:9
+#: fournisseur/templates/fournisseur/fournisseur_detail.html:86
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer le fournisseur"
+msgstr "Tableau de Bord"
+
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:14
+msgid "Ce fournisseur ne peut pas être supprimé car il est encore utilisé."
+msgstr ""
+
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:18
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment supprimer ce fournisseur ? Cette action est "
+"irréversible."
+msgstr "Tableau de Bord"
+
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:88
+msgid "Contact & banque"
 msgstr ""
 
 #: fournisseur/templates/fournisseur/fournisseur_dashboard.html:7
@@ -3518,7 +4409,7 @@ msgstr ""
 msgid "Modifier le fournisseur"
 msgstr ""
 
-#: fournisseur/templates/fournisseur/fournisseur_detail.html:125
+#: fournisseur/templates/fournisseur/fournisseur_detail.html:137
 #: fournisseur/templates/fournisseur/fournisseur_form.html:79
 msgid "Retour à la liste des fournisseurs"
 msgstr ""
@@ -3575,8 +4466,26 @@ msgstr ""
 msgid "Retour au detail du fournisseur"
 msgstr "Tableau de Bord"
 
-#: fournisseur/views.py:88
+#: fournisseur/views.py:94
 msgid "Les champs d'adresse sont obligatoires."
+msgstr ""
+
+#: fournisseur/views.py:245
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression du fournisseur"
+msgstr "Tableau de Bord"
+
+#: fournisseur/views.py:266 fournisseur/views.py:281 outillage/views.py:159
+#: outillage/views.py:183 voiture/voiture_moteur/views.py:131
+#: voiture/voiture_moteur/views.py:160
+#, python-format
+msgid "Impossible de supprimer « %(nom)s » : il est encore utilisé ailleurs."
+msgstr ""
+
+#: fournisseur/views.py:285
+#, python-format
+msgid "Le fournisseur « %(nom)s » a bien été supprimé."
 msgstr ""
 
 #: fuel/forms.py:15 maintenance/templates/maintenance/creer_maintenance.html:48
@@ -3884,7 +4793,7 @@ msgstr ""
 #: fuel/templates/fuel/fuel_list.html:79 maindoeuvre/forms.py:42
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:50
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:71
-#: maindoeuvre/views.py:112 maindoeuvre/views.py:199
+#: maindoeuvre/views.py:119 maindoeuvre/views.py:206
 #: maintenance/autres_interventions/echappement/models.py:61
 #: maintenance/jeux_pieces/models.py:1112
 #: maintenance/nettoyage_exterieur/models.py:177
@@ -3939,6 +4848,7 @@ msgstr ""
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:330
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:323
 #: piece/models.py:58 piece/templates/piece/piece_detail.html:10
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:97
 #: recharge/models.py:121 recharge/templates/recharge/recharge_list.html:82
 msgid "Véhicule"
 msgstr ""
@@ -4154,6 +5064,7 @@ msgstr ""
 #: fuel/templates/fuel/fuel_form.html:12 fuel/templates/fuel/fuel_stat.html:9
 #: fuel/templates/fuel/modifier_fuel.html:190
 #: theme/templates/dashboard.html:230 voiture/voiture_moteur/forms.py:29
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:92
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:60
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:64
 msgid "Carburant"
@@ -4206,8 +5117,7 @@ msgstr ""
 
 #: fuel/templates/fuel/fuel_delete.html:48
 #: fuel/templates/fuel/fuel_detail.html:138
-#: fuel/templates/fuel/fuel_form.html:269
-#: fuel/templates/fuel/modifier_fuel.html:219
+#: fuel/templates/fuel/fuel_form.html:271
 msgid "Retour à la liste des pleins"
 msgstr ""
 
@@ -4292,10 +5202,6 @@ msgstr ""
 msgid "Kilomètres"
 msgstr ""
 
-#: fuel/templates/fuel/fuel_detail.html:58
-msgid "Montant TVA"
-msgstr ""
-
 #: fuel/templates/fuel/fuel_detail.html:62
 #: fuel/templates/fuel/fuel_list.html:86
 msgid "Prix au litre"
@@ -4306,7 +5212,7 @@ msgid "Modifier le plein"
 msgstr ""
 
 #: fuel/templates/fuel/fuel_detail.html:94
-#: recharge/templates/recharge/electricite_detail.html:76
+#: recharge/templates/recharge/electricite_detail.html:90
 msgid "Voir les statistiques du véhicule"
 msgstr ""
 
@@ -4750,6 +5656,7 @@ msgid "14,32 Litres"
 msgstr ""
 
 #: fuel/templates/fuel/fuel_list.html:66 fuel/templates/fuel/fuel_list.html:87
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:76
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:262
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:74
 #: maintenance/autres_interventions/abs/models.py:258
@@ -4888,6 +5795,12 @@ msgstr ""
 msgid "Modifier la plein de carburant:"
 msgstr ""
 
+#: fuel/templates/fuel/modifier_fuel.html:219
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Retour aux détails du plein"
+msgstr "Tableau de Bord"
+
 #: fuel/views.py:130 recharge/views.py:92
 msgid "Voiture introuvable."
 msgstr ""
@@ -4942,7 +5855,7 @@ msgstr ""
 msgid "Erreur lors de l'enregistrement : %(erreur)s"
 msgstr ""
 
-#: fuel/views.py:259 fuel/views.py:494 maindoeuvre/views.py:91
+#: fuel/views.py:259 fuel/views.py:494 maindoeuvre/views.py:98
 #: maintenance/check_up/views.py:593 recharge/views.py:224
 #: recharge/views.py:230 voiture/voiture_freins_ar/views.py:68
 msgid "Veuillez corriger les erreurs ci-dessous."
@@ -5261,6 +6174,7 @@ msgid "Temps (minutes)"
 msgstr ""
 
 #: maindoeuvre/forms.py:44
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:70
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:58
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:75
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:586
@@ -5299,6 +6213,252 @@ msgstr ""
 #: maindoeuvre/forms.py:66
 msgid "Le temps doit être supérieur à 0."
 msgstr ""
+
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:9
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer la main-d'œuvre"
+msgstr "Tableau de Bord"
+
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:14
+msgid ""
+"Cette main-d'œuvre ne peut pas être supprimée car elle est encore utilisée."
+msgstr ""
+
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:18
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment supprimer cette main-d'œuvre ? Cette action est "
+"irréversible."
+msgstr "Tableau de Bord"
+
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:68
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Intervention"
+msgstr "Tableau de Bord"
+
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:73
+#: maintenance/jeux_pieces/models.py:47 maintenance/models.py:73
+#: theme/templates/dashboard.html:180 theme/templates/dashboard.html:184
+#: utilisateurs/models.py:85 utilisateurs/views.py:279
+msgid "Mécanicien"
+msgstr ""
+
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:79
+#: maintenance/autres_interventions/climatisation/models.py:89
+#: maintenance/autres_interventions/moteur/allumage/models.py:61
+#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:81
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:125
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:51
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:157
+msgid "Kilomètres châssis"
+msgstr ""
+
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:90
+msgid "Temps & facturation"
+msgstr ""
+
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:92
+#: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:82
+#: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:308
+#: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:72
+#: maintenance/autres_interventions/abs/templates/abs/abs_detail.html:72
+#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:570
+#: maintenance/autres_interventions/abs/templates/abs/abs_list.html:90
+#: maintenance/autres_interventions/abs/templates/abs/abs_list.html:103
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail.html:70
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:92
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:113
+#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:728
+#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_detail.html:87
+#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:88
+#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:101
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail.html:75
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1394
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:89
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:103
+#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:76
+#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:868
+#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:92
+#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:105
+#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_detail.html:73
+#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:464
+#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:92
+#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:105
+#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1107
+#: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:83
+#: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:88
+#: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:101
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:73
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:624
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:94
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:108
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:498
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:90
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:103
+#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail.html:73
+#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:756
+#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:88
+#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:101
+#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail.html:73
+#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_list.html:89
+#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_list.html:102
+#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:73
+#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:89
+#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:102
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:73
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:561
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:91
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:104
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:73
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1015
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:91
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:104
+#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:73
+#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:96
+#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:113
+#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:635
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:72
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:86
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:99
+#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:76
+#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:597
+#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:88
+#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:101
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:73
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1752
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:89
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:102
+#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:70
+#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:89
+#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:101
+#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:334
+#: maintenance/check_up/templates/check_up/checkup_detail.html:69
+#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2805
+#: maintenance/check_up/templates/check_up/checkup_list.html:89
+#: maintenance/check_up/templates/check_up/checkup_list.html:102
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:70
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2374
+#: maintenance/entretien/templates/entretien/entretien_detail.html:71
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1031
+#: maintenance/entretien/templates/entretien/entretien_list.html:87
+#: maintenance/entretien/templates/entretien/entretien_list.html:100
+#: maintenance/essuyage/templates/essuyage/essuyage_detail.html:73
+#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:793
+#: maintenance/essuyage/templates/essuyage/essuyage_list.html:89
+#: maintenance/essuyage/templates/essuyage/essuyage_list.html:102
+#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:815
+#: maintenance/freins/templates/freins/freins_detail.html:143
+#: maintenance/freins/templates/freins/freins_list.html:88
+#: maintenance/freins/templates/freins/freins_list.html:102
+#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1163
+#: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_detail.html:70
+#: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:88
+#: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:101
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_detail.html:71
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:87
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:100
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:417
+#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_detail.html:71
+#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_list.html:90
+#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_list.html:104
+#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:470
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:474
+#: maintenance/niveaux/templates/niveaux/niveaux_detail.html:123
+#: maintenance/niveaux/templates/niveaux/niveaux_list.html:88
+#: maintenance/niveaux/templates/niveaux/niveaux_list.html:102
+#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:555
+#: maintenance/pneus/templates/pneus/pneus_detail.html:71
+#: maintenance/pneus/templates/pneus/pneus_list.html:87
+#: maintenance/pneus/templates/pneus/pneus_list.html:100
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:684
+#: maintenance/silent_blocs/templates/silent_blocs/silent_detail.html:71
+#: maintenance/silent_blocs/templates/silent_blocs/silent_list.html:87
+#: maintenance/silent_blocs/templates/silent_blocs/silent_list.html:100
+msgid "Temps"
+msgstr ""
+
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:95
+#: maintenance/autres_interventions/abs/models.py:255
+#: maintenance/autres_interventions/abs/views.py:392
+#: maintenance/autres_interventions/abs/views.py:733
+#: maintenance/autres_interventions/boite_de_vitesse/models.py:315
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:290
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:359
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:600
+#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1249
+#: maintenance/autres_interventions/climatisation/models.py:577
+#: maintenance/autres_interventions/climatisation/views.py:586
+#: maintenance/autres_interventions/climatisation/views.py:1007
+#: maintenance/autres_interventions/courroie_accessoires/models.py:200
+#: maintenance/autres_interventions/courroie_accessoires/views.py:404
+#: maintenance/autres_interventions/courroie_accessoires/views.py:659
+#: maintenance/autres_interventions/echappement/models.py:336
+#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:1293
+#: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:1291
+#: maintenance/autres_interventions/embrayage/models.py:287
+#: maintenance/autres_interventions/embrayage/views.py:679
+#: maintenance/autres_interventions/geometrie/models.py:273
+#: maintenance/autres_interventions/geometrie/views.py:678
+#: maintenance/autres_interventions/geometrie/views.py:994
+#: maintenance/autres_interventions/moteur/admission/models.py:267
+#: maintenance/autres_interventions/moteur/admission/views.py:1124
+#: maintenance/autres_interventions/moteur/allumage/models.py:508
+#: maintenance/autres_interventions/moteur/alternateur/models.py:224
+#: maintenance/autres_interventions/moteur/courroie/models.py:232
+#: maintenance/autres_interventions/moteur/injection/models.py:559
+#: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:306
+#: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:637
+#: maintenance/autres_interventions/moteur/rodage/models.py:542
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1266
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1268
+#: maintenance/autres_interventions/moteur/turbo/models.py:203
+#: maintenance/autres_interventions/moteur/turbo/views.py:120
+#: maintenance/autres_interventions/moteur/turbo/views.py:715
+#: maintenance/autres_interventions/refroidissement/models.py:675
+#: maintenance/carrosserie_interne/models.py:745
+#: maintenance/carrosserie_interne/views.py:1175
+#: maintenance/check_up/models.py:1866
+#: maintenance/check_up/templates/check_up/controle_total.html:2197
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:2103
+#: maintenance/checkup_track/models.py:813
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:2123
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:2122
+#: maintenance/entretien/models.py:905
+#: maintenance/entretien/templates/entretien/entretien_check.html:1217
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:1223
+#: maintenance/essuyage/models.py:788 maintenance/essuyage/views.py:516
+#: maintenance/essuyage/views.py:937 maintenance/freins/models.py:414
+#: maintenance/freins/templates/freins/freins_check.html:748
+#: maintenance/freins/templates/freins/modifier_freins.html:746
+#: maintenance/jeux_pieces/models.py:1144
+#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux.html:613
+#: maintenance/jeux_pieces/templates/jeux_pieces/modifier_jeux_pieces.html:635
+#: maintenance/nettoyage_exterieur/models.py:207
+#: maintenance/nettoyage_interieur/models.py:228
+#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/modifier_nettoyage_int.html:362
+#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_simple.html:363
+#: maintenance/niveaux/models.py:225
+#: maintenance/niveaux/templates/niveaux/modifier_niveaux.html:702
+#: maintenance/niveaux/templates/niveaux/niveau_form.html:695
+#: maintenance/pneus/models.py:318
+#: maintenance/pneus/templates/pneus/controle_pneus.html:790
+#: maintenance/pneus/templates/pneus/modifier_pneus.html:791
+#: maintenance/silent_blocs/models.py:689
+#: maintenance/silent_blocs/templates/silent_blocs/modifier_silent.html:684
+#: maintenance/silent_blocs/templates/silent_blocs/silent_check.html:689
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Taux horaire"
+msgstr "Tableau de Bord"
+
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:98
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Montant facturé"
+msgstr "Tableau de Bord"
 
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:14
 msgid "Détails de la main d'œuvre"
@@ -5779,125 +6939,6 @@ msgstr ""
 msgid "Date de l'intervention"
 msgstr ""
 
-#: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:82
-#: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:308
-#: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:72
-#: maintenance/autres_interventions/abs/templates/abs/abs_detail.html:72
-#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:570
-#: maintenance/autres_interventions/abs/templates/abs/abs_list.html:90
-#: maintenance/autres_interventions/abs/templates/abs/abs_list.html:103
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail.html:70
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:92
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:113
-#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:728
-#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_detail.html:87
-#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:88
-#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:101
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail.html:75
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1394
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:89
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:103
-#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:76
-#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:868
-#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:92
-#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:105
-#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_detail.html:73
-#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:464
-#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:92
-#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:105
-#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1107
-#: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:83
-#: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:88
-#: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:101
-#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail.html:73
-#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:624
-#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:94
-#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:108
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:498
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:90
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:103
-#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail.html:73
-#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:756
-#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:88
-#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:101
-#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail.html:73
-#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_list.html:89
-#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_list.html:102
-#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:73
-#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:89
-#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:102
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:73
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:561
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:91
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:104
-#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:73
-#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1015
-#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:91
-#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:104
-#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:73
-#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:96
-#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:113
-#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:635
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:72
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:86
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:99
-#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:76
-#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:597
-#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:88
-#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:101
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:73
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1752
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:89
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:102
-#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:70
-#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:89
-#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:101
-#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:334
-#: maintenance/check_up/templates/check_up/checkup_detail.html:69
-#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2805
-#: maintenance/check_up/templates/check_up/checkup_list.html:89
-#: maintenance/check_up/templates/check_up/checkup_list.html:102
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:70
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2374
-#: maintenance/entretien/templates/entretien/entretien_detail.html:71
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1031
-#: maintenance/entretien/templates/entretien/entretien_list.html:87
-#: maintenance/entretien/templates/entretien/entretien_list.html:100
-#: maintenance/essuyage/templates/essuyage/essuyage_detail.html:73
-#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:793
-#: maintenance/essuyage/templates/essuyage/essuyage_list.html:89
-#: maintenance/essuyage/templates/essuyage/essuyage_list.html:102
-#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:815
-#: maintenance/freins/templates/freins/freins_detail.html:143
-#: maintenance/freins/templates/freins/freins_list.html:88
-#: maintenance/freins/templates/freins/freins_list.html:102
-#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1163
-#: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_detail.html:70
-#: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:88
-#: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:101
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_detail.html:71
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:87
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:100
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:417
-#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_detail.html:71
-#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_list.html:90
-#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_list.html:104
-#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:470
-#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:474
-#: maintenance/niveaux/templates/niveaux/niveaux_detail.html:123
-#: maintenance/niveaux/templates/niveaux/niveaux_list.html:88
-#: maintenance/niveaux/templates/niveaux/niveaux_list.html:102
-#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:555
-#: maintenance/pneus/templates/pneus/pneus_detail.html:71
-#: maintenance/pneus/templates/pneus/pneus_list.html:87
-#: maintenance/pneus/templates/pneus/pneus_list.html:100
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:684
-#: maintenance/silent_blocs/templates/silent_blocs/silent_detail.html:71
-#: maintenance/silent_blocs/templates/silent_blocs/silent_list.html:87
-#: maintenance/silent_blocs/templates/silent_blocs/silent_list.html:100
-msgid "Temps"
-msgstr ""
-
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:87
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:313
 msgid "Coût interne"
@@ -5941,7 +6982,13 @@ msgstr ""
 msgid "Télécharger le PDF"
 msgstr ""
 
-#: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:139
+#: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:122
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer la main d'oeuvre"
+msgstr "Tableau de Bord"
+
+#: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:150
 #: maindoeuvre/templates/maindoeuvre/modifier_maindoeuvre.html:110
 #, fuzzy
 #| msgid "Tableau de bord"
@@ -5950,78 +6997,6 @@ msgstr "Tableau de Bord"
 
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:253
 msgid "Détail de la main d'oeuvre"
-msgstr ""
-
-#: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:272
-#: maintenance/autres_interventions/abs/models.py:246
-#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:336
-#: maintenance/autres_interventions/boite_de_vitesse/models.py:306
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:20
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:282
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:334
-#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:333
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1241
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:315
-#: maintenance/autres_interventions/climatisation/models.py:569
-#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:368
-#: maintenance/autres_interventions/courroie_accessoires/models.py:192
-#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:343
-#: maintenance/autres_interventions/echappement/models.py:327
-#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:383
-#: maintenance/autres_interventions/embrayage/models.py:278
-#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:341
-#: maintenance/autres_interventions/geometrie/models.py:264
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:367
-#: maintenance/autres_interventions/moteur/admission/models.py:259
-#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:338
-#: maintenance/autres_interventions/moteur/allumage/models.py:500
-#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:333
-#: maintenance/autres_interventions/moteur/alternateur/models.py:216
-#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:339
-#: maintenance/autres_interventions/moteur/courroie/models.py:223
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:336
-#: maintenance/autres_interventions/moteur/injection/models.py:550
-#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:379
-#: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:19
-#: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:297
-#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:335
-#: maintenance/autres_interventions/moteur/rodage/models.py:533
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:349
-#: maintenance/autres_interventions/moteur/turbo/models.py:194
-#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:352
-#: maintenance/autres_interventions/refroidissement/models.py:666
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:360
-#: maintenance/carrosserie_interne/models.py:736
-#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:293
-#: maintenance/check_up/models.py:1857
-#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:408
-#: maintenance/checkup_track/models.py:804
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:449
-#: maintenance/entretien/models.py:896
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:440
-#: maintenance/essuyage/models.py:779
-#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:333
-#: maintenance/freins/models.py:405
-#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:439
-#: maintenance/jeux_pieces/models.py:1135
-#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:431
-#: maintenance/nettoyage_exterieur/models.py:198
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:297
-#: maintenance/nettoyage_interieur/models.py:219
-#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:298
-#: maintenance/niveaux/models.py:216
-#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:329
-#: maintenance/pneus/models.py:310
-#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:329
-#: maintenance/silent_blocs/models.py:681
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:320
-#: piece/templates/piece/piece_detail.html:7
-#: proprietaire/templates/proprietaire/proprietaire_list.html:60
-#: proprietaire/templates/proprietaire/proprietaire_list.html:72
-#: utilisateurs/forms.py:70
-#: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:28
-#: voiture/voiture_exemplaire/models.py:12
-msgid "Société"
 msgstr ""
 
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:282
@@ -6227,25 +7202,25 @@ msgstr ""
 msgid "Modifier l'encodage d'une main d'oeuvre"
 msgstr ""
 
-#: maindoeuvre/views.py:47
+#: maindoeuvre/views.py:54
 #: maintenance/autres_interventions/echappement/views.py:195
 #: maintenance/autres_interventions/embrayage/views.py:123
 #: maintenance/autres_interventions/geometrie/views.py:113
 msgid "Accès refusé."
 msgstr ""
 
-#: maindoeuvre/views.py:72
+#: maindoeuvre/views.py:79
 msgid "Main d'œuvre enregistrée avec succès."
 msgstr ""
 
-#: maindoeuvre/views.py:80
+#: maindoeuvre/views.py:87
 #: maintenance/autres_interventions/courroie_accessoires/views.py:317
 #: maintenance/nettoyage_interieur/views.py:358 maintenance/pneus/views.py:352
 #, python-format
 msgid "Erreur lors de l'enregistrement : %(error)s"
 msgstr ""
 
-#: maindoeuvre/views.py:105 maindoeuvre/views.py:192
+#: maindoeuvre/views.py:112 maindoeuvre/views.py:199
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:586
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:693
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:494
@@ -6253,15 +7228,26 @@ msgstr ""
 msgid "Temps de travail"
 msgstr ""
 
-#: maindoeuvre/views.py:172
+#: maindoeuvre/views.py:179
 msgid "Modification de la main d'œuvre"
 msgstr ""
 
-#: maindoeuvre/views.py:175
+#: maindoeuvre/views.py:182
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Main d'œuvre modifiée avec succès !"
 msgstr "Tableau de Bord"
+
+#: maindoeuvre/views.py:247
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression de la main-d'œuvre"
+msgstr "Tableau de Bord"
+
+#: maindoeuvre/views.py:305
+#, python-format
+msgid "La main-d'œuvre « %(nom)s » a bien été supprimée."
+msgstr ""
 
 #: maintenance/autres_interventions/abs/forms.py:40
 #: maintenance/autres_interventions/boite_de_vitesse/forms.py:41
@@ -6672,6 +7658,7 @@ msgstr ""
 #: maintenance/silent_blocs/models.py:574
 #: maintenance/silent_blocs/models.py:602 voiture/voiture_boite/forms.py:16
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:52
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:83
 #: voiture/voiture_embrayage/forms.py:21
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:45
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:50
@@ -7031,79 +8018,6 @@ msgstr ""
 #: maintenance/silent_blocs/models.py:671
 msgid "Rôle du technicien"
 msgstr ""
-
-#: maintenance/autres_interventions/abs/models.py:255
-#: maintenance/autres_interventions/abs/views.py:392
-#: maintenance/autres_interventions/abs/views.py:733
-#: maintenance/autres_interventions/boite_de_vitesse/models.py:315
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:290
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:359
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:600
-#: maintenance/autres_interventions/bte_vitesse_auto/models.py:1249
-#: maintenance/autres_interventions/climatisation/models.py:577
-#: maintenance/autres_interventions/climatisation/views.py:586
-#: maintenance/autres_interventions/climatisation/views.py:1007
-#: maintenance/autres_interventions/courroie_accessoires/models.py:200
-#: maintenance/autres_interventions/courroie_accessoires/views.py:404
-#: maintenance/autres_interventions/courroie_accessoires/views.py:659
-#: maintenance/autres_interventions/echappement/models.py:336
-#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:1293
-#: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:1291
-#: maintenance/autres_interventions/embrayage/models.py:287
-#: maintenance/autres_interventions/embrayage/views.py:679
-#: maintenance/autres_interventions/geometrie/models.py:273
-#: maintenance/autres_interventions/geometrie/views.py:678
-#: maintenance/autres_interventions/geometrie/views.py:994
-#: maintenance/autres_interventions/moteur/admission/models.py:267
-#: maintenance/autres_interventions/moteur/admission/views.py:1124
-#: maintenance/autres_interventions/moteur/allumage/models.py:508
-#: maintenance/autres_interventions/moteur/alternateur/models.py:224
-#: maintenance/autres_interventions/moteur/courroie/models.py:232
-#: maintenance/autres_interventions/moteur/injection/models.py:559
-#: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:306
-#: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:637
-#: maintenance/autres_interventions/moteur/rodage/models.py:542
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1266
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1268
-#: maintenance/autres_interventions/moteur/turbo/models.py:203
-#: maintenance/autres_interventions/moteur/turbo/views.py:120
-#: maintenance/autres_interventions/moteur/turbo/views.py:715
-#: maintenance/autres_interventions/refroidissement/models.py:675
-#: maintenance/carrosserie_interne/models.py:745
-#: maintenance/carrosserie_interne/views.py:1175
-#: maintenance/check_up/models.py:1866
-#: maintenance/check_up/templates/check_up/controle_total.html:2197
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:2103
-#: maintenance/checkup_track/models.py:813
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:2123
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:2122
-#: maintenance/entretien/models.py:905
-#: maintenance/entretien/templates/entretien/entretien_check.html:1217
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:1223
-#: maintenance/essuyage/models.py:788 maintenance/essuyage/views.py:516
-#: maintenance/essuyage/views.py:937 maintenance/freins/models.py:414
-#: maintenance/freins/templates/freins/freins_check.html:748
-#: maintenance/freins/templates/freins/modifier_freins.html:746
-#: maintenance/jeux_pieces/models.py:1144
-#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux.html:613
-#: maintenance/jeux_pieces/templates/jeux_pieces/modifier_jeux_pieces.html:635
-#: maintenance/nettoyage_exterieur/models.py:207
-#: maintenance/nettoyage_interieur/models.py:228
-#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/modifier_nettoyage_int.html:362
-#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_simple.html:363
-#: maintenance/niveaux/models.py:225
-#: maintenance/niveaux/templates/niveaux/modifier_niveaux.html:702
-#: maintenance/niveaux/templates/niveaux/niveau_form.html:695
-#: maintenance/pneus/models.py:318
-#: maintenance/pneus/templates/pneus/controle_pneus.html:790
-#: maintenance/pneus/templates/pneus/modifier_pneus.html:791
-#: maintenance/silent_blocs/models.py:689
-#: maintenance/silent_blocs/templates/silent_blocs/modifier_silent.html:684
-#: maintenance/silent_blocs/templates/silent_blocs/silent_check.html:689
-#, fuzzy
-#| msgid "Tableau de bord"
-msgid "Taux horaire"
-msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/abs/models.py:271
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:186
@@ -7467,6 +8381,7 @@ msgstr ""
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:516
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:602
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:728
+#: outillage/templates/outillage/delete_outillage.html:91
 msgid "Prix unitaire HTVA"
 msgstr ""
 
@@ -8120,47 +9035,6 @@ msgstr ""
 
 #: maintenance/autres_interventions/abs/templates/abs/delete_abs.html:14
 msgid "Voulez-vous vraiment supprimer le contrôle de l'ABS pour"
-msgstr ""
-
-#: maintenance/autres_interventions/abs/templates/abs/delete_abs.html:38
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/delete_remplacement_boite.html:42
-#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/delete_boite.html:39
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/delete_bte_auto.html:41
-#: maintenance/autres_interventions/climatisation/templates/climatisation/delete_clim.html:40
-#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/delete_cour_access.html:39
-#: maintenance/autres_interventions/echappement/templates/echappement/delete_echappement.html:39
-#: maintenance/autres_interventions/embrayage/templates/embrayage/delete_embrayage.html:40
-#: maintenance/autres_interventions/geometrie/templates/geometrie/delete_geometrie.html:39
-#: maintenance/autres_interventions/moteur/admission/templates/admission/delete_admission.html:40
-#: maintenance/autres_interventions/moteur/allumage/templates/allumage/delete_allumage.html:40
-#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/delete_alternateur.html:40
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/delete_courroie.html:40
-#: maintenance/autres_interventions/moteur/injection/templates/injection/delete_injection.html:40
-#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/delete_remplacement_moteur.html:40
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/delete_rodage.html:39
-#: maintenance/autres_interventions/moteur/turbo/templates/turbo/delete_turbo.html:40
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/delete_ref.html:41
-#: maintenance/carrosserie_interne/templates/carrosserie_interne/delete_carrosserie_interne.html:40
-#: maintenance/check_up/templates/check_up/delete_checkup.html:40
-#: maintenance/checkup_track/templates/checkup_track/delete_checkup_track.html:39
-#: maintenance/entretien/templates/entretien/delete_entretien.html:39
-#: maintenance/essuyage/templates/essuyage/delete_essuyage.html:39
-#: maintenance/freins/templates/freins/delete_freins.html:39
-#: maintenance/jeux_pieces/templates/jeux_pieces/delete_jeux.html:39
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/delete_nettoyage_ext.html:38
-#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/delete_nettoyage_int.html:39
-#: maintenance/niveaux/templates/niveaux/delete_niveau.html:39
-#: maintenance/pneus/templates/pneus/delete_pneus.html:39
-#: maintenance/silent_blocs/templates/silent_blocs/delete_silent.html:39
-#: maintenance/templates/maintenance/entretien/creer_entretien.html:51
-#: piece/templates/piece/piece_detail.html:49
-#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:101
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:232
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/supprimer_exemplaire_all.html:38
-#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:118
-#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:118
-#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:148
-msgid "Supprimer"
 msgstr ""
 
 #: maintenance/autres_interventions/abs/templates/abs/modifier_abs.html:20
@@ -9454,7 +10328,7 @@ msgstr "Tableau de Bord"
 #: maintenance/models.py:41 piece/piece_embrayage/models.py:72
 #: theme/templates/dashboard.html:358
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:40
-#: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:59
+#: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:60
 msgid "Embrayage"
 msgstr ""
 
@@ -10432,13 +11306,6 @@ msgstr ""
 
 #: maintenance/autres_interventions/climatisation/models.py:48
 msgid "R744 / CO₂"
-msgstr ""
-
-#: maintenance/autres_interventions/climatisation/models.py:89
-#: maintenance/autres_interventions/moteur/allumage/models.py:61
-#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:81
-#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:51
-msgid "Kilomètres châssis"
 msgstr ""
 
 #: maintenance/autres_interventions/climatisation/models.py:93
@@ -14341,7 +15208,7 @@ msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:277
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:278
-#: piece/piece_differentiel/models.py:12 voiture/voiture_boite/models.py:9
+#: piece/piece_differentiel/models.py:12 voiture/voiture_boite/models.py:8
 msgid "Vidange"
 msgstr ""
 
@@ -14518,6 +15385,7 @@ msgstr "Tableau de Bord"
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:281
 #: theme/templates/dashboard.html:314
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:75
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:81
 #: voiture/voiture_moteur/templates/voiture_moteur/modifier_moteur.html:58
 msgid "Moteur"
 msgstr ""
@@ -15570,6 +16438,7 @@ msgid "Dashboard boîte de vitesses"
 msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:71
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:81
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Boîte de vitesses"
@@ -22905,12 +23774,6 @@ msgstr ""
 msgid "Apprenti"
 msgstr ""
 
-#: maintenance/jeux_pieces/models.py:47 maintenance/models.py:73
-#: theme/templates/dashboard.html:180 theme/templates/dashboard.html:184
-#: utilisateurs/models.py:85 utilisateurs/views.py:279
-msgid "Mécanicien"
-msgstr ""
-
 #: maintenance/jeux_pieces/models.py:48 maintenance/models.py:91
 #: theme/templates/dashboard.html:271
 msgid "Chef mécanicien"
@@ -23079,7 +23942,7 @@ msgstr ""
 msgid "Check-up"
 msgstr ""
 
-#: maintenance/models.py:25 voiture/voiture_boite/models.py:11
+#: maintenance/models.py:25 voiture/voiture_boite/models.py:10
 msgid "Remplacement boîte"
 msgstr ""
 
@@ -24395,10 +25258,12 @@ msgid "Montant calculé"
 msgstr ""
 
 #: outillage/models.py:68
+#: outillage/templates/outillage/delete_outillage.html:97
 msgid "TVA à récupérer"
 msgstr ""
 
 #: outillage/models.py:81
+#: outillage/templates/outillage/delete_outillage.html:72
 msgid "Outillage"
 msgstr ""
 
@@ -24415,9 +25280,38 @@ msgstr ""
 msgid "%(libelle)s (%(reference)s) – %(quantite)s pcs"
 msgstr ""
 
+#: outillage/templates/outillage/delete_outillage.html:9
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer l'outillage"
+msgstr "Tableau de Bord"
+
+#: outillage/templates/outillage/delete_outillage.html:14
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Cet outillage ne peut pas être supprimé car il est encore utilisé."
+msgstr "Tableau de Bord"
+
+#: outillage/templates/outillage/delete_outillage.html:18
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment supprimer cet outillage ? Cette action est irréversible."
+msgstr "Tableau de Bord"
+
+#: outillage/templates/outillage/delete_outillage.html:53
+msgid "Le fournisseur n'est pas supprimé."
+msgstr ""
+
 #: outillage/templates/outillage/modifier_outillage.html:11
 msgid "Modifier l'outil :"
 msgstr ""
+
+#: outillage/templates/outillage/modifier_outillage.html:76
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Retour aux détails de l'outil"
+msgstr "Tableau de Bord"
 
 #: outillage/templates/outillage/outillage_detail.html:16
 msgid "Détails de l'outillage :"
@@ -24435,7 +25329,14 @@ msgstr ""
 msgid "Modifier l'outil"
 msgstr ""
 
-#: outillage/templates/outillage/outillage_detail.html:110
+#: outillage/templates/outillage/outillage_detail.html:91
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer l'outil"
+msgstr "Tableau de Bord"
+
+#: outillage/templates/outillage/outillage_detail.html:123
+#: outillage/templates/outillage/outillage_form.html:87
 msgid "Retour à la liste des outils"
 msgstr ""
 
@@ -24471,6 +25372,17 @@ msgstr ""
 #: outillage/templates/outillage/outillage_list.html:120
 #: outillage/templates/outillage/outillage_list.html:121
 msgid "Aucun outil trouvé"
+msgstr ""
+
+#: outillage/views.py:139
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression de l'outillage"
+msgstr "Tableau de Bord"
+
+#: outillage/views.py:187
+#, python-format
+msgid "L'outillage « %(nom)s » a bien été supprimé."
 msgstr ""
 
 #: panier/models.py:52
@@ -24662,6 +25574,7 @@ msgid "Code-barres"
 msgstr ""
 
 #: piece/piece_ampoules/models.py:53 piece/piece_feux/models.py:28
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:125
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:76
 msgid "Puissance"
 msgstr ""
@@ -25598,6 +26511,7 @@ msgid "Identification"
 msgstr ""
 
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_form.html:90
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:115
 msgid "Caractéristiques"
 msgstr ""
 
@@ -25609,16 +26523,6 @@ msgstr ""
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:4
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:13
 msgid "Liste des fluides"
-msgstr ""
-
-#: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:41
-#: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:54
-#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:45
-#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:45
-#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:58
-#: voiture/voiture_pneus/templates/voiture_pneus/list.html:84
-#: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:49
-msgid "Type"
 msgstr ""
 
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:97
@@ -26017,6 +26921,7 @@ msgid "Poulie de Vilebrequin"
 msgstr ""
 
 #: piece/piece_moteur/models.py:29 voiture/voiture_moteur/forms.py:25
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:95
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:80
 msgid "Distribution"
 msgstr ""
@@ -26756,6 +27661,107 @@ msgstr ""
 msgid "Aucune pièce trouvée"
 msgstr ""
 
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:9
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer le propriétaire"
+msgstr "Tableau de Bord"
+
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:14
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Ce propriétaire ne peut pas être supprimé car il est encore utilisé."
+msgstr "Tableau de Bord"
+
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:18
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment supprimer ce propriétaire ? Cette action est "
+"irréversible."
+msgstr "Tableau de Bord"
+
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:46
+msgid "Parts de propriété"
+msgstr ""
+
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:56
+#, python-format
+msgid ""
+"Les véhicules ne sont pas supprimés, mais le total des parts de leurs autres "
+"propriétaires n'atteindra plus 100 %%."
+msgstr ""
+
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:81
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:94
+#: proprietaire/templates/proprietaire/proprietaire_form.html:13
+#: theme/templates/dashboard.html:654
+msgid "Propriétaire"
+msgstr ""
+
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:9
+msgid "Supprimer la part de propriété"
+msgstr ""
+
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:14
+msgid "Cette part ne peut pas être supprimée car elle est encore utilisée."
+msgstr ""
+
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:18
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment retirer ce propriétaire de ce véhicule ? Cette action "
+"est irréversible."
+msgstr "Tableau de Bord"
+
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:42
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Impact sur la répartition du véhicule"
+msgstr "Tableau de Bord"
+
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:45
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Total des parts avant"
+msgstr "Tableau de Bord"
+
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:48
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Total des parts après"
+msgstr "Tableau de Bord"
+
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:55
+msgid "Autres propriétaires (conservés)"
+msgstr ""
+
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:66
+msgid "Ce véhicule n'aura plus aucun propriétaire enregistré."
+msgstr ""
+
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:71
+msgid ""
+"Le propriétaire et le véhicule ne sont pas supprimés : seule cette part est "
+"retirée."
+msgstr ""
+
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:92
+msgid "Part de propriété"
+msgstr ""
+
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:100
+#: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:63
+msgid "Part"
+msgstr ""
+
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:132
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer la part"
+msgstr "Tableau de Bord"
+
 #: proprietaire/templates/proprietaire/modifier_proprietaire.html:15
 msgid "Modifier le propriétaire :"
 msgstr ""
@@ -26773,6 +27779,12 @@ msgstr ""
 #: proprietaire/templates/proprietaire/modifier_proprietaire_voiture.html:57
 msgid "Copropriété"
 msgstr ""
+
+#: proprietaire/templates/proprietaire/modifier_proprietaire_voiture.html:96
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Retour aux détails des parts"
+msgstr "Tableau de Bord"
 
 #: proprietaire/templates/proprietaire/proprietaire_dashboard.html:12
 #, fuzzy
@@ -26797,14 +27809,15 @@ msgstr ""
 msgid "Modifier le propriétaire"
 msgstr ""
 
-#: proprietaire/templates/proprietaire/proprietaire_detail.html:135
+#: proprietaire/templates/proprietaire/proprietaire_detail.html:101
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer le proprietaire"
+msgstr "Tableau de Bord"
+
+#: proprietaire/templates/proprietaire/proprietaire_detail.html:149
 #: proprietaire/templates/proprietaire/proprietaire_form.html:89
 msgid "Retour à la liste des proprietaires"
-msgstr ""
-
-#: proprietaire/templates/proprietaire/proprietaire_form.html:13
-#: theme/templates/dashboard.html:654
-msgid "Propriétaire"
 msgstr ""
 
 #: proprietaire/templates/proprietaire/proprietaire_form.html:14
@@ -26859,7 +27872,13 @@ msgstr ""
 msgid "Modifier la part du proprietaire"
 msgstr ""
 
-#: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:122
+#: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:90
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer la part du propriétaire"
+msgstr "Tableau de Bord"
+
+#: proprietaire/templates/proprietaire/proprietaire_voiture_detail.html:135
 msgid "Retour à la liste des parts par propriétaires"
 msgstr ""
 
@@ -26871,6 +27890,12 @@ msgstr ""
 msgid "Associer un propriétaire à une voiture"
 msgstr ""
 
+#: proprietaire/templates/proprietaire/proprietaire_voiture_form.html:72
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Retour à la liste des parts"
+msgstr "Tableau de Bord"
+
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:4
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:12
 msgid "Liste des Copropriétaires"
@@ -26878,10 +27903,6 @@ msgstr ""
 
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:35
 msgid "Ajouter un copropriétaire"
-msgstr ""
-
-#: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:63
-msgid "Part"
 msgstr ""
 
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:76
@@ -26892,17 +27913,61 @@ msgstr ""
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ copropriétaires"
 msgstr ""
 
-#: proprietaire/views.py:97
+#: proprietaire/views.py:102
 #, python-format
 msgid "Propriétaire '%(prenom)s %(nom)s' ajouté avec succès !"
 msgstr ""
 
-#: proprietaire/views.py:207
+#: proprietaire/views.py:212
 msgid "Lien propriétaire / voiture ajouté avec succès !"
 msgstr ""
 
-#: proprietaire/views.py:284
+#: proprietaire/views.py:289
 msgid "Propriété mise à jour avec succès."
+msgstr ""
+
+#: proprietaire/views.py:314
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression du propriétaire"
+msgstr "Tableau de Bord"
+
+#: proprietaire/views.py:344
+#, python-format
+msgid ""
+"Impossible de supprimer « %(nom)s » : ce propriétaire est encore utilisé "
+"ailleurs."
+msgstr ""
+
+#: proprietaire/views.py:368
+#, python-format
+msgid ""
+"Impossible de supprimer « %(nom)s » : le propriétaire ou son adresse est "
+"encore utilisé ailleurs."
+msgstr ""
+
+#: proprietaire/views.py:372
+#, python-format
+msgid "Le propriétaire « %(nom)s » a bien été supprimé."
+msgstr ""
+
+#: proprietaire/views.py:399
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression de la part de propriété"
+msgstr "Tableau de Bord"
+
+#: proprietaire/views.py:444 proprietaire/views.py:461
+#, python-format
+msgid ""
+"Impossible de supprimer la part « %(nom)s » : elle est encore utilisée "
+"ailleurs."
+msgstr ""
+
+#: proprietaire/views.py:467
+#, python-format
+msgid ""
+"La part de « %(proprietaire)s » sur « %(voiture)s » a bien été supprimée."
 msgstr ""
 
 #: recharge/models.py:11 recharge/models.py:221
@@ -26962,7 +28027,8 @@ msgid "kW :"
 msgstr ""
 
 #: recharge/templates/recharge/electricite_delete.html:48
-#: recharge/templates/recharge/electricite_detail.html:122
+#: recharge/templates/recharge/electricite_detail.html:136
+#: recharge/templates/recharge/electricite_form.html:255
 msgid "Retour à la liste des recharges"
 msgstr ""
 
@@ -26975,11 +28041,25 @@ msgstr ""
 msgid "Energie"
 msgstr ""
 
-#: recharge/templates/recharge/electricite_detail.html:69
+#: recharge/templates/recharge/electricite_detail.html:52
+msgid "kiloWatts"
+msgstr ""
+
+#: recharge/templates/recharge/electricite_detail.html:57
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Prix de la recharge"
+msgstr "Tableau de Bord"
+
+#: recharge/templates/recharge/electricite_detail.html:70
+msgid "Remarques :"
+msgstr ""
+
+#: recharge/templates/recharge/electricite_detail.html:83
 msgid "Modifier la recharge"
 msgstr ""
 
-#: recharge/templates/recharge/electricite_detail.html:90
+#: recharge/templates/recharge/electricite_detail.html:104
 msgid "Supprimer la recharge électrique"
 msgstr ""
 
@@ -27063,6 +28143,12 @@ msgstr ""
 msgid "Modifier la recharge électrique:"
 msgstr ""
 
+#: recharge/templates/recharge/modifier_electricite.html:207
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Retour aux détails de la recharge"
+msgstr "Tableau de Bord"
+
 #: recharge/templates/recharge/recharge_list.html:12
 msgid "Liste des recharges électriques"
 msgstr ""
@@ -27110,10 +28196,6 @@ msgstr "Tableau de Bord"
 msgid "Recharge électrique supprimée avec succès."
 msgstr ""
 
-#: societe/models.py:52
-msgid "IBAN"
-msgstr ""
-
 #: societe/models.py:57
 msgid "Nombre maximum d'utilisateurs"
 msgstr ""
@@ -27133,6 +28215,7 @@ msgid "Nom du Directeur"
 msgstr ""
 
 #: societe_cliente/models.py:66
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:105
 msgid "Site internet"
 msgstr ""
 
@@ -27140,12 +28223,52 @@ msgstr ""
 msgid "Peppol id"
 msgstr ""
 
-#: societe_cliente/models.py:106
+#: societe_cliente/models.py:107
 msgid "Numero d'entreprise"
 msgstr ""
 
-#: societe_cliente/models.py:113
+#: societe_cliente/models.py:114
 msgid "Taux de tva"
+msgstr ""
+
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:9
+#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:108
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer la société cliente"
+msgstr "Tableau de Bord"
+
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:14
+msgid ""
+"Cette société cliente ne peut pas être supprimée car elle est encore "
+"utilisée."
+msgstr ""
+
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:18
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment supprimer cette société cliente ? Cette action est "
+"irréversible."
+msgstr "Tableau de Bord"
+
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:74
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Numéro d'entreprise"
+msgstr "Tableau de Bord"
+
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:94
+msgid "Direction & contact"
+msgstr ""
+
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:96
+#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:47
+msgid "Directeur"
+msgstr ""
+
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:120
+msgid "Banque"
 msgstr ""
 
 #: societe_cliente/templates/societe_cliente/modifier_societe_cliente.html:13
@@ -27156,15 +28279,11 @@ msgstr ""
 msgid "Détails de la société :"
 msgstr ""
 
-#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:47
-msgid "Directeur"
-msgstr ""
-
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:99
 msgid "Modifier la société"
 msgstr ""
 
-#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:155
+#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:165
 #: societe_cliente/templates/societe_cliente/societe_cliente_form.html:96
 msgid "Retour a la liste des sociétés"
 msgstr ""
@@ -27218,6 +28337,28 @@ msgstr ""
 #| msgid "Tableau de bord"
 msgid "Société cliente '%(nom)s' modifiée avec succès !"
 msgstr "Tableau de Bord"
+
+#: societe_cliente/views.py:206
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression de la société cliente"
+msgstr "Tableau de Bord"
+
+#: societe_cliente/views.py:221
+msgid "Sans nom"
+msgstr ""
+
+#: societe_cliente/views.py:255
+#, python-format
+msgid ""
+"Impossible de supprimer « %(nom)s » : la société ou son adresse est encore "
+"utilisée ailleurs."
+msgstr ""
+
+#: societe_cliente/views.py:259
+#, python-format
+msgid "La société cliente « %(nom)s » a bien été supprimée."
+msgstr ""
 
 #: stats_fournisseurs/forms.py:18
 msgid "2026"
@@ -27285,10 +28426,6 @@ msgstr ""
 
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:40
 msgid "Afficher"
-msgstr ""
-
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:68
-msgid "Total TVAC"
 msgstr ""
 
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:78
@@ -27759,10 +28896,6 @@ msgstr ""
 msgid "Mot de passe oublié ?"
 msgstr ""
 
-#: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:66
-msgid "Période"
-msgstr ""
-
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:80
 msgid "Salaire"
 msgstr ""
@@ -27807,7 +28940,7 @@ msgstr ""
 msgid "Révision moteur"
 msgstr ""
 
-#: utilisateurs/views.py:265 voiture/voiture_boite/models.py:10
+#: utilisateurs/views.py:265 voiture/voiture_boite/models.py:9
 msgid "Changement filtre"
 msgstr ""
 
@@ -27879,14 +29012,17 @@ msgid "Le code de sécurité est incorrect ou a expiré."
 msgstr ""
 
 #: voiture/voiture_boite/forms.py:17
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:86
 msgid "Nom du type"
 msgstr ""
 
 #: voiture/voiture_boite/forms.py:18
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:89
 msgid "Type de boîte"
 msgstr ""
 
 #: voiture/voiture_boite/forms.py:21
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:95
 msgid "Nombre de rapports"
 msgstr ""
 
@@ -27899,6 +29035,7 @@ msgid "Intervalle entretien (km)"
 msgstr ""
 
 #: voiture/voiture_boite/forms.py:32
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:135
 msgid "Dernier entretien"
 msgstr ""
 
@@ -27906,19 +29043,19 @@ msgstr ""
 msgid "Numéro de boîte"
 msgstr ""
 
-#: voiture/voiture_boite/models.py:15
+#: voiture/voiture_boite/models.py:14
 msgid "Manuelle"
 msgstr ""
 
-#: voiture/voiture_boite/models.py:16
+#: voiture/voiture_boite/models.py:15
 msgid "Semi-automatique"
 msgstr ""
 
-#: voiture/voiture_boite/models.py:17 voiture/voiture_embrayage/models.py:10
+#: voiture/voiture_boite/models.py:16 voiture/voiture_embrayage/models.py:10
 msgid "Automatique"
 msgstr ""
 
-#: voiture/voiture_boite/models.py:18
+#: voiture/voiture_boite/models.py:17
 msgid "Electrique"
 msgstr ""
 
@@ -27943,6 +29080,7 @@ msgid "Type de boite"
 msgstr ""
 
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:64
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:92
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:48
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:66
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:39
@@ -27966,9 +29104,98 @@ msgstr ""
 msgid "Modifier la boite de vitesse"
 msgstr ""
 
-#: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:126
+#: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:108
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer la boite de vitesse"
+msgstr "Tableau de Bord"
+
+#: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:138
 msgid "Retour a la liste des boites de vitesses"
 msgstr ""
+
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:9
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer la boîte de vitesses"
+msgstr "Tableau de Bord"
+
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:14
+msgid "Cette boîte ne peut pas être supprimée car elle est encore utilisée."
+msgstr ""
+
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:18
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment supprimer cette boîte de vitesses ? Cette action est "
+"irréversible."
+msgstr "Tableau de Bord"
+
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:44
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:22
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:21
+#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:21
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:44
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:22
+msgid "Véhicule(s) concerné(s)"
+msgstr ""
+
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:50
+#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:28
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:50
+#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:28
+msgid "Modèle(s) concerné(s)"
+msgstr ""
+
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:56
+msgid ""
+"Ces véhicules et modèles ne seront pas supprimés : seul leur lien avec cette "
+"boîte sera retiré."
+msgstr ""
+
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:98
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "N° de boîte"
+msgstr "Tableau de Bord"
+
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:107
+msgid "Lubrification"
+msgstr ""
+
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:109
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:149
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Qualité huile"
+msgstr "Tableau de Bord"
+
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:112
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:152
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Quantité huile"
+msgstr "Tableau de Bord"
+
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:123
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suivi & entretien"
+msgstr "Tableau de Bord"
+
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:130
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:162
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Intervalle entretien"
+msgstr "Tableau de Bord"
+
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:138
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Remplacements"
+msgstr "Tableau de Bord"
 
 #: voiture/voiture_boite/templates/voiture_boite/list.html:4
 #: voiture/voiture_boite/templates/voiture_boite/list.html:11
@@ -28029,18 +29256,29 @@ msgstr ""
 msgid "Modifier la boite de vitesse:"
 msgstr ""
 
-#: voiture/voiture_boite/templates/voiture_boite/modifier_boite.html:88
+#: voiture/voiture_boite/templates/voiture_boite/modifier_boite.html:86
 msgid "Retour aux détails de la boite de vitesse"
 msgstr ""
 
-#: voiture/voiture_boite/views.py:48
+#: voiture/voiture_boite/views.py:53
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Boîte de vitesse ajoutée avec succès."
 msgstr "Tableau de Bord"
 
-#: voiture/voiture_boite/views.py:104
+#: voiture/voiture_boite/views.py:109
 msgid "Boîte de vitesse mise à jour avec succès."
+msgstr ""
+
+#: voiture/voiture_boite/views.py:140
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression de la boîte de vitesses"
+msgstr "Tableau de Bord"
+
+#: voiture/voiture_boite/views.py:194
+#, python-format
+msgid "La boîte « %(nom)s » a bien été supprimée."
 msgstr ""
 
 #: voiture/voiture_embrayage/forms.py:22 voiture/voiture_embrayage/forms.py:42
@@ -28161,18 +29399,6 @@ msgid ""
 "Voulez-vous vraiment supprimer cet embrayage ? Cette action est irréversible."
 msgstr "Tableau de Bord"
 
-#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:22
-#: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:21
-#: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:21
-#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:22
-msgid "Véhicule(s) concerné(s)"
-msgstr ""
-
-#: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:28
-#: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:28
-msgid "Modèle(s) concerné(s)"
-msgstr ""
-
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:42
 #, fuzzy
 #| msgid "Tableau de bord"
@@ -28219,11 +29445,11 @@ msgstr ""
 msgid "Aucun embrayage trouvé"
 msgstr ""
 
-#: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:17
+#: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:18
 msgid "Modifier l'embrayage:"
 msgstr ""
 
-#: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:104
+#: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:102
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Retour aux détails de l'embrayage"
@@ -28800,8 +30026,10 @@ msgstr ""
 
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:103
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:109
-msgid "Dashboard freins"
-msgstr ""
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Retour au tableau de bord freins"
+msgstr "Tableau de Bord"
 
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:115
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ Freins"
@@ -28814,11 +30042,11 @@ msgstr ""
 msgid "Aucun système de freinage trouvé"
 msgstr ""
 
-#: voiture/voiture_freins_ar/templates/voiture_freins_ar/modifier_freins_ar.html:19
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/modifier_freins_ar.html:18
 msgid "Modifier les freins arrière :"
 msgstr ""
 
-#: voiture/voiture_freins_ar/templates/voiture_freins_ar/modifier_freins_ar.html:103
+#: voiture/voiture_freins_ar/templates/voiture_freins_ar/modifier_freins_ar.html:107
 msgid "Retour aux détails des freins arrière"
 msgstr ""
 
@@ -28986,7 +30214,7 @@ msgstr ""
 msgid "Modifier les freins avant :"
 msgstr ""
 
-#: voiture/voiture_freins_av/templates/voiture_freins_av/modifier_freins_av.html:105
+#: voiture/voiture_freins_av/templates/voiture_freins_av/modifier_freins_av.html:104
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Retour aux details freins avant"
@@ -29073,6 +30301,12 @@ msgstr ""
 #: voiture/voiture_marque/templates/voiture_marque/marques_list.html:120
 msgid "Aucune marque trouvée."
 msgstr ""
+
+#: voiture/voiture_marque/templates/voiture_marque/marques_list.html:136
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Retour au tableau de bord voiture"
+msgstr "Tableau de Bord"
 
 #: voiture/voiture_marque/views.py:127
 msgid "Veuillez entrer un nom de marque."
@@ -29276,6 +30510,7 @@ msgid "Le modèle de voiture à été mise à jour avec succès."
 msgstr "Tableau de Bord"
 
 #: voiture/voiture_moteur/forms.py:23
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:83
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:40
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:56
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:52
@@ -29283,6 +30518,7 @@ msgid "Motoriste"
 msgstr ""
 
 #: voiture/voiture_moteur/forms.py:24
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:86
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:42
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:57
 msgid "Code moteur"
@@ -29299,6 +30535,7 @@ msgid "Cylindrée (L)"
 msgstr ""
 
 #: voiture/voiture_moteur/forms.py:32
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:122
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:72
 msgid "Nombre de cylindres"
 msgstr ""
@@ -29408,9 +30645,69 @@ msgid "Ajouter un moteur pour un nouveau véhicule"
 msgstr ""
 
 #: voiture/voiture_moteur/templates/voiture_moteur/ajouter_moteur.html:90
-#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:135
+#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:146
 msgid "Retour a la liste des moteurs"
 msgstr ""
+
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:9
+#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:116
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer le moteur"
+msgstr "Tableau de Bord"
+
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:14
+msgid "Ce moteur ne peut pas être supprimé car il est encore utilisé."
+msgstr ""
+
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:18
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment supprimer ce moteur ? Cette action est irréversible."
+msgstr "Tableau de Bord"
+
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:56
+msgid ""
+"Ces véhicules et modèles ne seront pas supprimés : seul leur lien avec ce "
+"moteur sera retiré."
+msgstr ""
+
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:89
+#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:60
+msgid "Type de moteur"
+msgstr ""
+
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:98
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "N° de moteur"
+msgstr "Tableau de Bord"
+
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:101
+msgid "Boîte associée"
+msgstr ""
+
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:105
+msgid "La boîte n'est pas supprimée."
+msgstr ""
+
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:117
+#: voiture/voiture_moteur/templates/voiture_moteur/list.html:44
+#: voiture/voiture_moteur/templates/voiture_moteur/list.html:58
+#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:68
+msgid "Cylindrée"
+msgstr ""
+
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:133
+msgid "Couple"
+msgstr ""
+
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:147
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Lubrification & entretien"
+msgstr "Tableau de Bord"
 
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:4
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:11
@@ -29419,12 +30716,6 @@ msgstr ""
 
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:31
 msgid "Ajouter un moteur"
-msgstr ""
-
-#: voiture/voiture_moteur/templates/voiture_moteur/list.html:44
-#: voiture/voiture_moteur/templates/voiture_moteur/list.html:58
-#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:68
-msgid "Cylindrée"
 msgstr ""
 
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:48
@@ -29456,7 +30747,7 @@ msgstr ""
 msgid "Modifier le moteur:"
 msgstr ""
 
-#: voiture/voiture_moteur/templates/voiture_moteur/modifier_moteur.html:88
+#: voiture/voiture_moteur/templates/voiture_moteur/modifier_moteur.html:86
 msgid "Retour aux détails du moteur"
 msgstr ""
 
@@ -29468,16 +30759,23 @@ msgstr ""
 msgid "Code Moteur"
 msgstr ""
 
-#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:60
-msgid "Type de moteur"
-msgstr ""
-
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:106
 msgid "Modifier le moteur"
 msgstr ""
 
-#: voiture/voiture_moteur/views.py:79
+#: voiture/voiture_moteur/views.py:86
 msgid "Moteur mis à jour avec succès."
+msgstr ""
+
+#: voiture/voiture_moteur/views.py:106
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression du moteur"
+msgstr "Tableau de Bord"
+
+#: voiture/voiture_moteur/views.py:164
+#, python-format
+msgid "Le moteur « %(nom)s » a bien été supprimé."
 msgstr ""
 
 #: voiture/voiture_pneus/models.py:12
@@ -29975,16 +31273,6 @@ msgstr "Tableau de Bord"
 
 #, fuzzy
 #~| msgid "Tableau de bord"
-#~ msgid "Quantité facturée"
-#~ msgstr "Tableau de Bord"
-
-#, fuzzy
-#~| msgid "Tableau de bord"
-#~ msgid "Coût de la main-d'œuvre"
-#~ msgstr "Tableau de Bord"
-
-#, fuzzy
-#~| msgid "Tableau de bord"
 #~ msgid "Coût de la main d'œuvre"
 #~ msgstr "Tableau de Bord"
 
@@ -30001,11 +31289,6 @@ msgstr "Tableau de Bord"
 #, fuzzy
 #~| msgid "Tableau de bord"
 #~ msgid "Fabricant de la pompe à carburant"
-#~ msgstr "Tableau de Bord"
-
-#, fuzzy
-#~| msgid "Tableau de bord"
-#~ msgid "Prix de la pompe à carburant"
 #~ msgstr "Tableau de Bord"
 
 #, fuzzy
@@ -30170,11 +31453,6 @@ msgstr "Tableau de Bord"
 
 #, fuzzy
 #~| msgid "Tableau de bord"
-#~ msgid "Supprimer le controle de la boite de vitesse"
-#~ msgstr "Tableau de Bord"
-
-#, fuzzy
-#~| msgid "Tableau de bord"
 #~ msgid "Bienvenue sur le tableau de bord boite"
 #~ msgstr "Tableau de Bord"
 
@@ -30301,11 +31579,6 @@ msgstr "Tableau de Bord"
 #, fuzzy, python-format
 #~| msgid "Tableau de bord"
 #~ msgid "Modification des niveaux - %(immatriculation)s"
-#~ msgstr "Tableau de Bord"
-
-#, fuzzy
-#~| msgid "Tableau de bord"
-#~ msgid "Qualitée"
 #~ msgstr "Tableau de Bord"
 
 #, fuzzy
