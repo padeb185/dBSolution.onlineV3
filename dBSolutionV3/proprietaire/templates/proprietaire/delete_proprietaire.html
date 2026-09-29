@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto mt-10 mb-10 p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-4 text-red-700">
+        {% trans "Supprimer le propriétaire" %}
+    </h1>
+
+    {% if objets_bloquants %}
+        <p class="mb-6">
+            {% trans "Ce propriétaire ne peut pas être supprimé car il est encore utilisé." %}
+        </p>
+    {% else %}
+        <p class="mb-6">
+            {% trans "Voulez-vous vraiment supprimer ce propriétaire ? Cette action est irréversible." %}
+        </p>
+    {% endif %}
+
+    {# ================================================== #}
+    {# ÉLÉMENTS BLOQUANTS (PROTECT / RESTRICT)             #}
+    {# ================================================== #}
+    {% if objets_bloquants %}
+        <div class="mb-6 p-4 bg-red-50 border border-red-300 rounded text-sm">
+            <h2 class="font-semibold mb-1 text-red-700">{% trans "Élément(s) qui empêchent la suppression" %}</h2>
+            {% for label, objets in objets_bloquants %}
+                <h3 class="font-medium mt-2">{{ label|capfirst }} ({{ objets|length }})</h3>
+                <ul class="list-disc list-inside">
+                    {% for obj in objets|slice:":10" %}<li>{{ obj }}</li>{% endfor %}
+                    {% if objets|length > 10 %}<li class="text-gray-500">…</li>{% endif %}
+                </ul>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# ÉLÉMENTS SUPPRIMÉS                                  #}
+    {# ================================================== #}
+    {% if parts or proprietaire.adresse or objets_supprimes %}
+        <div class="mb-6 p-4 bg-yellow-50 border border-yellow-300 rounded text-sm">
+            <h2 class="font-semibold mb-1">{% trans "Élément(s) qui seront également supprimé(s)" %}</h2>
+
+            {% if parts %}
+                <h3 class="font-medium mt-2">{% trans "Parts de propriété" %} ({{ parts|length }})</h3>
+                <ul class="list-disc list-inside">
+                    {% for p in parts %}
+                        <li>
+                            {{ p.voiture_exemplaire }}
+                            <span class="text-gray-500">— {{ p.part_proprietaire_pourcent|floatformat:2 }} %</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <p class="mt-1 text-gray-600">
+                    {% trans "Les véhicules ne sont pas supprimés, mais le total des parts de leurs autres propriétaires n'atteindra plus 100 %." %}
+                </p>
+            {% endif %}
+
+            {% if proprietaire.adresse %}
+                <h3 class="font-medium mt-2">{% trans "Adresse" %}</h3>
+                <ul class="list-disc list-inside">
+                    <li>{{ proprietaire.adresse }}</li>
+                </ul>
+            {% endif %}
+
+            {% for label, objets in objets_supprimes %}
+                <h3 class="font-medium mt-2">{{ label|capfirst }} ({{ objets|length }})</h3>
+                <ul class="list-disc list-inside">
+                    {% for obj in objets|slice:":10" %}<li>{{ obj }}</li>{% endfor %}
+                    {% if objets|length > 10 %}<li class="text-gray-500">…</li>{% endif %}
+                </ul>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# ================================================== #}
+    {# IDENTITÉ                                            #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Propriétaire" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Nom" %}</dt>
+            <dd class="font-medium">{{ proprietaire.nom|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Prénom" %}</dt>
+            <dd class="font-medium">{{ proprietaire.prenom|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Date de naissance" %}</dt>
+            <dd class="font-medium">{{ proprietaire.date_naissance|date:"d/m/Y"|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Adresse" %}</dt>
+            <dd class="font-medium">{{ proprietaire.adresse|default:"—" }}</dd>
+        </dl>
+    </div>
+
+    {# ================================================== #}
+    {# CONTACT                                             #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Contact" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Téléphone" %}</dt>
+            <dd class="font-medium">{{ proprietaire.numero_telephone|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Email" %}</dt>
+            <dd class="font-medium">{{ proprietaire.email|default:"—" }}</dd>
+        </dl>
+    </div>
+
+    {# ================================================== #}
+    {# DOCUMENTS & BANQUE (masqués)                        #}
+    {# ================================================== #}
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Documents & banque" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "N° de permis" %}</dt>
+            <dd class="font-medium">{{ proprietaire.numero_permis|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "N° de carte d'identité" %}</dt>
+            <dd class="font-medium font-mono">{{ carte_id_masquee|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Compte bancaire" %}</dt>
+            <dd class="font-medium font-mono">{{ compte_masque|default:"—" }}</dd>
+
+            <dt class="text-gray-600">{% trans "Carte bancaire" %}</dt>
+            <dd class="font-medium font-mono">{{ carte_bancaire_masquee|default:"—" }}</dd>
+        </dl>
+    </div>
+
+    {% if proprietaire.remarques %}
+        <div class="mb-4 border rounded">
+            <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Remarques" %}</h2>
+            <p class="p-4 text-sm whitespace-pre-line">{{ proprietaire.remarques }}</p>
+        </div>
+    {% endif %}
+
+    <p class="text-xs text-gray-500 mb-6">
+        {% trans "Créé le" %} {{ proprietaire.created_at|date:"d/m/Y H:i"|default:"—" }}
+        · {% trans "Mis à jour le" %} {{ proprietaire.updated_at|date:"d/m/Y H:i"|default:"—" }}
+    </p>
+
+    {# ================================================== #}
+    {# FORMULAIRE                                          #}
+    {# ================================================== #}
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="flex gap-4 w-full">
+            {% if objets_bloquants %}
+                <button type="button" disabled
+                        class="w-full bg-gray-200 text-gray-500 px-4 py-2 rounded font-semibold cursor-not-allowed">
+                    {% trans "Suppression impossible" %}
+                </button>
+            {% else %}
+                <button type="submit"
+                        class="w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold">
+                    {% trans "Supprimer" %}
+                </button>
+            {% endif %}
+
+            {% url 'proprietaire:proprietaire_list' as url_liste_proprietaires %}
+            <a href="{{ request.META.HTTP_REFERER|default:url_liste_proprietaires|default:'javascript:history.back()' }}" class="block w-full">
+                <button type="button"
+                        class="w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold">
+                    {% trans "Annuler" %}
+                </button>
+            </a>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

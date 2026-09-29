@@ -80,6 +80,19 @@
                     </button>
                 </a>
          </div>
+
+         {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}
+        <div class="mt-auto w-full">
+            <a href="{% url 'proprietaire:delete_proprietaire_voiture' proprietaire_voiture.pk %}"
+               class="block w-full text-center px-4 py-2 rounded font-semibold"
+               style="background-color:#b91c1c; color:white;">
+
+                {% trans "Supprimer la part du propriétaire" %}
+            </a>
+        </div>
+        {% endif %}
+        <br>
+
     </div>
 
     <!-- Adresse -->
@@ -118,7 +131,7 @@
     <!-- Actions -->
     <br>
     <a href="{% url 'proprietaire:proprietaire_voiture_list' %}"
-        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Retour à la liste des parts par propriétaires" %}
     </a>
 
