@@ -206,7 +206,10 @@ def delete_adresse_view(request, pk):
             return redirect("adresse:delete_adresse", pk=pk)
 
         messages.success(request, _("L'adresse « %(adresse)s » a bien été supprimée.") % {"adresse": libelle})
-        return redirect("adresse:adresse_list")
+
+        return redirect(
+            f"{reverse('adresse:adresse_list')}?deleted=1"
+        )
 
     return render(
         request,

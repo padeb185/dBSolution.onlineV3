@@ -137,8 +137,7 @@ def modifier_embrayage_view(request, embrayage_id):
             )
 
             return redirect(
-                "voiture_embrayage:embrayage_detail",
-                embrayage_id=embrayage.id,
+                f"{reverse('voiture_embrayage:embrayage_detail', kwargs={'embrayage_id': embrayage.id})}?saved=1"
             )
 
         messages.error(

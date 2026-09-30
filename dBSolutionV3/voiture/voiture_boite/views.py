@@ -112,8 +112,7 @@ def modifier_boite_view(request, boite_id):
             )
 
             return redirect(
-                "voiture_boite:boite_detail",
-                boite_id=boite.id,
+                f"{reverse('voiture_boite:boite_detail', kwargs={'boite_id': boite.id})}?saved=1"
             )
 
         messages.error(
@@ -194,7 +193,10 @@ def delete_boite_view(request, pk):
             return redirect("voiture_boite:delete_boite", pk=pk)
 
         messages.success(request, _("La boîte « %(nom)s » a bien été supprimée.") % {"nom": libelle})
-        return redirect("voiture_boite:list")
+
+        return redirect(
+            f"{reverse('voiture_boite:list')}?deleted=1"
+        )
 
     return render(
         request,

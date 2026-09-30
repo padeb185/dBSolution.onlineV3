@@ -285,12 +285,11 @@ def delete_pneus_view(request, pneus_id):
         else:
             messages.success(request, _("Pneus supprimés avec succès."))
 
-            if exemplaire_retour_id:
-                return redirect(
-                    # ⚠️ nom d'URL à vérifier
-                    f"{reverse('voiture_pneus:pneus_list', kwargs={'exemplaire_id': exemplaire_retour_id})}?deleted=1"
-                )
-            return redirect("utilisateurs:dashboard")
+
+            return redirect(
+                f"{reverse('voiture_pneus:pneus_list')}?deleted=1"
+            )
+
 
     # ==================================================
     # GET → CONFIRMATION

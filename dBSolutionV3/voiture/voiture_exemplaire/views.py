@@ -358,8 +358,7 @@ def modifier_exemplaire(request, exemplaire_id):
             )
 
             return redirect(
-                "voiture_exemplaire:voiture_exemplaire_detail",
-                exemplaire_id=exemplaire.id
+                f"{reverse('voiture_exemplaire:voiture_exemplaire_detail', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
             )
 
     else:
@@ -534,12 +533,8 @@ def supprimer_exemplaire_all(request, exemplaire_id):
                     "des données lui sont encore associées."
                 )
             )
-
-        # Succès OU ProtectedError :
-        # retour vers la liste des véhicules du modèle
         return redirect(
-            "voiture_exemplaire:voiture_exemplaire",
-            modele_id=modele.id,
+            f"{reverse('voiture_exemplaire:list')}?deleted=1"
         )
 
     # ==========================================================

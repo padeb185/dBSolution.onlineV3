@@ -158,7 +158,10 @@ def modifier_proprietaire_view(request, proprietaire_id):
         if form.is_valid():
             form.save()
             messages.success(request, _(f"Client '{proprietaire.prenom} {proprietaire.nom}' modifié avec succès !"))
-            return redirect("proprietaire:proprietaire_detail", proprietaire_id=proprietaire.id)
+
+            return redirect(
+                f"{reverse('proprietaire:proprietaire_detail', kwargs={'proprietaire_id': proprietaire.id})}?saved=1"
+            )
 
         else:
             # Ici, si la carte bancaire est invalide, Django affichera automatiquement l'erreur
@@ -214,8 +217,10 @@ def proprietaire_voiture_form_view(request):
                 request,
                 _("Lien propriétaire / voiture ajouté avec succès !")
             )
+
             return redirect(
-                "proprietaire:proprietaire_voiture_list")
+                f"{reverse('proprietaire:proprietaire_voiture_list')}?saved=1"
+            )
 
 
         else:
@@ -291,7 +296,10 @@ def modifier_proprietaire_voiture_view(request, proprietaire_voiture_id):
                 request,
                 _("Propriété mise à jour avec succès.")
             )
-            return redirect("proprietaire:propriétaire_voiture_detail", proprietaire_voiture_id=proprietaire_voiture.id)
+
+            return redirect(
+                f"{reverse('proprietaire:propriétaire_voiture_detail', kwargs={'proprietaire_voiture_id': proprietaire_voiture.id})}?saved=1"
+            )
 
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
@@ -373,7 +381,10 @@ def delete_proprietaire_view(request, pk):
             return redirect("proprietaire:delete_proprietaire", pk=pk)
 
         messages.success(request, _("Le propriétaire « %(nom)s » a bien été supprimé.") % {"nom": nom_complet})
-        return redirect("proprietaire:proprietaire_list")
+
+        return redirect(
+            f"{reverse('proprietaire:proprietaire_list')}?deleted=1"
+        )
 
     return render(
         request,

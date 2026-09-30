@@ -179,13 +179,13 @@ def modifier_maindoeuvre_view(request, main_oeuvre_id):
             )
 
             messages.success(request, _("Main d'œuvre modifiée avec succès !"))
+
             return redirect(
-                "maindoeuvre:main_oeuvre_detail",
-                main_oeuvre_id=maindoeuvre.id
+                f"{reverse('maindoeuvre:main_oeuvre_detail', kwargs={'main_oeuvre_id': maindoeuvre.id})}?saved=1"
             )
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
-            print(form.errors)
+
 
     else:
         form = MainDoeuvreForm(
@@ -253,7 +253,10 @@ def _redirect_apres_suppression(voiture_id):
             return redirect("voiture_exemplaire:detail", exemplaire_id=voiture_id)
         except NoReverseMatch:
             pass
-    return redirect("maindoeuvre:main_oeuvre_list")
+
+    return redirect(
+        f"{reverse('maindoeuvre:main_oeuvre_list')}?deleted=1")
+
 
 
 @login_required

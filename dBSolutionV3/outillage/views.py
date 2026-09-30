@@ -117,8 +117,11 @@ def modifier_outillage(request, outillage_id):
         if form_outillage.is_valid():
             form_outillage.save()
             messages.success(request, "Outillage mis à jour avec succès.")
-            # Rediriger vers la page de détail de l'outillage
-            return redirect("outillage:outillage_detail", outillage_id=outillage.id_outillage)
+
+            return redirect(
+                f"{reverse('outillage:outillage_detail', kwargs={'outillage_id': outillage.id})}?saved=1"
+            )
+
         else:
             messages.error(request, "Le formulaire contient des erreurs.")
     else:
@@ -185,7 +188,10 @@ def delete_outillage_view(request, pk):
             return redirect("outillage:delete_outillage", pk=pk)
 
         messages.success(request, _("L'outillage « %(nom)s » a bien été supprimé.") % {"nom": libelle})
-        return redirect("outillage:outillage_list")
+
+        return redirect(
+            f"{reverse('outillage:outillage_list')}?deleted=1"
+        )
 
     return render(
         request,

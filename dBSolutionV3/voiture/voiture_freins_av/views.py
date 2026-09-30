@@ -120,8 +120,7 @@ def modifier_freins_av_view(request, frein_av_id):
             )
 
             return redirect(
-                "voiture_freins_av:freins_av_detail",
-                frein_av_id=frein.id,
+                f"{reverse('voiture_freins_av:freins_av_detail', kwargs={'frein_av_id': frein.id})}?saved=1"
             )
 
         messages.error(
@@ -278,12 +277,12 @@ def delete_frein_av_view(request, frein_av_id):
                 _("Système de freinage avant supprimé avec succès."),
             )
 
-            if exemplaire:
-                return redirect(
-                    # ⚠️ nom d'URL à vérifier
-                    f"{reverse('voiture_freins_av:freins_av_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
-                )
-            return redirect("utilisateurs:dashboard")
+
+            return redirect(
+
+                f"{reverse('voiture_freins_av:freins_av_list')}?deleted=1"
+            )
+
 
         except Exception as e:
             messages.error(

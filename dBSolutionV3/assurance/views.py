@@ -160,9 +160,9 @@ def modifier_assurance(request, assurance_id):
             assurance.save()
 
             messages.success(request, _("Assurance et adresse mises à jour avec succès."))
+
             return redirect(
-                "assurance:assurance_detail",
-                assurance_id=assurance.id
+                f"{reverse('assurance:assurance_detail', kwargs={'assurance_id': assurance.id})}?saved=1"
             )
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
@@ -265,7 +265,10 @@ def delete_assurance_view(request, pk):
             return redirect("assurance:delete_assurance", pk=pk)
 
         messages.success(request, _("L'assurance « %(nom)s » a bien été supprimée.") % {"nom": nom})
-        return redirect("assurance:assurance_list")
+
+        return redirect(
+            f"{reverse('assurance:assurance_list')}?deleted=1"
+        )
 
     return render(
         request,

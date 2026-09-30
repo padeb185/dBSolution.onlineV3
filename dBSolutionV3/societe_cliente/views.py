@@ -170,8 +170,7 @@ def modifier_societe_cliente(request, societe_cliente_id):
             )
 
             return redirect(
-                "societe_cliente:societe_cliente_detail",
-                societe_cliente_id=societe_cliente.pk,
+                f"{reverse('societe_cliente:societe_cliente_detail', kwargs={'societe_cliente_id': societe_cliente.id})}?saved=1"
             )
 
     else:
@@ -261,7 +260,10 @@ def delete_societe_cliente_view(request, pk):
             return redirect("societe_cliente:delete_societe_cliente", pk=pk)
 
         messages.success(request, _("La société cliente « %(nom)s » a bien été supprimée.") % {"nom": nom})
-        return redirect("societe_cliente:societe_cliente_list")
+
+        return redirect(
+            f"{reverse('societe_cliente:societe_cliente_list')}?deleted=1"
+        )
 
     return render(
         request,

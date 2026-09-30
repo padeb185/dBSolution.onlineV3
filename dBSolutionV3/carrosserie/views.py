@@ -126,7 +126,10 @@ def modifier_carrosserie(request, carrosserie_id):
             carrosserie.save()
 
             messages.success(request, _("Carrosserie et adresse mises à jour avec succès."))
-            return redirect("carrosserie:carrosserie_detail", carrosserie_id=carrosserie.id)
+
+            return redirect(
+                f"{reverse('carrosserie:carrosserie_detail', kwargs={'carrosserie_id': carrosserie.id})}?saved=1"
+            )
 
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
@@ -237,7 +240,10 @@ def delete_carrosserie_view(request, pk):
             return redirect("carrosserie:delete_carrosserie", pk=pk)
 
         messages.success(request, _("La carrosserie « %(nom)s » a bien été supprimée.") % {"nom": nom})
-        return redirect("carrosserie:carrosserie_list")
+
+        return redirect(
+            f"{reverse('carrosserie:carrosserie_list')}?deleted=1"
+        )
 
     return render(
         request,

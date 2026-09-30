@@ -188,7 +188,10 @@ def modifier_client_particulier_view(request, client_particulier_id):
                 request,
                 _(f"Client '{cp.prenom} {cp.nom}' modifié avec succès !")
             )
-            return redirect("client_particulier:client_detail", client_particulier_id=client_particulier.id)
+
+            return redirect(
+                f"{reverse('client_particulier:client_detail', kwargs={'client_particulier_id': client_particulier.id})}?saved=1"
+            )
 
         else:
             messages.error(
@@ -345,7 +348,10 @@ def delete_client_view(request, pk):
             return redirect("client_particulier:delete_client", pk=pk)
 
         messages.success(request, _("Le client « %(nom)s » a bien été supprimé.") % {"nom": nom_complet})
-        return redirect("client_particulier:clientparticulier_list")
+
+        return redirect(
+            f"{reverse('client_particulier:clientparticulier_list')}?deleted=1"
+        )
 
     return render(
         request,

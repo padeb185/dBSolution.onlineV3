@@ -144,7 +144,10 @@ def modifier_fournisseur(request, fournisseur_id):
         if form.is_valid():
             form.save()
             messages.success(request, _(f"Fournisseur '{fournisseur.nom}' modifié avec succès !"))
-            return redirect("fournisseur:fournisseur_detail", fournisseur_id=fournisseur.id)
+
+            return redirect(
+                f"{reverse('fournisseur:fournisseur_detail', kwargs={'fournisseur_id': fournisseur.id})}?saved=1"
+            )
 
     else:
         form = FournisseurForm(instance=fournisseur)
@@ -288,7 +291,10 @@ def delete_fournisseur_view(request, pk):
             return redirect("fournisseur:delete_fournisseur", pk=pk)
 
         messages.success(request, _("Le fournisseur « %(nom)s » a bien été supprimé.") % {"nom": nom})
-        return redirect("fournisseur:fournisseur_list")
+
+        return redirect(
+            f"{reverse('fournisseur:fournisseur_list')}?deleted=1"
+        )
 
     return render(
         request,

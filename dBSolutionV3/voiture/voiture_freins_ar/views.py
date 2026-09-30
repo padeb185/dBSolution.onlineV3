@@ -117,7 +117,7 @@ def ajouter_freins_ar_simple(request):
             )
 
             return redirect(
-                "voiture_freins_ar:freins_ar_list",
+                f"{reverse('voiture_freins_ar:freins_ar_list')}?saved=1"
             )
 
         messages.error(
@@ -192,7 +192,10 @@ def modifier_freins_ar_view(request, frein_ar_id):
         if form_frein.is_valid():
             form_frein.save()
             messages.success(request, _("Freins arrière mis à jour avec succès."))
-            return redirect("voiture_freins_ar:freins_ar_detail", frein_ar_id=freins_ar.id)
+
+            return redirect(
+                f"{reverse('voiture_freins_ar:freins_ar_detail', kwargs={'frein_ar_id': freins_ar.id})}?saved=1"
+            )
 
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
@@ -300,11 +303,11 @@ def delete_frein_ar_view(request, frein_ar_id):
                 _("Système de freinage arrière supprimé avec succès."),
             )
 
-            if exemplaire:
-                return redirect(
-                    f"{reverse('voiture_freins_ar:frein_ar_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
-                )
-            return redirect("utilisateurs:dashboard")
+
+            return redirect(
+                f"{reverse('voiture_freins_ar:frein_ar_list')}?deleted=1"
+            )
+
 
         except Exception as e:
             messages.error(

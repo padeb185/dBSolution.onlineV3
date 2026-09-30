@@ -173,6 +173,8 @@ def delete_achat_view(request, pk):
             return redirect("achat_mds:delete_achat", pk=pk)
 
         messages.success(request, _("L'achat « %(ref)s » a bien été supprimé.") % {"ref": libelle})
-        return redirect("achat_mds:achat_list")
+        return redirect(
+            f"{reverse('achat_mds:achat_list')}?deleted=1"
+        )
 
     return render(request, "achat_mds/delete_achat.html", {"achat": achat})

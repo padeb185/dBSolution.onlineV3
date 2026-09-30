@@ -93,7 +93,10 @@ def modifier_moteur_view(request, moteur_id):
         if form.is_valid():
             form.save()
             messages.success(request, _("Moteur mis à jour avec succès."))
-            return redirect("voiture_moteur:moteur_detail", moteur_id=moteur_id)
+
+            return redirect(
+                f"{reverse('voiture_moteur:moteur_detail', kwargs={'moteur_id': moteur.id})}?saved=1"
+            )
 
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
@@ -171,8 +174,10 @@ def delete_moteur_view(request, pk):
             return redirect("voiture_moteur:delete_moteur", pk=pk)
 
         messages.success(request, _("Le moteur « %(nom)s » a bien été supprimé.") % {"nom": libelle})
-        return redirect("voiture_moteur:list")
 
+        return redirect(
+            f"{reverse('voiture_moteur:list')}?deleted=1"
+        )
     return render(
         request,
         "voiture_moteur/delete_moteur.html",

@@ -126,7 +126,10 @@ def modifier_client_pilotage_view(request, client_pilotage_id):
                 request,
                 _(f"Client '{cp.prenom} {cp.nom}' modifié avec succès !")
             )
-            return redirect("client_pilotage:client_pilotage_detail", client_pilotage_id=client_pilotage.id)
+
+            return redirect(
+                f"{reverse('client_pilotage:client_pilotage_detail', kwargs={'client_pilotage_id': client_pilotage.id})}?saved=1"
+            )
 
         else:
             messages.error(
@@ -305,7 +308,9 @@ def delete_client_pilotage_view(request, pk):
             return redirect("client_pilotage:delete_client_pilotage", pk=pk)
 
         messages.success(request, _("« %(nom)s » a bien été supprimé.") % {"nom": libelle})
-        return redirect("client_pilotage:client_pilotage_list")
+        return redirect(
+            f"{reverse('client_pilotage:client_pilotage_list')}?deleted=1"
+        )
 
     return render(
         request,

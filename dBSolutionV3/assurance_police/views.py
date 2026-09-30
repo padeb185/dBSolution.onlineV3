@@ -142,7 +142,10 @@ def modifier_assurance_police(request, assurance_police_id):
         if form.is_valid():
             assurance_police = form.save()
             messages.success(request, _("Police d'assurance mise à jour avec succès."))
-            return redirect('assurance_police:assurance_police_detail', assurance_police_id=assurance_police.id)
+
+            return redirect(
+                f"{reverse('assurance_police:assurance_police_detail', kwargs={'assurance_police_id': assurance_police.id})}?saved=1"
+            )
 
 
         else:
@@ -223,7 +226,10 @@ def delete_assurance_police_view(request, pk):
             request,
             _("La police « %(numero)s » a bien été supprimée.") % {"numero": numero},
         )
-        return redirect("assurance_police:assurance_police_list")
+
+        return redirect(
+            f"{reverse('assurance_police:assurance_police_list')}?deleted=1"
+        )
 
     return render(
         request,

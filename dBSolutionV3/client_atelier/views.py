@@ -234,7 +234,10 @@ def modifier_client_atelier_view(request, client_atelier_id):
                     "nom": cp.nom,
                 }
             )
-            return redirect("client_atelier:client_atelier_detail", client_atelier_id=client_atelier.id)
+
+            return redirect(
+                f"{reverse('client_atelier:client_atelier_detail', kwargs={'client_atelier_id': client_atelier.id})}?saved=1"
+            )
 
         else:
             messages.error(
@@ -448,7 +451,10 @@ def delete_client_atelier_view(request, pk):
             return redirect("client_atelier:delete_client_atelier", pk=pk)
 
         messages.success(request, _("« %(nom)s » a bien été supprimé.") % {"nom": libelle})
-        return redirect("client_atelier:client_atelier_list")
+
+        return redirect(
+            f"{reverse('client_atelier:client_atelier_list')}?deleted=1"
+        )
 
     return render(
         request,
