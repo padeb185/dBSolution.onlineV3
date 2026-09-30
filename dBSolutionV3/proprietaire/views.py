@@ -1,5 +1,5 @@
 from django.db.models import Sum
-from django.urls import NoReverseMatch
+from django.urls import NoReverseMatch, reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView
 from proprietaire.models import  ProprietaireVoiture
@@ -105,7 +105,10 @@ def proprietaire_form_view(request):
                 }
             )
 
-            return redirect("proprietaire:proprietaire_list")
+            return redirect(
+                f"{reverse('proprietaire:proprietaire_list')}?saved=1"
+            )
+
 
         else:
             messages.error(request, _("Veuillez corriger les erreurs du formulaire."))

@@ -1,3 +1,4 @@
+from django.urls import reverse
 from utilisateurs.models import UserLog
 from voiture.voiture_boite.forms import VoitureBoiteForm
 
@@ -52,8 +53,9 @@ def ajouter_boite_view(request):
                 request,
                 _("Boîte de vitesse ajoutée avec succès."),
             )
-
-            return redirect("voiture_boite:list")
+            return redirect(
+                f"{reverse('voiture_boite:list')}?saved=1"
+            )
 
         messages.error(
             request,

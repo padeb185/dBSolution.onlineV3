@@ -1,4 +1,5 @@
 from django.db.models import ProtectedError, RestrictedError
+from django.urls import reverse
 from django.utils import timezone
 from datetime import timedelta
 
@@ -86,7 +87,10 @@ def ajouter_assurance_all(request):
                 request,
                 _(f"Assurance '{assurance_police.assurance.nom_compagnie}' créée avec succès !"
             ))
-            return redirect('assurance_police:assurance_police_list')
+
+            return redirect(
+                f"{reverse('assurance_police:assurance_police_list')}?saved=1"
+            )
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
     else:

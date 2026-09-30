@@ -11,7 +11,6 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'theme/css/dist/styles.css' %}">
-
     <link rel="stylesheet" href="{% static 'styles_suite.css' %}">
     <link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
 
@@ -37,10 +36,6 @@
 
         img, video, table {
             max-width: 100%;
-        }
-
-        body {
-            overflow-x: hidden;
         }
     </style>
 </head>
@@ -81,19 +76,9 @@
                 {% trans "Changer" %}
             </button>
         </form>
-         <a href="{% url 'utilisateurs:logout' %}"
-           style="
-               background-color:#dc2626;
-               color:white;
-               padding:8px 14px;
-               border-radius:6px;
-               text-decoration:none;
-               font-weight:600;
-               display:inline-block;
-               transition:0.3s;
-           "
-           onmouseover="this.style.backgroundColor='#b91c1c'"
-           onmouseout="this.style.backgroundColor='#dc2626'">
+
+        <a href="{% url 'utilisateurs:logout' %}"
+           class="bg-red-600 hover:bg-red-700 text-white px-[14px] py-2 rounded-md font-semibold inline-block transition duration-300">
             {% trans "Déconnexion" %}
         </a>
 
@@ -126,39 +111,88 @@
 
     </div>
 </div>
+
 <br>
 <br>
-<!-- MAIN (ZONE PROTÉGÉE) -->
-<main class="flex-1 w-full m-0 p-0 overflow-x-hidden box-border px-[10px]">
+
+<!-- MAIN -->
+<main class="flex-1 w-full m-0 overflow-x-hidden box-border px-[10px]">
     <div class="w-full max-w-full overflow-x-hidden">
+        <br>
+        <!-- MESSAGES (pleine largeur, au-dessus du contenu) -->
+        <div id="flash-messages" class="w-full space-y-2"></div>
+
         {% block content %}{% endblock %}
     </div>
 </main>
+
 <br>
 <br>
+
 <!-- FOOTER -->
 <footer class="bg-[#DBDFFD] w-full text-black py-4 mt-auto overflow-x-hidden">
     <div class="text-center text-sm px-[5px]">
-        &copy; {{ now|date:"Y" }} www.CarsCosts.com {% trans "Tous droits réservés." %}
+        &copy; {% now "Y" %} www.CarsCosts.com {% trans "Tous droits réservés." %}
     </div>
 </footer>
 
-<!-- JS loader -->
+<!-- JS : loader -->
 <script>
     window.addEventListener("load", function () {
         const loader = document.getElementById("page-loader");
+        if (!loader) return;
         loader.classList.add("opacity-0", "transition-opacity", "duration-300");
         setTimeout(() => loader.remove(), 300);
     });
 </script>
 
-</body>
+<!-- JS : retour arrière + messages -->
 <script>
     window.addEventListener("pageshow", function () {
+        // 1) Retour arrière : on recharge pour avoir des données à jour
         if (sessionStorage.getItem("reloadAfterBack") === "1") {
             sessionStorage.removeItem("reloadAfterBack");
             window.location.reload();
+            return;
         }
+
+        // 2) Après le rechargement : on affiche les messages
+        const raw = sessionStorage.getItem("flashMessages");
+        if (!raw) return;
+        sessionStorage.removeItem("flashMessages");
+
+        const container = document.getElementById("flash-messages");
+        if (!container) return;
+
+        const colors = {
+            success: "bg-green-50 border-green-300 text-green-800",
+            error:   "bg-red-50 border-red-300 text-red-800",
+            warning: "bg-yellow-50 border-yellow-300 text-yellow-800",
+            info:    "bg-blue-50 border-blue-300 text-blue-800",
+        };
+
+        let messages = [];
+        try { messages = JSON.parse(raw); } catch (e) { return; }
+
+        messages.forEach(function (m) {
+            const div = document.createElement("div");
+            div.className = "w-full flex items-center justify-between rounded border px-4 py-3 mb-4 text-sm "
+                          + (colors[m.tags] || colors.info);
+
+            const span = document.createElement("span");
+            span.textContent = m.text;
+
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.innerHTML = "&times;";
+            btn.className = "ml-4 font-bold";
+            btn.onclick = () => div.remove();
+
+            div.append(span, btn);
+            container.appendChild(div);
+        });
     });
 </script>
+
+</body>
 </html>

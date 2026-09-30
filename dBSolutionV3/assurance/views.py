@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models import ProtectedError, RestrictedError
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -108,12 +109,11 @@ def ajouter_assurance_all(request):
                         f"Assurance '{assurance.nom_compagnie}' créée avec succès !"
                     )
                 )
-
-                return redirect("assurance:assurance_list")
+                return redirect(
+                    f"{reverse('assurance:assurance_list')}?saved=1"
+                )
 
         else:
-
-            print(form_assurance.errors)
 
             messages.error(
                 request,

@@ -1,4 +1,5 @@
 from core.suppression import analyser_suppression
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import  ListView
@@ -114,7 +115,11 @@ def ajouter_fournisseur_all(request):
                     messages.success(
                         request,
                         _(f"Fournisseur '{fournisseur.nom}' créé avec succès !"))
-                    return redirect("fournisseur:fournisseur_list")
+
+                    return redirect(
+                        f"{reverse('fournisseur:fournisseur_list')}?saved=1"
+                    )
+
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
     else:

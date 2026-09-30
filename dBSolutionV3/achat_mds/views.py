@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.views.generic import ListView
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
@@ -39,7 +40,9 @@ def achat_mds_view(request):
                 _("Achat enregistré avec succès.")
             )
 
-            return redirect("achat_mds:achat_form")
+            return redirect(
+                f"{reverse('achat_mds:achat_list')}?saved=1"
+            )
 
     else:
         form = AchatForm()
@@ -109,6 +112,9 @@ def modifier_achat_view(request, achat_id):
         if form.is_valid():
             form.save()
             messages.success(request, _("Achat modifié avec succès !"))
+            return redirect(
+                f"{reverse('achat_mds:achat_detail', kwargs={'achat_id': achat.id})}?saved=1"
+            )
 
 
     else:

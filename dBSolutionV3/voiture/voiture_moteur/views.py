@@ -1,3 +1,4 @@
+from django.urls import reverse
 from utilisateurs.models import UserLog
 from .forms import MoteurVoitureForm
 from .models import TypeCarburant, TypeMoteur, TypeDistribution
@@ -56,7 +57,11 @@ def ajouter_moteur_view(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Moteur ajouté avec succès !")
-            return redirect("voiture_moteur:list")
+
+            return redirect(
+                f"{reverse('voiture_moteur:list')}?saved=1"
+            )
+
 
     else:
         form = MoteurVoitureForm()

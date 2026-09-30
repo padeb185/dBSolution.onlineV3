@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models import ProtectedError, RestrictedError
 from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -101,7 +102,10 @@ def ajouter_societe_cliente_all(request):
                 request,
                 _("Société cliente ajoutée avec succès !")
             )
-            return redirect("societe_cliente:societe_cliente_list")
+            return redirect(
+                f"{reverse('societe_cliente:societe_cliente_list')}?saved=1"
+            )
+
 
     else:
         form = SocieteClienteForm()

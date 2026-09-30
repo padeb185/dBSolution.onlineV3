@@ -16,16 +16,18 @@
     </div>
         <!-- Messages -->
     {% if messages %}
-        {% for message in messages %}
-        <div class="mb-3 px-4 py-2 rounded border
-            {% if message.tags == 'success' %}
-                bg-green-100 text-green-800 border-green-300
-            {% else %}
-                bg-red-100 text-red-800 border-red-300
-            {% endif %}">
-            {{ message }}
+        <div id="flash-messages" class="mb-4 space-y-2">
+            {% for message in messages %}
+            <div class="flex items-center justify-between rounded px-4 py-3 text-sm border
+                {% if message.tags == 'success' %}bg-green-50 border-green-300 text-green-800
+                {% elif message.tags == 'error' %}bg-red-50 border-red-300 text-red-800
+                {% elif message.tags == 'warning' %}bg-yellow-50 border-yellow-300 text-yellow-800
+                {% else %}bg-blue-50 border-blue-300 text-blue-800{% endif %}">
+                <span>{{ message }}</span>
+                <button type="button" onclick="this.parentElement.remove()" class="ml-4 font-bold">&times;</button>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     {% endif %}
 
 
@@ -159,6 +161,23 @@
     </div>
 
 </div>
+
+
+{% if request.GET.saved == "1" or request.GET.deleted == "1" %}
+<script>
+    // Enregistre les messages Django pour la page qu'on va recharger
+    const flash = [
+        {% for message in messages %}
+        { text: "{{ message|escapejs }}", tags: "{{ message.tags }}" },
+        {% endfor %}
+    ];
+    sessionStorage.setItem("flashMessages", JSON.stringify(flash));
+    sessionStorage.setItem("reloadAfterBack", "1");
+
+    // Retour immédiat (plus besoin d'attendre 5 s)
+    window.history.go({% if request.GET.deleted == "1" %}-3{% else %}-2{% endif %});
+</script>
+{% endif %}
 
 
 {% endblock %}

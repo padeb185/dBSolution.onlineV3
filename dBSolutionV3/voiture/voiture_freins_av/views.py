@@ -77,7 +77,10 @@ def ajouter_freins_av_simple(request):
             form.save_m2m()
 
             messages.success(request, _("Freins avant ajoutés avec succès !"))
-            return redirect("voiture_freins_av:freins_av_list")
+
+            return redirect(
+                f"{reverse('voiture_freins_av:freins_av_list')}?saved=1"
+            )
 
         messages.error(request, _("Veuillez corriger les erreurs du formulaire."))
 

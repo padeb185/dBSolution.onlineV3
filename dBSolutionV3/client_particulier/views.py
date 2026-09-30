@@ -1,5 +1,6 @@
 import client_particulier
 from core.suppression import analyser_suppression
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -13,7 +14,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import router, transaction
 from django.db.models import ProtectedError, RestrictedError
-from django.db.models.deletion import Collector
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _, gettext_noop
 from utilisateurs.models import UserLog
@@ -93,7 +93,9 @@ def client_particulier_form_view(request):
                     f"Âge : {client_particulier.age} ans"
                 )
             )
-            return redirect("client_particulier:clientparticulier_list")
+            return redirect(
+                f"{reverse('client_particulier:clientparticulier_list')}?saved=1"
+            )
 
         else:
             messages.error(

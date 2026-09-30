@@ -58,9 +58,8 @@ def ajouter_freins_ar(request, modele_id):
                 request,
                 _("Freins arrière ajoutés avec succès !"),
             )
-
             return redirect(
-                "voiture_freins_ar:freins_ar_list",
+                f"{reverse('voiture_freins_ar:freins_ar_list')}?saved=1"
             )
 
         messages.error(

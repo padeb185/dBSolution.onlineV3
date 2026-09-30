@@ -108,8 +108,9 @@ def ajouter_pneus_simple(request):
                     f"R{pneu.pneus_jante}' a été ajouté avec succès !"
                 ),
             )
-
-            return redirect("voiture_pneus:list")
+            return redirect(
+                f"{reverse('voiture_pneus:list')}?saved=1"
+            )
 
         messages.error(
             request,
@@ -148,10 +149,8 @@ def modifier_pneus_view(request, pneu_id):
                 request,
                 _("Pneu mis à jour avec succès."),
             )
-
             return redirect(
-                "voiture_pneus:modifier_pneus",
-                pneu_id=pneu.id,
+                f"{reverse('voiture_pneus:pneus_detail', kwargs={'pneu_id': pneu.id})}?saved=1"
             )
 
         messages.error(

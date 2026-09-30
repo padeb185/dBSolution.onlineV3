@@ -1,4 +1,5 @@
 import client_atelier
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -14,7 +15,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import router, transaction
 from django.db.models import ProtectedError, RestrictedError
-from django.db.models.deletion import Collector
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _, gettext_noop
 from utilisateurs.models import UserLog
@@ -134,9 +134,8 @@ def client_atelier_form_view(request):
                     "nom": client_particulier.nom,
                 }
             )
-
             return redirect(
-                "client_atelier:client_atelier_list"
+                f"{reverse('client_atelier:client_atelier_list')}?saved=1"
             )
 
         else:

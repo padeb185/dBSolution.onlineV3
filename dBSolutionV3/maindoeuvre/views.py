@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models import ProtectedError, RestrictedError
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import NoReverseMatch
+from django.urls import NoReverseMatch, reverse
 from django.utils.translation import gettext as _, gettext_noop
 
 from core.suppression import analyser_suppression
@@ -78,7 +78,10 @@ def main_oeuvre_form_view(request):
                         request,
                         _("Main d'œuvre enregistrée avec succès.")
                     )
-                    return redirect("maindoeuvre:main_oeuvre_list")
+                    return redirect(
+                        f"{reverse('maindoeuvre:main_oeuvre_list')}?saved=1"
+                    )
+
 
             except Exception as e:
 
@@ -90,14 +93,10 @@ def main_oeuvre_form_view(request):
                 )
 
         else:
-
-            print(form.errors)
-
             messages.error(
                 request,
                 _("Veuillez corriger les erreurs ci-dessous.")
             )
-
     else:
 
         form = MainDoeuvreForm(

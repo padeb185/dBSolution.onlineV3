@@ -45,7 +45,10 @@ def ajouter_embrayage_view(request):
             form.save_m2m()
 
             messages.success(request, _("Embrayage ajouté avec succès !"))
-            return redirect("voiture_embrayage:list")
+
+            return redirect(
+                f"{reverse('voiture_embrayage:list')}?saved=1"
+            )
 
         messages.error(request, _("Veuillez corriger les erreurs du formulaire."))
 

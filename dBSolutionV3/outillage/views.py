@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -77,12 +78,11 @@ def ajouter_outillage_all(request):
                     f"Outillage '{outillage.libelle}' créé avec succès !"
                 )
             )
-
-            return redirect("outillage:outillage_list")
+            return redirect(
+                f"{reverse('outillage:outillage_list')}?saved=1"
+            )
 
         else:
-
-            print(form_outillage.errors)
 
             messages.error(
                 request,

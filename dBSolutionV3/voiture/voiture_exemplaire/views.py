@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.shortcuts import  redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from django.views.decorators.cache import never_cache
 from .forms import VoitureExemplaireForm
 from .models import VoitureExemplaire
@@ -430,9 +431,9 @@ def ajouter_exemplaire_all(request, modele_id):
                 }
             )
 
+
             return redirect(
-                "voiture_exemplaire:voiture_exemplaire",
-                modele_id=modele.id
+                f"{reverse('voiture_exemplaire:voiture_exemplaire', kwargs={'modele_id': modele.id})}?saved=1"
             )
 
     else:

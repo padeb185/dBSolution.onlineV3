@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError, transaction
 from django.db.models import ProtectedError, RestrictedError
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -83,8 +84,9 @@ def ajouter_adresse_all(request):
                 )
 
                 return redirect(
-                    "adresse:adresse_list"
+                    f"{reverse('adresse:adresse_list')}?saved=1"
                 )
+
 
             except IntegrityError:
                 messages.error(
@@ -139,6 +141,9 @@ def modifier_adresse(request, adresse_id):
                     "rue": adresse.rue,
                     "cp": adresse.code_postal
                 }
+            )
+            return redirect(
+                f"{reverse('adresse:adresse_detail', kwargs={'adresse_id': adresse.id})}?saved=1"
             )
     else:
         form = AdresseForm(instance=adresse)

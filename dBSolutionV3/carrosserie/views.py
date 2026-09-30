@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -80,7 +81,10 @@ def ajouter_carrosserie_all(request):
                 request,
                 _(f"Carrosserie '{carrosserie.nom_societe}' créée avec succès !")
             )
-            return redirect("carrosserie:carrosserie_list ")
+
+            return redirect(
+                f"{reverse('carrosserie:carrosserie_list')}?saved=1"
+            )
 
         else:
             messages.error(
