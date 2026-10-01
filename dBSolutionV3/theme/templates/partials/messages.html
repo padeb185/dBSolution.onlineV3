@@ -1,0 +1,14 @@
+<div id="flash-messages" class="w-full space-y-2 mb-4">
+    {% if messages and not request.GET.saved and not request.GET.deleted %}
+        {% for message in messages %}
+        <div class="w-full flex items-center justify-between rounded border px-4 py-3 text-sm
+            {% if message.tags == 'success' %}bg-green-100 border-green-300 text-green-800
+            {% elif message.tags == 'error' %}bg-red-100 border-red-300 text-red-800
+            {% elif message.tags == 'warning' %}bg-yellow-100 border-yellow-300 text-yellow-800
+            {% else %}bg-blue-100 border-blue-300 text-blue-800{% endif %}">
+            <span>{{ message }}</span>
+            <button type="button" onclick="this.parentElement.remove()" class="ml-4 font-bold">&times;</button>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>

@@ -10,20 +10,11 @@
          style="width:60px; height:60px; margin-right:10px;">
     {% trans "Liste des outillages" %}
 </h1>
-    {% if messages %}
-        <div id="flash-messages" class="mb-4 space-y-2">
-            {% for message in messages %}
-            <div class="flex items-center justify-between rounded px-4 py-3 text-sm border
-                {% if message.tags == 'success' %}bg-green-50 border-green-300 text-green-800
-                {% elif message.tags == 'error' %}bg-red-50 border-red-300 text-red-800
-                {% elif message.tags == 'warning' %}bg-yellow-50 border-yellow-300 text-yellow-800
-                {% else %}bg-blue-50 border-blue-300 text-blue-800{% endif %}">
-                <span>{{ message }}</span>
-                <button type="button" onclick="this.parentElement.remove()" class="ml-4 font-bold">&times;</button>
-            </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+
+       {% include "partials/messages.html" %}
+
+
+
 <br>
 <div>
     <a href="{% url 'outillage:outillage_form' %}"
