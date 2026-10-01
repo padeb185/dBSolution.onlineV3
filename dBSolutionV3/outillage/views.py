@@ -34,6 +34,8 @@ class OutillageListView(ListView):
 
 
 
+
+@never_cache
 @login_required
 def outillage_detail(request, outillage_id):
     tenant = request.user.societe

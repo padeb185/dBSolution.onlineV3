@@ -95,7 +95,7 @@ def lier_embrayage(request, embrayage_id):
 
 
 
-
+@never_cache
 @login_required
 def embrayage_detail_view(request, embrayage_id):
     embrayage = get_object_or_404(

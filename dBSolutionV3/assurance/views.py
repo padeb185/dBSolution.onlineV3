@@ -30,6 +30,8 @@ class AssuranceListView(ListView):
         return Assurance.objects.filter(societe=societe)
 
 
+
+@never_cache
 @login_required
 def assurance_detail(request, assurance_id):
     tenant = request.user.societe

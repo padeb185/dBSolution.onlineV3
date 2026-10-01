@@ -4,7 +4,7 @@
 {% block title %}{{ pneus.type_pneus }} - {{ pneus.pneus_avant_largeur }}{% endblock %}
 
 {% block content %}
-<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-4">
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center">
         <img src="{% static 'icons/pneus.png' %}" alt="Pneus"
              style="width:60px; height:60px; margin-right:10px;">
@@ -97,7 +97,7 @@
     </form>
 </div>
 <div class="max-w-xl mx-auto mt-4">
-    <a href="{% url 'voiture_pneus:detail' pneus.id %}"
+    <a href="{% url 'voiture_pneus:pneus_detail' pneus.id %}"
         class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Retour aux détails" %}
     </a>

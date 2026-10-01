@@ -248,7 +248,7 @@ def ajouter_recharge_all(request, exemplaire_id=None):
 
 
 
-
+@never_cache
 @login_required
 def electricite_detail(request, electricite_id):
     societe = request.user.societe

@@ -1,4 +1,5 @@
 from django.urls import reverse
+from django.views.decorators.cache import never_cache
 from utilisateurs.models import UserLog
 from voiture.voiture_boite.forms import VoitureBoiteForm
 
@@ -31,6 +32,8 @@ def liste_boite_view(request):
             "boites": boites,
         },
     )
+
+
 
 
 @login_required
@@ -73,6 +76,9 @@ def ajouter_boite_view(request):
         },
     )
 
+
+
+@never_cache
 @login_required
 def boite_detail_view(request, boite_id):
     boite = get_object_or_404(
@@ -87,6 +93,8 @@ def boite_detail_view(request, boite_id):
             "boite": boite,
         },
     )
+
+
 
 
 @login_required

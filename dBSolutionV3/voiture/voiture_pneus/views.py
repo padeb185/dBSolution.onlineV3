@@ -64,7 +64,7 @@ def liste_pneus(request):
 
 
 
-
+@never_cache
 @login_required
 def pneus_detail_view(request, pneu_id):
     from .models import VoiturePneus

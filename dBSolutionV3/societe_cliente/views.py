@@ -16,6 +16,9 @@ from django.utils.translation import gettext as _, gettext_noop
 from utilisateurs.models import UserLog
 
 
+
+
+
 @method_decorator([login_required, never_cache], name="dispatch")
 class SocieteClienteListView(ListView):
     model = SocieteCliente

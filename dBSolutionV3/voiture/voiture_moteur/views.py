@@ -19,7 +19,7 @@ from .models import MoteurVoiture
 
 
 
-
+@never_cache
 @login_required()
 def moteur_detail_view(request, moteur_id):
     moteur = get_object_or_404(MoteurVoiture, id=moteur_id)

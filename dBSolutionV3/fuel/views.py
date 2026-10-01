@@ -281,6 +281,7 @@ def ajouter_fuel_all(request, exemplaire_id=None):
 
 
 
+
 @never_cache
 @login_required
 def fuel_list(request):
@@ -307,6 +308,7 @@ def fuel_list(request):
     )
 
 
+@never_cache
 @login_required
 def fuel_detail(request, fuel_id):
     tenant = request.user.societe

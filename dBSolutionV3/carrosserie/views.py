@@ -1,18 +1,26 @@
 # carrosserie/views.py
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.db import transaction
-from django.shortcuts import render, redirect, get_object_or_404
+
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context, schema_context
+from django_tenants.utils import tenant_context
 from utilisateurs.models import UserLog
 from .forms import CarrosserieForm
-from .models import Carrosserie
-from django.utils.translation import gettext as _
 from adresse.forms import AdresseForm
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from django.db.models import ProtectedError, RestrictedError
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import gettext as _, gettext_noop
+
+from core.suppression import analyser_suppression
+from .models import Carrosserie
+
+
+
+
 
 
 
@@ -178,16 +186,11 @@ def dashboard_carrosserie_view(request):
     })
     return render(request, "carrosserie/dashboard_carrosserie.html", context)
 
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.db import transaction
-from django.db.models import ProtectedError, RestrictedError
-from django.shortcuts import get_object_or_404, redirect, render
-from django.utils.translation import gettext as _, gettext_noop
 
-from core.suppression import analyser_suppression
-from .models import Carrosserie
-# from <ton_app>.models import UserLog
+
+
+
+
 
 ACTION_SUPPRESSION_CARROSSERIE = gettext_noop("Suppression de la carrosserie")
 

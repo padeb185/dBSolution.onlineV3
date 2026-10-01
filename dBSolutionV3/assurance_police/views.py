@@ -101,7 +101,7 @@ def ajouter_assurance_all(request):
     })
 
 
-
+@never_cache
 @login_required
 def assurance_police_detail(request, assurance_police_id):
     tenant = request.user.societe
