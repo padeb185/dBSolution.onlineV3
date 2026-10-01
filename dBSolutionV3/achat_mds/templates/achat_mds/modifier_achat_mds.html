@@ -7,13 +7,14 @@
 
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
-            <span>{% trans "Modifier l'achat :" %}</span>
+
            {% with image_name=achat.fournisseur|slugify %}
                 <img src="{% static 'achat_mds/'|add:image_name|add:'.png' %}"
                      alt="{{ achat.fournisseur }}"
                      class="w-12 h-12"
                      onerror="this.src='{% static 'icons/achatmds.png' %}';">
             {% endwith %}
+           <span>{% trans "Modifier l'achat :" %}</span>
            <span class="text-gray-900">{{ achat.fournisseur }}</span>
         </h1>
     </div>

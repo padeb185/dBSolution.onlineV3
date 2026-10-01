@@ -160,16 +160,13 @@ class FournisseurForm(forms.ModelForm):
             self.fields["gsm"].initial = cp.gsm
             self.fields["numero_compte"].initial = cp.numero_compte
 
-            if hasattr(self.instance, "adresse"):
-                adresse = self.instance.adresse
-
-                self.fields["rue"].initial = adresse.rue
-                self.fields["numero"].initial = adresse.numero
-                self.fields["boite"].initial = adresse.boite
-                self.fields["code_postal"].initial = adresse.code_postal
-                self.fields["ville"].initial = adresse.ville
-                self.fields["pays"].initial = adresse.pays
-                self.fields["code_pays"].initial = adresse.code_pays
+        adresse = getattr(self.instance, "adresse", None)
+        if adresse:
+            self.fields["rue"].initial = adresse.rue
+            self.fields["numero"].initial = adresse.numero
+            self.fields["code_postal"].initial = adresse.code_postal
+            self.fields["ville"].initial = adresse.ville
+            self.fields["pays"].initial = adresse.pays
 
         for field in self.fields.values():
             field.help_text = None
