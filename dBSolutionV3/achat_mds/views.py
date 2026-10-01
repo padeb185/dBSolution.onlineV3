@@ -18,7 +18,7 @@ from .models import AchatMds
 
 
 
-
+@never_cache
 @login_required
 def achat_mds_view(request):
     tenant = request.user.societe
@@ -98,7 +98,7 @@ def achat_detail_view(request, achat_id):
     )
 
 
-
+@never_cache
 @login_required
 def modifier_achat_view(request, achat_id):
     tenant = request.user.societe
@@ -138,7 +138,7 @@ def modifier_achat_view(request, achat_id):
 
 ACTION_SUPPRESSION_ACHAT = gettext_noop("Suppression de l'achat")
 
-
+@never_cache
 @login_required
 def delete_achat_view(request, pk):
     achat = get_object_or_404(

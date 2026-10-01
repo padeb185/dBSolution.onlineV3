@@ -144,6 +144,9 @@
 <!-- JS : retour arrière + messages -->
 <script>
     window.addEventListener("pageshow", function () {
+        // La page ?saved=1 / ?deleted=1 est en train de repartir : on ne touche à rien
+        if (window.__goingBack) return;
+
         // 1) Retour arrière : on recharge pour avoir des données à jour
         if (sessionStorage.getItem("reloadAfterBack") === "1") {
             sessionStorage.removeItem("reloadAfterBack");
@@ -151,13 +154,36 @@
             return;
         }
 
-        // 2) Après le rechargement : on affiche les messages
+        // 2) Affichage des messages
         const raw = sessionStorage.getItem("flashMessages");
         if (!raw) return;
+
+        let data;
+        try { data = JSON.parse(raw); } catch (e) {
+            sessionStorage.removeItem("flashMessages");
+            return;
+        }
+
+        // Compatibilité avec l'ancien format (tableau simple)
+        const messages = Array.isArray(data) ? data : (data.messages || []);
+        const target   = Array.isArray(data) ? null : data.target;
+
+        // Message destiné à une autre page : on le laisse en attente
+        if (target && target !== window.location.pathname) return;
+
         sessionStorage.removeItem("flashMessages");
 
-        const container = document.getElementById("flash-messages");
-        if (!container) return;
+        let container = document.getElementById("flash-messages");
+        if (!container) {
+            const main = document.querySelector("main");
+            if (!main) return;
+            container = document.createElement("div");
+            container.id = "flash-messages";
+            container.className = "w-full space-y-2 mb-4";
+            const h1 = main.querySelector("h1");
+            h1 ? h1.insertAdjacentElement("afterend", container)
+               : main.firstElementChild.prepend(container);
+        }
 
         const colors = {
             success: "bg-green-100 border-green-300 text-green-800",
@@ -166,23 +192,17 @@
             info:    "bg-blue-100 border-blue-300 text-blue-800",
         };
 
-        let messages = [];
-        try { messages = JSON.parse(raw); } catch (e) { return; }
-
         messages.forEach(function (m) {
             const div = document.createElement("div");
-            div.className = "w-full flex items-center justify-between rounded border px-4 py-3 mb-4 text-sm "
+            div.className = "w-full flex items-center justify-between rounded border px-4 py-3 text-sm "
                           + (colors[m.tags] || colors.info);
-
             const span = document.createElement("span");
             span.textContent = m.text;
-
             const btn = document.createElement("button");
             btn.type = "button";
             btn.innerHTML = "&times;";
             btn.className = "ml-4 font-bold";
             btn.onclick = () => div.remove();
-
             div.append(span, btn);
             container.appendChild(div);
         });

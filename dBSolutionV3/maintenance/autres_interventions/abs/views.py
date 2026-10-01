@@ -409,6 +409,7 @@ def abs_form_view(request, exemplaire_id):
 # -----------------------------
 # Vue détail ABS
 # -----------------------------
+@never_cache
 @login_required
 def abs_detail_view(request, abs_id):
 
@@ -443,7 +444,7 @@ def abs_detail_view(request, abs_id):
         },
     )
 
-
+@never_cache
 @login_required
 def modifier_abs_view(request, abs_id):
 

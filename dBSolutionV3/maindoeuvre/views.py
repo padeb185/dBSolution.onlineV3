@@ -139,6 +139,7 @@ def main_oeuvre_form_view(request):
 # ------------
 # Vue détail boite
 # -----------------------------
+@never_cache
 @login_required
 def maindoeuvre_detail_view(request, main_oeuvre_id):
     maindoeuvre = get_object_or_404(
@@ -153,6 +154,9 @@ def maindoeuvre_detail_view(request, main_oeuvre_id):
     return render(request, "maindoeuvre/main_oeuvre_detail.html", context)
 
 
+
+
+@never_cache
 @login_required
 def modifier_maindoeuvre_view(request, main_oeuvre_id):
     tenant = request.user.societe
@@ -220,6 +224,10 @@ def modifier_maindoeuvre_view(request, main_oeuvre_id):
         }
     )
 
+
+
+
+
 @login_required
 def maindoeuvre_detail_pdf_view(request, id):
     maindoeuvre = get_object_or_404(MainDoeuvre, id=id)
@@ -259,6 +267,9 @@ def _redirect_apres_suppression(voiture_id):
 
 
 
+
+
+@never_cache
 @login_required
 def delete_main_oeuvre_view(request, pk):
     main_oeuvre = get_object_or_404(

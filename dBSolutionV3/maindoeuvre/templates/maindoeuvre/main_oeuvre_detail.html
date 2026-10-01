@@ -158,7 +158,7 @@
     sessionStorage.setItem("reloadAfterBack", "1");
 
     // Retour immédiat (plus besoin d'attendre 5 s)
-    window.history.go({% if request.GET.deleted == "1" %}-3{% else %}-3{% endif %});
+    window.history.go({% if request.GET.deleted == "1" %}-3{% else %}-2{% endif %});
 </script>
 {% endif %}
 
