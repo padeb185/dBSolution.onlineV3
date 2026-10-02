@@ -538,6 +538,8 @@ def courroie_form_view(request, exemplaire_id):
 # ------------
 # Vue détail courroie
 # -----------------------------
+
+@never_cache
 @login_required
 def courroie_detail_view(request, courroie_id):
     courroie = get_object_or_404(

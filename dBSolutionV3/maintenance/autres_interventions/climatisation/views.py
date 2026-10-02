@@ -611,6 +611,7 @@ def clim_form_view(request, exemplaire_id):
 # ------------
 # Vue détail boite
 # -----------------------------
+@never_cache
 @login_required
 def clim_detail_view(request, climatisation_id):
     clim = get_object_or_404(

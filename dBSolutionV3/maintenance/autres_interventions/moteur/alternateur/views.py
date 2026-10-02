@@ -617,6 +617,7 @@ def alternateur_check_view(request, exemplaire_id):
 # ------------
 # Vue détail boite
 # -----------------------------
+@never_cache
 @login_required
 def alternateur_detail_view(request, alternateur_id):
     alternateur= get_object_or_404(

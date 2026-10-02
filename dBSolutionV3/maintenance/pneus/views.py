@@ -419,6 +419,9 @@ def controle_pneus_view(request, exemplaire_id):
 # ------------
 # Vue détail checkup
 # -----------------------------
+
+
+@never_cache
 @login_required
 def pneus_detail_view(request, pneu_id):
     pneus = get_object_or_404(

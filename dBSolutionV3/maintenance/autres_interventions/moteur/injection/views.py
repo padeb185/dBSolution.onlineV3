@@ -692,6 +692,7 @@ def injection_form_view(request, exemplaire_id):
 # ------------
 # Vue détail courroie
 # -----------------------------
+@never_cache
 @login_required
 def injection_detail_view(request, injection_id):
     injection = get_object_or_404(

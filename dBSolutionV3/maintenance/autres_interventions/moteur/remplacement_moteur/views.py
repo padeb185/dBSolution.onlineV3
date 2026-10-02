@@ -295,7 +295,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 
 
 
-
+@never_cache
 @login_required
 def remplacement_moteur_detail_view(request, remplacement_moteur_id):
     remplacement_moteur = get_object_or_404(

@@ -631,6 +631,7 @@ def allumage_check_view(request, exemplaire_id):
 # ------------
 # Vue détail boite
 # -----------------------------
+@never_cache
 @login_required
 def allumage_detail_view(request, allumage_id):
     allumage = get_object_or_404(

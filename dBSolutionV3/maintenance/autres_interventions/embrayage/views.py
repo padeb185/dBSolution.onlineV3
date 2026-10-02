@@ -333,6 +333,7 @@ def embrayage_form_view(request, exemplaire_id):
 # ------------
 # Vue détail boite
 # -----------------------------
+@never_cache
 @login_required
 def embrayage_detail_view(request, embrayage_id):
     embrayage = get_object_or_404(

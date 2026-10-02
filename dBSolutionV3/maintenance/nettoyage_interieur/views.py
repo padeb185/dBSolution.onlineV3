@@ -421,7 +421,7 @@ def nettoyage_interieur_view(request, exemplaire_id):
 
 
 
-
+@never_cache
 @login_required
 def nettoyage_int_detail(request, nettoyage_interieur_id):
     nettoyage_int = get_object_or_404(

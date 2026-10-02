@@ -426,6 +426,7 @@ def courroie_access_form_view(request, exemplaire_id):
 # ------------
 # Vue détail courroie
 # -----------------------------
+@never_cache
 @login_required
 def courroie_access_detail_view(request, courroie_accessoires_id):
     courroie_accessoires = get_object_or_404(

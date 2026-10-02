@@ -1200,6 +1200,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
 # ------------
 # Vue détail carrosserie_interne
 # -----------------------------
+@never_cache
 @login_required
 def carrosserie_interne_detail_view(request, carrosserie_interne_id):
     carrosserie_interne = get_object_or_404(

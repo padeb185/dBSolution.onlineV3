@@ -365,6 +365,9 @@ def controle_total_view(request, exemplaire_id):
 # ------------
 # Vue détail checkup
 # -----------------------------
+
+
+@never_cache
 @login_required
 def checkup_detail_view(request, checkup_id):
     checkup = get_object_or_404(

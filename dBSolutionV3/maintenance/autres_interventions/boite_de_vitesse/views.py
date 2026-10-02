@@ -360,6 +360,7 @@ def boite_check_view(request, exemplaire_id):
 # ------------
 # Vue détail boite
 # -----------------------------
+@never_cache
 @login_required
 def boite_detail_view(request, boite_id):
     boite = get_object_or_404(

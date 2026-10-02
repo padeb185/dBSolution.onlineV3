@@ -610,6 +610,7 @@ def echappement_check_view(request, exemplaire_id):
 # ------------
 # Vue détail echappement
 # -----------------------------
+@never_cache
 @login_required
 def echappement_detail_view(request,echappement_id):
    echappement = get_object_or_404(

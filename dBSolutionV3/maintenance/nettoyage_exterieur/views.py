@@ -379,6 +379,9 @@ def nettoyage_exterieur_view(request, exemplaire_id):
 #------------
 # Vue détail NettoyageExterieur
 # -----------------------------
+
+
+@never_cache
 @login_required
 def nettoyage_ext_detail(request, nettoyage_id):
    

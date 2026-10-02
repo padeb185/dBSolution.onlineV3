@@ -384,6 +384,7 @@ def bte_auto_check_view(request, exemplaire_id):
 # ------------
 # Vue détail boite
 # -----------------------------
+@never_cache
 @login_required
 def bte_auto_detail_view(request, bte_auto_id):
     bte_auto = get_object_or_404(

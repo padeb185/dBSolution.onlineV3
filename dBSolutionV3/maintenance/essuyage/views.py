@@ -538,6 +538,10 @@ def essuyage_form_view(request, exemplaire_id):
 # ------------
 # Vue détail boite
 # -----------------------------
+
+
+
+@never_cache
 @login_required
 def essuyage_detail_view(request, essuyage_id):
     essuyage = get_object_or_404(

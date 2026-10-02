@@ -690,6 +690,8 @@ def ref_form_view(request, exemplaire_id):
 # ------------
 # Vue détail boite
 # -----------------------------
+
+@never_cache
 @login_required
 def ref_detail_view(request, ref_id):
     ref = get_object_or_404(

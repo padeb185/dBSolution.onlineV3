@@ -672,6 +672,8 @@ def admission_check_view(request, exemplaire_id):
 # ------------
 # Vue détail boite
 # -----------------------------
+
+@never_cache
 @login_required
 def admission_detail_view(request, admission_id):
     admission = get_object_or_404(

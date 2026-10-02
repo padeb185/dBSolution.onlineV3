@@ -492,6 +492,9 @@ def turbo_check_view(request, exemplaire_id):
 # ------------
 # Vue détail boite
 # -----------------------------
+
+
+@never_cache
 @login_required
 def turbo_detail_view(request, turbo_id):
     turbo = get_object_or_404(

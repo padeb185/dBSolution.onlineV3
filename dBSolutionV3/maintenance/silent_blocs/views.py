@@ -367,6 +367,7 @@ def silent_check_view(request, exemplaire_id):
 # ------------
 # Vue détail checkup
 # -----------------------------
+@never_cache
 @login_required
 def silent_detail_view(request, silent_id):
     silent = get_object_or_404(

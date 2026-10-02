@@ -370,6 +370,8 @@ def controle_jeux_pieces_view(request, exemplaire_id):
 # ------------
 # Vue détail checkup
 # -----------------------------
+
+@never_cache
 @login_required
 def jeux_pieces_detail_view(request, jeu_id):
     jeu = get_object_or_404(

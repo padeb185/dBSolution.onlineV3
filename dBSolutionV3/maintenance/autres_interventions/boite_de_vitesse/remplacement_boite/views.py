@@ -373,7 +373,7 @@ def remplacement_boite_form_view(request, exemplaire_id):
 
 
 
-
+@never_cache
 @login_required
 def remplacement_boite_detail_view(request, remplacement_boite_id):
     remplacement_boite = get_object_or_404(

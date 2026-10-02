@@ -368,6 +368,7 @@ def controle_freins_view(request, exemplaire_id):
 # ------------
 # Vue détail checkup
 # -----------------------------
+@never_cache
 @login_required
 def freins_detail_view(request, frein_id):
     frein = get_object_or_404(
