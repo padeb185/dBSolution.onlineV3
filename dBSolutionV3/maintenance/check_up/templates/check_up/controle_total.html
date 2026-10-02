@@ -557,7 +557,7 @@
             {% trans "Niveau de la boite de vitesse" %}
          </h2>
         {% for field in form %}
-            {% if "boite" in field.name %}
+            {% if "boite_niveau" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -941,8 +941,15 @@
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pieces-de-voiture.png' %}" alt="Jeux rotules"
                  class="w-20 h-20">{% trans "Jeux rotules de direction" %}</h2>
+
         {% for field in form %}
             {% if "jeu_rotule_dir" in field.name %}
+
+                            {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_rotule_direction_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -977,6 +984,12 @@
                   class="w-20 h-20">{% trans "Jeux rotules de suspension inférieures" %}</h2>
         {% for field in form %}
             {% if "jeu_rotule_suspension_inf" in field.name %}
+
+                                {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_rotule_suspension_inferieure_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -1011,6 +1024,13 @@
                   class="w-20 h-20">{% trans "Jeux rotules de suspension supérieures" %}</h2>
         {% for field in form %}
             {% if "jeu_rotule_suspension_sup" in field.name %}
+
+                {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_rotule_suspension_superieure_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -1042,9 +1062,16 @@
          <!-- Section jeux biellettes -->
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/biellette-barre-stab.png' %}" alt="Jeu barre stabilisatrice"
-                  class="w-20 h-20">{% trans "Jeux biellettes de barre stabilisatrice" %}</h2>
+                  class="w-20 h-20">{% trans "Jeux biellettes de barre stabilisatrice" %}
+          </h2>
         {% for field in form %}
             {% if "jeu_Biellette_barre" in field.name %}
+
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_Biellette_barre_stabilisatrice_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -1081,6 +1108,12 @@
                   class="w-20 h-20">{% trans "Jeux barres stabilisatrice" %}</h2>
         {% for field in form %}
             {% if "jeu_barre" in field.name %}
+
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_barre_stabilisatrice_av" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -1117,6 +1150,13 @@
 
         {% for field in form %}
             {% if "jeu_biellette_direction" in field.name %}
+
+
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_biellette_direction_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -1153,6 +1193,11 @@
         </h2>
         {% for field in form %}
             {% if "jeu_cardan" in field.name %}
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_cardan_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -1228,6 +1273,12 @@
         </h2>
         {% for field in form %}
             {% if "jeu_roule" in field.name %}
+
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_roulement_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -1265,6 +1316,13 @@
         </h2>
         {% for field in form %}
             {% if "jeu_tri" in field.name %}
+
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_triangle_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -1300,6 +1358,12 @@
         </h2>
         {% for field in form %}
             {% if "jeu_multi" in field.name %}
+
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != " jeu_multi_bras_av" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -1336,6 +1400,12 @@
          </h2>
         {% for field in form %}
             {% if "jeu_am" in field.name %}
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_amortisseur_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -1501,6 +1571,12 @@
                  class="w-20 h-20">{% trans "Remplacer train" %}</h2>
         {% for field in form %}
             {% if "pneu_train" in field.name %}
+
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "pneu_train_av" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">

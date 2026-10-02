@@ -361,8 +361,8 @@ class Checkup(TechnicienMixin, models.Model):
     direction_liquide_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite direction assistée / crémaillère"), null=True, blank=True)
     direction_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de direction"))
     direction_liquide_fabricant = models.CharField(max_length=30, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.CHOISIR, verbose_name=_("Fabricant"))
+    direction_liquide_qualite = models.CharField(max_length=25, choices=TypeHuileDirection.choices,default=TypeHuileDirection.CHOISIR, verbose_name=_("Qualité"))
     direction_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
-    direction_liquide_qualite = models.CharField(max_length=25, choices=TypeHuileDirection.choices,default=TypeHuileDirection.CHOISIR,verbose_name=_("Qualité"))
     direction_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
 
 
