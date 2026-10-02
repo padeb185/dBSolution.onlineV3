@@ -180,26 +180,26 @@ class Checkup(TechnicienMixin, models.Model):
 
 
     # --- Essuie-glaces & Pare-brise ---
-    essuie_glace = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+    essuie_glace_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                     verbose_name=_("Etat des balais avant"))
-    essuie_glace_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
-    essuie_glace_quantite = models.PositiveIntegerField(
+    essuie_glace_av_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
+    essuie_glace_av_quantite = models.PositiveIntegerField(
         verbose_name=_("Quantité"),
         default=0,
         null=True,
     )
-    essuie_glace_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    essuie_glace_av_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
 
 
 
-    balais_essuie = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Etat des balais arrières"))
-    balais_essuie_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
-    balais_essuie_quantite = models.PositiveIntegerField(
+    essuie_glace_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Etat des balais arrières"))
+    essuie_glace_ar_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
+    essuie_glace_ar_quantite = models.PositiveIntegerField(
         verbose_name=_("Quantité"),
         default=0,
         null=True,
     )
-    balais_essuie_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+    essuie_glace_ar_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
                                              verbose_name=_("Prix d'achat HTVA"))
 
 

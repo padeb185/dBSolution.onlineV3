@@ -7,7 +7,8 @@ from django.utils.translation import gettext_lazy as _
 from maintenance.check_up.models import PhareReglageEtat, BruitEtat
 from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantLubrifiant, TypeHuileDirection, \
     AmpouleAutomobile, FabricantFrein, MatierePlaquetteFrein, MatiereFrein, TypeDisqueFrein, RefroidissementFabricant, \
-    FabricantAmpoule, TVAConfig, HuileEtat, HuileBoiteEtat, RefroidissementQualiteEtat, HuilePontEtat, FabricantPiece
+    FabricantAmpoule, TVAConfig, HuileEtat, HuileBoiteEtat, RefroidissementQualiteEtat, HuilePontEtat, FabricantPiece, \
+    FabricantPneus
 from maintenance.models import Maintenance
 from maintenance.nettoyage_exterieur.models import EtatAjouter
 from django.conf import settings
@@ -185,24 +186,24 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
 
     # --- Essuie-glaces & Pare-brise ---
-    essuie_glace = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat des balais avant"))
-    essuie_glace_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
-    essuie_glace_quantite = models.PositiveIntegerField(
+    essuie_glace_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat des balais avant"))
+    essuie_glace_av_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
+    essuie_glace_av_quantite = models.PositiveIntegerField(
         verbose_name=_("Quantité"),
         default=0,
         null=True,
     )
-    essuie_glace_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
+    essuie_glace_av_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
 
 
-    balais_essuie = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat des balais arrières"))
-    balais_essuie_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
-    balais_essuie_quantite = models.PositiveIntegerField(
+    essuie_glace_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat des balais arrières"))
+    essuie_glace_ar_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
+    essuie_glace_ar_quantite = models.PositiveIntegerField(
         verbose_name=_("Quantité"),
         default=0,
         null=True,
     )
-    balais_essuie_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
+    essuie_glace_ar_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
 
 
     pare_brise_av_coups = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Pare-brise sans coups"))
@@ -219,8 +220,8 @@ class CheckupTrack(TechnicienMixin, models.Model):
     moteur_etat =  models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État du moteur"))
     moteur_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.OK, verbose_name=_("Niveau d'huile"))
     moteur_niveau_huile_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.CHOISIR, verbose_name=_("Fabricant"))
+    moteur_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30,verbose_name=_("Qualité"))
     moteur_niveau_huile_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1,  verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
-    moteur_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30, verbose_name=_("Qualité"))
     moteur_niveau_huile_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
 
 
@@ -237,8 +238,8 @@ class CheckupTrack(TechnicienMixin, models.Model):
     pont_niveau_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite pont arrière"))
     pont_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.OK,verbose_name=_("Niveau d'huile"))
     pont_niveau_huile_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.CHOISIR,verbose_name=_("Fabricant"))
+    pont_niveau_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ80, verbose_name=_("Qualité"))
     pont_niveau_huile_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
-    pont_niveau_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ80,verbose_name=_("Qualité"))
     pont_niveau_huile_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
 
     # --- Refroidissement ---
@@ -246,8 +247,8 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     refroidissement_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.OK,verbose_name=_("Niveau de liquide de refroidissement"))
     refroidissement_liquide_fabricant = models.CharField(max_length=25, choices=RefroidissementFabricant.choices,default=RefroidissementFabricant.CHOISIR,verbose_name=_("Fabricant"))
+    refroidissement_liquide_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité"))
     refroidissement_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
-    refroidissement_liquide_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13, verbose_name=_("Qualité"))
     refroidissement_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
 
     # --- Freins ---
@@ -255,8 +256,8 @@ class CheckupTrack(TechnicienMixin, models.Model):
     freins_plaquettes_remplacer_av_usure = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avant (%)"))
     freins_plaquettes_remplacer_av_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Plaquettes avant à remplacer"))
     freins_plaquettes_remplacer_av_fabricant = models.CharField(max_length=25, choices=FabricantFrein.choices,default=FabricantFrein.CHOISIR,verbose_name=_("Fabricant"))
-    freins_plaquettes_remplacer_av_quantite = models.PositiveIntegerField(default=0,  verbose_name=_("Quantité"))
     freins_plaquettes_remplacer_av_qualite = models.CharField(max_length=25, choices=MatierePlaquetteFrein.choices, default=MatierePlaquetteFrein.CHOISIR,verbose_name=_("Matière des plaquettes"))
+    freins_plaquettes_remplacer_av_quantite = models.PositiveIntegerField(default=0,  verbose_name=_("Quantité"))
     freins_plaquettes_remplacer_av_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
 
 
@@ -267,10 +268,10 @@ class CheckupTrack(TechnicienMixin, models.Model):
     freins_epaisseur_disques_av_usure = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant (mm)"))
     freins_epaisseur_disques_av_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Disques avant à remplacer"))
     freins_epaisseur_disques_av_fentes = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes"))
-    freins_epaisseur_disques_av_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
     freins_epaisseur_disques_av_fabricant = models.CharField(max_length=25, choices=FabricantFrein.choices,default=FabricantFrein.CHOISIR,verbose_name=_("Fabricant"))
     freins_epaisseur_disques_av_qualite = models.CharField(max_length=25, choices=MatiereFrein.choices,default=MatiereFrein.CHOISIR,verbose_name=_("Matière des disques"))
     freins_epaisseur_disques_av_type = models.CharField(max_length=25, choices=TypeDisqueFrein.choices,default=TypeDisqueFrein.CHOISIR,verbose_name=_("Type de disques"))
+    freins_epaisseur_disques_av_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
     freins_epaisseur_disques_av_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
 
 
@@ -680,6 +681,12 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
 
     pneu_train_av = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK,verbose_name=_("Etat du train avant"))
+    pneu_train_av_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPneus.choices,
+        default=FabricantPneus.CHOISIR,
+        verbose_name=_("Manufacturier"))
+
     pneu_train_av_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -689,6 +696,12 @@ class CheckupTrack(TechnicienMixin, models.Model):
     pneu_train_av_quantite = models.PositiveIntegerField(default=1, null=True, blank=True, verbose_name=_("Quantité"))
 
     pneu_train_ar = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK,verbose_name=_("Etat du train arrière"))
+    pneu_train_ar_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPneus.choices,
+        default=FabricantPneus.CHOISIR,
+        verbose_name=_("Manufacturier"))
+
     pneu_train_ar_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,

@@ -271,9 +271,15 @@
             <img src="{% static 'icons/essuie-glace.png' %}" alt="Essuie-glace"
                   class="w-20 h-20">
             {% trans "Essuie-glace" %}
-        </h2>
+         </h2>
         {% for field in form %}
-            {% if "essuie" in field.name %}
+            {% if "essuie_glace" in field.name %}
+
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "essuie_glace_av" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -316,6 +322,9 @@
         {% endfor %}
 
         <br>
+
+
+
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pare-brise-casse.png' %}" alt="Pare-brise"
                  class="w-20 h-20">
