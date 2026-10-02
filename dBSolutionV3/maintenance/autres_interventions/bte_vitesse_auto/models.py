@@ -156,23 +156,6 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA")
     )
 
-    pompes_h = models.CharField(
-        max_length=25,
-        choices=BoiteVitesseEtat.choices,
-        default=BoiteVitesseEtat.OK,
-        verbose_name=_("Pompes à huile")
-    )
-
-    pompes_h_quantite = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("Quantité")
-    )
-    pompes_h_prix = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=0,
-        verbose_name=_("Prix d'achat HTVA")
-    )
 
 
     pompes_valves = models.CharField(

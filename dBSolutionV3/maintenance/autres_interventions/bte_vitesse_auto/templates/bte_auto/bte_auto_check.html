@@ -378,7 +378,7 @@
             {% trans "Pompe hydraulique" %}
         </h2>
          {% for field in form %}
-            {% if "pompes_h" in field.name %}
+            {% if "pompe_hydraulique_boite" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
