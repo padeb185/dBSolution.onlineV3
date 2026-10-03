@@ -388,6 +388,86 @@
 
 </div>
 
+<h2>{% trans "Bandes de roulement" %}</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>{% trans "Position" %}</th>
+            <th>{% trans "État" %}</th>
+            <th>{% trans "Pression" %}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+        <td>{% trans "Avant droit" %}</td>
+        <td>
+            {% if geometrie.pneu_bande_avd == "OK" %}
+                <span class="etat-vert">{{ geometrie.get_pneu_bande_avd_display }}</span>
+            {% elif geometrie.pneu_bande_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ geometrie.get_pneu_bande_avd_display }}</span>
+            {% elif geometrie.pneu_bande_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ geometrie.get_pneu_bande_avd_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ geometrie.get_pneu_bande_avd_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+
+        <td>{{ geometrie.pneu_pression_bar_avd }} bar</td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if geometrie.pneu_bande_avg == "OK" %}
+                <span class="etat-vert">{{ geometrie.get_pneu_bande_avg_display }}</span>
+            {% elif geometrie.pneu_bande_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ geometrie.get_pneu_bande_avg_display }}</span>
+            {% elif geometrie.pneu_bande_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ geometrie.get_pneu_bande_avg_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ geometrie.get_pneu_bande_avg_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+        <td>{{ geometrie.pneu_pression_bar_avg }} bar</td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière droit" %}</td>
+        <td>
+            {% if geometrie.pneu_bande_ard == "OK" %}
+                <span class="etat-vert">{{ geometrie.get_pneu_bande_ard_display }}</span>
+            {% elif geometrie.pneu_bande_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ geometrie.get_pneu_bande_ard_display }}</span>
+            {% elif geometrie.pneu_bande_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ geometrie.get_pneu_bande_ard_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ geometrie.get_pneu_bande_ard_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+
+        <td>{{ geometrie.pneu_pression_bar_ard }} bar</td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if geometrie.pneu_bande_arg == "OK" %}
+                <span class="etat-vert">{{ geometrie.get_pneu_bande_arg_display }}</span>
+            {% elif geometrie.pneu_bande_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ geometrie.get_pneu_bande_arg_display }}</span>
+            {% elif geometrie.pneu_bande_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ geometrie.get_pneu_bande_arg_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ geometrie.get_pneu_bande_arg_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+        <td>{{ geometrie.pneu_pression_bar_arg }} bar</td>
+    </tr>
+</tbody>
+</table>
+
 
 <!-- ================= ANGLES ================= -->
 <h2>{% trans "Carrossage" %}</h2>
@@ -414,7 +494,7 @@
 
     </div>
 </div>
-<br>
+
 <!-- ================= ANGLES ================= -->
 <h2>{% trans "Pincement" %}</h2>
 
@@ -430,7 +510,7 @@
 
     </div>
 </div>
-<br>
+
 <!-- ================= ANGLES ================= -->
 <h2>{% trans "Angle de pivot" %}</h2>
 
@@ -439,7 +519,7 @@
         <div>{% trans "Angle de pivot" %} : {{ geometrie.angle_pivot }}°</div>
     </div>
 </div>
-<br>
+
 <!-- ================= ANGLES ================= -->
 <h2>{% trans "Poussée arrière" %}</h2>
 

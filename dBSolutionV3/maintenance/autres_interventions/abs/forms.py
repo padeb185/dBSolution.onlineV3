@@ -85,6 +85,7 @@ class AbsForm(forms.ModelForm):
                 "class": "input"
             })
 
+
         if self.instance and self.instance.main_oeuvre:
             mo = self.instance.main_oeuvre
 

@@ -195,6 +195,7 @@ class ControlePneus(TechnicienMixin, models.Model):
         verbose_name=_("Pression du pneu arrière gauche en bar"),
     )
 
+
     pneu_train_av =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("Pneus avant à remplacer"))
 
 

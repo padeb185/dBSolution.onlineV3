@@ -1,5 +1,7 @@
 from decimal import Decimal, ROUND_HALF_UP
 
+from django.core.validators import StepValueValidator
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -7,6 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
 from maintenance.choices import TVAConfig, RouesSerrageEtat
 from maintenance.models import Maintenance
+from maintenance.pneus.models import PneuEtat
 
 
 class GeometrieVoiture(models.Model):
@@ -89,6 +92,60 @@ class GeometrieVoiture(models.Model):
         editable=False,
         verbose_name=_("Variation du kilométrage"),
     )
+
+
+
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
+
+
+
+    # --- Pneus et Pression
+    pneu_bande_avd = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK,
+                                      verbose_name=_("Bande de roulement du pneu avant droit"))
+    pneu_bande_avg = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK,
+                                      verbose_name=_("Bande de roulement du pneu avant gauche"))
+    pneu_bande_ard = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK,
+                                      verbose_name=_("Bande de roulement du pneu arrière droit"))
+    pneu_bande_arg = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK,
+                                      verbose_name=_("Bande de roulement du pneu arrière gauche"))
+
+
+
+
+    pneu_pression_bar_avd = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        default=2.4,
+        validators=[StepValueValidator(Decimal("0.1"))],
+        verbose_name=_("Pression du pneu avant droit en bar"),
+    )
+
+    pneu_pression_bar_avg = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        default=2.4,
+        validators=[StepValueValidator(Decimal("0.1"))],
+        verbose_name=_("Pression du pneu avant gauche en bar"),
+    )
+
+    pneu_pression_bar_ard = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        default=2.4,
+        validators=[StepValueValidator(Decimal("0.1"))],
+        verbose_name=_("Pression du pneu arrière droit en bar"),
+    )
+
+    pneu_pression_bar_arg = models.DecimalField(
+        max_digits=3,
+        decimal_places=1,
+        default=2.4,
+        validators=[StepValueValidator(Decimal("0.1"))],
+        verbose_name=_("Pression du pneu arrière gauche en bar"),
+    )
+
+
 
     # Angles de suspension
     carrossage_avant_droit = models.DecimalField(
@@ -177,19 +234,19 @@ class GeometrieVoiture(models.Model):
     )
 
     # Suspension
-    hauteur_caisse_avd = models.FloatField(null=True, blank=True, verbose_name=_("Hauteur de caisse AVD (mm)"))
+    hauteur_caisse_avd = models.FloatField(null=True, blank=True, default=0.0, verbose_name=_("Hauteur de caisse AVD (mm)"))
 
-    hauteur_caisse_avg = models.FloatField(null=True, blank=True, verbose_name=_("Hauteur de caisse AVG (mm)"))
+    hauteur_caisse_avg = models.FloatField(null=True, blank=True, default=0.0, verbose_name=_("Hauteur de caisse AVG (mm)"))
 
-    hauteur_caisse_ard = models.FloatField(null=True, blank=True, verbose_name=_("Hauteur de caisse ARD (mm)"))
+    hauteur_caisse_ard = models.FloatField(null=True, blank=True, default=0.0, verbose_name=_("Hauteur de caisse ARD (mm)"))
 
-    hauteur_caisse_arg = models.FloatField(null=True, blank=True, verbose_name=_("Hauteur de caisse ARG (mm)"))
-
-
+    hauteur_caisse_arg = models.FloatField(null=True, blank=True, default=0.0, verbose_name=_("Hauteur de caisse ARG (mm)"))
 
 
-    debattement_suspension_avant = models.FloatField(null=True, blank=True, verbose_name=_("Débattement avant (mm)"))
-    debattement_suspension_arriere = models.FloatField(null=True, blank=True, verbose_name=_("Débattement arrière (mm)"))
+
+
+    debattement_suspension_avant = models.FloatField(null=True, blank=True, default=0.0, verbose_name=_("Débattement avant (mm)"))
+    debattement_suspension_arriere = models.FloatField(null=True, blank=True,default=0.0, verbose_name=_("Débattement arrière (mm)"))
 
     raideur_ressort_avant = models.FloatField(null=True, blank=True, verbose_name=_("Raideur ressort avant"))
     raideur_ressort_arriere = models.FloatField(null=True, blank=True, verbose_name=_("Raideur ressort arrière"))
@@ -197,22 +254,26 @@ class GeometrieVoiture(models.Model):
     amortisseur_marque = models.CharField(max_length=255, null=True, blank=True, verbose_name=_("Marque des amortisseurs"))
 
     amortissement_avant_rebond = models.IntegerField(
-        verbose_name=_("Amortissement avant rebond"),
+        verbose_name=_("Amortissement avant rebond (clic)"),
+        default=0,
         null=True, blank=True
     )
 
     amortissement_avant_compression = models.IntegerField(
-        verbose_name=_("Amortissement avant compression"),
+        verbose_name=_("Amortissement avant compression (clic)"),
+        default=0,
         null=True, blank=True
     )
 
     amortissement_arriere_rebond = models.IntegerField(
-        verbose_name=_("Amortissement arrière rebond"),
+        verbose_name=_("Amortissement arrière rebond (clic)"),
+        default=0,
         null=True, blank=True
     )
 
     amortissement_arriere_compression = models.IntegerField(
-        verbose_name=_("Amortissement arrière compression"),
+        verbose_name=_("Amortissement arrière compression (clic)"),
+        default=0,
         null=True, blank=True
     )
 
@@ -221,8 +282,6 @@ class GeometrieVoiture(models.Model):
         blank=True,
         null=True
     )
-    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
-                                     verbose_name=_("Serrage des roues"))
 
     TAG_CHOICES = [
         ("VERT", _("Vert")),

@@ -553,6 +553,30 @@ def geometrie_check_view(request, exemplaire_id):
             ],
         },
         {
+            "title": _("Etat des pneus"),
+            "icon": "icons/pneus.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "pneu_bande" in f.name
+            ],
+        },
+        {
+            "title": _("Pression des pneus"),
+            "icon": "icons/pression-des-pneus.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "pneu_press" in f.name
+            ],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
+
+        {
             "title": _("Pincement"),
             "icon": "icons/pince.png",
             "fields": [
@@ -660,11 +684,7 @@ def geometrie_check_view(request, exemplaire_id):
                 if "remarques" in f.name
             ],
         },
-        {
-            "title": _("Serrage des roues"),
-            "icon": "icons/roue.png",
-            "fields": [form[f.name] for f in form if "serrage" in f.name],
-        },
+
         {
             "title": _("Technicien"),
             "icon": "icons/mecanicien.png",
@@ -919,6 +939,29 @@ def geometrie_modifier_view(request, geometrie_id):
             "title": "Kilométrage",
             "icon": "icons/compteur.png",
             "fields": [form[f.name] for f in form if "kilo" in f.name],
+        },
+        {
+            "title": _("Etat des pneus"),
+            "icon": "icons/pneus.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "pneu_bande" in f.name
+            ],
+        },
+        {
+            "title": _("Pression des pneus"),
+            "icon": "icons/pression-des-pneus.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "pneu_press" in f.name
+            ],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
         },
         {
             "title": _("Pincement"),
