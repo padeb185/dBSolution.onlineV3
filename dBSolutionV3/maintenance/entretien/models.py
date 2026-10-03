@@ -169,6 +169,7 @@ class Entretien(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
+    
     moteur_joint_vidange_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité"),
