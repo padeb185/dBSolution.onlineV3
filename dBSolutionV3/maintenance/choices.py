@@ -2290,3 +2290,35 @@ class EtatOKNotOKNiveau(models.TextChoices):
     NOT_OK = "NOT_OK", _("A Faire")
     REMPLACE = "REMPLACE", _("Fait")
 
+
+
+
+
+# maintenance/choices.py
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+
+
+class MarqueAmortisseur(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
+    BILSTEIN = "Bilstein", "Bilstein"
+    BOGE = "Boge", "Boge"
+    EIBACH = "Eibach", "Eibach"
+    FOX = "Fox", "Fox"
+    GABRIEL = "Gabriel", "Gabriel"
+    HR = "H&R", "H&R"
+    KONI = "Koni", "Koni"
+    KW = "KW", "KW"
+    KYB = "KYB", "KYB (Kayaba)"
+    MAGNETI_MARELLI = "Magneti Marelli", "Magneti Marelli"
+    MEYLE = "Meyle", "Meyle"
+    MONROE = "Monroe", "Monroe"
+    OHLINS = "Öhlins", "Öhlins"
+    RANCHO = "Rancho", "Rancho"
+    SACHS = "Sachs", "Sachs (ZF)"
+    SHOWA = "Showa", "Showa"
+    TEIN = "Tein", "Tein"
+    TOKICO = "Tokico", "Tokico"
+    ORIGINE = "Origine", _("Origine constructeur")
+    AUTRE = "Autre", _("Autre")

@@ -148,50 +148,42 @@ class GeometrieVoitureForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        km = self.cleaned_data.get("kilometrage_clim")
-        voiture = self.exemplaire
+        # -------- KILOMÉTRAGE / EXEMPLAIRE --------
+        km = self.cleaned_data.get("kilometrage_geometrie")
+        if self.exemplaire:
+            instance.voiture_exemplaire = self.exemplaire
+        if km is not None:
+            instance.kilometrage_geometrie = km
 
-        if km is not None and voiture:
-            instance.kilometrage_clim = km
-            instance.voiture_exemplaire = voiture
+        # -------- MAIN D'ŒUVRE (indépendant du kilométrage) --------
+        heures = self.cleaned_data.get("temps_heures") or 0
+        minutes = self.cleaned_data.get("temps_minutes") or 0
+        taux_horaire = self.cleaned_data.get("taux_horaire")
+        total_minutes = heures * 60 + minutes
 
-            # -------- MAIN D'ŒUVRE --------
-            heures = self.cleaned_data.get("temps_heures") or 0
-            minutes = self.cleaned_data.get("temps_minutes") or 0
-            taux_horaire = self.cleaned_data.get("taux_horaire")
+        main = instance.main_oeuvre
 
-            total_minutes = heures * 60 + minutes
+        if main:
+            main.temps_minutes = total_minutes
+            update_fields = ["temps_minutes"]
+            if taux_horaire is not None:
+                main.taux_horaire = taux_horaire
+                update_fields.append("taux_horaire")
+            main.save(update_fields=update_fields)
+        elif total_minutes > 0:
+            instance.main_oeuvre = MainDoeuvre.objects.create(
+                utilisateur=self.user,
+                temps_minutes=total_minutes,
+                taux_horaire=taux_horaire,
+            )
 
-            main = instance.main_oeuvre
-
-            if main:
-                main.temps_minutes = total_minutes
-
-                if taux_horaire is not None:
-                    main.taux_horaire = taux_horaire
-
-                main.save(
-                    update_fields=[
-                        "temps_minutes",
-                        "taux_horaire",
-                    ]
-                )
-
-            else:
-                main = MainDoeuvre.objects.create(
-                    utilisateur=self.user,
-                    temps_minutes=total_minutes,
-                    taux_horaire=taux_horaire,
-                )
-
-                instance.main_oeuvre = main
-
-        # Sauvegarde finale
         if commit:
             instance.save()
 
         return instance
 
+
+    
 
     def clean_serrage_roues(self):
         serrage_roues = self.cleaned_data.get("serrage_roues")

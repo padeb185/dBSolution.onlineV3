@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import TVAConfig, RouesSerrageEtat
+from maintenance.choices import TVAConfig, RouesSerrageEtat, MarqueAmortisseur
 from maintenance.models import Maintenance
 from maintenance.pneus.models import PneuEtat
 
@@ -251,7 +251,9 @@ class GeometrieVoiture(models.Model):
     raideur_ressort_avant = models.FloatField(null=True, blank=True, verbose_name=_("Raideur ressort avant"))
     raideur_ressort_arriere = models.FloatField(null=True, blank=True, verbose_name=_("Raideur ressort arrière"))
 
-    amortisseur_marque = models.CharField(max_length=255, null=True, blank=True, verbose_name=_("Marque des amortisseurs"))
+    amortisseur_marque = models.CharField(max_length=255, choices=MarqueAmortisseur.choices,
+                                          default=MarqueAmortisseur.CHOISIR,
+                                          null=True, blank=True, verbose_name=_("Marque des amortisseurs"))
 
     amortissement_avant_rebond = models.IntegerField(
         verbose_name=_("Amortissement avant rebond (clic)"),

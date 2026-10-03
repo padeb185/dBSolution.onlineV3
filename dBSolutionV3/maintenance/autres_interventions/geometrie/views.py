@@ -631,6 +631,11 @@ def geometrie_check_view(request, exemplaire_id):
             ],
         },
         {
+            "title": _("Marque des amortisseurs"),
+            "icon": "icons/amortisseur.png",
+            "fields": [form[f.name] for f in form if "amortisseur_marque" in f.name],
+        },
+        {
             "title": _("Débattement"),
             "icon": "icons/amortisseur.png",
             "fields": [
@@ -994,10 +999,17 @@ def geometrie_modifier_view(request, geometrie_id):
             "fields": [form[f.name] for f in form if "hauteur" in f.name],
         },
         {
+            "title": _("Marque des amortisseurs"),
+            "icon": "icons/amortisseur.png",
+            "fields": [form[f.name] for f in form if "amortisseur_marque" in f.name],
+        },
+
+        {
             "title": _("Débattement"),
             "icon": "icons/amortisseur.png",
             "fields": [form[f.name] for f in form if "debattement" in f.name],
         },
+
         {
             "title": _("Raideur"),
             "icon": "icons/amortisseur.png",
