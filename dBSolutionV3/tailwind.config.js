@@ -1,13 +1,15 @@
 // tailwind.config.js
 module.exports = {
 
-  content: [
-  "./templates/**/*.html",
-  "./**/templates/**/*.html",
-  "./**/*.py",
-  "./theme/static/src/**/*.js",
-
+  content: {
+  relative: true,
+  files: [
+    "./templates/**/*.html",
+    "./*/templates/**/*.html",      // templates de chaque app (un niveau)
+    "./*/*.py",                     // fichiers Python des apps
+    "./theme/static/src/**/*.js",
   ],
+},
 
 
   safelist: [

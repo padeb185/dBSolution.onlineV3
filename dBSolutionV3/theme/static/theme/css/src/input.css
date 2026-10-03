@@ -1,4 +1,7 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 /* Force Tailwind à inclure ces classes */
 @source inline("bg-red-700 hover:bg-red-500 text-white");
