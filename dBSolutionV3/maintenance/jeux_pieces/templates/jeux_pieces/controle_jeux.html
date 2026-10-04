@@ -755,7 +755,7 @@
                     <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
                 {% endif %}
                 {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                     <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
             </div>
             {% endif %}
         {% endfor %}
@@ -789,6 +789,7 @@
             <img src="{% static 'icons/tag.png' %}" alt="étiquette"
                   class="w-20 h-20 object-contain">
              {% trans "Étiquette" %}
+
          </h2>
         {% for field in form %}
             {% if "tag" in field.name %}
@@ -807,7 +808,7 @@
 
        <div class="espace-section"></div>
 
-               <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roue.png' %}" alt="serrage des roues"
                   class="w-20 h-20 object-contain">
             {% trans "Serrage des roues" %}
@@ -891,6 +892,7 @@
 
 
         <div class="espace-section"></div>
+
             <!-- Section temps main d'œuvre -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
@@ -913,6 +915,7 @@
                     </p>
                 {% endif %}
             </div>
+
 
             <div>
                 <label for="{{ form.temps_minutes.id_for_label }}"

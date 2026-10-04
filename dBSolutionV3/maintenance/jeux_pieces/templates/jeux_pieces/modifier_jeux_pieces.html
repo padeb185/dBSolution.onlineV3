@@ -747,9 +747,9 @@
       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pays.png' %}" alt="pays"
                    class="w-20 h-20 object-contain">
-
             {% trans "Pays" %}
-        </h2>
+      </h2>
+
         {% for field in form %}
             {% if "pays" in field.name %}
             <div class="mb-4">
@@ -763,6 +763,7 @@
             </div>
             {% endif %}
         {% endfor %}
+
 
        <div class="espace-section"></div>
 
@@ -811,9 +812,11 @@
             {% endif %}
         {% endfor %}
 
+
        <div class="espace-section"></div>
 
-               <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roue.png' %}" alt="serrage des roues"
                    class="w-20 h-20 object-contain">
 
@@ -861,10 +864,9 @@
 
      <!-- Section taux horaire -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/taux.png' %}" alt="taux horaire"
-                   class="w-20 h-20 object-contain">
-
+            <img src="{% static 'icons/taux.png' %}" alt="taux horaire" class="w-20 h-20 object-contain">
            {% trans "Taux horaire" %}
+
        </h2>
         {% for field in form %}
             {% if "taux" in field.name %}
@@ -905,6 +907,7 @@
         </h2>
 
         <div class="grid grid-cols-2 gap-4">
+
             <div>
                 <label for="{{ form.temps_heures.id_for_label }}"
                        class="block font-semibold mb-1">
@@ -920,6 +923,7 @@
                 {% endif %}
             </div>
 
+
             <div>
                 <label for="{{ form.temps_minutes.id_for_label }}"
                        class="block font-semibold mb-1">
@@ -931,10 +935,12 @@
                 {% if form.temps_minutes.errors %}
                     <p class="text-red-600 text-sm mt-1">
                         {{ form.temps_minutes.errors|striptags }}
+
                     </p>
                 {% endif %}
             </div>
         </div>
+
 
         <div class="espace-section"></div>
 
