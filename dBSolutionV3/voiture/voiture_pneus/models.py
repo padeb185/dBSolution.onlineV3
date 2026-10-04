@@ -222,5 +222,10 @@ class VoiturePneus(models.Model):
         self.date_remplacement = date or timezone.now().date()
         self.save()
 
+    @property
+    def taille(self):
+        return f"{self.pneus_largeur}/{self.pneus_hauteur} R{self.pneus_jante}"
+
     def __str__(self):
-        return f"{self.voitures_exemplaires} - {self.get_type_pneus_display()}"
+        return f"{self.manufacturier} {self.taille} - {self.get_type_pneus_display()}"
+

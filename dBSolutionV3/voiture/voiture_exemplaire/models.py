@@ -285,6 +285,20 @@ class VoitureExemplaire(models.Model):
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
+    @property
+    def pneu_avant(self):
+        return (
+            self.pneus.filter(emplacement="avant").first()
+            or self.pneus.filter(emplacement="avant_arriere").first()
+        )
+
+    @property
+    def pneu_arriere(self):
+        return (
+            self.pneus.filter(emplacement="arriere").first()
+            or self.pneus.filter(emplacement="avant_arriere").first()
+        )
+
     def __str__(self):
         return f"{self.voiture_marque.nom_marque} {self.voiture_modele.nom_modele} {self.voiture_modele.nom_variante} - {self.immatriculation}"
 
@@ -383,6 +397,9 @@ class VoitureExemplaire(models.Model):
             self.kilometres_embrayage = km_chassis - self.kilometres_remplacement_embrayage
         else:
             self.kilometres_embrayage = km_chassis
+
+
+
 
 
 

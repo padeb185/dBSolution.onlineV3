@@ -269,6 +269,9 @@
 
         <br>
 
+
+
+
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pneus.png' %}" alt="Bande de roulement"
                   class="w-20 h-20">
@@ -430,12 +433,37 @@
         <br>
 
 
-         <!-- Section Pont -->
+         <!-- Section pneus av -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pneus-train.png' %}" alt="Train de Pneus avant"
                   class="w-20 h-20">
             {% trans "Train de pneus avant" %}
         </h2>
+
+         <div class="mb-4">
+            <label class="block font-semibold mb-1">
+                {% trans "Pneus avant constructeur" %}
+            </label>
+
+            {% with pneu=exemplaire.pneu_avant %}
+                {% if pneu %}
+                    <div class="bg-gray-100 rounded-md p-3 space-y-1">
+                        <p><span class="font-semibold">{% trans "Marque :" %}</span> {{ pneu.manufacturier }}</p>
+                        <p><span class="font-semibold">{% trans "Type :" %}</span> {{ pneu.get_type_pneus_display }} {{ pneu.nom_type|default:"" }}</p>
+                        <p><span class="font-semibold">{% trans "Taille :" %}</span> {{ pneu.taille }}</p>
+                        <p><span class="font-semibold">{% trans "Indices :" %}</span> {{ pneu.indice_charge }}{{ pneu.indice_vitesse }}</p>
+                        {% if pneu.numero_oem %}
+                            <p><span class="font-semibold">{% trans "N° OEM :" %}</span> {{ pneu.numero_oem }}</p>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="bg-gray-100 rounded-md p-3 text-gray-500">
+                        {% trans "Aucun pneu avant lié à ce véhicule" %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+
         {% for field in form %}
             {% if "pneu_train_av" in field.name %}
             <div class="mb-4">
@@ -469,10 +497,37 @@
 
 
 
-        <!-- Section freins -->
-          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+        <!-- Section pneus ar-->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/pneus-train.png' %}" alt="Train arrière"
-                  class="w-20 h-20">{% trans "Train de pneus arrière" %}</h2>
+                  class="w-20 h-20">{% trans "Train de pneus arrière" %}
+        </h2>
+
+        <div class="mb-4">
+            <label class="block font-semibold mb-1">
+                {% trans "Pneus arrière constructeur" %}
+            </label>
+
+            {% with pneu=exemplaire.pneu_arriere %}
+                {% if pneu %}
+                    <div class="bg-gray-100 rounded-md p-3 space-y-1">
+                        <p><span class="font-semibold">{% trans "Marque :" %}</span> {{ pneu.manufacturier }}</p>
+                        <p><span class="font-semibold">{% trans "Type :" %}</span> {{ pneu.get_type_pneus_display }} {{ pneu.nom_type|default:"" }}</p>
+                        <p><span class="font-semibold">{% trans "Taille :" %}</span> {{ pneu.taille }}</p>
+                        <p><span class="font-semibold">{% trans "Indices :" %}</span> {{ pneu.indice_charge }}{{ pneu.indice_vitesse }}</p>
+                        {% if pneu.numero_oem %}
+                            <p><span class="font-semibold">{% trans "N° OEM :" %}</span> {{ pneu.numero_oem }}</p>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="bg-gray-100 rounded-md p-3 text-gray-500">
+                        {% trans "Aucun pneu arrière lié à ce véhicule" %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+
         {% for field in form %}
             {% if "pneu_train_ar" in field.name %}
             <div class="mb-4">

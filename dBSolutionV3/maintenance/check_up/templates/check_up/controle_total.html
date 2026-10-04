@@ -2117,9 +2117,11 @@
 
         <br>
 
-          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/tag.png' %}" alt="étiquette"
-                  class="w-20 h-20">% trans "Etiquette" %}</h2>
+                  class="w-20 h-20">{% trans "Etiquette" %}
+        </h2>
+
         {% for field in form %}
             {% if "tag" in field.name %}
             <div class="mb-4">

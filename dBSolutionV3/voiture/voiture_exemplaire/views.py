@@ -107,31 +107,46 @@ def lier_boite_exemplaire(request, exemplaire_id):
 
 
 
-@login_required
-def lier_pneus(request, exemplaire_id):
+
+EMPLACEMENTS = VoiturePneus.EmplacementPneus
+
+
+def _lier_pneus(request, exemplaire_id, emplacement, url_name, titre):
     exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
-    pneus = VoiturePneus.objects.all().order_by("manufacturier")
+    emplacements_compatibles = [emplacement, EMPLACEMENTS.AVANT_ET_ARRIERE]
+    pneus = VoiturePneus.objects.filter(
+        emplacement__in=emplacements_compatibles
+    ).order_by("manufacturier")
 
     if request.method == "POST":
         pneu_id = request.POST.get("pneu_id")
+
         if pneu_id:
-            pneu = get_object_or_404(VoiturePneus, id=pneu_id)
+            pneu = get_object_or_404(pneus, id=pneu_id)
+
+            # Retirer les anciens pneus de cet emplacement
+            anciens = exemplaire.pneus.filter(emplacement=emplacement).exclude(id=pneu.id)
+            for ancien in anciens:
+                ancien.voitures_exemplaires.remove(exemplaire)
+
             pneu.voitures_exemplaires.add(exemplaire)
 
             messages.success(
                 request,
-                _(
-                    f"Les pneus ont été liés au véhicule "
-                    f"'{exemplaire.voiture_marque} {exemplaire.immatriculation}' avec succès."
-                ),
+                _("Les pneus ont été liés au véhicule « %(vehicule)s » avec succès.") % {
+                    "vehicule": f"{exemplaire.voiture_marque} {exemplaire.immatriculation}",
+                },
             )
-            return redirect(
-                "voiture_exemplaire:lier_pneus",
-                exemplaire_id=exemplaire.id,
-            )
+            return redirect(url_name, exemplaire_id=exemplaire.id)
 
         messages.error(request, _("Veuillez sélectionner des pneus à lier."))
+
+    pneu_actuel = (
+        exemplaire.pneu_avant
+        if emplacement == EMPLACEMENTS.AVANT
+        else exemplaire.pneu_arriere
+    )
 
     return render(
         request,
@@ -139,9 +154,34 @@ def lier_pneus(request, exemplaire_id):
         {
             "exemplaire": exemplaire,
             "pneus": pneus,
-            "title": _("Lier des pneus à un véhicule"),
+            "title": titre,
+            "emplacement": emplacement,  # "avant" ou "arriere"
+            "pneu_actuel": pneu_actuel,
         },
     )
+
+
+@login_required
+def lier_pneus_av(request, exemplaire_id):
+    return _lier_pneus(
+        request,
+        exemplaire_id,
+        emplacement=EMPLACEMENTS.AVANT,
+        url_name="voiture_exemplaire:lier_pneus_av",
+        titre=_("Lier des pneus avant à un véhicule"),
+    )
+
+
+@login_required
+def lier_pneus_ar(request, exemplaire_id):
+    return _lier_pneus(
+        request,
+        exemplaire_id,
+        emplacement=EMPLACEMENTS.ARRIERE,
+        url_name="voiture_exemplaire:lier_pneus_ar",
+        titre=_("Lier des pneus arrière à un véhicule"),
+    )
+
 
 
 
