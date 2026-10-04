@@ -242,255 +242,503 @@
 
         <div class="espace-section"></div>
 
-        <!-- Section jeux rotules -->
+          <!-- Section jeux rotules -->
+
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/rotule-direction.png' %}" alt="rotule-direction"
-                  class="w-20 h-20 object-contain">
-            {% trans "Jeux rotules de direction" %}</h2>
+            <img src="{% static 'icons/pieces-de-voiture.png' %}" alt="Jeux rotules"
+                 class="w-20 h-20">{% trans "Jeux rotules de direction" %}</h2>
+
         {% for field in form %}
             {% if "jeu_rotule_dir" in field.name %}
-            <div class="mb-4">
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
-                <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+
+                            {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_rotule_direction_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
                 {% endif %}
-                {% if field.errors %}
-                <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
                 {% endif %}
             </div>
             {% endif %}
         {% endfor %}
 
-        <div class="espace-section"></div>
+        <br>
 
          <!-- Section jeux rotules -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/rotule-suspension.png' %}" alt="rotule suspension"
-                  class="w-20 h-20 object-contain">
-            {% trans "Jeux rotules de suspensions inférieures" %}</h2>
+           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/rotule-suspension.png' %}" alt="Jeux rotules suspension inférieures"
+                  class="w-20 h-20">{% trans "Jeux rotules de suspension inférieures" %}</h2>
         {% for field in form %}
             {% if "jeu_rotule_suspension_inf" in field.name %}
-            <div class="mb-4">
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+
+                                {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_rotule_suspension_inferieure_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
                 {% endif %}
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
                 {% endif %}
             </div>
             {% endif %}
         {% endfor %}
 
-        <div class="espace-section"></div>
+        <br>
 
          <!-- Section jeux rotules -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/rotule-suspension-superieure.png' %}" alt="rotule suspension supérieure"
-                  class="w-20 h-20 object-contain">
-            {% trans "Jeux rotules de suspensions supérieures" %}
-        </h2>
+            <img src="{% static 'icons/rotule-suspension.png' %}" alt="Jeux rotules suspension supérieures"
+                  class="w-20 h-20">{% trans "Jeux rotules de suspension supérieures" %}</h2>
         {% for field in form %}
             {% if "jeu_rotule_suspension_sup" in field.name %}
-            <div class="mb-4">
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+
+                {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_rotule_suspension_superieure_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
                 {% endif %}
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+
+
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
                 {% endif %}
             </div>
             {% endif %}
         {% endfor %}
 
-        <div class="espace-section"></div>
+        <br>
 
          <!-- Section jeux biellettes -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/biellette.png' %}" alt="biellette"
-                  class="w-20 h-20 object-contain">
-            {% trans "Jeux biellettes" %}
-        </h2>
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/biellette-barre-stab.png' %}" alt="Jeu barre stabilisatrice"
+                  class="w-20 h-20">{% trans "Jeux biellettes de barre stabilisatrice" %}
+          </h2>
         {% for field in form %}
-            {% if "jeu_biellette" in field.name %}
-            <div class="mb-4">
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+            {% if "jeu_biellette_barre" in field.name %}
+
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_Biellette_barre_stabilisatrice_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
                 {% endif %}
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
                 {% endif %}
             </div>
             {% endif %}
         {% endfor %}
 
-       <div class="espace-section"></div>
+        <br>
+
+
 
         <!-- Section jeux barre -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/barre-stab.png' %}" alt="barre stabilisatrice"
-                  class="w-20 h-20 object-contain">
-            {% trans "Jeux barres stabilisatrice" %}</h2>
+            <img src="{% static 'icons/barre-stabilisatrice.png' %}" alt="Jeu barre stabilisatrice"
+                  class="w-20 h-20">{% trans "Jeux barres stabilisatrice" %}</h2>
         {% for field in form %}
             {% if "jeu_barre" in field.name %}
-            <div class="mb-4">
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_barre_stabilisatrice_av" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
                 {% endif %}
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
                 {% endif %}
             </div>
             {% endif %}
         {% endfor %}
 
-        <div class="espace-section"></div>
+        <br>
 
 
-         <!-- Section jeux roulement -->
+              <!-- Section jeux biellettes -->
+            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/biellette-direction.png' %}" alt="Jeu biellette de direction"
+                  class="w-20 h-20">{% trans "Jeux biellettes de direction" %}</h2>
+
+        {% for field in form %}
+            {% if "jeu_biellette_direction" in field.name %}
+
+
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_biellette_direction_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+         <!-- Section jeux cardan -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/roulement-roue.png' %}" alt="roulement de roue"
-                  class="w-20 h-20 object-contain">
-            {% trans "Jeux roulements de roues" %}
+            <img src="{% static 'icons/cardan.png' %}" alt="cardans"
+                  class="w-20 h-20">
+            {% trans "Jeux dans les cardans" %}
         </h2>
         {% for field in form %}
-            {% if "jeu_roule" in field.name %}
-            <div class="mb-4">
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+            {% if "jeu_cardan" in field.name %}
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_cardan_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
                 {% endif %}
-                {% if field.errors %}
-                <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
                 {% endif %}
             </div>
             {% endif %}
         {% endfor %}
 
-       <div class="espace-section"></div>
+        <br>
 
-
-          <!-- Section jeux triangle -->
-          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/triangle-sus.png' %}" alt="jeux triangles"
-                  class="w-20 h-20 object-contain">{% trans "Jeux triangles" %}</h2>
-        {% for field in form %}
-            {% if "jeu_tri" in field.name %}
-            <div class="mb-4">
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                {% endif %}
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                {% endif %}
-            </div>
-            {% endif %}
-        {% endfor %}
-
-        <div class="espace-section"></div>
-
-          <!-- Section jeux suspension multi-bras -->
-          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/suspension-multi-bras.png' %}" alt="suspension-multi"
-                  class="w-20 h-20 object-contain">
-             {% trans "Jeux suspension multi-bras" %}
-         </h2>
-        {% for field in form %}
-            {% if "jeu_multi" in field.name %}
-            <div class="mb-4">
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                {% endif %}
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                {% endif %}
-            </div>
-            {% endif %}
-        {% endfor %}
-
-       <div class="espace-section"></div>
-
-          <!-- Section jeux barre -->
+          <!-- Section arbre de transmission-->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/amortisseur.png' %}" alt="amortisseur"
-                  class="w-20 h-20 object-contain">
-            {% trans "Jeux amortisseurs" %}
-        </h2>
-        {% for field in form %}
-            {% if "jeu_am" in field.name %}
-            <div class="mb-4">
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                {% endif %}
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                {% endif %}
-            </div>
-            {% endif %}
-        {% endfor %}
-
-       <div class="espace-section"></div>
-
-            <!-- Section jeux cardans -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/cardan.png' %}" alt="jeu cardans"
-                  class="w-20 h-20object-contain">
-            {% trans "Jeux cardans" %}
-        </h2>
-        {% for field in form %}
-            {% if "jeu_car" in field.name %}
-            <div class="mb-4">
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                {% endif %}
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                {% endif %}
-            </div>
-            {% endif %}
-        {% endfor %}
-
-        <div class="espace-section"></div>
-
-            <!-- Section jeux arbre de transmission -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/arbre-de-transmission.png' %}" alt="Jeu arbre de transmission"
-                  class="w-20 h-20 object-contain">
+            <img src="{% static 'icons/arbre-de-transmission.png' %}" alt="arbre de transmission"
+                class="w-20 h-20">
             {% trans "Jeux dans l'arbre de transmission" %}
         </h2>
         {% for field in form %}
             {% if "jeu_arbre" in field.name %}
             <div class="mb-4">
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                {% endif %}
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
                 {% endif %}
             </div>
             {% endif %}
         {% endfor %}
 
-        <div class="espace-section"></div>
+        <br>
+
+
+
+
+         <!-- Section jeux roulement -->
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/roulement.png' %}" alt="roulement de roue"
+                 class="w-20 h-20">
+            {% trans "Jeux roulements de roues" %}
+        </h2>
+        {% for field in form %}
+            {% if "jeu_roule" in field.name %}
+
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_roulement_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+          <!-- Section jeux triangle -->
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/triangle-sus.png' %}" alt="triangle"
+                class="w-20 h-20">
+            {% trans "Jeux triangles" %}
+        </h2>
+        {% for field in form %}
+            {% if "jeu_tri" in field.name %}
+
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_triangle_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
+
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+        <br>
+
+          <!-- Section jeux suspension multi-bras -->
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/suspension-multi.png' %}" alt="suspension multi bras"
+                class="w-20 h-20">
+            {% trans "Jeux suspension multi-bras" %}
+        </h2>
+        {% for field in form %}
+            {% if "jeu_multi" in field.name %}
+
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != " jeu_multi_bras_av" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+          <!-- Section jeux barre -->
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/amortisseur.png' %}" alt="jeu amortisseur"
+               class="w-20 h-20">
+             {% trans "Jeux amortisseurs" %}
+         </h2>
+        {% for field in form %}
+            {% if "jeu_am" in field.name %}
+                         {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "jeu_amortisseur_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
+
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
 
 
       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
