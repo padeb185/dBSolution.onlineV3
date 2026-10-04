@@ -437,45 +437,45 @@
         <tr>
             <td>{% trans "Etat des balais avant" %}</td>
             <td>
-                {% if checkup.essuie_glace == "OK" %}
+                {% if checkup.essuie_glace_av == "OK" %}
                     <span class="etat-vert">
-                        {{ checkup.get_essuie_glace_display }}
+                        {{ checkup.get_essuie_glace_av_display }}
                     </span>
-                {% elif checkup.essuie_glace == "A_REMPLACER" %}
+                {% elif checkup.essuie_glace_av == "A_REMPLACER" %}
                     <span class="etat-rouge">
-                        {{ checkup.get_essuie_glace_display }}
+                        {{ checkup.get_essuie_glace_av_display }}
                     </span>
-                {% elif checkup.essuie_glace == "REMPLACE" %}
+                {% elif checkup.essuie_glace_av == "REMPLACE" %}
                     <span class="etat-bleu">
-                        {{ checkup.get_essuie_glace_display }}
+                        {{ checkup.get_essuie_glace_av_display }}
                     </span>
                 {% else %}
                     <span class="etat-gris">
-                        {{ checkup.get_essuie_glace_display|default:"-" }}
+                        {{ checkup.get_essuie_glace_av_display|default:"-" }}
                     </span>
                 {% endif %}
             </td>
         </tr>
 
-        {% if checkup.balais_essuie != "NON_PRESENT" %}
+        {% if checkup.essuie_glace_ar != "NON_PRESENT" %}
         <tr>
             <td>{% trans "État des balais arrière" %}</td>
             <td>
-                {% if checkup.balais_essuie == "OK" %}
+                {% if checkup.essuie_glace_ar == "OK" %}
                     <span class="etat-vert">
-                        {{ checkup.get_balais_essuie_display }}
+                        {{ checkup.get_essuie_glace_ar_display }}
                     </span>
-                {% elif checkup.balais_essuie == "A_REMPLACER" %}
+                {% elif checkup.essuie_glace_ar == "A_REMPLACER" %}
                     <span class="etat-rouge">
-                        {{ checkup.get_balais_essuie_display }}
+                        {{ checkup.get_essuie_glace_ar_display }}
                     </span>
-                {% elif checkup.balais_essuie == "REMPLACE" %}
+                {% elif checkup.essuie_glace_ar == "REMPLACE" %}
                     <span class="etat-bleu">
-                        {{ checkup.get_balais_essuie_display }}
+                        {{ checkup.get_essuie_glace_ar_display }}
                     </span>
                 {% else %}
                     <span class="etat-gris">
-                        {{ checkup.get_balais_essuie_display|default:"-" }}
+                        {{ checkup.get_essuie_glace_ar_display|default:"-" }}
                     </span>
                 {% endif %}
             </td>
