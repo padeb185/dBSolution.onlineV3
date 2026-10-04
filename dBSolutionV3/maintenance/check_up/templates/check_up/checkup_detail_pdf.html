@@ -539,14 +539,14 @@
     <tr>
         <td>{% trans "Fuite moteur" %}</td>
         <td>
-            {% if checkup.moteur_fuite == "OK" %}
-                <span class="etat-vert">{{ checkup.get_moteur_fuite_display }}</span>
-            {% elif checkup.moteur_fuite == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_moteur_fuite_display }}</span>
-            {% elif checkup.moteur_fuite == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_moteur_fuite_display }}</span>
+            {% if checkup.moteur_diag_fuite == "OK" %}
+                <span class="etat-vert">{{ checkup.get_moteur_diag_fuite_display }}</span>
+            {% elif checkup.moteur_diag_fuite == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_moteur_diag_fuite_display }}</span>
+            {% elif checkup.moteur_diag_fuite == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_moteur_diag_fuite_display }}</span>
             {% else %}
-                <span class="etat-gris">{{ checkup.get_moteur_fuite_display|default:"-" }}</span>
+                <span class="etat-gris">{{ checkup.get_moteur_diag_fuite_display|default:"-" }}</span>
             {% endif %}
         </td>
     </tr>
@@ -554,14 +554,14 @@
     <tr>
         <td>{% trans "Bruit moteur" %}</td>
         <td>
-            {% if checkup.moteur_bruit == "OK" %}
-                <span class="etat-vert">{{ checkup.get_moteur_bruit_display }}</span>
-            {% elif checkup.moteur_bruit == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_moteur_bruit_display }}</span>
-            {% elif checkup.moteur_bruit == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_moteur_bruit_display }}</span>
+            {% if checkup.moteur_diag_bruit == "OK" %}
+                <span class="etat-vert">{{ checkup.get_moteur_diag_bruit_display }}</span>
+            {% elif checkup.moteur_diag_bruit == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_moteur_diag_bruit_display }}</span>
+            {% elif checkup.moteur_diag_bruit == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_moteur_diag_bruit_display }}</span>
             {% else %}
-                <span class="etat-gris">{{ checkup.get_moteur_bruit_display|default:"-" }}</span>
+                <span class="etat-gris">{{ checkup.get_moteur_diag_bruit_display|default:"-" }}</span>
             {% endif %}
         </td>
     </tr>
@@ -569,14 +569,14 @@
     <tr>
         <td>{% trans "Perte de puissance" %}</td>
         <td>
-            {% if checkup.moteur_perte == "OK" %}
-                <span class="etat-vert">{{ checkup.get_moteur_perte_display }}</span>
-            {% elif checkup.moteur_perte == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_moteur_perte_display }}</span>
-            {% elif checkup.moteur_perte == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_moteur_perte_display }}</span>
+            {% if checkup.moteur_diag_perte == "OK" %}
+                <span class="etat-vert">{{ checkup.get_moteur_diag_perte_display }}</span>
+            {% elif checkup.moteur_diag_perte == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_moteur_diag_perte_display }}</span>
+            {% elif checkup.moteur_diag_perte == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_moteur_diag_perte_display }}</span>
             {% else %}
-                <span class="etat-gris">{{ checkup.get_moteur_perte_display|default:"-" }}</span>
+                <span class="etat-gris">{{ checkup.get_moteur_diag_perte_display|default:"-" }}</span>
             {% endif %}
         </td>
     </tr>
@@ -584,14 +584,14 @@
     <tr>
         <td>{% trans "Moteur à remplacer" %}</td>
         <td>
-            {% if checkup.moteur_casse == "OK" %}
-                <span class="etat-vert">{{ checkup.get_moteur_casse_display }}</span>
-            {% elif checkup.moteur_casse == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_moteur_casse_display }}</span>
-            {% elif checkup.moteur_casse == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_moteur_casse_display }}</span>
+            {% if checkup.moteur_diag_casse == "OK" %}
+                <span class="etat-vert">{{ checkup.get_moteur_diag_casse_display }}</span>
+            {% elif checkup.moteur_diag_casse == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_moteur_diag_casse_display }}</span>
+            {% elif checkup.moteur_diag_casse == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_moteur_diag_casse_display }}</span>
             {% else %}
-                <span class="etat-gris">{{ checkup.get_moteur_casse_display|default:"-" }}</span>
+                <span class="etat-gris">{{ checkup.get_moteur_diag_casse_display|default:"-" }}</span>
             {% endif %}
         </td>
     </tr>
@@ -624,14 +624,14 @@
     <tr>
         <td>{% trans "Fuite boîte" %}</td>
         <td>
-            {% if checkup.boite_fuite == "OK" %}
-                <span class="etat-vert">{{ checkup.get_boite_fuite_display }}</span>
-            {% elif checkup.boite_fuite == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_boite_fuite_display }}</span>
-            {% elif checkup.boite_fuite == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_boite_fuite_display }}</span>
+            {% if checkup.boite_diag_fuite == "OK" %}
+                <span class="etat-vert">{{ checkup.get_boite_diag_fuite_display }}</span>
+            {% elif checkup.boite_diag_fuite == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_boite_diag_fuite_display }}</span>
+            {% elif checkup.boite_diag_fuite == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_boite_diag_fuite_display }}</span>
             {% else %}
-                <span class="etat-gris">{{ checkup.get_boite_fuite_display|default:"-" }}</span>
+                <span class="etat-gris">{{ checkup.get_boite_diag_fuite_display|default:"-" }}</span>
             {% endif %}
         </td>
     </tr>
@@ -639,14 +639,14 @@
     <tr>
         <td>{% trans "Bruit boîte" %}</td>
         <td>
-            {% if checkup.boite_bruit == "OK" %}
-                <span class="etat-vert">{{ checkup.get_boite_bruit_display }}</span>
-            {% elif checkup.boite_bruit == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_boite_bruit_display }}</span>
-            {% elif checkup.boite_bruit == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_boite_bruit_display }}</span>
+            {% if checkup.boite_diag_bruit == "OK" %}
+                <span class="etat-vert">{{ checkup.get_boite_diag_bruit_display }}</span>
+            {% elif checkup.boite_diag_bruit == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_boite_diag_bruit_display }}</span>
+            {% elif checkup.boite_diag_bruit == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_boite_diag_bruit_display }}</span>
             {% else %}
-                <span class="etat-gris">{{ checkup.get_boite_bruit_display|default:"-" }}</span>
+                <span class="etat-gris">{{ checkup.get_boite_diag_bruit_display|default:"-" }}</span>
             {% endif %}
         </td>
     </tr>
@@ -654,14 +654,14 @@
     <tr>
         <td>{% trans "Problème d'embrayage" %}</td>
         <td>
-            {% if checkup.boite_embrayage == "OK" %}
-                <span class="etat-vert">{{ checkup.get_boite_embrayage_display }}</span>
-            {% elif checkup.boite_embrayage == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_boite_embrayage_display }}</span>
-            {% elif checkup.boite_embrayage == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_boite_embrayage_display }}</span>
+            {% if checkup.boite_diag_embrayage == "OK" %}
+                <span class="etat-vert">{{ checkup.get_boite_diag_embrayage_display }}</span>
+            {% elif checkup.boite_diag_embrayage == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_boite_diag_embrayage_display }}</span>
+            {% elif checkup.boite_diag_embrayage == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_boite_diag_embrayage_display }}</span>
             {% else %}
-                <span class="etat-gris">{{ checkup.get_boite_embrayage_display|default:"-" }}</span>
+                <span class="etat-gris">{{ checkup.get_boite_diag_embrayage_display|default:"-" }}</span>
             {% endif %}
         </td>
     </tr>
@@ -694,14 +694,14 @@
     <tr>
         <td>{% trans "Fuite pont arrière" %}</td>
         <td>
-            {% if checkup.pont_fuite == "OK" %}
-                <span class="etat-vert">{{ checkup.get_pont_fuite_display }}</span>
-            {% elif checkup.pont_fuite == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_pont_fuite_display }}</span>
-            {% elif checkup.pont_fuite == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_pont_fuite_display }}</span>
+            {% if checkup.pont_diag_fuite == "OK" %}
+                <span class="etat-vert">{{ checkup.get_pont_diag_fuite_display }}</span>
+            {% elif checkup.pont_diag_fuite == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_pont_diag_fuite_display }}</span>
+            {% elif checkup.pont_diag_fuite == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_pont_diag_fuite_display }}</span>
             {% else %}
-                <span class="etat-gris">{{ checkup.get_pont_fuite_display|default:"-" }}</span>
+                <span class="etat-gris">{{ checkup.get_pont_diag_fuite_display|default:"-" }}</span>
             {% endif %}
         </td>
     </tr>
@@ -709,14 +709,14 @@
     <tr>
         <td>{% trans "Bruit pont arrière" %}</td>
         <td>
-            {% if checkup.pont_bruit == "OK" %}
-                <span class="etat-vert">{{ checkup.get_pont_bruit_display }}</span>
-            {% elif checkup.pont_bruit == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_pont_bruit_display }}</span>
-            {% elif checkup.pont_bruit == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_pont_bruit_display }}</span>
+            {% if checkup.pont_diag_bruit == "OK" %}
+                <span class="etat-vert">{{ checkup.get_pont_diag_bruit_display }}</span>
+            {% elif checkup.pont_diag_bruit == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_pont_diag_bruit_display }}</span>
+            {% elif checkup.pont_diag_bruit == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_pont_diag_bruit_display }}</span>
             {% else %}
-                <span class="etat-gris">{{ checkup.get_pont_bruit_display|default:"-" }}</span>
+                <span class="etat-gris">{{ checkup.get_pont_diag_bruit_display|default:"-" }}</span>
             {% endif %}
         </td>
     </tr>
@@ -724,14 +724,14 @@
     <tr>
         <td>{% trans "Jeu pont arrière" %}</td>
         <td>
-            {% if checkup.pont_jeu == "OK" %}
-                <span class="etat-vert">{{ checkup.get_pont_jeu_display }}</span>
-            {% elif checkup.pont_jeu == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ checkup.get_pont_jeu_display }}</span>
-            {% elif checkup.pont_jeu == "REMPLACE" %}
-                <span class="etat-bleu">{{ checkup.get_pont_jeu_display }}</span>
+            {% if checkup.pont_diag_jeu == "OK" %}
+                <span class="etat-vert">{{ checkup.get_pont_diag_jeu_display }}</span>
+            {% elif checkup.pont_diag_jeu == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_pont_diag_jeu_display }}</span>
+            {% elif checkup.pont_diag_jeu == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_pont_diag_jeu_display }}</span>
             {% else %}
-                <span class="etat-gris">{{ checkup.get_pont_jeu_display|default:"-" }}</span>
+                <span class="etat-gris">{{ checkup.get_pont_diag_jeu_display|default:"-" }}</span>
             {% endif %}
         </td>
     </tr>

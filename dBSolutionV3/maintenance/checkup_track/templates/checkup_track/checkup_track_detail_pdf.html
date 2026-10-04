@@ -902,24 +902,24 @@
         <tr>
             <td>{% trans "Niveau de liquide de refroidissement" %}</td>
             <td>
-                {% if checkup_track.refroidissement_etat == "OK" %}
+                {% if checkup_track.refroidissement_liquide_etat == "OK" %}
                     <span class="etat-vert">
-                        {{ checkup_track.get_refroidissement_etat_display }}
+                        {{ checkup_track.get_refroidissement_liquide_etat_display }}
                     </span>
 
-                {% elif checkup_track.refroidissement_etat == "AJOUTER" or checkup_track.refroidissement_etat == "REMPLACER" %}
+                {% elif checkup_track.refroidissement_liquide_etat == "AJOUTER" or checkup_track.refroidissement_liquide_etat == "REMPLACER" %}
                     <span class="etat-bleu">
-                        {{ checkup_track.get_refroidissement_etat_display }}
+                        {{ checkup_track.get_refroidissement_liquide_etat_display }}
                     </span>
 
-                {% elif checkup_track.refroidissement_etat == "AREMPLACER" %}
+                {% elif checkup_track.refroidissement_liquide_etat == "AREMPLACER" %}
                     <span class="etat-rouge">
-                        {{ checkup_track.get_refroidissement_etat_display }}
+                        {{ checkup_track.get_refroidissement_liquide_etat_display }}
                     </span>
 
                 {% else %}
                     <span class="etat-gris">
-                        {{ checkup_track.get_refroidissement_etat_display|default:"-" }}
+                        {{ checkup_track.get_refroidissement_liquide_etat_display|default:"-" }}
                     </span>
                 {% endif %}
             </td>
@@ -928,20 +928,20 @@
           <tr>
             <td>{% trans "Fabricant" %}</td>
             <td>
-                {{ checkup_track.get_refroidissement_fabricant_display }}
+                {{ checkup_track.get_refroidissement_liquide_fabricant_display }}
             </td>
         </tr>
         <tr>
             <td>{% trans "Quantité de liquide de refroidissement ajoutée" %}</td>
             <td>
-                {{ checkup_track.refroidissement_quantite|default:0|floatformat:1 }} L
+                {{ checkup_track.refroidissement_liquide_quantite|default:0|floatformat:1 }} L
             </td>
         </tr>
 
         <tr>
             <td>{% trans "Qualité du liquide de refroidissement" %}</td>
             <td>
-                {{ checkup_track.get_refroidissement_qualite_display|default:"-" }}
+                {{ checkup_track.get_refroidissement_liquide_qualite_display|default:"-" }}
             </td>
         </tr>
     </tbody>
