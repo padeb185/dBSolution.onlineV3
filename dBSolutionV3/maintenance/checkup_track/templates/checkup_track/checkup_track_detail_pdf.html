@@ -549,7 +549,7 @@
         </tr>
         {% endif %}
         <tr>
-            <td>{% trans "Liquide lave-glace" %}</td>
+            <td>{% trans "Liquide de lave-glace" %}</td>
             <td>
                 {% if checkup_track.lave_glace_liquide_etat == "BON" %}
                     <span class="etat-vert">{{ checkup_track.get_lave_glace_liquide_etat_display }}</span>
@@ -559,8 +559,7 @@
                     <span class="etat-gris">{{ checkup_track.get_lave_glace_liquide_etat_display|default:"-" }}</span>
                 {% endif %}
             </td>
-            <td>{{ checkup_track.lave_glace_liquide_quantite }} L</td>
-            <td>{{ checkup_track.get_lave_glace_liquide_qualite_display }}</td>
+
         </tr>
 
         <tr>
@@ -962,6 +961,7 @@
 </table>
 
 
+
 <h2>{% trans "Freins" %}</h2>
 
 <table class="table-2-cols">
@@ -1246,6 +1246,7 @@
         </tr>
     </tbody>
 </table>
+
 
 
 <h2>{% trans "Liquide de frein" %}</h2>
@@ -1822,6 +1823,7 @@
 </table>
 
 
+
 <h2>{% trans "Phares" %}</h2>
 
 <table class="table-2-cols">
@@ -2002,6 +2004,7 @@
 </table>
 
 
+
 <h2>{% trans "Nettoyage extérieur" %}</h2>
 
 <table class="table-2-cols">
@@ -2148,6 +2151,7 @@
         </tr>
     </tbody>
 </table>
+
 
 
 <h2>{% trans "Nettoyage intérieur" %}</h2>
@@ -2409,11 +2413,13 @@
     </div>
 </div>
 
+
 <!-- ================================================== -->
 <!-- PIÈCES, PRODUITS ET MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
 
 <h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
 
 <div>
 
@@ -2459,7 +2465,11 @@
                         <tr>
 
                             <td>
-                                {{ ligne.designation|default:ligne.champ }}
+                                {% if ligne.code == "lave_glace_liquide" or ligne.code == "lave_glace_liquide_etat" %}
+                                    {% trans "Liquide de lave-glace" %}
+                                {% else %}
+                                    {{ ligne.designation|default:ligne.champ }}
+                                {% endif %}
                             </td>
 
                             <td>

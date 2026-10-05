@@ -363,7 +363,9 @@ class NettoyageExterieur(TechnicienMixin, models.Model):
 
             total_general += total
 
+
             rapport.append({
+
                 "nom": _("Produits de nettoyage"),
 
                 # valeur technique utilisée dans les conditions du template
