@@ -1,6 +1,5 @@
 {% load static i18n widget_tweaks %}
 {% get_current_language as LANGUAGE_CODE %}
-
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}" class="m-0 p-0 overflow-x-hidden">
 
@@ -9,14 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% trans "CarsCosts" %}{% endblock %}</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'theme/css/dist/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'styles_suite.css' %}">
+    <!-- CSS (augmente v= après chaque modification du style) -->
+    <link rel="stylesheet" href="{% static 'theme/css/dist/styles.css' %}?v=3">
+    <link rel="stylesheet" href="{% static 'styles_suite.css' %}?v=3">
+
     <link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
 
     <!-- DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-
     <!-- JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
