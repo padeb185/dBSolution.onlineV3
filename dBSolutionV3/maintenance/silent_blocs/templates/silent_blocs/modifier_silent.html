@@ -273,12 +273,20 @@
 
 
 
+           <!-- Section barres stabilisatrices -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/barre-stab.png' %}" alt="Barre stabilisatrice"
                   class="w-20 h-20">
-            {% trans "Barre stabilisatrice" %}</h2>
+            {% trans "Barres stabilisatrices" %}
+        </h2>
+
+
         {% for field in form %}
-            {% if "stabili" in field.name %}
+            {% if "silent_blocs_barre_stabilisatrice" in field.name %}
+                 {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "silent_blocs_barre_stabilisatrice_av" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -323,13 +331,19 @@
         <br>
 
 
-        <!-- Section Moteur -->
+        <!-- Section Amortisseurs -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/silent-amt.png' %}" alt="Silent Blocs amortisseurs"
                   class="w-20 h-20">
-            {% trans "Amortisseurs" %}</h2>
+            {% trans "Amortisseurs" %}
+        </h2>
         {% for field in form %}
             {% if "amortisseur" in field.name %}
+
+                 {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "silent_blocs_amortisseur_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -358,13 +372,20 @@
 
         <br>
 
-          <!-- Section Refroidissement -->
+          <!-- Section triangles inférieurs -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/silent-triangle.png' %}" alt="Silent Blocs de Triangle"
                   class="w-20 h-20">
-            {% trans "Triangle inférieur" %}</h2>
+            {% trans "Triangles inférieurs" %}
+         </h2>
         {% for field in form %}
             {% if "triangle_inf" in field.name %}
+
+
+                 {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "silent_blocs_triangle_inf_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -394,13 +415,19 @@
         <br>
 
 
-          <!-- Section lave-glace -->
+          <!-- Section triangles supérieurs -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
              <img src="{% static 'icons/silent-triangle.png' %}" alt="Silent Blocs de Triangle supérieur"
                   class="w-20 h-20">
-            {% trans "Triangle supérieur" %}</h2>
+            {% trans "Triangles supérieurs" %}
+        </h2>
         {% for field in form %}
             {% if "triangle_sup" in field.name %}
+
+                 {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "silent_blocs_triangle_sup_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -430,13 +457,19 @@
         <br>
 
 
-        <!-- Section Boite -->
+        <!-- Section suspension multi bras -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
              <img src="{% static 'icons/silent-multi.png' %}" alt="Silent Blocs de suspension multi bras"
                   class="w-20 h-20">
-            {% trans "Suspension multi-bras" %}</h2>
+            {% trans "Suspensions multi-bras" %}
+        </h2>
         {% for field in form %}
             {% if "multi" in field.name %}
+
+                 {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "silent_blocs_multi_bras_avd" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -466,13 +499,18 @@
         <br>
 
 
-         <!-- Section Pont -->
+         <!-- Section Moteur/ boite -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
              <img src="{% static 'icons/silent-moteur.png' %}" alt="Silent Blocs de moteur"
                   class="w-20 h-20">
             {% trans "Moteur / boite de vitesse " %}</h2>
         {% for field in form %}
             {% if "moteur" in field.name %}
+
+                 {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "silent_blocs_moteur_avg" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">

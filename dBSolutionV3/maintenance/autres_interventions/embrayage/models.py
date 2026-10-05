@@ -190,7 +190,7 @@ class Embrayage(TechnicienMixin, models.Model):
     liquide_frein_fabricant = models.CharField(
         max_length=25,
         choices=FabricantLubrifiant.choices,
-        default=FabricantLubrifiant.CASTROL,
+        default=FabricantLubrifiant.CHOISIR,
         verbose_name=_("Fabricant du liquide de frein")
     )
     liquide_frein_specif = models.CharField(
