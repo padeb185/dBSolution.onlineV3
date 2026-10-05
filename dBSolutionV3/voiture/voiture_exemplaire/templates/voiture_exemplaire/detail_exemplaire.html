@@ -175,6 +175,9 @@
                         <span class="text-green-500">{{ frein.epaisseur_disque_ar|default:"?" }} mm</span>
                         <span class="text-red-500">{{ frein.epaisseur_min_disque_ar|default:"?" }} mm</span>
                     </div>
+                    <span class="text-gray-500">
+                        {{ frein.get_type_disques_ar_display|default:"N/A" }}
+                    </span>
                     {% if frein.fabricant %}
                     <span class="text-gray-500">({{ frein.fabricant }})</span>
                     {% endif %}
