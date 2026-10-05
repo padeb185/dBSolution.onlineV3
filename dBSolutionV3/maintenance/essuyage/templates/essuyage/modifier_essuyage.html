@@ -217,43 +217,74 @@
 <!-- ========================= -->
 
     <form method="post" id="essuyage-form" class="space-y-4">
-        {% csrf_token %}
+    {% csrf_token %}
 
-        {% for section in sections %}
-             <br>
-                 <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-                    <img src="{% static section.icon %}" class="w-20 h-20">
-                    {% trans section.title %}
-                </h2>
+    {% for section in sections %}
+        <br>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static section.icon %}" class="w-20 h-20">
+            {% trans section.title %}
+        </h2>
 
-                {% for field in section.fields %}
-                    <div class="mb-4">
-                        {% if field.field.widget.input_type == "checkbox" %}
-                            <label class="inline-flex items-center gap-2">
-                                {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
-                                <span class="font-semibold text-gray-700">{{ field.label }}</span>
-                            </label>
-                            {% if field.help_text %}
-                                <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
-                            {% endif %}
-                            {% if field.errors %}
-                                <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
-                            {% endif %}
-                        {% else %}
-                            <label class="block font-semibold mb-1">{{ field.label }}</label>
-                            {{ field|add_class:"input" }}
-                            {% if field.help_text %}
-                                <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                            {% endif %}
-                            {% if field.errors %}
-                                <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                {% endfor %}
+        {% for field in section.fields %}
 
+            {# Séparateur avant chaque balai, bras, moteur, pompe, gicleur, tuyau et raccord (sauf le premier champ de la section) #}
+            {% with nom=" "|add:field.name|add:" " %}
+                {% if not forloop.first and nom in " balai_av_gauche balai_av_droit balai_arriere bras_av_gauche bras_av_droit bras_arriere moteur_essuie_glace_av moteur_essuie_glace_ar pompe_lave_glace_av pompe_lave_glace_ar gicleur_av_gauche gicleur_av_droit gicleur_arriere tuyau_lave_glace_av tuyau_lave_glace_ar raccord_simple raccord_t " %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+            {% endwith %}
+
+            <div class="mb-4">
+
+                {% if field.field.widget.input_type == "checkbox" %}
+
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">
+                            {{ field.label }}
+                        </span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+
+                {% else %}
+
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+
+                {% endif %}
+
+            </div>
         {% endfor %}
-            <br>
+
+    {% endfor %}
+    <br>
                      <!-- Section temps main d'œuvre -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
