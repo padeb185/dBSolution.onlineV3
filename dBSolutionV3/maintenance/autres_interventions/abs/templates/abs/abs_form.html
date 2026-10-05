@@ -215,18 +215,24 @@
 <!-- FORMULAIRE -->
 <!-- ========================= -->
 
-    <form method="post" id="abs-form" class="space-y-4">
-        {% csrf_token %}
+   <form method="post" id="abs-form" class="space-y-4">
+    {% csrf_token %}
 
-        {% for section in sections %}
-            <br>
-            <div class="mb-16">
-              <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-                <img src="{% static section.icon %}"  class="w-20 h-20">
+    {% for section in sections %}
+        <br>
+        <div class="mb-16">
+            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+                <img src="{% static section.icon %}" class="w-20 h-20">
                 {% trans section.title %}
             </h2>
 
             {% for field in section.fields %}
+
+               {# Séparateur avant chaque nouvelle pièce (sauf première de la section, champs technicien et kilométrage) #}
+                    {% if not forloop.first and "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and "_specif" not in field.name and "tech_" not in field.name and "kilo" not in field.name %}
+                        <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                    {% endif %}
+
                 <div class="mb-4">
                     {% if field.field.widget.input_type == "checkbox" %}
                         <label class="inline-flex items-center gap-2">
@@ -253,6 +259,7 @@
             {% endfor %}
         </div>
     {% endfor %}
+
 
          <br>            <!-- Section temps main d'œuvre -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">

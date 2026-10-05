@@ -147,6 +147,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     )
 
     moteurs_prix = models.DecimalField(
+        default=0.00,
         max_digits=10,
         decimal_places=2,
         blank=True,
@@ -188,13 +189,14 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     )
 
     niveau_huile_quantite = models.FloatField(
-        default=0,
+        default=0.0,
         verbose_name=_("Quantité d'huile ajoutée en litres"),
         validators=[StepValueValidator(0.1)]
     )
 
 
     niveau_huile_prix = models.DecimalField(
+        default=0.00,
         max_digits=10,
         decimal_places=2,
         blank=True,
@@ -225,15 +227,13 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     )
 
     refroidissement_quantite = models.FloatField(
-        default=0,
+        default=0.0,
         verbose_name=_("Quantité ajoutée en litres"),
         validators=[StepValueValidator(0.1)]
     )
 
-
-
-
     refroidissement_prix = models.DecimalField(
+        default=0.00,
         max_digits=10,
         decimal_places=2,
         blank=True,

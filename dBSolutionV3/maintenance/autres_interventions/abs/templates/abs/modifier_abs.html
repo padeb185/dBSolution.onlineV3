@@ -215,44 +215,50 @@
 <!-- FORMULAIRE -->
 <!-- ========================= -->
 
-    <form method="post" id="abs-form" class="space-y-4">
-        {% csrf_token %}
+   <form method="post" id="abs-form" class="space-y-4">
+    {% csrf_token %}
 
-        {% for section in sections %}
-            <br>
-            <div class="mb-16">
-                 <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-                    <img src="{% static section.icon %}"  class="w-20 h-20">
-                    {% trans section.title %}
-                </h2>
+    {% for section in sections %}
+        <br>
+        <div class="mb-16">
+            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+                <img src="{% static section.icon %}" class="w-20 h-20">
+                {% trans section.title %}
+            </h2>
 
-                {% for field in section.fields %}
-                    <div class="mb-4">
-                        {% if field.field.widget.input_type == "checkbox" %}
-                            <label class="inline-flex items-center gap-2">
-                                {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
-                                <span class="font-semibold text-gray-700">{{ field.label }}</span>
-                            </label>
-                            {% if field.help_text %}
-                                <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
-                            {% endif %}
-                            {% if field.errors %}
-                                <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
-                            {% endif %}
-                        {% else %}
-                            <label class="block font-semibold mb-1">{{ field.label }}</label>
-                            {{ field|add_class:"input" }}
-                            {% if field.help_text %}
-                                <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                            {% endif %}
-                            {% if field.errors %}
-                                <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                            {% endif %}
+            {% for field in section.fields %}
+
+                {# Séparateur avant chaque nouvelle pièce (sauf première de la section, champs technicien et kilométrage) #}
+                {% if not forloop.first and "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and "_specif" not in field.name and "tech_" not in field.name and "kilo" not in field.name %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
+                <div class="mb-4">
+                    {% if field.field.widget.input_type == "checkbox" %}
+                        <label class="inline-flex items-center gap-2">
+                            {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                            <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                        </label>
+                        {% if field.help_text %}
+                            <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
                         {% endif %}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endfor %}
+                        {% if field.errors %}
+                            <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                        {% endif %}
+                    {% else %}
+                        <label class="block font-semibold mb-1">{{ field.label }}</label>
+                        {{ field|add_class:"input" }}
+                        {% if field.help_text %}
+                            <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                        {% endif %}
+                        {% if field.errors %}
+                            <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
 
                      <!-- Section temps main d'œuvre -->
         <br>
