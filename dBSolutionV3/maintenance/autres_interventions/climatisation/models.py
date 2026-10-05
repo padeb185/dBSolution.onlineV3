@@ -201,9 +201,10 @@ class Climatisation(TechnicienMixin, models.Model):
     ajout_huile_quantite = models.DecimalField(
         max_digits=8,
         decimal_places=3,
-        default=0,
+        default=0.000,
         validators=[StepValueValidator(0.001)],
         verbose_name=_("Quantité d'huile ajoutée en millilitres"),
+        help_text="0.015"
     )
 
 
@@ -221,11 +222,6 @@ class Climatisation(TechnicienMixin, models.Model):
         verbose_name=_("Quantité d'huile récupérée en millilitres"),
     )
 
-    ajout_huile_type_huile = models.CharField(
-        max_length=100,
-        blank=True,
-        verbose_name=_("Type d'huile"),
-    )
 
     traceur = models.CharField(
         max_length=25,
@@ -239,7 +235,8 @@ class Climatisation(TechnicienMixin, models.Model):
         decimal_places=3,
         default=0,
         validators=[StepValueValidator(0.001)],
-        verbose_name=_("Quantité d'huile ajoutée en millilitres")
+        verbose_name=_("Quantité d'huile ajoutée en millilitres"),
+        help_text="0.015"
     )
 
     traceur_prix = models.DecimalField(
