@@ -691,7 +691,7 @@ class Essuyage(TechnicienMixin, models.Model):
         max_length=25,
         choices=NiveauxEtat.choices,
         default=NiveauxEtat.BON,
-        verbose_name=_("Liquide lave-glace"),
+        verbose_name=_("Liquide de lave-glace"),
     )
 
     liquide_lave_glace_fabricant = models.CharField(

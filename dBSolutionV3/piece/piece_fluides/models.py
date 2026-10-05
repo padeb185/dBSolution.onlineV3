@@ -47,8 +47,8 @@ class LaveGlaceQualite(models.TextChoices):
 
 class NiveauxEtat(models.TextChoices):
     BON = "BON", _("Bon")
-    AJOUTER = "AJOUTER", _("Ajouter")
-    REMPLACER = "REMPLACER", _("Remplacer")
+    AJOUTER = "AJOUTER", _("Ajouté")
+    REMPLACER = "REMPLACER", _("A Remplacer")
 
 class LiquideFreinsQualite(models.TextChoices):
     DOT3 = 'DOT 3', _("DOT 3")
