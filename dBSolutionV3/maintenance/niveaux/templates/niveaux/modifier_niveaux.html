@@ -279,7 +279,7 @@
 
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/engine.png' %}" alt="Niveaux d'huile moteur"
+            <img src="{% static 'icons/huile-moteur.png' %}" alt="Niveaux d'huile moteur"
                   class="w-20 h-20">
             {% trans "Huile moteur" %}
        </h2>
@@ -316,7 +316,7 @@
           <!-- Section Refroidissement -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/radiateur.png' %}" alt="Niveaux d'eau"
-                 class="w-12 h-12 mr-2">
+                 class="w-20 h-20">
             {% trans "Liquide de refroidissement" %}
        </h2>
         {% for field in form %}
@@ -352,8 +352,8 @@
 
           <!-- Section lave-glace -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/lave-glace.png' %}" alt="Niveaux d'eau"
-                 class="w-12 h-12 mr-2">
+            <img src="{% static 'icons/liquide-lave-glace.png' %}" alt="Niveaux d'eau"
+                 class="w-20 h-20">
             {% trans "Liquide de lave-glace" %}
         </h2>
         {% for field in form %}
@@ -389,8 +389,8 @@
 
         <!-- Section Boite -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="boite de vitesse"
-                 class="w-12 h-12 mr-2">
+            <img src="{% static 'icons/huile-boite.png' %}" alt="boite de vitesse"
+                 class="w-20 h-20">
             {% trans "Huile de boite de vitesse" %}
         </h2>
         {% for field in form %}
@@ -426,8 +426,8 @@
 
          <!-- Section Pont -->
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/pont.png' %}" alt="Niveaux d'huile de différentiel"
-                 class="w-12 h-12 mr-2">
+            <img src="{% static 'icons/huile-pont.png' %}" alt="Niveaux d'huile de différentiel"
+                 class="w-20 h-20">
              {% trans "Huile de pont arrière" %}</h2>
         {% for field in form %}
             {% if "pont" in field.name %}
@@ -465,7 +465,7 @@
         <!-- Section freins -->
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/frein-temoin.png' %}" alt="Niveaux de liquide de freins"
-                 class="w-12 h-12 mr-2">
+                 class="w-20 h-20">
             {% trans "Liquide de Freins" %}</h2>
         {% for field in form %}
             {% if "frein" in field.name %}
@@ -500,7 +500,7 @@
         <!-- Section direction -->
           <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/direction.png' %}" alt="Niveaux de liquide de direction"
-                 class="w-12 h-12 mr-2">
+                 class="w-20 h-20">
             {% trans "Liquide de Direction" %}</h2>
             {% for field in form %}
             {% if "direction" in field.name %}
@@ -556,7 +556,7 @@
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/tag.png' %}" alt="Etiquette"
-                 class="w-12 h-12 mr-2">
+                 class="w-20 h-20">
             {% trans "Etiquette" %}</h2>
         {% for field in form %}
             {% if "tag" in field.name %}
@@ -606,7 +606,7 @@
         <!-- Section remarques -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/notes.png' %}" alt="Remarques"
-                 class="w-12 h-12 mr-2">
+                 class="w-20 h-20">
             {% trans "Remarques" %}</h2>
         {% for field in form %}
             {% if "remarques" in field.name %}
@@ -663,7 +663,7 @@
         <!-- Section technicien -->
            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/mecanicien.png' %}" alt="Mécanicien"
-                 class="w-12 h-12 mr-2">
+                 class="w-20 h-20">
               {% trans "Technicien" %}</h2>
         {% for field in form %}
             {% if "tech" in field.name %}
