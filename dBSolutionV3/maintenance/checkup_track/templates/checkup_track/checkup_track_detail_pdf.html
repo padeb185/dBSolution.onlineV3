@@ -548,6 +548,20 @@
             </td>
         </tr>
         {% endif %}
+        <tr>
+            <td>{% trans "Liquide lave-glace" %}</td>
+            <td>
+                {% if checkup_track.lave_glace_liquide_etat == "BON" %}
+                    <span class="etat-vert">{{ checkup_track.get_lave_glace_liquide_etat_display }}</span>
+                {% elif checkup_track.lave_glace_liquide_etat == "AJOUTER" %}
+                    <span class="etat-bleu">{{ checkup_track.get_lave_glace_liquide_etat_display }}</span>
+                {% else %}
+                    <span class="etat-gris">{{ checkup_track.get_lave_glace_liquide_etat_display|default:"-" }}</span>
+                {% endif %}
+            </td>
+            <td>{{ checkup_track.lave_glace_liquide_quantite }} L</td>
+            <td>{{ checkup_track.get_lave_glace_liquide_qualite_display }}</td>
+        </tr>
 
         <tr>
             <td>{% trans "Pare-brise sans coups" %}</td>

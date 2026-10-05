@@ -481,6 +481,19 @@
             </td>
         </tr>
         {% endif %}
+        <tr>
+            <td>{% trans "Liquide lave-glace" %}</td>
+            <td>
+                {% if checkup.lave_glace_liquide_etat == "BON" %}
+                    <span class="etat-vert">{{ checkup.get_lave_glace_liquide_etat_display }}</span>
+                {% elif checkup.lave_glace_liquide_etat == "AJOUTER" %}
+                    <span class="etat-bleu">{{ checkup.get_lave_glace_liquide_etat_display }}</span>
+                {% else %}
+                    <span class="etat-gris">{{ checkup.get_lave_glace_liquide_etat_display|default:"-" }}</span>
+                {% endif %}
+            </td>
+        </tr>
+
 
         <tr>
             <td>{% trans "Pare-brise sans coups" %}</td>
@@ -594,6 +607,7 @@
                 <span class="etat-gris">{{ checkup.get_moteur_diag_casse_display|default:"-" }}</span>
             {% endif %}
         </td>
+
     </tr>
 
     <tr>
