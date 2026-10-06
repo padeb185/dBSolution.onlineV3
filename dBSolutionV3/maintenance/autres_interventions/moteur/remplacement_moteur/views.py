@@ -628,6 +628,7 @@ def _sections_moteur(form):
         {"title": _("Remplacement du moteur"), "icon": "icons/engine.png", "fields": champs("moteurs")},
         {"title": _("Huile moteur"), "icon": "icons/huile-moteur.png", "fields": champs("niveau")},
         {"title": _("Liquide de refroidissement"), "icon": "icons/anti-gel.png", "fields": champs("refroidissement")},
+        {"title": _("Liquide de frein"), "icon": "icons/liquide_frein.png", "fields": champs("frein_liquide")},
         {"title": _("Remise à Zéro des kilomètres moteurs"), "icon": "icons/km.png", "fields": champs("remplacement_effectue")},
         {"title": _("Etiquette"), "icon": "icons/tag.png", "fields": champs("tag")},
         {"title": _("Pays"), "icon": "icons/pays.png", "fields": champs("pays")},

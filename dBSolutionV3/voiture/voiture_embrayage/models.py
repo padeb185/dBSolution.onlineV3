@@ -2,16 +2,27 @@ import uuid
 from django.db.models import Q
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from maintenance.choices import FabricantEmbrayage
 
 
 class TypeEmbrayage(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     MONDISQUE = "MONDISQUE", _("Mono-disque")
     MULTIDISQUE = "MULTIDISQUE", _("Multi-disque")
     AUTOMATIQUE = "AUTOMATIQUE", _("Automatique")
     HYDRAULIQUE = "HYDRAULIQUE", _("Hydraulique")
     MECANIQUE = "MECANIQUE", _("Mécanique")
 
+class TypeLubrification(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
+    SEC = "SEC", _("Sec")
+    BAIN_HUILE = "BAIN_HUILE", _("Bain d'huile")
+
 class TypeVolantMoteur(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     MONOMASSE = "MONOMASSE", _("Mono-masse")
     BIMASSE = "BIMASSE", _("Bi-masse")
     ALLEGE = "ALLEGE", _("Allégé / Performance")
@@ -20,6 +31,8 @@ class TypeVolantMoteur(models.TextChoices):
 
 
 class TypePlateauPression(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     CLASSIQUE = "CLASSIQUE", _("Classique (mono-disque)")
     RESSORTS_CONCENTRIQUES = "CONCENTRIQUES", _("Ressorts concentriques")
     RESSORTS_HELICOIDAUX = "HELICOIDAUX", _("Ressorts hélicoïdaux")
@@ -28,6 +41,8 @@ class TypePlateauPression(models.TextChoices):
     AUTOMATIQUE = "AUTOMATIQUE", _("Automatique / non présent")
 
 class TypeButeeDEmbrayage(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
     MECANIQUE = "MECANIQUE", _("Mécanique")
     HYDRAULIQUE = "HYDRAULIQUE", _("Hydraulique")
     AROULEMENT = "AROULEMENT", _("A roulement")
@@ -61,32 +76,49 @@ class VoitureEmbrayage(models.Model):
     )
     kilometres_chassis = models.PositiveIntegerField(default=0, null=True, blank=True)
 
-    fabricant = models.CharField(max_length=30, null=True, blank=True)
+    fabricant = models.CharField(max_length=25,
+                                 choices=FabricantEmbrayage.choices,
+                                 default=FabricantEmbrayage.CHOISIR,
+                                 verbose_name=_("Fabricant"),
+                                 blank=True
+                                 )
+
+
+
 
     oem = models.CharField(max_length=50, null=True, blank=True)
 
     type_embrayage = models.CharField(
         max_length=20,
         choices=TypeEmbrayage.choices,
-        default=TypeEmbrayage.MONDISQUE,
+        default=TypeEmbrayage.CHOISIR,
         null=True,
         blank=True,
     )
+
+    type_lubrification = models.CharField(
+        max_length=20,
+        choices=TypeLubrification.choices,
+        default=TypeLubrification.CHOISIR,
+        null=True,
+        blank=True,
+    )
+
     volant_moteur = models.CharField(
         max_length=30, choices=TypeVolantMoteur,
-        default=TypeVolantMoteur.MONOMASSE,
+        default=TypeVolantMoteur.CHOISIR,
         null=True, blank=True)
 
     plateau_pression = models.CharField(
         max_length=30, choices=TypePlateauPression.choices,
-        default=TypePlateauPression.CLASSIQUE,
+        default=TypePlateauPression.CHOISIR,
         null=True, blank=True
 
     )
 
     butee_embrayage = models.CharField(
         max_length=30, choices=TypeButeeDEmbrayage.choices,
-        default=TypeButeeDEmbrayage.AROULEMENT,
+        default=TypeButeeDEmbrayage.CHOISIR,
         null=True,
         blank=True
 

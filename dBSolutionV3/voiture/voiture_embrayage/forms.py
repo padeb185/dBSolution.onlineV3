@@ -21,6 +21,7 @@ class VoitureEmbrayageForm(forms.ModelForm):
             "fabricant": _("Fabricant"),
             "oem": _("Référence OEM"),
             "type_embrayage": _("Type d'embrayage"),
+            "type_lubrification": _("Type de lubrification"),
             "volant_moteur": _("Type de volant moteur"),
             "plateau_pression": _("Plateau de pression"),
             "butee_embrayage": _("Butée d'embrayage"),
@@ -29,12 +30,7 @@ class VoitureEmbrayageForm(forms.ModelForm):
 
         widgets = {
 
-            "fabricant": forms.TextInput(
-                attrs={
-                    "class": "border rounded px-3 py-2 w-full text-sm",
-                    "placeholder": _("Ex : Valeo")
-                }
-            ),
+            "fabricant": forms.Select(),
 
             "oem": forms.TextInput(
                 attrs={
@@ -48,6 +44,8 @@ class VoitureEmbrayageForm(forms.ModelForm):
                     "class": "border rounded px-3 py-2 w-full text-sm"
                 }
             ),
+
+            "type_lubrification": forms.Select(),
 
             "volant_moteur": forms.Select(
                 attrs={
@@ -75,3 +73,20 @@ class VoitureEmbrayageForm(forms.ModelForm):
                 }
             ),
         }
+
+    # Style identique pour tous les champs
+    CLASSE_CHAMP = "border rounded px-3 py-2 w-full text-sm"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields.values():
+            field.widget.attrs["class"] = self.CLASSE_CHAMP
+
+    def clean_fabricant(self):
+        fabricant = self.cleaned_data.get("fabricant")
+
+        if not fabricant or fabricant == "CHOISIR":
+            raise forms.ValidationError(_("Veuillez choisir un fabricant."))
+
+        return fabricant

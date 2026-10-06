@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from ..voiture_pneus.models import VoiturePneus
 
 
@@ -25,9 +26,8 @@ class VoiturePneusForm(forms.ModelForm):
             # -------------------------
             # TEXTE
             # -------------------------
-            "manufacturier": forms.TextInput(attrs={
-                "class": "border rounded px-4 py-2 w-full",
-                "placeholder": "Ex: Michelin"
+            "manufacturier": forms.Select(attrs={
+                "class": "border rounded px-3 py-2 w-full"
             }),
 
             "nom_type": forms.TextInput(attrs={
@@ -86,3 +86,13 @@ class VoiturePneusForm(forms.ModelForm):
         self.fields["type_pneus"].choices = VoiturePneus.TypePneus.choices
         self.fields["indice_vitesse"].choices = VoiturePneus.IndiceVitesse.choices
         self.fields["indice_charge"].choices = VoiturePneus.IndiceCharge.choices
+
+    def clean_manufacturier(self):
+        manufacturier = self.cleaned_data.get("manufacturier")
+
+        if manufacturier == "CHOISIR":
+            raise forms.ValidationError(
+                _("Veuillez choisir un manufacturier.")
+            )
+
+        return manufacturier

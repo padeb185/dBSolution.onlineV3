@@ -2,7 +2,7 @@ import uuid
 from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
+from maintenance.choices import FabricantPneus
 
 
 class VoiturePneus(models.Model):
@@ -124,7 +124,12 @@ class VoiturePneus(models.Model):
     )
 
 
-    manufacturier = models.CharField(max_length=100)
+    manufacturier =  models.CharField(
+        max_length=30,
+        choices=FabricantPneus.choices,
+        default=FabricantPneus.CHOISIR,
+        verbose_name=_("Manufacturier")
+    )
 
     emplacement = models.CharField(
         max_length=50,

@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
 from maintenance.choices import FabricantLubrifiant, RefroidissementFabricant, TVAConfig, RouesSerrageEtat, \
-    FabricantMoteur
+    FabricantMoteur, LiquideFreinsQualite
 from maintenance.niveaux.models import  (NiveauxEtat,HuileEtat, RefroidissementQualiteEtat)
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
@@ -152,7 +152,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         decimal_places=2,
         blank=True,
         null=True,
-        verbose_name=_("Prix d'achat du moteur HTVA"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
 
@@ -201,7 +201,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         decimal_places=2,
         blank=True,
         null=True,
-        verbose_name=_("Prix d'achat de l'huile HTVA"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
 
@@ -238,8 +238,15 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         decimal_places=2,
         blank=True,
         null=True,
-        verbose_name=_("Prix d'achat du liquide de refroidissement HTVA"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
+
+    frein_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON, verbose_name=_("Niveau de liquide de freins"))
+    frein_liquide_fabricant = models.CharField(max_length=30, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.CHOISIR, verbose_name=_("Fabricant"))
+    frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices, default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité de liquide de freins"))
+    frein_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Quantité de liquide ajoutée en litres"),validators=[StepValueValidator(0.1)])
+    frein_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+
 
 
     remplacement_effectue = models.BooleanField(
