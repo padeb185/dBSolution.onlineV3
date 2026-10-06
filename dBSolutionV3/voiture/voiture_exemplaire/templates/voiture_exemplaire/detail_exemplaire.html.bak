@@ -65,57 +65,37 @@
             <h2 class="text-xl font-semibold mb-2 mt-4 flex items-center">
                 <img src="{% static 'icons/engine.png' %}" alt="moteur"
                      style="width:60px; height:60px; margin-right:10px;">
-                {% trans "Moteur" %}
+               {% trans "Moteur" %}
             </h2>
+            {% if exemplaire.moteurs.exists %}
             <ul class="space-y-2">
                 {% for moteur in exemplaire.moteurs.all %}
-                <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
-                    <div>
-                        <span class="font-medium">{{ moteur.get_type_moteur_display }}</span>
-                        <span>{{ moteur.cylindree_l }}L</span>
-                        <span class="text-gray-500">({{ moteur.puissance_ch }} ch)</span>
-                    </div>
-                    <a href="{% url 'voiture_exemplaire:lier_moteur_exemplaire' exemplaire_id=exemplaire.id %}"
-                       class="text-blue-700 hover:underline whitespace-nowrap">
-                        {% trans "Modifier" %}
-                    </a>
-                </li>
-                {% empty %}
-                <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
-                    <div>
-                        <span class="text-gray-500">{% trans "Aucun moteur enregistré" %}</span>
-                    </div>
-                    <a href="{% url 'voiture_exemplaire:lier_moteur_exemplaire' exemplaire_id=exemplaire.id %}"
+                <li class="border p-3 rounded-md hover:bg-gray-50">
+                    {{ moteur.get_type_moteur_display }} - {{ moteur.cylindree_l }}L
+                    <span class="text-gray-500">({{ moteur.puissance_ch }} ch)</span>
+                 <a href="{% url 'voiture_exemplaire:lier_moteur_exemplaire' exemplaire_id=exemplaire.id %}"
                        class="text-blue-700 hover:underline whitespace-nowrap">
                         {% trans "Modifier" %}
                     </a>
                 </li>
                 {% endfor %}
             </ul>
+            {% else %}
+            <p class="text-gray-500">{% trans "Aucun moteur enregistré pour cet exemplaire." %}</p>
+            {% endif %}
 
             <!-- Boites -->
-            <h2 class="text-xl font-semibold mb-2 mt-6 flex items-center">
+            <h2 class="text-xl font-semibold mb-2 mt-4 flex items-center">
                 <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="boite de vitesse"
                      style="width:60px; height:60px; margin-right:10px;">
-                {% trans "Boite de vitesse" %}
+               {% trans "Boite de vitesse" %}
             </h2>
+            {% if exemplaire.boites.exists %}
             <ul class="space-y-2">
                 {% for boite in exemplaire.boites.all %}
-                <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
-                    <div>
-                        <span class="font-medium">{{ boite.fabricant }}</span>
-                        <span>{{ boite.get_type_de_boite_display }} {{ boite.nom_du_type|default:"" }}</span>
-                    </div>
-                    <a href="{% url 'voiture_exemplaire:lier_boite_exemplaire' exemplaire_id=exemplaire.id %}"
-                       class="text-blue-700 hover:underline whitespace-nowrap">
-                        {% trans "Modifier" %}
-                    </a>
-                </li>
-                {% empty %}
-                <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
-                    <div>
-                        <span class="text-gray-500">{% trans "Aucune boite enregistrée" %}</span>
-                    </div>
+                <li class="border p-3 rounded-md hover:bg-gray-50">
+                    {{ boite.get_type_de_boite_display }} - {{ boite.nom_du_type }}
+                    <span class="text-gray-500">({{ boite.fabricant }})</span>
                     <a href="{% url 'voiture_exemplaire:lier_boite_exemplaire' exemplaire_id=exemplaire.id %}"
                        class="text-blue-700 hover:underline whitespace-nowrap">
                         {% trans "Modifier" %}
@@ -123,105 +103,110 @@
                 </li>
                 {% endfor %}
             </ul>
+            {% else %}
+            <p class="text-gray-500">{% trans "Aucune boite enregistrée pour cet exemplaire." %}</p>
+            {% endif %}
 
-            <!-- Embrayages -->
-            <h2 class="text-xl font-semibold mb-2 mt-6 flex items-center">
+            <!-- embrayages -->
+             <h2 class="text-xl font-semibold mb-2 mt-4 flex items-center">
                 <img src="{% static 'icons/disque-dembrayage.png' %}" alt="embrayage"
                      style="width:60px; height:60px; margin-right:10px;">
                 {% trans "Embrayages" %}
-            </h2>
+             </h2>
+            {% if exemplaire.embrayages.exists %}
             <ul class="space-y-2">
                 {% for embrayage in exemplaire.embrayages.all %}
-                <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
-                    <div>
-                        <span class="font-medium">{{ embrayage.fabricant }}</span>
-                        <span>{{ embrayage.type_embrayage }}</span>
-                        <span class="text-gray-500">{{ embrayage.volant_moteur }}</span>
-                    </div>
-                    <a href="{% url 'voiture_exemplaire:lier_embrayage_exemplaire' exemplaire_id=exemplaire.id %}"
-                       class="text-blue-700 hover:underline whitespace-nowrap">
-                        {% trans "Modifier" %}
-                    </a>
-                </li>
-                {% empty %}
-                <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
-                    <div>
-                        <span class="text-gray-500">{% trans "Aucun embrayage enregistré" %}</span>
-                    </div>
-                    <a href="{% url 'voiture_exemplaire:lier_embrayage_exemplaire' exemplaire_id=exemplaire.id %}"
+                <li class="border p-3 rounded-md hover:bg-gray-50">
+                    {{ embrayage.volant_moteur }}  {{ embrayage.type_embrayage }}
+                    <span class="text-gray-500">({{ embrayage.fabricant }})</span>
+                     <a href="{% url 'voiture_exemplaire:lier_embrayage_exemplaire' exemplaire_id=exemplaire.id %}"
                        class="text-blue-700 hover:underline whitespace-nowrap">
                         {% trans "Modifier" %}
                     </a>
                 </li>
                 {% endfor %}
             </ul>
+            {% else %}
+            <p class="text-gray-500">{% trans "Aucun embrayage enregistré pour cet exemplaire." %}</p>
+            {% endif %}
 
-            <!-- Freins -->
-            <h2 class="text-xl font-semibold mb-2 mt-6 flex items-center">
-                <img src="{% static 'icons/disque-de-frein.png' %}" alt="freins"
-                     style="width:60px; height:60px; margin-right:10px;">
-                {% trans "Freins" %}
-            </h2>
+
+              <!-- freins avant-->
+            <h2 class="text-xl font-semibold mb-2 mt-4 flex items-center">
+                <img src="{% static 'icons/disque-de-frein.png' %}"
+                     alt="frein" style="width:60px; height:60px; margin-right:10px;">
+                {% trans "Freins avant" %} </h2>
+          {% if exemplaire.freins_av.exists %}
             <ul class="space-y-2">
-
-                <!-- FREINS AVANT -->
                 {% for frein in exemplaire.freins_av.all %}
-                <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
-                    <div>
-                        <span class="font-semibold">{% trans "Avant :" %}</span>
+                <li class="border p-3 rounded-md hover:bg-gray-50 flex flex-col gap-2">
+                    <div class="flex justify-between">
                         <span class="font-medium">{{ frein.marque_disques_av|default:"N/A" }}</span>
-                        <span>{{ frein.get_type_disques_av_display|default:"" }} {{ frein.taille_disque_av|default:"?" }} mm</span>
-                        <span class="text-green-800">{% trans "Épaisseur" %} {{ frein.epaisseur_disque_av|default:"?" }} mm</span>
-                        <span class="text-red-800">{% trans "Min" %} {{ frein.epaisseur_min_disque_av|default:"?" }} mm</span>
+                        <span>{{ frein.taille_disque_av|default:"?" }} mm</span>
                     </div>
-                    <a href="{% url 'voiture_exemplaire:lier_frein' exemplaire_id=exemplaire.id %}"
-                       class="text-blue-700 hover:underline whitespace-nowrap">
-                        {% trans "Modifier" %}
-                    </a>
-                </li>
-                {% empty %}
-                <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
-                    <div>
-                        <span class="font-semibold">{% trans "Avant :" %}</span>
-                        <span class="text-gray-500">{% trans "Aucun frein enregistré" %}</span>
+
+                    <div class="flex gap-4">
+                        <span class="text-green-800">
+                            Épaisseur : {{ frein.epaisseur_disque_av|default:"?" }} mm
+                        </span>
+                        <span class="text-red-800">
+                            Min : {{ frein.epaisseur_min_disque_av|default:"?" }} mm
+                        </span>
                     </div>
+
+                    <span class="text-gray-500">
+                        {{ frein.get_type_disques_av_display|default:"N/A" }}
+                    </span>
                     <a href="{% url 'voiture_exemplaire:lier_frein' exemplaire_id=exemplaire.id %}"
                        class="text-blue-700 hover:underline whitespace-nowrap">
                         {% trans "Modifier" %}
                     </a>
                 </li>
                 {% endfor %}
-
-                <!-- FREINS ARRIÈRE -->
-                {% for frein in exemplaire.freins_ar.all %}
-                <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
-                    <div>
-                        <span class="font-semibold">{% trans "Arrière :" %}</span>
-                        <span class="font-medium">{{ frein.marque_disques_ar|default:"N/A" }}</span>
-                        <span>{{ frein.get_type_disques_ar_display|default:"" }} {{ frein.taille_disque_ar|default:"?" }} mm</span>
-                        <span class="text-green-800">{% trans "Épaisseur" %} {{ frein.epaisseur_disque_ar|default:"?" }} mm</span>
-                        <span class="text-red-800">{% trans "Min" %} {{ frein.epaisseur_min_disque_ar|default:"?" }} mm</span>
-                        {% if frein.fabricant %}<span class="text-gray-500">({{ frein.fabricant }})</span>{% endif %}
-                    </div>
-                    <a href="{% url 'voiture_exemplaire:lier_frein_ar' exemplaire_id=exemplaire.id %}"
-                       class="text-blue-700 hover:underline whitespace-nowrap">
-                        {% trans "Modifier" %}
-                    </a>
-                </li>
-                {% empty %}
-                <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
-                    <div>
-                        <span class="font-semibold">{% trans "Arrière :" %}</span>
-                        <span class="text-gray-500">{% trans "Aucun frein enregistré" %}</span>
-                    </div>
-                    <a href="{% url 'voiture_exemplaire:lier_frein_ar' exemplaire_id=exemplaire.id %}"
-                       class="text-blue-700 hover:underline whitespace-nowrap">
-                        {% trans "Modifier" %}
-                    </a>
-                </li>
-                {% endfor %}
-
             </ul>
+            {% else %}
+            <p class="text-gray-500">
+                {% trans "Aucun frein avant enregistré pour cet exemplaire." %}
+            </p>
+            {% endif %}
+
+
+
+           <!-- Freins arrière -->
+            <h2 class="text-xl font-semibold mb-2 mt-6 flex items-center">
+                <img src="{% static 'icons/disque-de-frein.png' %}" alt="frein arrière"
+                  style="width:60px; height:60px; margin-right:10px;">
+                {% trans "Freins arrière" %}
+            </h2>
+
+            {% if exemplaire.freins_ar.exists %}
+            <ul class="space-y-2">
+                {% for frein in exemplaire.freins_ar.all %}
+                <li class="border p-3 rounded-md hover:bg-gray-50 flex flex-col gap-2">
+                    <div class="flex justify-between">
+                        <span class="font-medium">{{ frein.marque_disques_ar|default:"N/A" }}</span>
+                        <span>{{ frein.taille_disque_ar|default:"?" }} mm</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="text-green-800">{{ frein.epaisseur_disque_ar|default:"?" }} mm</span>
+                        <span class="text-red-800">{{ frein.epaisseur_min_disque_ar|default:"?" }} mm</span>
+                    </div>
+                    <span class="text-gray-500">
+                        {{ frein.get_type_disques_ar_display|default:"N/A" }}
+                    </span>
+                    {% if frein.fabricant %}
+                    <span class="text-gray-500">({{ frein.fabricant }})</span>
+                    {% endif %}
+                     <a href="{% url 'voiture_exemplaire:lier_frein_ar' exemplaire_id=exemplaire.id %}"
+                       class="text-blue-700 hover:underline whitespace-nowrap">
+                        {% trans "Modifier" %}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-gray-500">{% trans "Aucun frein arrière enregistré pour cet exemplaire." %}</p>
+            {% endif %}
 
           <!-- PNEUS -->
 <h2 class="text-xl font-semibold mb-2 mt-6 flex items-center">
