@@ -670,33 +670,27 @@
             </td>
         </tr>
 
-        {% if checkup_track.moteur_niveau_huile_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Fabricant" %}</td>
             <td>
                 {{ checkup_track.get_moteur_niveau_huile_fabricant_display }}
             </td>
         </tr>
-        {% endif %}
 
 
-        {% if checkup_track.moteur_niveau_huile_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Quantité d'huile ajoutée" %}</td>
             <td>
                 {{ checkup_track.moteur_niveau_huile_quantite|default:0|floatformat:1 }} L
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.moteur_niveau_huile_qualite != "CHOISIR" %}
         <tr>
             <td>{% trans "Qualité d'huile" %}</td>
             <td>
                 {{ checkup_track.get_moteur_niveau_huile_qualite_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
     </tbody>
 </table>
 
@@ -780,32 +774,26 @@
             </td>
         </tr>
 
-          {% if checkup_track.boite_niveau_huile_fabricant != "CHOISIR" %}
           <tr>
             <td>{% trans "Fabricant" %}</td>
             <td>
                 {{ checkup_track.get_boite_niveau_huile_fabricant_display }}
             </td>
         </tr>
-          {% endif %}
 
-        {% if checkup_track.boite_niveau_huile_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Huile de boîte ajoutée" %}</td>
             <td>
                 {{ checkup_track.boite_niveau_huile_quantite|default:0|floatformat:1 }} L
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.boite_niveau_huile_qualite != "CHOISIR" %}
         <tr>
             <td>{% trans "Qualité d'huile de boîte" %}</td>
             <td>
                 {{ checkup_track.get_boite_niveau_huile_qualite_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
     </tbody>
 </table>
 
@@ -866,31 +854,25 @@
             </td>
         </tr>
 
-         {% if checkup_track.pont_niveau_huile_fabricant != "CHOISIR" %}
          <tr>
-            <td>{% trans "Fabricant" %}</td>
+            <td>{% trans "Huile de pont ajoutée" %}</td>
             <td>
                 {{ checkup_track.get_pont_niveau_huile_fabricant_display }}
             </td>
         </tr>
-         {% endif %}
-        {% if checkup_track.pont_niveau_huile_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Huile de pont ajoutée" %}</td>
             <td>
                 {{ checkup_track.pont_niveau_huile_quantite|default:0|floatformat:1 }} L
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.pont_niveau_huile_qualite != "CHOISIR" %}
         <tr>
             <td>{% trans "Qualité d'huile de pont" %}</td>
             <td>
                 {{ checkup_track.get_pont_niveau_huile_qualite_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
     </tbody>
 </table>
 <h2>{% trans "Refroidissement" %}</h2>
@@ -956,31 +938,25 @@
             </td>
         </tr>
 
-          {% if checkup_track.refroidissement_liquide_fabricant != "CHOISIR" %}
           <tr>
             <td>{% trans "Fabricant" %}</td>
             <td>
                 {{ checkup_track.get_refroidissement_liquide_fabricant_display }}
             </td>
         </tr>
-          {% endif %}
-        {% if checkup_track.refroidissement_liquide_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Quantité de liquide de refroidissement ajoutée" %}</td>
             <td>
                 {{ checkup_track.refroidissement_liquide_quantite|default:0|floatformat:1 }} L
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.refroidissement_liquide_qualite != "CHOISIR" %}
         <tr>
             <td>{% trans "Qualité du liquide de refroidissement" %}</td>
             <td>
                 {{ checkup_track.get_refroidissement_liquide_qualite_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
     </tbody>
 </table>
 
@@ -1029,32 +1005,26 @@
             </td>
         </tr>
 
-        {% if checkup_track.freins_plaquettes_remplacer_av_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Fabricant des plaquettes avant" %}</td>
             <td>
                 {{ checkup_track.get_freins_plaquettes_remplacer_av_fabricant_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.freins_plaquettes_remplacer_av_qualite != "CHOISIR" %}
         <tr>
             <td>{% trans "Matière des plaquettes avant" %}</td>
             <td>
                 {{ checkup_track.get_freins_plaquettes_remplacer_av_qualite_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.freins_plaquettes_remplacer_av_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Quantité de plaquettes avant" %}</td>
             <td>
                 {{ checkup_track.freins_plaquettes_remplacer_av_quantite|default:0 }}
             </td>
         </tr>
-        {% endif %}
 
         <!-- ================= DISQUES AVANT ================= -->
 
@@ -1111,41 +1081,33 @@
             </td>
         </tr>
 
-        {% if checkup_track.freins_epaisseur_disques_av_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Fabricant des disques avant" %}</td>
             <td>
                 {{ checkup_track.get_freins_epaisseur_disques_av_fabricant_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.freins_epaisseur_disques_av_qualite != "CHOISIR" %}
         <tr>
             <td>{% trans "Matière des disques avant" %}</td>
             <td>
                 {{ checkup_track.get_freins_epaisseur_disques_av_qualite_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.freins_epaisseur_disques_av_type != "CHOISIR" %}
         <tr>
             <td>{% trans "Type de disques avant" %}</td>
             <td>
                 {{ checkup_track.get_freins_epaisseur_disques_av_type_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.freins_epaisseur_disques_av_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Quantité de disques avant" %}</td>
             <td>
                 {{ checkup_track.freins_epaisseur_disques_av_quantite|default:0 }}
             </td>
         </tr>
-        {% endif %}
 
         <!-- ================= PLAQUETTES ARRIÈRE ================= -->
 
@@ -1179,32 +1141,26 @@
             </td>
         </tr>
 
-        {% if checkup_track.freins_plaquettes_remplacer_ar_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Fabricant des plaquettes arrière" %}</td>
             <td>
                 {{ checkup_track.get_freins_plaquettes_remplacer_ar_fabricant_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.freins_plaquettes_remplacer_ar_qualite != "CHOISIR" %}
         <tr>
             <td>{% trans "Matière des plaquettes arrière" %}</td>
             <td>
                 {{ checkup_track.get_freins_plaquettes_remplacer_ar_qualite_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.freins_plaquettes_remplacer_ar_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Quantité de plaquettes arrière" %}</td>
             <td>
                 {{ checkup_track.freins_plaquettes_remplacer_ar_quantite|default:0 }}
             </td>
         </tr>
-        {% endif %}
 
         <!-- ================= DISQUES ARRIÈRE ================= -->
 
@@ -1261,41 +1217,33 @@
             </td>
         </tr>
 
-        {% if checkup_track.freins_epaisseur_disques_ar_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Fabricant des disques arrière" %}</td>
             <td>
                 {{ checkup_track.get_freins_epaisseur_disques_ar_fabricant_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.freins_epaisseur_disques_ar_qualite != "CHOISIR" %}
         <tr>
             <td>{% trans "Matière des disques arrière" %}</td>
             <td>
                 {{ checkup_track.get_freins_epaisseur_disques_ar_qualite_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.freins_epaisseur_disques_ar_type != "CHOISIR" %}
         <tr>
             <td>{% trans "Type de disques arrière" %}</td>
             <td>
                 {{ checkup_track.get_freins_epaisseur_disques_ar_type_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.freins_epaisseur_disques_ar_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Quantité de disques arrière" %}</td>
             <td>
                 {{ checkup_track.freins_epaisseur_disques_ar_quantite|default:0 }}
             </td>
         </tr>
-        {% endif %}
     </tbody>
 </table>
 
@@ -1338,32 +1286,26 @@
         </td>
     </tr>
 
-        {% if checkup_track.freins_liquide_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Fabricant du liquide de frein" %}</td>
             <td>
                 {{ checkup_track.get_freins_liquide_fabricant_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.freins_liquide_qualite != "CHOISIR" %}
         <tr>
             <td>{% trans "Spécification du liquide de frein" %}</td>
             <td>
                 {{ checkup_track.get_freins_liquide_qualite_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.freins_liquide_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Quantité de liquide de frein" %}</td>
             <td>
                 {{ checkup_track.freins_liquide_quantite|default:0|floatformat:1 }} L
             </td>
         </tr>
-        {% endif %}
     </tbody>
 </table>
 
@@ -1431,23 +1373,19 @@
             </td>
         </tr>
 
-        {% if checkup_track.direction_liquide_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Quantité de liquide de direction ajoutée" %}</td>
             <td>
                 {{ checkup_track.direction_liquide_quantite|default:0|floatformat:1 }} L
             </td>
         </tr>
-        {% endif %}
 
-        {% if checkup_track.direction_liquide_qualite != "CHOISIR" %}
         <tr>
             <td>{% trans "Qualité du liquide de direction" %}</td>
             <td>
                 {{ checkup_track.get_direction_liquide_qualite_display|default:"-" }}
             </td>
         </tr>
-        {% endif %}
 
 
         <tr>
@@ -2563,7 +2501,7 @@
                             </td>
 
                             <td>
-                                {% if ligne.fabricant == "CHOISIR" %}-{% else %}{{ ligne.fabricant_label|default:"-" }}{% endif %}
+                                {{ ligne.fabricant_label|default:"-" }}
                             </td>
 
                             <td class="text-right">

@@ -368,8 +368,8 @@
                 <span class="etat-gris">{{ niveau.get_moteur_niveau_huile_etat_display|default:"-" }}</span>
             {% endif %}
         </td>
-        <td>{% if niveau.moteur_niveau_huile_fabricant != "CHOISIR" %}{{ niveau.moteur_niveau_huile_quantite }} L{% else %}-{% endif %}</td>
-        <td>{% if niveau.moteur_niveau_huile_qualite != "CHOISIR" %}{{ niveau.get_moteur_niveau_huile_qualite_display }}{% else %}-{% endif %}</td>
+        <td>{{ niveau.moteur_niveau_huile_quantite }} L</td>
+        <td>{{ niveau.get_moteur_niveau_huile_qualite_display }}</td>
     </tr>
 
     <tr>
@@ -383,8 +383,8 @@
                 <span class="etat-gris">{{ niveau.get_boite_niveau_huile_etat_display|default:"-" }}</span>
             {% endif %}
         </td>
-        <td>{% if niveau.boite_niveau_huile_fabricant != "CHOISIR" %}{{ niveau.boite_niveau_huile_quantite }} L{% else %}-{% endif %}</td>
-        <td>{% if niveau.boite_niveau_huile_qualite != "CHOISIR" %}{{ niveau.get_boite_niveau_huile_qualite_display }}{% else %}-{% endif %}</td>
+        <td>{{ niveau.boite_niveau_huile_quantite }} L</td>
+        <td>{{ niveau.get_boite_niveau_huile_qualite_display }}</td>
     </tr>
 
     <tr>
@@ -398,8 +398,8 @@
                 <span class="etat-gris">{{ niveau.get_pont_niveau_huile_etat_display|default:"-" }}</span>
             {% endif %}
         </td>
-        <td>{% if niveau.pont_niveau_huile_fabricant != "CHOISIR" %}{{ niveau.pont_niveau_huile_quantite }} L{% else %}-{% endif %}</td>
-        <td>{% if niveau.pont_niveau_huile_qualite != "CHOISIR" %}{{ niveau.get_pont_niveau_huile_qualite_display }}{% else %}-{% endif %}</td>
+        <td>{{ niveau.pont_niveau_huile_quantite }} L</td>
+        <td>{{ niveau.get_pont_niveau_huile_qualite_display }}</td>
     </tr>
 
     <tr>
@@ -413,8 +413,8 @@
                 <span class="etat-gris">{{ niveau.get_refroidissement_etat_display|default:"-" }}</span>
             {% endif %}
         </td>
-        <td>{% if niveau.refroidissement_fabricant != "CHOISIR" %}{{ niveau.refroidissement_quantite }} L{% else %}-{% endif %}</td>
-        <td>{% if niveau.refroidissement_qualite != "CHOISIR" %}{{ niveau.get_refroidissement_qualite_display }}{% else %}-{% endif %}</td>
+        <td>{{ niveau.refroidissement_quantite }} L</td>
+        <td>{{ niveau.get_refroidissement_qualite_display }}</td>
     </tr>
 
     <tr>
@@ -428,8 +428,8 @@
                 <span class="etat-gris">{{ niveau.get_frein_liquide_etat_display|default:"-" }}</span>
             {% endif %}
         </td>
-        <td>{% if niveau.frein_liquide_fabricant != "CHOISIR" %}{{ niveau.frein_liquide_quantite }} L{% else %}-{% endif %}</td>
-        <td>{% if niveau.frein_liquide_qualite != "CHOISIR" %}{{ niveau.get_frein_liquide_qualite_display }}{% else %}-{% endif %}</td>
+        <td>{{ niveau.frein_liquide_quantite }} L</td>
+        <td>{{ niveau.get_frein_liquide_qualite_display }}</td>
     </tr>
 
     <tr>
@@ -443,8 +443,8 @@
                 <span class="etat-gris">{{ niveau.get_lave_glace_liquide_etat_display|default:"-" }}</span>
             {% endif %}
         </td>
-        <td>{% if niveau.lave_glace_liquide_fabricant != "CHOISIR" %}{{ niveau.lave_glace_liquide_quantite }} L{% else %}-{% endif %}</td>
-        <td>{% if niveau.lave_glace_liquide_qualite != "CHOISIR" %}{{ niveau.get_lave_glace_liquide_qualite_display }}{% else %}-{% endif %}</td>
+        <td>{{ niveau.lave_glace_liquide_quantite }} L</td>
+        <td>{{ niveau.get_lave_glace_liquide_qualite_display }}</td>
     </tr>
 
     <tr>
@@ -458,8 +458,8 @@
                 <span class="etat-gris">{{ niveau.get_direction_liquide_etat_display|default:"-" }}</span>
             {% endif %}
         </td>
-        <td>{% if niveau.direction_liquide_fabricant != "CHOISIR" %}{{ niveau.direction_liquide_quantite }} L{% else %}-{% endif %}</td>
-        <td>{% if niveau.direction_liquide_qualite != "CHOISIR" %}{{ niveau.get_direction_liquide_qualite_display }}{% else %}-{% endif %}</td>
+        <td>{{ niveau.direction_liquide_quantite }} L</td>
+        <td>{{ niveau.get_direction_liquide_qualite_display }}</td>
     </tr>
 </tbody>
 </table>
@@ -555,11 +555,11 @@
                             </td>
 
                         <td>
-                            {% if ligne.qualite == "CHOISIR" %}-{% else %}{{ ligne.qualite_label|default:"-" }}{% endif %}
+                            {{ ligne.qualite_label|default:"-" }}
                         </td>
 
                         <td>
-                            {% if ligne.fabricant == "CHOISIR" %}-{% else %}{{ ligne.fabricant_label|default:"-" }}{% endif %}
+                            {{ ligne.fabricant_label|default:"-" }}
                         </td>
 
                         <td class="text-right">

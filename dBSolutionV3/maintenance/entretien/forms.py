@@ -68,6 +68,28 @@ class EntretienForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         # =========================
+        # CHAMPS ABSENTS DU POST
+        # =========================
+        # Si un champ du modèle possède une valeur par défaut et
+        # qu'il n'a pas été envoyé par la page (section non affichée),
+        # on ne bloque pas la validation : Django conservera la
+        # valeur par défaut du modèle lors de l'enregistrement.
+        if self.is_bound:
+            for nom, champ in self.fields.items():
+                try:
+                    champ_modele = self._meta.model._meta.get_field(nom)
+                except Exception:
+                    continue
+
+                if not champ_modele.has_default():
+                    continue
+
+                if champ.widget.value_omitted_from_data(
+                    self.data, self.files, self.add_prefix(nom)
+                ):
+                    champ.required = False
+
+        # =========================
         # VARIATION KILOMÉTRAGE
         # =========================
         if "kilometrage_variation" in self.fields:

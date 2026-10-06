@@ -1134,6 +1134,10 @@ class Entretien(TechnicienMixin, models.Model):
             else:
                 etat_display = etat or "-"
 
+            # Intervention reportée : ni affichée, ni facturée
+            if etat == "REPORTER":
+                continue
+
             # --------------------------------------------------
             # FABRICANT
             # --------------------------------------------------

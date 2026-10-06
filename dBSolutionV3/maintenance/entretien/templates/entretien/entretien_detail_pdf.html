@@ -464,6 +464,7 @@
         <th>{% trans "État / Valeur" %}</th>
     </tr>
 
+    {% if entretien.moteur_entretien_vidange != "REPORTER" %}
     <tr>
         <td>{% trans "Vidange de l'huile moteur" %}</td>
         <td>
@@ -476,7 +477,9 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 
+    {% if entretien.filtre_huile != "REPORTER" %}
     <tr>
         <td>{% trans "Filtre à huile moteur" %}</td>
         <td>
@@ -489,7 +492,9 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 
+    {% if entretien.moteur_bouchon_vidange != "REPORTER" %}
     <tr>
         <td>{% trans "Bouchon de vidange" %}</td>
         <td>
@@ -502,7 +507,9 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 
+    {% if entretien.moteur_joint_vidange != "REPORTER" %}
     <tr>
         <td>{% trans "Joint du bouchon de vidange" %}</td>
         <td>
@@ -515,7 +522,9 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 
+    {% if entretien.moteur_ajout_huile != "REPORTER" %}
     <tr>
         <td>{% trans "Ajout d'huile moteur" %}</td>
         <td>
@@ -528,17 +537,27 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 
+    {% if entretien.moteur_ajout_huile != "REPORTER" %}
+    {% if entretien.moteur_ajout_huile_qualite != "CHOISIR" %}
     <tr>
         <td>{% trans "Qualité d'huile moteur" %}</td>
         <td>{{ entretien.get_moteur_ajout_huile_qualite_display }}</td>
     </tr>
+    {% endif %}
+    {% endif %}
 
+    {% if entretien.moteur_ajout_huile != "REPORTER" %}
+    {% if entretien.moteur_ajout_huile_fabricant != "CHOISIR" %}
     <tr>
         <td>{% trans "Quantité d'huile moteur" %}</td>
         <td>{{ entretien.moteur_ajout_huile_quantite }} L</td>
     </tr>
+    {% endif %}
+    {% endif %}
 
+    {% if entretien.bougies != "REPORTER" %}
     <tr>
         <td>{% trans "Bougies" %}</td>
         <td>
@@ -551,6 +570,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 </table>
 
 <h2>{% trans "Filtres" %}</h2>
@@ -561,6 +581,7 @@
         <th>{% trans "État" %}</th>
     </tr>
 
+    {% if entretien.filtre_a_air != "REPORTER" %}
     <tr>
         <td>{% trans "Filtre à air" %}</td>
         <td>
@@ -573,7 +594,9 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 
+    {% if entretien.filtre_a_carburant != "REPORTER" %}
     <tr>
         <td>{% trans "Filtre à carburant" %}</td>
         <td>
@@ -586,7 +609,9 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 
+    {% if entretien.filtre_habitacle != "REPORTER" %}
     <tr>
         <td>{% trans "Filtre d'habitacle" %}</td>
         <td>
@@ -599,6 +624,7 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 </table>
 
 <h2>{% trans "Boîte de vitesse" %}</h2>
@@ -609,19 +635,22 @@
         <th>{% trans "État / Valeur" %}</th>
     </tr>
 
+    {% if entretien.boite_entretien_vidange != "REPORTER" %}
     <tr>
         <td>{% trans "Vidange d'huile boîte" %}</td>
         <td>
             {% if entretien.boite_entretien_vidange == "A_FAIRE" %}
                 <span class="etat-rouge">{{ entretien.get_boite_entretien_vidange_display }}</span>
             {% elif entretien.boite_entretien_vidange == "FAIT" %}
-                <span class="etat-blue">{{ entretien.get_boite_entretien_vidange_display }}</span>
+                <span class="etat-bleu">{{ entretien.get_boite_entretien_vidange_display }}</span>
             {% elif entretien.boite_entretien_vidange == "REPORTER" %}
                 <span class="etat-jaune">{{ entretien.get_boite_entretien_vidange_display }}</span>
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 
+    {% if entretien.filtre_huile_bte != "REPORTER" %}
     <tr>
     <td>{% trans "Filtre à huile de boîte" %}</td>
     <td>
@@ -642,22 +671,36 @@
         {% endif %}
     </td>
     </tr>
+    {% endif %}
 
+    {% if entretien.filtre_huile_bte != "REPORTER" %}
+    {% if entretien.filtre_huile_bte_fabricant != "CHOISIR" %}
     <tr>
         <td>{% trans "Fabricant du filtre à huile de boîte" %}</td>
         <td>{{ entretien.get_filtre_huile_bte_fabricant_display }}</td>
     </tr>
+    {% endif %}
+    {% endif %}
 
+    {% if entretien.filtre_huile_bte != "REPORTER" %}
+    {% if entretien.filtre_huile_bte_fabricant != "CHOISIR" %}
     <tr>
         <td>{% trans "Quantité de filtres à huile de boîte" %}</td>
         <td>{{ entretien.filtre_huile_bte_quantite }}</td>
     </tr>
+    {% endif %}
+    {% endif %}
 
+    {% if entretien.filtre_huile_bte != "REPORTER" %}
+    {% if entretien.filtre_huile_bte_fabricant != "CHOISIR" %}
     <tr>
         <td>{% trans "Prix d'achat HTVA du filtre à huile de boîte" %}</td>
         <td>{{ entretien.filtre_huile_bte_prix|floatformat:2 }} €</td>
     </tr>
+    {% endif %}
+    {% endif %}
 
+    {% if entretien.boite_bouchon_vidange != "REPORTER" %}
     <tr>
         <td>{% trans "Bouchon de vidange de boîte" %}</td>
         <td>
@@ -670,7 +713,9 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 
+    {% if entretien.boite_joint_vidange != "REPORTER" %}
     <tr>
         <td>{% trans "Joint de bouchon de boîte" %}</td>
         <td>
@@ -683,7 +728,9 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 
+    {% if entretien.boite_ajout_huile != "REPORTER" %}
     <tr>
         <td>{% trans "Ajout d'huile de boîte" %}</td>
         <td>
@@ -696,9 +743,18 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 
+    {% if entretien.boite_ajout_huile != "REPORTER" %}
+    {% if entretien.boite_ajout_huile_qualite != "CHOISIR" %}
     <tr><td>{% trans "Qualité d'huile de boîte" %}</td><td>{{ entretien.get_boite_ajout_huile_qualite_display }}</td></tr>
+    {% endif %}
+    {% endif %}
+    {% if entretien.boite_ajout_huile != "REPORTER" %}
+    {% if entretien.boite_ajout_huile_fabricant != "CHOISIR" %}
     <tr><td>{% trans "Quantité d'huile de boîte" %}</td><td>{{ entretien.boite_ajout_huile_quantite }} L</td></tr>
+    {% endif %}
+    {% endif %}
 </table>
 
 <h2>{% trans "Pont" %}</h2>
@@ -709,6 +765,7 @@
         <th>{% trans "État / Valeur" %}</th>
     </tr>
 
+    {% if entretien.pont_entretien_vidange != "REPORTER" %}
     <tr>
         <td>{% trans "Vidange d'huile de pont" %}</td>
         <td>
@@ -721,7 +778,9 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 
+    {% if entretien.pont_bouchon_vidange != "REPORTER" %}
     <tr>
         <td>{% trans "Bouchon de vidange de pont" %}</td>
         <td>
@@ -734,7 +793,9 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 
+    {% if entretien.pont_joint_vidange != "REPORTER" %}
     <tr>
         <td>{% trans "Joint de bouchon de pont" %}</td>
         <td>
@@ -747,7 +808,9 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 
+    {% if entretien.pont_ajout_huile != "REPORTER" %}
     <tr>
         <td>{% trans "Ajout d'huile de pont" %}</td>
         <td>
@@ -760,9 +823,18 @@
             {% endif %}
         </td>
     </tr>
+    {% endif %}
 
+    {% if entretien.pont_ajout_huile != "REPORTER" %}
+    {% if entretien.pont_ajout_huile_qualite != "CHOISIR" %}
     <tr><td>{% trans "Qualité d'huile de pont" %}</td><td>{{ entretien.get_pont_ajout_huile_qualite_display }}</td></tr>
+    {% endif %}
+    {% endif %}
+    {% if entretien.pont_ajout_huile != "REPORTER" %}
+    {% if entretien.pont_ajout_huile_fabricant != "CHOISIR" %}
     <tr><td>{% trans "Quantité d'huile de pont" %}</td><td>{{ entretien.pont_ajout_huile_quantite }} L</td></tr>
+    {% endif %}
+    {% endif %}
 </table>
 
 <h2>{% trans "Niveaux" %}</h2>
@@ -795,8 +867,8 @@
                     <span class="etat-bleu">{{ entretien.get_lave_glace_liquide_display }}</span>
                 {% endif %}
             </td>
-            <td>{{ entretien.lave_glace_liquide_quantite }} L</td>
-            <td>{{ entretien.get_lave_glace_liquide_qualite_display }}</td>
+            <td>{% if entretien.lave_glace_liquide_fabricant != "CHOISIR" %}{{ entretien.lave_glace_liquide_quantite }} L{% else %}-{% endif %}</td>
+            <td>{% if entretien.lave_glace_liquide_qualite != "CHOISIR" %}{{ entretien.get_lave_glace_liquide_qualite_display }}{% else %}-{% endif %}</td>
         </tr>
 
         <tr>
@@ -810,8 +882,8 @@
                     <span class="etat-bleu">{{ entretien.get_frein_liquide_etat_display }}</span>
                 {% endif %}
             </td>
-            <td>{{ entretien.frein_liquide_quantite }} L</td>
-            <td>{{ entretien.get_frein_liquide_qualite_display }}</td>
+            <td>{% if entretien.frein_liquide_fabricant != "CHOISIR" %}{{ entretien.frein_liquide_quantite }} L{% else %}-{% endif %}</td>
+            <td>{% if entretien.frein_liquide_qualite != "CHOISIR" %}{{ entretien.get_frein_liquide_qualite_display }}{% else %}-{% endif %}</td>
         </tr>
 
         <tr>
@@ -825,8 +897,8 @@
                     <span class="etat-bleu">{{ entretien.get_refroidissement_liquide_etat_display }}</span>
                 {% endif %}
             </td>
-            <td>{{ entretien.refroidissement_liquide_quantite }} L</td>
-            <td>{{ entretien.get_refroidissement_liquide_qualite_display }}</td>
+            <td>{% if entretien.refroidissement_liquide_fabricant != "CHOISIR" %}{{ entretien.refroidissement_liquide_quantite }} L{% else %}-{% endif %}</td>
+            <td>{% if entretien.refroidissement_liquide_qualite != "CHOISIR" %}{{ entretien.get_refroidissement_liquide_qualite_display }}{% else %}-{% endif %}</td>
         </tr>
 
         <tr>
@@ -840,8 +912,8 @@
                     <span class="etat-bleu">{{ entretien.get_liquide_direction_etat_display }}</span>
                 {% endif %}
             </td>
-            <td>{{ entretien.liquide_direction_quantite }} L</td>
-            <td>{{ entretien.get_liquide_direction_qualite_display }}</td>
+            <td>{% if entretien.liquide_direction_fabricant != "CHOISIR" %}{{ entretien.liquide_direction_quantite }} L{% else %}-{% endif %}</td>
+            <td>{% if entretien.liquide_direction_qualite != "CHOISIR" %}{{ entretien.get_liquide_direction_qualite_display }}{% else %}-{% endif %}</td>
         </tr>
     </tbody>
 </table>
@@ -1122,7 +1194,7 @@
                             </td>
 
                         <td class="text-right">
-                            {{ ligne.fabricant_display|default:"-" }}
+                            {% if ligne.fabricant == "CHOISIR" %}-{% else %}{{ ligne.fabricant_display|default:"-" }}{% endif %}
                         </td>
 
                         <td class="text-right">

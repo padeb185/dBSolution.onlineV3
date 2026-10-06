@@ -808,6 +808,7 @@
         </td>
     </tr>
 
+    {% if checkup.refroidissement_radiateur_fabricant != "CHOISIR" %}
     <tr>
         <td>{% trans "Fabricant du radiateur" %}</td>
         <td>
@@ -828,6 +829,7 @@
             {{ checkup.refroidissement_radiateur_prix|default:0|floatformat:2 }} €
         </td>
     </tr>
+    {% endif %}
 
 
     <!-- ========================= -->
@@ -865,12 +867,14 @@
         </td>
     </tr>
 
+    {% if checkup.refroidissement_liquide_fabricant != "CHOISIR" %}
     <tr>
         <td>{% trans "Quantité ajoutée" %}</td>
         <td>
             {{ checkup.refroidissement_liquide_quantite|default:0|floatformat:1 }} L
         </td>
     </tr>
+    {% endif %}
 
     <tr>
         <td>{% trans "Qualité du liquide" %}</td>
@@ -879,6 +883,7 @@
         </td>
     </tr>
 
+    {% if checkup.refroidissement_liquide_fabricant != "CHOISIR" %}
     <tr>
         <td>{% trans "Fabricant" %}</td>
         <td>
@@ -892,11 +897,12 @@
             {{ checkup.refroidissement_liquide_prix|default:0|floatformat:2 }} €
         </td>
     </tr>
+    {% endif %}
 
 </table>
 
 
-<h2>{% trans "Freins" %}</h2>
+<h2>{% trans "Freins avant" %}</h2>
 
 <table class="table-2-cols">
     <thead>
@@ -989,7 +995,19 @@
                 {% endif %}
             </td>
         </tr>
+    </tbody>
+</table>
 
+<h2>{% trans "Freins arrière" %}</h2>
+
+<table class="table-2-cols">
+    <thead>
+        <tr>
+            <th>{% trans "Élément" %}</th>
+            <th>{% trans "État / Valeur" %}</th>
+        </tr>
+    </thead>
+        <tbody>
         <tr>
             <td>{% trans "Usure des plaquettes arrière" %}</td>
             <td>
@@ -1072,7 +1090,20 @@
                 {% endif %}
             </td>
         </tr>
+    </tbody>
+</table>
 
+<h2>{% trans "Liquide de frein" %}</h2>
+
+<table class="table-2-cols">
+    <thead>
+        <tr>
+            <th>{% trans "Élément" %}</th>
+            <th>{% trans "État / Valeur" %}</th>
+        </tr>
+    </thead>
+
+        <tbody>
         <tr>
             <td>{% trans "Présence de fuite" %}</td>
             <td>
@@ -1126,12 +1157,14 @@
             </td>
         </tr>
 
+    {% if checkup.freins_liquide_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Quantité de liquide de frein" %}</td>
             <td>
-                {{ checkup.frein_liquide_quantite|default:0|floatformat:2 }} L
+                {{ checkup.freins_liquide_quantite|default:0|floatformat:2 }} L
             </td>
         </tr>
+    {% endif %}
     </tbody>
 </table>
 
@@ -1171,12 +1204,14 @@
             </td>
         </tr>
 
+    {% if checkup.batterie_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Fabricant de la batterie" %}</td>
             <td>
                 {{ checkup.get_batterie_fabricant_display|default:"-" }}
             </td>
         </tr>
+    {% endif %}
 
         <tr>
             <td>{% trans "Tension de batterie" %}</td>
@@ -1199,6 +1234,7 @@
             </td>
         </tr>
 
+    {% if checkup.batterie_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Quantité" %}</td>
             <td>
@@ -1212,6 +1248,7 @@
                 {{ checkup.batterie_prix|default:0|floatformat:2 }} €
             </td>
         </tr>
+    {% endif %}
 
     </tbody>
 </table>
@@ -1268,25 +1305,31 @@
                 {% endif %}
             </td>
         </tr>
+    {% if checkup.direction_liquide_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Fabricant" %}</td>
             <td>
                 {{ checkup.get_direction_liquide_fabricant_display }}
             </td>
         </tr>
+    {% endif %}
 
+    {% if checkup.direction_liquide_qualite != "CHOISIR" %}
         <tr>
             <td>{% trans "Qualité de liquide de direction" %}</td>
             <td>
                 {{ checkup.get_direction_liquide_qualite_display }}
             </td>
         </tr>
+    {% endif %}
+    {% if checkup.direction_liquide_fabricant != "CHOISIR" %}
          <tr>
             <td>{% trans "Quantité de liquide de direction" %}</td>
             <td>
                 {{ checkup.direction_liquide_quantite|default:0|floatformat:2 }} L
             </td>
         </tr>
+    {% endif %}
 
         <tr>
             <td>{% trans "Roulement avant droit" %}</td>
@@ -2923,7 +2966,7 @@
                             </td>
 
                             <td>
-                                {{ ligne.fabricant_label|default:"-" }}
+                                {% if ligne.fabricant == "CHOISIR" %}-{% else %}{{ ligne.fabricant_label|default:"-" }}{% endif %}
                             </td>
 
                             <td class="text-right">
