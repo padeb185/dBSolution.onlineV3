@@ -68,6 +68,11 @@ class Outillage(models.Model):
         verbose_name=_("TVA à récupérer")
     )
 
+    date_facture = models.DateField(
+        default=timezone.localdate,
+        verbose_name=_("Date de la facture")
+    )
+
     remarques = models.TextField(
         verbose_name=_("Remarques"),
         blank=True,

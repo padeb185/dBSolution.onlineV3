@@ -46,10 +46,6 @@
                 {{ outillage.reference }}
             </p>
              <p>
-                <strong>{% trans "Date de la facture" %} :</strong>
-                {{ outillage.date_facture|date:"d/m/Y"|default:"-" }}
-            </p>
-             <p>
                 <strong>{% trans "Prix TVAC" %} :</strong>
                 {{ outillage.montant_calcule }} €
             </p>
