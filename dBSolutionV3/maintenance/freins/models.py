@@ -231,7 +231,7 @@ class ControleFreins(TechnicienMixin, models.Model):
     liquide_frein_fabricant = models.CharField(
         max_length=25,
         choices=FabricantLubrifiant.choices,
-        default=FabricantLubrifiant.CASTROL,
+        default=FabricantLubrifiant.CHOISIR,
         verbose_name=_("Fabricant")
     )
     liquide_frein_specif = models.CharField(max_length=100, choices=LiquideFreinsQualite.choices, default=LiquideFreinsQualite.DOT4,  blank=True,verbose_name=_("Spécification liquide de frein"))
@@ -655,6 +655,10 @@ class ControleFreins(TechnicienMixin, models.Model):
                     if callable(methode_fabricant)
                     else getattr(self, champ_fabricant, "-")
                 )
+
+                # Fabricant non choisi : ne pas afficher "Choisir"
+                if getattr(self, champ_fabricant, "") == "CHOISIR":
+                    fabricant_label = "-"
 
                 lignes.append(
                     {

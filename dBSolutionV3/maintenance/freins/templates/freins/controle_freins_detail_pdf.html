@@ -684,25 +684,33 @@
             </td>
         </tr>
 
+        {% if controle_freins.liquide_frein_specif != "CHOISIR" %}
         <tr>
             <td>{% trans "Spécification du liquide de frein" %}</td>
             <td>{{ controle_freins.get_liquide_frein_specif_display|default:"-" }}</td>
         </tr>
+        {% endif %}
 
+        {% if controle_freins.liquide_frein_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Fabricant du liquide de frein" %}</td>
             <td>{{ controle_freins.get_liquide_frein_fabricant_display|default:"-" }}</td>
         </tr>
+        {% endif %}
 
+        {% if controle_freins.liquide_frein_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Quantité de liquide de frein" %}</td>
             <td>{{ controle_freins.liquide_frein_quantite|default:0|floatformat:2 }} L</td>
         </tr>
+        {% endif %}
 
+        {% if controle_freins.liquide_frein_fabricant != "CHOISIR" %}
         <tr>
             <td>{% trans "Prix d'achat du liquide HTVA" %}</td>
             <td>{{ controle_freins.liquide_frein_prix|default:0|floatformat:2 }} €</td>
         </tr>
+        {% endif %}
     </tbody>
 </table>
 

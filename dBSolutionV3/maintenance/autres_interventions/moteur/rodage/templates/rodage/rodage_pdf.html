@@ -659,6 +659,37 @@
             </td>
         </tr>
 
+         <!-- LIQUIDE DE DIRECTION -->
+        <tr>
+            <td>{% trans "Liquide de direction" %}</td>
+
+            <td>
+                {% if rodage.liquide_direction_etat == "AJOUTER" or rodage.liquide_direction_etat == "REMPLACER" %}
+                    <span class="etat etat-bleu">
+                        {{ rodage.get_liquide_direction_etat_display }}
+                    </span>
+
+                {% elif rodage.liquide_direction_etat == "BON" %}
+                    <span class="etat etat-vert">
+                        {{ rodage.get_liquide_direction_etat_display }}
+                    </span>
+
+                {% else %}
+                    <span class="etat-normal">
+                        {{ rodage.get_liquide_direction_etat_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+
+            <td>
+                {{ rodage.liquide_direction_quantite|default:0|floatformat:2 }} L
+            </td>
+
+            <td>
+                {{ rodage.get_liquide_direction_qualite_display|default:"-" }}
+            </td>
+        </tr>
+
     </tbody>
 </table>
 
@@ -804,13 +835,18 @@
                         </td>
 
                         <td>
-                            {% if ligne.etat == "A_FAIRE" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" %}
+                            {% if ligne.etat == "A_FAIRE" or ligne.etat == "NOT_OK" or ligne.etat == "A_REMPLACER" %}
                                 <span class="etat etat-rouge">
                                     {{ ligne.etat_display|default:"-" }}
                                 </span>
 
-                            {% elif ligne.etat == "FAIT" or ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" or ligne.etat == "REMPLACER" %}
+                            {% elif ligne.etat == "FAIT" or ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" or ligne.etat == "REMPLACE" or ligne.etat == "BON"%}
                                 <span class="etat etat-bleu">
+                                    {{ ligne.etat_display|default:"-" }}
+                                </span>
+
+                             {% elif  ligne.etat == "BON"%}
+                                <span class="etat etat-vert">
                                     {{ ligne.etat_display|default:"-" }}
                                 </span>
 

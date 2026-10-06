@@ -25,7 +25,6 @@ def validate_step_0_1(value):
 class RodageEtat(models.TextChoices):
     A_FAIRE = "A_FAIRE", _("A faire")
     FAIT = "FAIT", _("Fait")
-    REMPLACE = "REMPLACE", _("Remplacé")
     REPORTER = "REPORTER", _("Reporter")
 
 
@@ -33,6 +32,7 @@ class NiveauxEtat(models.TextChoices):
     BON = "BON", _("Bon")
     AJOUTER = "AJOUTER", _("Ajouté")
     REMPLACE = "REMPLACE", _("Remplacé")
+    A_REMPLACER = "A_REMPLACER", _("A remplacer")
 
 class LiquideFreinsQualite(models.TextChoices):
     DOT3 = 'DOT 3', _("DOT 3")

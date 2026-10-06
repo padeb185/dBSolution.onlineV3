@@ -1435,9 +1435,9 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
             },
             {
                 "champ": _("Pompe à huile"),
-                "etat": self.pompes_h,
-                "prix": self.pompes_h_prix,
-                "quantite": self.pompes_h_quantite,
+                "etat": self.pompe_hydraulique_boite,
+                "prix": self.pompe_hydraulique_boite_prix,
+                "quantite": self.pompe_hydraulique_boite_quantite,
             },
             {
                 "champ": _("Valves de contrôle"),

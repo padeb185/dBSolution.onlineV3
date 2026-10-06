@@ -469,26 +469,32 @@
                 </td>
             </tr>
 
+              {% if remplacement.remplacement_boite_fabricant != "CHOISIR" %}
               <tr>
                 <td>{% trans "Fabricant" %}</td>
                 <td>
                     {{ remplacement.get_remplacement_boite_fabricant_display|default:"-" }}
                 </td>
             </tr>
+              {% endif %}
 
+            {% if remplacement.remplacement_boite_fabricant != "CHOISIR" %}
             <tr>
                 <td>{% trans "Quantité" %}</td>
                 <td>
                     {{ remplacement.remplacement_boite_quantite|default:0 }}
                 </td>
             </tr>
+            {% endif %}
 
+            {% if remplacement.remplacement_boite_fabricant != "CHOISIR" %}
             <tr>
                 <td>{% trans "Prix unitaire de la boîte HTVA" %}</td>
                 <td>
                     {{ remplacement.remplacement_boite_prix|default:0|floatformat:2 }} €
                 </td>
             </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>
@@ -535,6 +541,7 @@
                 </td>
             </tr>
 
+           {% if remplacement.boite_niveau_huile_fabricant != "CHOISIR" %}
            <tr>
                 <td>{% trans "Fabricant de l'huile" %}</td>
                 <td>
@@ -545,7 +552,9 @@
                     {% endif %}
                 </td>
             </tr>
+           {% endif %}
 
+            {% if remplacement.boite_niveau_huile_qualite != "CHOISIR" %}
             <tr>
                 <td>{% trans "Qualité de l'huile" %}</td>
                 <td>
@@ -556,19 +565,24 @@
                     {% endif %}
                 </td>
             </tr>
+            {% endif %}
+            {% if remplacement.boite_niveau_huile_fabricant != "CHOISIR" %}
             <tr>
                 <td>{% trans "Quantité d'huile ajoutée" %}</td>
                 <td>
                     {{ remplacement.boite_niveau_huile_quantite|default:0|floatformat:1 }} L
                 </td>
             </tr>
+            {% endif %}
 
+            {% if remplacement.boite_niveau_huile_fabricant != "CHOISIR" %}
             <tr>
                 <td>{% trans "Prix unitaire de l'huile HTVA" %}</td>
                 <td>
                     {{ remplacement.boite_niveau_huile_prix|default:0|floatformat:2 }} €
                 </td>
             </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>
