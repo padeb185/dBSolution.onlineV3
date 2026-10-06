@@ -931,6 +931,10 @@ class SilentBloc(TechnicienMixin, models.Model):
                 "silent_blocs_moteur_inf_arg",
                 _("Silent bloc moteur pendulaire")
             ),
+            (
+                "silent_blocs_echappement",
+                _("Silent bloc d'échappement")
+            ),
         ]
 
         for champ, libelle in pieces:

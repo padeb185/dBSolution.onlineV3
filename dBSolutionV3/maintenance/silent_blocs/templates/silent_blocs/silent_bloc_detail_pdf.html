@@ -670,6 +670,22 @@
                 {% endif %}
             </td>
         </tr>
+
+
+          <tr>
+            <td>{% trans "Silent bloc d'échappement" %}</td>
+            <td>
+                {% if objet.silent_blocs_echappement == "OK" %}
+                    <span class="etat-vert">{{ objet.get_silent_blocs_echappement_display }}</span>
+                {% elif objet.silent_blocs_echappement == "A_REMPLACER" %}
+                    <span class="etat-rouge">{{ objet.get_silent_blocs_echappement_display }}</span>
+                {% elif objet.silent_blocs_echappement == "REMPLACE" %}
+                    <span class="etat-bleu">{{ objet.get_silent_blocs_echappement_display }}</span>
+                {% else %}
+                    <span class="etat-gris">{{ objet.get_silent_blocs_echappement_display|default:"-" }}</span>
+                {% endif %}
+            </td>
+        </tr>
     </tbody>
 </table>
 
