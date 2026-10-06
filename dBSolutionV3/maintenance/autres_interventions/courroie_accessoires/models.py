@@ -421,6 +421,24 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
                     total = prix * quantite
                     total_general += total
 
+                    # Fabricant ("-" si non renseigné ou "Choisir")
+                    champ_fabricant = f"{field_name}_fabricant"
+                    fabricant = getattr(self, champ_fabricant, "") or ""
+
+                    if fabricant and fabricant != "CHOISIR":
+                        methode_fabricant = getattr(
+                            self,
+                            f"get_{champ_fabricant}_display",
+                            None,
+                        )
+                        fabricant_label = (
+                            methode_fabricant()
+                            if callable(methode_fabricant)
+                            else fabricant
+                        )
+                    else:
+                        fabricant_label = "-"
+
                     rapport.append({
                         "champ": field.verbose_name,
                         "code": field_name,
@@ -428,6 +446,8 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
                         "etat_label": dict(
                             EtatOKNotOK.choices
                         ).get(valeur, valeur),
+                        "fabricant": fabricant_label,
+                        "fabricant_code": fabricant,
                         "prix": prix,
                         "quantite": quantite,
                         "total": total,

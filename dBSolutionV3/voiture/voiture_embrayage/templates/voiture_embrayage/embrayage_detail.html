@@ -13,7 +13,7 @@
             {% with image_name=embrayage.fabricant|slugify %}
                 <img src="{% static 'embrayage/'|add:image_name|add:'.png' %}"
                      alt="{{ embrayage.fabricant }}"
-                     class="w-12 h-12"
+                     class="w-20 h-20"
                      onerror="this.src='{% static 'icons/disque-dembrayage.png' %}';">
             {% endwith %}
             <span>{% trans "Détails de l'embrayage :" %}</span>

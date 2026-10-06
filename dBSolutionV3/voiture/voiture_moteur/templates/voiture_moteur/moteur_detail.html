@@ -14,7 +14,7 @@
             {% with image_name=moteur.motoriste|slugify %}
                 <img src="{% static 'moteur/'|add:image_name|add:'.png' %}"
                      alt="{{ moteur.motoriste }}"
-                      class="w-[65px] h-[65px] object-contain"
+                      class="w-20 h-20 object-contain"
                      onerror="this.src='{% static 'icons/engine.png' %}';">
             {% endwith %}
             <span>{% trans "Détails du moteur :" %}</span>

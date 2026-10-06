@@ -7,9 +7,9 @@
 <br>
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-4">
 
-    <h1 class="text-2xl font-bold mb-6 text-center flex items-center justify-center gap-4">
+    <h1 class="text-2xl font-bold mb-6 text-center flex items-center justify-center">
         <img src="{% static 'icons/disque-dembrayage.png' %}" alt="embrayage"
-              class="w-20 h-20">
+             style="width:60px; height:60px; margin-right:10px;">
         {% trans "Ajouter un embrayage" %}
     </h1>
 
@@ -43,34 +43,31 @@
             </ul>
         </div>
     {% endif %}
-    <br>
-    <br>
+
      <form method="post" class="space-y-4">
         {% csrf_token %}
 
         {% for field in form %}
-            <div class="mb-4">
-                <label for="{{ field.id_for_label }}" class="block font-semibold mb-1">
-                    {{ field.label }}
-                    {% if field.field.required %}
-                        <span class="text-red-600">*</span>
-                    {% endif %}
-                </label>
-
-               {% if field.errors %}
-                    {% render_field field class+="input input-error" %}
-                {% else %}
-                    {% render_field field class+="input" %}
+            <label for="{{ field.id_for_label }}" class="font-semibold">
+                {{ field.label }}
+                {% if field.field.required %}
+                    <span class="text-red-600">*</span>
                 {% endif %}
+            </label>
 
-                {% if field.errors %}
-                    <div class="text-red-600 text-sm mt-1">
-                        {% for error in field.errors %}
-                            <p>{{ error }}</p>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
+           {% if field.errors %}
+                {% render_field field class+="input input-error" %}
+            {% else %}
+                {% render_field field class+="input" %}
+            {% endif %}
+
+            {% if field.errors %}
+                <div class="text-red-600 text-sm mb-2">
+                    {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
         {% endfor %}
 
 
