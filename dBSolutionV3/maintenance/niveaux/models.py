@@ -17,6 +17,7 @@ from django.core.exceptions import ValidationError
 class NiveauxEtat(models.TextChoices):
     BON = "BON", _("OK")
     AJOUTER = "AJOUTER", _("Ajouté")
+    REMPLACER = "REMPLACER", _("Remplacé")
 
 
 class Niveau(TechnicienMixin, models.Model):

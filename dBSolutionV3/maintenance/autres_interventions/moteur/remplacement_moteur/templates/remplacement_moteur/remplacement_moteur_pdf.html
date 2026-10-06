@@ -503,7 +503,7 @@
                         </span>
 
                     {% elif remplacement.niveau_huile_etat == "REMPLACER" %}
-                        <span class="etat-rouge">
+                        <span class="etat-bleu">
                             {{ remplacement.get_niveau_huile_etat_display }}
                         </span>
 
@@ -576,7 +576,7 @@
                         </span>
 
                     {% elif remplacement.refroidissement_etat == "REMPLACER" %}
-                        <span class="etat-rouge">
+                        <span class="etat-bleu">
                             {{ remplacement.get_refroidissement_etat_display }}
                         </span>
 
@@ -620,6 +620,84 @@
         </tbody>
     </table>
 </div>
+
+
+<!-- ================================================== -->
+<!-- LIQUIDE DE REFROIDISSEMENT -->
+<!-- ================================================== -->
+
+<h2>{% trans "Liquide de frein" %}</h2>
+
+<div class="table-2-cols">
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "État / Valeur" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>{% trans "Niveau de liquide de frein" %}</td>
+                <td>
+                    {% if remplacement.frein_liquide_etat == "BON" %}
+                        <span class="etat-vert">
+                            {{ remplacement.get_frein_liquide_etat_display }}
+                        </span>
+
+                    {% elif remplacement.frein_liquide_etat == "AJOUTER" %}
+                        <span class="etat-bleu">
+                            {{ remplacement.get_frein_liquide_etat_display }}
+                        </span>
+
+                    {% elif remplacement.frein_liquide_etat == "REMPLACER" %}
+                        <span class="etat-bleu">
+                            {{ remplacement.get_frein_liquide_etat_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ remplacement.get_frein_liquide_etat_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Fabricant du liquide de frein" %}</td>
+                <td>
+                    {{ remplacement.get_frein_liquide_fabricant_display|default:"-" }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    {% trans "Quantité de liquide de frein ajoutée" %}
+                </td>
+                <td>
+                    {{ remplacement.frein_liquide_quantite|default:0|floatformat:1 }} L
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Qualité du liquide de frein" %}</td>
+                <td>
+                    {{ remplacement.get_frein_liquide_qualite_display|default:"-" }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Prix unitaire du liquide de frein HTVA" %}</td>
+                <td>
+                    {{ remplacement.frein_liquide_prix|default:0|floatformat:2 }} €
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
 
 
 <!-- ================================================== -->
@@ -694,12 +772,12 @@
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE"  %}
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK"  or ligne.etat == "A_FAIRE"  %}
                                     <span class="etat-rouge">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" %}
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" or ligne.etat == "REMPLACER"%}
                                     <span class="etat-bleu">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>

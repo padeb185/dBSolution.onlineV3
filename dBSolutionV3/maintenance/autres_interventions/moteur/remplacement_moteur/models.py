@@ -610,8 +610,11 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
 
             etat = getattr(self, field_name, None)
 
-            # On facture uniquement les liquides ajoutés
-            if etat != NiveauxEtat.AJOUTER:
+            # On facture les liquides ajoutés ou remplacés
+            if etat not in (
+                    NiveauxEtat.AJOUTER,
+                    NiveauxEtat.REMPLACER,
+            ):
                 continue
 
             # Exemples :
@@ -675,6 +678,10 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
                 if get_fabricant_display is not None
                 else fabricant
             )
+
+            # Fabricant non choisi : ne pas afficher "Choisir"
+            if not fabricant or fabricant == "CHOISIR":
+                fabricant_label = ""
 
             total = (
                     prix * quantite

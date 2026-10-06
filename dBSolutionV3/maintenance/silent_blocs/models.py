@@ -105,7 +105,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent blocs barre stabilisatrice avant")
+        verbose_name=_("Silent blocs barre stabilisatrice avant")
     )
     silent_blocs_barre_stabilisatrice_av_fabricant = models.CharField(max_length=30, choices=FabricantSilentBloc.choices,
                                                      default=FabricantSilentBloc.CHOISIR, verbose_name=_("Fabricant"))
@@ -128,7 +128,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent blocs barre stabilisatrice arrière")
+        verbose_name=_("Silent blocs barre stabilisatrice arrière")
     )
     silent_blocs_barre_stabilisatrice_ar_fabricant = models.CharField(max_length=30,
                                                                       choices=FabricantSilentBloc.choices,
@@ -153,7 +153,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc amortisseur avant droit")
+        verbose_name=_("Silent bloc amortisseur avant droit")
     )
     silent_blocs_amortisseur_avd_fabricant = models.CharField(max_length=30,
                                                                       choices=FabricantSilentBloc.choices,
@@ -176,7 +176,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc amortisseur avant gauche")
+        verbose_name=_("Silent bloc amortisseur avant gauche")
     )
     silent_bloc_amortisseur_avg_fabricant = models.CharField(max_length=30,
                                                                       choices=FabricantSilentBloc.choices,
@@ -200,7 +200,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc amortisseur arrière droit")
+        verbose_name=_("Silent bloc amortisseur arrière droit")
     )
     silent_blocs_amortisseur_ard_fabricant = models.CharField(max_length=30,
                                                                       choices=FabricantSilentBloc.choices,
@@ -227,7 +227,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc amortisseur arrière gauche")
+        verbose_name=_("Silent bloc amortisseur arrière gauche")
     )
 
     silent_blocs_amortisseur_arg_fabricant = models.CharField(max_length=30,
@@ -262,7 +262,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc de triangle inférieur avant gauche")
+        verbose_name=_("Silent bloc de triangle inférieur avant gauche")
     )
     silent_blocs_triangle_inf_avg_fabricant = models.CharField(max_length=30,
                                                                       choices=FabricantSilentBloc.choices,
@@ -287,7 +287,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc de triangle inférieur arrière droit")
+        verbose_name=_("Silent bloc de triangle inférieur arrière droit")
     )
 
     silent_blocs_triangle_inf_ard_fabricant = models.CharField(max_length=30,
@@ -313,7 +313,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc de triangle inférieur arrière gauche")
+        verbose_name=_("Silent bloc de triangle inférieur arrière gauche")
     )
     silent_blocs_triangle_inf_arg_fabricant = models.CharField(max_length=30,
                                                                       choices=FabricantSilentBloc.choices,
@@ -336,7 +336,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc de triangle supérieur avant droit")
+        verbose_name=_("Silent bloc de triangle supérieur avant droit")
     )
 
     silent_blocs_triangle_sup_avd_fabricant = models.CharField(max_length=30,
@@ -360,7 +360,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc de triangle supérieur avant gauche")
+        verbose_name=_("Silent bloc de triangle supérieur avant gauche")
     )
 
     silent_blocs_triangle_sup_avg_fabricant = models.CharField(max_length=30,
@@ -385,7 +385,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc de triangle supérieur arrière droit")
+        verbose_name=_("Silent bloc de triangle supérieur arrière droit")
     )
 
     silent_blocs_triangle_sup_ard_fabricant = models.CharField(max_length=30,
@@ -410,7 +410,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc de triangle supérieur arrière gauche")
+        verbose_name=_("Silent bloc de triangle supérieur arrière gauche")
     )
 
     silent_blocs_triangle_sup_arg_fabricant = models.CharField(max_length=30,
@@ -435,7 +435,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc de suspension multi-bras avant droit")
+        verbose_name=_("Silent bloc de suspension multi-bras avant droit")
     )
 
     silent_blocs_multi_bras_avd_fabricant = models.CharField(max_length=30,
@@ -461,7 +461,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc de suspension multi-bras avant gauche")
+        verbose_name=_("Silent bloc de suspension multi-bras avant gauche")
     )
 
     silent_blocs_multi_bras_avg_fabricant = models.CharField(max_length=30,
@@ -485,7 +485,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc de suspension multi-bras arrière droit")
+        verbose_name=_("Silent bloc de suspension multi-bras arrière droit")
     )
 
     silent_blocs_multi_bras_ard_fabricant = models.CharField(max_length=30,
@@ -511,7 +511,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc de suspension multi-bras arrière gauche")
+        verbose_name=_("Silent bloc de suspension multi-bras arrière gauche")
     )
 
     silent_blocs_multi_bras_arg_fabricant = models.CharField(max_length=30,
@@ -539,7 +539,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc moteur")
+        verbose_name=_("Silent bloc moteur")
     )
     silent_blocs_moteur_avg_fabricant = models.CharField(max_length=30,
                                                                       choices=FabricantSilentBloc.choices,
@@ -565,7 +565,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc de boite de vitesse")
+        verbose_name=_("Silent bloc de boite de vitesse")
     )
 
     silent_blocs_moteur_boite_ard_fabricant = models.CharField(max_length=30,
@@ -593,7 +593,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("silent bloc moteur pendulaire")
+        verbose_name=_("Silent bloc moteur pendulaire")
     )
 
     silent_blocs_moteur_inf_arg_fabricant = models.CharField(max_length=30,
@@ -612,9 +612,28 @@ class SilentBloc(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA")
     )
 
+    silent_blocs_echappement = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Silent blocs d'échappement")
+    )
 
+    silent_blocs_echappement_fabricant = models.CharField(max_length=30,
+                                                             choices=FabricantSilentBloc.choices,
+                                                             default=FabricantSilentBloc.CHOISIR,
+                                                             verbose_name=_("Fabricant"))
 
-
+    silent_blocs_echappement_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+    silent_blocs_echappement_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
 
     remarques = models.TextField(
         blank=True,null=True,
