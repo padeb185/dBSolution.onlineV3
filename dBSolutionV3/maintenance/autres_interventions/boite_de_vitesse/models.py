@@ -523,66 +523,67 @@ class ControleBoite(TechnicienMixin, models.Model):
 
 
 
+
+    def _fabricant_display(self, base):
+
+        attr = f"{base}_fabricant"
+        valeur = getattr(self, attr, None)
+        if not valeur:
+            return ""
+        try:
+            defaut = self._meta.get_field(attr).default
+        except Exception:
+            defaut = None
+        if valeur == defaut:
+            return ""
+        return getattr(self, f"get_{attr}_display")()
+
+
+
+
     def generer_rapport_remplacement(self):
-            rapport = []
-            total_general = Decimal("0.00")
+        rapport = []
+        total_general = Decimal("0.00")
 
-            for field in self._meta.fields:
-                field_name = field.name
+        for field in self._meta.fields:
+            field_name = field.name
 
-                # Ne garder que les champs utilisant EtatOKNotOK
-                if (
-                        isinstance(field, models.CharField)
-                        and field.choices == BoiteVitesseEtat.choices
-                ):
-                    valeur = getattr(self, field_name)
+            # Ne garder que les champs d'état (BoiteVitesseEtat)
+            if (
+                    isinstance(field, models.CharField)
+                    and field.choices == BoiteVitesseEtat.choices
+            ):
+                valeur = getattr(self, field_name)
 
-                    # Pièces à remplacer ou déjà remplacées
-                    if valeur in [
-                        BoiteVitesseEtat.NOT_OK,
-                        BoiteVitesseEtat.REMPLACE,
-                    ]:
-                        prix = getattr(
-                            self,
-                            f"{field_name}_prix",
-                            Decimal("0.00"),
-                        )
+                # Pièces à remplacer ou déjà remplacées
+                if valeur in [
+                    BoiteVitesseEtat.NOT_OK,
+                    BoiteVitesseEtat.REMPLACE,
+                ]:
+                    prix = getattr(self, f"{field_name}_prix", Decimal("0.00"))
+                    prix = Decimal(str(prix or "0.00"))
 
-                        if prix is None:
-                            prix = Decimal("0.00")
+                    quantite = getattr(self, f"{field_name}_quantite", 0)
+                    quantite = Decimal(str(quantite or 0))
 
-                        prix = Decimal(str(prix))
+                    total = prix * quantite
+                    total_general += total
 
-                        quantite = getattr(
-                            self,
-                            f"{field_name}_quantite",
-                            0,
-                        )
+                    rapport.append({
+                        "champ": field.verbose_name,
+                        "code": field_name,
+                        "etat": valeur,
+                        "etat_label": dict(BoiteVitesseEtat.choices).get(valeur, valeur),
+                        "fabricant": self._fabricant_display(field_name),
+                        "prix": prix,
+                        "quantite": quantite,
+                        "total": total,
+                    })
 
-                        if quantite is None:
-                            quantite = 0
-
-                        quantite = Decimal(str(quantite))
-
-                        total = prix * quantite
-                        total_general += total
-
-                        rapport.append({
-                            "champ": field.verbose_name,
-                            "code": field_name,
-                            "etat": valeur,
-                            "etat_label": dict(
-                                BoiteVitesseEtat.choices
-                            ).get(valeur, valeur),
-                            "prix": prix,
-                            "quantite": quantite,
-                            "total": total,
-                        })
-
-            return {
-                "lignes": rapport,
-                "total_general": total_general,
-            }
+        return {
+            "lignes": rapport,
+            "total_general": total_general,
+        }
 
         # ======================================================
         # MAIN-D'ŒUVRE

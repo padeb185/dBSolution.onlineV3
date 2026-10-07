@@ -279,6 +279,11 @@
         </h2>
         {% for field in form %}
             {% if "bte_embrayage" in field.name %}
+                          {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "boite_embrayage_disque" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -321,14 +326,20 @@
         {% endfor %}
 
         <br>
+
 
            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/arbre-de-boite.png' %}" alt="Arbres de boite de vitesses"
                   class="w-20 h-20">
             {% trans "Arbre primaire / secondaire" %}
-        </h2>
+            </h2>
          {% for field in form %}
             {% if "bte_a" in field.name %}
+                          {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "boite_a_primaire" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -364,6 +375,7 @@
                         <p class="text-red-600 text-sm mt-1">
                             {{ field.errors|striptags }}
                         </p>
+
                     {% endif %}
                 {% endif %}
             </div>
@@ -371,6 +383,7 @@
         {% endfor %}
 
         <br>
+
 
 
 
@@ -378,10 +391,16 @@
            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roulement.png' %}" alt="roulement de boite"
                   class="w-20 h-20">
-            {% trans "Roulement de boite de vitesses" %}
+            {% trans "Roulements de boite de vitesses" %}
          </h2>
         {% for field in form %}
             {% if "roulem" in field.name %}
+
+                          {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "roulement_bte_primaire" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -418,6 +437,12 @@
          </h2>
         {% for field in form %}
             {% if "vitesse" in field.name %}
+
+                          {# Séparateur avant chaque nouvelle rotule (sauf la première) #}
+                {% if "_fabricant" not in field.name and "_quantite" not in field.name and "_prix" not in field.name and field.name != "vitesse_1" %}
+                    <hr style="margin: 2.5rem 0 1.5rem 0; border: 0; border-top: 2px solid #d1d5db;">
+                {% endif %}
+
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
