@@ -256,25 +256,25 @@ class GeometrieVoiture(models.Model):
                                           null=True, blank=True, verbose_name=_("Marque des amortisseurs"))
 
     amortissement_avant_rebond = models.IntegerField(
-        verbose_name=_("Amortissement avant rebond (clic)"),
+        verbose_name=_("Amortissement avant rebond (clics)"),
         default=0,
         null=True, blank=True
     )
 
     amortissement_avant_compression = models.IntegerField(
-        verbose_name=_("Amortissement avant compression (clic)"),
+        verbose_name=_("Amortissement avant compression (clics)"),
         default=0,
         null=True, blank=True
     )
 
     amortissement_arriere_rebond = models.IntegerField(
-        verbose_name=_("Amortissement arrière rebond (clic)"),
+        verbose_name=_("Amortissement arrière rebond (clics)"),
         default=0,
         null=True, blank=True
     )
 
     amortissement_arriere_compression = models.IntegerField(
-        verbose_name=_("Amortissement arrière compression (clic)"),
+        verbose_name=_("Amortissement arrière compression (clics)"),
         default=0,
         null=True, blank=True
     )

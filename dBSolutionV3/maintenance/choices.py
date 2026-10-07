@@ -2320,5 +2320,5 @@ class MarqueAmortisseur(models.TextChoices):
     SHOWA = "Showa", "Showa"
     TEIN = "Tein", "Tein"
     TOKICO = "Tokico", "Tokico"
-    ORIGINE = "Origine", _("Origine constructeur")
+    ORIGINE = "Origine", _("Origine constructeur (OEM)")
     AUTRE = "Autre", _("Autre")
