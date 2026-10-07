@@ -14025,7 +14025,7 @@ msgstr "Einspritzsystemkontrolle erfolgreich gelöscht."
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/forms.py:168
 msgid "Cochez lorsque le remplacement du moteur a réellement été effectué."
-msgstr ""
+msgstr "Aktivieren Sie dieses Kontrollkästchen, wenn der Motorwechsel tatsächlich durchgeführt wurde."
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:76
 msgid "Kilometres du moteur à remplacer"
@@ -14252,6 +14252,7 @@ msgstr "Motorwechsel erfolgreich gespeichert"
 msgid ""
 "Seul le dernier remplacement du moteur peut voir son kilométrage modifié."
 msgstr ""
+"Nur der Kilometerstand des letzten Motorwechsels kann geändert werden."
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:462
 msgid "Modification du remplacement moteur"

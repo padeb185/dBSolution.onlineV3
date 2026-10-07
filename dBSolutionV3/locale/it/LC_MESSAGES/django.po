@@ -14016,7 +14016,7 @@ msgstr "Controllo del sistema di iniezione eliminato con successo."
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/forms.py:168
 msgid "Cochez lorsque le remplacement du moteur a réellement été effectué."
-msgstr ""
+msgstr "Selezionare quando la sostituzione del motore è stata effettivamente eseguita."
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:76
 msgid "Kilometres du moteur à remplacer"
@@ -14242,6 +14242,7 @@ msgstr "Sostituzione del motore registrata con successo"
 msgid ""
 "Seul le dernier remplacement du moteur peut voir son kilométrage modifié."
 msgstr ""
+"Solo il chilometraggio dell'ultima sostituzione del motore può essere modificato."
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:462
 msgid "Modification du remplacement moteur"

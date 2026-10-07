@@ -13987,7 +13987,7 @@ msgstr "Fuel injection inspection deleted successfully."
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/forms.py:168
 msgid "Cochez lorsque le remplacement du moteur a réellement été effectué."
-msgstr ""
+msgstr "Check this box when the engine replacement has actually been completed."
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:76
 msgid "Kilometres du moteur à remplacer"
@@ -14214,6 +14214,7 @@ msgstr "Engine replacement successfully recorded"
 msgid ""
 "Seul le dernier remplacement du moteur peut voir son kilométrage modifié."
 msgstr ""
+"Only the mileage of the most recent engine replacement can be modified."
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:462
 msgid "Modification du remplacement moteur"

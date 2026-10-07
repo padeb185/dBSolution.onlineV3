@@ -14007,7 +14007,7 @@ msgstr "Control del sistema de inyección eliminado con éxito."
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/forms.py:168
 msgid "Cochez lorsque le remplacement du moteur a réellement été effectué."
-msgstr ""
+msgstr "Marque esta casilla cuando la sustitución del motor se haya realizado efectivamente."
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:76
 msgid "Kilometres du moteur à remplacer"
@@ -14234,6 +14234,7 @@ msgstr "Sustitución del motor registrada con éxito"
 msgid ""
 "Seul le dernier remplacement du moteur peut voir son kilométrage modifié."
 msgstr ""
+"Solo se puede modificar el kilometraje de la sustitución de motor más reciente."
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:462
 msgid "Modification du remplacement moteur"
