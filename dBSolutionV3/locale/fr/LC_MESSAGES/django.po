@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-07 10:45+0200\n"
+"POT-Creation-Date: 2026-10-07 11:08+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -12874,19 +12874,19 @@ msgid "Marque des amortisseurs"
 msgstr ""
 
 #: maintenance/autres_interventions/geometrie/models.py:259
-msgid "Amortissement avant rebond (clic)"
+msgid "Amortissement avant rebond (clics)"
 msgstr ""
 
 #: maintenance/autres_interventions/geometrie/models.py:265
-msgid "Amortissement avant compression (clic)"
+msgid "Amortissement avant compression (clics)"
 msgstr ""
 
 #: maintenance/autres_interventions/geometrie/models.py:271
-msgid "Amortissement arrière rebond (clic)"
+msgid "Amortissement arrière rebond (clics)"
 msgstr ""
 
 #: maintenance/autres_interventions/geometrie/models.py:277
-msgid "Amortissement arrière compression (clic)"
+msgid "Amortissement arrière compression (clics)"
 msgstr ""
 
 #: maintenance/autres_interventions/geometrie/models.py:403
@@ -15182,9 +15182,14 @@ msgid "Ajout de l'huile moteur"
 msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:176
-#: maintenance/check_up/models.py:221 maintenance/checkup_track/models.py:209
+#: maintenance/check_up/models.py:221
+#: maintenance/check_up/templates/check_up/controle_total.html:329
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:330
+#: maintenance/checkup_track/models.py:209
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:552
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2531
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:332
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:338
 #: maintenance/essuyage/models.py:694
 #: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:736
 #: maintenance/niveaux/models.py:475
@@ -18364,15 +18369,6 @@ msgstr ""
 msgid "Essuie-glace"
 msgstr ""
 
-#: maintenance/check_up/templates/check_up/controle_total.html:329
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:330
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:332
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:338
-#, fuzzy
-#| msgid "Tableau de bord"
-msgid "Liquide de lave glace"
-msgstr "Tableau de Bord"
-
 #: maintenance/check_up/templates/check_up/controle_total.html:471
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:470
 #: maintenance/niveaux/models.py:104
@@ -21438,6 +21434,7 @@ msgstr ""
 #: maintenance/choices.py:1624 maintenance/choices.py:1641
 #: maintenance/choices.py:1653 maintenance/choices.py:1670
 #: maintenance/choices.py:1684 maintenance/choices.py:2263
+#: maintenance/choices.py:2323
 msgid "Origine constructeur (OEM)"
 msgstr ""
 
@@ -23208,12 +23205,6 @@ msgstr ""
 #: maintenance/choices.py:2290
 msgid "A Faire"
 msgstr ""
-
-#: maintenance/choices.py:2323
-#, fuzzy
-#| msgid "Tableau de bord"
-msgid "Origine constructeur"
-msgstr "Tableau de Bord"
 
 #: maintenance/entretien/models.py:107
 msgid "Kilométrage au moment de l'entretien"
@@ -31593,6 +31584,16 @@ msgstr ""
 #| msgid "Tableau de bord"
 msgid "Pneus supprimés avec succès."
 msgstr "Tableau de Bord"
+
+#, fuzzy
+#~| msgid "Tableau de bord"
+#~ msgid "Liquide de lave glace"
+#~ msgstr "Tableau de Bord"
+
+#, fuzzy
+#~| msgid "Tableau de bord"
+#~ msgid "Origine constructeur"
+#~ msgstr "Tableau de Bord"
 
 #, fuzzy
 #~| msgid "Tableau de bord"
