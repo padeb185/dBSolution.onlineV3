@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import TVAConfig, HuileBoiteEtat, RouesSerrageEtat
+from maintenance.choices import TVAConfig, HuileBoiteEtat, RouesSerrageEtat, FabricantBoite, FabricantLubrifiant
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -131,104 +131,145 @@ class ControleBoite(TechnicienMixin, models.Model):
 
 
     # Arbres
-    bte_a_primaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Arbre primaire"))
+    # Arbres
+    bte_a_primaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
+                                      verbose_name=_("Arbre primaire"))
+    bte_a_primaire_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices,
+                                                default=FabricantBoite.CHOISIR, verbose_name=_("Fabricant"))
     bte_a_primaire_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
-    bte_a_primaire_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    bte_a_primaire_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                              verbose_name=_("Prix d'achat HTVA"))
 
-
-    bte_a_secondaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Arbre secondaire"))
+    bte_a_secondaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
+                                        verbose_name=_("Arbre secondaire"))
+    bte_a_secondaire_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices,
+                                                  default=FabricantBoite.CHOISIR, verbose_name=_("Fabricant"))
     bte_a_secondaire_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
-    bte_a_secondaire_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
-
-
+    bte_a_secondaire_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                                verbose_name=_("Prix d'achat HTVA"))
 
     # Roulements
-    roulement_bte_primaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Roulement arbre primaire"))
+    roulement_bte_primaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,
+                                              default=BoiteVitesseEtat.OK, verbose_name=_("Roulement arbre primaire"))
+    roulement_bte_primaire_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices,
+                                                        default=FabricantBoite.CHOISIR, verbose_name=_("Fabricant"))
     roulement_bte_primaire_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
-    roulement_bte_primaire_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    roulement_bte_primaire_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                                      verbose_name=_("Prix d'achat HTVA"))
 
-
-    roulement_bte_secondaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Roulement arbre secondaire"))
+    roulement_bte_secondaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,
+                                                default=BoiteVitesseEtat.OK,
+                                                verbose_name=_("Roulement arbre secondaire"))
+    roulement_bte_secondaire_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices,
+                                                          default=FabricantBoite.CHOISIR, verbose_name=_("Fabricant"))
     roulement_bte_secondaire_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
-    roulement_bte_secondaire_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    roulement_bte_secondaire_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                                        verbose_name=_("Prix d'achat HTVA"))
 
-
-
-    roulement_bte_differentiel = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Roulement différentiel"))
+    roulement_bte_differentiel = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,
+                                                  default=BoiteVitesseEtat.OK, verbose_name=_("Roulement différentiel"))
+    roulement_bte_differentiel_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices,
+                                                            default=FabricantBoite.CHOISIR, verbose_name=_("Fabricant"))
     roulement_bte_differentiel_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
-    roulement_bte_differentiel_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
-
-
+    roulement_bte_differentiel_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                                          verbose_name=_("Prix d'achat HTVA"))
 
     # Vitesses / pignons
-    vitesse_1 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 1ère vitesse"))
+    vitesse_1 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
+                                 verbose_name=_("Pignon 1ère vitesse"))
+    vitesse_1_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices,
+                                           default=FabricantBoite.CHOISIR, verbose_name=_("Fabricant"))
     vitesse_1_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
-    vitesse_1_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_1_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                         verbose_name=_("Prix d'achat HTVA"))
 
-
-
-    vitesse_2 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 2ème vitesse"))
+    vitesse_2 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
+                                 verbose_name=_("Pignon 2ème vitesse"))
+    vitesse_2_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices,
+                                           default=FabricantBoite.CHOISIR, verbose_name=_("Fabricant"))
     vitesse_2_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
-    vitesse_2_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_2_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                         verbose_name=_("Prix d'achat HTVA"))
 
-
-    vitesse_3 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 3ème vitesse"))
+    vitesse_3 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
+                                 verbose_name=_("Pignon 3ème vitesse"))
+    vitesse_3_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices,
+                                           default=FabricantBoite.CHOISIR, verbose_name=_("Fabricant"))
     vitesse_3_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
-    vitesse_3_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_3_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                         verbose_name=_("Prix d'achat HTVA"))
 
-
-    vitesse_4 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 4ème vitesse"))
+    vitesse_4 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
+                                 verbose_name=_("Pignon 4ème vitesse"))
+    vitesse_4_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices,
+                                           default=FabricantBoite.CHOISIR, verbose_name=_("Fabricant"))
     vitesse_4_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
-    vitesse_4_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_4_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                         verbose_name=_("Prix d'achat HTVA"))
 
-
-    vitesse_5 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 5ème vitesse"))
+    vitesse_5 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
+                                 verbose_name=_("Pignon 5ème vitesse"))
+    vitesse_5_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices,
+                                           default=FabricantBoite.CHOISIR, verbose_name=_("Fabricant"))
     vitesse_5_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
-    vitesse_5_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_5_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                         verbose_name=_("Prix d'achat HTVA"))
 
-
-
-
-    vitesse_6 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 6ème vitesse (si existante)"))
+    vitesse_6 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
+                                 verbose_name=_("Pignon 6ème vitesse (si existante)"))
+    vitesse_6_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices,
+                                           default=FabricantBoite.CHOISIR, verbose_name=_("Fabricant"))
     vitesse_6_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
-    vitesse_6_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_6_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                         verbose_name=_("Prix d'achat HTVA"))
 
-
-
-    vitesse_7 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,verbose_name=_("Pignon 7ème vitesse (si existante)"))
+    vitesse_7 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
+                                 verbose_name=_("Pignon 7ème vitesse (si existante)"))
+    vitesse_7_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices,
+                                           default=FabricantBoite.CHOISIR, verbose_name=_("Fabricant"))
     vitesse_7_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
-    vitesse_7_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_7_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                         verbose_name=_("Prix d'achat HTVA"))
 
-
-
-    vitesse_8 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,verbose_name=_("Pignon 8ème vitesse (si existante)"))
+    vitesse_8 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
+                                 verbose_name=_("Pignon 8ème vitesse (si existante)"))
+    vitesse_8_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices,
+                                           default=FabricantBoite.CHOISIR, verbose_name=_("Fabricant"))
     vitesse_8_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
-    vitesse_8_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_8_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                         verbose_name=_("Prix d'achat HTVA"))
 
-
-
-    vitesse_r = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,verbose_name=_("Pignon de marche arrière"))
+    vitesse_r = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
+                                 verbose_name=_("Pignon de marche arrière"))
+    vitesse_r_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices,
+                                           default=FabricantBoite.CHOISIR, verbose_name=_("Fabricant"))
     vitesse_r_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
-    vitesse_r_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
-
+    vitesse_r_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                         verbose_name=_("Prix d'achat HTVA"))
 
     # Synchros / fourchettes
-    synchros = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Synchros"))
+    synchros = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
+                                verbose_name=_("Synchros"))
+    synchros_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices, default=FabricantBoite.CHOISIR,
+                                          verbose_name=_("Fabricant"))
     synchros_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
     synchros_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
 
-
-    fourchettes = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Fourchettes"))
+    fourchettes = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
+                                   verbose_name=_("Fourchettes"))
+    fourchettes_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices,
+                                             default=FabricantBoite.CHOISIR, verbose_name=_("Fabricant"))
     fourchettes_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
-    fourchettes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
-
-
+    fourchettes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
+                                           verbose_name=_("Prix d'achat HTVA"))
 
 
 
     # Huile
-    man_huile_manuelle = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,verbose_name=_("Huile de boite de vitesse"))
-
+    man_huile_manuelle = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
+                                          verbose_name=_("Huile de boite de vitesse"))
+    man_huile_manuelle_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,
+                                                    default=FabricantLubrifiant.CHOISIR, verbose_name=_("Fabricant"))
     man_huile_manuelle_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices,
                                                   default=HuileBoiteEtat.SEPTANTE_CINQ,
                                                   verbose_name=_("Qualité de l'huile"))

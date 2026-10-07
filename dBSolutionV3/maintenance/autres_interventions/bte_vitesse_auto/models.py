@@ -5,7 +5,8 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
-from maintenance.choices import FabricantLubrifiant, FabricantEmbrayage, TVAConfig, HuileBoiteAutoEtat, RouesSerrageEtat
+from maintenance.choices import FabricantLubrifiant, FabricantEmbrayage, TVAConfig, HuileBoiteAutoEtat, \
+    RouesSerrageEtat, FabricantBoite
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -164,6 +165,14 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Valves de contrôle")
     )
+
+    pompes_valves_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Valves de contrôle")
+    )
+    
     pompes_valves_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -175,7 +184,7 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA")
     )
 
-
+   
     arbre_bte_torque = models.CharField(
         max_length=25,
         choices=BoiteVitesseEtat.choices,
@@ -183,10 +192,18 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Arbre de couple")
     )
 
+    arbre_bte_torque_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     arbre_bte_torque_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
     )
+
     arbre_bte_torque_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -194,13 +211,18 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA")
     )
 
-
-
     arbre_bte_secondaire_auto = models.CharField(
         max_length=25,
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Arbre secondaire")
+    )
+
+    arbre_bte_secondaire_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     arbre_bte_secondaire_auto_quantite = models.PositiveIntegerField(
@@ -215,12 +237,18 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA")
     )
 
-
     roulement_auto = models.CharField(
         max_length=25,
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Roulements internes")
+    )
+
+    roulement_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     roulement_auto_quantite = models.PositiveIntegerField(
@@ -249,6 +277,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Bloc hydraulique")
     )
 
+    bloc_hydraulique_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     bloc_hydraulique_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -269,6 +304,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Unité mécatronique")
+    )
+
+    mecatronique_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     mecatronique_quantite = models.PositiveIntegerField(
@@ -293,6 +335,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Solénoïdes")
     )
 
+    solenoides_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     solenoides_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -313,6 +362,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Électrovannes")
+    )
+
+    electrovannes_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     electrovannes_quantite = models.PositiveIntegerField(
@@ -339,8 +395,8 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
 
     filtre_boite_auto_fabricant = models.CharField(
         max_length=25,
-        choices=FabricantEmbrayage.choices,
-        default=FabricantEmbrayage.CHOISIR,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
         verbose_name=_("Fabricant")
     )
 
@@ -366,6 +422,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Carter d'huile de boîte")
     )
 
+    carter_huile_boite_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     carter_huile_boite_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -386,6 +449,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Joint de carter de boîte")
+    )
+
+    joint_c_boite_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     joint_c_boite_auto_quantite = models.PositiveIntegerField(
@@ -410,6 +480,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Crépine de boîte automatique")
     )
 
+    crepine_boite_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     crepine_boite_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -430,6 +507,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Pompe hydraulique")
+    )
+
+    pompe_hydraulique_boite_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     pompe_hydraulique_boite_quantite = models.PositiveIntegerField(
@@ -454,6 +538,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Embrayages internes")
     )
 
+    embrayages_internes_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     embrayages_internes_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -474,6 +565,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Disques d'embrayage internes")
+    )
+
+    disques_embrayage_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     disques_embrayage_auto_quantite = models.PositiveIntegerField(
@@ -498,6 +596,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Disques acier d'embrayage")
     )
 
+    disques_acier_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     disques_acier_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -518,6 +623,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Tambours d'embrayage")
+    )
+
+    tambours_embrayage_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     tambours_embrayage_auto_quantite = models.PositiveIntegerField(
@@ -542,6 +654,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Pistons d'embrayage")
     )
 
+    pistons_embrayage_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     pistons_embrayage_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -562,6 +681,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Joints de pistons")
+    )
+
+    joints_p_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     joints_p_auto_quantite = models.PositiveIntegerField(
@@ -586,6 +712,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Train épicycloïdal")
     )
 
+    train_epicycloidal_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     train_epicycloidal_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -606,6 +739,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Pignon planétaire")
+    )
+
+    pignon_planetaire_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     pignon_planetaire_quantite = models.PositiveIntegerField(
@@ -630,6 +770,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Pignons satellites")
     )
 
+    pignons_satellites_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     pignons_satellites_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -650,6 +797,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Couronne du train épicycloïdal")
+    )
+
+    couronne_epicycloidale_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     couronne_epicycloidale_quantite = models.PositiveIntegerField(
@@ -674,6 +828,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Porte-satellites")
     )
 
+    porte_satellites_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     porte_satellites_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -686,7 +847,6 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA")
     )
 
-
     # -------------------------
     # Pignons internes
     # -------------------------
@@ -695,6 +855,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Pignons internes")
+    )
+
+    pignons_internes_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     pignons_internes_auto_quantite = models.PositiveIntegerField(
@@ -719,6 +886,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Roue libre")
     )
 
+    roue_libre_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     roue_libre_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -739,6 +913,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Freins internes")
+    )
+
+    freins_internes_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     freins_internes_auto_quantite = models.PositiveIntegerField(
@@ -763,6 +944,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Bandes de frein")
     )
 
+    bandes_frein_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     bandes_frein_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -783,6 +971,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Capteur de vitesse d'entrée")
+    )
+
+    capteur_vitesse_entree_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     capteur_vitesse_entree_auto_quantite = models.PositiveIntegerField(
@@ -807,6 +1002,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Capteur de vitesse de sortie")
     )
 
+    capteur_vitesse_sortie_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     capteur_vitesse_sortie_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -827,6 +1029,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Capteur de température d'huile")
+    )
+
+    capteur_temperature_huile_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     capteur_temperature_huile_auto_quantite = models.PositiveIntegerField(
@@ -851,6 +1060,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Capteur de pression d'huile")
     )
 
+    capteur_pression_huile_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     capteur_pression_huile_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -871,6 +1087,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Calculateur de boîte automatique")
+    )
+
+    calculateur_boite_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     calculateur_boite_auto_quantite = models.PositiveIntegerField(
@@ -895,6 +1118,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Faisceau électrique de boîte")
     )
 
+    faisceau_boite_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     faisceau_boite_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -915,6 +1145,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Connecteur électrique de boîte")
+    )
+
+    connecteur_boite_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     connecteur_boite_auto_quantite = models.PositiveIntegerField(
@@ -939,6 +1176,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Sélecteur de boîte")
     )
 
+    selecteur_boite_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     selecteur_boite_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -959,6 +1203,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Capteur de position du sélecteur")
+    )
+
+    capteur_position_selecteur_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     capteur_position_selecteur_auto_quantite = models.PositiveIntegerField(
@@ -983,6 +1234,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Différentiel")
     )
 
+    differentiel_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     differentiel_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -1003,6 +1261,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Pignons de différentiel")
+    )
+
+    pignons_differentiel_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     pignons_differentiel_auto_quantite = models.PositiveIntegerField(
@@ -1027,6 +1292,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Joints spi de boîte")
     )
 
+    joints_spi_boite_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     joints_spi_boite_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -1047,6 +1319,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Joints toriques de boîte")
+    )
+
+    joints_toriques_boite_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     joints_toriques_boite_auto_quantite = models.PositiveIntegerField(
@@ -1071,6 +1350,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Bagues de boîte automatique")
     )
 
+    bagues_boite_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     bagues_boite_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -1091,6 +1377,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Échangeur d'huile de boîte")
+    )
+
+    echangeur_huile_boite_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
     )
 
     echangeur_huile_boite_auto_quantite = models.PositiveIntegerField(
@@ -1115,6 +1408,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Durites d'huile de boîte")
     )
 
+    durites_huile_boite_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     durites_huile_boite_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -1137,6 +1437,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Supports de boîte automatique")
     )
 
+    supports_boite_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     supports_boite_auto_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité")
@@ -1153,7 +1460,7 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
                                           verbose_name=_("Huile de boite de vitesse"))
 
     huile_bte_auto_vitesse_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,
-                                              default=FabricantLubrifiant.CASTROL,
+                                              default=FabricantLubrifiant.CHOISIR,
                                               verbose_name=_("Fabricant"))
 
     huile_bte_auto_vitesse_qualite = models.CharField(max_length=25, choices=HuileBoiteAutoEtat.choices,
@@ -1416,307 +1723,86 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
             rounding=ROUND_HALF_UP,
         )
 
+    def _fabricant_display(self, base):
+        """Libellé du fabricant, ou '' si le champ n'existe pas ou vaut sa valeur par défaut."""
+        attr = f"{base}_fabricant"
+        valeur = getattr(self, attr, None)
+        if not valeur:
+            return ""
+        try:
+            defaut = self._meta.get_field(attr).default
+        except Exception:
+            defaut = None
+        if valeur == defaut:
+            return ""
+        return getattr(self, f"get_{attr}_display")()
+
+
+
     def generer_rapport_remplacement(self):
         lignes = []
         total_pieces = Decimal("0.00")
 
+        pieces_def = [
+            (_("Convertisseur de couple"), "auto_emb_convertisseur_couple"),
+            (_("Double embrayage"), "double_embrayage"),
+            (_("Valves de contrôle"), "pompes_valves"),
+            (_("Arbre de couple"), "arbre_bte_torque"),
+            (_("Arbre secondaire"), "arbre_bte_secondaire_auto"),
+            (_("Roulements internes"), "roulement_auto"),
+            (_("Bloc hydraulique"), "bloc_hydraulique"),
+            (_("Unité mécatronique"), "mecatronique"),
+            (_("Solénoïdes"), "solenoides"),
+            (_("Électrovannes"), "electrovannes"),
+            (_("Filtre de boîte automatique"), "filtre_boite_auto"),
+            (_("Carter d'huile de boîte"), "carter_huile_boite_auto"),
+            (_("Joint de carter de boîte"), "joint_c_boite_auto"),
+            (_("Crépine de boîte automatique"), "crepine_boite_auto"),
+            (_("Pompe hydraulique"), "pompe_hydraulique_boite"),
+            (_("Embrayages internes"), "embrayages_internes_auto"),
+            (_("Disques d'embrayage internes"), "disques_embrayage_auto"),
+            (_("Disques acier d'embrayage"), "disques_acier_auto"),
+            (_("Tambours d'embrayage"), "tambours_embrayage_auto"),
+            (_("Pistons d'embrayage"), "pistons_embrayage_auto"),
+            (_("Joints de pistons"), "joints_p_auto"),
+            (_("Train épicycloïdal"), "train_epicycloidal"),
+            (_("Pignon planétaire"), "pignon_planetaire"),
+            (_("Pignons satellites"), "pignons_satellites"),
+            (_("Couronne du train épicycloïdal"), "couronne_epicycloidale"),
+            (_("Porte-satellites"), "porte_satellites"),
+            (_("Pignons internes"), "pignons_internes_auto"),
+            (_("Roue libre"), "roue_libre_auto"),
+            (_("Freins internes"), "freins_internes_auto"),
+            (_("Bandes de frein"), "bandes_frein_auto"),
+            (_("Capteur de vitesse d'entrée"), "capteur_vitesse_entree_auto"),
+            (_("Capteur de vitesse de sortie"), "capteur_vitesse_sortie_auto"),
+            (_("Capteur de température d'huile"), "capteur_temperature_huile_auto"),
+            (_("Capteur de pression d'huile"), "capteur_pression_huile_auto"),
+            (_("Calculateur de boîte automatique"), "calculateur_boite_auto"),
+            (_("Faisceau électrique de boîte"), "faisceau_boite_auto"),
+            (_("Connecteur électrique de boîte"), "connecteur_boite_auto"),
+            (_("Sélecteur de boîte"), "selecteur_boite_auto"),
+            (_("Capteur de position du sélecteur"), "capteur_position_selecteur_auto"),
+            (_("Différentiel"), "differentiel_auto"),
+            (_("Pignons de différentiel"), "pignons_differentiel_auto"),
+            (_("Joints spi de boîte"), "joints_spi_boite_auto"),
+            (_("Joints toriques de boîte"), "joints_toriques_boite_auto"),
+            (_("Bagues de boîte automatique"), "bagues_boite_auto"),
+            (_("Échangeur d'huile de boîte"), "echangeur_huile_boite_auto"),
+            (_("Durites d'huile de boîte"), "durites_huile_boite_auto"),
+            (_("Supports de boîte automatique"), "supports_boite_auto"),
+            (_("Huile de boîte automatique"), "huile_bte_auto_vitesse"),
+        ]
+
         pieces = [
             {
-                "champ": _("Convertisseur de couple"),
-                "etat": self.auto_emb_convertisseur_couple,
-                "prix": self.auto_emb_convertisseur_couple_prix,
-                "quantite": self.auto_emb_convertisseur_couple_quantite,
-            },
-            {
-                "champ": _("Double embrayage"),
-                "etat": self.double_embrayage,
-                "prix": self.double_embrayage_prix,
-                "quantite": self.double_embrayage_quantite,
-            },
-            {
-                "champ": _("Pompe à huile"),
-                "etat": self.pompe_hydraulique_boite,
-                "prix": self.pompe_hydraulique_boite_prix,
-                "quantite": self.pompe_hydraulique_boite_quantite,
-            },
-            {
-                "champ": _("Valves de contrôle"),
-                "etat": self.pompes_valves,
-                "prix": self.pompes_valves_prix,
-                "quantite": self.pompes_valves_quantite,
-            },
-            {
-                "champ": _("Arbre de couple"),
-                "etat": self.arbre_bte_torque,
-                "prix": self.arbre_bte_torque_prix,
-                "quantite": self.arbre_bte_torque_quantite,
-            },
-            {
-                "champ": _("Arbre secondaire"),
-                "etat": self.arbre_bte_secondaire_auto,
-                "prix": self.arbre_bte_secondaire_auto_prix,
-                "quantite": self.arbre_bte_secondaire_auto_quantite,
-            },
-            {
-                "champ": _("Roulements internes"),
-                "etat": self.roulement_auto,
-                "prix": self.roulement_auto_prix,
-                "quantite": self.roulement_auto_quantite,
-            },
-
-            {
-                "champ": _("Bloc hydraulique"),
-                "etat": self.bloc_hydraulique,
-                "prix": self.bloc_hydraulique_prix,
-                "quantite": self.bloc_hydraulique_quantite,
-            },
-            {
-                "champ": _("Unité mécatronique"),
-                "etat": self.mecatronique,
-                "prix": self.mecatronique_prix,
-                "quantite": self.mecatronique_quantite,
-            },
-            {
-                "champ": _("Solénoïdes"),
-                "etat": self.solenoides,
-                "prix": self.solenoides_prix,
-                "quantite": self.solenoides_quantite,
-            },
-            {
-                "champ": _("Électrovannes"),
-                "etat": self.electrovannes,
-                "prix": self.electrovannes_prix,
-                "quantite": self.electrovannes_quantite,
-            },
-            {
-                "champ": _("Filtre de boîte automatique"),
-                "etat": self.filtre_boite_auto,
-                "prix": self.filtre_boite_auto_prix,
-                "quantite": self.filtre_boite_auto_quantite,
-            },
-            {
-                "champ": _("Carter d'huile de boîte"),
-                "etat": self.carter_huile_boite_auto,
-                "prix": self.carter_huile_boite_auto_prix,
-                "quantite": self.carter_huile_boite_auto_quantite,
-            },
-            {
-                "champ": _("Joint de carter de boîte"),
-                "etat": self.joint_c_boite_auto,
-                "prix": self.joint_c_boite_auto_prix,
-                "quantite": self.joint_c_boite_auto_quantite,
-            },
-            {
-                "champ": _("Crépine de boîte automatique"),
-                "etat": self.crepine_boite_auto,
-                "prix": self.crepine_boite_auto_prix,
-                "quantite": self.crepine_boite_auto_quantite,
-            },
-            {
-                "champ": _("Pompe hydraulique"),
-                "etat": self.pompe_hydraulique_boite,
-                "prix": self.pompe_hydraulique_boite_prix,
-                "quantite": self.pompe_hydraulique_boite_quantite,
-            },
-            {
-                "champ": _("Embrayages internes"),
-                "etat": self.embrayages_internes_auto,
-                "prix": self.embrayages_internes_auto_prix,
-                "quantite": self.embrayages_internes_auto_quantite,
-            },
-            {
-                "champ": _("Disques d'embrayage internes"),
-                "etat": self.disques_embrayage_auto,
-                "prix": self.disques_embrayage_auto_prix,
-                "quantite": self.disques_embrayage_auto_quantite,
-            },
-            {
-                "champ": _("Disques acier d'embrayage"),
-                "etat": self.disques_acier_auto,
-                "prix": self.disques_acier_auto_prix,
-                "quantite": self.disques_acier_auto_quantite,
-            },
-            {
-                "champ": _("Tambours d'embrayage"),
-                "etat": self.tambours_embrayage_auto,
-                "prix": self.tambours_embrayage_auto_prix,
-                "quantite": self.tambours_embrayage_auto_quantite,
-            },
-            {
-                "champ": _("Pistons d'embrayage"),
-                "etat": self.pistons_embrayage_auto,
-                "prix": self.pistons_embrayage_auto_prix,
-                "quantite": self.pistons_embrayage_auto_quantite,
-            },
-            {
-                "champ": _("Joints de pistons"),
-                "etat": self.joints_p_auto,
-                "prix": self.joints_p_auto_prix,
-                "quantite": self.joints_p_auto_quantite,
-            },
-            {
-                "champ": _("Train épicycloïdal"),
-                "etat": self.train_epicycloidal,
-                "prix": self.train_epicycloidal_prix,
-                "quantite": self.train_epicycloidal_quantite,
-            },
-            {
-                "champ": _("Pignon planétaire"),
-                "etat": self.pignon_planetaire,
-                "prix": self.pignon_planetaire_prix,
-                "quantite": self.pignon_planetaire_quantite,
-            },
-            {
-                "champ": _("Pignons satellites"),
-                "etat": self.pignons_satellites,
-                "prix": self.pignons_satellites_prix,
-                "quantite": self.pignons_satellites_quantite,
-            },
-            {
-                "champ": _("Couronne du train épicycloïdal"),
-                "etat": self.couronne_epicycloidale,
-                "prix": self.couronne_epicycloidale_prix,
-                "quantite": self.couronne_epicycloidale_quantite,
-            },
-            {
-                "champ": _("Porte-satellites"),
-                "etat": self.porte_satellites,
-                "prix": self.porte_satellites_prix,
-                "quantite": self.porte_satellites_quantite,
-            },
-            {
-                "champ": _("Pignons internes"),
-                "etat": self.pignons_internes_auto,
-                "prix": self.pignons_internes_auto_prix,
-                "quantite": self.pignons_internes_auto_quantite,
-            },
-            {
-                "champ": _("Roue libre"),
-                "etat": self.roue_libre_auto,
-                "prix": self.roue_libre_auto_prix,
-                "quantite": self.roue_libre_auto_quantite,
-            },
-            {
-                "champ": _("Freins internes"),
-                "etat": self.freins_internes_auto,
-                "prix": self.freins_internes_auto_prix,
-                "quantite": self.freins_internes_auto_quantite,
-            },
-            {
-                "champ": _("Bandes de frein"),
-                "etat": self.bandes_frein_auto,
-                "prix": self.bandes_frein_auto_prix,
-                "quantite": self.bandes_frein_auto_quantite,
-            },
-            {
-                "champ": _("Capteur de vitesse d'entrée"),
-                "etat": self.capteur_vitesse_entree_auto,
-                "prix": self.capteur_vitesse_entree_auto_prix,
-                "quantite": self.capteur_vitesse_entree_auto_quantite,
-            },
-            {
-                "champ": _("Capteur de vitesse de sortie"),
-                "etat": self.capteur_vitesse_sortie_auto,
-                "prix": self.capteur_vitesse_sortie_auto_prix,
-                "quantite": self.capteur_vitesse_sortie_auto_quantite,
-            },
-            {
-                "champ": _("Capteur de température d'huile"),
-                "etat": self.capteur_temperature_huile_auto,
-                "prix": self.capteur_temperature_huile_auto_prix,
-                "quantite": self.capteur_temperature_huile_auto_quantite,
-            },
-            {
-                "champ": _("Capteur de pression d'huile"),
-                "etat": self.capteur_pression_huile_auto,
-                "prix": self.capteur_pression_huile_auto_prix,
-                "quantite": self.capteur_pression_huile_auto_quantite,
-            },
-            {
-                "champ": _("Calculateur de boîte automatique"),
-                "etat": self.calculateur_boite_auto,
-                "prix": self.calculateur_boite_auto_prix,
-                "quantite": self.calculateur_boite_auto_quantite,
-            },
-            {
-                "champ": _("Faisceau électrique de boîte"),
-                "etat": self.faisceau_boite_auto,
-                "prix": self.faisceau_boite_auto_prix,
-                "quantite": self.faisceau_boite_auto_quantite,
-            },
-            {
-                "champ": _("Connecteur électrique de boîte"),
-                "etat": self.connecteur_boite_auto,
-                "prix": self.connecteur_boite_auto_prix,
-                "quantite": self.connecteur_boite_auto_quantite,
-            },
-            {
-                "champ": _("Sélecteur de boîte"),
-                "etat": self.selecteur_boite_auto,
-                "prix": self.selecteur_boite_auto_prix,
-                "quantite": self.selecteur_boite_auto_quantite,
-            },
-            {
-                "champ": _("Capteur de position du sélecteur"),
-                "etat": self.capteur_position_selecteur_auto,
-                "prix": self.capteur_position_selecteur_auto_prix,
-                "quantite": self.capteur_position_selecteur_auto_quantite,
-            },
-            {
-                "champ": _("Différentiel"),
-                "etat": self.differentiel_auto,
-                "prix": self.differentiel_auto_prix,
-                "quantite": self.differentiel_auto_quantite,
-            },
-            {
-                "champ": _("Pignons de différentiel"),
-                "etat": self.pignons_differentiel_auto,
-                "prix": self.pignons_differentiel_auto_prix,
-                "quantite": self.pignons_differentiel_auto_quantite,
-            },
-            {
-                "champ": _("Joints spi de boîte"),
-                "etat": self.joints_spi_boite_auto,
-                "prix": self.joints_spi_boite_auto_prix,
-                "quantite": self.joints_spi_boite_auto_quantite,
-            },
-            {
-                "champ": _("Joints toriques de boîte"),
-                "etat": self.joints_toriques_boite_auto,
-                "prix": self.joints_toriques_boite_auto_prix,
-                "quantite": self.joints_toriques_boite_auto_quantite,
-            },
-            {
-                "champ": _("Bagues de boîte automatique"),
-                "etat": self.bagues_boite_auto,
-                "prix": self.bagues_boite_auto_prix,
-                "quantite": self.bagues_boite_auto_quantite,
-            },
-            {
-                "champ": _("Échangeur d'huile de boîte"),
-                "etat": self.echangeur_huile_boite_auto,
-                "prix": self.echangeur_huile_boite_auto_prix,
-                "quantite": self.echangeur_huile_boite_auto_quantite,
-            },
-            {
-                "champ": _("Durites d'huile de boîte"),
-                "etat": self.durites_huile_boite_auto,
-                "prix": self.durites_huile_boite_auto_prix,
-                "quantite": self.durites_huile_boite_auto_quantite,
-            },
-            {
-                "champ": _("Supports de boîte automatique"),
-                "etat": self.supports_boite_auto,
-                "prix": self.supports_boite_auto_prix,
-                "quantite": self.supports_boite_auto_quantite,
-            },
-
-            {
-                "champ": _("Huile de boîte automatique"),
-                "etat": self.huile_bte_auto_vitesse,
-                "prix": self.huile_bte_auto_vitesse_prix,
-                "quantite": self.huile_bte_auto_vitesse_quantite,
-            },
+                "champ": label,
+                "etat": getattr(self, base),
+                "fabricant": self._fabricant_display(base),
+                "prix": getattr(self, f"{base}_prix"),
+                "quantite": getattr(self, f"{base}_quantite"),
+            }
+            for label, base in pieces_def
         ]
 
         etats_labels = {
@@ -1749,6 +1835,7 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
                 "champ": piece["champ"],
                 "etat": etat,
                 "etat_label": etats_labels.get(etat, etat),
+                "fabricant": piece["fabricant"],
                 "quantite": quantite,
                 "prix": prix,
                 "total": total_ligne,
