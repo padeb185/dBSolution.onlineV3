@@ -776,6 +776,14 @@ def carrosserie_interne_create_view(request, exemplaire_id):
             ],
         },
         {
+            "title": _("Poignée de porte"),
+            "icon": "icons/porte-de-voiture.png",
+            "fields": [
+                f for f in form
+                if "poignee_porte" in f.name
+            ],
+        },
+        {
             "title": _("Coffre"),
             "icon": "icons/coffre.png",
             "fields": [
@@ -1532,6 +1540,11 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
             "icon": "icons/porte-de-voiture.png",
             "fields": [f for f in form if "porte_arg_po" in f.name],
         },
+        {
+            "title": "Poignée de porte",
+            "icon": "icons/porte-de-voiture.png",
+            "fields": [f for f in form if "poignee_porte" in f.name],
+        },
 
         {
             "title": "Coffre",
@@ -2005,17 +2018,6 @@ def delete_carrosserie_interne_view(request, carrosserie_interne_id):
 
 
 
-
-@login_required
-def rapport_view(request, pk):
-    obj = get_object_or_404(CarrosserieInterne, pk=pk)
-
-    rapport = obj.generer_rapport_remplacement()
-
-    return render(request, "carrosserie_interne/rapport.html", {
-        "rapport": rapport,
-        "obj": obj
-    })
 
 
 

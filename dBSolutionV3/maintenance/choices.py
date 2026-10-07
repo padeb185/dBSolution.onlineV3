@@ -40,6 +40,104 @@ TAUX_HORAIRE_CHOICES = [
 
 
 
+
+class FabricantCarrosserie(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+    ORIGINE = "ORIGINE", _("Pièce d'origine constructeur (OEM)")
+
+    # -------------------------
+    # Tôlerie / pare-chocs / éléments de carrosserie
+    # -------------------------
+    VAN_WEZEL = "VAN_WEZEL", _("Van Wezel")
+    BLIC = "BLIC", _("Blic")
+    KLOKKERHOLM = "KLOKKERHOLM", _("Klokkerholm")
+    PRASCO = "PRASCO", _("Prasco")
+    DIEDERICHS = "DIEDERICHS", _("Diederichs")
+    POLCAR = "POLCAR", _("Polcar")
+    JUMASA = "JUMASA", _("Jumasa")
+    TYG = "TYG", _("TYG (Tong Yang)")
+    SIGNEDA = "SIGNEDA", _("Signeda")
+    PLASTIC_OMNIUM = "PLASTIC_OMNIUM", _("OPmobility (Plastic Omnium)")
+    MAGNA = "MAGNA", _("Magna")
+    GESTAMP = "GESTAMP", _("Gestamp")
+    FLEX_N_GATE = "FLEX_N_GATE", _("Flex-N-Gate")
+    FORVIA = "FORVIA", _("Forvia (Faurecia)")
+    KIRCHHOFF = "KIRCHHOFF", _("Kirchhoff Automotive")
+
+    # -------------------------
+    # Éclairage / optiques
+    # -------------------------
+    HELLA = "HELLA", _("Hella (Forvia)")
+    VALEO = "VALEO", _("Valeo")
+    MARELLI = "MARELLI", _("Marelli (Magneti Marelli)")
+    AUTOMOTIVE_LIGHTING = "AUTOMOTIVE_LIGHTING", _("Automotive Lighting")
+    ZKW = "ZKW", _("ZKW")
+    KOITO = "KOITO", _("Koito")
+    STANLEY = "STANLEY", _("Stanley Electric")
+    DEPO = "DEPO", _("Depo")
+    TYC = "TYC", _("TYC")
+    ULO = "ULO", _("Ulo")
+    OSRAM = "OSRAM", _("Osram")
+    PHILIPS = "PHILIPS", _("Philips")
+
+    # -------------------------
+    # Rétroviseurs
+    # -------------------------
+    FICOSA = "FICOSA", _("Ficosa")
+    MEKRA = "MEKRA", _("Mekra Lang")
+    ALKAR = "ALKAR", _("Alkar")
+    GENTEX = "GENTEX", _("Gentex")
+    SMR = "SMR", _("SMR (Motherson)")
+
+    # -------------------------
+    # Vitrage
+    # -------------------------
+    SAINT_GOBAIN = "SAINT_GOBAIN", _("Saint-Gobain Sekurit")
+    PILKINGTON = "PILKINGTON", _("Pilkington")
+    AGC = "AGC", _("AGC Automotive")
+    FUYAO = "FUYAO", _("Fuyao")
+    GUARDIAN = "GUARDIAN", _("Guardian Glass")
+    XYG = "XYG", _("XYG")
+    CARGLASS = "CARGLASS", _("Carglass")
+
+    # -------------------------
+    # Peinture / produits de carrosserie
+    # -------------------------
+    PPG = "PPG", _("PPG")
+    AXALTA = "AXALTA", _("Axalta")
+    STANDOX = "STANDOX", _("Standox")
+    SPIES_HECKER = "SPIES_HECKER", _("Spies Hecker")
+    CROMAX = "CROMAX", _("Cromax")
+    GLASURIT = "GLASURIT", _("Glasurit (BASF)")
+    RM = "RM", _("R-M (BASF)")
+    SIKKENS = "SIKKENS", _("Sikkens (AkzoNobel)")
+    LECHLER = "LECHLER", _("Lechler")
+    DE_BEER = "DE_BEER", _("De Beer")
+    MIPA = "MIPA", _("Mipa")
+    NEXA = "NEXA", _("Nexa Autocolor")
+    ROBERLO = "ROBERLO", _("Roberlo")
+    U_POL = "U_POL", _("U-POL")
+    TROTON = "TROTON", _("Troton")
+    NOVOL = "NOVOL", _("Novol")
+    TEROSON = "TEROSON", _("Teroson (Henkel)")
+    SIKA = "SIKA", _("Sika")
+    WURTH = "WURTH", _("Würth")
+    MIRKA = "MIRKA", _("Mirka")
+    THREE_M = "3M", _("3M")
+
+    # -------------------------
+    # Accessoires / divers carrosserie
+    # -------------------------
+    STABILUS = "STABILUS", _("Stabilus (vérins)")
+    LESJOFORS = "LESJOFORS", _("Lesjöfors")
+    BOSCH = "BOSCH", _("Bosch")
+    SWF = "SWF", _("SWF")
+    TRICO = "TRICO", _("Trico")
+    WEATHERTECH = "WEATHERTECH", _("WeatherTech")
+    DORMAN = "DORMAN", _("Dorman")
+
+    AUTRE = "AUTRE", _("Autre")
+
 class FabricantLubrifiant(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
 

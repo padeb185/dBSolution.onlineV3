@@ -118,11 +118,11 @@ class CarrosserieInterneForm(forms.ModelForm):
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
 
-        # Initialiser prix et quantite si les champs existent
-        for f in ["prix", "quantite"]:
-            if f in self.fields:
-                self.fields[f].initial = 0
-                self.fields[f].required = False
+        # Quantités et prix : facultatifs, 0 par défaut
+        for name, field in self.fields.items():
+            if name.endswith(("_quantite", "_prix")):
+                field.required = False
+                field.initial = 0
 
     def clean_kilometrage_intervention(self):
         km = self.cleaned_data.get("kilometrage_intervention")
@@ -140,6 +140,11 @@ class CarrosserieInterneForm(forms.ModelForm):
 
     def clean(self):
         cleaned = super().clean()
+
+        # Quantité / prix laissés vides -> 0
+        for name in self.fields:
+            if name.endswith(("_quantite", "_prix")) and cleaned.get(name) in (None, ""):
+                cleaned[name] = 0
 
         h = cleaned.get("temps_heures") or 0
         m = cleaned.get("temps_minutes") or 0

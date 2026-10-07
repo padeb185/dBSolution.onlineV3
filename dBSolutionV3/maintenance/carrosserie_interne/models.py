@@ -3,7 +3,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, TVAConfig
+from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, TVAConfig, FabricantCarrosserie
 from maintenance.models import Maintenance
 
 
@@ -103,580 +103,633 @@ class CarrosserieInterne(models.Model):
     )
 
     # Pare-chocs
-    pare_choc_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Pare-chocs avant"))
+    pare_choc_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                    verbose_name=_("Pare-chocs avant"))
+    pare_choc_av_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                              default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     pare_choc_av_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    pare_choc_av_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    pare_choc_av_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    pare_choc_av_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    pare_choc_av_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                            verbose_name=_("Prix d'achat HTVA"))
 
 
-
-
-    pare_choc_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Pare-chocs arrière"))
+    pare_choc_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                    verbose_name=_("Pare-chocs arrière"))
+    pare_choc_ar_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                              default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     pare_choc_ar_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    pare_choc_ar_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    pare_choc_ar_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    pare_choc_ar_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    pare_choc_ar_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                            verbose_name=_("Prix d'achat HTVA"))
 
 
-
-
-        # Boucliers
-    bouclier_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bouclier avant"))
+    # Boucliers
+    bouclier_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                   verbose_name=_("Bouclier avant"))
+    bouclier_av_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                             default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     bouclier_av_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    bouclier_av_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-    bouclier_av_quantite = models.IntegerField(default=0, verbose_name="Quantité")
+    bouclier_av_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    bouclier_av_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                           verbose_name=_("Prix d'achat HTVA"))
 
 
-
-    bouclier_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Bouclier arrière"))
+    bouclier_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                   verbose_name=_("Bouclier arrière"))
+    bouclier_ar_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                             default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     bouclier_ar_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    bouclier_ar_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    bouclier_ar_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    bouclier_ar_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    bouclier_ar_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                           verbose_name=_("Prix d'achat HTVA"))
 
 
+    # Supports de pare-chocs
+    support_pa_choc_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                          verbose_name=_("Support de pare-chocs avant"))
+    support_pa_choc_av_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                    default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
+    support_pa_choc_av_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
+    support_pa_choc_av_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    support_pa_choc_av_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                  verbose_name=_("Prix d'achat HTVA"))
 
+    support_pa_choc_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                          verbose_name=_("Support de pare-chocs arrière"))
+    support_pa_choc_ar_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                    default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
+    support_pa_choc_ar_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
+    support_pa_choc_ar_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    support_pa_choc_ar_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                  verbose_name=_("Prix d'achat HTVA"))
 
-
-    support_pa_choc_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Support de pare-chocs avant"))
-    support_pa_choc_av_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("OEM"))
-    support_pa_choc_av_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    support_pa_choc_av_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
-
-    support_pa_choc_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Support de pare-chocs arrière"))
-    support_pa_choc_ar_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("OEM"))
-    support_pa_choc_ar_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    support_pa_choc_ar_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
 
 
     # Calandre
-    calandre = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Calandre"))
+    calandre = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                verbose_name=_("Calandre"))
+    calandre_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                          default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     calandre_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    calandre_quantite = models.IntegerField(default=0, verbose_name="Quantité")
+    calandre_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
     calandre_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
 
 
 
 
-
-
-
-      # Ailes
-    aile_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Aile avant droit"))
+    # Ailes
+    aile_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                verbose_name=_("Aile avant droit"))
+    aile_avd_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                          default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     aile_avd_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    aile_avd_quantite = models.IntegerField(default=0, verbose_name="Quantité")
+    aile_avd_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
     aile_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
 
-
-
-    aile_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Aile avant gauche"))
+    aile_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                verbose_name=_("Aile avant gauche"))
+    aile_avg_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                          default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     aile_avg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    aile_avg_quantite = models.IntegerField(default=0, verbose_name="Quantité")
+    aile_avg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
     aile_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
 
-
-
-    aile_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Aile arrière droit"))
+    aile_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                verbose_name=_("Aile arrière droit"))
+    aile_ard_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                          default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     aile_ard_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    aile_ard_quantite = models.IntegerField(default=0, verbose_name="Quantité")
+    aile_ard_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
     aile_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
 
-
-
-    aile_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Aile arrière gauche"))
+    aile_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                verbose_name=_("Aile arrière gauche"))
+    aile_arg_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                          default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     aile_arg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    aile_arg_quantite = models.IntegerField(default=0, verbose_name="Quantité")
+    aile_arg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
     aile_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
 
 
 
 
-
-
     # Élargisseurs d'aile
-    elargisseur_ail_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Élargisseur d'aile avant droit"))
-    elargisseur_ail_avd_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("OEM"))
-    elargisseur_ail_avd_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    elargisseur_ail_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    elargisseur_ail_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                           verbose_name=_("Élargisseur d'aile avant droit"))
+    elargisseur_ail_avd_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                     default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
+    elargisseur_ail_avd_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
+    elargisseur_ail_avd_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    elargisseur_ail_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                   verbose_name=_("Prix d'achat HTVA"))
 
+    elargisseur_ail_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                           verbose_name=_("Élargisseur d'aile avant gauche"))
+    elargisseur_ail_avg_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                     default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
+    elargisseur_ail_avg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
+    elargisseur_ail_avg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    elargisseur_ail_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                   verbose_name=_("Prix d'achat HTVA"))
 
+    elargisseur_ail_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                           verbose_name=_("Élargisseur d'aile arrière droit"))
+    elargisseur_ail_ard_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                     default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
+    elargisseur_ail_ard_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
+    elargisseur_ail_ard_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    elargisseur_ail_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                   verbose_name=_("Prix d'achat HTVA"))
 
-    elargisseur_ail_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Élargisseur d'aile avant gauche"))
-    elargisseur_ail_avg_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("OEM"))
-    elargisseur_ail_avg_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    elargisseur_ail_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
-
-
-
-    elargisseur_ail_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Élargisseur d'aile arrière droit"))
-    elargisseur_ail_ard_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("OEM"))
-    elargisseur_ail_ard_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    elargisseur_ail_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
-
-
-
-    elargisseur_ail_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Élargisseur d'aile arrière gauche"))
-    elargisseur_ail_arg_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("OEM"))
-    elargisseur_ail_arg_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    elargisseur_ail_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
-
+    elargisseur_ail_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                           verbose_name=_("Élargisseur d'aile arrière gauche"))
+    elargisseur_ail_arg_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                     default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
+    elargisseur_ail_arg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
+    elargisseur_ail_arg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    elargisseur_ail_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                   verbose_name=_("Prix d'achat HTVA"))
 
 
 
 
     # Bas de caisse
-    bas_de_caisse_d = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bas de caisse droit"))
-    bas_de_caisse_d_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("OEM"))
-    bas_de_caisse_d_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    bas_de_caisse_d_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    bas_de_caisse_d = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                       verbose_name=_("Bas de caisse droit"))
+    bas_de_caisse_d_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                 default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
+    bas_de_caisse_d_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
+    bas_de_caisse_d_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    bas_de_caisse_d_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                               verbose_name=_("Prix d'achat HTVA"))
+
+    bas_de_caisse_g = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                       verbose_name=_("Bas de caisse gauche"))
+    bas_de_caisse_g_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                 default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
+    bas_de_caisse_g_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
+    bas_de_caisse_g_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    bas_de_caisse_g_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                               verbose_name=_("Prix d'achat HTVA"))
 
 
-
-    bas_de_caisse_g = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bas de caisse gauche"))
-    bas_de_caisse_g_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("OEM"))
-    bas_de_caisse_g_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    bas_de_caisse_g_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
 
 
     # Portes
-    porte_avd_po = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Porte avant droite"))
+    porte_avd_po = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                    verbose_name=_("Porte avant droite"))
+    porte_avd_po_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                              default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     porte_avd_po_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    porte_avd_po_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    porte_avd_po_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    porte_avd_po_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    porte_avd_po_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                            verbose_name=_("Prix d'achat HTVA"))
 
-
-
-    porte_avg_po = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Porte avant gauche"))
+    porte_avg_po = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                    verbose_name=_("Porte avant gauche"))
+    porte_avg_po_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                              default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     porte_avg_po_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    porte_avg_po_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    porte_avg_po_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    porte_avg_po_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    porte_avg_po_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                            verbose_name=_("Prix d'achat HTVA"))
 
-
-
-    # Portes
-    porte_ard_po = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Porte arrière droite"))
+    porte_ard_po = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                    verbose_name=_("Porte arrière droite"))
+    porte_ard_po_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                              default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     porte_ard_po_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    porte_ard_po_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    porte_ard_po_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    porte_ard_po_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    porte_ard_po_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                            verbose_name=_("Prix d'achat HTVA"))
 
-
-
-    porte_arg_po = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Porte arrière gauche"))
+    porte_arg_po = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                    verbose_name=_("Porte arrière gauche"))
+    porte_arg_po_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                              default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     porte_arg_po_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    porte_arg_po_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    porte_arg_po_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    porte_arg_po_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    porte_arg_po_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                            verbose_name=_("Prix d'achat HTVA"))
+
 
 
     # Poignée de porte
-    poignee_porte = models.CharField(
-        max_length=25,
-        choices=EtatOKNotOK.choices,
-        default=EtatOKNotOK.OK,
-        verbose_name=_("Poignée de porte")
-    )
-    poignee_porte_oem = models.CharField(
-        max_length=25,
-        null=True,
-        blank=True,
-        verbose_name=_("OEM")
-    )
-    poignee_porte_quantite = models.IntegerField(
-        default=0,
-        blank=True,
-        verbose_name=_("Quantité")
-    )
-
-    poignee_porte_prix = models.DecimalField(
-        max_digits=12,
-        decimal_places=2,
-        default=0,
-        blank=True, verbose_name=_("Prix d'achat HTVA")
-    )
+    poignee_porte = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                     verbose_name=_("Poignée de porte"))
+    poignee_porte_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                               default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
+    poignee_porte_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
+    poignee_porte_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    poignee_porte_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                             verbose_name=_("Prix d'achat HTVA"))
 
 
 
     # Coffre / hayon
-    coffre_haillon = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Coffre / Hayon"))
+    coffre_haillon = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                      verbose_name=_("Coffre / Hayon"))
+    coffre_haillon_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     coffre_haillon_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    coffre_haillon_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    coffre_haillon_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    coffre_haillon_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    coffre_haillon_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                              verbose_name=_("Prix d'achat HTVA"))
+
 
 
     # Capot
-    capot_pi = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capot"))
+    capot_pi = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                verbose_name=_("Capot"))
+    capot_pi_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                          default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     capot_pi_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    capot_pi_quantite = models.IntegerField(default=0, verbose_name="Quantité")
+    capot_pi_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
     capot_pi_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
 
 
-    # Joint de coffre et portes
-    joint_coffre = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Joint de coffre"))
+
+    # Joint de coffre
+    joint_coffre = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                    verbose_name=_("Joint de coffre"))
+    joint_coffre_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                              default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     joint_coffre_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    joint_coffre_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    joint_coffre_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
-
-
-    joint_porte_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Joint de porte avant droit"))
-    joint_porte_avd_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    joint_porte_avd_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    joint_porte_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    joint_coffre_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    joint_coffre_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                            verbose_name=_("Prix d'achat HTVA"))
 
 
 
     # Joints de porte
-    joint_porte_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Joint de porte avant gauche"))
+    joint_porte_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                       verbose_name=_("Joint de porte avant droit"))
+    joint_porte_avd_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                 default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
+    joint_porte_avd_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
+    joint_porte_avd_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    joint_porte_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                               verbose_name=_("Prix d'achat HTVA"))
+
+    joint_porte_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                       verbose_name=_("Joint de porte avant gauche"))
+    joint_porte_avg_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                 default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     joint_porte_avg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    joint_porte_avg_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    joint_porte_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    joint_porte_avg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    joint_porte_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                               verbose_name=_("Prix d'achat HTVA"))
 
-
-
-    joint_porte_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Joint de porte arrière droit"))
+    joint_porte_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                       verbose_name=_("Joint de porte arrière droit"))
+    joint_porte_ard_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                 default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     joint_porte_ard_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    joint_porte_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-    joint_porte_ard_quantite = models.IntegerField(default=0, verbose_name="Quantité")
+    joint_porte_ard_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    joint_porte_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                               verbose_name=_("Prix d'achat HTVA"))
 
-
-    joint_porte_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Joint de porte arrière gauche"))
+    joint_porte_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                       verbose_name=_("Joint de porte arrière gauche"))
+    joint_porte_arg_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                 default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     joint_porte_arg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    joint_porte_arg_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    joint_porte_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    joint_porte_arg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    joint_porte_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                               verbose_name=_("Prix d'achat HTVA"))
 
 
 
     # Coquilles d'aile
-    coquille_ai_avd = models.CharField(
-        max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-        verbose_name=_("Coquille d'aile avant droit")
-    )
+    coquille_ai_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                       verbose_name=_("Coquille d'aile avant droit"))
+    coquille_ai_avd_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                 default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     coquille_ai_avd_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    coquille_ai_avd_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    coquille_ai_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    coquille_ai_avd_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    coquille_ai_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                               verbose_name=_("Prix d'achat HTVA"))
 
-
-
-
-    coquille_ai_avg = models.CharField(
-        max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-        verbose_name=_("Coquille d'aile avant gauche")
-    )
+    coquille_ai_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                       verbose_name=_("Coquille d'aile avant gauche"))
+    coquille_ai_avg_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                 default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     coquille_ai_avg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    coquille_ai_avg_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    coquille_ai_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    coquille_ai_avg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    coquille_ai_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                               verbose_name=_("Prix d'achat HTVA"))
 
-
-
-
-    coquille_ai_ard = models.CharField(
-        max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-        verbose_name=_("Coquille d'aile arrière droit")
-    )
+    coquille_ai_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                       verbose_name=_("Coquille d'aile arrière droit"))
+    coquille_ai_ard_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                 default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     coquille_ai_ard_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    coquille_ai_ard_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    coquille_ai_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    coquille_ai_ard_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    coquille_ai_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                               verbose_name=_("Prix d'achat HTVA"))
 
-
-
-
-    coquille_ai_arg = models.CharField(
-        max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-        verbose_name=_("Coquille d'aile arrière gauche")
-    )
+    coquille_ai_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                       verbose_name=_("Coquille d'aile arrière gauche"))
+    coquille_ai_arg_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                 default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     coquille_ai_arg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    coquille_ai_arg_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    coquille_ai_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
-
+    coquille_ai_arg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    coquille_ai_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                               verbose_name=_("Prix d'achat HTVA"))
 
     # Supports
-    support_radiateur = models.CharField(
-        max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Support de radiateur")
-    )
-    support_radiateur_oem = models.CharField(max_length=25, null=True, blank=True,
-                                             verbose_name=_("OEM"))
-    support_radiateur_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    support_radiateur_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
+    support_radiateur = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                         verbose_name=_("Support de radiateur"))
+    support_radiateur_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                   default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
+    support_radiateur_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
+    support_radiateur_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    support_radiateur_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                 verbose_name=_("Prix d'achat HTVA"))
 
     # Pare-brise
-    pa_brise = models.CharField(
-        max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Pare-brise")
-    )
+    pa_brise = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                verbose_name=_("Pare-brise"))
+    pa_brise_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                          default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     pa_brise_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    pa_brise_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    pa_brise_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-
+    pa_brise_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    pa_brise_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
 
     # Vitres de portes
-    vitre_porte_avd = models.CharField(
-        max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-        verbose_name=_("Vitre de porte avant droite")
-    )
+    vitre_porte_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                       verbose_name=_("Vitre de porte avant droite"))
+    vitre_porte_avd_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                 default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     vitre_porte_avd_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    vitre_porte_avd_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    vitre_porte_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    vitre_porte_avd_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    vitre_porte_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                               verbose_name=_("Prix d'achat HTVA"))
 
+    vitre_porte_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                       verbose_name=_("Vitre de porte avant gauche"))
+    vitre_porte_avg_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                 default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
+    vitre_porte_avg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
+    vitre_porte_avg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    vitre_porte_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                               verbose_name=_("Prix d'achat HTVA"))
 
-
-
-    vitre_porte_avg = models.CharField(
-        max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-        verbose_name=_("Vitre de porte avant gauche")
-    )
-    vitre_porte_avg_oem = models.CharField(max_length=25, null=True, blank=True,
-                                           verbose_name=_("OEM"))
-    vitre_porte_avg_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    vitre_porte_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
-
-
-
-    vitre_porte_ard = models.CharField(
-        max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-        verbose_name=_("Vitre de porte arrière droite")
-    )
+    vitre_porte_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                       verbose_name=_("Vitre de porte arrière droite"))
+    vitre_porte_ard_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                 default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     vitre_porte_ard_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    vitre_porte_ard_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    vitre_porte_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    vitre_porte_ard_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    vitre_porte_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                               verbose_name=_("Prix d'achat HTVA"))
 
-
-    # Vitre de porte arrière gauche
-    vitre_porte_arg = models.CharField(
-        max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-        verbose_name=_("Vitre de porte arrière gauche")
-    )
+    vitre_porte_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                       verbose_name=_("Vitre de porte arrière gauche"))
+    vitre_porte_arg_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                 default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     vitre_porte_arg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    vitre_porte_arg_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    vitre_porte_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
+    vitre_porte_arg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    vitre_porte_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                               verbose_name=_("Prix d'achat HTVA"))
 
     # Lunette arrière
     lunette = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                verbose_name=_("Lunette / vitre arrière"))
+    lunette_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                         default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     lunette_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    lunette_quantite = models.IntegerField(default=0, verbose_name="Quantité")
+    lunette_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
     lunette_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
-
 
     # Rétroviseurs
     retroviseur_d = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                      verbose_name=_("Rétroviseur droit"))
+    retroviseur_d_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                               default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     retroviseur_d_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    retroviseur_d_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    retroviseur_d_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
-
+    retroviseur_d_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    retroviseur_d_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                             verbose_name=_("Prix d'achat HTVA"))
 
     retroviseur_g = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                      verbose_name=_("Rétroviseur gauche"))
+    retroviseur_g_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                               default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     retroviseur_g_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    retroviseur_g_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    retroviseur_g_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    retroviseur_g_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    retroviseur_g_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                             verbose_name=_("Prix d'achat HTVA"))
 
-
-    # Phares
+    # Phares / feux
     phare_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                  verbose_name=_("Phare avant droit"))
+    phare_avd_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                           default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     phare_avd_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    phare_avd_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    phare_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-
+    phare_avd_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    phare_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                         verbose_name=_("Prix d'achat HTVA"))
 
     phare_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                  verbose_name=_("Phare avant gauche"))
+    phare_avg_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                           default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     phare_avg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    phare_avg_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    phare_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
-
+    phare_avg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    phare_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                         verbose_name=_("Prix d'achat HTVA"))
 
     phare_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                  verbose_name=_("Feu arrière droit"))
+    phare_ard_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                           default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     phare_ard_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    phare_ard_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    phare_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-
-
+    phare_ard_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    phare_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                         verbose_name=_("Prix d'achat HTVA"))
 
     phare_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                  verbose_name=_("Feu arrière gauche"))
+    phare_arg_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                           default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     phare_arg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    phare_arg_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    phare_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
+    phare_arg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    phare_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                         verbose_name=_("Prix d'achat HTVA"))
 
     # Clignotants
     clignotant_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                       verbose_name=_("Clignotant avant droit"))
+    clignotant_avd_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     clignotant_avd_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    clignotant_avd_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    clignotant_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
-
+    clignotant_avd_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    clignotant_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                              verbose_name=_("Prix d'achat HTVA"))
 
     clignotant_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                       verbose_name=_("Clignotant avant gauche"))
+    clignotant_avg_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     clignotant_avg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    clignotant_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    clignotant_avg_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-
+    clignotant_avg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    clignotant_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                              verbose_name=_("Prix d'achat HTVA"))
 
     clignotant_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                       verbose_name=_("Clignotant arrière droit"))
+    clignotant_ard_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     clignotant_ard_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    clignotant_ard_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    clignotant_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
-
+    clignotant_ard_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    clignotant_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                              verbose_name=_("Prix d'achat HTVA"))
 
     clignotant_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                       verbose_name=_("Clignotant arrière gauche"))
+    clignotant_arg_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     clignotant_arg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    clignotant_arg_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    clignotant_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
+    clignotant_arg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    clignotant_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                              verbose_name=_("Prix d'achat HTVA"))
 
     # Troisième feu stop
     troisieme_feu_stop = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                           verbose_name=_("Troisième feu stop"))
+    troisieme_feu_stop_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                    default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     troisieme_feu_stop_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    troisieme_feu_stop_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    troisieme_feu_stop_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
+    troisieme_feu_stop_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    troisieme_feu_stop_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                  verbose_name=_("Prix d'achat HTVA"))
 
     # Capteur de recul
     capteur_recul = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                      verbose_name=_("Capteur de recul"))
+    capteur_recul_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                               default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     capteur_recul_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    capteur_recul_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    capteur_recul_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-
-
+    capteur_recul_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    capteur_recul_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                             verbose_name=_("Prix d'achat HTVA"))
 
     # Anti-brouillards
     anti_brouillard_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                            verbose_name=_("Anti-brouillard avant droit"))
+    anti_brouillard_avd_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                     default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     anti_brouillard_avd_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    anti_brouillard_avd_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    anti_brouillard_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
-
-
+    anti_brouillard_avd_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    anti_brouillard_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                   verbose_name=_("Prix d'achat HTVA"))
 
     anti_brouillard_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                            verbose_name=_("Anti-brouillard avant gauche"))
+    anti_brouillard_avg_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                     default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     anti_brouillard_avg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    anti_brouillard_avg_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    anti_brouillard_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
-
-
+    anti_brouillard_avg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    anti_brouillard_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                   verbose_name=_("Prix d'achat HTVA"))
 
     anti_brouillard_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                           verbose_name=_("Anti-brouillard arrière"))
+    anti_brouillard_ar_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                    default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     anti_brouillard_ar_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    anti_brouillard_ar_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    anti_brouillard_ar_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
-
-
+    anti_brouillard_ar_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    anti_brouillard_ar_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                  verbose_name=_("Prix d'achat HTVA"))
 
     # Clips et visserie
     clips = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                              verbose_name=_("Clips"))
+    clips_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                       default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     clips_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    clips_quantite = models.IntegerField(default=0, verbose_name="Quantité")
+    clips_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
     clips_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-
-
-
 
     visserie = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                 verbose_name=_("Visserie"))
+    visserie_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                          default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
     visserie_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("OEM"))
-    visserie_quantite = models.IntegerField(default=0, verbose_name="Quantité")
+    visserie_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
     visserie_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
 
-
-
-
     # Peinture
-    peinture_avant_gauche = models.CharField(
-        max_length=25, choices=PeintureEtat.choices, default=PeintureEtat.PEINT,
-        verbose_name=_("Peinture de l'aile avant gauche")
-    )
-    peinture_avant_gauche_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    peinture_avant_gauche_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    peinture_avant_gauche = models.CharField(max_length=25, choices=PeintureEtat.choices, default=PeintureEtat.PEINT,
+                                             verbose_name=_("Peinture de l'aile avant gauche"))
+    peinture_avant_gauche_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                       default=FabricantCarrosserie.CHOISIR,
+                                                       verbose_name=_("Fabricant"))
+    peinture_avant_gauche_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    peinture_avant_gauche_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                     verbose_name=_("Prix d'achat HTVA"))
 
+    peinture_avant_droite = models.CharField(max_length=25, choices=PeintureEtat.choices, default=PeintureEtat.PEINT,
+                                             verbose_name=_("Peinture de l'aile avant droite"))
+    peinture_avant_droite_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                       default=FabricantCarrosserie.CHOISIR,
+                                                       verbose_name=_("Fabricant"))
+    peinture_avant_droite_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    peinture_avant_droite_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                     verbose_name=_("Prix d'achat HTVA"))
 
+    peinture_arriere_droite = models.CharField(max_length=25, choices=PeintureEtat.choices, default=PeintureEtat.PEINT,
+                                               verbose_name=_("Peinture de l'aile arrière droite"))
+    peinture_arriere_droite_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                         default=FabricantCarrosserie.CHOISIR,
+                                                         verbose_name=_("Fabricant"))
+    peinture_arriere_droite_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    peinture_arriere_droite_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                       verbose_name=_("Prix d'achat HTVA"))
 
+    peinture_arriere_gauche = models.CharField(max_length=25, choices=PeintureEtat.choices, default=PeintureEtat.PEINT,
+                                               verbose_name=_("Peinture de l'aile arrière gauche"))
+    peinture_arriere_gauche_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                         default=FabricantCarrosserie.CHOISIR,
+                                                         verbose_name=_("Fabricant"))
+    peinture_arriere_gauche_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    peinture_arriere_gauche_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                       verbose_name=_("Prix d'achat HTVA"))
 
-    peinture_avant_droite = models.CharField(
-        max_length=25, choices=PeintureEtat.choices, default=PeintureEtat.PEINT,
-        verbose_name=_("Peinture de l'aile avant droite")
-    )
-    peinture_avant_droite_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    peinture_avant_droite_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    peinture_face_avant = models.CharField(max_length=25, choices=PeintureEtat.choices, default=PeintureEtat.PEINT,
+                                           verbose_name=_("Peinture de la face avant"))
+    peinture_face_avant_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                     default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
+    peinture_face_avant_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    peinture_face_avant_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                   verbose_name=_("Prix d'achat HTVA"))
 
+    peinture_capot = models.CharField(max_length=25, choices=PeintureEtat.choices, default=PeintureEtat.PEINT,
+                                      verbose_name=_("Peinture du capot"))
+    peinture_capot_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
+    peinture_capot_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    peinture_capot_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                              verbose_name=_("Prix d'achat HTVA"))
 
+    peinture_arriere_complete = models.CharField(max_length=25, choices=PeintureEtat.choices,
+                                                 default=PeintureEtat.PEINT,
+                                                 verbose_name=_("Peinture arrière complète"))
+    peinture_arriere_complete_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                           default=FabricantCarrosserie.CHOISIR,
+                                                           verbose_name=_("Fabricant"))
+    peinture_arriere_complete_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    peinture_arriere_complete_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                         verbose_name=_("Prix d'achat HTVA"))
 
-
-    peinture_arriere_droite = models.CharField(
-        max_length=25, choices=PeintureEtat.choices, default=PeintureEtat.PEINT,
-        verbose_name=_("Peinture de l'aile arrière droite")
-    )
-    peinture_arriere_droite_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    peinture_arriere_droite_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-
-
-
-
-    peinture_arriere_gauche = models.CharField(
-        max_length=25, choices=PeintureEtat.choices, default=PeintureEtat.PEINT,
-        verbose_name=_("Peinture de l'aile arrière gauche")
-    )
-    peinture_arriere_gauche_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    peinture_arriere_gauche_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-
-
-
-
-    peinture_face_avant = models.CharField(
-        max_length=25, choices=PeintureEtat.choices, default=PeintureEtat.PEINT, verbose_name=_("Peinture de la face avant")
-    )
-    peinture_face_avant_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    peinture_face_avant_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-
-
-
-
-    peinture_capot = models.CharField(
-        max_length=25, choices=PeintureEtat.choices, default=PeintureEtat.PEINT, verbose_name=_("Peinture du capot")
-    )
-    peinture_capot_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    peinture_capot_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-
-
-
-
-    peinture_arriere_complete = models.CharField(
-        max_length=25, choices=PeintureEtat.choices, default=PeintureEtat.PEINT, verbose_name=_("Peinture arrière complète")
-    )
-    peinture_arriere_complete_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    peinture_arriere_complete_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-
-
-
-
-    peinture_complete = models.CharField(
-        max_length=25, choices=PeintureEtat.choices, default=PeintureEtat.PEINT, verbose_name=_("Peinture complète")
-    )
-    peinture_complete_quantite = models.IntegerField(default=0, verbose_name="Quantité")
-    peinture_complete_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    peinture_complete = models.CharField(max_length=25, choices=PeintureEtat.choices, default=PeintureEtat.PEINT,
+                                         verbose_name=_("Peinture complète"))
+    peinture_complete_fabricant = models.CharField(max_length=25, choices=FabricantCarrosserie.choices,
+                                                   default=FabricantCarrosserie.CHOISIR, verbose_name=_("Fabricant"))
+    peinture_complete_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    peinture_complete_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0,
+                                                 verbose_name=_("Prix d'achat HTVA"))
 
 
 
@@ -877,6 +930,20 @@ class CarrosserieInterne(models.Model):
     def total_tvac_calculate(self):
         return self.total_htva + self.total_tva
 
+    def _fabricant_display(self, base):
+        """Libellé du fabricant, ou '' si le champ n'existe pas ou vaut sa valeur par défaut."""
+        attr = f"{base}_fabricant"
+        valeur = getattr(self, attr, None)
+        if not valeur:
+            return ""
+        try:
+            defaut = self._meta.get_field(attr).default
+        except Exception:
+            defaut = None
+        if valeur == defaut:
+            return ""
+        return getattr(self, f"get_{attr}_display")()
+
     def generer_rapport_remplacement(self):
         rapport = []
         total_general = Decimal("0.00")
@@ -1013,6 +1080,7 @@ class CarrosserieInterne(models.Model):
             rapport.append({
                 "champ": field.verbose_name,
                 "code": field_name,
+                "fabricant": self._fabricant_display(field_name),
 
                 "etat": etat,
                 "etat_label": labels_etats.get(
