@@ -127,7 +127,7 @@ class NettoyageExterieur(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatAjouter.choices,
         default=EtatAjouter.SANS,
-        verbose_name=_("Produits")
+        verbose_name=_("Produits de nettoyage")
     )
 
 
