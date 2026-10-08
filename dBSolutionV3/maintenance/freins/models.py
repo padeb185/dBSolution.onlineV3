@@ -222,7 +222,7 @@ class ControleFreins(TechnicienMixin, models.Model):
 
 
     fuites_freins_fuites = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fuite"))
-    fuites_freins_machoire = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fuite machoire"))
+    fuites_freins_ma = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fuite mâchoire"))
     fuites_freins_flexibles = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fuite flexibles"))
     fuites_freins_tuyaux = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fuite tuyaux rigides"))
 
