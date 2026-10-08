@@ -17,7 +17,7 @@ class NettoyageEtat(models.TextChoices):
 
 class EtatAjouter(models.TextChoices):
     SANS = "SANS", _("Sans produits")
-    AJOUTER = "AJOUTER", _("Ajouter")
+    AJOUTER = "AJOUTER", _("Ajouté")
 
 
 
@@ -130,13 +130,14 @@ class NettoyageExterieur(TechnicienMixin, models.Model):
         verbose_name=_("Produits")
     )
 
-    nettoyage_exterieur_produits_prix = models.DecimalField(
-        max_digits=10, decimal_places=2, default=0,
-        verbose_name=_("Prix d'achat HTVA"))
 
     nettoyage_exterieur_produits_quantite = models.IntegerField(
         default=0,
         verbose_name=_("Quantité"))
+
+    nettoyage_exterieur_produits_prix = models.DecimalField(
+        max_digits=10, decimal_places=2, default=0,
+        verbose_name=_("Prix d'achat HTVA"))
 
 
 

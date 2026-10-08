@@ -153,13 +153,14 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
         verbose_name=_("Produits")
     )
 
+    nettoyage_interieur_produits_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"))
+
     nettoyage_interieur_produits_prix = models.DecimalField(
         max_digits=10, decimal_places=2, default=0,
         verbose_name=_("Prix d'achat HTVA"))
 
-    nettoyage_interieur_produits_quantite = models.IntegerField(
-        default=0,
-        verbose_name=_("Quantité"))
 
     TAG_CHOICES = [
         ("VERT", _("Vert")),

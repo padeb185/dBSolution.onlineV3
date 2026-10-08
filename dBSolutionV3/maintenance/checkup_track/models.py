@@ -732,16 +732,17 @@ class CheckupTrack(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatAjouter.choices,
         default=EtatAjouter.SANS,
-        verbose_name=_("Produits")
+        verbose_name=_("Produits de nettoyage")
     )
+
+    nettoyage_exterieur_produits_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"))
 
     nettoyage_exterieur_produits_prix = models.DecimalField(
         max_digits=10, decimal_places=2, default=0,
         verbose_name=_("Prix d'achat HTVA"))
 
-    nettoyage_exterieur_produits_quantite = models.IntegerField(
-        default=0,
-        verbose_name=_("Quantité"))
 
     # --- Nettoyage intérieur ---
     nettoyage_interieur_vitres = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Vitres"))
@@ -756,16 +757,16 @@ class CheckupTrack(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatAjouter.choices,
         default=EtatAjouter.SANS,
-        verbose_name=_("Produits")
+        verbose_name=_("Produits de nettoyage")
     )
-
-    nettoyage_interieur_produits_prix = models.DecimalField(
-        max_digits=10, decimal_places=2, default=0,
-        verbose_name=_("Prix d'achat HTVA"))
 
     nettoyage_interieur_produits_quantite = models.IntegerField(
         default=0,
         verbose_name=_("Quantité"))
+
+    nettoyage_interieur_produits_prix = models.DecimalField(
+        max_digits=10, decimal_places=2, default=0,
+        verbose_name=_("Prix d'achat HTVA"))
 
 
     remarques = models.TextField(
