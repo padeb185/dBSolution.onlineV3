@@ -6,6 +6,9 @@ module.exports = {
   files: [
     "./templates/**/*.html",
     "./*/templates/**/*.html",      // templates de chaque app (un niveau)
+    "./*/*/templates/**/*.html",    // apps imbriquées : voiture/voiture_marque, maintenance/freins…
+    "./*/*/*/templates/**/*.html",  // maintenance/autres_interventions/abs…
+    "./*/*/*/*/templates/**/*.html",// maintenance/autres_interventions/moteur/turbo…
     "./*/*.py",                     // fichiers Python des apps
     "./theme/static/src/**/*.js",
   ],

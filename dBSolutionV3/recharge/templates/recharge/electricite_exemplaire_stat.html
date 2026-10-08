@@ -21,30 +21,7 @@
 
     <div>
         {% with pays=exemplaire.pays imm=exemplaire.immatriculation %}
-            {% if pays == "Belgique" %}
-                <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
-                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                        <span>🇪🇺</span><span>B</span>
-                    </div>
-                    <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">{{ imm|upper }}</div>
-                </div>
-            {% elif pays == "Luxembourg" %}
-                <div class="flex items-center w-[180px] h-[34px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
-                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                        <span>🇪🇺</span><span>L</span>
-                    </div>
-                    <div class="w-full text-center font-bold text-black text-[18px]">{{ imm|upper }}</div>
-                </div>
-            {% elif pays == "Allemagne" %}
-                <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-black rounded font-[Arial]">
-                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                        <span>🇪🇺</span><span>D</span>
-                    </div>
-                    <div class="w-full text-center font-bold text-black text-[18px]">{{ imm|upper }}</div>
-                </div>
-            {% else %}
-                {{ imm|upper }}
-            {% endif %}
+            {% if imm %}{% include "maintenance/partials/plaque.html" with pays_plaque=pays immat_plaque=imm %}{% endif %}
         {% endwith %}
     </div>
 </div>

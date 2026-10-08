@@ -1,33 +1,48 @@
+{# Optionnel : pays_plaque et immat_plaque remplacent exemplaire.pays / exemplaire.immatriculation #}
+{% with p=pays_plaque|default:exemplaire.pays tpl="components/plaque.html" %}
+{# ===== Benelux ===== #}
+{% if p == 'Belgique' %}{% include tpl with code="B" fond="bg-white" texte="text-[#8B0000]" bordure="border-[#8B0000]" %}
+{% elif p == 'Luxembourg' %}{% include tpl with code="L" fond="bg-[#FFEB3B]" texte="text-black" bordure="border-black" %}
+{% elif p == 'Pays-Bas' %}{% include tpl with code="NL" fond="bg-[#F7C600]" texte="text-black" bordure="border-black" %}
 
-{% load i18n %}
+{# ===== Europe de l'Ouest ===== #}
+{% elif p == 'France' %}{% include tpl with code="F" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Allemagne' %}{% include tpl with code="D" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Autriche' %}{% include tpl with code="A" fond="bg-white" texte="text-black" bordure="border-[#C8102E]" %}
+{% elif p == 'Irlande' %}{% include tpl with code="IRL" fond="bg-white" texte="text-black" bordure="border-black" %}
 
-{% if exemplaire.pays == 'Belgique' %}
-<div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
-    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-        <span>🇪🇺</span>
-        <span>B</span>
-    </div>
-    <input type="text" value="{{ exemplaire.immatriculation }}" readonly
-           class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
-</div>
+{# ===== Europe du Sud ===== #}
+{% elif p == 'Italie' %}{% include tpl with code="I" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Espagne' %}{% include tpl with code="E" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Portugal' %}{% include tpl with code="P" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Grèce' %}{% include tpl with code="GR" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Chypre' %}{% include tpl with code="CY" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Malte' %}{% include tpl with code="M" fond="bg-white" texte="text-black" bordure="border-black" %}
 
-{% elif exemplaire.pays == 'Luxembourg' %}
-<div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial] mb-4">
-    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-        <span>🇪🇺</span>
-        <span>L</span>
-    </div>
-    <input type="text" value="{{ exemplaire.immatriculation }}" readonly
-           class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
-</div>
+{# ===== Europe du Nord ===== #}
+{% elif p == 'Danemark' %}{% include tpl with code="DK" fond="bg-white" texte="text-black" bordure="border-[#C8102E]" %}
+{% elif p == 'Suède' %}{% include tpl with code="S" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Finlande' %}{% include tpl with code="FIN" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Estonie' %}{% include tpl with code="EST" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Lettonie' %}{% include tpl with code="LV" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Lituanie' %}{% include tpl with code="LT" fond="bg-white" texte="text-black" bordure="border-black" %}
 
-{% elif exemplaire.pays == 'Allemagne' %}
-<div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial] mb-4">
-    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-        <span>🇪🇺</span>
-        <span>D</span>
-    </div>
-    <input type="text" value="{{ exemplaire.immatriculation }}" readonly
-           class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
-</div>
+{# ===== Europe centrale et de l'Est ===== #}
+{% elif p == 'Pologne' %}{% include tpl with code="PL" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Tchéquie' %}{% include tpl with code="CZ" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Slovaquie' %}{% include tpl with code="SK" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Hongrie' %}{% include tpl with code="H" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Slovénie' %}{% include tpl with code="SLO" fond="bg-white" texte="text-black" bordure="border-[#00843D]" %}
+{% elif p == 'Croatie' %}{% include tpl with code="HR" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Roumanie' %}{% include tpl with code="RO" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Bulgarie' %}{% include tpl with code="BG" fond="bg-white" texte="text-black" bordure="border-black" %}
+
+{# ===== Hors UE ===== #}
+{% elif p == 'Royaume-Uni' %}{% include tpl with code="UK" etoiles="non" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Norvège' %}{% include tpl with code="N" etoiles="non" fond="bg-white" texte="text-black" bordure="border-black" %}
+{% elif p == 'Suisse' %}{% include tpl with fond="bg-white" texte="text-black" bordure="border-black" %}
+
+{# ===== Pays non listé ===== #}
+{% else %}{% include tpl with fond="bg-white" texte="text-black" bordure="border-gray-400" %}
 {% endif %}
+{% endwith %}

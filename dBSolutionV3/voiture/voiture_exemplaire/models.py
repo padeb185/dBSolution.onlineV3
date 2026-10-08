@@ -16,9 +16,44 @@ class TypeUtilisation(models.TextChoices):
     INTERNE = "interne", _("Interne")
 
 class NomPays(models.TextChoices):
+    # Les valeurs doivent correspondre exactement à celles testées dans
+    # maintenance/templates/maintenance/partials/plaque.html
+    # --- Benelux ---
     BE = "Belgique", _("Belgique")
     LU = "Luxembourg", _("Luxembourg")
+    NL = "Pays-Bas", _("Pays-Bas")
+    # --- Europe de l'Ouest ---
     DE = "Allemagne", _("Allemagne")
+    FR = "France", _("France")
+    AT = "Autriche", _("Autriche")
+    IE = "Irlande", _("Irlande")
+    # --- Europe du Sud ---
+    IT = "Italie", _("Italie")
+    ES = "Espagne", _("Espagne")
+    PT = "Portugal", _("Portugal")
+    GR = "Grèce", _("Grèce")
+    CY = "Chypre", _("Chypre")
+    MT = "Malte", _("Malte")
+    # --- Europe du Nord ---
+    DK = "Danemark", _("Danemark")
+    SE = "Suède", _("Suède")
+    FI = "Finlande", _("Finlande")
+    EE = "Estonie", _("Estonie")
+    LV = "Lettonie", _("Lettonie")
+    LT = "Lituanie", _("Lituanie")
+    # --- Europe centrale et de l'Est ---
+    PL = "Pologne", _("Pologne")
+    CZ = "Tchéquie", _("Tchéquie")
+    SK = "Slovaquie", _("Slovaquie")
+    HU = "Hongrie", _("Hongrie")
+    SI = "Slovénie", _("Slovénie")
+    HR = "Croatie", _("Croatie")
+    RO = "Roumanie", _("Roumanie")
+    BG = "Bulgarie", _("Bulgarie")
+    # --- Hors UE ---
+    GB = "Royaume-Uni", _("Royaume-Uni")
+    NO = "Norvège", _("Norvège")
+    CH = "Suisse", _("Suisse")
 
 
 class KilometresRodage(models.IntegerChoices):

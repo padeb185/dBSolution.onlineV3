@@ -1,0 +1,27 @@
+{% load i18n %}
+{# Paramètres : code, fond, texte, bordure, etoiles ("non" pour masquer les étoiles UE), taille ("petite" pour les listes, "grande" pour voiture_exemplaire) #}
+<div class="{% if taille == 'petite' %}h-8 w-[170px] max-w-[170px]{% elif taille == 'grande' %}mb-4 h-12 w-[240px] max-w-[240px]{% else %}mb-4 h-10 w-[200px] max-w-[200px]{% endif %} flex shrink-0 items-stretch overflow-hidden rounded-md border-2 {{ bordure|default:'border-black' }} {{ fond|default:'bg-white' }} font-[Arial] shadow-sm"
+     role="img" aria-label="{% trans 'Plaque d’immatriculation' %} {{ immat_plaque|default:exemplaire.immatriculation }}">
+
+    {% if code %}
+    <div class="flex {% if taille == 'petite' %}w-6{% elif taille == 'grande' %}w-9{% else %}w-7{% endif %} shrink-0 flex-col items-center justify-center gap-0.5 bg-[#003399] text-white">
+        {% if etoiles != "non" %}
+        <svg viewBox="0 0 20 20" class="{% if taille == 'petite' %}h-3 w-3{% elif taille == 'grande' %}h-[18px] w-[18px]{% else %}h-3.5 w-3.5{% endif %}" aria-hidden="true">
+            <g class="fill-[#FFDD00]">
+                <circle cx="10" cy="3" r="1.2"/><circle cx="13.5" cy="3.94" r="1.2"/>
+                <circle cx="16.06" cy="6.5" r="1.2"/><circle cx="17" cy="10" r="1.2"/>
+                <circle cx="16.06" cy="13.5" r="1.2"/><circle cx="13.5" cy="16.06" r="1.2"/>
+                <circle cx="10" cy="17" r="1.2"/><circle cx="6.5" cy="16.06" r="1.2"/>
+                <circle cx="3.94" cy="13.5" r="1.2"/><circle cx="3" cy="10" r="1.2"/>
+                <circle cx="3.94" cy="6.5" r="1.2"/><circle cx="6.5" cy="3.94" r="1.2"/>
+            </g>
+        </svg>
+        {% endif %}
+        <span class="{% if taille == 'petite' %}text-[8px]{% elif taille == 'grande' %}text-[11px]{% else %}text-[9px]{% endif %} font-bold leading-none">{{ code }}</span>
+    </div>
+    {% endif %}
+
+    <span class="flex min-w-0 flex-1 items-center justify-center truncate whitespace-nowrap px-1.5 {% if taille == 'petite' %}text-[19px]{% elif taille == 'grande' %}text-[28px]{% else %}text-[23px]{% endif %} font-bold uppercase leading-none tracking-wide {{ texte|default:'text-black' }} select-all">
+        {{ immat_plaque|default:exemplaire.immatriculation }}
+    </span>
+</div>
