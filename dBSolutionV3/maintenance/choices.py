@@ -38,7 +38,10 @@ TAUX_HORAIRE_CHOICES = [
     (Decimal("130.00"), _("130,00 €")),
 ]
 
-
+class CoteConduite(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+    GAUCHE = "GAUCHE", _("Conduite à gauche")
+    DROITE = "CONDUITE", _("Conduite à droite")
 
 
 class FabricantCarrosserie(models.TextChoices):

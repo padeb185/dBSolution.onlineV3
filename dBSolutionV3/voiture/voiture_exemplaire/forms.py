@@ -29,6 +29,7 @@ class VoitureExemplaireForm(forms.ModelForm):
             "pays",
             "numero_vin",
             "type_utilisation",
+            "cote_conduite",
             "kilometres_chassis",
             "kilometres_moteur",
             "kilometres_boite",

@@ -4,6 +4,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator, RegexVa
 from django.utils.translation import gettext_lazy as _
 from client_particulier.models import ClientParticulier
 from django.conf import settings
+from maintenance.choices import CoteConduite
 from societe.models import Societe
 from voiture.voiture_exemplaire.utils_vin import VinDecoderService
 
@@ -162,6 +163,15 @@ class VoitureExemplaire(models.Model):
         max_length=10,
         choices=TypeUtilisation.choices,
         default=TypeUtilisation.CLIENT
+    )
+
+    cote_conduite = models.CharField(
+        max_length=25,
+        choices=CoteConduite.choices,
+        default=CoteConduite.GAUCHE,
+        verbose_name=_("Coté conducteur"),
+        null=True,
+        blank=True,
     )
 
     # 📏 Kilométrage châssis

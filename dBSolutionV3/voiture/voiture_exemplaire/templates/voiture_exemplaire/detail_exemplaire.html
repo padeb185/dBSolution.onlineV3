@@ -53,6 +53,8 @@
             <p><strong>{% trans "Kilométrage de l'embrayage" %}      :</strong> {{ exemplaire.kilometres_embrayage }} km</p>
             <p><strong>{% trans "Kilométrage du dernier entretien" %}:</strong> {{ exemplaire.kilometres_dernier_entretien }} km</p>
             <br>
+            <p><strong>{% trans "Coté conducteur" %}:</strong> {{ exemplaire.get_cote_conduite_display }}</p>
+            <br>
 
 
 
