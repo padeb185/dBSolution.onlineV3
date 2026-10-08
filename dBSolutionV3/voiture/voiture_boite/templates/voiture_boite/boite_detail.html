@@ -16,7 +16,7 @@
                       class="w-20 h-20 object-contain"
                      onerror="this.src='{% static 'icons/boite-de-vitesse.png' %}';">
             {% endwith %}
-            <span>{% trans "Détails de la boite de vitesses :" %}</span>
+            <span>{% trans "Détails de la boîte de vitesse :" %}</span>
 
            <span class="text-black-700">{{ boite.fabricant }} {{ boite.nom_du_type }}</span>
         </h1>
@@ -83,7 +83,7 @@
             <a href="{% url 'voiture_boite:modifier_boite' boite.id %}" class="block w-full">
                 <button type="button"
                         class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                    {% trans "Modifier la boite de vitesse" %}
+                    {% trans "Modifier la boîte de vitesse" %}
                 </button>
             </a>
         </div>
@@ -96,7 +96,7 @@
                class="block w-full text-center px-4 py-2 rounded font-semibold"
                style="background-color:#b91c1c; color:white;">
 
-                {% trans "Supprimer la boite de vitesse" %}
+                {% trans "Supprimer la boîte de vitesse" %}
             </a>
         </div>
         {% endif %}

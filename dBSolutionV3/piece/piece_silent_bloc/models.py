@@ -18,7 +18,7 @@ class PieceSilentBloc(Piece):
         ("silent_bloc_pont", _("Silent-bloc de pont")),
 
         # ⚙️ Transmission
-        ("silent_bloc_boite", _("Silent-bloc de boîte de vitesses")),
+        ("silent_bloc_boite", _("Silent-bloc de boîte de vitesse")),
         ("silent_bloc_transmission", _("Silent-bloc de transmission")),
         ("silent_bloc_arbre_transmission", _("Silent-bloc d’arbre de transmission")),
 

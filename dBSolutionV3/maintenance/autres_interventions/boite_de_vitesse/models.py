@@ -227,6 +227,7 @@ class ControleBoite(TechnicienMixin, models.Model):
     vitesse_5_fabricant = models.CharField(max_length=25, choices=FabricantBoite.choices,
                                            default=FabricantBoite.CHOISIR, verbose_name=_("Fabricant"))
     vitesse_5_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
+
     vitesse_5_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,
                                          verbose_name=_("Prix d'achat HTVA"))
 
@@ -282,7 +283,7 @@ class ControleBoite(TechnicienMixin, models.Model):
 
     # Huile
     man_huile_manuelle = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
-                                          verbose_name=_("Huile de boite de vitesse"))
+                                          verbose_name=_("Huile de boîte de vitesse"))
     man_huile_manuelle_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,
                                                     default=FabricantLubrifiant.CHOISIR, verbose_name=_("Fabricant"))
     man_huile_manuelle_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices,

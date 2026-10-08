@@ -259,7 +259,7 @@ def remplacement_boite_form_view(request, exemplaire_id):
                     # LOG
                     # ==================================================
                     ACTION_REMPLACEMENT_BOITE_VITESSE = gettext_noop(
-                        "Remplacement de la boite de vitesse"
+                        "Remplacement de la boîte de vitesse"
                     )
 
                     UserLog.objects.create(
@@ -321,7 +321,7 @@ def remplacement_boite_form_view(request, exemplaire_id):
             "fields": [form[f.name] for f in form if "remplacement_boite" in f.name],
         },
         {
-            "title": _("Niveau de la boite de vitesse"),
+            "title": _("Niveau de la boîte de vitesse"),
             "icon": "icons/niveaux.png",
             "fields": [form[f.name] for f in form if "boite_niveau" in f.name],
         },
@@ -520,7 +520,7 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
                     # LOG
                     # ==================================================
                     ACTION_MODIFICATION_REMPLACEMENT_BOITE_VITESSE = gettext_noop(
-                        "Modification du remplacement de la boite de vitesse"
+                        "Modification du remplacement de la boîte de vitesse"
                     )
 
                     UserLog.objects.create(
@@ -557,17 +557,17 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
             "fields": [form[f.name] for f in form if "kilo" in f.name],
         },
         {
-            "title": _("Remplacement de la boite de vitesse"),
+            "title": _("Remplacement de la boîte de vitesse"),
             "icon": "icons/boite-de-vitesse.png",
             "fields": [form[f.name] for f in form if "remplacement_boite" in f.name],
         },
         {
-            "title": _("Niveau de la boite de vitesse"),
+            "title": _("Niveau de la boîte de vitesse"),
             "icon": "icons/niveaux.png",
             "fields": [form[f.name] for f in form if "boite_niveau" in f.name],
         },
         {
-            "title": _("Remise à Zéro des kilomètres de la boite de vitesse"),
+            "title": _("Remise à Zéro des kilomètres de la boîte de vitesse"),
             "icon": "icons/km.png",
             "fields": [form[f.name] for f in form if "remplacement_effectue" in f.name],
         },
@@ -708,7 +708,7 @@ def delete_remplacement_boite_view(request, remplacement_boite_id):
                     maintenance.delete()
 
                 ACTION_SUPPRESSION_REMPLACEMENT_BOITE = gettext_noop(
-                    "Suppression du remplacement de la boite de vitesse"
+                    "Suppression du remplacement de la boîte de vitesse"
                 )
 
                 UserLog.objects.create(

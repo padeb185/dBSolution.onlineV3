@@ -456,7 +456,7 @@ class Niveau(TechnicienMixin, models.Model):
             },
             {
                 "prefix": "boite_niveau_huile",
-                "label": _("Huile de boîte de vitesses"),
+                "label": _("Huile de boîte de vitesse"),
             },
             {
                 "prefix": "pont_niveau_huile",

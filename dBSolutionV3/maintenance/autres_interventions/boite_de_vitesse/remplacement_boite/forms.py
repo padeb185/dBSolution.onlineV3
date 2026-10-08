@@ -156,7 +156,7 @@ class RemplacementBoiteForm(forms.ModelForm):
         # -----------------------
         if "remplacement_effectue" in self.fields:
             self.fields["remplacement_effectue"].help_text = _(
-                "Cochez pour remplacer la boite de vitesse "
+                "Cochez pour remplacer la boîte de vitesse "
                 "(remise à zéro automatique du kilométrage)."
             )
 

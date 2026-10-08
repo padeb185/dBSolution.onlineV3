@@ -952,7 +952,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
                 "etat": "boite_niveau_huile_etat",
                 "qualite": "boite_niveau_huile_qualite",
                 "quantite": "boite_niveau_huile_quantite",
-                "libelle": _("Huile de boîte de vitesses"),
+                "libelle": _("Huile de boîte de vitesse"),
                 "unite": _("L"),
             },
             "pont_niveau_huile": {

@@ -32,7 +32,7 @@ class Electronique(Piece):
         ("regulateur_pression_carb", _("Régulateur pression carburant")),
         ("capteur_niveau_huile", _("Capteur niveau huile")),
         ("capteur_niveau_liquide_freins", _("Capteur niveau liquide freins")),
-        ("calculateur_bdv", _("Calculateur boîte de vitesses")),
+        ("calculateur_bdv", _("Calculateur de boîte de vitesse")),
         ("relais_prechauffage", _("Relais de préchauffage")),
         ("relais", _("Relais")),
         ("resistance_chauffage", _("Résistance de chauffage")),

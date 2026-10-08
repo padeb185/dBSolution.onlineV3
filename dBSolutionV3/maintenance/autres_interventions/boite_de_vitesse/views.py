@@ -299,7 +299,7 @@ def boite_check_view(request, exemplaire_id):
                     boite.save()
 
                 ACTION_CONTROLE_BOITE_VITESSE = gettext_noop(
-                    "Contrôle de la boite de vitesse"
+                    "Contrôle de la boîte de vitesse"
                 )
 
                 UserLog.objects.create(
@@ -308,7 +308,7 @@ def boite_check_view(request, exemplaire_id):
                 )
 
 
-                messages.success(request, _("Checkup de la boite de vitesse enregistré avec succès."))
+                messages.success(request, _("Checkup de la boîte de vitesse enregistré avec succès."))
 
                 return redirect(
                     f"{reverse('boite_de_vitesse:boite_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
@@ -501,7 +501,7 @@ def modifier_boite_view(request, boite_id):
 
 
                 ACTION_MODIFICATION_BOITE_VITESSE = gettext_noop(
-                    "Modification contrôle de la boite de vitesse"
+                    "Modification contrôle de la boîte de vitesse"
                 )
 
                 UserLog.objects.create(
@@ -509,7 +509,7 @@ def modifier_boite_view(request, boite_id):
                     action=f"{ACTION_MODIFICATION_BOITE_VITESSE} - {exemplaire.immatriculation}"
                 )
 
-                messages.success(request, _("Checkup de la boite de vitesse modifié avec succès !"))
+                messages.success(request, _("Checkup de la boîte de vitesse modifié avec succès !"))
 
                 return redirect(
                     f"{reverse('boite_de_vitesse:boite_detail', kwargs={'boite_id': boite.id})}?saved=1"
@@ -683,7 +683,7 @@ def delete_boite_view(request, boite_id):
                 # USER LOG
                 # ==================================================
                 ACTION_SUPPRESSION_BOITE = gettext_noop(
-                    "Suppression du contrôle de la boite de vitesse"
+                    "Suppression du contrôle de la boîte de vitesse"
                 )
 
                 UserLog.objects.create(
@@ -696,7 +696,7 @@ def delete_boite_view(request, boite_id):
 
             messages.success(
                 request,
-                _("Contrôle de la boite de vitesse supprimé avec succès.")
+                _("Contrôle de la boîte de vitesse supprimé avec succès.")
             )
 
             return redirect(
@@ -878,7 +878,7 @@ def boite_check_pdf_view(request, pk):
     # =========================================================
 
     nom_fichier = (
-        f"{_('Boite de vitesse')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
+        f"{_('Boîte de vitesse')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
     )
 
     response = HttpResponse(

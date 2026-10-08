@@ -14,7 +14,7 @@
                      class="w-[65px] h-[65px] object-contain"
                      onerror="this.onerror=null; this.src='{% static 'icons/boite-de-vitesse.png' %}';">
             {% endwith %}
-            <span>{% trans "Modifier la boite de vitesse:" %}</span>
+            <span>{% trans "Modifier la boîte de vitesse:" %}</span>
             <span class="text-black-700">{{ boite.fabricant }}</span>
         </h1>
     </div>
@@ -54,7 +54,7 @@
     <form method="post" class="space-y-4">
         {% csrf_token %}
 
-        <h2 class="text-lg font-semibold mb-2">{% trans "Boite de vitesse" %}</h2>
+        <h2 class="text-lg font-semibold mb-2">{% trans "Boîte de vitesse" %}</h2>
         {% for field in form %}
             <div class="mb-4">
                 <label class="block font-semibold mb-1">{{ field.label }}</label>
@@ -83,7 +83,7 @@
 <div class="max-w-xl mx-auto mt-4">
     <a href="{% url 'voiture_boite:boite_detail' boite_id=boite.id %}"
          class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-        {% trans "Retour aux détails de la boite de vitesse" %}
+        {% trans "Retour aux détails de la boîte de vitesse" %}
     </a>
 </div>
 <style>

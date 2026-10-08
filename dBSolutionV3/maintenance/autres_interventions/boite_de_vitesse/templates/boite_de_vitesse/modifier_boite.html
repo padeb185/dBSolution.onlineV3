@@ -17,7 +17,7 @@
                       class="w-20 h-20">
 
                 <span>
-                    {% trans "Modifier le contrôle de la boite de vitesse" %}
+                    {% trans "Modifier le contrôle de la boîte de vitesse" %}
                 </span>
             </div>
 
@@ -219,7 +219,7 @@
     <form method="post" id="boite-form" class="space-y-4">
         {% csrf_token %}
 
-        <h2 class="text-lg font-semibold mb-2">{% trans "Détails de la boite de vitesses" %}</h2>
+        <h2 class="text-lg font-semibold mb-2">{% trans "Détails de la boîte de vitesse" %}</h2>
 
         <br>
 
@@ -393,7 +393,7 @@
            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/roulement.png' %}" alt="roulement de boite"
                   class="w-20 h-20">
-            {% trans "Roulements de boite de vitesses" %}
+            {% trans "Roulements de boîte de vitesse" %}
          </h2>
         {% for field in form %}
             {% if "roulem" in field.name %}
@@ -553,7 +553,7 @@
            <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/huile-moteur.png' %}" alt="Huile de boite"
                   class="w-20 h-20">
-             {% trans "Huile de boite de vitesses" %}
+             {% trans "Huile de boîte de vitesse" %}
          </h2>
         {% for field in form %}
             {% if "man_huile" in field.name %}

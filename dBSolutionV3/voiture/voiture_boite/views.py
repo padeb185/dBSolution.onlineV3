@@ -146,7 +146,7 @@ def modifier_boite_view(request, boite_id):
 
 
 
-ACTION_SUPPRESSION_BOITE = gettext_noop("Suppression de la boîte de vitesses")
+ACTION_SUPPRESSION_BOITE = gettext_noop("Suppression de la boîte de vitesse")
 
 
 @login_required

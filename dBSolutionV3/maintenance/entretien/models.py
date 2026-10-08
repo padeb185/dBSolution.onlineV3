@@ -286,7 +286,7 @@ class Entretien(TechnicienMixin, models.Model):
         max_length=25,
         choices=EntretienEtat.choices,
         default=EntretienEtat.A_FAIRE,
-        verbose_name=_("Remplacer le filtre à huile de boîte de vitesses"),
+        verbose_name=_("Remplacer le filtre à huile de boîte de vitesse"),
     )
 
     filtre_huile_bte_fabricant = models.CharField(
@@ -334,7 +334,7 @@ class Entretien(TechnicienMixin, models.Model):
     )
 
 
-    boite_entretien_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices,default=EntretienEtat.A_FAIRE,verbose_name=_("Vidange de l'huile de boite de vitesses"))
+    boite_entretien_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices,default=EntretienEtat.A_FAIRE,verbose_name=_("Vidange de l'huile de boîte de vitesse"))
     boite_bouchon_vidange = models.CharField(
         max_length=25,
         choices=EntretienEtat.choices,
@@ -380,7 +380,7 @@ class Entretien(TechnicienMixin, models.Model):
         default=0,
         verbose_name=_("Prix d'achat HTVA"),
     )
-    boite_ajout_huile = models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE,verbose_name=_("Ajout de l'huile de boite de vitesse"))
+    boite_ajout_huile = models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE,verbose_name=_("Ajout de l'huile de boîte de vitesse"))
     boite_ajout_huile_fabricant = models.CharField(
         max_length=25,
         choices=FabricantLubrifiant.choices,

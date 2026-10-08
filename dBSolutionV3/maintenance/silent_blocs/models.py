@@ -565,7 +565,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
-        verbose_name=_("Silent bloc de boite de vitesse")
+        verbose_name=_("Silent bloc de boîte de vitesse")
     )
 
     silent_blocs_moteur_boite_ard_fabricant = models.CharField(max_length=30,

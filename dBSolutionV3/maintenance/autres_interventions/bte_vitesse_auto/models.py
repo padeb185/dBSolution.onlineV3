@@ -1457,7 +1457,7 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
     )
 
     huile_bte_auto_vitesse = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
-                                          verbose_name=_("Huile de boite de vitesse"))
+                                          verbose_name=_("Huile de boîte de vitesse"))
 
     huile_bte_auto_vitesse_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,
                                               default=FabricantLubrifiant.CHOISIR,
@@ -1578,7 +1578,7 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         # =========================
         if self.main_oeuvre_id and self.voiture_exemplaire_id:
             task_name = (
-                    _("Checkup boite de vitesse automatique")
+                    _("Checkup boîte de vitesse automatique")
                     + " "
                     + str(self.voiture_exemplaire)
             )
