@@ -2435,17 +2435,18 @@
             {% endif %}
         </td>
     </tr>
+
     <tr>
-        <td>{% trans "Eclaire Plaque" %}</td>
+        <td>{% trans "Eclaire plaque" %}</td>
         <td>
-            {% if eclairage.phares_eclaire_plaque == "OK" %}
-                <span class="etat-vert">{{ eclairage.get_phares_eclaire_plaque_display }}</span>
-            {% elif eclairage.phares_eclaire_plaque == "A_REMPLACER" %}
-                <span class="etat-rouge">{{ eclairage.get_phares_eclaire_plaque_display }}</span>
-            {% elif eclairage.phares_eclaire_plaque == "REMPLACE" %}
-                <span class="etat-bleu">{{ eclairage.get_phares_eclaire_plaque_display }}</span>
+            {% if checkup.phares_eclaire_plaque == "OK" %}
+                <span class="etat-vert">{{ checkup.get_phares_eclaire_plaque_display }}</span>
+            {% elif checkup.phares_eclaire_plaque == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_phares_eclaire_plaque_display }}</span>
+            {% elif checkup.phares_eclaire_plaque == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_phares_eclaire_plaque_display }}</span>
             {% else %}
-                <span class="etat-gris">{{ eclairage.get_phares_eclaire_plaque_display|default:"-" }}</span>
+                <span class="etat-gris">{{ checkup.get_phares_eclaire_plaque_display|default:"-" }}</span>
             {% endif %}
         </td>
     </tr>
