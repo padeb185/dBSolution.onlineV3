@@ -50,10 +50,11 @@ class StatsFournisseur(models.Model):
             fournisseur=self.fournisseur
         )
 
-    def get_lignes(self, annee=None):
+    def get_lignes(self, annee=None, mois=None):
         """
         Liste unifiée des achats (marchandises + outillage).
-        Chaque ligne : date, montant HTVA, montant TVA, source.
+        Chaque ligne : date, référence, libellé, montant HTVA,
+        montant TVA, montant TVAC, source.
         """
         lignes = []
 
@@ -61,12 +62,20 @@ class StatsFournisseur(models.Model):
         qs_mds = self.get_qs()
         if annee:
             qs_mds = qs_mds.filter(date_facture__year=annee)
+        if mois:
+            qs_mds = qs_mds.filter(date_facture__month=mois)
 
         for a in qs_mds:
+            # HTVA = marchandise + transport (cohérent avec montant_tva)
+            htva = a.montant_htva_total or Decimal("0.00")
+            tva = a.montant_tva or Decimal("0.00")
             lignes.append({
                 "date": a.date_facture,
-                "htva": a.achat_montant_htva or Decimal("0.00"),
-                "tva": a.montant_tva or Decimal("0.00"),
+                "reference": a.reference_facture or "",
+                "libelle": a.libelle_facture or "",
+                "htva": htva,
+                "tva": tva,
+                "tvac": htva + tva,
                 "source": "mds",
             })
 
@@ -74,17 +83,25 @@ class StatsFournisseur(models.Model):
         qs_outil = self.get_qs_outillage()
         if annee:
             qs_outil = qs_outil.filter(date_facture__year=annee)
+        if mois:
+            qs_outil = qs_outil.filter(date_facture__month=mois)
 
         for o in qs_outil:
             htva = (o.prix_htva or Decimal("0.00")) * (o.quantite or 0)
+            tva = o.tva_a_recuperer or Decimal("0.00")
             lignes.append({
                 "date": o.date_facture,
+                "reference": o.reference or "",
+                "libelle": o.libelle or "",
                 "htva": htva,
-                "tva": o.tva_a_recuperer or Decimal("0.00"),
+                "tva": tva,
+                "tvac": htva + tva,
                 "source": "outillage",
             })
 
-        return [l for l in lignes if l["date"]]
+        lignes = [l for l in lignes if l["date"]]
+        lignes.sort(key=lambda l: l["date"])
+        return lignes
 
     @staticmethod
     def _q(valeur):

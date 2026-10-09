@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.choices import FabricantPiece, TAUX_HORAIRE_CHOICES, TVAConfig
+from maintenance.choices import FabricantPiece, TAUX_HORAIRE_CHOICES, TVAConfig, FabricantClim
 from maintenance.models import Maintenance
 from maintenance.services import sync_maintenance
 from utils.mixin import TechnicienMixin
@@ -198,6 +198,14 @@ class Climatisation(TechnicienMixin, models.Model):
         default=EtatOperationClimatisation.A_FAIRE,
         verbose_name=_("Ajout d'huile de climatisation"),
     )
+
+    ajout_huile_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantClim.choices,
+        default=FabricantClim.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
     ajout_huile_quantite = models.DecimalField(
         max_digits=8,
         decimal_places=3,
@@ -208,6 +216,13 @@ class Climatisation(TechnicienMixin, models.Model):
     )
 
 
+    ajout_huile_quantite_huile_recuperee = models.DecimalField(
+        max_digits=8,
+        decimal_places=4,
+        default=0,
+        verbose_name=_("Quantité d'huile récupérée en millilitres"),
+    )
+
     ajout_huile_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -215,12 +230,7 @@ class Climatisation(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA"),
     )
 
-    ajout_huile_quantite_huile_recuperee = models.DecimalField(
-        max_digits=8,
-        decimal_places=4,
-        default=0,
-        verbose_name=_("Quantité d'huile récupérée en millilitres"),
-    )
+
 
 
     traceur = models.CharField(
@@ -230,12 +240,19 @@ class Climatisation(TechnicienMixin, models.Model):
         verbose_name=_("Ajout de traceur"),
     )
 
+    traceur_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantClim.choices,
+        default=FabricantClim.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+
     traceur_quantite = models.DecimalField(
         max_digits=8,
         decimal_places=3,
         default=0,
         validators=[StepValueValidator(0.001)],
-        verbose_name=_("Quantité d'huile ajoutée en millilitres"),
+        verbose_name=_("Quantité de traceur ajouté en millilitres"),
         help_text="0.015"
     )
 
@@ -245,6 +262,8 @@ class Climatisation(TechnicienMixin, models.Model):
         default=0,
         verbose_name=_("Prix d'achat HTVA"),
     )
+
+
 
     # ------------------------------------------------------
     # MISE SOUS VIDE
@@ -256,12 +275,14 @@ class Climatisation(TechnicienMixin, models.Model):
         default=EtatOperationClimatisation.A_FAIRE,
         verbose_name=_("Mise sous vide"),
     )
+
     mise_sous_vide_quantite = models.DecimalField(
         max_digits=8,
         decimal_places=2,
         default=0,
         verbose_name=_("Quantité"),
     )
+
     mise_sous_vide_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -331,7 +352,8 @@ class Climatisation(TechnicienMixin, models.Model):
         default=EtatClimatisation.OK,
         verbose_name=_("Tuyaux de climatisation"),
     )
-    tuyaux_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
+
+    tuyaux_fabricant = models.CharField(max_length=25, choices=FabricantClim.choices,default=FabricantClim.CHOISIR, verbose_name=_("Fabricant"),blank=True)
 
     tuyaux_quantite = models.PositiveIntegerField(
         default=0,
@@ -353,7 +375,7 @@ class Climatisation(TechnicienMixin, models.Model):
         default=EtatClimatisation.OK,
         verbose_name=_("Valves de climatisation"),
     )
-    valves_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
+    valves_fabricant = models.CharField(max_length=25, choices=FabricantClim.choices,default=FabricantClim.CHOISIR, verbose_name=_("Fabricant"),blank=True)
 
     valves_quantite = models.PositiveIntegerField(
         default=0,
@@ -375,7 +397,7 @@ class Climatisation(TechnicienMixin, models.Model):
         default=EtatClimatisation.OK,
         verbose_name=_("Déshydrateur"),
     )
-    deshydrateur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
+    deshydrateur_fabricant = models.CharField(max_length=25, choices=FabricantClim.choices,default=FabricantClim.CHOISIR, verbose_name=_("Fabricant"),blank=True)
 
 
 
@@ -391,24 +413,26 @@ class Climatisation(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA du déshydrateur"),
     )
 
+
     condenseur = models.CharField(
         max_length=25,
         choices=EtatClimatisation.choices,
         default=EtatClimatisation.OK,
         verbose_name=_("Condenseur"),
     )
-    condenseur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
 
+    condenseur_fabricant = models.CharField(max_length=25, choices=FabricantClim.choices,default=FabricantClim.CHOISIR, verbose_name=_("Fabricant"),blank=True)
+
+
+    condenseur_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
     condenseur_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA du condenseur"),
-    )
-
-    condenseur_quantite = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("Quantité"),
     )
 
     compresseur = models.CharField(
@@ -417,7 +441,13 @@ class Climatisation(TechnicienMixin, models.Model):
         default=EtatClimatisation.OK,
         verbose_name=_("Compresseur de climatisation"),
     )
-    compresseur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices,default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
+    compresseur_fabricant = models.CharField(max_length=25, choices=FabricantClim.choices,default=FabricantClim.CHOISIR, verbose_name=_("Fabricant"),blank=True)
+
+
+    compresseur_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
     compresseur_prix = models.DecimalField(
         max_digits=10,
@@ -426,18 +456,20 @@ class Climatisation(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA du compresseur"),
     )
 
-    compresseur_quantite = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("Quantité"),
-    )
-
     evaporateur = models.CharField(
         max_length=25,
         choices=EtatClimatisation.choices,
         default=EtatClimatisation.OK,
         verbose_name=_("Évaporateur"),
     )
-    evaporateur_fabricant = models.CharField(max_length=25, choices=FabricantPiece.choices, default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"),blank=True)
+    evaporateur_fabricant = models.CharField(max_length=25, choices=FabricantClim.choices, default=FabricantClim.CHOISIR, verbose_name=_("Fabricant"),blank=True)
+
+
+
+    evaporateur_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
     evaporateur_prix = models.DecimalField(
         max_digits=10,
@@ -446,10 +478,7 @@ class Climatisation(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA de l'évaporateur"),
     )
 
-    evaporateur_quantite = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_("Quantité"),
-    )
+
     recharge = models.CharField(
         max_length=25,
         choices=EtatClimatisation.choices,
@@ -457,16 +486,23 @@ class Climatisation(TechnicienMixin, models.Model):
         verbose_name=_("Recharge de gaz"),
     )
 
-    recharge_prix = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=0,
-        verbose_name=_("Prix d'achat HTVA"),
+    recharge_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantClim.choices,
+        default=FabricantClim.CHOISIR,
+        verbose_name=_("Fabricant"),
     )
 
     recharge_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité"),
+    )
+
+    recharge_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     # ------------------------------------------------------
@@ -918,11 +954,27 @@ class Climatisation(TechnicienMixin, models.Model):
             else:
                 etat_label = etat or "-"
 
+            # Libellé lisible du fabricant ; "CHOISIR" ou vide => "-"
+            if not fabricant or fabricant == "CHOISIR":
+                fabricant_label = "-"
+            else:
+                get_fabricant_display = getattr(
+                    self,
+                    f"get_{fabricant_field}_display",
+                    None,
+                )
+                fabricant_label = (
+                    get_fabricant_display()
+                    if callable(get_fabricant_display)
+                    else fabricant
+                )
+
             lignes.append({
                 "champ": element["champ"],
                 "etat": etat,
                 "etat_label": etat_label,
                 "fabricant": fabricant or "-",
+                "fabricant_label": fabricant_label,
                 "quantite": quantite,
                 "prix": prix.quantize(
                     Decimal("0.01"),

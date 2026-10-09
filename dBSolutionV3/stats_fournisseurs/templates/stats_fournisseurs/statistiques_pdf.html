@@ -1,0 +1,379 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .nowrap {
+            white-space: nowrap;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+        .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+
+        /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= EN-TÊTE SOCIÉTÉ ================= -->
+
+{% if societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ societe.nom }}
+            </div>
+
+            {% if societe.adresse %}
+                <div>
+                    {{ societe.adresse.rue }}
+                    {{ societe.adresse.numero }}
+                    {% if societe.adresse.boite %}
+                        / {{ societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ societe.adresse.code_postal }}
+                    {{ societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if societe.adresse.pays %}
+                <div>
+                    {{ societe.adresse.pays }}
+                    {{ societe.adresse.code_pays }}
+                </div>
+            {% endif %}
+
+            {% if societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ societe.numero_tva }}
+                </div>
+            {% endif %}
+
+            {% if societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ societe.nom }}.png"
+                alt="{{ societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+
+<h1>{% trans "Relevé des factures fournisseur" %}</h1>
+
+<!-- ================= INFOS FOURNISSEUR ================= -->
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Fournisseur" %} :</span>
+            {{ fournisseur.nom }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Numéro de TVA" %} :</span>
+            {{ fournisseur.numero_tva|default:"-" }}
+        </div>
+
+        {% if fournisseur.adresse %}
+            <div>
+                <span class="label">{% trans "Adresse" %} :</span>
+                {{ fournisseur.adresse.rue }} {{ fournisseur.adresse.numero }}{% if fournisseur.adresse.boite %} / {{ fournisseur.adresse.boite }}{% endif %},
+                {{ fournisseur.adresse.code_postal }} {{ fournisseur.adresse.ville }}
+            </div>
+        {% endif %}
+
+        {% if fournisseur.email %}
+            <div>
+                <span class="label">{% trans "E-mail" %} :</span>
+                {{ fournisseur.email }}
+            </div>
+        {% endif %}
+
+        <div>
+            <span class="label">{% trans "Période" %} :</span>
+            {% if mois_label %}{{ mois_label }} {% endif %}{% if annee %}{{ annee }}{% elif not mois_label %}{% trans "Toutes les années" %}{% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Nombre de factures" %} :</span>
+            {{ nb_factures }}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= DÉTAIL DES FACTURES ================= -->
+
+<h2>{% trans "Détail des factures" %}</h2>
+
+{% if factures %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Référence" %}</th>
+                <th>{% trans "Libellé" %}</th>
+                <th>{% trans "Type" %}</th>
+                <th class="text-right">{% trans "HTVA" %}</th>
+                <th class="text-right">{% trans "TVA" %}</th>
+                <th class="text-right">{% trans "TVAC" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for f in factures %}
+                <tr>
+                    <td class="nowrap">{{ f.date|date:"d/m/Y" }}</td>
+                    <td>{{ f.reference|default:"-" }}</td>
+                    <td>{{ f.libelle|default:"-" }}</td>
+                    <td>
+                        {% if f.source == "outillage" %}
+                            <span class="etat-gris">{% trans "Outillage" %}</span>
+                        {% else %}
+                            <span class="etat-bleu">{% trans "Marchandises" %}</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-right nowrap">{{ f.htva|floatformat:2 }} €</td>
+                    <td class="text-right nowrap">{{ f.tva|floatformat:2 }} €</td>
+                    <td class="text-right nowrap">{{ f.tvac|floatformat:2 }} €</td>
+                </tr>
+            {% endfor %}
+
+            <!-- Totaux (dans tbody pour ne pas être répétés sur chaque page) -->
+            <tr class="total">
+                <td colspan="6" class="text-right">
+                    {% trans "Total HTVA" %}
+                </td>
+                <td class="text-right nowrap">
+                    {{ total_htva|floatformat:2 }} €
+                </td>
+            </tr>
+
+            <tr class="total">
+                <td colspan="6" class="text-right">
+                    {% trans "Total TVA" %}
+                </td>
+                <td class="text-right nowrap">
+                    {{ total_tva|floatformat:2 }} €
+                </td>
+            </tr>
+
+            <tr class="total-general">
+                <td colspan="6" class="text-right">
+                    {% trans "Total général TVAC" %}
+                </td>
+                <td class="text-right nowrap">
+                    {{ total_tvac|floatformat:2 }} €
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+{% else %}
+
+    <p>{% trans "Aucune facture pour cette période." %}</p>
+
+{% endif %}
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

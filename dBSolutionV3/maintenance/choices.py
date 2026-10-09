@@ -2423,3 +2423,83 @@ class MarqueAmortisseur(models.TextChoices):
     TOKICO = "Tokico", "Tokico"
     ORIGINE = "Origine", _("Origine constructeur (OEM)")
     AUTRE = "Autre", _("Autre")
+
+
+class FabricantClim(models.TextChoices):
+    CHOISIR = "CHOISIR", _("— Choisir —")
+
+    # =====================================================
+    # PIÈCES DE CLIMATISATION (compresseurs, condenseurs,
+    # évaporateurs, détendeurs, bouteilles déshydratantes)
+    # =====================================================
+    DENSO = "DENSO", _("Denso")
+    VALEO = "VALEO", _("Valeo")
+    SANDEN = "SANDEN", _("Sanden")
+    MAHLE = "MAHLE", _("Mahle (ex-Behr)")
+    HELLA = "HELLA", _("Hella / Behr Hella Service")
+    HANON = "HANON", _("Hanon Systems (ex-Halla Visteon)")
+    MARELLI = "MARELLI", _("Marelli (Magneti Marelli / Calsonic Kansei)")
+    DELPHI = "DELPHI", _("Delphi")
+    NISSENS = "NISSENS", _("Nissens")
+    NRF = "NRF", _("NRF")
+    AVA = "AVA", _("AVA Quality Cooling")
+    VAN_WEZEL = "VAN_WEZEL", _("Van Wezel")
+    THERMOTEC = "THERMOTEC", _("Thermotec")
+    TYC = "TYC", _("TYC")
+    KALE = "KALE", _("Kale")
+    MEAT_DORIA = "MEAT_DORIA", _("Meat & Doria")
+    BOSCH = "BOSCH", _("Bosch")
+    HIGHLY = "HIGHLY", _("Highly")
+    ZEXEL = "ZEXEL", _("Zexel")
+    SELTEC = "SELTEC", _("Seltec")
+
+    # =====================================================
+    # FILTRES D'HABITACLE
+    # =====================================================
+    MANN_FILTER = "MANN_FILTER", _("Mann-Filter")
+    CORTECO = "CORTECO", _("Corteco")
+    PURFLUX = "PURFLUX", _("Purflux")
+    UFI = "UFI", _("UFI")
+    HENGST = "HENGST", _("Hengst")
+
+    # =====================================================
+    # HUILES DE CLIM (PAG, POE)
+    # =====================================================
+    ERRECOM = "ERRECOM", _("Errecom")
+    IDEMITSU = "IDEMITSU", _("Idemitsu")
+    FUCHS = "FUCHS", _("Fuchs")
+    LIQUI_MOLY = "LIQUI_MOLY", _("Liqui Moly")
+    WURTH = "WURTH", _("Würth")
+    WYNNS = "WYNNS", _("Wynn's")
+    WAECO = "WAECO", _("Waeco / Dometic")
+
+    # =====================================================
+    # GAZ RÉFRIGÉRANTS (R134a, R1234yf, R744)
+    # =====================================================
+    HONEYWELL = "HONEYWELL", _("Honeywell (Solstice)")
+    CHEMOURS = "CHEMOURS", _("Chemours (Opteon)")
+    ARKEMA = "ARKEMA", _("Arkema (Forane)")
+    DAIKIN = "DAIKIN", _("Daikin")
+    KOURA = "KOURA", _("Koura (Klea)")
+
+    # =====================================================
+    # TRACEURS UV / DÉTECTION DE FUITES
+    # =====================================================
+    SPECTRONICS = "SPECTRONICS", _("Spectronics (Tracerline)")
+    UVIEW = "UVIEW", _("UView")
+    WIGAM = "WIGAM", _("Wigam")
+    BLUECHEM = "BLUECHEM", _("Bluechem")
+
+    # =====================================================
+    # STATIONS / ÉQUIPEMENTS DE RECHARGE
+    # =====================================================
+    TEXA = "TEXA", _("Texa")
+    ROBINAIR = "ROBINAIR", _("Robinair")
+    ECOTECHNICS = "ECOTECHNICS", _("Ecotechnics")
+    SPIN = "SPIN", _("Spin")
+
+    # =====================================================
+    # ORIGINE / AUTRE
+    # =====================================================
+    ORIGINE = "ORIGINE", _("Pièce d'origine constructeur (OEM)")
+    AUTRE = "AUTRE", _("Autre")

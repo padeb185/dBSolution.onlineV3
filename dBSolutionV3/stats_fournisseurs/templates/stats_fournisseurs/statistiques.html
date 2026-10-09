@@ -46,6 +46,15 @@
 
     {% if stats %}
 
+    <!-- Export PDF -->
+    <div class="flex justify-end mb-4">
+        <a href="{% url 'stats_fournisseurs:statistiques_pdf' %}?{{ request.GET.urlencode }}"
+           target="_blank"
+           class="bg-red-700 text-white px-5 py-3 rounded hover:bg-red-500 font-semibold">
+            {% trans "Exporter les factures en PDF" %}
+        </a>
+    </div>
+
     <!-- Résumé global -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
 
