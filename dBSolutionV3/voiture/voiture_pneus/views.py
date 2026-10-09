@@ -287,7 +287,7 @@ def delete_pneus_view(request, pneus_id):
 
 
             return redirect(
-                f"{reverse('voiture_pneus:pneus_list')}?deleted=1"
+                f"{reverse('voiture_pneus:list')}?deleted=1"
             )
 
 

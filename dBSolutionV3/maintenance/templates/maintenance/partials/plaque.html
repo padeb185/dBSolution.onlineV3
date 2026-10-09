@@ -1,5 +1,5 @@
 {# Optionnel : pays_plaque et immat_plaque remplacent exemplaire.pays / exemplaire.immatriculation #}
-{% with p=pays_plaque|default:exemplaire.pays tpl="components/plaque.html" %}
+{% firstof pays_plaque exemplaire.pays "" as p %}{% with tpl="components/plaque.html" %}
 {# ===== Benelux ===== #}
 {% if p == 'Belgique' %}{% include tpl with code="B" fond="bg-white" texte="text-[#8B0000]" bordure="border-[#8B0000]" %}
 {% elif p == 'Luxembourg' %}{% include tpl with code="L" fond="bg-[#FFEB3B]" texte="text-black" bordure="border-black" %}

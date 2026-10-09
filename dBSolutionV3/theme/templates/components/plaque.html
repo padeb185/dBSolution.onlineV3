@@ -1,7 +1,7 @@
 {% load i18n %}
 {# Paramètres : code, fond, texte, bordure, etoiles ("non" pour masquer les étoiles UE), taille ("petite" pour les listes, "grande" pour voiture_exemplaire) #}
 <div class="{% if taille == 'petite' %}h-8 w-[170px] max-w-[170px]{% elif taille == 'grande' %}mb-4 h-12 w-[240px] max-w-[240px]{% else %}mb-4 h-10 w-[200px] max-w-[200px]{% endif %} flex shrink-0 items-stretch overflow-hidden rounded-md border-2 {{ bordure|default:'border-black' }} {{ fond|default:'bg-white' }} font-[Arial] shadow-sm"
-     role="img" aria-label="{% trans 'Plaque d’immatriculation' %} {{ immat_plaque|default:exemplaire.immatriculation }}">
+     role="img" aria-label="{% trans 'Plaque d’immatriculation' %} {% firstof immat_plaque exemplaire.immatriculation %}">
 
     {% if code %}
     <div class="flex {% if taille == 'petite' %}w-6{% elif taille == 'grande' %}w-9{% else %}w-7{% endif %} shrink-0 flex-col items-center justify-center gap-0.5 bg-[#003399] text-white">
@@ -22,6 +22,6 @@
     {% endif %}
 
     <span class="flex min-w-0 flex-1 items-center justify-center truncate whitespace-nowrap px-1.5 {% if taille == 'petite' %}text-[19px]{% elif taille == 'grande' %}text-[28px]{% else %}text-[23px]{% endif %} font-bold uppercase leading-none tracking-wide {{ texte|default:'text-black' }} select-all">
-        {{ immat_plaque|default:exemplaire.immatriculation }}
+        {% firstof immat_plaque exemplaire.immatriculation %}
     </span>
 </div>
