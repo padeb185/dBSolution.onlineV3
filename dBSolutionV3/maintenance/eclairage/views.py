@@ -948,8 +948,8 @@ def delete_eclairage_view(request, eclairage_id):
                     eclairage.kilometres_embrayage or 0
                 )
 
-                ancien_km_dernier_eclairage = (
-                        exemplaire.kilometres_eclairage_rollback or 0
+                ancien_km_dernier_entretien = (
+                        exemplaire.kilometres_entretien_rollback or 0
                 )
 
                 # ==================================================
@@ -1012,9 +1012,8 @@ def delete_eclairage_view(request, eclairage_id):
                 # ==================================================
 
                 ACTION_SUPPRESSION_eclairage = gettext_noop(
-                    "Suppression du contrôle de l'eclairage"
+                    "Suppression du contrôle de l'éclairage"
                 )
-
                 UserLog.objects.create(
                     utilisateur=request.user,
                     action=(
@@ -1029,7 +1028,7 @@ def delete_eclairage_view(request, eclairage_id):
 
             messages.success(
                 request,
-                _("eclairage supprimé avec succès.")
+                _("Contrôle de l'éclairage supprimé avec succès.")
             )
 
             return redirect(
