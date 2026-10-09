@@ -548,8 +548,8 @@ class Eclairage(TechnicienMixin, models.Model):
 
 
     class Meta:
-        verbose_name = _("Eclairage")
-        verbose_name_plural = _("eclairages")
+        verbose_name = _("Éclairage")
+        verbose_name_plural = _("éclairages")
 
 
 

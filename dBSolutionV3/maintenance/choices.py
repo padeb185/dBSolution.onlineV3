@@ -2426,7 +2426,7 @@ class MarqueAmortisseur(models.TextChoices):
 
 
 class FabricantClim(models.TextChoices):
-    CHOISIR = "CHOISIR", _("— Choisir —")
+    CHOISIR = "CHOISIR", _("Choisir")
 
     # =====================================================
     # PIÈCES DE CLIMATISATION (compresseurs, condenseurs,

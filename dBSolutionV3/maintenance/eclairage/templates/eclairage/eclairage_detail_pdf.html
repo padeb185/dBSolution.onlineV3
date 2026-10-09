@@ -440,7 +440,7 @@
         <div><span class="label">{% trans "Société" %} :</span> {{ eclairage.tech_societe }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ eclairage.voiture_exemplaire }}</div>
         <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ eclairage.kilometres_chassis }} km</div>
-        <div><span class="label">{% trans "Kilométrage eclairage" %} :</span> {{ eclairage.kilometrage_eclairage }} km</div>
+        <div><span class="label">{% trans "Kilométrage éclairage" %} :</span> {{ eclairage.kilometrage_eclairage }} km</div>
 
         <div>
             <span class="label">{% trans "Tag" %} :</span>
@@ -595,7 +595,7 @@
     </tr>
 
     <tr>
-        <td>{% trans "Eclaire Plaque" %}</td>
+        <td>{% trans "Éclaire Plaque" %}</td>
         <td>
             {% if eclairage.phares_eclaire_plaque == "OK" %}
                 <span class="etat-vert">{{ eclairage.get_phares_eclaire_plaque_display }}</span>

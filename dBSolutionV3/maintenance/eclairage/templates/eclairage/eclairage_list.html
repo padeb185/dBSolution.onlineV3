@@ -48,7 +48,7 @@
 <div>
     <a href="{% url 'eclairage:eclairage_check_view' exemplaire.id %}"
        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-        {% trans "Ajouter un contrôle de l'eclairage" %}
+        {% trans "Ajouter un contrôle de l'éclairage" %}
     </a>
 </div>
 {% endif %}
@@ -129,7 +129,7 @@
         {% endwith %}
         {% empty %}
         <tr>
-            <td colspan="6" class="text-center py-4">{% trans "Aucun eclairage enregistré pour cet exemplaire." %}</td>
+            <td colspan="6" class="text-center py-4">{% trans "Aucun éclairage enregistré pour cet exemplaire." %}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -153,9 +153,9 @@ $(document).ready(function() {
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
-            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ eclairages' %}",
-            infoEmpty: "{% trans 'Aucun eclairage trouvé' %}",
-            zeroRecords: "{% trans 'Aucun eclairage trouvé' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ éclairages' %}",
+            infoEmpty: "{% trans 'Aucun éclairage trouvé' %}",
+            zeroRecords: "{% trans 'Aucun éclairage trouvé' %}",
             paginate: {
                 first: "{% trans 'Premier' %}",
                 last: "{% trans 'Dernier' %}",
