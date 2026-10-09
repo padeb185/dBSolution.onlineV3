@@ -1,4 +1,4 @@
-# maintenance/check_up/urls.py
+# maintenance/entretien/urls.py
 from django.urls import path
 from .views import EntretienListView, entretien_check_view, modifier_entretien_view, entretien_detail_view, \
     entretien_pdf_view, delete_entretien_view

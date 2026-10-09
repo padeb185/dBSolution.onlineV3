@@ -1,0 +1,827 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+        .box {
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+        .tag {
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert { background: #16a34a; }
+        .tag-jaune { background: #ca8a04; }
+        .tag-rouge { background: #dc2626; }
+
+        .etat {
+            font-weight: bold;
+        }
+
+        .total-label,
+        .total-montant {
+            text-align: right;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-jaune {
+            color: #a16207;
+            background: #fef9c3;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            color: #4b5563;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+       table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+
+        /* =========================================
+           TABLEAUX À DEUX COLONNES : 2/3 - 1/3
+        ========================================= */
+
+        .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        /* =========================================
+           TABLEAU NIVEAUX : QUATRE COLONNES
+        ========================================= */
+
+        .table-niveaux {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-niveaux .col-element {
+            width: 34%;
+        }
+
+        .table-niveaux .col-etat {
+            width: 22%;
+        }
+
+        .table-niveaux .col-quantite {
+            width: 18%;
+        }
+
+        .table-niveaux .col-qualite {
+            width: 26%;
+        }
+
+        /* =========================================
+           TABLEAU PIÈCES : CINQ COLONNES
+        ========================================= */
+
+        .rapport-pieces-table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+            font-size: 10px;
+        }
+
+        .rapport-pieces-table .col-produit {
+            width: 30%;
+        }
+
+        .rapport-pieces-table .col-etat {
+            width: 16%;
+        }
+
+        .rapport-pieces-table .col-quantite {
+            width: 12%;
+        }
+
+        .rapport-pieces-table .col-prix {
+            width: 22%;
+        }
+
+        .rapport-pieces-table .col-total {
+            width: 20%;
+        }
+
+        .rapport-pieces-table th,
+        .rapport-pieces-table td {
+            padding: 5px;
+            vertical-align: middle;
+            overflow-wrap: anywhere;
+            word-break: normal;
+        }
+
+        .rapport-pieces-table th:nth-child(3),
+        .rapport-pieces-table th:nth-child(4),
+        .rapport-pieces-table th:nth-child(5),
+        .rapport-pieces-table td:nth-child(3),
+        .rapport-pieces-table td:nth-child(4),
+        .rapport-pieces-table td:nth-child(5),
+        .rapport-pieces-table .total-montant {
+            white-space: nowrap;
+        }
+
+        .rapport-pieces-table .total-label,
+        .rapport-pieces-table .total-montant {
+            text-align: right;
+        }
+
+        /* Tableau lorsqu'aucune pièce n'est utilisée */
+
+        .rapport-vide-table {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .rapport-vide-table th:first-child,
+        .rapport-vide-table td:first-child {
+            width: 66.67%;
+        }
+
+        .rapport-vide-table th:last-child,
+        .rapport-vide-table td:last-child {
+            width: 33.33%;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+
+        .small {
+            font-size: 11px;
+            color: #555;
+            margin-top: 25px;
+
+        }
+         .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+          .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+         .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+    /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+
+<body>
+
+{% if eclairage.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ eclairage.tech_societe.nom }}
+            </div>
+
+            {% if eclairage.tech_societe.adresse %}
+                <div>
+                    {{ eclairage.tech_societe.adresse.rue }}
+                    {{ eclairage.tech_societe.adresse.numero }}
+                    {% if eclairage.tech_societe.adresse.boite %}
+                        / {{ eclairage.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ eclairage.tech_societe.adresse.code_postal }}
+                    {{ eclairage.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if eclairage.tech_societe.adresse.pays %}
+                <div>{{ eclairage.tech_societe.adresse.pays }}
+                    {{ eclairage.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if eclairage.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ eclairage.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if eclairage.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ eclairage.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ eclairage.tech_societe.nom }}.png"
+                alt="{{ eclairage.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+
+
+
+<h1>{% trans "Rapport de contrôle de l'éclairage" %}</h1>
+
+<div class="box">
+    <div class="grid">
+
+        <div><span class="label">{% trans "Date" %} :</span> {{ eclairage.date|date:"d/m/Y H:i" }}</div>
+        <div><span class="label">{% trans "Technicien" %} :</span> {{ eclairage.tech_nom_technicien }}</div>
+        <div><span class="label">{% trans "Rôle" %} :</span> {{ eclairage.tech_role_technicien }}</div>
+        <div><span class="label">{% trans "Société" %} :</span> {{ eclairage.tech_societe }}</div>
+        <div><span class="label">{% trans "Véhicule" %} :</span> {{ eclairage.voiture_exemplaire }}</div>
+        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ eclairage.kilometres_chassis }} km</div>
+        <div><span class="label">{% trans "Kilométrage eclairage" %} :</span> {{ eclairage.kilometrage_eclairage }} km</div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+            {% if eclairage.tag == "VERT" %}
+                <span class="tag tag-vert">{{ eclairage.get_tag_display }}</span>
+            {% elif eclairage.tag == "JAUNE" %}
+                <span class="tag tag-jaune">{{ eclairage.get_tag_display }}</span>
+            {% else %}
+                <span class="tag tag-rouge">{{ eclairage.get_tag_display }}</span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+
+<h2>{% trans "Phares" %}</h2>
+
+<table class="table-2-cols">
+    <tr>
+        <th>{% trans "Élément" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux de route" %}</td>
+        <td>
+            {% if eclairage.phares_avant == "OK" %}
+                <span class="etat-vert">{{ eclairage.get_phares_avant_display }}</span>
+            {% elif eclairage.phares_avant == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ eclairage.get_phares_avant_display }}</span>
+            {% elif eclairage.phares_avant == "REMPLACE" %}
+                <span class="etat-bleu">{{ eclairage.get_phares_avant_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Grand phares" %}</td>
+        <td>
+            {% if eclairage.phares_gros_phares == "OK" %}
+                <span class="etat-vert">{{ eclairage.get_phares_gros_phares_display }}</span>
+            {% elif eclairage.phares_gros_phares == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ eclairage.get_phares_gros_phares_display }}</span>
+            {% elif eclairage.phares_gros_phares == "REMPLACE" %}
+                <span class="etat-bleu">{{ eclairage.get_phares_gros_phares_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Clignotants" %}</td>
+        <td>
+            {% if eclairage.phares_clignotants == "OK" %}
+                <span class="etat-vert">{{ eclairage.get_phares_clignotants_display }}</span>
+            {% elif eclairage.phares_clignotants == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ eclairage.get_phares_clignotants_display }}</span>
+            {% elif eclairage.phares_clignotants == "REMPLACE" %}
+                <span class="etat-bleu">{{ eclairage.get_phares_clignotants_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux de recul" %}</td>
+        <td>
+            {% if eclairage.phares_recul == "OK" %}
+                <span class="etat-vert">{{ eclairage.get_phares_recul_display }}</span>
+            {% elif eclairage.phares_recul == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ eclairage.get_phares_recul_display }}</span>
+            {% elif eclairage.phares_recul == "REMPLACE" %}
+                <span class="etat-bleu">{{ eclairage.get_phares_recul_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Phares anti-brouillard avant" %}</td>
+        <td>
+            {% if eclairage.phares_anti_brouillard_avant == "OK" %}
+                <span class="etat-vert">{{ eclairage.get_phares_anti_brouillard_avant_display }}</span>
+            {% elif eclairage.phares_anti_brouillard_avant == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ eclairage.get_phares_anti_brouillard_avant_display }}</span>
+            {% elif eclairage.phares_anti_brouillard_avant == "REMPLACE" %}
+                <span class="etat-bleu">{{ eclairage.get_phares_anti_brouillard_avant_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Phares anti-brouillard arrière" %}</td>
+        <td>
+            {% if eclairage.phares_anti_brouillard_arriere == "OK" %}
+                <span class="etat-vert">{{ eclairage.get_phares_anti_brouillard_arriere_display }}</span>
+            {% elif eclairage.phares_anti_brouillard_arriere == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ eclairage.get_phares_anti_brouillard_arriere_display }}</span>
+            {% elif eclairage.phares_anti_brouillard_arriere == "REMPLACE" %}
+                <span class="etat-bleu">{{ eclairage.get_phares_anti_brouillard_arriere_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux stop" %}</td>
+        <td>
+            {% if eclairage.phares_feux_stops == "OK" %}
+                <span class="etat-vert">{{ eclairage.get_phares_feux_stops_display }}</span>
+            {% elif eclairage.phares_feux_stops == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ eclairage.get_phares_feux_stops_display }}</span>
+            {% elif eclairage.phares_feux_stops == "REMPLACE" %}
+                <span class="etat-bleu">{{ eclairage.get_phares_feux_stops_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Troisième feux stop" %}</td>
+        <td>
+            {% if eclairage.phares_troisieme_feux_stop == "OK" %}
+                <span class="etat-vert">{{ eclairage.get_phares_troisieme_feux_stop_display }}</span>
+            {% elif eclairage.phares_troisieme_feux_stop == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ eclairage.get_phares_troisieme_feux_stop_display }}</span>
+            {% elif eclairage.phares_troisieme_feux_stop == "REMPLACE" %}
+                <span class="etat-bleu">{{ eclairage.get_phares_troisieme_feux_stop_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>{% trans "Feux de position avant" %}</td>
+        <td>
+            {% if eclairage.phares_feux_position_av == "OK" %}
+                <span class="etat-vert">{{ eclairage.get_phares_feux_position_av_display }}</span>
+            {% elif eclairage.phares_feux_position_av == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ eclairage.get_phares_feux_position_av_display }}</span>
+            {% elif eclairage.phares_feux_position_av == "REMPLACE" %}
+                <span class="etat-bleu">{{ eclairage.get_phares_feux_position_av_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux de position arrière" %}</td>
+        <td>
+            {% if eclairage.phares_feux_position_ar == "OK" %}
+                <span class="etat-vert">{{ eclairage.get_phares_feux_position_ar_display }}</span>
+            {% elif eclairage.phares_feux_position_ar == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ eclairage.get_phares_feux_position_ar_display }}</span>
+            {% elif eclairage.phares_feux_position_ar == "REMPLACE" %}
+                <span class="etat-bleu">{{ eclairage.get_phares_feux_position_ar_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Eclaire Plaque" %}</td>
+        <td>
+            {% if eclairage.phares_eclaire_plaque == "OK" %}
+                <span class="etat-vert">{{ eclairage.get_phares_eclaire_plaque_display }}</span>
+            {% elif eclairage.phares_eclaire_plaque == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ eclairage.get_phares_eclaire_plaque_display }}</span>
+            {% elif eclairage.phares_eclaire_plaque == "REMPLACE" %}
+                <span class="etat-bleu">{{ eclairage.get_phares_eclaire_plaque_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ eclairage.get_phares_eclaire_plaque_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+</table>
+
+
+
+
+<!-- ================= MAIN D'ŒUVRE ================= -->
+
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ eclairage.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+         <div>
+            <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+            {{ eclairage.taux_horaire|floatformat:2 }} €
+        </div>
+
+        {% if eclairage.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ eclairage.cout_main_oeuvre|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ eclairage.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+
+                    <th class="text-right">
+                        {% trans "Quantité" %}
+                    </th>
+
+                    <th class="text-right">
+                        {% trans "Prix unitaire HTVA" %}
+                    </th>
+
+                    <th class="text-right">
+                        {% trans "Total HTVA" %}
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON"  or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK"  or ligne.etat == "A_FAIRE"  %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "REMPLACER" or ligne.etat == "FAIT" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                        <td>
+                            {% if ligne.fabricant == "CHOISIR" %}-{% else %}{{ ligne.fabricant_display|default:"-" }}{% endif %}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+
+                <tr class="total">
+                    <td colspan="5" class="total-label">
+                        {% trans "Total pièces / produits HTVA" %}
+                    </td>
+
+                    <td class="total-montant">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="5" class="total-label">
+                        {% trans "Main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="total-montant">
+                        {{ eclairage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="5" class="total-label">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="total-montant">
+                        {{ eclairage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+   {% else %}
+
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
+
+        <table class="table-2-cols">
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ eclairage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ eclairage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ eclairage.remarques|default:_("Aucune remarque.")|linebreaks }}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

@@ -185,6 +185,7 @@ urlpatterns += i18n_patterns(
 
     path("injection/",include(("maintenance.autres_interventions.moteur.injection.urls", "injection"), namespace="injection")),
 
+    path("maintenance/eclairage/", include("maintenance.eclairage.urls", namespace="eclairage")),
 
 
 

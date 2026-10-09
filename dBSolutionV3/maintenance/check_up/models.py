@@ -1751,6 +1751,8 @@ class Checkup(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA"),
     )
 
+
+
     phares_eclaire_plaque = models.CharField(
         max_length=25,
         choices=PhareEtat.choices,
@@ -1938,6 +1940,7 @@ class Checkup(TechnicienMixin, models.Model):
                         f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
                     )
                 })
+
 
 
             if self.serrage_roues == RouesSerrageEtat.A_FAIRE:

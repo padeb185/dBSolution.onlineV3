@@ -10,6 +10,7 @@ from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from maintenance.autres_interventions.moteur import rodage
 from maintenance.autres_interventions.moteur.allumage.models import Allumage
+from maintenance.eclairage.models import Eclairage
 from maintenance.essuyage.models import Essuyage
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_modele.models import VoitureModele
@@ -125,6 +126,10 @@ def choisir_type_maintenance(request, exemplaire_id):
             voiture_exemplaire=exemplaire
         )
 
+        eclairage = Eclairage.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
+
         # --------------------------------------------------
         # Autres interventions
         # --------------------------------------------------
@@ -199,6 +204,7 @@ def choisir_type_maintenance(request, exemplaire_id):
         total_echappement = echappement.count()
         total_allumage = allumage.count()
         total_remplacement_boite = remplacement_boite.count()
+        total_eclairage = eclairage.count()
 
 
         total_autres = (
@@ -276,6 +282,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             "total_echappement": total_echappement,
             "total_remplacement_boite": total_remplacement_boite,
             "total_allumage": total_allumage,
+            "total_eclairage": total_eclairage,
 
             "checkup": checkup,
             "entretien": entretien,
@@ -293,6 +300,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             "echappement": echappement,
             "remplacement_boite": remplacement_boite,
             "allumage": allumage,
+            "eclairage": eclairage,
 
 
             "modeles": modeles,

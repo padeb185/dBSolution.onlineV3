@@ -2063,6 +2063,21 @@
             {% endif %}
         </td>
     </tr>
+
+    <tr>
+        <td>{% trans "Eclaire Plaque" %}</td>
+        <td>
+            {% if checkup_track.phares_eclaire_plaque == "OK" %}
+                <span class="etat-vert">{{ checkup_track.get_phares_eclaire_plaque_display }}</span>
+            {% elif checkup_track.phares_eclaire_plaque == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup_track.get_phares_eclaire_plaque_display }}</span>
+            {% elif checkup_track.phares_eclaire_plaque == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup_track.get_phares_eclaire_plaque_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup_track.get_phares_eclaire_plaque_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
 </table>
 
 

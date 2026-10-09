@@ -2,12 +2,12 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from .models import Entretien
+from .models import Eclairage
 from maindoeuvre.models import MainDoeuvre
 from ..choices import RouesSerrageEtat
 
 
-class EntretienForm(forms.ModelForm):
+class EclairageForm(forms.ModelForm):
 
     temps_heures = forms.IntegerField(required=False, min_value=0)
     temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
@@ -24,7 +24,7 @@ class EntretienForm(forms.ModelForm):
     )
 
     class Meta:
-        model = Entretien
+        model = Eclairage
 
         exclude =  {
             "kilometres_boite_rollback",
@@ -42,18 +42,7 @@ class EntretienForm(forms.ModelForm):
                 "rows": 4,
                 "placeholder": _("Ajoutez des remarques ici...")
             }),
-            "pneu_pression_bar_avd": forms.NumberInput(
-                attrs={"step": "0.1"}
-            ),
-            "pneu_pression_bar_avg": forms.NumberInput(
-                attrs={"step": "0.1"}
-            ),
-            "pneu_pression_bar_ard": forms.NumberInput(
-                attrs={"step": "0.1"}
-            ),
-            "pneu_pression_bar_arg": forms.NumberInput(
-                attrs={"step": "0.1"}
-            ),
+
             "kilometres_chassis": forms.NumberInput(
                 attrs={
                     "readonly": "readonly",
@@ -106,7 +95,7 @@ class EntretienForm(forms.ModelForm):
                 )
 
                 nouveau_km = (
-                    self.instance.kilometrage_entretien
+                    self.instance.kilometrage_eclairage
                 )
 
                 if nouveau_km is not None:
@@ -159,7 +148,7 @@ class EntretienForm(forms.ModelForm):
 
 
     def clean_kilometrage_entretien(self):
-        km = self.cleaned_data.get("kilometrage_entretien")
+        km = self.cleaned_data.get("kilometrage_eclairage")
         exemplaire = self.exemplaire
 
         if km is not None and exemplaire:
@@ -174,11 +163,11 @@ class EntretienForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        km = self.cleaned_data.get("kilometrage_entretien")
+        km = self.cleaned_data.get("kilometrage_eclairage")
         voiture = self.exemplaire
 
         if km is not None and voiture:
-            instance.kilometrage_entretien = km
+            instance.kilometrage_eclairage = km
             instance.voiture_exemplaire = voiture
 
         # -------- MAIN D'ŒUVRE --------
@@ -204,7 +193,6 @@ class EntretienForm(forms.ModelForm):
             instance.save()
 
         return instance
-
 
 
 
