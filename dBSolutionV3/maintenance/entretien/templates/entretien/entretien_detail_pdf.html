@@ -1141,8 +1141,8 @@
                 <tr>
                     <th>{% trans "Pièce / Produit" %}</th>
                     <th>{% trans "État" %}</th>
-
                     <th>{% trans "Fabricant" %}</th>
+
                     <th class="text-right">
                         {% trans "Quantité" %}
                     </th>
@@ -1193,7 +1193,7 @@
                                 {% endif %}
                             </td>
 
-                        <td class="text-right">
+                        <td>
                             {% if ligne.fabricant == "CHOISIR" %}-{% else %}{{ ligne.fabricant_display|default:"-" }}{% endif %}
                         </td>
 

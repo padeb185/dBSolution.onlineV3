@@ -1751,6 +1751,36 @@ class Checkup(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA"),
     )
 
+    phares_eclaire_plaque = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Éclaire plaque"),
+    )
+    phares_eclaire_plaque_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantAmpoule.choices,
+        default=FabricantAmpoule.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    phares_eclaire_plaque_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_eclaire_plaque_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_eclaire_plaque_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
 
 
 
@@ -2034,6 +2064,7 @@ class Checkup(TechnicienMixin, models.Model):
                 "phares_troisieme_feux_stop": "phares_troisieme_feux_stop",
                 "phares_feux_position_av": "phares_feux_position_av",
                 "phares_feux_position_ar": "phares_feux_position_ar",
+                "phares_eclaire_plaque": "phares_eclaire_plaque",
 
                 # Produits de nettoyage
                 "nettoyage_exterieur_produits": "nettoyage_exterieur_produits",

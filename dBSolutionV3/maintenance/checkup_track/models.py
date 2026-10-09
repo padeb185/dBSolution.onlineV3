@@ -653,7 +653,35 @@ class CheckupTrack(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA"),
     )
 
+    phares_eclaire_plaque = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Éclaire plaque"),
+    )
+    phares_eclaire_plaque_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantAmpoule.choices,
+        default=FabricantAmpoule.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    phares_eclaire_plaque_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_eclaire_plaque_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
+    phares_eclaire_plaque_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
 
     pneu_epaisseur_avd = models.FloatField(default=8.0, verbose_name=_("Épaisseur du pneu avant droit (mm)"))
     pneu_epaisseur_avg = models.FloatField(default=8.0, verbose_name=_("Épaisseur du pneu avant gauche (mm)"))
@@ -1013,6 +1041,99 @@ class CheckupTrack(TechnicienMixin, models.Model):
                 "libelle": _("Liquide de direction assistée"),
                 "unite": _("L"),
             },
+
+            # =====================================================
+            # ÉCLAIRAGE
+            # =====================================================
+            "phares_avant": {
+                "etat": "phares_avant",
+                "fabricant": "phares_avant_fabricant",
+                "type": "phares_avant_type",
+                "quantite": "phares_avant_quantite",
+                "libelle": _("Feux de croisement"),
+                "unite": _("ampoule"),
+            },
+            "phares_gros_phares": {
+                "etat": "phares_gros_phares",
+                "fabricant": "phares_gros_phares_fabricant",
+                "type": "phares_gros_phares_type",
+                "quantite": "phares_gros_phares_quantite",
+                "libelle": _("Feux de route"),
+                "unite": _("ampoule"),
+            },
+            "phares_clignotants": {
+                "etat": "phares_clignotants",
+                "fabricant": "phares_clignotants_fabricant",
+                "type": "phares_clignotants_type",
+                "quantite": "phares_clignotants_quantite",
+                "libelle": _("Clignotants"),
+                "unite": _("ampoule"),
+            },
+            "phares_recul": {
+                "etat": "phares_recul",
+                "fabricant": "phares_recul_fabricant",
+                "type": "phares_recul_type",
+                "quantite": "phares_recul_quantite",
+                "libelle": _("Feux de recul"),
+                "unite": _("ampoule"),
+            },
+            "phares_anti_brouillard_avant": {
+                "etat": "phares_anti_brouillard_avant",
+                "fabricant": "phares_anti_brouillard_avant_fabricant",
+                "type": "phares_anti_brouillard_avant_type",
+                "quantite": "phares_anti_brouillard_avant_quantite",
+                "libelle": _("Antibrouillards avant"),
+                "unite": _("ampoule"),
+            },
+            "phares_anti_brouillard_arriere": {
+                "etat": "phares_anti_brouillard_arriere",
+                "fabricant": "phares_anti_brouillard_arriere_fabricant",
+                "type": "phares_anti_brouillard_arriere_type",
+                "quantite": "phares_anti_brouillard_arriere_quantite",
+                "libelle": _("Antibrouillard arrière"),
+                "unite": _("ampoule"),
+            },
+            "phares_feux_stops": {
+                "etat": "phares_feux_stops",
+                "fabricant": "phares_feux_stops_fabricant",
+                "type": "phares_feux_stops_type",
+                "quantite": "phares_feux_stops_quantite",
+                "libelle": _("Feux stop"),
+                "unite": _("ampoule"),
+            },
+            "phares_troisieme_feux_stop": {
+                "etat": "phares_troisieme_feux_stop",
+                "fabricant": "phares_troisieme_feux_stop_fabricant",
+                "type": "phares_troisieme_feux_stop_type",
+                "quantite": "phares_troisieme_feux_stop_quantite",
+                "libelle": _("Troisième feu stop"),
+                "unite": _("ampoule"),
+            },
+            "phares_feux_position_av": {
+                "etat": "phares_feux_position_av",
+                "fabricant": "phares_feux_position_av_fabricant",
+                "type": "phares_feux_position_av_type",
+                "quantite": "phares_feux_position_av_quantite",
+                "libelle": _("Feux de position avant"),
+                "unite": _("ampoule"),
+            },
+            "phares_feux_position_ar": {
+                "etat": "phares_feux_position_ar",
+                "fabricant": "phares_feux_position_ar_fabricant",
+                "type": "phares_feux_position_ar_type",
+                "quantite": "phares_feux_position_ar_quantite",
+                "libelle": _("Feux de position arrière"),
+                "unite": _("ampoule"),
+            },
+            "phares_eclaire_plaque": {
+                "etat": "phares_eclaire_plaque",
+                "fabricant": "phares_eclaire_plaque_fabricant",
+                "type": "phares_eclaire_plaque_type",
+                "quantite": "phares_eclaire_plaque_quantite",
+                "libelle": _("Éclaire plaque"),
+                "unite": _("ampoule"),
+            },
+
             "pneu_train_av": {
                 "etat": "pneu_train_av",
                 "quantite": "pneu_train_av_quantite",

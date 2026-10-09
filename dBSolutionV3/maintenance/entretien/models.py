@@ -804,6 +804,36 @@ class Entretien(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA"),
     )
 
+    phares_eclaire_plaque = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Éclaire plaque"),
+    )
+    phares_eclaire_plaque_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantAmpoule.choices,
+        default=FabricantAmpoule.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    phares_eclaire_plaque_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_eclaire_plaque_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_eclaire_plaque_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
 
 
     pneu_pression_bar_avd = models.DecimalField(

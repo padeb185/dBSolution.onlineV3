@@ -551,7 +551,7 @@
         <tr>
             <td>{% trans "Liquide de lave-glace" %}</td>
             <td>
-                {% if checkup_track.lave_glace_liquide_etat == "BON" %}
+                {% if checkup_track.lave_glace_liquide_etat == "OK" %}
                     <span class="etat-vert">{{ checkup_track.get_lave_glace_liquide_etat_display }}</span>
                 {% elif checkup_track.lave_glace_liquide_etat == "AJOUTER" %}
                     <span class="etat-bleu">{{ checkup_track.get_lave_glace_liquide_etat_display }}</span>
