@@ -75,22 +75,23 @@
              class="w-[60px] h-[60px]">
     </div>
 
-    <div class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/agenda/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
         <div>
             <h2 class="text-lg font-semibold mb-1">
-                {% trans "Notifications" %}
+                {% trans "Agenda" %}
             </h2>
 
             <p class="text-gray-600 text-sm">
-                {% trans "Messages non lus :" %}
-                <span class="font-bold">5</span>
+                {% trans "Mes maintenances à faire aujourd'hui :" %}
+                <span class="font-bold {% if agenda_a_faire %}text-red-700{% endif %}">{{ agenda_a_faire|default:0 }}</span>
             </p>
         </div>
 
-        <img src="{% static 'icons/cloche.png' %}"
-             alt="{% trans 'Notifications' %}"
+        <img src="{% static 'icons/agenda.png' %}"
+             alt="{% trans 'Agenda' %}"
              class="w-[60px] h-[60px]">
-    </div>
+    </a>
 
 </div>
 

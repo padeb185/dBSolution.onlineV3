@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Agenda" %} – {{ jour|date:"d/m/Y" }}{% endblock %}
+
+{% block content %}
+<br>
+
+<!-- En-tête du jour -->
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+    <h1 class="text-2xl font-bold flex items-center gap-3">
+        <img src="{% static 'icons/agenda.png' %}" alt="{% trans 'Agenda' %}" class="w-16 h-16">
+        <span>
+            {% trans "Agenda" %}
+            <span class="block text-lg font-semibold text-gray-600 capitalize">
+                {{ jour|date:"l j F Y" }}
+                {% if jour == aujourdhui %}<span class="ml-2 text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded">{% trans "Aujourd'hui" %}</span>{% endif %}
+            </span>
+        </span>
+    </h1>
+
+    <!-- Navigation entre les jours -->
+    <div class="flex flex-wrap items-center gap-2">
+        <a href="{{ url_veille }}{% if mes_taches %}?moi=1{% endif %}"
+           class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">← {% trans "Veille" %}</a>
+
+        <a href="{{ url_aujourdhui }}{% if mes_taches %}?moi=1{% endif %}"
+           class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Aujourd'hui" %}</a>
+
+        <a href="{{ url_lendemain }}{% if mes_taches %}?moi=1{% endif %}"
+           class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Lendemain" %} →</a>
+
+        <form method="get" action="{% url 'agenda:agenda_jour' %}" class="flex items-center gap-2">
+            <input type="date" name="date" value="{{ jour|date:'Y-m-d' }}"
+                   class="border rounded px-3 py-2" onchange="this.form.submit()">
+            {% if mes_taches %}<input type="hidden" name="moi" value="1">{% endif %}
+        </form>
+    </div>
+</div>
+
+<!-- Messages -->
+{% include "partials/messages.html" %}
+
+<!-- Barre d'actions -->
+<div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+    <div class="flex items-center gap-3">
+        {% if mes_taches %}
+            <a href="?" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Toutes les maintenances" %}</a>
+            <span class="font-semibold text-blue-800">{% trans "Mes maintenances" %}</span>
+        {% else %}
+            <span class="font-semibold text-blue-800">{% trans "Toutes les maintenances" %}</span>
+            <a href="?moi=1" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Mes maintenances" %}</a>
+        {% endif %}
+
+        <span class="text-gray-600">
+            {{ nb_faites }} / {{ lignes|length }} {% trans "terminée(s)" %}
+        </span>
+    </div>
+
+    {% if peut_planifier %}
+        <a href="{% url 'agenda:ajouter_tache' %}?date={{ jour|date:'Y-m-d' }}"
+           class="bg-blue-700 hover:bg-blue-400 text-white px-5 py-3 rounded font-semibold">
+            + {% trans "Planifier une maintenance" %}
+        </a>
+    {% endif %}
+</div>
+
+<!-- Liste des maintenances du jour -->
+<div class="overflow-x-auto bg-white shadow-md rounded-lg">
+<table class="min-w-full table-auto border-collapse border border-gray-200">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 text-left">{% trans "Maintenance" %}</th>
+            <th class="border px-4 py-2 text-left">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2 text-left">{% trans "Véhicule" %}</th>
+            <th class="border px-4 py-2 text-left">{% trans "Technicien" %}</th>
+            <th class="border px-4 py-2 text-left">{% trans "Tag" %}</th>
+            <th class="border px-4 py-2 text-left">{% trans "Statut / Prête pour" %}</th>
+            {% if peut_planifier %}<th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>{% endif %}
+        </tr>
+    </thead>
+    <tbody>
+    {% for ligne in lignes %}
+        {% with tache=ligne.tache form=ligne.form exemplaire=ligne.tache.voiture_exemplaire %}
+        <tr class="{% if tache.statut == 'FAIT' and not tache.est_checkup_track %}bg-gray-50 text-gray-500{% endif %}">
+
+            <td class="border px-4 py-2 font-semibold">
+                {{ tache.get_type_maintenance_display }}
+                {% if tache.remarques %}
+                    <p class="text-sm font-normal text-gray-500 mt-1">{{ tache.remarques|linebreaksbr }}</p>
+                {% endif %}
+            </td>
+
+            <td class="border px-4 py-2">
+                {% include "maintenance/partials/plaque.html" with taille="petite" %}
+            </td>
+
+            <td class="border px-4 py-2">
+                {{ exemplaire.voiture_modele.voiture_marque.nom_marque }}
+                {{ exemplaire.voiture_modele.nom_modele }}
+            </td>
+
+            <td class="border px-4 py-2">
+                {% if tache.technicien %}
+                    {{ tache.technicien.prenom }} {{ tache.technicien.nom }}
+                {% else %}
+                    <span class="text-red-700 font-semibold">{% trans "Non assigné" %}</span>
+                {% endif %}
+            </td>
+
+            <!-- Tag modifiable -->
+            <td class="border px-4 py-2">
+                <select name="{{ form.tag.html_name }}" form="maj-{{ tache.pk }}" onchange="this.form.submit()"
+                        class="border-2 rounded px-2 py-1 font-bold
+                        {% if tache.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300
+                        {% elif tache.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300
+                        {% else %}bg-yellow-100 text-yellow-800 border-yellow-500{% endif %}">
+                    {% for valeur, libelle in form.fields.tag.choices %}
+                        <option value="{{ valeur }}" {% if valeur == tache.tag %}selected{% endif %}>{{ libelle }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+
+            <!-- Statut (maintenances) ou Prête pour (checkup piste) -->
+            <td class="border px-4 py-2">
+                <input type="hidden" name="{{ form.statut.html_name }}" value="{{ tache.statut }}" form="maj-{{ tache.pk }}"
+                       {% if not tache.est_checkup_track %}disabled{% endif %}>
+
+                {% if tache.est_checkup_track %}
+                    <label class="block text-sm font-semibold text-gray-600 mb-1">{% trans "Prête pour :" %}</label>
+                    <div class="flex gap-2">
+                        <input type="text" name="{{ form.prete_pour.html_name }}" value="{{ tache.prete_pour }}"
+                               form="maj-{{ tache.pk }}" maxlength="255"
+                               placeholder="{% trans 'Ex. : roulage Spa du 18/10' %}"
+                               class="border rounded px-2 py-1 w-full">
+                        <button type="submit" form="maj-{{ tache.pk }}"
+                                class="bg-blue-700 hover:bg-blue-400 text-white px-3 py-1 rounded font-semibold">
+                            {% trans "OK" %}
+                        </button>
+                    </div>
+                {% else %}
+                    <select name="{{ form.statut.html_name }}" form="maj-{{ tache.pk }}" onchange="this.form.submit()"
+                            class="border-2 rounded px-2 py-1 font-semibold
+                            {% if tache.statut == 'FAIT' %}bg-green-100 text-green-800 border-green-300
+                            {% elif tache.statut == 'EN_COURS' %}bg-blue-100 text-blue-800 border-blue-300
+                            {% else %}bg-white text-gray-800 border-gray-300{% endif %}">
+                        {% for valeur, libelle in form.fields.statut.choices %}
+                            <option value="{{ valeur }}" {% if valeur == tache.statut %}selected{% endif %}>{{ libelle }}</option>
+                        {% endfor %}
+                    </select>
+                {% endif %}
+            </td>
+
+            {% if peut_planifier %}
+            <td class="border px-4 py-2 text-center whitespace-nowrap">
+                <a href="{% url 'agenda:modifier_tache' tache.pk %}"
+                   class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">{% trans "Modifier" %}</a>
+
+                <form method="post" action="{% url 'agenda:supprimer_tache' tache.pk %}" class="inline"
+                      onsubmit="return confirm('{% trans "Retirer cette maintenance de l'agenda ?" as q %}{{ q|escapejs }}');">
+                    {% csrf_token %}
+                    <button type="submit" class="bg-red-700 text-white px-3 py-1 rounded hover:bg-red-400">
+                        {% trans "Supprimer" %}
+                    </button>
+                </form>
+            </td>
+            {% endif %}
+        </tr>
+        {% endwith %}
+    {% empty %}
+        <tr>
+            <td colspan="{% if peut_planifier %}7{% else %}6{% endif %}" class="text-center py-6 text-gray-500">
+                {% trans "Aucune maintenance planifiée ce jour." %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<!-- Formulaires de mise à jour rapide (les champs du tableau y sont rattachés via form="...") -->
+{% for ligne in lignes %}
+    <form id="maj-{{ ligne.tache.pk }}" method="post" action="{% url 'agenda:maj_rapide_tache' ligne.tache.pk %}" class="hidden">
+        {% csrf_token %}
+        {% if mes_taches %}<input type="hidden" name="moi" value="1">{% endif %}
+    </form>
+{% endfor %}
+
+<br>
+{% endblock %}

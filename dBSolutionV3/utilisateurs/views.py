@@ -298,6 +298,33 @@ def dashboard_view(request):
     except Exception:
         context["dernieres_activites"] = []
 
+    # Agenda : maintenances du jour assignées à l'utilisateur et pas encore terminées
+    try:
+        # Imports avec alias : un import local nommé « Maintenance », « Q » ou
+        # « timezone » masquerait les imports du module dans toute la fonction.
+        from django.db.models import Q as AgendaQ
+        from django.utils import timezone as agenda_tz
+        from agenda.models import AgendaTache
+        from maintenance.models import Maintenance as AgendaMaintenance
+
+        code_track = AgendaMaintenance.TypeMaintenance.CHECKUP_TRACK
+        context["agenda_a_faire"] = 0
+        if schema_name:
+            # L'agenda est une app tenant : la table n'existe que dans le schéma de la société
+            with schema_context(schema_name):
+                context["agenda_a_faire"] = (
+                    AgendaTache.objects.filter(
+                        societe=societe,
+                        technicien=request.user,
+                        date=agenda_tz.localdate(),
+                    )
+                    .exclude(AgendaQ(type_maintenance=code_track) & ~AgendaQ(prete_pour=""))
+                    .exclude(~AgendaQ(type_maintenance=code_track) & AgendaQ(statut=AgendaTache.Statut.FAIT))
+                    .count()
+                )
+    except Exception:
+        context["agenda_a_faire"] = 0
+
     return render(request, 'dashboard.html', context)
 
 

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{{ titre }}{% endblock %}
+
+{% block content %}
+<br><br>
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-6 flex items-center gap-4">
+        <img src="{% static 'icons/gestion-de-projet.png' %}" alt="{% trans 'Agenda' %}" class="w-16 h-16">
+        {{ titre }}
+    </h1>
+
+    {% include "partials/messages.html" %}
+
+    <form method="post" class="space-y-4" id="agenda-form">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="mb-4" id="bloc-{{ field.name }}">
+                <label for="{{ field.id_for_label }}" class="block font-semibold mb-1">{{ field.label }}</label>
+                {{ field|add_class:"input" }}
+                {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="flex gap-3 mt-6">
+            <button type="submit"
+                    class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Enregistrer" %}
+            </button>
+            <a href="{{ url_retour }}"
+               class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                {% trans "Annuler" %}
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+}
+</style>
+
+<script>
+// « Prête pour » n'apparaît que pour un checkup piste, « Statut » pour les autres maintenances
+document.addEventListener("DOMContentLoaded", function () {
+    const type = document.getElementById("id_type_maintenance");
+    const blocPrete = document.getElementById("bloc-prete_pour");
+    const blocStatut = document.getElementById("bloc-statut");
+    if (!type || !blocPrete || !blocStatut) return;
+
+    function majAffichage() {
+        const estTrack = type.value === "{{ code_checkup_track }}";
+        blocPrete.style.display = estTrack ? "" : "none";
+        blocStatut.style.display = estTrack ? "none" : "";
+    }
+    type.addEventListener("change", majAffichage);
+    majAffichage();
+});
+</script>
+{% endblock %}

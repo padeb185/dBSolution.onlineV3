@@ -125,6 +125,7 @@ SHARED_APPS = (
 
 TENANT_APPS = (
 
+    'agenda',
     'piece',
     'panier',
     'facture',
