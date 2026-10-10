@@ -145,11 +145,8 @@ Variables attendues (passées par le template de chaque app) :
                     {% for ligne in lignes %}
                     <tr>
                         <td class="border px-3 py-2">{{ ligne|premier:"champ,nom,label,designation"|default:"-" }}</td>
-                        <td class="border px-3 py-2 font-semibold
-                            {% if ligne.etat == 'NOT_OK' or ligne.etat == 'A_REMPLACER' or ligne.etat == 'REMPLACER' or ligne.etat == 'A_FAIRE' or ligne.etat == 'AJOUTER' %}text-red-700
-                            {% elif ligne.etat == 'REMPLACE' %}text-blue-700
-                            {% elif ligne.etat == 'OK' or ligne.etat == 'FAIT' or ligne.etat == 'BON' %}text-green-700{% endif %}">
-                            {{ ligne|premier:"etat_label,etat_display,etat"|default:"-" }}
+                        <td class="border px-3 py-2 font-semibold {{ ligne|classe_etat }}">
+                            {{ ligne|libelle_etat }}
                         </td>
                         {% if avec_cote %}<td class="border px-3 py-2">{{ ligne|premier:"cote"|default:"-" }}</td>{% endif %}
                         <td class="border px-3 py-2">{{ ligne|premier:"fabricant_label,fabricant_display,fabricant"|default:"-" }}</td>

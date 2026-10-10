@@ -25,6 +25,7 @@ def validate_step_0_1(value):
 class RodageEtat(models.TextChoices):
     A_FAIRE = "A_FAIRE", _("A faire")
     FAIT = "FAIT", _("Fait")
+    REMPLACE = "REMPLACE", _("Remplacé")
     REPORTER = "REPORTER", _("Reporter")
 
 

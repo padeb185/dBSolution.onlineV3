@@ -91,7 +91,7 @@ class QualiteLiquideFrein(models.TextChoices):
 
 class LiquideFreinEtat(models.TextChoices):
     OK = "OK", _("OK")
-    AJOUTER = "AJOUTER", _("Ajouter")
+    AJOUTER = "AJOUTER", _("Ajouté")
     A_REMPLACER = "A_REMPLACER", _("A remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
 

@@ -30,7 +30,7 @@ class EntretienEtat(models.TextChoices):
 
 class NiveauxEtat(models.TextChoices):
     BON = "BON", _("Bon")
-    AJOUTER = "AJOUTER", _("Ajouter")
+    AJOUTER = "AJOUTER", _("Ajouté")
     REMPLACER = "REMPLACER", _("Remplacé")
 
 

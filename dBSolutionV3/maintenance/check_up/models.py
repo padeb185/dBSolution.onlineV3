@@ -61,7 +61,7 @@ class NiveauxEtat(models.TextChoices):
 class RefroidissementEtat(models.TextChoices):
     OK = "OK", _("OK")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
-    AJOUTER = "AJOUTER", _("Ajouter")
+    AJOUTER = "AJOUTER", _("Ajouté")
     REMPLACE = "REMPLACE", _("Remplacé")
 
 
