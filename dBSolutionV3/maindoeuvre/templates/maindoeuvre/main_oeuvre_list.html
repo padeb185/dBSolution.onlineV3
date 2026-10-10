@@ -116,12 +116,6 @@
 
 
         </tr>
-        {% empty %}
-        <tr>
-            <td colspan="5" class="text-center py-4">
-                {% trans "Aucune main d'œuvre enregistrée." %}
-            </td>
-        </tr>
         {% endfor %}
     </tbody>
 </table>
@@ -144,6 +138,7 @@ $(document).ready(function() {
     var table = $('#main-table').DataTable({
         paginate: 10,
         language: {
+            emptyTable: "{% filter escapejs %}{% trans "Aucune main d'œuvre enregistrée." %}{% endfilter %}",
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
             info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ mains d’œuvre' %}",

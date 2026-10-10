@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Supprimer le contrôle cardan" %}{% endblock %}
+
+{% block content %}
+
+<div class="max-w-xl mx-auto mt-10 p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-4 flex items-center gap-4">
+        <img src="{% static 'icons/cardan.png' %}" alt="{% trans 'Cardan' %}" class="w-16 h-16">
+        {% trans "Supprimer le contrôle cardan" %}
+    </h1>
+
+    <!-- Messages (ex. erreur lors de la suppression) -->
+    {% include "partials/messages.html" %}
+
+    <p class="mb-6">
+        {% blocktrans with date=cardan.date|date:"d/m/Y H:i" km=cardan.kilometrage_cardan %}Voulez-vous vraiment supprimer le contrôle cardan du {{ date }} ({{ km }} km) pour :{% endblocktrans %}
+    </p>
+
+    <div class="flex justify-center mb-6">
+        {% include "maintenance/partials/plaque.html" %}
+    </div>
+
+    <p class="mb-6 text-sm text-red-700">
+        {% trans "La maintenance associée sera également supprimée et le kilométrage du véhicule sera restauré à sa valeur précédente." %}
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="flex gap-4 w-full">
+            <button type="submit"
+                    class="flex-1 flex items-center justify-center bg-red-700 hover:bg-red-400 text-white px-4 py-3 rounded font-semibold">
+                {% trans "Supprimer" %}
+            </button>
+
+            <a href="{% url 'cardan:cardan_detail' cardan.id %}"
+               class="flex-1 flex items-center justify-center bg-gray-300 hover:bg-gray-500 text-black px-4 py-3 rounded font-semibold">
+                {% trans "Annuler" %}
+            </a>
+        </div>
+    </form>
+
+</div>
+{% endblock %}

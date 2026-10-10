@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import schema_context, tenant_context
+from maintenance.autres_interventions.cardan.models import Cardan
 from maintenance.autres_interventions.climatisation.models import Climatisation
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from maintenance.autres_interventions.echappement.models import Echappement
@@ -87,6 +88,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     climatisation = Climatisation.objects.none()
     refroidissement = Refroidissement.objects.none()
     embrayage = Embrayage.objects.none()
+    cardan = Cardan.objects.none()
 
 
     # -----------------------------
@@ -106,6 +108,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
     total_int_moteur = 0
     total_int_boite = 0
     total_turbo = 0
+
+    total_cardan = 0
 
     modeles = VoitureModele.objects.none()
 
@@ -157,6 +161,9 @@ def choisir_autre_maintenance(request, exemplaire_id):
             embrayage = Embrayage.objects.filter(
                 voiture_exemplaire=exemplaire
             )
+            cardan = Cardan.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
             allumage = Allumage.objects.filter(
                 voiture_exemplaire=exemplaire
             )
@@ -175,6 +182,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_turbo = turbo.count()
             total_embrayage = embrayage.count()
             total_allumage = allumage.count()
+            total_cardan = cardan.count()
 
             # ---------------- MOTEUR ----------------
 

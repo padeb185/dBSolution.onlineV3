@@ -125,10 +125,6 @@
                 </a>
             </td>
         </tr>
-        {% empty %}
-        <tr>
-            <td colspan="6" class="text-center py-4">{% trans "Aucun nettoyage enregistré pour cet exemplaire." %}</td>
-        </tr>
         {% endfor %}
     </tbody>
 </table>
@@ -148,6 +144,7 @@ $(document).ready(function() {
     var table = $('#nettoyage_exterieurs-table').DataTable({
         pageLength: 10,
         language: {
+            emptyTable: "{% trans 'Aucun nettoyage enregistré pour cet exemplaire.' %}",
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
             info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ nettoyages extérieurs' %}",

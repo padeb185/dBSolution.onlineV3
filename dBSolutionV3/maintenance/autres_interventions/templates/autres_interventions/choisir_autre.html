@@ -333,6 +333,34 @@
 
 
          <a
+            href="{% url 'cardan:cardan_list' exemplaire_id=exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+
+                <div>
+                    <h2 class="mb-2 text-lg font-semibold">
+                        {% trans "Contrôle des cardans" %}
+                    </h2>
+
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">
+                            {{ total_cardan|default:0 }}
+                        </span>
+                    </p>
+                </div>
+
+                <img
+                    src="{% static 'icons/cardan.png' %}"
+                    alt="{% trans 'cardans' %}"
+                    class="h-[60px] w-[60px]"
+                >
+
+            </div>
+        </a>
+
+               <a
             href="{% url 'embrayage:embrayage_list' exemplaire_id=exemplaire.id %}"
             class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
         >
@@ -353,12 +381,13 @@
 
                 <img
                     src="{% static 'icons/disque-dembrayage.png' %}"
-                    alt="{% trans 'Système de refroidissement' %}"
+                    alt="{% trans 'disque embrayage' %}"
                     class="h-[60px] w-[60px]"
                 >
 
             </div>
         </a>
+
 
     </div>
 

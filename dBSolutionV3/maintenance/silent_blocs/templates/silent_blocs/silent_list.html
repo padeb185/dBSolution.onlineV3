@@ -131,12 +131,6 @@
 
         </tr>
         {% endwith %}
-        {% empty %}
-        <tr>
-            <td colspan="7" class="text-center py-4">
-                {% trans "Aucun silent bloc trouvé." %}
-            </td>
-        </tr>
         {% endfor %}
     </tbody>
 </table>
@@ -157,6 +151,7 @@ $(document).ready(function() {
     var table = $('#silents-table').DataTable({
         pageLength: 10,
         language: {
+            emptyTable: "{% trans 'Aucun silent bloc trouvé.' %}",
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
             info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ silent blocs' %}",

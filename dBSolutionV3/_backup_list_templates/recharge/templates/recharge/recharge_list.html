@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des pleins de carburant" %}{% endblock %}
+
+{% block content %}
+<br>
+
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/voyage.png' %}" alt="recharge electrique"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des recharges électriques" %}
+</h1>
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mb-3 px-4 py-2 rounded
+                {% if message.tags == 'success' %}
+                    bg-green-100 text-green-800 border border-green-300
+                {% else %}
+                    bg-red-100 text-red-800 border border-red-300
+                {% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+<div class="inline-flex gap-4">
+    <a href="{% url 'recharge:ajouter_recharge_all' %}"
+       class="bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+         {% trans "Ajouter une recharge électrique" %}
+    </a>
+
+    <a href="{% url 'recharge:electricite_stat' %}"
+       class="bg-green-600 text-white px-5 py-4 rounded hover:bg-green-400 font-semibold text-center">
+        {% trans "Voir les statistiques" %}
+    </a>
+</div>
+<br>
+<br>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
+        <input id="search-utilisateur" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Utilisateur' %}">
+
+        <input id="search-immatriculation" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'immatriculation' %}">
+
+        <input id="search-exemplaire" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'exemplaire' %}">
+
+
+        <input id="search-type_carburant" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Electricité' %}">
+
+        <input id="search-kW" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans '20 kW' %}">
+
+        <input id="search-date_recharge" type="date"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Date de la recharge' %}">
+
+
+    </div>
+</div>
+
+
+
+
+<!-- Table -->
+<table id="electricite-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Utilisateur" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Véhicule" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Kilomètres" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Type de carburant" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Kilo Watts" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Prix Total" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Prix au kW" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+   <tbody>
+    {% for recharge in recharges %}
+    <tr>
+        <td class="border px-4 py-2">{{ recharge.utilisateur }}</td>
+
+        <!-- Immatriculation stylisée -->
+        <td class="p-3">
+            {% with exemplaire=recharge.voiture_exemplaire %}
+                {% include "maintenance/partials/plaque.html" with taille="petite" %}
+            {% endwith %}
+            </td>
+
+            <!-- Véhicule -->
+            <td class="border px-4 py-2">
+                {{ recharge.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}
+            </td>
+
+            <!-- Kilomètres -->
+            <td class="border px-4 py-2">{{ recharge.kilometrage_electricite }}</td>
+
+            <!-- Type carburant -->
+            <td class="border px-4 py-2">{{ recharge.get_type_carburant_display }}</td>
+
+            <!-- Litres -->
+            <td class="border px-4 py-2">{{ recharge.kW}}</td>
+
+            <!-- Prix Total -->
+            <td class="border px-4 py-2">{{ recharge.prix_recharge }}</td>
+
+            <!-- Prix au litre -->
+            <td class="border px-4 py-2">{{ recharge.prix_watt|floatformat:3 }}</td>
+    
+                      <!-- Date -->
+            <td class="border px-4 py-2"
+                data-order="{{ recharge.date_recharge|date:'Ymd' }}">
+                {{ recharge.date_recharge|date:"d/m/Y" }}
+            </td>
+                        <!-- Info -->
+            <td class="border px-4 py-2 text-center">
+              <a href="{% url 'recharge:electricite_detail' electricite_id=recharge.id %}"
+                 class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                  {% trans "Info" %}
+              </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+
+
+</table>
+<br>
+<br>
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+<br>
+<!-- DataTables JS -->
+<script>
+$(document).ready(function() {
+    var table = $('#electricite-table').DataTable({
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ recharges' %}",
+            infoEmpty: "{% trans 'Aucune recharge electrique trouvée' %}",
+            zeroRecords: "{% trans 'Aucune recharge electrique trouvée' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[4, "desc"]]
+    });
+
+    // Filtres par colonne
+    $('#search-utilisateur').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-immatriculation').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+    $('#search-exemplaire').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-type_carburant').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+     $('#search-kW').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+     $('#search-date_recharge').on('keyup', function () {
+        table.column(8).search(this.value).draw();
+    });
+
+});
+</script>
+{% endblock %}

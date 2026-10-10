@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des Factures" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/achatmds.png' %}" alt="achat marchandises"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des Factures" %}
+</h1>
+
+   {% include "partials/messages.html" %}
+
+
+<br>
+  <div>
+      <a href="{% url 'achat_mds:achat_form' %}"
+             class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+          {% trans "Encoder un achat" %}
+      </a>
+  </div>
+<br>
+<br>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-5 md:grid-cols- gap-3 items-end">
+        <input id="search-fournisseur" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Nom du fournisseur' %}">
+
+        <input id="search-achat_mds" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Libellé' %}">
+
+        <input id="search-achat_montant_htva" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Montant HTVA' %}">
+
+
+        <input id="search-achat_tva" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Taux de TVA' %}">
+
+        <input id="search-date_facture" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans '0032' %}">
+    </div>
+</div>
+
+
+
+
+<!-- Table -->
+<table id="achats-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Fournisseur" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Libellé" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Référence" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Montant HTVA" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Transport HTVA" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Taux de TVA" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Total TVA" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Montant TVAC" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Date de facturation" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for achat in achats %}
+        <tr>
+             <td class="border px-4 py-2 text-center">
+                <span class="hidden">
+                    {{ achat.fournisseur }}
+                </span>
+                <img
+                    src="{% static 'images/'|add:achat.fournisseur.nom|lower|add:'.png' %}"
+                    alt="{{ achat.fournisseur }}"
+                    style="width:120px; height:35px; object-fit:contain;"
+                    onerror="this.onerror=null; this.outerHTML='{{ achat.fournisseur }}';"
+                >
+            </td>
+            <td class="border px-4 py-2">{{ achat.libelle_facture }}</td>
+            <td class="border px-4 py-2">{{ achat.reference_facture }}</td>
+            <td class="border px-4 py-2 text-right">{{ achat.achat_montant_htva|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ achat.transport_montant_htva|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ achat.achat_tva }} %</td>
+            <td class="border px-4 py-2 text-right">{{ achat.montant_tva|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right font-bold">{{ achat.total_tvac|floatformat:2 }} €</td>
+           <td class="border px-4 py-2"
+                data-order="{{ achat.date_facture|date:'Y-m-d' }}">
+                {{ achat.date_facture|date:"d/m/Y" }}
+            </td>
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'achat_mds:achat_detail' achat.id %}"
+                     class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+<br>
+<br>
+<div>
+    <a href="{% url 'fournisseur:fournisseur_dashboard' %}"
+        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord fournisseur" %}
+    </a>
+</div>
+<br>
+<!-- DataTables JS -->
+<script>
+$(document).ready(function() {
+
+    var table = $('#achats-table').DataTable({
+        pageLength: 10,
+
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ achats marchandises' %}",
+            infoEmpty: "{% trans 'Aucune facture trouvée' %}",
+            zeroRecords: "{% trans 'Aucune facture trouvée' %}",
+
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+
+        // Tri initial : date de facture décroissante
+        order: [[8, "desc"]],
+
+        columnDefs: [
+            {
+                targets: 9,       // colonne Info
+                orderable: false,
+                searchable: false
+            }
+        ]
+    });
+
+
+    // Fournisseur
+    $('#search-fournisseur').on('keyup change', function () {
+        table.column(0).search(this.value).draw();
+    });
+
+
+    // Libellé
+    $('#search-achat_mds').on('keyup change', function () {
+        table.column(1).search(this.value).draw();
+    });
+
+
+    // Montant HTVA
+    $('#search-achat_montant_htva').on('keyup change', function () {
+        table.column(3).search(this.value).draw();
+    });
+
+
+    // Taux TVA
+    $('#search-achat_tva').on('keyup change', function () {
+        table.column(5).search(this.value).draw();
+    });
+
+
+    // Date facture
+    $('#search-date_facture').on('keyup change', function () {
+        table.column(8).search(this.value).draw();
+    });
+
+});
+</script>
+
+
+{% if request.GET.saved == "1" %}
+<script>
+    setTimeout(function () {
+        sessionStorage.setItem("reloadAfterBack", "1");
+        window.history.go(-2);
+    }, 5000);
+</script>
+{% endif %}
+
+{% if request.GET.saved == "1" or request.GET.deleted == "1" %}
+<script>
+    // Enregistre les messages Django pour la page qu'on va recharger
+    const flash = [
+        {% for message in messages %}
+        { text: "{{ message|escapejs }}", tags: "{{ message.tags }}" },
+        {% endfor %}
+    ];
+    sessionStorage.setItem("flashMessages", JSON.stringify(flash));
+    sessionStorage.setItem("reloadAfterBack", "1");
+
+    // Retour immédiat (plus besoin d'attendre 5 s)
+    window.history.go({% if request.GET.deleted == "1" %}-3{% else %}-2{% endif %});
+</script>
+{% endif %}
+
+
+
+{% endblock %}

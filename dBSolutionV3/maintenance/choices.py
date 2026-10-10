@@ -2503,3 +2503,51 @@ class FabricantClim(models.TextChoices):
     # =====================================================
     ORIGINE = "ORIGINE", _("Pièce d'origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre")
+
+class FabricantCardan(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
+    # ============================================================
+    # ORIGINE
+    # ============================================================
+    CONSTRUCTEUR_OEM = "CONSTRUCTEUR_OEM", _("Constructeur (OEM)")
+
+    # ============================================================
+    # ÉQUIPEMENTIERS TRANSMISSION
+    # ============================================================
+    GKN = "GKN", _("GKN / Löbro / Spidan")
+    NTN_SNR = "NTN_SNR", _("NTN-SNR")
+    SKF = "SKF", _("SKF")
+    ZF = "ZF", _("ZF / Lemförder")
+    DANA = "DANA", _("Dana / Spicer")
+    NEAPCO = "NEAPCO", _("Neapco")
+    IFA = "IFA", _("IFA Rotorion")
+    HYUNDAI_WIA = "HYUNDAI_WIA", _("Hyundai WIA")
+
+    # ============================================================
+    # AFTERMARKET
+    # ============================================================
+    MEYLE = "MEYLE", _("Meyle")
+    FEBI = "FEBI", _("Febi Bilstein")
+    METELLI = "METELLI", _("Metelli")
+    BOSCH = "BOSCH", _("Bosch")
+    TRW = "TRW", _("TRW")
+    DELPHI = "DELPHI", _("Delphi")
+    CORTECO = "CORTECO", _("Corteco")
+    FAG = "FAG", _("FAG / Schaeffler")
+    RIDEX = "RIDEX", _("RIDEX")
+    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
+    VAICO = "VAICO", _("Vaico")
+    TOPRAN = "TOPRAN", _("Topran")
+    SWAG = "SWAG", _("SWAG")
+    MAPCO = "MAPCO", _("MAPCO")
+    JAPANPARTS = "JAPANPARTS", _("Japanparts")
+
+    # ============================================================
+    # PERFORMANCE / COMPÉTITION
+    # ============================================================
+    DRIVESHAFT_SHOP = "DRIVESHAFT_SHOP", _("The Driveshaft Shop")
+    RCV = "RCV", _("RCV Performance")
+    QA1 = "QA1", _("QA1")
+
+    AUTRE = "AUTRE", _("Autre")

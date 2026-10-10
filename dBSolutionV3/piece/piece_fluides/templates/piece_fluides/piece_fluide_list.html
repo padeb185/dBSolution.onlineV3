@@ -91,12 +91,6 @@
             </td>
         </tr>
 
-        {% empty %}
-        <tr>
-            <td colspan="8" class="text-center py-4">
-                {% trans "Aucun fluide enregistré." %}
-            </td>
-        </tr>
         {% endfor %}
     </tbody>
 </table>
@@ -120,6 +114,7 @@ $(document).ready(function() {
     var table = $('#fluides-table').DataTable({
         pageLength: 100,
         language: {
+            emptyTable: "{% trans 'Aucun fluide enregistré.' %}",
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
             info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ fluides' %}",

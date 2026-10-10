@@ -114,6 +114,7 @@ $(document).ready(function() {
     var table = $('#client-table').DataTable({
         pageLength: 30,
         language: {
+            emptyTable: "{% trans 'Aucun élément enregistré.' %}",
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
             info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ client' %}",

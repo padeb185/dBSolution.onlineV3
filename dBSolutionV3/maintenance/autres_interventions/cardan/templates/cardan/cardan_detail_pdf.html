@@ -1,0 +1,339 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html, body { width: 100%; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box { border: 1px solid #ddd; padding: 12px; margin-bottom: 14px; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+        .label { font-weight: bold; }
+
+        .tag { padding: 4px 8px; border-radius: 4px; color: white; font-weight: bold; }
+        .tag-vert { background: #16a34a; }
+        .tag-jaune { background: #ca8a04; }
+        .tag-rouge { background: #dc2626; }
+
+        .etat-vert, .etat-rouge, .etat-bleu, .etat-gris, .etat-jaune {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .etat-vert  { color: #166534; background: #dcfce7; }
+        .etat-rouge { color: #991b1b; background: #fee2e2; }
+        .etat-bleu  { color: #1e40af; background: #dbeafe; }
+        .etat-jaune { color: #854d0e; background: #fef9c3; }
+        .etat-gris  { color: #6b7280; background: #f3f4f6; }
+
+        .table-2-cols { width: 96%; table-layout: fixed; border-collapse: collapse; }
+        .table-2-cols th:first-child, .table-2-cols td:first-child { width: 66.67%; }
+        .table-2-cols th:last-child,  .table-2-cols td:last-child  { width: 33.33%; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+
+        th, td { border: 1px solid #d1d5db; padding: 6px; vertical-align: middle; }
+
+        th { background: #eff6ff; color: #1e3a8a; text-align: left; }
+
+        .text-right { text-align: right; }
+
+        .total { font-weight: bold; background: #f8fafc; }
+
+        .total-general { font-weight: bold; color: #1e3a8a; background: #dbeafe; }
+
+        .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+        .societe-informations div { margin-bottom: 6px; }
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+        .societe-logo img { max-width: 200px; max-height: 200px; }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+
+        /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+        h1, h2 { page-break-after: avoid; }
+        table { page-break-inside: auto; }
+        tr { page-break-inside: avoid; break-inside: avoid; }
+        thead { display: table-header-group; }
+        tfoot { display: table-footer-group; }
+        .box, .societe-header { page-break-inside: avoid; }
+    </style>
+</head>
+
+<body>
+
+{% with societe=cardan.tech_societe %}
+{% if societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">{{ societe.nom }}</div>
+
+            {% if societe.adresse %}
+                <div>
+                    {{ societe.adresse.rue }} {{ societe.adresse.numero }}
+                    {% if societe.adresse.boite %} / {{ societe.adresse.boite }}{% endif %}
+                </div>
+                <div>{{ societe.adresse.code_postal }} {{ societe.adresse.ville }}</div>
+
+                {% if societe.adresse.pays %}
+                    <div>{{ societe.adresse.pays }} {{ societe.adresse.code_pays }}</div>
+                {% endif %}
+            {% endif %}
+
+            {% if societe.numero_tva %}
+                <div><strong>{% trans "Numéro de TVA" %} :</strong> {{ societe.numero_tva }}</div>
+            {% endif %}
+
+            {% if societe.iban %}
+                <div><strong>{% trans "Numéro de compte" %} :</strong> {{ societe.iban }}</div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img src="{% static 'societe/' %}{{ societe.nom }}.png" alt="{{ societe.nom }}">
+        </div>
+
+    </div>
+{% endif %}
+{% endwith %}
+
+<h1>{% trans "Rapport de contrôle cardan" %}</h1>
+
+<div class="box">
+    <div class="grid">
+
+        <div><span class="label">{% trans "Date" %} :</span> {{ cardan.date|date:"d/m/Y H:i" }}</div>
+        <div><span class="label">{% trans "Technicien" %} :</span> {{ cardan.tech_nom_technicien|default:"-" }}</div>
+        <div><span class="label">{% trans "Rôle" %} :</span> {{ cardan.tech_role_technicien|default:"-" }}</div>
+        <div><span class="label">{% trans "Société" %} :</span> {{ cardan.tech_societe|default:"-" }}</div>
+        <div><span class="label">{% trans "Véhicule" %} :</span> {{ cardan.voiture_exemplaire }}</div>
+        <div><span class="label">{% trans "Immatriculation" %} :</span> {{ cardan.voiture_exemplaire.immatriculation|default:"-" }}</div>
+        <div><span class="label">{% trans "Kilométrage avant contrôle" %} :</span> {{ cardan.kilometres_chassis|default:0 }} km</div>
+        <div><span class="label">{% trans "Kilométrage contrôle" %} :</span> {{ cardan.kilometrage_cardan }} km</div>
+        <div><span class="label">{% trans "Serrage des roues" %} :</span> {{ cardan.get_serrage_roues_display }}</div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+            {% if cardan.tag == "VERT" %}
+                <span class="tag tag-vert">{{ cardan.get_tag_display }}</span>
+            {% elif cardan.tag == "JAUNE" %}
+                <span class="tag tag-jaune">{{ cardan.get_tag_display }}</span>
+            {% elif cardan.tag == "ROUGE" %}
+                <span class="tag tag-rouge">{{ cardan.get_tag_display }}</span>
+            {% else %}
+                {{ cardan.get_tag_display }}
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+
+<!-- ================= CONTRÔLE ================= -->
+
+<h2>{% trans "Contrôle cardan" %}</h2>
+
+{% with pieces=cardan.pieces_controle %}
+{% if pieces %}
+<table>
+    <thead>
+        <tr>
+            <th style="width: 40%;">{% trans "Élément contrôlé" %}</th>
+            <th>{% trans "Côté" %}</th>
+            <th>{% trans "Fabricant" %}</th>
+            <th>{% trans "Résultat" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for piece in pieces %}
+        <tr>
+            <td>{{ piece.label }}</td>
+            <td>{{ piece.cote|default:"-" }}</td>
+            <td>{{ piece.fabricant|default:"-" }}</td>
+            <td>
+                {% if piece.etat == "OK" %}
+                    <span class="etat-vert">{{ piece.etat_label }}</span>
+                {% elif piece.etat == "NOT_OK" %}
+                    <span class="etat-rouge">{{ piece.etat_label }}</span>
+                {% elif piece.etat == "REMPLACE" %}
+                    <span class="etat-bleu">{{ piece.etat_label }}</span>
+                {% elif piece.etat == "REPARE" %}
+                    <span class="etat-jaune">{{ piece.etat_label }}</span>
+                {% else %}
+                    <span class="etat-gris">{{ piece.etat_label|default:"-" }}</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p>{% trans "Aucune pièce contrôlée." %}</p>
+{% endif %}
+{% endwith %}
+
+
+<!-- ================= MAIN D'ŒUVRE ================= -->
+
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Temps" %} :</span> {{ cardan.temps_main_oeuvre_display }}</div>
+
+        {% if cardan.main_oeuvre %}
+            <div><span class="label">{% trans "Taux horaire HTVA" %} :</span> {{ cardan.taux_horaire_main_oeuvre|floatformat:2 }} €</div>
+            <div><span class="label">{% trans "Prix HTVA" %} :</span> {{ cardan.cout_main_oeuvre|floatformat:2 }} €</div>
+            <div><span class="label">{% trans "Descriptif" %} :</span> {{ cardan.main_oeuvre.descriptif|default:"-" }}</div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+
+<!-- ================= PIÈCES ET COÛTS ================= -->
+
+<h2>{% trans "Pièces remplacées et main d'œuvre" %}</h2>
+
+{% if rapport.lignes %}
+<table>
+    <thead>
+        <tr>
+            <th>{% trans "Pièce" %}</th>
+            <th>{% trans "État" %}</th>
+            <th>{% trans "Côté" %}</th>
+            <th>{% trans "Fabricant" %}</th>
+            <th class="text-right">{% trans "Quantité" %}</th>
+            <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+            <th class="text-right">{% trans "Total HTVA" %}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for ligne in rapport.lignes %}
+        <tr>
+            <td>{{ ligne.champ }}</td>
+            <td>
+                {% if ligne.etat == "NOT_OK" %}
+                    <span class="etat-rouge">{{ ligne.etat_label }}</span>
+                {% else %}
+                    <span class="etat-bleu">{{ ligne.etat_label }}</span>
+                {% endif %}
+            </td>
+            <td>{{ ligne.cote|default:"-" }}</td>
+            <td>{{ ligne.fabricant|default:"-" }}</td>
+            <td class="text-right">{{ ligne.quantite|floatformat:0 }}</td>
+            <td class="text-right">{{ ligne.prix|floatformat:2 }} €</td>
+            <td class="text-right">{{ ligne.total|floatformat:2 }} €</td>
+        </tr>
+        {% endfor %}
+
+        <tr class="total">
+            <td colspan="6" class="text-right">{% trans "Total pièces HTVA" %}</td>
+            <td class="text-right">{{ rapport.total_pieces|floatformat:2 }} €</td>
+        </tr>
+        <tr class="total">
+            <td colspan="6" class="text-right">{% trans "Main-d'œuvre HTVA" %}</td>
+            <td class="text-right">{{ cardan.cout_main_oeuvre|floatformat:2 }} €</td>
+        </tr>
+        <tr class="total-general">
+            <td colspan="6" class="text-right">{% trans "Total général avec main-d'œuvre HTVA" %}</td>
+            <td class="text-right">{{ cardan.total_general_avec_main_oeuvre|floatformat:2 }} €</td>
+        </tr>
+    </tbody>
+</table>
+
+{% else %}
+
+<p>{% trans "Aucune pièce remplacée." %}</p>
+
+<table class="table-2-cols">
+    <tbody>
+        <tr class="total">
+            <td class="text-right"><strong>{% trans "Main-d'œuvre HTVA" %}</strong></td>
+            <td class="text-right"><strong>{{ cardan.cout_main_oeuvre|floatformat:2 }} €</strong></td>
+        </tr>
+        <tr class="total-general">
+            <td class="text-right"><strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong></td>
+            <td class="text-right"><strong>{{ cardan.total_general_avec_main_oeuvre|floatformat:2 }} €</strong></td>
+        </tr>
+    </tbody>
+</table>
+
+{% endif %}
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

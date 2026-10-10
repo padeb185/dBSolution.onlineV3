@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks format_numbers %}
+
+{% block title %}{% trans "Liste des sociétés clientes" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/societe_cliente.png' %}" alt="client"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des sociétés clientes" %}
+</h1>
+
+
+
+        <!-- Messages -->
+    {% include "partials/messages.html" %}
+
+
+
+<br>
+ <!-- Bouton sur une seule ligne, en dessous -->
+<div>
+    <a href="{% url 'societe_cliente:societe_cliente_form' %}"
+        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ajouter une société cliente" %}
+    </a>
+</div>
+<br>
+<br>
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-3 mb-4">
+        <input id="search-nom_societe_cliente" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Nom de la société' %}">
+
+        <input id="search-adresse" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Adresse de la société' %}">
+
+        <input id="search-directeur_nom_prenom" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Nom et prénom du directeur' %}">
+
+        <input id="search-numero_telephone" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'N° de téléphone' %}">
+
+        <input id="search-email" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'email' %}">
+
+        <input id="search-numero_compte" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'N° de compte' %}">
+    </div>
+</div>
+
+
+
+
+
+<!-- Table -->
+<table id="societe_cliente-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom de la société" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Adresse" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du directeur" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Numéro de téléphone" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Email" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for societe_cliente in societe_clientes %}
+        <tr>
+            <td class="border px-4 py-2">{{ societe_cliente.nom_societe_cliente }}</td>
+            <td class="border px-4 py-2">{{ societe_cliente.adresse }}</td>
+            <td class="border px-4 py-2">{{ societe_cliente.directeur_nom_prenom }}</td>
+            <td class="border px-4 py-2">{{ societe_cliente.numero_telephone }}</td>
+            <td class="border px-4 py-2">{{ societe_cliente.email }}</td>
+            <td class="border px-4 py-2 text-center">
+               <a href="{% url 'societe_cliente:societe_cliente_detail' societe_cliente.id_societe_cliente %}"
+                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                    {% trans "Info" %}
+               </a>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<br>
+<br>
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+<br>
+
+<!-- DataTables JS -->
+<script>
+$(document).ready(function() {
+    var table = $('#societe_cliente-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ Société cliente' %}",
+            infoEmpty: "{% trans 'Aucune société cliente trouvée' %}",
+            zeroRecords: "{% trans 'Aucune société cliente trouvée' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    // Filtres par colonne
+    $('#search-nom_societe_cliente').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-adresse').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+    $('#search-directeur_nom_prenom').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-numero_telephone').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+     $('#search-email').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    function formatBankNumber(inputId) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+
+        input.addEventListener("input", function () {
+            let val = input.value.toUpperCase();
+
+            // Supprime tout sauf lettres et chiffres
+            val = val.replace(/[^A-Z0-9]/g, "");
+
+            let formatted = "";
+            let i = 0;
+
+            while (i < val.length) {
+                if (i === 0) {
+                    // deux lettres
+                    formatted += val.substr(i, 2);
+                    i += 2;
+                } else if (i === 2) {
+                    // deux chiffres + espace
+                    formatted += val.substr(i, 2) + " ";
+                    i += 2;
+                } else {
+                    // groupes de quatre chiffres + espace
+                    formatted += val.substr(i, 4) + " ";
+                    i += 4;
+                }
+            }
+
+            // Supprime l'espace final
+            input.value = formatted.trim();
+        });
+    }
+
+    // Appliquer aux deux champs
+    formatBankNumber("id_numero_carte_bancaire");
+    formatBankNumber("id_numero_compte");
+
+});
+</script>
+
+
+{% if request.GET.saved == "1" or request.GET.deleted == "1" %}
+<script>
+    // Enregistre les messages Django pour la page qu'on va recharger
+    const flash = [
+        {% for message in messages %}
+        { text: "{{ message|escapejs }}", tags: "{{ message.tags }}" },
+        {% endfor %}
+    ];
+    sessionStorage.setItem("flashMessages", JSON.stringify(flash));
+    sessionStorage.setItem("reloadAfterBack", "1");
+
+    // Retour immédiat (plus besoin d'attendre 5 s)
+    window.history.go({% if request.GET.deleted == "1" %}-3{% else %}-2{% endif %});
+</script>
+{% endif %}
+
+
+{% if request.GET.deleted == "1" %}
+<script>
+    setTimeout(function () {
+        sessionStorage.setItem("reloadAfterBack", "1");
+        window.history.go(-3);
+    }, 5000);
+</script>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des pièces de frein avant" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/disque-de-frein.png' %}" alt="Frein"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des freins avant" %}
+</h1>
+
+
+      <!-- Messages -->
+       {% include "partials/messages.html" %}
+
+<br>
+
+    <div class="mb-4">
+        <a href="{% url 'voiture_freins_av:ajouter_freins_simple' %}"
+           class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+            {% trans "Ajouter un système de freinage avant" %}
+        </a>
+    </div>
+
+
+<br>
+<br>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="flex flex-wrap gap-3 items-end">
+        <input id="search-marque_disques_av" type="text"
+               class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Marque des disques avant' %}">
+
+        <input id="search-numero_oem_disques_av" type="text"
+               class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'N° OEM des disques avant' %}">
+
+        <input id="search-taille_disque_av" type="text"
+               class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Diamètre des disques avant' %}">
+
+        <input id="search-epaisseur_disque_av" type="text"
+               class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Epaisseur des disques avant' %}">
+
+        <input id="search-epaisseur_min_disque_av" type="text"
+               class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Epaisseur minimum des disques arrière' %}">
+
+        <input id="search-numero_oem_plaquettes_av" type="text"
+               class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'N° OEM des plaquettes avant' %}">
+    </div>
+</div>
+
+
+
+
+<!-- Table -->
+<table id="freins-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Marque des disques avant" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "N° OEM des disques avant" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Diamètre des disques avant" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Epaisseur des disques avant" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Epaisseur minimum des disques avant" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "N° OEM des plaquettes avant" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for frein in freins %}
+        <tr>
+            <td class="border px-4 py-2">{{ frein.marque_disques_av }}</td>
+            <td class="border px-4 py-2">{{ frein.numero_oem_disques_av }}</td>
+            <td class="border px-4 py-2">{{ frein.taille_disque_av }}</td>
+            <td class="border px-4 py-2"><span class="text-green-600">{{ frein.epaisseur_disque_av }}</span></td>
+            <td class="border px-4 py-2"><span class="text-red-600">{{ frein.epaisseur_min_disque_av }}</span></td>
+            <td class="border px-4 py-2">{{ frein.numero_oem_plaquettes_av }}</td>
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'voiture_freins_av:freins_av_detail' frein.id %}"
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+ <br>
+<br>
+<div>
+    <a href="{% url 'voiture_freins_av:dashboard_frein' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord freins" %}
+    </a>
+</div>
+
+<br>
+<!-- DataTables JS -->
+<script>
+$(document).ready(function() {
+    var table = $('#freins-table').DataTable({
+
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ freins' %}",
+            infoEmpty: "{% trans 'Aucun système de freinage trouvé' %}",
+            zeroRecords: "{% trans 'Aucun système de freinage trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    // Filtres par colonne
+   $('#search-marque_disques_av').on('keyup', function () {
+    table.column(0).search(this.value).draw();
+    });
+    $('#search-numero_oem_disques_av').on('keyup', function () {
+    table.column(1).search(this.value).draw();
+    });
+    $('#search-taille_disque_av').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-epaisseur_disque_av').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+    $('#search-epaisseur_min_disque_av').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+     $('#search-numero_oem_plaquettes_av').on('keyup', function () {
+        table.column(5).search(this.value).draw();
+    });
+
+});
+</script>
+
+
+{% if request.GET.saved == "1" or request.GET.deleted == "1" %}
+<script>
+    // Enregistre les messages Django pour la page qu'on va recharger
+    const flash = [
+        {% for message in messages %}
+        { text: "{{ message|escapejs }}", tags: "{{ message.tags }}" },
+        {% endfor %}
+    ];
+    sessionStorage.setItem("flashMessages", JSON.stringify(flash));
+    sessionStorage.setItem("reloadAfterBack", "1");
+
+    // Retour immédiat (plus besoin d'attendre 5 s)
+    window.history.go({% if request.GET.deleted == "1" %}-3{% else %}-2{% endif %});
+</script>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,510 @@
+from decimal import Decimal, ROUND_HALF_UP
+from django.db import models
+from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
+from maintenance.choices import FabricantEmbrayage, TVAConfig, RouesSerrageEtat
+from utils.mixin import TechnicienMixin
+from maintenance.models import Maintenance
+
+
+class CardanEtat(models.TextChoices):
+    OK = "OK", _("OK")
+    NOT_OK = "NOT_OK", _("À remplacer")
+    REMPLACE = "REMPLACE", _("Remplacé")
+    REPARE = "REPARE", _("Réparé")
+    NON_PRESENT = "NON_PRESENT", _("Non présent")
+
+class CardanCote(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+
+    AVG = "AVG", _("AVG")
+    AVD = "AVD", _("AVD")
+    ARG = "ARG", _("ARG")
+    ARD = "ARD", _("ARD")
+
+
+class Cardan(TechnicienMixin, models.Model):
+    pays = models.CharField(
+        max_length=5,
+        choices=TVAConfig.PAYS_CHOICES,
+        default=TVAConfig.DEFAULT_PAYS,
+        verbose_name=_("Pays"),
+    )
+
+    maintenance = models.ForeignKey(
+        Maintenance,
+        on_delete=models.CASCADE,
+        related_name="caardan",
+        verbose_name=_("Maintenance"),
+        null=True,
+        blank=True
+    )
+
+    voiture_exemplaire = models.ForeignKey(
+        "voiture_exemplaire.VoitureExemplaire",
+        on_delete=models.CASCADE,
+        related_name="cardan",
+        verbose_name=_("Kilomètres checkup"),
+        null=True,
+        blank=True
+    )
+
+    kilometres_chassis = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres chassis")
+    )
+
+    kilometrage_cardan = models.PositiveIntegerField(
+        verbose_name=_("Kilométrage au moment du contrôle"),
+    )
+
+    kilometres_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        editable=False,
+        verbose_name=_("Kilomètres rollback")
+    )
+
+    kilometres_boite = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_boite_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres rollback boite")
+    )
+
+    kilometres_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_moteur_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres rollback moteur")
+    )
+
+    kilometres_embrayage = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_embrayage_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres rollback embrayage")
+    )
+
+    kilometrage_variation = models.PositiveIntegerField(
+        default=0,
+        editable=False,
+        verbose_name=_("Variation du kilométrage"),
+    )
+
+
+
+
+    # --- Cardan ---
+    cardan_complet = models.CharField(
+        max_length=25,
+        choices= CardanEtat.choices,
+        default=CardanEtat.OK,
+        verbose_name=_("Cardan complet")
+    )
+
+
+    cardan_complet_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantEmbrayage.choices,
+        default=FabricantEmbrayage.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+
+    cardan_complet_cote = models.CharField(
+        max_length=25,
+        choices= CardanCote.choices,
+        default=CardanCote.CHOISIR,
+        verbose_name=_("Cardan complet")
+    )
+
+    cardan_complet_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+    cardan_complet_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+
+
+    TAG_CHOICES = [
+        ("VERT", _("Vert")),
+        ("JAUNE", _("Jaune")),
+        ("ROUGE", _("Rouge")),
+    ]
+    tag = models.CharField(
+        max_length=10,
+        choices=TAG_CHOICES,
+        default="WHITE",
+        verbose_name=_("État visuel / Tag"),
+    )
+
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
+
+    main_oeuvre = models.ForeignKey(
+        "maindoeuvre.MainDoeuvre",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="cardan",
+        verbose_name=_("Main d'oeuvre")
+    )
+
+    # --- Technicien ---
+    tech_technicien = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Technicien"),
+        related_name="cardan"
+    )
+    tech_nom_technicien = models.CharField(_("Nom du technicien"), max_length=255, blank=True)
+    tech_role_technicien = models.CharField(_("Rôle du technicien"), max_length=255, blank=True)
+    tech_societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Société"),
+        related_name="cardan"
+    )
+    taux_horaire = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        choices=TAUX_HORAIRE_CHOICES,
+        default=Decimal("50.00"),
+        verbose_name=_("Taux horaire"),
+    )
+
+    date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
+    def assign_technicien(self, user):
+        self.tech_technicien = user
+        self.tech_nom_technicien = f"{user.prenom} {user.nom}"
+        self.tech_role_technicien = user.role
+        self.tech_societe = user.societe
+
+    def clean(self):
+        super().clean()
+        if self.voiture_exemplaire and self.kilometrage_cardan is not None:
+            if self.kilometrage_cardan < self.voiture_exemplaire.kilometres_chassis:
+                raise ValidationError({
+                    'kilometrage_cardan': _(
+                        f"Le kilométrage du contrôle ({self.kilometrage_cardan}) "
+                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
+                    )
+                })
+
+    def save(self, *args, **kwargs):
+
+        # =========================
+        # TECHNICIEN
+        # =========================
+        if not self.tech_technicien_id and hasattr(self, "_user"):
+            self.assign_technicien(self._user)
+
+        # =========================
+        # MAIN D'ŒUVRE
+        # =========================
+        if self.main_oeuvre_id and self.voiture_exemplaire_id:
+            task_name = (
+                    _("Checkup boîte de vitesse automatique")
+                    + " "
+                    + str(self.voiture_exemplaire)
+            )
+
+            self.main_oeuvre.descriptif = task_name
+            self.main_oeuvre.save(
+                update_fields=["descriptif"]
+            )
+
+        # =========================
+        # MAINTENANCE
+        # =========================
+        if self.maintenance_id and self.voiture_exemplaire_id:
+            self.maintenance.type_maintenance = (
+                Maintenance.TypeMaintenance.BOITE_AUTO
+            )
+
+            self.maintenance.voiture_exemplaire = (
+                self.voiture_exemplaire
+            )
+
+            self.maintenance.save(
+                update_fields=[
+                    "type_maintenance",
+                    "voiture_exemplaire",
+                ]
+            )
+
+        # =========================
+        # KILOMÉTRAGE AVANT INTERVENTION
+        # =========================
+        if self.voiture_exemplaire_id:
+
+            voiture = type(self.voiture_exemplaire).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+            ancien_kilometrage = (
+                    voiture.kilometres_chassis or 0
+            )
+
+            # Snapshot du kilométrage avant intervention
+            self.kilometres_chassis = ancien_kilometrage
+
+            # =========================
+            # CALCUL VARIATION
+            # =========================
+            if self.kilometrage_cardan is not None:
+
+                self.kilometrage_variation = (
+                        self.kilometrage_cardan
+                        - ancien_kilometrage
+                )
+
+            else:
+                self.kilometrage_variation = 0
+
+        # =========================
+        # SAUVEGARDE NETTOYAGE EXTÉRIEUR
+        # =========================
+        super().save(*args, **kwargs)
+
+        # =========================
+        # MISE À JOUR DU VÉHICULE
+        # =========================
+        if (
+                self.voiture_exemplaire_id
+                and self.kilometrage_cardan is not None
+        ):
+
+            voiture = type(self.voiture_exemplaire).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+            if (
+                    self.kilometrage_cardan
+                    > (voiture.kilometres_chassis or 0)
+            ):
+                voiture.kilometres_chassis = (
+                    self.kilometrage_cardan
+                )
+
+                voiture.save(
+                    update_fields=["kilometres_chassis"]
+                )
+
+    def __str__(self):
+        if self.voiture_exemplaire:
+            return f"Contrôle cardan - {self.voiture_exemplaire.id}"
+        return "Contrôle cardan - non défini"
+
+    class Meta:
+        verbose_name = _("Contrôle cardan")
+        verbose_name_plural = _("Contrôles boîtes automatiques")
+
+        # ======================================================
+        # MAIN-D'ŒUVRE
+        # ======================================================
+
+    @property
+    def temps_main_oeuvre_display(self):
+        if not self.main_oeuvre:
+            return "0h00"
+
+        temps_minutes = self.main_oeuvre.temps_minutes or 0
+        heures, minutes = divmod(temps_minutes, 60)
+
+        return f"{heures}h{minutes:02d}"
+
+    @property
+    def taux_horaire_main_oeuvre(self):
+        if (
+                self.main_oeuvre
+                and self.main_oeuvre.taux_horaire is not None
+        ):
+            return self.main_oeuvre.taux_horaire
+
+        return Decimal("0.00")
+
+    @property
+    def cout_main_oeuvre(self):
+        if not self.main_oeuvre:
+            return Decimal("0.00")
+
+        temps_minutes = self.main_oeuvre.temps_minutes or 0
+        taux_horaire = (
+                self.main_oeuvre.taux_horaire or Decimal("0.00")
+        )
+
+        cout = (
+                Decimal(str(temps_minutes))
+                / Decimal("60")
+                * Decimal(str(taux_horaire))
+        )
+
+        return cout.quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
+
+    def _fabricant_display(self, base):
+        """Libellé du fabricant, ou '' si le champ n'existe pas ou vaut sa valeur par défaut."""
+        attr = f"{base}_fabricant"
+        valeur = getattr(self, attr, None)
+        if not valeur:
+            return ""
+        try:
+            defaut = self._meta.get_field(attr).default
+        except Exception:
+            defaut = None
+        if valeur == defaut:
+            return ""
+        return getattr(self, f"get_{attr}_display")()
+
+    def generer_rapport_remplacement(self):
+        lignes = []
+        total_pieces = Decimal("0.00")
+
+        pieces_def = [
+            (_("Convertisseur de couple"), "auto_emb_convertisseur_couple"),
+            (_("Double embrayage"), "double_embrayage"),
+            (_("Valves de contrôle"), "pompes_valves"),
+            (_("Arbre de couple"), "arbre_bte_torque"),
+            (_("Arbre secondaire"), "arbre_bte_secondaire_auto"),
+            (_("Roulements internes"), "roulement_auto"),
+            (_("Bloc hydraulique"), "bloc_hydraulique"),
+            (_("Unité mécatronique"), "mecatronique"),
+            (_("Solénoïdes"), "solenoides"),
+            (_("Électrovannes"), "electrovannes"),
+            (_("Filtre de boîte automatique"), "filtre_boite_auto"),
+            (_("Carter d'huile de boîte"), "carter_huile_boite_auto"),
+            (_("Joint de carter de boîte"), "joint_c_boite_auto"),
+            (_("Crépine de boîte automatique"), "crepine_boite_auto"),
+            (_("Pompe hydraulique"), "pompe_hydraulique_boite"),
+            (_("Embrayages internes"), "embrayages_internes_auto"),
+            (_("Disques d'embrayage internes"), "disques_embrayage_auto"),
+            (_("Disques acier d'embrayage"), "disques_acier_auto"),
+            (_("Tambours d'embrayage"), "tambours_embrayage_auto"),
+            (_("Pistons d'embrayage"), "pistons_embrayage_auto"),
+            (_("Joints de pistons"), "joints_p_auto"),
+            (_("Train épicycloïdal"), "train_epicycloidal"),
+            (_("Pignon planétaire"), "pignon_planetaire"),
+            (_("Pignons satellites"), "pignons_satellites"),
+            (_("Couronne du train épicycloïdal"), "couronne_epicycloidale"),
+            (_("Porte-satellites"), "porte_satellites"),
+            (_("Pignons internes"), "pignons_internes_auto"),
+            (_("Roue libre"), "roue_libre_auto"),
+            (_("Freins internes"), "freins_internes_auto"),
+            (_("Bandes de frein"), "bandes_frein_auto"),
+            (_("Capteur de vitesse d'entrée"), "capteur_vitesse_entree_auto"),
+            (_("Capteur de vitesse de sortie"), "capteur_vitesse_sortie_auto"),
+            (_("Capteur de température d'huile"), "capteur_temperature_huile_auto"),
+            (_("Capteur de pression d'huile"), "capteur_pression_huile_auto"),
+            (_("Calculateur de boîte automatique"), "calculateur_boite_auto"),
+            (_("Faisceau électrique de boîte"), "faisceau_boite_auto"),
+            (_("Connecteur électrique de boîte"), "connecteur_boite_auto"),
+            (_("Sélecteur de boîte"), "selecteur_boite_auto"),
+            (_("Capteur de position du sélecteur"), "capteur_position_selecteur_auto"),
+            (_("Différentiel"), "differentiel_auto"),
+            (_("Pignons de différentiel"), "pignons_differentiel_auto"),
+            (_("Joints spi de boîte"), "joints_spi_boite_auto"),
+            (_("Joints toriques de boîte"), "joints_toriques_boite_auto"),
+            (_("Bagues de boîte automatique"), "bagues_boite_auto"),
+            (_("Échangeur d'huile de boîte"), "echangeur_huile_boite_auto"),
+            (_("Durites d'huile de boîte"), "durites_huile_boite_auto"),
+            (_("Supports de boîte automatique"), "supports_boite_auto"),
+            (_("Huile de boîte automatique"), "huile_bte_auto_vitesse"),
+        ]
+
+        pieces = [
+            {
+                "champ": label,
+                "etat": getattr(self, base),
+                "fabricant": self._fabricant_display(base),
+                "prix": getattr(self, f"{base}_prix"),
+                "quantite": getattr(self, f"{base}_quantite"),
+            }
+            for label, base in pieces_def
+        ]
+
+        etats_labels = {
+            "NOT_OK": _("À remplacer"),
+            "REMPLACE": _("Remplacé"),
+        }
+
+        for piece in pieces:
+            etat = piece["etat"]
+
+            if etat not in ("NOT_OK", "REMPLACE"):
+                continue
+
+            prix = Decimal(str(piece["prix"] or "0.00"))
+            quantite = Decimal(str(piece["quantite"] or "0.00"))
+
+            if prix <= 0 or quantite <= 0:
+                continue
+
+            total_ligne = (
+                    prix * quantite
+            ).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
+            total_pieces += total_ligne
+
+            lignes.append({
+                "champ": piece["champ"],
+                "etat": etat,
+                "etat_label": etats_labels.get(etat, etat),
+                "fabricant": piece["fabricant"],
+                "quantite": quantite,
+                "prix": prix,
+                "total": total_ligne,
+            })
+
+        total_pieces = total_pieces.quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
+
+        return {
+            "lignes": lignes,
+            "pieces": lignes,
+            "total_pieces": total_pieces,
+            "total_general": total_pieces,
+        }
+
+    @property
+    def total_general_avec_main_oeuvre(self):
+        rapport = self.generer_rapport_remplacement()
+
+        total_pieces = rapport.get(
+            "total_pieces",
+            Decimal("0.00"),
+        )
+
+        cout_main_oeuvre = self.cout_main_oeuvre or Decimal("0.00")
+
+        return total_pieces + cout_main_oeuvre

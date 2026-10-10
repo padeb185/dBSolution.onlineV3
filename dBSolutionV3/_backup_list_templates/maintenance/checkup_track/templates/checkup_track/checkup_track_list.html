@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des checkups piste" %}{% endblock %}
+
+{% block content %}
+<br>
+<br>
+
+<h1 class="text-2xl font-bold mb-6 flex flex-col md:flex-row md:items-center gap-3">
+    <div class="flex items-center gap-3">
+
+        <img src="{% static 'icons/checkup_track.png' %}"
+             alt="Maintenance"
+             class="w-16 h-16">
+
+        <div class="flex items-center gap-2">
+
+            {% trans "Checkup piste pour :" %}
+
+            {% static 'images/marques/' as marques_path %}
+
+            <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                 alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                 class="w-20 h-20 object-contain">
+
+            <span class="font-semibold">
+                {{ exemplaire.voiture_modele.nom_modele }}
+
+                {% if exemplaire.voiture_modele.nom_variante %}
+                    {{ exemplaire.voiture_modele.nom_variante }}
+                {% endif %}
+            </span>
+
+        </div>
+    </div>
+
+    {% include "maintenance/partials/plaque.html" %}
+</h1>
+
+
+
+    <!-- Messages -->
+{% include "partials/messages.html" %}
+
+
+<br>
+{% if is_checkup_allowed %}
+<div>
+     <a href="{% url 'checkup_track:track_check_form' exemplaire.id %}"
+          class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+         {% trans "Ajouter un checkup piste" %}
+     </a>
+</div>
+{% endif %}
+<br>
+<br>
+
+
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="flex flex-wrap items-end gap-3">
+        <input id="search-immatriculation" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Immatriculation' %}" >
+
+        <input id="search-kilometres" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Kilomètres' %}">
+
+        <input id="search-tag" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Étiquette' %}">
+
+         <input id="search-ready_for" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Prête pour ' %}">
+
+        <input id="search-utilisateur" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Technicien' %}">
+
+        <input id="search-date" type="date"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+</div>
+
+<table id="checkup_tracks-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Kilomètres" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Tag" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Prête pour" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Technicien" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Actions" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for checkup_track in checkup_tracks %}
+        {% with exemplaire=checkup_track.voiture_exemplaire %}
+        <tr>
+            <td class="p-3">
+                {% include "maintenance/partials/plaque.html" with taille="petite" %}
+            </td>
+
+            <td class="border px-4 py-2">{{ checkup_track.kilometres_chassis }}</td>
+
+            <td class="border px-4 py-2 text-center font-bold
+               {% if checkup_track.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300 border-2
+               {% elif checkup_track.tag == 'JAUNE' %}bg-yellow-100 text-yellow-800 border-yellow-500 border-2
+               {% elif checkup_track.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300 border-2
+               {% endif %}">
+              {{ checkup_track.get_tag_display }}
+            </td>
+            <td class="border px-4 py-2">{{ checkup_track.get_ready_for_display }}</td>
+            <td class="border px-4 py-2">{{ checkup_track.tech_nom_technicien }}</td>
+            <td data-order="{{ checkup_track.date|date:'Y-m-d H:i:s' }}">
+                {{ checkup_track.date|date:"d/m/Y H:i" }}
+            </td>
+            <td class="border px-4 py-2 text-center">
+               <a href="{% url 'checkup_track:checkup_track_detail' checkup_track.id %}"
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                    {% trans "Infos" %}
+               </a>
+            </td>
+        </tr>
+        {% endwith %}
+        {% empty %}
+        <tr>
+            <td colspan="6" class="text-center py-4">{% trans "Aucun checkup enregistré pour cet exemplaire." %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+  <br>
+    <br>
+    <div>
+        <a href="{% url 'maintenance:choisir_type' exemplaire.id %}"
+          class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center"
+        >
+             {% trans "Retour à la liste des maintenances" %}
+        </a>
+    </div>
+<br>
+<br>
+<script>
+$(document).ready(function() {
+    var table = $('#checkup_tracks-table').DataTable({
+        pageLength: 10,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ checkup piste' %}",
+            infoEmpty: "{% trans 'Aucun checkup piste trouvé' %}",
+            zeroRecords: "{% trans 'Aucun checkup piste trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[5, "desc"]]
+    });
+
+    $('#search-immatriculation').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-kilometres').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+    $('#search-tag').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-ready_for').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+    $('#search-utilisateur').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+    $('#search-date').on('change', function () {
+        table.column(5).search(this.value).draw();
+    });
+});
+</script>
+
+    
+{% if request.GET.saved == "1" or request.GET.deleted == "1" %}
+<script>
+    // Enregistre les messages Django pour la page qu'on va recharger
+    const flash = [
+        {% for message in messages %}
+        { text: "{{ message|escapejs }}", tags: "{{ message.tags }}" },
+        {% endfor %}
+    ];
+    sessionStorage.setItem("flashMessages", JSON.stringify(flash));
+    sessionStorage.setItem("reloadAfterBack", "1");
+
+    // Retour immédiat (plus besoin d'attendre 5 s)
+    window.history.go({% if request.GET.deleted == "1" %}-3{% else %}-2{% endif %});
+</script>
+
+
+{% endif %}
+
+{% endblock %}

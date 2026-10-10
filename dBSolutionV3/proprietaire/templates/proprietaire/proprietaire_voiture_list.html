@@ -95,12 +95,6 @@
                 </a>
             </td>
         </tr>
-        {% empty %}
-        <tr>
-            <td colspan="6" class="text-center py-4">
-                {% trans "Aucun propriétaire enregistré." %}
-            </td>
-        </tr>
         {% endfor %}
     </tbody>
 </table>
@@ -122,6 +116,7 @@ $(document).ready(function() {
     var table = $('#proprietaire_voitures-table').DataTable({
         pageLength: 100,
         language: {
+            emptyTable: "{% trans 'Aucun propriétaire enregistré.' %}",
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
             info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ copropriétaires' %}",

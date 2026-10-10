@@ -182,12 +182,6 @@
 
         {% endwith %}
 
-    {% empty %}
-        <tr>
-            <td colspan="7" class="text-center py-4">
-                {% trans "Aucun remplacement moteur enregistré." %}
-            </td>
-        </tr>
     {% endfor %}
 
     </tbody>
@@ -215,6 +209,7 @@ $(document).ready(function() {
     var table = $('#remplacement_moteur-table').DataTable({
         pageLength: 10,
         language: {
+            emptyTable: "{% trans 'Aucun remplacement moteur enregistré.' %}",
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
             info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ remplacement moteur' %}",

@@ -151,12 +151,6 @@
             </td>
         </tr>
         {% endwith %}
-        {% empty %}
-        <tr>
-            <td colspan="6" class="text-center py-4">
-                {% trans "Aucune géométrie enregistré pour cet exemplaire." %}
-            </td>
-        </tr>
         {% endfor %}
     </tbody>
 </table>
@@ -175,6 +169,7 @@ $(document).ready(function() {
     var table = $('#geometries-table').DataTable({
         pageLength: 10,
         language: {
+            emptyTable: "{% trans 'Aucune géométrie enregistrée pour cet exemplaire.' %}",
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
             info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ contrôles' %}",
