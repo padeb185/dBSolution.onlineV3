@@ -19,6 +19,7 @@ from django.utils import timezone
 from weasyprint import HTML
 from .models import ControlePneus
 from django.core.exceptions import ValidationError
+from utils.securite import q_intervention_tenant
 
 
 
@@ -425,7 +426,7 @@ def controle_pneus_view(request, exemplaire_id):
 @login_required
 def pneus_detail_view(request, pneu_id):
     pneus = get_object_or_404(
-        ControlePneus.objects.select_related("voiture_exemplaire"),
+        ControlePneus.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=pneu_id
     )
 

@@ -21,6 +21,7 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 from weasyprint import HTML, pdf
+from utils.securite import q_intervention_tenant
 
 
 
@@ -299,7 +300,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 @login_required
 def remplacement_moteur_detail_view(request, remplacement_moteur_id):
     remplacement_moteur = get_object_or_404(
-        RemplacementMoteur.objects.select_related("voiture_exemplaire"),
+        RemplacementMoteur.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=remplacement_moteur_id
     )
 

@@ -21,6 +21,7 @@ from .forms import CarrosserieInterneForm
 from .models import CarrosserieInterne
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from maintenance.models import Maintenance
+from utils.securite import q_intervention_tenant
 
 
 
@@ -1212,7 +1213,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
 @login_required
 def carrosserie_interne_detail_view(request, carrosserie_interne_id):
     carrosserie_interne = get_object_or_404(
-       CarrosserieInterne.objects.select_related("voiture_exemplaire"),
+       CarrosserieInterne.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=carrosserie_interne_id
     )
 

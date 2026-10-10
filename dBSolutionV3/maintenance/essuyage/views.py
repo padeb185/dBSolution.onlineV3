@@ -21,6 +21,7 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
+from utils.securite import q_intervention_tenant
 
 
 
@@ -545,7 +546,7 @@ def essuyage_form_view(request, exemplaire_id):
 @login_required
 def essuyage_detail_view(request, essuyage_id):
     essuyage = get_object_or_404(
-        Essuyage.objects.select_related("voiture_exemplaire"),
+        Essuyage.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=essuyage_id
     )
 

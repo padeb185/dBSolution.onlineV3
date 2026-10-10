@@ -19,6 +19,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 from .forms import ClimForm
 from .models import Climatisation
+from utils.securite import q_intervention_tenant
 
 
 
@@ -615,7 +616,7 @@ def clim_form_view(request, exemplaire_id):
 @login_required
 def clim_detail_view(request, climatisation_id):
     clim = get_object_or_404(
-        Climatisation.objects.select_related("voiture_exemplaire"),
+        Climatisation.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=climatisation_id
     )
 

@@ -21,6 +21,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 from django.utils.text import slugify
 from urllib.parse import quote
+from utils.securite import q_intervention_tenant
 
 
 
@@ -430,7 +431,7 @@ def courroie_access_form_view(request, exemplaire_id):
 @login_required
 def courroie_access_detail_view(request, courroie_accessoires_id):
     courroie_accessoires = get_object_or_404(
-        CourroieAccessoires.objects.select_related("voiture_exemplaire"),
+        CourroieAccessoires.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=courroie_accessoires_id
     )
 

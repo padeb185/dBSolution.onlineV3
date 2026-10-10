@@ -1,0 +1,894 @@
+from datetime import datetime
+
+from django.core.exceptions import ValidationError
+
+from django.http import request, HttpResponse
+from django.template.loader import render_to_string
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from django.utils import timezone
+from django.contrib import messages
+from django.db import transaction, models
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.generic import ListView
+from django_tenants.utils import tenant_context, schema_context
+from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
+from voiture.voiture_exemplaire.models import VoitureExemplaire
+from django.db.models import Q
+from django.utils.translation import gettext_lazy as _, gettext_noop
+from maintenance.autres_interventions.boite_de_vitesse.forms import ControleBoiteForm
+from maintenance.autres_interventions.boite_de_vitesse.models import ControleBoite
+from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models import RemplacementBoite
+from maintenance.types_maintenances import TYPES_MAINTENANCE
+from voiture.voiture_modele.models import VoitureModele
+from weasyprint import HTML
+
+
+# -----------------------------
+# Classe ListView pour boite
+# -----------------------------
+@method_decorator([login_required, never_cache], name='dispatch')
+class BoiteListView(ListView):
+    model = ControleBoite   # ✅ ICI
+    template_name = "boite_de_vitesse/boite_list.html"
+    context_object_name = "boite_de_vitesses"
+    ordering = ["-id"]
+
+    def get_queryset(self):
+        queryset = ControleBoite.objects.select_related(
+            "voiture_exemplaire", "maintenance", "tech_societe"
+        )
+
+        societe = getattr(self.request.user, "societe", None)
+        if societe:
+            queryset = queryset.filter(
+                models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
+            )
+
+        return queryset.order_by("-id")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        exemplaire_id = self.kwargs.get("exemplaire_id")
+        if exemplaire_id:
+            context["exemplaire"] = VoitureExemplaire.objects.get(id=exemplaire_id)
+
+        roles_autorises = [
+            "mecanicien",
+            "apprenti",
+            "magasinier",
+            "chef_mecanicien",
+            "direction",
+        ]
+
+        context["is_checkup_allowed"] = self.request.user.role in roles_autorises
+
+        return context
+
+
+
+
+@never_cache
+@login_required
+def boite_check_view(request, exemplaire_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    maintenance = None  # 👈 important pour éviter UnboundLocalError
+
+
+
+    # 🔎 Récupération exemplaire
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
+
+    # 🔐 rôles autorisés
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction"
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # =========================
+    # POST
+    # =========================
+    if request.method == "POST":
+
+        form = ControleBoiteForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+        if form.is_valid():
+
+            try:
+                with transaction.atomic():
+
+                    boite = form.save(commit=False)
+
+                    # =========================
+                    # KILOMÉTRAGE
+                    # =========================
+                    # ✅ On conserve le kilométrage précédent
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+                    ancien_kilometrage_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
+                    km = form.cleaned_data.get(
+                        "kilometrage_controle_boite"
+                    )
+
+                    kilometrage_variation = 0
+
+                    if km is not None:
+
+                        km = int(km)
+
+                        if km < ancien_kilometrage:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage du contrôle "
+                                    "ne peut pas être inférieur au kilométrage "
+                                    "actuel du véhicule."
+                                )
+                            )
+
+                        kilometrage_variation = (
+                                km - ancien_kilometrage
+                        )
+
+                        # =========================
+                        # ROLLBACK AVANT INTERVENTION
+                        # =========================
+
+                        exemplaire.kilometres_rollback = (
+                            ancien_kilometrage
+                        )
+
+                        exemplaire.kilometres_boite_rollback = (
+                            ancien_kilometrage_boite
+                        )
+
+                        exemplaire.kilometres_moteur_rollback = (
+                            ancien_kilometrage_moteur
+                        )
+
+                        exemplaire.kilometres_embrayage_rollback = (
+                            ancien_kilometrage_embrayage
+                        )
+
+                        # =========================
+                        # DATE INTERVENTION
+                        # =========================
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # =========================
+                        # NOUVEAU KILOMÉTRAGE
+                        # =========================
+
+                        exemplaire.kilometres_chassis = km
+
+                        # Recalcule :
+                        # - kilometres_moteur
+                        # - kilometres_boite
+                        # - variation_kilometres
+                        exemplaire.update_kilometres()
+
+                        # =========================
+                        # UNE SEULE SAUVEGARDE
+                        # =========================
+
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis",
+                                "date_derniere_intervention",
+
+                                # Rollback
+                                "kilometres_rollback",
+                                "kilometres_boite_rollback",
+                                "kilometres_moteur_rollback",
+                                "kilometres_embrayage_rollback",
+
+                                # Valeurs recalculées
+                                "kilometres_moteur",
+                                "kilometres_boite",
+                                "variation_kilometres",
+                                "kilometres_embrayage",
+                            ]
+                        )
+
+
+                    # 🔴 maintenance unique
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.BOITE,
+                        tag=Maintenance.Tag.JAUNE,
+
+                        # 👨‍🔧 utilisateur ayant réalisé la maintenance
+                        tech_technicien=request.user,
+                        tech_societe=request.user.societe,
+                        tech_nom_technicien=f"{request.user.prenom} {request.user.nom}",
+                        tech_role_technicien=request.user.role,
+                    )
+
+                    # 🔧 Affectation spécifique selon le rôle
+                    if role == "mecanicien":
+                        maintenance.mecanicien = request.user
+
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
+
+                    elif role == "apprenti":
+                        maintenance.apprentis = request.user
+
+                    maintenance.save()
+
+                    boite.assign_technicien(request.user)
+
+                    boite.kilometrage_controle_boite = km
+
+                    boite.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+
+                    boite.kilometrage_boite = km
+
+                    # Variation
+                    # # kilométrage AVANT le boite
+                    boite.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+                    boite.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+                    boite.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
+                    boite.kilometres_embrayage = (
+                        ancien_kilometrage_embrayage
+                    )
+
+                    # différence entre ancien et nouveau kilométrage
+                    boite.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    # 👨‍🔧 technicien
+                    boite.assign_technicien(request.user)
+
+                    # 👨‍🔧 dernier technicien maintenance
+                    boite.tech_last_maintained_by = request.user
+
+                    boite.save()
+
+                ACTION_CONTROLE_BOITE_VITESSE = gettext_noop(
+                    "Contrôle de la boîte de vitesse"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_CONTROLE_BOITE_VITESSE} - {exemplaire.immatriculation}"
+                )
+
+
+                messages.success(request, _("Checkup de la boîte de vitesse enregistré avec succès."))
+
+                return redirect(
+                    f"{reverse('boite_de_vitesse:boite_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
+                )
+
+
+            except Exception as e:
+                messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+        else:
+            messages.error(request, _("Le formulaire contient des erreurs."))
+
+    else:
+        boite = ControleBoite(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
+            kilometres_embrayage=(
+                    exemplaire.kilometres_embrayage or 0
+            ),
+        )
+
+        boite.assign_technicien(request.user)
+
+        form = ControleBoiteForm(
+            instance=boite,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+    return render(request, 'boite_de_vitesse/boite_check.html', {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "maintenance": maintenance,
+        "form": form,
+        "now": timezone.now(),
+    })
+
+
+
+# ------------
+# Vue détail boite
+# -----------------------------
+@never_cache
+@login_required
+def boite_detail_view(request, boite_id):
+    boite = get_object_or_404(
+        ControleBoite.objects.select_related("voiture_exemplaire"),
+        id=boite_id
+    )
+
+    context = {
+        "boite": boite,
+        "exemplaire": boite.voiture_exemplaire,
+    }
+    return render(request, "boite_de_vitesse/boite_detail.html", context)
+
+
+
+
+
+@login_required
+def modifier_boite_view(request, boite_id):
+    tenant = request.user.societe
+
+
+    # Récupération du controle boite avec son exemplaire
+    boite = get_object_or_404(
+        ControleBoite.objects.select_related("voiture_exemplaire"),
+        id=boite_id
+    )
+    exemplaire = boite.voiture_exemplaire
+    # -------------------------
+    # POST
+    # -------------------------
+    if request.method == "POST":
+        form = ControleBoiteForm(
+            request.POST,
+            instance=boite,
+            user=request.user,       # 🔑 important pour initialiser technicien/societe
+            exemplaire=boite.voiture_exemplaire
+        )
+        if form.is_valid():
+
+            try:
+                with transaction.atomic():
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get("kilometrage_controle_boite")
+
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = exemplaire.kilometres_chassis or 0
+                    rollback_moteur = exemplaire.kilometres_moteur or 0
+                    rollback_boite = exemplaire.kilometres_boite or 0
+                    rollback_embrayage = exemplaire.kilometres_embrayage or 0
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _("Le kilométrage ne peut pas être négatif.")
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # boite BLOCS
+                    # ==================================================
+                    boite = form.save(commit=False)
+
+                    boite.voiture_exemplaire = exemplaire
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    boite.kilometres_chassis = rollback_chassis
+                    boite.kilometres_moteur = rollback_moteur
+                    boite.kilometres_boite = rollback_boite
+                    boite.kilometres_embrayage = rollback_embrayage
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    boite.kilometrage_boite = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        boite.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        boite.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    boite.assign_technicien(request.user)
+
+                    boite.tech_last_maintained_by = request.user
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # Le save() du modèle VoitureExemplaire
+                        # doit gérer update_kilometres()
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE boite
+                    # ==================================================
+                    boite.save()
+
+                    form.save_m2m()
+
+
+                ACTION_MODIFICATION_BOITE_VITESSE = gettext_noop(
+                    "Modification contrôle de la boîte de vitesse"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_MODIFICATION_BOITE_VITESSE} - {exemplaire.immatriculation}"
+                )
+
+                messages.success(request, _("Checkup de la boîte de vitesse modifié avec succès !"))
+
+                return redirect(
+                    f"{reverse('boite_de_vitesse:boite_detail', kwargs={'boite_id': boite.id})}?saved=1"
+                )
+            
+            except ValidationError as e:
+
+                form.add_error(
+                    "kilometrage_controle_boite",
+                    e
+                )
+
+                messages.error(
+                    request,
+                    _("Kilométrage invalide.")
+                )
+
+
+        else:
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
+
+    # -------------------------
+    # GET
+    # -------------------------
+    else:
+        form = ControleBoiteForm(
+            instance=boite,
+            user=request.user,
+            exemplaire=boite.voiture_exemplaire
+        )
+
+    return render(
+        request,
+        "boite_de_vitesse/modifier_boite.html",
+        {
+            "form": form,
+            "boite": boite,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
+
+
+@never_cache
+@login_required
+def delete_boite_view(request, boite_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    boite = get_object_or_404(
+        ControleBoite.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=boite_id,
+    )
+
+    exemplaire = boite.voiture_exemplaire
+    maintenance = boite.maintenance
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
+                )
+                kilometrage_rollback_embrayage = (
+                        exemplaire.kilometres_embrayage_rollback or 0
+                )
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
+                exemplaire.kilometres_embrayage = (
+                    kilometrage_rollback_embrayage
+                )
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur",
+                        "kilometres_embrayage",
+                    ]
+                )
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                boite.delete()
+
+                # ==================================================
+                # SUPPRESSION MAINTENANCE ASSOCIÉE
+                # ==================================================
+                if maintenance:
+                    maintenance.delete()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_BOITE = gettext_noop(
+                    "Suppression du contrôle de la boîte de vitesse"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_BOITE} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Contrôle de la boîte de vitesse supprimé avec succès.")
+            )
+
+            return redirect(
+                "boite_de_vitesse:boite_list",
+                exemplaire_id=exemplaire.id
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+            return redirect(
+                "boite_de_vitesse:boite_detail",
+                 boite_id=boite.id,
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "boite_de_vitesse/delete_boite.html",
+        {
+            "boite": boite,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
+@never_cache
+@login_required
+def dashboard_boite_view(request, exemplaire_id):
+    tenant = request.user.societe
+
+
+
+    user = request.user
+    context = {}
+
+    # 🔹 Récupérer l'exemplaire AVANT
+    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+
+    # --- Sécurité tenant ---
+    tenant_schema = getattr(request, 'tenant', None)
+    schema_name = tenant_schema.schema_name if tenant_schema else None
+
+
+    total_boite = total_remplacement_boite = total_int_boite = 0
+
+    boite = remplacement_boite  = []
+
+
+
+    if schema_name:
+        with schema_context(schema_name):
+
+            # ✅ FILTRAGE PAR EXEMPLAIRE
+
+            boite = ControleBoite.objects.filter(voiture_exemplaire=exemplaire)
+            remplacement_boite = RemplacementBoite.objects.filter(voiture_exemplaire=exemplaire)
+
+
+            # ✅ COUNTS CORRECTS
+            total_boite = boite.count()
+            total_remplacement_boite = remplacement_boite.count()
+            total_int_boite = boite.count() + remplacement_boite.count()
+
+
+            total_int_boite = total_boite + total_remplacement_boite
+
+            modeles = VoitureModele.objects.all()
+    else:
+        modeles = []
+
+    # --- POST ---
+    if request.method == "POST":
+        type_choisi = request.POST.get("type_maintenance")
+        date_intervention = request.POST.get("date_intervention")
+        description = request.POST.get("description", "")
+
+        if type_choisi and date_intervention:
+            Maintenance.objects.create(
+                societe=tenant,
+                voiture_exemplaire=exemplaire,
+                type_maintenance=type_choisi,
+                immatriculation=exemplaire.immatriculation,
+                date_intervention=date_intervention,
+                description=description
+            )
+            return redirect(
+                'maintenance:dashboard_boite',
+                exemplaire_id=exemplaire.id
+            )
+
+    # --- CONTEXT ---
+    context.update({
+        "exemplaire": exemplaire,
+        "types_maintenance": TYPES_MAINTENANCE,
+
+        "total_boite": total_boite,
+        "total_remplacement_boite": total_remplacement_boite,
+        "total_int_boite": total_int_boite,
+
+        "boite": boite,
+        "remplacement_boite": remplacement_boite,
+
+
+        "modeles": modeles,
+
+    })
+
+    return render(request, "boite_de_vitesse/dashboard_boite.html", context)
+
+
+
+@login_required
+def boite_check_pdf_view(request, pk):
+    boite = get_object_or_404(ControleBoite, pk=pk)
+
+    rapport = boite.generer_rapport_remplacement()
+
+    html_string = render_to_string(
+        "boite_de_vitesse/boite_check_pdf.html",
+        {
+            "boite": boite,
+            "rapport": rapport,
+            "date_export": datetime.now(),
+            "societe": request.user.societe,
+        }
+    )
+
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri()
+    ).write_pdf()
+
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
+
+    immatriculation = (
+        boite.voiture_exemplaire.immatriculation
+        if boite.voiture_exemplaire
+        else "sans_immatriculation"
+    )
+
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
+
+    technicien = (
+           boite.tech_nom_technicien
+            or "technicien_inconnu"
+    )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+       boite.date.strftime("%Y-%m-%d")
+        if boite.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
+    nom_fichier = (
+        f"{_('Boîte de vitesse')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
+    )
+
+    response = HttpResponse(
+        pdf,
+        content_type="application/pdf",
+    )
+
+    response["Content-Disposition"] = (
+        f'inline; filename="{nom_fichier}"'
+    )
+
+    return response
+

@@ -22,6 +22,7 @@ from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.utils import timezone
 from weasyprint import HTML
+from utils.securite import q_intervention_tenant
 
 
 
@@ -375,7 +376,7 @@ def controle_jeux_pieces_view(request, exemplaire_id):
 @login_required
 def jeux_pieces_detail_view(request, jeu_id):
     jeu = get_object_or_404(
-        ControleJeuxPieces.objects.select_related("voiture_exemplaire"),
+        ControleJeuxPieces.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=jeu_id
     )
 

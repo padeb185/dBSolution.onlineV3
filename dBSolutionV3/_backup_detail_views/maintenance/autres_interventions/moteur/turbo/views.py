@@ -1,0 +1,994 @@
+from datetime import datetime
+
+from django.core.exceptions import ValidationError
+
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
+from django.urls import reverse
+from django.utils import timezone
+from django.contrib import messages
+from django.db import transaction, models
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.generic import ListView
+from maindoeuvre.models import MainDoeuvre
+from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
+from voiture.voiture_exemplaire.models import VoitureExemplaire
+from django.db.models import Q
+from django.utils.translation import gettext_lazy as _, gettext_noop
+from weasyprint import HTML
+from .forms import TurboForm
+from .models import Turbo
+
+
+
+
+@method_decorator([login_required, never_cache], name='dispatch')
+class TurboListView(ListView):
+    model = Turbo
+    template_name = "turbo/turbo_list.html"
+    context_object_name = "turbos"
+
+
+    def get_queryset(self):
+        queryset = Turbo.objects.select_related(
+            "voiture_exemplaire", "maintenance", "tech_societe"
+        )
+
+        societe = getattr(self.request.user, "societe", None)
+        if societe:
+            queryset = queryset.filter(
+                models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
+            )
+
+        return queryset.order_by("-id")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        exemplaire_id = self.kwargs.get("exemplaire_id")
+        if exemplaire_id:
+            context["exemplaire"] = VoitureExemplaire.objects.get(id=exemplaire_id)
+
+        roles_autorises = [
+            "mecanicien",
+            "apprenti",
+            "magasinier",
+            "chef_mecanicien",
+            "direction",
+        ]
+
+        context["is_checkup_allowed"] = self.request.user.role in roles_autorises
+
+        return context
+
+
+
+
+
+
+@never_cache
+@login_required
+def turbo_check_view(request, exemplaire_id):
+    tenant = request.user.societe
+    role = request.user.role
+
+    maintenance = None
+
+    # 🔎 Récupération exemplaire
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
+
+    # 🔐 rôles autorisés
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction"
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # =========================
+    # Sections disponibles TOUJOURS
+    # =========================
+    section_templates = [
+        {"title": _("Kilométrage"), "icon": "icons/compteur.png", "filter": "kilo"},
+        {"title": _("Jeu dans l'axe"), "icon": "icons/turbo.png", "filter": "jeu_axe"},
+        {"title": _("État des turbines"), "icon": "icons/turbine.png", "filter": "turbine"},
+        {"title": _("Fuites d'huile"), "icon": "icons/fuite-deau.png", "filter": "fuites"},
+        {"title": _("Géométrie Variable"), "icon": "icons/turbine.png", "filter": "geometrie"},
+        {"title": _("Turbo"), "icon": "icons/turbo.png", "filter": "turbos"},
+        {"title": _("Intercooler"), "icon": "icons/intercooler.png", "filter": "intercooler"},
+        {"title": _("Electro-vanne"), "icon": "icons/electrovanne.png", "filter": "electrovanne"},
+        {"title": _("Joints"), "icon": "icons/joint.png", "filter": "joints"},
+        {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
+        {"title": _("Pays"), "icon": "icons/pays.png", "filter": "pays"},
+        {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
+        {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
+        {"title": _("Taux horaire"), "icon": "icons/taux.png", "filter": "taux"},
+    ]
+
+    # =========================
+    # POST
+    # =========================
+    if request.method == "POST":
+
+        form = TurboForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+        if form.is_valid():
+
+            try:
+
+                # ==================================================
+                # KILOMÉTRAGE
+                # ==================================================
+                ancien_kilometrage = (
+                        exemplaire.kilometres_chassis or 0
+                )
+
+                ancien_kilometrage_boite = (
+                        exemplaire.kilometres_boite or 0
+                )
+
+                ancien_kilometrage_moteur = (
+                        exemplaire.kilometres_moteur or 0
+                )
+
+                ancien_kilometrage_embrayage = (
+                        exemplaire.kilometres_embrayage or 0
+                )
+
+                km = form.cleaned_data.get("kilometres_turbo")
+
+
+                if km is None:
+                    form.add_error(
+                        "kilometres_turbo",
+                        _("Le kilométrage est obligatoire."),
+                    )
+
+                else:
+                    km = int(km)
+
+                    if km < ancien_kilometrage:
+                        form.add_error(
+                            "kilometres_turbo",
+                            _(
+                                "Le kilométrage du contrôle "
+                                "ne peut pas être inférieur au "
+                                "kilométrage actuel du véhicule."
+                            ),
+                        )
+
+                    else:
+                        kilometrage_variation = (
+                                km - ancien_kilometrage
+                        )
+
+                        # ==================================================
+                        # TRANSACTION
+                        # ==================================================
+                        with transaction.atomic():
+
+                            # =============================================
+                            # ROLLBACK VÉHICULE
+                            # =============================================
+                            exemplaire.kilometres_rollback = (
+                                ancien_kilometrage
+                            )
+
+                            exemplaire.kilometres_boite_rollback = (
+                                ancien_kilometrage_boite
+                            )
+
+                            exemplaire.kilometres_moteur_rollback = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            exemplaire.kilometres_embrayage_rollback = (
+                                ancien_kilometrage_embrayage
+                            )
+
+                            # =============================================
+                            # DATE INTERVENTION
+                            # =============================================
+                            exemplaire.date_derniere_intervention = (
+                                timezone.localtime(
+                                    timezone.now()
+                                ).date()
+                            )
+
+                            # =============================================
+                            # NOUVEAU KILOMÉTRAGE
+                            # =============================================
+                            exemplaire.kilometres_chassis = km
+
+                            # Recalcule :
+                            # - kilometres_moteur
+                            # - kilometres_boite
+                            # - variation_kilometres
+                            exemplaire.update_kilometres()
+
+                            # =============================================
+                            # SAUVEGARDE VÉHICULE
+                            # =============================================
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                    "date_derniere_intervention",
+
+                                    # Rollback
+                                    "kilometres_rollback",
+                                    "kilometres_boite_rollback",
+                                    "kilometres_moteur_rollback",
+                                    "kilometres_embrayage_rollback",
+
+                                    # Valeurs recalculées
+                                    "kilometres_moteur",
+                                    "kilometres_boite",
+                                    "kilometres_embrayage",
+                                    "variation_kilometres"
+                                ]
+                            )
+
+                            # 🔴 maintenance unique
+                            maintenance = Maintenance.objects.create(
+                                societe=request.user.societe,
+                                voiture_exemplaire=exemplaire,
+                                immatriculation=exemplaire.immatriculation,
+                                date_intervention=timezone.now().date(),
+                                kilometres_chassis=exemplaire.kilometres_chassis,
+                                kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                                type_maintenance=Maintenance.TypeMaintenance.TURBO,
+                                tag=Maintenance.Tag.JAUNE,
+                            )
+
+                            # 🔧 rôle
+                            if role == "mecanicien":
+                                maintenance.mecanicien = request.user
+                            elif role == "chef_mecanicien":
+                                maintenance.chef_mecanicien = request.user
+                            elif role == "apprenti":
+                                maintenance.apprentis.add(request.user)
+                            elif role == "magasinier":
+                                maintenance.magasinier = request.user
+                            elif role == "direction":
+                                maintenance.direction = request.user
+
+                            maintenance.save()
+
+                            turbo = form.save(commit=False)
+
+                            turbo.voiture_exemplaire = (
+                                exemplaire
+                            )
+
+                            turbo.maintenance = (
+                                maintenance
+                            )
+
+                            # ---------------------------------------------
+                            # Kilométrage AVANT intervention
+                            # ---------------------------------------------
+                            turbo.kilometres_chassis = (
+                                ancien_kilometrage
+                            )
+
+                            turbo.kilometres_boite = (
+                                ancien_kilometrage_boite
+                            )
+
+                            turbo.kilometres_moteur = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            turbo.kilometres_embrayage = (
+                                ancien_kilometrage_embrayage
+                            )
+
+                            # ---------------------------------------------
+                            # Kilométrage turbo
+                            # ---------------------------------------------
+                            turbo.kilometrage_turbo = km
+
+                            # ---------------------------------------------
+                            # Variation kilométrique
+                            # ---------------------------------------------
+                            turbo.kilometrage_variation = (
+                                kilometrage_variation
+                            )
+
+                            # =============================================
+                            # TECHNICIEN
+                            # =============================================
+                            turbo.assign_technicien(
+                                request.user
+                            )
+
+                            turbo.tech_last_maintained_by = (
+                                request.user
+                            )
+
+                            # ==================================================
+                            # MAIN-D'ŒUVRE
+                            # ==================================================
+                            heures = (
+                                    form.cleaned_data.get("temps_heures")
+                                    or 0
+                            )
+
+                            minutes = (
+                                    form.cleaned_data.get("temps_minutes")
+                                    or 0
+                            )
+
+                            total_minutes = (
+                                    heures * 60 + minutes
+                            )
+
+                            taux_horaire = (
+                                    form.cleaned_data.get("taux_horaire")
+                                    or 0
+                            )
+
+                            # --------------------------------------------------
+                            # Mise à jour main-d'œuvre existante
+                            # --------------------------------------------------
+                            if turbo.main_oeuvre_id:
+
+                                main_oeuvre = (
+                                    turbo.main_oeuvre
+                                )
+
+                                main_oeuvre.temps_minutes = (
+                                    total_minutes
+                                )
+
+                                main_oeuvre.taux_horaire = (
+                                    taux_horaire
+                                )
+
+                                main_oeuvre.save(
+                                    update_fields=[
+                                        "temps_minutes",
+                                        "taux_horaire",
+                                    ]
+                                )
+
+                            # --------------------------------------------------
+                            # Création main-d'œuvre
+                            # --------------------------------------------------
+                            else:
+
+                                main_oeuvre = (
+                                    MainDoeuvre.objects.create(
+                                        utilisateur=request.user,
+                                        temps_minutes=total_minutes,
+                                        taux_horaire=taux_horaire,
+                                    )
+                                )
+
+                                turbo.main_oeuvre = (
+                                    main_oeuvre
+                                )
+
+                            # ==================================================
+                            # SAUVEGARDE turbo
+                            # IMPORTANT :
+                            # EN DEHORS DU IF/ELSE MAIN-D'ŒUVRE
+                            # ==================================================
+                            turbo.save()
+
+                            form.save_m2m()
+
+                            # ==================================================
+                            # MISE À JOUR DU VÉHICULE
+                            # ==================================================
+                            exemplaire.kilometres_chassis = km
+
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                    "kilometres_boite",
+                                    "kilometres_moteur",
+                                    "kilometres_embrayage"
+                                ]
+                            )
+
+
+
+                        ACTION_CONTROLE_TURBO = gettext_noop(
+                            "Contrôle du Turbo"
+                        )
+
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=f"{ACTION_CONTROLE_TURBO} - {exemplaire.immatriculation}"
+                        )
+
+                        messages.success(
+                            request,
+                            _("Check turbo enregistré avec succès.")
+                        )
+
+
+                        return redirect(
+                            f"{reverse('turbo:turbo_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
+                        )
+
+
+            except Exception as e:
+                messages.error(request,_(f"Erreur lors de l'enregistrement : {str(e)}")
+                )
+        else:
+            messages.error(request, _("Formulaire invalide"))
+
+    else:
+
+        turbo = Turbo(
+            voiture_exemplaire=exemplaire,
+
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
+        )
+
+        turbo.assign_technicien(request.user)
+
+        form = TurboForm(
+            instance=turbo,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+    # =========================
+    # Génération sections
+    # =========================
+    sections = [
+        {
+            "title": s["title"],
+            "icon": s["icon"],
+            "fields": [f for f in form if s["filter"] in f.name]
+        }
+        for s in section_templates
+    ]
+
+    return render(request, 'turbo/turbo_check.html', {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "maintenance": maintenance,
+        "form": form,
+        "sections": sections,
+        "now": timezone.now(),
+    })
+
+
+
+
+# ------------
+# Vue détail boite
+# -----------------------------
+
+
+@never_cache
+@login_required
+def turbo_detail_view(request, turbo_id):
+    turbo = get_object_or_404(
+        Turbo.objects.select_related("voiture_exemplaire"),
+        id=turbo_id
+    )
+
+    context = {
+        "turbo": turbo,
+        "exemplaire": turbo.voiture_exemplaire,
+    }
+    return render(request, "turbo/turbo_detail.html", context)
+
+
+
+@login_required
+def modifier_turbo_view(request, turbo_id):
+    tenant = request.user.societe
+
+    turbo = get_object_or_404(
+        Turbo.objects.select_related("voiture_exemplaire"),
+        id=turbo_id
+    )
+    exemplaire = turbo.voiture_exemplaire
+    # -------------------------
+    # POST
+    # -------------------------
+    if request.method == "POST":
+        form = TurboForm(
+            request.POST,
+            instance=turbo,
+            user=request.user,
+            exemplaire=turbo.voiture_exemplaire
+        )
+
+        if form.is_valid():
+
+            try:
+                with transaction.atomic():
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get(
+                        "kilometres_turbo"
+                    )
+
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+
+                    rollback_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    rollback_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # ÉCHAPPEMENT
+                    # ==================================================
+                    turbo = form.save(
+                        commit=False
+                    )
+
+                    turbo.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    turbo.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    turbo.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    turbo.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    turbo.kilometres_embrayage = (
+                        rollback_embrayage
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    turbo.kilometrage_alte = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        turbo.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        turbo.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    turbo.assign_technicien(
+                        request.user
+                    )
+
+                    turbo.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE ÉCHAPPEMENT
+                    # ==================================================
+                    turbo.save()
+
+                    form.save_m2m()
+
+                ACTION_MODIFICATION_CONTROLE_TURBO = gettext_noop(
+                    "Modification du contrôle du turbo"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_MODIFICATION_CONTROLE_TURBO} - {exemplaire.immatriculation}"
+                )
+
+                messages.success(request, _("Contrôle du turbo modifié avec succès !"))
+
+                return redirect(
+                    f"{reverse('turbo:turbo_detail', kwargs={'turbo_id': turbo.id})}?saved=1"
+                )
+
+            except ValidationError as e:
+                form.add_error(None, e)
+                messages.error(request, _("Kilométrage invalide"))
+
+        else:
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
+
+    # -------------------------
+    # GET
+    # -------------------------
+    else:
+
+        form = TurboForm(
+            instance=turbo,
+            user=request.user,
+            exemplaire=turbo.voiture_exemplaire
+        )
+
+    # -------------------------
+    # Sections pour le template
+    # -------------------------
+    section_templates = [
+        {"title": _("Kilométrage"), "icon": "icons/compteur.png", "filter": "kilo"},
+        {"title": _("Jeu dans l'axe"), "icon": "icons/turbo.png", "filter": "jeu_axe"},
+        {"title": _("État des turbines"), "icon": "icons/turbine.png", "filter": "turbine"},
+        {"title": _("Fuites d'huile"), "icon": "icons/fuite-deau.png", "filter": "fuites"},
+        {"title": _("Géométrie Variable"), "icon": "icons/turbine.png", "filter": "geometrie"},
+        {"title": _("Turbo"), "icon": "icons/turbo.png", "filter": "turbos"},
+        {"title": _("Intercooler"), "icon": "icons/intercooler.png", "filter": "intercooler"},
+        {"title": _("Electro-vanne"), "icon": "icons/electrovanne.png", "filter": "electrovanne"},
+        {"title": _("joints"), "icon": "icons/joint.png", "filter": "joints"},
+        {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
+        {"title": _("Pays"), "icon": "icons/pays.png", "filter": "pays"},
+        {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
+        {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
+        {"title": _("Taux horaire"), "icon": "icons/taux.png", "filter": "taux"},
+
+    ]
+
+    sections = [
+        {
+            "title": s["title"],
+            "icon": s["icon"],
+            "fields": [f for f in form if s["filter"] in f.name]
+        }
+        for s in section_templates
+    ]
+
+    return render(
+        request,
+        "turbo/modifier_turbo.html",
+        {
+            "form": form,
+            "turbo": turbo,
+            "sections": sections,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
+
+@never_cache
+@login_required
+def delete_turbo_view(request, turbo_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    turbo = get_object_or_404(
+        Turbo.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=turbo_id,
+    )
+
+    exemplaire = turbo.voiture_exemplaire
+    maintenance = turbo.maintenance
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
+                )
+                kilometrage_rollback_embrayage = (
+                        exemplaire.kilometres_embrayage_rollback or 0
+                )
+
+
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
+                exemplaire.kilometres_embrayage = (
+                    kilometrage_rollback_embrayage
+                )
+
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur",
+                        "kilometres_embrayage"
+                    ]
+                )
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                turbo.delete()
+
+                # ==================================================
+                # SUPPRESSION MAINTENANCE ASSOCIÉE
+                # ==================================================
+                if maintenance:
+                    maintenance.delete()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_TURBO = gettext_noop(
+                    "Suppression du contrôle du turbo"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_TURBO} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Contrôle du turbo supprimé avec succès.")
+            )
+
+            return redirect(
+                f"{reverse('turbo:turbo_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
+            )
+
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "turbo/delete_turbo.html",
+        {
+            "turbo": turbo,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
+
+
+
+
+@login_required
+def turbo_detail_pdf_view(request, pk):
+    turbo = get_object_or_404(Turbo, pk=pk)
+
+    rapport = turbo.generer_rapport_remplacement()
+
+    html_string = render_to_string(
+        "turbo/turbo_detail_pdf.html",
+        {
+            "turbo": turbo,
+            "rapport": rapport,
+            "date_export": datetime.now(),
+            "societe": request.user.societe,
+        }
+    )
+
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri()
+    ).write_pdf()
+
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
+
+    immatriculation = (
+        turbo.voiture_exemplaire.immatriculation
+        if turbo.voiture_exemplaire
+        else "sans_immatriculation"
+    )
+
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
+
+    technicien = (
+            turbo.tech_nom_technicien
+            or "technicien_inconnu"
+    )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        turbo.date.strftime("%Y-%m-%d")
+        if turbo.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
+    nom_fichier = (
+        f"{_('Turbo')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
+    )
+
+    response = HttpResponse(
+        pdf,
+        content_type="application/pdf",
+    )
+
+    response["Content-Disposition"] = (
+        f'inline; filename="{nom_fichier}"'
+    )
+
+    return response

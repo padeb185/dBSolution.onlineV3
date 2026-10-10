@@ -1,0 +1,959 @@
+from datetime import datetime
+from django.core.exceptions import ValidationError
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
+from django.urls import reverse
+from django.utils import timezone
+from django.contrib import messages
+from django.db import transaction, models
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.generic import ListView
+from maintenance.autres_interventions.courroie_accessoires.forms import CourroieAccessoiresForm
+from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
+from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
+from voiture.voiture_exemplaire.models import VoitureExemplaire
+from django.db.models import Q
+from django.utils.translation import gettext_lazy as _, gettext_noop
+from weasyprint import HTML
+from django.utils.text import slugify
+from urllib.parse import quote
+
+
+
+
+
+@method_decorator([login_required, never_cache], name="dispatch")
+class CourroieAccessoiresListView(ListView):
+    model = CourroieAccessoires
+    template_name = "courroie_accessoires/courroie_list.html"
+    context_object_name = "courroies_accessoires"
+
+    def get_queryset(self):
+        queryset = CourroieAccessoires.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+            "tech_societe",
+            "main_oeuvre",
+        )
+
+        societe = getattr(self.request.user, "societe", None)
+        if societe:
+            queryset = queryset.filter(
+                models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
+            )
+
+        return queryset.order_by("-id")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        exemplaire_id = self.kwargs.get("exemplaire_id")
+        if exemplaire_id:
+            context["exemplaire"] = get_object_or_404(
+                VoitureExemplaire,
+                id=exemplaire_id
+            )
+
+        context["is_checkup_allowed"] = self.request.user.role in [
+            "mecanicien",
+            "apprenti",
+            "magasinier",
+            "chef_mecanicien",
+            "direction",
+        ]
+
+        return context
+
+
+@never_cache
+@login_required
+def courroie_access_form_view(request, exemplaire_id):
+    tenant = request.user.societe
+    role = request.user.role
+    maintenance = None
+
+
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
+
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction",
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    if request.method == "POST":
+        form = CourroieAccessoiresForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+        if form.is_valid():
+            try:
+                with transaction.atomic():
+
+                    courroie_access = form.save(commit=False)
+
+                    # =========================
+                    # KILOMÉTRAGE
+                    # =========================
+                    # ✅ On conserve le kilométrage précédent
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+                    ancien_kilometrage_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
+
+                    km = form.cleaned_data.get(
+                        "kilometrage_access"
+                    )
+
+                    kilometrage_variation = 0
+
+                    if km is not None:
+
+                        km = int(km)
+
+                        if km < ancien_kilometrage:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage du contrôle "
+                                    "ne peut pas être inférieur au kilométrage "
+                                    "actuel du véhicule."
+                                )
+                            )
+
+                        kilometrage_variation = (
+                                km - ancien_kilometrage
+                        )
+
+                        exemplaire.kilometres_rollback = (
+                            ancien_kilometrage
+                        )
+
+                        exemplaire.kilometres_boite_rollback = (
+                            ancien_kilometrage_boite
+                        )
+
+                        exemplaire.kilometres_moteur_rollback = (
+                            ancien_kilometrage_moteur
+                        )
+
+                        exemplaire.kilometres_embrayage_rollback = (
+                            ancien_kilometrage_embrayage
+                        )
+
+                        # =========================
+                        # DATE INTERVENTION
+                        # =========================
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # =========================
+                        # NOUVEAU KILOMÉTRAGE
+                        # =========================
+
+                        exemplaire.kilometres_chassis = km
+
+                        # Recalcule :
+                        # - kilometres_moteur
+                        # - kilometres_boite
+                        # - variation_kilometres
+                        exemplaire.update_kilometres()
+
+                        # =========================
+                        # UNE SEULE SAUVEGARDE
+                        # =========================
+
+                        exemplaire.save(
+                            update_fields=[
+                                "kilometres_chassis",
+                                "date_derniere_intervention",
+
+                                # Rollback
+                                "kilometres_rollback",
+                                "kilometres_boite_rollback",
+                                "kilometres_moteur_rollback",
+                                "kilometres_embrayage_rollback",
+
+                                # Valeurs recalculées
+                                "kilometres_moteur",
+                                "kilometres_boite",
+                                "kilometres_embrayage",
+
+                                "variation_kilometres",
+                            ]
+                        )
+
+                    # 🔴 maintenance unique
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.COURROIE_ACCESS,
+                        tag=Maintenance.Tag.JAUNE,
+
+                        # 👨‍🔧 utilisateur ayant réalisé la maintenance
+                        tech_technicien=request.user,
+                        tech_societe=request.user.societe,
+                        tech_nom_technicien=f"{request.user.prenom} {request.user.nom}",
+                        tech_role_technicien=request.user.role,
+                    )
+
+                    # 🔧 Affectation spécifique selon le rôle
+                    if role == "mecanicien":
+                        maintenance.mecanicien = request.user
+
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
+
+                    elif role == "apprenti":
+                        maintenance.apprentis = request.user
+
+                    maintenance.save()
+
+                    courroie_access.maintenance = maintenance
+
+                    courroie_access.assign_technicien(request.user)
+
+                    courroie_access.kilometrage_access = km
+
+                    courroie_access.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+
+                    courroie_access.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    courroie_access.assign_technicien(
+                        request.user
+                    )
+
+                    courroie_access.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    courroie_access.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+                    courroie_access.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
+                    courroie_access.kilometres_embrayage = (
+                        ancien_kilometrage_embrayage
+                    )
+
+                    # différence entre ancien et nouveau kilométrage
+                    courroie_access.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    # 👨‍🔧 technicien
+                    courroie_access.assign_technicien(request.user)
+
+                    # 👨‍🔧 dernier technicien maintenance
+                    courroie_access.tech_last_maintained_by = request.user
+
+                    courroie_access.save()
+                    form.save_m2m()
+
+
+
+                    ACTION_CONTROLE_COURROIE_ACCESSOIRES = gettext_noop(
+                        "Contrôle de la courroie d'accessoires"
+                    )
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=f"{ACTION_CONTROLE_COURROIE_ACCESSOIRES} - {exemplaire.immatriculation}"
+                    )
+
+                    messages.success(
+                        request,
+                        _("Check de la courroie d'accessoires enregistré avec succès.")
+                    )
+
+                    return redirect(
+                        f"{reverse('courroie_accessoires:courroie_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
+                    )
+
+
+            except Exception as e:
+                messages.error(
+                    request,
+                    _("Erreur lors de l'enregistrement : %(error)s") % {
+                        "error": str(e)
+                    }
+                )
+        else:
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
+
+    else:
+        courroie_accessoires = CourroieAccessoires(
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
+
+            kilometres_embrayage=(
+                    exemplaire.kilometres_embrayage or 0
+            ),
+
+        )
+        courroie_accessoires.assign_technicien(request.user)
+
+        form = CourroieAccessoiresForm(
+            instance=courroie_accessoires,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [form[f.name] for f in form if "kilo" in f.name],
+        },
+        {
+            "title": _("Courroie d'accessoires"),
+            "icon": "icons/courroie-daccess.png",
+            "fields": [form[f.name] for f in form if "courroie" in f.name],
+        },
+        {
+            "title": _("Galet Tendeur"),
+            "icon": "icons/galet-tendeur.png",
+            "fields": [form[f.name] for f in form if "galet" in f.name],
+        },
+        {
+            "title": _("Poulie Damper"),
+            "icon": "icons/poulie.png",
+            "fields": [form[f.name] for f in form if "poulie" in f.name],
+        },
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [form[f.name] for f in form if "tag" in f.name],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [form[f.name] for f in form if "pays" in f.name],
+        },
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [form[f.name] for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "serrage" in f.name
+            ],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [form[f.name] for f in form if "tech" in f.name],
+        },
+        {
+            "title": _("Taux horaire"),
+            "icon": "icons/taux.png",
+            "fields": [form[f.name] for f in form if "taux" in f.name],
+        },
+
+
+    ]
+
+    return render(request, "courroie_accessoires/courroie_access_form.html", {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "maintenance": maintenance,
+        "form": form,
+        "sections": sections,
+        "now": timezone.now(),
+    })
+
+
+
+
+
+
+# ------------
+# Vue détail courroie
+# -----------------------------
+@never_cache
+@login_required
+def courroie_access_detail_view(request, courroie_accessoires_id):
+    courroie_accessoires = get_object_or_404(
+        CourroieAccessoires.objects.select_related("voiture_exemplaire"),
+        id=courroie_accessoires_id
+    )
+
+    context = {
+        "courroie_accessoires": courroie_accessoires,
+        "exemplaire": courroie_accessoires.voiture_exemplaire,
+    }
+    return render(request, "courroie_accessoires/courroie_access_detail.html", context)
+
+
+
+
+
+
+@login_required
+def modifier_courroie_access_view(request, courroie_accessoires_id):
+    tenant = request.user.societe
+
+
+    courroie_accessoires = get_object_or_404(
+    CourroieAccessoires.objects.select_related("voiture_exemplaire"),
+        id=courroie_accessoires_id
+    )
+    exemplaire = courroie_accessoires.voiture_exemplaire
+    # -------------------------
+    # POST
+    # -------------------------
+    if request.method == "POST":
+        form = CourroieAccessoiresForm(
+            request.POST,
+            instance=courroie_accessoires,
+            user=request.user,
+            exemplaire=courroie_accessoires.voiture_exemplaire
+        )
+
+        if form.is_valid():
+
+            try:
+                with transaction.atomic():
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get("kilometrage_access")
+
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = exemplaire.kilometres_chassis or 0
+                    rollback_moteur = exemplaire.kilometres_moteur or 0
+                    rollback_boite = exemplaire.kilometres_boite or 0
+                    rollback_embrayage = exemplaire.kilometres_embrayage or 0
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _("Le kilométrage ne peut pas être négatif.")
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # courroie_access BLOCS
+                    # ==================================================
+                    courroie_access = form.save(commit=False)
+
+                    courroie_access.voiture_exemplaire = exemplaire
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    courroie_access.kilometres_chassis = rollback_chassis
+                    courroie_access.kilometres_moteur = rollback_moteur
+                    courroie_access.kilometres_boite = rollback_boite
+                    courroie_access.kilometres_embrayage = rollback_embrayage
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    courroie_access.kilometrage_access = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        courroie_access.kilometrage_variation = (
+                                km - rollback_chassis
+                        )
+                    else:
+                        courroie_access.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    courroie_access.assign_technicien(request.user)
+
+                    courroie_access.tech_last_maintained_by = request.user
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # Le save() du modèle VoitureExemplaire
+                        # doit gérer update_kilometres()
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE courroie_access
+                    # ==================================================
+                    courroie_access.save()
+
+                    form.save_m2m()
+
+                    ACTION_MODIFICATION_CONTROLE_COURROIE_ACCESSOIRES = gettext_noop(
+                    "Modification du contrôle de la courroie d'accessoires"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_MODIFICATION_CONTROLE_COURROIE_ACCESSOIRES} - {exemplaire.immatriculation}"
+                )
+                messages.success(
+                    request,
+                    _("Remplacement de la courroie d'accessoires modifié avec succès !")
+                )
+        
+                return redirect(
+                    f"{reverse('courroie_accessoires:courroie_access_detail', kwargs={'courroie_accessoires_id': courroie_accessoires.id})}?saved=1"
+                )
+
+            except ValidationError as e:
+                form.add_error(None, e)
+                messages.error(request, _("Kilométrage invalide"))
+
+        else:
+            messages.error(request, _("Le formulaire contient des erreurs."))
+
+    # -------------------------
+    # GET
+    # -------------------------
+    else:
+        form = CourroieAccessoiresForm(
+            instance=courroie_accessoires,
+            user=request.user,
+            exemplaire=courroie_accessoires.voiture_exemplaire
+        )
+
+    # -------------------------
+    # Sections pour le template
+    # -------------------------
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [form[f.name] for f in form if "kilo" in f.name],
+        },
+        {
+            "title": _("Courroie d'accessoires"),
+            "icon": "icons/courroie-daccess.png",
+            "fields": [form[f.name] for f in form if "courroie" in f.name],
+        },
+        {
+            "title": _("Galet"),
+            "icon": "icons/galet-tendeur.png",
+            "fields": [form[f.name] for f in form if "galet" in f.name],
+        },
+        {
+            "title": _("Poulie Damper"),
+            "icon": "icons/poulie.png",
+            "fields": [form[f.name] for f in form if "poulie" in f.name],
+        },
+
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [form[f.name] for f in form if "tag" in f.name],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [form[f.name] for f in form if "pays" in f.name],
+        },
+
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [form[f.name] for f in form if "remarques" in f.name],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "serrage" in f.name
+            ],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [form[f.name] for f in form if "tech" in f.name],
+        },
+        {
+            "title": _("Taux horaire"),
+            "icon": "icons/taux.png",
+            "fields": [form[f.name] for f in form if "taux" in f.name],
+        },
+
+    ]
+
+    return render(
+        request,
+        "courroie_accessoires/modifier_courroie.html",
+        {
+            "form": form,
+            "courroie_accessoires": courroie_accessoires,
+            "sections": sections,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
+@never_cache
+@login_required
+def delete_cour_access_view(request, courroie_accessoires_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    cour_access = get_object_or_404(
+        CourroieAccessoires.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+        ),
+        id=courroie_accessoires_id,
+    )
+
+    exemplaire = cour_access.voiture_exemplaire
+    maintenance = cour_access.maintenance
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
+                )
+                kilometrage_rollback_embrayage = (
+                        exemplaire.kilometres_embrayage_rollback or 0
+                )
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
+                exemplaire.kilometres_embrayage = (
+                    kilometrage_rollback_embrayage
+                )
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_moteur",
+                        "kilometres_embrayage",
+                    ]
+                )
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                cour_access.delete()
+
+                # ==================================================
+                # SUPPRESSION MAINTENANCE ASSOCIÉE
+                # ==================================================
+                if maintenance:
+                    maintenance.delete()
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_COUR_ACCESS = gettext_noop(
+                    "Suppression du contrôle de la courroie d'accessoires"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_COUR_ACCESS} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Contrôle de la courroie d'accessoires supprimé avec succès.")
+            )
+
+            return redirect(
+                f"{reverse('courroie_accessoires:courroie_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
+            )
+
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "courroie_accessoires/delete_cour_access.html",
+        {
+            "cour_access": cour_access,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+@login_required
+def courroie_access_detail_pdf_view(request, pk):
+
+    courroie_accessoires = get_object_or_404(
+        CourroieAccessoires.objects.select_related(
+            "voiture_exemplaire"
+        ),
+        pk=pk
+    )
+
+    rapport = courroie_accessoires.generer_rapport_remplacement()
+
+    html_string = render_to_string(
+        "courroie_accessoires/courroie_detail_pdf.html",
+        {
+            "courroie_accessoires": courroie_accessoires,
+            "rapport": rapport,
+            "date_export": timezone.now(),
+            "societe": request.user.societe,
+        }
+    )
+
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri("/")
+    ).write_pdf()
+
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
+
+    exemplaire = courroie_accessoires.voiture_exemplaire
+
+    immatriculation = (
+        exemplaire.immatriculation
+        if exemplaire and exemplaire.immatriculation
+        else "sans_immatriculation"
+    )
+
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
+
+    technicien = (
+        courroie_accessoires.tech_nom_technicien
+        or "technicien_inconnu"
+    )
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        courroie_accessoires.date.strftime("%Y-%m-%d")
+        if courroie_accessoires.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # NETTOYAGE
+    # =========================================================
+
+    technicien = str(technicien).strip().replace(" ", "_")
+    immatriculation = str(immatriculation).strip().replace(" ", "_")
+
+    # =========================================================
+    # NOM DU PDF
+    # =========================================================
+
+    nom_fichier = (
+        f"Courroie_accessoires_"
+        f"{technicien}_"
+        f"{immatriculation}_"
+        f"{date_pdf}.pdf"
+    )
+
+    # Nom ASCII de secours pour les navigateurs
+    nom_ascii = (
+        f"Courroie_accessoires_"
+        f"{slugify(technicien)}_"
+        f"{slugify(immatriculation)}_"
+        f"{date_pdf}.pdf"
+    )
+
+    # =========================================================
+    # RESPONSE
+    # =========================================================
+
+    response = HttpResponse(
+        pdf,
+        content_type="application/pdf"
+    )
+
+    response["Content-Disposition"] = (
+        f'inline; filename="{nom_ascii}"; '
+        f"filename*=UTF-8''{quote(nom_fichier)}"
+    )
+
+    return response

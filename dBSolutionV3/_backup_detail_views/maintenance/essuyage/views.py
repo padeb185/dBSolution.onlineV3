@@ -1,0 +1,1352 @@
+from datetime import datetime
+
+from django.core.exceptions import ValidationError
+
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
+from django.urls import reverse
+from django.utils import timezone
+from django.contrib import messages
+from django.db import transaction, models
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.generic import ListView
+from maintenance.essuyage.forms import EssuyageForm
+from maintenance.essuyage.models import Essuyage
+from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
+from voiture.voiture_exemplaire.models import VoitureExemplaire
+from django.db.models import Q
+from django.utils.translation import gettext_lazy as _, gettext_noop
+from weasyprint import HTML
+
+
+
+
+
+@method_decorator([login_required, never_cache], name='dispatch')
+class EssuyageListView(ListView):
+    model = Essuyage
+    template_name = "essuyage/essuyage_list.html"
+    context_object_name = "essuyages"
+    ordering = ["-id"]
+
+    def get_queryset(self):
+        queryset = Essuyage.objects.select_related(
+            "voiture_exemplaire",
+            "tech_societe",
+            "tech_technicien",
+            "main_oeuvre",
+        )
+
+        societe = getattr(self.request.user, "societe", None)
+
+        if societe:
+            queryset = queryset.filter(
+                models.Q(tech_societe=societe) |
+                models.Q(tech_societe__isnull=True)
+            )
+
+        return queryset.order_by("-id")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        exemplaire_id = self.kwargs.get("exemplaire_id")
+
+        if exemplaire_id:
+            context["exemplaire"] = VoitureExemplaire.objects.get(
+                id=exemplaire_id
+            )
+
+        roles_autorises = [
+            "mecanicien",
+            "apprenti",
+            "magasinier",
+            "chef_mecanicien",
+            "direction",
+        ]
+
+        context["is_checkup_allowed"] = (
+            self.request.user.role in roles_autorises
+        )
+
+        return context
+
+
+    
+
+@never_cache
+@login_required
+def essuyage_form_view(request, exemplaire_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    maintenance = None  # 👈 important pour éviter UnboundLocalError
+
+
+
+    # 🔎 Récupération exemplaire
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(
+            Q(client__societe=tenant) |
+            Q(client__isnull=True, societe=tenant)
+        ),
+        id=exemplaire_id
+    )
+
+    # 🔐 rôles autorisés
+    roles_autorises = [
+        "mecanicien",
+        "apprenti",
+        "magasinier",
+        "chef_mecanicien",
+        "direction"
+    ]
+
+    if role not in roles_autorises:
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    # =========================
+    # POST
+    # =========================
+    if request.method == "POST":
+        form = EssuyageForm(
+            request.POST,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+        if form.is_valid():
+
+            try:
+                with transaction.atomic():
+
+                    km = form.cleaned_data.get("kilometrage_essuyage")
+
+
+                    # Kilométrage AVANT intervention
+                    ancien_kilometrage = (
+                            exemplaire.kilometres_chassis or 0
+                    )
+                    ancien_kilometrage_boite = (
+                            exemplaire.kilometres_boite or 0
+                    )
+
+                    ancien_kilometrage_moteur = (
+                            exemplaire.kilometres_moteur or 0
+                    )
+
+                    ancien_kilometrage_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
+
+                    # ✅ Variation calculée dynamiquement
+                    kilometrage_variation = 0
+
+                    if km is not None:
+
+                        # Validation
+                        if km < ancien_kilometrage:
+                            raise ValueError(
+                                _("Le kilométrage du Checkup-Essuyage ne peut pas être inférieur "
+                                  "au kilométrage actuel du véhicule.")
+                            )
+
+                        # Calcul AVANT mise à jour du véhicule
+                        kilometrage_variation = km - ancien_kilometrage
+
+                        # =========================
+                        # VÉHICULE
+                        # =========================
+                        if km is not None:
+                            # =========================
+                            # ROLLBACK AVANT INTERVENTION
+                            # =========================
+
+                            exemplaire.kilometres_rollback = (
+                                ancien_kilometrage
+                            )
+
+                            exemplaire.kilometres_boite_rollback = (
+                                ancien_kilometrage_boite
+                            )
+
+                            exemplaire.kilometres_moteur_rollback = (
+                                ancien_kilometrage_moteur
+                            )
+
+                            exemplaire.kilometres_embrayage_rollback = (
+                                ancien_kilometrage_embrayage
+                            )
+
+                            # =========================
+                            # DATE INTERVENTION
+                            # =========================
+
+                            exemplaire.date_derniere_intervention = (
+                                timezone.localtime(
+                                    timezone.now()
+                                ).date()
+                            )
+
+                            # =========================
+                            # NOUVEAU KILOMÉTRAGE
+                            # =========================
+
+                            exemplaire.kilometres_chassis = km
+
+                            # Recalcule :
+                            # - kilometres_moteur
+                            # - kilometres_boite
+                            # - variation_kilometres
+                            exemplaire.update_kilometres()
+
+                            # =========================
+                            # UNE SEULE SAUVEGARDE
+                            # =========================
+
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                    "date_derniere_intervention",
+
+                                    # Rollback
+                                    "kilometres_rollback",
+                                    "kilometres_boite_rollback",
+                                    "kilometres_moteur_rollback",
+                                    "kilometres_embrayage_rollback",
+
+                                    # Valeurs recalculées
+                                    "kilometres_moteur",
+                                    "kilometres_boite",
+                                    "kilometres_embrayage",
+                                    "variation_kilometres",
+                                ]
+                            )
+
+                    # 🔴 maintenance unique
+                    maintenance = Maintenance.objects.create(
+                        societe=request.user.societe,
+                        voiture_exemplaire=exemplaire,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_chassis=exemplaire.kilometres_chassis,
+                        kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                        type_maintenance=Maintenance.TypeMaintenance.ESSUYAGE,
+                        tag=Maintenance.Tag.JAUNE,
+
+                        # 👨‍🔧 utilisateur ayant réalisé la maintenance
+                        tech_technicien=request.user,
+                        tech_societe=request.user.societe,
+                        tech_nom_technicien=f"{request.user.prenom} {request.user.nom}",
+                        tech_role_technicien=request.user.role,
+                    )
+
+                    # 🔧 Affectation spécifique selon le rôle
+                    if role == "mecanicien":
+                        maintenance.mecanicien = request.user
+
+                    elif role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
+
+                    elif role == "apprenti":
+                        maintenance.apprentis = request.user
+
+                    maintenance.save()
+
+                    # ==================================================
+                    # CRÉATION CHECKUP
+                    # ==================================================
+                    essuyage = form.save(commit=False)
+
+                    essuyage.voiture_exemplaire = exemplaire
+                    essuyage.maintenance = maintenance
+
+                    # kilométrage saisi lors du essuyage
+                    essuyage.kilometrage_essuyage = km
+
+                    # kilométrage AVANT le essuyage
+                    essuyage.kilometres_chassis = (
+                        ancien_kilometrage
+                    )
+                    essuyage.kilometres_boite = (
+                        ancien_kilometrage_boite
+                    )
+                    essuyage.kilometres_moteur = (
+                        ancien_kilometrage_moteur
+                    )
+
+                    essuyage.kilometres_embrayage = (
+                        ancien_kilometrage_embrayage
+                    )
+
+                    # différence entre ancien et nouveau kilométrage
+                    essuyage.kilometrage_variation = (
+                        kilometrage_variation
+                    )
+
+                    # 👨‍🔧 technicien
+                    essuyage.assign_technicien(
+                        request.user
+                    )
+
+                    # 👨‍🔧 dernier technicien maintenance
+                    essuyage.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    essuyage.maintenance = maintenance
+
+                    essuyage.save()
+                    # =========================
+                    # MANY TO MANY
+                    # =========================
+                    form.instance = essuyage
+                    form.save_m2m()
+
+                    ACTION_CONTROLE_ESSUYAGE = gettext_noop(
+                        "Contrôle de l'essuyage"
+                    )
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=f"{ACTION_CONTROLE_ESSUYAGE} - {exemplaire.immatriculation}"
+                    )
+
+                messages.success(request, _("Contrôle du système d'essuyage enregistré avec succès."))
+
+                return redirect(
+                    f"{reverse('essuyage:essuyage_list', kwargs={'exemplaire_id': exemplaire.id})}?saved=1"
+                )
+
+
+            except Exception as e:
+                messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+
+        else:
+            messages.error(request, _("Le formulaire contient des erreurs."))
+    else:
+        essuyage = Essuyage(
+
+            voiture_exemplaire=exemplaire,
+
+            kilometres_chassis=(
+                    exemplaire.kilometres_chassis or 0
+            ),
+
+            kilometres_moteur=(
+                    exemplaire.kilometres_moteur or 0
+            ),
+
+            kilometres_boite=(
+                    exemplaire.kilometres_boite or 0
+            ),
+
+            kilometres_embrayage=(
+                    exemplaire.kilometres_embrayage or 0
+            ),
+        )
+        essuyage.assign_technicien(request.user)
+
+
+        form = EssuyageForm(
+            instance=essuyage,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+    # --- Génération des champs par section ---
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "kilo" in f.name
+            ],
+        },
+        {
+            "title": _("Balais d'essuie-glace"),
+            "icon": "icons/essuie-glace.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("balai_")
+            ],
+        },
+        {
+            "title": _("Bras d'essuie-glace"),
+            "icon": "icons/bras-essuie-glace.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("bras_")
+            ],
+        },
+        {
+            "title": _("Moteurs d'essuie-glace"),
+            "icon": "icons/moteur-essuie-glace.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("moteur_essuie_glace")
+            ],
+        },
+        {
+            "title": _("Tringlerie d'essuie-glace"),
+            "icon": "icons/tringlerie.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("tringlerie_essuie_glace")
+            ],
+        },
+        {
+            "title": _("Pompes de lave-glace"),
+            "icon": "icons/pompe-lave-glace.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("pompe_lave_glace")
+            ],
+        },
+        {
+            "title": _("Réservoir de lave-glace"),
+            "icon": "icons/reservoir-lave-glace.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("reservoir_lave_glace")
+            ],
+        },
+        {
+            "title": _("Gicleurs de lave-glace"),
+            "icon": "icons/gicleur.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("gicleur_")
+            ],
+        },
+        {
+            "title": _("Tuyaux flexibles de lave-glace"),
+            "icon": "icons/tuyau-flexible.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("tuyau_lave_glace")
+            ],
+        },
+        {
+            "title": _("Raccords de lave-glace"),
+            "icon": "icons/raccord.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("raccord_")
+            ],
+        },
+        {
+            "title": _("Joints du circuit de lave-glace"),
+            "icon": "icons/joint.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("joints_lave_glace")
+            ],
+        },
+        {
+            "title": _("Liquide lave-glace"),
+            "icon": "icons/liquide-lave-glace.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("liquide_lave_glace")
+            ],
+        },
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "tag" in f.name
+            ],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "pays" in f.name
+            ],
+        },
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "remarques" in f.name
+            ],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "tech" in f.name
+            ],
+        },
+        {
+            "title": _("Taux horaire"),
+            "icon": "icons/taux.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "taux" in f.name
+            ],
+        },
+    ]
+
+    return render(request, 'essuyage/essuyage_form.html', {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "maintenance": maintenance,
+        "form": form,
+        "sections": sections,
+        "now": timezone.now(),
+    })
+
+
+
+
+# ------------
+# Vue détail boite
+# -----------------------------
+
+
+
+@never_cache
+@login_required
+def essuyage_detail_view(request, essuyage_id):
+    essuyage = get_object_or_404(
+        Essuyage.objects.select_related("voiture_exemplaire"),
+        id=essuyage_id
+    )
+
+    context = {
+        "essuyage": essuyage,
+        "exemplaire": essuyage.voiture_exemplaire,
+    }
+    return render(request, "essuyage/essuyage_detail.html", context)
+
+
+
+
+
+
+@login_required
+def modifier_essuyage_view(request, essuyage_id):
+    tenant = request.user.societe
+
+    essuyage = get_object_or_404(
+        Essuyage.objects.select_related(
+            "voiture_exemplaire"
+        ),
+        id=essuyage_id
+    )
+
+    exemplaire = essuyage.voiture_exemplaire
+
+    # =========================
+    # POST
+    # =========================
+    if request.method == "POST":
+
+        form = EssuyageForm(
+            request.POST,
+            instance=essuyage,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+        if form.is_valid():
+
+            try:
+                with transaction.atomic():
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE SAISI
+                    # ==================================================
+                    km = form.cleaned_data.get(
+                        "kilometrage_essuyage"
+                    )
+
+                    if km is not None:
+                        km = int(km)
+
+                    # ==================================================
+                    # VALEURS ACTUELLES = ROLLBACK LOCAL
+                    # ==================================================
+                    rollback_chassis = (
+                        exemplaire.kilometres_chassis or 0
+                    )
+
+                    rollback_moteur = (
+                        exemplaire.kilometres_moteur or 0
+                    )
+
+                    rollback_boite = (
+                        exemplaire.kilometres_boite or 0
+                    )
+
+                    rollback_embrayage = (
+                            exemplaire.kilometres_embrayage or 0
+                    )
+
+                    # ==================================================
+                    # VALIDATION
+                    # ==================================================
+                    if km is not None:
+
+                        if km < 0:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas "
+                                    "être négatif."
+                                )
+                            )
+
+                        if km < rollback_chassis:
+                            raise ValidationError(
+                                _(
+                                    "Le kilométrage ne peut pas être "
+                                    "inférieur à %(km)s km."
+                                ) % {
+                                    "km": rollback_chassis
+                                }
+                            )
+
+                    # ==================================================
+                    # ESSUYAGE
+                    # ==================================================
+                    essuyage = form.save(
+                        commit=False
+                    )
+
+                    essuyage.voiture_exemplaire = (
+                        exemplaire
+                    )
+
+                    # ==================================================
+                    # ROLLBACK LOCAL
+                    # ==================================================
+                    essuyage.kilometres_chassis = (
+                        rollback_chassis
+                    )
+
+                    essuyage.kilometres_moteur = (
+                        rollback_moteur
+                    )
+
+                    essuyage.kilometres_boite = (
+                        rollback_boite
+                    )
+
+                    essuyage.kilometres_embrayage = (
+                        rollback_embrayage
+                    )
+
+                    # ==================================================
+                    # NOUVEAU KILOMÉTRAGE
+                    # ==================================================
+                    essuyage.kilometrage_essuyage = km
+
+                    # ==================================================
+                    # VARIATION
+                    # ==================================================
+                    if km is not None:
+                        essuyage.kilometrage_variation = (
+                            km - rollback_chassis
+                        )
+                    else:
+                        essuyage.kilometrage_variation = 0
+
+                    # ==================================================
+                    # TECHNICIEN
+                    # ==================================================
+                    essuyage.assign_technicien(
+                        request.user
+                    )
+
+                    essuyage.tech_last_maintained_by = (
+                        request.user
+                    )
+
+                    # ==================================================
+                    # MISE À JOUR DU VÉHICULE
+                    # ==================================================
+                    if km is not None:
+
+                        exemplaire.kilometres_chassis = km
+
+                        exemplaire.date_derniere_intervention = (
+                            timezone.localtime(
+                                timezone.now()
+                            ).date()
+                        )
+
+                        # Le save() du modèle VoitureExemplaire
+                        # doit gérer update_kilometres()
+                        exemplaire.save()
+
+                    # ==================================================
+                    # SAUVEGARDE ESSUYAGE
+                    # ==================================================
+                    essuyage.save()
+
+                    form.save_m2m()
+
+
+                    # ==================================================
+                    # USER LOG
+                    # ==================================================
+                    ACTION_MODIFICATION_CONTROLE_ESSUYAGE = (
+                        gettext_noop(
+                            "Modification contrôle du système "
+                            "d'essuyage"
+                        )
+                    )
+
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=(
+                            f"{ACTION_MODIFICATION_CONTROLE_ESSUYAGE}"
+                            f" - {exemplaire.immatriculation}"
+                        )
+                    )
+
+                    messages.success(
+                        request,
+                        _(
+                            "Contrôle du système d'essuyage "
+                            "modifié avec succès !"
+                        )
+                    )
+
+                    return redirect(
+                        f"{reverse('essuyage:essuyage_detail', kwargs={'essuyage_id': essuyage.id})}?saved=1"
+                    )
+
+            except ValidationError as e:
+
+                form.add_error(
+                    "kilometrage_essuyage",
+                    e.message
+                )
+
+                messages.error(
+                    request,
+                    e.message
+                )
+
+        else:
+            messages.error(
+                request,
+                _("Le formulaire contient des erreurs.")
+            )
+
+    # =========================
+    # GET
+    # =========================
+    else:
+
+        form = EssuyageForm(
+            instance=essuyage,
+            user=request.user,
+            exemplaire=exemplaire
+        )
+
+
+
+    # -------------------------
+    # Sections pour le template
+    # -------------------------
+    sections = [
+        {
+            "title": _("Kilométrage"),
+            "icon": "icons/compteur.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "kilo" in f.name
+            ],
+        },
+        {
+            "title": _("Balais d'essuie-glace"),
+            "icon": "icons/essuie-glace.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("balai_")
+            ],
+        },
+        {
+            "title": _("Bras d'essuie-glace"),
+            "icon": "icons/bras-essuie-glace.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("bras_")
+            ],
+        },
+        {
+            "title": _("Moteurs d'essuie-glace"),
+            "icon": "icons/moteur-essuie-glace.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("moteur_essuie_glace")
+            ],
+        },
+        {
+            "title": _("Tringlerie d'essuie-glace"),
+            "icon": "icons/tringlerie.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("tringlerie_essuie_glace")
+            ],
+        },
+        {
+            "title": _("Pompes de lave-glace"),
+            "icon": "icons/pompe-lave-glace.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("pompe_lave_glace")
+            ],
+        },
+        {
+            "title": _("Réservoir de lave-glace"),
+            "icon": "icons/reservoir-lave-glace.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("reservoir_lave_glace")
+            ],
+        },
+        {
+            "title": _("Gicleurs de lave-glace"),
+            "icon": "icons/gicleur.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("gicleur_")
+            ],
+        },
+        {
+            "title": _("Tuyaux flexibles de lave-glace"),
+            "icon": "icons/tuyau-flexible.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("tuyau_lave_glace")
+            ],
+        },
+        {
+            "title": _("Raccords de lave-glace"),
+            "icon": "icons/raccord.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("raccord_")
+            ],
+        },
+        {
+            "title": _("Joints du circuit de lave-glace"),
+            "icon": "icons/joint.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("joints_lave_glace")
+            ],
+        },
+        {
+            "title": _("Liquide lave-glace"),
+            "icon": "icons/liquide-lave-glace.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if f.name.startswith("liquide_lave_glace")
+            ],
+        },
+        {
+            "title": _("Etiquette"),
+            "icon": "icons/tag.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "tag" in f.name
+            ],
+        },
+        {
+            "title": _("Pays"),
+            "icon": "icons/pays.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "pays" in f.name
+            ],
+        },
+        {
+            "title": _("Remarques"),
+            "icon": "icons/notes.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "remarques" in f.name
+            ],
+        },
+        {
+            "title": _("Serrage des roues"),
+            "icon": "icons/roue.png",
+            "fields": [form[f.name] for f in form if "serrage" in f.name],
+        },
+        {
+            "title": _("Technicien"),
+            "icon": "icons/mecanicien.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "tech" in f.name
+            ],
+        },
+        {
+            "title": _("Taux horaire"),
+            "icon": "icons/taux.png",
+            "fields": [
+                form[f.name]
+                for f in form
+                if "taux" in f.name
+            ],
+        },
+    ]
+
+    return render(
+        request,
+        "essuyage/modifier_essuyage.html",
+        {
+            "form": form,
+            "essuyage": essuyage,
+            "sections": sections,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
+
+@never_cache
+@login_required
+def delete_essuyage_view(request, essuyage_id):
+
+    tenant = request.user.societe
+    role = request.user.role
+
+    # ==================================================
+    # AUTORISATIONS
+    # ==================================================
+    roles_autorises = [
+        "direction",
+        "chef_mecanicien",
+    ]
+
+    if (
+        role not in roles_autorises
+        and not request.user.is_superuser
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # RÉCUPÉRATION CHECKUP
+    # ==================================================
+    essuyage = get_object_or_404(
+        Essuyage.objects.select_related(
+            "voiture_exemplaire",
+
+        ),
+        id=essuyage_id,
+    )
+
+    exemplaire = essuyage.voiture_exemplaire
+
+
+    # ==================================================
+    # VÉRIFICATION TENANT
+    # ==================================================
+    if not (
+        (
+            exemplaire.client
+            and exemplaire.client.societe == tenant
+        )
+        or
+        (
+            exemplaire.client is None
+            and exemplaire.societe == tenant
+        )
+    ):
+        messages.error(
+            request,
+            _("Accès refusé")
+        )
+        return redirect(
+            "utilisateurs:dashboard"
+        )
+
+    # ==================================================
+    # DELETE
+    # ==================================================
+    if request.method == "POST":
+
+        try:
+            with transaction.atomic():
+
+                immatriculation = exemplaire.immatriculation
+
+
+                # ==================================================
+                # RESTAURATION DU KILOMÉTRAGE
+                # ==================================================
+                kilometrage_rollback = (
+                        exemplaire.kilometres_rollback or 0
+                )
+                kilometrage_rollback_boite = (
+                        exemplaire.kilometres_boite_rollback or 0
+                )
+                kilometrage_rollback_moteur = (
+                        exemplaire.kilometres_moteur_rollback or 0
+                )
+                kilometrage_rollback_embrayage = (
+                        exemplaire.kilometres_embrayage_rollback or 0
+                )
+
+
+                exemplaire.kilometres_chassis = (
+                    kilometrage_rollback
+                )
+                exemplaire.kilometres_boite = (
+                    kilometrage_rollback_boite
+                )
+                exemplaire.kilometres_moteur = (
+                    kilometrage_rollback_moteur
+                )
+                exemplaire.kilometres_embrayage = (
+                    kilometrage_rollback_embrayage
+                )
+
+                exemplaire.save(
+                    update_fields=[
+                        "kilometres_chassis",
+                        "kilometres_boite",
+                        "kilometres_embrayage",
+                        "kilometres_moteur"
+                    ]
+                )
+
+                # ==================================================
+                # SUPPRESSION CHECKUP
+                # ==================================================
+                essuyage.delete()
+
+
+
+                # ==================================================
+                # USER LOG
+                # ==================================================
+                ACTION_SUPPRESSION_ESSUYAGE = gettext_noop(
+                    "Suppression du contrôle su système d'essuyage"
+                )
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=(
+                        f"{ACTION_SUPPRESSION_ESSUYAGE} - "
+                        f"{immatriculation}"
+                    )
+                )
+
+            messages.success(
+                request,
+                _("Essuyage supprimé avec succès.")
+            )
+
+            return redirect(
+                f"{reverse('essuyage:essuyage_list', kwargs={'exemplaire_id': exemplaire.id})}?deleted=1"
+            )
+
+        except Exception as e:
+
+            messages.error(
+                request,
+                _("Erreur lors de la suppression : %(erreur)s")
+                % {
+                    "erreur": str(e)
+                }
+            )
+
+            return redirect(
+                "essuyage:essuyage_detail",
+                essuyage_id=essuyage.id,
+            )
+
+    # ==================================================
+    # GET → CONFIRMATION
+    # ==================================================
+    return render(
+        request,
+        "essuyage/delete_essuyage.html",
+        {
+            "essuyage": essuyage,
+            "exemplaire": exemplaire,
+        }
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+@login_required
+def essuyage_detail_pdf_view(request, pk):
+
+    essuyage = get_object_or_404(
+        Essuyage.objects.select_related(
+            "voiture_exemplaire",
+            "tech_technicien",
+            "tech_societe",
+            "main_oeuvre",
+        ),
+        pk=pk,
+    )
+
+    # =====================================================
+    # RAPPORT PIÈCES / PRODUITS
+    # =====================================================
+
+    rapport = essuyage.generer_rapport_remplacement()
+
+    # =====================================================
+    # VÉHICULE
+    # =====================================================
+
+    vehicule = essuyage.voiture_exemplaire
+
+    # =====================================================
+    # TECHNICIEN
+    # =====================================================
+
+    technicien = getattr(
+        essuyage,
+        "tech_technicien",
+        None,
+    )
+
+    # =====================================================
+    # DATE INTERVENTION
+    # =====================================================
+
+    date_intervention = getattr(
+        essuyage,
+        "date",
+        None,
+    )
+
+    # =====================================================
+    # IMMATRICULATION
+    # =====================================================
+
+    immatriculation = "sans_immatriculation"
+
+    if vehicule:
+        immatriculation = (
+            getattr(
+                vehicule,
+                "immatriculation",
+                None,
+            )
+            or "sans_immatriculation"
+        )
+
+    # =====================================================
+    # NOM TECHNICIEN
+    # =====================================================
+
+    nom_technicien = "technicien_inconnu"
+
+    if technicien:
+
+        prenom = (
+            getattr(
+                technicien,
+                "prenom",
+                "",
+            )
+            or ""
+        )
+
+        nom = (
+            getattr(
+                technicien,
+                "nom",
+                "",
+            )
+            or ""
+        )
+
+        nom_complet = f"{prenom} {nom}".strip()
+
+        nom_technicien = (
+            nom_complet
+            or getattr(
+                technicien,
+                "username",
+                None,
+            )
+            or str(technicien)
+        )
+
+    # =====================================================
+    # NETTOYAGE DU NOM DE FICHIER
+    # =====================================================
+
+    def nettoyer_nom_fichier(valeur):
+        return (
+            str(valeur)
+            .strip()
+            .replace(" ", "_")
+            .replace("/", "-")
+            .replace("\\", "-")
+            .replace(",", "")
+            .replace(":", "-")
+            .replace(";", "-")
+        )
+
+    nom_technicien_fichier = nettoyer_nom_fichier(
+        nom_technicien
+    )
+
+    immatriculation_fichier = nettoyer_nom_fichier(
+        immatriculation
+    )
+
+    # =====================================================
+    # GÉNÉRATION HTML
+    # =====================================================
+
+    html_string = render_to_string(
+        "essuyage/essuyage_detail_pdf.html",
+        {
+            "essuyage": essuyage,
+            "rapport": rapport,
+            "technicien": technicien,
+            "date_intervention": date_intervention,
+            "vehicule": vehicule,
+            "immatriculation": immatriculation,
+            "date_export": timezone.now(),
+            "societe": getattr(
+                request.user,
+                "societe",
+                None,
+            ),
+        },
+        request=request,
+    )
+
+    # =====================================================
+    # GÉNÉRATION PDF
+    # =====================================================
+
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri("/"),
+    ).write_pdf()
+
+    # =========================================================
+    # IMMATRICULATION
+    # =========================================================
+
+    immatriculation = (
+        essuyage.voiture_exemplaire.immatriculation
+        if essuyage.voiture_exemplaire
+        else "sans_immatriculation"
+    )
+
+    # =========================================================
+    # TECHNICIEN
+    # =========================================================
+
+    technicien = (
+            essuyage.tech_nom_technicien
+            or "technicien_inconnu"
+    )
+
+    # Nettoyage pour le nom du fichier
+    technicien = str(technicien).replace(" ", "_")
+    immatriculation = str(immatriculation).replace(" ", "_")
+
+    # =========================================================
+    # DATE
+    # =========================================================
+
+    date_pdf = (
+        essuyage.date.strftime("%Y-%m-%d")
+        if essuyage.date
+        else timezone.now().strftime("%Y-%m-%d")
+    )
+
+    # =========================================================
+    # TITRE / NOM DU PDF
+    # =========================================================
+
+    nom_fichier = (
+        f"{_('Essuyage')}_{technicien}_{immatriculation}_{date_pdf}.pdf"
+    )
+
+    response = HttpResponse(
+        pdf,
+        content_type="application/pdf",
+    )
+
+    response["Content-Disposition"] = (
+        f'inline; filename="{nom_fichier}"'
+    )
+
+    return response

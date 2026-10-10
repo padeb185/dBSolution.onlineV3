@@ -20,6 +20,7 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
+from utils.securite import q_intervention_tenant
 
 
 
@@ -695,7 +696,7 @@ def ref_form_view(request, exemplaire_id):
 @login_required
 def ref_detail_view(request, ref_id):
     ref = get_object_or_404(
-        Refroidissement.objects.select_related("voiture_exemplaire"),
+        Refroidissement.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=ref_id
     )
 

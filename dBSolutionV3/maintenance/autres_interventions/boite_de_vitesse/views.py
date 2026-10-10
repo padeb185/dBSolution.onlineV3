@@ -25,6 +25,7 @@ from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models
 from maintenance.types_maintenances import TYPES_MAINTENANCE
 from voiture.voiture_modele.models import VoitureModele
 from weasyprint import HTML
+from utils.securite import q_intervention_tenant
 
 
 # -----------------------------
@@ -364,7 +365,7 @@ def boite_check_view(request, exemplaire_id):
 @login_required
 def boite_detail_view(request, boite_id):
     boite = get_object_or_404(
-        ControleBoite.objects.select_related("voiture_exemplaire"),
+        ControleBoite.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=boite_id
     )
 

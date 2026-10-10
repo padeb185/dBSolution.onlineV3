@@ -22,6 +22,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 from .forms import AlternateurForm
 from .models import Alternateur
+from utils.securite import q_intervention_tenant
 
 
 
@@ -621,7 +622,7 @@ def alternateur_check_view(request, exemplaire_id):
 @login_required
 def alternateur_detail_view(request, alternateur_id):
     alternateur= get_object_or_404(
-        Alternateur.objects.select_related("voiture_exemplaire"),
+        Alternateur.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=alternateur_id
     )
 

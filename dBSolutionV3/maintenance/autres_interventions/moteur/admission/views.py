@@ -24,6 +24,7 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from .models import Admission
+from utils.securite import q_intervention_tenant
 
 
 
@@ -677,7 +678,7 @@ def admission_check_view(request, exemplaire_id):
 @login_required
 def admission_detail_view(request, admission_id):
     admission = get_object_or_404(
-        Admission.objects.select_related("voiture_exemplaire"),
+        Admission.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=admission_id
     )
 

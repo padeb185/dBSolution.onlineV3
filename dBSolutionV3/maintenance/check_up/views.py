@@ -20,6 +20,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django_tenants.utils import tenant_context
 from weasyprint import HTML
+from utils.securite import q_intervention_tenant
 
 
 
@@ -371,7 +372,7 @@ def controle_total_view(request, exemplaire_id):
 @login_required
 def checkup_detail_view(request, checkup_id):
     checkup = get_object_or_404(
-        Checkup.objects.select_related("voiture_exemplaire"),
+        Checkup.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=checkup_id
     )
 

@@ -22,6 +22,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from weasyprint import HTML
+from utils.securite import q_intervention_tenant
 
 
 
@@ -489,7 +490,7 @@ def eclairage_detail_view(request, eclairage_id):
     tenant = request.user.societe
 
     eclairage = get_object_or_404(
-        Eclairage.objects.select_related("voiture_exemplaire"),
+        Eclairage.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=eclairage_id
     )
 

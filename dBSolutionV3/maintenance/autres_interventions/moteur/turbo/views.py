@@ -22,6 +22,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 from .forms import TurboForm
 from .models import Turbo
+from utils.securite import q_intervention_tenant
 
 
 
@@ -498,7 +499,7 @@ def turbo_check_view(request, exemplaire_id):
 @login_required
 def turbo_detail_view(request, turbo_id):
     turbo = get_object_or_404(
-        Turbo.objects.select_related("voiture_exemplaire"),
+        Turbo.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=turbo_id
     )
 

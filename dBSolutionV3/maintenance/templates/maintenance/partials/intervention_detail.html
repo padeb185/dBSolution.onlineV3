@@ -1,0 +1,226 @@
+{% load i18n static intervention_tags %}
+{% comment %}
+Page détail commune à toutes les interventions de maintenance.
+
+Variables attendues (passées par le template de chaque app) :
+  obj          : l'intervention (doit exposer generer_rapport_remplacement)
+  exemplaire   : le véhicule
+  titre        : titre de la page
+  icone        : nom du fichier dans static/icons/
+  km_controle  : kilométrage saisi lors de l'intervention
+  url_modifier, url_pdf, url_delete, url_list : URLs déjà résolues
+  avec_cote    : (optionnel) affiche la colonne « Côté » du rapport
+  infos_template : (optionnel) template d'infos propres à l'intervention
+{% endcomment %}
+
+{% with rapport=obj.generer_rapport_remplacement %}
+<div class="p-6 w-full">
+
+    <h1 class="text-2xl font-bold mb-6 flex flex-col md:flex-row md:items-center gap-3">
+        <div class="flex items-center gap-3">
+            <img src="{% static 'icons/'|add:icone %}" alt="{{ titre }}" class="w-16 h-16">
+
+            <div class="flex items-center gap-2">
+                {{ titre }}
+
+                {% if exemplaire %}
+                    {% static 'images/marques/' as marques_path %}
+                    <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                         alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                         class="w-20 h-20 object-contain">
+
+                    <span class="font-semibold">
+                        {{ exemplaire.voiture_modele.nom_modele }}
+                        {% if exemplaire.voiture_modele.nom_variante %}
+                            {{ exemplaire.voiture_modele.nom_variante }}
+                        {% endif %}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+    </h1>
+
+    <!-- Messages -->
+    {% include "partials/messages.html" %}
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
+
+            {% if exemplaire %}
+            <div>
+                <strong>{% trans "Immatriculation" %} :</strong>
+                <div class="mt-2">
+                    {% include "maintenance/partials/plaque.html" %}
+                </div>
+            </div>
+            {% endif %}
+
+            <p><strong>{% trans "Kilométrage avant intervention" %} :</strong> {{ obj.kilometres_chassis|default:"-" }} km</p>
+            <p><strong>{% trans "Kilométrage de l'intervention" %} :</strong> {{ km_controle|default:"-" }} km</p>
+            {% if obj.kilometrage_variation or obj.kilometrage_variation == 0 %}
+                <p><strong>{% trans "Variation" %} :</strong> {{ obj.kilometrage_variation }} km</p>
+            {% endif %}
+
+            {% if obj.tag %}
+            <p>
+                <strong>{% trans "Tag" %} :</strong>
+                <span class="px-2 py-1 rounded font-bold border-2
+                    {% if obj.tag|upper == 'VERT' %}bg-green-100 text-green-800 border-green-300
+                    {% elif obj.tag|upper == 'JAUNE' %}bg-yellow-100 text-yellow-800 border-yellow-500
+                    {% elif obj.tag|upper == 'ROUGE' %}bg-red-100 text-red-800 border-red-300
+                    {% endif %}">
+                    {{ obj.get_tag_display }}
+                </span>
+            </p>
+            {% endif %}
+
+            {% if obj.serrage_roues %}
+                <p><strong>{% trans "Serrage des roues" %} :</strong> {{ obj.get_serrage_roues_display }}</p>
+            {% endif %}
+
+            {% if infos_template %}{% include infos_template %}{% endif %}
+
+            <p>
+                <strong>{% trans "Technicien" %} :</strong>
+                {{ obj.tech_nom_technicien|default:"-" }}{% if obj.tech_role_technicien %} ({{ obj.tech_role_technicien }}){% endif %}
+            </p>
+        </div>
+
+        <!-- Intervention / coûts -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">{% trans "Intervention" %}</h2>
+
+            <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ obj.date|date:"d/m/Y H:i" }}</p>
+            <p><strong>{% trans "Temps" %} :</strong> {{ obj.temps_main_oeuvre_display|default:"0h00" }}</p>
+            <p><strong>{% trans "Taux horaire" %} :</strong> {{ obj.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €</p>
+            <p><strong>{% trans "Coût main d'œuvre HTVA" %} :</strong> {{ obj.cout_main_oeuvre|default:0|floatformat:2 }} €</p>
+            <p><strong>{% trans "Total pièces HTVA" %} :</strong> {{ rapport|premier:"total_pieces,total_pieces_htva,total_general"|default:0|floatformat:2 }} €</p>
+            <p class="text-lg"><strong>{% trans "Total HTVA" %} :</strong> {{ obj.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €</p>
+        </div>
+
+        <!-- Boutons -->
+        {% if url_modifier %}
+        <div class="w-full">
+            <a href="{{ url_modifier }}"
+               class="block w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Modifier" %}
+            </a>
+        </div>
+        {% endif %}
+
+        {% if url_pdf %}
+        <div class="w-full">
+            <a href="{{ url_pdf }}" target="_blank"
+               class="block w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Télécharger le PDF" %}
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Pièces remplacées / à remplacer -->
+    {% with lignes=rapport|premier:"lignes,pieces" %}
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Pièces et produits" %}</h2>
+
+        {% if lignes %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full table-auto border-collapse border border-gray-200">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border px-3 py-2 text-left">{% trans "Pièce / produit" %}</th>
+                        <th class="border px-3 py-2 text-left">{% trans "État" %}</th>
+                        {% if avec_cote %}<th class="border px-3 py-2 text-left">{% trans "Côté" %}</th>{% endif %}
+                        <th class="border px-3 py-2 text-left">{% trans "Fabricant" %}</th>
+                        <th class="border px-3 py-2 text-right">{% trans "Quantité" %}</th>
+                        <th class="border px-3 py-2 text-right">{% trans "Prix HTVA" %}</th>
+                        <th class="border px-3 py-2 text-right">{% trans "Total HTVA" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ligne in lignes %}
+                    <tr>
+                        <td class="border px-3 py-2">{{ ligne|premier:"champ,nom,label,designation"|default:"-" }}</td>
+                        <td class="border px-3 py-2 font-semibold
+                            {% if ligne.etat == 'NOT_OK' or ligne.etat == 'A_REMPLACER' or ligne.etat == 'REMPLACER' or ligne.etat == 'A_FAIRE' or ligne.etat == 'AJOUTER' %}text-red-700
+                            {% elif ligne.etat == 'REMPLACE' %}text-blue-700
+                            {% elif ligne.etat == 'OK' or ligne.etat == 'FAIT' or ligne.etat == 'BON' %}text-green-700{% endif %}">
+                            {{ ligne|premier:"etat_label,etat_display,etat"|default:"-" }}
+                        </td>
+                        {% if avec_cote %}<td class="border px-3 py-2">{{ ligne|premier:"cote"|default:"-" }}</td>{% endif %}
+                        <td class="border px-3 py-2">{{ ligne|premier:"fabricant_label,fabricant_display,fabricant"|default:"-" }}</td>
+                        <td class="border px-3 py-2 text-right">{{ ligne.quantite|floatformat:"-2" }}</td>
+                        <td class="border px-3 py-2 text-right">{{ ligne|premier:"prix,prix_unitaire"|default:0|floatformat:2 }} €</td>
+                        <td class="border px-3 py-2 text-right">{{ ligne.total|default:0|floatformat:2 }} €</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p class="text-gray-500">{% trans "Aucune pièce ni produit utilisé." %}</p>
+        {% endif %}
+    </div>
+    {% endwith %}
+
+    <!-- Remarques -->
+    {% if obj.remarques %}
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Remarques" %}</h2>
+        {{ obj.remarques|linebreaks }}
+    </div>
+    {% endif %}
+
+    {% if url_delete %}
+    {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}
+        <div class="w-full mb-6">
+            <a href="{{ url_delete }}"
+               class="block w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold text-center">
+                {% trans "Supprimer" %}
+            </a>
+        </div>
+    {% endif %}
+    {% endif %}
+
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Métadonnées" %}</h2>
+        <p><strong>{% trans "Créé le" %} :</strong> {{ obj.created_at|date:"d/m/Y H:i"|default:"-" }}</p>
+        <p><strong>{% trans "Mis à jour le" %} :</strong> {{ obj.updated_at|date:"d/m/Y H:i"|default:"-" }}</p>
+    </div>
+
+    <!-- Retour -->
+    <div>
+        {% if url_list %}
+            <a href="{{ url_list }}"
+               class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Retour à la liste" %}
+            </a>
+        {% else %}
+            <button type="button" onclick="window.history.back();"
+                    class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Retour à la liste" %}
+            </button>
+        {% endif %}
+    </div>
+</div>
+{% endwith %}
+
+{% if request.GET.saved == "1" or request.GET.deleted == "1" %}
+<script>
+    // Enregistre les messages Django pour la page qu'on va recharger
+    const flash = [
+        {% for message in messages %}
+        { text: "{{ message|escapejs }}", tags: "{{ message.tags }}" },
+        {% endfor %}
+    ];
+    sessionStorage.setItem("flashMessages", JSON.stringify(flash));
+    sessionStorage.setItem("reloadAfterBack", "1");
+
+    window.history.go({% if request.GET.deleted == "1" %}-3{% else %}-2{% endif %});
+</script>
+{% endif %}

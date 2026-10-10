@@ -22,6 +22,7 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_modele.models import VoitureModele
 from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
+from utils.securite import q_intervention_tenant
 
 
 
@@ -614,7 +615,7 @@ def echappement_check_view(request, exemplaire_id):
 @login_required
 def echappement_detail_view(request,echappement_id):
    echappement = get_object_or_404(
-        Echappement.objects.select_related("voiture_exemplaire"),
+        Echappement.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=echappement_id
     )
 

@@ -1,0 +1,8 @@
+{% load i18n %}
+<p><strong>{% trans "Ajout d'huile moteur" %} :</strong> <span class="{% if obj.moteur_niveau_huile_quantite > 0 %}text-green-600{% endif %}">{{ obj.moteur_niveau_huile_quantite|default:0 }}</span></p>
+<p><strong>{% trans "Ajout d'huile boîte" %} :</strong> <span class="{% if obj.boite_niveau_huile_quantite > 0 %}text-green-600{% endif %}">{{ obj.boite_niveau_huile_quantite|default:0 }}</span></p>
+<p><strong>{% trans "Ajout d'huile pont" %} :</strong> <span class="{% if obj.pont_niveau_huile_quantite > 0 %}text-green-600{% endif %}">{{ obj.pont_niveau_huile_quantite|default:0 }}</span></p>
+<p><strong>{% trans "Ajout de liquide de freins" %} :</strong> <span class="{% if obj.frein_liquide_quantite > 0 %}text-green-600{% endif %}">{{ obj.frein_liquide_quantite|default:0 }}</span></p>
+<p><strong>{% trans "Ajout de liquide de refroidissement" %} :</strong> <span class="{% if obj.refroidissement_quantite > 0 %}text-green-600{% endif %}">{{ obj.refroidissement_quantite|default:0 }}</span></p>
+<p><strong>{% trans "Ajout de lave-glace" %} :</strong> <span class="{% if obj.lave_glace_quantite > 0 %}text-green-600{% endif %}">{{ obj.lave_glace_quantite|default:0 }}</span></p>
+<p><strong>{% trans "Ajout de liquide de direction" %} :</strong> <span class="{% if obj.direction_liquide_quantite > 0 %}text-green-600{% endif %}">{{ obj.direction_liquide_quantite|default:0 }}</span></p>

@@ -20,6 +20,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
 from maintenance.autres_interventions.moteur.courroie.forms import CourroieDistributionForm
 from weasyprint import HTML
+from utils.securite import q_intervention_tenant
 
 
 
@@ -543,7 +544,7 @@ def courroie_form_view(request, exemplaire_id):
 @login_required
 def courroie_detail_view(request, courroie_id):
     courroie = get_object_or_404(
-        CourroieDistribution.objects.select_related("voiture_exemplaire"),
+        CourroieDistribution.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=courroie_id
     )
 

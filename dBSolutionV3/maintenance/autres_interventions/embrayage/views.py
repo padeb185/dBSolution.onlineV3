@@ -21,6 +21,7 @@ from weasyprint import HTML
 from .forms import EmbrayageForm
 from .models import Embrayage
 from django.db import connection, transaction
+from utils.securite import q_intervention_tenant
 
 
 
@@ -337,7 +338,7 @@ def embrayage_form_view(request, exemplaire_id):
 @login_required
 def embrayage_detail_view(request, embrayage_id):
     embrayage = get_object_or_404(
-        Embrayage.objects.select_related("voiture_exemplaire"),
+        Embrayage.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=embrayage_id
     )
 

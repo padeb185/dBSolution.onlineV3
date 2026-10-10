@@ -19,6 +19,7 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from weasyprint import HTML
 from django.core.exceptions import ValidationError
+from utils.securite import q_intervention_tenant
 
 
 
@@ -372,7 +373,7 @@ def controle_freins_view(request, exemplaire_id):
 @login_required
 def freins_detail_view(request, frein_id):
     frein = get_object_or_404(
-        ControleFreins.objects.select_related("voiture_exemplaire"),
+        ControleFreins.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=frein_id
     )
 

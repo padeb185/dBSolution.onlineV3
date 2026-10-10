@@ -20,6 +20,7 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
+from utils.securite import q_intervention_tenant
 
 
 
@@ -696,7 +697,7 @@ def injection_form_view(request, exemplaire_id):
 @login_required
 def injection_detail_view(request, injection_id):
     injection = get_object_or_404(
-        Injection.objects.select_related("voiture_exemplaire"),
+        Injection.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=injection_id
     )
 

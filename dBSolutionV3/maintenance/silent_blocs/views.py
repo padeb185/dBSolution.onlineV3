@@ -20,6 +20,7 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils import timezone
 from weasyprint import HTML
+from utils.securite import q_intervention_tenant
 
 
 
@@ -371,7 +372,7 @@ def silent_check_view(request, exemplaire_id):
 @login_required
 def silent_detail_view(request, silent_id):
     silent = get_object_or_404(
-        SilentBloc.objects.select_related("voiture_exemplaire"),
+        SilentBloc.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=silent_id
     )
 

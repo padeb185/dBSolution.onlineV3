@@ -19,6 +19,7 @@ from maintenance.entretien.forms import EntretienForm
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from weasyprint import HTML
+from utils.securite import q_intervention_tenant
 
 
 
@@ -485,7 +486,7 @@ def entretien_detail_view(request, entretien_id):
     tenant = request.user.societe
 
     entretien = get_object_or_404(
-        Entretien.objects.select_related("voiture_exemplaire"),
+        Entretien.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=entretien_id
     )
 

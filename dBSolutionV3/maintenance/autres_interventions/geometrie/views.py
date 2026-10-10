@@ -22,6 +22,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 from .forms import GeometrieVoitureForm
 from .models import GeometrieVoiture
+from utils.securite import q_intervention_tenant
 
 
 
@@ -733,7 +734,7 @@ def geometrie_check_view(request, exemplaire_id):
 @login_required
 def geometrie_detail_view(request, geometrie_id):
     geometrie = get_object_or_404(
-        GeometrieVoiture.objects.select_related("voiture_exemplaire"),
+        GeometrieVoiture.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=geometrie_id
     )
 

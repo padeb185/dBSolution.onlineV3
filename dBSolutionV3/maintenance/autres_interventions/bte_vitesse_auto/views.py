@@ -21,6 +21,7 @@ from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBte
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from weasyprint import HTML
+from utils.securite import q_intervention_tenant
 
 
 
@@ -388,7 +389,7 @@ def bte_auto_check_view(request, exemplaire_id):
 @login_required
 def bte_auto_detail_view(request, bte_auto_id):
     bte_auto = get_object_or_404(
-        ControleBteVitesseAuto.objects.select_related("voiture_exemplaire"),
+        ControleBteVitesseAuto.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=bte_auto_id
     )
 

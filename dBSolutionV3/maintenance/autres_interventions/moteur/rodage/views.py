@@ -22,6 +22,7 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils import timezone
 from weasyprint import HTML
+from utils.securite import q_intervention_tenant
 
 
 
@@ -484,7 +485,7 @@ def rodage_detail_view(request, rodage_id):
     tenant = request.user.societe
 
     rodage = get_object_or_404(
-        Rodage.objects.select_related("voiture_exemplaire"),
+        Rodage.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=rodage_id
     )
 

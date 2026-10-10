@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="p-6 w-full">
+
+   <h1 class="text-2xl font-bold mb-6 flex flex-col md:flex-row md:items-center gap-3">
+    <div class="flex items-center gap-3">
+
+        <img src="{% static 'icons/geometrie.png' %}"
+             alt="geometrie"
+             class="w-16 h-16">
+
+        <div class="flex items-center gap-2">
+
+            {% trans "Détails de la géométrie" %}
+
+            {% static 'images/marques/' as marques_path %}
+
+            <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                 alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                 class="w-20 h-20 object-contain">
+
+            <span class="font-semibold">
+                {{ exemplaire.voiture_modele.nom_modele }}
+
+                {% if exemplaire.voiture_modele.nom_variante %}
+                    {{ exemplaire.voiture_modele.nom_variante }}
+                {% endif %}
+            </span>
+
+        </div>
+    </div>
+
+</h1>
+
+
+ <!-- Messages -->
+{% include "partials/messages.html" %}
+
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
+
+            <p><strong>{% trans "Immatriculation" %} :</strong>
+
+               <div class="mb-4">
+                    {% include "maintenance/partials/plaque.html" %}
+                </div>
+            </p>
+            <p><strong>{% trans "Kilométrage" %} :</strong> {{ geometrie.kilometres_chassis }}</p>
+            <p><strong>{% trans "Tag" %} :</strong> {{ geometrie.get_tag_display }}</p>
+            <p><strong>{% trans "Technicien" %} :</strong> {{ geometrie.tech_nom_technicien }} {{ geometrie.tech_role_technicien }}</p>
+        </div>
+
+
+        <!-- Maintenance -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">{% trans "Geometrie" %}</h2>
+            <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ geometrie.date|date:"d/m/Y" }}</p>
+             <p>
+                <strong>{% trans "Remarques" %} :</strong>
+                {{ geometrie.remarques }}
+            </p>
+        </div>
+
+
+
+
+
+        <!-- Bouton Modifier -->
+        <div class="mt-auto w-full">
+            <a href="{% url 'geometrie:geometrie_modifier' geometrie.id %}" class="block w-full">
+                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Modifier la géométrie" %}
+                </button>
+            </a>
+        </div>
+        <!-- Bouton Rapport -->
+        <div class="mt-auto w-full">
+            <a href="{% url 'geometrie:geometrie_detail_pdf' geometrie.id %}" target="_blank"
+               rel="noopener noreferrer" class="block w-full">
+                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Télécharger le PDF" %}
+                </button>
+            </a>
+        </div>
+    </div>
+
+      {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}
+        <div class="mt-auto w-full">
+            <a href="{% url 'geometrie:delete_geometrie' geometrie.id %}" class="block w-full">
+                <button type="button" class="w-full bg-red-700 text-white px-4 py-2 rounded hover:hover:bg-red-400 font-semibold">
+                    {% trans "Supprimer le contrôle de la géométrie" %}
+                </button>
+            </a>
+        </div>
+    {% endif %}
+    <br>
+
+
+
+     <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
+
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ geometrie.created_at|date:"d/m/Y H:i" }}
+        </p>
+        <p>
+            <strong>{% trans "Mis à jour le" %} :</strong>
+            {{ geometrie.updated_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
+
+    <br>
+
+    <!-- Actions -->
+
+      <div>
+        <button type="button"
+                onclick="window.history.back();"
+                class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+               {% trans "Retour à la liste des géométries" %}
+        </button>
+    </div>
+
+
+
+</div>
+
+{% if request.GET.saved == "1" or request.GET.deleted == "1" %}
+<script>
+    // Enregistre les messages Django pour la page qu'on va recharger
+    const flash = [
+        {% for message in messages %}
+        { text: "{{ message|escapejs }}", tags: "{{ message.tags }}" },
+        {% endfor %}
+    ];
+    sessionStorage.setItem("flashMessages", JSON.stringify(flash));
+    sessionStorage.setItem("reloadAfterBack", "1");
+
+    // Retour immédiat (plus besoin d'attendre 5 s)
+    window.history.go({% if request.GET.deleted == "1" %}-3{% else %}-2{% endif %});
+</script>
+
+
+{% endif %}
+
+{% endblock %}

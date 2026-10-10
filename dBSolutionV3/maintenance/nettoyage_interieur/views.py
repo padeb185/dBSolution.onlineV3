@@ -20,6 +20,7 @@ from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.utils import timezone
 from weasyprint import HTML
+from utils.securite import q_intervention_tenant
 
 
 
@@ -425,7 +426,7 @@ def nettoyage_interieur_view(request, exemplaire_id):
 @login_required
 def nettoyage_int_detail(request, nettoyage_interieur_id):
     nettoyage_int = get_object_or_404(
-        NettoyageInterieur.objects.select_related("voiture_exemplaire"),
+        NettoyageInterieur.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=nettoyage_interieur_id
     )
 

@@ -19,6 +19,7 @@ from django.utils.translation import gettext_lazy as _, gettext_noop
 from weasyprint import HTML
 from .forms import CheckupTrackForm
 from .models import CheckupTrack
+from utils.securite import q_intervention_tenant
 
 
 
@@ -474,7 +475,7 @@ def track_check_form_view(request, exemplaire_id):
 @login_required
 def checkup_track_detail_view(request, checkup_track_id):
     checkup_track = get_object_or_404(
-        CheckupTrack.objects.select_related("voiture_exemplaire"),
+        CheckupTrack.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=checkup_track_id
     )
 

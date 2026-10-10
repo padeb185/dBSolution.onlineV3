@@ -23,6 +23,7 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from weasyprint import HTML, pdf
 from django.core.exceptions import ValidationError
+from utils.securite import q_intervention_tenant
 
 
 
@@ -377,7 +378,7 @@ def remplacement_boite_form_view(request, exemplaire_id):
 @login_required
 def remplacement_boite_detail_view(request, remplacement_boite_id):
     remplacement_boite = get_object_or_404(
-        RemplacementBoite.objects.select_related("voiture_exemplaire"),
+        RemplacementBoite.objects.select_related("voiture_exemplaire").filter(q_intervention_tenant(request.user)),
         id=remplacement_boite_id
     )
 

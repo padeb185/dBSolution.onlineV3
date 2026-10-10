@@ -21,6 +21,7 @@ from weasyprint import HTML
 from .forms import AbsForm
 from .models import Abs
 from ...checkup_track.models import EtatOKNotOK
+from utils.securite import q_intervention_tenant
 
 
 
@@ -423,7 +424,7 @@ def abs_detail_view(request, abs_id):
             "voiture_exemplaire",
             "maintenance",
             "tech_societe",
-        ),
+        ).filter(q_intervention_tenant(request.user)),
         id=abs_id,
     )
 
