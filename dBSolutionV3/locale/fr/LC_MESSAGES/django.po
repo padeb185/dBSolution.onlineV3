@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 13:24+0200\n"
+"POT-Creation-Date: 2026-10-11 17:37+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -189,7 +189,11 @@ msgstr ""
 #: assurance_police/templates/assurance_police/assurance_police_detail.html:47
 #: assurance_police/templates/assurance_police/assurance_police_list.html:45
 #: assurance_police/templates/assurance_police/assurance_police_list.html:66
-#: fuel/models.py:162 fuel/templates/fuel/fuel_detail.html:33
+#: facture/templates/facture/delete_facture.html:61
+#: facture/templates/facture/facture_list.html:30
+#: facture/templates/facture/facture_pdf.html:153
+#: facture/templates/facture/maintenances_a_facturer.html:62 fuel/models.py:162
+#: fuel/templates/fuel/fuel_detail.html:33
 #: fuel/templates/fuel/fuel_list.html:80 fuel/templates/fuel/fuel_stat.html:77
 #: fuel/templates/fuel/fuel_stat.html:126
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:40
@@ -339,6 +343,8 @@ msgstr ""
 #: _backup_detail_views/maintenance/carrosserie_interne/views.py:595
 #: _backup_detail_views/maintenance/essuyage/views.py:367
 #: _backup_detail_views/maintenance/essuyage/views.py:792
+#: facture/templates/facture/_entete_facture.html:25
+#: facture/templates/facture/facture_pdf.html:155
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:47
 #: maintenance/autres_interventions/abs/views.py:342
 #: maintenance/autres_interventions/abs/views.py:644
@@ -1180,6 +1186,7 @@ msgstr ""
 #: client_particulier/templates/client_particulier/client_detail.html:76
 #: client_particulier/templates/client_particulier/delete_client.html:126
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:86
+#: facture/models.py:201 facture/templates/facture/facture_pdf.html:280
 #: fuel/models.py:210 fuel/templates/fuel/fuel_detail.html:74
 #: fuel/templates/fuel/fuel_detail.html:78 maindoeuvre/forms.py:45
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:105
@@ -1387,6 +1394,7 @@ msgstr ""
 #: _backup_detail_templates/maintenance/niveaux/templates/niveaux/niveaux_detail.html:129
 #: _backup_detail_templates/maintenance/pneus/templates/pneus/pneus_detail.html:79
 #: _backup_detail_templates/maintenance/silent_blocs/templates/silent_blocs/silent_detail.html:77
+#: facture/templates/facture/facture_detail.html:120
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:104
 #: maintenance/templates/maintenance/partials/intervention_detail.html:119
 msgid "Télécharger le PDF"
@@ -1513,7 +1521,8 @@ msgstr ""
 #: client_particulier/templates/client_particulier/delete_client.html:132
 #: client_pilotage/models.py:72
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:139
-#: facture/models.py:41 fournisseur/models.py:97
+#: facture/models.py:52 facture/models.py:217 facture/models.py:511
+#: facture/templates/facture/delete_facture.html:73 fournisseur/models.py:97
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:105
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:113
 #: fuel/models.py:215 fuel/templates/fuel/fuel_detail.html:121
@@ -1639,7 +1648,8 @@ msgstr ""
 #: client_particulier/templates/client_particulier/delete_client.html:133
 #: client_pilotage/models.py:73
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:143
-#: facture/models.py:42 fournisseur/models.py:98
+#: facture/models.py:53 facture/models.py:218 facture/models.py:512
+#: facture/templates/facture/delete_facture.html:74 fournisseur/models.py:98
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:106
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:118
 #: fuel/models.py:216 maindoeuvre/models.py:74
@@ -2086,6 +2096,12 @@ msgstr "Tableau de Bord"
 
 #: _backup_detail_templates/maintenance/autres_interventions/cardan/templates/cardan/cardan_detail.html:76
 #: _backup_detail_templates/maintenance/autres_interventions/cardan/templates/cardan/cardan_detail.html:111
+#: facture/models.py:197 facture/templates/facture/facture_detail.html:39
+#: facture/templates/facture/facture_detail.html:59
+#: facture/templates/facture/facture_form.html:128
+#: facture/templates/facture/facture_form.html:170
+#: facture/templates/facture/facture_pdf.html:212
+#: facture/templates/facture/facture_pdf.html:251
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:615
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:658
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:773
@@ -2138,6 +2154,7 @@ msgid "Pièces à remplacer / remplacées"
 msgstr ""
 
 #: _backup_detail_templates/maintenance/autres_interventions/cardan/templates/cardan/cardan_detail.html:105
+#: facture/services.py:126
 #: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:268
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:529
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1400
@@ -2167,6 +2184,7 @@ msgid "Pièce"
 msgstr ""
 
 #: _backup_detail_templates/maintenance/autres_interventions/cardan/templates/cardan/cardan_detail.html:106
+#: facture/templates/facture/parametres_peppol.html:24
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:394
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:611
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:654
@@ -2730,7 +2748,10 @@ msgstr ""
 #: _backup_detail_templates/maintenance/autres_interventions/cardan/templates/cardan/cardan_detail.html:109
 #: _backup_list_templates/outillage/templates/outillage/outillage_list.html:45
 #: _backup_list_templates/outillage/templates/outillage/outillage_list.html:68
-#: facture/models.py:112 maintenance/autres_interventions/abs/models.py:125
+#: facture/models.py:367 facture/templates/facture/facture_detail.html:54
+#: facture/templates/facture/facture_form.html:123
+#: facture/templates/facture/facture_pdf.html:209
+#: maintenance/autres_interventions/abs/models.py:125
 #: maintenance/autres_interventions/abs/models.py:131
 #: maintenance/autres_interventions/abs/models.py:137
 #: maintenance/autres_interventions/abs/models.py:143
@@ -3894,7 +3915,9 @@ msgstr ""
 #: _backup_detail_templates/maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_detail.html:63
 #: agenda/models.py:19 agenda/templates/agenda/agenda_detail.html:34
 #: agenda/templates/agenda/agenda_list.html:73
-#: agenda/templates/agenda/delete_agenda.html:71
+#: agenda/templates/agenda/delete_agenda.html:71 facture/models.py:351
+#: facture/services.py:104
+#: facture/templates/facture/maintenances_a_facturer.html:61
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:40
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:39
 #: maintenance/autres_interventions/cardan/models.py:41
@@ -3911,7 +3934,7 @@ msgstr ""
 #: maintenance/freins/models.py:37 maintenance/jeux_pieces/models.py:64
 #: maintenance/models.py:158 maintenance/pneus/models.py:75
 #: theme/templates/dashboard.html:62 theme/templates/dashboard.html:74
-#: theme/templates/dashboard.html:209
+#: theme/templates/dashboard.html:211
 msgid "Maintenance"
 msgstr ""
 
@@ -4031,7 +4054,7 @@ msgstr "Tableau de Bord"
 #: maintenance/pneus/views.py:952
 #: maintenance/templates/maintenance/choisir_type.html:85
 #: maintenance/types_maintenances.py:8 piece/piece_pneus/models.py:55
-#: theme/templates/dashboard.html:384 theme/templates/dashboard.html:396
+#: theme/templates/dashboard.html:386 theme/templates/dashboard.html:398
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:232
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:50
 msgid "Pneus"
@@ -4174,7 +4197,7 @@ msgstr ""
 #: _backup_detail_views/maintenance/silent_blocs/views.py:635
 #: agenda/views.py:66 agenda/views.py:112 agenda/views.py:142
 #: agenda/views.py:178 agenda/views.py:211 agenda/views.py:252
-#: fuel/views.py:517 fuel/views.py:538
+#: facture/views.py:49 facture/views.py:442 fuel/views.py:517 fuel/views.py:538
 #: maintenance/autres_interventions/abs/views.py:102
 #: maintenance/autres_interventions/abs/views.py:780
 #: maintenance/autres_interventions/abs/views.py:816
@@ -4344,9 +4367,9 @@ msgstr ""
 #: _backup_detail_views/maintenance/silent_blocs/views.py:550
 #: agenda/views.py:156 agenda/views.py:189 assurance/views.py:122
 #: assurance/views.py:170 assurance_police/views.py:95
-#: assurance_police/views.py:152 carrosserie/views.py:143
-#: fournisseur/views.py:124 fuel/views.py:471 maindoeuvre/views.py:191
-#: maintenance/autres_interventions/abs/views.py:311
+#: assurance_police/views.py:152 carrosserie/views.py:143 facture/views.py:213
+#: facture/views.py:378 fournisseur/views.py:124 fuel/views.py:471
+#: maindoeuvre/views.py:191 maintenance/autres_interventions/abs/views.py:311
 #: maintenance/autres_interventions/abs/views.py:623
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:542
 #: maintenance/autres_interventions/boite_de_vitesse/views.py:322
@@ -5212,7 +5235,7 @@ msgstr "Tableau de Bord"
 #: maintenance/entretien/templates/entretien/entretien_check.html:463
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:630
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:470
-#: theme/templates/dashboard.html:337
+#: theme/templates/dashboard.html:339
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:81
 #: voiture/voiture_boite/templates/voiture_boite/modifier_boite.html:57
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:102
@@ -5797,7 +5820,7 @@ msgstr ""
 #: maintenance/autres_interventions/embrayage/models.py:303
 #: maintenance/autres_interventions/embrayage/views.py:900
 #: maintenance/models.py:41 piece/piece_embrayage/models.py:72
-#: theme/templates/dashboard.html:359
+#: theme/templates/dashboard.html:361
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:40
 msgid "Embrayage"
 msgstr ""
@@ -6132,8 +6155,8 @@ msgstr ""
 #: maintenance/nettoyage_exterieur/models.py:169
 #: maintenance/nettoyage_interieur/models.py:190
 #: maintenance/niveaux/models.py:184 maintenance/pneus/models.py:281
-#: maintenance/silent_blocs/models.py:665 theme/templates/dashboard.html:621
-#: theme/templates/dashboard.html:633
+#: maintenance/silent_blocs/models.py:665 theme/templates/dashboard.html:623
+#: theme/templates/dashboard.html:635
 msgid "Main d'oeuvre"
 msgstr ""
 
@@ -6267,6 +6290,7 @@ msgstr ""
 #: _backup_detail_views/maintenance/autres_interventions/moteur/courroie/views.py:815
 #: _backup_detail_views/maintenance/autres_interventions/moteur/injection/views.py:657
 #: _backup_detail_views/maintenance/autres_interventions/moteur/injection/views.py:1059
+#: facture/models.py:333
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:594
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:687
 #: maintenance/autres_interventions/moteur/allumage/views.py:603
@@ -7009,7 +7033,7 @@ msgstr ""
 #: maintenance/nettoyage_exterieur/models.py:111
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:358
 #: maintenance/templates/maintenance/choisir_type.html:155
-#: theme/templates/dashboard.html:411
+#: theme/templates/dashboard.html:413
 msgid "Carrosserie"
 msgstr ""
 
@@ -7867,8 +7891,8 @@ msgstr "Tableau de Bord"
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:989
 #: maintenance/freins/views.py:842 maintenance/models.py:17
 #: maintenance/templates/maintenance/choisir_type.html:75
-#: maintenance/types_maintenances.py:7 theme/templates/dashboard.html:369
-#: theme/templates/dashboard.html:374
+#: maintenance/types_maintenances.py:7 theme/templates/dashboard.html:371
+#: theme/templates/dashboard.html:376
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:165
 msgid "Freins"
 msgstr ""
@@ -8207,7 +8231,8 @@ msgstr ""
 #: achat_mds/templates/achat_mds/achat_list.html:35
 #: achat_mds/templates/achat_mds/achat_list.html:60
 #: achat_mds/templates/achat_mds/delete_achat.html:39
-#: investissements/models.py:40 outillage/forms.py:22 outillage/models.py:29
+#: facture/templates/facture/tva.html:217 investissements/models.py:40
+#: outillage/forms.py:22 outillage/models.py:29
 #: outillage/templates/outillage/delete_outillage.html:74
 #: outillage/templates/outillage/outillage_detail.html:41
 #: outillage/templates/outillage/outillage_list.html:36
@@ -8232,7 +8257,7 @@ msgstr ""
 #: achat_mds/templates/achat_mds/achat_detail.html:56
 #: achat_mds/templates/achat_mds/achat_list.html:44
 #: achat_mds/templates/achat_mds/achat_list.html:64
-#: achat_mds/templates/achat_mds/delete_achat.html:75 facture/models.py:124
+#: achat_mds/templates/achat_mds/delete_achat.html:75 facture/models.py:398
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:68
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:43
 #: outillage/templates/outillage/delete_outillage.html:94
@@ -8261,7 +8286,8 @@ msgstr ""
 #: _backup_list_templates/achat_mds/templates/achat_mds/achat_list.html:61
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:33
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:52
-#: achat_mds/templates/achat_mds/achat_list.html:61
+#: achat_mds/templates/achat_mds/achat_list.html:61 facture/models.py:364
+#: facture/templates/facture/facture_form.html:122
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:671
 #: maintenance/autres_interventions/moteur/allumage/models.py:138
 #: maintenance/autres_interventions/moteur/allumage/models.py:175
@@ -8282,7 +8308,10 @@ msgid "Transport HTVA"
 msgstr ""
 
 #: _backup_list_templates/achat_mds/templates/achat_mds/achat_list.html:65
-#: achat_mds/templates/achat_mds/achat_list.html:65
+#: achat_mds/templates/achat_mds/achat_list.html:65 facture/models.py:198
+#: facture/templates/facture/facture_detail.html:40
+#: facture/templates/facture/facture_form.html:171
+#: facture/templates/facture/facture_pdf.html:255
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:72
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:348
 msgid "Total TVA"
@@ -8353,6 +8382,8 @@ msgstr ""
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:88
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:71
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:101
+#: facture/templates/facture/facture_list.html:33
+#: facture/templates/facture/facture_list.html:59
 #: fournisseur/templates/fournisseur/fournisseur_list.html:69
 #: fournisseur/templates/fournisseur/fournisseur_list.html:93
 #: fuel/templates/fuel/fuel_list.html:88 fuel/templates/fuel/fuel_list.html:159
@@ -8453,6 +8484,8 @@ msgstr "Tableau de Bord"
 #: client_atelier/templates/client_atelier/client_atelier_list.html:125
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:118
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:127
+#: facture/templates/facture/facture_list.html:82
+#: facture/templates/facture/maintenances_a_facturer.html:150
 #: fournisseur/templates/fournisseur/fournisseur_list.html:116
 #: fuel/templates/fuel/fuel_list.html:187
 #: fuel/templates/fuel/fuel_stat.html:315
@@ -8564,6 +8597,8 @@ msgstr ""
 #: client_atelier/templates/client_atelier/client_atelier_list.html:126
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:119
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:128
+#: facture/templates/facture/facture_list.html:83
+#: facture/templates/facture/maintenances_a_facturer.html:151
 #: fournisseur/templates/fournisseur/fournisseur_list.html:117
 #: fuel/templates/fuel/fuel_list.html:188
 #: fuel/templates/fuel/fuel_stat.html:316
@@ -8626,6 +8661,8 @@ msgstr ""
 #: _backup_list_templates/achat_mds/templates/achat_mds/achat_list.html:128
 #: achat_mds/templates/achat_mds/achat_list.html:128
 #: achat_mds/templates/achat_mds/achat_list.html:129
+#: facture/templates/facture/facture_list.html:85
+#: facture/templates/facture/facture_list.html:86
 msgid "Aucune facture trouvée"
 msgstr ""
 
@@ -8689,6 +8726,8 @@ msgstr ""
 #: client_atelier/templates/client_atelier/client_atelier_list.html:131
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:124
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:133
+#: facture/templates/facture/facture_list.html:88
+#: facture/templates/facture/maintenances_a_facturer.html:156
 #: fournisseur/templates/fournisseur/fournisseur_list.html:122
 #: fuel/templates/fuel/fuel_list.html:193
 #: fuel/templates/fuel/fuel_stat.html:322
@@ -8802,6 +8841,8 @@ msgstr ""
 #: client_atelier/templates/client_atelier/client_atelier_list.html:132
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:125
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:134
+#: facture/templates/facture/facture_list.html:89
+#: facture/templates/facture/maintenances_a_facturer.html:157
 #: fournisseur/templates/fournisseur/fournisseur_list.html:123
 #: fuel/templates/fuel/fuel_list.html:194
 #: fuel/templates/fuel/fuel_stat.html:323
@@ -8915,6 +8956,8 @@ msgstr ""
 #: client_atelier/templates/client_atelier/client_atelier_list.html:133
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:126
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:135
+#: facture/templates/facture/facture_list.html:90
+#: facture/templates/facture/maintenances_a_facturer.html:158
 #: fournisseur/templates/fournisseur/fournisseur_list.html:124
 #: fuel/templates/fuel/fuel_list.html:195
 #: fuel/templates/fuel/fuel_stat.html:324
@@ -9028,6 +9071,8 @@ msgstr ""
 #: client_atelier/templates/client_atelier/client_atelier_list.html:134
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:127
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:136
+#: facture/templates/facture/facture_list.html:91
+#: facture/templates/facture/maintenances_a_facturer.html:159
 #: fournisseur/templates/fournisseur/fournisseur_list.html:125
 #: fuel/templates/fuel/fuel_list.html:196
 #: fuel/templates/fuel/fuel_stat.html:325
@@ -9165,6 +9210,7 @@ msgstr ""
 #: assurance/templates/assurance/dashboard_assurance.html:45
 #: carrosserie/templates/carrosserie/dashboard_carrosserie.html:33
 #: client_atelier/templates/client_atelier/dashboard_client.html:56
+#: facture/templates/facture/maintenances_a_facturer.html:138
 #: fournisseur/templates/fournisseur/fournisseur_dashboard.html:56
 #: fuel/templates/fuel/fuel_list.html:174
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:129
@@ -9262,7 +9308,7 @@ msgstr ""
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:68
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:47
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:81
-#: facture/models.py:17 fournisseur/models.py:27
+#: facture/models.py:28 fournisseur/models.py:27
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:79
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:90
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:61
@@ -9322,7 +9368,7 @@ msgstr ""
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:36
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:70
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:78
-#: fournisseur/models.py:64
+#: facture/templates/facture/facture_detail.html:28 fournisseur/models.py:64
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:90
 #: fournisseur/templates/fournisseur/fournisseur_list.html:67
 #: proprietaire/forms.py:75 proprietaire/models.py:64
@@ -9550,6 +9596,7 @@ msgstr ""
 #: client_atelier/templates/client_atelier/client_atelier_list.html:41
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:38
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:40
+#: facture/models.py:171
 msgid "Nom du client"
 msgstr ""
 
@@ -9595,7 +9642,7 @@ msgstr ""
 #: client_atelier/forms.py:214 client_atelier/models.py:63
 #: client_atelier/templates/client_atelier/client_atelier_list.html:54
 #: client_atelier/templates/client_atelier/client_atelier_list.html:69
-#: theme/templates/dashboard.html:288
+#: theme/templates/dashboard.html:290
 msgid "Voitures"
 msgstr ""
 
@@ -9786,8 +9833,8 @@ msgstr ""
 #: recharge/templates/recharge/recharge_list.html:46
 #: recharge/templates/recharge/recharge_list.html:80
 #: theme/templates/dashboard.html:42 theme/templates/dashboard.html:55
-#: theme/templates/dashboard.html:123 theme/templates/dashboard.html:674
-#: theme/templates/dashboard.html:689 utilisateurs/models.py:387
+#: theme/templates/dashboard.html:125 theme/templates/dashboard.html:676
+#: theme/templates/dashboard.html:691 utilisateurs/models.py:387
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:18
 msgid "Utilisateur"
 msgstr ""
@@ -9853,6 +9900,8 @@ msgstr ""
 #: _backup_list_templates/recharge/templates/recharge/recharge_list.html:88
 #: agenda/models.py:16 agenda/templates/agenda/agenda_detail.html:29
 #: agenda/templates/agenda/delete_agenda.html:68
+#: facture/templates/facture/facture_list.html:27
+#: facture/templates/facture/maintenances_a_facturer.html:60
 #: fuel/templates/fuel/fuel_list.html:66 fuel/templates/fuel/fuel_list.html:87
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:76
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:262
@@ -9948,7 +9997,7 @@ msgstr ""
 #: piece/models.py:135 piece/piece_fluides/models.py:194
 #: recharge/templates/recharge/recharge_list.html:88
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:307
-#: theme/templates/dashboard.html:118
+#: theme/templates/dashboard.html:120
 msgid "Date"
 msgstr "Date"
 
@@ -9956,7 +10005,10 @@ msgstr "Date"
 #: _backup_list_templates/recharge/templates/recharge/recharge_list.html:82
 #: agenda/models.py:28 agenda/templates/agenda/agenda_detail.html:81
 #: agenda/templates/agenda/agenda_list.html:75
-#: agenda/templates/agenda/delete_agenda.html:96 fuel/models.py:116
+#: agenda/templates/agenda/delete_agenda.html:96 facture/models.py:139
+#: facture/templates/facture/_entete_facture.html:20
+#: facture/templates/facture/facture_pdf.html:152
+#: facture/templates/facture/maintenances_a_facturer.html:63 fuel/models.py:116
 #: fuel/templates/fuel/fuel_list.html:81 maindoeuvre/models.py:37
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:277
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:361
@@ -11490,7 +11542,7 @@ msgstr ""
 #: outillage/templates/outillage/outillage_list.html:65
 #: stats_fournisseurs/forms.py:58
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:261
-#: theme/templates/dashboard.html:458
+#: theme/templates/dashboard.html:460
 msgid "Fournisseur"
 msgstr ""
 
@@ -11544,6 +11596,10 @@ msgstr ""
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:41
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:54
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:83
+#: facture/templates/facture/_entete_facture.html:6
+#: facture/templates/facture/delete_facture.html:55
+#: facture/templates/facture/facture_form.html:120
+#: facture/templates/facture/facture_list.html:28
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:41
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:54
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:310
@@ -11752,6 +11808,8 @@ msgstr ""
 #: _backup_list_templates/proprietaire/templates/proprietaire/proprietaire_list.html:64
 #: agenda/models.py:69
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:88
+#: facture/models.py:113 facture/models.py:460
+#: facture/templates/facture/maintenances_a_facturer.html:95
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:272
 #: maintenance/autres_interventions/abs/models.py:246
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:336
@@ -11878,7 +11936,7 @@ msgstr ""
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:50
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:66
 #: recharge/templates/recharge/electricite_stat.html:71
-#: theme/templates/dashboard.html:293
+#: theme/templates/dashboard.html:295
 msgid "Voiture"
 msgstr ""
 
@@ -12337,7 +12395,8 @@ msgstr ""
 #: carrosserie/models.py:48
 #: carrosserie/templates/carrosserie/carrosserie_detail.html:70
 #: carrosserie/templates/carrosserie/delete_carrosserie.html:75
-#: facture/models.py:30 fournisseur/models.py:49
+#: facture/models.py:41 facture/templates/facture/facture_detail.html:30
+#: fournisseur/models.py:49
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:73
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:60
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:82
@@ -12348,6 +12407,7 @@ msgstr ""
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:44
 #: client_particulier/templates/client_particulier/client_detail.html:46
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:52
+#: facture/templates/facture/facture_pdf.html:125
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:235
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:301
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:288
@@ -12569,6 +12629,7 @@ msgstr ""
 #: client_pilotage/templates/client_pilotage/client_pilotage_form.html:84
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:140
 #: client_pilotage/templates/client_pilotage/modifier_client_pilotage.html:87
+#: facture/templates/facture/delete_facture.html:95
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:140
 #: fournisseur/templates/fournisseur/fournisseur_form.html:69
 #: fournisseur/templates/fournisseur/modifier_fournisseur.html:89
@@ -12760,6 +12821,7 @@ msgstr ""
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:179
 #: societe_cliente/templates/societe_cliente/modifier_societe_cliente.html:84
 #: societe_cliente/templates/societe_cliente/societe_cliente_form.html:83
+#: theme/templates/base.html:225
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:108
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:109
 #: voiture/voiture_boite/templates/voiture_boite/ajouter_boite.html:75
@@ -12824,8 +12886,12 @@ msgstr "Tableau de Bord"
 msgid "Fournisseur concerné"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/delete_achat.html:37 facture/models.py:92
-#: facture/models.py:102
+#: achat_mds/templates/achat_mds/delete_achat.html:37 facture/models.py:221
+#: facture/models.py:338 facture/templates/facture/_entete_facture.html:5
+#: facture/templates/facture/delete_facture.html:53
+#: facture/templates/facture/facture_detail.html:4
+#: facture/templates/facture/facture_form.html:4
+#: facture/templates/facture/facture_pdf.html:136 facture/views.py:275
 msgid "Facture"
 msgstr ""
 
@@ -12834,6 +12900,7 @@ msgid "Non payée"
 msgstr ""
 
 #: achat_mds/templates/achat_mds/delete_achat.html:63
+#: facture/templates/facture/facture_detail.html:36
 #: outillage/templates/outillage/delete_outillage.html:89
 msgid "Montants"
 msgstr ""
@@ -12843,7 +12910,12 @@ msgstr ""
 msgid "Montant TVA"
 msgstr ""
 
-#: achat_mds/templates/achat_mds/delete_achat.html:83
+#: achat_mds/templates/achat_mds/delete_achat.html:83 facture/models.py:199
+#: facture/templates/facture/delete_facture.html:67
+#: facture/templates/facture/facture_detail.html:41
+#: facture/templates/facture/facture_form.html:172
+#: facture/templates/facture/facture_list.html:31
+#: facture/templates/facture/facture_pdf.html:259
 #: outillage/templates/outillage/delete_outillage.html:100
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:77
 msgid "Total TVAC"
@@ -12858,6 +12930,8 @@ msgstr ""
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:155
 #: client_particulier/templates/client_particulier/delete_client.html:156
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:129
+#: facture/templates/facture/delete_facture.html:88
+#: facture/templates/facture/facture_form.html:129
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:129
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:135
 #: maintenance/autres_interventions/abs/templates/abs/delete_abs.html:38
@@ -12949,20 +13023,23 @@ msgstr ""
 #: adresse/forms.py:25 adresse/models.py:21
 #: adresse/templates/adresse/adresse_detail.html:35
 #: adresse/templates/adresse/delete_adresse.html:68 assurance/forms.py:24
-#: client_atelier/forms.py:120 fournisseur/forms.py:23 utilisateurs/forms.py:97
+#: client_atelier/forms.py:120
+#: facture/templates/facture/_entete_facture.html:16
+#: facture/templates/facture/facture_list.html:26 fournisseur/forms.py:23
+#: utilisateurs/forms.py:97
 msgid "Numéro"
 msgstr ""
 
 #: adresse/forms.py:30 adresse/models.py:27
 #: adresse/templates/adresse/adresse_detail.html:60 assurance/forms.py:65
-#: client_atelier/forms.py:161 facture/models.py:36 fournisseur/forms.py:64
+#: client_atelier/forms.py:161 facture/models.py:47 fournisseur/forms.py:64
 #: fournisseur/models.py:55
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:76
 msgid "Code pays"
 msgstr ""
 
-#: adresse/models.py:34 theme/templates/dashboard.html:559
-#: theme/templates/dashboard.html:571
+#: adresse/models.py:34 theme/templates/dashboard.html:561
+#: theme/templates/dashboard.html:573
 msgid "Adresses"
 msgstr ""
 
@@ -13039,6 +13116,7 @@ msgstr ""
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:148
 #: client_particulier/templates/client_particulier/delete_client.html:149
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:122
+#: facture/templates/facture/delete_facture.html:83
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:122
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:128
 #: outillage/templates/outillage/delete_outillage.html:127
@@ -13116,6 +13194,8 @@ msgstr ""
 #: agenda/models.py:49 agenda/templates/agenda/agenda_detail.html:64
 #: agenda/templates/agenda/delete_agenda.html:86
 #: assurance_police/templates/assurance_police/delete_assurance_police.html:69
+#: facture/models.py:101 facture/templates/facture/_entete_facture.html:11
+#: facture/templates/facture/facture_list.html:32
 msgid "Statut"
 msgstr ""
 
@@ -13329,6 +13409,7 @@ msgstr "Tableau de Bord"
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:28
 #: client_particulier/templates/client_particulier/delete_client.html:28
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:28
+#: facture/templates/facture/delete_facture.html:22
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:28
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:28
 #: outillage/templates/outillage/delete_outillage.html:27
@@ -13345,6 +13426,7 @@ msgstr ""
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:60
 #: client_particulier/templates/client_particulier/delete_client.html:45
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:45
+#: facture/templates/facture/delete_facture.html:35
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:45
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:52
 #: outillage/templates/outillage/delete_outillage.html:56
@@ -13449,11 +13531,11 @@ msgstr ""
 #: assurance/templates/assurance/modifier_assurance.html:62
 #: assurance/views.py:235
 #: assurance_police/templates/assurance_police/modifier_assurance_police.html:58
-#: theme/templates/dashboard.html:611
+#: theme/templates/dashboard.html:613
 msgid "Assurance"
 msgstr ""
 
-#: assurance/models.py:49 theme/templates/dashboard.html:606
+#: assurance/models.py:49 theme/templates/dashboard.html:608
 msgid "Assurances"
 msgstr ""
 
@@ -13545,13 +13627,13 @@ msgstr ""
 #: maintenance/templates/maintenance/choisir_type.html:176
 #: proprietaire/templates/proprietaire/proprietaire_dashboard.html:27
 #: proprietaire/templates/proprietaire/proprietaire_dashboard.html:42
-#: theme/templates/dashboard.html:201 theme/templates/dashboard.html:223
-#: theme/templates/dashboard.html:245 theme/templates/dashboard.html:307
-#: theme/templates/dashboard.html:329 theme/templates/dashboard.html:351
-#: theme/templates/dashboard.html:388 theme/templates/dashboard.html:450
-#: theme/templates/dashboard.html:472 theme/templates/dashboard.html:519
-#: theme/templates/dashboard.html:541 theme/templates/dashboard.html:563
-#: theme/templates/dashboard.html:625 theme/templates/dashboard.html:647
+#: theme/templates/dashboard.html:203 theme/templates/dashboard.html:225
+#: theme/templates/dashboard.html:247 theme/templates/dashboard.html:309
+#: theme/templates/dashboard.html:331 theme/templates/dashboard.html:353
+#: theme/templates/dashboard.html:390 theme/templates/dashboard.html:452
+#: theme/templates/dashboard.html:474 theme/templates/dashboard.html:521
+#: theme/templates/dashboard.html:543 theme/templates/dashboard.html:565
+#: theme/templates/dashboard.html:627 theme/templates/dashboard.html:649
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:19
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:31
 #: voiture/voiture_marque/templates/voiture_marque/dashboard_voiture.html:17
@@ -13782,6 +13864,7 @@ msgid "N° de contrat"
 msgstr ""
 
 #: assurance_police/templates/assurance_police/delete_assurance_police.html:63
+#: facture/templates/facture/tva.html:30
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:286
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:66
 msgid "Période"
@@ -13893,7 +13976,8 @@ msgstr ""
 #: carrosserie/models.py:46
 #: carrosserie/templates/carrosserie/carrosserie_detail.html:51
 #: carrosserie/templates/carrosserie/delete_carrosserie.html:72
-#: fournisseur/models.py:36
+#: facture/templates/facture/facture_detail.html:27
+#: facture/templates/facture/facture_pdf.html:122 fournisseur/models.py:36
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:65
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:38
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:229
@@ -13939,7 +14023,7 @@ msgstr ""
 
 #: carrosserie/models.py:68
 #: carrosserie/templates/carrosserie/dashboard_carrosserie.html:16
-#: theme/templates/dashboard.html:406
+#: theme/templates/dashboard.html:408
 msgid "Carrosseries"
 msgstr ""
 
@@ -14093,7 +14177,7 @@ msgstr ""
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:106
 #: client_pilotage/forms.py:26 panier/models.py:42
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:66
-#: theme/templates/dashboard.html:549
+#: theme/templates/dashboard.html:551
 msgid "Société cliente"
 msgstr ""
 
@@ -14205,6 +14289,7 @@ msgstr ""
 
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:93
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:68
+#: facture/models.py:70 facture/models.py:149
 msgid "Client particulier"
 msgstr ""
 
@@ -14323,14 +14408,18 @@ msgid ""
 msgstr "Tableau de Bord"
 
 #: client_particulier/templates/client_particulier/delete_client.html:66
-#: facture/models.py:76
+#: facture/templates/facture/delete_facture.html:58
+#: facture/templates/facture/facture_detail.html:24
+#: facture/templates/facture/facture_list.html:29
+#: facture/templates/facture/maintenances_a_facturer.html:64
+#: facture/templates/facture/maintenances_a_facturer.html:113
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:21
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:179
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:344
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:20
 #: panier/models.py:33
 #: societe_cliente/templates/societe_cliente/societe_cliente_form.html:13
-#: theme/templates/dashboard.html:527 voiture/voiture_exemplaire/models.py:14
+#: theme/templates/dashboard.html:529 voiture/voiture_exemplaire/models.py:14
 msgid "Client"
 msgstr ""
 
@@ -14399,6 +14488,7 @@ msgid "Intermédiaire"
 msgstr ""
 
 #: client_pilotage/models.py:48
+#: facture/templates/facture/maintenances_a_facturer.html:117
 msgid "Pro"
 msgstr ""
 
@@ -14536,73 +14626,1572 @@ msgstr ""
 msgid "Suppression du client pilotage"
 msgstr "Tableau de Bord"
 
-#: facture/models.py:32
+#: facture/forms.py:42 facture/models.py:155
+msgid "Client professionnel"
+msgstr ""
+
+#: facture/forms.py:80
+msgid "Indiquez un coût ou un prix unitaire."
+msgstr ""
+
+#: facture/forms.py:119
+msgid "Effacer la clé de test"
+msgstr ""
+
+#: facture/forms.py:120
+msgid "Effacer la clé de production"
+msgstr ""
+
+#: facture/forms.py:127
+msgid "•••••• (enregistrée – laisser vide pour la conserver)"
+msgstr ""
+
+#: facture/forms.py:142
+msgid "Format attendu : schéma:identifiant, ex. 0208:0123456789"
+msgstr ""
+
+#: facture/forms.py:151
+msgid "URL obligatoire pour l'environnement sélectionné."
+msgstr ""
+
+#: facture/forms.py:154
+msgid "Clé API obligatoire pour l'environnement sélectionné."
+msgstr ""
+
+#: facture/forms.py:156
+msgid "Indiquez le nom de l'en-tête."
+msgstr ""
+
+#: facture/models.py:43
 msgid "Ex : 0208:BE0123456789"
 msgstr ""
 
-#: facture/models.py:45 facture/models.py:69
+#: facture/models.py:56 facture/models.py:118
 msgid "Société émettrice"
 msgstr ""
 
-#: facture/models.py:46
+#: facture/models.py:57
 msgid "Sociétés émettrices"
 msgstr ""
 
-#: facture/models.py:55
+#: facture/models.py:71
+msgid "Professionnel"
+msgstr ""
+
+#: facture/models.py:74 facture/templates/facture/facture_form.html:4
+#: facture/templates/facture/maintenances_a_facturer.html:103
+msgid "Brouillon"
+msgstr ""
+
+#: facture/models.py:75
+msgid "Émise"
+msgstr ""
+
+#: facture/models.py:78
 msgid "Identifiant facture"
 msgstr ""
 
-#: facture/models.py:62
+#: facture/models.py:86
 msgid "Numéro de facture"
 msgstr ""
 
-#: facture/models.py:83
+#: facture/models.py:94
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Type de facture"
+msgstr "Tableau de Bord"
+
+#: facture/models.py:130 maintenance/autres_interventions/models.py:152
+#: maintenance/models.py:159 theme/templates/dashboard.html:199
+msgid "Maintenances"
+msgstr ""
+
+#: facture/models.py:164
+msgid "Facturer à notre société"
+msgstr ""
+
+#: facture/models.py:166
+msgid "La société émettrice est aussi le client (véhicule de la société)."
+msgstr ""
+
+#: facture/models.py:172
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Adresse du client"
+msgstr "Tableau de Bord"
+
+#: facture/models.py:173
+msgid "TVA du client"
+msgstr ""
+
+#: facture/models.py:174
+msgid "Email du client"
+msgstr ""
+
+#: facture/models.py:176 facture/templates/facture/facture_detail.html:37
+#: facture/templates/facture/facture_pdf.html:146
 msgid "Date d’émission"
 msgstr ""
 
-#: facture/models.py:84
+#: facture/models.py:177 facture/templates/facture/facture_detail.html:38
+#: facture/templates/facture/facture_pdf.html:148
+msgid "Date d'échéance"
+msgstr ""
+
+#: facture/models.py:178
 msgid "Devise"
 msgstr ""
 
-#: facture/models.py:86
-msgid "Total"
+#: facture/models.py:182
+msgid "Marge pièces (%)"
 msgstr ""
 
-#: facture/models.py:93
+#: facture/models.py:188
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Marge main-d'œuvre (%)"
+msgstr "Tableau de Bord"
+
+#: facture/models.py:195 facture/templates/facture/facture_detail.html:43
+msgid "Autoliquidation TVA"
+msgstr ""
+
+#: facture/models.py:204
+msgid "XML UBL"
+msgstr ""
+
+#: facture/models.py:205 facture/templates/facture/facture_detail.html:86
+msgid "Envoyée via Peppol le"
+msgstr ""
+
+#: facture/models.py:206
+msgid "Réponse Peppol"
+msgstr ""
+
+#: facture/models.py:208
+msgid "Émise le"
+msgstr ""
+
+#: facture/models.py:215 maintenance/templates/maintenance/detail.html:31
+msgid "Créée par"
+msgstr ""
+
+#: facture/models.py:222 facture/templates/facture/facture_list.html:4
+#: facture/templates/facture/facture_list.html:12
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:62
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:95
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:136
 msgid "Factures"
 msgstr ""
 
-#: facture/models.py:96
+#: facture/models.py:226
 #, python-format
 msgid "Facture %(numero)s"
 msgstr ""
 
-#: facture/models.py:109
+#: facture/models.py:226 facture/templates/facture/facture_pdf.html:137
+#: facture/views.py:69
+msgid "brouillon"
+msgstr ""
+
+#: facture/models.py:332
+#: maintenance/templates/maintenance/partials/intervention_detail.html:135
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Pièce / produit"
+msgstr "Tableau de Bord"
+
+#: facture/models.py:334 investissements/models.py:57
+#: maintenance/autres_interventions/climatisation/models.py:49
+#: maintenance/autres_interventions/moteur/injection/models.py:25
+#: maintenance/choices.py:142 maintenance/choices.py:186
+#: maintenance/choices.py:234 maintenance/choices.py:314
+#: maintenance/choices.py:437 maintenance/choices.py:467
+#: maintenance/choices.py:520 maintenance/choices.py:599
+#: maintenance/choices.py:669 maintenance/choices.py:748
+#: maintenance/choices.py:850 maintenance/choices.py:935
+#: maintenance/choices.py:969 maintenance/choices.py:1003
+#: maintenance/choices.py:1037 maintenance/choices.py:1065
+#: maintenance/choices.py:1127 maintenance/choices.py:1189
+#: maintenance/choices.py:1236 maintenance/choices.py:1299
+#: maintenance/choices.py:1358 maintenance/choices.py:1403
+#: maintenance/choices.py:1807 maintenance/choices.py:1882
+#: maintenance/choices.py:1939 maintenance/choices.py:2135
+#: maintenance/choices.py:2284 maintenance/choices.py:2358
+#: maintenance/choices.py:2425 maintenance/choices.py:2505
+#: maintenance/choices.py:2553 maintenance/pneus/models.py:52
+#: piece/piece_roue_rechange/models.py:10
+msgid "Autre"
+msgstr ""
+
+#: facture/models.py:355
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Type de ligne"
+msgstr "Tableau de Bord"
+
+#: facture/models.py:361
+msgid "Ordre"
+msgstr ""
+
+#: facture/models.py:363 facture/templates/facture/facture_detail.html:53
+#: facture/templates/facture/facture_form.html:121
+#: facture/templates/facture/facture_pdf.html:208
 msgid "Description"
 msgstr ""
 
-#: facture/models.py:118
-msgid "Prix unitaire"
+#: facture/models.py:375
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Coût unitaire HTVA"
+msgstr "Tableau de Bord"
+
+#: facture/models.py:383 panier/models.py:116
+msgid "Marge (%)"
 msgstr ""
 
-#: facture/models.py:127
+#: facture/models.py:391 facture/templates/facture/facture_detail.html:57
+#: facture/templates/facture/facture_form.html:126
+#: facture/templates/facture/facture_pdf.html:210
+#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:614
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:657
+#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:772
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1516
+#: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:273
+#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:911
+#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:505
+#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1155
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:669
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:617
+#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:798
+#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:752
+#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:554
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:603
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1070
+#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:756
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:823
+#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:649
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1842
+#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:383
+#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2935
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2527
+#: maintenance/eclairage/templates/eclairage/eclairage_detail_pdf.html:672
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1166
+#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:847
+#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:870
+#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1212
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:460
+#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:513
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:516
+#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:602
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:744
+#: outillage/templates/outillage/delete_outillage.html:91
+msgid "Prix unitaire HTVA"
+msgstr ""
+
+#: facture/models.py:402
 msgid "Taux de TVA : 6, 12, 21"
 msgstr ""
 
-#: facture/models.py:131
+#: facture/models.py:406
 msgid "Ligne de facture"
 msgstr ""
 
-#: facture/models.py:132
+#: facture/models.py:407
 msgid "Lignes de facture"
 msgstr ""
 
-#: facture/models.py:135
+#: facture/models.py:411
 #, python-format
 msgid "%(desc)s (%(facture)s)"
+msgstr ""
+
+#: facture/models.py:449
+msgid "Test (sandbox)"
+msgstr ""
+
+#: facture/models.py:450
+msgid "Production"
+msgstr ""
+
+#: facture/models.py:453
+msgid "Bearer token (Authorization: Bearer …)"
+msgstr ""
+
+#: facture/models.py:454
+msgid "Clé API dans un en-tête personnalisé"
+msgstr ""
+
+#: facture/models.py:463 facture/templates/facture/parametres_peppol.html:26
+msgid "Envoi Peppol activé"
+msgstr ""
+
+#: facture/models.py:465
+msgid "Environnement utilisé"
+msgstr ""
+
+#: facture/models.py:473
+msgid "Identifiant Peppol émetteur"
+msgstr ""
+
+#: facture/models.py:476
+msgid ""
+"Ex : 0208:0123456789 (numéro d'entreprise belge). Vide : déduit du numéro de "
+"TVA."
+msgstr ""
+
+#: facture/models.py:480
+msgid "URL du serveur de test"
+msgstr ""
+
+#: facture/models.py:481
+msgid "Clé API de test"
+msgstr ""
+
+#: facture/models.py:484
+msgid "URL du serveur de production"
+msgstr ""
+
+#: facture/models.py:485
+msgid "Clé API de production"
+msgstr ""
+
+#: facture/models.py:488
+msgid "Authentification"
+msgstr ""
+
+#: facture/models.py:494
+msgid "Nom de l'en-tête de la clé API"
+msgstr ""
+
+#: facture/models.py:499
+msgid "Délai maximum (secondes)"
+msgstr ""
+
+#: facture/models.py:502
+msgid "Envoyer automatiquement à l'émission"
+msgstr ""
+
+#: facture/models.py:504
+msgid ""
+"Les factures professionnelles sont envoyées via Peppol dès leur émission."
+msgstr ""
+
+#: facture/models.py:507 facture/templates/facture/parametres_peppol.html:49
+msgid "Dernier test de connexion"
+msgstr ""
+
+#: facture/models.py:508
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Résultat du dernier test"
+msgstr "Tableau de Bord"
+
+#: facture/models.py:509
+msgid "Dernier test réussi"
+msgstr ""
+
+#: facture/models.py:515 facture/models.py:516
+#: facture/templates/facture/facture_detail.html:110
+#: facture/templates/facture/maintenances_a_facturer.html:28
+#: facture/templates/facture/parametres_peppol.html:4
+msgid "Paramètres Peppol"
+msgstr ""
+
+#: facture/models.py:519
+#, python-format
+msgid "Paramètres Peppol – %(societe)s"
+msgstr ""
+
+#: facture/services.py:156
+#, python-format
+msgid "Main-d'œuvre – %(type)s (%(temps)s)"
+msgstr ""
+
+#: facture/services.py:228
+msgid "La facture ne contient aucune ligne."
+msgstr ""
+
+#: facture/services.py:233
+msgid "Société émettrice introuvable."
+msgstr ""
+
+#: facture/services.py:236 facture/services.py:250
+msgid "Votre société n'a pas de numéro de TVA."
+msgstr ""
+
+#: facture/services.py:238 facture/services.py:252
+msgid "Votre société n'a pas d'adresse."
+msgstr ""
+
+#: facture/services.py:242
+msgid "Sélectionnez le client professionnel."
+msgstr ""
+
+#: facture/services.py:245
+msgid "Le client professionnel n'a pas de numéro de TVA."
+msgstr ""
+
+#: facture/services.py:247
+msgid "Le client professionnel n'a pas d'adresse."
+msgstr ""
+
+#: facture/services.py:255
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Sélectionnez le client particulier."
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/_entete_facture.html:16
+msgid "attribué à l'émission"
+msgstr ""
+
+#: facture/templates/facture/_entete_facture.html:33
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Maintenances facturées"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/delete_facture.html:9
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer le brouillon de facture"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/delete_facture.html:15
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Ce brouillon ne peut pas être supprimé car il est encore utilisé."
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/delete_facture.html:17
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Voulez-vous vraiment supprimer ce brouillon de facture ? Cette action est "
+"irréversible."
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/delete_facture.html:48
+msgid ""
+"Les maintenances, le véhicule et le client ne seront pas supprimés : les "
+"maintenances redeviennent « à facturer »."
+msgstr ""
+
+#: facture/templates/facture/delete_facture.html:64
+msgid "Lignes"
+msgstr ""
+
+#: facture/templates/facture/facture_detail.html:12
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Détails de la facture :"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/facture_detail.html:42
+#: facture/templates/facture/facture_form.html:104
+msgid "Marge totale"
+msgstr ""
+
+#: facture/templates/facture/facture_detail.html:49
+#: facture/templates/facture/facture_form.html:111
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Lignes de la facture"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/facture_detail.html:55
+#: facture/templates/facture/facture_form.html:124
+msgid "Coût HTVA"
+msgstr ""
+
+#: facture/templates/facture/facture_detail.html:56
+#: facture/templates/facture/facture_form.html:125
+#, python-format
+msgid "Marge %%"
+msgstr ""
+
+#: facture/templates/facture/facture_detail.html:58
+#: facture/templates/facture/facture_form.html:127
+#, python-format
+msgid "TVA %%"
+msgstr ""
+
+#: facture/templates/facture/facture_detail.html:81
+msgid "Facture électronique (UBL / Peppol)"
+msgstr ""
+
+#: facture/templates/facture/facture_detail.html:83
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Serveur de test"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/facture_detail.html:94
+msgid "Télécharger le XML"
+msgstr ""
+
+#: facture/templates/facture/facture_detail.html:99
+msgid "La facture sera envoyée au client via le réseau Peppol."
+msgstr ""
+
+#: facture/templates/facture/facture_detail.html:100
+msgid "Envoyer via Peppol ?"
+msgstr ""
+
+#: facture/templates/facture/facture_detail.html:101
+msgid "Envoyer"
+msgstr ""
+
+#: facture/templates/facture/facture_detail.html:104
+msgid "Envoyer via Peppol"
+msgstr ""
+
+#: facture/templates/facture/facture_detail.html:109
+msgid "Envoi Peppol non configuré."
+msgstr ""
+
+#: facture/templates/facture/facture_detail.html:126
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Retour à la liste des factures"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/facture_form.html:13
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Facture professionnelle"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/facture_form.html:13
+#: facture/templates/facture/maintenances_a_facturer.html:47
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Facture client particulier"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/facture_form.html:14
+msgid "Brouillon – vérifiez avant d'émettre"
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:19
+msgid "Aperçu PDF"
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:36
+msgid "Client et dates"
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:48
+msgid ""
+"Le numéro de TVA, l'adresse et l'identifiant Peppol du client sont repris "
+"dans le XML."
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:72
+msgid "Imprimées sur la facture."
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:77
+msgid "Marges"
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:90
+msgid "Appliquer ces marges à toutes les lignes"
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:93
+msgid ""
+"La marge de chaque ligne reste modifiable dans le tableau ci-dessous. Coûts "
+"et marges n'apparaissent ni sur le PDF ni dans le XML."
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:100
+#, python-format
+msgid ""
+"Client assujetti dans un autre pays de l'UE : TVA à 0 %%, mention "
+"« autoliquidation »."
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:152
+msgid ""
+"Avec un coût, le prix unitaire est calculé : coût × (1 + marge). Sans coût, "
+"le prix unitaire saisi est utilisé tel quel. La dernière ligne vide permet "
+"d'ajouter une ligne libre."
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:158
+msgid "Totaux"
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:162
+#: facture/templates/facture/facture_pdf.html:242
+#: facture/templates/facture/tva.html:120
+#: facture/templates/facture/tva.html:163
+msgid "Base HTVA"
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:166
+#: facture/templates/facture/facture_pdf.html:166
+#: facture/templates/facture/facture_pdf.html:176
+#: facture/templates/facture/facture_pdf.html:211
+#: facture/templates/facture/facture_pdf.html:246
+#: facture/templates/facture/maintenances_a_facturer.html:23
+#: facture/templates/facture/tva.html:4 facture/templates/facture/tva.html:121
+#: fuel/models.py:207
+#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:452
+#: piece/templates/piece/piece_detail.html:40
+#: piece/templates/piece/piece_form.html:100 recharge/models.py:207
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:97
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:138
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:312
+msgid "TVA"
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:180
+msgid "Enregistrer le brouillon"
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:183
+msgid "La facture recevra un numéro définitif et ne pourra plus être modifiée."
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:184
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Émettre la facture ?"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/facture_form.html:185
+msgid "Émettre"
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:188
+msgid "Émettre la facture (PDF + XML)"
+msgstr ""
+
+#: facture/templates/facture/facture_form.html:188
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Émettre la facture"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/facture_form.html:196
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Supprimer le brouillon"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/facture_form.html:203
+#: facture/templates/facture/facture_list.html:71
+#: facture/templates/facture/parametres_peppol.html:182
+#: facture/templates/facture/tva.html:238
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Retour à la facturation"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/facture_list.html:16
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Facturer une maintenance"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/facture_list.html:81
+msgid "Aucune facture."
+msgstr ""
+
+#: facture/templates/facture/facture_list.html:84
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ factures"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/facture_pdf.html:16
+msgid "Page"
+msgstr ""
+
+#: facture/templates/facture/facture_pdf.html:101
+msgid "BROUILLON"
+msgstr ""
+
+#: facture/templates/facture/facture_pdf.html:154
+msgid "VIN"
+msgstr ""
+
+#: facture/templates/facture/facture_pdf.html:178
+msgid "Client non sélectionné"
+msgstr ""
+
+#: facture/templates/facture/facture_pdf.html:192
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Interventions"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/facture_pdf.html:203
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Pièces, produits et main-d'œuvre"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/facture_pdf.html:220
+msgid "Réf."
+msgstr ""
+
+#: facture/templates/facture/facture_pdf.html:230
+msgid "Aucune ligne."
+msgstr ""
+
+#: facture/templates/facture/facture_pdf.html:267
+msgid ""
+"Autoliquidation – TVA due par le cocontractant (article 196 de la directive "
+"2006/112/CE)."
+msgstr ""
+
+#: facture/templates/facture/facture_pdf.html:273
+msgid "Merci d'effectuer le paiement sur le compte"
+msgstr ""
+
+#: facture/templates/facture/facture_pdf.html:274
+msgid "avant le"
+msgstr ""
+
+#: facture/templates/facture/facture_pdf.html:275
+msgid "avec la communication"
+msgstr ""
+
+#: facture/templates/facture/facture_pdf.html:285
+#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:763
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:809
+#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:928
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1665
+#: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:333
+#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:1063
+#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:655
+#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1340
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:826
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:773
+#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:945
+#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:894
+#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:704
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:747
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1254
+#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:909
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:993
+#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:790
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:2036
+#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:548
+#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:3114
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2708
+#: maintenance/eclairage/templates/eclairage/eclairage_detail_pdf.html:821
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1315
+#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:1049
+#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:1022
+#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1376
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:604
+#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:668
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:675
+#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:763
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:903
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:373
+msgid "Document généré automatiquement par CarsCosts.com."
+msgstr ""
+
+#: facture/templates/facture/facture_pdf.html:287
+#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:765
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:811
+#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:930
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1667
+#: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:335
+#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:1065
+#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:657
+#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1344
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:828
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:775
+#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:947
+#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:896
+#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:706
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:749
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1256
+#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:911
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:995
+#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:792
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:2040
+#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:550
+#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:3116
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2710
+#: maintenance/eclairage/templates/eclairage/eclairage_detail_pdf.html:823
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1317
+#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:1053
+#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:1024
+#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1378
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:606
+#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:670
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:677
+#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:765
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:321
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:905
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:375
+msgid "Date export"
+msgstr ""
+
+#: facture/templates/facture/maintenances_a_facturer.html:4
+#: facture/templates/facture/maintenances_a_facturer.html:65
+#: facture/templates/facture/parametres_peppol.html:15
+#: facture/templates/facture/tva.html:20 theme/templates/dashboard.html:715
+msgid "Facturation"
+msgstr ""
+
+#: facture/templates/facture/maintenances_a_facturer.html:13
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Facturation des maintenances"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/maintenances_a_facturer.html:19
+msgid "Factures émises et brouillons"
+msgstr ""
+
+#: facture/templates/facture/maintenances_a_facturer.html:37
+msgid ""
+"Cochez une ou plusieurs maintenances d'un même véhicule, puis choisissez le "
+"type de facture. Vous pourrez ensuite ajuster les marges et les lignes avant "
+"d'émettre la facture."
+msgstr ""
+
+#: facture/templates/facture/maintenances_a_facturer.html:51
+msgid "Facture professionnelle (XML)"
+msgstr ""
+
+#: facture/templates/facture/maintenances_a_facturer.html:59
+msgid "Tout cocher"
+msgstr ""
+
+#: facture/templates/facture/maintenances_a_facturer.html:66
+msgid "Facturer"
+msgstr ""
+
+#: facture/templates/facture/maintenances_a_facturer.html:107
+msgid "À facturer"
+msgstr ""
+
+#: facture/templates/facture/maintenances_a_facturer.html:149
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Aucune maintenance enregistrée."
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/maintenances_a_facturer.html:152
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ maintenances"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/maintenances_a_facturer.html:153
+#: facture/templates/facture/maintenances_a_facturer.html:154
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Aucune maintenance trouvée"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/parametres_peppol.html:12
+msgid "Paramètres de facturation Peppol"
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:28
+msgid "Activé mais incomplet"
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:30
+msgid "Envoi Peppol désactivé"
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:32
+msgid "Environnement"
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:37
+msgid "Envoi automatique à l'émission"
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:41
+msgid "Identifiant émetteur"
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:44
+msgid "Saisi dans les paramètres."
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:44
+msgid "Déduit du numéro de TVA de la société."
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:56
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Aucun test effectué."
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/parametres_peppol.html:63
+msgid ""
+"Un point d'accès est aussi défini dans settings.py : il n'est utilisé que si "
+"l'envoi n'est pas activé ici."
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:76
+#: maintenance/check_up/admin.py:57
+msgid "Général"
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:89
+msgid ""
+"Utilisez le serveur de test tant que les factures n'ont pas été validées par "
+"votre fournisseur Peppol."
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:108
+msgid "Serveur de test (sandbox)"
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:109
+#: facture/templates/facture/parametres_peppol.html:132
+msgid "utilisé"
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:124
+msgid "Enregistrer et tester le serveur de test"
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:131
+msgid "Serveur de production"
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:147
+msgid "Enregistrer et tester le serveur de production"
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:154
+msgid "Authentification et connexion"
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:170
+msgid ""
+"Ces informations sont fournies par votre point d'accès Peppol (Access "
+"Point). Les clés API ne sont jamais réaffichées."
+msgstr ""
+
+#: facture/templates/facture/parametres_peppol.html:176
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Enregistrer les paramètres"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/tva.html:13
+msgid "TVA à payer et à récupérer"
+msgstr ""
+
+#: facture/templates/facture/tva.html:15
+msgid "Du"
+msgstr ""
+
+#: facture/templates/facture/tva.html:15
+msgid "au"
+msgstr ""
+
+#: facture/templates/facture/tva.html:32 facture/templates/facture/tva.html:44
+#: fuel/templates/fuel/fuel_exemplaire_stat.html:87
+#: fuel/templates/fuel/fuel_exemplaire_stat.html:153
+#: fuel/templates/fuel/fuel_stat.html:230
+#: fuel/templates/fuel/fuel_stat.html:292
+#: recharge/templates/recharge/electricite_exemplaire_stat.html:86
+#: recharge/templates/recharge/electricite_exemplaire_stat.html:141
+#: recharge/templates/recharge/electricite_exemplaire_stat.html:182
+#: recharge/templates/recharge/electricite_stat.html:111
+#: recharge/templates/recharge/electricite_stat.html:183
+#: stats_fournisseurs/forms.py:23
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:94
+#: utilisateurs/models.py:391
+msgid "Mois"
+msgstr ""
+
+#: facture/templates/facture/tva.html:33 facture/templates/facture/tva.html:50
+msgid "Trimestre"
+msgstr ""
+
+#: facture/templates/facture/tva.html:34 facture/templates/facture/tva.html:38
+#: fuel/templates/fuel/fuel_exemplaire_stat.html:118
+#: fuel/templates/fuel/fuel_exemplaire_stat.html:161
+#: fuel/templates/fuel/fuel_stat.html:257
+#: fuel/templates/fuel/fuel_stat.html:300
+#: maintenance/templates/maintenance/list.html:62 piece/models.py:77
+#: piece/templates/piece/piece_detail.html:29
+#: recharge/templates/recharge/electricite_exemplaire_stat.html:114
+#: recharge/templates/recharge/electricite_exemplaire_stat.html:190
+#: recharge/templates/recharge/electricite_stat.html:138
+#: recharge/templates/recharge/electricite_stat.html:195
+#: stats_fournisseurs/forms.py:12
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:135
+#: utilisateurs/models.py:395
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/list.html:62
+msgid "Année"
+msgstr ""
+
+#: facture/templates/facture/tva.html:60
+msgid "Pays de la déclaration"
+msgstr ""
+
+#: facture/templates/facture/tva.html:69
+#, python-format
+msgid "Part de TVA déductible (%%)"
+msgstr ""
+
+#: facture/templates/facture/tva.html:80
+#, python-format
+msgid ""
+"Ex. : en Belgique, la TVA sur le carburant d'une voiture de société n'est "
+"souvent déductible qu'à 50 %%. Vérifiez avec votre comptable."
+msgstr ""
+
+#: facture/templates/facture/tva.html:84
+msgid "Calculer"
+msgstr ""
+
+#: facture/templates/facture/tva.html:91
+msgid "TVA à payer (ventes)"
+msgstr ""
+
+#: facture/templates/facture/tva.html:93
+msgid "facture(s) émise(s)"
+msgstr ""
+
+#: facture/templates/facture/tva.html:96
+msgid "TVA à récupérer (achats)"
+msgstr ""
+
+#: facture/templates/facture/tva.html:98 facture/templates/facture/tva.html:164
+msgid "TVA payée"
+msgstr ""
+
+#: facture/templates/facture/tva.html:101
+msgid "Solde"
+msgstr ""
+
+#: facture/templates/facture/tva.html:104
+msgid "à payer à l'État"
+msgstr ""
+
+#: facture/templates/facture/tva.html:107
+msgid "à récupérer (crédit de TVA)"
+msgstr ""
+
+#: facture/templates/facture/tva.html:115
+msgid "TVA à payer – par taux"
+msgstr ""
+
+#: facture/templates/facture/tva.html:119
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:377
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/simple.html:378
+msgid "Taux"
+msgstr ""
+
+#: facture/templates/facture/tva.html:132
+msgid "Aucune facture émise sur la période."
+msgstr ""
+
+#: facture/templates/facture/tva.html:136
+msgid "Autoliquidation"
+msgstr ""
+
+#: facture/templates/facture/tva.html:142
+#: facture/templates/facture/tva.html:191
+msgid "Total"
+msgstr ""
+
+#: facture/templates/facture/tva.html:150
+#, python-format
+msgid ""
+"%(n)s maintenance interne (facture à notre société) n'est pas une vente : la "
+"TVA sur ses pièces est récupérée via les achats fournisseurs."
+msgid_plural ""
+"%(n)s maintenances internes (factures à notre société) ne sont pas des "
+"ventes : la TVA sur leurs pièces est récupérée via les achats fournisseurs."
+msgstr[0] ""
+msgstr[1] ""
+
+#: facture/templates/facture/tva.html:157
+msgid "TVA à récupérer – par source"
+msgstr ""
+
+#: facture/templates/facture/tva.html:161
+msgid "Source"
+msgstr ""
+
+#: facture/templates/facture/tva.html:162
+msgid "Nombre"
+msgstr ""
+
+#: facture/templates/facture/tva.html:165
+msgid "Déductible"
+msgstr ""
+
+#: facture/templates/facture/tva.html:166 outillage/models.py:68
+#: outillage/templates/outillage/delete_outillage.html:97
+msgid "TVA à récupérer"
+msgstr ""
+
+#: facture/templates/facture/tva.html:177
+msgid "déjà dans « Achats »"
+msgstr ""
+
+#: facture/templates/facture/tva.html:205
+msgid "Déclaration TVA"
+msgstr ""
+
+#: facture/templates/facture/tva.html:210
+msgid ""
+"Modèle générique : les numéros de cases du formulaire national ne sont pas "
+"encore repris pour ce pays. Les montants (bases par taux, TVA due, TVA "
+"déductible, solde) restent valables."
+msgstr ""
+
+#: facture/templates/facture/tva.html:216
+msgid "Case"
+msgstr ""
+
+#: facture/templates/facture/tva.html:218
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Montant"
+msgstr "Tableau de Bord"
+
+#: facture/templates/facture/tva.html:232
+msgid ""
+"Calcul indicatif basé sur les données encodées dans CarsCosts : à faire "
+"valider par votre comptable avant la déclaration."
+msgstr ""
+
+#: facture/tva.py:32
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Achats (factures fournisseurs)"
+msgstr "Tableau de Bord"
+
+#: facture/tva.py:33 outillage/models.py:86
+#: outillage/templates/outillage/delete_outillage.html:72
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:325
+msgid "Outillage"
+msgstr ""
+
+#: facture/tva.py:34 fuel/models.py:220 fuel/templates/fuel/fuel_detail.html:46
+#: fuel/templates/fuel/fuel_exemplaire_stat.html:9
+#: fuel/templates/fuel/fuel_form.html:12 fuel/templates/fuel/fuel_stat.html:9
+#: fuel/templates/fuel/modifier_fuel.html:190
+#: theme/templates/dashboard.html:233 voiture/voiture_moteur/forms.py:29
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:92
+#: voiture/voiture_moteur/templates/voiture_moteur/list.html:54
+#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:53
+msgid "Carburant"
+msgstr ""
+
+#: facture/tva.py:35 recharge/templates/recharge/electricite_stat.html:11
+#: theme/templates/dashboard.html:243
+msgid "Recharges électriques"
+msgstr ""
+
+#: facture/tva.py:40
+msgid "Maintenances internes (pièces) – incluses dans les achats"
+msgstr ""
+
+#: facture/tva.py:281
+#, python-format
+msgid "Base à %(taux)s %% (taux sans case dédiée – à vérifier)"
+msgstr ""
+
+#: facture/tva.py:294
+msgid "Prestations intracommunautaires (autoliquidation)"
+msgstr ""
+
+#: facture/tva.py:295
+msgid "TVA due"
+msgstr ""
+
+#: facture/tva.py:296 facture/tva.py:334
+msgid "TVA déductible"
+msgstr ""
+
+#: facture/tva.py:303
+msgid "TVA à payer"
+msgstr ""
+
+#: facture/tva.py:304
+msgid "Crédit de TVA (à récupérer)"
+msgstr ""
+
+#: facture/tva.py:309
+msgid "Déclaration périodique de TVA"
+msgstr ""
+
+#: facture/tva.py:324
+msgid "Déclaration périodique à la TVA (Intervat)"
+msgstr ""
+
+#: facture/tva.py:326
+msgid "Opérations soumises à un régime particulier / 0 %"
+msgstr ""
+
+#: facture/tva.py:327
+msgid "Opérations à 6 %"
+msgstr ""
+
+#: facture/tva.py:328
+msgid "Opérations à 12 %"
+msgstr ""
+
+#: facture/tva.py:329
+msgid "Opérations à 21 %"
+msgstr ""
+
+#: facture/tva.py:332
+msgid "Services intracommunautaires (autoliquidation)"
+msgstr ""
+
+#: facture/tva.py:333
+msgid "TVA due sur les opérations"
+msgstr ""
+
+#: facture/tva.py:335
+msgid "Taxe due à l'État"
+msgstr ""
+
+#: facture/tva.py:336
+msgid "Sommes dues par l'État"
+msgstr ""
+
+#: facture/tva.py:340
+msgid "Déclaration CA3 (formulaire 3310-CA3)"
+msgstr ""
+
+#: facture/tva.py:342
+msgid "Taux normal 20 % – base hors taxe"
+msgstr ""
+
+#: facture/tva.py:343
+msgid "Taux réduit 10 % – base hors taxe"
+msgstr ""
+
+#: facture/tva.py:344
+msgid "Taux réduit 5,5 % – base hors taxe"
+msgstr ""
+
+#: facture/tva.py:345
+msgid "Taux particulier 2,1 % – base hors taxe"
+msgstr ""
+
+#: facture/tva.py:348
+msgid "Autres opérations non imposables (prestations intracommunautaires)"
+msgstr ""
+
+#: facture/tva.py:349
+msgid "Total de la TVA brute due"
+msgstr ""
+
+#: facture/tva.py:350
+msgid "Total TVA déductible"
+msgstr ""
+
+#: facture/tva.py:351
+msgid "TVA nette due"
+msgstr ""
+
+#: facture/tva.py:352
+msgid "Crédit de TVA"
+msgstr ""
+
+#: facture/tva.py:356
+msgid "Umsatzsteuer-Voranmeldung (UStVA)"
+msgstr ""
+
+#: facture/tva.py:358
+msgid "Steuerpflichtige Umsätze 19 % – Bemessungsgrundlage"
+msgstr ""
+
+#: facture/tva.py:359
+msgid "Steuerpflichtige Umsätze 7 % – Bemessungsgrundlage"
+msgstr ""
+
+#: facture/tva.py:362
+msgid "Nicht steuerbare sonstige Leistungen (EU, Reverse Charge)"
+msgstr ""
+
+#: facture/tva.py:364
+msgid "Vorsteuerbeträge"
+msgstr ""
+
+#: facture/tva.py:365
+msgid "Verbleibende Umsatzsteuer-Vorauszahlung"
+msgstr ""
+
+#: facture/tva.py:366
+msgid "Verbleibender Überschuss (negativ)"
+msgstr ""
+
+#: facture/tva.py:370
+msgid "Aangifte omzetbelasting"
+msgstr ""
+
+#: facture/tva.py:372
+msgid "Leveringen/diensten belast met hoog tarief (21 %)"
+msgstr ""
+
+#: facture/tva.py:373
+msgid "Leveringen/diensten belast met laag tarief (9 %)"
+msgstr ""
+
+#: facture/tva.py:374
+msgid "Leveringen/diensten belast met 0 % of niet bij u belast"
+msgstr ""
+
+#: facture/tva.py:377
+msgid "Leveringen naar/diensten in landen binnen de EU"
+msgstr ""
+
+#: facture/tva.py:378
+msgid "Verschuldigde omzetbelasting"
+msgstr ""
+
+#: facture/tva.py:379
+msgid "Voorbelasting"
+msgstr ""
+
+#: facture/tva.py:380
+msgid "Totaal te betalen"
+msgstr ""
+
+#: facture/tva.py:381
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Totaal terug te vragen"
+msgstr "Tableau de Bord"
+
+#: facture/tva.py:385
+msgid "Modelo 303 (IVA)"
+msgstr ""
+
+#: facture/tva.py:387
+msgid "Régimen general 4 % – base imponible"
+msgstr ""
+
+#: facture/tva.py:388
+msgid "Régimen general 10 % – base imponible"
+msgstr ""
+
+#: facture/tva.py:389
+msgid "Régimen general 21 % – base imponible"
+msgstr ""
+
+#: facture/tva.py:392
+msgid "Operaciones no sujetas por reglas de localización"
+msgstr ""
+
+#: facture/tva.py:393
+msgid "Total cuota devengada"
+msgstr ""
+
+#: facture/tva.py:394
+msgid "Total a deducir"
+msgstr ""
+
+#: facture/tva.py:395
+msgid "Resultado de la liquidación (a ingresar)"
+msgstr ""
+
+#: facture/tva.py:396
+msgid "Resultado de la liquidación (a compensar / devolver)"
+msgstr ""
+
+#: facture/tva.py:400
+msgid "Comunicazione liquidazioni periodiche IVA (LIPE)"
+msgstr ""
+
+#: facture/tva.py:401
+msgid "Totale operazioni attive (al netto dell'IVA)"
+msgstr ""
+
+#: facture/tva.py:405
+msgid "IVA esigibile"
+msgstr ""
+
+#: facture/tva.py:406
+msgid "IVA detratta"
+msgstr ""
+
+#: facture/tva.py:407
+msgid "IVA dovuta"
+msgstr ""
+
+#: facture/tva.py:408
+msgid "IVA a credito"
+msgstr ""
+
+#: facture/tva.py:412
+msgid "Umsatzsteuervoranmeldung (U30)"
+msgstr ""
+
+#: facture/tva.py:413
+msgid "Gesamtbetrag der Bemessungsgrundlagen"
+msgstr ""
+
+#: facture/tva.py:415
+msgid "Normalsteuersatz 20 % – Bemessungsgrundlage"
+msgstr ""
+
+#: facture/tva.py:416
+msgid "Ermäßigter Steuersatz 10 % – Bemessungsgrundlage"
+msgstr ""
+
+#: facture/tva.py:417
+msgid "Ermäßigter Steuersatz 13 % – Bemessungsgrundlage"
+msgstr ""
+
+#: facture/tva.py:422
+msgid "Gesamtbetrag der Vorsteuern"
+msgstr ""
+
+#: facture/tva.py:423
+msgid "Vorauszahlung (Zahllast)"
+msgstr ""
+
+#: facture/tva.py:424
+msgid "Überschuss"
+msgstr ""
+
+#: facture/views.py:37
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Création d'une facture"
+msgstr "Tableau de Bord"
+
+#: facture/views.py:38
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Émission de la facture"
+msgstr "Tableau de Bord"
+
+#: facture/views.py:39
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Suppression d'un brouillon de facture"
+msgstr "Tableau de Bord"
+
+#: facture/views.py:40
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Modification des paramètres Peppol"
+msgstr "Tableau de Bord"
+
+#: facture/views.py:41
+msgid "Envoi Peppol de la facture"
+msgstr ""
+
+#: facture/views.py:116
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Type de facture inconnu."
+msgstr "Tableau de Bord"
+
+#: facture/views.py:126
+msgid "Sélectionnez au moins une maintenance."
+msgstr ""
+
+#: facture/views.py:131
+msgid "Les maintenances sélectionnées doivent concerner le même véhicule."
+msgstr ""
+
+#: facture/views.py:136
+msgid ""
+"Brouillon de facture créé. Vérifiez les marges et les lignes avant d'émettre."
+msgstr ""
+
+#: facture/views.py:166
+msgid "Cette facture est émise : elle ne peut plus être modifiée."
+msgstr ""
+
+#: facture/views.py:190
+msgid "Marges appliquées à toutes les lignes."
+msgstr ""
+
+#: facture/views.py:202
+#, python-format
+msgid "Facture %(numero)s émise."
+msgstr ""
+
+#: facture/views.py:210
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Facture enregistrée."
+msgstr "Tableau de Bord"
+
+#: facture/views.py:289
+msgid "Le XML n'est disponible que pour une facture professionnelle émise."
+msgstr ""
+
+#: facture/views.py:320
+#, python-format
+msgid "Envoi Peppol impossible : %(erreur)s"
+msgstr ""
+
+#: facture/views.py:328
+msgid "Facture envoyée au serveur Peppol de TEST (aucune valeur légale)."
+msgstr ""
+
+#: facture/views.py:330
+msgid "Facture envoyée via Peppol."
+msgstr ""
+
+#: facture/views.py:342
+msgid "Seule une facture professionnelle émise peut être envoyée via Peppol."
+msgstr ""
+
+#: facture/views.py:371
+msgid "activé"
+msgstr ""
+
+#: facture/views.py:371
+msgid "désactivé"
+msgstr ""
+
+#: facture/views.py:373
+msgid "Paramètres Peppol enregistrés."
+msgstr ""
+
+#: facture/views.py:410
+msgid "production"
+msgstr ""
+
+#: facture/views.py:410
+msgid "test"
+msgstr ""
+
+#: facture/views.py:413
+#, python-format
+msgid "Renseignez l'URL et la clé API du serveur de %(env)s."
+msgstr ""
+
+#: facture/views.py:428 facture/views.py:430
+#, python-format
+msgid "Serveur de %(env)s : %(res)s"
+msgstr ""
+
+#: facture/views.py:446
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid ""
+"Une facture émise ne peut pas être supprimée (établissez une note de crédit)."
+msgstr "Tableau de Bord"
+
+#: facture/views.py:455
+msgid "Le brouillon de facture a bien été supprimé."
 msgstr ""
 
 #: fournisseur/models.py:58
@@ -14633,7 +16222,7 @@ msgstr ""
 
 #: fournisseur/models.py:103
 #: fournisseur/templates/fournisseur/fournisseur_dashboard.html:17
-#: theme/templates/dashboard.html:446
+#: theme/templates/dashboard.html:448
 msgid "Fournisseurs"
 msgstr ""
 
@@ -15233,32 +16822,11 @@ msgstr ""
 msgid "Montant HT"
 msgstr ""
 
-#: fuel/models.py:207
-#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:452
-#: piece/templates/piece/piece_detail.html:40
-#: piece/templates/piece/piece_form.html:100 recharge/models.py:207
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:97
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:138
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:312
-msgid "TVA"
-msgstr ""
-
 #: fuel/models.py:212 recharge/models.py:203
 msgid "Validation"
 msgstr ""
 
-#: fuel/models.py:220 fuel/templates/fuel/fuel_detail.html:46
-#: fuel/templates/fuel/fuel_exemplaire_stat.html:9
-#: fuel/templates/fuel/fuel_form.html:12 fuel/templates/fuel/fuel_stat.html:9
-#: fuel/templates/fuel/modifier_fuel.html:190
-#: theme/templates/dashboard.html:231 voiture/voiture_moteur/forms.py:29
-#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:92
-#: voiture/voiture_moteur/templates/voiture_moteur/list.html:54
-#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:53
-msgid "Carburant"
-msgstr ""
-
-#: fuel/models.py:221 theme/templates/dashboard.html:219
+#: fuel/models.py:221 theme/templates/dashboard.html:221
 msgid "Carburants"
 msgstr ""
 
@@ -15402,21 +16970,6 @@ msgstr ""
 msgid "Par mois"
 msgstr ""
 
-#: fuel/templates/fuel/fuel_exemplaire_stat.html:87
-#: fuel/templates/fuel/fuel_exemplaire_stat.html:153
-#: fuel/templates/fuel/fuel_stat.html:230
-#: fuel/templates/fuel/fuel_stat.html:292
-#: recharge/templates/recharge/electricite_exemplaire_stat.html:86
-#: recharge/templates/recharge/electricite_exemplaire_stat.html:141
-#: recharge/templates/recharge/electricite_exemplaire_stat.html:182
-#: recharge/templates/recharge/electricite_stat.html:111
-#: recharge/templates/recharge/electricite_stat.html:183
-#: stats_fournisseurs/forms.py:23
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:94
-#: utilisateurs/models.py:391
-msgid "Mois"
-msgstr ""
-
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:91
 msgid "Coût/Km"
 msgstr ""
@@ -15442,23 +16995,6 @@ msgstr ""
 #: recharge/templates/recharge/electricite_exemplaire_stat.html:109
 #: recharge/templates/recharge/electricite_stat.html:133
 msgid "Par année"
-msgstr ""
-
-#: fuel/templates/fuel/fuel_exemplaire_stat.html:118
-#: fuel/templates/fuel/fuel_exemplaire_stat.html:161
-#: fuel/templates/fuel/fuel_stat.html:257
-#: fuel/templates/fuel/fuel_stat.html:300
-#: maintenance/templates/maintenance/list.html:62 piece/models.py:77
-#: piece/templates/piece/piece_detail.html:29
-#: recharge/templates/recharge/electricite_exemplaire_stat.html:114
-#: recharge/templates/recharge/electricite_exemplaire_stat.html:190
-#: recharge/templates/recharge/electricite_stat.html:138
-#: recharge/templates/recharge/electricite_stat.html:195
-#: stats_fournisseurs/forms.py:12
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:135
-#: utilisateurs/models.py:395
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/list.html:62
-msgid "Année"
 msgstr ""
 
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:141
@@ -15757,6 +17293,7 @@ msgstr ""
 #: piece/templates/piece/piece_confirm_delete.html:13
 #: recharge/templates/recharge/electricite_form.html:144
 #: recharge/templates/recharge/modifier_electricite.html:159
+#: theme/templates/base.html:226
 msgid "Confirmer"
 msgstr ""
 
@@ -15929,29 +17466,6 @@ msgstr ""
 msgid "Dégressif"
 msgstr ""
 
-#: investissements/models.py:57
-#: maintenance/autres_interventions/climatisation/models.py:49
-#: maintenance/autres_interventions/moteur/injection/models.py:25
-#: maintenance/choices.py:142 maintenance/choices.py:186
-#: maintenance/choices.py:234 maintenance/choices.py:314
-#: maintenance/choices.py:437 maintenance/choices.py:467
-#: maintenance/choices.py:520 maintenance/choices.py:599
-#: maintenance/choices.py:669 maintenance/choices.py:748
-#: maintenance/choices.py:850 maintenance/choices.py:935
-#: maintenance/choices.py:969 maintenance/choices.py:1003
-#: maintenance/choices.py:1037 maintenance/choices.py:1065
-#: maintenance/choices.py:1127 maintenance/choices.py:1189
-#: maintenance/choices.py:1236 maintenance/choices.py:1299
-#: maintenance/choices.py:1358 maintenance/choices.py:1403
-#: maintenance/choices.py:1807 maintenance/choices.py:1882
-#: maintenance/choices.py:1939 maintenance/choices.py:2135
-#: maintenance/choices.py:2284 maintenance/choices.py:2358
-#: maintenance/choices.py:2425 maintenance/choices.py:2505
-#: maintenance/choices.py:2553 maintenance/pneus/models.py:52
-#: piece/piece_roue_rechange/models.py:10
-msgid "Autre"
-msgstr ""
-
 #: investissements/models.py:60
 msgid "Type d'amortissement"
 msgstr ""
@@ -16009,7 +17523,7 @@ msgstr "Tableau de Bord"
 
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:73
 #: maintenance/jeux_pieces/models.py:47 maintenance/models.py:75
-#: theme/templates/dashboard.html:181 theme/templates/dashboard.html:185
+#: theme/templates/dashboard.html:183 theme/templates/dashboard.html:187
 #: utilisateurs/models.py:85 utilisateurs/views.py:279
 msgid "Mécanicien"
 msgstr ""
@@ -16755,42 +18269,6 @@ msgstr ""
 msgid "Pièce / Produit"
 msgstr ""
 
-#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:614
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:657
-#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:772
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1516
-#: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:273
-#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:911
-#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:505
-#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1155
-#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:669
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:617
-#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:798
-#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:752
-#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:554
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:603
-#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1070
-#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:756
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:823
-#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:649
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1842
-#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:383
-#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2935
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2527
-#: maintenance/eclairage/templates/eclairage/eclairage_detail_pdf.html:672
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1166
-#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:847
-#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:870
-#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1212
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:460
-#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:513
-#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:516
-#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:602
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:744
-#: outillage/templates/outillage/delete_outillage.html:91
-msgid "Prix unitaire HTVA"
-msgstr ""
-
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:674
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:721
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:832
@@ -16982,79 +18460,6 @@ msgstr "Tableau de Bord"
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:627
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:714
 msgid "Aucune pièce ou produit utilisé."
-msgstr ""
-
-#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:763
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:809
-#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:928
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1665
-#: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:333
-#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:1063
-#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:655
-#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1340
-#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:826
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:773
-#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:945
-#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:894
-#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:704
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:747
-#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1254
-#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:909
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:993
-#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:790
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:2036
-#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:548
-#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:3114
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2708
-#: maintenance/eclairage/templates/eclairage/eclairage_detail_pdf.html:821
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1315
-#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:1049
-#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:1022
-#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1376
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:604
-#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:668
-#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:675
-#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:763
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:903
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:373
-msgid "Document généré automatiquement par CarsCosts.com."
-msgstr ""
-
-#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:765
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:811
-#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:930
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1667
-#: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:335
-#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:1065
-#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:657
-#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1344
-#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:828
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:775
-#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:947
-#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:896
-#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:706
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:749
-#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1256
-#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:911
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:995
-#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:792
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:2040
-#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:550
-#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:3116
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2710
-#: maintenance/eclairage/templates/eclairage/eclairage_detail_pdf.html:823
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1317
-#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:1053
-#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:1024
-#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1378
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:606
-#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:670
-#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:677
-#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:765
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:321
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:905
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:375
-msgid "Date export"
 msgstr ""
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:268
@@ -20008,7 +21413,7 @@ msgid "Joint spi vilebrequin"
 msgstr ""
 
 #: maintenance/autres_interventions/embrayage/models.py:304
-#: piece/piece_embrayage/models.py:73 theme/templates/dashboard.html:347
+#: piece/piece_embrayage/models.py:73 theme/templates/dashboard.html:349
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:133
 msgid "Embrayages"
 msgstr ""
@@ -20448,11 +21853,6 @@ msgstr ""
 
 #: maintenance/autres_interventions/models.py:143 maintenance/models.py:149
 msgid "Type de maintenance"
-msgstr ""
-
-#: maintenance/autres_interventions/models.py:152 maintenance/models.py:159
-#: theme/templates/dashboard.html:197
-msgid "Maintenances"
 msgstr ""
 
 #: maintenance/autres_interventions/models.py:163 maintenance/models.py:172
@@ -21882,7 +23282,7 @@ msgstr "Tableau de Bord"
 #: maintenance/entretien/templates/entretien/entretien_check.html:275
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:459
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:282
-#: theme/templates/dashboard.html:315
+#: theme/templates/dashboard.html:317
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:70
 #: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:81
 #: voiture/voiture_moteur/templates/voiture_moteur/modifier_moteur.html:58
@@ -22795,10 +24195,6 @@ msgstr "Tableau de Bord"
 msgid "Modifier le contrôle de la carrosserie"
 msgstr "Tableau de Bord"
 
-#: maintenance/check_up/admin.py:57
-msgid "Général"
-msgstr ""
-
 #: maintenance/check_up/admin.py:75
 msgid "Essuie-glaces & Pare-brise"
 msgstr ""
@@ -22807,8 +24203,8 @@ msgstr ""
 msgid "Moteur & Transmission"
 msgstr ""
 
-#: maintenance/check_up/admin.py:138 theme/templates/dashboard.html:590
-#: theme/templates/dashboard.html:594 utilisateurs/models.py:93
+#: maintenance/check_up/admin.py:138 theme/templates/dashboard.html:592
+#: theme/templates/dashboard.html:596 utilisateurs/models.py:93
 #: utilisateurs/views.py:287
 msgid "Direction"
 msgstr ""
@@ -29545,7 +30941,7 @@ msgid "Apprenti"
 msgstr ""
 
 #: maintenance/jeux_pieces/models.py:48 maintenance/models.py:93
-#: theme/templates/dashboard.html:272
+#: theme/templates/dashboard.html:274
 msgid "Chef mécanicien"
 msgstr ""
 
@@ -29653,11 +31049,6 @@ msgstr ""
 
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:20
 msgid "Modifier le nettoyage extérieur"
-msgstr ""
-
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:377
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/simple.html:378
-msgid "Taux"
 msgstr ""
 
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:467
@@ -30296,10 +31687,6 @@ msgstr ""
 msgid "Exemplaire"
 msgstr ""
 
-#: maintenance/templates/maintenance/detail.html:31
-msgid "Créée par"
-msgstr ""
-
 #: maintenance/templates/maintenance/detail.html:32 panier/models.py:47
 #: piece/models.py:103 piece/templates/piece/piece_detail.html:46
 #: voiture/voiture_boite/forms.py:38
@@ -30427,12 +31814,6 @@ msgstr ""
 msgid "Pièces / produits"
 msgstr "Tableau de Bord"
 
-#: maintenance/templates/maintenance/partials/intervention_detail.html:135
-#, fuzzy
-#| msgid "Tableau de bord"
-msgid "Pièce / produit"
-msgstr "Tableau de Bord"
-
 #: maintenance/templates/maintenance/partials/intervention_detail.html:162
 #, fuzzy
 #| msgid "Tableau de bord"
@@ -30483,18 +31864,7 @@ msgstr ""
 msgid "Montant calculé"
 msgstr ""
 
-#: outillage/models.py:68
-#: outillage/templates/outillage/delete_outillage.html:97
-msgid "TVA à récupérer"
-msgstr ""
-
-#: outillage/models.py:86
-#: outillage/templates/outillage/delete_outillage.html:72
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:325
-msgid "Outillage"
-msgstr ""
-
-#: outillage/models.py:87 theme/templates/dashboard.html:468
+#: outillage/models.py:87 theme/templates/dashboard.html:470
 msgid "Outillages"
 msgstr ""
 
@@ -30605,10 +31975,6 @@ msgstr ""
 
 #: panier/models.py:110
 msgid "TVA fournisseur (%)"
-msgstr ""
-
-#: panier/models.py:116
-msgid "Marge (%)"
 msgstr ""
 
 #: panier/models.py:122
@@ -32767,7 +34133,7 @@ msgstr ""
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:81
 #: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:94
 #: proprietaire/templates/proprietaire/proprietaire_form.html:13
-#: theme/templates/dashboard.html:655
+#: theme/templates/dashboard.html:657
 msgid "Propriétaire"
 msgstr ""
 
@@ -32860,7 +34226,7 @@ msgid "Tableau de bord propriétaires :"
 msgstr "Tableau de Bord"
 
 #: proprietaire/templates/proprietaire/proprietaire_dashboard.html:25
-#: theme/templates/dashboard.html:643
+#: theme/templates/dashboard.html:645
 msgid "Propriétaires"
 msgstr ""
 
@@ -33078,7 +34444,7 @@ msgstr ""
 
 #: recharge/templates/recharge/electricite_exemplaire_stat.html:9
 #: recharge/templates/recharge/electricite_stat.html:19
-#: theme/templates/dashboard.html:253
+#: theme/templates/dashboard.html:255
 msgid "Recharge électrique"
 msgstr ""
 
@@ -33131,11 +34497,6 @@ msgstr ""
 #: recharge/templates/recharge/electricite_exemplaire_stat.html:174
 #: recharge/templates/recharge/electricite_stat.html:172
 msgid "Globale (kWh/100 km)"
-msgstr ""
-
-#: recharge/templates/recharge/electricite_stat.html:11
-#: theme/templates/dashboard.html:241
-msgid "Recharges électriques"
 msgstr ""
 
 #: recharge/templates/recharge/electricite_stat.html:12
@@ -33475,7 +34836,7 @@ msgid "Administrateurs"
 msgstr ""
 
 #: theme/templates/admin/dashboard_admin.html:50
-#: theme/templates/dashboard.html:665
+#: theme/templates/dashboard.html:667
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:13
 msgid "Créer un utilisateur"
 msgstr ""
@@ -33526,6 +34887,10 @@ msgstr ""
 msgid "Tous droits réservés."
 msgstr ""
 
+#: theme/templates/base.html:222
+msgid "Confirmation"
+msgstr ""
+
 #: theme/templates/components/plaque.html:4
 #, fuzzy
 #| msgid "Tableau de bord"
@@ -33545,86 +34910,90 @@ msgstr ""
 msgid "Mes maintenances à faire aujourd'hui :"
 msgstr ""
 
-#: theme/templates/dashboard.html:107
+#: theme/templates/dashboard.html:109
 msgid "Dernières activités"
 msgstr ""
 
-#: theme/templates/dashboard.html:128
+#: theme/templates/dashboard.html:130
 msgid "Action"
 msgstr ""
 
-#: theme/templates/dashboard.html:160
+#: theme/templates/dashboard.html:162
 msgid "Aucune activité enregistrée"
 msgstr ""
 
-#: theme/templates/dashboard.html:276 utilisateurs/models.py:88
+#: theme/templates/dashboard.html:278 utilisateurs/models.py:88
 #: utilisateurs/views.py:281
 msgid "Chef Mécanicien"
 msgstr ""
 
-#: theme/templates/dashboard.html:303
+#: theme/templates/dashboard.html:305
 msgid "Moteurs"
 msgstr ""
 
-#: theme/templates/dashboard.html:325
+#: theme/templates/dashboard.html:327
 msgid "Boites de vitesses"
 msgstr ""
 
-#: theme/templates/dashboard.html:430 theme/templates/dashboard.html:434
+#: theme/templates/dashboard.html:432 theme/templates/dashboard.html:436
 #: utilisateurs/models.py:86 utilisateurs/views.py:282
 msgid "Magasinier"
 msgstr ""
 
-#: theme/templates/dashboard.html:480
+#: theme/templates/dashboard.html:482
 msgid "Outils"
 msgstr ""
 
-#: theme/templates/dashboard.html:499 theme/templates/dashboard.html:503
+#: theme/templates/dashboard.html:501 theme/templates/dashboard.html:505
 #: utilisateurs/models.py:91 utilisateurs/views.py:285
 msgid "Vendeur"
 msgstr ""
 
-#: theme/templates/dashboard.html:515
+#: theme/templates/dashboard.html:517
 msgid "Clients"
 msgstr ""
 
-#: theme/templates/dashboard.html:537
+#: theme/templates/dashboard.html:539
 msgid "Sociétés clientes"
 msgstr ""
 
-#: theme/templates/dashboard.html:669
+#: theme/templates/dashboard.html:671
 msgid "Ajouter un nouvel employé"
 msgstr ""
 
-#: theme/templates/dashboard.html:684
+#: theme/templates/dashboard.html:686
 #: utilisateurs/templates/utilisateurs/liste_utilisateurs.html:8
 msgid "Liste des utilisateurs"
 msgstr ""
 
-#: theme/templates/dashboard.html:699
+#: theme/templates/dashboard.html:701
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:12
 msgid "Créer une paie mensuelle"
 msgstr ""
 
-#: theme/templates/dashboard.html:704
+#: theme/templates/dashboard.html:706
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Compléter utilisateur"
 msgstr "Tableau de Bord"
 
-#: theme/templates/dashboard.html:723 theme/templates/dashboard.html:727
+#: theme/templates/dashboard.html:719
+msgid "Factures clients et professionnelles (XML)"
+msgstr ""
+
+#: theme/templates/dashboard.html:742 theme/templates/dashboard.html:746
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Administrateur"
 msgstr "Tableau de Bord"
 
-#: theme/templates/dashboard.html:738
+#: theme/templates/dashboard.html:757
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Tableau de bord Admin"
 msgstr "Tableau de Bord"
 
-#: theme/templates/dashboard.html:743
+#: theme/templates/dashboard.html:762
 msgid "Admin"
 msgstr ""
 
