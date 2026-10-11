@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 13:44+0200\n"
+"POT-Creation-Date: 2026-10-11 18:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -188,7 +188,11 @@ msgstr "Algemene informatie"
 #: assurance_police/templates/assurance_police/assurance_police_detail.html:47
 #: assurance_police/templates/assurance_police/assurance_police_list.html:45
 #: assurance_police/templates/assurance_police/assurance_police_list.html:66
-#: fuel/models.py:162 fuel/templates/fuel/fuel_detail.html:33
+#: facture/templates/facture/delete_facture.html:61
+#: facture/templates/facture/facture_list.html:30
+#: facture/templates/facture/facture_pdf.html:153
+#: facture/templates/facture/maintenances_a_facturer.html:62 fuel/models.py:162
+#: fuel/templates/fuel/fuel_detail.html:33
 #: fuel/templates/fuel/fuel_list.html:80 fuel/templates/fuel/fuel_stat.html:77
 #: fuel/templates/fuel/fuel_stat.html:126
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:40
@@ -338,6 +342,8 @@ msgstr "Kenteken"
 #: _backup_detail_views/maintenance/carrosserie_interne/views.py:595
 #: _backup_detail_views/maintenance/essuyage/views.py:367
 #: _backup_detail_views/maintenance/essuyage/views.py:792
+#: facture/templates/facture/_entete_facture.html:25
+#: facture/templates/facture/facture_pdf.html:155
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:47
 #: maintenance/autres_interventions/abs/views.py:342
 #: maintenance/autres_interventions/abs/views.py:644
@@ -1179,6 +1185,7 @@ msgstr "Tijd"
 #: client_particulier/templates/client_particulier/client_detail.html:76
 #: client_particulier/templates/client_particulier/delete_client.html:126
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:86
+#: facture/models.py:201 facture/templates/facture/facture_pdf.html:280
 #: fuel/models.py:210 fuel/templates/fuel/fuel_detail.html:74
 #: fuel/templates/fuel/fuel_detail.html:78 maindoeuvre/forms.py:45
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:105
@@ -1386,6 +1393,7 @@ msgstr "Control bewerken"
 #: _backup_detail_templates/maintenance/niveaux/templates/niveaux/niveaux_detail.html:129
 #: _backup_detail_templates/maintenance/pneus/templates/pneus/pneus_detail.html:79
 #: _backup_detail_templates/maintenance/silent_blocs/templates/silent_blocs/silent_detail.html:77
+#: facture/templates/facture/facture_detail.html:120
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:104
 #: maintenance/templates/maintenance/partials/intervention_detail.html:119
 msgid "Télécharger le PDF"
@@ -1510,7 +1518,8 @@ msgstr "Metadata"
 #: client_particulier/templates/client_particulier/delete_client.html:132
 #: client_pilotage/models.py:72
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:139
-#: facture/models.py:41 fournisseur/models.py:97
+#: facture/models.py:52 facture/models.py:217 facture/models.py:511
+#: facture/templates/facture/delete_facture.html:73 fournisseur/models.py:97
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:105
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:113
 #: fuel/models.py:215 fuel/templates/fuel/fuel_detail.html:121
@@ -1636,7 +1645,8 @@ msgstr "Aangemaakt op"
 #: client_particulier/templates/client_particulier/delete_client.html:133
 #: client_pilotage/models.py:73
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:143
-#: facture/models.py:42 fournisseur/models.py:98
+#: facture/models.py:53 facture/models.py:218 facture/models.py:512
+#: facture/templates/facture/delete_facture.html:74 fournisseur/models.py:98
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:106
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:118
 #: fuel/models.py:216 maindoeuvre/models.py:74
@@ -2055,6 +2065,12 @@ msgstr "Totaal onderdelen excl. btw"
 
 #: _backup_detail_templates/maintenance/autres_interventions/cardan/templates/cardan/cardan_detail.html:76
 #: _backup_detail_templates/maintenance/autres_interventions/cardan/templates/cardan/cardan_detail.html:111
+#: facture/models.py:197 facture/templates/facture/facture_detail.html:39
+#: facture/templates/facture/facture_detail.html:59
+#: facture/templates/facture/facture_form.html:128
+#: facture/templates/facture/facture_form.html:170
+#: facture/templates/facture/facture_pdf.html:212
+#: facture/templates/facture/facture_pdf.html:251
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:615
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:658
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:773
@@ -2105,6 +2121,7 @@ msgid "Pièces à remplacer / remplacées"
 msgstr "Te vervangen / vervangen onderdelen"
 
 #: _backup_detail_templates/maintenance/autres_interventions/cardan/templates/cardan/cardan_detail.html:105
+#: facture/services.py:126
 #: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:268
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:529
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1400
@@ -2134,6 +2151,7 @@ msgid "Pièce"
 msgstr "Onderdeel"
 
 #: _backup_detail_templates/maintenance/autres_interventions/cardan/templates/cardan/cardan_detail.html:106
+#: facture/templates/facture/parametres_peppol.html:24
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:394
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:611
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:654
@@ -2697,7 +2715,10 @@ msgstr "Fabrikant"
 #: _backup_detail_templates/maintenance/autres_interventions/cardan/templates/cardan/cardan_detail.html:109
 #: _backup_list_templates/outillage/templates/outillage/outillage_list.html:45
 #: _backup_list_templates/outillage/templates/outillage/outillage_list.html:68
-#: facture/models.py:112 maintenance/autres_interventions/abs/models.py:125
+#: facture/models.py:367 facture/templates/facture/facture_detail.html:54
+#: facture/templates/facture/facture_form.html:123
+#: facture/templates/facture/facture_pdf.html:209
+#: maintenance/autres_interventions/abs/models.py:125
 #: maintenance/autres_interventions/abs/models.py:131
 #: maintenance/autres_interventions/abs/models.py:137
 #: maintenance/autres_interventions/abs/models.py:143
@@ -3763,7 +3784,9 @@ msgstr "Details van de buitenreiniging"
 #: _backup_detail_templates/maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_detail.html:63
 #: agenda/models.py:19 agenda/templates/agenda/agenda_detail.html:34
 #: agenda/templates/agenda/agenda_list.html:73
-#: agenda/templates/agenda/delete_agenda.html:71
+#: agenda/templates/agenda/delete_agenda.html:71 facture/models.py:351
+#: facture/services.py:104
+#: facture/templates/facture/maintenances_a_facturer.html:61
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:40
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:39
 #: maintenance/autres_interventions/cardan/models.py:41
@@ -3780,7 +3803,7 @@ msgstr "Details van de buitenreiniging"
 #: maintenance/freins/models.py:37 maintenance/jeux_pieces/models.py:64
 #: maintenance/models.py:158 maintenance/pneus/models.py:75
 #: theme/templates/dashboard.html:62 theme/templates/dashboard.html:74
-#: theme/templates/dashboard.html:209
+#: theme/templates/dashboard.html:211
 msgid "Maintenance"
 msgstr "Onderhoud"
 
@@ -3890,7 +3913,7 @@ msgstr "Details van de bandencontrole"
 #: maintenance/pneus/views.py:952
 #: maintenance/templates/maintenance/choisir_type.html:85
 #: maintenance/types_maintenances.py:8 piece/piece_pneus/models.py:55
-#: theme/templates/dashboard.html:384 theme/templates/dashboard.html:396
+#: theme/templates/dashboard.html:386 theme/templates/dashboard.html:398
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:232
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:50
 msgid "Pneus"
@@ -4027,7 +4050,7 @@ msgstr "Terug naar de lijst van silent blocks controles"
 #: _backup_detail_views/maintenance/silent_blocs/views.py:635
 #: agenda/views.py:66 agenda/views.py:112 agenda/views.py:142
 #: agenda/views.py:178 agenda/views.py:211 agenda/views.py:252
-#: fuel/views.py:517 fuel/views.py:538
+#: facture/views.py:49 facture/views.py:442 fuel/views.py:517 fuel/views.py:538
 #: maintenance/autres_interventions/abs/views.py:102
 #: maintenance/autres_interventions/abs/views.py:780
 #: maintenance/autres_interventions/abs/views.py:816
@@ -4122,8 +4145,8 @@ msgid ""
 "Le kilométrage du contrôle du système ABS ne peut pas être inférieur au "
 "kilométrage actuel du véhicule."
 msgstr ""
-"De kilometerstand bij de controle van het ABS-systeem mag niet lager zijn "
-"dan de huidige kilometerstand van het voertuig."
+"De kilometerstand bij de controle van het ABS-systeem mag niet lager zijn dan"
+" de huidige kilometerstand van het voertuig."
 
 #: _backup_detail_views/maintenance/autres_interventions/abs/views.py:293
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:20
@@ -4197,9 +4220,9 @@ msgstr "ABS-systeemcontrole succesvol opgeslagen."
 #: _backup_detail_views/maintenance/silent_blocs/views.py:550
 #: agenda/views.py:156 agenda/views.py:189 assurance/views.py:122
 #: assurance/views.py:170 assurance_police/views.py:95
-#: assurance_police/views.py:152 carrosserie/views.py:143
-#: fournisseur/views.py:124 fuel/views.py:471 maindoeuvre/views.py:191
-#: maintenance/autres_interventions/abs/views.py:311
+#: assurance_police/views.py:152 carrosserie/views.py:143 facture/views.py:213
+#: facture/views.py:378 fournisseur/views.py:124 fuel/views.py:471
+#: maindoeuvre/views.py:191 maintenance/autres_interventions/abs/views.py:311
 #: maintenance/autres_interventions/abs/views.py:623
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:542
 #: maintenance/autres_interventions/boite_de_vitesse/views.py:322
@@ -5035,7 +5058,7 @@ msgstr "Versnellingsbakcontrole succesvol verwijderd."
 #: maintenance/entretien/templates/entretien/entretien_check.html:463
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:630
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:470
-#: theme/templates/dashboard.html:337
+#: theme/templates/dashboard.html:339
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:81
 #: voiture/voiture_boite/templates/voiture_boite/modifier_boite.html:57
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:102
@@ -5478,8 +5501,8 @@ msgid ""
 "Seul le dernier remplacement de l'embrayage peut voir son kilométrage "
 "modifié."
 msgstr ""
-"Alleen de kilometerstand van de meest recente vervanging van de koppeling "
-"kan worden gewijzigd."
+"Alleen de kilometerstand van de meest recente vervanging van de koppeling kan"
+" worden gewijzigd."
 
 #: _backup_detail_views/maintenance/autres_interventions/embrayage/views.py:499
 #: maintenance/autres_interventions/embrayage/views.py:500
@@ -5562,7 +5585,7 @@ msgstr "Versnellingsbakkeerring"
 #: maintenance/autres_interventions/embrayage/models.py:303
 #: maintenance/autres_interventions/embrayage/views.py:900
 #: maintenance/models.py:41 piece/piece_embrayage/models.py:72
-#: theme/templates/dashboard.html:359
+#: theme/templates/dashboard.html:361
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:40
 msgid "Embrayage"
 msgstr "Koppeling"
@@ -5885,8 +5908,8 @@ msgstr "Pakkingen"
 #: maintenance/nettoyage_exterieur/models.py:169
 #: maintenance/nettoyage_interieur/models.py:190
 #: maintenance/niveaux/models.py:184 maintenance/pneus/models.py:281
-#: maintenance/silent_blocs/models.py:665 theme/templates/dashboard.html:621
-#: theme/templates/dashboard.html:633
+#: maintenance/silent_blocs/models.py:665 theme/templates/dashboard.html:623
+#: theme/templates/dashboard.html:635
 msgid "Main d'oeuvre"
 msgstr "Arbeidsloon"
 
@@ -6010,6 +6033,7 @@ msgstr "Nokkenassensor"
 #: _backup_detail_views/maintenance/autres_interventions/moteur/courroie/views.py:815
 #: _backup_detail_views/maintenance/autres_interventions/moteur/injection/views.py:657
 #: _backup_detail_views/maintenance/autres_interventions/moteur/injection/views.py:1059
+#: facture/models.py:333
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:594
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:687
 #: maintenance/autres_interventions/moteur/allumage/views.py:603
@@ -6672,7 +6696,7 @@ msgstr ""
 #: maintenance/nettoyage_exterieur/models.py:111
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:358
 #: maintenance/templates/maintenance/choisir_type.html:155
-#: theme/templates/dashboard.html:411
+#: theme/templates/dashboard.html:413
 msgid "Carrosserie"
 msgstr "Carrosserie"
 
@@ -7128,8 +7152,8 @@ msgstr "Carrosseriecontrole succesvol verwijderd."
 #: _backup_detail_views/maintenance/check_up/views.py:145
 #: maintenance/check_up/views.py:146
 msgid ""
-"Le kilométrage du Checkup ne peut pas être inférieur au kilométrage actuel "
-"du véhicule."
+"Le kilométrage du Checkup ne peut pas être inférieur au kilométrage actuel du"
+" véhicule."
 msgstr ""
 "De kilometerstand van de check-up mag niet lager zijn dan de huidige "
 "kilometerstand van het voertuig."
@@ -7183,8 +7207,8 @@ msgid ""
 "Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent "
 "accéder à cette page."
 msgstr ""
-"Alleen monteurs, leerlingen, magazijnmedewerkers en hoofdmonteurs kunnen "
-"deze pagina openen."
+"Alleen monteurs, leerlingen, magazijnmedewerkers en hoofdmonteurs kunnen deze"
+" pagina openen."
 
 #: _backup_detail_views/maintenance/checkup_track/views.py:159
 #: _backup_detail_views/maintenance/checkup_track/views.py:164
@@ -7462,8 +7486,8 @@ msgstr "Remcontrole succesvol verwijderd."
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:989
 #: maintenance/freins/views.py:842 maintenance/models.py:17
 #: maintenance/templates/maintenance/choisir_type.html:75
-#: maintenance/types_maintenances.py:7 theme/templates/dashboard.html:369
-#: theme/templates/dashboard.html:374
+#: maintenance/types_maintenances.py:7 theme/templates/dashboard.html:371
+#: theme/templates/dashboard.html:376
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:165
 msgid "Freins"
 msgstr "Remmen"
@@ -7622,8 +7646,8 @@ msgid ""
 "Le kilométrage du contrôle des niveaux ne peut pas être inférieur au "
 "kilométrage actuel du véhicule."
 msgstr ""
-"De kilometerstand bij de controle van de vloeistofniveaus mag niet lager "
-"zijn dan de huidige kilometerstand van het voertuig."
+"De kilometerstand bij de controle van de vloeistofniveaus mag niet lager zijn"
+" dan de huidige kilometerstand van het voertuig."
 
 #: _backup_detail_views/maintenance/niveaux/views.py:321
 #: maintenance/niveaux/views.py:322
@@ -7770,7 +7794,8 @@ msgstr "Naam leverancier"
 #: achat_mds/templates/achat_mds/achat_list.html:35
 #: achat_mds/templates/achat_mds/achat_list.html:60
 #: achat_mds/templates/achat_mds/delete_achat.html:39
-#: investissements/models.py:40 outillage/forms.py:22 outillage/models.py:29
+#: facture/templates/facture/tva.html:217 investissements/models.py:40
+#: outillage/forms.py:22 outillage/models.py:29
 #: outillage/templates/outillage/delete_outillage.html:74
 #: outillage/templates/outillage/outillage_detail.html:41
 #: outillage/templates/outillage/outillage_list.html:36
@@ -7795,7 +7820,7 @@ msgstr "Bedrag exclusief BTW"
 #: achat_mds/templates/achat_mds/achat_detail.html:56
 #: achat_mds/templates/achat_mds/achat_list.html:44
 #: achat_mds/templates/achat_mds/achat_list.html:64
-#: achat_mds/templates/achat_mds/delete_achat.html:75 facture/models.py:124
+#: achat_mds/templates/achat_mds/delete_achat.html:75 facture/models.py:398
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:68
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:43
 #: outillage/templates/outillage/delete_outillage.html:94
@@ -7824,7 +7849,8 @@ msgstr "Naam leverancier"
 #: _backup_list_templates/achat_mds/templates/achat_mds/achat_list.html:61
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:33
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:52
-#: achat_mds/templates/achat_mds/achat_list.html:61
+#: achat_mds/templates/achat_mds/achat_list.html:61 facture/models.py:364
+#: facture/templates/facture/facture_form.html:122
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:671
 #: maintenance/autres_interventions/moteur/allumage/models.py:138
 #: maintenance/autres_interventions/moteur/allumage/models.py:175
@@ -7845,7 +7871,10 @@ msgid "Transport HTVA"
 msgstr "Transport exclusief BTW"
 
 #: _backup_list_templates/achat_mds/templates/achat_mds/achat_list.html:65
-#: achat_mds/templates/achat_mds/achat_list.html:65
+#: achat_mds/templates/achat_mds/achat_list.html:65 facture/models.py:198
+#: facture/templates/facture/facture_detail.html:40
+#: facture/templates/facture/facture_form.html:171
+#: facture/templates/facture/facture_pdf.html:255
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:72
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:348
 msgid "Total TVA"
@@ -7916,6 +7945,8 @@ msgstr "Factuurdatum"
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:88
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:71
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:101
+#: facture/templates/facture/facture_list.html:33
+#: facture/templates/facture/facture_list.html:59
 #: fournisseur/templates/fournisseur/fournisseur_list.html:69
 #: fournisseur/templates/fournisseur/fournisseur_list.html:93
 #: fuel/templates/fuel/fuel_list.html:88 fuel/templates/fuel/fuel_list.html:159
@@ -8014,6 +8045,8 @@ msgstr "Terug naar het leveranciersdashboard"
 #: client_atelier/templates/client_atelier/client_atelier_list.html:125
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:118
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:127
+#: facture/templates/facture/facture_list.html:82
+#: facture/templates/facture/maintenances_a_facturer.html:150
 #: fournisseur/templates/fournisseur/fournisseur_list.html:116
 #: fuel/templates/fuel/fuel_list.html:187
 #: fuel/templates/fuel/fuel_stat.html:315
@@ -8125,6 +8158,8 @@ msgstr "Globale zoekopdracht:"
 #: client_atelier/templates/client_atelier/client_atelier_list.html:126
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:119
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:128
+#: facture/templates/facture/facture_list.html:83
+#: facture/templates/facture/maintenances_a_facturer.html:151
 #: fournisseur/templates/fournisseur/fournisseur_list.html:117
 #: fuel/templates/fuel/fuel_list.html:188
 #: fuel/templates/fuel/fuel_stat.html:316
@@ -8187,6 +8222,8 @@ msgstr "Weergegeven van _START_ tot _END_ van _TOTAL_ goederen aankopen"
 #: _backup_list_templates/achat_mds/templates/achat_mds/achat_list.html:128
 #: achat_mds/templates/achat_mds/achat_list.html:128
 #: achat_mds/templates/achat_mds/achat_list.html:129
+#: facture/templates/facture/facture_list.html:85
+#: facture/templates/facture/facture_list.html:86
 msgid "Aucune facture trouvée"
 msgstr "Geen facturen gevonden"
 
@@ -8250,6 +8287,8 @@ msgstr "Geen facturen gevonden"
 #: client_atelier/templates/client_atelier/client_atelier_list.html:131
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:124
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:133
+#: facture/templates/facture/facture_list.html:88
+#: facture/templates/facture/maintenances_a_facturer.html:156
 #: fournisseur/templates/fournisseur/fournisseur_list.html:122
 #: fuel/templates/fuel/fuel_list.html:193
 #: fuel/templates/fuel/fuel_stat.html:322
@@ -8363,6 +8402,8 @@ msgstr "Eerste"
 #: client_atelier/templates/client_atelier/client_atelier_list.html:132
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:125
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:134
+#: facture/templates/facture/facture_list.html:89
+#: facture/templates/facture/maintenances_a_facturer.html:157
 #: fournisseur/templates/fournisseur/fournisseur_list.html:123
 #: fuel/templates/fuel/fuel_list.html:194
 #: fuel/templates/fuel/fuel_stat.html:323
@@ -8476,6 +8517,8 @@ msgstr "Laatste"
 #: client_atelier/templates/client_atelier/client_atelier_list.html:133
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:126
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:135
+#: facture/templates/facture/facture_list.html:90
+#: facture/templates/facture/maintenances_a_facturer.html:158
 #: fournisseur/templates/fournisseur/fournisseur_list.html:124
 #: fuel/templates/fuel/fuel_list.html:195
 #: fuel/templates/fuel/fuel_stat.html:324
@@ -8589,6 +8632,8 @@ msgstr "Volgende"
 #: client_atelier/templates/client_atelier/client_atelier_list.html:134
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:127
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:136
+#: facture/templates/facture/facture_list.html:91
+#: facture/templates/facture/maintenances_a_facturer.html:159
 #: fournisseur/templates/fournisseur/fournisseur_list.html:125
 #: fuel/templates/fuel/fuel_list.html:196
 #: fuel/templates/fuel/fuel_stat.html:325
@@ -8726,6 +8771,7 @@ msgstr "Informatie niet beschikbaar"
 #: assurance/templates/assurance/dashboard_assurance.html:45
 #: carrosserie/templates/carrosserie/dashboard_carrosserie.html:33
 #: client_atelier/templates/client_atelier/dashboard_client.html:56
+#: facture/templates/facture/maintenances_a_facturer.html:138
 #: fournisseur/templates/fournisseur/fournisseur_dashboard.html:56
 #: fuel/templates/fuel/fuel_list.html:174
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:129
@@ -8821,7 +8867,7 @@ msgstr "Naam van het bedrijf"
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:68
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:47
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:81
-#: facture/models.py:17 fournisseur/models.py:27
+#: facture/models.py:28 fournisseur/models.py:27
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:79
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:90
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:61
@@ -8881,7 +8927,7 @@ msgstr "Peppol-nummer"
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:36
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:70
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:78
-#: fournisseur/models.py:64
+#: facture/templates/facture/facture_detail.html:28 fournisseur/models.py:64
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:90
 #: fournisseur/templates/fournisseur/fournisseur_list.html:67
 #: proprietaire/forms.py:75 proprietaire/models.py:64
@@ -9105,6 +9151,7 @@ msgstr "Voornaam van de klant"
 #: client_atelier/templates/client_atelier/client_atelier_list.html:41
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:38
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:40
+#: facture/models.py:171
 msgid "Nom du client"
 msgstr "Achternaam van de klant"
 
@@ -9150,7 +9197,7 @@ msgstr "E-mail"
 #: client_atelier/forms.py:214 client_atelier/models.py:63
 #: client_atelier/templates/client_atelier/client_atelier_list.html:54
 #: client_atelier/templates/client_atelier/client_atelier_list.html:69
-#: theme/templates/dashboard.html:288
+#: theme/templates/dashboard.html:290
 msgid "Voitures"
 msgstr "Auto's"
 
@@ -9339,8 +9386,8 @@ msgstr "Statistieken bekijken"
 #: recharge/templates/recharge/recharge_list.html:46
 #: recharge/templates/recharge/recharge_list.html:80
 #: theme/templates/dashboard.html:42 theme/templates/dashboard.html:55
-#: theme/templates/dashboard.html:123 theme/templates/dashboard.html:674
-#: theme/templates/dashboard.html:689 utilisateurs/models.py:387
+#: theme/templates/dashboard.html:125 theme/templates/dashboard.html:676
+#: theme/templates/dashboard.html:691 utilisateurs/models.py:387
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:18
 msgid "Utilisateur"
 msgstr "Gebruiker"
@@ -9406,6 +9453,8 @@ msgstr "14,32 Liters"
 #: _backup_list_templates/recharge/templates/recharge/recharge_list.html:88
 #: agenda/models.py:16 agenda/templates/agenda/agenda_detail.html:29
 #: agenda/templates/agenda/delete_agenda.html:68
+#: facture/templates/facture/facture_list.html:27
+#: facture/templates/facture/maintenances_a_facturer.html:60
 #: fuel/templates/fuel/fuel_list.html:66 fuel/templates/fuel/fuel_list.html:87
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:76
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:262
@@ -9501,7 +9550,7 @@ msgstr "14,32 Liters"
 #: piece/models.py:135 piece/piece_fluides/models.py:194
 #: recharge/templates/recharge/recharge_list.html:88
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:307
-#: theme/templates/dashboard.html:118
+#: theme/templates/dashboard.html:120
 msgid "Date"
 msgstr "Datum"
 
@@ -9509,7 +9558,10 @@ msgstr "Datum"
 #: _backup_list_templates/recharge/templates/recharge/recharge_list.html:82
 #: agenda/models.py:28 agenda/templates/agenda/agenda_detail.html:81
 #: agenda/templates/agenda/agenda_list.html:75
-#: agenda/templates/agenda/delete_agenda.html:96 fuel/models.py:116
+#: agenda/templates/agenda/delete_agenda.html:96 facture/models.py:139
+#: facture/templates/facture/_entete_facture.html:20
+#: facture/templates/facture/facture_pdf.html:152
+#: facture/templates/facture/maintenances_a_facturer.html:63 fuel/models.py:116
 #: fuel/templates/fuel/fuel_list.html:81 maindoeuvre/models.py:37
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:277
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:361
@@ -10955,7 +11007,7 @@ msgstr "Gereedschap toevoegen"
 #: outillage/templates/outillage/outillage_list.html:65
 #: stats_fournisseurs/forms.py:58
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:261
-#: theme/templates/dashboard.html:458
+#: theme/templates/dashboard.html:460
 msgid "Fournisseur"
 msgstr "Leverancier"
 
@@ -11009,6 +11061,10 @@ msgstr "Benaming"
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:41
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:54
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:83
+#: facture/templates/facture/_entete_facture.html:6
+#: facture/templates/facture/delete_facture.html:55
+#: facture/templates/facture/facture_form.html:120
+#: facture/templates/facture/facture_list.html:28
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:41
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:54
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:310
@@ -11217,6 +11273,8 @@ msgstr "Een eigenaar toevoegen"
 #: _backup_list_templates/proprietaire/templates/proprietaire/proprietaire_list.html:64
 #: agenda/models.py:69
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:88
+#: facture/models.py:113 facture/models.py:460
+#: facture/templates/facture/maintenances_a_facturer.html:95
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:272
 #: maintenance/autres_interventions/abs/models.py:246
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:336
@@ -11341,7 +11399,7 @@ msgstr "Mede-eigenaar toevoegen"
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:50
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:66
 #: recharge/templates/recharge/electricite_stat.html:71
-#: theme/templates/dashboard.html:293
+#: theme/templates/dashboard.html:295
 msgid "Voiture"
 msgstr "Voertuig"
 
@@ -11794,7 +11852,8 @@ msgstr "Peppol-informatie"
 #: carrosserie/models.py:48
 #: carrosserie/templates/carrosserie/carrosserie_detail.html:70
 #: carrosserie/templates/carrosserie/delete_carrosserie.html:75
-#: facture/models.py:30 fournisseur/models.py:49
+#: facture/models.py:41 facture/templates/facture/facture_detail.html:30
+#: fournisseur/models.py:49
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:73
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:60
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:82
@@ -11805,6 +11864,7 @@ msgstr "Peppol-ID"
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:44
 #: client_particulier/templates/client_particulier/client_detail.html:46
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:52
+#: facture/templates/facture/facture_pdf.html:125
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:235
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:301
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:288
@@ -12024,6 +12084,7 @@ msgstr "Opslaan"
 #: client_pilotage/templates/client_pilotage/client_pilotage_form.html:84
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:140
 #: client_pilotage/templates/client_pilotage/modifier_client_pilotage.html:87
+#: facture/templates/facture/delete_facture.html:95
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:140
 #: fournisseur/templates/fournisseur/fournisseur_form.html:69
 #: fournisseur/templates/fournisseur/modifier_fournisseur.html:89
@@ -12215,6 +12276,7 @@ msgstr "Opslaan"
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:179
 #: societe_cliente/templates/societe_cliente/modifier_societe_cliente.html:84
 #: societe_cliente/templates/societe_cliente/societe_cliente_form.html:83
+#: theme/templates/base.html:225
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:108
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:109
 #: voiture/voiture_boite/templates/voiture_boite/ajouter_boite.html:75
@@ -12277,8 +12339,12 @@ msgstr ""
 msgid "Fournisseur concerné"
 msgstr "Betrokken leverancier"
 
-#: achat_mds/templates/achat_mds/delete_achat.html:37 facture/models.py:92
-#: facture/models.py:102
+#: achat_mds/templates/achat_mds/delete_achat.html:37 facture/models.py:221
+#: facture/models.py:338 facture/templates/facture/_entete_facture.html:5
+#: facture/templates/facture/delete_facture.html:53
+#: facture/templates/facture/facture_detail.html:4
+#: facture/templates/facture/facture_form.html:4
+#: facture/templates/facture/facture_pdf.html:136 facture/views.py:275
 msgid "Facture"
 msgstr "Factuur"
 
@@ -12287,6 +12353,7 @@ msgid "Non payée"
 msgstr "Niet betaald"
 
 #: achat_mds/templates/achat_mds/delete_achat.html:63
+#: facture/templates/facture/facture_detail.html:36
 #: outillage/templates/outillage/delete_outillage.html:89
 msgid "Montants"
 msgstr "Bedragen"
@@ -12296,7 +12363,12 @@ msgstr "Bedragen"
 msgid "Montant TVA"
 msgstr "BTW-bedrag"
 
-#: achat_mds/templates/achat_mds/delete_achat.html:83
+#: achat_mds/templates/achat_mds/delete_achat.html:83 facture/models.py:199
+#: facture/templates/facture/delete_facture.html:67
+#: facture/templates/facture/facture_detail.html:41
+#: facture/templates/facture/facture_form.html:172
+#: facture/templates/facture/facture_list.html:31
+#: facture/templates/facture/facture_pdf.html:259
 #: outillage/templates/outillage/delete_outillage.html:100
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:77
 msgid "Total TVAC"
@@ -12311,6 +12383,8 @@ msgstr "Totaal incl. btw"
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:155
 #: client_particulier/templates/client_particulier/delete_client.html:156
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:129
+#: facture/templates/facture/delete_facture.html:88
+#: facture/templates/facture/facture_form.html:129
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:129
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:135
 #: maintenance/autres_interventions/abs/templates/abs/delete_abs.html:38
@@ -12387,8 +12461,8 @@ msgstr "Verwijdering van de aankoop"
 msgid ""
 "Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé ailleurs."
 msgstr ""
-"De aankoop « %(ref)s » kan niet worden verwijderd omdat deze nog elders "
-"wordt gebruikt."
+"De aankoop « %(ref)s » kan niet worden verwijderd omdat deze nog elders wordt"
+" gebruikt."
 
 #: achat_mds/views.py:175
 #, python-format
@@ -12398,20 +12472,23 @@ msgstr "De aankoop « %(ref)s » is succesvol verwijderd."
 #: adresse/forms.py:25 adresse/models.py:21
 #: adresse/templates/adresse/adresse_detail.html:35
 #: adresse/templates/adresse/delete_adresse.html:68 assurance/forms.py:24
-#: client_atelier/forms.py:120 fournisseur/forms.py:23 utilisateurs/forms.py:97
+#: client_atelier/forms.py:120
+#: facture/templates/facture/_entete_facture.html:16
+#: facture/templates/facture/facture_list.html:26 fournisseur/forms.py:23
+#: utilisateurs/forms.py:97
 msgid "Numéro"
 msgstr "Nummer"
 
 #: adresse/forms.py:30 adresse/models.py:27
 #: adresse/templates/adresse/adresse_detail.html:60 assurance/forms.py:65
-#: client_atelier/forms.py:161 facture/models.py:36 fournisseur/forms.py:64
+#: client_atelier/forms.py:161 facture/models.py:47 fournisseur/forms.py:64
 #: fournisseur/models.py:55
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:76
 msgid "Code pays"
 msgstr "Landcode"
 
-#: adresse/models.py:34 theme/templates/dashboard.html:559
-#: theme/templates/dashboard.html:571
+#: adresse/models.py:34 theme/templates/dashboard.html:561
+#: theme/templates/dashboard.html:573
 msgid "Adresses"
 msgstr "Adressen"
 
@@ -12490,6 +12567,7 @@ msgstr "Bus"
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:148
 #: client_particulier/templates/client_particulier/delete_client.html:149
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:122
+#: facture/templates/facture/delete_facture.html:83
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:122
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:128
 #: outillage/templates/outillage/delete_outillage.html:127
@@ -12560,6 +12638,8 @@ msgstr "Gedaan"
 #: agenda/models.py:49 agenda/templates/agenda/agenda_detail.html:64
 #: agenda/templates/agenda/delete_agenda.html:86
 #: assurance_police/templates/assurance_police/delete_assurance_police.html:69
+#: facture/models.py:101 facture/templates/facture/_entete_facture.html:11
+#: facture/templates/facture/facture_list.html:32
 msgid "Statut"
 msgstr "Status"
 
@@ -12752,8 +12832,8 @@ msgstr ""
 
 #: agenda/templates/agenda/delete_agenda.html:20
 msgid ""
-"Voulez-vous vraiment retirer cette maintenance de l'agenda ? Cette action "
-"est irréversible."
+"Voulez-vous vraiment retirer cette maintenance de l'agenda ? Cette action est"
+" irréversible."
 msgstr ""
 "Weet u zeker dat u dit geplande onderhoud uit de agenda wilt verwijderen? "
 "Deze actie kan niet ongedaan worden gemaakt."
@@ -12763,6 +12843,7 @@ msgstr ""
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:28
 #: client_particulier/templates/client_particulier/delete_client.html:28
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:28
+#: facture/templates/facture/delete_facture.html:22
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:28
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:28
 #: outillage/templates/outillage/delete_outillage.html:27
@@ -12779,6 +12860,7 @@ msgstr "Element(en) die de verwijdering verhinderen"
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:60
 #: client_particulier/templates/client_particulier/delete_client.html:45
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:45
+#: facture/templates/facture/delete_facture.html:35
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:45
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:52
 #: outillage/templates/outillage/delete_outillage.html:56
@@ -12831,8 +12913,7 @@ msgstr ""
 #: agenda/views.py:288
 #, python-format
 msgid "La maintenance « %(nom)s » a bien été retirée de l'agenda."
-msgstr ""
-"Het onderhoud « %(nom)s » is succesvol uit de agenda verwijderd."
+msgstr "Het onderhoud « %(nom)s » is succesvol uit de agenda verwijderd."
 
 #: assurance/forms.py:53 fournisseur/forms.py:52 fuel/models.py:29
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:27
@@ -12883,11 +12964,11 @@ msgstr "Peppol-ID, bv.: 0208:BE0123456789"
 #: assurance/templates/assurance/modifier_assurance.html:62
 #: assurance/views.py:235
 #: assurance_police/templates/assurance_police/modifier_assurance_police.html:58
-#: theme/templates/dashboard.html:611
+#: theme/templates/dashboard.html:613
 msgid "Assurance"
 msgstr "Verzekering"
 
-#: assurance/models.py:49 theme/templates/dashboard.html:606
+#: assurance/models.py:49 theme/templates/dashboard.html:608
 msgid "Assurances"
 msgstr "Verzekeringen"
 
@@ -12971,13 +13052,13 @@ msgstr "Verzekeraar"
 #: maintenance/templates/maintenance/choisir_type.html:176
 #: proprietaire/templates/proprietaire/proprietaire_dashboard.html:27
 #: proprietaire/templates/proprietaire/proprietaire_dashboard.html:42
-#: theme/templates/dashboard.html:201 theme/templates/dashboard.html:223
-#: theme/templates/dashboard.html:245 theme/templates/dashboard.html:307
-#: theme/templates/dashboard.html:329 theme/templates/dashboard.html:351
-#: theme/templates/dashboard.html:388 theme/templates/dashboard.html:450
-#: theme/templates/dashboard.html:472 theme/templates/dashboard.html:519
-#: theme/templates/dashboard.html:541 theme/templates/dashboard.html:563
-#: theme/templates/dashboard.html:625 theme/templates/dashboard.html:647
+#: theme/templates/dashboard.html:203 theme/templates/dashboard.html:225
+#: theme/templates/dashboard.html:247 theme/templates/dashboard.html:309
+#: theme/templates/dashboard.html:331 theme/templates/dashboard.html:353
+#: theme/templates/dashboard.html:390 theme/templates/dashboard.html:452
+#: theme/templates/dashboard.html:474 theme/templates/dashboard.html:521
+#: theme/templates/dashboard.html:543 theme/templates/dashboard.html:565
+#: theme/templates/dashboard.html:627 theme/templates/dashboard.html:649
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:19
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:31
 #: voiture/voiture_marque/templates/voiture_marque/dashboard_voiture.html:17
@@ -13000,8 +13081,8 @@ msgid ""
 "Voulez-vous vraiment supprimer cette assurance ? Cette action est "
 "irréversible."
 msgstr ""
-"Wilt u deze verzekering echt verwijderen? Deze actie kan niet ongedaan "
-"worden gemaakt."
+"Wilt u deze verzekering echt verwijderen? Deze actie kan niet ongedaan worden"
+" gemaakt."
 
 #: assurance/templates/assurance/delete_assurance.html:21
 msgid "Société concernée"
@@ -13198,6 +13279,7 @@ msgid "N° de contrat"
 msgstr "Contractnummer"
 
 #: assurance_police/templates/assurance_police/delete_assurance_police.html:63
+#: facture/templates/facture/tva.html:30
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:286
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:66
 msgid "Période"
@@ -13305,7 +13387,8 @@ msgstr "Voornaam van de verantwoordelijke"
 #: carrosserie/models.py:46
 #: carrosserie/templates/carrosserie/carrosserie_detail.html:51
 #: carrosserie/templates/carrosserie/delete_carrosserie.html:72
-#: fournisseur/models.py:36
+#: facture/templates/facture/facture_detail.html:27
+#: facture/templates/facture/facture_pdf.html:122 fournisseur/models.py:36
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:65
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:38
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:229
@@ -13351,7 +13434,7 @@ msgstr "BTW-nummer"
 
 #: carrosserie/models.py:68
 #: carrosserie/templates/carrosserie/dashboard_carrosserie.html:16
-#: theme/templates/dashboard.html:406
+#: theme/templates/dashboard.html:408
 msgid "Carrosseries"
 msgstr "Carrosserieën"
 
@@ -13405,8 +13488,8 @@ msgid ""
 "Voulez-vous vraiment supprimer cette carrosserie ? Cette action est "
 "irréversible."
 msgstr ""
-"Wilt u deze carrosserie echt verwijderen? Deze actie kan niet ongedaan "
-"worden gemaakt."
+"Wilt u deze carrosserie echt verwijderen? Deze actie kan niet ongedaan worden"
+" gemaakt."
 
 #: carrosserie/templates/carrosserie/delete_carrosserie.html:90
 msgid "Responsable & contact"
@@ -13498,7 +13581,7 @@ msgstr "Creditcardnummer"
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:106
 #: client_pilotage/forms.py:26 panier/models.py:42
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:66
-#: theme/templates/dashboard.html:549
+#: theme/templates/dashboard.html:551
 msgid "Société cliente"
 msgstr "Klantbedrijf"
 
@@ -13607,6 +13690,7 @@ msgstr "Particulier"
 
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:93
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:68
+#: facture/models.py:70 facture/models.py:149
 msgid "Client particulier"
 msgstr "Particuliere klant"
 
@@ -13721,14 +13805,18 @@ msgstr ""
 "gemaakt."
 
 #: client_particulier/templates/client_particulier/delete_client.html:66
-#: facture/models.py:76
+#: facture/templates/facture/delete_facture.html:58
+#: facture/templates/facture/facture_detail.html:24
+#: facture/templates/facture/facture_list.html:29
+#: facture/templates/facture/maintenances_a_facturer.html:64
+#: facture/templates/facture/maintenances_a_facturer.html:113
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:21
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:179
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:344
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:20
 #: panier/models.py:33
 #: societe_cliente/templates/societe_cliente/societe_cliente_form.html:13
-#: theme/templates/dashboard.html:527 voiture/voiture_exemplaire/models.py:14
+#: theme/templates/dashboard.html:529 voiture/voiture_exemplaire/models.py:14
 msgid "Client"
 msgstr "Klant"
 
@@ -13793,6 +13881,7 @@ msgid "Intermédiaire"
 msgstr "Gemiddeld"
 
 #: client_pilotage/models.py:48
+#: facture/templates/facture/maintenances_a_facturer.html:117
 msgid "Pro"
 msgstr "Pro"
 
@@ -13918,74 +14007,1529 @@ msgstr "Piloot wijzigen:"
 msgid "Suppression du client pilotage"
 msgstr "Verwijdering van de rijvaardigheidsklant"
 
-#: facture/models.py:32
+#: facture/forms.py:42 facture/models.py:155
+msgid "Client professionnel"
+msgstr "Zakelijke klant"
+
+#: facture/forms.py:80
+msgid "Indiquez un coût ou un prix unitaire."
+msgstr "Geef een kostprijs of een eenheidsprijs op."
+
+#: facture/forms.py:119
+msgid "Effacer la clé de test"
+msgstr "Testsleutel wissen"
+
+#: facture/forms.py:120
+msgid "Effacer la clé de production"
+msgstr "Productiesleutel wissen"
+
+#: facture/forms.py:127
+msgid "•••••• (enregistrée – laisser vide pour la conserver)"
+msgstr "•••••• (opgeslagen – leeg laten om te behouden)"
+
+#: facture/forms.py:142
+msgid "Format attendu : schéma:identifiant, ex. 0208:0123456789"
+msgstr "Verwacht formaat: schema:identificatie, bijv. 0208:0123456789"
+
+#: facture/forms.py:151
+msgid "URL obligatoire pour l'environnement sélectionné."
+msgstr "URL verplicht voor de geselecteerde omgeving."
+
+#: facture/forms.py:154
+msgid "Clé API obligatoire pour l'environnement sélectionné."
+msgstr "API-sleutel verplicht voor de geselecteerde omgeving."
+
+#: facture/forms.py:156
+msgid "Indiquez le nom de l'en-tête."
+msgstr "Geef de naam van de header op."
+
+#: facture/models.py:43
 msgid "Ex : 0208:BE0123456789"
 msgstr "Bijv.: 0208:BE0123456789"
 
-#: facture/models.py:45 facture/models.py:69
+#: facture/models.py:56 facture/models.py:118
 msgid "Société émettrice"
 msgstr "Uitgevende onderneming"
 
-#: facture/models.py:46
+#: facture/models.py:57
 msgid "Sociétés émettrices"
 msgstr "Uitgevende ondernemingen"
 
-#: facture/models.py:55
+#: facture/models.py:71
+msgid "Professionnel"
+msgstr "Zakelijk"
+
+#: facture/models.py:74 facture/templates/facture/facture_form.html:4
+#: facture/templates/facture/maintenances_a_facturer.html:103
+msgid "Brouillon"
+msgstr "Concept"
+
+#: facture/models.py:75
+msgid "Émise"
+msgstr "Uitgereikt"
+
+#: facture/models.py:78
 msgid "Identifiant facture"
 msgstr "Factuur-ID"
 
-#: facture/models.py:62
+#: facture/models.py:86
 msgid "Numéro de facture"
 msgstr "Factuurnummer"
 
-#: facture/models.py:83
+#: facture/models.py:94
+msgid "Type de facture"
+msgstr "Factuurtype"
+
+#: facture/models.py:130 maintenance/autres_interventions/models.py:152
+#: maintenance/models.py:159 theme/templates/dashboard.html:199
+msgid "Maintenances"
+msgstr "Onderhoudsbeurten"
+
+#: facture/models.py:164
+msgid "Facturer à notre société"
+msgstr "Factureren aan ons bedrijf"
+
+#: facture/models.py:166
+msgid "La société émettrice est aussi le client (véhicule de la société)."
+msgstr "Het uitreikende bedrijf is ook de klant (bedrijfsvoertuig)."
+
+#: facture/models.py:172
+msgid "Adresse du client"
+msgstr "Adres van de klant"
+
+#: facture/models.py:173
+msgid "TVA du client"
+msgstr "Btw-nummer van de klant"
+
+#: facture/models.py:174
+msgid "Email du client"
+msgstr "E-mail van de klant"
+
+#: facture/models.py:176 facture/templates/facture/facture_detail.html:37
+#: facture/templates/facture/facture_pdf.html:146
 msgid "Date d’émission"
 msgstr "Uitgiftedatum"
 
-#: facture/models.py:84
+#: facture/models.py:177 facture/templates/facture/facture_detail.html:38
+#: facture/templates/facture/facture_pdf.html:148
+msgid "Date d'échéance"
+msgstr "Vervaldatum"
+
+#: facture/models.py:178
 msgid "Devise"
 msgstr "Valuta"
 
-#: facture/models.py:86
-msgid "Total"
-msgstr "Totaal"
+#: facture/models.py:182
+msgid "Marge pièces (%)"
+msgstr "Opslag onderdelen (%)"
 
-#: facture/models.py:93
+#: facture/models.py:188
+msgid "Marge main-d'œuvre (%)"
+msgstr "Opslag arbeidsloon (%)"
+
+#: facture/models.py:195 facture/templates/facture/facture_detail.html:43
+msgid "Autoliquidation TVA"
+msgstr "Btw-verlegging"
+
+#: facture/models.py:204
+msgid "XML UBL"
+msgstr "UBL-XML"
+
+#: facture/models.py:205 facture/templates/facture/facture_detail.html:86
+msgid "Envoyée via Peppol le"
+msgstr "Verzonden via Peppol op"
+
+#: facture/models.py:206
+msgid "Réponse Peppol"
+msgstr "Peppol-antwoord"
+
+#: facture/models.py:208
+msgid "Émise le"
+msgstr "Uitgereikt op"
+
+#: facture/models.py:215 maintenance/templates/maintenance/detail.html:31
+msgid "Créée par"
+msgstr "Aangemaakt door"
+
+#: facture/models.py:222 facture/templates/facture/facture_list.html:4
+#: facture/templates/facture/facture_list.html:12
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:62
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:95
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:136
 msgid "Factures"
 msgstr "Facturen"
 
-#: facture/models.py:96
+#: facture/models.py:226
 #, python-format
 msgid "Facture %(numero)s"
 msgstr "Factuur %(numero)s"
 
-#: facture/models.py:109
+#: facture/models.py:226 facture/templates/facture/facture_pdf.html:137
+#: facture/views.py:69
+msgid "brouillon"
+msgstr "concept"
+
+#: facture/models.py:332
+#: maintenance/templates/maintenance/partials/intervention_detail.html:135
+msgid "Pièce / produit"
+msgstr "Onderdeel / product"
+
+#: facture/models.py:334 investissements/models.py:57
+#: maintenance/autres_interventions/climatisation/models.py:49
+#: maintenance/autres_interventions/moteur/injection/models.py:25
+#: maintenance/choices.py:142 maintenance/choices.py:186
+#: maintenance/choices.py:234 maintenance/choices.py:314
+#: maintenance/choices.py:437 maintenance/choices.py:467
+#: maintenance/choices.py:520 maintenance/choices.py:599
+#: maintenance/choices.py:669 maintenance/choices.py:748
+#: maintenance/choices.py:850 maintenance/choices.py:935
+#: maintenance/choices.py:969 maintenance/choices.py:1003
+#: maintenance/choices.py:1037 maintenance/choices.py:1065
+#: maintenance/choices.py:1127 maintenance/choices.py:1189
+#: maintenance/choices.py:1236 maintenance/choices.py:1299
+#: maintenance/choices.py:1358 maintenance/choices.py:1403
+#: maintenance/choices.py:1807 maintenance/choices.py:1882
+#: maintenance/choices.py:1939 maintenance/choices.py:2135
+#: maintenance/choices.py:2284 maintenance/choices.py:2358
+#: maintenance/choices.py:2425 maintenance/choices.py:2505
+#: maintenance/choices.py:2553 maintenance/pneus/models.py:52
+#: piece/piece_roue_rechange/models.py:10
+msgid "Autre"
+msgstr "Ander"
+
+#: facture/models.py:355
+msgid "Type de ligne"
+msgstr "Regeltype"
+
+#: facture/models.py:361
+msgid "Ordre"
+msgstr "Volgorde"
+
+#: facture/models.py:363 facture/templates/facture/facture_detail.html:53
+#: facture/templates/facture/facture_form.html:121
+#: facture/templates/facture/facture_pdf.html:208
 msgid "Description"
 msgstr "Beschrijving"
 
-#: facture/models.py:118
-msgid "Prix unitaire"
-msgstr "Prijs per eenheid"
+#: facture/models.py:375
+msgid "Coût unitaire HTVA"
+msgstr "Kostprijs per eenheid excl. btw"
 
-#: facture/models.py:127
+#: facture/models.py:383 panier/models.py:116
+msgid "Marge (%)"
+msgstr "Marge (%)"
+
+#: facture/models.py:391 facture/templates/facture/facture_detail.html:57
+#: facture/templates/facture/facture_form.html:126
+#: facture/templates/facture/facture_pdf.html:210
+#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:614
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:657
+#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:772
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1516
+#: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:273
+#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:911
+#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:505
+#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1155
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:669
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:617
+#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:798
+#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:752
+#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:554
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:603
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1070
+#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:756
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:823
+#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:649
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1842
+#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:383
+#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2935
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2527
+#: maintenance/eclairage/templates/eclairage/eclairage_detail_pdf.html:672
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1166
+#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:847
+#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:870
+#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1212
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:460
+#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:513
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:516
+#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:602
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:744
+#: outillage/templates/outillage/delete_outillage.html:91
+msgid "Prix unitaire HTVA"
+msgstr "Eenheidsprijs excl. btw"
+
+#: facture/models.py:402
 msgid "Taux de TVA : 6, 12, 21"
 msgstr "BTW-tarieven: 6, 12, 21"
 
-#: facture/models.py:131
+#: facture/models.py:406
 msgid "Ligne de facture"
 msgstr "Factuurlijn"
 
-#: facture/models.py:132
+#: facture/models.py:407
 msgid "Lignes de facture"
 msgstr "Factuurlijnen"
 
-#: facture/models.py:135
+#: facture/models.py:411
 #, python-format
 msgid "%(desc)s (%(facture)s)"
 msgstr "%(desc)s (%(facture)s)"
+
+#: facture/models.py:449
+msgid "Test (sandbox)"
+msgstr "Test (sandbox)"
+
+#: facture/models.py:450
+msgid "Production"
+msgstr "Productie"
+
+#: facture/models.py:453
+msgid "Bearer token (Authorization: Bearer …)"
+msgstr "Bearer-token (Authorization: Bearer …)"
+
+#: facture/models.py:454
+msgid "Clé API dans un en-tête personnalisé"
+msgstr "API-sleutel in een eigen header"
+
+#: facture/models.py:463 facture/templates/facture/parametres_peppol.html:26
+msgid "Envoi Peppol activé"
+msgstr "Verzending via Peppol ingeschakeld"
+
+#: facture/models.py:465
+msgid "Environnement utilisé"
+msgstr "Gebruikte omgeving"
+
+#: facture/models.py:473
+msgid "Identifiant Peppol émetteur"
+msgstr "Peppol-ID van de uitreiker"
+
+#: facture/models.py:476
+msgid ""
+"Ex : 0208:0123456789 (numéro d'entreprise belge). Vide : déduit du numéro de "
+"TVA."
+msgstr ""
+"Bijv.: 0208:0123456789 (Belgisch ondernemingsnummer). Leeg: afgeleid van het "
+"btw-nummer."
+
+#: facture/models.py:480
+msgid "URL du serveur de test"
+msgstr "URL van de testserver"
+
+#: facture/models.py:481
+msgid "Clé API de test"
+msgstr "Test-API-sleutel"
+
+#: facture/models.py:484
+msgid "URL du serveur de production"
+msgstr "URL van de productieserver"
+
+#: facture/models.py:485
+msgid "Clé API de production"
+msgstr "Productie-API-sleutel"
+
+#: facture/models.py:488
+msgid "Authentification"
+msgstr "Authenticatie"
+
+#: facture/models.py:494
+msgid "Nom de l'en-tête de la clé API"
+msgstr "Naam van de header voor de API-sleutel"
+
+#: facture/models.py:499
+msgid "Délai maximum (secondes)"
+msgstr "Maximale wachttijd (seconden)"
+
+#: facture/models.py:502
+msgid "Envoyer automatiquement à l'émission"
+msgstr "Automatisch verzenden bij uitreiking"
+
+#: facture/models.py:504
+msgid ""
+"Les factures professionnelles sont envoyées via Peppol dès leur émission."
+msgstr ""
+"Zakelijke facturen worden via Peppol verzonden zodra ze zijn uitgereikt."
+
+#: facture/models.py:507 facture/templates/facture/parametres_peppol.html:49
+msgid "Dernier test de connexion"
+msgstr "Laatste verbindingstest"
+
+#: facture/models.py:508
+msgid "Résultat du dernier test"
+msgstr "Resultaat van de laatste test"
+
+#: facture/models.py:509
+msgid "Dernier test réussi"
+msgstr "Laatste test geslaagd"
+
+#: facture/models.py:515 facture/models.py:516
+#: facture/templates/facture/facture_detail.html:110
+#: facture/templates/facture/maintenances_a_facturer.html:28
+#: facture/templates/facture/parametres_peppol.html:4
+msgid "Paramètres Peppol"
+msgstr "Peppol-instellingen"
+
+#: facture/models.py:519
+#, python-format
+msgid "Paramètres Peppol – %(societe)s"
+msgstr "Peppol-instellingen – %(societe)s"
+
+#: facture/services.py:156
+#, python-format
+msgid "Main-d'œuvre – %(type)s (%(temps)s)"
+msgstr "Arbeidsloon – %(type)s (%(temps)s)"
+
+#: facture/services.py:228
+msgid "La facture ne contient aucune ligne."
+msgstr "De factuur bevat geen regels."
+
+#: facture/services.py:233
+msgid "Société émettrice introuvable."
+msgstr "Uitreikend bedrijf niet gevonden."
+
+#: facture/services.py:236 facture/services.py:250
+msgid "Votre société n'a pas de numéro de TVA."
+msgstr "Uw bedrijf heeft geen btw-nummer."
+
+#: facture/services.py:238 facture/services.py:252
+msgid "Votre société n'a pas d'adresse."
+msgstr "Uw bedrijf heeft geen adres."
+
+#: facture/services.py:242
+msgid "Sélectionnez le client professionnel."
+msgstr "Selecteer de zakelijke klant."
+
+#: facture/services.py:245
+msgid "Le client professionnel n'a pas de numéro de TVA."
+msgstr "De zakelijke klant heeft geen btw-nummer."
+
+#: facture/services.py:247
+msgid "Le client professionnel n'a pas d'adresse."
+msgstr "De zakelijke klant heeft geen adres."
+
+#: facture/services.py:255
+msgid "Sélectionnez le client particulier."
+msgstr "Selecteer de particuliere klant."
+
+#: facture/templates/facture/_entete_facture.html:16
+msgid "attribué à l'émission"
+msgstr "toegekend bij uitreiking"
+
+#: facture/templates/facture/_entete_facture.html:33
+msgid "Maintenances facturées"
+msgstr "Gefactureerde onderhouden"
+
+#: facture/templates/facture/delete_facture.html:9
+msgid "Supprimer le brouillon de facture"
+msgstr "Conceptfactuur verwijderen"
+
+#: facture/templates/facture/delete_facture.html:15
+msgid "Ce brouillon ne peut pas être supprimé car il est encore utilisé."
+msgstr "Dit concept kan niet worden verwijderd omdat het nog in gebruik is."
+
+#: facture/templates/facture/delete_facture.html:17
+msgid ""
+"Voulez-vous vraiment supprimer ce brouillon de facture ? Cette action est "
+"irréversible."
+msgstr ""
+"Wilt u deze conceptfactuur echt verwijderen? Deze actie is onomkeerbaar."
+
+#: facture/templates/facture/delete_facture.html:48
+msgid ""
+"Les maintenances, le véhicule et le client ne seront pas supprimés : les "
+"maintenances redeviennent « à facturer »."
+msgstr ""
+"De onderhouden, het voertuig en de klant worden niet verwijderd: de "
+"onderhouden worden weer „te factureren”."
+
+#: facture/templates/facture/delete_facture.html:64
+msgid "Lignes"
+msgstr "Regels"
+
+#: facture/templates/facture/facture_detail.html:12
+msgid "Détails de la facture :"
+msgstr "Factuurdetails:"
+
+#: facture/templates/facture/facture_detail.html:42
+#: facture/templates/facture/facture_form.html:104
+msgid "Marge totale"
+msgstr "Totale marge"
+
+#: facture/templates/facture/facture_detail.html:49
+#: facture/templates/facture/facture_form.html:111
+msgid "Lignes de la facture"
+msgstr "Factuurregels"
+
+#: facture/templates/facture/facture_detail.html:55
+#: facture/templates/facture/facture_form.html:124
+msgid "Coût HTVA"
+msgstr "Kostprijs excl. btw"
+
+#: facture/templates/facture/facture_detail.html:56
+#: facture/templates/facture/facture_form.html:125
+#, python-format
+msgid "Marge %%"
+msgstr "Marge %%"
+
+#: facture/templates/facture/facture_detail.html:58
+#: facture/templates/facture/facture_form.html:127
+#, python-format
+msgid "TVA %%"
+msgstr "Btw %%"
+
+#: facture/templates/facture/facture_detail.html:81
+msgid "Facture électronique (UBL / Peppol)"
+msgstr "Elektronische factuur (UBL / Peppol)"
+
+#: facture/templates/facture/facture_detail.html:83
+msgid "Serveur de test"
+msgstr "Testserver"
+
+#: facture/templates/facture/facture_detail.html:94
+msgid "Télécharger le XML"
+msgstr "XML downloaden"
+
+#: facture/templates/facture/facture_detail.html:99
+msgid "La facture sera envoyée au client via le réseau Peppol."
+msgstr "De factuur wordt via het Peppol-netwerk naar de klant verzonden."
+
+#: facture/templates/facture/facture_detail.html:100
+msgid "Envoyer via Peppol ?"
+msgstr "Verzenden via Peppol?"
+
+#: facture/templates/facture/facture_detail.html:101
+msgid "Envoyer"
+msgstr "Verzenden"
+
+#: facture/templates/facture/facture_detail.html:104
+msgid "Envoyer via Peppol"
+msgstr "Verzenden via Peppol"
+
+#: facture/templates/facture/facture_detail.html:109
+msgid "Envoi Peppol non configuré."
+msgstr "Verzending via Peppol niet geconfigureerd."
+
+#: facture/templates/facture/facture_detail.html:126
+msgid "Retour à la liste des factures"
+msgstr "Terug naar de factuurlijst"
+
+#: facture/templates/facture/facture_form.html:13
+msgid "Facture professionnelle"
+msgstr "Zakelijke factuur"
+
+#: facture/templates/facture/facture_form.html:13
+#: facture/templates/facture/maintenances_a_facturer.html:47
+msgid "Facture client particulier"
+msgstr "Factuur particuliere klant"
+
+#: facture/templates/facture/facture_form.html:14
+msgid "Brouillon – vérifiez avant d'émettre"
+msgstr "Concept – controleer vóór uitreiking"
+
+#: facture/templates/facture/facture_form.html:19
+msgid "Aperçu PDF"
+msgstr "PDF-voorbeeld"
+
+#: facture/templates/facture/facture_form.html:36
+msgid "Client et dates"
+msgstr "Klant en data"
+
+#: facture/templates/facture/facture_form.html:48
+msgid ""
+"Le numéro de TVA, l'adresse et l'identifiant Peppol du client sont repris "
+"dans le XML."
+msgstr ""
+"Het btw-nummer, het adres en de Peppol-ID van de klant worden in de XML "
+"opgenomen."
+
+#: facture/templates/facture/facture_form.html:72
+msgid "Imprimées sur la facture."
+msgstr "Worden op de factuur afgedrukt."
+
+#: facture/templates/facture/facture_form.html:77
+msgid "Marges"
+msgstr "Marges"
+
+#: facture/templates/facture/facture_form.html:90
+msgid "Appliquer ces marges à toutes les lignes"
+msgstr "Deze marges op alle regels toepassen"
+
+#: facture/templates/facture/facture_form.html:93
+msgid ""
+"La marge de chaque ligne reste modifiable dans le tableau ci-dessous. Coûts "
+"et marges n'apparaissent ni sur le PDF ni dans le XML."
+msgstr ""
+"De marge van elke regel blijft aanpasbaar in de tabel hieronder. Kosten en "
+"marges verschijnen niet op de PDF en niet in de XML."
+
+#: facture/templates/facture/facture_form.html:100
+#, python-format
+msgid ""
+"Client assujetti dans un autre pays de l'UE : TVA à 0 %%, mention « "
+"autoliquidation »."
+msgstr ""
+"Btw-plichtige klant in een ander EU-land: 0 %% btw, vermelding „btw verlegd”."
+
+#: facture/templates/facture/facture_form.html:152
+msgid ""
+"Avec un coût, le prix unitaire est calculé : coût × (1 + marge). Sans coût, "
+"le prix unitaire saisi est utilisé tel quel. La dernière ligne vide permet "
+"d'ajouter une ligne libre."
+msgstr ""
+"Met een kostprijs wordt de eenheidsprijs berekend: kostprijs × (1 + marge). "
+"Zonder kostprijs wordt de ingevoerde eenheidsprijs gebruikt. Met de laatste "
+"lege regel voegt u een vrije regel toe."
+
+#: facture/templates/facture/facture_form.html:158
+msgid "Totaux"
+msgstr "Totalen"
+
+#: facture/templates/facture/facture_form.html:162
+#: facture/templates/facture/facture_pdf.html:242
+#: facture/templates/facture/tva.html:120
+#: facture/templates/facture/tva.html:163
+msgid "Base HTVA"
+msgstr "Maatstaf excl. btw"
+
+#: facture/templates/facture/facture_form.html:166
+#: facture/templates/facture/facture_pdf.html:166
+#: facture/templates/facture/facture_pdf.html:176
+#: facture/templates/facture/facture_pdf.html:211
+#: facture/templates/facture/facture_pdf.html:246
+#: facture/templates/facture/maintenances_a_facturer.html:23
+#: facture/templates/facture/tva.html:4 facture/templates/facture/tva.html:121
+#: fuel/models.py:207
+#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:452
+#: piece/templates/piece/piece_detail.html:40
+#: piece/templates/piece/piece_form.html:100 recharge/models.py:207
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:97
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:138
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:312
+msgid "TVA"
+msgstr "BTW"
+
+#: facture/templates/facture/facture_form.html:180
+msgid "Enregistrer le brouillon"
+msgstr "Concept opslaan"
+
+#: facture/templates/facture/facture_form.html:183
+msgid "La facture recevra un numéro définitif et ne pourra plus être modifiée."
+msgstr ""
+"De factuur krijgt een definitief nummer en kan niet meer worden gewijzigd."
+
+#: facture/templates/facture/facture_form.html:184
+msgid "Émettre la facture ?"
+msgstr "Factuur uitreiken?"
+
+#: facture/templates/facture/facture_form.html:185
+msgid "Émettre"
+msgstr "Uitreiken"
+
+#: facture/templates/facture/facture_form.html:188
+msgid "Émettre la facture (PDF + XML)"
+msgstr "Factuur uitreiken (PDF + XML)"
+
+#: facture/templates/facture/facture_form.html:188
+msgid "Émettre la facture"
+msgstr "Factuur uitreiken"
+
+#: facture/templates/facture/facture_form.html:196
+msgid "Supprimer le brouillon"
+msgstr "Concept verwijderen"
+
+#: facture/templates/facture/facture_form.html:203
+#: facture/templates/facture/facture_list.html:71
+#: facture/templates/facture/parametres_peppol.html:182
+#: facture/templates/facture/tva.html:238
+msgid "Retour à la facturation"
+msgstr "Terug naar facturatie"
+
+#: facture/templates/facture/facture_list.html:16
+msgid "Facturer une maintenance"
+msgstr "Een onderhoud factureren"
+
+#: facture/templates/facture/facture_list.html:81
+msgid "Aucune facture."
+msgstr "Geen facturen."
+
+#: facture/templates/facture/facture_list.html:84
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ factures"
+msgstr "_START_ tot _END_ van _TOTAL_ facturen"
+
+#: facture/templates/facture/facture_pdf.html:16
+msgid "Page"
+msgstr "Pagina"
+
+#: facture/templates/facture/facture_pdf.html:101
+msgid "BROUILLON"
+msgstr "CONCEPT"
+
+#: facture/templates/facture/facture_pdf.html:154
+msgid "VIN"
+msgstr "VIN"
+
+#: facture/templates/facture/facture_pdf.html:178
+msgid "Client non sélectionné"
+msgstr "Geen klant geselecteerd"
+
+#: facture/templates/facture/facture_pdf.html:192
+msgid "Interventions"
+msgstr "Werkzaamheden"
+
+#: facture/templates/facture/facture_pdf.html:203
+msgid "Pièces, produits et main-d'œuvre"
+msgstr "Onderdelen, producten en arbeidsloon"
+
+#: facture/templates/facture/facture_pdf.html:220
+msgid "Réf."
+msgstr "Ref."
+
+#: facture/templates/facture/facture_pdf.html:230
+msgid "Aucune ligne."
+msgstr "Geen regels."
+
+#: facture/templates/facture/facture_pdf.html:267
+msgid ""
+"Autoliquidation – TVA due par le cocontractant (article 196 de la directive "
+"2006/112/CE)."
+msgstr ""
+"Btw verlegd – btw verschuldigd door de afnemer (artikel 196 van Richtlijn "
+"2006/112/EG)."
+
+#: facture/templates/facture/facture_pdf.html:273
+msgid "Merci d'effectuer le paiement sur le compte"
+msgstr "Gelieve het bedrag over te maken op rekening"
+
+#: facture/templates/facture/facture_pdf.html:274
+msgid "avant le"
+msgstr "vóór"
+
+#: facture/templates/facture/facture_pdf.html:275
+msgid "avec la communication"
+msgstr "met de mededeling"
+
+#: facture/templates/facture/facture_pdf.html:285
+#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:763
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:809
+#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:928
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1665
+#: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:333
+#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:1063
+#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:655
+#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1340
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:826
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:773
+#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:945
+#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:894
+#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:704
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:747
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1254
+#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:909
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:993
+#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:790
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:2036
+#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:548
+#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:3114
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2708
+#: maintenance/eclairage/templates/eclairage/eclairage_detail_pdf.html:821
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1315
+#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:1049
+#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:1022
+#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1376
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:604
+#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:668
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:675
+#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:763
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:903
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:373
+msgid "Document généré automatiquement par CarsCosts.com."
+msgstr "Document automatisch gegenereerd door CarsCosts.com."
+
+#: facture/templates/facture/facture_pdf.html:287
+#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:765
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:811
+#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:930
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1667
+#: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:335
+#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:1065
+#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:657
+#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1344
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:828
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:775
+#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:947
+#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:896
+#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:706
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:749
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1256
+#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:911
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:995
+#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:792
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:2040
+#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:550
+#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:3116
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2710
+#: maintenance/eclairage/templates/eclairage/eclairage_detail_pdf.html:823
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1317
+#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:1053
+#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:1024
+#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1378
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:606
+#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:670
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:677
+#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:765
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:321
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:905
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:375
+msgid "Date export"
+msgstr "Exportdatum"
+
+#: facture/templates/facture/maintenances_a_facturer.html:4
+#: facture/templates/facture/maintenances_a_facturer.html:65
+#: facture/templates/facture/parametres_peppol.html:15
+#: facture/templates/facture/tva.html:20 theme/templates/dashboard.html:715
+msgid "Facturation"
+msgstr "Facturatie"
+
+#: facture/templates/facture/maintenances_a_facturer.html:13
+msgid "Facturation des maintenances"
+msgstr "Facturatie van onderhouden"
+
+#: facture/templates/facture/maintenances_a_facturer.html:19
+msgid "Factures émises et brouillons"
+msgstr "Uitgereikte facturen en concepten"
+
+#: facture/templates/facture/maintenances_a_facturer.html:37
+msgid ""
+"Cochez une ou plusieurs maintenances d'un même véhicule, puis choisissez le "
+"type de facture. Vous pourrez ensuite ajuster les marges et les lignes avant "
+"d'émettre la facture."
+msgstr ""
+"Vink één of meer onderhouden van hetzelfde voertuig aan en kies vervolgens "
+"het factuurtype. Daarna kunt u de marges en regels aanpassen voordat u de "
+"factuur uitreikt."
+
+#: facture/templates/facture/maintenances_a_facturer.html:51
+msgid "Facture professionnelle (XML)"
+msgstr "Zakelijke factuur (XML)"
+
+#: facture/templates/facture/maintenances_a_facturer.html:59
+msgid "Tout cocher"
+msgstr "Alles aanvinken"
+
+#: facture/templates/facture/maintenances_a_facturer.html:66
+msgid "Facturer"
+msgstr "Factureren"
+
+#: facture/templates/facture/maintenances_a_facturer.html:107
+msgid "À facturer"
+msgstr "Te factureren"
+
+#: facture/templates/facture/maintenances_a_facturer.html:149
+msgid "Aucune maintenance enregistrée."
+msgstr "Geen onderhoud geregistreerd."
+
+#: facture/templates/facture/maintenances_a_facturer.html:152
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ maintenances"
+msgstr "_START_ tot _END_ van _TOTAL_ onderhouden"
+
+#: facture/templates/facture/maintenances_a_facturer.html:153
+#: facture/templates/facture/maintenances_a_facturer.html:154
+msgid "Aucune maintenance trouvée"
+msgstr "Geen onderhoud gevonden"
+
+#: facture/templates/facture/parametres_peppol.html:12
+msgid "Paramètres de facturation Peppol"
+msgstr "Peppol-facturatie-instellingen"
+
+#: facture/templates/facture/parametres_peppol.html:28
+msgid "Activé mais incomplet"
+msgstr "Ingeschakeld maar onvolledig"
+
+#: facture/templates/facture/parametres_peppol.html:30
+msgid "Envoi Peppol désactivé"
+msgstr "Verzending via Peppol uitgeschakeld"
+
+#: facture/templates/facture/parametres_peppol.html:32
+msgid "Environnement"
+msgstr "Omgeving"
+
+#: facture/templates/facture/parametres_peppol.html:37
+msgid "Envoi automatique à l'émission"
+msgstr "Automatische verzending bij uitreiking"
+
+#: facture/templates/facture/parametres_peppol.html:41
+msgid "Identifiant émetteur"
+msgstr "Identificatie van de uitreiker"
+
+#: facture/templates/facture/parametres_peppol.html:44
+msgid "Saisi dans les paramètres."
+msgstr "Ingevoerd in de instellingen."
+
+#: facture/templates/facture/parametres_peppol.html:44
+msgid "Déduit du numéro de TVA de la société."
+msgstr "Afgeleid van het btw-nummer van het bedrijf."
+
+#: facture/templates/facture/parametres_peppol.html:56
+msgid "Aucun test effectué."
+msgstr "Nog geen test uitgevoerd."
+
+#: facture/templates/facture/parametres_peppol.html:63
+msgid ""
+"Un point d'accès est aussi défini dans settings.py : il n'est utilisé que si "
+"l'envoi n'est pas activé ici."
+msgstr ""
+"Er is ook een toegangspunt gedefinieerd in settings.py: dat wordt alleen "
+"gebruikt als de verzending hier niet is ingeschakeld."
+
+#: facture/templates/facture/parametres_peppol.html:76
+#: maintenance/check_up/admin.py:57
+msgid "Général"
+msgstr "Algemeen"
+
+#: facture/templates/facture/parametres_peppol.html:89
+msgid ""
+"Utilisez le serveur de test tant que les factures n'ont pas été validées par "
+"votre fournisseur Peppol."
+msgstr ""
+"Gebruik de testserver zolang de facturen niet door uw Peppol-provider zijn "
+"gevalideerd."
+
+#: facture/templates/facture/parametres_peppol.html:108
+msgid "Serveur de test (sandbox)"
+msgstr "Testserver (sandbox)"
+
+#: facture/templates/facture/parametres_peppol.html:109
+#: facture/templates/facture/parametres_peppol.html:132
+msgid "utilisé"
+msgstr "in gebruik"
+
+#: facture/templates/facture/parametres_peppol.html:124
+msgid "Enregistrer et tester le serveur de test"
+msgstr "Opslaan en testserver testen"
+
+#: facture/templates/facture/parametres_peppol.html:131
+msgid "Serveur de production"
+msgstr "Productieserver"
+
+#: facture/templates/facture/parametres_peppol.html:147
+msgid "Enregistrer et tester le serveur de production"
+msgstr "Opslaan en productieserver testen"
+
+#: facture/templates/facture/parametres_peppol.html:154
+msgid "Authentification et connexion"
+msgstr "Authenticatie en verbinding"
+
+#: facture/templates/facture/parametres_peppol.html:170
+msgid ""
+"Ces informations sont fournies par votre point d'accès Peppol (Access Point)."
+" Les clés API ne sont jamais réaffichées."
+msgstr ""
+"Deze gegevens krijgt u van uw Peppol-toegangspunt (Access Point). API-"
+"sleutels worden nooit opnieuw getoond."
+
+#: facture/templates/facture/parametres_peppol.html:176
+msgid "Enregistrer les paramètres"
+msgstr "Instellingen opslaan"
+
+#: facture/templates/facture/tva.html:13
+msgid "TVA à payer et à récupérer"
+msgstr "Te betalen en terug te vorderen btw"
+
+#: facture/templates/facture/tva.html:15
+msgid "Du"
+msgstr "Van"
+
+#: facture/templates/facture/tva.html:15
+msgid "au"
+msgstr "tot"
+
+#: facture/templates/facture/tva.html:32 facture/templates/facture/tva.html:44
+#: fuel/templates/fuel/fuel_exemplaire_stat.html:87
+#: fuel/templates/fuel/fuel_exemplaire_stat.html:153
+#: fuel/templates/fuel/fuel_stat.html:230
+#: fuel/templates/fuel/fuel_stat.html:292
+#: recharge/templates/recharge/electricite_exemplaire_stat.html:86
+#: recharge/templates/recharge/electricite_exemplaire_stat.html:141
+#: recharge/templates/recharge/electricite_exemplaire_stat.html:182
+#: recharge/templates/recharge/electricite_stat.html:111
+#: recharge/templates/recharge/electricite_stat.html:183
+#: stats_fournisseurs/forms.py:23
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:94
+#: utilisateurs/models.py:391
+msgid "Mois"
+msgstr "Maand"
+
+#: facture/templates/facture/tva.html:33 facture/templates/facture/tva.html:50
+msgid "Trimestre"
+msgstr "Kwartaal"
+
+#: facture/templates/facture/tva.html:34 facture/templates/facture/tva.html:38
+#: fuel/templates/fuel/fuel_exemplaire_stat.html:118
+#: fuel/templates/fuel/fuel_exemplaire_stat.html:161
+#: fuel/templates/fuel/fuel_stat.html:257
+#: fuel/templates/fuel/fuel_stat.html:300
+#: maintenance/templates/maintenance/list.html:62 piece/models.py:77
+#: piece/templates/piece/piece_detail.html:29
+#: recharge/templates/recharge/electricite_exemplaire_stat.html:114
+#: recharge/templates/recharge/electricite_exemplaire_stat.html:190
+#: recharge/templates/recharge/electricite_stat.html:138
+#: recharge/templates/recharge/electricite_stat.html:195
+#: stats_fournisseurs/forms.py:12
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:135
+#: utilisateurs/models.py:395
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/list.html:62
+msgid "Année"
+msgstr "Jaar"
+
+#: facture/templates/facture/tva.html:60
+msgid "Pays de la déclaration"
+msgstr "Land van de aangifte"
+
+#: facture/templates/facture/tva.html:69
+#, python-format
+msgid "Part de TVA déductible (%%)"
+msgstr "Aftrekbaar btw-deel (%%)"
+
+#: facture/templates/facture/tva.html:80
+#, python-format
+msgid ""
+"Ex. : en Belgique, la TVA sur le carburant d'une voiture de société n'est "
+"souvent déductible qu'à 50 %%. Vérifiez avec votre comptable."
+msgstr ""
+"Bijv.: in België is de btw op brandstof voor een bedrijfswagen vaak maar voor"
+" 50 %% aftrekbaar. Controleer dit met uw boekhouder."
+
+#: facture/templates/facture/tva.html:84
+msgid "Calculer"
+msgstr "Berekenen"
+
+#: facture/templates/facture/tva.html:91
+msgid "TVA à payer (ventes)"
+msgstr "Te betalen btw (verkopen)"
+
+#: facture/templates/facture/tva.html:93
+msgid "facture(s) émise(s)"
+msgstr "uitgereikte factuur/facturen"
+
+#: facture/templates/facture/tva.html:96
+msgid "TVA à récupérer (achats)"
+msgstr "Terug te vorderen btw (aankopen)"
+
+#: facture/templates/facture/tva.html:98 facture/templates/facture/tva.html:164
+msgid "TVA payée"
+msgstr "Betaalde btw"
+
+#: facture/templates/facture/tva.html:101
+msgid "Solde"
+msgstr "Saldo"
+
+#: facture/templates/facture/tva.html:104
+msgid "à payer à l'État"
+msgstr "te betalen aan de staat"
+
+#: facture/templates/facture/tva.html:107
+msgid "à récupérer (crédit de TVA)"
+msgstr "terug te vorderen (btw-tegoed)"
+
+#: facture/templates/facture/tva.html:115
+msgid "TVA à payer – par taux"
+msgstr "Te betalen btw – per tarief"
+
+#: facture/templates/facture/tva.html:119
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:377
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/simple.html:378
+msgid "Taux"
+msgstr "Tarief"
+
+#: facture/templates/facture/tva.html:132
+msgid "Aucune facture émise sur la période."
+msgstr "Geen factuur uitgereikt in de periode."
+
+#: facture/templates/facture/tva.html:136
+msgid "Autoliquidation"
+msgstr "Btw verlegd"
+
+#: facture/templates/facture/tva.html:142
+#: facture/templates/facture/tva.html:191
+msgid "Total"
+msgstr "Totaal"
+
+#: facture/templates/facture/tva.html:150
+#, python-format
+msgid ""
+"%(n)s maintenance interne (facture à notre société) n'est pas une vente : la "
+"TVA sur ses pièces est récupérée via les achats fournisseurs."
+msgid_plural ""
+"%(n)s maintenances internes (factures à notre société) ne sont pas des ventes"
+" : la TVA sur leurs pièces est récupérée via les achats fournisseurs."
+msgstr[0] ""
+"%(n)s intern onderhoud (factuur aan ons bedrijf) is geen verkoop: de btw op "
+"de onderdelen wordt teruggevorderd via de aankopen bij leveranciers."
+msgstr[1] ""
+"%(n)s interne onderhouden (facturen aan ons bedrijf) zijn geen verkopen: de "
+"btw op de onderdelen wordt teruggevorderd via de aankopen bij leveranciers."
+
+#: facture/templates/facture/tva.html:157
+msgid "TVA à récupérer – par source"
+msgstr "Terug te vorderen btw – per bron"
+
+#: facture/templates/facture/tva.html:161
+msgid "Source"
+msgstr "Bron"
+
+#: facture/templates/facture/tva.html:162
+msgid "Nombre"
+msgstr "Aantal"
+
+#: facture/templates/facture/tva.html:165
+msgid "Déductible"
+msgstr "Aftrekbaar"
+
+#: facture/templates/facture/tva.html:166 outillage/models.py:68
+#: outillage/templates/outillage/delete_outillage.html:97
+msgid "TVA à récupérer"
+msgstr "Terug te vorderen btw"
+
+#: facture/templates/facture/tva.html:177
+msgid "déjà dans « Achats »"
+msgstr "al in „Aankopen”"
+
+#: facture/templates/facture/tva.html:205
+msgid "Déclaration TVA"
+msgstr "Btw-aangifte"
+
+#: facture/templates/facture/tva.html:210
+msgid ""
+"Modèle générique : les numéros de cases du formulaire national ne sont pas "
+"encore repris pour ce pays. Les montants (bases par taux, TVA due, TVA "
+"déductible, solde) restent valables."
+msgstr ""
+"Generiek model: de vaknummers van het nationale formulier zijn voor dit land "
+"nog niet opgenomen. De bedragen (maatstaven per tarief, verschuldigde btw, "
+"aftrekbare btw, saldo) blijven geldig."
+
+#: facture/templates/facture/tva.html:216
+msgid "Case"
+msgstr "Vak"
+
+#: facture/templates/facture/tva.html:218
+msgid "Montant"
+msgstr "Bedrag"
+
+#: facture/templates/facture/tva.html:232
+msgid ""
+"Calcul indicatif basé sur les données encodées dans CarsCosts : à faire "
+"valider par votre comptable avant la déclaration."
+msgstr ""
+"Indicatieve berekening op basis van de gegevens in CarsCosts: laat deze vóór "
+"de aangifte valideren door uw boekhouder."
+
+#: facture/tva.py:32
+msgid "Achats (factures fournisseurs)"
+msgstr "Aankopen (leveranciersfacturen)"
+
+#: facture/tva.py:33 outillage/models.py:86
+#: outillage/templates/outillage/delete_outillage.html:72
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:325
+msgid "Outillage"
+msgstr "Gereedschap"
+
+#: facture/tva.py:34 fuel/models.py:220 fuel/templates/fuel/fuel_detail.html:46
+#: fuel/templates/fuel/fuel_exemplaire_stat.html:9
+#: fuel/templates/fuel/fuel_form.html:12 fuel/templates/fuel/fuel_stat.html:9
+#: fuel/templates/fuel/modifier_fuel.html:190
+#: theme/templates/dashboard.html:233 voiture/voiture_moteur/forms.py:29
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:92
+#: voiture/voiture_moteur/templates/voiture_moteur/list.html:54
+#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:53
+msgid "Carburant"
+msgstr "Brandstof"
+
+#: facture/tva.py:35 recharge/templates/recharge/electricite_stat.html:11
+#: theme/templates/dashboard.html:243
+msgid "Recharges électriques"
+msgstr "Elektrische lading"
+
+#: facture/tva.py:40
+msgid "Maintenances internes (pièces) – incluses dans les achats"
+msgstr "Interne onderhouden (onderdelen) – inbegrepen in de aankopen"
+
+#: facture/tva.py:281
+#, python-format
+msgid "Base à %(taux)s %% (taux sans case dédiée – à vérifier)"
+msgstr "Maatstaf tegen %(taux)s %% (tarief zonder eigen vak – te controleren)"
+
+#: facture/tva.py:294
+msgid "Prestations intracommunautaires (autoliquidation)"
+msgstr "Intracommunautaire diensten (btw verlegd)"
+
+#: facture/tva.py:295
+msgid "TVA due"
+msgstr "Verschuldigde btw"
+
+#: facture/tva.py:296 facture/tva.py:334
+msgid "TVA déductible"
+msgstr "Aftrekbare btw"
+
+#: facture/tva.py:303
+msgid "TVA à payer"
+msgstr "Te betalen btw"
+
+#: facture/tva.py:304
+msgid "Crédit de TVA (à récupérer)"
+msgstr "Btw-tegoed (terug te vorderen)"
+
+#: facture/tva.py:309
+msgid "Déclaration périodique de TVA"
+msgstr "Periodieke btw-aangifte"
+
+#: facture/tva.py:324
+msgid "Déclaration périodique à la TVA (Intervat)"
+msgstr "Periodieke btw-aangifte (Intervat)"
+
+#: facture/tva.py:326
+msgid "Opérations soumises à un régime particulier / 0 %"
+msgstr "Handelingen onderworpen aan een bijzondere regeling / 0 %"
+
+#: facture/tva.py:327
+msgid "Opérations à 6 %"
+msgstr "Handelingen tegen 6 %"
+
+#: facture/tva.py:328
+msgid "Opérations à 12 %"
+msgstr "Handelingen tegen 12 %"
+
+#: facture/tva.py:329
+msgid "Opérations à 21 %"
+msgstr "Handelingen tegen 21 %"
+
+#: facture/tva.py:332
+msgid "Services intracommunautaires (autoliquidation)"
+msgstr "Intracommunautaire diensten (btw verlegd)"
+
+#: facture/tva.py:333
+msgid "TVA due sur les opérations"
+msgstr "Verschuldigde btw op de handelingen"
+
+#: facture/tva.py:335
+msgid "Taxe due à l'État"
+msgstr "Aan de staat verschuldigde belasting"
+
+#: facture/tva.py:336
+msgid "Sommes dues par l'État"
+msgstr "Door de staat verschuldigde sommen"
+
+#: facture/tva.py:340
+msgid "Déclaration CA3 (formulaire 3310-CA3)"
+msgstr "CA3-aangifte (formulier 3310-CA3)"
+
+#: facture/tva.py:342
+msgid "Taux normal 20 % – base hors taxe"
+msgstr "Normaal tarief 20 % – maatstaf excl. btw"
+
+#: facture/tva.py:343
+msgid "Taux réduit 10 % – base hors taxe"
+msgstr "Verlaagd tarief 10 % – maatstaf excl. btw"
+
+#: facture/tva.py:344
+msgid "Taux réduit 5,5 % – base hors taxe"
+msgstr "Verlaagd tarief 5,5 % – maatstaf excl. btw"
+
+#: facture/tva.py:345
+msgid "Taux particulier 2,1 % – base hors taxe"
+msgstr "Bijzonder tarief 2,1 % – maatstaf excl. btw"
+
+#: facture/tva.py:348
+msgid "Autres opérations non imposables (prestations intracommunautaires)"
+msgstr "Andere niet-belastbare handelingen (intracommunautaire diensten)"
+
+#: facture/tva.py:349
+msgid "Total de la TVA brute due"
+msgstr "Totaal verschuldigde bruto-btw"
+
+#: facture/tva.py:350
+msgid "Total TVA déductible"
+msgstr "Totaal aftrekbare btw"
+
+#: facture/tva.py:351
+msgid "TVA nette due"
+msgstr "Verschuldigde netto-btw"
+
+#: facture/tva.py:352
+msgid "Crédit de TVA"
+msgstr "Btw-tegoed"
+
+#: facture/tva.py:356
+msgid "Umsatzsteuer-Voranmeldung (UStVA)"
+msgstr "Voorlopige btw-aangifte (UStVA)"
+
+#: facture/tva.py:358
+msgid "Steuerpflichtige Umsätze 19 % – Bemessungsgrundlage"
+msgstr "Belastbare handelingen 19 % – maatstaf"
+
+#: facture/tva.py:359
+msgid "Steuerpflichtige Umsätze 7 % – Bemessungsgrundlage"
+msgstr "Belastbare handelingen 7 % – maatstaf"
+
+#: facture/tva.py:362
+msgid "Nicht steuerbare sonstige Leistungen (EU, Reverse Charge)"
+msgstr "Niet-belastbare overige diensten (EU, btw verlegd)"
+
+#: facture/tva.py:364
+msgid "Vorsteuerbeträge"
+msgstr "Voorbelasting"
+
+#: facture/tva.py:365
+msgid "Verbleibende Umsatzsteuer-Vorauszahlung"
+msgstr "Resterende btw-voorschotbetaling"
+
+#: facture/tva.py:366
+msgid "Verbleibender Überschuss (negativ)"
+msgstr "Resterend overschot (negatief)"
+
+#: facture/tva.py:370
+msgid "Aangifte omzetbelasting"
+msgstr "Aangifte omzetbelasting"
+
+#: facture/tva.py:372
+msgid "Leveringen/diensten belast met hoog tarief (21 %)"
+msgstr "Leveringen/diensten belast met hoog tarief (21 %)"
+
+#: facture/tva.py:373
+msgid "Leveringen/diensten belast met laag tarief (9 %)"
+msgstr "Leveringen/diensten belast met laag tarief (9 %)"
+
+#: facture/tva.py:374
+msgid "Leveringen/diensten belast met 0 % of niet bij u belast"
+msgstr "Leveringen/diensten belast met 0 % of niet bij u belast"
+
+#: facture/tva.py:377
+msgid "Leveringen naar/diensten in landen binnen de EU"
+msgstr "Leveringen naar/diensten in landen binnen de EU"
+
+#: facture/tva.py:378
+msgid "Verschuldigde omzetbelasting"
+msgstr "Verschuldigde omzetbelasting"
+
+#: facture/tva.py:379
+msgid "Voorbelasting"
+msgstr "Voorbelasting"
+
+#: facture/tva.py:380
+msgid "Totaal te betalen"
+msgstr "Totaal te betalen"
+
+#: facture/tva.py:381
+msgid "Totaal terug te vragen"
+msgstr "Totaal terug te vragen"
+
+#: facture/tva.py:385
+msgid "Modelo 303 (IVA)"
+msgstr "Modelo 303 (btw)"
+
+#: facture/tva.py:387
+msgid "Régimen general 4 % – base imponible"
+msgstr "Algemene regeling 4 % – maatstaf"
+
+#: facture/tva.py:388
+msgid "Régimen general 10 % – base imponible"
+msgstr "Algemene regeling 10 % – maatstaf"
+
+#: facture/tva.py:389
+msgid "Régimen general 21 % – base imponible"
+msgstr "Algemene regeling 21 % – maatstaf"
+
+#: facture/tva.py:392
+msgid "Operaciones no sujetas por reglas de localización"
+msgstr "Handelingen niet belast volgens de plaatsbepalingsregels"
+
+#: facture/tva.py:393
+msgid "Total cuota devengada"
+msgstr "Totaal verschuldigde belasting"
+
+#: facture/tva.py:394
+msgid "Total a deducir"
+msgstr "Totaal aftrekbaar"
+
+#: facture/tva.py:395
+msgid "Resultado de la liquidación (a ingresar)"
+msgstr "Resultaat van de aangifte (te betalen)"
+
+#: facture/tva.py:396
+msgid "Resultado de la liquidación (a compensar / devolver)"
+msgstr "Resultaat van de aangifte (te verrekenen / terug te geven)"
+
+#: facture/tva.py:400
+msgid "Comunicazione liquidazioni periodiche IVA (LIPE)"
+msgstr "Periodieke btw-afrekening (LIPE)"
+
+#: facture/tva.py:401
+msgid "Totale operazioni attive (al netto dell'IVA)"
+msgstr "Totaal actieve handelingen (excl. btw)"
+
+#: facture/tva.py:405
+msgid "IVA esigibile"
+msgstr "Opeisbare btw"
+
+#: facture/tva.py:406
+msgid "IVA detratta"
+msgstr "Afgetrokken btw"
+
+#: facture/tva.py:407
+msgid "IVA dovuta"
+msgstr "Verschuldigde btw"
+
+#: facture/tva.py:408
+msgid "IVA a credito"
+msgstr "Btw-tegoed"
+
+#: facture/tva.py:412
+msgid "Umsatzsteuervoranmeldung (U30)"
+msgstr "Voorlopige btw-aangifte (U30)"
+
+#: facture/tva.py:413
+msgid "Gesamtbetrag der Bemessungsgrundlagen"
+msgstr "Totaal van de maatstaven van heffing"
+
+#: facture/tva.py:415
+msgid "Normalsteuersatz 20 % – Bemessungsgrundlage"
+msgstr "Normaal tarief 20 % – maatstaf"
+
+#: facture/tva.py:416
+msgid "Ermäßigter Steuersatz 10 % – Bemessungsgrundlage"
+msgstr "Verlaagd tarief 10 % – maatstaf"
+
+#: facture/tva.py:417
+msgid "Ermäßigter Steuersatz 13 % – Bemessungsgrundlage"
+msgstr "Verlaagd tarief 13 % – maatstaf"
+
+#: facture/tva.py:422
+msgid "Gesamtbetrag der Vorsteuern"
+msgstr "Totale voorbelasting"
+
+#: facture/tva.py:423
+msgid "Vorauszahlung (Zahllast)"
+msgstr "Voorschot (te betalen)"
+
+#: facture/tva.py:424
+msgid "Überschuss"
+msgstr "Overschot"
+
+#: facture/views.py:37
+msgid "Création d'une facture"
+msgstr "Aanmaak van een factuur"
+
+#: facture/views.py:38
+msgid "Émission de la facture"
+msgstr "Uitreiking van de factuur"
+
+#: facture/views.py:39
+msgid "Suppression d'un brouillon de facture"
+msgstr "Verwijdering van een conceptfactuur"
+
+#: facture/views.py:40
+msgid "Modification des paramètres Peppol"
+msgstr "Wijziging van de Peppol-instellingen"
+
+#: facture/views.py:41
+msgid "Envoi Peppol de la facture"
+msgstr "Verzending van de factuur via Peppol"
+
+#: facture/views.py:116
+msgid "Type de facture inconnu."
+msgstr "Onbekend factuurtype."
+
+#: facture/views.py:126
+msgid "Sélectionnez au moins une maintenance."
+msgstr "Selecteer minstens één onderhoud."
+
+#: facture/views.py:131
+msgid "Les maintenances sélectionnées doivent concerner le même véhicule."
+msgstr "De geselecteerde onderhouden moeten hetzelfde voertuig betreffen."
+
+#: facture/views.py:136
+msgid ""
+"Brouillon de facture créé. Vérifiez les marges et les lignes avant d'émettre."
+msgstr ""
+"Conceptfactuur aangemaakt. Controleer de marges en regels vóór uitreiking."
+
+#: facture/views.py:166
+msgid "Cette facture est émise : elle ne peut plus être modifiée."
+msgstr "Deze factuur is uitgereikt: ze kan niet meer worden gewijzigd."
+
+#: facture/views.py:190
+msgid "Marges appliquées à toutes les lignes."
+msgstr "Marges toegepast op alle regels."
+
+#: facture/views.py:202
+#, python-format
+msgid "Facture %(numero)s émise."
+msgstr "Factuur %(numero)s uitgereikt."
+
+#: facture/views.py:210
+msgid "Facture enregistrée."
+msgstr "Factuur opgeslagen."
+
+#: facture/views.py:289
+msgid "Le XML n'est disponible que pour une facture professionnelle émise."
+msgstr "De XML is alleen beschikbaar voor een uitgereikte zakelijke factuur."
+
+#: facture/views.py:320
+#, python-format
+msgid "Envoi Peppol impossible : %(erreur)s"
+msgstr "Verzending via Peppol niet mogelijk: %(erreur)s"
+
+#: facture/views.py:328
+msgid "Facture envoyée au serveur Peppol de TEST (aucune valeur légale)."
+msgstr "Factuur verzonden naar de Peppol-TESTserver (geen juridische waarde)."
+
+#: facture/views.py:330
+msgid "Facture envoyée via Peppol."
+msgstr "Factuur verzonden via Peppol."
+
+#: facture/views.py:342
+msgid "Seule une facture professionnelle émise peut être envoyée via Peppol."
+msgstr ""
+"Alleen een uitgereikte zakelijke factuur kan via Peppol worden verzonden."
+
+#: facture/views.py:371
+msgid "activé"
+msgstr "ingeschakeld"
+
+#: facture/views.py:371
+msgid "désactivé"
+msgstr "uitgeschakeld"
+
+#: facture/views.py:373
+msgid "Paramètres Peppol enregistrés."
+msgstr "Peppol-instellingen opgeslagen."
+
+#: facture/views.py:410
+msgid "production"
+msgstr "productie"
+
+#: facture/views.py:410
+msgid "test"
+msgstr "test"
+
+#: facture/views.py:413
+#, python-format
+msgid "Renseignez l'URL et la clé API du serveur de %(env)s."
+msgstr "Vul de URL en de API-sleutel van de %(env)s-server in."
+
+#: facture/views.py:428 facture/views.py:430
+#, python-format
+msgid "Serveur de %(env)s : %(res)s"
+msgstr "%(env)s-server: %(res)s"
+
+#: facture/views.py:446
+msgid ""
+"Une facture émise ne peut pas être supprimée (établissez une note de crédit)."
+msgstr ""
+"Een uitgereikte factuur kan niet worden verwijderd (maak een creditnota op)."
+
+#: facture/views.py:455
+msgid "Le brouillon de facture a bien été supprimé."
+msgstr "De conceptfactuur is verwijderd."
 
 #: fournisseur/models.py:58
 msgid "ISO 3166-1 alpha-2"
@@ -14015,7 +15559,7 @@ msgstr "Mobiel nummer"
 
 #: fournisseur/models.py:103
 #: fournisseur/templates/fournisseur/fournisseur_dashboard.html:17
-#: theme/templates/dashboard.html:446
+#: theme/templates/dashboard.html:448
 msgid "Fournisseurs"
 msgstr "Leveranciers"
 
@@ -14039,8 +15583,8 @@ msgid ""
 "Voulez-vous vraiment supprimer ce fournisseur ? Cette action est "
 "irréversible."
 msgstr ""
-"Wilt u deze leverancier echt verwijderen? Deze actie kan niet ongedaan "
-"worden gemaakt."
+"Wilt u deze leverancier echt verwijderen? Deze actie kan niet ongedaan worden"
+" gemaakt."
 
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:88
 msgid "Contact & banque"
@@ -14597,32 +16141,11 @@ msgstr "Land van het tankstation"
 msgid "Montant HT"
 msgstr "Bedrag exclusief btw"
 
-#: fuel/models.py:207
-#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:452
-#: piece/templates/piece/piece_detail.html:40
-#: piece/templates/piece/piece_form.html:100 recharge/models.py:207
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:97
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:138
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:312
-msgid "TVA"
-msgstr "BTW"
-
 #: fuel/models.py:212 recharge/models.py:203
 msgid "Validation"
 msgstr "Validatie"
 
-#: fuel/models.py:220 fuel/templates/fuel/fuel_detail.html:46
-#: fuel/templates/fuel/fuel_exemplaire_stat.html:9
-#: fuel/templates/fuel/fuel_form.html:12 fuel/templates/fuel/fuel_stat.html:9
-#: fuel/templates/fuel/modifier_fuel.html:190
-#: theme/templates/dashboard.html:231 voiture/voiture_moteur/forms.py:29
-#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:92
-#: voiture/voiture_moteur/templates/voiture_moteur/list.html:54
-#: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:53
-msgid "Carburant"
-msgstr "Brandstof"
-
-#: fuel/models.py:221 theme/templates/dashboard.html:219
+#: fuel/models.py:221 theme/templates/dashboard.html:221
 msgid "Carburants"
 msgstr "Brandstoffen"
 
@@ -14764,21 +16287,6 @@ msgstr "Totale BTW"
 msgid "Par mois"
 msgstr "Per maand"
 
-#: fuel/templates/fuel/fuel_exemplaire_stat.html:87
-#: fuel/templates/fuel/fuel_exemplaire_stat.html:153
-#: fuel/templates/fuel/fuel_stat.html:230
-#: fuel/templates/fuel/fuel_stat.html:292
-#: recharge/templates/recharge/electricite_exemplaire_stat.html:86
-#: recharge/templates/recharge/electricite_exemplaire_stat.html:141
-#: recharge/templates/recharge/electricite_exemplaire_stat.html:182
-#: recharge/templates/recharge/electricite_stat.html:111
-#: recharge/templates/recharge/electricite_stat.html:183
-#: stats_fournisseurs/forms.py:23
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:94
-#: utilisateurs/models.py:391
-msgid "Mois"
-msgstr "Maand"
-
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:91
 msgid "Coût/Km"
 msgstr "Kostprijs / km"
@@ -14805,23 +16313,6 @@ msgstr "Geen gegevens"
 #: recharge/templates/recharge/electricite_stat.html:133
 msgid "Par année"
 msgstr "Per jaar"
-
-#: fuel/templates/fuel/fuel_exemplaire_stat.html:118
-#: fuel/templates/fuel/fuel_exemplaire_stat.html:161
-#: fuel/templates/fuel/fuel_stat.html:257
-#: fuel/templates/fuel/fuel_stat.html:300
-#: maintenance/templates/maintenance/list.html:62 piece/models.py:77
-#: piece/templates/piece/piece_detail.html:29
-#: recharge/templates/recharge/electricite_exemplaire_stat.html:114
-#: recharge/templates/recharge/electricite_exemplaire_stat.html:190
-#: recharge/templates/recharge/electricite_stat.html:138
-#: recharge/templates/recharge/electricite_stat.html:195
-#: stats_fournisseurs/forms.py:12
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:135
-#: utilisateurs/models.py:395
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/list.html:62
-msgid "Année"
-msgstr "Jaar"
 
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:141
 #: fuel/templates/fuel/fuel_stat.html:280
@@ -15121,6 +16612,7 @@ msgstr ""
 #: piece/templates/piece/piece_confirm_delete.html:13
 #: recharge/templates/recharge/electricite_form.html:144
 #: recharge/templates/recharge/modifier_electricite.html:159
+#: theme/templates/base.html:226
 msgid "Confirmer"
 msgstr "Bevestigen"
 
@@ -15284,29 +16776,6 @@ msgstr "Lineair"
 msgid "Dégressif"
 msgstr "Degressief"
 
-#: investissements/models.py:57
-#: maintenance/autres_interventions/climatisation/models.py:49
-#: maintenance/autres_interventions/moteur/injection/models.py:25
-#: maintenance/choices.py:142 maintenance/choices.py:186
-#: maintenance/choices.py:234 maintenance/choices.py:314
-#: maintenance/choices.py:437 maintenance/choices.py:467
-#: maintenance/choices.py:520 maintenance/choices.py:599
-#: maintenance/choices.py:669 maintenance/choices.py:748
-#: maintenance/choices.py:850 maintenance/choices.py:935
-#: maintenance/choices.py:969 maintenance/choices.py:1003
-#: maintenance/choices.py:1037 maintenance/choices.py:1065
-#: maintenance/choices.py:1127 maintenance/choices.py:1189
-#: maintenance/choices.py:1236 maintenance/choices.py:1299
-#: maintenance/choices.py:1358 maintenance/choices.py:1403
-#: maintenance/choices.py:1807 maintenance/choices.py:1882
-#: maintenance/choices.py:1939 maintenance/choices.py:2135
-#: maintenance/choices.py:2284 maintenance/choices.py:2358
-#: maintenance/choices.py:2425 maintenance/choices.py:2505
-#: maintenance/choices.py:2553 maintenance/pneus/models.py:52
-#: piece/piece_roue_rechange/models.py:10
-msgid "Autre"
-msgstr "Ander"
-
 #: investissements/models.py:60
 msgid "Type d'amortissement"
 msgstr "Type afschrijving"
@@ -15362,7 +16831,7 @@ msgstr "Interventie"
 
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:73
 #: maintenance/jeux_pieces/models.py:47 maintenance/models.py:75
-#: theme/templates/dashboard.html:181 theme/templates/dashboard.html:185
+#: theme/templates/dashboard.html:183 theme/templates/dashboard.html:187
 #: utilisateurs/models.py:85 utilisateurs/views.py:279
 msgid "Mécanicien"
 msgstr "Monteur"
@@ -16083,42 +17552,6 @@ msgstr "Gebruikte onderdelen, producten en arbeidskosten"
 msgid "Pièce / Produit"
 msgstr "Onderdeel / Product"
 
-#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:614
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:657
-#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:772
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1516
-#: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:273
-#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:911
-#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:505
-#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1155
-#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:669
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:617
-#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:798
-#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:752
-#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:554
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:603
-#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1070
-#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:756
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:823
-#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:649
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1842
-#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:383
-#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:2935
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2527
-#: maintenance/eclairage/templates/eclairage/eclairage_detail_pdf.html:672
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1166
-#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:847
-#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:870
-#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1212
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:460
-#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:513
-#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:516
-#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:602
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:744
-#: outillage/templates/outillage/delete_outillage.html:91
-msgid "Prix unitaire HTVA"
-msgstr "Eenheidsprijs excl. btw"
-
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:674
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:721
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:832
@@ -16309,79 +17742,6 @@ msgstr "Totaal inclusief arbeidskosten exclusief btw"
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:714
 msgid "Aucune pièce ou produit utilisé."
 msgstr "Geen onderdelen of producten gebruikt."
-
-#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:763
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:809
-#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:928
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1665
-#: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:333
-#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:1063
-#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:655
-#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1340
-#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:826
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:773
-#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:945
-#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:894
-#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:704
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:747
-#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1254
-#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:909
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:993
-#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:790
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:2036
-#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:548
-#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:3114
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2708
-#: maintenance/eclairage/templates/eclairage/eclairage_detail_pdf.html:821
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1315
-#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:1049
-#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:1022
-#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1376
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:604
-#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:668
-#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:675
-#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:763
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:903
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:373
-msgid "Document généré automatiquement par CarsCosts.com."
-msgstr "Document automatisch gegenereerd door CarsCosts.com."
-
-#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:765
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:811
-#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:930
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1667
-#: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:335
-#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:1065
-#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:657
-#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1344
-#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:828
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:775
-#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:947
-#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:896
-#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:706
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:749
-#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1256
-#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:911
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:995
-#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:792
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:2040
-#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:550
-#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:3116
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2710
-#: maintenance/eclairage/templates/eclairage/eclairage_detail_pdf.html:823
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1317
-#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:1053
-#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:1024
-#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1378
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:606
-#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:670
-#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:677
-#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:765
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:321
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:905
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:375
-msgid "Date export"
-msgstr "Exportdatum"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:268
 #: maintenance/autres_interventions/abs/templates/abs/modifier_abs.html:268
@@ -19080,7 +20440,7 @@ msgid "Joint spi vilebrequin"
 msgstr "Krukaskeerring"
 
 #: maintenance/autres_interventions/embrayage/models.py:304
-#: piece/piece_embrayage/models.py:73 theme/templates/dashboard.html:347
+#: piece/piece_embrayage/models.py:73 theme/templates/dashboard.html:349
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:133
 msgid "Embrayages"
 msgstr "Koppelingen"
@@ -19498,11 +20858,6 @@ msgstr "Motor kilometrage"
 msgid "Type de maintenance"
 msgstr "Onderhoudstype"
 
-#: maintenance/autres_interventions/models.py:152 maintenance/models.py:159
-#: theme/templates/dashboard.html:197
-msgid "Maintenances"
-msgstr "Onderhoudsbeurten"
-
 #: maintenance/autres_interventions/models.py:163 maintenance/models.py:172
 #, python-format
 msgid "Maintenance %(voiture)s (%(date)s)"
@@ -19836,8 +21191,8 @@ msgid ""
 "Le kilométrage du contrôle de l'injection ne peut pas être inférieur au "
 "kilométrage actuel du véhicule."
 msgstr ""
-"De kilometerstand bij de controle van het injectiesysteem mag niet lager "
-"zijn dan de huidige kilometerstand van het voertuig."
+"De kilometerstand bij de controle van het injectiesysteem mag niet lager zijn"
+" dan de huidige kilometerstand van het voertuig."
 
 #: maintenance/autres_interventions/moteur/injection/models.py:19
 #: voiture/voiture_moteur/models.py:20
@@ -19986,8 +21341,8 @@ msgid ""
 "Le kilométrage du controle injection ne peut pas être inférieur au "
 "kilométrage du véhicule."
 msgstr ""
-"De kilometerstand bij de controle van het injectiesysteem mag niet lager "
-"zijn dan de kilometerstand van het voertuig."
+"De kilometerstand bij de controle van het injectiesysteem mag niet lager zijn"
+" dan de kilometerstand van het voertuig."
 
 #: maintenance/autres_interventions/moteur/injection/models.py:599
 msgid "Injections"
@@ -20773,7 +22128,7 @@ msgstr "Inrijdkilometrage"
 #: maintenance/entretien/templates/entretien/entretien_check.html:275
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:459
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:282
-#: theme/templates/dashboard.html:315
+#: theme/templates/dashboard.html:317
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:70
 #: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:81
 #: voiture/voiture_moteur/templates/voiture_moteur/modifier_moteur.html:58
@@ -21575,10 +22930,6 @@ msgstr "Wilt u de carrosseriecontrole echt verwijderen voor"
 msgid "Modifier le contrôle de la carrosserie"
 msgstr "Carrosseriecontrole wijzigen"
 
-#: maintenance/check_up/admin.py:57
-msgid "Général"
-msgstr "Algemeen"
-
 #: maintenance/check_up/admin.py:75
 msgid "Essuie-glaces & Pare-brise"
 msgstr "Ruitenwissers & Voorruit"
@@ -21587,8 +22938,8 @@ msgstr "Ruitenwissers & Voorruit"
 msgid "Moteur & Transmission"
 msgstr "Motor & Transmissie"
 
-#: maintenance/check_up/admin.py:138 theme/templates/dashboard.html:590
-#: theme/templates/dashboard.html:594 utilisateurs/models.py:93
+#: maintenance/check_up/admin.py:138 theme/templates/dashboard.html:592
+#: theme/templates/dashboard.html:596 utilisateurs/models.py:93
 #: utilisateurs/views.py:287
 msgid "Direction"
 msgstr "Directie"
@@ -28040,7 +29391,7 @@ msgid "Apprenti"
 msgstr "Leerling"
 
 #: maintenance/jeux_pieces/models.py:48 maintenance/models.py:93
-#: theme/templates/dashboard.html:272
+#: theme/templates/dashboard.html:274
 msgid "Chef mécanicien"
 msgstr "Hoofdmonteur"
 
@@ -28140,11 +29491,6 @@ msgstr "Wilt u de reiniging echt verwijderen voor"
 msgid "Modifier le nettoyage extérieur"
 msgstr "Buitenreiniging bewerken"
 
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:377
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/simple.html:378
-msgid "Taux"
-msgstr "Tarief"
-
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:467
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/simple.html:475
 msgid "Retour à la liste des nettoyages extérieur"
@@ -28231,8 +29577,8 @@ msgid ""
 "Le kilométrage du contrôle niveaux (%(km_controle)s) ne peut pas être "
 "inférieur au kilométrage actuel de la voiture (%(km_voiture)s)."
 msgstr ""
-"De kilometerstand van de niveaucontrole (%(km_controle)s) mag niet lager "
-"zijn dan de huidige kilometerstand van de auto (%(km_voiture)s)."
+"De kilometerstand van de niveaucontrole (%(km_controle)s) mag niet lager zijn"
+" dan de huidige kilometerstand van de auto (%(km_voiture)s)."
 
 #: maintenance/niveaux/models.py:283
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:347
@@ -28400,11 +29746,11 @@ msgstr "Bandencontrole – Onderhoud %(id)s"
 #: maintenance/pneus/models.py:356
 #, python-format
 msgid ""
-"Le kilométrage du contrôle pneus (%(km_controle)s) ne peut pas être "
-"inférieur au kilométrage actuel de la voiture (%(km_voiture)s)."
+"Le kilométrage du contrôle pneus (%(km_controle)s) ne peut pas être inférieur"
+" au kilométrage actuel de la voiture (%(km_voiture)s)."
 msgstr ""
-"De kilometerstand van de bandencontrole (%(km_controle)s) mag niet lager "
-"zijn dan de huidige kilometerstand van de auto (%(km_voiture)s)."
+"De kilometerstand van de bandencontrole (%(km_controle)s) mag niet lager zijn"
+" dan de huidige kilometerstand van de auto (%(km_voiture)s)."
 
 #: maintenance/pneus/models.py:379
 msgid "Controle des pneus"
@@ -28729,10 +30075,6 @@ msgstr "Onderhouds-ID"
 msgid "Exemplaire"
 msgstr "Exemplaar"
 
-#: maintenance/templates/maintenance/detail.html:31
-msgid "Créée par"
-msgstr "Aangemaakt door"
-
 #: maintenance/templates/maintenance/detail.html:32 panier/models.py:47
 #: piece/models.py:103 piece/templates/piece/piece_detail.html:46
 #: voiture/voiture_boite/forms.py:38
@@ -28850,10 +30192,6 @@ msgstr "Wijzigen"
 msgid "Pièces / produits"
 msgstr "Onderdelen / producten"
 
-#: maintenance/templates/maintenance/partials/intervention_detail.html:135
-msgid "Pièce / produit"
-msgstr "Onderdeel / product"
-
 #: maintenance/templates/maintenance/partials/intervention_detail.html:162
 msgid "Aucune pièce ni produit utilisé."
 msgstr "Geen onderdelen of producten gebruikt."
@@ -28900,18 +30238,7 @@ msgstr "Identificatie"
 msgid "Montant calculé"
 msgstr "Berekend bedrag"
 
-#: outillage/models.py:68
-#: outillage/templates/outillage/delete_outillage.html:97
-msgid "TVA à récupérer"
-msgstr "Terug te vorderen btw"
-
-#: outillage/models.py:86
-#: outillage/templates/outillage/delete_outillage.html:72
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:325
-msgid "Outillage"
-msgstr "Gereedschap"
-
-#: outillage/models.py:87 theme/templates/dashboard.html:468
+#: outillage/models.py:87 theme/templates/dashboard.html:470
 msgid "Outillages"
 msgstr "Gereedschappen"
 
@@ -29014,10 +30341,6 @@ msgstr "Aankoopprijs excl. btw"
 #: panier/models.py:110
 msgid "TVA fournisseur (%)"
 msgstr "Leveranciers-btw (%)"
-
-#: panier/models.py:116
-msgid "Marge (%)"
-msgstr "Marge (%)"
 
 #: panier/models.py:122
 msgid "Prix unitaire HT (vente)"
@@ -31167,13 +32490,13 @@ msgid ""
 "Les véhicules ne sont pas supprimés, mais le total des parts de leurs autres "
 "propriétaires n'atteindra plus 100 %%."
 msgstr ""
-"De voertuigen worden niet verwijderd, maar het totaal van de aandelen van "
-"hun andere eigenaars zal niet langer 100 %% bedragen."
+"De voertuigen worden niet verwijderd, maar het totaal van de aandelen van hun"
+" andere eigenaars zal niet langer 100 %% bedragen."
 
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:81
 #: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:94
 #: proprietaire/templates/proprietaire/proprietaire_form.html:13
-#: theme/templates/dashboard.html:655
+#: theme/templates/dashboard.html:657
 msgid "Propriétaire"
 msgstr "Eigenaar"
 
@@ -31256,7 +32579,7 @@ msgid "Tableau de bord propriétaires :"
 msgstr "Eigenaren dashboard:"
 
 #: proprietaire/templates/proprietaire/proprietaire_dashboard.html:25
-#: theme/templates/dashboard.html:643
+#: theme/templates/dashboard.html:645
 msgid "Propriétaires"
 msgstr "Eigenaren"
 
@@ -31371,8 +32694,8 @@ msgid ""
 "Impossible de supprimer la part « %(nom)s » : elle est encore utilisée "
 "ailleurs."
 msgstr ""
-"Het aandeel « %(nom)s » kan niet worden verwijderd omdat het nog elders "
-"wordt gebruikt."
+"Het aandeel « %(nom)s » kan niet worden verwijderd omdat het nog elders wordt"
+" gebruikt."
 
 #: proprietaire/views.py:481
 #, python-format
@@ -31468,7 +32791,7 @@ msgstr "Elektrische laadbeurt verwijderen"
 
 #: recharge/templates/recharge/electricite_exemplaire_stat.html:9
 #: recharge/templates/recharge/electricite_stat.html:19
-#: theme/templates/dashboard.html:253
+#: theme/templates/dashboard.html:255
 msgid "Recharge électrique"
 msgstr "Elektrische lading"
 
@@ -31523,11 +32846,6 @@ msgstr "Kostprijs / km"
 msgid "Globale (kWh/100 km)"
 msgstr "Totaal (kWh/100 km)"
 
-#: recharge/templates/recharge/electricite_stat.html:11
-#: theme/templates/dashboard.html:241
-msgid "Recharges électriques"
-msgstr "Elektrische lading"
-
 #: recharge/templates/recharge/electricite_stat.html:12
 msgid "Statistiques des recharges électriques"
 msgstr "Statistieken van elektrische laadbeurten"
@@ -31566,11 +32884,11 @@ msgstr "Maximum aantal gebruikers"
 
 #: societe_cliente/forms.py:139
 msgid ""
-"Le numéro de TVA doit commencer par un code pays européen valide (ex: BE, "
-"FR, DE...)."
+"Le numéro de TVA doit commencer par un code pays européen valide (ex: BE, FR,"
+" DE...)."
 msgstr ""
-"Het btw-nummer moet beginnen met een geldige Europese landcode (bijv. BE, "
-"FR, DE...)."
+"Het btw-nummer moet beginnen met een geldige Europese landcode (bijv. BE, FR,"
+" DE...)."
 
 #: societe_cliente/models.py:31
 msgid "Nom de la societe"
@@ -31614,8 +32932,8 @@ msgid ""
 "Voulez-vous vraiment supprimer cette société cliente ? Cette action est "
 "irréversible."
 msgstr ""
-"Wilt u dit klantbedrijf echt verwijderen? Deze actie kan niet ongedaan "
-"worden gemaakt."
+"Wilt u dit klantbedrijf echt verwijderen? Deze actie kan niet ongedaan worden"
+" gemaakt."
 
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:74
 msgid "Numéro d'entreprise"
@@ -31823,8 +33141,8 @@ msgid ""
 "Le site est actuellement en construction ou la page demandée n'existe pas "
 "encore. Certaines fonctionnalités peuvent être temporairement indisponibles."
 msgstr ""
-"De website is momenteel in aanbouw of de opgevraagde pagina bestaat nog "
-"niet. Sommige functies kunnen tijdelijk niet beschikbaar zijn."
+"De website is momenteel in aanbouw of de opgevraagde pagina bestaat nog niet."
+" Sommige functies kunnen tijdelijk niet beschikbaar zijn."
 
 #: theme/templates/404.html:32
 msgid "Retour à la page précédente"
@@ -31851,7 +33169,7 @@ msgid "Administrateurs"
 msgstr "Beheerders"
 
 #: theme/templates/admin/dashboard_admin.html:50
-#: theme/templates/dashboard.html:665
+#: theme/templates/dashboard.html:667
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:13
 msgid "Créer un utilisateur"
 msgstr "Maak een gebruiker aan"
@@ -31902,6 +33220,10 @@ msgstr "Gegevens worden geladen…"
 msgid "Tous droits réservés."
 msgstr "Alle rechten voorbehouden."
 
+#: theme/templates/base.html:222
+msgid "Confirmation"
+msgstr "Bevestiging"
+
 #: theme/templates/components/plaque.html:4
 msgid "Plaque d’immatriculation"
 msgstr "Kenteken"
@@ -31919,80 +33241,84 @@ msgstr "Uitgevoerd:"
 msgid "Mes maintenances à faire aujourd'hui :"
 msgstr "Mijn onderhoudstaken voor vandaag:"
 
-#: theme/templates/dashboard.html:107
+#: theme/templates/dashboard.html:109
 msgid "Dernières activités"
 msgstr "Laatste activiteiten"
 
-#: theme/templates/dashboard.html:128
+#: theme/templates/dashboard.html:130
 msgid "Action"
 msgstr "Actie"
 
-#: theme/templates/dashboard.html:160
+#: theme/templates/dashboard.html:162
 msgid "Aucune activité enregistrée"
 msgstr "Geen activiteit geregistreerd"
 
-#: theme/templates/dashboard.html:276 utilisateurs/models.py:88
+#: theme/templates/dashboard.html:278 utilisateurs/models.py:88
 #: utilisateurs/views.py:281
 msgid "Chef Mécanicien"
 msgstr "Hoofdmonteur"
 
-#: theme/templates/dashboard.html:303
+#: theme/templates/dashboard.html:305
 msgid "Moteurs"
 msgstr "Motoren"
 
-#: theme/templates/dashboard.html:325
+#: theme/templates/dashboard.html:327
 msgid "Boites de vitesses"
 msgstr "Versnellingsbak"
 
-#: theme/templates/dashboard.html:430 theme/templates/dashboard.html:434
+#: theme/templates/dashboard.html:432 theme/templates/dashboard.html:436
 #: utilisateurs/models.py:86 utilisateurs/views.py:282
 msgid "Magasinier"
 msgstr "Magazijnier"
 
-#: theme/templates/dashboard.html:480
+#: theme/templates/dashboard.html:482
 msgid "Outils"
 msgstr "Gereedschappen"
 
-#: theme/templates/dashboard.html:499 theme/templates/dashboard.html:503
+#: theme/templates/dashboard.html:501 theme/templates/dashboard.html:505
 #: utilisateurs/models.py:91 utilisateurs/views.py:285
 msgid "Vendeur"
 msgstr "Verkoper"
 
-#: theme/templates/dashboard.html:515
+#: theme/templates/dashboard.html:517
 msgid "Clients"
 msgstr "Klanten"
 
-#: theme/templates/dashboard.html:537
+#: theme/templates/dashboard.html:539
 msgid "Sociétés clientes"
 msgstr "Klantenbedrijven"
 
-#: theme/templates/dashboard.html:669
+#: theme/templates/dashboard.html:671
 msgid "Ajouter un nouvel employé"
 msgstr "Voeg een nieuwe medewerker"
 
-#: theme/templates/dashboard.html:684
+#: theme/templates/dashboard.html:686
 #: utilisateurs/templates/utilisateurs/liste_utilisateurs.html:8
 msgid "Liste des utilisateurs"
 msgstr "Gebruikerslijst"
 
-#: theme/templates/dashboard.html:699
+#: theme/templates/dashboard.html:701
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:12
 msgid "Créer une paie mensuelle"
 msgstr "Maandelijkse loonfiche aanmaken"
 
-#: theme/templates/dashboard.html:704
+#: theme/templates/dashboard.html:706
 msgid "Compléter utilisateur"
 msgstr "Gebruikersgegevens aanvullen"
 
-#: theme/templates/dashboard.html:723 theme/templates/dashboard.html:727
+#: theme/templates/dashboard.html:719
+msgid "Factures clients et professionnelles (XML)"
+msgstr "Facturen voor klanten en bedrijven (XML)"
+
+#: theme/templates/dashboard.html:742 theme/templates/dashboard.html:746
 msgid "Administrateur"
 msgstr "Beheerder"
 
-#: theme/templates/dashboard.html:738
+#: theme/templates/dashboard.html:757
 msgid "Tableau de bord Admin"
 msgstr "Admin-dashboard"
 
-#: theme/templates/dashboard.html:743
+#: theme/templates/dashboard.html:762
 msgid "Admin"
 msgstr "Beheerder"
 
@@ -32814,8 +34140,8 @@ msgid ""
 "Impossible de supprimer cet embrayage : il est encore référencé par d'autres "
 "données."
 msgstr ""
-"Deze koppeling kan niet worden verwijderd omdat deze nog door andere "
-"gegevens wordt gebruikt."
+"Deze koppeling kan niet worden verwijderd omdat deze nog door andere gegevens"
+" wordt gebruikt."
 
 #: voiture/voiture_embrayage/views.py:249
 msgid "Embrayage supprimé avec succès."
@@ -32863,11 +34189,11 @@ msgstr ""
 
 #: voiture/voiture_exemplaire/models.py:124
 msgid ""
-"Le numéro VIN doit contenir exactement 17 caractères alphanumériques "
-"(lettres A-H, J-N, P, R-Z et chiffres)."
+"Le numéro VIN doit contenir exactement 17 caractères alphanumériques (lettres"
+" A-H, J-N, P, R-Z et chiffres)."
 msgstr ""
-"Het VIN-nummer moet exact 17 alfanumerieke tekens bevatten (letters A-H, J-"
-"N, P, R-Z en cijfers)."
+"Het VIN-nummer moet exact 17 alfanumerieke tekens bevatten (letters A-H, J-N,"
+" P, R-Z en cijfers)."
 
 #: voiture/voiture_exemplaire/models.py:172
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:56
@@ -34305,23 +35631,19 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                Attention : %(counter)s entrée d'historique est liée à ces "
-"pneus.\n"
+"                Attention : %(counter)s entrée d'historique est liée à ces pneus.\n"
 "            "
 msgid_plural ""
 "\n"
-"                Attention : %(counter)s entrées d'historique sont liées à "
-"ces pneus.\n"
+"                Attention : %(counter)s entrées d'historique sont liées à ces pneus.\n"
 "            "
 msgstr[0] ""
 "\n"
-"                Let op: %(counter)s geschiedenisitem is aan deze banden "
-"gekoppeld.\n"
+"                Let op: %(counter)s geschiedenisitem is aan deze banden gekoppeld.\n"
 "            "
 msgstr[1] ""
 "\n"
-"                Let op: %(counter)s geschiedenisitems zijn aan deze banden "
-"gekoppeld.\n"
+"                Let op: %(counter)s geschiedenisitems zijn aan deze banden gekoppeld.\n"
 "            "
 
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:73
@@ -34438,6 +35760,9 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
 msgstr "Banden succesvol verwijderd."
+
+#~ msgid "Prix unitaire"
+#~ msgstr "Prijs per eenheid"
 
 #~ msgid "Retirer cette maintenance de l'agenda ?"
 #~ msgstr "Deze onderhoudswerkzaamheden uit de agenda verwijderen?"
