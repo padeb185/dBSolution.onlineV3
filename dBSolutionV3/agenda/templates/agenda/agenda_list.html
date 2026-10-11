@@ -82,7 +82,7 @@
     <tbody>
     {% for ligne in lignes %}
         {% with tache=ligne.tache form=ligne.form exemplaire=ligne.tache.voiture_exemplaire %}
-        <tr class="{% if tache.statut == 'FAIT' and not tache.est_checkup_track %}bg-gray-50 text-gray-500{% endif %}">
+        <tr class="{% if tache.est_terminee %}bg-gray-50 text-gray-500{% endif %}">
 
             <td class="border px-4 py-2 font-semibold">
                 {{ tache.get_type_maintenance_display }}

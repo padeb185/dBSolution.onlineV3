@@ -46,8 +46,12 @@ class AgendaTacheForm(forms.ModelForm):
             VoitureExemplaire.objects.filter(
                 Q(client__societe=societe) | Q(client__isnull=True, societe=societe)
             )
-            .select_related("voiture_modele")
-            .order_by("immatriculation")
+            .select_related("voiture_marque", "voiture_modele")
+            .order_by(
+                "voiture_marque__nom_marque",
+                "voiture_modele__nom_modele",
+                "immatriculation",
+            )
         )
 
         # Techniciens actifs de la société

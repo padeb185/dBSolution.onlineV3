@@ -94,5 +94,12 @@ class AgendaTache(models.Model):
         return self.type_maintenance == Maintenance.TypeMaintenance.CHECKUP_TRACK
 
     @property
+    def est_terminee(self):
+        """Checkup piste : terminé quand le tag est vert. Autres : statut « Fait »."""
+        if self.est_checkup_track:
+            return self.tag == Maintenance.Tag.VERT
+        return self.statut == self.Statut.FAIT
+
+    @property
     def immatriculation(self):
         return getattr(self.voiture_exemplaire, "immatriculation", "") or ""

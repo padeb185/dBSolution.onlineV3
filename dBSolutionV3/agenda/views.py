@@ -92,10 +92,7 @@ def agenda_jour_view(request, annee=None, mois=None, jour=None):
         "lignes": lignes,
         "mes_taches": mes_taches,
         "peut_planifier": _peut(request.user, ROLES_PLANIFICATION),
-        "nb_faites": sum(
-            1 for t in taches
-            if (t.est_checkup_track and t.prete_pour) or (not t.est_checkup_track and t.statut == AgendaTache.Statut.FAIT)
-        ),
+        "nb_faites": sum(1 for t in taches if t.est_terminee),
     })
 
 

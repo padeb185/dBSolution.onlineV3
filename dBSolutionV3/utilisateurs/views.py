@@ -318,7 +318,9 @@ def dashboard_view(request):
                         technicien=request.user,
                         date=agenda_tz.localdate(),
                     )
-                    .exclude(AgendaQ(type_maintenance=code_track) & ~AgendaQ(prete_pour=""))
+                    # Même règle que AgendaTache.est_terminee :
+                    # checkup piste terminé quand le tag est vert, autres maintenances quand « Fait ».
+                    .exclude(AgendaQ(type_maintenance=code_track) & AgendaQ(tag=AgendaMaintenance.Tag.VERT))
                     .exclude(~AgendaQ(type_maintenance=code_track) & AgendaQ(statut=AgendaTache.Statut.FAIT))
                     .count()
                 )
