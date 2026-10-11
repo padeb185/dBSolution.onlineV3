@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Paramètres Peppol" %}{% endblock %}
+
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            {% include "facture/_icone.html" %}
+            <span>{% trans "Paramètres de facturation Peppol" %}</span>
+        </h1>
+        <a href="{% url 'facture:maintenances' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">
+            {% trans "Facturation" %}
+        </a>
+    </div>
+
+    {% include "partials/messages.html" %}
+
+    <!-- État actuel -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-2">
+            <h2 class="text-lg font-semibold mb-2">{% trans "État" %}</h2>
+            {% if parametres.pk and parametres.est_configure %}
+                <p><span class="px-2 py-1 rounded font-semibold bg-green-100 text-green-800">{% trans "Envoi Peppol activé" %}</span></p>
+            {% elif parametres.pk and parametres.actif %}
+                <p><span class="px-2 py-1 rounded font-semibold bg-yellow-100 text-yellow-800">{% trans "Activé mais incomplet" %}</span></p>
+            {% else %}
+                <p><span class="px-2 py-1 rounded font-semibold bg-gray-100 text-gray-800">{% trans "Envoi Peppol désactivé" %}</span></p>
+            {% endif %}
+            <p><strong>{% trans "Environnement" %} :</strong>
+                <span class="px-2 py-1 rounded font-semibold {% if parametres.est_test %}bg-yellow-100 text-yellow-800{% else %}bg-red-100 text-red-800{% endif %}">
+                    {{ parametres.get_environnement_display }}
+                </span>
+            </p>
+            {% if parametres.envoi_automatique %}<p class="text-sm text-gray-600">{% trans "Envoi automatique à l'émission" %}</p>{% endif %}
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-2">
+            <h2 class="text-lg font-semibold mb-2">{% trans "Identifiant émetteur" %}</h2>
+            <p class="font-semibold">{{ peppol_id_effectif|default:"—" }}</p>
+            <p class="text-sm text-gray-600">
+                {% if parametres.peppol_id %}{% trans "Saisi dans les paramètres." %}{% else %}{% trans "Déduit du numéro de TVA de la société." %}{% endif %}
+            </p>
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-2">
+            <h2 class="text-lg font-semibold mb-2">{% trans "Dernier test de connexion" %}</h2>
+            {% if parametres.derniere_verification %}
+                <p>{{ parametres.derniere_verification|date:"d/m/Y H:i" }}</p>
+                <p class="font-semibold {% if parametres.dernier_test_ok %}text-green-800{% else %}text-red-800{% endif %}">
+                    {{ parametres.dernier_resultat }}
+                </p>
+            {% else %}
+                <p class="text-gray-500">{% trans "Aucun test effectué." %}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if settings_peppol %}
+        <div class="mb-6 p-4 bg-blue-100 border border-blue-300 rounded text-sm text-blue-800">
+            {% trans "Un point d'accès est aussi défini dans settings.py : il n'est utilisé que si l'envoi n'est pas activé ici." %}
+        </div>
+    {% endif %}
+
+    <form method="post" autocomplete="off">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="mb-4 p-4 bg-red-100 border border-red-300 rounded text-red-800">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        <!-- Général -->
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold">{% trans "Général" %}</h2>
+
+            <label class="flex items-center gap-2 font-semibold">
+                {{ form.actif }} {{ form.actif.label }}
+            </label>
+
+            <div>
+                <p class="font-semibold mb-1">{{ form.environnement.label }}</p>
+                <div class="flex flex-wrap gap-6">
+                    {% for radio in form.environnement %}
+                        <label class="flex items-center gap-2">{{ radio.tag }} {{ radio.choice_label }}</label>
+                    {% endfor %}
+                </div>
+                <p class="text-sm text-gray-500 mt-1">{% trans "Utilisez le serveur de test tant que les factures n'ont pas été validées par votre fournisseur Peppol." %}</p>
+            </div>
+
+            <div>
+                <label class="font-semibold" for="{{ form.peppol_id.id_for_label }}">{{ form.peppol_id.label }}</label>
+                {{ form.peppol_id }} {{ form.peppol_id.errors }}
+                <p class="text-sm text-gray-500 mt-1">{{ form.peppol_id.help_text }}</p>
+            </div>
+
+            <label class="flex items-center gap-2 font-semibold">
+                {{ form.envoi_automatique }} {{ form.envoi_automatique.label }}
+            </label>
+            <p class="text-sm text-gray-500">{{ form.envoi_automatique.help_text }}</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- Serveur de test -->
+            <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+                <h2 class="text-lg font-semibold">
+                    {% trans "Serveur de test (sandbox)" %}
+                    {% if parametres.est_test %}<span class="ml-4 text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded">{% trans "utilisé" %}</span>{% endif %}
+                </h2>
+                <div>
+                    <label class="font-semibold" for="{{ form.url_test.id_for_label }}">{{ form.url_test.label }}</label>
+                    {{ form.url_test }} {{ form.url_test.errors }}
+                </div>
+                <div>
+                    <label class="font-semibold" for="{{ form.cle_api_test.id_for_label }}">{{ form.cle_api_test.label }}</label>
+                    {{ form.cle_api_test }} {{ form.cle_api_test.errors }}
+                    {% if parametres.cle_api_test %}
+                        <label class="flex items-center gap-2 text-sm mt-1">{{ form.effacer_cle_test }} {{ form.effacer_cle_test.label }}</label>
+                    {% endif %}
+                </div>
+                <button type="submit" name="action" value="tester_test"
+                        class="w-full bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">
+                    {% trans "Enregistrer et tester le serveur de test" %}
+                </button>
+            </div>
+
+            <!-- Serveur de production -->
+            <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+                <h2 class="text-lg font-semibold">
+                    {% trans "Serveur de production" %}
+                    {% if not parametres.est_test %}<span class="ml-4 text-sm bg-red-100 text-red-800 px-2 py-1 rounded">{% trans "utilisé" %}</span>{% endif %}
+                </h2>
+                <div>
+                    <label class="font-semibold" for="{{ form.url_production.id_for_label }}">{{ form.url_production.label }}</label>
+                    {{ form.url_production }} {{ form.url_production.errors }}
+                </div>
+                <div>
+                    <label class="font-semibold" for="{{ form.cle_api_production.id_for_label }}">{{ form.cle_api_production.label }}</label>
+                    {{ form.cle_api_production }} {{ form.cle_api_production.errors }}
+                    {% if parametres.cle_api_production %}
+                        <label class="flex items-center gap-2 text-sm mt-1">{{ form.effacer_cle_production }} {{ form.effacer_cle_production.label }}</label>
+                    {% endif %}
+                </div>
+                <button type="submit" name="action" value="tester_production"
+                        class="w-full bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">
+                    {% trans "Enregistrer et tester le serveur de production" %}
+                </button>
+            </div>
+        </div>
+
+        <!-- Authentification -->
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold">{% trans "Authentification et connexion" %}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="font-semibold" for="{{ form.type_auth.id_for_label }}">{{ form.type_auth.label }}</label>
+                    {{ form.type_auth }} {{ form.type_auth.errors }}
+                </div>
+                <div id="bloc-nom-entete">
+                    <label class="font-semibold" for="{{ form.nom_entete.id_for_label }}">{{ form.nom_entete.label }}</label>
+                    {{ form.nom_entete }} {{ form.nom_entete.errors }}
+                </div>
+                <div>
+                    <label class="font-semibold" for="{{ form.timeout.id_for_label }}">{{ form.timeout.label }}</label>
+                    {{ form.timeout }} {{ form.timeout.errors }}
+                </div>
+            </div>
+            <p class="text-sm text-gray-500">
+                {% trans "Ces informations sont fournies par votre point d'accès Peppol (Access Point). Les clés API ne sont jamais réaffichées." %}
+            </p>
+        </div>
+
+        <button type="submit" name="action" value="enregistrer"
+                class="w-full bg-blue-700 text-white px-4 py-3 rounded hover:bg-blue-400 font-semibold mb-4">
+            {% trans "Enregistrer les paramètres" %}
+        </button>
+    </form>
+
+    <a href="{% url 'facture:maintenances' %}"
+       class="block w-full bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+        {% trans "Retour à la facturation" %}
+    </a>
+</div>
+
+<style>
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+}
+</style>
+
+<script>
+// Le nom d'en-tête n'est utile que pour l'authentification par en-tête personnalisé
+document.addEventListener("DOMContentLoaded", function () {
+    const type = document.getElementById("{{ form.type_auth.id_for_label }}");
+    const bloc = document.getElementById("bloc-nom-entete");
+    if (!type || !bloc) return;
+    const maj = () => { bloc.style.visibility = type.value === "ENTETE" ? "visible" : "hidden"; };
+    type.addEventListener("change", maj);
+    maj();
+});
+</script>
+{% endblock %}
