@@ -139,6 +139,8 @@ urlpatterns += i18n_patterns(
     path('maintenance/autre/cardan/', include(('maintenance.autres_interventions.cardan.urls', 'cardan'), namespace='cardan')),
     path('agenda/', include(('agenda.urls', 'agenda'), namespace='agenda')),
 
+    path('facture/', include(('facture.urls', 'facture'), namespace='facture')),
+
     path('maintenance/carrosserie/', include(('maintenance.carrosserie_interne.urls', 'carrosserie_interne'), namespace='carrosserie_interne')),
 
     path('moteur/', include(('maintenance.autres_interventions.moteur.urls', 'moteur'), namespace='moteur')),

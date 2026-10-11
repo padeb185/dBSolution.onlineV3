@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Facturation" %}{% endblock %}
+
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            {% include "facture/_icone.html" %}
+            <span>{% trans "Facturation des maintenances" %}</span>
+        </h1>
+
+        <div class="flex flex-wrap gap-2">
+            <a href="{% url 'facture:liste' %}"
+               class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">
+                {% trans "Factures émises et brouillons" %}
+            </a>
+            {% if peut_parametrer %}
+                <a href="{% url 'facture:parametres_peppol' %}"
+                   class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">
+                    {% trans "Paramètres Peppol" %}
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% include "partials/messages.html" %}
+
+    <p class="text-gray-600 mb-4">
+        {% trans "Cochez une ou plusieurs maintenances d'un même véhicule, puis choisissez le type de facture. Vous pourrez ensuite ajuster les marges et les lignes avant d'émettre la facture." %}
+    </p>
+
+    <form method="post" action="{% url 'facture:creer' %}" id="form-facture">
+        {% csrf_token %}
+
+        <!-- Boutons pour la sélection -->
+        <div class="flex flex-wrap gap-3 mb-4">
+            <button type="submit" name="type_facture" value="{{ type_client }}"
+                    class="bg-blue-700 hover:bg-blue-400 text-white px-5 py-3 rounded font-semibold">
+                {% trans "Facture client particulier" %}
+            </button>
+            <button type="submit" name="type_facture" value="{{ type_pro }}"
+                    class="bg-green-600 hover:bg-green-500 text-white px-5 py-3 rounded font-semibold">
+                {% trans "Facture professionnelle (XML)" %}
+            </button>
+        </div>
+
+        <div class="overflow-x-auto bg-white shadow-md rounded-lg p-4">
+        <table id="maintenances-table" class="min-w-full table-auto border-collapse border border-gray-200">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-4 py-2 text-center"><input type="checkbox" id="tout-cocher" aria-label="{% trans 'Tout cocher' %}"></th>
+                    <th class="border px-4 py-2 text-left">{% trans "Date" %}</th>
+                    <th class="border px-4 py-2 text-left">{% trans "Maintenance" %}</th>
+                    <th class="border px-4 py-2 text-left">{% trans "Immatriculation" %}</th>
+                    <th class="border px-4 py-2 text-left">{% trans "Véhicule" %}</th>
+                    <th class="border px-4 py-2 text-left">{% trans "Client" %}</th>
+                    <th class="border px-4 py-2 text-left">{% trans "Facturation" %}</th>
+                    <th class="border px-4 py-2 text-center">{% trans "Facturer" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for m in maintenances %}
+                {% with exemplaire=m.voiture_exemplaire %}
+                <tr>
+                    <td class="border px-4 py-2 text-center">
+                        <input type="checkbox" name="maintenances" value="{{ m.pk }}" class="case-maintenance"
+                               data-vehicule="{{ exemplaire.pk|default:'' }}">
+                    </td>
+                    <td class="border px-4 py-2" data-order="{{ m.date_intervention|date:'Y-m-d' }}">
+                        {{ m.date_intervention|date:"d/m/Y" }}
+                    </td>
+                    <td class="border px-4 py-2 font-semibold">{{ m.get_type_maintenance_display|default:"-" }}</td>
+                    <td class="border px-4 py-2">
+                        {% if exemplaire %}
+                            {% include "maintenance/partials/plaque.html" with taille="petite" %}
+                        {% else %}
+                            {{ m.immatriculation|default:"-" }}
+                        {% endif %}
+                    </td>
+                    <td class="border px-4 py-2">
+                        {{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }}
+                    </td>
+                    <td class="border px-4 py-2">
+                        {% if exemplaire.client %}
+                            {{ exemplaire.client.nom }} {{ exemplaire.client.prenom }}
+                        {% else %}
+                            <span class="text-gray-500">{% trans "Société" %}</span>
+                        {% endif %}
+                    </td>
+                    <td class="border px-4 py-2">
+                        {% for f in m.factures.all %}
+                            <a href="{% if f.statut == 'EMISE' %}{% url 'facture:detail' f.pk %}{% else %}{% url 'facture:modifier' f.pk %}{% endif %}"
+                               class="inline-block mb-1 px-2 py-1 rounded text-sm font-semibold
+                               {% if f.statut == 'EMISE' %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                                {% if f.statut == 'EMISE' %}{{ f.numero }}{% else %}{% trans "Brouillon" %}{% endif %}
+                                ({{ f.get_type_facture_display }})
+                            </a>
+                        {% empty %}
+                            <span class="text-red-700 font-semibold">{% trans "À facturer" %}</span>
+                        {% endfor %}
+                    </td>
+                    <td class="border px-4 py-2 text-center whitespace-nowrap">
+                        <button type="button" data-type="{{ type_client }}" data-id="{{ m.pk }}"
+                                class="btn-une bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
+                            {% trans "Client" %}
+                        </button>
+                        <button type="button" data-type="{{ type_pro }}" data-id="{{ m.pk }}"
+                                class="btn-une bg-green-600 text-white px-3 py-1 rounded hover:bg-green-500">
+                            {% trans "Pro" %}
+                        </button>
+                    </td>
+                </tr>
+                {% endwith %}
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </form>
+
+    <!-- Formulaire pour une seule maintenance (boutons de ligne) -->
+    <form method="post" action="{% url 'facture:creer' %}" id="form-une" class="hidden">
+        {% csrf_token %}
+        <input type="hidden" name="type_facture" id="une-type">
+        <input type="hidden" name="maintenances" id="une-id">
+    </form>
+
+    <br>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+
+<script>
+$(document).ready(function () {
+    $('#maintenances-table').DataTable({
+        pageLength: 50,
+        order: [[1, "desc"]],
+        columnDefs: [{ orderable: false, targets: [0, 7] }],
+        language: {
+            emptyTable: "{% trans 'Aucune maintenance enregistrée.' %}",
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ maintenances' %}",
+            infoEmpty: "{% trans 'Aucune maintenance trouvée' %}",
+            zeroRecords: "{% trans 'Aucune maintenance trouvée' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        }
+    });
+
+    $('#tout-cocher').on('change', function () {
+        $('.case-maintenance').prop('checked', this.checked);
+    });
+
+    // Boutons « Client » / « Pro » d'une ligne
+    $(document).on('click', '.btn-une', function () {
+        $('#une-type').val($(this).data('type'));
+        $('#une-id').val($(this).data('id'));
+        $('#form-une').submit();
+    });
+});
+</script>
+{% endblock %}

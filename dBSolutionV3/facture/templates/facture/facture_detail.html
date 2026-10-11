@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Facture" %} {{ facture.numero }}{% endblock %}
+
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            {% include "facture/_icone.html" %}
+            <span>{% trans "Détails de la facture :" %}</span>
+            <span class="text-black-700">{{ facture.numero }}</span>
+        </h1>
+    </div>
+
+    {% include "partials/messages.html" %}
+    {% include "facture/_entete_facture.html" %}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Client -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-2">
+            <h2 class="text-lg font-semibold mb-2">{% trans "Client" %}</h2>
+            <p class="font-semibold">{{ facture.client_nom|default:"-" }}</p>
+            {% if facture.client_adresse %}<p>{{ facture.client_adresse|linebreaksbr }}</p>{% endif %}
+            {% if facture.client_tva %}<p><strong>{% trans "Numéro de TVA" %} :</strong> {{ facture.client_tva }}</p>{% endif %}
+            {% if facture.client_email %}<p><strong>{% trans "Email" %} :</strong> {{ facture.client_email }}</p>{% endif %}
+            {% if facture.est_pro and facture.societe_cliente.peppol_id %}
+                <p><strong>{% trans "Identifiant Peppol" %} :</strong> {{ facture.societe_cliente.peppol_id }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Dates et montants -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-2">
+            <h2 class="text-lg font-semibold mb-2">{% trans "Montants" %}</h2>
+            <p><strong>{% trans "Date d’émission" %} :</strong> {{ facture.issue_date|date:"d/m/Y" }}</p>
+            <p><strong>{% trans "Date d'échéance" %} :</strong> {{ facture.due_date|date:"d/m/Y"|default:"-" }}</p>
+            <p><strong>{% trans "Total HTVA" %} :</strong> {{ facture.total_ht|floatformat:2 }} €</p>
+            <p><strong>{% trans "Total TVA" %} :</strong> {{ facture.total_tva|floatformat:2 }} €</p>
+            <p class="text-lg font-bold text-blue-800">{% trans "Total TVAC" %} : {{ facture.total|floatformat:2 }} €</p>
+            <p class="text-gray-600"><strong>{% trans "Marge totale" %} :</strong> {{ marge_totale|floatformat:2 }} €</p>
+            {% if facture.autoliquidation %}<p class="font-semibold">{% trans "Autoliquidation TVA" %}</p>{% endif %}
+        </div>
+    </div>
+
+    <!-- Lignes -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Lignes de la facture" %}</h2>
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-2 py-2 text-left">{% trans "Description" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Quantité" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Coût HTVA" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Marge %" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "TVA %" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for l in lignes %}
+                <tr>
+                    <td class="border px-2 py-1">{{ l.description }}{% if l.reference %} <span class="text-gray-500">({{ l.reference }})</span>{% endif %}</td>
+                    <td class="border px-2 py-1 text-right">{{ l.quantity|floatformat:2 }}</td>
+                    <td class="border px-2 py-1 text-right">{% if l.unit_cost is not None %}{{ l.unit_cost|floatformat:2 }} €{% else %}—{% endif %}</td>
+                    <td class="border px-2 py-1 text-right">{{ l.marge|floatformat:2 }}</td>
+                    <td class="border px-2 py-1 text-right">{{ l.unit_price|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{% if facture.autoliquidation %}0,00{% else %}{{ l.vat_rate|floatformat:2 }}{% endif %}</td>
+                    <td class="border px-2 py-1 text-right font-semibold">{{ l.total_ht|floatformat:2 }} €</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Facture électronique -->
+    {% if facture.est_pro %}
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Facture électronique (UBL / Peppol)" %}</h2>
+        {% if peppol_configure and parametres_peppol.est_test %}
+            <p class="mb-2"><span class="px-2 py-1 rounded font-semibold bg-yellow-100 text-yellow-800">{% trans "Serveur de test" %}</span></p>
+        {% endif %}
+        {% if facture.peppol_envoyee_le %}
+            <p class="text-green-800 font-semibold mb-2">{% trans "Envoyée via Peppol le" %} {{ facture.peppol_envoyee_le|date:"d/m/Y H:i" }}</p>
+        {% endif %}
+        {% if facture.peppol_reponse %}
+            <p class="text-sm text-gray-600 mb-2">{{ facture.peppol_reponse|truncatechars:300 }}</p>
+        {% endif %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <a href="{% url 'facture:xml' facture.pk %}" class="block w-full">
+                <button type="button" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold">
+                    {% trans "Télécharger le XML" %}
+                </button>
+            </a>
+            {% if peppol_configure %}
+                <form method="post" action="{% url 'facture:envoyer_peppol' facture.pk %}"
+                      onsubmit="return confirm('{% trans "Envoyer cette facture au client via le réseau Peppol ?" as q %}{{ q|escapejs }}');">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                        {% trans "Envoyer via Peppol" %}
+                    </button>
+                </form>
+            {% else %}
+                <p class="text-sm text-gray-500">
+                    {% trans "Envoi Peppol non configuré." %}
+                    {% if peut_parametrer %}<a href="{% url 'facture:parametres_peppol' %}" class="text-blue-700 font-semibold">{% trans "Paramètres Peppol" %}</a>{% endif %}
+                </p>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Actions -->
+    <a href="{% url 'facture:pdf' facture.pk %}" target="_blank" class="block w-full mb-4">
+        <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+            {% trans "Télécharger le PDF" %}
+        </button>
+    </a>
+
+    <a href="{% url 'facture:liste' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour à la liste des factures" %}
+    </a>
+</div>
+{% endblock %}

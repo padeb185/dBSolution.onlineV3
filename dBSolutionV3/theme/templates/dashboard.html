@@ -93,6 +93,8 @@
              class="w-[60px] h-[60px]">
     </a>
 
+
+
 </div>
 
 <br>
@@ -704,6 +706,23 @@
              alt="{% trans 'Compléter utilisateur' %}"
              class="w-[60px] h-[60px] mr-[10px]">
     </a>
+
+     {% if request.user.is_superuser or request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.role == "comptable" %}
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/facture/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Facturation" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Factures clients et professionnelles (XML)" %}
+            </p>
+        </div>
+
+        {% include "facture/_icone.html" with classe="w-[60px] h-[60px]" %}
+    </a>
+    {% endif %}
 
 </div>
 

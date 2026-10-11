@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Facture" %} – {% trans "Brouillon" %}{% endblock %}
+
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            {% include "facture/_icone.html" %}
+            <span>
+                {% if facture.est_pro %}{% trans "Facture professionnelle" %}{% else %}{% trans "Facture client particulier" %}{% endif %}
+                <span class="block text-lg font-semibold text-gray-600">{% trans "Brouillon – vérifiez avant d'émettre" %}</span>
+            </span>
+        </h1>
+        <a href="{% url 'facture:pdf' facture.pk %}" target="_blank"
+           class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">
+            {% trans "Aperçu PDF" %}
+        </a>
+    </div>
+
+    {% include "partials/messages.html" %}
+    {% include "facture/_entete_facture.html" %}
+
+    <form method="post" id="form-facture">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="mb-4 p-4 bg-red-50 border border-red-300 rounded text-red-700">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        <!-- Client, dates, marges -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+                <h2 class="text-lg font-semibold">{% trans "Client et dates" %}</h2>
+
+                {% if facture.est_pro %}
+                    <div>
+                        <label class="font-semibold" for="{{ form.societe_cliente.id_for_label }}">{{ form.societe_cliente.label }}</label>
+                        {{ form.societe_cliente }}
+                        {{ form.societe_cliente.errors }}
+                        <p class="text-sm text-gray-500 mt-1">{% trans "Le numéro de TVA, l'adresse et l'identifiant Peppol du client sont repris dans le XML." %}</p>
+                    </div>
+                {% else %}
+                    <div>
+                        <label class="font-semibold" for="{{ form.client_particulier.id_for_label }}">{{ form.client_particulier.label }}</label>
+                        {{ form.client_particulier }}
+                        {{ form.client_particulier.errors }}
+                    </div>
+                {% endif %}
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="font-semibold" for="{{ form.issue_date.id_for_label }}">{{ form.issue_date.label }}</label>
+                        {{ form.issue_date }} {{ form.issue_date.errors }}
+                    </div>
+                    <div>
+                        <label class="font-semibold" for="{{ form.due_date.id_for_label }}">{{ form.due_date.label }}</label>
+                        {{ form.due_date }} {{ form.due_date.errors }}
+                    </div>
+                </div>
+
+                <div>
+                    <label class="font-semibold" for="{{ form.remarques.id_for_label }}">{{ form.remarques.label }}</label>
+                    {{ form.remarques }}
+                    <p class="text-sm text-gray-500 mt-1">{% trans "Imprimées sur la facture." %}</p>
+                </div>
+            </div>
+
+            <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+                <h2 class="text-lg font-semibold">{% trans "Marges" %}</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="font-semibold" for="{{ form.marge_pieces.id_for_label }}">{{ form.marge_pieces.label }}</label>
+                        {{ form.marge_pieces }} {{ form.marge_pieces.errors }}
+                    </div>
+                    <div>
+                        <label class="font-semibold" for="{{ form.marge_main_oeuvre.id_for_label }}">{{ form.marge_main_oeuvre.label }}</label>
+                        {{ form.marge_main_oeuvre }} {{ form.marge_main_oeuvre.errors }}
+                    </div>
+                </div>
+                <button type="submit" name="action" value="appliquer_marges"
+                        class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Appliquer ces marges à toutes les lignes" %}
+                </button>
+                <p class="text-sm text-gray-500">
+                    {% trans "La marge de chaque ligne reste modifiable dans le tableau ci-dessous. Coûts et marges n'apparaissent ni sur le PDF ni dans le XML." %}
+                </p>
+
+                {% if facture.est_pro %}
+                    <label class="flex items-center gap-2 font-semibold">
+                        {{ form.autoliquidation }} {{ form.autoliquidation.label }}
+                    </label>
+                    <p class="text-sm text-gray-500">{% trans "Client assujetti dans un autre pays de l'UE : TVA à 0 %, mention « autoliquidation »." %}</p>
+                {% endif %}
+
+                <div class="mt-auto p-4 bg-gray-50 rounded">
+                    <p><strong>{% trans "Marge totale" %} :</strong> {{ marge_totale|floatformat:2 }} €</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lignes -->
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+            <h2 class="text-lg font-semibold mb-4">{% trans "Lignes de la facture" %}</h2>
+            {{ formset.management_form }}
+            {% if formset.non_form_errors %}
+                <div class="mb-4 p-4 bg-red-50 border border-red-300 rounded text-red-700">{{ formset.non_form_errors }}</div>
+            {% endif %}
+
+            <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border px-2 py-2 text-left">{% trans "Type" %}</th>
+                        <th class="border px-2 py-2 text-left" style="min-width:18rem">{% trans "Description" %}</th>
+                        <th class="border px-2 py-2 text-left">{% trans "Référence" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Quantité" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Coût HTVA" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Marge %" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Prix unitaire HTVA" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "TVA %" %}</th>
+                        <th class="border px-2 py-2 text-right">{% trans "Total HTVA" %}</th>
+                        <th class="border px-2 py-2 text-center">{% trans "Supprimer" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for f in formset %}
+                    <tr class="ligne-facture">
+                        <td class="border px-2 py-1">{% for h in f.hidden_fields %}{{ h }}{% endfor %}{{ f.type_ligne }}</td>
+                        <td class="border px-2 py-1">{{ f.description }}{{ f.description.errors }}</td>
+                        <td class="border px-2 py-1">{{ f.reference }}</td>
+                        <td class="border px-2 py-1 text-right">{{ f.quantity }}{{ f.quantity.errors }}</td>
+                        <td class="border px-2 py-1 text-right">{{ f.unit_cost }}</td>
+                        <td class="border px-2 py-1 text-right">{{ f.marge }}</td>
+                        <td class="border px-2 py-1 text-right">{{ f.unit_price }}{{ f.unit_price.errors }}</td>
+                        <td class="border px-2 py-1 text-right">{{ f.vat_rate }}</td>
+                        <td class="border px-2 py-1 text-right font-semibold total-ligne">
+                            {% if f.instance.pk %}{{ f.instance.total_ht|floatformat:2 }} €{% endif %}
+                        </td>
+                        <td class="border px-2 py-1 text-center">{% if f.instance.pk %}{{ f.DELETE }}{% endif %}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <p class="text-sm text-gray-500 mt-2">
+                {% trans "Avec un coût, le prix unitaire est calculé : coût × (1 + marge). Sans coût, le prix unitaire saisi est utilisé tel quel. La dernière ligne vide permet d'ajouter une ligne libre." %}
+            </p>
+        </div>
+
+        <!-- Totaux -->
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6" style="max-width:32rem;margin-left:auto">
+            <h2 class="text-lg font-semibold mb-4">{% trans "Totaux" %}</h2>
+            <table class="w-full text-sm">
+                {% for taux, g in groupes_tva.items %}
+                    <tr>
+                        <td class="py-1">{% trans "Base HTVA" %} {{ taux|floatformat:2 }} %</td>
+                        <td class="py-1 text-right">{{ g.base|floatformat:2 }} €</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1">{% trans "TVA" %} {{ taux|floatformat:2 }} %</td>
+                        <td class="py-1 text-right">{{ g.tva|floatformat:2 }} €</td>
+                    </tr>
+                {% endfor %}
+                <tr class="border-t font-semibold"><td class="py-1">{% trans "Total HTVA" %}</td><td class="py-1 text-right">{{ facture.total_ht|floatformat:2 }} €</td></tr>
+                <tr class="font-semibold"><td class="py-1">{% trans "Total TVA" %}</td><td class="py-1 text-right">{{ facture.total_tva|floatformat:2 }} €</td></tr>
+                <tr class="font-bold text-blue-800 text-lg"><td class="py-1">{% trans "Total TVAC" %}</td><td class="py-1 text-right">{{ facture.total|floatformat:2 }} €</td></tr>
+            </table>
+        </div>
+
+        <!-- Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <button type="submit" name="action" value="enregistrer"
+                    class="w-full bg-blue-700 text-white px-4 py-3 rounded hover:bg-blue-400 font-semibold">
+                {% trans "Enregistrer le brouillon" %}
+            </button>
+            <button type="submit" name="action" value="emettre"
+                    onclick="return confirm('{% trans "Émettre la facture ? Elle recevra un numéro définitif et ne pourra plus être modifiée." as q %}{{ q|escapejs }}');"
+                    class="w-full bg-green-600 text-white px-4 py-3 rounded hover:bg-green-500 font-semibold">
+                {% if facture.est_pro %}{% trans "Émettre la facture (PDF + XML)" %}{% else %}{% trans "Émettre la facture" %}{% endif %}
+            </button>
+        </div>
+    </form>
+
+    {% if peut_supprimer %}
+        <a href="{% url 'facture:delete_facture' facture.pk %}" class="block w-full mb-4">
+            <button type="button" class="w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold">
+                {% trans "Supprimer le brouillon" %}
+            </button>
+        </a>
+    {% endif %}
+
+    <a href="{% url 'facture:maintenances' %}"
+       class="block w-full bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+        {% trans "Retour à la facturation" %}
+    </a>
+</div>
+
+<style>
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+}
+</style>
+
+<script>
+// Recalcul du prix et du total de ligne pendant la saisie (le serveur recalcule à l'enregistrement)
+document.querySelectorAll("tr.ligne-facture").forEach(function (tr) {
+    const champ = (nom) => tr.querySelector(`[name$="-${nom}"]`);
+    const cout = champ("unit_cost"), marge = champ("marge"), prix = champ("unit_price"), qte = champ("quantity");
+    const total = tr.querySelector(".total-ligne");
+    const nombre = (el) => parseFloat((el && el.value || "").replace(",", ".")) || 0;
+
+    function maj() {
+        if (cout && cout.value !== "") {
+            prix.value = (nombre(cout) * (1 + nombre(marge) / 100)).toFixed(2);
+            prix.readOnly = true;
+            prix.classList.add("bg-gray-100");
+        } else if (prix) {
+            prix.readOnly = false;
+            prix.classList.remove("bg-gray-100");
+        }
+        if (total && prix && qte) {
+            total.textContent = (nombre(qte) * nombre(prix)).toFixed(2) + " €";
+        }
+    }
+    [cout, marge, prix, qte].forEach((el) => el && el.addEventListener("input", maj));
+    maj();
+});
+</script>
+{% endblock %}

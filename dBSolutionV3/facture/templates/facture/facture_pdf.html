@@ -1,0 +1,291 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        /* ============================================
+           FORMAT PDF A4 (même charte que les PDF de maintenance)
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+            @bottom-center {
+                content: "{% trans 'Page' %} " counter(page) " / " counter(pages);
+                font-size: 9px;
+                color: #666;
+            }
+        }
+
+        html, body { width: 100%; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box { border: 1px solid #ddd; padding: 10px; margin-bottom: 12px; }
+        .label { font-weight: bold; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #d1d5db; padding: 6px; vertical-align: middle; }
+        th { background: #eff6ff; color: #1e3a8a; text-align: left; }
+        .text-right { text-align: right; }
+        .total { font-weight: bold; background: #f8fafc; }
+        .total-general { font-weight: bold; color: #1e3a8a; background: #dbeafe; font-size: 14px; }
+
+        .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+        .societe-informations { display: table-cell; width: 75%; vertical-align: top; line-height: 1.6; }
+        .societe-informations div { margin-bottom: 6px; }
+        .societe-nom { font-size: 18px; font-weight: bold; color: #1e3a8a; margin-bottom: 12px; }
+        .societe-logo { display: table-cell; width: 25%; text-align: right; vertical-align: top; }
+        .societe-logo img { max-width: 200px; max-height: 200px; }
+
+        .deux-colonnes { display: table; width: 100%; margin-bottom: 12px; }
+        .colonne { display: table-cell; width: 50%; vertical-align: top; }
+        .colonne + .colonne { padding-left: 12px; }
+        .client { border: 1px solid #1e3a8a; padding: 10px; min-height: 90px; line-height: 1.5; }
+
+        .totaux { width: 55%; margin-left: 45%; }
+        .mention { margin-top: 12px; padding: 8px; background: #f8fafc; border-left: 3px solid #1e3a8a; }
+
+        .brouillon {
+            position: fixed;
+            top: 40%;
+            left: 10%;
+            font-size: 90px;
+            color: rgba(220, 38, 38, 0.12);
+            transform: rotate(-30deg);
+            font-weight: bold;
+        }
+
+        .footer { margin-top: 25px; font-size: 10px; color: #666; text-align: center; }
+
+        h1, h2 { page-break-after: avoid; }
+        table { page-break-inside: auto; }
+        tr { page-break-inside: avoid; break-inside: avoid; }
+        thead { display: table-header-group; }
+        .box, .societe-header, .totaux { page-break-inside: avoid; }
+    </style>
+</head>
+
+<body>
+
+{% if facture.est_brouillon %}
+    <div class="brouillon">{% trans "BROUILLON" %}</div>
+{% endif %}
+
+<!-- ================================================== -->
+<!-- SOCIÉTÉ ÉMETTRICE -->
+<!-- ================================================== -->
+{% if societe %}
+    <div class="societe-header">
+        <div class="societe-informations">
+            <div class="societe-nom">{{ societe.nom }}</div>
+
+            {% if societe.adresse %}
+                <div>
+                    {{ societe.adresse.rue }} {{ societe.adresse.numero }}
+                    {% if societe.adresse.boite %}/ {{ societe.adresse.boite }}{% endif %}
+                </div>
+                <div>{{ societe.adresse.code_postal }} {{ societe.adresse.ville }}</div>
+                {% if societe.adresse.pays %}<div>{{ societe.adresse.pays }}</div>{% endif %}
+            {% endif %}
+
+            {% if societe.numero_tva %}
+                <div><strong>{% trans "Numéro de TVA" %} :</strong> {{ societe.numero_tva }}</div>
+            {% endif %}
+            {% if societe.iban %}
+                <div><strong>{% trans "Numéro de compte" %} :</strong> {{ societe.iban }}</div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img src="{% static 'societe/' %}{{ societe.nom }}.png" alt="{{ societe.nom }}">
+        </div>
+    </div>
+{% endif %}
+
+<h1>
+    {% trans "Facture" %}
+    {% if facture.numero %}{{ facture.numero }}{% else %}({% trans "brouillon" %}){% endif %}
+</h1>
+
+<!-- ================================================== -->
+<!-- INFORMATIONS / CLIENT -->
+<!-- ================================================== -->
+<div class="deux-colonnes">
+    <div class="colonne">
+        <div class="box">
+            <div><span class="label">{% trans "Date d’émission" %} :</span> {{ facture.issue_date|date:"d/m/Y" }}</div>
+            {% if facture.due_date %}
+                <div><span class="label">{% trans "Date d'échéance" %} :</span> {{ facture.due_date|date:"d/m/Y" }}</div>
+            {% endif %}
+            {% with v=facture.voiture_exemplaire %}
+                {% if v %}
+                    <div><span class="label">{% trans "Véhicule" %} :</span> {{ v.voiture_marque.nom_marque }} {{ v.voiture_modele.nom_modele }}</div>
+                    <div><span class="label">{% trans "Immatriculation" %} :</span> {{ v.immatriculation|default:"-" }}</div>
+                    {% if v.numero_vin %}<div><span class="label">{% trans "VIN" %} :</span> {{ v.numero_vin }}</div>{% endif %}
+                    <div><span class="label">{% trans "Kilométrage" %} :</span> {{ v.kilometres_chassis|default:0 }} km</div>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+    <div class="colonne">
+        <div class="client">
+            {% if facture.est_emise %}
+                <div class="label">{{ facture.client_nom }}</div>
+                {% if facture.client_adresse %}<div>{{ facture.client_adresse|linebreaksbr }}</div>{% endif %}
+                {% if facture.client_tva %}<div><strong>{% trans "TVA" %} :</strong> {{ facture.client_tva }}</div>{% endif %}
+            {% else %}
+                {% with c=facture.client %}
+                    {% if c %}
+                        <div class="label">{{ facture.nom_client_courant }}</div>
+                        {% if c.adresse %}
+                            <div>{{ c.adresse.rue }} {{ c.adresse.numero }}{% if c.adresse.boite %} / {{ c.adresse.boite }}{% endif %}</div>
+                            <div>{{ c.adresse.code_postal }} {{ c.adresse.ville }}</div>
+                            <div>{{ c.adresse.pays }}</div>
+                        {% endif %}
+                        {% if facture.est_pro and c.numero_tva %}<div><strong>{% trans "TVA" %} :</strong> {{ c.numero_tva }}</div>{% endif %}
+                    {% else %}
+                        <div>{% trans "Client non sélectionné" %}</div>
+                    {% endif %}
+                {% endwith %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- MAINTENANCES -->
+<!-- ================================================== -->
+{% with maintenances=facture.maintenances.all %}
+    {% if maintenances %}
+        <div class="box">
+            <span class="label">{% trans "Interventions" %} :</span>
+            {% for m in maintenances %}
+                {{ m.get_type_maintenance_display|default:"-" }} ({{ m.date_intervention|date:"d/m/Y" }}){% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+<!-- ================================================== -->
+<!-- LIGNES -->
+<!-- ================================================== -->
+<h2>{% trans "Pièces, produits et main-d'œuvre" %}</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>{% trans "Description" %}</th>
+            <th class="text-right">{% trans "Quantité" %}</th>
+            <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+            <th class="text-right">{% trans "TVA" %}</th>
+            <th class="text-right">{% trans "Total HTVA" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for l in lignes %}
+            <tr>
+                <td>
+                    {{ l.description }}
+                    {% if l.reference %}<br><small>{% trans "Réf." %} {{ l.reference }}</small>{% endif %}
+                </td>
+                <td class="text-right">
+                    {{ l.quantity|floatformat:2 }}{% if l.type_ligne == "MAIN_OEUVRE" %} h{% endif %}
+                </td>
+                <td class="text-right">{{ l.unit_price|floatformat:2 }} €</td>
+                <td class="text-right">{% if facture.autoliquidation %}0{% else %}{{ l.vat_rate|floatformat:"-2" }}{% endif %} %</td>
+                <td class="text-right">{{ l.total_ht|floatformat:2 }} €</td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="5">{% trans "Aucune ligne." %}</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- ================================================== -->
+<!-- TOTAUX -->
+<!-- ================================================== -->
+<table class="totaux">
+    <tbody>
+        {% for taux, g in groupes_tva.items %}
+            <tr>
+                <td>{% trans "Base HTVA" %} {{ taux|floatformat:"-2" }} %</td>
+                <td class="text-right">{{ g.base|floatformat:2 }} €</td>
+            </tr>
+            <tr>
+                <td>{% trans "TVA" %} {{ taux|floatformat:"-2" }} %</td>
+                <td class="text-right">{{ g.tva|floatformat:2 }} €</td>
+            </tr>
+        {% endfor %}
+        <tr class="total">
+            <td>{% trans "Total HTVA" %}</td>
+            <td class="text-right">{{ facture.total_ht|floatformat:2 }} €</td>
+        </tr>
+        <tr class="total">
+            <td>{% trans "Total TVA" %}</td>
+            <td class="text-right">{{ facture.total_tva|floatformat:2 }} €</td>
+        </tr>
+        <tr class="total-general">
+            <td>{% trans "Total TVAC" %}</td>
+            <td class="text-right">{{ facture.total|floatformat:2 }} €</td>
+        </tr>
+    </tbody>
+</table>
+
+{% if facture.autoliquidation %}
+    <div class="mention">
+        {% trans "Autoliquidation – TVA due par le cocontractant (article 196 de la directive 2006/112/CE)." %}
+    </div>
+{% endif %}
+
+{% if societe.iban and facture.numero %}
+    <div class="mention">
+        {% trans "Merci d'effectuer le paiement sur le compte" %} <strong>{{ societe.iban }}</strong>
+        {% if facture.due_date %}{% trans "avant le" %} <strong>{{ facture.due_date|date:"d/m/Y" }}</strong>{% endif %},
+        {% trans "avec la communication" %} <strong>{{ facture.numero }}</strong>.
+    </div>
+{% endif %}
+
+{% if facture.remarques %}
+    <h2>{% trans "Remarques" %}</h2>
+    <div class="box">{{ facture.remarques|linebreaks }}</div>
+{% endif %}
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Factures" %}{% endblock %}
+
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            {% include "facture/_icone.html" %}
+            <span>{% trans "Factures" %}</span>
+        </h1>
+        <a href="{% url 'facture:maintenances' %}"
+           class="bg-blue-700 hover:bg-blue-400 text-white px-5 py-3 rounded font-semibold">
+            + {% trans "Facturer une maintenance" %}
+        </a>
+    </div>
+
+    {% include "partials/messages.html" %}
+
+    <div class="overflow-x-auto bg-white shadow-md rounded-lg p-4">
+    <table id="factures-table" class="min-w-full table-auto border-collapse border border-gray-200">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-4 py-2 text-left">{% trans "Numéro" %}</th>
+                <th class="border px-4 py-2 text-left">{% trans "Date" %}</th>
+                <th class="border px-4 py-2 text-left">{% trans "Type" %}</th>
+                <th class="border px-4 py-2 text-left">{% trans "Client" %}</th>
+                <th class="border px-4 py-2 text-left">{% trans "Immatriculation" %}</th>
+                <th class="border px-4 py-2 text-right">{% trans "Total TVAC" %}</th>
+                <th class="border px-4 py-2 text-left">{% trans "Statut" %}</th>
+                <th class="border px-4 py-2 text-center">{% trans "Info" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for f in factures %}
+            <tr>
+                <td class="border px-4 py-2 font-semibold">{{ f.numero|default:"—" }}</td>
+                <td class="border px-4 py-2" data-order="{{ f.issue_date|date:'Y-m-d' }}">{{ f.issue_date|date:"d/m/Y" }}</td>
+                <td class="border px-4 py-2">{{ f.get_type_facture_display }}</td>
+                <td class="border px-4 py-2">{{ f.nom_client_courant|default:"-" }}</td>
+                <td class="border px-4 py-2" data-search="{{ f.voiture_exemplaire.immatriculation|default:'' }}" data-order="{{ f.voiture_exemplaire.immatriculation|default:'' }}">
+                    {% if f.voiture_exemplaire %}
+                        {% include "maintenance/partials/plaque.html" with exemplaire=f.voiture_exemplaire taille="petite" %}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td class="border px-4 py-2 text-right" data-order="{{ f.total|stringformat:'.2f' }}">{{ f.total|floatformat:2 }} €</td>
+                <td class="border px-4 py-2">
+                    <span class="px-2 py-1 rounded text-sm font-semibold {% if f.est_emise %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                        {{ f.get_statut_display }}
+                    </span>
+                </td>
+                <td class="border px-4 py-2 text-center">
+                    <a href="{% if f.est_emise %}{% url 'facture:detail' f.pk %}{% else %}{% url 'facture:modifier' f.pk %}{% endif %}"
+                       class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                        {% trans "Info" %}
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+    <br>
+    <a href="{% url 'facture:maintenances' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour à la facturation" %}
+    </a>
+</div>
+
+<script>
+$(document).ready(function () {
+    $('#factures-table').DataTable({
+        pageLength: 50,
+        order: [[1, "desc"]],
+        language: {
+            emptyTable: "{% trans 'Aucune facture.' %}",
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ factures' %}",
+            infoEmpty: "{% trans 'Aucune facture trouvée' %}",
+            zeroRecords: "{% trans 'Aucune facture trouvée' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        }
+    });
+});
+</script>
+{% endblock %}
