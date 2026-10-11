@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 11:33+0200\n"
+"POT-Creation-Date: 2026-10-11 11:52+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -5728,6 +5728,7 @@ msgstr "Tableau de Bord"
 #: maintenance/autres_interventions/embrayage/models.py:132
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:406
 #: maintenance/autres_interventions/embrayage/views.py:667
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:384
 #: piece/piece_embrayage/models.py:13 piece/piece_embrayage/models.py:42
 msgid "Disque d'embrayage"
 msgstr ""
@@ -22507,12 +22508,6 @@ msgstr "Tableau de Bord"
 msgid "cardans"
 msgstr ""
 
-#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:384
-#, fuzzy
-#| msgid "Tableau de bord"
-msgid "Disque embrayage"
-msgstr "Tableau de Bord"
-
 #: maintenance/bruits/models.py:5 maintenance/jeux_pieces/models.py:35
 #: piece/piece_carrosserie/models.py:12 piece/piece_roue_rechange/models.py:13
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/lier_pneus.html:27
@@ -36107,6 +36102,11 @@ msgstr ""
 #| msgid "Tableau de bord"
 msgid "Pneus supprimés avec succès."
 msgstr "Tableau de Bord"
+
+#, fuzzy
+#~| msgid "Tableau de bord"
+#~ msgid "Disque embrayage"
+#~ msgstr "Tableau de Bord"
 
 #, fuzzy
 #~| msgid "Tableau de bord"
