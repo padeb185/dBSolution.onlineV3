@@ -76,7 +76,7 @@
             <th class="border px-4 py-2 text-left">{% trans "Technicien" %}</th>
             <th class="border px-4 py-2 text-left">{% trans "Tag" %}</th>
             <th class="border px-4 py-2 text-left">{% trans "Statut / Prête pour" %}</th>
-            {% if peut_planifier %}<th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>{% endif %}
+            <th class="border px-4 py-2 text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
     <tbody>
@@ -151,25 +151,17 @@
                 {% endif %}
             </td>
 
-            {% if peut_planifier %}
-            <td class="border px-4 py-2 text-center whitespace-nowrap">
-                <a href="{% url 'agenda:modifier_tache' tache.pk %}"
-                   class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">{% trans "Modifier" %}</a>
-
-                <form method="post" action="{% url 'agenda:supprimer_tache' tache.pk %}" class="inline"
-                      onsubmit="return confirm('{% trans "Retirer cette maintenance de l'agenda ?" as q %}{{ q|escapejs }}');">
-                    {% csrf_token %}
-                    <button type="submit" class="bg-red-700 text-white px-3 py-1 rounded hover:bg-red-400">
-                        {% trans "Supprimer" %}
-                    </button>
-                </form>
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'agenda:detail_tache' tache.pk %}"
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                    {% trans "Info" %}
+                </a>
             </td>
-            {% endif %}
         </tr>
         {% endwith %}
     {% empty %}
         <tr>
-            <td colspan="{% if peut_planifier %}7{% else %}6{% endif %}" class="text-center py-6 text-gray-500">
+            <td colspan="7" class="text-center py-6 text-gray-500">
                 {% trans "Aucune maintenance planifiée ce jour." %}
             </td>
         </tr>

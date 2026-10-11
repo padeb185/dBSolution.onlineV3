@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 11:18+0200\n"
+"POT-Creation-Date: 2026-10-11 13:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -183,6 +183,7 @@ msgstr "Allgemeine Informationen"
 #: _backup_list_templates/maintenance/silent_blocs/templates/silent_blocs/silent_list.html:88
 #: _backup_list_templates/recharge/templates/recharge/recharge_list.html:81
 #: agenda/templates/agenda/agenda_list.html:74
+#: agenda/templates/agenda/delete_agenda.html:98
 #: assurance_police/templates/assurance_police/assurance_police_detail.html:47
 #: assurance_police/templates/assurance_police/assurance_police_list.html:45
 #: assurance_police/templates/assurance_police/assurance_police_list.html:66
@@ -467,7 +468,9 @@ msgstr "Kilometerstand"
 #: _backup_list_templates/maintenance/niveaux/templates/niveaux/niveaux_list.html:91
 #: _backup_list_templates/maintenance/pneus/templates/pneus/pneus_list.html:90
 #: _backup_list_templates/maintenance/silent_blocs/templates/silent_blocs/silent_list.html:90
-#: agenda/models.py:41 agenda/templates/agenda/agenda_list.html:77
+#: agenda/models.py:41 agenda/templates/agenda/agenda_detail.html:48
+#: agenda/templates/agenda/agenda_list.html:77
+#: agenda/templates/agenda/delete_agenda.html:79
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:52
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:341
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:95
@@ -668,7 +671,9 @@ msgstr "Tag"
 #: _backup_list_templates/maintenance/pneus/templates/pneus/pneus_list.html:91
 #: _backup_list_templates/maintenance/silent_blocs/templates/silent_blocs/silent_list.html:73
 #: _backup_list_templates/maintenance/silent_blocs/templates/silent_blocs/silent_list.html:91
-#: agenda/models.py:37 agenda/templates/agenda/agenda_list.html:76
+#: agenda/models.py:37 agenda/templates/agenda/agenda_detail.html:39
+#: agenda/templates/agenda/agenda_list.html:76
+#: agenda/templates/agenda/delete_agenda.html:74
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:57
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:267
 #: maintenance/autres_interventions/abs/models.py:225
@@ -1160,7 +1165,8 @@ msgstr "Zeit"
 #: _backup_detail_views/maintenance/essuyage/views.py:493
 #: _backup_detail_views/maintenance/essuyage/views.py:918
 #: adresse/templates/adresse/adresse_detail.html:73 agenda/models.py:63
-#: assurance/models.py:41
+#: agenda/templates/agenda/agenda_detail.html:119
+#: agenda/templates/agenda/delete_agenda.html:111 assurance/models.py:41
 #: assurance/templates/assurance/assurance_detail.html:67
 #: assurance/templates/assurance/delete_assurance.html:71
 #: assurance_police/templates/assurance_police/assurance_police_detail.html:72
@@ -1423,6 +1429,7 @@ msgstr "ABS-Kontrolle löschen"
 #: _backup_detail_templates/maintenance/silent_blocs/templates/silent_blocs/silent_detail.html:98
 #: achat_mds/templates/achat_mds/achat_detail.html:121
 #: adresse/templates/adresse/adresse_detail.html:104
+#: agenda/templates/agenda/agenda_detail.html:129
 #: assurance/templates/assurance/assurance_detail.html:113
 #: assurance_police/templates/assurance_police/assurance_police_detail.html:115
 #: carrosserie/templates/carrosserie/carrosserie_detail.html:112
@@ -1484,7 +1491,8 @@ msgstr "Metadaten"
 #: achat_mds/templates/achat_mds/delete_achat.html:89 adresse/models.py:29
 #: adresse/templates/adresse/adresse_detail.html:108
 #: adresse/templates/adresse/delete_adresse.html:89 agenda/models.py:81
-#: assurance/models.py:43
+#: agenda/templates/agenda/agenda_detail.html:137
+#: agenda/templates/agenda/delete_agenda.html:118 assurance/models.py:43
 #: assurance/templates/assurance/assurance_detail.html:117
 #: assurance/templates/assurance/delete_assurance.html:77
 #: assurance_police/models.py:121
@@ -1609,7 +1617,8 @@ msgstr "Erstellt am"
 #: achat_mds/templates/achat_mds/delete_achat.html:90 adresse/models.py:30
 #: adresse/templates/adresse/adresse_detail.html:112
 #: adresse/templates/adresse/delete_adresse.html:90 agenda/models.py:82
-#: assurance/models.py:44
+#: agenda/templates/agenda/agenda_detail.html:142
+#: agenda/templates/agenda/delete_agenda.html:119 assurance/models.py:44
 #: assurance/templates/assurance/assurance_detail.html:121
 #: assurance/templates/assurance/delete_assurance.html:78
 #: assurance_police/models.py:122
@@ -3751,7 +3760,9 @@ msgid "Détails du nettoyage extérieur"
 msgstr "Details der Außenreinigung"
 
 #: _backup_detail_templates/maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_detail.html:63
-#: agenda/models.py:19 agenda/templates/agenda/agenda_list.html:73
+#: agenda/models.py:19 agenda/templates/agenda/agenda_detail.html:34
+#: agenda/templates/agenda/agenda_list.html:73
+#: agenda/templates/agenda/delete_agenda.html:71
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:40
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:39
 #: maintenance/autres_interventions/cardan/models.py:41
@@ -4013,8 +4024,9 @@ msgstr "Zur Liste der Silentblock-Kontrollen zurück"
 #: _backup_detail_views/maintenance/silent_blocs/views.py:100
 #: _backup_detail_views/maintenance/silent_blocs/views.py:599
 #: _backup_detail_views/maintenance/silent_blocs/views.py:635
-#: agenda/views.py:60 agenda/views.py:109 agenda/views.py:145
-#: agenda/views.py:178 agenda/views.py:207 fuel/views.py:517 fuel/views.py:538
+#: agenda/views.py:66 agenda/views.py:112 agenda/views.py:142
+#: agenda/views.py:178 agenda/views.py:211 agenda/views.py:252
+#: fuel/views.py:517 fuel/views.py:538
 #: maintenance/autres_interventions/abs/views.py:102
 #: maintenance/autres_interventions/abs/views.py:780
 #: maintenance/autres_interventions/abs/views.py:816
@@ -4182,7 +4194,7 @@ msgstr "ABS-Systemprüfung erfolgreich gespeichert."
 #: _backup_detail_views/maintenance/pneus/views.py:654
 #: _backup_detail_views/maintenance/silent_blocs/views.py:326
 #: _backup_detail_views/maintenance/silent_blocs/views.py:550
-#: agenda/views.py:123 agenda/views.py:156 assurance/views.py:122
+#: agenda/views.py:156 agenda/views.py:189 assurance/views.py:122
 #: assurance/views.py:170 assurance_police/views.py:95
 #: assurance_police/views.py:152 carrosserie/views.py:143
 #: fournisseur/views.py:124 fuel/views.py:471 maindoeuvre/views.py:191
@@ -5493,6 +5505,7 @@ msgstr "Kupplungswechsel erfolgreich gelöscht."
 #: maintenance/autres_interventions/embrayage/models.py:132
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:406
 #: maintenance/autres_interventions/embrayage/views.py:667
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:384
 #: piece/piece_embrayage/models.py:13 piece/piece_embrayage/models.py:42
 msgid "Disque d'embrayage"
 msgstr "Kupplungsscheibe"
@@ -7885,6 +7898,8 @@ msgstr "Rechnungsdatum"
 #: achat_mds/templates/achat_mds/achat_list.html:99
 #: adresse/templates/adresse/adresse_list.html:77
 #: adresse/templates/adresse/adresse_list.html:93
+#: agenda/templates/agenda/agenda_list.html:79
+#: agenda/templates/agenda/agenda_list.html:157
 #: assurance/templates/assurance/assurance_list.html:69
 #: assurance/templates/assurance/assurance_list.html:83
 #: assurance_police/templates/assurance_police/assurance_police_list.html:70
@@ -9385,8 +9400,9 @@ msgstr "14,32 Liter"
 #: _backup_list_templates/maintenance/pneus/templates/pneus/pneus_list.html:92
 #: _backup_list_templates/maintenance/silent_blocs/templates/silent_blocs/silent_list.html:92
 #: _backup_list_templates/recharge/templates/recharge/recharge_list.html:88
-#: agenda/models.py:16 fuel/templates/fuel/fuel_list.html:66
-#: fuel/templates/fuel/fuel_list.html:87
+#: agenda/models.py:16 agenda/templates/agenda/agenda_detail.html:29
+#: agenda/templates/agenda/delete_agenda.html:68
+#: fuel/templates/fuel/fuel_list.html:66 fuel/templates/fuel/fuel_list.html:87
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:76
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:262
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:67
@@ -9487,9 +9503,10 @@ msgstr "Datum"
 
 #: _backup_list_templates/fuel/templates/fuel/fuel_list.html:81
 #: _backup_list_templates/recharge/templates/recharge/recharge_list.html:82
-#: agenda/models.py:28 agenda/templates/agenda/agenda_list.html:75
-#: fuel/models.py:116 fuel/templates/fuel/fuel_list.html:81
-#: maindoeuvre/models.py:37
+#: agenda/models.py:28 agenda/templates/agenda/agenda_detail.html:81
+#: agenda/templates/agenda/agenda_list.html:75
+#: agenda/templates/agenda/delete_agenda.html:96 fuel/models.py:116
+#: fuel/templates/fuel/fuel_list.html:81 maindoeuvre/models.py:37
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:277
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:361
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:339
@@ -9801,7 +9818,6 @@ msgstr "Kosten"
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:59
 #: _backup_list_templates/proprietaire/templates/proprietaire/proprietaire_list.html:65
 #: _backup_list_templates/proprietaire/templates/proprietaire/proprietaire_voiture_list.html:68
-#: agenda/templates/agenda/agenda_list.html:79
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:70
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:99
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:108
@@ -10625,7 +10641,8 @@ msgid "Prête pour "
 msgstr "Bereit für "
 
 #: _backup_list_templates/maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:94
-#: agenda/models.py:57
+#: agenda/models.py:57 agenda/templates/agenda/agenda_detail.html:59
+#: agenda/templates/agenda/delete_agenda.html:83
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:469
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:94
 msgid "Prête pour"
@@ -11039,6 +11056,7 @@ msgid "Actif"
 msgstr "Aktiv"
 
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:80
+#: agenda/templates/agenda/agenda_detail.html:72
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:393
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:972
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:463
@@ -11070,6 +11088,7 @@ msgid "Oui"
 msgstr "Ja"
 
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:82
+#: agenda/templates/agenda/agenda_detail.html:74
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:397
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:974
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:467
@@ -11979,6 +11998,7 @@ msgstr "Speichern"
 #: adresse/templates/adresse/delete_adresse.html:124
 #: adresse/templates/adresse/modifier_adresse.html:83
 #: agenda/templates/agenda/agenda_form.html:36
+#: agenda/templates/agenda/delete_agenda.html:144
 #: assurance/templates/assurance/assurance_form.html:79
 #: assurance/templates/assurance/delete_assurance.html:102
 #: assurance/templates/assurance/modifier_assurance.html:81
@@ -12277,7 +12297,7 @@ msgstr "Gesamt brutto (inkl. MwSt.)"
 
 #: achat_mds/templates/achat_mds/delete_achat.html:104
 #: adresse/templates/adresse/delete_adresse.html:105
-#: agenda/templates/agenda/agenda_list.html:163
+#: agenda/templates/agenda/delete_agenda.html:137
 #: assurance/templates/assurance/delete_assurance.html:92
 #: assurance_police/templates/assurance_police/delete_assurance_police.html:153
 #: carrosserie/templates/carrosserie/delete_carrosserie.html:132
@@ -12457,6 +12477,7 @@ msgid "Boîte"
 msgstr "Briefkasten"
 
 #: adresse/templates/adresse/delete_adresse.html:113
+#: agenda/templates/agenda/delete_agenda.html:132
 #: carrosserie/templates/carrosserie/delete_carrosserie.html:125
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:148
 #: client_particulier/templates/client_particulier/delete_client.html:149
@@ -12528,7 +12549,8 @@ msgstr "In Bearbeitung"
 msgid "Fait"
 msgstr "Erledigt"
 
-#: agenda/models.py:49
+#: agenda/models.py:49 agenda/templates/agenda/agenda_detail.html:64
+#: agenda/templates/agenda/delete_agenda.html:86
 #: assurance_police/templates/assurance_police/delete_assurance_police.html:69
 msgid "Statut"
 msgstr "Status"
@@ -12537,7 +12559,8 @@ msgstr "Status"
 msgid "Ex. : roulage Spa-Francorchamps du 18/10"
 msgstr "Z. B.: Trackday in Spa-Francorchamps am 18.10."
 
-#: agenda/models.py:78
+#: agenda/models.py:78 agenda/templates/agenda/agenda_detail.html:132
+#: agenda/templates/agenda/delete_agenda.html:117
 msgid "Créé par"
 msgstr "Erstellt von"
 
@@ -12545,13 +12568,86 @@ msgstr "Erstellt von"
 msgid "Tâche d'agenda"
 msgstr "Kalenderaufgabe"
 
-#: agenda/models.py:86 agenda/templates/agenda/agenda_form.html:11
+#: agenda/models.py:86 agenda/templates/agenda/agenda_detail.html:4
+#: agenda/templates/agenda/agenda_detail.html:12
+#: agenda/templates/agenda/agenda_form.html:11
 #: agenda/templates/agenda/agenda_list.html:4
 #: agenda/templates/agenda/agenda_list.html:12
 #: agenda/templates/agenda/agenda_list.html:14
 #: theme/templates/dashboard.html:82 theme/templates/dashboard.html:92
 msgid "Agenda"
 msgstr "Kalender"
+
+#: agenda/templates/agenda/agenda_detail.html:13
+msgid "Détails de la maintenance planifiée :"
+msgstr "Details der geplanten Wartung:"
+
+#: agenda/templates/agenda/agenda_detail.html:26
+#: agenda/templates/agenda/delete_agenda.html:66
+msgid "Planification"
+msgstr "Planung"
+
+#: agenda/templates/agenda/agenda_detail.html:43
+#: agenda/templates/agenda/agenda_list.html:107
+#: agenda/templates/agenda/delete_agenda.html:76
+msgid "Non assigné"
+msgstr "Nicht zugewiesen"
+
+#: agenda/templates/agenda/agenda_detail.html:70
+msgid "Terminée"
+msgstr "Abgeschlossen"
+
+#: agenda/templates/agenda/agenda_detail.html:88
+#: agenda/templates/agenda/delete_agenda.html:101
+msgid "Marque / modèle"
+msgstr "Marke / Modell"
+
+#: agenda/templates/agenda/agenda_detail.html:99 agenda/views.py:196
+msgid "Modifier la maintenance planifiée"
+msgstr "Geplante Wartung bearbeiten"
+
+#: agenda/templates/agenda/agenda_detail.html:110
+#: agenda/templates/agenda/delete_agenda.html:9
+msgid "Supprimer la maintenance planifiée"
+msgstr "Geplante Wartung löschen"
+
+#: agenda/templates/agenda/agenda_detail.html:123
+#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:757
+#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:804
+#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:922
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1659
+#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:1058
+#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:649
+#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1331
+#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:820
+#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:766
+#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:939
+#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:888
+#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:698
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:742
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1248
+#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:903
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:987
+#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:784
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:2027
+#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:542
+#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:3105
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2699
+#: maintenance/eclairage/templates/eclairage/eclairage_detail_pdf.html:816
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1310
+#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:1037
+#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:1017
+#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1371
+#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:600
+#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:663
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:671
+#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:759
+msgid "Aucune remarque."
+msgstr "Keine Bemerkung."
+
+#: agenda/templates/agenda/agenda_detail.html:152
+msgid "Retour à l'agenda du jour"
+msgstr "Zurück zum heutigen Tagesplan"
 
 #: agenda/templates/agenda/agenda_list.html:17
 #: agenda/templates/agenda/agenda_list.html:28
@@ -12580,17 +12676,13 @@ msgstr "Meine Wartungsarbeiten"
 msgid "terminée(s)"
 msgstr "abgeschlossen"
 
-#: agenda/templates/agenda/agenda_list.html:63 agenda/views.py:132
+#: agenda/templates/agenda/agenda_list.html:63 agenda/views.py:165
 msgid "Planifier une maintenance"
 msgstr "Wartung planen"
 
 #: agenda/templates/agenda/agenda_list.html:78
 msgid "Statut / Prête pour"
 msgstr "Status / Bereit für"
-
-#: agenda/templates/agenda/agenda_list.html:107
-msgid "Non assigné"
-msgstr "Nicht zugewiesen"
 
 #: agenda/templates/agenda/agenda_list.html:130
 #: maintenance/checkup_track/models.py:816
@@ -12638,56 +12730,102 @@ msgstr "Z. B.: Trackday in Spa am 18.10."
 msgid "OK"
 msgstr "OK"
 
-#: agenda/templates/agenda/agenda_list.html:157
-#: maintenance/templates/maintenance/partials/intervention_detail.html:110
-#: piece/templates/piece/piece_detail.html:48
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:82
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:92
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:113
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:123
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:145
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:155
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:181
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:192
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:210
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:221
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:254
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:275
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:285
-msgid "Modifier"
-msgstr "Bearbeiten"
-
-#: agenda/templates/agenda/agenda_list.html:160
-msgid "Retirer cette maintenance de l'agenda ?"
-msgstr "Diese Wartung aus dem Kalender entfernen?"
-
-#: agenda/templates/agenda/agenda_list.html:173
+#: agenda/templates/agenda/agenda_list.html:165
 msgid "Aucune maintenance planifiée ce jour."
 msgstr "Für diesen Tag sind keine Wartungsarbeiten geplant."
 
-#: agenda/views.py:121
+#: agenda/templates/agenda/delete_agenda.html:16
+msgid ""
+"Cette maintenance planifiée ne peut pas être supprimée car elle est encore "
+"utilisée."
+msgstr ""
+"Diese geplante Wartung kann nicht gelöscht werden, da sie noch verwendet "
+"wird."
+
+#: agenda/templates/agenda/delete_agenda.html:20
+msgid ""
+"Voulez-vous vraiment retirer cette maintenance de l'agenda ? Cette action "
+"est irréversible."
+msgstr ""
+"Möchten Sie diese geplante Wartung wirklich aus dem Kalender entfernen? "
+"Diese Aktion kann nicht rückgängig gemacht werden."
+
+#: agenda/templates/agenda/delete_agenda.html:29
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:29
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:28
+#: client_particulier/templates/client_particulier/delete_client.html:28
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:28
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:28
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:28
+#: outillage/templates/outillage/delete_outillage.html:27
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:27
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:27
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:28
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:27
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:27
+msgid "Élément(s) qui empêchent la suppression"
+msgstr "Element(e), die das Löschen verhindern"
+
+#: agenda/templates/agenda/delete_agenda.html:45
+#: carrosserie/templates/carrosserie/delete_carrosserie.html:46
+#: client_atelier/templates/client_atelier/delete_client_atelier.html:60
+#: client_particulier/templates/client_particulier/delete_client.html:45
+#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:45
+#: fournisseur/templates/fournisseur/delete_fournisseur.html:45
+#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:52
+#: outillage/templates/outillage/delete_outillage.html:56
+#: proprietaire/templates/proprietaire/delete_proprietaire.html:43
+#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:77
+#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:45
+#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:66
+#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:66
+msgid "Élément(s) qui seront également supprimé(s)"
+msgstr "Element(e), die ebenfalls gelöscht werden"
+
+#: agenda/templates/agenda/delete_agenda.html:58
+msgid ""
+"Le véhicule et le technicien ne seront pas supprimés : seule la maintenance "
+"planifiée est retirée de l'agenda."
+msgstr ""
+"Das Fahrzeug und der Techniker werden nicht gelöscht: Nur die geplante "
+"Wartung wird aus dem Kalender entfernt."
+
+#: agenda/views.py:154
 msgid "Maintenance ajoutée à l'agenda."
 msgstr "Wartung zum Kalender hinzugefügt."
 
-#: agenda/views.py:154
+#: agenda/views.py:187
 msgid "Maintenance modifiée."
 msgstr "Wartung geändert."
 
-#: agenda/views.py:163
-msgid "Modifier la maintenance planifiée"
-msgstr "Geplante Wartung bearbeiten"
-
-#: agenda/views.py:187
+#: agenda/views.py:220
 msgid "Maintenance mise à jour."
 msgstr "Wartung aktualisiert."
 
-#: agenda/views.py:189
+#: agenda/views.py:222
 msgid "Mise à jour impossible."
 msgstr "Aktualisierung nicht möglich."
 
-#: agenda/views.py:211
-msgid "Maintenance retirée de l'agenda."
-msgstr "Wartung aus dem Kalender entfernt."
+#: agenda/views.py:233
+msgid "Suppression d'une maintenance planifiée"
+msgstr "Löschen einer geplanten Wartung"
+
+#: agenda/views.py:265 agenda/views.py:284 carrosserie/views.py:215
+#: maindoeuvre/views.py:291 maindoeuvre/views.py:314
+#: societe_cliente/views.py:232 voiture/voiture_boite/views.py:172
+#: voiture/voiture_boite/views.py:199
+#, python-format
+msgid ""
+"Impossible de supprimer « %(nom)s » : elle est encore utilisée ailleurs."
+msgstr ""
+"« %(nom)s » kann nicht gelöscht werden, da der Eintrag noch an anderer Stelle "
+"verwendet wird."
+
+#: agenda/views.py:288
+#, python-format
+msgid "La maintenance « %(nom)s » a bien été retirée de l'agenda."
+msgstr ""
+"Die Wartung « %(nom)s » wurde erfolgreich aus dem Kalender entfernt."
 
 #: assurance/forms.py:53 fournisseur/forms.py:52 fuel/models.py:29
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:27
@@ -13264,36 +13402,6 @@ msgstr ""
 "Möchten Sie diese Karosserie wirklich löschen? Diese Aktion kann nicht "
 "rückgängig gemacht werden."
 
-#: carrosserie/templates/carrosserie/delete_carrosserie.html:29
-#: client_atelier/templates/client_atelier/delete_client_atelier.html:28
-#: client_particulier/templates/client_particulier/delete_client.html:28
-#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:28
-#: fournisseur/templates/fournisseur/delete_fournisseur.html:28
-#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:28
-#: outillage/templates/outillage/delete_outillage.html:27
-#: proprietaire/templates/proprietaire/delete_proprietaire.html:27
-#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:27
-#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:28
-#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:27
-#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:27
-msgid "Élément(s) qui empêchent la suppression"
-msgstr "Element(e), die das Löschen verhindern"
-
-#: carrosserie/templates/carrosserie/delete_carrosserie.html:46
-#: client_atelier/templates/client_atelier/delete_client_atelier.html:60
-#: client_particulier/templates/client_particulier/delete_client.html:45
-#: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:45
-#: fournisseur/templates/fournisseur/delete_fournisseur.html:45
-#: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:52
-#: outillage/templates/outillage/delete_outillage.html:56
-#: proprietaire/templates/proprietaire/delete_proprietaire.html:43
-#: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:77
-#: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:45
-#: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:66
-#: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:66
-msgid "Élément(s) qui seront également supprimé(s)"
-msgstr "Element(e), die ebenfalls gelöscht werden"
-
 #: carrosserie/templates/carrosserie/delete_carrosserie.html:90
 msgid "Responsable & contact"
 msgstr "Verantwortlicher & Kontakt"
@@ -13322,16 +13430,6 @@ msgstr "Karosserie und Adresse erfolgreich aktualisiert."
 #: carrosserie/views.py:195
 msgid "Suppression de la carrosserie"
 msgstr "Karosserie löschen"
-
-#: carrosserie/views.py:215 maindoeuvre/views.py:291 maindoeuvre/views.py:314
-#: societe_cliente/views.py:232 voiture/voiture_boite/views.py:172
-#: voiture/voiture_boite/views.py:199
-#, python-format
-msgid ""
-"Impossible de supprimer « %(nom)s » : elle est encore utilisée ailleurs."
-msgstr ""
-"« %(nom)s » kann nicht gelöscht werden, da es noch an anderer Stelle "
-"verwendet wird."
 
 #: carrosserie/views.py:240
 #, python-format
@@ -16207,39 +16305,6 @@ msgstr "Gesamtsumme einschließlich Arbeitskosten ohne MwSt."
 msgid "Aucune pièce ou produit utilisé."
 msgstr "Keine Teile oder Produkte verwendet."
 
-#: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:757
-#: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:804
-#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:922
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1659
-#: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:1058
-#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:649
-#: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1331
-#: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:820
-#: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:766
-#: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:939
-#: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:888
-#: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:698
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:742
-#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:1248
-#: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:903
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:987
-#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:784
-#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:2027
-#: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:542
-#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:3105
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2699
-#: maintenance/eclairage/templates/eclairage/eclairage_detail_pdf.html:816
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1310
-#: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:1037
-#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:1017
-#: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1371
-#: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:600
-#: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:663
-#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:671
-#: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:759
-msgid "Aucune remarque."
-msgstr "Keine Bemerkung."
-
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:763
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:809
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:928
@@ -18214,16 +18279,16 @@ msgid ""
 "Voulez-vous vraiment supprimer le contrôle cardan du %(date)s (%(km)s km) "
 "pour :"
 msgstr ""
-"Möchten Sie die Antriebswellenprüfung vom %(date)s (%(km)s km) "
-"für folgendes Fahrzeug wirklich löschen:"
+"Möchten Sie die Antriebswellenprüfung vom %(date)s (%(km)s km) für folgendes "
+"Fahrzeug wirklich löschen:"
 
 #: maintenance/autres_interventions/cardan/templates/cardan/delete_cardan.html:27
 msgid ""
 "La maintenance associée sera également supprimée et le kilométrage du "
 "véhicule sera restauré à sa valeur précédente."
 msgstr ""
-"Die zugehörige Wartung wird ebenfalls gelöscht und der Kilometerstand "
-"des Fahrzeugs wird auf den vorherigen Wert zurückgesetzt."
+"Die zugehörige Wartung wird ebenfalls gelöscht und der Kilometerstand des "
+"Fahrzeugs wird auf den vorherigen Wert zurückgesetzt."
 
 #: maintenance/autres_interventions/cardan/templates/cardan/modifier_cardan.html:274
 msgid "Contrôle du"
@@ -21294,10 +21359,6 @@ msgstr "Prüfung der Antriebswellen"
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:356
 msgid "cardans"
 msgstr "Kardan"
-
-#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:384
-msgid "Disque embrayage"
-msgstr "Kupplungsscheibe"
 
 #: maintenance/bruits/models.py:5 maintenance/jeux_pieces/models.py:35
 #: piece/piece_carrosserie/models.py:12 piece/piece_roue_rechange/models.py:13
@@ -28767,6 +28828,24 @@ msgstr "Kilometerstand vor dem Eingriff"
 msgid "Kilométrage de l'intervention"
 msgstr "Kilometerstand beim Eingriff"
 
+#: maintenance/templates/maintenance/partials/intervention_detail.html:110
+#: piece/templates/piece/piece_detail.html:48
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:82
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:92
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:113
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:123
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:145
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:155
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:181
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:192
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:210
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:221
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:254
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:275
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:285
+msgid "Modifier"
+msgstr "Bearbeiten"
+
 #: maintenance/templates/maintenance/partials/intervention_detail.html:128
 msgid "Pièces / produits"
 msgstr "Teile / Produkte"
@@ -31986,19 +32065,19 @@ msgstr "Der Sicherheitscode muss genau 6 Ziffern enthalten."
 msgid "La session de connexion a expiré. Veuillez vous reconnecter."
 msgstr "Ihre Anmeldesitzung ist abgelaufen. Bitte melden Sie sich erneut an."
 
-#: theme/views.py:204 utilisateurs/views.py:389
+#: theme/views.py:204 utilisateurs/views.py:391
 msgid "Utilisateur introuvable."
 msgstr "Benutzer nicht gefunden."
 
-#: theme/views.py:209 utilisateurs/views.py:393 utilisateurs/views.py:908
+#: theme/views.py:209 utilisateurs/views.py:395 utilisateurs/views.py:910
 msgid "Ce compte utilisateur est désactivé."
 msgstr "Dieses Benutzerkonto ist deaktiviert."
 
-#: theme/views.py:214 utilisateurs/views.py:79 utilisateurs/views.py:397
+#: theme/views.py:214 utilisateurs/views.py:79 utilisateurs/views.py:399
 msgid "Aucune société n'est liée à cet utilisateur."
 msgstr "Diesem Benutzer ist kein Unternehmen zugeordnet."
 
-#: theme/views.py:226 utilisateurs/views.py:402
+#: theme/views.py:226 utilisateurs/views.py:404
 msgid "La société de connexion ne correspond pas."
 msgstr "Das Anmeldeunternehmen stimmt nicht überein."
 
@@ -32010,7 +32089,7 @@ msgstr "Für dieses Konto ist kein TOTP-Geheimnis konfiguriert."
 msgid "Le TOTP n'est pas activé pour ce compte."
 msgstr "TOTP ist für dieses Konto nicht aktiviert."
 
-#: theme/views.py:344 utilisateurs/views.py:1133
+#: theme/views.py:344 utilisateurs/views.py:1135
 msgid "Connexion réussie."
 msgstr "Anmeldung erfolgreich."
 
@@ -32229,12 +32308,12 @@ msgstr "Filterwechsel"
 msgid "Rôle inconnu"
 msgstr "Unbekannte Rolle"
 
-#: utilisateurs/views.py:367
+#: utilisateurs/views.py:369
 msgid "La session d'activation a expiré. Veuillez vous reconnecter."
 msgstr ""
 "Die Aktivierungssitzung ist abgelaufen. Bitte melden Sie sich erneut an."
 
-#: utilisateurs/views.py:448
+#: utilisateurs/views.py:450
 msgid ""
 "La vérification à deux facteurs est déjà configurée. Connectez-vous avec "
 "votre code Authy."
@@ -32242,15 +32321,15 @@ msgstr ""
 "Die Zwei-Faktor-Authentifizierung ist bereits eingerichtet. Melden Sie sich "
 "mit Ihrem Authy-Code an."
 
-#: utilisateurs/views.py:485
+#: utilisateurs/views.py:487
 msgid "Saisissez le code à six chiffres affiché dans Authy."
 msgstr "Geben Sie den sechsstelligen Code ein, der in Authy angezeigt wird."
 
-#: utilisateurs/views.py:493
+#: utilisateurs/views.py:495
 msgid "Le code doit contenir exactement six chiffres."
 msgstr "Der Code muss genau sechs Ziffern enthalten."
 
-#: utilisateurs/views.py:537
+#: utilisateurs/views.py:539
 msgid ""
 "La vérification à deux facteurs est activée. Connectez-vous maintenant avec "
 "votre adresse e-mail, votre mot de passe et votre code Authy ou Google "
@@ -32260,40 +32339,40 @@ msgstr ""
 "Ihrer E-Mail-Adresse, Ihrem Passwort und Ihrem Authy- oder Google-"
 "Authenticator-Code an."
 
-#: utilisateurs/views.py:547
+#: utilisateurs/views.py:549
 msgid "Le code Authy est invalide ou expiré."
 msgstr "Der Authy-Code ist ungültig oder abgelaufen."
 
-#: utilisateurs/views.py:607
+#: utilisateurs/views.py:609
 msgid "Utilisateur créé avec succès."
 msgstr "Benutzer erfolgreich erstellt."
 
-#: utilisateurs/views.py:694
+#: utilisateurs/views.py:696
 msgid "La paie mensuelle a été enregistrée avec succès."
 msgstr "Die monatliche Lohnabrechnung wurde erfolgreich gespeichert."
 
-#: utilisateurs/views.py:898 utilisateurs/views.py:903
+#: utilisateurs/views.py:900 utilisateurs/views.py:905
 msgid "Adresse e-mail ou mot de passe incorrect."
 msgstr "E-Mail-Adresse oder Passwort ist falsch."
 
-#: utilisateurs/views.py:913
+#: utilisateurs/views.py:915
 msgid "Aucune société n'est associée à ce compte."
 msgstr "Diesem Konto ist kein Unternehmen zugeordnet."
 
-#: utilisateurs/views.py:941
+#: utilisateurs/views.py:943
 msgid "Aucun schéma tenant n'est associé à cet utilisateur."
 msgstr "Diesem Benutzer ist kein Tenant-Schema zugeordnet."
 
-#: utilisateurs/views.py:947
+#: utilisateurs/views.py:949
 msgid "Ce compte n'est associé à aucune société privée."
 msgstr "Dieses Konto ist keinem privaten Unternehmen zugeordnet."
 
-#: utilisateurs/views.py:1058
+#: utilisateurs/views.py:1060
 msgid "Veuillez saisir le code de sécurité généré par votre application Authy."
 msgstr ""
 "Bitte geben Sie den von Ihrer Authy-App generierten Sicherheitscode ein."
 
-#: utilisateurs/views.py:1075
+#: utilisateurs/views.py:1077
 msgid "Le code de sécurité est incorrect ou a expiré."
 msgstr "Der Sicherheitscode ist falsch oder abgelaufen."
 
@@ -34370,3 +34449,12 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
 msgstr "Reifen erfolgreich gelöscht."
+
+#~ msgid "Retirer cette maintenance de l'agenda ?"
+#~ msgstr "Diese Wartung aus dem Kalender entfernen?"
+
+#~ msgid "Maintenance retirée de l'agenda."
+#~ msgstr "Wartung aus dem Kalender entfernt."
+
+#~ msgid "Disque embrayage"
+#~ msgstr "Kupplungsscheibe"

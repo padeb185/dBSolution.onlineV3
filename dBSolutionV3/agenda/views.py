@@ -2,14 +2,18 @@ from datetime import date as date_cls, timedelta
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from django.db.models import ProtectedError, RestrictedError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, gettext_noop
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 
+from core.suppression import analyser_suppression
 from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
 
 from .forms import AgendaTacheForm, AgendaTacheRapideForm, cle_alphabetique
 from .models import AgendaTache
@@ -18,6 +22,8 @@ from .models import AgendaTache
 ROLES_AGENDA = ["mecanicien", "apprenti", "magasinier", "chef_mecanicien", "direction"]
 # Qui peut planifier (ajouter, modifier, supprimer)
 ROLES_PLANIFICATION = ["chef_mecanicien", "direction", "magasinier"]
+# Qui peut supprimer (+ super admin via _peut)
+ROLES_SUPPRESSION = ["chef_mecanicien", "direction"]
 
 
 def _peut(user, roles):
@@ -97,6 +103,36 @@ def agenda_jour_view(request, annee=None, mois=None, jour=None):
 
 
 # -----------------------------
+# Détail
+# -----------------------------
+@never_cache
+@login_required
+def detail_tache_view(request, tache_id):
+    if not _peut(request.user, ROLES_AGENDA):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    tache = get_object_or_404(
+        _taches_societe(request).select_related(
+            "voiture_exemplaire",
+            "voiture_exemplaire__voiture_marque",
+            "voiture_exemplaire__voiture_modele",
+            "technicien",
+            "cree_par",
+        ),
+        pk=tache_id,
+    )
+
+    return render(request, "agenda/agenda_detail.html", {
+        "tache": tache,
+        "exemplaire": tache.voiture_exemplaire,
+        "url_retour": _url_jour(tache.date),
+        "peut_planifier": _peut(request.user, ROLES_PLANIFICATION),
+        "peut_supprimer": _peut(request.user, ROLES_SUPPRESSION),
+    })
+
+
+# -----------------------------
 # Ajout
 # -----------------------------
 @never_cache
@@ -149,7 +185,7 @@ def modifier_tache_view(request, tache_id):
         if form.is_valid():
             tache = form.save()
             messages.success(request, _("Maintenance modifiée."))
-            return redirect(_url_jour(tache.date))
+            return redirect("agenda:detail_tache", tache_id=tache.pk)
         messages.error(request, _("Le formulaire contient des erreurs."))
     else:
         form = AgendaTacheForm(instance=tache, user=request.user)
@@ -158,7 +194,7 @@ def modifier_tache_view(request, tache_id):
         "form": form,
         "tache": tache,
         "titre": _("Modifier la maintenance planifiée"),
-        "url_retour": _url_jour(tache.date),
+        "url_retour": reverse("agenda:detail_tache", kwargs={"tache_id": tache.pk}),
         "code_checkup_track": Maintenance.TypeMaintenance.CHECKUP_TRACK,
     })
 
@@ -192,18 +228,70 @@ def maj_rapide_tache_view(request, tache_id):
 
 
 # -----------------------------
-# Suppression
+# Suppression (page de confirmation, comme voiture_boite / voiture_exemplaire)
 # -----------------------------
+ACTION_SUPPRESSION_AGENDA = gettext_noop("Suppression d'une maintenance planifiée")
+
+
+@never_cache
 @login_required
-@require_POST
-def supprimer_tache_view(request, tache_id):
-    tache = get_object_or_404(_taches_societe(request), pk=tache_id)
+def delete_agenda_view(request, tache_id):
+    tache = get_object_or_404(
+        _taches_societe(request).select_related(
+            "voiture_exemplaire",
+            "voiture_exemplaire__voiture_marque",
+            "voiture_exemplaire__voiture_modele",
+            "technicien",
+            "cree_par",
+        ),
+        pk=tache_id,
+    )
     jour = tache.date
 
-    if not _peut(request.user, ROLES_PLANIFICATION):
+    if not _peut(request.user, ROLES_SUPPRESSION):
         messages.error(request, _("Accès refusé"))
+        return redirect("agenda:detail_tache", tache_id=tache.pk)
+
+    analyse = analyser_suppression(tache)
+    objets_bloquants = analyse["bloquants"]
+    objets_supprimes = analyse["supprimes"]
+
+    if request.method == "POST":
+        libelle = f"{tache.get_type_maintenance_display()} – {tache.immatriculation or '—'} ({jour:%d/%m/%Y})"
+
+        if objets_bloquants:
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : elle est encore utilisée ailleurs.") % {"nom": libelle},
+            )
+            return redirect("agenda:delete_agenda", tache_id=tache.pk)
+
+        # Libellé pour le log (capturé AVANT la suppression)
+        nom_log = libelle
+        if tache.technicien:
+            nom_log += f" – {tache.technicien.prenom} {tache.technicien.nom}"
+
+        try:
+            with transaction.atomic():
+                tache.delete()
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=f"{ACTION_SUPPRESSION_AGENDA} : {nom_log}",
+                )
+        except (ProtectedError, RestrictedError):
+            messages.error(
+                request,
+                _("Impossible de supprimer « %(nom)s » : elle est encore utilisée ailleurs.") % {"nom": libelle},
+            )
+            return redirect("agenda:delete_agenda", tache_id=tache.pk)
+
+        messages.success(request, _("La maintenance « %(nom)s » a bien été retirée de l'agenda.") % {"nom": libelle})
         return redirect(_url_jour(jour))
 
-    tache.delete()
-    messages.success(request, _("Maintenance retirée de l'agenda."))
-    return redirect(_url_jour(jour))
+    return render(request, "agenda/delete_agenda.html", {
+        "tache": tache,
+        "exemplaire": tache.voiture_exemplaire,
+        "objets_supprimes": objets_supprimes,
+        "objets_bloquants": objets_bloquants,
+        "url_annuler": reverse("agenda:detail_tache", kwargs={"tache_id": tache.pk}),
+    })

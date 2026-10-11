@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Agenda" %} – {{ tache.get_type_maintenance_display }}{% endblock %}
+
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            <img src="{% static 'icons/agenda.png' %}" alt="{% trans 'Agenda' %}" class="w-12 h-12">
+            <span>{% trans "Détails de la maintenance planifiée :" %}</span>
+            <span class="text-black-700">{{ tache.get_type_maintenance_display }}</span>
+        </h1>
+    </div>
+
+    <!-- Messages -->
+    {% include "partials/messages.html" %}
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Planification -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">{% trans "Planification" %}</h2>
+
+            <p>
+                <strong>{% trans "Date" %} :</strong>
+                <span class="capitalize">{{ tache.date|date:"l j F Y" }}</span>
+            </p>
+
+            <p>
+                <strong>{% trans "Maintenance" %} :</strong>
+                {{ tache.get_type_maintenance_display }}
+            </p>
+
+            <p>
+                <strong>{% trans "Technicien" %} :</strong>
+                {% if tache.technicien %}
+                    {{ tache.technicien.prenom }} {{ tache.technicien.nom }}
+                {% else %}
+                    <span class="text-red-700 font-semibold">{% trans "Non assigné" %}</span>
+                {% endif %}
+            </p>
+
+            <p>
+                <strong>{% trans "Tag" %} :</strong>
+                <span class="px-2 py-1 rounded font-bold
+                    {% if tache.tag == 'VERT' %}bg-green-100 text-green-800
+                    {% elif tache.tag == 'ROUGE' %}bg-red-100 text-red-800
+                    {% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                    {{ tache.get_tag_display }}
+                </span>
+            </p>
+
+            {% if tache.est_checkup_track %}
+                <p>
+                    <strong>{% trans "Prête pour" %} :</strong>
+                    {{ tache.prete_pour|default:"—" }}
+                </p>
+            {% else %}
+                <p>
+                    <strong>{% trans "Statut" %} :</strong>
+                    {{ tache.get_statut_display }}
+                </p>
+            {% endif %}
+
+            <p>
+                <strong>{% trans "Terminée" %} :</strong>
+                {% if tache.est_terminee %}
+                    <span class="text-green-700 font-semibold">{% trans "Oui" %}</span>
+                {% else %}
+                    <span class="text-gray-700 font-semibold">{% trans "Non" %}</span>
+                {% endif %}
+            </p>
+        </div>
+
+        <!-- Véhicule -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">{% trans "Véhicule" %}</h2>
+
+            <div>
+                {% include "maintenance/partials/plaque.html" with taille="petite" %}
+            </div>
+
+            <p>
+                <strong>{% trans "Marque / modèle" %} :</strong>
+                {{ exemplaire.voiture_modele.voiture_marque.nom_marque }}
+                {{ exemplaire.voiture_modele.nom_modele }}
+            </p>
+        </div>
+
+        {% if peut_planifier %}
+        <div class="mt-auto w-full">
+            <a href="{% url 'agenda:modifier_tache' tache.pk %}" class="block w-full">
+                <button type="button"
+                        class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Modifier la maintenance planifiée" %}
+                </button>
+            </a>
+        </div>
+        {% endif %}
+
+        {% if peut_supprimer %}
+        <div class="mt-auto w-full">
+            <a href="{% url 'agenda:delete_agenda' tache.pk %}" class="block w-full">
+                <button type="button"
+                        class="w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold">
+                    {% trans "Supprimer la maintenance planifiée" %}
+                </button>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Remarques -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Remarques" %}</h2>
+        {% if tache.remarques %}
+            <p>{{ tache.remarques|linebreaksbr }}</p>
+        {% else %}
+            <p class="text-gray-500">{% trans "Aucune remarque." %}</p>
+        {% endif %}
+    </div>
+
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Métadonnées" %}</h2>
+
+        <p>
+            <strong>{% trans "Créé par" %} :</strong>
+            {% if tache.cree_par %}{{ tache.cree_par.prenom }} {{ tache.cree_par.nom }}{% else %}—{% endif %}
+        </p>
+
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ tache.created_at|date:"d/m/Y H:i" }}
+        </p>
+
+        <p>
+            <strong>{% trans "Mis à jour le" %} :</strong>
+            {{ tache.updated_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
+
+    <br>
+    <!-- Actions -->
+    <div>
+        <a href="{{ url_retour }}"
+           class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+            {% trans "Retour à l'agenda du jour" %}
+        </a>
+    </div>
+
+</div>
+{% endblock %}
