@@ -190,6 +190,8 @@ def creer_facture_depuis_maintenances(maintenances, type_facture, user):
         client_particulier=(
             vehicule.client if vehicule and type_facture == Facture.TypeFacture.CLIENT else None
         ),
+        # Véhicule de la société (sans client) : la société est aussi le client
+        client_est_societe=bool(vehicule and not vehicule.client_id and type_facture == Facture.TypeFacture.CLIENT),
         issue_date=timezone.localdate(),
         due_date=timezone.localdate() + timedelta(days=30),
         cree_par=user,
@@ -225,7 +227,16 @@ def erreurs_emission(facture):
     if not facture.lines.exists():
         erreurs.append(_("La facture ne contient aucune ligne."))
 
-    if facture.est_pro:
+    if facture.client_est_societe:
+        societe = facture.societe
+        if not societe:
+            erreurs.append(_("Société émettrice introuvable."))
+        elif facture.est_pro:
+            if not societe.numero_tva:
+                erreurs.append(_("Votre société n'a pas de numéro de TVA."))
+            if not societe.adresse:
+                erreurs.append(_("Votre société n'a pas d'adresse."))
+    elif facture.est_pro:
         client = facture.societe_cliente
         if not client:
             erreurs.append(_("Sélectionnez le client professionnel."))

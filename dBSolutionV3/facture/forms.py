@@ -12,6 +12,7 @@ class FactureForm(forms.ModelForm):
     class Meta:
         model = Facture
         fields = [
+            "client_est_societe",
             "client_particulier",
             "societe_cliente",
             "issue_date",
@@ -48,7 +49,7 @@ class FactureForm(forms.ModelForm):
             self.fields["client_particulier"].label_from_instance = lambda c: f"{c.nom} {c.prenom}"
 
         for name, field in self.fields.items():
-            if name != "autoliquidation":
+            if name not in ("autoliquidation", "client_est_societe"):
                 field.widget.attrs.setdefault("class", "input")
 
 

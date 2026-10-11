@@ -96,7 +96,9 @@
             </a>
             {% if peppol_configure %}
                 <form method="post" action="{% url 'facture:envoyer_peppol' facture.pk %}"
-                      onsubmit="return confirm('{% trans "Envoyer cette facture au client via le réseau Peppol ?" as q %}{{ q|escapejs }}');">
+                      data-confirm="{% trans "La facture sera envoyée au client via le réseau Peppol." %}"
+                      data-confirm-titre="{% trans "Envoyer via Peppol ?" %}"
+                      data-confirm-ok="{% trans "Envoyer" %}">
                     {% csrf_token %}
                     <button type="submit" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
                         {% trans "Envoyer via Peppol" %}

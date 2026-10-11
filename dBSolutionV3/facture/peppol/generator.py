@@ -168,14 +168,24 @@ def generate_peppol_invoice(facture):
     )
 
     # === Client ===
-    ajouter_partie(
-        root, "AccountingCustomerParty",
-        nom=facture.client_nom or (client.nom_societe_cliente if client else ""),
-        numero_tva=facture.client_tva or (client.numero_tva if client else ""),
-        adresse=client.adresse if client else None,
-        peppol_id=client.peppol_id if client else None,
-        email=facture.client_email or (client.email if client else None),
-    )
+    if facture.client_est_societe:
+        # La société émettrice est aussi le client
+        ajouter_partie(
+            root, "AccountingCustomerParty",
+            nom=facture.client_nom or (societe.nom if societe else ""),
+            numero_tva=facture.client_tva or (societe.numero_tva if societe else ""),
+            adresse=getattr(societe, "adresse", None),
+            peppol_id=(parametres.peppol_id if parametres and parametres.peppol_id else (company.peppol_id if company else None)),
+        )
+    else:
+        ajouter_partie(
+            root, "AccountingCustomerParty",
+            nom=facture.client_nom or (client.nom_societe_cliente if client else ""),
+            numero_tva=facture.client_tva or (client.numero_tva if client else ""),
+            adresse=client.adresse if client else None,
+            peppol_id=client.peppol_id if client else None,
+            email=facture.client_email or (client.email if client else None),
+        )
 
     # === Paiement ===
     iban = re.sub(r"\s", "", getattr(societe, "iban", "") or "")

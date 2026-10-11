@@ -1,4 +1,5 @@
 from datetime import datetime
+from decimal import Decimal
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -460,4 +461,62 @@ def delete_facture_view(request, pk):
         "objets_supprimes": analyse["supprimes"],
         "objets_bloquants": analyse["bloquants"],
         "url_annuler": reverse("facture:modifier", kwargs={"pk": facture.pk}),
+    })
+
+
+# -----------------------------
+# TVA : à payer / à récupérer
+# -----------------------------
+@never_cache
+@login_required
+def tva_view(request):
+    if not _peut(request.user, ROLES_FACTURATION):
+        return _refuser(request)
+
+    from maintenance.choices import TVAConfig
+
+    from .tva import CalculTVA
+
+    aujourdhui = timezone.localdate()
+    type_periode = request.GET.get("periode", "trimestre")
+    if type_periode not in CalculTVA.TYPES_PERIODE:
+        type_periode = "trimestre"
+
+    def entier(nom, defaut):
+        try:
+            return int(request.GET.get(nom, defaut))
+        except (TypeError, ValueError):
+            return defaut
+
+    annee = entier("annee", aujourdhui.year)
+    numero_defaut = aujourdhui.month if type_periode == "mois" else (aujourdhui.month - 1) // 3 + 1
+    numero = entier("numero", numero_defaut)
+
+    deductibilite = {}
+    for cle in CalculTVA.SOURCES:
+        valeur = request.GET.get(f"ded_{cle}")
+        if valeur not in (None, ""):
+            try:
+                deductibilite[cle] = Decimal(valeur.replace(",", "."))
+            except Exception:
+                pass
+
+    calcul = CalculTVA.pour_periode(request.user.societe, type_periode, annee, numero, deductibilite)
+    pays = (request.GET.get("pays") or calcul.pays_par_defaut()).upper()
+    if pays not in TVAConfig.TVA_PIECES:
+        pays = calcul.pays_par_defaut()
+
+    return render(request, "facture/tva.html", {
+        "calcul": calcul,
+        "a_payer": calcul.tva_a_payer,
+        "a_recuperer": calcul.tva_a_recuperer,
+        "declaration": calcul.declaration(pays),
+        "pays": pays,
+        "pays_choices": TVAConfig.PAYS_CHOICES,
+        "type_periode": type_periode,
+        "annee": annee,
+        "numero": numero,
+        "annees": range(aujourdhui.year - 5, aujourdhui.year + 1),
+        "mois": range(1, 13),
+        "trimestres": range(1, 5),
     })

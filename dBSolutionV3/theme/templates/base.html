@@ -208,5 +208,125 @@
     });
 </script>
 
+<!-- ================================================== -->
+<!-- BOÎTE DE CONFIRMATION (remplace confirm() du navigateur)
+     Usage : data-confirm="Message" sur un bouton submit, un lien ou un <form>.
+     Optionnel : data-confirm-titre, data-confirm-ok, data-confirm-style="vert|bleu|rouge" -->
+<!-- ================================================== -->
+<div id="cc-confirm" class="cc-confirm" role="dialog" aria-modal="true" aria-labelledby="cc-confirm-titre" hidden>
+    <div class="cc-confirm-fond" data-cc-annuler></div>
+    <div class="cc-confirm-boite">
+        <div class="cc-confirm-entete">
+            <img src="{% static 'CarsCosts/CarsCostTitre.png' %}" alt="CarsCosts" width="140">
+        </div>
+        <h2 id="cc-confirm-titre" class="cc-confirm-titre">{% trans "Confirmation" %}</h2>
+        <p id="cc-confirm-message" class="cc-confirm-message"></p>
+        <div class="cc-confirm-actions">
+            <button type="button" class="cc-btn cc-btn-annuler" data-cc-annuler>{% trans "Annuler" %}</button>
+            <button type="button" class="cc-btn cc-btn-bleu" id="cc-confirm-ok">{% trans "Confirmer" %}</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .cc-confirm { position: fixed; inset: 0; z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 16px; }
+    .cc-confirm[hidden] { display: none; }
+    .cc-confirm-fond { position: absolute; inset: 0; background: rgba(30, 58, 138, 0.35); }
+    .cc-confirm-boite {
+        position: relative; width: 100%; max-width: 460px; background: #fff; border-radius: 0.75rem;
+        box-shadow: 0 20px 40px rgba(30, 58, 138, 0.25); padding: 24px; border-top: 6px solid #DBDFFD;
+        animation: cc-apparition 0.15s ease-out;
+    }
+    .cc-confirm-entete { display: flex; justify-content: center; margin-bottom: 12px; }
+    .cc-confirm-titre { font-size: 1.125rem; font-weight: 700; color: #111827; margin: 0 0 8px; }
+    .cc-confirm-message { color: #4b5563; margin: 0 0 20px; line-height: 1.5; white-space: pre-line; }
+    .cc-confirm-actions { display: flex; gap: 12px; }
+    .cc-btn { flex: 1; padding: 10px 16px; border-radius: 0.25rem; font-weight: 600; border: 0; cursor: pointer; transition: background-color 0.3s; }
+    .cc-btn-annuler { background: #d1d5db; color: #000; }
+    .cc-btn-annuler:hover { background: #9ca3af; }
+    .cc-btn-bleu { background: #1d4ed8; color: #fff; }
+    .cc-btn-bleu:hover { background: #60a5fa; }
+    .cc-btn-vert { background: #16a34a; color: #fff; }
+    .cc-btn-vert:hover { background: #22c55e; }
+    .cc-btn-rouge { background: #b91c1c; color: #fff; }
+    .cc-btn-rouge:hover { background: #f87171; }
+    @keyframes cc-apparition { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+</style>
+
+<script>
+(function () {
+    const boite = document.getElementById("cc-confirm");
+    const titre = document.getElementById("cc-confirm-titre");
+    const message = document.getElementById("cc-confirm-message");
+    const ok = document.getElementById("cc-confirm-ok");
+    const titreDefaut = titre.textContent;
+    const okDefaut = ok.textContent;
+    let action = null;
+    let focusAvant = null;
+
+    function fermer() {
+        boite.hidden = true;
+        action = null;
+        if (focusAvant) focusAvant.focus();
+    }
+
+    // window.ccConfirmer(message, callback, {titre, ok, style})
+    window.ccConfirmer = function (texte, callback, options) {
+        options = options || {};
+        focusAvant = document.activeElement;
+        titre.textContent = options.titre || titreDefaut;
+        message.textContent = texte;
+        ok.textContent = options.ok || okDefaut;
+        ok.className = "cc-btn cc-btn-" + (options.style || "bleu");
+        action = callback;
+        boite.hidden = false;
+        ok.focus();
+    };
+
+    ok.addEventListener("click", function () {
+        const a = action;
+        fermer();
+        if (a) a();
+    });
+    boite.querySelectorAll("[data-cc-annuler]").forEach((el) => el.addEventListener("click", fermer));
+    document.addEventListener("keydown", function (e) {
+        if (!boite.hidden && e.key === "Escape") fermer();
+    });
+
+    function options(el) {
+        return { titre: el.dataset.confirmTitre, ok: el.dataset.confirmOk, style: el.dataset.confirmStyle };
+    }
+
+    // Boutons et liens avec data-confirm
+    document.addEventListener("click", function (e) {
+        const el = e.target.closest("[data-confirm]");
+        if (!el || el.tagName === "FORM" || el.dataset.ccOk === "1") return;
+        e.preventDefault();
+        window.ccConfirmer(el.dataset.confirm, function () {
+            if (el.tagName === "A") { window.location.href = el.href; return; }
+            const form = el.form || el.closest("form");
+            if (!form) return;
+            el.dataset.ccOk = "1";
+            // requestSubmit garde le name/value du bouton (ex. action=emettre)
+            form.requestSubmit ? form.requestSubmit(el) : el.click();
+            delete el.dataset.ccOk;
+        }, options(el));
+    });
+
+    // Formulaires avec data-confirm
+    document.addEventListener("submit", function (e) {
+        const form = e.target;
+        if (!form.matches("form[data-confirm]") || form.dataset.ccOk === "1") return;
+        e.preventDefault();
+        const bouton = e.submitter;
+        window.ccConfirmer(form.dataset.confirm, function () {
+            form.dataset.ccOk = "1";
+            form.requestSubmit ? form.requestSubmit(bouton || undefined) : form.submit();
+            delete form.dataset.ccOk;
+        }, options(form));
+    }, true);
+})();
+</script>
+
 </body>
 </html>

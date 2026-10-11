@@ -35,15 +35,20 @@
             <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
                 <h2 class="text-lg font-semibold">{% trans "Client et dates" %}</h2>
 
+                <label class="flex items-center gap-2 font-semibold">
+                    {{ form.client_est_societe }} {{ form.client_est_societe.label }}
+                    {% if facture.societe %}<span class="text-gray-600" style="font-weight:normal">({{ facture.societe.nom }})</span>{% endif %}
+                </label>
+
                 {% if facture.est_pro %}
-                    <div>
+                    <div class="bloc-client">
                         <label class="font-semibold" for="{{ form.societe_cliente.id_for_label }}">{{ form.societe_cliente.label }}</label>
                         {{ form.societe_cliente }}
                         {{ form.societe_cliente.errors }}
                         <p class="text-sm text-gray-500 mt-1">{% trans "Le numéro de TVA, l'adresse et l'identifiant Peppol du client sont repris dans le XML." %}</p>
                     </div>
                 {% else %}
-                    <div>
+                    <div class="bloc-client">
                         <label class="font-semibold" for="{{ form.client_particulier.id_for_label }}">{{ form.client_particulier.label }}</label>
                         {{ form.client_particulier }}
                         {{ form.client_particulier.errors }}
@@ -175,7 +180,10 @@
                 {% trans "Enregistrer le brouillon" %}
             </button>
             <button type="submit" name="action" value="emettre"
-                    onclick="return confirm('{% trans "Émettre la facture ? Elle recevra un numéro définitif et ne pourra plus être modifiée." as q %}{{ q|escapejs }}');"
+                    data-confirm="{% trans "La facture recevra un numéro définitif et ne pourra plus être modifiée." %}"
+                    data-confirm-titre="{% trans "Émettre la facture ?" %}"
+                    data-confirm-ok="{% trans "Émettre" %}"
+                    data-confirm-style="vert"
                     class="w-full bg-green-600 text-white px-4 py-3 rounded hover:bg-green-500 font-semibold">
                 {% if facture.est_pro %}{% trans "Émettre la facture (PDF + XML)" %}{% else %}{% trans "Émettre la facture" %}{% endif %}
             </button>
@@ -207,6 +215,16 @@
 </style>
 
 <script>
+// « Facturer à notre société » : la liste des clients devient inutile
+(function () {
+    const caseSociete = document.getElementById("{{ form.client_est_societe.id_for_label }}");
+    const blocs = document.querySelectorAll(".bloc-client");
+    if (!caseSociete) return;
+    const maj = () => blocs.forEach((b) => { b.style.display = caseSociete.checked ? "none" : ""; });
+    caseSociete.addEventListener("change", maj);
+    maj();
+})();
+
 // Recalcul du prix et du total de ligne pendant la saisie (le serveur recalcule à l'enregistrement)
 document.querySelectorAll("tr.ligne-facture").forEach(function (tr) {
     const champ = (nom) => tr.querySelector(`[name$="-${nom}"]`);

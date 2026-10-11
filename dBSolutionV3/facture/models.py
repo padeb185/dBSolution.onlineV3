@@ -159,6 +159,13 @@ class Facture(models.Model):
         blank=True
     )
 
+    # La société émettrice est aussi le client (véhicule de la société, refacturation interne)
+    client_est_societe = models.BooleanField(
+        _("Facturer à notre société"),
+        default=False,
+        help_text=_("La société émettrice est aussi le client (véhicule de la société)."),
+    )
+
     # Copie des coordonnées du client au moment de l'émission
     # (la facture ne change plus si la fiche client est modifiée ensuite)
     client_nom = models.CharField(_("Nom du client"), max_length=255, blank=True)
@@ -238,11 +245,15 @@ class Facture(models.Model):
     # -------------------------
     @property
     def client(self):
+        if self.client_est_societe:
+            return self.societe
         return self.societe_cliente if self.est_pro else self.client_particulier
 
     def nom_client_courant(self):
         if self.est_emise and self.client_nom:
             return self.client_nom
+        if self.client_est_societe:
+            return getattr(self.societe, "nom", "") or ""
         if self.est_pro and self.societe_cliente:
             return self.societe_cliente.nom_societe_cliente or ""
         if self.client_particulier:
@@ -255,7 +266,10 @@ class Facture(models.Model):
         adresse = getattr(client, "adresse", None) if client else None
         self.client_nom = self.nom_client_courant()
         self.client_email = (getattr(client, "email", "") or "") if client else ""
-        self.client_tva = (getattr(client, "numero_tva", "") or "") if self.est_pro and client else ""
+        self.client_tva = (
+            (getattr(client, "numero_tva", "") or "")
+            if client and (self.est_pro or self.client_est_societe) else ""
+        )
         if adresse:
             ligne1 = f"{adresse.rue} {adresse.numero}".strip()
             if adresse.boite:

@@ -8,6 +8,7 @@ urlpatterns = [
     path("", views.maintenances_a_facturer_view, name="maintenances"),
     path("creer/", views.creer_facture_view, name="creer"),
     path("liste/", views.facture_list_view, name="liste"),
+    path("tva/", views.tva_view, name="tva"),
     path("parametres-peppol/", views.parametres_peppol_view, name="parametres_peppol"),
     path("<uuid:pk>/", views.facture_detail_view, name="detail"),
     path("<uuid:pk>/modifier/", views.facture_modifier_view, name="modifier"),

@@ -173,7 +173,7 @@
                             <div>{{ c.adresse.code_postal }} {{ c.adresse.ville }}</div>
                             <div>{{ c.adresse.pays }}</div>
                         {% endif %}
-                        {% if facture.est_pro and c.numero_tva %}<div><strong>{% trans "TVA" %} :</strong> {{ c.numero_tva }}</div>{% endif %}
+                        {% if facture.est_pro or facture.client_est_societe %}{% if c.numero_tva %}<div><strong>{% trans "TVA" %} :</strong> {{ c.numero_tva }}</div>{% endif %}{% endif %}
                     {% else %}
                         <div>{% trans "Client non sélectionné" %}</div>
                     {% endif %}
