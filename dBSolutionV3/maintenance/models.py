@@ -43,7 +43,7 @@ class Maintenance(models.Model):
         ESSUYAGE = "ESSUYAGE", _("Essuyage")
         INJECTION = "INJECTION", _("Injection")
         GEOMETRIE = "GEOMETRIE", _("Géométrie")
-        ECLAIRAGE = "ECLAIRAGE", _("Eclairage")
+        ECLAIRAGE = "ECLAIRAGE", _("Éclairage")
         CARDAN = "CARDAN", _("Cardan")
 
     class Tag(models.TextChoices):

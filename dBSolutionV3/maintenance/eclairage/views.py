@@ -776,7 +776,7 @@ def modifier_eclairage_view(request, eclairage_id):
                     # ==================================================
                     ACTION_MODIFICATION_eclairage = (
                         gettext_noop(
-                            "Modification du contrôle de l'eclairage"
+                            "Modification du contrôle de l'éclairage"
                         )
                     )
 
