@@ -98,6 +98,7 @@ def dashboard_view(request):
     total_recharge = total_main = total_proprietaire = total_client = 0
     total_location = 0
     total_diagnostic = 0
+    total_garage_officiel = total_maintenance_externe = 0
 
 
     marques = moteurs = exemplaires = boites = embrayages = freins = \
@@ -193,6 +194,10 @@ def dashboard_view(request):
             total_location = Location.objects.filter(societe=societe).count()
             from voiture.voiture_diagnostic.models import Diagnostic
             total_diagnostic = Diagnostic.objects.filter(societe=societe).count()
+            from garage_officiel.models import GarageOfficiel
+            from maintenance.maintenance_externe.models import MaintenanceExterne
+            total_garage_officiel = GarageOfficiel.objects.filter(societe=societe).count()
+            total_maintenance_externe = MaintenanceExterne.objects.filter(societe=societe).count()
 
     context.update({
         'user': user,
@@ -232,6 +237,8 @@ def dashboard_view(request):
         'total_client': total_client,
         'total_location': total_location,
         'total_diagnostic': total_diagnostic,
+        'total_garage_officiel': total_garage_officiel,
+        'total_maintenance_externe': total_maintenance_externe,
         "total_maintenances_user": total_maintenances_user,
         "total_assurance_police" : total_assurance_police,
 

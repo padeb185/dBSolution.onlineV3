@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 13:34+0200\n"
+"POT-Creation-Date: 2026-10-12 15:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -258,6 +258,8 @@ msgstr "Información general"
 #: maintenance/freins/templates/freins/freins_list.html:91
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:61
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:89
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:40
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:50
 #: maintenance/models.py:119
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:61
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:88
@@ -399,6 +401,7 @@ msgstr "Matrícula"
 #: maintenance/freins/templates/freins/modifier_freins.html:225
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux.html:224
 #: maintenance/jeux_pieces/templates/jeux_pieces/modifier_jeux_pieces.html:227
+#: maintenance/maintenance_externe/models.py:55
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:226
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/simple.html:227
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/modifier_nettoyage_int.html:228
@@ -410,6 +413,7 @@ msgstr "Matrícula"
 #: maintenance/silent_blocs/templates/silent_blocs/modifier_silent.html:227
 #: maintenance/silent_blocs/templates/silent_blocs/silent_check.html:226
 #: maintenance/templates/maintenance/list.html:70
+#: voiture/voiture_diagnostic/models.py:39
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/list.html:70
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/liste_exemplaires.html:53
 #: voiture/voiture_location/models.py:199
@@ -1191,9 +1195,10 @@ msgstr "Tiempo"
 #: client_particulier/templates/client_particulier/client_detail.html:76
 #: client_particulier/templates/client_particulier/delete_client.html:126
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:86
-#: facture/models.py:201 facture/templates/facture/facture_pdf.html:280
+#: facture/models.py:211 facture/templates/facture/facture_pdf.html:280
 #: fuel/models.py:210 fuel/templates/fuel/fuel_detail.html:74
-#: fuel/templates/fuel/fuel_detail.html:78 maindoeuvre/forms.py:45
+#: fuel/templates/fuel/fuel_detail.html:78 garage_officiel/models.py:77
+#: maindoeuvre/forms.py:45
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:105
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:84
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:327
@@ -1524,12 +1529,12 @@ msgstr "Metadatos"
 #: client_particulier/templates/client_particulier/delete_client.html:132
 #: client_pilotage/models.py:72
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:139
-#: facture/models.py:52 facture/models.py:217 facture/models.py:511
+#: facture/models.py:52 facture/models.py:227 facture/models.py:540
 #: facture/templates/facture/delete_facture.html:73 fournisseur/models.py:97
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:105
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:113
 #: fuel/models.py:215 fuel/templates/fuel/fuel_detail.html:121
-#: maindoeuvre/models.py:73
+#: garage_officiel/models.py:79 maindoeuvre/models.py:73
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:111
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:128
 #: maintenance/autres_interventions/abs/models.py:260
@@ -1555,6 +1560,7 @@ msgstr "Metadatos"
 #: maintenance/eclairage/models.py:532 maintenance/entretien/models.py:953
 #: maintenance/essuyage/models.py:793 maintenance/freins/models.py:419
 #: maintenance/jeux_pieces/models.py:1147
+#: maintenance/maintenance_externe/models.py:92
 #: maintenance/nettoyage_exterieur/models.py:213
 #: maintenance/nettoyage_interieur/models.py:234
 #: maintenance/niveaux/models.py:175 maintenance/pneus/models.py:325
@@ -1576,7 +1582,7 @@ msgstr "Metadatos"
 #: voiture/voiture_boite/models.py:71
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:114
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:151
-#: voiture/voiture_diagnostic/models.py:64
+#: voiture/voiture_diagnostic/models.py:48
 #: voiture/voiture_embrayage/models.py:137
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:86
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:109
@@ -1652,11 +1658,11 @@ msgstr "Creado el"
 #: client_particulier/templates/client_particulier/delete_client.html:133
 #: client_pilotage/models.py:73
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:143
-#: facture/models.py:53 facture/models.py:218 facture/models.py:512
+#: facture/models.py:53 facture/models.py:228 facture/models.py:541
 #: facture/templates/facture/delete_facture.html:74 fournisseur/models.py:98
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:106
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:118
-#: fuel/models.py:216 maindoeuvre/models.py:74
+#: fuel/models.py:216 garage_officiel/models.py:80 maindoeuvre/models.py:74
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:112
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:133
 #: maintenance/autres_interventions/abs/models.py:261
@@ -1682,6 +1688,7 @@ msgstr "Creado el"
 #: maintenance/eclairage/models.py:533 maintenance/entretien/models.py:954
 #: maintenance/essuyage/models.py:794 maintenance/freins/models.py:420
 #: maintenance/jeux_pieces/models.py:1148
+#: maintenance/maintenance_externe/models.py:93
 #: maintenance/nettoyage_exterieur/models.py:214
 #: maintenance/nettoyage_interieur/models.py:235
 #: maintenance/niveaux/models.py:176 maintenance/pneus/models.py:326
@@ -1703,7 +1710,7 @@ msgstr "Creado el"
 #: voiture/voiture_boite/models.py:72
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:118
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:152
-#: voiture/voiture_diagnostic/models.py:65
+#: voiture/voiture_diagnostic/models.py:49
 #: voiture/voiture_embrayage/models.py:138
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:87
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:113
@@ -2073,10 +2080,10 @@ msgstr "Total de las piezas sin IVA"
 
 #: _backup_detail_templates/maintenance/autres_interventions/cardan/templates/cardan/cardan_detail.html:76
 #: _backup_detail_templates/maintenance/autres_interventions/cardan/templates/cardan/cardan_detail.html:111
-#: facture/models.py:197 facture/templates/facture/facture_detail.html:39
+#: facture/models.py:207 facture/templates/facture/facture_detail.html:39
 #: facture/templates/facture/facture_detail.html:59
-#: facture/templates/facture/facture_form.html:128
-#: facture/templates/facture/facture_form.html:170
+#: facture/templates/facture/facture_form.html:129
+#: facture/templates/facture/facture_form.html:171
 #: facture/templates/facture/facture_pdf.html:212
 #: facture/templates/facture/facture_pdf.html:251
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:615
@@ -2106,6 +2113,7 @@ msgstr "Total de las piezas sin IVA"
 #: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:848
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:874
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1216
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:33
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:461
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:516
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:517
@@ -2723,8 +2731,8 @@ msgstr "Fabricante"
 #: _backup_detail_templates/maintenance/autres_interventions/cardan/templates/cardan/cardan_detail.html:109
 #: _backup_list_templates/outillage/templates/outillage/outillage_list.html:45
 #: _backup_list_templates/outillage/templates/outillage/outillage_list.html:68
-#: facture/models.py:367 facture/templates/facture/facture_detail.html:54
-#: facture/templates/facture/facture_form.html:123
+#: facture/models.py:396 facture/templates/facture/facture_detail.html:54
+#: facture/templates/facture/facture_form.html:124
 #: facture/templates/facture/facture_pdf.html:209
 #: maintenance/autres_interventions/abs/models.py:125
 #: maintenance/autres_interventions/abs/models.py:131
@@ -3794,7 +3802,7 @@ msgstr "Dettagli della pulizia esterna"
 #: _backup_detail_templates/maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_detail.html:63
 #: agenda/models.py:19 agenda/templates/agenda/agenda_detail.html:34
 #: agenda/templates/agenda/agenda_list.html:73
-#: agenda/templates/agenda/delete_agenda.html:71 facture/models.py:351
+#: agenda/templates/agenda/delete_agenda.html:71 facture/models.py:380
 #: facture/services.py:104
 #: facture/templates/facture/maintenances_a_facturer.html:61
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:40
@@ -4060,7 +4068,8 @@ msgstr "Volver a la lista de controles de silent blocks"
 #: _backup_detail_views/maintenance/silent_blocs/views.py:635
 #: agenda/views.py:66 agenda/views.py:112 agenda/views.py:142
 #: agenda/views.py:178 agenda/views.py:211 agenda/views.py:252
-#: facture/views.py:49 facture/views.py:442 fuel/views.py:517 fuel/views.py:538
+#: facture/views.py:49 facture/views.py:443 fuel/views.py:517 fuel/views.py:538
+#: garage_officiel/views.py:19
 #: maintenance/autres_interventions/abs/views.py:102
 #: maintenance/autres_interventions/abs/views.py:780
 #: maintenance/autres_interventions/abs/views.py:816
@@ -4130,6 +4139,7 @@ msgstr "Volver a la lista de controles de silent blocks"
 #: maintenance/freins/views.py:103 maintenance/freins/views.py:610
 #: maintenance/freins/views.py:646 maintenance/jeux_pieces/views.py:106
 #: maintenance/jeux_pieces/views.py:614 maintenance/jeux_pieces/views.py:650
+#: maintenance/maintenance_externe/views.py:22
 #: maintenance/nettoyage_exterieur/views.py:100
 #: maintenance/nettoyage_exterieur/views.py:619
 #: maintenance/nettoyage_exterieur/views.py:655
@@ -4141,7 +4151,7 @@ msgstr "Volver a la lista de controles de silent blocks"
 #: maintenance/pneus/views.py:701 maintenance/pneus/views.py:737
 #: maintenance/silent_blocs/views.py:101 maintenance/silent_blocs/views.py:600
 #: maintenance/silent_blocs/views.py:636 recharge/views.py:435
-#: recharge/views.py:456 voiture/voiture_diagnostic/views.py:21
+#: recharge/views.py:456 voiture/voiture_diagnostic/views.py:22
 #: voiture/voiture_embrayage/views.py:179
 #: voiture/voiture_exemplaire/views.py:524
 #: voiture/voiture_exemplaire/views.py:544
@@ -4237,8 +4247,8 @@ msgstr "Control del sistema ABS registrado con éxito."
 #: _backup_detail_views/maintenance/silent_blocs/views.py:550
 #: agenda/views.py:156 agenda/views.py:189 assurance/views.py:122
 #: assurance/views.py:170 assurance_police/views.py:95
-#: assurance_police/views.py:152 carrosserie/views.py:143 facture/views.py:213
-#: facture/views.py:378 fournisseur/views.py:124 fuel/views.py:471
+#: assurance_police/views.py:152 carrosserie/views.py:143 facture/views.py:214
+#: facture/views.py:379 fournisseur/views.py:124 fuel/views.py:471
 #: maindoeuvre/views.py:191 maintenance/autres_interventions/abs/views.py:311
 #: maintenance/autres_interventions/abs/views.py:623
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:542
@@ -4389,7 +4399,7 @@ msgstr "Líquido de frenos"
 #: client_atelier/forms.py:152 fournisseur/forms.py:55
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:48
 #: fuel/templates/fuel/fuel_detail.html:66
-#: fuel/templates/fuel/fuel_stat.html:95
+#: fuel/templates/fuel/fuel_stat.html:95 garage_officiel/forms.py:17
 #: maintenance/autres_interventions/abs/models.py:108
 #: maintenance/autres_interventions/abs/views.py:367
 #: maintenance/autres_interventions/abs/views.py:690
@@ -5926,8 +5936,8 @@ msgstr "Junta"
 #: maintenance/nettoyage_exterieur/models.py:169
 #: maintenance/nettoyage_interieur/models.py:190
 #: maintenance/niveaux/models.py:184 maintenance/pneus/models.py:281
-#: maintenance/silent_blocs/models.py:665 theme/templates/dashboard.html:667
-#: theme/templates/dashboard.html:679
+#: maintenance/silent_blocs/models.py:665 theme/templates/dashboard.html:711
+#: theme/templates/dashboard.html:723
 msgid "Main d'oeuvre"
 msgstr "Mano de obra"
 
@@ -6052,7 +6062,7 @@ msgstr "Sensor de posición del árbol de levas"
 #: _backup_detail_views/maintenance/autres_interventions/moteur/courroie/views.py:815
 #: _backup_detail_views/maintenance/autres_interventions/moteur/injection/views.py:657
 #: _backup_detail_views/maintenance/autres_interventions/moteur/injection/views.py:1059
-#: facture/models.py:333
+#: facture/models.py:362
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:594
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:687
 #: maintenance/autres_interventions/moteur/allumage/views.py:603
@@ -6066,6 +6076,7 @@ msgstr "Sensor de posición del árbol de levas"
 #: maintenance/autres_interventions/moteur/injection/views.py:1060
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:760
 #: maintenance/autres_interventions/refroidissement/models.py:84
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:84
 msgid "Main-d'œuvre"
 msgstr "Mano de obra"
 
@@ -6109,7 +6120,8 @@ msgstr "Revisión del alternador registrada con éxito."
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:961
 #: maintenance/autres_interventions/moteur/injection/views.py:619
 #: maintenance/autres_interventions/moteur/injection/views.py:1021
-#: theme/templates/dashboard.html:277 voiture/voiture_diagnostic/models.py:68
+#: theme/templates/dashboard.html:277 voiture/voiture_diagnostic/models.py:52
+#: voiture/voiture_diagnostic/models.py:73
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:9
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:12
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:9
@@ -7233,7 +7245,7 @@ msgstr "Checkup eliminado con éxito."
 
 #: _backup_detail_views/maintenance/checkup_track/views.py:106
 #: maintenance/checkup_track/views.py:107
-#: voiture/voiture_diagnostic/views.py:41
+#: voiture/voiture_diagnostic/views.py:60
 msgid ""
 "Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent "
 "accéder à cette page."
@@ -7851,7 +7863,7 @@ msgstr "Importe sin IVA"
 #: achat_mds/templates/achat_mds/achat_detail.html:56
 #: achat_mds/templates/achat_mds/achat_list.html:44
 #: achat_mds/templates/achat_mds/achat_list.html:64
-#: achat_mds/templates/achat_mds/delete_achat.html:75 facture/models.py:398
+#: achat_mds/templates/achat_mds/delete_achat.html:75 facture/models.py:427
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:68
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:43
 #: outillage/templates/outillage/delete_outillage.html:94
@@ -7880,8 +7892,8 @@ msgstr "Nombre del proveedor"
 #: _backup_list_templates/achat_mds/templates/achat_mds/achat_list.html:61
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:33
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:52
-#: achat_mds/templates/achat_mds/achat_list.html:61 facture/models.py:364
-#: facture/templates/facture/facture_form.html:122
+#: achat_mds/templates/achat_mds/achat_list.html:61 facture/models.py:393
+#: facture/templates/facture/facture_form.html:123
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:671
 #: maintenance/autres_interventions/moteur/allumage/models.py:138
 #: maintenance/autres_interventions/moteur/allumage/models.py:175
@@ -7902,10 +7914,11 @@ msgid "Transport HTVA"
 msgstr "Transporte sin IVA"
 
 #: _backup_list_templates/achat_mds/templates/achat_mds/achat_list.html:65
-#: achat_mds/templates/achat_mds/achat_list.html:65 facture/models.py:198
+#: achat_mds/templates/achat_mds/achat_list.html:65 facture/models.py:208
 #: facture/templates/facture/facture_detail.html:40
-#: facture/templates/facture/facture_form.html:171
+#: facture/templates/facture/facture_form.html:172
 #: facture/templates/facture/facture_pdf.html:255
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:34
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:72
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:348
 msgid "Total TVA"
@@ -8081,6 +8094,7 @@ msgstr "Volver al panel de control del proveedor"
 #: fournisseur/templates/fournisseur/fournisseur_list.html:116
 #: fuel/templates/fuel/fuel_list.html:187
 #: fuel/templates/fuel/fuel_stat.html:315
+#: garage_officiel/templates/garage_officiel/garage_list.html:99
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:142
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:174
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:215
@@ -8109,6 +8123,7 @@ msgstr "Volver al panel de control del proveedor"
 #: maintenance/essuyage/templates/essuyage/essuyage_list.html:172
 #: maintenance/freins/templates/freins/freins_list.html:151
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:150
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:101
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:148
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_list.html:151
 #: maintenance/niveaux/templates/niveaux/niveaux_list.html:150
@@ -8121,7 +8136,7 @@ msgstr "Volver al panel de control del proveedor"
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:120
 #: recharge/templates/recharge/recharge_list.html:158
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:113
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:118
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:130
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:104
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:107
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:112
@@ -8196,6 +8211,7 @@ msgstr "Búsqueda global:"
 #: fournisseur/templates/fournisseur/fournisseur_list.html:117
 #: fuel/templates/fuel/fuel_list.html:188
 #: fuel/templates/fuel/fuel_stat.html:316
+#: garage_officiel/templates/garage_officiel/garage_list.html:100
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:143
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:175
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:216
@@ -8224,6 +8240,7 @@ msgstr "Búsqueda global:"
 #: maintenance/essuyage/templates/essuyage/essuyage_list.html:173
 #: maintenance/freins/templates/freins/freins_list.html:152
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:151
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:102
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:149
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_list.html:152
 #: maintenance/niveaux/templates/niveaux/niveaux_list.html:151
@@ -8237,7 +8254,7 @@ msgstr "Búsqueda global:"
 #: recharge/templates/recharge/recharge_list.html:159
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:114
 #: voiture/voiture_boite/templates/voiture_boite/list.html:97
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:119
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:131
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:105
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:108
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:113
@@ -8328,6 +8345,7 @@ msgstr "No se encontraron facturas"
 #: fournisseur/templates/fournisseur/fournisseur_list.html:122
 #: fuel/templates/fuel/fuel_list.html:193
 #: fuel/templates/fuel/fuel_stat.html:322
+#: garage_officiel/templates/garage_officiel/garage_list.html:105
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:148
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:180
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:222
@@ -8356,6 +8374,7 @@ msgstr "No se encontraron facturas"
 #: maintenance/essuyage/templates/essuyage/essuyage_list.html:178
 #: maintenance/freins/templates/freins/freins_list.html:157
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:156
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:106
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:154
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_list.html:157
 #: maintenance/niveaux/templates/niveaux/niveaux_list.html:156
@@ -8369,7 +8388,7 @@ msgstr "No se encontraron facturas"
 #: recharge/templates/recharge/recharge_list.html:164
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:119
 #: voiture/voiture_boite/templates/voiture_boite/list.html:102
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:124
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:136
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:110
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:113
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:118
@@ -8445,6 +8464,7 @@ msgstr "Primero"
 #: fournisseur/templates/fournisseur/fournisseur_list.html:123
 #: fuel/templates/fuel/fuel_list.html:194
 #: fuel/templates/fuel/fuel_stat.html:323
+#: garage_officiel/templates/garage_officiel/garage_list.html:105
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:149
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:181
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:223
@@ -8473,6 +8493,7 @@ msgstr "Primero"
 #: maintenance/essuyage/templates/essuyage/essuyage_list.html:179
 #: maintenance/freins/templates/freins/freins_list.html:158
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:157
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:106
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:155
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_list.html:158
 #: maintenance/niveaux/templates/niveaux/niveaux_list.html:157
@@ -8486,7 +8507,7 @@ msgstr "Primero"
 #: recharge/templates/recharge/recharge_list.html:165
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:120
 #: voiture/voiture_boite/templates/voiture_boite/list.html:103
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:125
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:137
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:111
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:114
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:119
@@ -8562,6 +8583,7 @@ msgstr "Último"
 #: fournisseur/templates/fournisseur/fournisseur_list.html:124
 #: fuel/templates/fuel/fuel_list.html:195
 #: fuel/templates/fuel/fuel_stat.html:324
+#: garage_officiel/templates/garage_officiel/garage_list.html:106
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:150
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:182
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:224
@@ -8590,6 +8612,7 @@ msgstr "Último"
 #: maintenance/essuyage/templates/essuyage/essuyage_list.html:180
 #: maintenance/freins/templates/freins/freins_list.html:159
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:158
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:106
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:156
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_list.html:159
 #: maintenance/niveaux/templates/niveaux/niveaux_list.html:158
@@ -8603,7 +8626,7 @@ msgstr "Último"
 #: recharge/templates/recharge/recharge_list.html:166
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:121
 #: voiture/voiture_boite/templates/voiture_boite/list.html:104
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:126
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:138
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:112
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:115
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:120
@@ -8679,6 +8702,7 @@ msgstr "Siguiente"
 #: fournisseur/templates/fournisseur/fournisseur_list.html:125
 #: fuel/templates/fuel/fuel_list.html:196
 #: fuel/templates/fuel/fuel_stat.html:325
+#: garage_officiel/templates/garage_officiel/garage_list.html:106
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:151
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:183
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:225
@@ -8707,6 +8731,7 @@ msgstr "Siguiente"
 #: maintenance/essuyage/templates/essuyage/essuyage_list.html:181
 #: maintenance/freins/templates/freins/freins_list.html:160
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:159
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:106
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:157
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_list.html:160
 #: maintenance/niveaux/templates/niveaux/niveaux_list.html:159
@@ -8720,7 +8745,7 @@ msgstr "Siguiente"
 #: recharge/templates/recharge/recharge_list.html:167
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:122
 #: voiture/voiture_boite/templates/voiture_boite/list.html:105
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:127
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:139
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:113
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:116
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:121
@@ -8750,7 +8775,8 @@ msgstr "Agregar una dirección"
 #: adresse/templates/adresse/adresse_list.html:36
 #: adresse/templates/adresse/adresse_list.html:71
 #: adresse/templates/adresse/delete_adresse.html:65 assurance/forms.py:16
-#: client_atelier/forms.py:112 fournisseur/forms.py:15 utilisateurs/forms.py:93
+#: client_atelier/forms.py:112 fournisseur/forms.py:15
+#: garage_officiel/forms.py:12 utilisateurs/forms.py:93
 msgid "Rue"
 msgstr "Calle"
 
@@ -8767,8 +8793,8 @@ msgstr "Número"
 #: adresse/templates/adresse/adresse_detail.html:39
 #: adresse/templates/adresse/adresse_list.html:44
 #: adresse/templates/adresse/adresse_list.html:73 assurance/forms.py:31
-#: fournisseur/forms.py:30 maintenance/autres_interventions/models.py:9
-#: maintenance/models.py:28
+#: fournisseur/forms.py:30 garage_officiel/forms.py:14
+#: maintenance/autres_interventions/models.py:9 maintenance/models.py:28
 msgid "Boite"
 msgstr "Apartado de correos"
 
@@ -8779,7 +8805,7 @@ msgstr "Apartado de correos"
 #: adresse/templates/adresse/adresse_list.html:74
 #: adresse/templates/adresse/delete_adresse.html:74 assurance/forms.py:39
 #: client_atelier/forms.py:136 fournisseur/forms.py:38
-#: utilisateurs/forms.py:101
+#: garage_officiel/forms.py:15 utilisateurs/forms.py:101
 msgid "Code postal"
 msgstr "Código postal"
 
@@ -8791,7 +8817,7 @@ msgstr "Código postal"
 #: adresse/templates/adresse/adresse_list.html:75
 #: adresse/templates/adresse/delete_adresse.html:77 assurance/forms.py:47
 #: client_atelier/forms.py:144 fournisseur/forms.py:46
-#: utilisateurs/forms.py:105
+#: garage_officiel/forms.py:16 utilisateurs/forms.py:105
 msgid "Ville"
 msgstr "Ciudad"
 
@@ -8818,14 +8844,16 @@ msgstr "Información no disponible"
 #: facture/templates/facture/maintenances_a_facturer.html:138
 #: fournisseur/templates/fournisseur/fournisseur_dashboard.html:56
 #: fuel/templates/fuel/fuel_list.html:174
+#: garage_officiel/templates/garage_officiel/garage_list.html:87
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:129
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:89
 #: maintenance/templates/maintenance/choisir_type.html:192
 #: outillage/templates/outillage/outillage_list.html:98
 #: proprietaire/templates/proprietaire/proprietaire_dashboard.html:59
 #: recharge/templates/recharge/recharge_list.html:148
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:101
 #: voiture/voiture_boite/templates/voiture_boite/list.html:84
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:106
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:118
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:94
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:111
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:45
@@ -8917,6 +8945,9 @@ msgstr "Nombre de la compañía"
 #: facture/models.py:28 fournisseur/models.py:27
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:79
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:90
+#: garage_officiel/models.py:50
+#: garage_officiel/templates/garage_officiel/garage_form.html:39
+#: garage_officiel/templates/garage_officiel/garage_list.html:34
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:61
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:92
 #: proprietaire/templates/proprietaire/modifier_proprietaire_voiture.html:68
@@ -9020,6 +9051,7 @@ msgstr "Número Peppol"
 #: client_particulier/templates/client_particulier/delete_client.html:93
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:75
 #: fournisseur/templates/fournisseur/fournisseur_list.html:68
+#: garage_officiel/models.py:58
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:103
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:99
 #: utilisateurs/forms.py:150
@@ -9198,7 +9230,7 @@ msgstr "Nombre del cliente"
 #: client_atelier/templates/client_atelier/client_atelier_list.html:41
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:38
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:40
-#: facture/models.py:171
+#: facture/models.py:181
 msgid "Nom du client"
 msgstr "Apellido del cliente"
 
@@ -9288,6 +9320,8 @@ msgstr "Nombre"
 #: client_particulier/templates/client_particulier/delete_client.html:68
 #: client_pilotage/forms.py:20
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:67
+#: garage_officiel/models.py:42
+#: garage_officiel/templates/garage_officiel/garage_list.html:32
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:344
 #: piece/models.py:8 proprietaire/forms.py:70
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:83
@@ -9433,8 +9467,8 @@ msgstr "Ver estadísticas"
 #: recharge/templates/recharge/recharge_list.html:46
 #: recharge/templates/recharge/recharge_list.html:80
 #: theme/templates/dashboard.html:42 theme/templates/dashboard.html:55
-#: theme/templates/dashboard.html:125 theme/templates/dashboard.html:720
-#: theme/templates/dashboard.html:735 utilisateurs/models.py:387
+#: theme/templates/dashboard.html:125 theme/templates/dashboard.html:764
+#: theme/templates/dashboard.html:779 utilisateurs/models.py:387
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:18
 msgid "Utilisateur"
 msgstr "Usuario"
@@ -9582,6 +9616,8 @@ msgstr "14,32 Litros"
 #: maintenance/freins/templates/freins/freins_list.html:95
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:416
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:93
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_confirm_delete.html:17
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:54
 #: maintenance/nettoyage_exterieur/models.py:211
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:92
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:282
@@ -9598,6 +9634,8 @@ msgstr "14,32 Litros"
 #: recharge/templates/recharge/recharge_list.html:88
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:307
 #: theme/templates/dashboard.html:120
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:22
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:52
 #: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:22
 #: voiture/voiture_location/templates/voiture_location/location_list.html:60
 msgid "Date"
@@ -9646,6 +9684,9 @@ msgstr "Fecha"
 #: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:358
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:440
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:436
+#: maintenance/maintenance_externe/models.py:37
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:41
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:51
 #: maintenance/nettoyage_exterieur/models.py:43
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:302
 #: maintenance/nettoyage_interieur/models.py:48
@@ -9656,10 +9697,10 @@ msgstr "Fecha"
 #: piece/models.py:58 piece/templates/piece/piece_detail.html:10
 #: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:97
 #: recharge/models.py:121 recharge/templates/recharge/recharge_list.html:82
-#: voiture/voiture_diagnostic/models.py:30
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:24
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:68
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:69
+#: voiture/voiture_diagnostic/models.py:28
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:26
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:74
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:75
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:34
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:51
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:20
@@ -9935,6 +9976,7 @@ msgstr "Coste"
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:59
 #: _backup_list_templates/proprietaire/templates/proprietaire/proprietaire_list.html:65
 #: _backup_list_templates/proprietaire/templates/proprietaire/proprietaire_voiture_list.html:68
+#: garage_officiel/templates/garage_officiel/garage_list.html:38
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:70
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:99
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:108
@@ -9963,6 +10005,7 @@ msgstr "Coste"
 #: maintenance/essuyage/templates/essuyage/essuyage_list.html:96
 #: maintenance/freins/templates/freins/freins_list.html:97
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:95
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:59
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:94
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_list.html:96
 #: maintenance/niveaux/templates/niveaux/niveaux_list.html:95
@@ -11077,7 +11120,7 @@ msgstr "Agregar una herramienta"
 #: outillage/templates/outillage/outillage_list.html:65
 #: stats_fournisseurs/forms.py:58
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:261
-#: theme/templates/dashboard.html:482
+#: theme/templates/dashboard.html:526
 msgid "Fournisseur"
 msgstr "Proveedor"
 
@@ -11133,8 +11176,9 @@ msgstr "Denominación"
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:83
 #: facture/templates/facture/_entete_facture.html:6
 #: facture/templates/facture/delete_facture.html:55
-#: facture/templates/facture/facture_form.html:120
+#: facture/templates/facture/facture_form.html:121
 #: facture/templates/facture/facture_list.html:28
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:52
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:41
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:54
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:310
@@ -11151,7 +11195,8 @@ msgstr "Tipo"
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:56
 #: _backup_list_templates/voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:41
 #: _backup_list_templates/voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:75
-#: fuel/forms.py:15 maintenance/templates/maintenance/creer_maintenance.html:24
+#: fuel/forms.py:15 garage_officiel/models.py:67
+#: maintenance/templates/maintenance/creer_maintenance.html:24
 #: piece/models.py:49 piece/models.py:107 piece/models.py:116
 #: piece/piece_fluides/forms.py:41 piece/piece_fluides/forms.py:60
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:45
@@ -11344,7 +11389,7 @@ msgstr "Añadir un propietario"
 #: _backup_list_templates/proprietaire/templates/proprietaire/proprietaire_list.html:64
 #: agenda/models.py:79
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:88
-#: facture/models.py:113 facture/models.py:460
+#: facture/models.py:113 facture/models.py:489
 #: facture/templates/facture/maintenances_a_facturer.html:95
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:272
 #: maintenance/autres_interventions/abs/models.py:246
@@ -11864,7 +11909,8 @@ msgstr "IVA (%)"
 
 #: achat_mds/forms.py:38 achat_mds/models.py:62
 #: achat_mds/templates/achat_mds/achat_detail.html:61
-#: achat_mds/templates/achat_mds/delete_achat.html:45 outillage/forms.py:27
+#: achat_mds/templates/achat_mds/delete_achat.html:45
+#: maintenance/maintenance_externe/models.py:53 outillage/forms.py:27
 #: outillage/models.py:73
 #: outillage/templates/outillage/outillage_detail.html:49
 msgid "Date de la facture"
@@ -11895,7 +11941,8 @@ msgstr "21"
 msgid "Montant HTVA du transport"
 msgstr "Importe del transporte sin IVA"
 
-#: achat_mds/models.py:55 fournisseur/models.py:42 outillage/models.py:54
+#: achat_mds/models.py:55 fournisseur/models.py:42
+#: maintenance/maintenance_externe/models.py:64 outillage/models.py:54
 msgid "Taux de TVA (%)"
 msgstr "Tipo de IVA (%)"
 
@@ -11929,6 +11976,7 @@ msgstr "Información Peppol"
 #: fournisseur/models.py:49
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:73
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:60
+#: garage_officiel/models.py:55
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:82
 msgid "Identifiant Peppol"
 msgstr "Identificador Peppol"
@@ -12031,6 +12079,7 @@ msgstr "Compra de mercancías"
 #: fournisseur/templates/fournisseur/modifier_fournisseur.html:84
 #: fuel/templates/fuel/fuel_form.html:256
 #: fuel/templates/fuel/modifier_fuel.html:205
+#: garage_officiel/templates/garage_officiel/garage_form.html:65
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_form.html:82
 #: maindoeuvre/templates/maindoeuvre/modifier_maindoeuvre.html:94
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:308
@@ -12087,6 +12136,7 @@ msgstr "Compra de mercancías"
 #: maintenance/freins/templates/freins/modifier_freins.html:833
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux.html:946
 #: maintenance/jeux_pieces/templates/jeux_pieces/modifier_jeux_pieces.html:951
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:97
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:454
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/simple.html:458
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/modifier_nettoyage_int.html:439
@@ -12113,7 +12163,7 @@ msgstr "Compra de mercancías"
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:104
 #: voiture/voiture_boite/templates/voiture_boite/ajouter_boite.html:70
 #: voiture/voiture_boite/templates/voiture_boite/modifier_boite.html:71
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:89
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:116
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:81
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:93
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:85
@@ -12170,6 +12220,8 @@ msgstr "Guardar"
 #: fuel/templates/fuel/fuel_form.html:260
 #: fuel/templates/fuel/modifier_fuel.html:165
 #: fuel/templates/fuel/modifier_fuel.html:209
+#: garage_officiel/templates/garage_officiel/garage_confirm_delete.html:24
+#: garage_officiel/templates/garage_officiel/garage_form.html:69
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:144
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_form.html:87
 #: maindoeuvre/templates/maindoeuvre/modifier_maindoeuvre.html:100
@@ -12307,6 +12359,8 @@ msgstr "Guardar"
 #: maintenance/jeux_pieces/templates/jeux_pieces/delete_jeux.html:54
 #: maintenance/jeux_pieces/templates/jeux_pieces/modifier_jeux_pieces.html:199
 #: maintenance/jeux_pieces/templates/jeux_pieces/modifier_jeux_pieces.html:955
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_confirm_delete.html:23
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:98
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/delete_nettoyage_ext.html:53
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:198
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:458
@@ -12358,8 +12412,8 @@ msgstr "Guardar"
 #: voiture/voiture_boite/templates/voiture_boite/ajouter_boite.html:75
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:178
 #: voiture/voiture_boite/templates/voiture_boite/modifier_boite.html:75
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:35
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:93
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:37
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:120
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:86
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:111
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:97
@@ -12419,12 +12473,13 @@ msgstr "¿Desea realmente eliminar esta compra? Esta acción es irreversible."
 msgid "Fournisseur concerné"
 msgstr "Proveedor afectado"
 
-#: achat_mds/templates/achat_mds/delete_achat.html:37 facture/models.py:221
-#: facture/models.py:338 facture/templates/facture/_entete_facture.html:5
+#: achat_mds/templates/achat_mds/delete_achat.html:37 facture/models.py:231
+#: facture/models.py:367 facture/templates/facture/_entete_facture.html:5
 #: facture/templates/facture/delete_facture.html:53
 #: facture/templates/facture/facture_detail.html:4
 #: facture/templates/facture/facture_form.html:4
-#: facture/templates/facture/facture_pdf.html:136 facture/views.py:275
+#: facture/templates/facture/facture_pdf.html:136 facture/views.py:276
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:69
 msgid "Facture"
 msgstr "Factura"
 
@@ -12443,12 +12498,15 @@ msgstr "Importes"
 msgid "Montant TVA"
 msgstr "Importe de IVA"
 
-#: achat_mds/templates/achat_mds/delete_achat.html:83 facture/models.py:199
+#: achat_mds/templates/achat_mds/delete_achat.html:83 facture/models.py:209
 #: facture/templates/facture/delete_facture.html:67
 #: facture/templates/facture/facture_detail.html:41
-#: facture/templates/facture/facture_form.html:172
+#: facture/templates/facture/facture_form.html:173
 #: facture/templates/facture/facture_list.html:31
 #: facture/templates/facture/facture_pdf.html:259
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_confirm_delete.html:18
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:35
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:58
 #: outillage/templates/outillage/delete_outillage.html:100
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:77
 msgid "Total TVAC"
@@ -12464,8 +12522,9 @@ msgstr "Total con IVA"
 #: client_particulier/templates/client_particulier/delete_client.html:156
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:129
 #: facture/templates/facture/delete_facture.html:88
-#: facture/templates/facture/facture_form.html:129
+#: facture/templates/facture/facture_form.html:130
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:129
+#: garage_officiel/templates/garage_officiel/garage_list.html:75
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:135
 #: maintenance/autres_interventions/abs/templates/abs/delete_abs.html:38
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/delete_remplacement_boite.html:42
@@ -12494,6 +12553,7 @@ msgstr "Total con IVA"
 #: maintenance/essuyage/templates/essuyage/delete_essuyage.html:39
 #: maintenance/freins/templates/freins/delete_freins.html:39
 #: maintenance/jeux_pieces/templates/jeux_pieces/delete_jeux.html:39
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:77
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/delete_nettoyage_ext.html:38
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/delete_nettoyage_int.html:39
 #: maintenance/niveaux/templates/niveaux/delete_niveau.html:39
@@ -12506,7 +12566,7 @@ msgstr "Total con IVA"
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:158
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:169
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:170
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:90
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:102
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:101
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:291
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:80
@@ -12558,7 +12618,7 @@ msgstr "La compra « %(ref)s » se ha eliminado correctamente."
 #: client_atelier/forms.py:120
 #: facture/templates/facture/_entete_facture.html:16
 #: facture/templates/facture/facture_list.html:26 fournisseur/forms.py:23
-#: utilisateurs/forms.py:97
+#: garage_officiel/forms.py:13 utilisateurs/forms.py:97
 msgid "Numéro"
 msgstr "Número"
 
@@ -12570,8 +12630,8 @@ msgstr "Número"
 msgid "Code pays"
 msgstr "Código de país"
 
-#: adresse/models.py:34 theme/templates/dashboard.html:583
-#: theme/templates/dashboard.html:595
+#: adresse/models.py:34 theme/templates/dashboard.html:627
+#: theme/templates/dashboard.html:639
 msgid "Adresses"
 msgstr "Direcciones"
 
@@ -12732,7 +12792,7 @@ msgstr "Ej.: jornada de rodaje en circuito en Spa-Francorchamps el 18/10"
 #: agenda/models.py:72 agenda/templates/agenda/agenda_detail.html:64
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:23
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:22
-#: theme/templates/dashboard.html:617 voiture/voiture_exemplaire/models.py:16
+#: theme/templates/dashboard.html:661 voiture/voiture_exemplaire/models.py:16
 #: voiture/voiture_location/models.py:216
 #: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:9
 #: voiture/voiture_location/templates/voiture_location/location_form.html:12
@@ -13063,12 +13123,12 @@ msgstr "Identificador Peppol, ej.: 0208:BE0123456789"
 #: assurance/templates/assurance/modifier_assurance.html:62
 #: assurance/views.py:235
 #: assurance_police/templates/assurance_police/modifier_assurance_police.html:58
-#: theme/templates/dashboard.html:657
+#: theme/templates/dashboard.html:701
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:102
 msgid "Assurance"
 msgstr "Seguro"
 
-#: assurance/models.py:49 theme/templates/dashboard.html:652
+#: assurance/models.py:49 theme/templates/dashboard.html:696
 msgid "Assurances"
 msgstr "Seguros"
 
@@ -13156,10 +13216,11 @@ msgstr "Aseguradora"
 #: theme/templates/dashboard.html:247 theme/templates/dashboard.html:269
 #: theme/templates/dashboard.html:331 theme/templates/dashboard.html:353
 #: theme/templates/dashboard.html:375 theme/templates/dashboard.html:412
-#: theme/templates/dashboard.html:474 theme/templates/dashboard.html:496
-#: theme/templates/dashboard.html:543 theme/templates/dashboard.html:565
+#: theme/templates/dashboard.html:449 theme/templates/dashboard.html:471
+#: theme/templates/dashboard.html:518 theme/templates/dashboard.html:540
 #: theme/templates/dashboard.html:587 theme/templates/dashboard.html:609
-#: theme/templates/dashboard.html:671 theme/templates/dashboard.html:693
+#: theme/templates/dashboard.html:631 theme/templates/dashboard.html:653
+#: theme/templates/dashboard.html:715 theme/templates/dashboard.html:737
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:19
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:31
 #: voiture/voiture_marque/templates/voiture_marque/dashboard_voiture.html:17
@@ -13492,6 +13553,7 @@ msgstr "Nombre del responsable"
 #: facture/templates/facture/facture_pdf.html:122 fournisseur/models.py:36
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:65
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:38
+#: garage_officiel/models.py:53
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:229
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:295
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:282
@@ -13680,7 +13742,7 @@ msgstr "Número de tarjeta de crédito"
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:106
 #: client_pilotage/forms.py:26 panier/models.py:42
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:66
-#: theme/templates/dashboard.html:573 voiture/voiture_location/models.py:149
+#: theme/templates/dashboard.html:617 voiture/voiture_location/models.py:149
 msgid "Société cliente"
 msgstr "Empresa cliente"
 
@@ -13691,6 +13753,7 @@ msgstr "Número de cuenta IBAN no válido"
 
 #: client_atelier/models.py:28
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:81
+#: facture/models.py:159
 msgid "Client atelier"
 msgstr "Cliente del taller"
 
@@ -13901,7 +13964,7 @@ msgid ""
 msgstr "¿Desea realmente eliminar este cliente? Esta acción es irreversible."
 
 #: client_particulier/templates/client_particulier/delete_client.html:66
-#: facture/templates/facture/delete_facture.html:58
+#: facture/forms.py:14 facture/templates/facture/delete_facture.html:58
 #: facture/templates/facture/facture_detail.html:24
 #: facture/templates/facture/facture_list.html:29
 #: facture/templates/facture/maintenances_a_facturer.html:64
@@ -13912,7 +13975,7 @@ msgstr "¿Desea realmente eliminar este cliente? Esta acción es irreversible."
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:20
 #: panier/models.py:33
 #: societe_cliente/templates/societe_cliente/societe_cliente_form.html:13
-#: theme/templates/dashboard.html:551 voiture/voiture_exemplaire/models.py:14
+#: theme/templates/dashboard.html:595 voiture/voiture_exemplaire/models.py:14
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:35
 #: voiture/voiture_location/forms.py:21 voiture/voiture_location/models.py:140
 #: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:21
@@ -13925,6 +13988,7 @@ msgid "ans"
 msgstr "años"
 
 #: client_particulier/templates/client_particulier/delete_client.html:91
+#: garage_officiel/templates/garage_officiel/garage_list.html:36
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:101
 msgid "Contact"
 msgstr "Contacto"
@@ -14043,6 +14107,7 @@ msgid "Créer un pilote"
 msgstr "Crear un piloto"
 
 #: client_pilotage/templates/client_pilotage/client_pilotage_form.html:39
+#: garage_officiel/templates/garage_officiel/garage_form.html:17
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_form.html:38
 #: maindoeuvre/templates/maindoeuvre/modifier_maindoeuvre.html:50
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:69
@@ -14062,6 +14127,7 @@ msgstr "Crear un piloto"
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:75
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:69
 #: maintenance/essuyage/templates/essuyage/essuyage_form.html:69
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:36
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_form.html:42
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:48
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:34
@@ -14110,39 +14176,56 @@ msgstr "Modificar el piloto:"
 msgid "Suppression du client pilotage"
 msgstr "Eliminación del cliente de pilotaje"
 
-#: facture/forms.py:42 facture/models.py:155
+#: facture/forms.py:46 facture/models.py:165
 msgid "Client professionnel"
 msgstr "Cliente profesional"
 
-#: facture/forms.py:80
+#: facture/forms.py:67 theme/templates/dashboard.html:583
+#: voiture/voiture_location/forms.py:81
+msgid "Clients"
+msgstr "Clientes"
+
+#: facture/forms.py:68
+msgid "Clients atelier"
+msgstr "Clientes de taller"
+
+#: facture/forms.py:89 voiture/voiture_location/forms.py:104
+msgid "Client invalide."
+msgstr "Cliente no válido."
+
+#: facture/forms.py:93 voiture/voiture_location/forms.py:109
+msgid "Client introuvable."
+msgstr "Cliente no encontrado."
+
+#: facture/forms.py:134
 msgid "Indiquez un coût ou un prix unitaire."
 msgstr "Indique un coste o un precio unitario."
 
-#: facture/forms.py:119
+#: facture/forms.py:173
 msgid "Effacer la clé de test"
 msgstr "Borrar la clave de prueba"
 
-#: facture/forms.py:120
+#: facture/forms.py:174
 msgid "Effacer la clé de production"
 msgstr "Borrar la clave de producción"
 
-#: facture/forms.py:127
+#: facture/forms.py:181
 msgid "•••••• (enregistrée – laisser vide pour la conserver)"
 msgstr "•••••• (guardada – dejar vacío para conservarla)"
 
-#: facture/forms.py:142
+#: facture/forms.py:196 garage_officiel/models.py:106
 msgid "Format attendu : schéma:identifiant, ex. 0208:0123456789"
 msgstr "Formato esperado: esquema:identificador, p. ej. 0208:0123456789"
 
-#: facture/forms.py:151
+#: facture/forms.py:205
 msgid "URL obligatoire pour l'environnement sélectionné."
 msgstr "URL obligatoria para el entorno seleccionado."
 
-#: facture/forms.py:154
+#: facture/forms.py:208
 msgid "Clé API obligatoire pour l'environnement sélectionné."
 msgstr "Clave API obligatoria para el entorno seleccionado."
 
-#: facture/forms.py:156
+#: facture/forms.py:210
 msgid "Indiquez le nom de l'en-tête."
 msgstr "Indique el nombre del encabezado."
 
@@ -14183,78 +14266,80 @@ msgstr "Número de factura"
 msgid "Type de facture"
 msgstr "Tipo de factura"
 
-#: facture/models.py:130 maintenance/autres_interventions/models.py:152
-#: maintenance/models.py:159 theme/templates/dashboard.html:199
+#: facture/models.py:130
+#: garage_officiel/templates/garage_officiel/garage_list.html:37
+#: maintenance/autres_interventions/models.py:152 maintenance/models.py:159
+#: theme/templates/dashboard.html:199
 msgid "Maintenances"
 msgstr "Mantenimientos"
 
-#: facture/models.py:164
+#: facture/models.py:174
 msgid "Facturer à notre société"
 msgstr "Facturar a nuestra empresa"
 
-#: facture/models.py:166
+#: facture/models.py:176
 msgid "La société émettrice est aussi le client (véhicule de la société)."
 msgstr "La empresa emisora es también el cliente (vehículo de la empresa)."
 
-#: facture/models.py:172
+#: facture/models.py:182
 msgid "Adresse du client"
 msgstr "Dirección del cliente"
 
-#: facture/models.py:173
+#: facture/models.py:183
 msgid "TVA du client"
 msgstr "NIF-IVA del cliente"
 
-#: facture/models.py:174
+#: facture/models.py:184
 msgid "Email du client"
 msgstr "Email del cliente"
 
-#: facture/models.py:176 facture/templates/facture/facture_detail.html:37
+#: facture/models.py:186 facture/templates/facture/facture_detail.html:37
 #: facture/templates/facture/facture_pdf.html:146
 msgid "Date d’émission"
 msgstr "Fecha de emisión"
 
-#: facture/models.py:177 facture/templates/facture/facture_detail.html:38
+#: facture/models.py:187 facture/templates/facture/facture_detail.html:38
 #: facture/templates/facture/facture_pdf.html:148
 msgid "Date d'échéance"
 msgstr "Fecha de vencimiento"
 
-#: facture/models.py:178
+#: facture/models.py:188
 msgid "Devise"
 msgstr "Moneda"
 
-#: facture/models.py:182
+#: facture/models.py:192
 msgid "Marge pièces (%)"
 msgstr "Margen piezas (%)"
 
-#: facture/models.py:188
+#: facture/models.py:198
 msgid "Marge main-d'œuvre (%)"
 msgstr "Margen mano de obra (%)"
 
-#: facture/models.py:195 facture/templates/facture/facture_detail.html:43
+#: facture/models.py:205 facture/templates/facture/facture_detail.html:43
 msgid "Autoliquidation TVA"
 msgstr "Inversión del sujeto pasivo (IVA)"
 
-#: facture/models.py:204
+#: facture/models.py:214
 msgid "XML UBL"
 msgstr "XML UBL"
 
-#: facture/models.py:205 facture/templates/facture/facture_detail.html:86
+#: facture/models.py:215 facture/templates/facture/facture_detail.html:86
 msgid "Envoyée via Peppol le"
 msgstr "Enviada vía Peppol el"
 
-#: facture/models.py:206
+#: facture/models.py:216
 msgid "Réponse Peppol"
 msgstr "Respuesta Peppol"
 
-#: facture/models.py:208
+#: facture/models.py:218
 msgid "Émise le"
 msgstr "Emitida el"
 
-#: facture/models.py:215 maintenance/templates/maintenance/detail.html:31
+#: facture/models.py:225 maintenance/templates/maintenance/detail.html:31
 msgid "Créée par"
 msgstr "Creado por"
 
-#: facture/models.py:222 facture/templates/facture/facture_list.html:4
+#: facture/models.py:232 facture/templates/facture/facture_list.html:4
 #: facture/templates/facture/facture_list.html:12
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:62
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:95
@@ -14262,22 +14347,22 @@ msgstr "Creado por"
 msgid "Factures"
 msgstr "Facturas"
 
-#: facture/models.py:226
+#: facture/models.py:236
 #, python-format
 msgid "Facture %(numero)s"
 msgstr "Factura %(numero)s"
 
-#: facture/models.py:226 facture/templates/facture/facture_pdf.html:137
-#: facture/views.py:69
+#: facture/models.py:236 facture/templates/facture/facture_pdf.html:137
+#: facture/views.py:70
 msgid "brouillon"
 msgstr "borrador"
 
-#: facture/models.py:332
+#: facture/models.py:361
 #: maintenance/templates/maintenance/partials/intervention_detail.html:135
 msgid "Pièce / produit"
 msgstr "Pieza / producto"
 
-#: facture/models.py:334 investissements/models.py:57
+#: facture/models.py:363 investissements/models.py:57
 #: maintenance/autres_interventions/climatisation/models.py:49
 #: maintenance/autres_interventions/moteur/injection/models.py:25
 #: maintenance/choices.py:142 maintenance/choices.py:186
@@ -14301,30 +14386,30 @@ msgstr "Pieza / producto"
 msgid "Autre"
 msgstr "Otro"
 
-#: facture/models.py:355
+#: facture/models.py:384
 msgid "Type de ligne"
 msgstr "Tipo de línea"
 
-#: facture/models.py:361
+#: facture/models.py:390
 msgid "Ordre"
 msgstr "Orden"
 
-#: facture/models.py:363 facture/templates/facture/facture_detail.html:53
-#: facture/templates/facture/facture_form.html:121
+#: facture/models.py:392 facture/templates/facture/facture_detail.html:53
+#: facture/templates/facture/facture_form.html:122
 #: facture/templates/facture/facture_pdf.html:208
 msgid "Description"
 msgstr "Descripción"
 
-#: facture/models.py:375
+#: facture/models.py:404
 msgid "Coût unitaire HTVA"
 msgstr "Coste unitario sin IVA"
 
-#: facture/models.py:383 panier/models.py:116
+#: facture/models.py:412 panier/models.py:116
 msgid "Marge (%)"
 msgstr "Margen (%)"
 
-#: facture/models.py:391 facture/templates/facture/facture_detail.html:57
-#: facture/templates/facture/facture_form.html:126
+#: facture/models.py:420 facture/templates/facture/facture_detail.html:57
+#: facture/templates/facture/facture_form.html:127
 #: facture/templates/facture/facture_pdf.html:210
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:614
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:657
@@ -14362,52 +14447,52 @@ msgstr "Margen (%)"
 msgid "Prix unitaire HTVA"
 msgstr "Precio unitario sin IVA"
 
-#: facture/models.py:402
+#: facture/models.py:431
 msgid "Taux de TVA : 6, 12, 21"
 msgstr "Tipo de IVA: 6, 12, 21"
 
-#: facture/models.py:406
+#: facture/models.py:435
 msgid "Ligne de facture"
 msgstr "Línea de factura"
 
-#: facture/models.py:407
+#: facture/models.py:436
 msgid "Lignes de facture"
 msgstr "Líneas de factura"
 
-#: facture/models.py:411
+#: facture/models.py:440
 #, python-format
 msgid "%(desc)s (%(facture)s)"
 msgstr "%(desc)s (%(facture)s)"
 
-#: facture/models.py:449
+#: facture/models.py:478
 msgid "Test (sandbox)"
 msgstr "Prueba (sandbox)"
 
-#: facture/models.py:450
+#: facture/models.py:479
 msgid "Production"
 msgstr "Producción"
 
-#: facture/models.py:453
+#: facture/models.py:482
 msgid "Bearer token (Authorization: Bearer …)"
 msgstr "Token Bearer (Authorization: Bearer …)"
 
-#: facture/models.py:454
+#: facture/models.py:483
 msgid "Clé API dans un en-tête personnalisé"
 msgstr "Clave API en un encabezado personalizado"
 
-#: facture/models.py:463 facture/templates/facture/parametres_peppol.html:26
+#: facture/models.py:492 facture/templates/facture/parametres_peppol.html:26
 msgid "Envoi Peppol activé"
 msgstr "Envío Peppol activado"
 
-#: facture/models.py:465
+#: facture/models.py:494
 msgid "Environnement utilisé"
 msgstr "Entorno utilizado"
 
-#: facture/models.py:473
+#: facture/models.py:502
 msgid "Identifiant Peppol émetteur"
 msgstr "Identificador Peppol del emisor"
 
-#: facture/models.py:476
+#: facture/models.py:505
 msgid ""
 "Ex : 0208:0123456789 (numéro d'entreprise belge). Vide : déduit du numéro de "
 "TVA."
@@ -14415,63 +14500,63 @@ msgstr ""
 "P. ej.: 0208:0123456789 (número de empresa belga). Vacío: se deduce del "
 "número de IVA."
 
-#: facture/models.py:480
+#: facture/models.py:509
 msgid "URL du serveur de test"
 msgstr "URL del servidor de prueba"
 
-#: facture/models.py:481
+#: facture/models.py:510
 msgid "Clé API de test"
 msgstr "Clave API de prueba"
 
-#: facture/models.py:484
+#: facture/models.py:513
 msgid "URL du serveur de production"
 msgstr "URL del servidor de producción"
 
-#: facture/models.py:485
+#: facture/models.py:514
 msgid "Clé API de production"
 msgstr "Clave API de producción"
 
-#: facture/models.py:488
+#: facture/models.py:517
 msgid "Authentification"
 msgstr "Autenticación"
 
-#: facture/models.py:494
+#: facture/models.py:523
 msgid "Nom de l'en-tête de la clé API"
 msgstr "Nombre del encabezado de la clave API"
 
-#: facture/models.py:499
+#: facture/models.py:528
 msgid "Délai maximum (secondes)"
 msgstr "Tiempo máximo (segundos)"
 
-#: facture/models.py:502
+#: facture/models.py:531
 msgid "Envoyer automatiquement à l'émission"
 msgstr "Enviar automáticamente al emitir"
 
-#: facture/models.py:504
+#: facture/models.py:533
 msgid ""
 "Les factures professionnelles sont envoyées via Peppol dès leur émission."
 msgstr "Las facturas profesionales se envían vía Peppol en cuanto se emiten."
 
-#: facture/models.py:507 facture/templates/facture/parametres_peppol.html:49
+#: facture/models.py:536 facture/templates/facture/parametres_peppol.html:49
 msgid "Dernier test de connexion"
 msgstr "Última prueba de conexión"
 
-#: facture/models.py:508
+#: facture/models.py:537
 msgid "Résultat du dernier test"
 msgstr "Resultado de la última prueba"
 
-#: facture/models.py:509
+#: facture/models.py:538
 msgid "Dernier test réussi"
 msgstr "Última prueba correcta"
 
-#: facture/models.py:515 facture/models.py:516
+#: facture/models.py:544 facture/models.py:545
 #: facture/templates/facture/facture_detail.html:110
 #: facture/templates/facture/maintenances_a_facturer.html:28
 #: facture/templates/facture/parametres_peppol.html:4
 msgid "Paramètres Peppol"
 msgstr "Parámetros Peppol"
 
-#: facture/models.py:519
+#: facture/models.py:548
 #, python-format
 msgid "Paramètres Peppol – %(societe)s"
 msgstr "Parámetros Peppol – %(societe)s"
@@ -14510,8 +14595,8 @@ msgid "Le client professionnel n'a pas d'adresse."
 msgstr "El cliente profesional no tiene dirección."
 
 #: facture/services.py:255
-msgid "Sélectionnez le client particulier."
-msgstr "Seleccione el cliente particular."
+msgid "Sélectionnez le client ou le client atelier."
+msgstr "Seleccione el cliente o el cliente de taller."
 
 #: facture/templates/facture/_entete_facture.html:16
 msgid "attribué à l'émission"
@@ -14554,28 +14639,28 @@ msgid "Détails de la facture :"
 msgstr "Detalles de la factura:"
 
 #: facture/templates/facture/facture_detail.html:42
-#: facture/templates/facture/facture_form.html:104
+#: facture/templates/facture/facture_form.html:105
 msgid "Marge totale"
 msgstr "Margen total"
 
 #: facture/templates/facture/facture_detail.html:49
-#: facture/templates/facture/facture_form.html:111
+#: facture/templates/facture/facture_form.html:112
 msgid "Lignes de la facture"
 msgstr "Líneas de la factura"
 
 #: facture/templates/facture/facture_detail.html:55
-#: facture/templates/facture/facture_form.html:124
+#: facture/templates/facture/facture_form.html:125
 msgid "Coût HTVA"
 msgstr "Coste sin IVA"
 
 #: facture/templates/facture/facture_detail.html:56
-#: facture/templates/facture/facture_form.html:125
+#: facture/templates/facture/facture_form.html:126
 #, python-format
 msgid "Marge %%"
 msgstr "Margen %%"
 
 #: facture/templates/facture/facture_detail.html:58
-#: facture/templates/facture/facture_form.html:127
+#: facture/templates/facture/facture_form.html:128
 #, python-format
 msgid "TVA %%"
 msgstr "IVA %%"
@@ -14645,19 +14730,23 @@ msgstr ""
 "El número de IVA, la dirección y el identificador Peppol del cliente se "
 "incluyen en el XML."
 
-#: facture/templates/facture/facture_form.html:72
+#: facture/templates/facture/facture_form.html:55
+msgid "Clients particuliers et clients atelier."
+msgstr "Clientes particulares y clientes de taller."
+
+#: facture/templates/facture/facture_form.html:73
 msgid "Imprimées sur la facture."
 msgstr "Se imprimen en la factura."
 
-#: facture/templates/facture/facture_form.html:77
+#: facture/templates/facture/facture_form.html:78
 msgid "Marges"
 msgstr "Márgenes"
 
-#: facture/templates/facture/facture_form.html:90
+#: facture/templates/facture/facture_form.html:91
 msgid "Appliquer ces marges à toutes les lignes"
 msgstr "Aplicar estos márgenes a todas las líneas"
 
-#: facture/templates/facture/facture_form.html:93
+#: facture/templates/facture/facture_form.html:94
 msgid ""
 "La marge de chaque ligne reste modifiable dans le tableau ci-dessous. Coûts "
 "et marges n'apparaissent ni sur le PDF ni dans le XML."
@@ -14665,7 +14754,7 @@ msgstr ""
 "El margen de cada línea sigue siendo modificable en la tabla de abajo. Los "
 "costes y márgenes no aparecen ni en el PDF ni en el XML."
 
-#: facture/templates/facture/facture_form.html:100
+#: facture/templates/facture/facture_form.html:101
 #, python-format
 msgid ""
 "Client assujetti dans un autre pays de l'UE : TVA à 0 %%, mention « "
@@ -14674,7 +14763,7 @@ msgstr ""
 "Cliente sujeto pasivo en otro país de la UE: IVA al 0 %%, mención «inversión "
 "del sujeto pasivo»."
 
-#: facture/templates/facture/facture_form.html:152
+#: facture/templates/facture/facture_form.html:153
 msgid ""
 "Avec un coût, le prix unitaire est calculé : coût × (1 + marge). Sans coût, "
 "le prix unitaire saisi est utilisé tel quel. La dernière ligne vide permet "
@@ -14684,18 +14773,18 @@ msgstr ""
 " se utiliza el precio unitario introducido tal cual. La última línea vacía "
 "permite añadir una línea libre."
 
-#: facture/templates/facture/facture_form.html:158
+#: facture/templates/facture/facture_form.html:159
 msgid "Totaux"
 msgstr "Totales"
 
-#: facture/templates/facture/facture_form.html:162
+#: facture/templates/facture/facture_form.html:163
 #: facture/templates/facture/facture_pdf.html:242
 #: facture/templates/facture/tva.html:120
 #: facture/templates/facture/tva.html:163
 msgid "Base HTVA"
 msgstr "Base imponible sin IVA"
 
-#: facture/templates/facture/facture_form.html:166
+#: facture/templates/facture/facture_form.html:167
 #: facture/templates/facture/facture_pdf.html:166
 #: facture/templates/facture/facture_pdf.html:176
 #: facture/templates/facture/facture_pdf.html:211
@@ -14704,6 +14793,8 @@ msgstr "Base imponible sin IVA"
 #: facture/templates/facture/tva.html:4 facture/templates/facture/tva.html:121
 #: fuel/models.py:207
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:452
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:80
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:57
 #: piece/templates/piece/piece_detail.html:40
 #: piece/templates/piece/piece_form.html:100 recharge/models.py:207
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:97
@@ -14712,35 +14803,35 @@ msgstr "Base imponible sin IVA"
 msgid "TVA"
 msgstr "IVA"
 
-#: facture/templates/facture/facture_form.html:180
+#: facture/templates/facture/facture_form.html:181
 msgid "Enregistrer le brouillon"
 msgstr "Guardar el borrador"
 
-#: facture/templates/facture/facture_form.html:183
+#: facture/templates/facture/facture_form.html:184
 msgid "La facture recevra un numéro définitif et ne pourra plus être modifiée."
 msgstr "La factura recibirá un número definitivo y ya no podrá modificarse."
 
-#: facture/templates/facture/facture_form.html:184
+#: facture/templates/facture/facture_form.html:185
 msgid "Émettre la facture ?"
 msgstr "¿Emitir la factura?"
 
-#: facture/templates/facture/facture_form.html:185
+#: facture/templates/facture/facture_form.html:186
 msgid "Émettre"
 msgstr "Emitir"
 
-#: facture/templates/facture/facture_form.html:188
+#: facture/templates/facture/facture_form.html:189
 msgid "Émettre la facture (PDF + XML)"
 msgstr "Emitir la factura (PDF + XML)"
 
-#: facture/templates/facture/facture_form.html:188
+#: facture/templates/facture/facture_form.html:189
 msgid "Émettre la facture"
 msgstr "Emitir la factura"
 
-#: facture/templates/facture/facture_form.html:196
+#: facture/templates/facture/facture_form.html:197
 msgid "Supprimer le brouillon"
 msgstr "Eliminar el borrador"
 
-#: facture/templates/facture/facture_form.html:203
+#: facture/templates/facture/facture_form.html:204
 #: facture/templates/facture/facture_list.html:71
 #: facture/templates/facture/parametres_peppol.html:182
 #: facture/templates/facture/tva.html:238
@@ -14890,7 +14981,7 @@ msgstr "Fecha de exportación"
 #: facture/templates/facture/maintenances_a_facturer.html:4
 #: facture/templates/facture/maintenances_a_facturer.html:65
 #: facture/templates/facture/parametres_peppol.html:15
-#: facture/templates/facture/tva.html:20 theme/templates/dashboard.html:759
+#: facture/templates/facture/tva.html:20 theme/templates/dashboard.html:803
 msgid "Facturation"
 msgstr "Facturación"
 
@@ -14933,11 +15024,14 @@ msgid "Aucune maintenance enregistrée."
 msgstr "Ningún mantenimiento registrado."
 
 #: facture/templates/facture/maintenances_a_facturer.html:152
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:103
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ maintenances"
 msgstr "Mostrando de _START_ a _END_ de _TOTAL_ mantenimientos"
 
 #: facture/templates/facture/maintenances_a_facturer.html:153
 #: facture/templates/facture/maintenances_a_facturer.html:154
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:104
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:105
 msgid "Aucune maintenance trouvée"
 msgstr "Ningún mantenimiento encontrado"
 
@@ -15155,6 +15249,7 @@ msgstr "Inversión del sujeto pasivo"
 
 #: facture/templates/facture/tva.html:142
 #: facture/templates/facture/tva.html:191
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:85
 msgid "Total"
 msgstr "Total"
 
@@ -15254,268 +15349,279 @@ msgstr "Combustible"
 msgid "Recharges électriques"
 msgstr "Recarga eléctrica"
 
-#: facture/tva.py:40
+#: facture/tva.py:38
+msgid "Maintenances externes (garages officiels, B2B)"
+msgstr "Mantenimientos externos (talleres oficiales, B2B)"
+
+#: facture/tva.py:42
+msgid ""
+"Maintenances externes à l'étranger – remboursement UE (hors déclaration)"
+msgstr ""
+"Mantenimientos externos en el extranjero – devolución UE (fuera de la "
+"declaración)"
+
+#: facture/tva.py:50
 msgid "Maintenances internes (pièces) – incluses dans les achats"
 msgstr "Mantenimientos internos (piezas) – incluidos en las compras"
 
-#: facture/tva.py:281
+#: facture/tva.py:318
 #, python-format
 msgid "Base à %(taux)s %% (taux sans case dédiée – à vérifier)"
 msgstr "Base al %(taux)s %% (tipo sin casilla propia – a verificar)"
 
-#: facture/tva.py:294
+#: facture/tva.py:331
 msgid "Prestations intracommunautaires (autoliquidation)"
 msgstr "Prestaciones intracomunitarias (inversión del sujeto pasivo)"
 
-#: facture/tva.py:295
+#: facture/tva.py:332
 msgid "TVA due"
 msgstr "IVA devengado"
 
-#: facture/tva.py:296 facture/tva.py:334
+#: facture/tva.py:333 facture/tva.py:371
 msgid "TVA déductible"
 msgstr "IVA deducible"
 
-#: facture/tva.py:303
+#: facture/tva.py:340
 msgid "TVA à payer"
 msgstr "IVA a pagar"
 
-#: facture/tva.py:304
+#: facture/tva.py:341
 msgid "Crédit de TVA (à récupérer)"
 msgstr "Crédito de IVA (a recuperar)"
 
-#: facture/tva.py:309
+#: facture/tva.py:346
 msgid "Déclaration périodique de TVA"
 msgstr "Declaración periódica de IVA"
 
-#: facture/tva.py:324
+#: facture/tva.py:361
 msgid "Déclaration périodique à la TVA (Intervat)"
 msgstr "Declaración periódica de IVA (Intervat)"
 
-#: facture/tva.py:326
+#: facture/tva.py:363
 msgid "Opérations soumises à un régime particulier / 0 %"
 msgstr "Operaciones sujetas a un régimen especial / 0 %"
 
-#: facture/tva.py:327
+#: facture/tva.py:364
 msgid "Opérations à 6 %"
 msgstr "Operaciones al 6 %"
 
-#: facture/tva.py:328
+#: facture/tva.py:365
 msgid "Opérations à 12 %"
 msgstr "Operaciones al 12 %"
 
-#: facture/tva.py:329
+#: facture/tva.py:366
 msgid "Opérations à 21 %"
 msgstr "Operaciones al 21 %"
 
-#: facture/tva.py:332
+#: facture/tva.py:369
 msgid "Services intracommunautaires (autoliquidation)"
 msgstr "Servicios intracomunitarios (inversión del sujeto pasivo)"
 
-#: facture/tva.py:333
+#: facture/tva.py:370
 msgid "TVA due sur les opérations"
 msgstr "IVA devengado por las operaciones"
 
-#: facture/tva.py:335
+#: facture/tva.py:372
 msgid "Taxe due à l'État"
 msgstr "Impuesto adeudado al Estado"
 
-#: facture/tva.py:336
+#: facture/tva.py:373
 msgid "Sommes dues par l'État"
 msgstr "Importes adeudados por el Estado"
 
-#: facture/tva.py:340
+#: facture/tva.py:377
 msgid "Déclaration CA3 (formulaire 3310-CA3)"
 msgstr "Declaración CA3 (formulario 3310-CA3)"
 
-#: facture/tva.py:342
+#: facture/tva.py:379
 msgid "Taux normal 20 % – base hors taxe"
 msgstr "Tipo general 20 % – base imponible"
 
-#: facture/tva.py:343
+#: facture/tva.py:380
 msgid "Taux réduit 10 % – base hors taxe"
 msgstr "Tipo reducido 10 % – base imponible"
 
-#: facture/tva.py:344
+#: facture/tva.py:381
 msgid "Taux réduit 5,5 % – base hors taxe"
 msgstr "Tipo reducido 5,5 % – base imponible"
 
-#: facture/tva.py:345
+#: facture/tva.py:382
 msgid "Taux particulier 2,1 % – base hors taxe"
 msgstr "Tipo especial 2,1 % – base imponible"
 
-#: facture/tva.py:348
+#: facture/tva.py:385
 msgid "Autres opérations non imposables (prestations intracommunautaires)"
 msgstr "Otras operaciones no sujetas (prestaciones intracomunitarias)"
 
-#: facture/tva.py:349
+#: facture/tva.py:386
 msgid "Total de la TVA brute due"
 msgstr "Total del IVA bruto devengado"
 
-#: facture/tva.py:350
+#: facture/tva.py:387
 msgid "Total TVA déductible"
 msgstr "Total IVA deducible"
 
-#: facture/tva.py:351
+#: facture/tva.py:388
 msgid "TVA nette due"
 msgstr "IVA neto a pagar"
 
-#: facture/tva.py:352
+#: facture/tva.py:389
 msgid "Crédit de TVA"
 msgstr "Crédito de IVA"
 
-#: facture/tva.py:356
+#: facture/tva.py:393
 msgid "Umsatzsteuer-Voranmeldung (UStVA)"
 msgstr "Declaración anticipada de IVA (UStVA)"
 
-#: facture/tva.py:358
+#: facture/tva.py:395
 msgid "Steuerpflichtige Umsätze 19 % – Bemessungsgrundlage"
 msgstr "Operaciones sujetas al 19 % – base imponible"
 
-#: facture/tva.py:359
+#: facture/tva.py:396
 msgid "Steuerpflichtige Umsätze 7 % – Bemessungsgrundlage"
 msgstr "Operaciones sujetas al 7 % – base imponible"
 
-#: facture/tva.py:362
+#: facture/tva.py:399
 msgid "Nicht steuerbare sonstige Leistungen (EU, Reverse Charge)"
 msgstr "Otras prestaciones no sujetas (UE, inversión del sujeto pasivo)"
 
-#: facture/tva.py:364
+#: facture/tva.py:401
 msgid "Vorsteuerbeträge"
 msgstr "Importes de IVA soportado"
 
-#: facture/tva.py:365
+#: facture/tva.py:402
 msgid "Verbleibende Umsatzsteuer-Vorauszahlung"
 msgstr "Pago anticipado de IVA pendiente"
 
-#: facture/tva.py:366
+#: facture/tva.py:403
 msgid "Verbleibender Überschuss (negativ)"
 msgstr "Excedente pendiente (negativo)"
 
-#: facture/tva.py:370
+#: facture/tva.py:407
 msgid "Aangifte omzetbelasting"
 msgstr "Declaración de IVA (Países Bajos)"
 
-#: facture/tva.py:372
+#: facture/tva.py:409
 msgid "Leveringen/diensten belast met hoog tarief (21 %)"
 msgstr "Entregas/servicios al tipo general (21 %)"
 
-#: facture/tva.py:373
+#: facture/tva.py:410
 msgid "Leveringen/diensten belast met laag tarief (9 %)"
 msgstr "Entregas/servicios al tipo reducido (9 %)"
 
-#: facture/tva.py:374
+#: facture/tva.py:411
 msgid "Leveringen/diensten belast met 0 % of niet bij u belast"
 msgstr "Entregas/servicios al 0 % o no gravados para usted"
 
-#: facture/tva.py:377
+#: facture/tva.py:414
 msgid "Leveringen naar/diensten in landen binnen de EU"
 msgstr "Entregas/servicios a países de la UE"
 
-#: facture/tva.py:378
+#: facture/tva.py:415
 msgid "Verschuldigde omzetbelasting"
 msgstr "IVA devengado"
 
-#: facture/tva.py:379
+#: facture/tva.py:416
 msgid "Voorbelasting"
 msgstr "IVA soportado"
 
-#: facture/tva.py:380
+#: facture/tva.py:417
 msgid "Totaal te betalen"
 msgstr "Total a pagar"
 
-#: facture/tva.py:381
+#: facture/tva.py:418
 msgid "Totaal terug te vragen"
 msgstr "Total a devolver"
 
-#: facture/tva.py:385
+#: facture/tva.py:422
 msgid "Modelo 303 (IVA)"
 msgstr "Modelo 303 (IVA)"
 
-#: facture/tva.py:387
+#: facture/tva.py:424
 msgid "Régimen general 4 % – base imponible"
 msgstr "Régimen general 4 % – base imponible"
 
-#: facture/tva.py:388
+#: facture/tva.py:425
 msgid "Régimen general 10 % – base imponible"
 msgstr "Régimen general 10 % – base imponible"
 
-#: facture/tva.py:389
+#: facture/tva.py:426
 msgid "Régimen general 21 % – base imponible"
 msgstr "Régimen general 21 % – base imponible"
 
-#: facture/tva.py:392
+#: facture/tva.py:429
 msgid "Operaciones no sujetas por reglas de localización"
 msgstr "Operaciones no sujetas por reglas de localización"
 
-#: facture/tva.py:393
+#: facture/tva.py:430
 msgid "Total cuota devengada"
 msgstr "Total cuota devengada"
 
-#: facture/tva.py:394
+#: facture/tva.py:431
 msgid "Total a deducir"
 msgstr "Total a deducir"
 
-#: facture/tva.py:395
+#: facture/tva.py:432
 msgid "Resultado de la liquidación (a ingresar)"
 msgstr "Resultado de la liquidación (a ingresar)"
 
-#: facture/tva.py:396
+#: facture/tva.py:433
 msgid "Resultado de la liquidación (a compensar / devolver)"
 msgstr "Resultado de la liquidación (a compensar / devolver)"
 
-#: facture/tva.py:400
+#: facture/tva.py:437
 msgid "Comunicazione liquidazioni periodiche IVA (LIPE)"
 msgstr "Comunicación de liquidaciones periódicas de IVA (LIPE)"
 
-#: facture/tva.py:401
+#: facture/tva.py:438
 msgid "Totale operazioni attive (al netto dell'IVA)"
 msgstr "Total operaciones activas (sin IVA)"
 
-#: facture/tva.py:405
+#: facture/tva.py:442
 msgid "IVA esigibile"
 msgstr "IVA exigible"
 
-#: facture/tva.py:406
+#: facture/tva.py:443
 msgid "IVA detratta"
 msgstr "IVA deducido"
 
-#: facture/tva.py:407
+#: facture/tva.py:444
 msgid "IVA dovuta"
 msgstr "IVA a pagar"
 
-#: facture/tva.py:408
+#: facture/tva.py:445
 msgid "IVA a credito"
 msgstr "IVA a crédito"
 
-#: facture/tva.py:412
+#: facture/tva.py:449
 msgid "Umsatzsteuervoranmeldung (U30)"
 msgstr "Declaración anticipada de IVA (U30)"
 
-#: facture/tva.py:413
+#: facture/tva.py:450
 msgid "Gesamtbetrag der Bemessungsgrundlagen"
 msgstr "Total de las bases imponibles"
 
-#: facture/tva.py:415
+#: facture/tva.py:452
 msgid "Normalsteuersatz 20 % – Bemessungsgrundlage"
 msgstr "Tipo general 20 % – base imponible"
 
-#: facture/tva.py:416
+#: facture/tva.py:453
 msgid "Ermäßigter Steuersatz 10 % – Bemessungsgrundlage"
 msgstr "Tipo reducido 10 % – base imponible"
 
-#: facture/tva.py:417
+#: facture/tva.py:454
 msgid "Ermäßigter Steuersatz 13 % – Bemessungsgrundlage"
 msgstr "Tipo reducido 13 % – base imponible"
 
-#: facture/tva.py:422
+#: facture/tva.py:459
 msgid "Gesamtbetrag der Vorsteuern"
 msgstr "Total del IVA soportado"
 
-#: facture/tva.py:423
+#: facture/tva.py:460
 msgid "Vorauszahlung (Zahllast)"
 msgstr "Pago anticipado (cuota a pagar)"
 
-#: facture/tva.py:424
+#: facture/tva.py:461
 msgid "Überschuss"
 msgstr "Excedente"
 
@@ -15539,99 +15645,99 @@ msgstr "Modificación de los parámetros Peppol"
 msgid "Envoi Peppol de la facture"
 msgstr "Envío Peppol de la factura"
 
-#: facture/views.py:116
+#: facture/views.py:117
 msgid "Type de facture inconnu."
 msgstr "Tipo de factura desconocido."
 
-#: facture/views.py:126
+#: facture/views.py:127
 msgid "Sélectionnez au moins une maintenance."
 msgstr "Seleccione al menos un mantenimiento."
 
-#: facture/views.py:131
+#: facture/views.py:132
 msgid "Les maintenances sélectionnées doivent concerner le même véhicule."
 msgstr "Los mantenimientos seleccionados deben referirse al mismo vehículo."
 
-#: facture/views.py:136
+#: facture/views.py:137
 msgid ""
 "Brouillon de facture créé. Vérifiez les marges et les lignes avant d'émettre."
 msgstr ""
 "Borrador de factura creado. Revise los márgenes y las líneas antes de emitir."
 
-#: facture/views.py:166
+#: facture/views.py:167
 msgid "Cette facture est émise : elle ne peut plus être modifiée."
 msgstr "Esta factura está emitida: ya no se puede modificar."
 
-#: facture/views.py:190
+#: facture/views.py:191
 msgid "Marges appliquées à toutes les lignes."
 msgstr "Márgenes aplicados a todas las líneas."
 
-#: facture/views.py:202
+#: facture/views.py:203
 #, python-format
 msgid "Facture %(numero)s émise."
 msgstr "Factura %(numero)s emitida."
 
-#: facture/views.py:210
+#: facture/views.py:211
 msgid "Facture enregistrée."
 msgstr "Factura guardada."
 
-#: facture/views.py:289
+#: facture/views.py:290
 msgid "Le XML n'est disponible que pour une facture professionnelle émise."
 msgstr "El XML solo está disponible para una factura profesional emitida."
 
-#: facture/views.py:320
+#: facture/views.py:321
 #, python-format
 msgid "Envoi Peppol impossible : %(erreur)s"
 msgstr "Envío Peppol imposible: %(erreur)s"
 
-#: facture/views.py:328
+#: facture/views.py:329
 msgid "Facture envoyée au serveur Peppol de TEST (aucune valeur légale)."
 msgstr "Factura enviada al servidor Peppol de PRUEBA (sin valor legal)."
 
-#: facture/views.py:330
+#: facture/views.py:331
 msgid "Facture envoyée via Peppol."
 msgstr "Factura enviada vía Peppol."
 
-#: facture/views.py:342
+#: facture/views.py:343
 msgid "Seule une facture professionnelle émise peut être envoyée via Peppol."
 msgstr "Solo se puede enviar vía Peppol una factura profesional emitida."
 
-#: facture/views.py:371
+#: facture/views.py:372
 msgid "activé"
 msgstr "activado"
 
-#: facture/views.py:371
+#: facture/views.py:372
 msgid "désactivé"
 msgstr "desactivado"
 
-#: facture/views.py:373
+#: facture/views.py:374
 msgid "Paramètres Peppol enregistrés."
 msgstr "Parámetros Peppol guardados."
 
-#: facture/views.py:410
+#: facture/views.py:411
 msgid "production"
 msgstr "producción"
 
-#: facture/views.py:410
+#: facture/views.py:411
 msgid "test"
 msgstr "prueba"
 
-#: facture/views.py:413
+#: facture/views.py:414
 #, python-format
 msgid "Renseignez l'URL et la clé API du serveur de %(env)s."
 msgstr "Indique la URL y la clave API del servidor de %(env)s."
 
-#: facture/views.py:428 facture/views.py:430
+#: facture/views.py:429 facture/views.py:431
 #, python-format
 msgid "Serveur de %(env)s : %(res)s"
 msgstr "Servidor de %(env)s: %(res)s"
 
-#: facture/views.py:446
+#: facture/views.py:447
 msgid ""
 "Une facture émise ne peut pas être supprimée (établissez une note de crédit)."
 msgstr ""
 "Una factura emitida no se puede eliminar (emita una factura rectificativa)."
 
-#: facture/views.py:455
+#: facture/views.py:456
 msgid "Le brouillon de facture a bien été supprimé."
 msgstr "El borrador de factura se ha eliminado correctamente."
 
@@ -15663,7 +15769,7 @@ msgstr "Número de teléfono móvil"
 
 #: fournisseur/models.py:103
 #: fournisseur/templates/fournisseur/fournisseur_dashboard.html:17
-#: theme/templates/dashboard.html:470
+#: theme/templates/dashboard.html:514
 msgid "Fournisseurs"
 msgstr "Proveedores"
 
@@ -16287,8 +16393,10 @@ msgid "Prix :"
 msgstr "Precio"
 
 #: fuel/templates/fuel/fuel_delete.html:34
+#: garage_officiel/templates/garage_officiel/garage_confirm_delete.html:20
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_confirm_delete.html:22
 #: recharge/templates/recharge/electricite_delete.html:34
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:31
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:33
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:21
 #: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:31
 msgid "Confirmer la suppression"
@@ -16817,6 +16925,252 @@ msgstr "Eliminar un repostaje"
 msgid "Carburant supprimé avec succès."
 msgstr "Combustible eliminado con éxito"
 
+#: garage_officiel/apps.py:7 garage_officiel/models.py:84
+#: garage_officiel/templates/garage_officiel/garage_list.html:4
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:23
+#: theme/templates/dashboard.html:467 theme/templates/dashboard.html:479
+msgid "Garages officiels"
+msgstr "Talleres oficiales"
+
+#: garage_officiel/forms.py:37
+msgid "Ou choisissez un groupe automobile ci-dessous."
+msgstr "O elija un grupo automovilístico a continuación."
+
+#: garage_officiel/models.py:9
+msgid ""
+"Groupe Volkswagen (VAG : VW, Audi, Seat, Cupra, Škoda, Porsche, Bentley, "
+"Lamborghini)"
+msgstr ""
+"Grupo Volkswagen (VAG: VW, Audi, Seat, Cupra, Škoda, Porsche, Bentley, "
+"Lamborghini)"
+
+#: garage_officiel/models.py:10
+msgid ""
+"Stellantis (Peugeot, Citroën, DS, Opel, Fiat, Alfa Romeo, Jeep, Lancia, "
+"Maserati)"
+msgstr ""
+"Stellantis (Peugeot, Citroën, DS, Opel, Fiat, Alfa Romeo, Jeep, Lancia, "
+"Maserati)"
+
+#: garage_officiel/models.py:11
+msgid "BMW Group (BMW, Mini, Rolls-Royce)"
+msgstr "BMW Group (BMW, Mini, Rolls-Royce)"
+
+#: garage_officiel/models.py:12
+msgid "Mercedes-Benz Group (Mercedes-Benz, Mercedes-AMG, Smart)"
+msgstr "Mercedes-Benz Group (Mercedes-Benz, Mercedes-AMG, Smart)"
+
+#: garage_officiel/models.py:13
+msgid "Renault Group (Renault, Dacia, Alpine)"
+msgstr "Renault Group (Renault, Dacia, Alpine)"
+
+#: garage_officiel/models.py:14
+msgid "Toyota (Toyota, Lexus)"
+msgstr "Toyota (Toyota, Lexus)"
+
+#: garage_officiel/models.py:15
+msgid "Hyundai Motor Group (Hyundai, Kia, Genesis)"
+msgstr "Hyundai Motor Group (Hyundai, Kia, Genesis)"
+
+#: garage_officiel/models.py:16
+msgid "Nissan / Mitsubishi"
+msgstr "Nissan / Mitsubishi"
+
+#: garage_officiel/models.py:17
+msgid "Geely (Volvo, Polestar, Lotus, Lynk & Co)"
+msgstr "Geely (Volvo, Polestar, Lotus, Lynk & Co)"
+
+#: garage_officiel/models.py:18
+msgid "Jaguar Land Rover"
+msgstr "Jaguar Land Rover"
+
+#: garage_officiel/models.py:19 maintenance/choices.py:183
+#: maintenance/choices.py:730 maintenance/choices.py:1826
+#: maintenance/choices.py:1895
+msgid "Ford"
+msgstr "Ford"
+
+#: garage_officiel/models.py:20 maintenance/choices.py:174
+#: maintenance/choices.py:551 maintenance/choices.py:732
+#: maintenance/choices.py:1828 maintenance/choices.py:1897
+msgid "Honda"
+msgstr "Honda"
+
+#: garage_officiel/models.py:21 maintenance/choices.py:559
+#: maintenance/choices.py:735 maintenance/choices.py:1837
+#: maintenance/choices.py:1899
+msgid "Mazda"
+msgstr "Mazda"
+
+#: garage_officiel/models.py:22 maintenance/choices.py:584
+#: maintenance/choices.py:742 maintenance/choices.py:1850
+#: maintenance/choices.py:1907
+msgid "Subaru"
+msgstr "Subaru"
+
+#: garage_officiel/models.py:23 maintenance/choices.py:585
+#: maintenance/choices.py:743 maintenance/choices.py:1851
+msgid "Suzuki"
+msgstr "Suzuki"
+
+#: garage_officiel/models.py:24
+msgid "Tesla"
+msgstr "Tesla"
+
+#: garage_officiel/models.py:25 maintenance/choices.py:1824
+#: maintenance/choices.py:1893
+msgid "Ferrari"
+msgstr "Ferrari"
+
+#: garage_officiel/models.py:26 maintenance/choices.py:1817
+msgid "Aston Martin"
+msgstr "Aston Martin"
+
+#: garage_officiel/models.py:27 maintenance/choices.py:1838
+msgid "McLaren"
+msgstr "McLaren"
+
+#: garage_officiel/models.py:28
+msgid "Autre groupe"
+msgstr "Otro grupo"
+
+#: garage_officiel/models.py:56
+msgid "Format schéma:identifiant, ex. 0208:0123456789"
+msgstr "Formato esquema:identificador, p. ej. 0208:0123456789"
+
+#: garage_officiel/models.py:59
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:280
+msgid "E-mail"
+msgstr "Correo electrónico"
+
+#: garage_officiel/models.py:71
+msgid "Groupe automobile"
+msgstr "Grupo automovilístico"
+
+#: garage_officiel/models.py:83
+#: garage_officiel/templates/garage_officiel/garage_form.html:9
+#: garage_officiel/templates/garage_officiel/garage_list.html:9
+#: maintenance/maintenance_externe/models.py:44
+msgid "Garage officiel"
+msgstr "Taller oficial"
+
+#: garage_officiel/models.py:104
+msgid "Indiquez la marque ou le groupe automobile."
+msgstr "Indique la marca o el grupo automovilístico."
+
+#: garage_officiel/templates/garage_officiel/garage_confirm_delete.html:9
+msgid "Supprimer le garage officiel"
+msgstr "Eliminar el taller oficial"
+
+#: garage_officiel/templates/garage_officiel/garage_confirm_delete.html:11
+msgid "Voulez-vous vraiment supprimer ce garage ?"
+msgstr "¿Realmente desea eliminar este taller?"
+
+#: garage_officiel/templates/garage_officiel/garage_confirm_delete.html:14
+#: garage_officiel/templates/garage_officiel/garage_list.html:33
+msgid "Marque / groupe"
+msgstr "Marca / grupo"
+
+#: garage_officiel/templates/garage_officiel/garage_form.html:10
+msgid "Modifier le garage officiel"
+msgstr "Modificar el taller oficial"
+
+#: garage_officiel/templates/garage_officiel/garage_form.html:10
+msgid "Nouveau garage officiel"
+msgstr "Nuevo taller oficial"
+
+#: garage_officiel/templates/garage_officiel/garage_form.html:30
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:43
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:53
+msgid "Garage"
+msgstr "Taller"
+
+#: garage_officiel/templates/garage_officiel/garage_form.html:55
+msgid "TVA, Peppol et contact"
+msgstr "IVA, Peppol y contacto"
+
+#: garage_officiel/templates/garage_officiel/garage_form.html:78
+msgid "Retour à la liste des garages"
+msgstr "Volver a la lista de talleres"
+
+#: garage_officiel/templates/garage_officiel/garage_list.html:11
+msgid "Liste des garages officiels"
+msgstr "Lista de talleres oficiales"
+
+#: garage_officiel/templates/garage_officiel/garage_list.html:19
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:54
+msgid "Ajouter un garage officiel"
+msgstr "Añadir un taller oficial"
+
+#: garage_officiel/templates/garage_officiel/garage_list.html:23
+#: maintenance/maintenance_externe/apps.py:8
+#: maintenance/maintenance_externe/models.py:97
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:4
+#: theme/templates/dashboard.html:445 theme/templates/dashboard.html:457
+msgid "Maintenances externes"
+msgstr "Mantenimientos externos"
+
+#: garage_officiel/templates/garage_officiel/garage_list.html:35
+msgid "TVA / Peppol"
+msgstr "IVA / Peppol"
+
+#: garage_officiel/templates/garage_officiel/garage_list.html:73
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:76
+#: maintenance/templates/maintenance/partials/intervention_detail.html:110
+#: piece/templates/piece/piece_detail.html:48
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:97
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:82
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:92
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:113
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:123
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:145
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:155
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:181
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:192
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:210
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:221
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:254
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:275
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:285
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:76
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:85
+#: voiture/voiture_location/templates/voiture_location/location_list.html:93
+msgid "Modifier"
+msgstr "Modificar"
+
+#: garage_officiel/templates/garage_officiel/garage_list.html:98
+msgid "Aucun garage enregistré."
+msgstr "No hay ningún taller registrado."
+
+#: garage_officiel/templates/garage_officiel/garage_list.html:101
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ garages"
+msgstr "Mostrando _START_ a _END_ de _TOTAL_ talleres"
+
+#: garage_officiel/templates/garage_officiel/garage_list.html:102
+#: garage_officiel/templates/garage_officiel/garage_list.html:103
+msgid "Aucun garage trouvé"
+msgstr "No se ha encontrado ningún taller"
+
+#: garage_officiel/views.py:47
+#, python-format
+msgid "Garage '%(nom)s' créé avec succès."
+msgstr "Taller '%(nom)s' creado correctamente."
+
+#: garage_officiel/views.py:64
+#, python-format
+msgid "Garage '%(nom)s' mis à jour."
+msgstr "Taller '%(nom)s' actualizado."
+
+#: garage_officiel/views.py:78
+msgid "Garage supprimé."
+msgstr "Taller eliminado."
+
+#: garage_officiel/views.py:80
+msgid ""
+"Impossible de supprimer ce garage : des maintenances externes y sont liées."
+msgstr ""
+"No se puede eliminar este taller: tiene mantenimientos externos vinculados."
+
 #: investissements/models.py:26 maintenance/bruits/models.py:17
 #: maintenance/check_up/admin.py:102
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:760
@@ -16937,7 +17291,7 @@ msgstr "Intervención"
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:73
 #: maintenance/jeux_pieces/models.py:47 maintenance/models.py:75
 #: theme/templates/dashboard.html:183 theme/templates/dashboard.html:187
-#: utilisateurs/models.py:85 utilisateurs/views.py:288
+#: utilisateurs/models.py:85 utilisateurs/views.py:295
 msgid "Mécanicien"
 msgstr "Mecánico"
 
@@ -17071,7 +17425,7 @@ msgstr "Kilometraje del chasis"
 #: maintenance/templates/maintenance/creer_maintenance.html:78
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:113
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:115
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:98
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:125
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:133
 #: voiture/voiture_location/templates/voiture_location/location_form.html:112
 msgid "Date actuelle"
@@ -17744,6 +18098,7 @@ msgstr "Total de piezas y productos sin IVA"
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:982
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1289
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:1332
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:32
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:532
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:565
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:588
@@ -20968,7 +21323,10 @@ msgstr "Kilometraje en la última intervención"
 msgid "Kilométrage moteur"
 msgstr "Kilometraje del motor"
 
-#: maintenance/autres_interventions/models.py:143 maintenance/models.py:149
+#: maintenance/autres_interventions/models.py:143
+#: maintenance/maintenance_externe/models.py:48
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:42
+#: maintenance/models.py:149
 msgid "Type de maintenance"
 msgstr "Tipo de mantenimiento"
 
@@ -21441,6 +21799,8 @@ msgstr "Diagnóstico del sistema de inyección realizado"
 
 #: maintenance/autres_interventions/moteur/injection/models.py:493
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:984
+#: voiture/voiture_diagnostic/models.py:105
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:88
 msgid "Codes défaut"
 msgstr "Códigos de avería"
 
@@ -23054,9 +23414,9 @@ msgstr "Limpiaparabrisas y parabrisas"
 msgid "Moteur & Transmission"
 msgstr "Motor y transmisión"
 
-#: maintenance/check_up/admin.py:138 theme/templates/dashboard.html:636
-#: theme/templates/dashboard.html:640 utilisateurs/models.py:93
-#: utilisateurs/views.py:296
+#: maintenance/check_up/admin.py:138 theme/templates/dashboard.html:680
+#: theme/templates/dashboard.html:684 utilisateurs/models.py:93
+#: utilisateurs/views.py:303
 msgid "Direction"
 msgstr "Dirección"
 
@@ -25312,12 +25672,6 @@ msgstr "Aisin"
 msgid "Toyota"
 msgstr "Toyota"
 
-#: maintenance/choices.py:174 maintenance/choices.py:551
-#: maintenance/choices.py:732 maintenance/choices.py:1828
-#: maintenance/choices.py:1897
-msgid "Honda"
-msgstr "Honda"
-
 #: maintenance/choices.py:175 maintenance/choices.py:569
 #: maintenance/choices.py:738 maintenance/choices.py:1842
 #: maintenance/choices.py:1902
@@ -25362,11 +25716,6 @@ msgstr "Peugeot / Citroën"
 #: maintenance/choices.py:182
 msgid "Hyundai / Kia"
 msgstr "Hyundai / Kia"
-
-#: maintenance/choices.py:183 maintenance/choices.py:730
-#: maintenance/choices.py:1826 maintenance/choices.py:1895
-msgid "Ford"
-msgstr "Ford"
 
 #: maintenance/choices.py:184 maintenance/choices.py:548
 #: maintenance/choices.py:731 maintenance/choices.py:1827
@@ -25982,11 +26331,6 @@ msgstr "K2"
 msgid "Kia"
 msgstr "Kia"
 
-#: maintenance/choices.py:559 maintenance/choices.py:735
-#: maintenance/choices.py:1837 maintenance/choices.py:1899
-msgid "Mazda"
-msgstr "Mazda"
-
 #: maintenance/choices.py:562
 msgid "Millers Oils"
 msgstr "Millers Oils"
@@ -26045,16 +26389,6 @@ msgstr "ROWE"
 #: maintenance/choices.py:583
 msgid "Sonax"
 msgstr "Sonax"
-
-#: maintenance/choices.py:584 maintenance/choices.py:742
-#: maintenance/choices.py:1850 maintenance/choices.py:1907
-msgid "Subaru"
-msgstr "Subaru"
-
-#: maintenance/choices.py:585 maintenance/choices.py:743
-#: maintenance/choices.py:1851
-msgid "Suzuki"
-msgstr "Suzuki"
 
 #: maintenance/choices.py:587
 msgid "Texaco"
@@ -28103,10 +28437,6 @@ msgstr "Alfa Romeo"
 msgid "Alpine"
 msgstr "Alpine"
 
-#: maintenance/choices.py:1817
-msgid "Aston Martin"
-msgstr "Aston Martin"
-
 #: maintenance/choices.py:1818 maintenance/choices.py:1890
 msgid "Audi"
 msgstr "Audi"
@@ -28126,10 +28456,6 @@ msgstr "Citroën"
 #: maintenance/choices.py:1823
 msgid "Dacia"
 msgstr "Dacia"
-
-#: maintenance/choices.py:1824 maintenance/choices.py:1893
-msgid "Ferrari"
-msgstr "Ferrari"
 
 #: maintenance/choices.py:1825 maintenance/choices.py:1894
 msgid "Fiat"
@@ -28158,10 +28484,6 @@ msgstr "Lotus"
 #: maintenance/choices.py:1836
 msgid "Maserati"
 msgstr "Maserati"
-
-#: maintenance/choices.py:1838
-msgid "McLaren"
-msgstr "McLaren"
 
 #: maintenance/choices.py:1840
 msgid "Mini"
@@ -29505,7 +29827,7 @@ msgid "Hors service"
 msgstr "Fuera de servicio"
 
 #: maintenance/jeux_pieces/models.py:46 maintenance/models.py:84
-#: utilisateurs/models.py:84 utilisateurs/views.py:287
+#: utilisateurs/models.py:84 utilisateurs/views.py:294
 msgid "Apprenti"
 msgstr "Aprendiz"
 
@@ -29563,6 +29885,151 @@ msgstr "Piezas a sustituir, sustituidas y mano de obra"
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_detail.html:11
 msgid "Détails du contrôle des jeux"
 msgstr "Detalles de la inspección de las holguras mecánicas"
+
+#: maintenance/maintenance_externe/models.py:54
+msgid "Numéro de facture du garage"
+msgstr "Número de factura del taller"
+
+#: maintenance/maintenance_externe/models.py:58
+msgid "Pays de la TVA"
+msgstr "País del IVA"
+
+#: maintenance/maintenance_externe/models.py:69
+msgid "Repris automatiquement du pays, modifiable."
+msgstr "Tomado automáticamente del país, modificable."
+
+#: maintenance/maintenance_externe/models.py:73
+msgid "Pièces HTVA (€)"
+msgstr "Piezas sin IVA (€)"
+
+#: maintenance/maintenance_externe/models.py:77
+msgid "Main-d'œuvre HTVA (€)"
+msgstr "Mano de obra sin IVA (€)"
+
+#: maintenance/maintenance_externe/models.py:82
+msgid "TVA pièces (€)"
+msgstr "IVA de las piezas (€)"
+
+#: maintenance/maintenance_externe/models.py:83
+msgid "TVA main-d'œuvre (€)"
+msgstr "IVA de la mano de obra (€)"
+
+#: maintenance/maintenance_externe/models.py:84
+msgid "Total pièces TVAC (€)"
+msgstr "Total piezas con IVA (€)"
+
+#: maintenance/maintenance_externe/models.py:85
+msgid "Total main-d'œuvre TVAC (€)"
+msgstr "Total mano de obra con IVA (€)"
+
+#: maintenance/maintenance_externe/models.py:86
+msgid "Total HTVA (€)"
+msgstr "Total sin IVA (€)"
+
+#: maintenance/maintenance_externe/models.py:87
+msgid "Total TVA (€)"
+msgstr "Total IVA (€)"
+
+#: maintenance/maintenance_externe/models.py:88
+msgid "Total TVAC (€)"
+msgstr "Total con IVA (€)"
+
+#: maintenance/maintenance_externe/models.py:90
+msgid "Description des travaux"
+msgstr "Descripción de los trabajos"
+
+#: maintenance/maintenance_externe/models.py:96
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:9
+msgid "Maintenance externe"
+msgstr "Mantenimiento externo"
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_confirm_delete.html:9
+msgid "Supprimer la maintenance externe"
+msgstr "Eliminar el mantenimiento externo"
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_confirm_delete.html:14
+msgid "Voulez-vous vraiment supprimer cette maintenance externe ?"
+msgstr "¿Realmente desea eliminar este mantenimiento externo?"
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:12
+msgid "Modifier la maintenance externe"
+msgstr "Modificar el mantenimiento externo"
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:12
+msgid "Nouvelle maintenance externe"
+msgstr "Nuevo mantenimiento externo"
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:49
+msgid "Véhicule et garage"
+msgstr "Vehículo y taller"
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:66
+msgid "Montants et TVA"
+msgstr "Importes e IVA"
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:80
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:96
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:137
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:311
+msgid "HTVA"
+msgstr "Sin IVA"
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:80
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:98
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:139
+#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:313
+msgid "TVAC"
+msgstr "Con IVA"
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:83
+#: piece/models.py:111
+msgid "Pièces"
+msgstr "Piezas"
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:88
+msgid "Les montants sont recalculés par le serveur à l'enregistrement."
+msgstr "Los importes los recalcula el servidor al guardar."
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_form.html:105
+msgid "Retour à la liste des maintenances externes"
+msgstr "Volver a la lista de mantenimientos externos"
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:11
+msgid "Liste des maintenances externes"
+msgstr "Lista de mantenimientos externos"
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:19
+msgid "Ajouter une maintenance externe"
+msgstr "Añadir un mantenimiento externo"
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:31
+msgid "Pièces HTVA"
+msgstr "Piezas sin IVA"
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:55
+msgid "Pièces TVAC"
+msgstr "Piezas con IVA"
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:56
+msgid "Main-d'œuvre TVAC"
+msgstr "Mano de obra con IVA"
+
+#: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:100
+msgid "Aucune maintenance externe enregistrée."
+msgstr "No hay ningún mantenimiento externo registrado."
+
+#: maintenance/maintenance_externe/views.py:74
+#, python-format
+msgid "Maintenance externe enregistrée : %(total)s € TVAC."
+msgstr "Mantenimiento externo guardado: %(total)s € con IVA."
+
+#: maintenance/maintenance_externe/views.py:89
+msgid "Maintenance externe mise à jour."
+msgstr "Mantenimiento externo actualizado."
+
+#: maintenance/maintenance_externe/views.py:102
+msgid "Maintenance externe supprimée."
+msgstr "Mantenimiento externo eliminado."
 
 #: maintenance/models.py:15
 msgid "Check-up"
@@ -30291,28 +30758,6 @@ msgstr "Kilometraje anterior a la intervención"
 msgid "Kilométrage de l'intervention"
 msgstr "Kilometraje de la intervención"
 
-#: maintenance/templates/maintenance/partials/intervention_detail.html:110
-#: piece/templates/piece/piece_detail.html:48
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:85
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:82
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:92
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:113
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:123
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:145
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:155
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:181
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:192
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:210
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:221
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:254
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:275
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:285
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:76
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:85
-#: voiture/voiture_location/templates/voiture_location/location_list.html:93
-msgid "Modifier"
-msgstr "Modificar"
-
 #: maintenance/templates/maintenance/partials/intervention_detail.html:128
 msgid "Pièces / produits"
 msgstr "Piezas / productos"
@@ -30363,7 +30808,7 @@ msgstr "Identificador"
 msgid "Montant calculé"
 msgstr "Importe calculado"
 
-#: outillage/models.py:87 theme/templates/dashboard.html:492
+#: outillage/models.py:87 theme/templates/dashboard.html:536
 msgid "Outillages"
 msgstr "Herramientas"
 
@@ -30539,10 +30984,6 @@ msgstr "Cantidad mínima"
 #: piece/models.py:106
 msgid "Organe"
 msgstr "Componente"
-
-#: piece/models.py:111
-msgid "Pièces"
-msgstr "Piezas"
 
 #: piece/models.py:114
 #, python-format
@@ -32626,7 +33067,7 @@ msgstr ""
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:81
 #: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:94
 #: proprietaire/templates/proprietaire/proprietaire_form.html:13
-#: theme/templates/dashboard.html:701
+#: theme/templates/dashboard.html:745
 msgid "Propriétaire"
 msgstr "Propietario"
 
@@ -32707,7 +33148,7 @@ msgid "Tableau de bord propriétaires :"
 msgstr "Panel de propietarios:"
 
 #: proprietaire/templates/proprietaire/proprietaire_dashboard.html:25
-#: theme/templates/dashboard.html:689
+#: theme/templates/dashboard.html:733
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:112
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:113
 msgid "Propriétaires"
@@ -33208,18 +33649,6 @@ msgstr "Exportar las facturas a PDF"
 msgid "Statistiques mensuelles"
 msgstr "Estadísticas mensuales"
 
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:96
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:137
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:311
-msgid "HTVA"
-msgstr "Sin IVA"
-
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:98
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:139
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:313
-msgid "TVAC"
-msgstr "Con IVA"
-
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:128
 msgid "Statistiques annuelles"
 msgstr "Estadísticas anuales"
@@ -33227,10 +33656,6 @@ msgstr "Estadísticas anuales"
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:253
 msgid "Relevé des factures fournisseur"
 msgstr "Resumen de facturas del proveedor"
-
-#: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:280
-msgid "E-mail"
-msgstr "Correo electrónico"
 
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:287
 msgid "Toutes les années"
@@ -33297,7 +33722,7 @@ msgid "Administrateurs"
 msgstr "Administrador"
 
 #: theme/templates/admin/dashboard_admin.html:50
-#: theme/templates/dashboard.html:711
+#: theme/templates/dashboard.html:755
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:13
 msgid "Créer un utilisateur"
 msgstr "Crear un usuario"
@@ -33382,13 +33807,13 @@ msgid "Aucune activité enregistrée"
 msgstr "No hay actividad registrada"
 
 #: theme/templates/dashboard.html:265 voiture/voiture_diagnostic/apps.py:7
-#: voiture/voiture_diagnostic/models.py:69
+#: voiture/voiture_diagnostic/models.py:53
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:4
 msgid "Diagnostics"
 msgstr "Diagnósticos"
 
 #: theme/templates/dashboard.html:300 utilisateurs/models.py:88
-#: utilisateurs/views.py:290
+#: utilisateurs/views.py:297
 msgid "Chef Mécanicien"
 msgstr "Jefe de mecánicos"
 
@@ -33400,72 +33825,68 @@ msgstr "Motores"
 msgid "Boites de vitesses"
 msgstr "Caja de cambios"
 
-#: theme/templates/dashboard.html:454 theme/templates/dashboard.html:458
-#: utilisateurs/models.py:86 utilisateurs/views.py:291
+#: theme/templates/dashboard.html:498 theme/templates/dashboard.html:502
+#: utilisateurs/models.py:86 utilisateurs/views.py:298
 msgid "Magasinier"
 msgstr "Almacenero"
 
-#: theme/templates/dashboard.html:504
+#: theme/templates/dashboard.html:548
 msgid "Outils"
 msgstr "Herramientas"
 
-#: theme/templates/dashboard.html:523 theme/templates/dashboard.html:527
-#: utilisateurs/models.py:91 utilisateurs/views.py:294
+#: theme/templates/dashboard.html:567 theme/templates/dashboard.html:571
+#: utilisateurs/models.py:91 utilisateurs/views.py:301
 msgid "Vendeur"
 msgstr "Vendedor"
 
-#: theme/templates/dashboard.html:539 voiture/voiture_location/forms.py:81
-msgid "Clients"
-msgstr "Clientes"
-
-#: theme/templates/dashboard.html:561 voiture/voiture_location/forms.py:82
+#: theme/templates/dashboard.html:605 voiture/voiture_location/forms.py:82
 msgid "Sociétés clientes"
 msgstr "Empresa cliente"
 
-#: theme/templates/dashboard.html:605 voiture/voiture_location/models.py:217
+#: theme/templates/dashboard.html:649 voiture/voiture_location/models.py:217
 #: voiture/voiture_location/templates/voiture_location/location_list.html:4
 msgid "Locations"
 msgstr "Alquileres"
 
-#: theme/templates/dashboard.html:715
+#: theme/templates/dashboard.html:759
 msgid "Ajouter un nouvel employé"
 msgstr "Agregar un nuevo empleado"
 
-#: theme/templates/dashboard.html:730
+#: theme/templates/dashboard.html:774
 #: utilisateurs/templates/utilisateurs/liste_utilisateurs.html:8
 msgid "Liste des utilisateurs"
 msgstr "Lista de usuarios"
 
-#: theme/templates/dashboard.html:745
+#: theme/templates/dashboard.html:789
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:12
 msgid "Créer une paie mensuelle"
 msgstr "Crear una nómina mensual"
 
-#: theme/templates/dashboard.html:750
+#: theme/templates/dashboard.html:794
 msgid "Compléter utilisateur"
 msgstr "Completar el perfil del usuario"
 
-#: theme/templates/dashboard.html:763
+#: theme/templates/dashboard.html:807
 msgid "Factures clients et professionnelles (XML)"
 msgstr "Facturas a clientes y profesionales (XML)"
 
-#: theme/templates/dashboard.html:776
+#: theme/templates/dashboard.html:820
 msgid "Finances véhicules"
 msgstr "Finanzas de vehículos"
 
-#: theme/templates/dashboard.html:779
+#: theme/templates/dashboard.html:823
 msgid "Prix d'achat, assurance, taxes"
 msgstr "Precio de compra, seguro, impuestos"
 
-#: theme/templates/dashboard.html:801 theme/templates/dashboard.html:805
+#: theme/templates/dashboard.html:845 theme/templates/dashboard.html:849
 msgid "Administrateur"
 msgstr "Administrador"
 
-#: theme/templates/dashboard.html:816
+#: theme/templates/dashboard.html:860
 msgid "Tableau de bord Admin"
 msgstr "Panel de administración"
 
-#: theme/templates/dashboard.html:821
+#: theme/templates/dashboard.html:865
 msgid "Admin"
 msgstr "Admin"
 
@@ -33535,19 +33956,19 @@ msgstr "El código de seguridad debe contener exactamente 6 dígitos."
 msgid "La session de connexion a expiré. Veuillez vous reconnecter."
 msgstr "La sesión ha expirado. Inicie sesión de nuevo."
 
-#: theme/views.py:204 utilisateurs/views.py:400
+#: theme/views.py:204 utilisateurs/views.py:407
 msgid "Utilisateur introuvable."
 msgstr "Usuario no encontrado."
 
-#: theme/views.py:209 utilisateurs/views.py:404 utilisateurs/views.py:919
+#: theme/views.py:209 utilisateurs/views.py:411 utilisateurs/views.py:926
 msgid "Ce compte utilisateur est désactivé."
 msgstr "Esta cuenta de usuario está desactivada."
 
-#: theme/views.py:214 utilisateurs/views.py:79 utilisateurs/views.py:408
+#: theme/views.py:214 utilisateurs/views.py:79 utilisateurs/views.py:415
 msgid "Aucune société n'est liée à cet utilisateur."
 msgstr "No hay ninguna empresa asociada a este usuario."
 
-#: theme/views.py:226 utilisateurs/views.py:413
+#: theme/views.py:226 utilisateurs/views.py:420
 msgid "La société de connexion ne correspond pas."
 msgstr "La empresa de inicio de sesión no coincide."
 
@@ -33559,7 +33980,7 @@ msgstr "No hay ningún secreto TOTP configurado para esta cuenta."
 msgid "Le TOTP n'est pas activé pour ce compte."
 msgstr "El TOTP no está activado para esta cuenta."
 
-#: theme/views.py:344 utilisateurs/views.py:1144
+#: theme/views.py:344 utilisateurs/views.py:1151
 msgid "Connexion réussie."
 msgstr "Inicio de sesión correcto."
 
@@ -33636,19 +34057,19 @@ msgstr "Dirección de correo electrónico profesional"
 msgid "Un utilisateur possède déjà cette adresse e-mail."
 msgstr "Ya existe un usuario con esta dirección de correo electrónico."
 
-#: utilisateurs/models.py:87 utilisateurs/views.py:289
+#: utilisateurs/models.py:87 utilisateurs/views.py:296
 msgid "Carrossier"
 msgstr "Carrocero"
 
-#: utilisateurs/models.py:89 utilisateurs/views.py:292
+#: utilisateurs/models.py:89 utilisateurs/views.py:299
 msgid "Instructeur"
 msgstr "Instructor"
 
-#: utilisateurs/models.py:90 utilisateurs/views.py:293
+#: utilisateurs/models.py:90 utilisateurs/views.py:300
 msgid "Instructeur Externe"
 msgstr "Instructor Externo"
 
-#: utilisateurs/models.py:92 utilisateurs/views.py:295
+#: utilisateurs/models.py:92 utilisateurs/views.py:302
 msgid "Comptable"
 msgstr "Contable"
 
@@ -33765,23 +34186,23 @@ msgstr "No hay entradas disponibles"
 msgid "(filtré à partir de _MAX_ entrées totales)"
 msgstr "(filtrado de un total de _MAX_ entradas)"
 
-#: utilisateurs/views.py:274
+#: utilisateurs/views.py:281
 msgid "Révision moteur"
 msgstr "Revisión del motor"
 
-#: utilisateurs/views.py:274 voiture/voiture_boite/models.py:11
+#: utilisateurs/views.py:281 voiture/voiture_boite/models.py:11
 msgid "Changement filtre"
 msgstr "Cambio de filtro"
 
-#: utilisateurs/views.py:298
+#: utilisateurs/views.py:305
 msgid "Rôle inconnu"
 msgstr "Rol desconocido"
 
-#: utilisateurs/views.py:378
+#: utilisateurs/views.py:385
 msgid "La session d'activation a expiré. Veuillez vous reconnecter."
 msgstr "La sesión de activación ha caducado. Inicie sesión de nuevo."
 
-#: utilisateurs/views.py:459
+#: utilisateurs/views.py:466
 msgid ""
 "La vérification à deux facteurs est déjà configurée. Connectez-vous avec "
 "votre code Authy."
@@ -33789,15 +34210,15 @@ msgstr ""
 "La autenticación de dos factores ya está configurada. Inicie sesión con su "
 "código de Authy."
 
-#: utilisateurs/views.py:496
+#: utilisateurs/views.py:503
 msgid "Saisissez le code à six chiffres affiché dans Authy."
 msgstr "Introduzca el código de seis dígitos que aparece en Authy."
 
-#: utilisateurs/views.py:504
+#: utilisateurs/views.py:511
 msgid "Le code doit contenir exactement six chiffres."
 msgstr "El código debe contener exactamente seis dígitos."
 
-#: utilisateurs/views.py:548
+#: utilisateurs/views.py:555
 msgid ""
 "La vérification à deux facteurs est activée. Connectez-vous maintenant avec "
 "votre adresse e-mail, votre mot de passe et votre code Authy ou Google "
@@ -33807,39 +34228,39 @@ msgstr ""
 "dirección de correo electrónico, su contraseña y su código de Authy o Google "
 "Authenticator."
 
-#: utilisateurs/views.py:558
+#: utilisateurs/views.py:565
 msgid "Le code Authy est invalide ou expiré."
 msgstr "El código de Authy no es válido o ha caducado."
 
-#: utilisateurs/views.py:618
+#: utilisateurs/views.py:625
 msgid "Utilisateur créé avec succès."
 msgstr "Usuario creado con éxito."
 
-#: utilisateurs/views.py:705
+#: utilisateurs/views.py:712
 msgid "La paie mensuelle a été enregistrée avec succès."
 msgstr "La nómina mensual se ha registrado correctamente."
 
-#: utilisateurs/views.py:909 utilisateurs/views.py:914
+#: utilisateurs/views.py:916 utilisateurs/views.py:921
 msgid "Adresse e-mail ou mot de passe incorrect."
 msgstr "La dirección de correo electrónico o la contraseña son incorrectas."
 
-#: utilisateurs/views.py:924
+#: utilisateurs/views.py:931
 msgid "Aucune société n'est associée à ce compte."
 msgstr "No hay ninguna empresa asociada a esta cuenta."
 
-#: utilisateurs/views.py:952
+#: utilisateurs/views.py:959
 msgid "Aucun schéma tenant n'est associé à cet utilisateur."
 msgstr "No hay ningún esquema de tenant asociado a este usuario."
 
-#: utilisateurs/views.py:958
+#: utilisateurs/views.py:965
 msgid "Ce compte n'est associé à aucune société privée."
 msgstr "Esta cuenta no está asociada a ninguna empresa privada."
 
-#: utilisateurs/views.py:1069
+#: utilisateurs/views.py:1076
 msgid "Veuillez saisir le code de sécurité généré par votre application Authy."
 msgstr "Introduzca el código de seguridad generado por su aplicación Authy."
 
-#: utilisateurs/views.py:1086
+#: utilisateurs/views.py:1093
 msgid "Le code de sécurité est incorrect ou a expiré."
 msgstr "El código de seguridad es incorrecto o ha caducado."
 
@@ -34092,37 +34513,48 @@ msgstr "Eliminación de la caja de cambios"
 msgid "La boîte « %(nom)s » a bien été supprimée."
 msgstr "La caja de cambios « %(nom)s » se ha eliminado correctamente."
 
-#: voiture/voiture_diagnostic/models.py:35
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:22
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:52
-msgid "Code défaut"
-msgstr "Código de avería"
+#: voiture/voiture_diagnostic/forms.py:61
+msgid "Préciser la pièce"
+msgstr "Especificar la pieza"
 
-#: voiture/voiture_diagnostic/models.py:39
-msgid "Code défaut invalide (lettres majuscules, chiffres et tirets)."
-msgstr "Código de avería no válido (letras mayúsculas, cifras y guiones)."
+#: voiture/voiture_diagnostic/forms.py:80
+msgid "Le même code défaut est encodé deux fois avec la même pièce."
+msgstr ""
+"El mismo código de avería se ha introducido dos veces con la misma pieza."
 
-#: voiture/voiture_diagnostic/models.py:42
-msgid "Ex. : P0301, U0100, 2C4F"
-msgstr "P. ej.: P0301, U0100, 2C4F"
+#: voiture/voiture_diagnostic/models.py:33
+msgid "Date du diagnostic"
+msgstr "Fecha del diagnóstico"
 
-#: voiture/voiture_diagnostic/models.py:48
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:23
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:42
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:53
-msgid "Pièce en défaut"
-msgstr "Pieza defectuosa"
-
-#: voiture/voiture_diagnostic/models.py:55
-msgid "Autre pièce (préciser)"
-msgstr "Otra pieza (especificar)"
-
-#: voiture/voiture_diagnostic/models.py:61
+#: voiture/voiture_diagnostic/models.py:45
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:54
 msgid "Description / solution"
 msgstr "Descripción / solución"
 
-#: voiture/voiture_diagnostic/models.py:96
+#: voiture/voiture_diagnostic/models.py:78
+#: voiture/voiture_diagnostic/models.py:104
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/_ligne_code.html:7
+msgid "Code défaut"
+msgstr "Código de avería"
+
+#: voiture/voiture_diagnostic/models.py:82
+msgid "Code défaut invalide (lettres majuscules, chiffres et tirets)."
+msgstr "Código de avería no válido (letras mayúsculas, cifras y guiones)."
+
+#: voiture/voiture_diagnostic/models.py:85
+msgid "Ex. : P0301, U0100, 2C4F"
+msgstr "P. ej.: P0301, U0100, 2C4F"
+
+#: voiture/voiture_diagnostic/models.py:91
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:42
+msgid "Pièce en défaut"
+msgstr "Pieza defectuosa"
+
+#: voiture/voiture_diagnostic/models.py:98
+msgid "Autre pièce (préciser)"
+msgstr "Otra pieza (especificar)"
+
+#: voiture/voiture_diagnostic/models.py:127
 msgid "Précisez la pièce en défaut."
 msgstr "Especifique la pieza defectuosa."
 
@@ -35906,6 +36338,10 @@ msgstr "Generador de sonido para peatones (AVAS)"
 msgid "Autre (préciser)"
 msgstr "Otro (especificar)"
 
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/_ligne_code.html:10
+msgid "Retirer"
+msgstr "Quitar"
+
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:11
 msgid "Supprimer le diagnostic"
 msgstr "Eliminar el diagnóstico"
@@ -35922,12 +36358,15 @@ msgstr "Modificar el diagnóstico"
 msgid "Nouveau diagnostic"
 msgstr "Nuevo diagnóstico"
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:77
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:78
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:87
 msgid "Défaut"
 msgstr "Avería"
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:106
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:99
+msgid "Ajouter un code défaut"
+msgstr "Añadir un código de avería"
+
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:133
 msgid "Retour à la liste des diagnostics"
 msgstr "Volver a la lista de diagnósticos"
 
@@ -35943,34 +36382,38 @@ msgstr "Añadir un diagnóstico"
 msgid "Code défaut (ex. P0301)"
 msgstr "Código de avería (p. ej. P0301)"
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:117
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:53
+msgid "Codes défaut / pièces en défaut"
+msgstr "Códigos de avería / piezas defectuosas"
+
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:129
 msgid "Aucun diagnostic enregistré."
 msgstr "No hay ningún diagnóstico registrado."
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:120
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:132
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ diagnostics"
 msgstr "Mostrando _START_ a _END_ de _TOTAL_ diagnósticos"
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:121
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:122
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:133
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:134
 msgid "Aucun diagnostic trouvé"
 msgstr "No se ha encontrado ningún diagnóstico"
 
-#: voiture/voiture_diagnostic/views.py:65
+#: voiture/voiture_diagnostic/views.py:88
 #, python-format
 msgid "Diagnostic '%(code)s' créé avec succès."
 msgstr "Diagnóstico '%(code)s' creado correctamente."
 
-#: voiture/voiture_diagnostic/views.py:84
+#: voiture/voiture_diagnostic/views.py:109
 #, python-format
 msgid "Diagnostic '%(code)s' mis à jour."
 msgstr "Diagnóstico '%(code)s' actualizado."
 
-#: voiture/voiture_diagnostic/views.py:103
+#: voiture/voiture_diagnostic/views.py:129
 msgid "Diagnostic supprimé."
 msgstr "Diagnóstico eliminado."
 
-#: voiture/voiture_diagnostic/views.py:105
+#: voiture/voiture_diagnostic/views.py:131
 msgid "Impossible de supprimer ce diagnostic."
 msgstr "No se puede eliminar este diagnóstico."
 
@@ -37028,14 +37471,6 @@ msgstr "Alquileres de vehículos"
 #: voiture/voiture_location/forms.py:83
 msgid "Clients pilotage"
 msgstr "Clientes de pilotaje"
-
-#: voiture/voiture_location/forms.py:104
-msgid "Client invalide."
-msgstr "Cliente no válido."
-
-#: voiture/voiture_location/forms.py:109
-msgid "Client introuvable."
-msgstr "Cliente no encontrado."
 
 #: voiture/voiture_location/models.py:12
 #: voiture/voiture_location/templates/voiture_location/location_list.html:40
@@ -38163,31 +38598,3 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
 msgstr "Neumáticos eliminados con éxito."
-
-msgid "Date du diagnostic"
-msgstr "Fecha del diagnóstico"
-
-msgid "Retirer"
-msgstr "Quitar"
-
-msgid "Ajouter un code défaut"
-msgstr "Añadir un código de avería"
-
-msgid "Préciser la pièce"
-msgstr "Especificar la pieza"
-
-msgid "Le même code défaut est encodé deux fois avec la même pièce."
-msgstr ""
-"El mismo código de avería se ha introducido dos veces con la misma pieza."
-
-msgid "Codes défaut / pièces en défaut"
-msgstr "Códigos de avería / piezas defectuosas"
-
-msgid "Clients atelier"
-msgstr "Clientes de taller"
-
-msgid "Sélectionnez le client ou le client atelier."
-msgstr "Seleccione el cliente o el cliente de taller."
-
-msgid "Clients particuliers et clients atelier."
-msgstr "Clientes particulares y clientes de taller."

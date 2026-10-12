@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load i18n widget_tweaks static %}
+
+{% block content %}
+<br><br>
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold">
+            <div class="flex items-center gap-4">
+                <img src="{% static 'icons/entretien.png' %}" alt="" style="width:60px; height:60px;">
+                <span>{% if maintenance %}{% trans "Modifier la maintenance externe" %}{% else %}{% trans "Nouvelle maintenance externe" %}{% endif %}</span>
+            </div>
+            {% if maintenance %}
+            {% with exemplaire=maintenance.voiture_exemplaire %}
+            <div class="flex items-center justify-center gap-4 mt-3">
+                {% static 'images/marques/' as marques_path %}
+                <img src="{{ marques_path }}{{ exemplaire.voiture_marque.nom_marque|lower }}.png" alt="" class="w-20 h-20 object-contain" onerror="this.style.display='none';">
+                <span class="font-semibold">{{ exemplaire.voiture_modele.nom_modele }} {{ exemplaire.voiture_modele.nom_variante|default:"" }}</span>
+            </div>
+            {% endwith %}
+            {% endif %}
+        </h1>
+    </div>
+
+    {% if maintenance %}
+    <div class="mb-4 flex justify-center">
+        {% include "maintenance/partials/plaque.html" with exemplaire=maintenance.voiture_exemplaire %}
+    </div>
+    {% endif %}
+
+    {% include "maintenance_externe/_messages.html" %}
+
+    {% if form.errors %}
+        <div class="mb-4 bg-red-100 text-red-800 border border-red-300 p-3 rounded">
+            <strong>{% trans "Erreurs :" %}</strong>
+            <ul class="list-disc ml-5 mt-2">
+                {% for field in form %}{% for error in field.errors %}<li>{{ field.label }} : {{ error }}</li>{% endfor %}{% endfor %}
+                {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="POST" id="me-form" class="space-y-4">
+        {% csrf_token %}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/mecanique.png' %}" alt="" class="w-20 h-20">
+            {% trans "Véhicule et garage" %}
+        </h2>
+        {% include "maintenance_externe/_champ.html" with field=form.voiture_exemplaire %}
+        {% include "maintenance_externe/_champ.html" with field=form.garage %}
+        <p class="text-sm -mt-2">
+            <a href="{% url 'garage_officiel:garage_ajouter' %}?next={{ request.path|urlencode }}" class="text-blue-700 hover:underline">+ {% trans "Ajouter un garage officiel" %}</a>
+        </p>
+        {% include "maintenance_externe/_champ.html" with field=form.type_maintenance %}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {% include "maintenance_externe/_champ.html" with field=form.date_facture %}
+            {% include "maintenance_externe/_champ.html" with field=form.numero_facture %}
+            {% include "maintenance_externe/_champ.html" with field=form.kilometrage %}
+        </div>
+
+        <br>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/achatmds.png' %}" alt="" class="w-20 h-20">
+            {% trans "Montants et TVA" %}
+        </h2>
+        <div class="grid grid-cols-2 gap-3">
+            {% include "maintenance_externe/_champ.html" with field=form.pays %}
+            {% include "maintenance_externe/_champ.html" with field=form.taux_tva %}
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+            {% include "maintenance_externe/_champ.html" with field=form.pieces_htva %}
+            {% include "maintenance_externe/_champ.html" with field=form.main_oeuvre_htva %}
+        </div>
+
+        <!-- Récapitulatif calculé -->
+        <table class="w-full text-sm border border-gray-200 rounded">
+            <thead class="bg-gray-100">
+                <tr><th class="px-3 py-2 text-left"></th><th class="px-3 py-2 text-right">{% trans "HTVA" %}</th><th class="px-3 py-2 text-right">{% trans "TVA" %}</th><th class="px-3 py-2 text-right">{% trans "TVAC" %}</th></tr>
+            </thead>
+            <tbody>
+                <tr class="border-t"><td class="px-3 py-2">{% trans "Pièces" %}</td><td class="px-3 py-2 text-right" id="r-p-ht">0.00 €</td><td class="px-3 py-2 text-right" id="r-p-tva">0.00 €</td><td class="px-3 py-2 text-right" id="r-p-ttc">0.00 €</td></tr>
+                <tr class="border-t"><td class="px-3 py-2">{% trans "Main-d'œuvre" %}</td><td class="px-3 py-2 text-right" id="r-m-ht">0.00 €</td><td class="px-3 py-2 text-right" id="r-m-tva">0.00 €</td><td class="px-3 py-2 text-right" id="r-m-ttc">0.00 €</td></tr>
+                <tr class="border-t font-bold bg-blue-50"><td class="px-3 py-2">{% trans "Total" %}</td><td class="px-3 py-2 text-right" id="r-t-ht">0.00 €</td><td class="px-3 py-2 text-right" id="r-t-tva">0.00 €</td><td class="px-3 py-2 text-right" id="r-t-ttc">0.00 €</td></tr>
+            </tbody>
+        </table>
+        <p class="text-xs text-gray-500">{% trans "Les montants sont recalculés par le serveur à l'enregistrement." %}</p>
+
+        {% include "maintenance_externe/_champ.html" with field=form.description %}
+
+        {{ garages_infos|json_script:"garages-infos" }}
+        {{ vehicules_infos|json_script:"vehicules-infos" }}
+        {{ taux_pays|json_script:"taux-pays" }}
+
+        <div class="flex gap-3 mt-6">
+            <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">{% trans "Enregistrer" %}</button>
+            <a href="{% url 'maintenance_externe:maintenance_externe_liste' %}" class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+</div>
+
+<div class="max-w-xl mx-auto mt-4">
+    <a href="{% url 'maintenance_externe:maintenance_externe_liste' %}" class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour à la liste des maintenances externes" %}
+    </a>
+</div>
+<br><br>
+
+<style>
+.input { width: 100% !important; border: 1px solid #ccc !important; border-radius: 6px !important; padding: 8px !important; box-sizing: border-box !important; }
+.input-error { border-color: #dc2626 !important; }
+</style>
+
+<script>
+(function () {
+    const lire = (id) => JSON.parse(document.getElementById(id).textContent);
+    const garages = lire("garages-infos"), vehicules = lire("vehicules-infos"), tauxPays = lire("taux-pays");
+    const $ = (id) => document.getElementById(id);
+    const vehicule = $("id_voiture_exemplaire"), garage = $("id_garage"), pays = $("id_pays"),
+          taux = $("id_taux_tva"), pieces = $("id_pieces_htva"), mo = $("id_main_oeuvre_htva"), km = $("id_kilometrage");
+    const nombre = (el) => parseFloat(((el && el.value) || "").replace(",", ".")) || 0;
+    const euro = (v) => (Math.round(v * 100) / 100).toFixed(2) + " €";
+
+    function calculer() {
+        const t = nombre(taux) / 100;
+        const p = nombre(pieces), m = nombre(mo);
+        const tp = Math.round(p * t * 100) / 100, tm = Math.round(m * t * 100) / 100;
+        $("r-p-ht").textContent = euro(p); $("r-p-tva").textContent = euro(tp); $("r-p-ttc").textContent = euro(p + tp);
+        $("r-m-ht").textContent = euro(m); $("r-m-tva").textContent = euro(tm); $("r-m-ttc").textContent = euro(m + tm);
+        $("r-t-ht").textContent = euro(p + m); $("r-t-tva").textContent = euro(tp + tm); $("r-t-ttc").textContent = euro(p + m + tp + tm);
+    }
+
+    // Pays -> taux de TVA du pays
+    function majTaux() {
+        if (pays && taux && tauxPays[pays.value] !== undefined) taux.value = tauxPays[pays.value];
+        calculer();
+    }
+
+    // Garage -> pays du garage
+    if (garage) garage.addEventListener("change", function () {
+        const g = garages[garage.value];
+        if (g && pays && g.pays && pays.value !== g.pays) { pays.value = g.pays; majTaux(); }
+    });
+    // Véhicule -> kilométrage proposé
+    if (vehicule) vehicule.addEventListener("change", function () {
+        const v = vehicules[vehicule.value];
+        if (v && km && !km.value) km.value = v.km;
+    });
+    if (pays) pays.addEventListener("change", majTaux);
+    [taux, pieces, mo].forEach((el) => el && el.addEventListener("input", calculer));
+
+    if (taux && !taux.value) majTaux(); else calculer();
+})();
+</script>
+{% endblock %}

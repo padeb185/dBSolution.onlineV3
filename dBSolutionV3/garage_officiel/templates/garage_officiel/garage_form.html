@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load i18n widget_tweaks static %}
+
+{% block content %}
+<br><br>
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-6 flex items-center gap-4">
+        <img src="{% static 'icons/client_atelier.png' %}" alt="{% trans 'Garage officiel' %}" style="width:60px; height:60px;">
+        <span>{% if garage %}{% trans "Modifier le garage officiel" %}{% else %}{% trans "Nouveau garage officiel" %}{% endif %}</span>
+    </h1>
+
+    {% include "garage_officiel/_messages.html" %}
+
+    {% if form.errors %}
+        <div class="mb-4 bg-red-100 text-red-800 border border-red-300 p-3 rounded">
+            <strong>{% trans "Erreurs :" %}</strong>
+            <ul class="list-disc ml-5 mt-2">
+                {% for field in form %}{% for error in field.errors %}<li>{{ field.label }} : {{ error }}</li>{% endfor %}{% endfor %}
+                {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/client_atelier.png' %}" alt="" class="w-20 h-20">
+            {% trans "Garage" %}
+        </h2>
+        {% include "garage_officiel/_champ.html" with field=form.nom %}
+        {% include "garage_officiel/_champ.html" with field=form.voiture_marque %}
+        {% include "garage_officiel/_champ.html" with field=form.groupe %}
+
+        <br>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/adresse.png' %}" alt="" class="w-20 h-20">
+            {% trans "Adresse" %}
+        </h2>
+        <div class="grid grid-cols-3 gap-3">
+            <div class="col-span-2">{% include "garage_officiel/_champ.html" with field=form.rue %}</div>
+            {% include "garage_officiel/_champ.html" with field=form.numero %}
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+            {% include "garage_officiel/_champ.html" with field=form.boite %}
+            {% include "garage_officiel/_champ.html" with field=form.code_postal %}
+            {% include "garage_officiel/_champ.html" with field=form.ville %}
+        </div>
+        {% include "garage_officiel/_champ.html" with field=form.code_pays %}
+
+        <br>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/fournisseur.png' %}" alt="" class="w-20 h-20" onerror="this.style.display='none';">
+            {% trans "TVA, Peppol et contact" %}
+        </h2>
+        {% include "garage_officiel/_champ.html" with field=form.numero_tva %}
+        {% include "garage_officiel/_champ.html" with field=form.peppol_id %}
+        {% include "garage_officiel/_champ.html" with field=form.telephone %}
+        {% include "garage_officiel/_champ.html" with field=form.email %}
+        {% include "garage_officiel/_champ.html" with field=form.remarques %}
+
+        <div class="flex gap-3 mt-6">
+            <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Enregistrer" %}
+            </button>
+            <a href="{% url 'garage_officiel:garage_liste' %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                {% trans "Annuler" %}
+            </a>
+        </div>
+    </form>
+</div>
+
+<div class="max-w-xl mx-auto mt-4">
+    <a href="{% url 'garage_officiel:garage_liste' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour à la liste des garages" %}
+    </a>
+</div>
+<br><br>
+
+<style>
+.input { width: 100% !important; border: 1px solid #ccc !important; border-radius: 6px !important; padding: 8px !important; box-sizing: border-box !important; }
+.input-error { border-color: #dc2626 !important; }
+</style>
+{% endblock %}

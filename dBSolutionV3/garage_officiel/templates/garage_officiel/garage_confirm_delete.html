@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block content %}
+<br><br>
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-4 flex items-center gap-4 text-red-700">
+        <img src="{% static 'icons/client_atelier.png' %}" alt="" style="width:60px; height:60px;">
+        {% trans "Supprimer le garage officiel" %}
+    </h1>
+    <p class="mb-2">{% trans "Voulez-vous vraiment supprimer ce garage ?" %}</p>
+    <ul class="mb-6 text-gray-700 text-sm list-disc ml-5">
+        <li>{{ garage.nom }}</li>
+        <li>{% trans "Marque / groupe" %} : {{ garage.marque_ou_groupe|default:"—" }}</li>
+        {% if garage.adresse %}<li>{{ garage.adresse.code_postal }} {{ garage.adresse.ville }}</li>{% endif %}
+    </ul>
+    <form method="post" class="flex gap-3">
+        {% csrf_token %}
+        <button type="submit" class="flex-1 bg-red-600 text-white px-5 py-4 rounded hover:bg-red-400 font-semibold text-center">
+            {% trans "Confirmer la suppression" %}
+        </button>
+        <a href="{% url 'garage_officiel:garage_liste' %}"
+           class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+            {% trans "Annuler" %}
+        </a>
+    </form>
+</div>
+{% endblock %}

@@ -33,6 +33,16 @@ class CalculTVA:
         "outillage": {"label": _("Outillage"), "deductible": 100},
         "carburant": {"label": _("Carburant"), "deductible": 100},
         "electricite": {"label": _("Recharges électriques"), "deductible": 100},
+        # Maintenances externes (garages officiels, B2B) dans le pays de la société :
+        # TVA déductible via la déclaration périodique.
+        "maintenances_externes": {"label": _("Maintenances externes (garages officiels, B2B)"), "deductible": 100},
+        # TVA étrangère : non déductible dans la déclaration nationale, à récupérer via la
+        # procédure de remboursement UE (directive 2008/9/CE) — affichée pour information.
+        "maintenances_externes_etranger": {
+            "label": _("Maintenances externes à l'étranger – remboursement UE (hors déclaration)"),
+            "deductible": 100,
+            "informatif": True,
+        },
         # Factures adressées à notre propre société : TVA payée sur les pièces (prix d'achat × taux).
         # Ces pièces sont achetées via les achats fournisseurs (achat_mds), déjà comptés ci-dessus :
         # ligne affichée pour information, jamais ajoutée au total (pas de double comptage).
@@ -179,6 +189,31 @@ class CalculTVA:
             n += 1
         return base, tva, n
 
+    def _maintenances_externes_qs(self):
+        from maintenance.maintenance_externe.models import MaintenanceExterne
+        return MaintenanceExterne.objects.filter(
+            self._filtre_societe(), date_facture__range=(self.debut, self.fin)
+        )
+
+    def _somme_maintenances_externes(self, qs):
+        base = tva = ZERO
+        n = 0
+        for m in qs:
+            base += m.total_htva or ZERO
+            tva += m.total_tva or ZERO
+            n += 1
+        return base, tva, n
+
+    def _maintenances_externes(self):
+        return self._somme_maintenances_externes(
+            self._maintenances_externes_qs().filter(pays=self.pays_par_defaut())
+        )
+
+    def _maintenances_externes_etranger(self):
+        return self._somme_maintenances_externes(
+            self._maintenances_externes_qs().exclude(pays=self.pays_par_defaut())
+        )
+
     def _maintenances_internes(self):
         from .models import FactureLine
         base = tva = ZERO
@@ -203,6 +238,8 @@ class CalculTVA:
             "outillage": self._outillage,
             "carburant": self._carburant,
             "electricite": self._electricite,
+            "maintenances_externes": self._maintenances_externes,
+            "maintenances_externes_etranger": self._maintenances_externes_etranger,
             "maintenances_internes": self._maintenances_internes,
         }
         lignes = []

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block content %}
+<br><br>
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-4 flex items-center gap-4 text-red-700">
+        <img src="{% static 'icons/entretien.png' %}" alt="" style="width:60px; height:60px;">
+        {% trans "Supprimer la maintenance externe" %}
+    </h1>
+    <div class="mb-4 flex justify-center">
+        {% include "maintenance/partials/plaque.html" with exemplaire=maintenance.voiture_exemplaire %}
+    </div>
+    <p class="mb-2">{% trans "Voulez-vous vraiment supprimer cette maintenance externe ?" %}</p>
+    <ul class="mb-6 text-gray-700 text-sm list-disc ml-5">
+        <li>{{ maintenance.get_type_maintenance_display }} – {{ maintenance.garage.nom }}</li>
+        <li>{% trans "Date" %} : {{ maintenance.date_facture|date:"d/m/Y" }}</li>
+        <li>{% trans "Total TVAC" %} : {{ maintenance.total_tvac|floatformat:2 }} €</li>
+    </ul>
+    <form method="post" class="flex gap-3">
+        {% csrf_token %}
+        <button type="submit" class="flex-1 bg-red-600 text-white px-5 py-4 rounded hover:bg-red-400 font-semibold text-center">{% trans "Confirmer la suppression" %}</button>
+        <a href="{% url 'maintenance_externe:maintenance_externe_liste' %}" class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+    </form>
+</div>
+{% endblock %}

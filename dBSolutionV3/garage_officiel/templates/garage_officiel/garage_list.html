@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Garages officiels" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/client_atelier.png' %}" alt="{% trans 'Garage officiel' %}"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des garages officiels" %}
+</h1>
+
+{% include "garage_officiel/_messages.html" %}
+
+<div class="inline-flex gap-4">
+    <a href="{% url 'garage_officiel:garage_ajouter' %}"
+       class="bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ajouter un garage officiel" %}
+    </a>
+    <a href="{% url 'maintenance_externe:maintenance_externe_liste' %}"
+       class="bg-green-600 text-white px-5 py-4 rounded hover:bg-green-400 font-semibold text-center">
+        {% trans "Maintenances externes" %}
+    </a>
+</div>
+
+<br><br>
+
+<table id="garages-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Marque / groupe" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Adresse" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "TVA / Peppol" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Contact" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Maintenances" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% static 'images/marques/' as marques_path %}
+    {% for g in garages %}
+        <tr>
+            <td class="border px-4 py-2 font-semibold">{{ g.nom }}</td>
+            <td class="border px-4 py-2">
+                <div class="flex items-center gap-2">
+                    {% if g.voiture_marque %}
+                    <img src="{{ marques_path }}{{ g.voiture_marque.nom_marque|lower }}.png" alt=""
+                         class="w-8 h-8 object-contain" onerror="this.style.display='none';">
+                    {% endif %}
+                    <span>{{ g.marque_ou_groupe|default:"—" }}</span>
+                </div>
+            </td>
+            <td class="border px-4 py-2 text-sm">
+                {% if g.adresse %}
+                    {{ g.adresse.rue }} {{ g.adresse.numero }}{% if g.adresse.boite %} / {{ g.adresse.boite }}{% endif %}<br>
+                    {{ g.adresse.code_postal }} {{ g.adresse.ville }} ({{ g.adresse.code_pays }})
+                {% else %}—{% endif %}
+            </td>
+            <td class="border px-4 py-2 text-sm">
+                {{ g.numero_tva|default:"—" }}
+                {% if g.peppol_id %}<br><span class="font-mono text-gray-500">{{ g.peppol_id }}</span>{% endif %}
+            </td>
+            <td class="border px-4 py-2 text-sm">
+                {% if g.telephone %}<a href="tel:{{ g.telephone }}" class="text-blue-700">{{ g.telephone }}</a><br>{% endif %}
+                {% if g.email %}<a href="mailto:{{ g.email }}" class="text-blue-700">{{ g.email }}</a>{% endif %}
+                {% if not g.telephone and not g.email %}—{% endif %}
+            </td>
+            <td class="border px-4 py-2 text-center" data-order="{{ g.nb_maintenances }}">{{ g.nb_maintenances }}</td>
+            <td class="border px-4 py-2 text-center whitespace-nowrap">
+                <a href="{% url 'garage_officiel:garage_modifier' garage_id=g.id %}"
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">{% trans "Modifier" %}</a>
+                <a href="{% url 'garage_officiel:garage_supprimer' garage_id=g.id %}"
+                   class="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700 transition">{% trans "Supprimer" %}</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<br><br>
+
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+
+<br><br>
+
+<script>
+$(document).ready(function () {
+    $('#garages-table').DataTable({
+        pageLength: 25,
+        language: {
+            emptyTable: "{% trans 'Aucun garage enregistré.' %}",
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ garages' %}",
+            infoEmpty: "{% trans 'Aucun garage trouvé' %}",
+            zeroRecords: "{% trans 'Aucun garage trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}", last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}", previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, 'asc']],
+        columnDefs: [{ targets: 6, orderable: false, searchable: false }]
+    });
+});
+</script>
+{% endblock %}

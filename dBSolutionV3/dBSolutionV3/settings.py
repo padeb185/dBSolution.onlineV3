@@ -226,6 +226,8 @@ TENANT_APPS = (
     'voiture.voiture_vente',
     'voiture.voiture_location',
     'voiture.voiture_diagnostic',
+    'garage_officiel',
+    'maintenance.maintenance_externe',
     "voiture.voiture_pneus.apps.VoiturePneusConfig",
     "voiture.voiture_pneus_historique.apps.VoiturePneusHistoriqueConfig",
 

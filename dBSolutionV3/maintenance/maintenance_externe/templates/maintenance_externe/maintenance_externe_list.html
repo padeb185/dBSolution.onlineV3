@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Maintenances externes" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/entretien.png' %}" alt="{% trans 'Maintenance externe' %}"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des maintenances externes" %}
+</h1>
+
+{% include "maintenance_externe/_messages.html" %}
+
+<div class="inline-flex gap-4">
+    <a href="{% url 'maintenance_externe:maintenance_externe_ajouter' %}"
+       class="bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ajouter une maintenance externe" %}
+    </a>
+    <a href="{% url 'garage_officiel:garage_liste' %}"
+       class="bg-green-600 text-white px-5 py-4 rounded hover:bg-green-400 font-semibold text-center">
+        {% trans "Garages officiels" %}
+    </a>
+</div>
+
+<br><br>
+
+<!-- Totaux -->
+<div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Pièces HTVA" %}</p><p class="text-xl font-bold">{{ totaux.pieces|floatformat:2 }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Main-d'œuvre HTVA" %}</p><p class="text-xl font-bold">{{ totaux.mo|floatformat:2 }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Total HTVA" %}</p><p class="text-xl font-bold">{{ totaux.htva|floatformat:2 }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Total TVA" %}</p><p class="text-xl font-bold">{{ totaux.tva|floatformat:2 }} €</p></div>
+    <div class="bg-white shadow-md rounded-lg p-4"><p class="text-gray-600 text-sm">{% trans "Total TVAC" %}</p><p class="text-xl font-bold text-blue-700">{{ totaux.tvac|floatformat:2 }} €</p></div>
+</div>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
+        <input id="search-immatriculation" type="text" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="{% trans 'Immatriculation' %}">
+        <input id="search-vehicule" type="text" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="{% trans 'Véhicule' %}">
+        <input id="search-type" type="text" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="{% trans 'Type de maintenance' %}">
+        <input id="search-garage" type="text" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="{% trans 'Garage' %}">
+    </div>
+</div>
+
+<table id="me-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Véhicule" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Type" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Garage" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Pièces TVAC" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Main-d'œuvre TVAC" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "TVA" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Total TVAC" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for m in maintenances %}
+        {% with ex=m.voiture_exemplaire %}
+        <tr>
+            <td class="border px-4 py-2">{% include "maintenance/partials/plaque.html" with exemplaire=ex taille="petite" %}</td>
+            <td class="border px-4 py-2">{{ ex.voiture_marque.nom_marque }} {{ ex.voiture_modele.nom_modele }}</td>
+            <td class="border px-4 py-2">{{ m.get_type_maintenance_display }}</td>
+            <td class="border px-4 py-2">{{ m.garage.nom }}{% if m.numero_facture %}<br><span class="text-xs text-gray-500">{% trans "Facture" %} {{ m.numero_facture }}</span>{% endif %}</td>
+            <td class="border px-4 py-2" data-order="{{ m.date_facture|date:'Y-m-d' }}">{{ m.date_facture|date:"d/m/Y" }}</td>
+            <td class="border px-4 py-2 text-right" data-order="{{ m.total_pieces_tvac }}">{{ m.total_pieces_tvac|floatformat:2 }} €<br><span class="text-xs text-gray-500">{{ m.pieces_htva|floatformat:2 }} € HTVA</span></td>
+            <td class="border px-4 py-2 text-right" data-order="{{ m.total_main_oeuvre_tvac }}">{{ m.total_main_oeuvre_tvac|floatformat:2 }} €<br><span class="text-xs text-gray-500">{{ m.main_oeuvre_htva|floatformat:2 }} € HTVA</span></td>
+            <td class="border px-4 py-2 text-right" data-order="{{ m.total_tva }}">{{ m.total_tva|floatformat:2 }} €<br><span class="text-xs text-gray-500">{{ m.taux_tva|floatformat:"-2" }} % ({{ m.pays }})</span></td>
+            <td class="border px-4 py-2 text-right font-bold" data-order="{{ m.total_tvac }}">{{ m.total_tvac|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-center whitespace-nowrap">
+                <a href="{% url 'maintenance_externe:maintenance_externe_modifier' maintenance_id=m.id %}" class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">{% trans "Modifier" %}</a>
+                <a href="{% url 'maintenance_externe:maintenance_externe_supprimer' maintenance_id=m.id %}" class="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700 transition">{% trans "Supprimer" %}</a>
+            </td>
+        </tr>
+        {% endwith %}
+    {% endfor %}
+    </tbody>
+</table>
+
+<br><br>
+
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}" class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+
+<br><br>
+
+<script>
+$(document).ready(function () {
+    const table = $('#me-table').DataTable({
+        pageLength: 25,
+        language: {
+            emptyTable: "{% trans 'Aucune maintenance externe enregistrée.' %}",
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ maintenances' %}",
+            infoEmpty: "{% trans 'Aucune maintenance trouvée' %}",
+            zeroRecords: "{% trans 'Aucune maintenance trouvée' %}",
+            paginate: { first: "{% trans 'Premier' %}", last: "{% trans 'Dernier' %}", next: "{% trans 'Suivant' %}", previous: "{% trans 'Précédent' %}" }
+        },
+        order: [[4, 'desc']],
+        columnDefs: [{ targets: 9, orderable: false, searchable: false }, { targets: [5, 6, 7, 8], type: 'num' }]
+    });
+    $('#search-immatriculation').on('keyup change', function () { table.column(0).search(this.value).draw(); });
+    $('#search-vehicule').on('keyup change', function () { table.column(1).search(this.value).draw(); });
+    $('#search-type').on('keyup change', function () { table.column(2).search(this.value).draw(); });
+    $('#search-garage').on('keyup change', function () { table.column(3).search(this.value).draw(); });
+});
+</script>
+{% endblock %}

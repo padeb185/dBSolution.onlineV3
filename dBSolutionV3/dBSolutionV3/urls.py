@@ -56,6 +56,10 @@ urlpatterns += i18n_patterns(
         include(("voiture.voiture_exemplaire.urls", "voiture_exemplaire"), namespace="voiture_exemplaire")
     ),
 
+    # Garages officiels et maintenances externes
+    path("garage_officiel/", include(("garage_officiel.urls", "garage_officiel"), namespace="garage_officiel")),
+    path("maintenance/externe/", include(("maintenance.maintenance_externe.urls", "maintenance_externe"), namespace="maintenance_externe")),
+
     # Diagnostics (codes défaut)
     path("diagnostic/", include(("voiture.voiture_diagnostic.urls", "voiture_diagnostic"), namespace="voiture_diagnostic")),
 
