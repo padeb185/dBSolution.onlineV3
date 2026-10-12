@@ -9,17 +9,30 @@ from .models import Diagnostic, DiagnosticCode
 class DiagnosticForm(forms.ModelForm):
     class Meta:
         model = Diagnostic
-        fields = ("voiture_exemplaire", "date_diagnostic", "kilometrage", "description")
+        fields = ("voiture_exemplaire", "date_diagnostic", "kilometrage", "description",
+                  "temps_minutes", "taux_horaire")
         widgets = {
             "date_diagnostic": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "kilometrage": forms.NumberInput(attrs={"min": "0"}),
             "description": forms.Textarea(attrs={"rows": 3}),
+            "temps_minutes": forms.NumberInput(attrs={"min": "0", "step": "5"}),
+            "taux_horaire": forms.NumberInput(attrs={"min": "0", "step": "0.01"}),
         }
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
         societe = getattr(self.user, "societe", None)
+
+        self.fields["taux_horaire"].help_text = _("Sans temps, le taux est facturé comme forfait.")
+        # Nouveau diagnostic : taux horaire repris du dernier diagnostic de la société
+        if not self.instance.pk and societe is not None and not self.initial.get("taux_horaire"):
+            dernier = (
+                Diagnostic.objects.filter(societe=societe, taux_horaire__gt=0)
+                .order_by("-created_at").values_list("taux_horaire", flat=True).first()
+            )
+            if dernier:
+                self.initial["taux_horaire"] = dernier
 
         # Exemplaires triés par marque, puis modèle, puis immatriculation
         vehicules = (

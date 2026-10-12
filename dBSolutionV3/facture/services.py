@@ -178,9 +178,10 @@ def lignes_depuis_maintenance(maintenance, marge_pieces, marge_main_oeuvre):
 # Création / émission
 # ------------------------------------------------------------
 @transaction.atomic
-def creer_facture_depuis_maintenances(maintenances, type_facture, user):
+def creer_facture_depuis_maintenances(maintenances, type_facture, user, diagnostics=()):
     maintenances = list(maintenances)
-    premiere = maintenances[0]
+    diagnostics = list(diagnostics)
+    premiere = maintenances[0] if maintenances else diagnostics[0]
     vehicule = premiere.voiture_exemplaire
 
     facture = Facture.objects.create(
@@ -197,15 +198,54 @@ def creer_facture_depuis_maintenances(maintenances, type_facture, user):
         cree_par=user,
     )
     facture.maintenances.set(maintenances)
+    facture.diagnostics.set(diagnostics)
 
     ordre = 0
     for maintenance in maintenances:
         for donnees in lignes_depuis_maintenance(maintenance, facture.marge_pieces, facture.marge_main_oeuvre):
             ordre += 1
             FactureLine.objects.create(facture=facture, ordre=ordre, **donnees)
+    taux_tva = _taux_tva_societe(getattr(user, "societe", None))
+    for diagnostic in diagnostics:
+        for donnees in lignes_depuis_diagnostic(diagnostic, facture.marge_main_oeuvre, taux_tva):
+            ordre += 1
+            FactureLine.objects.create(facture=facture, ordre=ordre, **donnees)
 
     facture.recalculer_totaux()
     return facture
+
+
+def _taux_tva_societe(societe):
+    adresse = getattr(societe, "adresse", None)
+    pays = (getattr(adresse, "code_pays", "") or TVAConfig.DEFAULT_PAYS)[:2].upper()
+    return arrondi(TVAConfig.get_tva(pays))
+
+
+def lignes_depuis_diagnostic(diagnostic, marge_main_oeuvre, taux_tva):
+    """Ligne de main-d'œuvre d'un diagnostic (codes défaut repris dans le libellé)."""
+    codes = ", ".join(c.code_defaut for c in diagnostic.codes.all())
+    if diagnostic.temps_minutes:
+        quantite = arrondi(Decimal(diagnostic.temps_minutes) / Decimal("60"))
+        description = _("Diagnostic (%(temps)s)") % {"temps": diagnostic.temps_display}
+    else:
+        quantite = Decimal("1.00")
+        description = _("Diagnostic (forfait)")
+    if codes:
+        description += " – " + _("codes défaut : %(codes)s") % {"codes": codes}
+    return [{
+        "diagnostic": diagnostic,
+        "type_ligne": FactureLine.TypeLigne.MAIN_OEUVRE,
+        "description": description[:255],
+        "reference": "",
+        "quantity": quantite,
+        "unit_cost": arrondi(diagnostic.taux_horaire or 0),
+        "marge": marge_main_oeuvre,
+        "vat_rate": taux_tva,
+    }]
+
+
+def creer_facture_depuis_diagnostic(diagnostic, type_facture, user):
+    return creer_facture_depuis_maintenances([], type_facture, user, diagnostics=[diagnostic])
 
 
 def appliquer_marges(facture):

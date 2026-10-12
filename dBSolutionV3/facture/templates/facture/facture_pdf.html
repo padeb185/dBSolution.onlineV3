@@ -186,6 +186,16 @@
 <!-- ================================================== -->
 <!-- MAINTENANCES -->
 <!-- ================================================== -->
+{% with diagnostics=facture.diagnostics.all %}
+    {% if diagnostics %}
+        <div class="box">
+            <span class="label">{% trans "Diagnostics" %} :</span>
+            {% for d in diagnostics %}
+                {{ d.date_diagnostic|date:"d/m/Y" }} ({{ d.liste_codes|default:"-" }}){% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
 {% with maintenances=facture.maintenances.all %}
     {% if maintenances %}
         <div class="box">

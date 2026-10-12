@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Détails du diagnostic" %}{% endblock %}
+
+{% block content %}
+<div class="p-6 w-full">
+
+    <h1 class="text-2xl font-bold mb-6 flex flex-col md:flex-row md:items-center gap-3">
+        <div class="flex items-center gap-3">
+            <img src="{% static 'icons/diagnostic.png' %}" alt="{% trans 'Diagnostic' %}" class="w-16 h-16">
+            <div class="flex items-center gap-2">
+                {% trans "Détails du diagnostic" %}
+                {% if exemplaire %}
+                    {% static 'images/marques/' as marques_path %}
+                    <img src="{{ marques_path }}{{ exemplaire.voiture_marque.nom_marque|lower }}.png"
+                         alt="{{ exemplaire.voiture_marque.nom_marque }}"
+                         class="w-20 h-20 object-contain" onerror="this.style.display='none';">
+                    <span class="font-semibold">
+                        {{ exemplaire.voiture_modele.nom_modele }}
+                        {% if exemplaire.voiture_modele.nom_variante %}{{ exemplaire.voiture_modele.nom_variante }}{% endif %}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+    </h1>
+
+    {% include "partials/messages.html" %}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
+            {% if exemplaire %}
+            <div>
+                <strong>{% trans "Immatriculation" %} :</strong>
+                <div class="mt-2">{% include "maintenance/partials/plaque.html" %}</div>
+            </div>
+            <p><strong>{% trans "Véhicule" %} :</strong> {{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }} {{ exemplaire.voiture_modele.nom_variante|default:"" }}</p>
+            <p><strong>{% trans "VIN" %} :</strong> <span class="font-mono">{{ exemplaire.numero_vin|default:"-" }}</span></p>
+            {% endif %}
+        </div>
+
+        <!-- Diagnostic -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">{% trans "Diagnostic" %}</h2>
+            <p><strong>{% trans "Date du diagnostic" %} :</strong> {{ diagnostic.date_diagnostic|date:"d/m/Y" }}</p>
+            <p><strong>{% trans "Kilométrage" %} :</strong> {% if diagnostic.kilometrage is not None %}{{ diagnostic.kilometrage }} km{% else %}-{% endif %}</p>
+            <p><strong>{% trans "Codes défaut" %} :</strong> {{ diagnostic.codes.all|length }}</p>
+        </div>
+
+        <!-- Boutons -->
+        <div class="w-full">
+            <a href="{% url 'voiture_diagnostic:diagnostic_modifier' diagnostic_id=diagnostic.id %}"
+               class="block w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Modifier" %}
+            </a>
+        </div>
+        <div class="w-full">
+            <a href="{% url 'voiture_diagnostic:diagnostic_pdf' diagnostic_id=diagnostic.id %}" target="_blank"
+               class="block w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Télécharger le PDF" %}
+            </a>
+        </div>
+    </div>
+
+    <!-- Codes défaut -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Codes défaut / pièces en défaut" %}</h2>
+        {% with codes=diagnostic.codes.all %}
+        {% if codes %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full table-auto border-collapse border border-gray-200">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border px-3 py-2 text-left">#</th>
+                        <th class="border px-3 py-2 text-left">{% trans "Code défaut" %}</th>
+                        <th class="border px-3 py-2 text-left">{% trans "Pièce en défaut" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for c in codes %}
+                    <tr>
+                        <td class="border px-3 py-2 text-gray-500">{{ forloop.counter }}</td>
+                        <td class="border px-3 py-2"><span class="font-mono font-bold px-2 py-0.5 rounded bg-gray-900 text-yellow-300">{{ c.code_defaut }}</span></td>
+                        <td class="border px-3 py-2 font-semibold">{{ c.piece_libelle }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p class="text-gray-500">{% trans "Aucun code défaut." %}</p>
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Description -->
+    {% if diagnostic.description %}
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Description / solution" %}</h2>
+        {{ diagnostic.description|linebreaks }}
+    </div>
+    {% endif %}
+
+    <!-- Facturation -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Facturation" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <p><strong>{% trans "Temps" %} :</strong> {{ diagnostic.temps_display }}</p>
+            <p><strong>{% trans "Taux horaire" %} :</strong> {{ diagnostic.taux_horaire|floatformat:2 }} €</p>
+            <p class="text-lg"><strong>{% trans "Total HTVA" %} :</strong> {{ diagnostic.cout_htva|floatformat:2 }} €</p>
+        </div>
+
+        {% with factures=diagnostic.factures.all %}
+        {% if factures %}
+            <p class="mb-3">
+                <strong>{% trans "Factures" %} :</strong>
+                {% for f in factures %}
+                    <a href="{% if f.statut == 'EMISE' %}{% url 'facture:detail' f.pk %}{% else %}{% url 'facture:modifier' f.pk %}{% endif %}"
+                       class="inline-block mb-1 px-2 py-1 rounded text-sm font-semibold
+                       {% if f.statut == 'EMISE' %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                        {% if f.statut == 'EMISE' %}{{ f.numero }}{% else %}{% trans "Brouillon" %}{% endif %}
+                        ({{ f.get_type_facture_display }})
+                    </a>
+                {% endfor %}
+            </p>
+        {% else %}
+            <p class="mb-3 text-red-700 font-semibold">{% trans "À facturer" %}</p>
+        {% endif %}
+        {% endwith %}
+
+        {% if peut_facturer %}
+        <form method="post" action="{% url 'facture:creer_diagnostic' diagnostic.id %}" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {% csrf_token %}
+            <button type="submit" name="type_facture" value="CLIENT"
+                    class="w-full bg-blue-700 hover:bg-blue-400 text-white px-4 py-2 rounded font-semibold">
+                {% trans "Facture client particulier" %}
+            </button>
+            <button type="submit" name="type_facture" value="PRO"
+                    class="w-full bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded font-semibold">
+                {% trans "Facture professionnelle (XML)" %}
+            </button>
+        </form>
+        {% endif %}
+    </div>
+
+    {% if peut_supprimer %}
+    <div class="w-full mb-6">
+        <a href="{% url 'voiture_diagnostic:diagnostic_supprimer' diagnostic_id=diagnostic.id %}"
+           class="block w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold text-center">
+            {% trans "Supprimer" %}
+        </a>
+    </div>
+    {% endif %}
+
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Métadonnées" %}</h2>
+        <p><strong>{% trans "Créé le" %} :</strong> {{ diagnostic.created_at|date:"d/m/Y H:i"|default:"-" }}</p>
+        <p><strong>{% trans "Mis à jour le" %} :</strong> {{ diagnostic.updated_at|date:"d/m/Y H:i"|default:"-" }}</p>
+    </div>
+
+    <div>
+        <a href="{% url 'voiture_diagnostic:diagnostic_liste' %}"
+           class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+            {% trans "Retour à la liste des diagnostics" %}
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -130,6 +130,14 @@ class Facture(models.Model):
         verbose_name=_("Maintenances"),
     )
 
+    # Diagnostics facturés
+    diagnostics = models.ManyToManyField(
+        "voiture_diagnostic.Diagnostic",
+        related_name="factures",
+        blank=True,
+        verbose_name=_("Diagnostics"),
+    )
+
     voiture_exemplaire = models.ForeignKey(
         "voiture_exemplaire.VoitureExemplaire",
         on_delete=models.SET_NULL,
@@ -378,6 +386,15 @@ class FactureLine(models.Model):
         blank=True,
         related_name="lignes_facture",
         verbose_name=_("Maintenance"),
+    )
+
+    diagnostic = models.ForeignKey(
+        "voiture_diagnostic.Diagnostic",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="lignes_facture",
+        verbose_name=_("Diagnostic"),
     )
 
     type_ligne = models.CharField(

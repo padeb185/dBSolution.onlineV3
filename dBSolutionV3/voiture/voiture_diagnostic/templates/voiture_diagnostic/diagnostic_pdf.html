@@ -1,0 +1,111 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        @page { size: A4 portrait; margin: 15mm 12mm 15mm 12mm; }
+        html, body { margin: 0; padding: 0; width: 100%; }
+        body { font-family: Arial, sans-serif; font-size: 12px; color: #111; }
+        h1 { font-size: 20px; margin-bottom: 15px; padding-bottom: 6px; color: #1e3a8a; border-bottom: 2px solid #1e3a8a; }
+        h2 { font-size: 14px; margin-top: 18px; margin-bottom: 8px; padding-bottom: 4px; color: #1e40af; border-bottom: 1px solid #93c5fd; }
+        .box { border: 1px solid #ddd; padding: 10px; margin-bottom: 12px; }
+        .grid { display: table; width: 100%; }
+        .grid > div { display: table-cell; width: 50%; vertical-align: top; }
+        .grid p { margin: 3px 0; }
+        .label { font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #d1d5db; padding: 6px; vertical-align: middle; }
+        th { background: #eff6ff; color: #1e3a8a; text-align: left; }
+        .col-num { width: 6%; color: #6b7280; }
+        .col-code { width: 20%; }
+        .code { font-family: "Courier New", monospace; font-weight: bold; background: #111827; color: #fde047; padding: 2px 6px; border-radius: 4px; }
+        .societe-header { display: table; width: 100%; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #1e3a8a; }
+        .societe-informations { display: table-cell; width: 75%; vertical-align: top; }
+        .societe-informations div { margin-bottom: 2px; }
+        .societe-nom { font-size: 16px; font-weight: bold; color: #1e3a8a; margin-bottom: 6px; }
+        .societe-logo { display: table-cell; width: 25%; text-align: right; vertical-align: top; }
+        .societe-logo img { max-width: 200px; max-height: 200px; }
+        .footer { margin-top: 25px; font-size: 10px; color: #666; text-align: center; }
+        h1, h2 { page-break-after: avoid; break-after: avoid; }
+        .box, .societe-header { page-break-inside: avoid; break-inside: avoid; }
+        tr { page-break-inside: avoid; break-inside: avoid; }
+    </style>
+</head>
+<body>
+
+{% if societe %}
+<div class="societe-header">
+    <div class="societe-informations">
+        <div class="societe-nom">{{ societe.nom }}</div>
+        {% if societe.adresse %}
+            <div>{{ societe.adresse.rue }} {{ societe.adresse.numero }}{% if societe.adresse.boite %} / {{ societe.adresse.boite }}{% endif %}</div>
+            <div>{{ societe.adresse.code_postal }} {{ societe.adresse.ville }}</div>
+            {% if societe.adresse.pays %}<div>{{ societe.adresse.pays }} {{ societe.adresse.code_pays }}</div>{% endif %}
+        {% endif %}
+        {% if societe.numero_tva %}<div><strong>{% trans "Numéro de TVA" %} :</strong> {{ societe.numero_tva }}</div>{% endif %}
+    </div>
+    <div class="societe-logo">
+        <img src="{% static 'societe/' %}{{ societe.nom }}.png" alt="{{ societe.nom }}">
+    </div>
+</div>
+{% endif %}
+
+<h1>{% trans "Rapport de diagnostic" %}</h1>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <p><span class="label">{% trans "Date du diagnostic" %} :</span> {{ diagnostic.date_diagnostic|date:"d/m/Y" }}</p>
+            <p><span class="label">{% trans "Kilométrage" %} :</span> {% if diagnostic.kilometrage is not None %}{{ diagnostic.kilometrage }} km{% else %}-{% endif %}</p>
+            <p><span class="label">{% trans "Codes défaut" %} :</span> {{ diagnostic.codes.all|length }}</p>
+        </div>
+        <div>
+            {% if exemplaire %}
+            <p><span class="label">{% trans "Véhicule" %} :</span> {{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }} {{ exemplaire.voiture_modele.nom_variante|default:"" }}</p>
+            <p><span class="label">{% trans "Immatriculation" %} :</span> {{ exemplaire.immatriculation }}</p>
+            <p><span class="label">{% trans "VIN" %} :</span> {{ exemplaire.numero_vin|default:"-" }}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<h2>{% trans "Codes défaut / pièces en défaut" %}</h2>
+{% with codes=diagnostic.codes.all %}
+{% if codes %}
+<table>
+    <thead>
+        <tr>
+            <th class="col-num">#</th>
+            <th class="col-code">{% trans "Code défaut" %}</th>
+            <th>{% trans "Pièce en défaut" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for c in codes %}
+        <tr>
+            <td class="col-num">{{ forloop.counter }}</td>
+            <td class="col-code"><span class="code">{{ c.code_defaut }}</span></td>
+            <td>{{ c.piece_libelle }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>{% trans "Aucun code défaut." %}</p>
+{% endif %}
+{% endwith %}
+
+{% if diagnostic.description %}
+<h2>{% trans "Description / solution" %}</h2>
+<div class="box">{{ diagnostic.description|linebreaks }}</div>
+{% endif %}
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

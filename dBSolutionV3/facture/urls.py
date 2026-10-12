@@ -7,6 +7,7 @@ app_name = "facture"
 urlpatterns = [
     path("", views.maintenances_a_facturer_view, name="maintenances"),
     path("creer/", views.creer_facture_view, name="creer"),
+    path("diagnostic/<uuid:diagnostic_id>/creer/", views.creer_facture_diagnostic_view, name="creer_diagnostic"),
     path("liste/", views.facture_list_view, name="liste"),
     path("tva/", views.tva_view, name="tva"),
     path("parametres-peppol/", views.parametres_peppol_view, name="parametres_peppol"),

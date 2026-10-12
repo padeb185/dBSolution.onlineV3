@@ -7176,8 +7176,8 @@ msgstr ""
 #: _backup_detail_views/maintenance/check_up/views.py:145
 #: maintenance/check_up/views.py:146
 msgid ""
-"Le kilométrage du Checkup ne peut pas être inférieur au kilométrage actuel "
-"du véhicule."
+"Le kilométrage du Checkup ne peut pas être inférieur au kilométrage actuel du"
+" véhicule."
 msgstr ""
 
 #: _backup_detail_views/maintenance/check_up/views.py:293
@@ -12933,8 +12933,8 @@ msgstr ""
 
 #: agenda/templates/agenda/delete_agenda.html:20
 msgid ""
-"Voulez-vous vraiment retirer cette maintenance de l'agenda ? Cette action "
-"est irréversible."
+"Voulez-vous vraiment retirer cette maintenance de l'agenda ? Cette action est"
+" irréversible."
 msgstr ""
 
 #: agenda/templates/agenda/delete_agenda.html:29
@@ -14664,8 +14664,8 @@ msgstr ""
 #: facture/templates/facture/facture_form.html:101
 #, python-format
 msgid ""
-"Client assujetti dans un autre pays de l'UE : TVA à 0 %%, mention "
-"« autoliquidation »."
+"Client assujetti dans un autre pays de l'UE : TVA à 0 %%, mention « "
+"autoliquidation »."
 msgstr ""
 
 #: facture/templates/facture/facture_form.html:153
@@ -15012,8 +15012,8 @@ msgstr ""
 
 #: facture/templates/facture/parametres_peppol.html:170
 msgid ""
-"Ces informations sont fournies par votre point d'accès Peppol (Access "
-"Point). Les clés API ne sont jamais réaffichées."
+"Ces informations sont fournies par votre point d'accès Peppol (Access Point)."
+" Les clés API ne sont jamais réaffichées."
 msgstr ""
 
 #: facture/templates/facture/parametres_peppol.html:176
@@ -15148,8 +15148,8 @@ msgid ""
 "%(n)s maintenance interne (facture à notre société) n'est pas une vente : la "
 "TVA sur ses pièces est récupérée via les achats fournisseurs."
 msgid_plural ""
-"%(n)s maintenances internes (factures à notre société) ne sont pas des "
-"ventes : la TVA sur leurs pièces est récupérée via les achats fournisseurs."
+"%(n)s maintenances internes (factures à notre société) ne sont pas des ventes"
+" : la TVA sur leurs pièces est récupérée via les achats fournisseurs."
 msgstr[0] ""
 msgstr[1] ""
 
@@ -30158,8 +30158,8 @@ msgstr ""
 #: maintenance/pneus/models.py:356
 #, python-format
 msgid ""
-"Le kilométrage du contrôle pneus (%(km_controle)s) ne peut pas être "
-"inférieur au kilométrage actuel de la voiture (%(km_voiture)s)."
+"Le kilométrage du contrôle pneus (%(km_controle)s) ne peut pas être inférieur"
+" au kilométrage actuel de la voiture (%(km_voiture)s)."
 msgstr ""
 
 #: maintenance/pneus/models.py:379
@@ -33259,8 +33259,8 @@ msgstr ""
 
 #: societe_cliente/forms.py:139
 msgid ""
-"Le numéro de TVA doit commencer par un code pays européen valide (ex: BE, "
-"FR, DE...)."
+"Le numéro de TVA doit commencer par un code pays européen valide (ex: BE, FR,"
+" DE...)."
 msgstr ""
 
 #: societe_cliente/models.py:31
@@ -36475,8 +36475,8 @@ msgstr ""
 
 #: voiture/voiture_exemplaire/models.py:124
 msgid ""
-"Le numéro VIN doit contenir exactement 17 caractères alphanumériques "
-"(lettres A-H, J-N, P, R-Z et chiffres)."
+"Le numéro VIN doit contenir exactement 17 caractères alphanumériques (lettres"
+" A-H, J-N, P, R-Z et chiffres)."
 msgstr ""
 
 #: voiture/voiture_exemplaire/models.py:172
@@ -36703,8 +36703,8 @@ msgstr ""
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:14
 #, python-format
 msgid ""
-"Les données financières du véhicule %(vehicule)s (%(immat)s) seront "
-"effacées : prix d'achat, assurance, taxes et propriétaires."
+"Les données financières du véhicule %(vehicule)s (%(immat)s) seront effacées "
+": prix d'achat, assurance, taxes et propriétaires."
 msgstr ""
 
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:16
@@ -38232,13 +38232,11 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                Attention : %(counter)s entrée d'historique est liée à ces "
-"pneus.\n"
+"                Attention : %(counter)s entrée d'historique est liée à ces pneus.\n"
 "            "
 msgid_plural ""
 "\n"
-"                Attention : %(counter)s entrées d'historique sont liées à "
-"ces pneus.\n"
+"                Attention : %(counter)s entrées d'historique sont liées à ces pneus.\n"
 "            "
 msgstr[0] ""
 msgstr[1] ""
@@ -38354,4 +38352,49 @@ msgstr ""
 
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
+msgstr ""
+
+msgid "Détails du diagnostic"
+msgstr ""
+
+msgid "Rapport de diagnostic"
+msgstr ""
+
+msgid "Aucun code défaut."
+msgstr ""
+
+msgid "Temps du diagnostic (minutes)"
+msgstr ""
+
+msgid "Taux horaire HTVA (€)"
+msgstr ""
+
+msgid "Sans temps, le taux est facturé comme forfait."
+msgstr ""
+
+#, python-format
+msgid "Diagnostic (%(temps)s)"
+msgstr ""
+
+msgid "Diagnostic (forfait)"
+msgstr ""
+
+#, python-format
+msgid "codes défaut : %(codes)s"
+msgstr ""
+
+msgid "Ce diagnostic n'est lié à aucun véhicule."
+msgstr ""
+
+msgid ""
+"Aucun taux horaire sur le diagnostic : complétez le prix de la ligne avant "
+"d'émettre."
+msgstr ""
+
+msgid "Sélectionnez au moins une maintenance ou un diagnostic."
+msgstr ""
+
+msgid ""
+"Les maintenances et diagnostics sélectionnés doivent concerner le même "
+"véhicule."
 msgstr ""

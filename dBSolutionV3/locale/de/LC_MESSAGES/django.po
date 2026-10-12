@@ -38632,3 +38632,51 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
 msgstr "Reifen erfolgreich gelöscht."
+
+msgid "Détails du diagnostic"
+msgstr "Diagnosedetails"
+
+msgid "Rapport de diagnostic"
+msgstr "Diagnosebericht"
+
+msgid "Aucun code défaut."
+msgstr "Kein Fehlercode."
+
+msgid "Temps du diagnostic (minutes)"
+msgstr "Diagnosezeit (Minuten)"
+
+msgid "Taux horaire HTVA (€)"
+msgstr "Stundensatz netto (€)"
+
+msgid "Sans temps, le taux est facturé comme forfait."
+msgstr "Ohne Zeitangabe wird der Satz als Pauschale berechnet."
+
+#, python-format
+msgid "Diagnostic (%(temps)s)"
+msgstr "Diagnose (%(temps)s)"
+
+msgid "Diagnostic (forfait)"
+msgstr "Diagnose (Pauschale)"
+
+#, python-format
+msgid "codes défaut : %(codes)s"
+msgstr "Fehlercodes: %(codes)s"
+
+msgid "Ce diagnostic n'est lié à aucun véhicule."
+msgstr "Diese Diagnose ist mit keinem Fahrzeug verknüpft."
+
+msgid ""
+"Aucun taux horaire sur le diagnostic : complétez le prix de la ligne avant "
+"d'émettre."
+msgstr ""
+"Kein Stundensatz in der Diagnose: Vervollständigen Sie den Zeilenpreis vor "
+"der Ausstellung."
+
+msgid "Sélectionnez au moins une maintenance ou un diagnostic."
+msgstr "Wählen Sie mindestens eine Wartung oder Diagnose."
+
+msgid ""
+"Les maintenances et diagnostics sélectionnés doivent concerner le même "
+"véhicule."
+msgstr ""
+"Die ausgewählten Wartungen und Diagnosen müssen dasselbe Fahrzeug betreffen."

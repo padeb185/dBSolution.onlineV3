@@ -35,7 +35,11 @@
             {% for m in facture.maintenances.all %}
                 <li>{{ m.get_type_maintenance_display|default:"-" }} – {{ m.date_intervention|date:"d/m/Y" }}</li>
             {% empty %}
-                <li class="text-gray-500">—</li>
+                {% if not facture.diagnostics.exists %}<li class="text-gray-500">—</li>{% endif %}
+            {% endfor %}
+            {% for d in facture.diagnostics.all %}
+                <li>{% trans "Diagnostic" %} – {{ d.date_diagnostic|date:"d/m/Y" }}
+                    <a href="{% url 'voiture_diagnostic:diagnostic_detail' diagnostic_id=d.id %}" class="text-blue-700 hover:underline">({{ d.liste_codes|default:"-" }})</a></li>
             {% endfor %}
         </ul>
     </div>

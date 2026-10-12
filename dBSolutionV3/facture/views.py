@@ -22,6 +22,7 @@ from .forms import FactureForm, FactureLineFormSet, ParametresPeppolForm
 from .models import Facture, ParametresPeppol
 from .services import (
     appliquer_marges,
+    creer_facture_depuis_diagnostic,
     creer_facture_depuis_maintenances,
     emettre_facture,
     erreurs_emission,
@@ -98,7 +99,20 @@ def maintenances_a_facturer_view(request):
         .order_by("-date_intervention")
     )
 
+    from voiture.voiture_diagnostic.models import Diagnostic
+    diagnostics = (
+        Diagnostic.objects.filter(societe=request.user.societe)
+        .select_related("voiture_exemplaire__voiture_marque", "voiture_exemplaire__voiture_modele",
+                        "voiture_exemplaire__client")
+        .prefetch_related(
+            "codes",
+            Prefetch("factures", queryset=Facture.objects.only("id_facture", "numero", "statut", "type_facture")),
+        )
+        .order_by("-date_diagnostic")
+    )
+
     return render(request, "facture/maintenances_a_facturer.html", {
+        "diagnostics": diagnostics,
         "maintenances": maintenances,
         "type_client": Facture.TypeFacture.CLIENT,
         "type_pro": Facture.TypeFacture.PRO,
@@ -117,23 +131,64 @@ def creer_facture_view(request):
         messages.error(request, _("Type de facture inconnu."))
         return redirect("facture:maintenances")
 
-    ids = request.POST.getlist("maintenances")
+    from voiture.voiture_diagnostic.models import Diagnostic
+
+    ids = [i for i in request.POST.getlist("maintenances") if i]
+    ids_diagnostics = [i for i in request.POST.getlist("diagnostics") if i]
     maintenances = list(
         Maintenance.objects.filter(pk__in=ids)
         .select_related("voiture_exemplaire", "voiture_exemplaire__client")
         .order_by("date_intervention")
-    )
-    if not maintenances:
-        messages.error(request, _("Sélectionnez au moins une maintenance."))
+    ) if ids else []
+    diagnostics = list(
+        Diagnostic.objects.filter(pk__in=ids_diagnostics, societe=request.user.societe)
+        .select_related("voiture_exemplaire", "voiture_exemplaire__client")
+        .prefetch_related("codes")
+        .order_by("date_diagnostic")
+    ) if ids_diagnostics else []
+    if not maintenances and not diagnostics:
+        messages.error(request, _("Sélectionnez au moins une maintenance ou un diagnostic."))
         return redirect("facture:maintenances")
 
-    vehicules = {m.voiture_exemplaire_id for m in maintenances}
+    vehicules = {m.voiture_exemplaire_id for m in maintenances} | {d.voiture_exemplaire_id for d in diagnostics}
     if len(vehicules) > 1:
-        messages.error(request, _("Les maintenances sélectionnées doivent concerner le même véhicule."))
+        messages.error(request, _("Les maintenances et diagnostics sélectionnés doivent concerner le même véhicule."))
+        return redirect("facture:maintenances")
+    if None in vehicules:
+        messages.error(request, _("Ce diagnostic n'est lié à aucun véhicule."))
         return redirect("facture:maintenances")
 
-    facture = creer_facture_depuis_maintenances(maintenances, type_facture, request.user)
+    facture = creer_facture_depuis_maintenances(maintenances, type_facture, request.user, diagnostics=diagnostics)
     _log(request.user, ACTION_CREATION_FACTURE, facture)
+    messages.success(request, _("Brouillon de facture créé. Vérifiez les marges et les lignes avant d'émettre."))
+    return redirect("facture:modifier", pk=facture.pk)
+
+
+@login_required
+@require_POST
+def creer_facture_diagnostic_view(request, diagnostic_id):
+    if not _peut(request.user, ROLES_FACTURATION):
+        return _refuser(request)
+    from voiture.voiture_diagnostic.models import Diagnostic
+
+    diagnostic = get_object_or_404(
+        Diagnostic.objects.filter(societe=request.user.societe)
+        .select_related("voiture_exemplaire", "voiture_exemplaire__client")
+        .prefetch_related("codes"),
+        id=diagnostic_id,
+    )
+    type_facture = request.POST.get("type_facture")
+    if type_facture not in Facture.TypeFacture.values:
+        messages.error(request, _("Type de facture inconnu."))
+        return redirect("voiture_diagnostic:diagnostic_detail", diagnostic_id=diagnostic.id)
+    if not diagnostic.voiture_exemplaire_id:
+        messages.error(request, _("Ce diagnostic n'est lié à aucun véhicule."))
+        return redirect("voiture_diagnostic:diagnostic_detail", diagnostic_id=diagnostic.id)
+
+    facture = creer_facture_depuis_diagnostic(diagnostic, type_facture, request.user)
+    _log(request.user, ACTION_CREATION_FACTURE, facture)
+    if not diagnostic.taux_horaire:
+        messages.warning(request, _("Aucun taux horaire sur le diagnostic : complétez le prix de la ligne avant d'émettre."))
     messages.success(request, _("Brouillon de facture créé. Vérifiez les marges et les lignes avant d'émettre."))
     return redirect("facture:modifier", pk=facture.pk)
 

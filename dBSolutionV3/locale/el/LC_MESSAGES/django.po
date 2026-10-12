@@ -38655,3 +38655,51 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
 msgstr "Τα ελαστικά διαγράφηκαν με επιτυχία."
+
+msgid "Détails du diagnostic"
+msgstr "Λεπτομέρειες διάγνωσης"
+
+msgid "Rapport de diagnostic"
+msgstr "Αναφορά διάγνωσης"
+
+msgid "Aucun code défaut."
+msgstr "Κανένας κωδικός βλάβης."
+
+msgid "Temps du diagnostic (minutes)"
+msgstr "Χρόνος διάγνωσης (λεπτά)"
+
+msgid "Taux horaire HTVA (€)"
+msgstr "Ωριαία χρέωση χωρίς ΦΠΑ (€)"
+
+msgid "Sans temps, le taux est facturé comme forfait."
+msgstr "Χωρίς χρόνο, η χρέωση τιμολογείται ως κατ' αποκοπή."
+
+#, python-format
+msgid "Diagnostic (%(temps)s)"
+msgstr "Διάγνωση (%(temps)s)"
+
+msgid "Diagnostic (forfait)"
+msgstr "Διάγνωση (κατ' αποκοπή)"
+
+#, python-format
+msgid "codes défaut : %(codes)s"
+msgstr "κωδικοί βλάβης: %(codes)s"
+
+msgid "Ce diagnostic n'est lié à aucun véhicule."
+msgstr "Αυτή η διάγνωση δεν συνδέεται με κανένα όχημα."
+
+msgid ""
+"Aucun taux horaire sur le diagnostic : complétez le prix de la ligne avant "
+"d'émettre."
+msgstr ""
+"Δεν υπάρχει ωριαία χρέωση στη διάγνωση: συμπληρώστε την τιμή της γραμμής πριν"
+" την έκδοση."
+
+msgid "Sélectionnez au moins une maintenance ou un diagnostic."
+msgstr "Επιλέξτε τουλάχιστον μία συντήρηση ή διάγνωση."
+
+msgid ""
+"Les maintenances et diagnostics sélectionnés doivent concerner le même "
+"véhicule."
+msgstr ""
+"Οι επιλεγμένες συντηρήσεις και διαγνώσεις πρέπει να αφορούν το ίδιο όχημα."

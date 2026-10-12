@@ -1,4 +1,5 @@
 import uuid
+from decimal import Decimal, ROUND_HALF_UP
 
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
@@ -45,6 +46,18 @@ class Diagnostic(models.Model):
         verbose_name=_("Description / solution"),
     )
 
+    # Facturation du diagnostic (main-d'œuvre)
+    temps_minutes = models.PositiveIntegerField(
+        _("Temps du diagnostic (minutes)"),
+        default=0,
+    )
+    taux_horaire = models.DecimalField(
+        _("Taux horaire HTVA (€)"),
+        max_digits=8,
+        decimal_places=2,
+        default=Decimal("0.00"),
+    )
+
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
 
@@ -59,6 +72,25 @@ class Diagnostic(models.Model):
     @property
     def liste_codes(self):
         return ", ".join(c.code_defaut for c in self.codes.all())
+
+    @property
+    def temps_display(self):
+        minutes = self.temps_minutes or 0
+        return f"{minutes // 60}h{minutes % 60:02d}"
+
+    @property
+    def cout_htva(self):
+        """Coût HTVA du diagnostic (temps × taux horaire, ou taux seul comme forfait si aucun temps)."""
+        taux = Decimal(self.taux_horaire or 0)
+        if self.temps_minutes:
+            montant = Decimal(self.temps_minutes) / Decimal("60") * taux
+        else:
+            montant = taux
+        return montant.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+    @property
+    def factures_liees(self):
+        return self.factures.all()
 
 
 class DiagnosticCode(models.Model):

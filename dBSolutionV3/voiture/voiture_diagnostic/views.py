@@ -2,7 +2,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models import Prefetch, ProtectedError
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
+from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import never_cache
 
@@ -31,7 +34,10 @@ def _queryset(request):
             "voiture_exemplaire__voiture_marque",
             "voiture_exemplaire__voiture_modele",
         )
-        .prefetch_related(Prefetch("codes", queryset=DiagnosticCode.objects.order_by("ordre", "code_defaut")))
+        .prefetch_related(
+            Prefetch("codes", queryset=DiagnosticCode.objects.order_by("ordre", "code_defaut")),
+            "factures",
+        )
     )
 
 
@@ -107,7 +113,7 @@ def diagnostic_modifier(request, diagnostic_id):
     if request.method == "POST" and form.is_valid() and formset.is_valid():
         diagnostic = _enregistrer(form, formset)
         messages.success(request, _("Diagnostic '%(code)s' mis à jour.") % {"code": diagnostic.liste_codes})
-        return redirect("voiture_diagnostic:diagnostic_liste")
+        return redirect("voiture_diagnostic:diagnostic_detail", diagnostic_id=diagnostic.id)
 
     return render(request, "voiture_diagnostic/diagnostic_form.html", {
         "form": form,
@@ -132,3 +138,45 @@ def diagnostic_supprimer(request, diagnostic_id):
         return redirect("voiture_diagnostic:diagnostic_liste")
 
     return render(request, "voiture_diagnostic/diagnostic_confirm_delete.html", {"diagnostic": diagnostic})
+
+
+@never_cache
+@login_required
+def diagnostic_detail(request, diagnostic_id):
+    if not _autorise(request.user, ROLES_LECTURE_ECRITURE):
+        return _refus(request)
+    diagnostic = get_object_or_404(_queryset(request), id=diagnostic_id)
+    return render(request, "voiture_diagnostic/diagnostic_detail.html", {
+        "diagnostic": diagnostic,
+        "exemplaire": diagnostic.voiture_exemplaire,
+        "peut_supprimer": _autorise(request.user, ROLES_SUPPRESSION),
+        "peut_facturer": _autorise(request.user, ["direction", "chef_mecanicien", "comptable"]),
+    })
+
+
+@login_required
+def diagnostic_pdf(request, diagnostic_id):
+    if not _autorise(request.user, ROLES_LECTURE_ECRITURE):
+        return _refus(request)
+    from weasyprint import HTML
+
+    diagnostic = get_object_or_404(
+        _queryset(request).select_related("societe", "societe__adresse"), id=diagnostic_id
+    )
+    html = render_to_string(
+        "voiture_diagnostic/diagnostic_pdf.html",
+        {
+            "diagnostic": diagnostic,
+            "exemplaire": diagnostic.voiture_exemplaire,
+            "societe": diagnostic.societe,
+            "date_export": timezone.now(),
+        },
+        request=request,
+    )
+    pdf = HTML(string=html, base_url=request.build_absolute_uri("/")).write_pdf()
+
+    immat = getattr(diagnostic.voiture_exemplaire, "immatriculation", "") or "sans_immatriculation"
+    nom_fichier = f"{_('Diagnostic')}_{immat}_{diagnostic.date_diagnostic:%Y-%m-%d}.pdf".replace(" ", "_")
+    response = HttpResponse(pdf, content_type="application/pdf")
+    response["Content-Disposition"] = f'inline; filename="{nom_fichier}"'
+    return response

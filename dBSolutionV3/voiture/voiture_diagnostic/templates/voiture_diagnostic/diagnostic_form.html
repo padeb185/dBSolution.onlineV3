@@ -109,13 +109,21 @@
 
         {% include "voiture_diagnostic/_champ.html" with field=form.description %}
 
+        <br>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/main-doeuvre.png' %}" alt="{% trans 'Facturation' %}" class="w-20 h-20">
+            {% trans "Facturation" %}
+        </h2>
+        {% include "voiture_diagnostic/_champ.html" with field=form.temps_minutes %}
+        {% include "voiture_diagnostic/_champ.html" with field=form.taux_horaire %}
+
         <!-- Boutons -->
         <div class="flex gap-3 mt-6">
             <button type="submit"
                     class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
                 {% trans "Enregistrer" %}
             </button>
-            <a href="{% url 'voiture_diagnostic:diagnostic_liste' %}"
+            <a href="{% if diagnostic %}{% url 'voiture_diagnostic:diagnostic_detail' diagnostic_id=diagnostic.id %}{% else %}{% url 'voiture_diagnostic:diagnostic_liste' %}{% endif %}"
                class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
                 {% trans "Annuler" %}
             </a>

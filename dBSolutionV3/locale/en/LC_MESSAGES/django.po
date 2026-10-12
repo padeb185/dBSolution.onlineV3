@@ -38542,3 +38542,50 @@ msgstr "Unable to delete these tires: they are still referenced by other data."
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
 msgstr "Tires deleted successfully."
+
+msgid "Détails du diagnostic"
+msgstr "Diagnostic details"
+
+msgid "Rapport de diagnostic"
+msgstr "Diagnostic report"
+
+msgid "Aucun code défaut."
+msgstr "No fault code."
+
+msgid "Temps du diagnostic (minutes)"
+msgstr "Diagnostic time (minutes)"
+
+msgid "Taux horaire HTVA (€)"
+msgstr "Hourly rate excl. VAT (€)"
+
+msgid "Sans temps, le taux est facturé comme forfait."
+msgstr "Without a time, the rate is invoiced as a flat fee."
+
+#, python-format
+msgid "Diagnostic (%(temps)s)"
+msgstr "Diagnostic (%(temps)s)"
+
+msgid "Diagnostic (forfait)"
+msgstr "Diagnostic (flat fee)"
+
+#, python-format
+msgid "codes défaut : %(codes)s"
+msgstr "fault codes: %(codes)s"
+
+msgid "Ce diagnostic n'est lié à aucun véhicule."
+msgstr "This diagnostic is not linked to any vehicle."
+
+msgid ""
+"Aucun taux horaire sur le diagnostic : complétez le prix de la ligne avant "
+"d'émettre."
+msgstr ""
+"No hourly rate on the diagnostic: complete the line price before issuing."
+
+msgid "Sélectionnez au moins une maintenance ou un diagnostic."
+msgstr "Select at least one maintenance or diagnostic."
+
+msgid ""
+"Les maintenances et diagnostics sélectionnés doivent concerner le même "
+"véhicule."
+msgstr ""
+"The selected maintenance and diagnostics must concern the same vehicle."

@@ -120,6 +120,61 @@
                 </tr>
                 {% endwith %}
             {% endfor %}
+            {% for d in diagnostics %}
+                {% with exemplaire=d.voiture_exemplaire %}
+                <tr>
+                    <td class="border px-4 py-2 text-center">
+                        <input type="checkbox" name="diagnostics" value="{{ d.pk }}" class="case-maintenance"
+                               data-vehicule="{{ exemplaire.pk|default:'' }}">
+                    </td>
+                    <td class="border px-4 py-2" data-order="{{ d.date_diagnostic|date:'Y-m-d' }}">
+                        {{ d.date_diagnostic|date:"d/m/Y" }}
+                    </td>
+                    <td class="border px-4 py-2 font-semibold">
+                        <a href="{% url 'voiture_diagnostic:diagnostic_detail' diagnostic_id=d.id %}" class="text-blue-700 hover:underline">{% trans "Diagnostic" %}</a>
+                        <div class="mt-1">
+                        {% for c in d.codes.all %}<span class="font-mono font-bold px-1.5 py-0.5 rounded bg-gray-900 text-yellow-300 text-xs mr-1">{{ c.code_defaut }}</span>{% endfor %}
+                        </div>
+                        <span class="text-sm font-normal text-gray-500">{{ d.temps_display }} – {{ d.cout_htva|floatformat:2 }} € HTVA</span>
+                    </td>
+                    <td class="border px-4 py-2">
+                        {% if exemplaire %}{% include "maintenance/partials/plaque.html" with taille="petite" %}{% else %}-{% endif %}
+                    </td>
+                    <td class="border px-4 py-2">
+                        {{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }}
+                    </td>
+                    <td class="border px-4 py-2">
+                        {% if exemplaire.client %}
+                            {{ exemplaire.client.nom }} {{ exemplaire.client.prenom }}
+                        {% else %}
+                            <span class="text-gray-500">{% trans "Société" %}</span>
+                        {% endif %}
+                    </td>
+                    <td class="border px-4 py-2">
+                        {% for f in d.factures.all %}
+                            <a href="{% if f.statut == 'EMISE' %}{% url 'facture:detail' f.pk %}{% else %}{% url 'facture:modifier' f.pk %}{% endif %}"
+                               class="inline-block mb-1 px-2 py-1 rounded text-sm font-semibold
+                               {% if f.statut == 'EMISE' %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                                {% if f.statut == 'EMISE' %}{{ f.numero }}{% else %}{% trans "Brouillon" %}{% endif %}
+                                ({{ f.get_type_facture_display }})
+                            </a>
+                        {% empty %}
+                            <span class="text-red-700 font-semibold">{% trans "À facturer" %}</span>
+                        {% endfor %}
+                    </td>
+                    <td class="border px-4 py-2 text-center whitespace-nowrap">
+                        <button type="button" data-type="{{ type_client }}" data-id="{{ d.pk }}" data-sorte="diagnostic"
+                                class="btn-une bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
+                            {% trans "Client" %}
+                        </button>
+                        <button type="button" data-type="{{ type_pro }}" data-id="{{ d.pk }}" data-sorte="diagnostic"
+                                class="btn-une bg-green-600 text-white px-3 py-1 rounded hover:bg-green-500">
+                            {% trans "Pro" %}
+                        </button>
+                    </td>
+                </tr>
+                {% endwith %}
+            {% endfor %}
             </tbody>
         </table>
         </div>
@@ -130,6 +185,7 @@
         {% csrf_token %}
         <input type="hidden" name="type_facture" id="une-type">
         <input type="hidden" name="maintenances" id="une-id">
+        <input type="hidden" name="diagnostics" id="une-diagnostic">
     </form>
 
     <br>
@@ -168,7 +224,13 @@ $(document).ready(function () {
     // Boutons « Client » / « Pro » d'une ligne
     $(document).on('click', '.btn-une', function () {
         $('#une-type').val($(this).data('type'));
-        $('#une-id').val($(this).data('id'));
+        if ($(this).data('sorte') === 'diagnostic') {
+            $('#une-id').val('');
+            $('#une-diagnostic').val($(this).data('id'));
+        } else {
+            $('#une-id').val($(this).data('id'));
+            $('#une-diagnostic').val('');
+        }
         $('#form-une').submit();
     });
 });
