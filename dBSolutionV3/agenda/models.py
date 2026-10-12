@@ -62,6 +62,16 @@ class AgendaTache(models.Model):
 
     remarques = models.TextField(_("Remarques"), blank=True)
 
+    # Tâche créée automatiquement depuis une location (checkup piste)
+    location = models.OneToOneField(
+        "voiture_location.Location",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="agenda_tache",
+        verbose_name=_("Location"),
+    )
+
     societe = models.ForeignKey(
         "societe.Societe",
         on_delete=models.CASCADE,

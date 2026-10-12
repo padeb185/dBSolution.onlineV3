@@ -36137,3 +36137,16 @@ msgstr "Unable to delete these tires: they are still referenced by other data."
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
 msgstr "Tires deleted successfully."
+
+#, python-format
+msgid "Location %(lieu)s – %(distance)s"
+msgstr "Rental %(lieu)s – %(distance)s"
+
+msgid "Voir la location"
+msgstr "View the rental"
+
+#, python-format
+msgid "%(n)s tour"
+msgid_plural "%(n)s tours"
+msgstr[0] "%(n)s lap"
+msgstr[1] "%(n)s laps"

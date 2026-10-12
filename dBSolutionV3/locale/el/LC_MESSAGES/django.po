@@ -36248,3 +36248,16 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
 msgstr "Τα ελαστικά διαγράφηκαν με επιτυχία."
+
+#, python-format
+msgid "Location %(lieu)s – %(distance)s"
+msgstr "Ενοικίαση %(lieu)s – %(distance)s"
+
+msgid "Voir la location"
+msgstr "Προβολή ενοικίασης"
+
+#, python-format
+msgid "%(n)s tour"
+msgid_plural "%(n)s tours"
+msgstr[0] "%(n)s γύρος"
+msgstr[1] "%(n)s γύροι"

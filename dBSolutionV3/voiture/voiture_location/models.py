@@ -4,7 +4,7 @@ from decimal import Decimal, ROUND_HALF_UP
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext, gettext_lazy as _, ngettext
 
 
 class TypeLocation(models.TextChoices):
@@ -241,8 +241,47 @@ class Location(models.Model):
         """Ex. : '12 tours · 84 km' ou '230 km'."""
         km = f"{self.kilometrage} km" if self.kilometrage is not None else ""
         if self.nombre_tours:
-            return f"{self.nombre_tours} tours" + (f" · {km}" if km else "")
+            tours = ngettext("%(n)s tour", "%(n)s tours", self.nombre_tours) % {"n": self.nombre_tours}
+            return tours + (f" · {km}" if km else "")
         return km
+
+    @property
+    def libelle_agenda(self):
+        """Texte « Prête pour » du checkup piste dans l'agenda."""
+        texte = gettext("Location %(lieu)s – %(distance)s") % {
+            "lieu": self.lieu or self.get_type_location_display(),
+            "distance": self.distance_affichage or "—",
+        }
+        return texte[:255]
+
+    def synchroniser_agenda(self):
+        """
+        Crée ou met à jour le checkup piste lié dans l'agenda.
+        Le tag, le statut, le technicien et les remarques saisis dans
+        l'agenda ne sont pas écrasés.
+        """
+        from agenda.models import AgendaTache
+        from maintenance.models import Maintenance
+
+        tache = AgendaTache.objects.filter(location=self).first()
+        if tache is None:
+            AgendaTache.objects.create(
+                location=self,
+                date=self.date_debut,
+                type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
+                voiture_exemplaire=self.voiture_exemplaire,
+                societe=self.societe,
+                prete_pour=self.libelle_agenda,
+            )
+        else:
+            tache.date = self.date_debut
+            tache.voiture_exemplaire = self.voiture_exemplaire
+            tache.prete_pour = self.libelle_agenda
+            tache.save(update_fields=["date", "voiture_exemplaire", "prete_pour", "updated_at"])
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.synchroniser_agenda()
 
     @property
     def prix_par_km(self):

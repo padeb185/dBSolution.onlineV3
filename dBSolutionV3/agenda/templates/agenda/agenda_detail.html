@@ -59,6 +59,14 @@
                     <strong>{% trans "Prête pour" %} :</strong>
                     {{ tache.prete_pour|default:"—" }}
                 </p>
+                {% if tache.location %}
+                <p>
+                    <strong>{% trans "Location" %} :</strong>
+                    {{ tache.location.lieu|default:"—" }} – {{ tache.location.distance_affichage|default:"—" }}
+                    <a href="{% url 'voiture_location:location_modifier' location_id=tache.location.id %}"
+                       class="text-blue-700 hover:underline ml-2">{% trans "Voir la location" %}</a>
+                </p>
+                {% endif %}
             {% else %}
                 <p>
                     <strong>{% trans "Statut" %} :</strong>

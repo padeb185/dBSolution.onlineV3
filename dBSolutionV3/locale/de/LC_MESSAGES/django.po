@@ -36224,3 +36224,16 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
 msgstr "Reifen erfolgreich gelöscht."
+
+#, python-format
+msgid "Location %(lieu)s – %(distance)s"
+msgstr "Vermietung %(lieu)s – %(distance)s"
+
+msgid "Voir la location"
+msgstr "Vermietung ansehen"
+
+#, python-format
+msgid "%(n)s tour"
+msgid_plural "%(n)s tours"
+msgstr[0] "%(n)s Runde"
+msgstr[1] "%(n)s Runden"
