@@ -1,12 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import ProtectedError
+from django.db import transaction
+from django.db.models import Prefetch, ProtectedError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import never_cache
 
-from .forms import DiagnosticForm
-from .models import Diagnostic
+from .forms import DiagnosticCodeFormSet, DiagnosticForm
+from .models import Diagnostic, DiagnosticCode
 
 # Mêmes autorisations que les maintenances (ex. checkup piste)
 ROLES_LECTURE_ECRITURE = ["mecanicien", "apprenti", "magasinier", "chef_mecanicien", "direction"]
@@ -30,7 +31,25 @@ def _queryset(request):
             "voiture_exemplaire__voiture_marque",
             "voiture_exemplaire__voiture_modele",
         )
+        .prefetch_related(Prefetch("codes", queryset=DiagnosticCode.objects.order_by("ordre", "code_defaut")))
     )
+
+
+def _enregistrer(form, formset):
+    """Enregistre le diagnostic et ses codes défaut dans une seule transaction."""
+    with transaction.atomic():
+        diagnostic = form.save()
+        formset.instance = diagnostic
+        codes = formset.save(commit=False)
+        for obj in formset.deleted_objects:
+            obj.delete()
+        for code in codes:
+            code.diagnostic = diagnostic
+            code.save()
+        # Ordre d'affichage = ordre de saisie
+        for i, f in enumerate(f for f in formset.forms if f.instance.pk and not f.cleaned_data.get("DELETE")):
+            DiagnosticCode.objects.filter(pk=f.instance.pk).update(ordre=i)
+    return diagnostic
 
 
 @never_cache
@@ -55,18 +74,23 @@ def diagnostic_ajouter(request):
         return _refus(request)
 
     initial = {}
-    for champ in ("voiture_exemplaire", "code_defaut"):
-        if request.GET.get(champ):
-            initial[champ] = request.GET[champ]
+    if request.GET.get("voiture_exemplaire"):
+        initial["voiture_exemplaire"] = request.GET["voiture_exemplaire"]
 
     form = DiagnosticForm(request.POST or None, user=request.user, initial=initial)
-    if request.method == "POST" and form.is_valid():
-        diagnostic = form.save()
-        messages.success(request, _("Diagnostic '%(code)s' créé avec succès.") % {"code": diagnostic.code_defaut})
+    formset = DiagnosticCodeFormSet(request.POST or None, instance=Diagnostic(), prefix="codes")
+    if request.GET.get("code_defaut") and not request.POST:
+        formset = DiagnosticCodeFormSet(instance=Diagnostic(), prefix="codes",
+                                        initial=[{"code_defaut": request.GET["code_defaut"]}])
+
+    if request.method == "POST" and form.is_valid() and formset.is_valid():
+        diagnostic = _enregistrer(form, formset)
+        messages.success(request, _("Diagnostic '%(code)s' créé avec succès.") % {"code": diagnostic.liste_codes})
         return redirect("voiture_diagnostic:diagnostic_liste")
 
     return render(request, "voiture_diagnostic/diagnostic_form.html", {
         "form": form,
+        "formset": formset,
         "diagnostic": None,
     })
 
@@ -79,13 +103,15 @@ def diagnostic_modifier(request, diagnostic_id):
 
     diagnostic = get_object_or_404(_queryset(request), id=diagnostic_id)
     form = DiagnosticForm(request.POST or None, instance=diagnostic, user=request.user)
-    if request.method == "POST" and form.is_valid():
-        diagnostic = form.save()
-        messages.success(request, _("Diagnostic '%(code)s' mis à jour.") % {"code": diagnostic.code_defaut})
+    formset = DiagnosticCodeFormSet(request.POST or None, instance=diagnostic, prefix="codes")
+    if request.method == "POST" and form.is_valid() and formset.is_valid():
+        diagnostic = _enregistrer(form, formset)
+        messages.success(request, _("Diagnostic '%(code)s' mis à jour.") % {"code": diagnostic.liste_codes})
         return redirect("voiture_diagnostic:diagnostic_liste")
 
     return render(request, "voiture_diagnostic/diagnostic_form.html", {
         "form": form,
+        "formset": formset,
         "diagnostic": diagnostic,
     })
 

@@ -3,16 +3,14 @@ import uuid
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from .pieces_defaut import PIECE_AUTRE, PIECES_DEFAUT_CHOICES
 
 
 class Diagnostic(models.Model):
-    """
-    Code défaut relevé sur un exemplaire, avec la pièce en défaut
-    choisie dans une liste par système (sonde lambda aval, vanne EGR...).
-    """
+    """Une séance de diagnostic sur un exemplaire (plusieurs codes défaut possibles)."""
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
@@ -28,6 +26,51 @@ class Diagnostic(models.Model):
         related_name="diagnostics",
         null=True,
         verbose_name=_("Véhicule"),
+    )
+
+    date_diagnostic = models.DateField(
+        default=timezone.localdate,
+        verbose_name=_("Date du diagnostic"),
+    )
+
+    kilometrage = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        verbose_name=_("Kilométrage"),
+    )
+
+    description = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_("Description / solution"),
+    )
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("Diagnostic")
+        verbose_name_plural = _("Diagnostics")
+        ordering = ["-date_diagnostic", "-created_at"]
+
+    def __str__(self):
+        return f"{self.voiture_exemplaire} – {self.date_diagnostic:%d/%m/%Y}"
+
+    @property
+    def liste_codes(self):
+        return ", ".join(c.code_defaut for c in self.codes.all())
+
+
+class DiagnosticCode(models.Model):
+    """Un code défaut relevé lors d'un diagnostic, avec la pièce en défaut."""
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    diagnostic = models.ForeignKey(
+        Diagnostic,
+        on_delete=models.CASCADE,
+        related_name="codes",
+        verbose_name=_("Diagnostic"),
     )
 
     code_defaut = models.CharField(
@@ -55,31 +98,19 @@ class Diagnostic(models.Model):
         verbose_name=_("Autre pièce (préciser)"),
     )
 
-    description = models.TextField(
-        null=True,
-        blank=True,
-        verbose_name=_("Description / solution"),
-    )
-
-    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
-    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
+    ordre = models.PositiveSmallIntegerField(default=0, editable=False)
 
     class Meta:
-        verbose_name = _("Diagnostic")
-        verbose_name_plural = _("Diagnostics")
-        ordering = [
-            "voiture_exemplaire__voiture_marque__nom_marque",
-            "voiture_exemplaire__voiture_modele__nom_modele",
-            "voiture_exemplaire__immatriculation",
-            "code_defaut",
-        ]
+        verbose_name = _("Code défaut")
+        verbose_name_plural = _("Codes défaut")
+        ordering = ["ordre", "code_defaut"]
         indexes = [
             models.Index(fields=["code_defaut"]),
             models.Index(fields=["piece_defaut"]),
         ]
 
     def __str__(self):
-        return f"{self.voiture_exemplaire} – {self.code_defaut} : {self.piece_libelle}"
+        return f"{self.code_defaut} : {self.piece_libelle}"
 
     @property
     def piece_libelle(self):

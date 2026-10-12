@@ -19,8 +19,10 @@
 
     <p class="mb-2">{% trans "Voulez-vous vraiment supprimer ce diagnostic ?" %}</p>
     <ul class="mb-6 text-gray-700 text-sm list-disc ml-5">
-        <li>{% trans "Code défaut" %} : <span class="font-mono font-bold">{{ diagnostic.code_defaut }}</span></li>
-        <li>{% trans "Pièce en défaut" %} : {{ diagnostic.piece_libelle }}</li>
+        <li>{% trans "Date" %} : {{ diagnostic.date_diagnostic|date:"d/m/Y" }}</li>
+        {% for c in diagnostic.codes.all %}
+        <li><span class="font-mono font-bold">{{ c.code_defaut }}</span> : {{ c.piece_libelle }}</li>
+        {% endfor %}
         <li>{% trans "Véhicule" %} : {{ diagnostic.voiture_exemplaire|default:"—" }}</li>
     </ul>
 

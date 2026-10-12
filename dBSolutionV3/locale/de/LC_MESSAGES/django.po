@@ -38197,3 +38197,21 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
 msgstr "Reifen erfolgreich gelöscht."
+
+msgid "Date du diagnostic"
+msgstr "Diagnosedatum"
+
+msgid "Retirer"
+msgstr "Entfernen"
+
+msgid "Ajouter un code défaut"
+msgstr "Fehlercode hinzufügen"
+
+msgid "Préciser la pièce"
+msgstr "Teil angeben"
+
+msgid "Le même code défaut est encodé deux fois avec la même pièce."
+msgstr "Derselbe Fehlercode wurde zweimal mit demselben Teil erfasst."
+
+msgid "Codes défaut / pièces en défaut"
+msgstr "Fehlercodes / defekte Teile"

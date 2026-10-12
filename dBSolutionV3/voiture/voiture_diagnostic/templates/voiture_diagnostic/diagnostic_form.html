@@ -58,6 +58,12 @@
         </div>
     {% endif %}
 
+    {% if formset.non_form_errors %}
+        <div class="mb-4 bg-red-100 text-red-800 border border-red-300 p-3 rounded">
+            {% for error in formset.non_form_errors %}<p>{{ error }}</p>{% endfor %}
+        </div>
+    {% endif %}
+
     <br>
 
     <form method="POST" id="diagnostic-form" class="space-y-4">
@@ -69,17 +75,38 @@
             {% trans "Véhicule" %}
         </h2>
         {% include "voiture_diagnostic/_champ.html" with field=form.voiture_exemplaire %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {% include "voiture_diagnostic/_champ.html" with field=form.date_diagnostic %}
+            {% include "voiture_diagnostic/_champ.html" with field=form.kilometrage %}
+        </div>
 
         <br>
 
         <!-- Défaut -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/diagnostic.png' %}" alt="{% trans 'Défaut' %}" class="w-20 h-20">
-            {% trans "Défaut" %}
+            {% trans "Codes défaut" %}
         </h2>
-        {% include "voiture_diagnostic/_champ.html" with field=form.code_defaut %}
-        {% include "voiture_diagnostic/_champ.html" with field=form.piece_defaut %}
-        {% include "voiture_diagnostic/_champ.html" with field=form.piece_defaut_autre %}
+        {{ formset.management_form }}
+        <div id="lignes-codes">
+            {% for code_form in formset.forms %}
+                {% include "voiture_diagnostic/_ligne_code.html" %}
+            {% endfor %}
+        </div>
+
+        <button type="button" id="ajouter-code"
+                class="w-full border-2 border-dashed border-blue-400 text-blue-700 px-5 py-3 rounded hover:bg-blue-50 font-semibold">
+            + {% trans "Ajouter un code défaut" %}
+        </button>
+
+        <template id="modele-ligne-code">
+            {% with code_form=formset.empty_form %}
+                {% include "voiture_diagnostic/_ligne_code.html" %}
+            {% endwith %}
+        </template>
+
+        <br>
+
         {% include "voiture_diagnostic/_champ.html" with field=form.description %}
 
         <!-- Boutons -->
@@ -120,17 +147,64 @@
 .input-error {
     border-color: #dc2626 !important;
 }
+.ligne-code.hidden, .case-supprimer.hidden {
+    display: none !important;
+}
 </style>
 
 <script>
-// Champ « Autre pièce » visible uniquement si « Autre (préciser) » est choisi
+// Plusieurs codes défaut : ajout / retrait de lignes et champ « Autre pièce »
 (function () {
-    const piece = document.getElementById("id_piece_defaut");
-    const blocAutre = document.getElementById("bloc-piece_defaut_autre");
-    if (!piece || !blocAutre) return;
-    function maj() { blocAutre.style.display = piece.value === "autre" ? "" : "none"; }
-    piece.addEventListener("change", maj);
-    maj();
+    const conteneur = document.getElementById("lignes-codes");
+    const modele = document.getElementById("modele-ligne-code");
+    const total = document.getElementById("id_codes-TOTAL_FORMS");
+    const bouton = document.getElementById("ajouter-code");
+    if (!conteneur || !modele || !total || !bouton) return;
+
+    function lignesVisibles() {
+        return Array.from(conteneur.querySelectorAll(".ligne-code")).filter(l => !l.classList.contains("hidden"));
+    }
+
+    function numeroter() {
+        lignesVisibles().forEach((l, i) => { l.querySelector(".num-ligne").textContent = i + 1; });
+    }
+
+    function brancher(ligne) {
+        const piece = ligne.querySelector(".champ-piece");
+        const autre = ligne.querySelector(".bloc-autre");
+        const maj = () => { autre.style.display = piece && piece.value === "autre" ? "" : "none"; };
+        if (piece) piece.addEventListener("change", maj);
+        maj();
+
+        const caseSuppr = ligne.querySelector(".case-supprimer");
+        const btnSuppr = ligne.querySelector(".btn-supprimer-ligne");
+        if (btnSuppr && caseSuppr) {
+            btnSuppr.addEventListener("click", (e) => {
+                e.preventDefault();
+                if (lignesVisibles().length <= 1) return;   // au moins un code
+                caseSuppr.checked = true;
+                ligne.classList.add("hidden");
+                numeroter();
+            });
+        }
+    }
+
+    conteneur.querySelectorAll(".ligne-code").forEach(brancher);
+    numeroter();
+
+    bouton.addEventListener("click", () => {
+        const index = parseInt(total.value, 10);
+        const html = modele.innerHTML.replace(/__prefix__/g, index);
+        const tmp = document.createElement("div");
+        tmp.innerHTML = html.trim();
+        const ligne = tmp.firstElementChild;
+        conteneur.appendChild(ligne);
+        total.value = index + 1;
+        brancher(ligne);
+        numeroter();
+        const champ = ligne.querySelector(".champ-code");
+        if (champ) champ.focus();
+    });
 })();
 </script>
 {% endblock %}

@@ -38110,3 +38110,21 @@ msgstr "Unable to delete these tires: they are still referenced by other data."
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
 msgstr "Tires deleted successfully."
+
+msgid "Date du diagnostic"
+msgstr "Diagnostic date"
+
+msgid "Retirer"
+msgstr "Remove"
+
+msgid "Ajouter un code défaut"
+msgstr "Add a fault code"
+
+msgid "Préciser la pièce"
+msgstr "Specify the part"
+
+msgid "Le même code défaut est encodé deux fois avec la même pièce."
+msgstr "The same fault code has been entered twice with the same part."
+
+msgid "Codes défaut / pièces en défaut"
+msgstr "Fault codes / faulty parts"

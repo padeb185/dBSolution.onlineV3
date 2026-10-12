@@ -1,0 +1,42 @@
+{% load i18n widget_tweaks %}
+{# Une ligne « code défaut » du formset #}
+<div class="ligne-code border rounded-lg p-4 mb-3 bg-gray-50 {% if code_form.DELETE.value %}hidden{% endif %}">
+    {% for hidden in code_form.hidden_fields %}{{ hidden }}{% endfor %}
+
+    <div class="flex items-center justify-between mb-2">
+        <span class="font-semibold text-gray-700">{% trans "Code défaut" %} <span class="num-ligne"></span></span>
+        <label class="btn-supprimer-ligne inline-flex items-center gap-1 text-red-600 text-sm cursor-pointer hover:underline">
+            {{ code_form.DELETE|add_class:"hidden case-supprimer" }}
+            {% trans "Retirer" %}
+        </label>
+    </div>
+
+    {% if code_form.non_field_errors %}
+        <p class="text-red-600 text-sm mb-2">{{ code_form.non_field_errors|striptags }}</p>
+    {% endif %}
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div>
+            <label for="{{ code_form.code_defaut.id_for_label }}" class="block font-semibold mb-1">
+                {{ code_form.code_defaut.label }} <span class="text-red-600">*</span>
+            </label>
+            {% if code_form.code_defaut.errors %}{{ code_form.code_defaut|add_class:"input input-error champ-code" }}{% else %}{{ code_form.code_defaut|add_class:"input champ-code" }}{% endif %}
+            {% if code_form.code_defaut.errors %}<p class="text-red-600 text-sm mt-1">{{ code_form.code_defaut.errors|striptags }}</p>{% endif %}
+        </div>
+        <div class="md:col-span-2">
+            <label for="{{ code_form.piece_defaut.id_for_label }}" class="block font-semibold mb-1">
+                {{ code_form.piece_defaut.label }} <span class="text-red-600">*</span>
+            </label>
+            {% if code_form.piece_defaut.errors %}{{ code_form.piece_defaut|add_class:"input input-error champ-piece" }}{% else %}{{ code_form.piece_defaut|add_class:"input champ-piece" }}{% endif %}
+            {% if code_form.piece_defaut.errors %}<p class="text-red-600 text-sm mt-1">{{ code_form.piece_defaut.errors|striptags }}</p>{% endif %}
+        </div>
+    </div>
+
+    <div class="bloc-autre mt-3">
+        <label for="{{ code_form.piece_defaut_autre.id_for_label }}" class="block font-semibold mb-1">
+            {{ code_form.piece_defaut_autre.label }}
+        </label>
+        {% if code_form.piece_defaut_autre.errors %}{{ code_form.piece_defaut_autre|add_class:"input input-error" }}{% else %}{{ code_form.piece_defaut_autre|add_class:"input" }}{% endif %}
+        {% if code_form.piece_defaut_autre.errors %}<p class="text-red-600 text-sm mt-1">{{ code_form.piece_defaut_autre.errors|striptags }}</p>{% endif %}
+    </div>
+</div>

@@ -1,15 +1,18 @@
 from django import forms
+from django.forms import inlineformset_factory
+from django.utils.translation import gettext_lazy as _
 
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-from .models import Diagnostic
+from .models import Diagnostic, DiagnosticCode
 
 
 class DiagnosticForm(forms.ModelForm):
     class Meta:
         model = Diagnostic
-        fields = ("voiture_exemplaire", "code_defaut", "piece_defaut", "piece_defaut_autre", "description")
+        fields = ("voiture_exemplaire", "date_diagnostic", "kilometrage", "description")
         widgets = {
-            "code_defaut": forms.TextInput(attrs={"style": "text-transform:uppercase", "maxlength": 20}),
+            "date_diagnostic": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "kilometrage": forms.NumberInput(attrs={"min": "0"}),
             "description": forms.Textarea(attrs={"rows": 3}),
         }
 
@@ -35,13 +38,56 @@ class DiagnosticForm(forms.ModelForm):
         self.fields["voiture_exemplaire"].queryset = vehicules
         self.fields["voiture_exemplaire"].required = True
 
-    def clean_code_defaut(self):
-        return (self.cleaned_data.get("code_defaut") or "").strip().upper()
-
     def save(self, commit=True):
         instance = super().save(commit=False)
         if self.user is not None and not instance.societe_id:
             instance.societe = self.user.societe
+        # Kilométrage repris du véhicule s'il n'est pas saisi
+        if instance.kilometrage is None and instance.voiture_exemplaire_id:
+            instance.kilometrage = instance.voiture_exemplaire.kilometres_chassis
         if commit:
             instance.save()
         return instance
+
+
+class DiagnosticCodeForm(forms.ModelForm):
+    class Meta:
+        model = DiagnosticCode
+        fields = ("code_defaut", "piece_defaut", "piece_defaut_autre")
+        widgets = {
+            "code_defaut": forms.TextInput(attrs={
+                "style": "text-transform:uppercase", "maxlength": 20, "placeholder": "P0301",
+            }),
+            "piece_defaut_autre": forms.TextInput(attrs={"placeholder": _("Préciser la pièce")}),
+        }
+
+    def clean_code_defaut(self):
+        return (self.cleaned_data.get("code_defaut") or "").strip().upper()
+
+
+class BaseDiagnosticCodeFormSet(forms.BaseInlineFormSet):
+    def clean(self):
+        super().clean()
+        if any(self.errors):
+            return
+        vus = set()
+        for form in self.forms:
+            if not getattr(form, "cleaned_data", None) or form.cleaned_data.get("DELETE"):
+                continue
+            cle = (form.cleaned_data.get("code_defaut"), form.cleaned_data.get("piece_defaut"),
+                   (form.cleaned_data.get("piece_defaut_autre") or "").strip().lower())
+            if cle in vus:
+                raise forms.ValidationError(_("Le même code défaut est encodé deux fois avec la même pièce."))
+            vus.add(cle)
+
+
+DiagnosticCodeFormSet = inlineformset_factory(
+    Diagnostic,
+    DiagnosticCode,
+    form=DiagnosticCodeForm,
+    formset=BaseDiagnosticCodeFormSet,
+    extra=0,
+    min_num=1,
+    validate_min=True,
+    can_delete=True,
+)
