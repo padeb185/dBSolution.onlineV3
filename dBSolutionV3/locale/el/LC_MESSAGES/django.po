@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 18:28+0200\n"
+"POT-Creation-Date: 2026-10-12 12:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -279,7 +278,10 @@ msgstr "Γενικές Πληροφορίες"
 #: recharge/templates/recharge/electricite_stat.html:72
 #: recharge/templates/recharge/recharge_list.html:81
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:40
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:50
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/modifier_exemplaire.html:44
+#: voiture/voiture_location/templates/voiture_location/location_list.html:30
+#: voiture/voiture_location/templates/voiture_location/location_list.html:53
 msgid "Immatriculation"
 msgstr "Άδεια κυκλοφορίας"
 
@@ -408,6 +410,8 @@ msgstr "Άδεια κυκλοφορίας"
 #: maintenance/templates/maintenance/list.html:70
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/list.html:70
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/liste_exemplaires.html:53
+#: voiture/voiture_location/models.py:199
+#: voiture/voiture_location/templates/voiture_location/location_list.html:58
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:99
 msgid "Kilométrage"
 msgstr "Χιλιομετρική απόσταση"
@@ -882,7 +886,7 @@ msgstr "Τεχνικός"
 #: _backup_detail_views/maintenance/autres_interventions/abs/views.py:1061
 #: maintenance/autres_interventions/abs/views.py:1062 maintenance/models.py:24
 msgid "ABS"
-msgstr ""
+msgstr "ABS"
 
 #: _backup_detail_templates/maintenance/autres_interventions/abs/templates/abs/abs_detail.html:62
 #: _backup_detail_templates/maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail.html:62
@@ -1338,7 +1342,7 @@ msgstr "Χρόνος"
 #: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:92
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:82
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:86
-#: voiture/voiture_modele/models.py:48
+#: voiture/voiture_location/models.py:210 voiture/voiture_modele/models.py:48
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:72
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:76
 #: voiture/voiture_moteur/models.py:76
@@ -1580,7 +1584,7 @@ msgstr "Μεταδεδομένα"
 #: voiture/voiture_freins_av/models.py:104
 #: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:98
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:121
-#: voiture/voiture_modele/models.py:53
+#: voiture/voiture_location/models.py:212 voiture/voiture_modele/models.py:53
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:98
 #: voiture/voiture_moteur/models.py:78
 #: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:177
@@ -1706,7 +1710,7 @@ msgstr "Δημιουργήθηκε στις"
 #: voiture/voiture_freins_av/models.py:105
 #: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:99
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:125
-#: voiture/voiture_modele/models.py:54
+#: voiture/voiture_location/models.py:213 voiture/voiture_modele/models.py:54
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:102
 #: voiture/voiture_moteur/models.py:79
 #: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:178
@@ -4134,8 +4138,14 @@ msgstr "Επιστροφή στη λίστα ελέγχων σινεμπλόκ"
 #: recharge/views.py:456 voiture/voiture_embrayage/views.py:179
 #: voiture/voiture_exemplaire/views.py:524
 #: voiture/voiture_exemplaire/views.py:544
+#: voiture/voiture_exemplaire/views.py:630
+#: voiture/voiture_exemplaire/views.py:680
+#: voiture/voiture_exemplaire/views.py:706
+#: voiture/voiture_exemplaire/views.py:748
 #: voiture/voiture_freins_ar/views.py:230
-#: voiture/voiture_freins_av/views.py:210 voiture/voiture_pneus/views.py:190
+#: voiture/voiture_freins_av/views.py:210 voiture/voiture_location/views.py:36
+#: voiture/voiture_location/views.py:47 voiture/voiture_location/views.py:65
+#: voiture/voiture_location/views.py:81 voiture/voiture_pneus/views.py:190
 msgid "Accès refusé"
 msgstr "Πρόσβαση απαγορευμένη."
 
@@ -5908,8 +5918,8 @@ msgstr "Φλάντζες"
 #: maintenance/nettoyage_exterieur/models.py:169
 #: maintenance/nettoyage_interieur/models.py:190
 #: maintenance/niveaux/models.py:184 maintenance/pneus/models.py:281
-#: maintenance/silent_blocs/models.py:665 theme/templates/dashboard.html:623
-#: theme/templates/dashboard.html:635
+#: maintenance/silent_blocs/models.py:665 theme/templates/dashboard.html:645
+#: theme/templates/dashboard.html:657
 msgid "Main d'oeuvre"
 msgstr "Εργατικά"
 
@@ -8094,6 +8104,7 @@ msgstr "Επιστροφή στον πίνακα ελέγχου προμηθευ
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:104
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:107
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:112
+#: voiture/voiture_location/templates/voiture_location/location_list.html:122
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:125
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:137
 msgid "Recherche globale :"
@@ -8208,6 +8219,7 @@ msgstr "Παγκόσμια αναζήτηση:"
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:105
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:108
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:113
+#: voiture/voiture_location/templates/voiture_location/location_list.html:123
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:126
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:100
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:138
@@ -8337,6 +8349,7 @@ msgstr "Δεν βρέθηκε κανένα τιμολόγιο"
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:110
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:113
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:118
+#: voiture/voiture_location/templates/voiture_location/location_list.html:128
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:131
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:105
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:143
@@ -8452,6 +8465,7 @@ msgstr "Πρώτος"
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:111
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:114
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:119
+#: voiture/voiture_location/templates/voiture_location/location_list.html:129
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:132
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:106
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:144
@@ -8567,6 +8581,7 @@ msgstr "Τελευταίος"
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:112
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:115
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:120
+#: voiture/voiture_location/templates/voiture_location/location_list.html:130
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:133
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:107
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:145
@@ -8682,6 +8697,7 @@ msgstr "Επόμενος"
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:113
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:116
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:121
+#: voiture/voiture_location/templates/voiture_location/location_list.html:131
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:134
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:108
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:146
@@ -8783,7 +8799,9 @@ msgstr "Μη διαθέσιμες πληροφορίες"
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:101
 #: voiture/voiture_boite/templates/voiture_boite/list.html:84
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:94
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:111
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:45
+#: voiture/voiture_location/templates/voiture_location/location_list.html:111
 #: voiture/voiture_marque/templates/voiture_marque/dashboard_voiture.html:63
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:114
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:89
@@ -9086,7 +9104,7 @@ msgstr "Όνομα αμαξώματος"
 #: _backup_list_templates/carrosserie/templates/carrosserie/carrosserie_list.html:52
 #: carrosserie/templates/carrosserie/carrosserie_list.html:52
 msgid "BE12 2345 4567 5676"
-msgstr ""
+msgstr "BE12 2345 4567 5676"
 
 #: _backup_list_templates/carrosserie/templates/carrosserie/carrosserie_list.html:69
 #: _backup_list_templates/fournisseur/templates/fournisseur/fournisseur_list.html:40
@@ -9387,8 +9405,8 @@ msgstr "Δείτε τα στατιστικά"
 #: recharge/templates/recharge/recharge_list.html:46
 #: recharge/templates/recharge/recharge_list.html:80
 #: theme/templates/dashboard.html:42 theme/templates/dashboard.html:55
-#: theme/templates/dashboard.html:125 theme/templates/dashboard.html:676
-#: theme/templates/dashboard.html:691 utilisateurs/models.py:387
+#: theme/templates/dashboard.html:125 theme/templates/dashboard.html:698
+#: theme/templates/dashboard.html:713 utilisateurs/models.py:387
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:18
 msgid "Utilisateur"
 msgstr "Χρήστης"
@@ -9552,6 +9570,8 @@ msgstr "14,32 Λίτρα"
 #: recharge/templates/recharge/recharge_list.html:88
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:307
 #: theme/templates/dashboard.html:120
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:22
+#: voiture/voiture_location/templates/voiture_location/location_list.html:60
 msgid "Date"
 msgstr "Ημερομηνία"
 
@@ -9608,6 +9628,12 @@ msgstr "Ημερομηνία"
 #: piece/models.py:58 piece/templates/piece/piece_detail.html:10
 #: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:97
 #: recharge/models.py:121 recharge/templates/recharge/recharge_list.html:82
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:20
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:49
+#: voiture/voiture_location/models.py:131
+#: voiture/voiture_location/templates/voiture_location/location_form.html:68
+#: voiture/voiture_location/templates/voiture_location/location_list.html:34
+#: voiture/voiture_location/templates/voiture_location/location_list.html:54
 msgid "Véhicule"
 msgstr "Όχημα"
 
@@ -9911,6 +9937,8 @@ msgstr "Kost"
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:59
 #: proprietaire/templates/proprietaire/proprietaire_list.html:65
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:68
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:56
+#: voiture/voiture_location/templates/voiture_location/location_list.html:61
 msgid "Actions"
 msgstr "Ενέργεια"
 
@@ -10174,6 +10202,7 @@ msgstr "Χλμ κιβωτίου"
 #: _backup_list_templates/maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:101
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:102
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:101
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:51
 msgid "Km châssis"
 msgstr "Χλμ πλαισίου"
 
@@ -11069,6 +11098,7 @@ msgstr "Ονομασία"
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:310
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:45
 #: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:45
+#: voiture/voiture_location/templates/voiture_location/location_list.html:55
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:58
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:78
 #: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:42
@@ -11813,11 +11843,11 @@ msgstr "Π.χ.: FAC-2026-001"
 
 #: achat_mds/forms.py:62 achat_mds/forms.py:69
 msgid "0.00"
-msgstr ""
+msgstr "0.00"
 
 #: achat_mds/forms.py:76
 msgid "21"
-msgstr ""
+msgstr "21"
 
 #: achat_mds/models.py:47
 msgid "Montant HTVA du transport"
@@ -11828,6 +11858,8 @@ msgid "Taux de TVA (%)"
 msgstr "Ποσοστό ΦΠΑ (%)"
 
 #: achat_mds/models.py:75
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:92
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:93
 msgid "Achat"
 msgstr "Αγορά"
 
@@ -12042,11 +12074,13 @@ msgstr "Αγορά εμπορευμάτων"
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:81
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:93
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:85
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:122
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/modifier_exemplaire.html:83
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/ajouter_freins_ar_simple.html:78
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/modifier_freins_ar.html:94
 #: voiture/voiture_freins_av/templates/voiture_freins_av/ajouter_freins_simple.html:77
 #: voiture/voiture_freins_av/templates/voiture_freins_av/modifier_freins_av.html:87
+#: voiture/voiture_location/templates/voiture_location/location_form.html:103
 #: voiture/voiture_marque/templates/voiture_marque/ajouter_marque.html:44
 #: voiture/voiture_modele/templates/voiture_modele/ajouter_modele.html:166
 #: voiture/voiture_modele/templates/voiture_modele/modifier_voiture_modele_view.html:66
@@ -12285,6 +12319,8 @@ msgstr "Αποθήκευση"
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:111
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:97
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:90
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:127
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:25
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/modifier_exemplaire.html:88
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/supprimer_exemplaire_all.html:45
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/ajouter_freins_ar_simple.html:83
@@ -12293,6 +12329,8 @@ msgstr "Αποθήκευση"
 #: voiture/voiture_freins_av/templates/voiture_freins_av/ajouter_freins_simple.html:82
 #: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:127
 #: voiture/voiture_freins_av/templates/voiture_freins_av/modifier_freins_av.html:92
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:35
+#: voiture/voiture_location/templates/voiture_location/location_form.html:107
 #: voiture/voiture_marque/templates/voiture_marque/ajouter_marque.html:49
 #: voiture/voiture_modele/templates/voiture_modele/ajouter_modele.html:171
 #: voiture/voiture_modele/templates/voiture_modele/modifier_voiture_modele_view.html:70
@@ -12427,9 +12465,12 @@ msgstr "Σύνολο με ΦΠΑ"
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:170
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:101
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:291
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:80
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:89
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/supprimer_exemplaire_all.html:38
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:118
 #: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:118
+#: voiture/voiture_location/templates/voiture_location/location_list.html:97
 #: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:196
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:148
 msgid "Supprimer"
@@ -12641,6 +12682,7 @@ msgstr "Ολοκληρώθηκε"
 #: assurance_police/templates/assurance_police/delete_assurance_police.html:69
 #: facture/models.py:101 facture/templates/facture/_entete_facture.html:11
 #: facture/templates/facture/facture_list.html:32
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:55
 msgid "Statut"
 msgstr "Κατάσταση"
 
@@ -12688,6 +12730,7 @@ msgstr "Ολοκληρωμένη"
 
 #: agenda/templates/agenda/agenda_detail.html:88
 #: agenda/templates/agenda/delete_agenda.html:101
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:22
 msgid "Marque / modèle"
 msgstr "Μάρκα / μοντέλο"
 
@@ -12967,11 +13010,12 @@ msgstr "Αναγνωριστικό Peppol, π.χ.: 0208:BE0123456789"
 #: assurance/templates/assurance/modifier_assurance.html:62
 #: assurance/views.py:235
 #: assurance_police/templates/assurance_police/modifier_assurance_police.html:58
-#: theme/templates/dashboard.html:613
+#: theme/templates/dashboard.html:635
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:102
 msgid "Assurance"
 msgstr "Ασφάλιση"
 
-#: assurance/models.py:49 theme/templates/dashboard.html:608
+#: assurance/models.py:49 theme/templates/dashboard.html:630
 msgid "Assurances"
 msgstr "Ασφαλίσεις"
 
@@ -13061,7 +13105,8 @@ msgstr "Ασφαλιστής"
 #: theme/templates/dashboard.html:390 theme/templates/dashboard.html:452
 #: theme/templates/dashboard.html:474 theme/templates/dashboard.html:521
 #: theme/templates/dashboard.html:543 theme/templates/dashboard.html:565
-#: theme/templates/dashboard.html:627 theme/templates/dashboard.html:649
+#: theme/templates/dashboard.html:587 theme/templates/dashboard.html:649
+#: theme/templates/dashboard.html:671
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:19
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:31
 #: voiture/voiture_marque/templates/voiture_marque/dashboard_voiture.html:17
@@ -13287,6 +13332,7 @@ msgstr "Αρ. συμβολαίου"
 #: facture/templates/facture/tva.html:30
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:286
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:66
+#: voiture/voiture_location/templates/voiture_location/location_form.html:89
 msgid "Période"
 msgstr "Περίοδος"
 
@@ -13362,15 +13408,15 @@ msgstr "Το ασφαλιστήριο συμβόλαιο « %(numero)s » δια
 
 #: carrosserie/forms.py:35
 msgid "BE01 2345 6789 1234"
-msgstr ""
+msgstr "BE01 2345 6789 1234"
 
 #: carrosserie/forms.py:40
 msgid "0208:0630675588"
-msgstr ""
+msgstr "0208:0630675588"
 
 #: carrosserie/forms.py:45
 msgid "contact@..."
-msgstr ""
+msgstr "contact@..."
 
 #: carrosserie/forms.py:58 carrosserie/models.py:24
 msgid "Nom du responsable"
@@ -13587,7 +13633,7 @@ msgstr "Αριθμός τραπεζικής κάρτας"
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:106
 #: client_pilotage/forms.py:26 panier/models.py:42
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:66
-#: theme/templates/dashboard.html:551
+#: theme/templates/dashboard.html:551 voiture/voiture_location/models.py:149
 msgid "Société cliente"
 msgstr "Εταιρεία πελάτη"
 
@@ -13825,6 +13871,10 @@ msgstr ""
 #: panier/models.py:33
 #: societe_cliente/templates/societe_cliente/societe_cliente_form.html:13
 #: theme/templates/dashboard.html:529 voiture/voiture_exemplaire/models.py:14
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:35
+#: voiture/voiture_location/forms.py:21 voiture/voiture_location/models.py:140
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:21
+#: voiture/voiture_location/templates/voiture_location/location_list.html:57
 msgid "Client"
 msgstr "Πελάτης"
 
@@ -13877,6 +13927,7 @@ msgstr "Ο πελάτης « %(nom)s » διαγράφηκε με επιτυχί
 
 #: client_pilotage/models.py:23 client_pilotage/models.py:76
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:66
+#: voiture/voiture_location/models.py:158
 msgid "Client pilotage"
 msgstr "Πελάτης πιλότος"
 
@@ -13975,9 +14026,11 @@ msgstr "Δημιουργία πιλότου"
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:33
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:39
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:39
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:60
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/modifier_exemplaire.html:27
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/ajouter_freins_ar_simple.html:32
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/modifier_freins_ar.html:39
+#: voiture/voiture_location/templates/voiture_location/location_form.html:47
 msgid "Erreurs :"
 msgstr "Σφάλματα:"
 
@@ -14674,6 +14727,7 @@ msgid "BROUILLON"
 msgstr "ΠΡΟΧΕΙΡΟ"
 
 #: facture/templates/facture/facture_pdf.html:154
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:24
 msgid "VIN"
 msgstr "VIN"
 
@@ -14795,7 +14849,7 @@ msgstr "Ημερομηνία εξαγωγής"
 #: facture/templates/facture/maintenances_a_facturer.html:4
 #: facture/templates/facture/maintenances_a_facturer.html:65
 #: facture/templates/facture/parametres_peppol.html:15
-#: facture/templates/facture/tva.html:20 theme/templates/dashboard.html:715
+#: facture/templates/facture/tva.html:20 theme/templates/dashboard.html:737
 msgid "Facturation"
 msgstr "Τιμολόγηση"
 
@@ -16201,6 +16255,8 @@ msgstr "Τιμή"
 
 #: fuel/templates/fuel/fuel_delete.html:34
 #: recharge/templates/recharge/electricite_delete.html:34
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:21
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:31
 msgid "Confirmer la suppression"
 msgstr "Επιβεβαίωση διαγραφής"
 
@@ -16700,6 +16756,8 @@ msgid ""
 "Une intervention a été enregistrée après ce plein : son kilométrage ne peut "
 "plus être modifié."
 msgstr ""
+"Έχει καταχωρηθεί επέμβαση μετά από αυτόν τον ανεφοδιασμό: τα χιλιόμετρα δεν "
+"μπορούν πλέον να τροποποιηθούν."
 
 #: fuel/views.py:455
 msgid "Modification d'un plein de carburant"
@@ -16847,7 +16905,7 @@ msgstr "Εργασία"
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:73
 #: maintenance/jeux_pieces/models.py:47 maintenance/models.py:75
 #: theme/templates/dashboard.html:183 theme/templates/dashboard.html:187
-#: utilisateurs/models.py:85 utilisateurs/views.py:279
+#: utilisateurs/models.py:85 utilisateurs/views.py:284
 msgid "Mécanicien"
 msgstr "Μηχανικός"
 
@@ -16981,6 +17039,8 @@ msgstr "Χιλιομετρική απόσταση πλαισίου"
 #: maintenance/templates/maintenance/creer_maintenance.html:78
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:113
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:115
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:133
+#: voiture/voiture_location/templates/voiture_location/location_form.html:112
 msgid "Date actuelle"
 msgstr "Τρέχουσα ημερομηνία"
 
@@ -18543,7 +18603,11 @@ msgstr "Ιδιωτικό"
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:23
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:22
-#: voiture/voiture_exemplaire/models.py:16
+#: theme/templates/dashboard.html:595 voiture/voiture_exemplaire/models.py:16
+#: voiture/voiture_location/models.py:216
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:9
+#: voiture/voiture_location/templates/voiture_location/location_form.html:12
+#: voiture/voiture_location/templates/voiture_location/location_list.html:9
 msgid "Location"
 msgstr "Ενοικίαση"
 
@@ -18576,6 +18640,8 @@ msgid "Numéro de série de la boite"
 msgstr "Σειριακός αριθμός κιβωτίου ταχυτήτων"
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:165
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:24
+#: voiture/voiture_location/templates/voiture_location/location_list.html:59
 msgid "Prix"
 msgstr "Τιμή"
 
@@ -19449,7 +19515,7 @@ msgstr ""
 #: maintenance/autres_interventions/cardan/models.py:16
 #: maintenance/templatetags/intervention_tags.py:42
 msgid "Réparé"
-msgstr ""
+msgstr "Επισκευάστηκε"
 
 #: maintenance/autres_interventions/cardan/models.py:21
 #: maintenance/choices.py:42 maintenance/choices.py:48
@@ -19940,6 +20006,7 @@ msgstr "Αναφορά ελέγχου κλιματισμού"
 #: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:363
 #: maintenance/models.py:140 voiture/voiture_boite/forms.py:28
 #: voiture/voiture_embrayage/forms.py:20
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:32
 msgid "Kilométrage châssis"
 msgstr "Χιλιόμετρα πλαισίου"
 
@@ -21656,25 +21723,25 @@ msgstr "Να αντικατασταθεί"
 #: maintenance/check_up/models.py:75 maintenance/checkup_track/models.py:87
 #: maintenance/choices.py:2185 piece/piece_fluides/models.py:54
 msgid "DOT 3"
-msgstr ""
+msgstr "DOT 3"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:40
 #: maintenance/check_up/models.py:76 maintenance/checkup_track/models.py:88
 #: maintenance/choices.py:2186 piece/piece_fluides/models.py:55
 msgid "DOT 4"
-msgstr ""
+msgstr "DOT 4"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:41
 #: maintenance/check_up/models.py:77 maintenance/checkup_track/models.py:89
 #: maintenance/choices.py:2187 piece/piece_fluides/models.py:56
 msgid "DOT 5"
-msgstr ""
+msgstr "DOT 5"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:42
 #: maintenance/check_up/models.py:78 maintenance/checkup_track/models.py:90
 #: maintenance/choices.py:2188 piece/piece_fluides/models.py:57
 msgid "DOT 5.1"
-msgstr ""
+msgstr "DOT 5.1"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:117
 msgid "Kilométrage au moment du rodage"
@@ -22260,6 +22327,7 @@ msgid "Reporté"
 msgstr "Αναβλήθηκε"
 
 #: maintenance/autres_interventions/refroidissement/models.py:36
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:23
 msgid "À compléter"
 msgstr "Πρέπει να συμπληρωθεί"
 
@@ -22962,9 +23030,9 @@ msgstr "Υαλοκαθαριστήρες & Παρμπρίζ"
 msgid "Moteur & Transmission"
 msgstr "Κινητήρας & Κιβώτιο"
 
-#: maintenance/check_up/admin.py:138 theme/templates/dashboard.html:592
-#: theme/templates/dashboard.html:596 utilisateurs/models.py:93
-#: utilisateurs/views.py:287
+#: maintenance/check_up/admin.py:138 theme/templates/dashboard.html:614
+#: theme/templates/dashboard.html:618 utilisateurs/models.py:93
+#: utilisateurs/views.py:292
 msgid "Direction"
 msgstr "Κατεύθυνση"
 
@@ -24191,15 +24259,15 @@ msgstr "Αποσυναρμολογημένο"
 
 #: maintenance/checkup_track/models.py:73
 msgid "Spa-Francorchamps 200 km"
-msgstr ""
+msgstr "Spa-Francorchamps 200 km"
 
 #: maintenance/checkup_track/models.py:74
 msgid "Spa-Francorchamps 300 km"
-msgstr ""
+msgstr "Spa-Francorchamps 300 km"
 
 #: maintenance/checkup_track/models.py:75
 msgid "Spa-Francorchamps 400 km"
-msgstr ""
+msgstr "Spa-Francorchamps 400 km"
 
 #: maintenance/checkup_track/models.py:76
 msgid "Nürburgring 2 tours"
@@ -24673,7 +24741,7 @@ msgstr "Πίεση ελαστικού πίσω αριστερά σε bar"
 #: maintenance/eclairage/templates/eclairage/eclairage_detail_pdf.html:598
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:1059
 msgid "Éclaire Plaque"
-msgstr ""
+msgstr "Φωτισμός πινακίδας"
 
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2203
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:2435
@@ -24707,95 +24775,95 @@ msgstr "Όχημα έτοιμο για:"
 
 #: maintenance/choices.py:16
 msgid "0,00 €"
-msgstr ""
+msgstr "0,00 €"
 
 #: maintenance/choices.py:17
 msgid "25,00 €"
-msgstr ""
+msgstr "25,00 €"
 
 #: maintenance/choices.py:18
 msgid "30,00 €"
-msgstr ""
+msgstr "30,00 €"
 
 #: maintenance/choices.py:19
 msgid "35,00 €"
-msgstr ""
+msgstr "35,00 €"
 
 #: maintenance/choices.py:20
 msgid "40,00 €"
-msgstr ""
+msgstr "40,00 €"
 
 #: maintenance/choices.py:21
 msgid "45,00 €"
-msgstr ""
+msgstr "45,00 €"
 
 #: maintenance/choices.py:22
 msgid "50,00 €"
-msgstr ""
+msgstr "50,00 €"
 
 #: maintenance/choices.py:23
 msgid "55,00 €"
-msgstr ""
+msgstr "55,00 €"
 
 #: maintenance/choices.py:24
 msgid "60,00 €"
-msgstr ""
+msgstr "60,00 €"
 
 #: maintenance/choices.py:25
 msgid "65,00 €"
-msgstr ""
+msgstr "65,00 €"
 
 #: maintenance/choices.py:26
 msgid "70,00 €"
-msgstr ""
+msgstr "70,00 €"
 
 #: maintenance/choices.py:27
 msgid "75,00 €"
-msgstr ""
+msgstr "75,00 €"
 
 #: maintenance/choices.py:28
 msgid "80,00 €"
-msgstr ""
+msgstr "80,00 €"
 
 #: maintenance/choices.py:29
 msgid "85,00 €"
-msgstr ""
+msgstr "85,00 €"
 
 #: maintenance/choices.py:30
 msgid "90,00 €"
-msgstr ""
+msgstr "90,00 €"
 
 #: maintenance/choices.py:31
 msgid "95,00 €"
-msgstr ""
+msgstr "95,00 €"
 
 #: maintenance/choices.py:32
 msgid "100,00 €"
-msgstr ""
+msgstr "100,00 €"
 
 #: maintenance/choices.py:33
 msgid "105,00 €"
-msgstr ""
+msgstr "105,00 €"
 
 #: maintenance/choices.py:34
 msgid "110,00 €"
-msgstr ""
+msgstr "110,00 €"
 
 #: maintenance/choices.py:35
 msgid "115,00 €"
-msgstr ""
+msgstr "115,00 €"
 
 #: maintenance/choices.py:36
 msgid "120,00 €"
-msgstr ""
+msgstr "120,00 €"
 
 #: maintenance/choices.py:37
 msgid "125,00 €"
-msgstr ""
+msgstr "125,00 €"
 
 #: maintenance/choices.py:38
 msgid "130,00 €"
-msgstr ""
+msgstr "130,00 €"
 
 #: maintenance/choices.py:43
 msgid "Conduite à gauche"
@@ -24812,59 +24880,59 @@ msgstr "Γνήσιο ανταλλακτικό κατασκευαστή (OEM)"
 #: maintenance/choices.py:54 maintenance/choices.py:1181
 #: maintenance/choices.py:2446
 msgid "Van Wezel"
-msgstr ""
+msgstr "Van Wezel"
 
 #: maintenance/choices.py:55
 msgid "Blic"
-msgstr ""
+msgstr "Blic"
 
 #: maintenance/choices.py:56
 msgid "Klokkerholm"
-msgstr ""
+msgstr "Klokkerholm"
 
 #: maintenance/choices.py:57 maintenance/choices.py:1182
 msgid "Prasco"
-msgstr ""
+msgstr "Prasco"
 
 #: maintenance/choices.py:58
 msgid "Diederichs"
-msgstr ""
+msgstr "Diederichs"
 
 #: maintenance/choices.py:59
 msgid "Polcar"
-msgstr ""
+msgstr "Polcar"
 
 #: maintenance/choices.py:60
 msgid "Jumasa"
-msgstr ""
+msgstr "Jumasa"
 
 #: maintenance/choices.py:61
 msgid "TYG (Tong Yang)"
-msgstr ""
+msgstr "TYG (Tong Yang)"
 
 #: maintenance/choices.py:62
 msgid "Signeda"
-msgstr ""
+msgstr "Signeda"
 
 #: maintenance/choices.py:63
 msgid "OPmobility (Plastic Omnium)"
-msgstr ""
+msgstr "OPmobility (Plastic Omnium)"
 
 #: maintenance/choices.py:64
 msgid "Magna"
-msgstr ""
+msgstr "Magna"
 
 #: maintenance/choices.py:65
 msgid "Gestamp"
-msgstr ""
+msgstr "Gestamp"
 
 #: maintenance/choices.py:66
 msgid "Flex-N-Gate"
-msgstr ""
+msgstr "Flex-N-Gate"
 
 #: maintenance/choices.py:67
 msgid "Forvia (Faurecia)"
-msgstr ""
+msgstr "Forvia (Faurecia)"
 
 #: maintenance/choices.py:68
 msgid "Kirchhoff Automotive"
@@ -24872,7 +24940,7 @@ msgstr "Kirchhoff Automotive"
 
 #: maintenance/choices.py:73
 msgid "Hella (Forvia)"
-msgstr ""
+msgstr "Hella (Forvia)"
 
 #: maintenance/choices.py:74 maintenance/choices.py:486
 #: maintenance/choices.py:591 maintenance/choices.py:864
@@ -24894,32 +24962,32 @@ msgstr "Automotive Lighting"
 
 #: maintenance/choices.py:77
 msgid "ZKW"
-msgstr ""
+msgstr "ZKW"
 
 #: maintenance/choices.py:78
 msgid "Koito"
-msgstr ""
+msgstr "Koito"
 
 #: maintenance/choices.py:79
 msgid "Stanley Electric"
-msgstr ""
+msgstr "Stanley Electric"
 
 #: maintenance/choices.py:80
 msgid "Depo"
-msgstr ""
+msgstr "Depo"
 
 #: maintenance/choices.py:81 maintenance/choices.py:1150
 #: maintenance/choices.py:2448
 msgid "TYC"
-msgstr ""
+msgstr "TYC"
 
 #: maintenance/choices.py:82
 msgid "Ulo"
-msgstr ""
+msgstr "Ulo"
 
 #: maintenance/choices.py:83 maintenance/choices.py:1795
 msgid "Osram"
-msgstr ""
+msgstr "Osram"
 
 #: maintenance/choices.py:84 maintenance/choices.py:1796
 msgid "Philips"
@@ -24927,31 +24995,31 @@ msgstr "Philips"
 
 #: maintenance/choices.py:89
 msgid "Ficosa"
-msgstr ""
+msgstr "Ficosa"
 
 #: maintenance/choices.py:90
 msgid "Mekra Lang"
-msgstr ""
+msgstr "Mekra Lang"
 
 #: maintenance/choices.py:91
 msgid "Alkar"
-msgstr ""
+msgstr "Alkar"
 
 #: maintenance/choices.py:92
 msgid "Gentex"
-msgstr ""
+msgstr "Gentex"
 
 #: maintenance/choices.py:93
 msgid "SMR (Motherson)"
-msgstr ""
+msgstr "SMR (Motherson)"
 
 #: maintenance/choices.py:98
 msgid "Saint-Gobain Sekurit"
-msgstr ""
+msgstr "Saint-Gobain Sekurit"
 
 #: maintenance/choices.py:99
 msgid "Pilkington"
-msgstr ""
+msgstr "Pilkington"
 
 #: maintenance/choices.py:100
 msgid "AGC Automotive"
@@ -24959,7 +25027,7 @@ msgstr "AGC Automotive"
 
 #: maintenance/choices.py:101
 msgid "Fuyao"
-msgstr ""
+msgstr "Fuyao"
 
 #: maintenance/choices.py:102
 msgid "Guardian Glass"
@@ -24967,7 +25035,7 @@ msgstr "Guardian Glass"
 
 #: maintenance/choices.py:103
 msgid "XYG"
-msgstr ""
+msgstr "XYG"
 
 #: maintenance/choices.py:104
 msgid "Carglass"
@@ -24979,91 +25047,91 @@ msgstr "PPG"
 
 #: maintenance/choices.py:110
 msgid "Axalta"
-msgstr ""
+msgstr "Axalta"
 
 #: maintenance/choices.py:111
 msgid "Standox"
-msgstr ""
+msgstr "Standox"
 
 #: maintenance/choices.py:112
 msgid "Spies Hecker"
-msgstr ""
+msgstr "Spies Hecker"
 
 #: maintenance/choices.py:113
 msgid "Cromax"
-msgstr ""
+msgstr "Cromax"
 
 #: maintenance/choices.py:114
 msgid "Glasurit (BASF)"
-msgstr ""
+msgstr "Glasurit (BASF)"
 
 #: maintenance/choices.py:115
 msgid "R-M (BASF)"
-msgstr ""
+msgstr "R-M (BASF)"
 
 #: maintenance/choices.py:116
 msgid "Sikkens (AkzoNobel)"
-msgstr ""
+msgstr "Sikkens (AkzoNobel)"
 
 #: maintenance/choices.py:117
 msgid "Lechler"
-msgstr ""
+msgstr "Lechler"
 
 #: maintenance/choices.py:118
 msgid "De Beer"
-msgstr ""
+msgstr "De Beer"
 
 #: maintenance/choices.py:119
 msgid "Mipa"
-msgstr ""
+msgstr "Mipa"
 
 #: maintenance/choices.py:120
 msgid "Nexa Autocolor"
-msgstr ""
+msgstr "Nexa Autocolor"
 
 #: maintenance/choices.py:121
 msgid "Roberlo"
-msgstr ""
+msgstr "Roberlo"
 
 #: maintenance/choices.py:122
 msgid "U-POL"
-msgstr ""
+msgstr "U-POL"
 
 #: maintenance/choices.py:123
 msgid "Troton"
-msgstr ""
+msgstr "Troton"
 
 #: maintenance/choices.py:124
 msgid "Novol"
-msgstr ""
+msgstr "Novol"
 
 #: maintenance/choices.py:125
 msgid "Teroson (Henkel)"
-msgstr ""
+msgstr "Teroson (Henkel)"
 
 #: maintenance/choices.py:126
 msgid "Sika"
-msgstr ""
+msgstr "Sika"
 
 #: maintenance/choices.py:127 maintenance/choices.py:2472
 msgid "Würth"
-msgstr ""
+msgstr "Würth"
 
 #: maintenance/choices.py:128
 msgid "Mirka"
-msgstr ""
+msgstr "Mirka"
 
 #: maintenance/choices.py:129
 msgid "3M"
-msgstr ""
+msgstr "3M"
 
 #: maintenance/choices.py:134
 msgid "Stabilus (vérins)"
-msgstr ""
+msgstr "Stabilus (αμορτισέρ αερίου)"
 
 #: maintenance/choices.py:135 maintenance/choices.py:633
 msgid "Lesjöfors"
-msgstr ""
+msgstr "Lesjöfors"
 
 #: maintenance/choices.py:136 maintenance/choices.py:479
 #: maintenance/choices.py:539 maintenance/choices.py:617
@@ -25086,11 +25154,11 @@ msgstr "SWF"
 
 #: maintenance/choices.py:138
 msgid "Trico"
-msgstr ""
+msgstr "Trico"
 
 #: maintenance/choices.py:139
 msgid "WeatherTech"
-msgstr ""
+msgstr "WeatherTech"
 
 #: maintenance/choices.py:140
 msgid "Dorman"
@@ -25098,89 +25166,89 @@ msgstr "Dorman"
 
 #: maintenance/choices.py:147 maintenance/choices.py:540
 msgid "Castrol"
-msgstr ""
+msgstr "Castrol"
 
 #: maintenance/choices.py:148 maintenance/choices.py:568
 msgid "Motul"
-msgstr ""
+msgstr "Motul"
 
 #: maintenance/choices.py:149
 msgid "Mobil 1"
-msgstr ""
+msgstr "Mobil 1"
 
 #: maintenance/choices.py:150 maintenance/choices.py:582
 msgid "Shell"
-msgstr ""
+msgstr "Shell"
 
 #: maintenance/choices.py:151 maintenance/choices.py:588
 msgid "TotalEnergies"
-msgstr ""
+msgstr "TotalEnergies"
 
 #: maintenance/choices.py:152 maintenance/choices.py:543
 msgid "ELF"
-msgstr ""
+msgstr "ELF"
 
 #: maintenance/choices.py:153 maintenance/choices.py:557
 #: maintenance/choices.py:2471
 msgid "Liqui Moly"
-msgstr ""
+msgstr "Liqui Moly"
 
 #: maintenance/choices.py:154 maintenance/choices.py:546
 #: maintenance/choices.py:2470
 msgid "Fuchs"
-msgstr ""
+msgstr "Fuchs"
 
 #: maintenance/choices.py:155 maintenance/choices.py:592
 msgid "Valvoline"
-msgstr ""
+msgstr "Valvoline"
 
 #: maintenance/choices.py:156
 msgid "Penrite"
-msgstr ""
+msgstr "Penrite"
 
 #: maintenance/choices.py:157 maintenance/choices.py:578
 msgid "Ravenol"
-msgstr ""
+msgstr "Ravenol"
 
 #: maintenance/choices.py:158
 msgid "Rowe"
-msgstr ""
+msgstr "Rowe"
 
 #: maintenance/choices.py:159
 msgid "ENEOS"
-msgstr ""
+msgstr "ENEOS"
 
 #: maintenance/choices.py:160 maintenance/choices.py:574
 msgid "Petronas"
-msgstr ""
+msgstr "Petronas"
 
 #: maintenance/choices.py:161 maintenance/choices.py:544
 msgid "Eurol"
-msgstr ""
+msgstr "Eurol"
 
 #: maintenance/choices.py:162 maintenance/choices.py:542
 msgid "Comma"
-msgstr ""
+msgstr "Comma"
 
 #: maintenance/choices.py:163 maintenance/choices.py:558
 msgid "Mannol"
-msgstr ""
+msgstr "Mannol"
 
 #: maintenance/choices.py:164 maintenance/choices.py:597
 msgid "Yacco"
-msgstr ""
+msgstr "Yacco"
 
 #: maintenance/choices.py:165
 msgid "Red Line"
-msgstr ""
+msgstr "Red Line"
 
 #: maintenance/choices.py:166
 msgid "Amsoil"
-msgstr ""
+msgstr "Amsoil"
 
 #: maintenance/choices.py:167
 msgid "Kroon-Oil"
-msgstr ""
+msgstr "Kroon-Oil"
 
 #: maintenance/choices.py:168 maintenance/choices.py:504
 #: maintenance/choices.py:545 maintenance/choices.py:623
@@ -25190,7 +25258,7 @@ msgstr ""
 #: maintenance/choices.py:1380 maintenance/choices.py:2383
 #: maintenance/choices.py:2531
 msgid "Febi Bilstein"
-msgstr ""
+msgstr "Febi Bilstein"
 
 #: maintenance/choices.py:169 maintenance/choices.py:505
 #: maintenance/choices.py:586 maintenance/choices.py:651
@@ -25199,95 +25267,95 @@ msgstr ""
 #: maintenance/choices.py:1267 maintenance/choices.py:1381
 #: maintenance/choices.py:1598 maintenance/choices.py:2542
 msgid "SWAG"
-msgstr ""
+msgstr "SWAG"
 
 #: maintenance/choices.py:170
 msgid "Pentosin"
-msgstr ""
+msgstr "Pentosin"
 
 #: maintenance/choices.py:171 maintenance/choices.py:658
 #: maintenance/choices.py:727 maintenance/choices.py:1925
 msgid "ZF"
-msgstr ""
+msgstr "ZF"
 
 #: maintenance/choices.py:172 maintenance/choices.py:1091
 #: maintenance/choices.py:1208 maintenance/choices.py:1913
 msgid "Aisin"
-msgstr ""
+msgstr "Aisin"
 
 #: maintenance/choices.py:173 maintenance/choices.py:589
 #: maintenance/choices.py:665 maintenance/choices.py:744
 #: maintenance/choices.py:1090 maintenance/choices.py:1852
 #: maintenance/choices.py:1908
 msgid "Toyota"
-msgstr ""
+msgstr "Toyota"
 
 #: maintenance/choices.py:174 maintenance/choices.py:551
 #: maintenance/choices.py:732 maintenance/choices.py:1828
 #: maintenance/choices.py:1897
 msgid "Honda"
-msgstr ""
+msgstr "Honda"
 
 #: maintenance/choices.py:175 maintenance/choices.py:569
 #: maintenance/choices.py:738 maintenance/choices.py:1842
 #: maintenance/choices.py:1902
 msgid "Nissan"
-msgstr ""
+msgstr "Nissan"
 
 #: maintenance/choices.py:176 maintenance/choices.py:560
 #: maintenance/choices.py:661 maintenance/choices.py:736
 #: maintenance/choices.py:1839 maintenance/choices.py:1900
 msgid "Mercedes-Benz"
-msgstr ""
+msgstr "Mercedes-Benz"
 
 #: maintenance/choices.py:177 maintenance/choices.py:537
 #: maintenance/choices.py:660 maintenance/choices.py:729
 #: maintenance/choices.py:964 maintenance/choices.py:1820
 #: maintenance/choices.py:1891
 msgid "BMW"
-msgstr ""
+msgstr "BMW"
 
 #: maintenance/choices.py:178 maintenance/choices.py:1853
 #: maintenance/choices.py:1909
 msgid "Volkswagen"
-msgstr ""
+msgstr "Volkswagen"
 
 #: maintenance/choices.py:179 maintenance/choices.py:575
 #: maintenance/choices.py:662 maintenance/choices.py:739
 #: maintenance/choices.py:965 maintenance/choices.py:1845
 #: maintenance/choices.py:1905
 msgid "Porsche"
-msgstr ""
+msgstr "Porsche"
 
 #: maintenance/choices.py:180 maintenance/choices.py:580
 #: maintenance/choices.py:663 maintenance/choices.py:740
 #: maintenance/choices.py:1846 maintenance/choices.py:1906
 msgid "Renault"
-msgstr ""
+msgstr "Renault"
 
 #: maintenance/choices.py:181
 msgid "Peugeot / Citroën"
-msgstr ""
+msgstr "Peugeot / Citroën"
 
 #: maintenance/choices.py:182
 msgid "Hyundai / Kia"
-msgstr ""
+msgstr "Hyundai / Kia"
 
 #: maintenance/choices.py:183 maintenance/choices.py:730
 #: maintenance/choices.py:1826 maintenance/choices.py:1895
 msgid "Ford"
-msgstr ""
+msgstr "Ford"
 
 #: maintenance/choices.py:184 maintenance/choices.py:548
 #: maintenance/choices.py:731 maintenance/choices.py:1827
 #: maintenance/choices.py:1896
 msgid "General Motors"
-msgstr ""
+msgstr "General Motors"
 
 #: maintenance/choices.py:185 maintenance/choices.py:565
 #: maintenance/choices.py:872 maintenance/choices.py:1325
 msgid "Mopar"
-msgstr ""
+msgstr "Mopar"
 
 #: maintenance/choices.py:187 maintenance/choices.py:235
 #: maintenance/choices.py:438 maintenance/choices.py:521
@@ -25302,253 +25370,253 @@ msgstr "Hersteller"
 
 #: maintenance/choices.py:242 piece/piece_ampoules/models.py:18
 msgid "H1"
-msgstr ""
+msgstr "H1"
 
 #: maintenance/choices.py:243 piece/piece_ampoules/models.py:19
 msgid "H3"
-msgstr ""
+msgstr "H3"
 
 #: maintenance/choices.py:244 piece/piece_ampoules/models.py:20
 msgid "H4"
-msgstr ""
+msgstr "H4"
 
 #: maintenance/choices.py:245 piece/piece_ampoules/models.py:21
 msgid "H7"
-msgstr ""
+msgstr "H7"
 
 #: maintenance/choices.py:246
 msgid "H8"
-msgstr ""
+msgstr "H8"
 
 #: maintenance/choices.py:247
 msgid "H9"
-msgstr ""
+msgstr "H9"
 
 #: maintenance/choices.py:248
 msgid "H10"
-msgstr ""
+msgstr "H10"
 
 #: maintenance/choices.py:249 piece/piece_ampoules/models.py:22
 msgid "H11"
-msgstr ""
+msgstr "H11"
 
 #: maintenance/choices.py:250
 msgid "H12"
-msgstr ""
+msgstr "H12"
 
 #: maintenance/choices.py:251
 msgid "H13"
-msgstr ""
+msgstr "H13"
 
 #: maintenance/choices.py:252
 msgid "H15"
-msgstr ""
+msgstr "H15"
 
 #: maintenance/choices.py:253
 msgid "H16"
-msgstr ""
+msgstr "H16"
 
 #: maintenance/choices.py:254
 msgid "H18"
-msgstr ""
+msgstr "H18"
 
 #: maintenance/choices.py:255
 msgid "H19"
-msgstr ""
+msgstr "H19"
 
 #: maintenance/choices.py:258
 msgid "HB1 (9004)"
-msgstr ""
+msgstr "HB1 (9004)"
 
 #: maintenance/choices.py:259
 msgid "HB2 (9003)"
-msgstr ""
+msgstr "HB2 (9003)"
 
 #: maintenance/choices.py:260
 msgid "HB3 (9005)"
-msgstr ""
+msgstr "HB3 (9005)"
 
 #: maintenance/choices.py:261
 msgid "HB4 (9006)"
-msgstr ""
+msgstr "HB4 (9006)"
 
 #: maintenance/choices.py:262
 msgid "HB5 (9007)"
-msgstr ""
+msgstr "HB5 (9007)"
 
 #: maintenance/choices.py:265
 msgid "D1S"
-msgstr ""
+msgstr "D1S"
 
 #: maintenance/choices.py:266
 msgid "D1R"
-msgstr ""
+msgstr "D1R"
 
 #: maintenance/choices.py:267
 msgid "D2S"
-msgstr ""
+msgstr "D2S"
 
 #: maintenance/choices.py:268
 msgid "D2R"
-msgstr ""
+msgstr "D2R"
 
 #: maintenance/choices.py:269
 msgid "D3S"
-msgstr ""
+msgstr "D3S"
 
 #: maintenance/choices.py:270
 msgid "D3R"
-msgstr ""
+msgstr "D3R"
 
 #: maintenance/choices.py:271
 msgid "D4S"
-msgstr ""
+msgstr "D4S"
 
 #: maintenance/choices.py:272
 msgid "D4R"
-msgstr ""
+msgstr "D4R"
 
 #: maintenance/choices.py:273
 msgid "D5S"
-msgstr ""
+msgstr "D5S"
 
 #: maintenance/choices.py:274
 msgid "D8S"
-msgstr ""
+msgstr "D8S"
 
 #: maintenance/choices.py:277
 msgid "W1.2W"
-msgstr ""
+msgstr "W1.2W"
 
 #: maintenance/choices.py:278
 msgid "W2W"
-msgstr ""
+msgstr "W2W"
 
 #: maintenance/choices.py:279
 msgid "W3W"
-msgstr ""
+msgstr "W3W"
 
 #: maintenance/choices.py:280 piece/piece_ampoules/models.py:28
 msgid "W5W"
-msgstr ""
+msgstr "W5W"
 
 #: maintenance/choices.py:281
 msgid "WY5W"
-msgstr ""
+msgstr "WY5W"
 
 #: maintenance/choices.py:284
 msgid "P21W"
-msgstr ""
+msgstr "P21W"
 
 #: maintenance/choices.py:285
 msgid "PY21W"
-msgstr ""
+msgstr "PY21W"
 
 #: maintenance/choices.py:286
 msgid "P21/5W"
-msgstr ""
+msgstr "P21/5W"
 
 #: maintenance/choices.py:287
 msgid "R5W"
-msgstr ""
+msgstr "R5W"
 
 #: maintenance/choices.py:288
 msgid "R10W"
-msgstr ""
+msgstr "R10W"
 
 #: maintenance/choices.py:291 piece/piece_ampoules/models.py:27
 msgid "C5W"
-msgstr ""
+msgstr "C5W"
 
 #: maintenance/choices.py:292
 msgid "C10W"
-msgstr ""
+msgstr "C10W"
 
 #: maintenance/choices.py:295
 msgid "BA9S"
-msgstr ""
+msgstr "BA9S"
 
 #: maintenance/choices.py:296
 msgid "BA15S"
-msgstr ""
+msgstr "BA15S"
 
 #: maintenance/choices.py:297
 msgid "BA15D"
-msgstr ""
+msgstr "BA15D"
 
 #: maintenance/choices.py:298
 msgid "BAY15D"
-msgstr ""
+msgstr "BAY15D"
 
 #: maintenance/choices.py:299
 msgid "BAU15S"
-msgstr ""
+msgstr "BAU15S"
 
 #: maintenance/choices.py:302
 msgid "SV7"
-msgstr ""
+msgstr "SV7"
 
 #: maintenance/choices.py:303
 msgid "SV8.5"
-msgstr ""
+msgstr "SV8.5"
 
 #: maintenance/choices.py:306
 msgid "LED H1"
-msgstr ""
+msgstr "LED H1"
 
 #: maintenance/choices.py:307
 msgid "LED H4"
-msgstr ""
+msgstr "LED H4"
 
 #: maintenance/choices.py:308
 msgid "LED H7"
-msgstr ""
+msgstr "LED H7"
 
 #: maintenance/choices.py:309
 msgid "LED H11"
-msgstr ""
+msgstr "LED H11"
 
 #: maintenance/choices.py:310
 msgid "LED W5W"
-msgstr ""
+msgstr "LED W5W"
 
 #: maintenance/choices.py:311
 msgid "LED P21W"
-msgstr ""
+msgstr "LED P21W"
 
 #: maintenance/choices.py:312
 msgid "LED P21/5W"
-msgstr ""
+msgstr "LED P21/5W"
 
 #: maintenance/choices.py:444 maintenance/choices.py:2095
 #: maintenance/choices.py:2221 maintenance/choices.py:2297
 msgid "ATF Dexron II"
-msgstr ""
+msgstr "ATF Dexron II"
 
 #: maintenance/choices.py:445 maintenance/choices.py:2096
 #: maintenance/choices.py:2222 maintenance/choices.py:2298
 msgid "ATF Dexron III"
-msgstr ""
+msgstr "ATF Dexron III"
 
 #: maintenance/choices.py:446 maintenance/choices.py:2097
 #: maintenance/choices.py:2223 maintenance/choices.py:2299
 msgid "ATF Dexron VI"
-msgstr ""
+msgstr "ATF Dexron VI"
 
 #: maintenance/choices.py:447 maintenance/choices.py:2027
 #: piece/piece_fluides/models.py:63
 msgid "CHF 7.1"
-msgstr ""
+msgstr "CHF 7.1"
 
 #: maintenance/choices.py:448 maintenance/choices.py:2028
 #: piece/piece_fluides/models.py:64
 msgid "CHF 11S"
-msgstr ""
+msgstr "CHF 11S"
 
 #: maintenance/choices.py:449 maintenance/choices.py:2029
 #: piece/piece_fluides/models.py:65
 msgid "CHF 202"
-msgstr ""
+msgstr "CHF 202"
 
 #: maintenance/choices.py:450
 msgid "LDS"
@@ -25556,7 +25624,7 @@ msgstr "LDS"
 
 #: maintenance/choices.py:451
 msgid "LHM"
-msgstr ""
+msgstr "LHM"
 
 #: maintenance/choices.py:452
 msgid "PSF"
@@ -25564,43 +25632,43 @@ msgstr "PSF"
 
 #: maintenance/choices.py:453
 msgid "PSF-3"
-msgstr ""
+msgstr "PSF-3"
 
 #: maintenance/choices.py:454
 msgid "PSF-4"
-msgstr ""
+msgstr "PSF-4"
 
 #: maintenance/choices.py:455
 msgid "Mercedes-Benz 236.3"
-msgstr ""
+msgstr "Mercedes-Benz 236.3"
 
 #: maintenance/choices.py:456
 msgid "Mercedes-Benz 345.0"
-msgstr ""
+msgstr "Mercedes-Benz 345.0"
 
 #: maintenance/choices.py:457
 msgid "Volkswagen G 002 000"
-msgstr ""
+msgstr "Volkswagen G 002 000"
 
 #: maintenance/choices.py:458
 msgid "Volkswagen G 004 000"
-msgstr ""
+msgstr "Volkswagen G 004 000"
 
 #: maintenance/choices.py:459
 msgid "BMW ATF"
-msgstr ""
+msgstr "BMW ATF"
 
 #: maintenance/choices.py:460
 msgid "BMW CHF"
-msgstr ""
+msgstr "BMW CHF"
 
 #: maintenance/choices.py:461
 msgid "Honda PSF"
-msgstr ""
+msgstr "Honda PSF"
 
 #: maintenance/choices.py:462
 msgid "Toyota PSF"
-msgstr ""
+msgstr "Toyota PSF"
 
 #: maintenance/choices.py:463
 msgid "Huile minérale"
@@ -25620,7 +25688,7 @@ msgstr "Herstellerspezifikation"
 
 #: maintenance/choices.py:477
 msgid "ATE"
-msgstr ""
+msgstr "ATE"
 
 #: maintenance/choices.py:478 maintenance/choices.py:2373
 msgid "Brembo"
@@ -25630,23 +25698,23 @@ msgstr "Brembo"
 #: maintenance/choices.py:723 maintenance/choices.py:1013
 #: maintenance/choices.py:1350 maintenance/choices.py:2534
 msgid "TRW"
-msgstr ""
+msgstr "TRW"
 
 #: maintenance/choices.py:481
 msgid "Ferodo"
-msgstr ""
+msgstr "Ferodo"
 
 #: maintenance/choices.py:482
 msgid "Textar"
-msgstr ""
+msgstr "Textar"
 
 #: maintenance/choices.py:483
 msgid "Pagid"
-msgstr ""
+msgstr "Pagid"
 
 #: maintenance/choices.py:484
 msgid "Jurid"
-msgstr ""
+msgstr "Jurid"
 
 #: maintenance/choices.py:485 maintenance/choices.py:620
 #: maintenance/choices.py:687 maintenance/choices.py:868
@@ -25660,22 +25728,22 @@ msgstr ""
 #: maintenance/choices.py:2370 maintenance/choices.py:2442
 #: maintenance/choices.py:2535
 msgid "Delphi"
-msgstr ""
+msgstr "Delphi"
 
 #: maintenance/choices.py:487 maintenance/choices.py:866
 #: maintenance/choices.py:981 maintenance/choices.py:1313
 #: maintenance/choices.py:1739 maintenance/choices.py:1797
 #: maintenance/choices.py:2371
 msgid "Hella"
-msgstr ""
+msgstr "Hella"
 
 #: maintenance/choices.py:488
 msgid "Hella Pagid"
-msgstr ""
+msgstr "Hella Pagid"
 
 #: maintenance/choices.py:489
 msgid "Zimmermann"
-msgstr ""
+msgstr "Zimmermann"
 
 #: maintenance/choices.py:490 maintenance/choices.py:561
 #: maintenance/choices.py:637 maintenance/choices.py:705
@@ -25683,7 +25751,7 @@ msgstr ""
 #: maintenance/choices.py:1053 maintenance/choices.py:1379
 #: maintenance/choices.py:2382 maintenance/choices.py:2530
 msgid "Meyle"
-msgstr ""
+msgstr "Meyle"
 
 #: maintenance/choices.py:491 maintenance/choices.py:682
 #: maintenance/choices.py:876 maintenance/choices.py:1056
@@ -25692,7 +25760,7 @@ msgstr ""
 #: maintenance/choices.py:1478 maintenance/choices.py:1612
 #: maintenance/choices.py:2539
 msgid "Blue Print"
-msgstr ""
+msgstr "Blue Print"
 
 #: maintenance/choices.py:492 maintenance/choices.py:640
 #: maintenance/choices.py:708 maintenance/choices.py:1353
@@ -25702,79 +25770,79 @@ msgstr "Nipparts"
 
 #: maintenance/choices.py:493
 msgid "Mintex"
-msgstr ""
+msgstr "Mintex"
 
 #: maintenance/choices.py:494
 msgid "Roadhouse"
-msgstr ""
+msgstr "Roadhouse"
 
 #: maintenance/choices.py:495
 msgid "Remsa"
-msgstr ""
+msgstr "Remsa"
 
 #: maintenance/choices.py:496
 msgid "ICER"
-msgstr ""
+msgstr "ICER"
 
 #: maintenance/choices.py:497
 msgid "EBC Brakes"
-msgstr ""
+msgstr "EBC Brakes"
 
 #: maintenance/choices.py:498
 msgid "StopTech"
-msgstr ""
+msgstr "StopTech"
 
 #: maintenance/choices.py:499
 msgid "Akebono"
-msgstr ""
+msgstr "Akebono"
 
 #: maintenance/choices.py:500
 msgid "Advics"
-msgstr ""
+msgstr "Advics"
 
 #: maintenance/choices.py:501
 msgid "Nisshinbo"
-msgstr ""
+msgstr "Nisshinbo"
 
 #: maintenance/choices.py:502 maintenance/choices.py:680
 msgid "Bendix"
-msgstr ""
+msgstr "Bendix"
 
 #: maintenance/choices.py:503
 msgid "Comline"
-msgstr ""
+msgstr "Comline"
 
 #: maintenance/choices.py:506 maintenance/choices.py:635
 #: maintenance/choices.py:702 maintenance/choices.py:1023
 #: maintenance/choices.py:1332 maintenance/choices.py:1384
 msgid "Mapco"
-msgstr ""
+msgstr "Mapco"
 
 #: maintenance/choices.py:507 maintenance/choices.py:641
 #: maintenance/choices.py:709 maintenance/choices.py:1484
 msgid "NK"
-msgstr ""
+msgstr "NK"
 
 #: maintenance/choices.py:508 maintenance/choices.py:626
 #: maintenance/choices.py:695 maintenance/choices.py:875
 #: maintenance/choices.py:1395 maintenance/choices.py:1500
 #: maintenance/choices.py:1621 maintenance/choices.py:2544
 msgid "Japanparts"
-msgstr ""
+msgstr "Japanparts"
 
 #: maintenance/choices.py:509 maintenance/choices.py:693
 #: maintenance/choices.py:1233 maintenance/choices.py:1293
 #: maintenance/choices.py:1330 maintenance/choices.py:1397
 msgid "Herth+Buss"
-msgstr ""
+msgstr "Herth+Buss"
 
 #: maintenance/choices.py:510
 msgid "DON"
-msgstr ""
+msgstr "DON"
 
 #: maintenance/choices.py:511
 msgid "Tomex"
-msgstr ""
+msgstr "Tomex"
 
 #: maintenance/choices.py:512 maintenance/choices.py:701
 #: maintenance/choices.py:1495
@@ -25783,7 +25851,7 @@ msgstr "LPR"
 
 #: maintenance/choices.py:513
 msgid "Cifam"
-msgstr ""
+msgstr "Cifam"
 
 #: maintenance/choices.py:514 maintenance/choices.py:704
 #: maintenance/choices.py:1057 maintenance/choices.py:1390
@@ -25796,7 +25864,7 @@ msgstr "Metelli"
 #: maintenance/choices.py:1234 maintenance/choices.py:1349
 #: maintenance/choices.py:1383 maintenance/choices.py:1494
 msgid "Quinton Hazell"
-msgstr ""
+msgstr "Quinton Hazell"
 
 #: maintenance/choices.py:516 maintenance/choices.py:716
 #: maintenance/choices.py:1016 maintenance/choices.py:1048
@@ -25809,103 +25877,103 @@ msgstr "SKF"
 #: maintenance/choices.py:717 maintenance/choices.py:1017
 #: maintenance/choices.py:1050 maintenance/choices.py:1374
 msgid "SNR"
-msgstr ""
+msgstr "SNR"
 
 #: maintenance/choices.py:518
 msgid "Winmax"
-msgstr ""
+msgstr "Winmax"
 
 #: maintenance/choices.py:519
 msgid "Dixcel"
-msgstr ""
+msgstr "Dixcel"
 
 #: maintenance/choices.py:530
 msgid "ABRO"
-msgstr ""
+msgstr "ABRO"
 
 #: maintenance/choices.py:531 maintenance/choices.py:1420
 msgid "AISIN"
-msgstr ""
+msgstr "AISIN"
 
 #: maintenance/choices.py:532
 msgid "Areca"
-msgstr ""
+msgstr "Areca"
 
 #: maintenance/choices.py:533
 msgid "Bardahl"
-msgstr ""
+msgstr "Bardahl"
 
 #: maintenance/choices.py:534
 msgid "BASF Glysantin"
-msgstr ""
+msgstr "BASF Glysantin"
 
 #: maintenance/choices.py:535
 msgid "Bel-Ray"
-msgstr ""
+msgstr "Bel-Ray"
 
 #: maintenance/choices.py:536
 msgid "BIZOL"
-msgstr ""
+msgstr "BIZOL"
 
 #: maintenance/choices.py:538
 msgid "BOLK"
-msgstr ""
+msgstr "BOLK"
 
 #: maintenance/choices.py:541 maintenance/choices.py:861
 #: maintenance/choices.py:2375
 msgid "Champion"
-msgstr ""
+msgstr "Champion"
 
 #: maintenance/choices.py:547 maintenance/choices.py:1045
 #: maintenance/choices.py:1248 maintenance/choices.py:1369
 msgid "Gates"
-msgstr ""
+msgstr "Gates"
 
 #: maintenance/choices.py:549 maintenance/choices.py:1058
 #: maintenance/choices.py:1392
 msgid "HEPU"
-msgstr ""
+msgstr "HEPU"
 
 #: maintenance/choices.py:550
 msgid "Holts"
-msgstr ""
+msgstr "Holts"
 
 #: maintenance/choices.py:552 maintenance/choices.py:733
 #: maintenance/choices.py:1829 maintenance/choices.py:1898
 msgid "Hyundai"
-msgstr ""
+msgstr "Hyundai"
 
 #: maintenance/choices.py:553
 msgid "Igol"
-msgstr ""
+msgstr "Igol"
 
 #: maintenance/choices.py:554
 msgid "IPONE"
-msgstr ""
+msgstr "IPONE"
 
 #: maintenance/choices.py:555
 msgid "K2"
-msgstr ""
+msgstr "K2"
 
 #: maintenance/choices.py:556 maintenance/choices.py:734
 #: maintenance/choices.py:1831
 msgid "Kia"
-msgstr ""
+msgstr "Kia"
 
 #: maintenance/choices.py:559 maintenance/choices.py:735
 #: maintenance/choices.py:1837 maintenance/choices.py:1899
 msgid "Mazda"
-msgstr ""
+msgstr "Mazda"
 
 #: maintenance/choices.py:562
 msgid "Millers Oils"
-msgstr ""
+msgstr "Millers Oils"
 
 #: maintenance/choices.py:563 maintenance/choices.py:737
 #: maintenance/choices.py:1078 maintenance/choices.py:1155
 #: maintenance/choices.py:1841 maintenance/choices.py:1901
 msgid "Mitsubishi"
-msgstr ""
+msgstr "Mitsubishi"
 
 #: maintenance/choices.py:564
 msgid "Mobil"
@@ -25913,7 +25981,7 @@ msgstr "Mobil"
 
 #: maintenance/choices.py:566
 msgid "Motip"
-msgstr ""
+msgstr "Motip"
 
 #: maintenance/choices.py:567
 msgid "Motorex"
@@ -25922,19 +25990,19 @@ msgstr "Motorex"
 #: maintenance/choices.py:570 maintenance/choices.py:1843
 #: maintenance/choices.py:1903
 msgid "Opel"
-msgstr ""
+msgstr "Opel"
 
 #: maintenance/choices.py:571
 msgid "Orlen"
-msgstr ""
+msgstr "Orlen"
 
 #: maintenance/choices.py:572
 msgid "Pemco"
-msgstr ""
+msgstr "Pemco"
 
 #: maintenance/choices.py:573
 msgid "Peugeot Citroën"
-msgstr ""
+msgstr "Peugeot Citroën"
 
 #: maintenance/choices.py:576
 msgid "Prestone"
@@ -25942,33 +26010,33 @@ msgstr "Prestone"
 
 #: maintenance/choices.py:577
 msgid "Putoline"
-msgstr ""
+msgstr "Putoline"
 
 #: maintenance/choices.py:579
 msgid "Repsol"
-msgstr ""
+msgstr "Repsol"
 
 #: maintenance/choices.py:581
 msgid "ROWE"
-msgstr ""
+msgstr "ROWE"
 
 #: maintenance/choices.py:583
 msgid "Sonax"
-msgstr ""
+msgstr "Sonax"
 
 #: maintenance/choices.py:584 maintenance/choices.py:742
 #: maintenance/choices.py:1850 maintenance/choices.py:1907
 msgid "Subaru"
-msgstr ""
+msgstr "Subaru"
 
 #: maintenance/choices.py:585 maintenance/choices.py:743
 #: maintenance/choices.py:1851
 msgid "Suzuki"
-msgstr ""
+msgstr "Suzuki"
 
 #: maintenance/choices.py:587
 msgid "Texaco"
-msgstr ""
+msgstr "Texaco"
 
 #: maintenance/choices.py:590
 msgid "Triple QX"
@@ -25982,19 +26050,19 @@ msgstr "VAG"
 #: maintenance/choices.py:746 maintenance/choices.py:1854
 #: maintenance/choices.py:1910
 msgid "Volvo"
-msgstr ""
+msgstr "Volvo"
 
 #: maintenance/choices.py:595
 msgid "Wolf"
-msgstr ""
+msgstr "Wolf"
 
 #: maintenance/choices.py:596
 msgid "Xenum"
-msgstr ""
+msgstr "Xenum"
 
 #: maintenance/choices.py:598 maintenance/choices.py:1874
 msgid "Yamaha"
-msgstr ""
+msgstr "Yamaha"
 
 #: maintenance/choices.py:608 maintenance/choices.py:675
 #: maintenance/choices.py:756
@@ -26004,35 +26072,35 @@ msgstr "Hersteller auswählen"
 #: maintenance/choices.py:610 maintenance/choices.py:871
 #: maintenance/choices.py:932 maintenance/choices.py:1324
 msgid "ACDelco"
-msgstr ""
+msgstr "ACDelco"
 
 #: maintenance/choices.py:611
 msgid "Air Lift"
-msgstr ""
+msgstr "Air Lift"
 
 #: maintenance/choices.py:612
 msgid "AL-KO"
-msgstr ""
+msgstr "AL-KO"
 
 #: maintenance/choices.py:613
 msgid "AP Sportfahrwerke"
-msgstr ""
+msgstr "AP Sportfahrwerke"
 
 #: maintenance/choices.py:614
 msgid "Arnott"
-msgstr ""
+msgstr "Arnott"
 
 #: maintenance/choices.py:615
 msgid "Bilstein"
-msgstr ""
+msgstr "Bilstein"
 
 #: maintenance/choices.py:616
 msgid "Boge"
-msgstr ""
+msgstr "Boge"
 
 #: maintenance/choices.py:618
 msgid "BC Racing"
-msgstr ""
+msgstr "BC Racing"
 
 #: maintenance/choices.py:619
 msgid "Cobra Suspension"
@@ -26040,23 +26108,23 @@ msgstr "Cobra Suspension"
 
 #: maintenance/choices.py:621
 msgid "Eibach"
-msgstr ""
+msgstr "Eibach"
 
 #: maintenance/choices.py:622 maintenance/choices.py:689
 msgid "Febest"
-msgstr ""
+msgstr "Febest"
 
 #: maintenance/choices.py:624
 msgid "Gabriel"
-msgstr ""
+msgstr "Gabriel"
 
 #: maintenance/choices.py:625
 msgid "H&R"
-msgstr ""
+msgstr "H&R"
 
 #: maintenance/choices.py:627 maintenance/choices.py:696
 msgid "Japko"
-msgstr ""
+msgstr "Japko"
 
 #: maintenance/choices.py:628
 msgid "JOM"
@@ -26064,7 +26132,7 @@ msgstr "JOM"
 
 #: maintenance/choices.py:629
 msgid "KYB"
-msgstr ""
+msgstr "KYB"
 
 #: maintenance/choices.py:630
 msgid "KW Suspensions"
@@ -26072,11 +26140,11 @@ msgstr "KW Suspensions"
 
 #: maintenance/choices.py:631
 msgid "Koni"
-msgstr ""
+msgstr "Koni"
 
 #: maintenance/choices.py:632 maintenance/choices.py:1010
 msgid "Lemförder"
-msgstr ""
+msgstr "Lemförder"
 
 #: maintenance/choices.py:634 maintenance/choices.py:867
 #: maintenance/choices.py:994 maintenance/choices.py:1062
@@ -26088,39 +26156,39 @@ msgstr "Magneti Marelli"
 
 #: maintenance/choices.py:636 maintenance/choices.py:703
 msgid "Maxgear"
-msgstr ""
+msgstr "Maxgear"
 
 #: maintenance/choices.py:638
 msgid "Monroe"
-msgstr ""
+msgstr "Monroe"
 
 #: maintenance/choices.py:639 maintenance/choices.py:706
 #: maintenance/choices.py:1014
 msgid "Moog"
-msgstr ""
+msgstr "Moog"
 
 #: maintenance/choices.py:642 maintenance/choices.py:711
 #: maintenance/choices.py:1024
 msgid "Optimal"
-msgstr ""
+msgstr "Optimal"
 
 #: maintenance/choices.py:643
 msgid "Oro Parts"
-msgstr ""
+msgstr "Oro Parts"
 
 #: maintenance/choices.py:644
 msgid "Profit"
-msgstr ""
+msgstr "Profit"
 
 #: maintenance/choices.py:646 maintenance/choices.py:714
 #: maintenance/choices.py:992 maintenance/choices.py:1029
 #: maintenance/choices.py:1333 maintenance/choices.py:1385
 msgid "Ridex"
-msgstr ""
+msgstr "Ridex"
 
 #: maintenance/choices.py:647 maintenance/choices.py:1015
 msgid "Sachs"
-msgstr ""
+msgstr "Sachs"
 
 #: maintenance/choices.py:649 maintenance/choices.py:718
 msgid "Spidan"
@@ -26136,19 +26204,19 @@ msgstr "TA Technix"
 
 #: maintenance/choices.py:653
 msgid "Tein"
-msgstr ""
+msgstr "Tein"
 
 #: maintenance/choices.py:655
 msgid "Vogtland"
-msgstr ""
+msgstr "Vogtland"
 
 #: maintenance/choices.py:656
 msgid "Weitec"
-msgstr ""
+msgstr "Weitec"
 
 #: maintenance/choices.py:657
 msgid "XYZ Racing"
-msgstr ""
+msgstr "XYZ Racing"
 
 #: maintenance/choices.py:664 maintenance/choices.py:741
 msgid "Stellantis"
@@ -26156,27 +26224,27 @@ msgstr "Stellantis"
 
 #: maintenance/choices.py:666 maintenance/choices.py:745
 msgid "Volkswagen Audi Group"
-msgstr ""
+msgstr "Volkswagen Audi Group"
 
 #: maintenance/choices.py:677
 msgid "AIC"
-msgstr ""
+msgstr "AIC"
 
 #: maintenance/choices.py:678 maintenance/choices.py:1396
 msgid "Ashika"
-msgstr ""
+msgstr "Ashika"
 
 #: maintenance/choices.py:679 maintenance/choices.py:1348
 msgid "Autex"
-msgstr ""
+msgstr "Autex"
 
 #: maintenance/choices.py:681 maintenance/choices.py:1610
 msgid "BGA"
-msgstr ""
+msgstr "BGA"
 
 #: maintenance/choices.py:683 maintenance/choices.py:1493
 msgid "Borg & Beck"
-msgstr ""
+msgstr "Borg & Beck"
 
 #: maintenance/choices.py:684
 msgid "BTA"
@@ -26191,15 +26259,15 @@ msgstr "Corteco"
 #: maintenance/choices.py:686 maintenance/choices.py:1046
 #: maintenance/choices.py:1249 maintenance/choices.py:1370
 msgid "Dayco"
-msgstr ""
+msgstr "Dayco"
 
 #: maintenance/choices.py:688
 msgid "FAG"
-msgstr ""
+msgstr "FAG"
 
 #: maintenance/choices.py:691
 msgid "Flennor"
-msgstr ""
+msgstr "Flennor"
 
 #: maintenance/choices.py:692 maintenance/choices.py:1624
 msgid "GSP"
@@ -26208,25 +26276,25 @@ msgstr "GSP"
 #: maintenance/choices.py:694 maintenance/choices.py:1049
 #: maintenance/choices.py:1373
 msgid "INA"
-msgstr ""
+msgstr "INA"
 
 #: maintenance/choices.py:697 maintenance/choices.py:1185
 #: maintenance/choices.py:1291 maintenance/choices.py:1331
 #: maintenance/choices.py:1485 maintenance/choices.py:1604
 msgid "JP Group"
-msgstr ""
+msgstr "JP Group"
 
 #: maintenance/choices.py:698
 msgid "Kamoka"
-msgstr ""
+msgstr "Kamoka"
 
 #: maintenance/choices.py:699 maintenance/choices.py:1394
 msgid "Kavo Parts"
-msgstr ""
+msgstr "Kavo Parts"
 
 #: maintenance/choices.py:700
 msgid "Koyo"
-msgstr ""
+msgstr "Koyo"
 
 #: maintenance/choices.py:707 maintenance/choices.py:1492
 msgid "National"
@@ -26234,11 +26302,11 @@ msgstr "National"
 
 #: maintenance/choices.py:710 maintenance/choices.py:1588
 msgid "NTN"
-msgstr ""
+msgstr "NTN"
 
 #: maintenance/choices.py:712
 msgid "PEX"
-msgstr ""
+msgstr "PEX"
 
 #: maintenance/choices.py:715
 msgid "Ruville"
@@ -26246,32 +26314,32 @@ msgstr "Ruville"
 
 #: maintenance/choices.py:720 maintenance/choices.py:1590
 msgid "Timken"
-msgstr ""
+msgstr "Timken"
 
 #: maintenance/choices.py:721 maintenance/choices.py:1000
 #: maintenance/choices.py:1028 maintenance/choices.py:1219
 #: maintenance/choices.py:1268 maintenance/choices.py:1388
 #: maintenance/choices.py:2541
 msgid "Topran"
-msgstr ""
+msgstr "Topran"
 
 #: maintenance/choices.py:722 maintenance/choices.py:1221
 #: maintenance/choices.py:1289 maintenance/choices.py:1389
 msgid "Triscan"
-msgstr ""
+msgstr "Triscan"
 
 #: maintenance/choices.py:724 maintenance/choices.py:1022
 #: maintenance/choices.py:1387 maintenance/choices.py:2540
 msgid "Vaico"
-msgstr ""
+msgstr "Vaico"
 
 #: maintenance/choices.py:725
 msgid "SKF VKBA"
-msgstr ""
+msgstr "SKF VKBA"
 
 #: maintenance/choices.py:726
 msgid "WheelPro"
-msgstr ""
+msgstr "WheelPro"
 
 #: maintenance/choices.py:758
 msgid "Achilles"
@@ -26279,15 +26347,15 @@ msgstr "Achilles"
 
 #: maintenance/choices.py:759
 msgid "Apollo"
-msgstr ""
+msgstr "Apollo"
 
 #: maintenance/choices.py:760
 msgid "Armstrong"
-msgstr ""
+msgstr "Armstrong"
 
 #: maintenance/choices.py:761
 msgid "Atturo"
-msgstr ""
+msgstr "Atturo"
 
 #: maintenance/choices.py:762
 msgid "Austone"
@@ -26295,27 +26363,27 @@ msgstr "Austone"
 
 #: maintenance/choices.py:763
 msgid "Avon"
-msgstr ""
+msgstr "Avon"
 
 #: maintenance/choices.py:764
 msgid "Barum"
-msgstr ""
+msgstr "Barum"
 
 #: maintenance/choices.py:765
 msgid "BFGoodrich"
-msgstr ""
+msgstr "BFGoodrich"
 
 #: maintenance/choices.py:766
 msgid "Bridgestone"
-msgstr ""
+msgstr "Bridgestone"
 
 #: maintenance/choices.py:767
 msgid "CEAT"
-msgstr ""
+msgstr "CEAT"
 
 #: maintenance/choices.py:768
 msgid "Chaoyang"
-msgstr ""
+msgstr "Chaoyang"
 
 #: maintenance/choices.py:769 maintenance/choices.py:934
 #: maintenance/choices.py:983 maintenance/choices.py:1085
@@ -26325,11 +26393,11 @@ msgstr ""
 #: maintenance/choices.py:1737 maintenance/choices.py:1753
 #: maintenance/choices.py:1765 maintenance/choices.py:2379
 msgid "Continental"
-msgstr ""
+msgstr "Continental"
 
 #: maintenance/choices.py:770
 msgid "Cooper"
-msgstr ""
+msgstr "Cooper"
 
 #: maintenance/choices.py:771
 msgid "Cordiant"
@@ -26337,7 +26405,7 @@ msgstr "Cordiant"
 
 #: maintenance/choices.py:772
 msgid "CST"
-msgstr ""
+msgstr "CST"
 
 #: maintenance/choices.py:773
 msgid "Davanti"
@@ -26345,43 +26413,43 @@ msgstr "Davanti"
 
 #: maintenance/choices.py:774
 msgid "Dayton"
-msgstr ""
+msgstr "Dayton"
 
 #: maintenance/choices.py:775
 msgid "Dębica"
-msgstr ""
+msgstr "Dębica"
 
 #: maintenance/choices.py:776
 msgid "Double Coin"
-msgstr ""
+msgstr "Double Coin"
 
 #: maintenance/choices.py:777
 msgid "Dunlop"
-msgstr ""
+msgstr "Dunlop"
 
 #: maintenance/choices.py:778
 msgid "Duraturn"
-msgstr ""
+msgstr "Duraturn"
 
 #: maintenance/choices.py:779
 msgid "EP Tyres"
-msgstr ""
+msgstr "EP Tyres"
 
 #: maintenance/choices.py:780
 msgid "Event"
-msgstr ""
+msgstr "Event"
 
 #: maintenance/choices.py:781
 msgid "Falken"
-msgstr ""
+msgstr "Falken"
 
 #: maintenance/choices.py:782
 msgid "Federal"
-msgstr ""
+msgstr "Federal"
 
 #: maintenance/choices.py:783
 msgid "Firemax"
-msgstr ""
+msgstr "Firemax"
 
 #: maintenance/choices.py:784
 msgid "Firestone"
@@ -26389,95 +26457,95 @@ msgstr "Firestone"
 
 #: maintenance/choices.py:785
 msgid "Fortuna"
-msgstr ""
+msgstr "Fortuna"
 
 #: maintenance/choices.py:786
 msgid "Fulda"
-msgstr ""
+msgstr "Fulda"
 
 #: maintenance/choices.py:787
 msgid "General Tire"
-msgstr ""
+msgstr "General Tire"
 
 #: maintenance/choices.py:788
 msgid "Giti"
-msgstr ""
+msgstr "Giti"
 
 #: maintenance/choices.py:789
 msgid "Gislaved"
-msgstr ""
+msgstr "Gislaved"
 
 #: maintenance/choices.py:790
 msgid "Goform"
-msgstr ""
+msgstr "Goform"
 
 #: maintenance/choices.py:791
 msgid "Goodyear"
-msgstr ""
+msgstr "Goodyear"
 
 #: maintenance/choices.py:792
 msgid "Grenlander"
-msgstr ""
+msgstr "Grenlander"
 
 #: maintenance/choices.py:793
 msgid "GT Radial"
-msgstr ""
+msgstr "GT Radial"
 
 #: maintenance/choices.py:794 maintenance/choices.py:925
 msgid "Hankook"
-msgstr ""
+msgstr "Hankook"
 
 #: maintenance/choices.py:795
 msgid "Haida"
-msgstr ""
+msgstr "Haida"
 
 #: maintenance/choices.py:796
 msgid "Hifly"
-msgstr ""
+msgstr "Hifly"
 
 #: maintenance/choices.py:797
 msgid "Infinity"
-msgstr ""
+msgstr "Infinity"
 
 #: maintenance/choices.py:798
 msgid "Kelly"
-msgstr ""
+msgstr "Kelly"
 
 #: maintenance/choices.py:799
 msgid "Kenda"
-msgstr ""
+msgstr "Kenda"
 
 #: maintenance/choices.py:800
 msgid "Keter"
-msgstr ""
+msgstr "Keter"
 
 #: maintenance/choices.py:801
 msgid "Kleber"
-msgstr ""
+msgstr "Kleber"
 
 #: maintenance/choices.py:802
 msgid "Kormoran"
-msgstr ""
+msgstr "Kormoran"
 
 #: maintenance/choices.py:803
 msgid "Kumho"
-msgstr ""
+msgstr "Kumho"
 
 #: maintenance/choices.py:804
 msgid "Landsail"
-msgstr ""
+msgstr "Landsail"
 
 #: maintenance/choices.py:805
 msgid "Laufenn"
-msgstr ""
+msgstr "Laufenn"
 
 #: maintenance/choices.py:806
 msgid "Lexani"
-msgstr ""
+msgstr "Lexani"
 
 #: maintenance/choices.py:807
 msgid "Linglong"
-msgstr ""
+msgstr "Linglong"
 
 #: maintenance/choices.py:808
 msgid "Marshal"
@@ -26485,11 +26553,11 @@ msgstr "Marshal"
 
 #: maintenance/choices.py:809
 msgid "Matador"
-msgstr ""
+msgstr "Matador"
 
 #: maintenance/choices.py:810
 msgid "Maxxis"
-msgstr ""
+msgstr "Maxxis"
 
 #: maintenance/choices.py:811 piece/piece_pneus/models.py:19
 msgid "Michelin"
@@ -26501,31 +26569,31 @@ msgstr "Milestone"
 
 #: maintenance/choices.py:813
 msgid "Minerva"
-msgstr ""
+msgstr "Minerva"
 
 #: maintenance/choices.py:814
 msgid "Mitas"
-msgstr ""
+msgstr "Mitas"
 
 #: maintenance/choices.py:815
 msgid "MOMO"
-msgstr ""
+msgstr "MOMO"
 
 #: maintenance/choices.py:816
 msgid "Nankang"
-msgstr ""
+msgstr "Nankang"
 
 #: maintenance/choices.py:817
 msgid "Nexen"
-msgstr ""
+msgstr "Nexen"
 
 #: maintenance/choices.py:818
 msgid "Nokian Tyres"
-msgstr ""
+msgstr "Nokian Tyres"
 
 #: maintenance/choices.py:819
 msgid "Nordexx"
-msgstr ""
+msgstr "Nordexx"
 
 #: maintenance/choices.py:820
 msgid "Ovation"
@@ -26533,7 +26601,7 @@ msgstr "Ovation"
 
 #: maintenance/choices.py:821
 msgid "Petlas"
-msgstr ""
+msgstr "Petlas"
 
 #: maintenance/choices.py:822 piece/piece_pneus/models.py:20
 msgid "Pirelli"
@@ -26541,7 +26609,7 @@ msgstr "Pirelli"
 
 #: maintenance/choices.py:823
 msgid "Powertrac"
-msgstr ""
+msgstr "Powertrac"
 
 #: maintenance/choices.py:824
 msgid "Premiorri"
@@ -26549,23 +26617,23 @@ msgstr "Premiorri"
 
 #: maintenance/choices.py:825
 msgid "Radar"
-msgstr ""
+msgstr "Radar"
 
 #: maintenance/choices.py:826
 msgid "Rapid"
-msgstr ""
+msgstr "Rapid"
 
 #: maintenance/choices.py:827
 msgid "Riken"
-msgstr ""
+msgstr "Riken"
 
 #: maintenance/choices.py:828
 msgid "Roadstone"
-msgstr ""
+msgstr "Roadstone"
 
 #: maintenance/choices.py:829
 msgid "Rockblade"
-msgstr ""
+msgstr "Rockblade"
 
 #: maintenance/choices.py:830
 msgid "Rotalla"
@@ -26573,31 +26641,31 @@ msgstr "Rotalla"
 
 #: maintenance/choices.py:831
 msgid "Sailun"
-msgstr ""
+msgstr "Sailun"
 
 #: maintenance/choices.py:832
 msgid "Semperit"
-msgstr ""
+msgstr "Semperit"
 
 #: maintenance/choices.py:833
 msgid "Sava"
-msgstr ""
+msgstr "Sava"
 
 #: maintenance/choices.py:834
 msgid "Star Performer"
-msgstr ""
+msgstr "Star Performer"
 
 #: maintenance/choices.py:835
 msgid "Sumitomo"
-msgstr ""
+msgstr "Sumitomo"
 
 #: maintenance/choices.py:836
 msgid "Sunny"
-msgstr ""
+msgstr "Sunny"
 
 #: maintenance/choices.py:837
 msgid "Toyo"
-msgstr ""
+msgstr "Toyo"
 
 #: maintenance/choices.py:838 maintenance/jeux_pieces/models.py:27
 msgid "Triangle"
@@ -26605,43 +26673,43 @@ msgstr "Dreieckslenker"
 
 #: maintenance/choices.py:839
 msgid "Tristar"
-msgstr ""
+msgstr "Tristar"
 
 #: maintenance/choices.py:840
 msgid "Tunga"
-msgstr ""
+msgstr "Tunga"
 
 #: maintenance/choices.py:841
 msgid "Uniroyal"
-msgstr ""
+msgstr "Uniroyal"
 
 #: maintenance/choices.py:842
 msgid "Viking"
-msgstr ""
+msgstr "Viking"
 
 #: maintenance/choices.py:843
 msgid "Vredestein"
-msgstr ""
+msgstr "Vredestein"
 
 #: maintenance/choices.py:844
 msgid "Wanli"
-msgstr ""
+msgstr "Wanli"
 
 #: maintenance/choices.py:845
 msgid "Westlake"
-msgstr ""
+msgstr "Westlake"
 
 #: maintenance/choices.py:846
 msgid "Windforce"
-msgstr ""
+msgstr "Windforce"
 
 #: maintenance/choices.py:847
 msgid "Yokohama"
-msgstr ""
+msgstr "Yokohama"
 
 #: maintenance/choices.py:848
 msgid "Zeetex"
-msgstr ""
+msgstr "Zeetex"
 
 #: maintenance/choices.py:858 maintenance/choices.py:2367
 msgid "NGK"
@@ -26649,21 +26717,21 @@ msgstr "NGK"
 
 #: maintenance/choices.py:859
 msgid "DENSO"
-msgstr ""
+msgstr "DENSO"
 
 #: maintenance/choices.py:862 maintenance/choices.py:2368
 msgid "Beru"
-msgstr ""
+msgstr "Beru"
 
 #: maintenance/choices.py:863
 msgid "Eyquem"
-msgstr ""
+msgstr "Eyquem"
 
 #: maintenance/choices.py:869 maintenance/choices.py:1074
 #: maintenance/choices.py:1154 maintenance/choices.py:1422
 #: maintenance/choices.py:1915
 msgid "BorgWarner"
-msgstr ""
+msgstr "BorgWarner"
 
 #: maintenance/choices.py:870 maintenance/choices.py:1323
 msgid "Motorcraft"
@@ -26673,14 +26741,14 @@ msgstr "Motorcraft"
 #: maintenance/choices.py:1198 maintenance/choices.py:1282
 #: maintenance/choices.py:1691
 msgid "Pierburg"
-msgstr ""
+msgstr "Pierburg"
 
 #: maintenance/choices.py:874 maintenance/choices.py:1116
 #: maintenance/choices.py:1176 maintenance/choices.py:1226
 #: maintenance/choices.py:1294 maintenance/choices.py:1482
 #: maintenance/choices.py:1606 maintenance/choices.py:2538
 msgid "RIDEX"
-msgstr ""
+msgstr "RIDEX"
 
 #: maintenance/choices.py:877
 msgid "NPS"
@@ -26692,7 +26760,7 @@ msgstr "Autolite"
 
 #: maintenance/choices.py:879
 msgid "Brisk"
-msgstr ""
+msgstr "Brisk"
 
 #: maintenance/choices.py:888 voiture/voiture_freins_av/models.py:8
 msgid "Acier"
@@ -26748,39 +26816,39 @@ msgstr "Χαραγμένος και διάτρητος"
 
 #: maintenance/choices.py:917
 msgid "Varta"
-msgstr ""
+msgstr "Varta"
 
 #: maintenance/choices.py:918
 msgid "Exide"
-msgstr ""
+msgstr "Exide"
 
 #: maintenance/choices.py:919
 msgid "Yuasa"
-msgstr ""
+msgstr "Yuasa"
 
 #: maintenance/choices.py:920
 msgid "Banner"
-msgstr ""
+msgstr "Banner"
 
 #: maintenance/choices.py:921
 msgid "Fiamm"
-msgstr ""
+msgstr "Fiamm"
 
 #: maintenance/choices.py:922
 msgid "Tudor"
-msgstr ""
+msgstr "Tudor"
 
 #: maintenance/choices.py:923
 msgid "Fulmen"
-msgstr ""
+msgstr "Fulmen"
 
 #: maintenance/choices.py:924
 msgid "Centra"
-msgstr ""
+msgstr "Centra"
 
 #: maintenance/choices.py:926
 msgid "Mutlu"
-msgstr ""
+msgstr "Mutlu"
 
 #: maintenance/choices.py:927
 msgid "TAB"
@@ -26788,15 +26856,15 @@ msgstr "TAB"
 
 #: maintenance/choices.py:928
 msgid "Topla"
-msgstr ""
+msgstr "Topla"
 
 #: maintenance/choices.py:929
 msgid "Odyssey"
-msgstr ""
+msgstr "Odyssey"
 
 #: maintenance/choices.py:930
 msgid "Optima"
-msgstr ""
+msgstr "Optima"
 
 #: maintenance/choices.py:931
 msgid "Interstate"
@@ -26804,51 +26872,51 @@ msgstr "Interstate"
 
 #: maintenance/choices.py:933
 msgid "Moll"
-msgstr ""
+msgstr "Moll"
 
 #: maintenance/choices.py:944
 msgid "Akrapovič"
-msgstr ""
+msgstr "Akrapovič"
 
 #: maintenance/choices.py:945
 msgid "Remus"
-msgstr ""
+msgstr "Remus"
 
 #: maintenance/choices.py:946
 msgid "Supersprint"
-msgstr ""
+msgstr "Supersprint"
 
 #: maintenance/choices.py:947
 msgid "Milltek Sport"
-msgstr ""
+msgstr "Milltek Sport"
 
 #: maintenance/choices.py:948
 msgid "MagnaFlow"
-msgstr ""
+msgstr "MagnaFlow"
 
 #: maintenance/choices.py:949
 msgid "Borla"
-msgstr ""
+msgstr "Borla"
 
 #: maintenance/choices.py:950
 msgid "Eisenmann"
-msgstr ""
+msgstr "Eisenmann"
 
 #: maintenance/choices.py:951
 msgid "FOX"
-msgstr ""
+msgstr "FOX"
 
 #: maintenance/choices.py:952
 msgid "Bastuck"
-msgstr ""
+msgstr "Bastuck"
 
 #: maintenance/choices.py:953
 msgid "Ragazzon"
-msgstr ""
+msgstr "Ragazzon"
 
 #: maintenance/choices.py:954
 msgid "Scorpion"
-msgstr ""
+msgstr "Scorpion"
 
 #: maintenance/choices.py:955
 msgid "Cobra Sport"
@@ -26856,35 +26924,35 @@ msgstr "Cobra Sport"
 
 #: maintenance/choices.py:956
 msgid "MIVV"
-msgstr ""
+msgstr "MIVV"
 
 #: maintenance/choices.py:957
 msgid "Arrow"
-msgstr ""
+msgstr "Arrow"
 
 #: maintenance/choices.py:958
 msgid "Bosal"
-msgstr ""
+msgstr "Bosal"
 
 #: maintenance/choices.py:959
 msgid "Walker"
-msgstr ""
+msgstr "Walker"
 
 #: maintenance/choices.py:960
 msgid "Eberspächer"
-msgstr ""
+msgstr "Eberspächer"
 
 #: maintenance/choices.py:961
 msgid "IMASAF"
-msgstr ""
+msgstr "IMASAF"
 
 #: maintenance/choices.py:962
 msgid "Ernst"
-msgstr ""
+msgstr "Ernst"
 
 #: maintenance/choices.py:963
 msgid "Polmo"
-msgstr ""
+msgstr "Polmo"
 
 #: maintenance/choices.py:978 maintenance/choices.py:1140
 #: maintenance/choices.py:1201 maintenance/choices.py:1309
@@ -26894,11 +26962,11 @@ msgstr ""
 #: maintenance/choices.py:1781 maintenance/choices.py:2369
 #: maintenance/choices.py:2435
 msgid "Denso"
-msgstr ""
+msgstr "Denso"
 
 #: maintenance/choices.py:979
 msgid "NGK / NTK"
-msgstr ""
+msgstr "NGK / NTK"
 
 #: maintenance/choices.py:982 maintenance/choices.py:1203
 #: maintenance/choices.py:1352 maintenance/choices.py:1690
@@ -26906,25 +26974,25 @@ msgstr ""
 #: maintenance/choices.py:1738 maintenance/choices.py:1766
 #: maintenance/choices.py:2378
 msgid "VDO"
-msgstr ""
+msgstr "VDO"
 
 #: maintenance/choices.py:985 maintenance/choices.py:1217
 #: maintenance/choices.py:1740 maintenance/choices.py:2380
 msgid "Facet"
-msgstr ""
+msgstr "Facet"
 
 #: maintenance/choices.py:988
 msgid "Vemo"
-msgstr ""
+msgstr "Vemo"
 
 #: maintenance/choices.py:989 maintenance/choices.py:1216
 #: maintenance/choices.py:1327 maintenance/choices.py:2381
 msgid "ERA"
-msgstr ""
+msgstr "ERA"
 
 #: maintenance/choices.py:990 maintenance/choices.py:1741
 msgid "FAE"
-msgstr ""
+msgstr "FAE"
 
 #: maintenance/choices.py:991
 msgid "EPS"
@@ -26933,7 +27001,7 @@ msgstr "EPS"
 #: maintenance/choices.py:993 maintenance/choices.py:1030
 #: maintenance/choices.py:1334 maintenance/choices.py:1386
 msgid "Stark"
-msgstr ""
+msgstr "Stark"
 
 #: maintenance/choices.py:995 maintenance/choices.py:1089
 #: maintenance/choices.py:1207 maintenance/choices.py:1311
@@ -26941,21 +27009,21 @@ msgstr ""
 #: maintenance/choices.py:1724 maintenance/choices.py:1768
 #: maintenance/choices.py:2377
 msgid "Hitachi"
-msgstr ""
+msgstr "Hitachi"
 
 #: maintenance/choices.py:997
 msgid "Walker Products"
-msgstr ""
+msgstr "Walker Products"
 
 #: maintenance/choices.py:998 maintenance/choices.py:1222
 msgid "SIDAT"
-msgstr ""
+msgstr "SIDAT"
 
 #: maintenance/choices.py:999 maintenance/choices.py:1027
 #: maintenance/choices.py:1180 maintenance/choices.py:1215
 #: maintenance/choices.py:1264 maintenance/choices.py:1600
 msgid "Metzger"
-msgstr ""
+msgstr "Metzger"
 
 #: maintenance/choices.py:1002 maintenance/choices.py:1036
 #: maintenance/choices.py:1551 maintenance/choices.py:1678
@@ -26969,48 +27037,48 @@ msgstr "Γνήσιο κατασκευαστή (OEM)"
 
 #: maintenance/choices.py:1019
 msgid "Sidem"
-msgstr ""
+msgstr "Sidem"
 
 #: maintenance/choices.py:1025
 msgid "Birth"
-msgstr ""
+msgstr "Birth"
 
 #: maintenance/choices.py:1026
 msgid "Sasic"
-msgstr ""
+msgstr "Sasic"
 
 #: maintenance/choices.py:1032
 msgid "Powerflex"
-msgstr ""
+msgstr "Powerflex"
 
 #: maintenance/choices.py:1033
 msgid "SuperPro"
-msgstr ""
+msgstr "SuperPro"
 
 #: maintenance/choices.py:1034
 msgid "Strongflex"
-msgstr ""
+msgstr "Strongflex"
 
 #: maintenance/choices.py:1044 maintenance/choices.py:1368
 msgid "Continental / ContiTech"
-msgstr ""
+msgstr "Continental / ContiTech"
 
 #: maintenance/choices.py:1051 maintenance/choices.py:1250
 #: maintenance/choices.py:1375
 msgid "Hutchinson"
-msgstr ""
+msgstr "Hutchinson"
 
 #: maintenance/choices.py:1052 maintenance/choices.py:1376
 msgid "Optibelt"
-msgstr ""
+msgstr "Optibelt"
 
 #: maintenance/choices.py:1059
 msgid "GRAF"
-msgstr ""
+msgstr "GRAF"
 
 #: maintenance/choices.py:1060
 msgid "DOLZ"
-msgstr ""
+msgstr "DOLZ"
 
 #: maintenance/choices.py:1064
 msgid "Pièce d'origine / OEM"
@@ -27018,48 +27086,48 @@ msgstr "Γνήσιο ανταλλακτικό / OEM"
 
 #: maintenance/choices.py:1073 maintenance/choices.py:1153
 msgid "Garrett"
-msgstr ""
+msgstr "Garrett"
 
 #: maintenance/choices.py:1075
 msgid "KKK"
-msgstr ""
+msgstr "KKK"
 
 #: maintenance/choices.py:1076
 msgid "Schwitzer"
-msgstr ""
+msgstr "Schwitzer"
 
 #: maintenance/choices.py:1079
 msgid "Mitsubishi Heavy Industries (MHI)"
-msgstr ""
+msgstr "Mitsubishi Heavy Industries (MHI)"
 
 #: maintenance/choices.py:1080 maintenance/choices.py:1156
 msgid "IHI"
-msgstr ""
+msgstr "IHI"
 
 #: maintenance/choices.py:1082
 msgid "Holset"
-msgstr ""
+msgstr "Holset"
 
 #: maintenance/choices.py:1083
 msgid "Cummins Turbo Technologies"
-msgstr ""
+msgstr "Cummins Turbo Technologies"
 
 #: maintenance/choices.py:1086 maintenance/choices.py:1137
 #: maintenance/choices.py:1209 maintenance/choices.py:1259
 msgid "MAHLE"
-msgstr ""
+msgstr "MAHLE"
 
 #: maintenance/choices.py:1087
 msgid "Bosch Mahle Turbo Systems"
-msgstr ""
+msgstr "Bosch Mahle Turbo Systems"
 
 #: maintenance/choices.py:1093
 msgid "Honeywell"
-msgstr ""
+msgstr "Honeywell"
 
 #: maintenance/choices.py:1094
 msgid "Rotomaster"
-msgstr ""
+msgstr "Rotomaster"
 
 #: maintenance/choices.py:1096
 msgid "Turbo Technics"
@@ -27075,7 +27143,7 @@ msgstr "Turbonetics"
 
 #: maintenance/choices.py:1099
 msgid "Precision Turbo & Engine"
-msgstr ""
+msgstr "Precision Turbo & Engine"
 
 #: maintenance/choices.py:1100
 msgid "Comp Turbo"
@@ -27083,19 +27151,19 @@ msgstr "Comp Turbo"
 
 #: maintenance/choices.py:1101
 msgid "TiAL Sport"
-msgstr ""
+msgstr "TiAL Sport"
 
 #: maintenance/choices.py:1103
 msgid "The Turbo Engineers (TTE)"
-msgstr ""
+msgstr "The Turbo Engineers (TTE)"
 
 #: maintenance/choices.py:1104
 msgid "LOBA Motorsport"
-msgstr ""
+msgstr "LOBA Motorsport"
 
 #: maintenance/choices.py:1105
 msgid "Weistec"
-msgstr ""
+msgstr "Weistec"
 
 #: maintenance/choices.py:1106
 msgid "Pure Turbos"
@@ -27103,11 +27171,11 @@ msgstr "Pure Turbos"
 
 #: maintenance/choices.py:1108
 msgid "Melett"
-msgstr ""
+msgstr "Melett"
 
 #: maintenance/choices.py:1109
 msgid "JRone"
-msgstr ""
+msgstr "JRone"
 
 #: maintenance/choices.py:1110
 msgid "SL Turbo"
@@ -27116,27 +27184,27 @@ msgstr "SL Turbo"
 #: maintenance/choices.py:1112 maintenance/choices.py:1147
 #: maintenance/choices.py:1262 maintenance/choices.py:2443
 msgid "Nissens"
-msgstr ""
+msgstr "Nissens"
 
 #: maintenance/choices.py:1114 maintenance/choices.py:1146
 #: maintenance/choices.py:1224 maintenance/choices.py:1263
 #: maintenance/choices.py:2444
 msgid "NRF"
-msgstr ""
+msgstr "NRF"
 
 #: maintenance/choices.py:1117 maintenance/choices.py:1177
 #: maintenance/choices.py:1227 maintenance/choices.py:1295
 #: maintenance/choices.py:1483 maintenance/choices.py:1607
 msgid "STARK"
-msgstr ""
+msgstr "STARK"
 
 #: maintenance/choices.py:1118
 msgid "ALANKO"
-msgstr ""
+msgstr "ALANKO"
 
 #: maintenance/choices.py:1119 maintenance/choices.py:1315
 msgid "Lucas"
-msgstr ""
+msgstr "Lucas"
 
 #: maintenance/choices.py:1120
 msgid "BTS Turbo"
@@ -27152,11 +27220,11 @@ msgstr "Turbo Motor"
 
 #: maintenance/choices.py:1123
 msgid "Motair"
-msgstr ""
+msgstr "Motair"
 
 #: maintenance/choices.py:1124 maintenance/choices.py:1338
 msgid "Elstock"
-msgstr ""
+msgstr "Elstock"
 
 #: maintenance/choices.py:1125
 msgid "Turbo's Hoet"
@@ -27164,7 +27232,7 @@ msgstr "Turbo's Hoet"
 
 #: maintenance/choices.py:1138 maintenance/choices.py:1260
 msgid "Behr"
-msgstr ""
+msgstr "Behr"
 
 #: maintenance/choices.py:1142
 msgid "Modine"
@@ -27172,7 +27240,7 @@ msgstr "Modine"
 
 #: maintenance/choices.py:1143
 msgid "Hanon Systems"
-msgstr ""
+msgstr "Hanon Systems"
 
 #: maintenance/choices.py:1144 maintenance/choices.py:2437
 msgid "Sanden"
@@ -27184,31 +27252,31 @@ msgstr "Marelli"
 
 #: maintenance/choices.py:1148
 msgid "AVA Cooling Systems"
-msgstr ""
+msgstr "AVA Cooling Systems"
 
 #: maintenance/choices.py:1149
 msgid "Koyorad"
-msgstr ""
+msgstr "Koyorad"
 
 #: maintenance/choices.py:1159 maintenance/choices.py:1276
 msgid "Wagner Tuning"
-msgstr ""
+msgstr "Wagner Tuning"
 
 #: maintenance/choices.py:1160 maintenance/choices.py:1275
 msgid "Mishimoto"
-msgstr ""
+msgstr "Mishimoto"
 
 #: maintenance/choices.py:1161 maintenance/choices.py:1272
 msgid "Forge Motorsport"
-msgstr ""
+msgstr "Forge Motorsport"
 
 #: maintenance/choices.py:1162 maintenance/choices.py:1277
 msgid "AIRTEC Motorsport"
-msgstr ""
+msgstr "AIRTEC Motorsport"
 
 #: maintenance/choices.py:1163 maintenance/choices.py:1274
 msgid "do88"
-msgstr ""
+msgstr "do88"
 
 #: maintenance/choices.py:1164
 msgid "CSF"
@@ -27220,7 +27288,7 @@ msgstr "PWR"
 
 #: maintenance/choices.py:1166
 msgid "Pro Alloy"
-msgstr ""
+msgstr "Pro Alloy"
 
 #: maintenance/choices.py:1168
 msgid "AMS Performance"
@@ -27236,27 +27304,27 @@ msgstr "CTS Turbo"
 
 #: maintenance/choices.py:1171
 msgid "Dinan"
-msgstr ""
+msgstr "Dinan"
 
 #: maintenance/choices.py:1172
 msgid "COBB Tuning"
-msgstr ""
+msgstr "COBB Tuning"
 
 #: maintenance/choices.py:1175 maintenance/choices.py:1204
 #: maintenance/choices.py:1283
 msgid "HELLA"
-msgstr ""
+msgstr "HELLA"
 
 #: maintenance/choices.py:1178 maintenance/choices.py:1212
 #: maintenance/choices.py:1266
 msgid "FEBI Bilstein"
-msgstr ""
+msgstr "FEBI Bilstein"
 
 #: maintenance/choices.py:1179 maintenance/choices.py:1214
 #: maintenance/choices.py:1265 maintenance/choices.py:1480
 #: maintenance/choices.py:1599
 msgid "MEYLE"
-msgstr ""
+msgstr "MEYLE"
 
 #: maintenance/choices.py:1183 maintenance/choices.py:1288
 #: maintenance/choices.py:2447
@@ -27265,85 +27333,85 @@ msgstr "Thermotec"
 
 #: maintenance/choices.py:1184
 msgid "KALE"
-msgstr ""
+msgstr "KALE"
 
 #: maintenance/choices.py:1186 maintenance/choices.py:1228
 #: maintenance/choices.py:1296 maintenance/choices.py:1486
 #: maintenance/choices.py:1605
 msgid "MAXGEAR"
-msgstr ""
+msgstr "MAXGEAR"
 
 #: maintenance/choices.py:1187 maintenance/choices.py:1229
 #: maintenance/choices.py:1297
 msgid "ABAKUS"
-msgstr ""
+msgstr "ABAKUS"
 
 #: maintenance/choices.py:1199
 msgid "Wahler"
-msgstr ""
+msgstr "Wahler"
 
 #: maintenance/choices.py:1218
 msgid "VEMO"
-msgstr ""
+msgstr "VEMO"
 
 #: maintenance/choices.py:1220 maintenance/choices.py:1290
 #: maintenance/choices.py:1481 maintenance/choices.py:1603
 #: maintenance/choices.py:2543
 msgid "MAPCO"
-msgstr ""
+msgstr "MAPCO"
 
 #: maintenance/choices.py:1223
 msgid "FISPA"
-msgstr ""
+msgstr "FISPA"
 
 #: maintenance/choices.py:1225
 msgid "NTY"
-msgstr ""
+msgstr "NTY"
 
 #: maintenance/choices.py:1230
 msgid "ESEN SKV"
-msgstr ""
+msgstr "ESEN SKV"
 
 #: maintenance/choices.py:1231 maintenance/choices.py:1328
 #: maintenance/choices.py:2450
 msgid "Meat & Doria"
-msgstr ""
+msgstr "Meat & Doria"
 
 #: maintenance/choices.py:1247
 msgid "ContiTech"
-msgstr ""
+msgstr "ContiTech"
 
 #: maintenance/choices.py:1251 maintenance/choices.py:1574
 msgid "Parker"
-msgstr ""
+msgstr "Parker"
 
 #: maintenance/choices.py:1252
 msgid "Cohline"
-msgstr ""
+msgstr "Cohline"
 
 #: maintenance/choices.py:1253
 msgid "NORMA Group"
-msgstr ""
+msgstr "NORMA Group"
 
 #: maintenance/choices.py:1254
 msgid "Veritas"
-msgstr ""
+msgstr "Veritas"
 
 #: maintenance/choices.py:1255 maintenance/choices.py:1566
 msgid "Freudenberg"
-msgstr ""
+msgstr "Freudenberg"
 
 #: maintenance/choices.py:1256
 msgid "Teknikum"
-msgstr ""
+msgstr "Teknikum"
 
 #: maintenance/choices.py:1269 maintenance/choices.py:1602
 msgid "VAICO"
-msgstr ""
+msgstr "VAICO"
 
 #: maintenance/choices.py:1273
 msgid "Samco Sport"
-msgstr ""
+msgstr "Samco Sport"
 
 #: maintenance/choices.py:1286
 msgid "Impergom"
@@ -27351,11 +27419,11 @@ msgstr "Impergom"
 
 #: maintenance/choices.py:1287
 msgid "Rapro"
-msgstr ""
+msgstr "Rapro"
 
 #: maintenance/choices.py:1312
 msgid "Mitsubishi Electric"
-msgstr ""
+msgstr "Mitsubishi Electric"
 
 #: maintenance/choices.py:1316
 msgid "Prestolite"
@@ -27363,27 +27431,27 @@ msgstr "Prestolite"
 
 #: maintenance/choices.py:1317
 msgid "Remy"
-msgstr ""
+msgstr "Remy"
 
 #: maintenance/choices.py:1318
 msgid "Mando"
-msgstr ""
+msgstr "Mando"
 
 #: maintenance/choices.py:1319
 msgid "AS-PL"
-msgstr ""
+msgstr "AS-PL"
 
 #: maintenance/choices.py:1320
 msgid "HC-Cargo"
-msgstr ""
+msgstr "HC-Cargo"
 
 #: maintenance/choices.py:1321
 msgid "Mahle"
-msgstr ""
+msgstr "Mahle"
 
 #: maintenance/choices.py:1322
 msgid "Visteon"
-msgstr ""
+msgstr "Visteon"
 
 #: maintenance/choices.py:1326
 msgid "Mobiletron"
@@ -27391,43 +27459,43 @@ msgstr "Mobiletron"
 
 #: maintenance/choices.py:1335
 msgid "WAI Global"
-msgstr ""
+msgstr "WAI Global"
 
 #: maintenance/choices.py:1336
 msgid "PowerMax"
-msgstr ""
+msgstr "PowerMax"
 
 #: maintenance/choices.py:1337
 msgid "BV PSH"
-msgstr ""
+msgstr "BV PSH"
 
 #: maintenance/choices.py:1339
 msgid "CEVAM"
-msgstr ""
+msgstr "CEVAM"
 
 #: maintenance/choices.py:1340
 msgid "SNRA"
-msgstr ""
+msgstr "SNRA"
 
 #: maintenance/choices.py:1341
 msgid "Lauber"
-msgstr ""
+msgstr "Lauber"
 
 #: maintenance/choices.py:1342
 msgid "Casco"
-msgstr ""
+msgstr "Casco"
 
 #: maintenance/choices.py:1343
 msgid "Sando"
-msgstr ""
+msgstr "Sando"
 
 #: maintenance/choices.py:1344
 msgid "Eurotec"
-msgstr ""
+msgstr "Eurotec"
 
 #: maintenance/choices.py:1345
 msgid "Alanko"
-msgstr ""
+msgstr "Alanko"
 
 #: maintenance/choices.py:1346
 msgid "Rotovis"
@@ -27435,67 +27503,67 @@ msgstr "Rotovis"
 
 #: maintenance/choices.py:1347
 msgid "EAI"
-msgstr ""
+msgstr "EAI"
 
 #: maintenance/choices.py:1355 maintenance/choices.py:1399
 msgid "ACKOJA"
-msgstr ""
+msgstr "ACKOJA"
 
 #: maintenance/choices.py:1356
 msgid "ERA Benelux"
-msgstr ""
+msgstr "ERA Benelux"
 
 #: maintenance/choices.py:1377
 msgid "Mitsuboshi"
-msgstr ""
+msgstr "Mitsuboshi"
 
 #: maintenance/choices.py:1378
 msgid "Bando"
-msgstr ""
+msgstr "Bando"
 
 #: maintenance/choices.py:1391
 msgid "Graf"
-msgstr ""
+msgstr "Graf"
 
 #: maintenance/choices.py:1393
 msgid "Dolz"
-msgstr ""
+msgstr "Dolz"
 
 #: maintenance/choices.py:1416
 msgid "LuK / Schaeffler"
-msgstr ""
+msgstr "LuK / Schaeffler"
 
 #: maintenance/choices.py:1417
 msgid "SACHS / ZF"
-msgstr ""
+msgstr "SACHS / ZF"
 
 #: maintenance/choices.py:1419
 msgid "EXEDY"
-msgstr ""
+msgstr "EXEDY"
 
 #: maintenance/choices.py:1421
 msgid "F.C.C."
-msgstr ""
+msgstr "F.C.C."
 
 #: maintenance/choices.py:1423 maintenance/choices.py:1917
 msgid "Eaton"
-msgstr ""
+msgstr "Eaton"
 
 #: maintenance/choices.py:1424
 msgid "Twin Disc"
-msgstr ""
+msgstr "Twin Disc"
 
 #: maintenance/choices.py:1425
 msgid "Setco Automotive"
-msgstr ""
+msgstr "Setco Automotive"
 
 #: maintenance/choices.py:1426
 msgid "Zhejiang Tieliu"
-msgstr ""
+msgstr "Zhejiang Tieliu"
 
 #: maintenance/choices.py:1427
 msgid "Raicam"
-msgstr ""
+msgstr "Raicam"
 
 #: maintenance/choices.py:1428
 msgid "Nissin"
@@ -27507,75 +27575,75 @@ msgstr "NSK"
 
 #: maintenance/choices.py:1432
 msgid "FCC Japan"
-msgstr ""
+msgstr "FCC Japan"
 
 #: maintenance/choices.py:1438
 msgid "AP Racing"
-msgstr ""
+msgstr "AP Racing"
 
 #: maintenance/choices.py:1439
 msgid "Tilton Engineering"
-msgstr ""
+msgstr "Tilton Engineering"
 
 #: maintenance/choices.py:1440
 msgid "OS Giken"
-msgstr ""
+msgstr "OS Giken"
 
 #: maintenance/choices.py:1441
 msgid "ACT (Advanced Clutch Technology)"
-msgstr ""
+msgstr "ACT (Advanced Clutch Technology)"
 
 #: maintenance/choices.py:1442
 msgid "SPEC Clutch"
-msgstr ""
+msgstr "SPEC Clutch"
 
 #: maintenance/choices.py:1443
 msgid "Centerforce"
-msgstr ""
+msgstr "Centerforce"
 
 #: maintenance/choices.py:1444
 msgid "Clutch Masters"
-msgstr ""
+msgstr "Clutch Masters"
 
 #: maintenance/choices.py:1445
 msgid "Competition Clutch"
-msgstr ""
+msgstr "Competition Clutch"
 
 #: maintenance/choices.py:1446
 msgid "Helix Autosport"
-msgstr ""
+msgstr "Helix Autosport"
 
 #: maintenance/choices.py:1447
 msgid "Mantic Clutch"
-msgstr ""
+msgstr "Mantic Clutch"
 
 #: maintenance/choices.py:1448
 msgid "Quarter Master"
-msgstr ""
+msgstr "Quarter Master"
 
 #: maintenance/choices.py:1449
 msgid "McLeod Racing"
-msgstr ""
+msgstr "McLeod Racing"
 
 #: maintenance/choices.py:1450
 msgid "Hays Clutches"
-msgstr ""
+msgstr "Hays Clutches"
 
 #: maintenance/choices.py:1451
 msgid "RAM Clutches"
-msgstr ""
+msgstr "RAM Clutches"
 
 #: maintenance/choices.py:1452
 msgid "South Bend Clutch"
-msgstr ""
+msgstr "South Bend Clutch"
 
 #: maintenance/choices.py:1453
 msgid "Xtreme Clutch"
-msgstr ""
+msgstr "Xtreme Clutch"
 
 #: maintenance/choices.py:1454
 msgid "DKM Clutch"
-msgstr ""
+msgstr "DKM Clutch"
 
 #: maintenance/choices.py:1455
 msgid "Fidanza"
@@ -27591,223 +27659,223 @@ msgstr "NPC Performance Clutches"
 
 #: maintenance/choices.py:1463
 msgid "HKS"
-msgstr ""
+msgstr "HKS"
 
 #: maintenance/choices.py:1464
 msgid "CUSCO"
-msgstr ""
+msgstr "CUSCO"
 
 #: maintenance/choices.py:1465
 msgid "Ogura Racing Clutch (ORC)"
-msgstr ""
+msgstr "Ogura Racing Clutch (ORC)"
 
 #: maintenance/choices.py:1466
 msgid "ATS"
-msgstr ""
+msgstr "ATS"
 
 #: maintenance/choices.py:1467
 msgid "NISMO"
-msgstr ""
+msgstr "NISMO"
 
 #: maintenance/choices.py:1468
 msgid "TRD"
-msgstr ""
+msgstr "TRD"
 
 #: maintenance/choices.py:1469
 msgid "STI"
-msgstr ""
+msgstr "STI"
 
 #: maintenance/choices.py:1470
 msgid "Toda Racing"
-msgstr ""
+msgstr "Toda Racing"
 
 #: maintenance/choices.py:1471
 msgid "JUN Auto"
-msgstr ""
+msgstr "JUN Auto"
 
 #: maintenance/choices.py:1472
 msgid "GReddy / TRUST"
-msgstr ""
+msgstr "GReddy / TRUST"
 
 #: maintenance/choices.py:1479 maintenance/choices.py:1597
 msgid "febi bilstein"
-msgstr ""
+msgstr "febi bilstein"
 
 #: maintenance/choices.py:1487
 msgid "KAMOKA"
-msgstr ""
+msgstr "KAMOKA"
 
 #: maintenance/choices.py:1488
 msgid "Denckermann"
-msgstr ""
+msgstr "Denckermann"
 
 #: maintenance/choices.py:1489
 msgid "STATIM"
-msgstr ""
+msgstr "STATIM"
 
 #: maintenance/choices.py:1490
 msgid "MECARM"
-msgstr ""
+msgstr "MECARM"
 
 #: maintenance/choices.py:1491
 msgid "KAWE"
-msgstr ""
+msgstr "KAWE"
 
 #: maintenance/choices.py:1496
 msgid "FAST"
-msgstr ""
+msgstr "FAST"
 
 #: maintenance/choices.py:1497
 msgid "SAMKO"
-msgstr ""
+msgstr "SAMKO"
 
 #: maintenance/choices.py:1498
 msgid "Starline"
-msgstr ""
+msgstr "Starline"
 
 #: maintenance/choices.py:1499 maintenance/choices.py:1620
 msgid "ASHIKA"
-msgstr ""
+msgstr "ASHIKA"
 
 #: maintenance/choices.py:1501 maintenance/choices.py:1622
 msgid "JAPKO"
-msgstr ""
+msgstr "JAPKO"
 
 #: maintenance/choices.py:1507
 msgid "Knorr-Bremse"
-msgstr ""
+msgstr "Knorr-Bremse"
 
 #: maintenance/choices.py:1508
 msgid "WABCO / ZF"
-msgstr ""
+msgstr "WABCO / ZF"
 
 #: maintenance/choices.py:1509
 msgid "Hammer Kupplungen"
-msgstr ""
+msgstr "Hammer Kupplungen"
 
 #: maintenance/choices.py:1510
 msgid "LIPE Clutch"
-msgstr ""
+msgstr "LIPE Clutch"
 
 #: maintenance/choices.py:1511
 msgid "CEI"
-msgstr ""
+msgstr "CEI"
 
 #: maintenance/choices.py:1512
 msgid "Euroricambi"
-msgstr ""
+msgstr "Euroricambi"
 
 #: maintenance/choices.py:1518 maintenance/choices.py:1631
 msgid "BMW Original"
-msgstr ""
+msgstr "BMW Original"
 
 #: maintenance/choices.py:1519 maintenance/choices.py:1632
 msgid "MINI Original"
-msgstr ""
+msgstr "MINI Original"
 
 #: maintenance/choices.py:1520 maintenance/choices.py:1633
 msgid "Mercedes-Benz Original"
-msgstr ""
+msgstr "Mercedes-Benz Original"
 
 #: maintenance/choices.py:1521 maintenance/choices.py:1634
 msgid "Audi Original"
-msgstr ""
+msgstr "Audi Original"
 
 #: maintenance/choices.py:1522 maintenance/choices.py:1635
 msgid "Volkswagen Original"
-msgstr ""
+msgstr "Volkswagen Original"
 
 #: maintenance/choices.py:1523 maintenance/choices.py:1639
 msgid "Porsche Original"
-msgstr ""
+msgstr "Porsche Original"
 
 #: maintenance/choices.py:1524 maintenance/choices.py:1642
 msgid "Ford Original"
-msgstr ""
+msgstr "Ford Original"
 
 #: maintenance/choices.py:1525 maintenance/choices.py:1641
 msgid "Opel Original"
-msgstr ""
+msgstr "Opel Original"
 
 #: maintenance/choices.py:1526 maintenance/choices.py:1646
 msgid "Peugeot Original"
-msgstr ""
+msgstr "Peugeot Original"
 
 #: maintenance/choices.py:1527 maintenance/choices.py:1647
 msgid "Citroën Original"
-msgstr ""
+msgstr "Citroën Original"
 
 #: maintenance/choices.py:1528 maintenance/choices.py:1649
 msgid "Renault Original"
-msgstr ""
+msgstr "Renault Original"
 
 #: maintenance/choices.py:1529 maintenance/choices.py:1650
 msgid "Dacia Original"
-msgstr ""
+msgstr "Dacia Original"
 
 #: maintenance/choices.py:1530 maintenance/choices.py:1652
 msgid "Fiat Original"
-msgstr ""
+msgstr "Fiat Original"
 
 #: maintenance/choices.py:1531 maintenance/choices.py:1653
 msgid "Alfa Romeo Original"
-msgstr ""
+msgstr "Alfa Romeo Original"
 
 #: maintenance/choices.py:1532 maintenance/choices.py:1654
 msgid "Lancia Original"
-msgstr ""
+msgstr "Lancia Original"
 
 #: maintenance/choices.py:1533 maintenance/choices.py:1643
 msgid "Volvo Original"
-msgstr ""
+msgstr "Volvo Original"
 
 #: maintenance/choices.py:1534 maintenance/choices.py:1658
 msgid "Toyota Original"
-msgstr ""
+msgstr "Toyota Original"
 
 #: maintenance/choices.py:1535 maintenance/choices.py:1659
 msgid "Lexus Original"
-msgstr ""
+msgstr "Lexus Original"
 
 #: maintenance/choices.py:1536 maintenance/choices.py:1660
 msgid "Honda Original"
-msgstr ""
+msgstr "Honda Original"
 
 #: maintenance/choices.py:1537 maintenance/choices.py:1661
 msgid "Nissan Original"
-msgstr ""
+msgstr "Nissan Original"
 
 #: maintenance/choices.py:1538 maintenance/choices.py:1663
 msgid "Mazda Original"
-msgstr ""
+msgstr "Mazda Original"
 
 #: maintenance/choices.py:1539 maintenance/choices.py:1664
 msgid "Subaru Original"
-msgstr ""
+msgstr "Subaru Original"
 
 #: maintenance/choices.py:1540 maintenance/choices.py:1665
 msgid "Mitsubishi Original"
-msgstr ""
+msgstr "Mitsubishi Original"
 
 #: maintenance/choices.py:1541 maintenance/choices.py:1666
 msgid "Suzuki Original"
-msgstr ""
+msgstr "Suzuki Original"
 
 #: maintenance/choices.py:1542 maintenance/choices.py:1668
 msgid "Hyundai Original"
-msgstr ""
+msgstr "Hyundai Original"
 
 #: maintenance/choices.py:1543 maintenance/choices.py:1669
 msgid "Kia Original"
-msgstr ""
+msgstr "Kia Original"
 
 #: maintenance/choices.py:1544 maintenance/choices.py:1672
 msgid "Land Rover Original"
-msgstr ""
+msgstr "Land Rover Original"
 
 #: maintenance/choices.py:1545 maintenance/choices.py:1671
 msgid "Jaguar Original"
-msgstr ""
+msgstr "Jaguar Original"
 
 #: maintenance/choices.py:1552 maintenance/choices.py:1679
 #: maintenance/choices.py:1697 maintenance/choices.py:1712
@@ -27827,11 +27895,11 @@ msgstr "Άγνωστος κατασκευαστής"
 
 #: maintenance/choices.py:1567
 msgid "Elring"
-msgstr ""
+msgstr "Elring"
 
 #: maintenance/choices.py:1568
 msgid "Victor Reinz"
-msgstr ""
+msgstr "Victor Reinz"
 
 #: maintenance/choices.py:1570
 msgid "NOK"
@@ -27843,19 +27911,19 @@ msgstr "NAK"
 
 #: maintenance/choices.py:1572
 msgid "KACO"
-msgstr ""
+msgstr "KACO"
 
 #: maintenance/choices.py:1573
 msgid "Trelleborg"
-msgstr ""
+msgstr "Trelleborg"
 
 #: maintenance/choices.py:1575
 msgid "Sakagami"
-msgstr ""
+msgstr "Sakagami"
 
 #: maintenance/choices.py:1576
 msgid "Musashi Oil Seal"
-msgstr ""
+msgstr "Musashi Oil Seal"
 
 #: maintenance/choices.py:1577
 msgid "ARS"
@@ -27863,95 +27931,95 @@ msgstr "ARS"
 
 #: maintenance/choices.py:1578
 msgid "Payen"
-msgstr ""
+msgstr "Payen"
 
 #: maintenance/choices.py:1579
 msgid "Ajusa"
-msgstr ""
+msgstr "Ajusa"
 
 #: maintenance/choices.py:1585 maintenance/choices.py:2537
 msgid "FAG / Schaeffler"
-msgstr ""
+msgstr "FAG / Schaeffler"
 
 #: maintenance/choices.py:1586
 msgid "INA / Schaeffler"
-msgstr ""
+msgstr "INA / Schaeffler"
 
 #: maintenance/choices.py:1587 maintenance/choices.py:2519
 msgid "NTN-SNR"
-msgstr ""
+msgstr "NTN-SNR"
 
 #: maintenance/choices.py:1589
 msgid "Koyo / JTEKT"
-msgstr ""
+msgstr "Koyo / JTEKT"
 
 #: maintenance/choices.py:1601
 msgid "TOPRAN"
-msgstr ""
+msgstr "TOPRAN"
 
 #: maintenance/choices.py:1608
 msgid "AUTOMEGA"
-msgstr ""
+msgstr "AUTOMEGA"
 
 #: maintenance/choices.py:1609
 msgid "TRUCKTEC Automotive"
-msgstr ""
+msgstr "TRUCKTEC Automotive"
 
 #: maintenance/choices.py:1611
 msgid "FAI AutoParts"
-msgstr ""
+msgstr "FAI AutoParts"
 
 #: maintenance/choices.py:1613
 msgid "IMPERGOM"
-msgstr ""
+msgstr "IMPERGOM"
 
 #: maintenance/choices.py:1614
 msgid "Original Imperium"
-msgstr ""
+msgstr "Original Imperium"
 
 #: maintenance/choices.py:1623
 msgid "FEBEST"
-msgstr ""
+msgstr "FEBEST"
 
 #: maintenance/choices.py:1625
 msgid "Masuma"
-msgstr ""
+msgstr "Masuma"
 
 #: maintenance/choices.py:1636
 msgid "Škoda Original"
-msgstr ""
+msgstr "Škoda Original"
 
 #: maintenance/choices.py:1637
 msgid "SEAT Original"
-msgstr ""
+msgstr "SEAT Original"
 
 #: maintenance/choices.py:1638
 msgid "CUPRA Original"
-msgstr ""
+msgstr "CUPRA Original"
 
 #: maintenance/choices.py:1644
 msgid "Saab Original"
-msgstr ""
+msgstr "Saab Original"
 
 #: maintenance/choices.py:1648
 msgid "DS Automobiles Original"
-msgstr ""
+msgstr "DS Automobiles Original"
 
 #: maintenance/choices.py:1655
 msgid "Maserati Original"
-msgstr ""
+msgstr "Maserati Original"
 
 #: maintenance/choices.py:1656
 msgid "Ferrari Original"
-msgstr ""
+msgstr "Ferrari Original"
 
 #: maintenance/choices.py:1662
 msgid "Infiniti Original"
-msgstr ""
+msgstr "Infiniti Original"
 
 #: maintenance/choices.py:1694
 msgid "Walbro"
-msgstr ""
+msgstr "Walbro"
 
 #: maintenance/choices.py:1695
 msgid "TI Automotive"
@@ -27963,11 +28031,11 @@ msgstr "Siemens"
 
 #: maintenance/choices.py:1769
 msgid "Keihin"
-msgstr ""
+msgstr "Keihin"
 
 #: maintenance/choices.py:1782
 msgid "TE Connectivity"
-msgstr ""
+msgstr "TE Connectivity"
 
 #: maintenance/choices.py:1783
 msgid "AMP"
@@ -27975,95 +28043,95 @@ msgstr "AMP"
 
 #: maintenance/choices.py:1784
 msgid "Molex"
-msgstr ""
+msgstr "Molex"
 
 #: maintenance/choices.py:1799
 msgid "Narva"
-msgstr ""
+msgstr "Narva"
 
 #: maintenance/choices.py:1800
 msgid "GE"
-msgstr ""
+msgstr "GE"
 
 #: maintenance/choices.py:1801
 msgid "Ring"
-msgstr ""
+msgstr "Ring"
 
 #: maintenance/choices.py:1802
 msgid "PIAA"
-msgstr ""
+msgstr "PIAA"
 
 #: maintenance/choices.py:1803
 msgid "M-Tech"
-msgstr ""
+msgstr "M-Tech"
 
 #: maintenance/choices.py:1804
 msgid "Neolux"
-msgstr ""
+msgstr "Neolux"
 
 #: maintenance/choices.py:1805
 msgid "Tungsram"
-msgstr ""
+msgstr "Tungsram"
 
 #: maintenance/choices.py:1815 maintenance/choices.py:1889
 msgid "Alfa Romeo"
-msgstr ""
+msgstr "Alfa Romeo"
 
 #: maintenance/choices.py:1816
 msgid "Alpine"
-msgstr ""
+msgstr "Alpine"
 
 #: maintenance/choices.py:1817
 msgid "Aston Martin"
-msgstr ""
+msgstr "Aston Martin"
 
 #: maintenance/choices.py:1818 maintenance/choices.py:1890
 msgid "Audi"
-msgstr ""
+msgstr "Audi"
 
 #: maintenance/choices.py:1819
 msgid "Bentley"
-msgstr ""
+msgstr "Bentley"
 
 #: maintenance/choices.py:1821
 msgid "Bugatti"
-msgstr ""
+msgstr "Bugatti"
 
 #: maintenance/choices.py:1822 maintenance/choices.py:1892
 msgid "Citroën"
-msgstr ""
+msgstr "Citroën"
 
 #: maintenance/choices.py:1823
 msgid "Dacia"
-msgstr ""
+msgstr "Dacia"
 
 #: maintenance/choices.py:1824 maintenance/choices.py:1893
 msgid "Ferrari"
-msgstr ""
+msgstr "Ferrari"
 
 #: maintenance/choices.py:1825 maintenance/choices.py:1894
 msgid "Fiat"
-msgstr ""
+msgstr "Fiat"
 
 #: maintenance/choices.py:1830
 msgid "Jaguar"
-msgstr ""
+msgstr "Jaguar"
 
 #: maintenance/choices.py:1832
 msgid "Lamborghini"
-msgstr ""
+msgstr "Lamborghini"
 
 #: maintenance/choices.py:1833
 msgid "Land Rover"
-msgstr ""
+msgstr "Land Rover"
 
 #: maintenance/choices.py:1834
 msgid "Lexus"
-msgstr ""
+msgstr "Lexus"
 
 #: maintenance/choices.py:1835
 msgid "Lotus"
-msgstr ""
+msgstr "Lotus"
 
 #: maintenance/choices.py:1836
 msgid "Maserati"
@@ -28071,27 +28139,27 @@ msgstr "Maserati"
 
 #: maintenance/choices.py:1838
 msgid "McLaren"
-msgstr ""
+msgstr "McLaren"
 
 #: maintenance/choices.py:1840
 msgid "Mini"
-msgstr ""
+msgstr "Mini"
 
 #: maintenance/choices.py:1844 maintenance/choices.py:1904
 msgid "Peugeot"
-msgstr ""
+msgstr "Peugeot"
 
 #: maintenance/choices.py:1847
 msgid "Rolls-Royce"
-msgstr ""
+msgstr "Rolls-Royce"
 
 #: maintenance/choices.py:1848
 msgid "Seat"
-msgstr ""
+msgstr "Seat"
 
 #: maintenance/choices.py:1849
 msgid "Škoda"
-msgstr ""
+msgstr "Škoda"
 
 #: maintenance/choices.py:1857
 msgid "AMG"
@@ -28099,11 +28167,11 @@ msgstr "AMG"
 
 #: maintenance/choices.py:1858
 msgid "BMW M"
-msgstr ""
+msgstr "BMW M"
 
 #: maintenance/choices.py:1859
 msgid "Cosworth"
-msgstr ""
+msgstr "Cosworth"
 
 #: maintenance/choices.py:1860
 msgid "Cotal"
@@ -28115,31 +28183,31 @@ msgstr "Gordini"
 
 #: maintenance/choices.py:1862
 msgid "Hart"
-msgstr ""
+msgstr "Hart"
 
 #: maintenance/choices.py:1863
 msgid "Ilmor"
-msgstr ""
+msgstr "Ilmor"
 
 #: maintenance/choices.py:1864
 msgid "Judd"
-msgstr ""
+msgstr "Judd"
 
 #: maintenance/choices.py:1865
 msgid "Mecachrome"
-msgstr ""
+msgstr "Mecachrome"
 
 #: maintenance/choices.py:1866
 msgid "Mugen"
-msgstr ""
+msgstr "Mugen"
 
 #: maintenance/choices.py:1867
 msgid "Nismo"
-msgstr ""
+msgstr "Nismo"
 
 #: maintenance/choices.py:1868
 msgid "Oreca"
-msgstr ""
+msgstr "Oreca"
 
 #: maintenance/choices.py:1869
 msgid "AER"
@@ -28147,19 +28215,19 @@ msgstr "AER"
 
 #: maintenance/choices.py:1870
 msgid "Alpina"
-msgstr ""
+msgstr "Alpina"
 
 #: maintenance/choices.py:1871
 msgid "Abarth"
-msgstr ""
+msgstr "Abarth"
 
 #: maintenance/choices.py:1872
 msgid "HPD (Honda Performance Development)"
-msgstr ""
+msgstr "HPD (Honda Performance Development)"
 
 #: maintenance/choices.py:1873
 msgid "TRD (Toyota Racing Development)"
-msgstr ""
+msgstr "TRD (Toyota Racing Development)"
 
 #: maintenance/choices.py:1875
 msgid "Rotax"
@@ -28167,15 +28235,15 @@ msgstr "Rotax"
 
 #: maintenance/choices.py:1876
 msgid "Cummins"
-msgstr ""
+msgstr "Cummins"
 
 #: maintenance/choices.py:1877
 msgid "Perkins"
-msgstr ""
+msgstr "Perkins"
 
 #: maintenance/choices.py:1878
 msgid "Deutz"
-msgstr ""
+msgstr "Deutz"
 
 #: maintenance/choices.py:1879
 msgid "VM Motori"
@@ -28183,35 +28251,35 @@ msgstr "VM Motori"
 
 #: maintenance/choices.py:1914
 msgid "Allison"
-msgstr ""
+msgstr "Allison"
 
 #: maintenance/choices.py:1916
 msgid "Dana"
-msgstr ""
+msgstr "Dana"
 
 #: maintenance/choices.py:1918
 msgid "Getrag (Magna)"
-msgstr ""
+msgstr "Getrag (Magna)"
 
 #: maintenance/choices.py:1919
 msgid "Graziano"
-msgstr ""
+msgstr "Graziano"
 
 #: maintenance/choices.py:1920
 msgid "Hyundai Transys"
-msgstr ""
+msgstr "Hyundai Transys"
 
 #: maintenance/choices.py:1921
 msgid "Jatco"
-msgstr ""
+msgstr "Jatco"
 
 #: maintenance/choices.py:1922
 msgid "Punch Powertrain"
-msgstr ""
+msgstr "Punch Powertrain"
 
 #: maintenance/choices.py:1923
 msgid "Tremec"
-msgstr ""
+msgstr "Tremec"
 
 #: maintenance/choices.py:1924
 msgid "Voith"
@@ -28219,47 +28287,47 @@ msgstr "Voith"
 
 #: maintenance/choices.py:1928
 msgid "Albins"
-msgstr ""
+msgstr "Albins"
 
 #: maintenance/choices.py:1929
 msgid "Drenth"
-msgstr ""
+msgstr "Drenth"
 
 #: maintenance/choices.py:1930
 msgid "Hewland"
-msgstr ""
+msgstr "Hewland"
 
 #: maintenance/choices.py:1931
 msgid "Holinger"
-msgstr ""
+msgstr "Holinger"
 
 #: maintenance/choices.py:1932
 msgid "Quaife"
-msgstr ""
+msgstr "Quaife"
 
 #: maintenance/choices.py:1933
 msgid "Ricardo"
-msgstr ""
+msgstr "Ricardo"
 
 #: maintenance/choices.py:1934
 msgid "Sadev"
-msgstr ""
+msgstr "Sadev"
 
 #: maintenance/choices.py:1935
 msgid "Samsonas"
-msgstr ""
+msgstr "Samsonas"
 
 #: maintenance/choices.py:1936
 msgid "Xtrac"
-msgstr ""
+msgstr "Xtrac"
 
 #: maintenance/choices.py:2030 piece/piece_fluides/models.py:66
 msgid "CHF 1+"
-msgstr ""
+msgstr "CHF 1+"
 
 #: maintenance/choices.py:2031 piece/piece_fluides/models.py:67
 msgid "CHF Lifeguard Fluid"
-msgstr ""
+msgstr "CHF Lifeguard Fluid"
 
 #: maintenance/choices.py:2034 piece/piece_fluides/models.py:70
 msgid "Porsche / Pentosin CHF 11S (direction assistée)"
@@ -28311,15 +28379,15 @@ msgstr "Renault / ELF υγρό υδραυλικού τιμονιού"
 
 #: maintenance/choices.py:2054 piece/piece_fluides/models.py:90
 msgid "PSF Hyundai / Kia"
-msgstr ""
+msgstr "PSF Hyundai / Kia"
 
 #: maintenance/choices.py:2055 piece/piece_fluides/models.py:91
 msgid "PSF Toyota"
-msgstr ""
+msgstr "PSF Toyota"
 
 #: maintenance/choices.py:2056 piece/piece_fluides/models.py:92
 msgid "PSF Honda"
-msgstr ""
+msgstr "PSF Honda"
 
 #: maintenance/choices.py:2059 piece/piece_fluides/models.py:95
 msgid "Liquide direction assistée universel"
@@ -28327,196 +28395,196 @@ msgstr "Καθολικό υγρό υδραυλικού τιμονιού"
 
 #: maintenance/choices.py:2066 piece/piece_fluides/models.py:19
 msgid "0W16"
-msgstr ""
+msgstr "0W16"
 
 #: maintenance/choices.py:2067 piece/piece_fluides/models.py:20
 msgid "0W20"
-msgstr ""
+msgstr "0W20"
 
 #: maintenance/choices.py:2068 piece/piece_fluides/models.py:21
 msgid "0W30"
-msgstr ""
+msgstr "0W30"
 
 #: maintenance/choices.py:2069 piece/piece_fluides/models.py:22
 msgid "0W40"
-msgstr ""
+msgstr "0W40"
 
 #: maintenance/choices.py:2070 piece/piece_fluides/models.py:23
 msgid "5W20"
-msgstr ""
+msgstr "5W20"
 
 #: maintenance/choices.py:2071 piece/piece_fluides/models.py:24
 msgid "5W30"
-msgstr ""
+msgstr "5W30"
 
 #: maintenance/choices.py:2072 piece/piece_fluides/models.py:25
 msgid "5W40"
-msgstr ""
+msgstr "5W40"
 
 #: maintenance/choices.py:2073 piece/piece_fluides/models.py:26
 msgid "10W40"
-msgstr ""
+msgstr "10W40"
 
 #: maintenance/choices.py:2074 piece/piece_fluides/models.py:27
 msgid "10W50"
-msgstr ""
+msgstr "10W50"
 
 #: maintenance/choices.py:2075 piece/piece_fluides/models.py:28
 msgid "10W60"
-msgstr ""
+msgstr "10W60"
 
 #: maintenance/choices.py:2076 piece/piece_fluides/models.py:29
 msgid "15W40"
-msgstr ""
+msgstr "15W40"
 
 #: maintenance/choices.py:2077 piece/piece_fluides/models.py:30
 msgid "15W50"
-msgstr ""
+msgstr "15W50"
 
 #: maintenance/choices.py:2078 piece/piece_fluides/models.py:31
 msgid "20W50"
-msgstr ""
+msgstr "20W50"
 
 #: maintenance/choices.py:2084 maintenance/choices.py:2206
 #: piece/piece_fluides/models.py:34
 msgid "75W"
-msgstr ""
+msgstr "75W"
 
 #: maintenance/choices.py:2085 maintenance/choices.py:2117
 #: maintenance/choices.py:2207 piece/piece_fluides/models.py:35
 msgid "75W80"
-msgstr ""
+msgstr "75W80"
 
 #: maintenance/choices.py:2086 maintenance/choices.py:2119
 #: maintenance/choices.py:2208 piece/piece_fluides/models.py:36
 msgid "75W90"
-msgstr ""
+msgstr "75W90"
 
 #: maintenance/choices.py:2088 maintenance/choices.py:2123
 #: maintenance/choices.py:2210 piece/piece_fluides/models.py:38
 msgid "80W90"
-msgstr ""
+msgstr "80W90"
 
 #: maintenance/choices.py:2089 maintenance/choices.py:2126
 #: maintenance/choices.py:2211 piece/piece_fluides/models.py:39
 msgid "85W90"
-msgstr ""
+msgstr "85W90"
 
 #: maintenance/choices.py:2091 maintenance/choices.py:2216
 #: maintenance/choices.py:2293 piece/piece_fluides/models.py:40
 msgid "ATF III"
-msgstr ""
+msgstr "ATF III"
 
 #: maintenance/choices.py:2092 maintenance/choices.py:2217
 #: maintenance/choices.py:2294 piece/piece_fluides/models.py:41
 msgid "ATF DSG"
-msgstr ""
+msgstr "ATF DSG"
 
 #: maintenance/choices.py:2093 maintenance/choices.py:2218
 #: maintenance/choices.py:2295
 msgid "ATF DCT"
-msgstr ""
+msgstr "ATF DCT"
 
 #: maintenance/choices.py:2094 maintenance/choices.py:2219
 #: maintenance/choices.py:2296
 msgid "ATF CVT"
-msgstr ""
+msgstr "ATF CVT"
 
 #: maintenance/choices.py:2098 maintenance/choices.py:2225
 #: maintenance/choices.py:2300
 msgid "ATF Mercon"
-msgstr ""
+msgstr "ATF Mercon"
 
 #: maintenance/choices.py:2099 maintenance/choices.py:2226
 #: maintenance/choices.py:2301
 msgid "ATF Mercon V"
-msgstr ""
+msgstr "ATF Mercon V"
 
 #: maintenance/choices.py:2100 maintenance/choices.py:2227
 #: maintenance/choices.py:2302
 msgid "ATF Mercon LV"
-msgstr ""
+msgstr "ATF Mercon LV"
 
 #: maintenance/choices.py:2101 maintenance/choices.py:2229
 #: maintenance/choices.py:2303
 msgid "ATF Multi Vehicle"
-msgstr ""
+msgstr "ATF Multi Vehicle"
 
 #: maintenance/choices.py:2102 maintenance/choices.py:2230
 #: maintenance/choices.py:2304
 msgid "ATF Toyota WS"
-msgstr ""
+msgstr "ATF Toyota WS"
 
 #: maintenance/choices.py:2103 maintenance/choices.py:2231
 #: maintenance/choices.py:2305
 msgid "ZF Lifeguard"
-msgstr ""
+msgstr "ZF Lifeguard"
 
 #: maintenance/choices.py:2104 maintenance/choices.py:2232
 #: maintenance/choices.py:2306
 msgid "Mopar ATF+4"
-msgstr ""
+msgstr "Mopar ATF+4"
 
 #: maintenance/choices.py:2105 maintenance/choices.py:2233
 #: maintenance/choices.py:2307
 msgid "Aisin ATF"
-msgstr ""
+msgstr "Aisin ATF"
 
 #: maintenance/choices.py:2106 maintenance/choices.py:2234
 #: maintenance/choices.py:2308
 msgid "Mercedes MB 236.x"
-msgstr ""
+msgstr "Mercedes MB 236.x"
 
 #: maintenance/choices.py:2107 maintenance/choices.py:2235
 #: maintenance/choices.py:2309
 msgid "Volvo ATF"
-msgstr ""
+msgstr "Volvo ATF"
 
 #: maintenance/choices.py:2108 maintenance/choices.py:2236
 #: maintenance/choices.py:2310
 msgid "Honda ATF DW-1"
-msgstr ""
+msgstr "Honda ATF DW-1"
 
 #: maintenance/choices.py:2109 maintenance/choices.py:2237
 #: maintenance/choices.py:2311
 msgid "Nissan Matic"
-msgstr ""
+msgstr "Nissan Matic"
 
 #: maintenance/choices.py:2118
 msgid "75W85"
-msgstr ""
+msgstr "75W85"
 
 #: maintenance/choices.py:2120
 msgid "75W110"
-msgstr ""
+msgstr "75W110"
 
 #: maintenance/choices.py:2121
 msgid "75W140"
-msgstr ""
+msgstr "75W140"
 
 #: maintenance/choices.py:2124
 msgid "80W140"
-msgstr ""
+msgstr "80W140"
 
 #: maintenance/choices.py:2127
 msgid "85W140"
-msgstr ""
+msgstr "85W140"
 
 #: maintenance/choices.py:2129
 msgid "SAE 90"
-msgstr ""
+msgstr "SAE 90"
 
 #: maintenance/choices.py:2130
 msgid "SAE 140"
-msgstr ""
+msgstr "SAE 140"
 
 #: maintenance/choices.py:2132
 msgid "Porsche 75W90"
-msgstr ""
+msgstr "Porsche 75W90"
 
 #: maintenance/choices.py:2133
 msgid "Porsche 75W140"
-msgstr ""
+msgstr "Porsche 75W140"
 
 #: maintenance/choices.py:2136
 msgid "Huile inconnue"
@@ -28524,39 +28592,39 @@ msgstr "Άγνωστο λάδι"
 
 #: maintenance/choices.py:2141
 msgid "G 11 VAG"
-msgstr ""
+msgstr "G 11 VAG"
 
 #: maintenance/choices.py:2142
 msgid "G 12 VAG"
-msgstr ""
+msgstr "G 12 VAG"
 
 #: maintenance/choices.py:2143
 msgid "G 12+ VAG"
-msgstr ""
+msgstr "G 12+ VAG"
 
 #: maintenance/choices.py:2144
 msgid "G 12++ VAG"
-msgstr ""
+msgstr "G 12++ VAG"
 
 #: maintenance/choices.py:2145 piece/piece_fluides/models.py:104
 msgid "G 13"
-msgstr ""
+msgstr "G 13"
 
 #: maintenance/choices.py:2148
 msgid "G 48 BMW"
-msgstr ""
+msgstr "G 48 BMW"
 
 #: maintenance/choices.py:2151
 msgid "MB 325.0 Mercedes"
-msgstr ""
+msgstr "MB 325.0 Mercedes"
 
 #: maintenance/choices.py:2152
 msgid "MB 325.3 Mercedes"
-msgstr ""
+msgstr "MB 325.3 Mercedes"
 
 #: maintenance/choices.py:2153
 msgid "MB 325.5 Mercedes"
-msgstr ""
+msgstr "MB 325.5 Mercedes"
 
 #: maintenance/choices.py:2156
 msgid "Type D Renault"
@@ -28564,39 +28632,39 @@ msgstr "Type D Renault"
 
 #: maintenance/choices.py:2159
 msgid "B71 5110 PSA"
-msgstr ""
+msgstr "B71 5110 PSA"
 
 #: maintenance/choices.py:2162
 msgid "WSS-M97B44-D Ford"
-msgstr ""
+msgstr "WSS-M97B44-D Ford"
 
 #: maintenance/choices.py:2163
 msgid "WSS-M97B51-A1 Ford"
-msgstr ""
+msgstr "WSS-M97B51-A1 Ford"
 
 #: maintenance/choices.py:2166
 msgid "Dex-Cool GM"
-msgstr ""
+msgstr "Dex-Cool GM"
 
 #: maintenance/choices.py:2169 piece/piece_fluides/models.py:128
 msgid "Toyota SLLC"
-msgstr ""
+msgstr "Toyota SLLC"
 
 #: maintenance/choices.py:2172 piece/piece_fluides/models.py:131
 msgid "Honda Type 2"
-msgstr ""
+msgstr "Honda Type 2"
 
 #: maintenance/choices.py:2175 piece/piece_fluides/models.py:134
 msgid "Nissan L248"
-msgstr ""
+msgstr "Nissan L248"
 
 #: maintenance/choices.py:2176 piece/piece_fluides/models.py:135
 msgid "Nissan L250"
-msgstr ""
+msgstr "Nissan L250"
 
 #: maintenance/choices.py:2179 piece/piece_fluides/models.py:138
 msgid "Hyundai/Kia Long Life Coolant"
-msgstr ""
+msgstr "Hyundai/Kia Long Life Coolant"
 
 #: maintenance/choices.py:2193 piece/piece_fluides/models.py:44
 #: voiture/voiture_pneus/models.py:17
@@ -28609,103 +28677,103 @@ msgstr "Καλοκαίρι"
 
 #: maintenance/choices.py:2209
 msgid "80W"
-msgstr ""
+msgstr "80W"
 
 #: maintenance/choices.py:2242 maintenance/choices.py:2316
 msgid "Porsche PDK"
-msgstr ""
+msgstr "Porsche PDK"
 
 #: maintenance/choices.py:2243 maintenance/choices.py:2317
 msgid "Porsche DCT"
-msgstr ""
+msgstr "Porsche DCT"
 
 #: maintenance/choices.py:2244 maintenance/choices.py:2318
 msgid "Porsche Tiptronic"
-msgstr ""
+msgstr "Porsche Tiptronic"
 
 #: maintenance/choices.py:2249 maintenance/choices.py:2323
 msgid "VAG DSG DQ250"
-msgstr ""
+msgstr "VAG DSG DQ250"
 
 #: maintenance/choices.py:2250 maintenance/choices.py:2324
 msgid "VAG DSG DQ381"
-msgstr ""
+msgstr "VAG DSG DQ381"
 
 #: maintenance/choices.py:2251 maintenance/choices.py:2325
 msgid "VAG DSG DQ500"
-msgstr ""
+msgstr "VAG DSG DQ500"
 
 #: maintenance/choices.py:2252 maintenance/choices.py:2326
 msgid "VAG DSG DQ200"
-msgstr ""
+msgstr "VAG DSG DQ200"
 
 #: maintenance/choices.py:2253 maintenance/choices.py:2327
 msgid "Audi S tronic"
-msgstr ""
+msgstr "Audi S tronic"
 
 #: maintenance/choices.py:2254 maintenance/choices.py:2328
 msgid "Audi Multitronic"
-msgstr ""
+msgstr "Audi Multitronic"
 
 #: maintenance/choices.py:2255 maintenance/choices.py:2329
 msgid "VAG Tiptronic"
-msgstr ""
+msgstr "VAG Tiptronic"
 
 #: maintenance/choices.py:2260 maintenance/choices.py:2334
 msgid "Ford Mercon"
-msgstr ""
+msgstr "Ford Mercon"
 
 #: maintenance/choices.py:2261 maintenance/choices.py:2335
 msgid "Ford Mercon V"
-msgstr ""
+msgstr "Ford Mercon V"
 
 #: maintenance/choices.py:2262 maintenance/choices.py:2336
 msgid "Ford Mercon LV"
-msgstr ""
+msgstr "Ford Mercon LV"
 
 #: maintenance/choices.py:2263 maintenance/choices.py:2337
 msgid "Ford Mercon ULV"
-msgstr ""
+msgstr "Ford Mercon ULV"
 
 #: maintenance/choices.py:2264 maintenance/choices.py:2338
 msgid "Ford PowerShift"
-msgstr ""
+msgstr "Ford PowerShift"
 
 #: maintenance/choices.py:2265 maintenance/choices.py:2339
 msgid "Ford CVT"
-msgstr ""
+msgstr "Ford CVT"
 
 #: maintenance/choices.py:2270 maintenance/choices.py:2344
 msgid "Alfa Romeo TCT"
-msgstr ""
+msgstr "Alfa Romeo TCT"
 
 #: maintenance/choices.py:2271 maintenance/choices.py:2345
 msgid "Alfa Romeo Selespeed"
-msgstr ""
+msgstr "Alfa Romeo Selespeed"
 
 #: maintenance/choices.py:2272 maintenance/choices.py:2346
 msgid "Alfa Romeo ATF"
-msgstr ""
+msgstr "Alfa Romeo ATF"
 
 #: maintenance/choices.py:2273 maintenance/choices.py:2347
 msgid "Alfa Romeo Tutela"
-msgstr ""
+msgstr "Alfa Romeo Tutela"
 
 #: maintenance/choices.py:2278 maintenance/choices.py:2352
 msgid "Ferrari DCT"
-msgstr ""
+msgstr "Ferrari DCT"
 
 #: maintenance/choices.py:2279 maintenance/choices.py:2353
 msgid "Ferrari F1"
-msgstr ""
+msgstr "Ferrari F1"
 
 #: maintenance/choices.py:2280 maintenance/choices.py:2354
 msgid "Ferrari Getrag"
-msgstr ""
+msgstr "Ferrari Getrag"
 
 #: maintenance/choices.py:2281 maintenance/choices.py:2355
 msgid "Ferrari ATF"
-msgstr ""
+msgstr "Ferrari ATF"
 
 #: maintenance/choices.py:2376
 msgid "Bremi"
@@ -28717,15 +28785,15 @@ msgstr "Να γίνει"
 
 #: maintenance/choices.py:2438
 msgid "Mahle (ex-Behr)"
-msgstr ""
+msgstr "Mahle (ex-Behr)"
 
 #: maintenance/choices.py:2439
 msgid "Hella / Behr Hella Service"
-msgstr ""
+msgstr "Hella / Behr Hella Service"
 
 #: maintenance/choices.py:2440
 msgid "Hanon Systems (ex-Halla Visteon)"
-msgstr ""
+msgstr "Hanon Systems (ex-Halla Visteon)"
 
 #: maintenance/choices.py:2441
 msgid "Marelli (Magneti Marelli / Calsonic Kansei)"
@@ -28733,99 +28801,99 @@ msgstr "Marelli (Magneti Marelli / Calsonic Kansei)"
 
 #: maintenance/choices.py:2445
 msgid "AVA Quality Cooling"
-msgstr ""
+msgstr "AVA Quality Cooling"
 
 #: maintenance/choices.py:2449
 msgid "Kale"
-msgstr ""
+msgstr "Kale"
 
 #: maintenance/choices.py:2452
 msgid "Highly"
-msgstr ""
+msgstr "Highly"
 
 #: maintenance/choices.py:2453
 msgid "Zexel"
-msgstr ""
+msgstr "Zexel"
 
 #: maintenance/choices.py:2454
 msgid "Seltec"
-msgstr ""
+msgstr "Seltec"
 
 #: maintenance/choices.py:2459
 msgid "Mann-Filter"
-msgstr ""
+msgstr "Mann-Filter"
 
 #: maintenance/choices.py:2461
 msgid "Purflux"
-msgstr ""
+msgstr "Purflux"
 
 #: maintenance/choices.py:2462
 msgid "UFI"
-msgstr ""
+msgstr "UFI"
 
 #: maintenance/choices.py:2463
 msgid "Hengst"
-msgstr ""
+msgstr "Hengst"
 
 #: maintenance/choices.py:2468
 msgid "Errecom"
-msgstr ""
+msgstr "Errecom"
 
 #: maintenance/choices.py:2469
 msgid "Idemitsu"
-msgstr ""
+msgstr "Idemitsu"
 
 #: maintenance/choices.py:2473
 msgid "Wynn's"
-msgstr ""
+msgstr "Wynn's"
 
 #: maintenance/choices.py:2474
 msgid "Waeco / Dometic"
-msgstr ""
+msgstr "Waeco / Dometic"
 
 #: maintenance/choices.py:2479
 msgid "Honeywell (Solstice)"
-msgstr ""
+msgstr "Honeywell (Solstice)"
 
 #: maintenance/choices.py:2480
 msgid "Chemours (Opteon)"
-msgstr ""
+msgstr "Chemours (Opteon)"
 
 #: maintenance/choices.py:2481
 msgid "Arkema (Forane)"
-msgstr ""
+msgstr "Arkema (Forane)"
 
 #: maintenance/choices.py:2482
 msgid "Daikin"
-msgstr ""
+msgstr "Daikin"
 
 #: maintenance/choices.py:2483
 msgid "Koura (Klea)"
-msgstr ""
+msgstr "Koura (Klea)"
 
 #: maintenance/choices.py:2488
 msgid "Spectronics (Tracerline)"
-msgstr ""
+msgstr "Spectronics (Tracerline)"
 
 #: maintenance/choices.py:2489
 msgid "UView"
-msgstr ""
+msgstr "UView"
 
 #: maintenance/choices.py:2490
 msgid "Wigam"
-msgstr ""
+msgstr "Wigam"
 
 #: maintenance/choices.py:2491
 msgid "Bluechem"
-msgstr ""
+msgstr "Bluechem"
 
 #: maintenance/choices.py:2496
 msgid "Texa"
-msgstr ""
+msgstr "Texa"
 
 #: maintenance/choices.py:2497
 msgid "Robinair"
-msgstr ""
+msgstr "Robinair"
 
 #: maintenance/choices.py:2498
 msgid "Ecotechnics"
@@ -28833,7 +28901,7 @@ msgstr "Ecotechnics"
 
 #: maintenance/choices.py:2499
 msgid "Spin"
-msgstr ""
+msgstr "Spin"
 
 #: maintenance/choices.py:2513
 msgid "Constructeur (OEM)"
@@ -28841,31 +28909,31 @@ msgstr "Κατασκευαστής (OEM)"
 
 #: maintenance/choices.py:2518
 msgid "GKN / Löbro / Spidan"
-msgstr ""
+msgstr "GKN / Löbro / Spidan"
 
 #: maintenance/choices.py:2521
 msgid "ZF / Lemförder"
-msgstr ""
+msgstr "ZF / Lemförder"
 
 #: maintenance/choices.py:2522
 msgid "Dana / Spicer"
-msgstr ""
+msgstr "Dana / Spicer"
 
 #: maintenance/choices.py:2523
 msgid "Neapco"
-msgstr ""
+msgstr "Neapco"
 
 #: maintenance/choices.py:2524
 msgid "IFA Rotorion"
-msgstr ""
+msgstr "IFA Rotorion"
 
 #: maintenance/choices.py:2525
 msgid "Hyundai WIA"
-msgstr ""
+msgstr "Hyundai WIA"
 
 #: maintenance/choices.py:2549
 msgid "The Driveshaft Shop"
-msgstr ""
+msgstr "The Driveshaft Shop"
 
 #: maintenance/choices.py:2550
 msgid "RCV Performance"
@@ -28873,7 +28941,7 @@ msgstr "RCV Performance"
 
 #: maintenance/choices.py:2551
 msgid "QA1"
-msgstr ""
+msgstr "QA1"
 
 #: maintenance/eclairage/models.py:105
 msgid "Kilométrage du contrôle de l'éclairage"
@@ -29412,7 +29480,7 @@ msgid "Hors service"
 msgstr "Εκτός λειτουργίας"
 
 #: maintenance/jeux_pieces/models.py:46 maintenance/models.py:84
-#: utilisateurs/models.py:84 utilisateurs/views.py:278
+#: utilisateurs/models.py:84 utilisateurs/views.py:283
 msgid "Apprenti"
 msgstr "Μαθητευόμενος"
 
@@ -29650,6 +29718,8 @@ msgid "Kilométrage du contrôle niveaux"
 msgstr "Χιλιομετρική ένδειξη ελέγχου στάθμης υγρών"
 
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:352
+#: voiture/voiture_location/models.py:11 voiture/voiture_location/models.py:174
+#: voiture/voiture_location/templates/voiture_location/location_list.html:39
 msgid "Circuit"
 msgstr "Κύκλωμα"
 
@@ -30212,6 +30282,9 @@ msgstr "Χιλιομετρική ένδειξη κατά την επέμβαση
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:254
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:275
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:285
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:76
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:85
+#: voiture/voiture_location/templates/voiture_location/location_list.html:93
 msgid "Modifier"
 msgstr "Τροποποίηση"
 
@@ -30425,6 +30498,7 @@ msgstr "Κωδικός OEM"
 
 #: piece/models.py:92 piece/templates/piece/piece_detail.html:35
 #: piece/templates/piece/piece_form.html:84
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:52
 msgid "Prix d'achat"
 msgstr "Τιμή αγοράς"
 
@@ -31348,55 +31422,55 @@ msgstr "Λάδι υδραυλικής διεύθυνσης"
 
 #: piece/piece_fluides/models.py:100
 msgid "G 11"
-msgstr ""
+msgstr "G 11"
 
 #: piece/piece_fluides/models.py:101
 msgid "G 12"
-msgstr ""
+msgstr "G 12"
 
 #: piece/piece_fluides/models.py:102
 msgid "G 12+"
-msgstr ""
+msgstr "G 12+"
 
 #: piece/piece_fluides/models.py:103
 msgid "G 12++"
-msgstr ""
+msgstr "G 12++"
 
 #: piece/piece_fluides/models.py:107
 msgid "G 48"
-msgstr ""
+msgstr "G 48"
 
 #: piece/piece_fluides/models.py:110
 msgid "MB 325.0"
-msgstr ""
+msgstr "MB 325.0"
 
 #: piece/piece_fluides/models.py:111
 msgid "MB 325.3"
-msgstr ""
+msgstr "MB 325.3"
 
 #: piece/piece_fluides/models.py:112
 msgid "MB 325.5"
-msgstr ""
+msgstr "MB 325.5"
 
 #: piece/piece_fluides/models.py:115
 msgid "Type D"
-msgstr ""
+msgstr "Type D"
 
 #: piece/piece_fluides/models.py:118
 msgid "PSA B71 5110"
-msgstr ""
+msgstr "PSA B71 5110"
 
 #: piece/piece_fluides/models.py:121
 msgid "WSS-M97B44-D"
-msgstr ""
+msgstr "WSS-M97B44-D"
 
 #: piece/piece_fluides/models.py:122
 msgid "WSS-M97B51-A1"
-msgstr ""
+msgstr "WSS-M97B51-A1"
 
 #: piece/piece_fluides/models.py:125
 msgid "Dex-Cool"
-msgstr ""
+msgstr "Dex-Cool"
 
 #: piece/piece_fluides/models.py:152
 msgid "Nom du fluide"
@@ -32526,7 +32600,7 @@ msgstr ""
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:81
 #: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:94
 #: proprietaire/templates/proprietaire/proprietaire_form.html:13
-#: theme/templates/dashboard.html:657
+#: theme/templates/dashboard.html:679
 msgid "Propriétaire"
 msgstr "Ιδιοκτήτης"
 
@@ -32608,7 +32682,9 @@ msgid "Tableau de bord propriétaires :"
 msgstr "Πίνακας ελέγχου ιδιοκτητών :"
 
 #: proprietaire/templates/proprietaire/proprietaire_dashboard.html:25
-#: theme/templates/dashboard.html:645
+#: theme/templates/dashboard.html:667
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:112
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:113
 msgid "Propriétaires"
 msgstr "Ιδιοκτήτες"
 
@@ -32781,7 +32857,7 @@ msgstr "Θέλετε πραγματικά να διαγράψετε αυτή τ�
 
 #: recharge/templates/recharge/electricite_delete.html:23
 msgid "kW :"
-msgstr ""
+msgstr "kW :"
 
 #: recharge/templates/recharge/electricite_delete.html:48
 #: recharge/templates/recharge/electricite_detail.html:136
@@ -33036,7 +33112,7 @@ msgstr "Η εταιρεία-πελάτης « %(nom)s » διαγράφηκε μ
 
 #: stats_fournisseurs/forms.py:18
 msgid "2026"
-msgstr ""
+msgstr "2026"
 
 #: stats_fournisseurs/forms.py:26
 msgid "Tous les mois"
@@ -33199,7 +33275,7 @@ msgid "Administrateurs"
 msgstr "Διαχειριστές"
 
 #: theme/templates/admin/dashboard_admin.html:50
-#: theme/templates/dashboard.html:667
+#: theme/templates/dashboard.html:689
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:13
 msgid "Créer un utilisateur"
 msgstr "Δημιουργία χρήστη"
@@ -33228,7 +33304,7 @@ msgstr "Πρόσβαση στην τεχνική διεπαφή του Django."
 #: theme/templates/base.html:9
 #: utilisateurs/templates/utilisateurs/connexion_globale.html:26
 msgid "CarsCosts"
-msgstr ""
+msgstr "CarsCosts"
 
 #: theme/templates/base.html:50
 msgid "Tableau de Bord"
@@ -33284,7 +33360,7 @@ msgid "Aucune activité enregistrée"
 msgstr "Δεν έχει καταγραφεί καμία δραστηριότητα"
 
 #: theme/templates/dashboard.html:278 utilisateurs/models.py:88
-#: utilisateurs/views.py:281
+#: utilisateurs/views.py:286
 msgid "Chef Mécanicien"
 msgstr "Αρχιμηχανικός"
 
@@ -33297,7 +33373,7 @@ msgid "Boites de vitesses"
 msgstr "Κιβώτια Ταχυτήτων"
 
 #: theme/templates/dashboard.html:432 theme/templates/dashboard.html:436
-#: utilisateurs/models.py:86 utilisateurs/views.py:282
+#: utilisateurs/models.py:86 utilisateurs/views.py:287
 msgid "Magasinier"
 msgstr "Αποθηκάριος"
 
@@ -33306,49 +33382,62 @@ msgid "Outils"
 msgstr "Εργαλεία"
 
 #: theme/templates/dashboard.html:501 theme/templates/dashboard.html:505
-#: utilisateurs/models.py:91 utilisateurs/views.py:285
+#: utilisateurs/models.py:91 utilisateurs/views.py:290
 msgid "Vendeur"
 msgstr "Πωλητής"
 
-#: theme/templates/dashboard.html:517
+#: theme/templates/dashboard.html:517 voiture/voiture_location/forms.py:81
 msgid "Clients"
 msgstr "Πελάτες"
 
-#: theme/templates/dashboard.html:539
+#: theme/templates/dashboard.html:539 voiture/voiture_location/forms.py:82
 msgid "Sociétés clientes"
 msgstr "Πελάτες εταιρείες"
 
-#: theme/templates/dashboard.html:671
+#: theme/templates/dashboard.html:583 voiture/voiture_location/models.py:217
+#: voiture/voiture_location/templates/voiture_location/location_list.html:4
+msgid "Locations"
+msgstr "Ενοικιάσεις"
+
+#: theme/templates/dashboard.html:693
 msgid "Ajouter un nouvel employé"
 msgstr "Προσθήκη νέου υπαλλήλου"
 
-#: theme/templates/dashboard.html:686
+#: theme/templates/dashboard.html:708
 #: utilisateurs/templates/utilisateurs/liste_utilisateurs.html:8
 msgid "Liste des utilisateurs"
 msgstr "Λίστα χρηστών"
 
-#: theme/templates/dashboard.html:701
+#: theme/templates/dashboard.html:723
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:12
 msgid "Créer une paie mensuelle"
 msgstr "Δημιουργία μηνιαίας μισθοδοσίας"
 
-#: theme/templates/dashboard.html:706
+#: theme/templates/dashboard.html:728
 msgid "Compléter utilisateur"
 msgstr "Συμπλήρωση στοιχείων χρήστη"
 
-#: theme/templates/dashboard.html:719
+#: theme/templates/dashboard.html:741
 msgid "Factures clients et professionnelles (XML)"
 msgstr "Τιμολόγια πελατών και επαγγελματιών (XML)"
 
-#: theme/templates/dashboard.html:742 theme/templates/dashboard.html:746
+#: theme/templates/dashboard.html:754
+msgid "Finances véhicules"
+msgstr "Οικονομικά οχημάτων"
+
+#: theme/templates/dashboard.html:757
+msgid "Prix d'achat, assurance, taxes"
+msgstr "Τιμή αγοράς, ασφάλιση, φόροι"
+
+#: theme/templates/dashboard.html:779 theme/templates/dashboard.html:783
 msgid "Administrateur"
 msgstr "Διαχειριστής"
 
-#: theme/templates/dashboard.html:757
+#: theme/templates/dashboard.html:794
 msgid "Tableau de bord Admin"
 msgstr "Πίνακας διαχείρισης Admin"
 
-#: theme/templates/dashboard.html:762
+#: theme/templates/dashboard.html:799
 msgid "Admin"
 msgstr "Διαχειριστής"
 
@@ -33420,19 +33509,19 @@ msgstr "Ο κωδικός ασφαλείας πρέπει να αποτελεί�
 msgid "La session de connexion a expiré. Veuillez vous reconnecter."
 msgstr "Η συνεδρία σύνδεσης έληξε. Παρακαλώ συνδεθείτε ξανά."
 
-#: theme/views.py:204 utilisateurs/views.py:391
+#: theme/views.py:204 utilisateurs/views.py:396
 msgid "Utilisateur introuvable."
 msgstr "Ο χρήστης δεν βρέθηκε."
 
-#: theme/views.py:209 utilisateurs/views.py:395 utilisateurs/views.py:910
+#: theme/views.py:209 utilisateurs/views.py:400 utilisateurs/views.py:915
 msgid "Ce compte utilisateur est désactivé."
 msgstr "Αυτός ο λογαριασμός χρήστη είναι απενεργοποιημένος."
 
-#: theme/views.py:214 utilisateurs/views.py:79 utilisateurs/views.py:399
+#: theme/views.py:214 utilisateurs/views.py:79 utilisateurs/views.py:404
 msgid "Aucune société n'est liée à cet utilisateur."
 msgstr "Δεν έχει συσχετιστεί καμία εταιρεία με αυτόν τον χρήστη."
 
-#: theme/views.py:226 utilisateurs/views.py:404
+#: theme/views.py:226 utilisateurs/views.py:409
 msgid "La société de connexion ne correspond pas."
 msgstr "Η εταιρεία σύνδεσης δεν αντιστοιχεί."
 
@@ -33444,7 +33533,7 @@ msgstr "Δεν έχει ρυθμιστεί μυστικό TOTP για αυτόν
 msgid "Le TOTP n'est pas activé pour ce compte."
 msgstr "Το TOTP δεν είναι ενεργοποιημένο για αυτόν τον λογαριασμό."
 
-#: theme/views.py:344 utilisateurs/views.py:1135
+#: theme/views.py:344 utilisateurs/views.py:1140
 msgid "Connexion réussie."
 msgstr "Η σύνδεση ολοκληρώθηκε με επιτυχία."
 
@@ -33521,19 +33610,19 @@ msgstr "Επαγγελματική διεύθυνση ηλεκτρονικού �
 msgid "Un utilisateur possède déjà cette adresse e-mail."
 msgstr "Υπάρχει ήδη χρήστης με αυτή τη διεύθυνση ηλεκτρονικού ταχυδρομείου."
 
-#: utilisateurs/models.py:87 utilisateurs/views.py:280
+#: utilisateurs/models.py:87 utilisateurs/views.py:285
 msgid "Carrossier"
 msgstr "Σιδηρουργός αμαξώματος"
 
-#: utilisateurs/models.py:89 utilisateurs/views.py:283
+#: utilisateurs/models.py:89 utilisateurs/views.py:288
 msgid "Instructeur"
 msgstr "Εκπαιδευτής"
 
-#: utilisateurs/models.py:90 utilisateurs/views.py:284
+#: utilisateurs/models.py:90 utilisateurs/views.py:289
 msgid "Instructeur Externe"
 msgstr "Εξωτερικός Εκπαιδευτής"
 
-#: utilisateurs/models.py:92 utilisateurs/views.py:286
+#: utilisateurs/models.py:92 utilisateurs/views.py:291
 msgid "Comptable"
 msgstr "Λογιστής"
 
@@ -33650,23 +33739,23 @@ msgstr "Καμία διαθέσιμη εγγραφή"
 msgid "(filtré à partir de _MAX_ entrées totales)"
 msgstr "(φιλτραρισμένο από _MAX_ συνολικές εγγραφές)"
 
-#: utilisateurs/views.py:265
+#: utilisateurs/views.py:270
 msgid "Révision moteur"
 msgstr "Σέρβις κινητήρα"
 
-#: utilisateurs/views.py:265 voiture/voiture_boite/models.py:11
+#: utilisateurs/views.py:270 voiture/voiture_boite/models.py:11
 msgid "Changement filtre"
 msgstr "Αλλαγή φίλτρου"
 
-#: utilisateurs/views.py:289
+#: utilisateurs/views.py:294
 msgid "Rôle inconnu"
 msgstr "Άγνωστος ρόλος"
 
-#: utilisateurs/views.py:369
+#: utilisateurs/views.py:374
 msgid "La session d'activation a expiré. Veuillez vous reconnecter."
 msgstr "Η συνεδρία ενεργοποίησης έληξε. Παρακαλώ συνδεθείτε ξανά."
 
-#: utilisateurs/views.py:450
+#: utilisateurs/views.py:455
 msgid ""
 "La vérification à deux facteurs est déjà configurée. Connectez-vous avec "
 "votre code Authy."
@@ -33674,15 +33763,15 @@ msgstr ""
 "Ο έλεγχος ταυτότητας δύο παραγόντων έχει ήδη ρυθμιστεί. Συνδεθείτε με τον "
 "κωδικό Authy σας."
 
-#: utilisateurs/views.py:487
+#: utilisateurs/views.py:492
 msgid "Saisissez le code à six chiffres affiché dans Authy."
 msgstr "Εισαγάγετε τον εξαψήφιο κωδικό που εμφανίζεται στο Authy."
 
-#: utilisateurs/views.py:495
+#: utilisateurs/views.py:500
 msgid "Le code doit contenir exactement six chiffres."
 msgstr "Ο κωδικός πρέπει να αποτελείται από ακριβώς έξι ψηφία."
 
-#: utilisateurs/views.py:539
+#: utilisateurs/views.py:544
 msgid ""
 "La vérification à deux facteurs est activée. Connectez-vous maintenant avec "
 "votre adresse e-mail, votre mot de passe et votre code Authy ou Google "
@@ -33692,42 +33781,42 @@ msgstr ""
 "διεύθυνση ηλεκτρονικού ταχυδρομείου σας, τον κωδικό πρόσβασής σας και τον "
 "κωδικό Authy ή Google Authenticator."
 
-#: utilisateurs/views.py:549
+#: utilisateurs/views.py:554
 msgid "Le code Authy est invalide ou expiré."
 msgstr "Ο κωδικός Authy είναι μη έγκυρος ή έχει λήξει."
 
-#: utilisateurs/views.py:609
+#: utilisateurs/views.py:614
 msgid "Utilisateur créé avec succès."
 msgstr "Ο χρήστης δημιουργήθηκε με επιτυχία."
 
-#: utilisateurs/views.py:696
+#: utilisateurs/views.py:701
 msgid "La paie mensuelle a été enregistrée avec succès."
 msgstr "Η μηνιαία μισθοδοσία καταχωρήθηκε με επιτυχία."
 
-#: utilisateurs/views.py:900 utilisateurs/views.py:905
+#: utilisateurs/views.py:905 utilisateurs/views.py:910
 msgid "Adresse e-mail ou mot de passe incorrect."
 msgstr ""
 "Η διεύθυνση ηλεκτρονικού ταχυδρομείου ή ο κωδικός πρόσβασης είναι λανθασμένα."
 
-#: utilisateurs/views.py:915
+#: utilisateurs/views.py:920
 msgid "Aucune société n'est associée à ce compte."
 msgstr "Δεν έχει συσχετιστεί καμία εταιρεία με αυτόν τον λογαριασμό."
 
-#: utilisateurs/views.py:943
+#: utilisateurs/views.py:948
 msgid "Aucun schéma tenant n'est associé à cet utilisateur."
 msgstr "Δεν έχει συσχετιστεί κανένα σχήμα tenant με αυτόν τον χρήστη."
 
-#: utilisateurs/views.py:949
+#: utilisateurs/views.py:954
 msgid "Ce compte n'est associé à aucune société privée."
 msgstr "Αυτός ο λογαριασμός δεν έχει συσχετιστεί με καμία ιδιωτική εταιρεία."
 
-#: utilisateurs/views.py:1060
+#: utilisateurs/views.py:1065
 msgid "Veuillez saisir le code de sécurité généré par votre application Authy."
 msgstr ""
 "Παρακαλώ εισαγάγετε τον κωδικό ασφαλείας που δημιουργήθηκε από την εφαρμογή "
 "Authy."
 
-#: utilisateurs/views.py:1077
+#: utilisateurs/views.py:1082
 msgid "Le code de sécurité est incorrect ou a expiré."
 msgstr "Ο κωδικός ασφαλείας είναι λανθασμένος ή έχει λήξει."
 
@@ -34200,6 +34289,34 @@ msgstr "Το VIN πρέπει να αποτελείται από 17 χαρακτ
 msgid "Le VIN contient des caractères interdits (I, O, Q)."
 msgstr "Το VIN περιέχει μη επιτρεπόμενους χαρακτήρες (I, O, Q)."
 
+#: voiture/voiture_exemplaire/forms.py:167
+msgid "Prix d'achat (€)"
+msgstr "Τιμή αγοράς (€)"
+
+#: voiture/voiture_exemplaire/forms.py:168
+msgid "Assurance annuelle (€)"
+msgstr "Ετήσια ασφάλιση (€)"
+
+#: voiture/voiture_exemplaire/forms.py:169
+msgid "Taxe de mise en circulation (€)"
+msgstr "Τέλος ταξινόμησης (€)"
+
+#: voiture/voiture_exemplaire/forms.py:170
+msgid "Taxe de roulage annuelle (€)"
+msgstr "Ετήσια τέλη κυκλοφορίας (€)"
+
+#: voiture/voiture_exemplaire/forms.py:171
+msgid "Nombre de propriétaires"
+msgstr "Αριθμός ιδιοκτητών"
+
+#: voiture/voiture_exemplaire/forms.py:172
+msgid "Part des propriétaires (%)"
+msgstr "Μερίδιο ιδιοκτητών (%)"
+
+#: voiture/voiture_exemplaire/forms.py:188
+msgid "Le montant ne peut pas être négatif."
+msgstr "Το ποσό δεν μπορεί να είναι αρνητικό."
+
 #: voiture/voiture_exemplaire/models.py:56
 msgid "Norvège"
 msgstr "Νορβηγία"
@@ -34210,23 +34327,23 @@ msgstr "Ελβετία"
 
 #: voiture/voiture_exemplaire/models.py:61
 msgid "1000 km"
-msgstr ""
+msgstr "1000 km"
 
 #: voiture/voiture_exemplaire/models.py:62
 msgid "2000 km"
-msgstr ""
+msgstr "2000 km"
 
 #: voiture/voiture_exemplaire/models.py:63
 msgid "3000 km"
-msgstr ""
+msgstr "3000 km"
 
 #: voiture/voiture_exemplaire/models.py:64
 msgid "4000 km"
-msgstr ""
+msgstr "4000 km"
 
 #: voiture/voiture_exemplaire/models.py:65
 msgid "5000 km"
-msgstr ""
+msgstr "5000 km"
 
 #: voiture/voiture_exemplaire/models.py:124
 msgid ""
@@ -34254,6 +34371,7 @@ msgid "Détails du véhicule : "
 msgstr "Λεπτομέρειες Οχήματος : "
 
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:45
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:26
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/liste_exemplaires.html:52
 msgid "Année de production"
 msgstr "Έτος παραγωγής"
@@ -34331,6 +34449,143 @@ msgstr "Σύνδεση εμπρός ελαστικών"
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/lier_pneus.html:103
 msgid "Lier les pneus arrière"
 msgstr "Σύνδεση πίσω ελαστικών"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:10
+msgid "Données financières"
+msgstr "Οικονομικά στοιχεία"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:28
+msgid "Mise en circulation"
+msgstr "Πρώτη κυκλοφορία"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:30
+msgid "Type d'utilisation"
+msgstr "Τύπος χρήσης"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:41
+msgid "Finances"
+msgstr "Οικονομικά"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:47
+msgid "Manquant"
+msgstr "Λείπει"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:57
+msgid "Police d'assurance active"
+msgstr "Ενεργό ασφαλιστήριο"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:58
+msgid "prime annuelle"
+msgstr "ετήσιο ασφάλιστρο"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:64
+msgid "Coût d'acquisition (achat + taxe MEC)"
+msgstr "Κόστος απόκτησης (αγορά + τέλος ταξινόμησης)"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:68
+msgid "Coûts fixes annuels (assurance + roulage)"
+msgstr "Ετήσια σταθερά έξοδα (ασφάλιση + τέλη κυκλοφορίας)"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:76
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:85
+msgid "Compléter"
+msgstr "Συμπλήρωση"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:84
+msgid "Retour"
+msgstr "Επιστροφή"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:19
+msgid "Compléter les données financières"
+msgstr "Συμπλήρωση οικονομικών στοιχείων"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:21
+msgid "Modifier les données financières"
+msgstr "Επεξεργασία οικονομικών στοιχείων"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:77
+msgid "Assurance pré-remplie depuis la police active"
+msgstr "Η ασφάλιση συμπληρώθηκε από το ενεργό ασφαλιστήριο"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:83
+msgid "manquant"
+msgstr "λείπει"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:103
+msgid "Assurance et taxes annuelles"
+msgstr "Ασφάλιση και ετήσιοι φόροι"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:142
+msgid "Retour à la liste des finances"
+msgstr "Επιστροφή στη λίστα οικονομικών"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:9
+msgid "Données financières des véhicules"
+msgstr "Οικονομικά στοιχεία οχημάτων"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:18
+msgid "Véhicules"
+msgstr "Οχήματα"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:28
+msgid "Complets"
+msgstr "Πλήρη"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:38
+msgid "Immatriculation, VIN, marque, modèle..."
+msgstr "Αριθμός κυκλοφορίας, VIN, μάρκα, μοντέλο..."
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:40
+msgid "Rechercher"
+msgstr "Αναζήτηση"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:53
+msgid "Assurance / an"
+msgstr "Ασφάλιση / έτος"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:54
+msgid "Taxe roulage"
+msgstr "Τέλη κυκλοφορίας"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:74
+msgid "Complet"
+msgstr "Πλήρες"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:77
+#, python-format
+msgid "%(n)s manquant"
+msgid_plural "%(n)s manquants"
+msgstr[0] "%(n)s λείπει"
+msgstr[1] "%(n)s λείπουν"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:82
+msgid "Voir"
+msgstr "Προβολή"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:85
+msgid "Ajouter"
+msgstr "Προσθήκη"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:99
+msgid "Aucun véhicule trouvé."
+msgstr "Δεν βρέθηκε όχημα."
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:7
+msgid "Supprimer les données financières"
+msgstr "Διαγραφή οικονομικών στοιχείων"
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:14
+#, python-format
+msgid ""
+"Les données financières du véhicule %(vehicule)s (%(immat)s) seront effacées "
+": prix d'achat, assurance, taxes et propriétaires."
+msgstr ""
+"Τα οικονομικά στοιχεία του οχήματος %(vehicule)s (%(immat)s) θα διαγραφούν: "
+"τιμή αγοράς, ασφάλιση, φόροι και ιδιοκτήτες."
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:16
+msgid "Le véhicule lui-même et son historique ne sont pas supprimés."
+msgstr "Το ίδιο το όχημα και το ιστορικό του δεν διαγράφονται."
 
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/lier_boite.html:11
 msgid "Boîte de vitesse du véhicule : "
@@ -34559,6 +34814,18 @@ msgid ""
 "Impossible de supprimer ce véhicule car des données lui sont encore "
 "associées."
 msgstr ""
+"Δεν είναι δυνατή η διαγραφή αυτού του οχήματος επειδή υπάρχουν ακόμη "
+"συνδεδεμένα δεδομένα."
+
+#: voiture/voiture_exemplaire/views.py:724
+#, python-format
+msgid "Données financières de '%(vehicule)s' enregistrées."
+msgstr "Τα οικονομικά στοιχεία του '%(vehicule)s' αποθηκεύτηκαν."
+
+#: voiture/voiture_exemplaire/views.py:761
+#, python-format
+msgid "Données financières de '%(vehicule)s' supprimées."
+msgstr "Τα οικονομικά στοιχεία του '%(vehicule)s' διαγράφηκαν."
 
 #: voiture/voiture_freins_ar/forms.py:36
 msgid "Numéro OEM des disques arrière"
@@ -34852,6 +35119,184 @@ msgstr "Διαγραφή του συστήματος εμπρός φρένων"
 msgid "Système de freinage avant supprimé avec succès."
 msgstr "Το σύστημα εμπρός φρένων διαγράφηκε με επιτυχία."
 
+#: voiture/voiture_location/apps.py:7
+msgid "Locations de véhicules"
+msgstr "Ενοικιάσεις οχημάτων"
+
+#: voiture/voiture_location/forms.py:83
+msgid "Clients pilotage"
+msgstr "Πελάτες οδήγησης"
+
+#: voiture/voiture_location/forms.py:104
+msgid "Client invalide."
+msgstr "Μη έγκυρος πελάτης."
+
+#: voiture/voiture_location/forms.py:109
+msgid "Client introuvable."
+msgstr "Ο πελάτης δεν βρέθηκε."
+
+#: voiture/voiture_location/models.py:12
+#: voiture/voiture_location/templates/voiture_location/location_list.html:40
+msgid "Route"
+msgstr "Δρόμος"
+
+#: voiture/voiture_location/models.py:86
+msgid "Autre circuit"
+msgstr "Άλλη πίστα"
+
+#: voiture/voiture_location/models.py:165
+msgid "Type de location"
+msgstr "Τύπος ενοικίασης"
+
+#: voiture/voiture_location/models.py:182
+msgid "Route / itinéraire"
+msgstr "Δρόμος / διαδρομή"
+
+#: voiture/voiture_location/models.py:183
+msgid "Ex. : Bruxelles → Spa via les Fagnes"
+msgstr "Π.χ.: Βρυξέλλες → Σπα μέσω Fagnes"
+
+#: voiture/voiture_location/models.py:186
+msgid "Date de début"
+msgstr "Ημερομηνία έναρξης"
+
+#: voiture/voiture_location/models.py:187
+msgid "Date de fin"
+msgstr "Ημερομηνία λήξης"
+
+#: voiture/voiture_location/models.py:192
+msgid "Nombre de tours"
+msgstr "Αριθμός γύρων"
+
+#: voiture/voiture_location/models.py:193
+msgid "Circuit uniquement – le kilométrage est calculé s'il est laissé vide"
+msgstr "Μόνο πίστα – τα χιλιόμετρα υπολογίζονται αν το πεδίο μείνει κενό"
+
+#: voiture/voiture_location/models.py:200
+msgid "Kilomètres parcourus pendant la location"
+msgstr "Χιλιόμετρα που διανύθηκαν κατά την ενοικίαση"
+
+#: voiture/voiture_location/models.py:207
+msgid "Prix (€)"
+msgstr "Τιμή (€)"
+
+#: voiture/voiture_location/models.py:260
+msgid "Choisissez un circuit."
+msgstr "Επιλέξτε πίστα."
+
+#: voiture/voiture_location/models.py:262
+msgid "Indiquez le nombre de tours ou le kilométrage."
+msgstr "Συμπληρώστε τον αριθμό γύρων ή τα χιλιόμετρα."
+
+#: voiture/voiture_location/models.py:272
+msgid "Longueur du circuit inconnue : indiquez le kilométrage."
+msgstr "Άγνωστο μήκος πίστας: συμπληρώστε τα χιλιόμετρα."
+
+#: voiture/voiture_location/models.py:278
+msgid "Indiquez la route."
+msgstr "Συμπληρώστε τη διαδρομή."
+
+#: voiture/voiture_location/models.py:280
+msgid "Indiquez le kilométrage."
+msgstr "Συμπληρώστε τα χιλιόμετρα."
+
+#: voiture/voiture_location/models.py:283
+msgid "Choisissez un seul client."
+msgstr "Επιλέξτε μόνο έναν πελάτη."
+
+#: voiture/voiture_location/models.py:286
+msgid "La date de fin doit être postérieure à la date de début."
+msgstr ""
+"Η ημερομηνία λήξης πρέπει να είναι μεταγενέστερη της ημερομηνίας έναρξης."
+
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:11
+msgid "Supprimer la location"
+msgstr "Διαγραφή ενοικίασης"
+
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:18
+msgid "Voulez-vous vraiment supprimer cette location ?"
+msgstr "Θέλετε πραγματικά να διαγράψετε αυτή την ενοικίαση;"
+
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:23
+msgid "Distance"
+msgstr "Απόσταση"
+
+#: voiture/voiture_location/templates/voiture_location/location_form.html:15
+msgid "Modifier la location"
+msgstr "Επεξεργασία ενοικίασης"
+
+#: voiture/voiture_location/templates/voiture_location/location_form.html:15
+msgid "Nouvelle location"
+msgstr "Νέα ενοικίαση"
+
+#: voiture/voiture_location/templates/voiture_location/location_form.html:69
+msgid "Véhicule et client"
+msgstr "Όχημα και πελάτης"
+
+#: voiture/voiture_location/templates/voiture_location/location_form.html:78
+msgid "Lieu"
+msgstr "Τοποθεσία"
+
+#: voiture/voiture_location/templates/voiture_location/location_form.html:79
+msgid "Circuit ou route"
+msgstr "Πίστα ή δρόμος"
+
+#: voiture/voiture_location/templates/voiture_location/location_form.html:90
+msgid "Période, kilométrage et prix"
+msgstr "Περίοδος, χιλιόμετρα και τιμή"
+
+#: voiture/voiture_location/templates/voiture_location/location_form.html:120
+msgid "Retour à la liste des locations"
+msgstr "Επιστροφή στη λίστα ενοικιάσεων"
+
+#: voiture/voiture_location/templates/voiture_location/location_list.html:11
+msgid "Liste des locations"
+msgstr "Λίστα ενοικιάσεων"
+
+#: voiture/voiture_location/templates/voiture_location/location_list.html:19
+msgid "Ajouter une location"
+msgstr "Προσθήκη ενοικίασης"
+
+#: voiture/voiture_location/templates/voiture_location/location_list.html:38
+msgid "Circuit et route"
+msgstr "Πίστα και δρόμος"
+
+#: voiture/voiture_location/templates/voiture_location/location_list.html:45
+#: voiture/voiture_location/templates/voiture_location/location_list.html:56
+msgid "Circuit / route"
+msgstr "Πίστα / δρόμος"
+
+#: voiture/voiture_location/templates/voiture_location/location_list.html:121
+msgid "Aucune location enregistrée."
+msgstr "Δεν έχει καταχωρηθεί ενοικίαση."
+
+#: voiture/voiture_location/templates/voiture_location/location_list.html:124
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ locations"
+msgstr "Εμφάνιση _START_ έως _END_ από _TOTAL_ ενοικιάσεις"
+
+#: voiture/voiture_location/templates/voiture_location/location_list.html:125
+#: voiture/voiture_location/templates/voiture_location/location_list.html:126
+msgid "Aucune location trouvée"
+msgstr "Δεν βρέθηκε ενοικίαση"
+
+#: voiture/voiture_location/views.py:56
+#, python-format
+msgid "Location '%(loc)s' créée avec succès."
+msgstr "Η ενοικίαση '%(loc)s' δημιουργήθηκε με επιτυχία."
+
+#: voiture/voiture_location/views.py:72
+#, python-format
+msgid "Location '%(loc)s' mise à jour."
+msgstr "Η ενοικίαση '%(loc)s' ενημερώθηκε."
+
+#: voiture/voiture_location/views.py:88
+msgid "Location supprimée."
+msgstr "Η ενοικίαση διαγράφηκε."
+
+#: voiture/voiture_location/views.py:90
+msgid "Impossible de supprimer cette location."
+msgstr "Δεν είναι δυνατή η διαγραφή αυτής της ενοικίασης."
+
 #: voiture/voiture_marque/templates/voiture_marque/ajouter_marque.html:9
 msgid "Ajouter une Marque"
 msgstr "Προσθήκη μάρκας"
@@ -35126,27 +35571,27 @@ msgstr "Π.χ.: S14B23"
 
 #: voiture/voiture_moteur/forms.py:91
 msgid "120"
-msgstr ""
+msgstr "120"
 
 #: voiture/voiture_moteur/forms.py:96
 msgid "3000"
-msgstr ""
+msgstr "3000"
 
 #: voiture/voiture_moteur/forms.py:101
 msgid "300"
-msgstr ""
+msgstr "300"
 
 #: voiture/voiture_moteur/forms.py:106
 msgid "4000"
-msgstr ""
+msgstr "4000"
 
 #: voiture/voiture_moteur/forms.py:111
 msgid "6.50"
-msgstr ""
+msgstr "6.50"
 
 #: voiture/voiture_moteur/forms.py:118
 msgid "10000"
-msgstr ""
+msgstr "10000"
 
 #: voiture/voiture_moteur/models.py:13
 msgid "Atmosphérique"
@@ -35336,295 +35781,295 @@ msgstr "Τέσσερις εποχές"
 
 #: voiture/voiture_pneus/models.py:20
 msgid "Q (160 km/h)"
-msgstr ""
+msgstr "Q (160 km/h)"
 
 #: voiture/voiture_pneus/models.py:21
 msgid "R (170 km/h)"
-msgstr ""
+msgstr "R (170 km/h)"
 
 #: voiture/voiture_pneus/models.py:22
 msgid "S (180 km/h)"
-msgstr ""
+msgstr "S (180 km/h)"
 
 #: voiture/voiture_pneus/models.py:23
 msgid "T (190 km/h)"
-msgstr ""
+msgstr "T (190 km/h)"
 
 #: voiture/voiture_pneus/models.py:24
 msgid "H (210 km/h)"
-msgstr ""
+msgstr "H (210 km/h)"
 
 #: voiture/voiture_pneus/models.py:25
 msgid "V (240 km/h)"
-msgstr ""
+msgstr "V (240 km/h)"
 
 #: voiture/voiture_pneus/models.py:26
 msgid "W (270 km/h)"
-msgstr ""
+msgstr "W (270 km/h)"
 
 #: voiture/voiture_pneus/models.py:27
 msgid "Y (300 km/h)"
-msgstr ""
+msgstr "Y (300 km/h)"
 
 #: voiture/voiture_pneus/models.py:28
 msgid "ZR W (>270 km/h)"
-msgstr ""
+msgstr "ZR W (>270 km/h)"
 
 #: voiture/voiture_pneus/models.py:29
 msgid "ZR Y (>300 km/h)"
-msgstr ""
+msgstr "ZR Y (>300 km/h)"
 
 #: voiture/voiture_pneus/models.py:30
 msgid "ZR (historique >240 km/h)"
-msgstr ""
+msgstr "ZR (ιστορικό >240 km/h)"
 
 #: voiture/voiture_pneus/models.py:33
 msgid "60 (250 kg)"
-msgstr ""
+msgstr "60 (250 kg)"
 
 #: voiture/voiture_pneus/models.py:34
 msgid "62 (265 kg)"
-msgstr ""
+msgstr "62 (265 kg)"
 
 #: voiture/voiture_pneus/models.py:35
 msgid "64 (280 kg)"
-msgstr ""
+msgstr "64 (280 kg)"
 
 #: voiture/voiture_pneus/models.py:36
 msgid "66 (300 kg)"
-msgstr ""
+msgstr "66 (300 kg)"
 
 #: voiture/voiture_pneus/models.py:37
 msgid "68 (315 kg)"
-msgstr ""
+msgstr "68 (315 kg)"
 
 #: voiture/voiture_pneus/models.py:38
 msgid "70 (335 kg)"
-msgstr ""
+msgstr "70 (335 kg)"
 
 #: voiture/voiture_pneus/models.py:39
 msgid "73 (365 kg)"
-msgstr ""
+msgstr "73 (365 kg)"
 
 #: voiture/voiture_pneus/models.py:40
 msgid "75 (387 kg)"
-msgstr ""
+msgstr "75 (387 kg)"
 
 #: voiture/voiture_pneus/models.py:41
 msgid "77 (412 kg)"
-msgstr ""
+msgstr "77 (412 kg)"
 
 #: voiture/voiture_pneus/models.py:42
 msgid "78 (425 kg)"
-msgstr ""
+msgstr "78 (425 kg)"
 
 #: voiture/voiture_pneus/models.py:43
 msgid "79 (437 kg)"
-msgstr ""
+msgstr "79 (437 kg)"
 
 #: voiture/voiture_pneus/models.py:44
 msgid "80 (450 kg)"
-msgstr ""
+msgstr "80 (450 kg)"
 
 #: voiture/voiture_pneus/models.py:45
 msgid "81 (462 kg)"
-msgstr ""
+msgstr "81 (462 kg)"
 
 #: voiture/voiture_pneus/models.py:46
 msgid "82 (475 kg)"
-msgstr ""
+msgstr "82 (475 kg)"
 
 #: voiture/voiture_pneus/models.py:47
 msgid "83 (487 kg)"
-msgstr ""
+msgstr "83 (487 kg)"
 
 #: voiture/voiture_pneus/models.py:48
 msgid "84 (500 kg)"
-msgstr ""
+msgstr "84 (500 kg)"
 
 #: voiture/voiture_pneus/models.py:49
 msgid "85 (515 kg)"
-msgstr ""
+msgstr "85 (515 kg)"
 
 #: voiture/voiture_pneus/models.py:50
 msgid "86 (530 kg)"
-msgstr ""
+msgstr "86 (530 kg)"
 
 #: voiture/voiture_pneus/models.py:51
 msgid "87 (545 kg)"
-msgstr ""
+msgstr "87 (545 kg)"
 
 #: voiture/voiture_pneus/models.py:52
 msgid "88 (560 kg)"
-msgstr ""
+msgstr "88 (560 kg)"
 
 #: voiture/voiture_pneus/models.py:53
 msgid "89 (580 kg)"
-msgstr ""
+msgstr "89 (580 kg)"
 
 #: voiture/voiture_pneus/models.py:54
 msgid "90 (600 kg)"
-msgstr ""
+msgstr "90 (600 kg)"
 
 #: voiture/voiture_pneus/models.py:55
 msgid "91 (615 kg)"
-msgstr ""
+msgstr "91 (615 kg)"
 
 #: voiture/voiture_pneus/models.py:56
 msgid "92 (630 kg)"
-msgstr ""
+msgstr "92 (630 kg)"
 
 #: voiture/voiture_pneus/models.py:57
 msgid "93 (650 kg)"
-msgstr ""
+msgstr "93 (650 kg)"
 
 #: voiture/voiture_pneus/models.py:58
 msgid "94 (670 kg)"
-msgstr ""
+msgstr "94 (670 kg)"
 
 #: voiture/voiture_pneus/models.py:59
 msgid "95 (690 kg)"
-msgstr ""
+msgstr "95 (690 kg)"
 
 #: voiture/voiture_pneus/models.py:60
 msgid "96 (710 kg)"
-msgstr ""
+msgstr "96 (710 kg)"
 
 #: voiture/voiture_pneus/models.py:61
 msgid "97 (730 kg)"
-msgstr ""
+msgstr "97 (730 kg)"
 
 #: voiture/voiture_pneus/models.py:62
 msgid "98 (750 kg)"
-msgstr ""
+msgstr "98 (750 kg)"
 
 #: voiture/voiture_pneus/models.py:63
 msgid "99 (775 kg)"
-msgstr ""
+msgstr "99 (775 kg)"
 
 #: voiture/voiture_pneus/models.py:64
 msgid "100 (800 kg)"
-msgstr ""
+msgstr "100 (800 kg)"
 
 #: voiture/voiture_pneus/models.py:65
 msgid "101 (825 kg)"
-msgstr ""
+msgstr "101 (825 kg)"
 
 #: voiture/voiture_pneus/models.py:66
 msgid "102 (850 kg)"
-msgstr ""
+msgstr "102 (850 kg)"
 
 #: voiture/voiture_pneus/models.py:67
 msgid "103 (875 kg)"
-msgstr ""
+msgstr "103 (875 kg)"
 
 #: voiture/voiture_pneus/models.py:68
 msgid "104 (900 kg)"
-msgstr ""
+msgstr "104 (900 kg)"
 
 #: voiture/voiture_pneus/models.py:69
 msgid "105 (925 kg)"
-msgstr ""
+msgstr "105 (925 kg)"
 
 #: voiture/voiture_pneus/models.py:70
 msgid "106 (950 kg)"
-msgstr ""
+msgstr "106 (950 kg)"
 
 #: voiture/voiture_pneus/models.py:71
 msgid "107 (975 kg)"
-msgstr ""
+msgstr "107 (975 kg)"
 
 #: voiture/voiture_pneus/models.py:72
 msgid "108 (1000 kg)"
-msgstr ""
+msgstr "108 (1000 kg)"
 
 #: voiture/voiture_pneus/models.py:73
 msgid "109 (1030 kg)"
-msgstr ""
+msgstr "109 (1030 kg)"
 
 #: voiture/voiture_pneus/models.py:74
 msgid "110 (1060 kg)"
-msgstr ""
+msgstr "110 (1060 kg)"
 
 #: voiture/voiture_pneus/models.py:75
 msgid "111 (1090 kg)"
-msgstr ""
+msgstr "111 (1090 kg)"
 
 #: voiture/voiture_pneus/models.py:76
 msgid "112 (1120 kg)"
-msgstr ""
+msgstr "112 (1120 kg)"
 
 #: voiture/voiture_pneus/models.py:77
 msgid "113 (1150 kg)"
-msgstr ""
+msgstr "113 (1150 kg)"
 
 #: voiture/voiture_pneus/models.py:78
 msgid "114 (1180 kg)"
-msgstr ""
+msgstr "114 (1180 kg)"
 
 #: voiture/voiture_pneus/models.py:79
 msgid "115 (1215 kg)"
-msgstr ""
+msgstr "115 (1215 kg)"
 
 #: voiture/voiture_pneus/models.py:80
 msgid "116 (1250 kg)"
-msgstr ""
+msgstr "116 (1250 kg)"
 
 #: voiture/voiture_pneus/models.py:81
 msgid "117 (1285 kg)"
-msgstr ""
+msgstr "117 (1285 kg)"
 
 #: voiture/voiture_pneus/models.py:82
 msgid "118 (1320 kg)"
-msgstr ""
+msgstr "118 (1320 kg)"
 
 #: voiture/voiture_pneus/models.py:83
 msgid "119 (1360 kg)"
-msgstr ""
+msgstr "119 (1360 kg)"
 
 #: voiture/voiture_pneus/models.py:84
 msgid "120 (1400 kg)"
-msgstr ""
+msgstr "120 (1400 kg)"
 
 #: voiture/voiture_pneus/models.py:85
 msgid "121 (1450 kg)"
-msgstr ""
+msgstr "121 (1450 kg)"
 
 #: voiture/voiture_pneus/models.py:86
 msgid "122 (1500 kg)"
-msgstr ""
+msgstr "122 (1500 kg)"
 
 #: voiture/voiture_pneus/models.py:87
 msgid "123 (1550 kg)"
-msgstr ""
+msgstr "123 (1550 kg)"
 
 #: voiture/voiture_pneus/models.py:88
 msgid "124 (1600 kg)"
-msgstr ""
+msgstr "124 (1600 kg)"
 
 #: voiture/voiture_pneus/models.py:89
 msgid "125 (1650 kg)"
-msgstr ""
+msgstr "125 (1650 kg)"
 
 #: voiture/voiture_pneus/models.py:90
 msgid "126 (1700 kg)"
-msgstr ""
+msgstr "126 (1700 kg)"
 
 #: voiture/voiture_pneus/models.py:91
 msgid "127 (1750 kg)"
-msgstr ""
+msgstr "127 (1750 kg)"
 
 #: voiture/voiture_pneus/models.py:92
 msgid "128 (1800 kg)"
-msgstr ""
+msgstr "128 (1800 kg)"
 
 #: voiture/voiture_pneus/models.py:93
 msgid "129 (1850 kg)"
-msgstr ""
+msgstr "129 (1850 kg)"
 
 #: voiture/voiture_pneus/models.py:94
 msgid "130 (1900 kg)"
-msgstr ""
+msgstr "130 (1900 kg)"
 
 #: voiture/voiture_pneus/models.py:101
 msgid "Avant et Arrière"
@@ -35803,165 +36248,3 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
 msgstr "Τα ελαστικά διαγράφηκαν με επιτυχία."
-
-#~ msgid "Prix unitaire"
-#~ msgstr "Τιμή ανά μονάδα"
-
-#~ msgid "Retirer cette maintenance de l'agenda ?"
-#~ msgstr "Θέλετε να αφαιρέσετε αυτή την εργασία συντήρησης από το ημερολόγιο;"
-
-#~ msgid "Maintenance retirée de l'agenda."
-#~ msgstr "Η εργασία συντήρησης αφαιρέθηκε από το ημερολόγιο."
-
-#~ msgid "Ajouter"
-#~ msgstr "Προσθήκη"
-
-#~ msgid "Eclairage"
-#~ msgstr "Φωτισμός"
-
-#~ msgid "Notifications"
-#~ msgstr "Ειδοποιήσεις"
-
-#~ msgid "Messages non lus :"
-#~ msgstr "Αδιάβαστα μηνύματα: "
-
-#~ msgid "Ajouter les produits"
-#~ msgstr "Προσθήκη προϊόντων"
-
-#~ msgid "Huile de boite de vitesse"
-#~ msgstr "Λάδι κιβωτίου ταχυτήτων"
-
-#~ msgid "Huile de boite de vitesses"
-#~ msgstr "Λάδι κιβωτίου ταχυτήτων"
-
-#~ msgid "Boite de vitesse"
-#~ msgstr "Κιβώτιο ταχυτήτων"
-
-#~ msgid "Pompe à huile"
-#~ msgstr "Αντλίες λαδιού"
-
-#~ msgid "Boîte de vitesses"
-#~ msgstr "Κιβώτιο ταχυτήτων"
-
-#~ msgid "Silent bloc de boite de vitesse"
-#~ msgstr "Σινεμπλόκ κιβωτίου ταχυτήτων"
-
-#~ msgid "Supprimer la boite de vitesse"
-#~ msgstr "Διαγραφή του κιβωτίου ταχυτήτων"
-
-#~ msgid "Pompes à huile"
-#~ msgstr "Αντλίες λαδιού"
-
-#~ msgid "Prix d'achat du moteur HTVA"
-#~ msgstr "Τιμή αγοράς του κινητήρα χωρίς ΦΠΑ"
-
-#~ msgid "Prix d'achat de l'huile HTVA"
-#~ msgstr "Τιμή αγοράς του λαδιού χωρίς ΦΠΑ"
-
-#~ msgid "Prix d'achat du liquide de refroidissement HTVA"
-#~ msgstr "Τιμή αγοράς του ψυκτικού υγρού χωρίς ΦΠΑ"
-
-#~ msgid "Remplacer train"
-#~ msgstr "Αντικατάσταση άξονα/σετ τροχών"
-
-#~ msgid "Jeux rotules de suspensions inférieures"
-#~ msgstr "Παιχνίδια σφαιρικών αρθρώσεων κάτω ανάρτησης"
-
-#~ msgid "Jeux rotules de suspensions supérieures"
-#~ msgstr "Παιχνίδια σφαιρικών αρθρώσεων άνω ανάρτησης"
-
-#~ msgid "Jeux biellettes"
-#~ msgstr "Παιχνίδια ραβδιών σύνδεσης"
-
-#~ msgid "Jeux cardans"
-#~ msgstr "Τζόγος ημιαξονίων"
-
-#~ msgid "silent blocs barre stabilisatrice avant"
-#~ msgstr "Σινεμπλόκ εμπρός αντιστρεπτικής δοκού"
-
-#~ msgid "silent blocs barre stabilisatrice arrière"
-#~ msgstr "Σινεμπλόκ πίσω αντιστρεπτικής δοκού"
-
-#~ msgid "silent bloc amortisseur avant droit"
-#~ msgstr "Σινεμπλόκ εμπρός δεξιού αμορτισέρ"
-
-#~ msgid "silent bloc amortisseur avant gauche"
-#~ msgstr "Σινεμπλόκ εμπρός αριστερού αμορτισέρ"
-
-#~ msgid "silent bloc amortisseur arrière droit"
-#~ msgstr "Σινεμπλόκ πίσω δεξιού αμορτισέρ"
-
-#~ msgid "silent bloc amortisseur arrière gauche"
-#~ msgstr "Σινεμπλόκ πίσω αριστερού αμορτισέρ"
-
-#~ msgid "silent bloc de triangle inférieur avant gauche"
-#~ msgstr "Σινεμπλόκ κάτω ψαλιδιού εμπρός αριστερά"
-
-#~ msgid "silent bloc de triangle inférieur arrière droit"
-#~ msgstr "Σινεμπλόκ κάτω ψαλιδιού πίσω δεξιά"
-
-#~ msgid "silent bloc de triangle inférieur arrière gauche"
-#~ msgstr "Σινεμπλόκ κάτω ψαλιδιού πίσω αριστερά"
-
-#~ msgid "silent bloc de triangle supérieur avant droit"
-#~ msgstr "Σινεμπλόκ άνω ψαλιδιού εμπρός δεξιά"
-
-#~ msgid "silent bloc de triangle supérieur avant gauche"
-#~ msgstr "Σινεμπλόκ άνω ψαλιδιού εμπρός αριστερά"
-
-#~ msgid "silent bloc de triangle supérieur arrière droit"
-#~ msgstr "Σινεμπλόκ άνω ψαλιδιού πίσω δεξιά"
-
-#~ msgid "silent bloc de triangle supérieur arrière gauche"
-#~ msgstr "Σινεμπλόκ άνω ψαλιδιού πίσω αριστερά"
-
-#~ msgid "silent bloc de suspension multi-bras avant droit"
-#~ msgstr "Σινεμπλόκ ανάρτησης πολλαπλών συνδέσμων εμπρός δεξιά"
-
-#~ msgid "silent bloc de suspension multi-bras avant gauche"
-#~ msgstr "Σινεμπλόκ ανάρτησης πολλαπλών συνδέσμων εμπρός αριστερά"
-
-#~ msgid "silent bloc de suspension multi-bras arrière droit"
-#~ msgstr "Σινεμπλόκ ανάρτησης πολλαπλών συνδέσμων πίσω δεξιά"
-
-#~ msgid "silent bloc de suspension multi-bras arrière gauche"
-#~ msgstr "Σινεμπλόκ ανάρτησης πολλαπλών συνδέσμων πίσω αριστερά"
-
-#~ msgid "silent bloc moteur"
-#~ msgstr "Σινεμπλόκ κινητήρα"
-
-#~ msgid "silent bloc moteur pendulaire"
-#~ msgstr "Εκκρεμές σινεμπλόκ κινητήρα"
-
-#~ msgid "Remplacer"
-#~ msgstr "Αντικατάσταση"
-
-#~ msgid "Ex : Valeo"
-#~ msgstr "Π.χ.: Valeo"
-
-#~ msgid "Aucun moteur enregistré pour cet exemplaire."
-#~ msgstr "Δεν έχει καταχωρηθεί κανένας κινητήρας για αυτό το όχημα."
-
-#~ msgid "Aucune boite enregistrée pour cet exemplaire."
-#~ msgstr "Δεν υπάρχει καταχωρημένο σασμάν για αυτό το όχημα."
-
-#~ msgid "Aucun embrayage enregistré pour cet exemplaire."
-#~ msgstr "Δεν υπάρχει καταχωρημένος συμπλέκτης για αυτό το όχημα."
-
-#~ msgid "Aucun frein avant enregistré pour cet exemplaire."
-#~ msgstr "Δεν υπάρχει καταχωρημένο εμπρόσθιο φρένο για αυτό το όχημα."
-
-#~ msgid "Aucun frein arrière enregistré pour cet exemplaire."
-#~ msgstr "Δεν υπάρχει καταχωρημένο πίσω φρένο για αυτό το όχημα."
-
-#~ msgid "Aucun pneus enregistré pour cet exemplaire."
-#~ msgstr "Δεν υπάρχουν καταχωρημένα ελαστικά για αυτό το όχημα."
-
-#~ msgid "Lier les pneus"
-#~ msgstr "Σύνδεση ελαστικών"
-
-#~ msgid "Pneus du véhicule"
-#~ msgstr "Ελαστικά οχήματος"
-
-#~ msgid "Retour aux détails"
-#~ msgstr "Επιστροφή στις λεπτομέρειες"

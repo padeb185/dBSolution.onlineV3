@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 17:37+0200\n"
+"POT-Creation-Date: 2026-10-12 12:18+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -278,7 +278,10 @@ msgstr ""
 #: recharge/templates/recharge/electricite_stat.html:72
 #: recharge/templates/recharge/recharge_list.html:81
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:40
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:50
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/modifier_exemplaire.html:44
+#: voiture/voiture_location/templates/voiture_location/location_list.html:30
+#: voiture/voiture_location/templates/voiture_location/location_list.html:53
 msgid "Immatriculation"
 msgstr ""
 
@@ -407,6 +410,8 @@ msgstr ""
 #: maintenance/templates/maintenance/list.html:70
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/list.html:70
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/liste_exemplaires.html:53
+#: voiture/voiture_location/models.py:199
+#: voiture/voiture_location/templates/voiture_location/location_list.html:58
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:99
 msgid "Kilométrage"
 msgstr ""
@@ -1337,7 +1342,7 @@ msgstr ""
 #: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:92
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:82
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:86
-#: voiture/voiture_modele/models.py:48
+#: voiture/voiture_location/models.py:210 voiture/voiture_modele/models.py:48
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:72
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:76
 #: voiture/voiture_moteur/models.py:76
@@ -1579,7 +1584,7 @@ msgstr ""
 #: voiture/voiture_freins_av/models.py:104
 #: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:98
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:121
-#: voiture/voiture_modele/models.py:53
+#: voiture/voiture_location/models.py:212 voiture/voiture_modele/models.py:53
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:98
 #: voiture/voiture_moteur/models.py:78
 #: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:177
@@ -1705,7 +1710,7 @@ msgstr ""
 #: voiture/voiture_freins_av/models.py:105
 #: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:99
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:125
-#: voiture/voiture_modele/models.py:54
+#: voiture/voiture_location/models.py:213 voiture/voiture_modele/models.py:54
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:102
 #: voiture/voiture_moteur/models.py:79
 #: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:178
@@ -4133,8 +4138,14 @@ msgstr ""
 #: recharge/views.py:456 voiture/voiture_embrayage/views.py:179
 #: voiture/voiture_exemplaire/views.py:524
 #: voiture/voiture_exemplaire/views.py:544
+#: voiture/voiture_exemplaire/views.py:630
+#: voiture/voiture_exemplaire/views.py:680
+#: voiture/voiture_exemplaire/views.py:706
+#: voiture/voiture_exemplaire/views.py:748
 #: voiture/voiture_freins_ar/views.py:230
-#: voiture/voiture_freins_av/views.py:210 voiture/voiture_pneus/views.py:190
+#: voiture/voiture_freins_av/views.py:210 voiture/voiture_location/views.py:36
+#: voiture/voiture_location/views.py:47 voiture/voiture_location/views.py:65
+#: voiture/voiture_location/views.py:81 voiture/voiture_pneus/views.py:190
 msgid "Accès refusé"
 msgstr ""
 
@@ -5891,8 +5902,8 @@ msgstr ""
 #: maintenance/nettoyage_exterieur/models.py:169
 #: maintenance/nettoyage_interieur/models.py:190
 #: maintenance/niveaux/models.py:184 maintenance/pneus/models.py:281
-#: maintenance/silent_blocs/models.py:665 theme/templates/dashboard.html:623
-#: theme/templates/dashboard.html:635
+#: maintenance/silent_blocs/models.py:665 theme/templates/dashboard.html:645
+#: theme/templates/dashboard.html:657
 msgid "Main d'oeuvre"
 msgstr ""
 
@@ -8052,6 +8063,7 @@ msgstr ""
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:104
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:107
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:112
+#: voiture/voiture_location/templates/voiture_location/location_list.html:122
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:125
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:137
 msgid "Recherche globale :"
@@ -8166,6 +8178,7 @@ msgstr ""
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:105
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:108
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:113
+#: voiture/voiture_location/templates/voiture_location/location_list.html:123
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:126
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:100
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:138
@@ -8295,6 +8308,7 @@ msgstr ""
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:110
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:113
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:118
+#: voiture/voiture_location/templates/voiture_location/location_list.html:128
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:131
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:105
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:143
@@ -8410,6 +8424,7 @@ msgstr ""
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:111
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:114
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:119
+#: voiture/voiture_location/templates/voiture_location/location_list.html:129
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:132
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:106
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:144
@@ -8525,6 +8540,7 @@ msgstr ""
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:112
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:115
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:120
+#: voiture/voiture_location/templates/voiture_location/location_list.html:130
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:133
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:107
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:145
@@ -8640,6 +8656,7 @@ msgstr ""
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:113
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:116
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:121
+#: voiture/voiture_location/templates/voiture_location/location_list.html:131
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:134
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:108
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:146
@@ -8741,7 +8758,9 @@ msgstr ""
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:101
 #: voiture/voiture_boite/templates/voiture_boite/list.html:84
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:94
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:111
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:45
+#: voiture/voiture_location/templates/voiture_location/location_list.html:111
 #: voiture/voiture_marque/templates/voiture_marque/dashboard_voiture.html:63
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:114
 #: voiture/voiture_moteur/templates/voiture_moteur/list.html:89
@@ -9345,8 +9364,8 @@ msgstr ""
 #: recharge/templates/recharge/recharge_list.html:46
 #: recharge/templates/recharge/recharge_list.html:80
 #: theme/templates/dashboard.html:42 theme/templates/dashboard.html:55
-#: theme/templates/dashboard.html:125 theme/templates/dashboard.html:676
-#: theme/templates/dashboard.html:691 utilisateurs/models.py:387
+#: theme/templates/dashboard.html:125 theme/templates/dashboard.html:698
+#: theme/templates/dashboard.html:713 utilisateurs/models.py:387
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:18
 msgid "Utilisateur"
 msgstr ""
@@ -9510,6 +9529,8 @@ msgstr ""
 #: recharge/templates/recharge/recharge_list.html:88
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:307
 #: theme/templates/dashboard.html:120
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:22
+#: voiture/voiture_location/templates/voiture_location/location_list.html:60
 msgid "Date"
 msgstr "Date"
 
@@ -9566,6 +9587,12 @@ msgstr "Date"
 #: piece/models.py:58 piece/templates/piece/piece_detail.html:10
 #: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:97
 #: recharge/models.py:121 recharge/templates/recharge/recharge_list.html:82
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:20
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:49
+#: voiture/voiture_location/models.py:131
+#: voiture/voiture_location/templates/voiture_location/location_form.html:68
+#: voiture/voiture_location/templates/voiture_location/location_list.html:34
+#: voiture/voiture_location/templates/voiture_location/location_list.html:54
 msgid "Véhicule"
 msgstr ""
 
@@ -9869,6 +9896,8 @@ msgstr ""
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:59
 #: proprietaire/templates/proprietaire/proprietaire_list.html:65
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:68
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:56
+#: voiture/voiture_location/templates/voiture_location/location_list.html:61
 msgid "Actions"
 msgstr ""
 
@@ -10132,6 +10161,7 @@ msgstr ""
 #: _backup_list_templates/maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:101
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:102
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:101
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:51
 msgid "Km châssis"
 msgstr ""
 
@@ -11023,6 +11053,7 @@ msgstr ""
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:310
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:45
 #: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:45
+#: voiture/voiture_location/templates/voiture_location/location_list.html:55
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:58
 #: voiture/voiture_pneus/templates/voiture_pneus/list.html:78
 #: voiture/voiture_pneus/templates/voiture_pneus/pneus_detail.html:42
@@ -11782,6 +11813,8 @@ msgid "Taux de TVA (%)"
 msgstr ""
 
 #: achat_mds/models.py:75
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:92
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:93
 msgid "Achat"
 msgstr ""
 
@@ -11996,11 +12029,13 @@ msgstr ""
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:81
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:93
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:85
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:122
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/modifier_exemplaire.html:83
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/ajouter_freins_ar_simple.html:78
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/modifier_freins_ar.html:94
 #: voiture/voiture_freins_av/templates/voiture_freins_av/ajouter_freins_simple.html:77
 #: voiture/voiture_freins_av/templates/voiture_freins_av/modifier_freins_av.html:87
+#: voiture/voiture_location/templates/voiture_location/location_form.html:103
 #: voiture/voiture_marque/templates/voiture_marque/ajouter_marque.html:44
 #: voiture/voiture_modele/templates/voiture_modele/ajouter_modele.html:166
 #: voiture/voiture_modele/templates/voiture_modele/modifier_voiture_modele_view.html:66
@@ -12239,6 +12274,8 @@ msgstr ""
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:111
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:97
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:90
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:127
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:25
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/modifier_exemplaire.html:88
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/supprimer_exemplaire_all.html:45
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/ajouter_freins_ar_simple.html:83
@@ -12247,6 +12284,8 @@ msgstr ""
 #: voiture/voiture_freins_av/templates/voiture_freins_av/ajouter_freins_simple.html:82
 #: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:127
 #: voiture/voiture_freins_av/templates/voiture_freins_av/modifier_freins_av.html:92
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:35
+#: voiture/voiture_location/templates/voiture_location/location_form.html:107
 #: voiture/voiture_marque/templates/voiture_marque/ajouter_marque.html:49
 #: voiture/voiture_modele/templates/voiture_modele/ajouter_modele.html:171
 #: voiture/voiture_modele/templates/voiture_modele/modifier_voiture_modele_view.html:70
@@ -12379,9 +12418,12 @@ msgstr ""
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:170
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:101
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:291
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:80
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:89
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/supprimer_exemplaire_all.html:38
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:118
 #: voiture/voiture_freins_av/templates/voiture_freins_av/delete_frein_av.html:118
+#: voiture/voiture_location/templates/voiture_location/location_list.html:97
 #: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:196
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:148
 msgid "Supprimer"
@@ -12583,6 +12625,7 @@ msgstr ""
 #: assurance_police/templates/assurance_police/delete_assurance_police.html:69
 #: facture/models.py:101 facture/templates/facture/_entete_facture.html:11
 #: facture/templates/facture/facture_list.html:32
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:55
 msgid "Statut"
 msgstr ""
 
@@ -12630,6 +12673,7 @@ msgstr ""
 
 #: agenda/templates/agenda/agenda_detail.html:88
 #: agenda/templates/agenda/delete_agenda.html:101
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:22
 msgid "Marque / modèle"
 msgstr ""
 
@@ -12900,11 +12944,12 @@ msgstr ""
 #: assurance/templates/assurance/modifier_assurance.html:62
 #: assurance/views.py:235
 #: assurance_police/templates/assurance_police/modifier_assurance_police.html:58
-#: theme/templates/dashboard.html:613
+#: theme/templates/dashboard.html:635
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:102
 msgid "Assurance"
 msgstr ""
 
-#: assurance/models.py:49 theme/templates/dashboard.html:608
+#: assurance/models.py:49 theme/templates/dashboard.html:630
 msgid "Assurances"
 msgstr ""
 
@@ -12994,7 +13039,8 @@ msgstr ""
 #: theme/templates/dashboard.html:390 theme/templates/dashboard.html:452
 #: theme/templates/dashboard.html:474 theme/templates/dashboard.html:521
 #: theme/templates/dashboard.html:543 theme/templates/dashboard.html:565
-#: theme/templates/dashboard.html:627 theme/templates/dashboard.html:649
+#: theme/templates/dashboard.html:587 theme/templates/dashboard.html:649
+#: theme/templates/dashboard.html:671
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:19
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:31
 #: voiture/voiture_marque/templates/voiture_marque/dashboard_voiture.html:17
@@ -13212,6 +13258,7 @@ msgstr ""
 #: facture/templates/facture/tva.html:30
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques_pdf.html:286
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:66
+#: voiture/voiture_location/templates/voiture_location/location_form.html:89
 msgid "Période"
 msgstr ""
 
@@ -13504,7 +13551,7 @@ msgstr ""
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:106
 #: client_pilotage/forms.py:26 panier/models.py:42
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:66
-#: theme/templates/dashboard.html:551
+#: theme/templates/dashboard.html:551 voiture/voiture_location/models.py:149
 msgid "Société cliente"
 msgstr ""
 
@@ -13730,6 +13777,10 @@ msgstr ""
 #: panier/models.py:33
 #: societe_cliente/templates/societe_cliente/societe_cliente_form.html:13
 #: theme/templates/dashboard.html:529 voiture/voiture_exemplaire/models.py:14
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:35
+#: voiture/voiture_location/forms.py:21 voiture/voiture_location/models.py:140
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:21
+#: voiture/voiture_location/templates/voiture_location/location_list.html:57
 msgid "Client"
 msgstr ""
 
@@ -13782,6 +13833,7 @@ msgstr ""
 
 #: client_pilotage/models.py:23 client_pilotage/models.py:76
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:66
+#: voiture/voiture_location/models.py:158
 msgid "Client pilotage"
 msgstr ""
 
@@ -13880,9 +13932,11 @@ msgstr ""
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:33
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:39
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:39
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:60
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/modifier_exemplaire.html:27
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/ajouter_freins_ar_simple.html:32
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/modifier_freins_ar.html:39
+#: voiture/voiture_location/templates/voiture_location/location_form.html:47
 msgid "Erreurs :"
 msgstr ""
 
@@ -14558,6 +14612,7 @@ msgid "BROUILLON"
 msgstr ""
 
 #: facture/templates/facture/facture_pdf.html:154
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:24
 msgid "VIN"
 msgstr ""
 
@@ -14677,7 +14732,7 @@ msgstr ""
 #: facture/templates/facture/maintenances_a_facturer.html:4
 #: facture/templates/facture/maintenances_a_facturer.html:65
 #: facture/templates/facture/parametres_peppol.html:15
-#: facture/templates/facture/tva.html:20 theme/templates/dashboard.html:715
+#: facture/templates/facture/tva.html:20 theme/templates/dashboard.html:737
 msgid "Facturation"
 msgstr ""
 
@@ -16050,6 +16105,8 @@ msgstr ""
 
 #: fuel/templates/fuel/fuel_delete.html:34
 #: recharge/templates/recharge/electricite_delete.html:34
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:21
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:31
 msgid "Confirmer la suppression"
 msgstr ""
 
@@ -16689,7 +16746,7 @@ msgstr ""
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:73
 #: maintenance/jeux_pieces/models.py:47 maintenance/models.py:75
 #: theme/templates/dashboard.html:183 theme/templates/dashboard.html:187
-#: utilisateurs/models.py:85 utilisateurs/views.py:279
+#: utilisateurs/models.py:85 utilisateurs/views.py:284
 msgid "Mécanicien"
 msgstr ""
 
@@ -16823,6 +16880,8 @@ msgstr ""
 #: maintenance/templates/maintenance/creer_maintenance.html:78
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:113
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:115
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:133
+#: voiture/voiture_location/templates/voiture_location/location_form.html:112
 msgid "Date actuelle"
 msgstr ""
 
@@ -18377,7 +18436,11 @@ msgstr ""
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:23
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:22
-#: voiture/voiture_exemplaire/models.py:16
+#: theme/templates/dashboard.html:595 voiture/voiture_exemplaire/models.py:16
+#: voiture/voiture_location/models.py:216
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:9
+#: voiture/voiture_location/templates/voiture_location/location_form.html:12
+#: voiture/voiture_location/templates/voiture_location/location_list.html:9
 msgid "Location"
 msgstr ""
 
@@ -18410,6 +18473,8 @@ msgid "Numéro de série de la boite"
 msgstr ""
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:165
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:24
+#: voiture/voiture_location/templates/voiture_location/location_list.html:59
 msgid "Prix"
 msgstr ""
 
@@ -19759,6 +19824,7 @@ msgstr ""
 #: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:363
 #: maintenance/models.py:140 voiture/voiture_boite/forms.py:28
 #: voiture/voiture_embrayage/forms.py:20
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:32
 msgid "Kilométrage châssis"
 msgstr ""
 
@@ -22061,6 +22127,7 @@ msgid "Reporté"
 msgstr ""
 
 #: maintenance/autres_interventions/refroidissement/models.py:36
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:23
 msgid "À compléter"
 msgstr ""
 
@@ -22761,9 +22828,9 @@ msgstr ""
 msgid "Moteur & Transmission"
 msgstr ""
 
-#: maintenance/check_up/admin.py:138 theme/templates/dashboard.html:592
-#: theme/templates/dashboard.html:596 utilisateurs/models.py:93
-#: utilisateurs/views.py:287
+#: maintenance/check_up/admin.py:138 theme/templates/dashboard.html:614
+#: theme/templates/dashboard.html:618 utilisateurs/models.py:93
+#: utilisateurs/views.py:292
 msgid "Direction"
 msgstr ""
 
@@ -29207,7 +29274,7 @@ msgid "Hors service"
 msgstr ""
 
 #: maintenance/jeux_pieces/models.py:46 maintenance/models.py:84
-#: utilisateurs/models.py:84 utilisateurs/views.py:278
+#: utilisateurs/models.py:84 utilisateurs/views.py:283
 msgid "Apprenti"
 msgstr ""
 
@@ -29442,6 +29509,8 @@ msgid "Kilométrage du contrôle niveaux"
 msgstr ""
 
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:352
+#: voiture/voiture_location/models.py:11 voiture/voiture_location/models.py:174
+#: voiture/voiture_location/templates/voiture_location/location_list.html:39
 msgid "Circuit"
 msgstr ""
 
@@ -30002,6 +30071,9 @@ msgstr ""
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:254
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:275
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:285
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:76
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:85
+#: voiture/voiture_location/templates/voiture_location/location_list.html:93
 msgid "Modifier"
 msgstr ""
 
@@ -30211,6 +30283,7 @@ msgstr ""
 
 #: piece/models.py:92 piece/templates/piece/piece_detail.html:35
 #: piece/templates/piece/piece_form.html:84
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:52
 msgid "Prix d'achat"
 msgstr ""
 
@@ -32304,7 +32377,7 @@ msgstr ""
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:81
 #: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:94
 #: proprietaire/templates/proprietaire/proprietaire_form.html:13
-#: theme/templates/dashboard.html:657
+#: theme/templates/dashboard.html:679
 msgid "Propriétaire"
 msgstr ""
 
@@ -32381,7 +32454,9 @@ msgid "Tableau de bord propriétaires :"
 msgstr ""
 
 #: proprietaire/templates/proprietaire/proprietaire_dashboard.html:25
-#: theme/templates/dashboard.html:645
+#: theme/templates/dashboard.html:667
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:112
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:113
 msgid "Propriétaires"
 msgstr ""
 
@@ -32954,7 +33029,7 @@ msgid "Administrateurs"
 msgstr ""
 
 #: theme/templates/admin/dashboard_admin.html:50
-#: theme/templates/dashboard.html:667
+#: theme/templates/dashboard.html:689
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:13
 msgid "Créer un utilisateur"
 msgstr ""
@@ -33039,7 +33114,7 @@ msgid "Aucune activité enregistrée"
 msgstr ""
 
 #: theme/templates/dashboard.html:278 utilisateurs/models.py:88
-#: utilisateurs/views.py:281
+#: utilisateurs/views.py:286
 msgid "Chef Mécanicien"
 msgstr ""
 
@@ -33052,7 +33127,7 @@ msgid "Boites de vitesses"
 msgstr ""
 
 #: theme/templates/dashboard.html:432 theme/templates/dashboard.html:436
-#: utilisateurs/models.py:86 utilisateurs/views.py:282
+#: utilisateurs/models.py:86 utilisateurs/views.py:287
 msgid "Magasinier"
 msgstr ""
 
@@ -33061,49 +33136,62 @@ msgid "Outils"
 msgstr ""
 
 #: theme/templates/dashboard.html:501 theme/templates/dashboard.html:505
-#: utilisateurs/models.py:91 utilisateurs/views.py:285
+#: utilisateurs/models.py:91 utilisateurs/views.py:290
 msgid "Vendeur"
 msgstr ""
 
-#: theme/templates/dashboard.html:517
+#: theme/templates/dashboard.html:517 voiture/voiture_location/forms.py:81
 msgid "Clients"
 msgstr ""
 
-#: theme/templates/dashboard.html:539
+#: theme/templates/dashboard.html:539 voiture/voiture_location/forms.py:82
 msgid "Sociétés clientes"
 msgstr ""
 
-#: theme/templates/dashboard.html:671
+#: theme/templates/dashboard.html:583 voiture/voiture_location/models.py:217
+#: voiture/voiture_location/templates/voiture_location/location_list.html:4
+msgid "Locations"
+msgstr ""
+
+#: theme/templates/dashboard.html:693
 msgid "Ajouter un nouvel employé"
 msgstr ""
 
-#: theme/templates/dashboard.html:686
+#: theme/templates/dashboard.html:708
 #: utilisateurs/templates/utilisateurs/liste_utilisateurs.html:8
 msgid "Liste des utilisateurs"
 msgstr ""
 
-#: theme/templates/dashboard.html:701
+#: theme/templates/dashboard.html:723
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:12
 msgid "Créer une paie mensuelle"
 msgstr ""
 
-#: theme/templates/dashboard.html:706
+#: theme/templates/dashboard.html:728
 msgid "Compléter utilisateur"
 msgstr ""
 
-#: theme/templates/dashboard.html:719
+#: theme/templates/dashboard.html:741
 msgid "Factures clients et professionnelles (XML)"
 msgstr ""
 
-#: theme/templates/dashboard.html:742 theme/templates/dashboard.html:746
-msgid "Administrateur"
+#: theme/templates/dashboard.html:754
+msgid "Finances véhicules"
 msgstr ""
 
 #: theme/templates/dashboard.html:757
+msgid "Prix d'achat, assurance, taxes"
+msgstr ""
+
+#: theme/templates/dashboard.html:779 theme/templates/dashboard.html:783
+msgid "Administrateur"
+msgstr ""
+
+#: theme/templates/dashboard.html:794
 msgid "Tableau de bord Admin"
 msgstr ""
 
-#: theme/templates/dashboard.html:762
+#: theme/templates/dashboard.html:799
 msgid "Admin"
 msgstr ""
 
@@ -33173,19 +33261,19 @@ msgstr ""
 msgid "La session de connexion a expiré. Veuillez vous reconnecter."
 msgstr ""
 
-#: theme/views.py:204 utilisateurs/views.py:391
+#: theme/views.py:204 utilisateurs/views.py:396
 msgid "Utilisateur introuvable."
 msgstr ""
 
-#: theme/views.py:209 utilisateurs/views.py:395 utilisateurs/views.py:910
+#: theme/views.py:209 utilisateurs/views.py:400 utilisateurs/views.py:915
 msgid "Ce compte utilisateur est désactivé."
 msgstr ""
 
-#: theme/views.py:214 utilisateurs/views.py:79 utilisateurs/views.py:399
+#: theme/views.py:214 utilisateurs/views.py:79 utilisateurs/views.py:404
 msgid "Aucune société n'est liée à cet utilisateur."
 msgstr ""
 
-#: theme/views.py:226 utilisateurs/views.py:404
+#: theme/views.py:226 utilisateurs/views.py:409
 msgid "La société de connexion ne correspond pas."
 msgstr ""
 
@@ -33197,7 +33285,7 @@ msgstr ""
 msgid "Le TOTP n'est pas activé pour ce compte."
 msgstr ""
 
-#: theme/views.py:344 utilisateurs/views.py:1135
+#: theme/views.py:344 utilisateurs/views.py:1140
 msgid "Connexion réussie."
 msgstr ""
 
@@ -33272,19 +33360,19 @@ msgstr ""
 msgid "Un utilisateur possède déjà cette adresse e-mail."
 msgstr ""
 
-#: utilisateurs/models.py:87 utilisateurs/views.py:280
+#: utilisateurs/models.py:87 utilisateurs/views.py:285
 msgid "Carrossier"
 msgstr ""
 
-#: utilisateurs/models.py:89 utilisateurs/views.py:283
+#: utilisateurs/models.py:89 utilisateurs/views.py:288
 msgid "Instructeur"
 msgstr ""
 
-#: utilisateurs/models.py:90 utilisateurs/views.py:284
+#: utilisateurs/models.py:90 utilisateurs/views.py:289
 msgid "Instructeur Externe"
 msgstr ""
 
-#: utilisateurs/models.py:92 utilisateurs/views.py:286
+#: utilisateurs/models.py:92 utilisateurs/views.py:291
 msgid "Comptable"
 msgstr ""
 
@@ -33401,76 +33489,76 @@ msgstr ""
 msgid "(filtré à partir de _MAX_ entrées totales)"
 msgstr ""
 
-#: utilisateurs/views.py:265
+#: utilisateurs/views.py:270
 msgid "Révision moteur"
 msgstr ""
 
-#: utilisateurs/views.py:265 voiture/voiture_boite/models.py:11
+#: utilisateurs/views.py:270 voiture/voiture_boite/models.py:11
 msgid "Changement filtre"
 msgstr ""
 
-#: utilisateurs/views.py:289
+#: utilisateurs/views.py:294
 msgid "Rôle inconnu"
 msgstr ""
 
-#: utilisateurs/views.py:369
+#: utilisateurs/views.py:374
 msgid "La session d'activation a expiré. Veuillez vous reconnecter."
 msgstr ""
 
-#: utilisateurs/views.py:450
+#: utilisateurs/views.py:455
 msgid ""
 "La vérification à deux facteurs est déjà configurée. Connectez-vous avec "
 "votre code Authy."
 msgstr ""
 
-#: utilisateurs/views.py:487
+#: utilisateurs/views.py:492
 msgid "Saisissez le code à six chiffres affiché dans Authy."
 msgstr ""
 
-#: utilisateurs/views.py:495
+#: utilisateurs/views.py:500
 msgid "Le code doit contenir exactement six chiffres."
 msgstr ""
 
-#: utilisateurs/views.py:539
+#: utilisateurs/views.py:544
 msgid ""
 "La vérification à deux facteurs est activée. Connectez-vous maintenant avec "
 "votre adresse e-mail, votre mot de passe et votre code Authy ou Google "
 "Authenticator."
 msgstr ""
 
-#: utilisateurs/views.py:549
+#: utilisateurs/views.py:554
 msgid "Le code Authy est invalide ou expiré."
 msgstr ""
 
-#: utilisateurs/views.py:609
+#: utilisateurs/views.py:614
 msgid "Utilisateur créé avec succès."
 msgstr ""
 
-#: utilisateurs/views.py:696
+#: utilisateurs/views.py:701
 msgid "La paie mensuelle a été enregistrée avec succès."
 msgstr ""
 
-#: utilisateurs/views.py:900 utilisateurs/views.py:905
+#: utilisateurs/views.py:905 utilisateurs/views.py:910
 msgid "Adresse e-mail ou mot de passe incorrect."
 msgstr ""
 
-#: utilisateurs/views.py:915
+#: utilisateurs/views.py:920
 msgid "Aucune société n'est associée à ce compte."
 msgstr ""
 
-#: utilisateurs/views.py:943
+#: utilisateurs/views.py:948
 msgid "Aucun schéma tenant n'est associé à cet utilisateur."
 msgstr ""
 
-#: utilisateurs/views.py:949
+#: utilisateurs/views.py:954
 msgid "Ce compte n'est associé à aucune société privée."
 msgstr ""
 
-#: utilisateurs/views.py:1060
+#: utilisateurs/views.py:1065
 msgid "Veuillez saisir le code de sécurité généré par votre application Authy."
 msgstr ""
 
-#: utilisateurs/views.py:1077
+#: utilisateurs/views.py:1082
 msgid "Le code de sécurité est incorrect ou a expiré."
 msgstr ""
 
@@ -33933,6 +34021,34 @@ msgstr ""
 msgid "Le VIN contient des caractères interdits (I, O, Q)."
 msgstr ""
 
+#: voiture/voiture_exemplaire/forms.py:167
+msgid "Prix d'achat (€)"
+msgstr ""
+
+#: voiture/voiture_exemplaire/forms.py:168
+msgid "Assurance annuelle (€)"
+msgstr ""
+
+#: voiture/voiture_exemplaire/forms.py:169
+msgid "Taxe de mise en circulation (€)"
+msgstr ""
+
+#: voiture/voiture_exemplaire/forms.py:170
+msgid "Taxe de roulage annuelle (€)"
+msgstr ""
+
+#: voiture/voiture_exemplaire/forms.py:171
+msgid "Nombre de propriétaires"
+msgstr ""
+
+#: voiture/voiture_exemplaire/forms.py:172
+msgid "Part des propriétaires (%)"
+msgstr ""
+
+#: voiture/voiture_exemplaire/forms.py:188
+msgid "Le montant ne peut pas être négatif."
+msgstr ""
+
 #: voiture/voiture_exemplaire/models.py:56
 msgid "Norvège"
 msgstr ""
@@ -33985,6 +34101,7 @@ msgid "Détails du véhicule : "
 msgstr ""
 
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:45
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:26
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/liste_exemplaires.html:52
 msgid "Année de production"
 msgstr ""
@@ -34061,6 +34178,141 @@ msgstr ""
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:335
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/lier_pneus.html:103
 msgid "Lier les pneus arrière"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:10
+msgid "Données financières"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:28
+msgid "Mise en circulation"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:30
+msgid "Type d'utilisation"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:41
+msgid "Finances"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:47
+msgid "Manquant"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:57
+msgid "Police d'assurance active"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:58
+msgid "prime annuelle"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:64
+msgid "Coût d'acquisition (achat + taxe MEC)"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:68
+msgid "Coûts fixes annuels (assurance + roulage)"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:76
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:85
+msgid "Compléter"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:84
+msgid "Retour"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:19
+msgid "Compléter les données financières"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:21
+msgid "Modifier les données financières"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:77
+msgid "Assurance pré-remplie depuis la police active"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:83
+msgid "manquant"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:103
+msgid "Assurance et taxes annuelles"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:142
+msgid "Retour à la liste des finances"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:9
+msgid "Données financières des véhicules"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:18
+msgid "Véhicules"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:28
+msgid "Complets"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:38
+msgid "Immatriculation, VIN, marque, modèle..."
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:40
+msgid "Rechercher"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:53
+msgid "Assurance / an"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:54
+msgid "Taxe roulage"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:74
+msgid "Complet"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:77
+#, python-format
+msgid "%(n)s manquant"
+msgid_plural "%(n)s manquants"
+msgstr[0] ""
+msgstr[1] ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:82
+msgid "Voir"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:85
+msgid "Ajouter"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:99
+msgid "Aucun véhicule trouvé."
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:7
+msgid "Supprimer les données financières"
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:14
+#, python-format
+msgid ""
+"Les données financières du véhicule %(vehicule)s (%(immat)s) seront effacées "
+": prix d'achat, assurance, taxes et propriétaires."
+msgstr ""
+
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:16
+msgid "Le véhicule lui-même et son historique ne sont pas supprimés."
 msgstr ""
 
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/lier_boite.html:11
@@ -34289,6 +34541,16 @@ msgstr ""
 msgid ""
 "Impossible de supprimer ce véhicule car des données lui sont encore "
 "associées."
+msgstr ""
+
+#: voiture/voiture_exemplaire/views.py:724
+#, python-format
+msgid "Données financières de '%(vehicule)s' enregistrées."
+msgstr ""
+
+#: voiture/voiture_exemplaire/views.py:761
+#, python-format
+msgid "Données financières de '%(vehicule)s' supprimées."
 msgstr ""
 
 #: voiture/voiture_freins_ar/forms.py:36
@@ -34577,6 +34839,183 @@ msgstr ""
 
 #: voiture/voiture_freins_av/views.py:277
 msgid "Système de freinage avant supprimé avec succès."
+msgstr ""
+
+#: voiture/voiture_location/apps.py:7
+msgid "Locations de véhicules"
+msgstr ""
+
+#: voiture/voiture_location/forms.py:83
+msgid "Clients pilotage"
+msgstr ""
+
+#: voiture/voiture_location/forms.py:104
+msgid "Client invalide."
+msgstr ""
+
+#: voiture/voiture_location/forms.py:109
+msgid "Client introuvable."
+msgstr ""
+
+#: voiture/voiture_location/models.py:12
+#: voiture/voiture_location/templates/voiture_location/location_list.html:40
+msgid "Route"
+msgstr ""
+
+#: voiture/voiture_location/models.py:86
+msgid "Autre circuit"
+msgstr ""
+
+#: voiture/voiture_location/models.py:165
+msgid "Type de location"
+msgstr ""
+
+#: voiture/voiture_location/models.py:182
+msgid "Route / itinéraire"
+msgstr ""
+
+#: voiture/voiture_location/models.py:183
+msgid "Ex. : Bruxelles → Spa via les Fagnes"
+msgstr ""
+
+#: voiture/voiture_location/models.py:186
+msgid "Date de début"
+msgstr ""
+
+#: voiture/voiture_location/models.py:187
+msgid "Date de fin"
+msgstr ""
+
+#: voiture/voiture_location/models.py:192
+msgid "Nombre de tours"
+msgstr ""
+
+#: voiture/voiture_location/models.py:193
+msgid "Circuit uniquement – le kilométrage est calculé s'il est laissé vide"
+msgstr ""
+
+#: voiture/voiture_location/models.py:200
+msgid "Kilomètres parcourus pendant la location"
+msgstr ""
+
+#: voiture/voiture_location/models.py:207
+msgid "Prix (€)"
+msgstr ""
+
+#: voiture/voiture_location/models.py:260
+msgid "Choisissez un circuit."
+msgstr ""
+
+#: voiture/voiture_location/models.py:262
+msgid "Indiquez le nombre de tours ou le kilométrage."
+msgstr ""
+
+#: voiture/voiture_location/models.py:272
+msgid "Longueur du circuit inconnue : indiquez le kilométrage."
+msgstr ""
+
+#: voiture/voiture_location/models.py:278
+msgid "Indiquez la route."
+msgstr ""
+
+#: voiture/voiture_location/models.py:280
+msgid "Indiquez le kilométrage."
+msgstr ""
+
+#: voiture/voiture_location/models.py:283
+msgid "Choisissez un seul client."
+msgstr ""
+
+#: voiture/voiture_location/models.py:286
+msgid "La date de fin doit être postérieure à la date de début."
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:11
+msgid "Supprimer la location"
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:18
+msgid "Voulez-vous vraiment supprimer cette location ?"
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:23
+msgid "Distance"
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_form.html:15
+msgid "Modifier la location"
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_form.html:15
+msgid "Nouvelle location"
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_form.html:69
+msgid "Véhicule et client"
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_form.html:78
+msgid "Lieu"
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_form.html:79
+msgid "Circuit ou route"
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_form.html:90
+msgid "Période, kilométrage et prix"
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_form.html:120
+msgid "Retour à la liste des locations"
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_list.html:11
+msgid "Liste des locations"
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_list.html:19
+msgid "Ajouter une location"
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_list.html:38
+msgid "Circuit et route"
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_list.html:45
+#: voiture/voiture_location/templates/voiture_location/location_list.html:56
+msgid "Circuit / route"
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_list.html:121
+msgid "Aucune location enregistrée."
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_list.html:124
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ locations"
+msgstr ""
+
+#: voiture/voiture_location/templates/voiture_location/location_list.html:125
+#: voiture/voiture_location/templates/voiture_location/location_list.html:126
+msgid "Aucune location trouvée"
+msgstr ""
+
+#: voiture/voiture_location/views.py:56
+#, python-format
+msgid "Location '%(loc)s' créée avec succès."
+msgstr ""
+
+#: voiture/voiture_location/views.py:72
+#, python-format
+msgid "Location '%(loc)s' mise à jour."
+msgstr ""
+
+#: voiture/voiture_location/views.py:88
+msgid "Location supprimée."
+msgstr ""
+
+#: voiture/voiture_location/views.py:90
+msgid "Impossible de supprimer cette location."
 msgstr ""
 
 #: voiture/voiture_marque/templates/voiture_marque/ajouter_marque.html:9
@@ -35514,27 +35953,3 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
 msgstr ""
-
-#, fuzzy
-#~ msgid "Retirer cette maintenance de l'agenda ?"
-#~ msgstr "Tableau de Bord"
-
-#, fuzzy
-#~ msgid "Disque embrayage"
-#~ msgstr "Tableau de Bord"
-
-#, fuzzy
-#~ msgid "Ajout d'huile boîte"
-#~ msgstr "Tableau de Bord"
-
-#, fuzzy
-#~ msgid "Pièces et produits"
-#~ msgstr "Tableau de Bord"
-
-#, fuzzy
-#~ msgid "Modifier le contrôle des phares"
-#~ msgstr "Tableau de Bord"
-
-#, fuzzy
-#~ msgid "Ajouter les produits"
-#~ msgstr "Tableau de Bord"
