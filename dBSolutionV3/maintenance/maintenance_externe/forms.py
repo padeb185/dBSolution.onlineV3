@@ -1,3 +1,5 @@
+import unicodedata
+
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
@@ -39,6 +41,14 @@ class MaintenanceExterneForm(forms.ModelForm):
         self.fields["voiture_exemplaire"].queryset = vehicules
         self.fields["garage"].queryset = garages
         self.fields["taux_tva"].required = False
+
+        # Types de maintenance triés par ordre alphabétique (dans la langue affichée, sans tenir compte des accents)
+        def cle_tri(choix):
+            texte = unicodedata.normalize("NFKD", str(choix[1])).encode("ascii", "ignore").decode()
+            return texte.casefold()
+
+        choix = [c for c in self.fields["type_maintenance"].choices if c[0]]
+        self.fields["type_maintenance"].choices = [("", "---------")] + sorted(choix, key=cle_tri)
 
         # Données pour le formulaire : pays du garage et marque du garage / du véhicule
         self.garages_infos = {

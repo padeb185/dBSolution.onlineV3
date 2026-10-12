@@ -336,6 +336,8 @@ MIDDLEWARE = [
 
     # LocaleMiddleware nécessite SessionMiddleware.
     "django.middleware.locale.LocaleMiddleware",
+    # Langue lue après /tenant/<schema>/ (LocaleMiddleware ne la voit pas)
+    "dBSolutionV3.middleware.tenant_locale.TenantLocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
 
     "django.middleware.csrf.CsrfViewMiddleware",
