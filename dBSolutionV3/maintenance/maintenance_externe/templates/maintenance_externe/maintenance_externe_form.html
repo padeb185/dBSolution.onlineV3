@@ -54,25 +54,19 @@
             <a href="{% url 'garage_officiel:garage_ajouter' %}?next={{ request.path|urlencode }}" class="text-blue-700 hover:underline">+ {% trans "Ajouter un garage officiel" %}</a>
         </p>
         {% include "maintenance_externe/_champ.html" with field=form.type_maintenance %}
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {% include "maintenance_externe/_champ.html" with field=form.date_facture %}
-            {% include "maintenance_externe/_champ.html" with field=form.numero_facture %}
-            {% include "maintenance_externe/_champ.html" with field=form.kilometrage %}
-        </div>
+        {% include "maintenance_externe/_champ.html" with field=form.date_facture %}
+        {% include "maintenance_externe/_champ.html" with field=form.numero_facture %}
+        {% include "maintenance_externe/_champ.html" with field=form.kilometrage %}
 
         <br>
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/achatmds.png' %}" alt="" class="w-20 h-20">
             {% trans "Montants et TVA" %}
         </h2>
-        <div class="grid grid-cols-2 gap-3">
-            {% include "maintenance_externe/_champ.html" with field=form.pays %}
-            {% include "maintenance_externe/_champ.html" with field=form.taux_tva %}
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-            {% include "maintenance_externe/_champ.html" with field=form.pieces_htva %}
-            {% include "maintenance_externe/_champ.html" with field=form.main_oeuvre_htva %}
-        </div>
+        {% include "maintenance_externe/_champ.html" with field=form.pays %}
+        {% include "maintenance_externe/_champ.html" with field=form.taux_tva %}
+        {% include "maintenance_externe/_champ.html" with field=form.pieces_htva %}
+        {% include "maintenance_externe/_champ.html" with field=form.main_oeuvre_htva %}
 
         <!-- Récapitulatif calculé -->
         <table class="w-full text-sm border border-gray-200 rounded">
