@@ -1,5 +1,5 @@
 import uuid
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
@@ -86,6 +86,35 @@ class CircuitEuropeen(models.TextChoices):
     AUTRE = "autre", _("Autre circuit")
 
 
+# Longueur approximative du tracé principal (km) – sert à calculer
+# le kilométrage à partir du nombre de tours.
+LONGUEUR_CIRCUIT_KM = {
+    "spa_francorchamps": Decimal("7.004"), "zolder": Decimal("4.011"), "mettet": Decimal("2.280"),
+    "zandvoort": Decimal("4.259"), "assen": Decimal("4.542"),
+    "paul_ricard": Decimal("5.842"), "magny_cours": Decimal("4.411"), "le_mans_bugatti": Decimal("4.185"),
+    "dijon_prenois": Decimal("3.801"), "nogaro": Decimal("3.636"), "pau_arnos": Decimal("3.030"),
+    "charade": Decimal("3.975"), "ledenon": Decimal("3.150"), "albi": Decimal("3.565"),
+    "croix_en_ternois": Decimal("1.900"),
+    "nurburgring_nordschleife": Decimal("20.832"), "nurburgring_gp": Decimal("5.148"),
+    "hockenheimring": Decimal("4.574"), "sachsenring": Decimal("3.671"), "lausitzring": Decimal("4.534"),
+    "oschersleben": Decimal("3.696"), "bilster_berg": Decimal("4.200"),
+    "red_bull_ring": Decimal("4.318"), "salzburgring": Decimal("4.241"),
+    "monza": Decimal("5.793"), "imola": Decimal("4.909"), "mugello": Decimal("5.245"),
+    "misano": Decimal("4.226"), "vallelunga": Decimal("4.085"), "varano": Decimal("2.350"),
+    "barcelona_catalunya": Decimal("4.657"), "jerez": Decimal("4.428"),
+    "valencia_ricardo_tormo": Decimal("4.005"), "motorland_aragon": Decimal("5.077"),
+    "jarama": Decimal("3.850"), "navarra": Decimal("3.933"), "ascari": Decimal("5.425"),
+    "portimao": Decimal("4.653"), "estoril": Decimal("4.182"),
+    "silverstone": Decimal("5.891"), "brands_hatch": Decimal("3.916"), "donington": Decimal("4.020"),
+    "oulton_park": Decimal("4.307"), "snetterton": Decimal("4.779"), "thruxton": Decimal("3.792"),
+    "goodwood": Decimal("3.809"),
+    "hungaroring": Decimal("4.381"), "brno": Decimal("5.403"), "most": Decimal("4.212"),
+    "slovakia_ring": Decimal("5.922"), "poznan": Decimal("4.083"), "grobnik": Decimal("4.168"),
+    "anderstorp": Decimal("4.025"), "mantorp": Decimal("3.106"), "kymiring": Decimal("4.600"),
+    "jyllandsringen": Decimal("2.300"),
+}
+
+
 class Location(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
@@ -109,6 +138,24 @@ class Location(models.Model):
         null=True,
         blank=True,
         verbose_name=_("Client"),
+    )
+
+    societe_cliente = models.ForeignKey(
+        "societe_cliente.SocieteCliente",
+        on_delete=models.SET_NULL,
+        related_name="locations",
+        null=True,
+        blank=True,
+        verbose_name=_("Société cliente"),
+    )
+
+    client_pilotage = models.ForeignKey(
+        "client_pilotage.ClientPilotage",
+        on_delete=models.SET_NULL,
+        related_name="locations",
+        null=True,
+        blank=True,
+        verbose_name=_("Client pilotage"),
     )
 
     type_location = models.CharField(
@@ -139,7 +186,16 @@ class Location(models.Model):
     date_debut = models.DateField(verbose_name=_("Date de début"))
     date_fin = models.DateField(null=True, blank=True, verbose_name=_("Date de fin"))
 
+    nombre_tours = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        verbose_name=_("Nombre de tours"),
+        help_text=_("Circuit uniquement – le kilométrage est calculé s'il est laissé vide"),
+    )
+
     kilometrage = models.PositiveIntegerField(
+        null=True,
+        blank=True,
         verbose_name=_("Kilométrage"),
         help_text=_("Kilomètres parcourus pendant la location"),
     )
@@ -172,6 +228,23 @@ class Location(models.Model):
         return self.route or ""
 
     @property
+    def locataire(self):
+        """Client, société cliente ou client pilotage (un seul est renseigné)."""
+        return self.client_pilotage or self.societe_cliente or self.client
+
+    @property
+    def longueur_circuit_km(self):
+        return LONGUEUR_CIRCUIT_KM.get(self.circuit) if self.circuit else None
+
+    @property
+    def distance_affichage(self):
+        """Ex. : '12 tours · 84 km' ou '230 km'."""
+        km = f"{self.kilometrage} km" if self.kilometrage is not None else ""
+        if self.nombre_tours:
+            return f"{self.nombre_tours} tours" + (f" · {km}" if km else "")
+        return km
+
+    @property
     def prix_par_km(self):
         if self.kilometrage:
             return (self.prix / self.kilometrage).quantize(Decimal("0.01"))
@@ -182,13 +255,32 @@ class Location(models.Model):
         errors = {}
 
         if self.type_location == TypeLocation.CIRCUIT:
+            self.route = None
             if not self.circuit:
                 errors["circuit"] = _("Choisissez un circuit.")
-            self.route = None
+            if not self.nombre_tours and not self.kilometrage:
+                errors["nombre_tours"] = _("Indiquez le nombre de tours ou le kilométrage.")
+            # Kilométrage calculé à partir des tours si non saisi
+            if self.nombre_tours and not self.kilometrage:
+                longueur = self.longueur_circuit_km
+                if longueur:
+                    self.kilometrage = int(
+                        (longueur * self.nombre_tours).quantize(Decimal("1"), rounding=ROUND_HALF_UP)
+                    )
+                else:
+                    errors["kilometrage"] = _(
+                        "Longueur du circuit inconnue : indiquez le kilométrage."
+                    )
         elif self.type_location == TypeLocation.ROUTE:
+            self.circuit = None
+            self.nombre_tours = None
             if not self.route:
                 errors["route"] = _("Indiquez la route.")
-            self.circuit = None
+            if not self.kilometrage:
+                errors["kilometrage"] = _("Indiquez le kilométrage.")
+
+        if sum(bool(x) for x in (self.client_id, self.societe_cliente_id, self.client_pilotage_id)) > 1:
+            errors["client"] = _("Choisissez un seul client.")
 
         if self.date_debut and self.date_fin and self.date_fin < self.date_debut:
             errors["date_fin"] = _("La date de fin doit être postérieure à la date de début.")

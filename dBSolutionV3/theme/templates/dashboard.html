@@ -574,6 +574,28 @@
              class="w-[60px] h-[60px]">
     </a>
 
+    <!-- Locations (circuit / route) -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/location/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Locations" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_location }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/voiture-de-course.png' %}"
+             alt="{% trans 'Location' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
 </div>
 
 {% endif %}

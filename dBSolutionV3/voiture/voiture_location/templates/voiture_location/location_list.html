@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Locations" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/voiture-de-course.png' %}" alt="{% trans 'Location' %}"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des locations" %}
+</h1>
+
+{% include "voiture_location/_messages.html" %}
+
+<div class="inline-flex gap-4">
+    <a href="{% url 'voiture_location:location_ajouter' %}"
+       class="bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ajouter une location" %}
+    </a>
+</div>
+
+<br>
+<br>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
+        <input id="search-immatriculation" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Immatriculation' %}">
+
+        <input id="search-vehicule" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Véhicule' %}">
+
+        <select id="search-type"
+                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="">{% trans "Circuit et route" %}</option>
+            <option value="{% trans 'Circuit' %}">{% trans "Circuit" %}</option>
+            <option value="{% trans 'Route' %}">{% trans "Route" %}</option>
+        </select>
+
+        <input id="search-lieu" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Circuit / route' %}">
+    </div>
+</div>
+
+<!-- Table -->
+<table id="locations-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Véhicule" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Type" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Circuit / route" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Client" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Kilométrage" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Prix" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for loc in locations %}
+        <tr>
+            <td class="border px-4 py-2">
+                {% with exemplaire=loc.voiture_exemplaire %}
+                    {% include "maintenance/partials/plaque.html" with taille="petite" %}
+                {% endwith %}
+            </td>
+            <td class="border px-4 py-2">
+                {{ loc.voiture_exemplaire.voiture_marque.nom_marque }}
+                {{ loc.voiture_exemplaire.voiture_modele.nom_modele }}
+            </td>
+            <td class="border px-4 py-2">
+                {% if loc.type_location == "circuit" %}
+                    <span class="px-2 py-1 rounded bg-red-100 text-red-800 text-xs font-semibold">{{ loc.get_type_location_display }}</span>
+                {% else %}
+                    <span class="px-2 py-1 rounded bg-blue-100 text-blue-800 text-xs font-semibold">{{ loc.get_type_location_display }}</span>
+                {% endif %}
+            </td>
+            <td class="border px-4 py-2">{{ loc.lieu|default:"—" }}</td>
+            <td class="border px-4 py-2">{{ loc.locataire|default:"—" }}</td>
+            <td class="border px-4 py-2" data-order="{{ loc.kilometrage|default:0 }}">{{ loc.distance_affichage|default:"—" }}</td>
+            <td class="border px-4 py-2" data-order="{{ loc.prix }}">{{ loc.prix|floatformat:2 }} €</td>
+            <td class="border px-4 py-2" data-order="{{ loc.date_debut|date:'Y-m-d' }}">
+                {{ loc.date_debut|date:"d/m/Y" }}{% if loc.date_fin and loc.date_fin != loc.date_debut %} → {{ loc.date_fin|date:"d/m/Y" }}{% endif %}
+            </td>
+            <td class="border px-4 py-2 text-center whitespace-nowrap">
+                <a href="{% url 'voiture_location:location_modifier' location_id=loc.id %}"
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                    {% trans "Modifier" %}
+                </a>
+                <a href="{% url 'voiture_location:location_supprimer' location_id=loc.id %}"
+                   class="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700 transition">
+                    {% trans "Supprimer" %}
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<br><br>
+
+<!-- Retour -->
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+
+<br><br>
+
+<script>
+$(document).ready(function () {
+    const table = $('#locations-table').DataTable({
+        language: {
+            emptyTable: "{% trans 'Aucune location enregistrée.' %}",
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ locations' %}",
+            infoEmpty: "{% trans 'Aucune location trouvée' %}",
+            zeroRecords: "{% trans 'Aucune location trouvée' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[7, 'desc']],
+        columnDefs: [
+            { targets: 8, orderable: false, searchable: false },
+            { targets: [5, 6], type: 'num' }
+        ]
+    });
+
+    $('#search-immatriculation').on('keyup change', function () { table.column(0).search(this.value).draw(); });
+    $('#search-vehicule').on('keyup change', function () { table.column(1).search(this.value).draw(); });
+    $('#search-type').on('change', function () { table.column(2).search(this.value).draw(); });
+    $('#search-lieu').on('keyup change', function () { table.column(3).search(this.value).draw(); });
+});
+</script>
+{% endblock %}

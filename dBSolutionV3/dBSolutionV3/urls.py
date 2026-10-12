@@ -56,6 +56,9 @@ urlpatterns += i18n_patterns(
         include(("voiture.voiture_exemplaire.urls", "voiture_exemplaire"), namespace="voiture_exemplaire")
     ),
 
+    # Locations (circuit / route)
+    path("location/", include(("voiture.voiture_location.urls", "voiture_location"), namespace="voiture_location")),
+
     # Moteurs
     path('voiture/moteur/', include('voiture.voiture_moteur.urls', namespace='voiture_moteur')),
 
