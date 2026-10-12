@@ -11,11 +11,17 @@
         {% trans "Supprimer le diagnostic" %}
     </h1>
 
+    {% if diagnostic.voiture_exemplaire %}
+    <div class="mb-4 flex justify-center">
+        {% include "maintenance/partials/plaque.html" with exemplaire=diagnostic.voiture_exemplaire %}
+    </div>
+    {% endif %}
+
     <p class="mb-2">{% trans "Voulez-vous vraiment supprimer ce diagnostic ?" %}</p>
     <ul class="mb-6 text-gray-700 text-sm list-disc ml-5">
         <li>{% trans "Code défaut" %} : <span class="font-mono font-bold">{{ diagnostic.code_defaut }}</span></li>
-        <li>{% trans "Pièce en défaut" %} : {{ diagnostic.piece_defaut }}</li>
-        <li>{% trans "Véhicule" %} : {{ diagnostic.voiture_marque.nom_marque }} {{ diagnostic.voiture_modele }}</li>
+        <li>{% trans "Pièce en défaut" %} : {{ diagnostic.piece_libelle }}</li>
+        <li>{% trans "Véhicule" %} : {{ diagnostic.voiture_exemplaire|default:"—" }}</li>
     </ul>
 
     <form method="post" class="flex gap-3">

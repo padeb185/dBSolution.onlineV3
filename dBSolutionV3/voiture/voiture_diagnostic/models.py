@@ -5,11 +5,13 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from .pieces_defaut import PIECE_AUTRE, PIECES_DEFAUT_CHOICES
+
 
 class Diagnostic(models.Model):
     """
-    Catalogue des codes défaut : pour une marque et un modèle,
-    le code défaut (ex. P0301) et la pièce en défaut correspondante.
+    Code défaut relevé sur un exemplaire, avec la pièce en défaut
+    choisie dans une liste par système (sonde lambda aval, vanne EGR...).
     """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -20,18 +22,12 @@ class Diagnostic(models.Model):
         related_name="diagnostics",
     )
 
-    voiture_marque = models.ForeignKey(
-        "voiture_marque.VoitureMarque",
+    voiture_exemplaire = models.ForeignKey(
+        "voiture_exemplaire.VoitureExemplaire",
         on_delete=models.PROTECT,
         related_name="diagnostics",
-        verbose_name=_("Marque"),
-    )
-
-    voiture_modele = models.ForeignKey(
-        "voiture_modele.VoitureModele",
-        on_delete=models.PROTECT,
-        related_name="diagnostics",
-        verbose_name=_("Modèle"),
+        null=True,
+        verbose_name=_("Véhicule"),
     )
 
     code_defaut = models.CharField(
@@ -47,9 +43,16 @@ class Diagnostic(models.Model):
     )
 
     piece_defaut = models.CharField(
-        max_length=255,
+        max_length=80,
+        choices=PIECES_DEFAUT_CHOICES,
         verbose_name=_("Pièce en défaut"),
-        help_text=_("Ex. : bobine d'allumage cylindre 1"),
+    )
+
+    piece_defaut_autre = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        verbose_name=_("Autre pièce (préciser)"),
     )
 
     description = models.TextField(
@@ -64,37 +67,37 @@ class Diagnostic(models.Model):
     class Meta:
         verbose_name = _("Diagnostic")
         verbose_name_plural = _("Diagnostics")
-        ordering = ["voiture_marque__nom_marque", "voiture_modele__nom_modele", "code_defaut"]
-        constraints = [
-            models.UniqueConstraint(
-                fields=["societe", "voiture_modele", "code_defaut", "piece_defaut"],
-                name="diagnostic_unique_modele_code_piece",
-            )
+        ordering = [
+            "voiture_exemplaire__voiture_marque__nom_marque",
+            "voiture_exemplaire__voiture_modele__nom_modele",
+            "voiture_exemplaire__immatriculation",
+            "code_defaut",
         ]
         indexes = [
             models.Index(fields=["code_defaut"]),
+            models.Index(fields=["piece_defaut"]),
         ]
 
     def __str__(self):
-        return f"{self.voiture_marque.nom_marque} {self.voiture_modele} – {self.code_defaut} : {self.piece_defaut}"
+        return f"{self.voiture_exemplaire} – {self.code_defaut} : {self.piece_libelle}"
+
+    @property
+    def piece_libelle(self):
+        if self.piece_defaut == PIECE_AUTRE and self.piece_defaut_autre:
+            return self.piece_defaut_autre
+        return self.get_piece_defaut_display()
 
     def clean(self):
         super().clean()
         if self.code_defaut:
             self.code_defaut = self.code_defaut.strip().upper()
-        if self.piece_defaut:
-            self.piece_defaut = self.piece_defaut.strip()
-        # Le modèle doit appartenir à la marque choisie
-        if self.voiture_modele_id and self.voiture_marque_id:
-            if self.voiture_modele.voiture_marque_id != self.voiture_marque_id:
-                raise ValidationError(
-                    {"voiture_modele": _("Ce modèle n'appartient pas à la marque choisie.")}
-                )
+        if self.piece_defaut == PIECE_AUTRE:
+            if not (self.piece_defaut_autre or "").strip():
+                raise ValidationError({"piece_defaut_autre": _("Précisez la pièce en défaut.")})
+        else:
+            self.piece_defaut_autre = None
 
     def save(self, *args, **kwargs):
         if self.code_defaut:
             self.code_defaut = self.code_defaut.strip().upper()
-        # Marque déduite du modèle si absente
-        if self.voiture_modele_id and not self.voiture_marque_id:
-            self.voiture_marque_id = self.voiture_modele.voiture_marque_id
         super().save(*args, **kwargs)

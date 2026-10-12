@@ -5,7 +5,6 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import never_cache
 
-from voiture.voiture_modele.models import VoitureModele
 from .forms import DiagnosticForm
 from .models import Diagnostic
 
@@ -27,16 +26,11 @@ def _queryset(request):
     return (
         Diagnostic.objects
         .filter(societe=request.user.societe)
-        .select_related("voiture_marque", "voiture_modele")
+        .select_related(
+            "voiture_exemplaire__voiture_marque",
+            "voiture_exemplaire__voiture_modele",
+        )
     )
-
-
-def _modeles_json(request):
-    """Modèles par marque pour filtrer la liste des modèles dans le formulaire."""
-    return [
-        {"id": str(m.pk), "marque": str(m.voiture_marque_id)}
-        for m in VoitureModele.objects.filter(societe=request.user.societe).only("pk", "voiture_marque_id")
-    ]
 
 
 @never_cache
@@ -61,7 +55,7 @@ def diagnostic_ajouter(request):
         return _refus(request)
 
     initial = {}
-    for champ in ("voiture_marque", "voiture_modele", "code_defaut"):
+    for champ in ("voiture_exemplaire", "code_defaut"):
         if request.GET.get(champ):
             initial[champ] = request.GET[champ]
 
@@ -74,7 +68,6 @@ def diagnostic_ajouter(request):
     return render(request, "voiture_diagnostic/diagnostic_form.html", {
         "form": form,
         "diagnostic": None,
-        "modeles_json": _modeles_json(request),
     })
 
 
@@ -94,7 +87,6 @@ def diagnostic_modifier(request, diagnostic_id):
     return render(request, "voiture_diagnostic/diagnostic_form.html", {
         "form": form,
         "diagnostic": diagnostic,
-        "modeles_json": _modeles_json(request),
     })
 
 

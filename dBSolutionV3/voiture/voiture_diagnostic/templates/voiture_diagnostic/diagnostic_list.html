@@ -25,17 +25,17 @@
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
+        <input id="search-immatriculation" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Immatriculation' %}">
+
+        <input id="search-vehicule" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Véhicule' %}">
+
         <input id="search-code" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Code défaut (ex. P0301)' %}">
-
-        <input id="search-marque" type="text"
-               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Marque' %}">
-
-        <input id="search-modele" type="text"
-               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Modèle' %}">
 
         <input id="search-piece" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -47,9 +47,9 @@
 <table id="diagnostics-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Véhicule" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Code défaut" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Marque" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Modèle" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Pièce en défaut" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Description / solution" %}</th>
             <th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>
@@ -58,19 +58,26 @@
     <tbody>
     {% static 'images/marques/' as marques_path %}
     {% for d in diagnostics %}
+        {% with ex=d.voiture_exemplaire %}
         <tr>
+            <td class="border px-4 py-2">
+                {% if ex %}
+                    {% include "maintenance/partials/plaque.html" with exemplaire=ex taille="petite" %}
+                {% else %}—{% endif %}
+            </td>
+            <td class="border px-4 py-2">
+                {% if ex %}
+                <div class="flex items-center gap-2">
+                    <img src="{{ marques_path }}{{ ex.voiture_marque.nom_marque|lower }}.png"
+                         alt="" class="w-8 h-8 object-contain" onerror="this.style.display='none';">
+                    <span>{{ ex.voiture_marque.nom_marque }} {{ ex.voiture_modele.nom_modele }} {{ ex.voiture_modele.nom_variante|default:"" }}</span>
+                </div>
+                {% else %}—{% endif %}
+            </td>
             <td class="border px-4 py-2">
                 <span class="font-mono font-bold px-2 py-1 rounded bg-gray-900 text-yellow-300">{{ d.code_defaut }}</span>
             </td>
-            <td class="border px-4 py-2">
-                <div class="flex items-center gap-2">
-                    <img src="{{ marques_path }}{{ d.voiture_marque.nom_marque|lower }}.png"
-                         alt="" class="w-8 h-8 object-contain" onerror="this.style.display='none';">
-                    {{ d.voiture_marque.nom_marque }}
-                </div>
-            </td>
-            <td class="border px-4 py-2">{{ d.voiture_modele.nom_modele }} {{ d.voiture_modele.nom_variante|default:"" }}</td>
-            <td class="border px-4 py-2 font-semibold">{{ d.piece_defaut }}</td>
+            <td class="border px-4 py-2 font-semibold">{{ d.piece_libelle }}</td>
             <td class="border px-4 py-2 text-sm text-gray-600">{{ d.description|default:"—"|truncatechars:120 }}</td>
             <td class="border px-4 py-2 text-center whitespace-nowrap">
                 <a href="{% url 'voiture_diagnostic:diagnostic_modifier' diagnostic_id=d.id %}"
@@ -85,6 +92,7 @@
                 {% endif %}
             </td>
         </tr>
+        {% endwith %}
     {% endfor %}
     </tbody>
 </table>
@@ -119,15 +127,15 @@ $(document).ready(function () {
                 previous: "{% trans 'Précédent' %}"
             }
         },
-        order: [[1, 'asc'], [2, 'asc'], [0, 'asc']],
+        order: [[1, 'asc'], [0, 'asc'], [2, 'asc']],
         columnDefs: [
             { targets: 5, orderable: false, searchable: false }
         ]
     });
 
-    $('#search-code').on('keyup change', function () { table.column(0).search(this.value).draw(); });
-    $('#search-marque').on('keyup change', function () { table.column(1).search(this.value).draw(); });
-    $('#search-modele').on('keyup change', function () { table.column(2).search(this.value).draw(); });
+    $('#search-immatriculation').on('keyup change', function () { table.column(0).search(this.value).draw(); });
+    $('#search-vehicule').on('keyup change', function () { table.column(1).search(this.value).draw(); });
+    $('#search-code').on('keyup change', function () { table.column(2).search(this.value).draw(); });
     $('#search-piece').on('keyup change', function () { table.column(3).search(this.value).draw(); });
 });
 </script>

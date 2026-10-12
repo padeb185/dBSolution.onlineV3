@@ -16,21 +16,29 @@
                 </span>
             </div>
 
-            {% if diagnostic %}
+            {% if diagnostic and diagnostic.voiture_exemplaire %}
+            {% with exemplaire=diagnostic.voiture_exemplaire %}
             <div class="flex items-center justify-center gap-4 mt-3">
                 {% static 'images/marques/' as marques_path %}
-                <img src="{{ marques_path }}{{ diagnostic.voiture_marque.nom_marque|lower }}.png"
-                     alt="{{ diagnostic.voiture_marque.nom_marque }}"
+                <img src="{{ marques_path }}{{ exemplaire.voiture_marque.nom_marque|lower }}.png"
+                     alt="{{ exemplaire.voiture_marque.nom_marque }}"
                      class="w-20 h-20 object-contain"
                      onerror="this.style.display='none';">
                 <span class="font-semibold">
-                    {{ diagnostic.voiture_modele.nom_modele }}
-                    {% if diagnostic.voiture_modele.nom_variante %}{{ diagnostic.voiture_modele.nom_variante }}{% endif %}
+                    {{ exemplaire.voiture_modele.nom_modele }}
+                    {% if exemplaire.voiture_modele.nom_variante %}{{ exemplaire.voiture_modele.nom_variante }}{% endif %}
                 </span>
             </div>
+            {% endwith %}
             {% endif %}
         </h1>
     </div>
+
+    {% if diagnostic and diagnostic.voiture_exemplaire %}
+    <div class="mb-4 flex justify-center">
+        {% include "maintenance/partials/plaque.html" with exemplaire=diagnostic.voiture_exemplaire %}
+    </div>
+    {% endif %}
 
     {% include "voiture_diagnostic/_messages.html" %}
 
@@ -58,11 +66,9 @@
         <!-- Véhicule -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/mecanique.png' %}" alt="{% trans 'Véhicule' %}" class="w-20 h-20">
-            {% trans "Marque et modèle" %}
+            {% trans "Véhicule" %}
         </h2>
-        {% include "voiture_diagnostic/_champ.html" with field=form.voiture_marque %}
-        {% include "voiture_diagnostic/_champ.html" with field=form.voiture_modele %}
-        {{ modeles_json|json_script:"modeles-par-marque" }}
+        {% include "voiture_diagnostic/_champ.html" with field=form.voiture_exemplaire %}
 
         <br>
 
@@ -73,6 +79,7 @@
         </h2>
         {% include "voiture_diagnostic/_champ.html" with field=form.code_defaut %}
         {% include "voiture_diagnostic/_champ.html" with field=form.piece_defaut %}
+        {% include "voiture_diagnostic/_champ.html" with field=form.piece_defaut_autre %}
         {% include "voiture_diagnostic/_champ.html" with field=form.description %}
 
         <!-- Boutons -->
@@ -116,28 +123,14 @@
 </style>
 
 <script>
-// N'affiche que les modèles de la marque choisie
+// Champ « Autre pièce » visible uniquement si « Autre (préciser) » est choisi
 (function () {
-    const marque = document.getElementById("id_voiture_marque");
-    const modele = document.getElementById("id_voiture_modele");
-    const source = document.getElementById("modeles-par-marque");
-    if (!marque || !modele || !source) return;
-
-    const marqueDuModele = {};
-    JSON.parse(source.textContent).forEach(m => { marqueDuModele[m.id] = m.marque; });
-    const options = Array.from(modele.options);
-
-    function filtrer() {
-        const m = marque.value;
-        const selection = modele.value;
-        modele.innerHTML = "";
-        options.forEach(o => {
-            if (!o.value || !m || marqueDuModele[o.value] === m) modele.appendChild(o);
-        });
-        modele.value = (selection && marqueDuModele[selection] === m) ? selection : "";
-    }
-    marque.addEventListener("change", filtrer);
-    filtrer();
+    const piece = document.getElementById("id_piece_defaut");
+    const blocAutre = document.getElementById("bloc-piece_defaut_autre");
+    if (!piece || !blocAutre) return;
+    function maj() { blocAutre.style.display = piece.value === "autre" ? "" : "none"; }
+    piece.addEventListener("change", maj);
+    maj();
 })();
 </script>
 {% endblock %}

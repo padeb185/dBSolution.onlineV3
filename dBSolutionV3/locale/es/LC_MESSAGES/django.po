@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 13:23+0200\n"
+"POT-Creation-Date: 2026-10-12 13:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -277,6 +277,8 @@ msgstr "Información general"
 #: recharge/templates/recharge/electricite_detail.html:37
 #: recharge/templates/recharge/electricite_stat.html:72
 #: recharge/templates/recharge/recharge_list.html:81
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:30
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:50
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:40
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:50
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/modifier_exemplaire.html:44
@@ -1574,7 +1576,7 @@ msgstr "Metadatos"
 #: voiture/voiture_boite/models.py:71
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:114
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:151
-#: voiture/voiture_diagnostic/models.py:61
+#: voiture/voiture_diagnostic/models.py:64
 #: voiture/voiture_embrayage/models.py:137
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:86
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:109
@@ -1701,7 +1703,7 @@ msgstr "Creado el"
 #: voiture/voiture_boite/models.py:72
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:118
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:152
-#: voiture/voiture_diagnostic/models.py:62
+#: voiture/voiture_diagnostic/models.py:65
 #: voiture/voiture_embrayage/models.py:138
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:87
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:113
@@ -3244,6 +3246,7 @@ msgstr "Detalles del control del aire acondicionado"
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:111
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:124
 #: maintenance/models.py:34 piece/piece_distribution/models.py:12
+#: voiture/voiture_diagnostic/pieces_defaut.py:107
 msgid "Courroie de distribution"
 msgstr "Correa de distribución"
 
@@ -3416,6 +3419,7 @@ msgstr "Detalles del control del alternador"
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:83
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:96
 #: maintenance/models.py:39 piece/piece_electricite/models.py:8
+#: voiture/voiture_diagnostic/pieces_defaut.py:191
 msgid "Alternateur"
 msgstr "Alternador"
 
@@ -4137,7 +4141,7 @@ msgstr "Volver a la lista de controles de silent blocks"
 #: maintenance/pneus/views.py:701 maintenance/pneus/views.py:737
 #: maintenance/silent_blocs/views.py:101 maintenance/silent_blocs/views.py:600
 #: maintenance/silent_blocs/views.py:636 recharge/views.py:435
-#: recharge/views.py:456 voiture/voiture_diagnostic/views.py:22
+#: recharge/views.py:456 voiture/voiture_diagnostic/views.py:21
 #: voiture/voiture_embrayage/views.py:179
 #: voiture/voiture_exemplaire/views.py:524
 #: voiture/voiture_exemplaire/views.py:544
@@ -5252,6 +5256,7 @@ msgstr "Deshidratador"
 #: maintenance/autres_interventions/climatisation/views.py:496
 #: maintenance/autres_interventions/climatisation/views.py:917
 #: piece/piece_climatisation/models.py:13
+#: voiture/voiture_diagnostic/pieces_defaut.py:317
 msgid "Condenseur"
 msgstr "Condensador"
 
@@ -5773,6 +5778,7 @@ msgstr "Control de admisión registrado correctamente."
 #: maintenance/autres_interventions/moteur/admission/views.py:978
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:586
 #: piece/piece_filtres/models.py:7
+#: voiture/voiture_diagnostic/pieces_defaut.py:12
 msgid "Filtre à air"
 msgstr "Filtro de aire"
 
@@ -5866,6 +5872,7 @@ msgstr "Intercooler"
 #: maintenance/autres_interventions/moteur/admission/views.py:590
 #: maintenance/autres_interventions/moteur/admission/views.py:1059
 #: piece/piece_electronique/models.py:17 piece/piece_moteur/models.py:38
+#: voiture/voiture_diagnostic/pieces_defaut.py:135
 msgid "Vanne EGR"
 msgstr "Válvula EGR"
 
@@ -6019,6 +6026,7 @@ msgstr "Rotor del distribuidor"
 #: _backup_detail_views/maintenance/autres_interventions/moteur/allumage/views.py:912
 #: maintenance/autres_interventions/moteur/allumage/views.py:534
 #: maintenance/autres_interventions/moteur/allumage/views.py:913
+#: voiture/voiture_diagnostic/pieces_defaut.py:83
 msgid "Module d'allumage"
 msgstr "Módulo de encendido"
 
@@ -6101,7 +6109,7 @@ msgstr "Revisión del alternador registrada con éxito."
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:961
 #: maintenance/autres_interventions/moteur/injection/views.py:619
 #: maintenance/autres_interventions/moteur/injection/views.py:1021
-#: theme/templates/dashboard.html:277 voiture/voiture_diagnostic/models.py:65
+#: theme/templates/dashboard.html:277 voiture/voiture_diagnostic/models.py:68
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:9
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:12
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:9
@@ -6262,6 +6270,7 @@ msgstr "Bomba de combustible"
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:478
 #: maintenance/autres_interventions/moteur/injection/views.py:538
 #: maintenance/autres_interventions/moteur/injection/views.py:940
+#: voiture/voiture_diagnostic/pieces_defaut.py:42
 msgid "Pompe haute pression"
 msgstr "Bomba de alta presión"
 
@@ -6617,6 +6626,7 @@ msgstr "Radiador"
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1018
 #: maintenance/autres_interventions/refroidissement/views.py:575
 #: maintenance/autres_interventions/refroidissement/views.py:992
+#: voiture/voiture_diagnostic/pieces_defaut.py:160
 msgid "Thermostat"
 msgstr "Termostato"
 
@@ -7030,24 +7040,28 @@ msgstr "Antiniebla trasero"
 #: _backup_detail_views/maintenance/carrosserie_interne/views.py:1015
 #: maintenance/carrosserie_interne/models.py:563
 #: maintenance/carrosserie_interne/views.py:1016
+#: voiture/voiture_diagnostic/pieces_defaut.py:370
 msgid "Clignotant avant droit"
 msgstr "Intermitente delantero derecho"
 
 #: _backup_detail_views/maintenance/carrosserie_interne/views.py:1023
 #: maintenance/carrosserie_interne/models.py:572
 #: maintenance/carrosserie_interne/views.py:1024
+#: voiture/voiture_diagnostic/pieces_defaut.py:369
 msgid "Clignotant avant gauche"
 msgstr "Intermitente delantero izquierdo"
 
 #: _backup_detail_views/maintenance/carrosserie_interne/views.py:1031
 #: maintenance/carrosserie_interne/models.py:581
 #: maintenance/carrosserie_interne/views.py:1032
+#: voiture/voiture_diagnostic/pieces_defaut.py:372
 msgid "Clignotant arrière droit"
 msgstr "Intermitente trasero derecho"
 
 #: _backup_detail_views/maintenance/carrosserie_interne/views.py:1039
 #: maintenance/carrosserie_interne/models.py:590
 #: maintenance/carrosserie_interne/views.py:1040
+#: voiture/voiture_diagnostic/pieces_defaut.py:371
 msgid "Clignotant arrière gauche"
 msgstr "Intermitente trasero izquierdo"
 
@@ -7074,6 +7088,7 @@ msgstr "Intermitente trasero izquierdo"
 #: maintenance/entretien/templates/entretien/entretien_check.html:1215
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:1219
 #: piece/piece_feux/models.py:13
+#: voiture/voiture_diagnostic/pieces_defaut.py:367
 msgid "Troisième feu stop"
 msgstr "Tercera luz de freno"
 
@@ -7218,7 +7233,7 @@ msgstr "Checkup eliminado con éxito."
 
 #: _backup_detail_views/maintenance/checkup_track/views.py:106
 #: maintenance/checkup_track/views.py:107
-#: voiture/voiture_diagnostic/views.py:47
+#: voiture/voiture_diagnostic/views.py:41
 msgid ""
 "Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent "
 "accéder à cette page."
@@ -8106,7 +8121,7 @@ msgstr "Volver al panel de control del proveedor"
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:120
 #: recharge/templates/recharge/recharge_list.html:158
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:113
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:110
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:118
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:104
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:107
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:112
@@ -8222,7 +8237,7 @@ msgstr "Búsqueda global:"
 #: recharge/templates/recharge/recharge_list.html:159
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:114
 #: voiture/voiture_boite/templates/voiture_boite/list.html:97
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:111
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:119
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:105
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:108
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:113
@@ -8354,7 +8369,7 @@ msgstr "No se encontraron facturas"
 #: recharge/templates/recharge/recharge_list.html:164
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:119
 #: voiture/voiture_boite/templates/voiture_boite/list.html:102
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:116
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:124
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:110
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:113
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:118
@@ -8471,7 +8486,7 @@ msgstr "Primero"
 #: recharge/templates/recharge/recharge_list.html:165
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:120
 #: voiture/voiture_boite/templates/voiture_boite/list.html:103
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:117
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:125
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:111
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:114
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:119
@@ -8588,7 +8603,7 @@ msgstr "Último"
 #: recharge/templates/recharge/recharge_list.html:166
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:121
 #: voiture/voiture_boite/templates/voiture_boite/list.html:104
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:118
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:126
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:112
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:115
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:120
@@ -8705,7 +8720,7 @@ msgstr "Siguiente"
 #: recharge/templates/recharge/recharge_list.html:167
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:122
 #: voiture/voiture_boite/templates/voiture_boite/list.html:105
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:119
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:127
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:113
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:116
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:121
@@ -8810,7 +8825,7 @@ msgstr "Información no disponible"
 #: recharge/templates/recharge/recharge_list.html:148
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:101
 #: voiture/voiture_boite/templates/voiture_boite/list.html:84
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:98
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:106
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:94
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:111
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:45
@@ -9641,8 +9656,12 @@ msgstr "Fecha"
 #: piece/models.py:58 piece/templates/piece/piece_detail.html:10
 #: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:97
 #: recharge/models.py:121 recharge/templates/recharge/recharge_list.html:82
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:18
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:60
+#: voiture/voiture_diagnostic/models.py:30
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:24
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:68
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:69
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:34
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:51
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:20
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:49
 #: voiture/voiture_location/models.py:131
@@ -11138,9 +11157,6 @@ msgstr "Tipo"
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:45
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:56
 #: piece/templates/piece/piece_detail.html:5 recharge/models.py:109
-#: voiture/voiture_diagnostic/models.py:27
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:34
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:51
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:36
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:71
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:37
@@ -11758,9 +11774,7 @@ msgstr "Agregar un modelo"
 #: _backup_list_templates/voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:76
 #: fuel/forms.py:21 maintenance/templates/maintenance/creer_maintenance.html:25
 #: piece/models.py:40 piece/templates/piece/piece_detail.html:8
-#: recharge/models.py:115 voiture/voiture_diagnostic/models.py:34
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:38
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:52
+#: recharge/models.py:115
 #: voiture/voiture_modele/templates/voiture_modele/ajouter_modele.html:75
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:49
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:45
@@ -12099,7 +12113,7 @@ msgstr "Compra de mercancías"
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:104
 #: voiture/voiture_boite/templates/voiture_boite/ajouter_boite.html:70
 #: voiture/voiture_boite/templates/voiture_boite/modifier_boite.html:71
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:82
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:89
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:81
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:93
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:85
@@ -12344,8 +12358,8 @@ msgstr "Guardar"
 #: voiture/voiture_boite/templates/voiture_boite/ajouter_boite.html:75
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:178
 #: voiture/voiture_boite/templates/voiture_boite/modifier_boite.html:75
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:29
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:86
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:35
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:93
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:86
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:111
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:97
@@ -12492,7 +12506,7 @@ msgstr "Total con IVA"
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:158
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:169
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:170
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:83
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:90
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:101
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:291
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:80
@@ -14051,7 +14065,7 @@ msgstr "Crear un piloto"
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_form.html:42
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:48
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:34
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:39
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:47
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:33
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:39
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:39
@@ -14283,6 +14297,7 @@ msgstr "Pieza / producto"
 #: maintenance/choices.py:2425 maintenance/choices.py:2505
 #: maintenance/choices.py:2553 maintenance/pneus/models.py:52
 #: piece/piece_roue_rechange/models.py:10
+#: voiture/voiture_diagnostic/pieces_defaut.py:506
 msgid "Autre"
 msgstr "Otro"
 
@@ -16273,7 +16288,7 @@ msgstr "Precio"
 
 #: fuel/templates/fuel/fuel_delete.html:34
 #: recharge/templates/recharge/electricite_delete.html:34
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:25
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:31
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:21
 #: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:31
 msgid "Confirmer la suppression"
@@ -17056,7 +17071,7 @@ msgstr "Kilometraje del chasis"
 #: maintenance/templates/maintenance/creer_maintenance.html:78
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:113
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:115
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:91
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:98
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:133
 #: voiture/voiture_location/templates/voiture_location/location_form.html:112
 msgid "Date actuelle"
@@ -17224,6 +17239,7 @@ msgstr "Precio de compra sin IVA del calculador de ABS"
 
 #: maintenance/autres_interventions/abs/models.py:135
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:446
+#: voiture/voiture_diagnostic/pieces_defaut.py:249
 msgid "Capteur ABS avant droit"
 msgstr "Sensor ABS delantero derecho"
 
@@ -17233,6 +17249,7 @@ msgstr "Precio del sensor ABS delantero derecho"
 
 #: maintenance/autres_interventions/abs/models.py:141
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:469
+#: voiture/voiture_diagnostic/pieces_defaut.py:248
 msgid "Capteur ABS avant gauche"
 msgstr "Sensor ABS delantero izquierdo"
 
@@ -17242,6 +17259,7 @@ msgstr "Precio del sensor ABS delantero izquierdo"
 
 #: maintenance/autres_interventions/abs/models.py:147
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:492
+#: voiture/voiture_diagnostic/pieces_defaut.py:251
 msgid "Capteur ABS arrière droit"
 msgstr "Sensor ABS trasero derecho"
 
@@ -17251,6 +17269,7 @@ msgstr "Precio del sensor ABS trasero derecho"
 
 #: maintenance/autres_interventions/abs/models.py:153
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:515
+#: voiture/voiture_diagnostic/pieces_defaut.py:250
 msgid "Capteur ABS arrière gauche"
 msgstr "Sensor ABS trasero izquierdo"
 
@@ -19018,6 +19037,7 @@ msgstr "Kilometraje en el momento del control"
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:370
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:277
 #: piece/piece_boite/models.py:98
+#: voiture/voiture_diagnostic/pieces_defaut.py:225
 msgid "Convertisseur de couple"
 msgstr "Convertidor de par"
 
@@ -19242,6 +19262,7 @@ msgstr "Sensor de velocidad de salida"
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1740
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1092
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1787
+#: voiture/voiture_diagnostic/pieces_defaut.py:179
 msgid "Capteur de température d'huile"
 msgstr "Sensor de temperatura del aceite"
 
@@ -19250,8 +19271,9 @@ msgstr "Sensor de temperatura del aceite"
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1764
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1113
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1811
+#: voiture/voiture_diagnostic/pieces_defaut.py:176
 msgid "Capteur de pression d'huile"
-msgstr "Sensor de presión del aceite"
+msgstr "Sensor de presión de aceite"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1089
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1781
@@ -19290,6 +19312,7 @@ msgstr "Selector de la caja de cambios"
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1884
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1218
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1931
+#: voiture/voiture_diagnostic/pieces_defaut.py:230
 msgid "Capteur de position du sélecteur"
 msgstr "Sensor de posición del selector"
 
@@ -19927,6 +19950,7 @@ msgstr "Precio de compra del condensador sin IVA"
 
 #: maintenance/autres_interventions/climatisation/models.py:442
 #: maintenance/autres_interventions/climatisation/models.py:884
+#: voiture/voiture_diagnostic/pieces_defaut.py:312
 msgid "Compresseur de climatisation"
 msgstr "Compresor del aire acondicionado"
 
@@ -20438,6 +20462,7 @@ msgstr "Cenizas del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:891
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:888
+#: voiture/voiture_diagnostic/pieces_defaut.py:145
 msgid "Injecteur AdBlue"
 msgstr "Inyector de AdBlue"
 
@@ -22155,8 +22180,9 @@ msgstr "Faros delanteros"
 #: maintenance/eclairage/templates/eclairage/modifier_eclairage.html:422
 #: maintenance/entretien/templates/entretien/entretien_check.html:1072
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:1076
+#: voiture/voiture_diagnostic/pieces_defaut.py:368
 msgid "Feu de recul"
-msgstr "Luces de reversa"
+msgstr "Luz de marcha atrás"
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:1300
 msgid "Temps de main-d’œuvre"
@@ -22610,7 +22636,7 @@ msgstr "Especifique la ubicación de la fuga."
 #: maintenance/check_up/admin.py:112
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:773
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:896
-#: maintenance/models.py:40
+#: maintenance/models.py:40 voiture/voiture_diagnostic/pieces_defaut.py:157
 msgid "Refroidissement"
 msgstr "Refrigeración"
 
@@ -29106,6 +29132,7 @@ msgstr "Kilometraje de mantenimiento"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:601
 #: piece/piece_filtres/models.py:9
+#: voiture/voiture_diagnostic/pieces_defaut.py:49
 msgid "Filtre à carburant"
 msgstr "Filtro de combustible"
 
@@ -29207,11 +29234,13 @@ msgstr "Brazo limpiaparabrisas trasero"
 
 #: maintenance/essuyage/models.py:284 maintenance/essuyage/models.py:963
 #: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:502
+#: voiture/voiture_diagnostic/pieces_defaut.py:403
 msgid "Moteur d'essuie-glace avant"
 msgstr "Motor del limpiaparabrisas delantero"
 
 #: maintenance/essuyage/models.py:311 maintenance/essuyage/models.py:964
 #: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:517
+#: voiture/voiture_diagnostic/pieces_defaut.py:404
 msgid "Moteur d'essuie-glace arrière"
 msgstr "Motor del limpiaparabrisas trasero"
 
@@ -30264,7 +30293,7 @@ msgstr "Kilometraje de la intervención"
 
 #: maintenance/templates/maintenance/partials/intervention_detail.html:110
 #: piece/templates/piece/piece_detail.html:48
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:78
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:85
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:82
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:92
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:113
@@ -30633,6 +30662,7 @@ msgid "Batterie haute tension (hybride/électrique)"
 msgstr "Batería de alta tensión (híbrida/eléctrica)"
 
 #: piece/piece_batterie/models.py:18
+#: voiture/voiture_diagnostic/pieces_defaut.py:194
 msgid "Capteur de batterie (IBS)"
 msgstr "Sensor de batería (IBS)"
 
@@ -31019,6 +31049,7 @@ msgid "Pièces de direction"
 msgstr "Piezas de dirección"
 
 #: piece/piece_distribution/models.py:13
+#: voiture/voiture_diagnostic/pieces_defaut.py:106
 msgid "Chaîne de distribution"
 msgstr "Cadena de distribución"
 
@@ -31103,22 +31134,27 @@ msgid "Pièces d’échappement"
 msgstr "Piezas de escape"
 
 #: piece/piece_electricite/models.py:10
+#: voiture/voiture_diagnostic/pieces_defaut.py:196
 msgid "Démarreur"
 msgstr "Motor de arranque"
 
 #: piece/piece_electricite/models.py:11
+#: voiture/voiture_diagnostic/pieces_defaut.py:390
 msgid "Lève-vitre avant gauche"
 msgstr "Elevalunas delantero izquierdo"
 
 #: piece/piece_electricite/models.py:12
+#: voiture/voiture_diagnostic/pieces_defaut.py:391
 msgid "Lève-vitre avant droit"
 msgstr "Elevalunas delantero derecho"
 
 #: piece/piece_electricite/models.py:13
+#: voiture/voiture_diagnostic/pieces_defaut.py:392
 msgid "Lève-vitre arrière gauche"
 msgstr "Elevalunas trasero izquierdo"
 
 #: piece/piece_electricite/models.py:14
+#: voiture/voiture_diagnostic/pieces_defaut.py:393
 msgid "Lève-vitre arrière droit"
 msgstr "Elevalunas trasero derecho"
 
@@ -33346,7 +33382,7 @@ msgid "Aucune activité enregistrée"
 msgstr "No hay actividad registrada"
 
 #: theme/templates/dashboard.html:265 voiture/voiture_diagnostic/apps.py:7
-#: voiture/voiture_diagnostic/models.py:66
+#: voiture/voiture_diagnostic/models.py:69
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:4
 msgid "Diagnostics"
 msgstr "Diagnósticos"
@@ -33949,6 +33985,7 @@ msgid "N° de boîte"
 msgstr "N.º de caja de cambios"
 
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:107
+#: voiture/voiture_diagnostic/pieces_defaut.py:175
 msgid "Lubrification"
 msgstr "Lubricación"
 
@@ -34055,45 +34092,1825 @@ msgstr "Eliminación de la caja de cambios"
 msgid "La boîte « %(nom)s » a bien été supprimée."
 msgstr "La caja de cambios « %(nom)s » se ha eliminado correctamente."
 
-#: voiture/voiture_diagnostic/models.py:39
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:16
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:50
+#: voiture/voiture_diagnostic/models.py:35
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:22
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:52
 msgid "Code défaut"
 msgstr "Código de avería"
 
-#: voiture/voiture_diagnostic/models.py:43
+#: voiture/voiture_diagnostic/models.py:39
 msgid "Code défaut invalide (lettres majuscules, chiffres et tirets)."
 msgstr "Código de avería no válido (letras mayúsculas, cifras y guiones)."
 
-#: voiture/voiture_diagnostic/models.py:46
+#: voiture/voiture_diagnostic/models.py:42
 msgid "Ex. : P0301, U0100, 2C4F"
 msgstr "P. ej.: P0301, U0100, 2C4F"
 
-#: voiture/voiture_diagnostic/models.py:51
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:17
+#: voiture/voiture_diagnostic/models.py:48
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:23
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:42
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:53
 msgid "Pièce en défaut"
 msgstr "Pieza defectuosa"
 
-#: voiture/voiture_diagnostic/models.py:52
-msgid "Ex. : bobine d'allumage cylindre 1"
-msgstr "P. ej.: bobina de encendido cilindro 1"
+#: voiture/voiture_diagnostic/models.py:55
+msgid "Autre pièce (préciser)"
+msgstr "Otra pieza (especificar)"
 
-#: voiture/voiture_diagnostic/models.py:58
+#: voiture/voiture_diagnostic/models.py:61
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:54
 msgid "Description / solution"
 msgstr "Descripción / solución"
 
-#: voiture/voiture_diagnostic/models.py:91
-msgid "Ce modèle n'appartient pas à la marque choisie."
-msgstr "Este modelo no pertenece a la marca elegida."
+#: voiture/voiture_diagnostic/models.py:96
+msgid "Précisez la pièce en défaut."
+msgstr "Especifique la pieza defectuosa."
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:5
+msgid "Admission d'air et suralimentation"
+msgstr "Admisión de aire y sobrealimentación"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:6
+msgid "Débitmètre d'air (MAF)"
+msgstr "Caudalímetro de aire (MAF)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:7
+msgid "Capteur de pression collecteur d'admission (MAP)"
+msgstr "Sensor de presión del colector de admisión (MAP)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:8
+msgid "Capteur de température d'air d'admission"
+msgstr "Sensor de temperatura del aire de admisión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:9
+msgid "Capteur de pression atmosphérique"
+msgstr "Sensor de presión atmosférica"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:10
+msgid "Boîtier papillon motorisé"
+msgstr "Cuerpo de mariposa motorizado"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:11
+msgid "Capteur de position papillon"
+msgstr "Sensor de posición de la mariposa"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:13
+msgid "Fuite d'air à l'admission (durite, collecteur)"
+msgstr "Fuga de aire en la admisión (manguito, colector)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:14
+msgid "Volets de collecteur d'admission (swirl)"
+msgstr "Mariposas de turbulencia del colector de admisión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:15
+msgid "Actionneur de volets d'admission"
+msgstr "Actuador de mariposas de admisión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:16
+msgid "Collecteur d'admission à longueur variable"
+msgstr "Colector de admisión de longitud variable"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:17
+msgid "Turbocompresseur"
+msgstr "Turbocompresor"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:18
+msgid "Turbo à géométrie variable (actionneur VNT)"
+msgstr "Turbo de geometría variable (actuador VNT)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:19
+msgid "Wastegate / actionneur de turbo"
+msgstr "Wastegate / actuador del turbo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:20
+msgid "Électrovanne de régulation de pression de turbo"
+msgstr "Electroválvula de regulación de presión del turbo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:21
+msgid "Capteur de pression de suralimentation"
+msgstr "Sensor de presión de sobrealimentación"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:22
+msgid "Capteur de température de suralimentation"
+msgstr "Sensor de temperatura del aire de sobrealimentación"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:23
+msgid "Échangeur d'air (intercooler)"
+msgstr "Intercooler"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:24
+msgid "Durite d'intercooler"
+msgstr "Manguito del intercooler"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:25
+msgid "Valve de décharge (dump valve)"
+msgstr "Válvula de descarga (dump valve)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:26
+msgid "Compresseur volumétrique"
+msgstr "Compresor volumétrico"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:27
+msgid "Embrayage de compresseur volumétrique"
+msgstr "Embrague del compresor volumétrico"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:29
+msgid "Carburant et injection"
+msgstr "Combustible e inyección"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:30
+msgid "Injecteur cylindre 1"
+msgstr "Inyector cilindro 1"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:31
+msgid "Injecteur cylindre 2"
+msgstr "Inyector cilindro 2"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:32
+msgid "Injecteur cylindre 3"
+msgstr "Inyector cilindro 3"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:33
+msgid "Injecteur cylindre 4"
+msgstr "Inyector cilindro 4"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:34
+msgid "Injecteur cylindre 5"
+msgstr "Inyector cilindro 5"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:35
+msgid "Injecteur cylindre 6"
+msgstr "Inyector cilindro 6"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:36
+msgid "Injecteur cylindre 7"
+msgstr "Inyector cilindro 7"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:37
+msgid "Injecteur cylindre 8"
+msgstr "Inyector cilindro 8"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:38
+msgid "Injecteurs (général)"
+msgstr "Inyectores (general)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:39
+msgid "Pompe à carburant basse pression (réservoir)"
+msgstr "Bomba de combustible de baja presión (depósito)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:40
+msgid "Module de commande de pompe à carburant"
+msgstr "Módulo de control de la bomba de combustible"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:41
+msgid "Relais de pompe à carburant"
+msgstr "Relé de la bomba de combustible"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:43
+msgid "Capteur de pression de rampe (rail)"
+msgstr "Sensor de presión del rail"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:44
+msgid "Régulateur de pression de rampe"
+msgstr "Regulador de presión del rail"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:45
+msgid "Vanne de dosage carburant (IMV)"
+msgstr "Válvula dosificadora de combustible (IMV)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:46
+msgid "Régulateur de pression carburant"
+msgstr "Regulador de presión de combustible"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:47
+msgid "Capteur de pression carburant basse pression"
+msgstr "Sensor de presión de combustible de baja presión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:48
+msgid "Capteur de température de carburant"
+msgstr "Sensor de temperatura del combustible"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:50
+msgid "Capteur de présence d'eau dans le gazole"
+msgstr "Sensor de agua en el gasóleo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:51
+msgid "Réchauffeur de gazole"
+msgstr "Calentador de gasóleo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:52
+msgid "Jauge / capteur de niveau de carburant"
+msgstr "Aforador / sensor de nivel de combustible"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:53
+msgid "Électrovanne de purge canister (EVAP)"
+msgstr "Electroválvula de purga del cánister (EVAP)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:54
+msgid "Électrovanne de mise à l'air canister"
+msgstr "Electroválvula de ventilación del cánister"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:55
+msgid "Canister à charbon actif"
+msgstr "Cánister de carbón activo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:56
+msgid "Fuite du système EVAP"
+msgstr "Fuga del sistema EVAP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:57
+msgid "Capteur de pression du réservoir"
+msgstr "Sensor de presión del depósito"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:58
+msgid "Bouchon de réservoir"
+msgstr "Tapón del depósito"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:59
+msgid "Capteur de composition carburant (flex fuel)"
+msgstr "Sensor de composición del combustible (flex fuel)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:60
+msgid "Injecteur GPL"
+msgstr "Inyector GLP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:61
+msgid "Électrovanne GPL"
+msgstr "Electroválvula GLP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:62
+msgid "Détendeur GPL"
+msgstr "Reductor GLP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:64
+msgid "Allumage et préchauffage"
+msgstr "Encendido y precalentamiento"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:65
+msgid "Bobine d'allumage cylindre 1"
+msgstr "Bobina de encendido cilindro 1"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:66
+msgid "Bobine d'allumage cylindre 2"
+msgstr "Bobina de encendido cilindro 2"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:67
+msgid "Bobine d'allumage cylindre 3"
+msgstr "Bobina de encendido cilindro 3"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:68
+msgid "Bobine d'allumage cylindre 4"
+msgstr "Bobina de encendido cilindro 4"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:69
+msgid "Bobine d'allumage cylindre 5"
+msgstr "Bobina de encendido cilindro 5"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:70
+msgid "Bobine d'allumage cylindre 6"
+msgstr "Bobina de encendido cilindro 6"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:71
+msgid "Bobine d'allumage cylindre 7"
+msgstr "Bobina de encendido cilindro 7"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:72
+msgid "Bobine d'allumage cylindre 8"
+msgstr "Bobina de encendido cilindro 8"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:73
+msgid "Bougie d'allumage cylindre 1"
+msgstr "Bujía cilindro 1"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:74
+msgid "Bougie d'allumage cylindre 2"
+msgstr "Bujía cilindro 2"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:75
+msgid "Bougie d'allumage cylindre 3"
+msgstr "Bujía cilindro 3"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:76
+msgid "Bougie d'allumage cylindre 4"
+msgstr "Bujía cilindro 4"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:77
+msgid "Bougie d'allumage cylindre 5"
+msgstr "Bujía cilindro 5"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:78
+msgid "Bougie d'allumage cylindre 6"
+msgstr "Bujía cilindro 6"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:79
+msgid "Bougie d'allumage cylindre 7"
+msgstr "Bujía cilindro 7"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:80
+msgid "Bougie d'allumage cylindre 8"
+msgstr "Bujía cilindro 8"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:81
+msgid "Bobine d'allumage (jumo / bloc)"
+msgstr "Bobina de encendido (bloque)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:82
+msgid "Câble / fil de bougie"
+msgstr "Cable de bujía"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:84
+msgid "Bougie de préchauffage cylindre 1"
+msgstr "Bujía de precalentamiento cilindro 1"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:85
+msgid "Bougie de préchauffage cylindre 2"
+msgstr "Bujía de precalentamiento cilindro 2"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:86
+msgid "Bougie de préchauffage cylindre 3"
+msgstr "Bujía de precalentamiento cilindro 3"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:87
+msgid "Bougie de préchauffage cylindre 4"
+msgstr "Bujía de precalentamiento cilindro 4"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:88
+msgid "Bougie de préchauffage cylindre 5"
+msgstr "Bujía de precalentamiento cilindro 5"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:89
+msgid "Bougie de préchauffage cylindre 6"
+msgstr "Bujía de precalentamiento cilindro 6"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:90
+msgid "Boîtier / relais de préchauffage"
+msgstr "Centralita / relé de precalentamiento"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:91
+msgid "Capteur de cliquetis 1"
+msgstr "Sensor de detonación 1"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:92
+msgid "Capteur de cliquetis 2"
+msgstr "Sensor de detonación 2"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:94
+msgid "Distribution et calage"
+msgstr "Distribución y calado"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:95
+msgid "Capteur de position de vilebrequin (PMH)"
+msgstr "Sensor de posición del cigüeñal (PMS)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:96
+msgid "Cible / volant moteur"
+msgstr "Rueda fónica / volante motor"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:97
+msgid "Capteur d'arbre à cames admission (banc 1)"
+msgstr "Sensor de árbol de levas de admisión (banco 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:98
+msgid "Capteur d'arbre à cames admission (banc 2)"
+msgstr "Sensor de árbol de levas de admisión (banco 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:99
+msgid "Capteur d'arbre à cames échappement (banc 1)"
+msgstr "Sensor de árbol de levas de escape (banco 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:100
+msgid "Capteur d'arbre à cames échappement (banc 2)"
+msgstr "Sensor de árbol de levas de escape (banco 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:101
+msgid "Déphaseur d'arbre à cames admission (VVT)"
+msgstr "Variador de fase de admisión (VVT)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:102
+msgid "Déphaseur d'arbre à cames échappement (VVT)"
+msgstr "Variador de fase de escape (VVT)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:103
+msgid "Électrovanne de déphaseur admission"
+msgstr "Electroválvula del variador de admisión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:104
+msgid "Électrovanne de déphaseur échappement"
+msgstr "Electroválvula del variador de escape"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:105
+msgid "Corrélation vilebrequin / arbre à cames (distribution décalée)"
+msgstr "Correlación cigüeñal / árbol de levas (distribución desfasada)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:108
+msgid "Tendeur de distribution"
+msgstr "Tensor de distribución"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:109
+msgid "Moteur Valvetronic / levée variable"
+msgstr "Motor Valvetronic / alzada variable"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:110
+msgid "Capteur de position Valvetronic"
+msgstr "Sensor de posición Valvetronic"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:111
+msgid "Poussoirs / levée de soupapes variable (VTEC, VarioCam)"
+msgstr "Taqués / alzada variable de válvulas (VTEC, VarioCam)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:113
+msgid "Échappement et dépollution"
+msgstr "Escape y anticontaminación"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:114
+msgid "Sonde lambda amont (banc 1)"
+msgstr "Sonda lambda anterior (banco 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:115
+msgid "Sonde lambda amont (banc 2)"
+msgstr "Sonda lambda anterior (banco 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:116
+msgid "Sonde lambda aval (banc 1)"
+msgstr "Sonda lambda posterior (banco 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:117
+msgid "Sonde lambda aval (banc 2)"
+msgstr "Sonda lambda posterior (banco 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:118
+msgid "Chauffage de sonde lambda amont (banc 1)"
+msgstr "Calefactor de sonda lambda anterior (banco 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:119
+msgid "Chauffage de sonde lambda amont (banc 2)"
+msgstr "Calefactor de sonda lambda anterior (banco 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:120
+msgid "Chauffage de sonde lambda aval (banc 1)"
+msgstr "Calefactor de sonda lambda posterior (banco 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:121
+msgid "Chauffage de sonde lambda aval (banc 2)"
+msgstr "Calefactor de sonda lambda posterior (banco 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:122
+msgid "Sonde lambda large bande"
+msgstr "Sonda lambda de banda ancha"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:123
+msgid "Catalyseur (banc 1)"
+msgstr "Catalizador (banco 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:124
+msgid "Catalyseur (banc 2)"
+msgstr "Catalizador (banco 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:125
+msgid "Filtre à particules (FAP / DPF)"
+msgstr "Filtro de partículas (FAP / DPF)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:126
+msgid "Filtre à particules essence (GPF / OPF)"
+msgstr "Filtro de partículas de gasolina (GPF / OPF)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:127
+msgid "Capteur de pression différentielle FAP"
+msgstr "Sensor de presión diferencial del FAP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:128
+msgid "Durite de capteur de pression FAP"
+msgstr "Tubo del sensor de presión del FAP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:129
+msgid "Capteur de température gaz d'échappement amont turbo"
+msgstr "Sensor de temperatura de gases antes del turbo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:130
+msgid "Capteur de température gaz d'échappement amont catalyseur"
+msgstr "Sensor de temperatura de gases antes del catalizador"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:131
+msgid "Capteur de température gaz d'échappement amont FAP"
+msgstr "Sensor de temperatura de gases antes del FAP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:132
+msgid "Capteur de température gaz d'échappement aval FAP"
+msgstr "Sensor de temperatura de gases después del FAP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:133
+msgid "Additif FAP (Eolys / réservoir)"
+msgstr "Aditivo FAP (Eolys / depósito)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:134
+msgid "Pompe d'additif FAP"
+msgstr "Bomba de aditivo del FAP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:136
+msgid "Capteur de position de vanne EGR"
+msgstr "Sensor de posición de la válvula EGR"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:137
+msgid "Refroidisseur EGR"
+msgstr "Enfriador EGR"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:138
+msgid "Vanne de by-pass refroidisseur EGR"
+msgstr "Válvula de bypass del enfriador EGR"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:139
+msgid "Vanne EGR basse pression"
+msgstr "Válvula EGR de baja presión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:140
+msgid "Volet d'échappement / papillon d'échappement"
+msgstr "Mariposa de escape"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:141
+msgid "Capteur NOx amont"
+msgstr "Sensor de NOx anterior"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:142
+msgid "Capteur NOx aval"
+msgstr "Sensor de NOx posterior"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:143
+msgid "Catalyseur SCR"
+msgstr "Catalizador SCR"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:144
+msgid "Piège à NOx (NSC / LNT)"
+msgstr "Trampa de NOx (NSC / LNT)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:146
+msgid "Pompe AdBlue"
+msgstr "Bomba de AdBlue"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:147
+msgid "Réservoir AdBlue"
+msgstr "Depósito de AdBlue"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:148
+msgid "Chauffage du circuit AdBlue"
+msgstr "Calefactor del circuito de AdBlue"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:149
+msgid "Capteur de niveau / qualité AdBlue"
+msgstr "Sensor de nivel / calidad de AdBlue"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:150
+msgid "Calculateur SCR / AdBlue"
+msgstr "Centralita SCR / AdBlue"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:151
+msgid "Pompe à air secondaire"
+msgstr "Bomba de aire secundario"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:152
+msgid "Vanne d'air secondaire"
+msgstr "Válvula de aire secundario"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:153
+msgid "Clapet d'échappement piloté"
+msgstr "Válvula de escape pilotada"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:154
+msgid "Fuite d'échappement"
+msgstr "Fuga de escape"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:155
+msgid "Silencieux / ligne d'échappement"
+msgstr "Silenciador / línea de escape"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:158
+msgid "Capteur de température de liquide de refroidissement"
+msgstr "Sensor de temperatura del refrigerante"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:159
+msgid "Capteur de température sortie radiateur"
+msgstr "Sensor de temperatura de salida del radiador"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:161
+msgid "Thermostat piloté (cartographique)"
+msgstr "Termostato pilotado (cartográfico)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:162
+msgid "Pompe à eau mécanique"
+msgstr "Bomba de agua mecánica"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:163
+msgid "Pompe à eau électrique"
+msgstr "Bomba de agua eléctrica"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:164
+msgid "Pompe à eau additionnelle"
+msgstr "Bomba de agua adicional"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:165
+msgid "Pompe à eau commutable"
+msgstr "Bomba de agua conmutable"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:166
+msgid "Ventilateur de refroidissement (GMV)"
+msgstr "Electroventilador de refrigeración"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:167
+msgid "Relais / module de ventilateur"
+msgstr "Relé / módulo del ventilador"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:168
+msgid "Résistance de ventilateur"
+msgstr "Resistencia del ventilador"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:169
+msgid "Radiateur de refroidissement"
+msgstr "Radiador"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:170
+msgid "Capteur de niveau de liquide de refroidissement"
+msgstr "Sensor de nivel del refrigerante"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:171
+msgid "Vase d'expansion / bouchon"
+msgstr "Vaso de expansión / tapón"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:172
+msgid "Durite de refroidissement"
+msgstr "Manguito de refrigeración"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:173
+msgid "Vanne de régulation de liquide de refroidissement"
+msgstr "Válvula de regulación del refrigerante"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:177
+msgid "Manocontact de pression d'huile"
+msgstr "Manocontacto de presión de aceite"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:178
+msgid "Capteur de niveau d'huile"
+msgstr "Sensor de nivel de aceite"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:180
+msgid "Capteur de qualité d'huile"
+msgstr "Sensor de calidad del aceite"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:181
+msgid "Pompe à huile à débit variable"
+msgstr "Bomba de aceite de caudal variable"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:182
+msgid "Électrovanne de pompe à huile"
+msgstr "Electroválvula de la bomba de aceite"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:183
+msgid "Échangeur huile / eau"
+msgstr "Intercambiador aceite / agua"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:184
+msgid "Gicleurs de fond de piston (électrovanne)"
+msgstr "Inyectores de refrigeración de pistones (electroválvula)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:185
+msgid "Séparateur d'huile / reniflard (PCV)"
+msgstr "Separador de aceite / respiradero (PCV)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:186
+msgid "Chauffage de reniflard"
+msgstr "Calefactor del respiradero"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:188
+msgid "Gestion moteur et alimentation électrique"
+msgstr "Gestión del motor y alimentación eléctrica"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:189
+msgid "Calculateur moteur (ECU)"
+msgstr "Centralita del motor (ECU)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:190
+msgid "Relais principal du calculateur moteur"
+msgstr "Relé principal de la centralita del motor"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:192
+msgid "Régulateur d'alternateur"
+msgstr "Regulador del alternador"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:193
+msgid "Batterie 12 V"
+msgstr "Batería de 12 V"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:195
+msgid "Batterie auxiliaire"
+msgstr "Batería auxiliar"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:197
+msgid "Relais de démarreur"
+msgstr "Relé del motor de arranque"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:198
+msgid "Alterno-démarreur"
+msgstr "Alternador-arrancador"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:199
+msgid "Système Stop & Start"
+msgstr "Sistema Stop & Start"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:200
+msgid "Capteur de position de pédale d'accélérateur"
+msgstr "Sensor de posición del pedal del acelerador"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:201
+msgid "Contacteur de pédale de frein"
+msgstr "Interruptor del pedal de freno"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:202
+msgid "Contacteur de pédale d'embrayage"
+msgstr "Interruptor del pedal de embrague"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:203
+msgid "Capteur de position de pédale d'embrayage"
+msgstr "Sensor de posición del pedal de embrague"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:204
+msgid "Régulateur de vitesse (commande)"
+msgstr "Control de crucero (mando)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:205
+msgid "Limiteur de vitesse"
+msgstr "Limitador de velocidad"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:206
+msgid "Ratés d'allumage multiples / aléatoires"
+msgstr "Fallos de encendido múltiples / aleatorios"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:207
+msgid "Mélange trop pauvre (banc 1)"
+msgstr "Mezcla demasiado pobre (banco 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:208
+msgid "Mélange trop pauvre (banc 2)"
+msgstr "Mezcla demasiado pobre (banco 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:209
+msgid "Mélange trop riche (banc 1)"
+msgstr "Mezcla demasiado rica (banco 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:210
+msgid "Mélange trop riche (banc 2)"
+msgstr "Mezcla demasiado rica (banco 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:211
+msgid "Support moteur actif"
+msgstr "Soporte de motor activo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:212
+msgid "Fusible / alimentation calculateur"
+msgstr "Fusible / alimentación de la centralita"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:213
+msgid "Tension d'alimentation trop basse"
+msgstr "Tensión de alimentación demasiado baja"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:214
+msgid "Tension d'alimentation trop élevée"
+msgstr "Tensión de alimentación demasiado alta"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:216
+msgid "Boîte de vitesses et transmission"
+msgstr "Caja de cambios y transmisión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:217
+msgid "Calculateur de boîte automatique (TCU)"
+msgstr "Centralita del cambio automático (TCU)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:218
+msgid "Mécatronique de boîte"
+msgstr "Mecatrónica del cambio"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:219
+msgid "Capteur de vitesse arbre d'entrée"
+msgstr "Sensor de velocidad del eje de entrada"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:220
+msgid "Capteur de vitesse arbre de sortie"
+msgstr "Sensor de velocidad del eje de salida"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:221
+msgid "Capteur de vitesse arbre intermédiaire"
+msgstr "Sensor de velocidad del eje intermedio"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:222
+msgid "Électrovanne de passage de rapport"
+msgstr "Electroválvula de cambio de marcha"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:223
+msgid "Électrovanne de régulation de pression"
+msgstr "Electroválvula de regulación de presión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:224
+msgid "Électrovanne de pontage du convertisseur"
+msgstr "Electroválvula de bloqueo del convertidor"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:226
+msgid "Capteur de température d'huile de boîte"
+msgstr "Sensor de temperatura del aceite del cambio"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:227
+msgid "Capteur de pression d'huile de boîte"
+msgstr "Sensor de presión del aceite del cambio"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:228
+msgid "Pompe à huile de boîte (électrique)"
+msgstr "Bomba de aceite del cambio (eléctrica)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:229
+msgid "Sélecteur de vitesses / levier"
+msgstr "Selector de marchas / palanca"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:231
+msgid "Capteur de rapport engagé"
+msgstr "Sensor de marcha engranada"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:232
+msgid "Contacteur de point mort"
+msgstr "Interruptor de punto muerto"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:233
+msgid "Contacteur de feux de recul"
+msgstr "Interruptor de luces de marcha atrás"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:234
+msgid "Embrayage 1 (double embrayage)"
+msgstr "Embrague 1 (doble embrague)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:235
+msgid "Embrayage 2 (double embrayage)"
+msgstr "Embrague 2 (doble embrague)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:236
+msgid "Actionneur d'embrayage"
+msgstr "Actuador del embrague"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:237
+msgid "Embrayage / volant bimasse"
+msgstr "Embrague / volante bimasa"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:238
+msgid "Émetteur / récepteur d'embrayage"
+msgstr "Bomba / bombín del embrague"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:239
+msgid "Actionneur de boîte robotisée"
+msgstr "Actuador del cambio robotizado"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:240
+msgid "Boîte de transfert"
+msgstr "Caja de transferencia"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:241
+msgid "Moteur de boîte de transfert"
+msgstr "Motor de la caja de transferencia"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:242
+msgid "Coupleur 4x4 (Haldex)"
+msgstr "Acoplador 4x4 (Haldex)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:243
+msgid "Pompe de coupleur Haldex"
+msgstr "Bomba del acoplador Haldex"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:244
+msgid "Différentiel piloté / autobloquant"
+msgstr "Diferencial pilotado / autoblocante"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:245
+msgid "Capteur de vitesse véhicule"
+msgstr "Sensor de velocidad del vehículo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:247
+msgid "Freinage, ABS et ESP"
+msgstr "Frenos, ABS y ESP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:252
+msgid "Couronne / cible ABS avant gauche"
+msgstr "Corona ABS delantera izquierda"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:253
+msgid "Couronne / cible ABS avant droit"
+msgstr "Corona ABS delantera derecha"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:254
+msgid "Couronne / cible ABS arrière gauche"
+msgstr "Corona ABS trasera izquierda"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:255
+msgid "Couronne / cible ABS arrière droit"
+msgstr "Corona ABS trasera derecha"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:256
+msgid "Groupe hydraulique ABS / ESP"
+msgstr "Grupo hidráulico ABS / ESP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:257
+msgid "Calculateur ABS / ESP"
+msgstr "Centralita ABS / ESP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:258
+msgid "Pompe de groupe ABS"
+msgstr "Bomba del grupo ABS"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:259
+msgid "Électrovanne de groupe ABS"
+msgstr "Electroválvula del grupo ABS"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:260
+msgid "Capteur d'angle de volant"
+msgstr "Sensor de ángulo de dirección"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:261
+msgid "Capteur de lacet / accélération (G-sensor)"
+msgstr "Sensor de guiñada / aceleración (G-sensor)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:262
+msgid "Capteur de pression de freinage"
+msgstr "Sensor de presión de frenado"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:263
+msgid "Contacteur de feux stop"
+msgstr "Interruptor de luces de freno"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:264
+msgid "Frein de stationnement électrique gauche"
+msgstr "Freno de estacionamiento eléctrico izquierdo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:265
+msgid "Frein de stationnement électrique droit"
+msgstr "Freno de estacionamiento eléctrico derecho"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:266
+msgid "Calculateur de frein de stationnement"
+msgstr "Centralita del freno de estacionamiento"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:267
+msgid "Bouton de frein de stationnement"
+msgstr "Botón del freno de estacionamiento"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:268
+msgid "Témoin d'usure de plaquettes avant"
+msgstr "Testigo de desgaste de pastillas delanteras"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:269
+msgid "Témoin d'usure de plaquettes arrière"
+msgstr "Testigo de desgaste de pastillas traseras"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:270
+msgid "Capteur de niveau de liquide de frein"
+msgstr "Sensor de nivel del líquido de frenos"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:271
+msgid "Pompe à vide de servofrein"
+msgstr "Bomba de vacío del servofreno"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:272
+msgid "Capteur de dépression de servofrein"
+msgstr "Sensor de depresión del servofreno"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:273
+msgid "Servofrein électrique (iBooster)"
+msgstr "Servofreno eléctrico (iBooster)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:274
+msgid "Aide au démarrage en côte"
+msgstr "Asistente de arranque en pendiente"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:276
+msgid "Direction et suspension"
+msgstr "Dirección y suspensión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:277
+msgid "Direction assistée électrique (moteur)"
+msgstr "Dirección asistida eléctrica (motor)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:278
+msgid "Calculateur de direction assistée"
+msgstr "Centralita de la dirección asistida"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:279
+msgid "Capteur de couple de direction"
+msgstr "Sensor de par de dirección"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:280
+msgid "Pompe de direction assistée"
+msgstr "Bomba de dirección asistida"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:281
+msgid "Électropompe de direction assistée"
+msgstr "Electrobomba de dirección asistida"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:282
+msgid "Capteur de pression de direction"
+msgstr "Sensor de presión de la dirección"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:283
+msgid "Direction active / roues arrière directrices"
+msgstr "Dirección activa / ruedas traseras directrices"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:284
+msgid "Amortisseur piloté avant gauche"
+msgstr "Amortiguador pilotado delantero izquierdo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:285
+msgid "Amortisseur piloté avant droit"
+msgstr "Amortiguador pilotado delantero derecho"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:286
+msgid "Amortisseur piloté arrière gauche"
+msgstr "Amortiguador pilotado trasero izquierdo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:287
+msgid "Amortisseur piloté arrière droit"
+msgstr "Amortiguador pilotado trasero derecho"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:288
+msgid "Capteur de hauteur avant gauche"
+msgstr "Sensor de altura delantero izquierdo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:289
+msgid "Capteur de hauteur avant droit"
+msgstr "Sensor de altura delantero derecho"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:290
+msgid "Capteur de hauteur arrière gauche"
+msgstr "Sensor de altura trasero izquierdo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:291
+msgid "Capteur de hauteur arrière droit"
+msgstr "Sensor de altura trasero derecho"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:292
+msgid "Calculateur de suspension"
+msgstr "Centralita de la suspensión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:293
+msgid "Compresseur de suspension pneumatique"
+msgstr "Compresor de la suspensión neumática"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:294
+msgid "Relais de compresseur de suspension"
+msgstr "Relé del compresor de la suspensión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:295
+msgid "Coussin d'air avant"
+msgstr "Fuelle neumático delantero"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:296
+msgid "Coussin d'air arrière"
+msgstr "Fuelle neumático trasero"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:297
+msgid "Bloc d'électrovannes de suspension"
+msgstr "Bloque de electroválvulas de la suspensión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:298
+msgid "Accumulateur de suspension"
+msgstr "Acumulador de la suspensión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:299
+msgid "Barre anti-roulis active"
+msgstr "Barra estabilizadora activa"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:300
+msgid "Capteur d'accélération de caisse"
+msgstr "Sensor de aceleración de la carrocería"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:302
+msgid "Pneumatiques (TPMS)"
+msgstr "Neumáticos (TPMS)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:303
+msgid "Capteur de pression de pneu avant gauche"
+msgstr "Sensor de presión de neumático delantero izquierdo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:304
+msgid "Capteur de pression de pneu avant droit"
+msgstr "Sensor de presión de neumático delantero derecho"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:305
+msgid "Capteur de pression de pneu arrière gauche"
+msgstr "Sensor de presión de neumático trasero izquierdo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:306
+msgid "Capteur de pression de pneu arrière droit"
+msgstr "Sensor de presión de neumático trasero derecho"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:307
+msgid "Capteur de pression de roue de secours"
+msgstr "Sensor de presión de la rueda de repuesto"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:308
+msgid "Calculateur TPMS"
+msgstr "Centralita TPMS"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:309
+msgid "Antenne TPMS"
+msgstr "Antena TPMS"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:311
+msgid "Climatisation et chauffage"
+msgstr "Climatización y calefacción"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:313
+msgid "Embrayage de compresseur de climatisation"
+msgstr "Embrague del compresor del aire acondicionado"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:314
+msgid "Électrovanne de compresseur (cylindrée variable)"
+msgstr "Electroválvula del compresor (cilindrada variable)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:315
+msgid "Capteur de pression de climatisation"
+msgstr "Sensor de presión del aire acondicionado"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:316
+msgid "Capteur de température d'évaporateur"
+msgstr "Sensor de temperatura del evaporador"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:318
+msgid "Détendeur / vanne d'expansion"
+msgstr "Válvula de expansión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:319
+msgid "Fuite de fluide frigorigène"
+msgstr "Fuga de refrigerante"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:320
+msgid "Pulseur d'air habitacle"
+msgstr "Ventilador del habitáculo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:321
+msgid "Résistance / module de pulseur"
+msgstr "Resistencia / módulo del ventilador"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:322
+msgid "Moteur de volet de mixage"
+msgstr "Motor de la trampilla de mezcla"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:323
+msgid "Moteur de volet de répartition"
+msgstr "Motor de la trampilla de distribución"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:324
+msgid "Moteur de volet de recyclage"
+msgstr "Motor de la trampilla de recirculación"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:325
+msgid "Capteur de température habitacle"
+msgstr "Sensor de temperatura del habitáculo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:326
+msgid "Capteur de température extérieure"
+msgstr "Sensor de temperatura exterior"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:327
+msgid "Capteur d'ensoleillement"
+msgstr "Sensor de radiación solar"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:328
+msgid "Capteur de qualité d'air"
+msgstr "Sensor de calidad del aire"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:329
+msgid "Calculateur de climatisation"
+msgstr "Centralita de climatización"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:330
+msgid "Panneau de commande de climatisation"
+msgstr "Panel de mandos de climatización"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:331
+msgid "Chauffage additionnel (Webasto / Eberspächer)"
+msgstr "Calefacción adicional (Webasto / Eberspächer)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:332
+msgid "Résistance de chauffage additionnelle (PTC)"
+msgstr "Resistencia de calefacción adicional (PTC)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:333
+msgid "Vanne de chauffage"
+msgstr "Válvula de calefacción"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:334
+msgid "Pompe de circulation de chauffage"
+msgstr "Bomba de circulación de la calefacción"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:336
+msgid "Airbags et sécurité passive"
+msgstr "Airbags y seguridad pasiva"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:337
+msgid "Airbag conducteur"
+msgstr "Airbag del conductor"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:338
+msgid "Airbag passager"
+msgstr "Airbag del acompañante"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:339
+msgid "Airbag latéral conducteur"
+msgstr "Airbag lateral del conductor"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:340
+msgid "Airbag latéral passager"
+msgstr "Airbag lateral del acompañante"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:341
+msgid "Airbag latéral arrière"
+msgstr "Airbag lateral trasero"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:342
+msgid "Airbag rideau gauche"
+msgstr "Airbag de cortina izquierdo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:343
+msgid "Airbag rideau droit"
+msgstr "Airbag de cortina derecho"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:344
+msgid "Airbag de genoux"
+msgstr "Airbag de rodilla"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:345
+msgid "Prétensionneur de ceinture conducteur"
+msgstr "Pretensor del cinturón del conductor"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:346
+msgid "Prétensionneur de ceinture passager"
+msgstr "Pretensor del cinturón del acompañante"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:347
+msgid "Prétensionneur de ceinture arrière"
+msgstr "Pretensor del cinturón trasero"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:348
+msgid "Contacteur tournant (ruban d'airbag)"
+msgstr "Cinta del airbag (muelle de reloj)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:349
+msgid "Capteur de choc frontal"
+msgstr "Sensor de impacto frontal"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:350
+msgid "Capteur de choc latéral gauche"
+msgstr "Sensor de impacto lateral izquierdo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:351
+msgid "Capteur de choc latéral droit"
+msgstr "Sensor de impacto lateral derecho"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:352
+msgid "Calculateur d'airbag"
+msgstr "Centralita del airbag"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:353
+msgid "Capteur de présence / occupation passager"
+msgstr "Sensor de ocupación del acompañante"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:354
+msgid "Contacteur de bouclage de ceinture"
+msgstr "Interruptor de la hebilla del cinturón"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:355
+msgid "Désactivation airbag passager"
+msgstr "Desactivación del airbag del acompañante"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:356
+msgid "Batterie / coupe-circuit pyrotechnique"
+msgstr "Desconectador pirotécnico de batería"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:357
+msgid "Appel d'urgence (eCall)"
+msgstr "Llamada de emergencia (eCall)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:359
+msgid "Éclairage et signalisation"
+msgstr "Iluminación y señalización"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:360
+msgid "Feu de croisement gauche"
+msgstr "Luz de cruce izquierda"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:361
+msgid "Feu de croisement droit"
+msgstr "Luz de cruce derecha"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:362
+msgid "Feu de route gauche"
+msgstr "Luz de carretera izquierda"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:363
+msgid "Feu de route droit"
+msgstr "Luz de carretera derecha"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:364
+msgid "Feu de position avant"
+msgstr "Luz de posición delantera"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:365
+msgid "Feu de position arrière"
+msgstr "Luz de posición trasera"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:366
+msgid "Feu stop"
+msgstr "Luz de freno"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:373
+msgid "Répétiteur de clignotant"
+msgstr "Repetidor de intermitente"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:374
+msgid "Feu antibrouillard avant"
+msgstr "Faro antiniebla delantero"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:375
+msgid "Feu antibrouillard arrière"
+msgstr "Luz antiniebla trasera"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:376
+msgid "Éclairage de plaque"
+msgstr "Luz de matrícula"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:377
+msgid "Feu de jour (DRL)"
+msgstr "Luz de circulación diurna (DRL)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:378
+msgid "Ballast xénon"
+msgstr "Balastro de xenón"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:379
+msgid "Module de commande LED"
+msgstr "Módulo de control LED"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:380
+msgid "Phare directionnel / AFS"
+msgstr "Faro direccional / AFS"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:381
+msgid "Correcteur de portée de phare"
+msgstr "Corrector de altura de faros"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:382
+msgid "Capteur d'assiette (correcteur de phare)"
+msgstr "Sensor de nivel (corrector de faros)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:383
+msgid "Calculateur d'éclairage"
+msgstr "Centralita de iluminación"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:384
+msgid "Commodo d'éclairage"
+msgstr "Mando de luces"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:385
+msgid "Capteur de pluie / luminosité"
+msgstr "Sensor de lluvia / luminosidad"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:387
+msgid "Carrosserie, confort et accès"
+msgstr "Carrocería, confort y acceso"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:388
+msgid "Calculateur d'habitacle (BSI / BCM)"
+msgstr "Centralita del habitáculo (BSI / BCM)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:389
+msgid "Boîtier de servitude moteur (BSM / fusibles)"
+msgstr "Caja de fusibles del motor (BSM)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:394
+msgid "Serrure de porte avant gauche"
+msgstr "Cerradura de puerta delantera izquierda"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:395
+msgid "Serrure de porte avant droite"
+msgstr "Cerradura de puerta delantera derecha"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:396
+msgid "Serrure de porte arrière gauche"
+msgstr "Cerradura de puerta trasera izquierda"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:397
+msgid "Serrure de porte arrière droite"
+msgstr "Cerradura de puerta trasera derecha"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:398
+msgid "Serrure de hayon / coffre"
+msgstr "Cerradura del portón / maletero"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:399
+msgid "Verrouillage centralisé"
+msgstr "Cierre centralizado"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:400
+msgid "Rétroviseur extérieur gauche"
+msgstr "Retrovisor exterior izquierdo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:401
+msgid "Rétroviseur extérieur droit"
+msgstr "Retrovisor exterior derecho"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:402
+msgid "Rétroviseur électrochrome"
+msgstr "Retrovisor electrocrómico"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:405
+msgid "Pompe de lave-glace"
+msgstr "Bomba del lavaparabrisas"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:406
+msgid "Capteur de niveau de lave-glace"
+msgstr "Sensor de nivel del lavaparabrisas"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:407
+msgid "Lave-phares"
+msgstr "Lavafaros"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:408
+msgid "Avertisseur sonore (klaxon)"
+msgstr "Bocina (claxon)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:409
+msgid "Toit ouvrant"
+msgstr "Techo solar"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:410
+msgid "Capote électrique"
+msgstr "Capota eléctrica"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:411
+msgid "Hayon électrique"
+msgstr "Portón eléctrico"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:412
+msgid "Siège électrique conducteur"
+msgstr "Asiento eléctrico del conductor"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:413
+msgid "Siège électrique passager"
+msgstr "Asiento eléctrico del acompañante"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:414
+msgid "Chauffage de siège"
+msgstr "Calefacción del asiento"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:415
+msgid "Ventilation de siège"
+msgstr "Ventilación del asiento"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:416
+msgid "Volant chauffant"
+msgstr "Volante calefactado"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:417
+msgid "Lunette arrière chauffante"
+msgstr "Luneta térmica"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:418
+msgid "Pare-brise chauffant"
+msgstr "Parabrisas calefactado"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:419
+msgid "Combiné d'instruments"
+msgstr "Cuadro de instrumentos"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:420
+msgid "Affichage tête haute (HUD)"
+msgstr "Head-up display (HUD)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:421
+msgid "Alarme / sirène"
+msgstr "Alarma / sirena"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:422
+msgid "Capteur volumétrique d'alarme"
+msgstr "Sensor volumétrico de la alarma"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:424
+msgid "Clé, antidémarrage et accès sans clé"
+msgstr "Llave, inmovilizador y acceso sin llave"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:425
+msgid "Clé / télécommande"
+msgstr "Llave / mando a distancia"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:426
+msgid "Pile de clé"
+msgstr "Pila de la llave"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:427
+msgid "Transpondeur de clé"
+msgstr "Transpondedor de la llave"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:428
+msgid "Antidémarrage (immobiliseur)"
+msgstr "Inmovilizador"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:429
+msgid "Antenne d'antidémarrage"
+msgstr "Antena del inmovilizador"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:430
+msgid "Calculateur d'accès sans clé (Keyless)"
+msgstr "Centralita de acceso sin llave (Keyless)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:431
+msgid "Antenne d'accès sans clé"
+msgstr "Antena de acceso sin llave"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:432
+msgid "Bouton de démarrage"
+msgstr "Botón de arranque"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:433
+msgid "Antivol de direction électrique (ELV)"
+msgstr "Bloqueo eléctrico de la dirección (ELV)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:434
+msgid "Contacteur / Neiman"
+msgstr "Conmutador de arranque / Neiman"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:436
+msgid "Aides à la conduite (ADAS)"
+msgstr "Asistencia a la conducción (ADAS)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:437
+msgid "Capteur de stationnement avant"
+msgstr "Sensor de aparcamiento delantero"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:438
+msgid "Capteur de stationnement arrière"
+msgstr "Sensor de aparcamiento trasero"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:439
+msgid "Calculateur d'aide au stationnement"
+msgstr "Centralita de ayuda al aparcamiento"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:440
+msgid "Caméra de recul"
+msgstr "Cámara de marcha atrás"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:441
+msgid "Caméra 360°"
+msgstr "Cámara 360°"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:442
+msgid "Caméra frontale (pare-brise)"
+msgstr "Cámara frontal (parabrisas)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:443
+msgid "Radar de régulateur adaptatif (ACC)"
+msgstr "Radar del control de crucero adaptativo (ACC)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:444
+msgid "Radar d'angle mort gauche"
+msgstr "Radar de ángulo muerto izquierdo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:445
+msgid "Radar d'angle mort droit"
+msgstr "Radar de ángulo muerto derecho"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:446
+msgid "Aide au maintien de voie"
+msgstr "Asistente de mantenimiento de carril"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:447
+msgid "Freinage d'urgence automatique"
+msgstr "Frenada de emergencia automática"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:448
+msgid "Reconnaissance des panneaux"
+msgstr "Reconocimiento de señales"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:449
+msgid "Vision nocturne"
+msgstr "Visión nocturna"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:450
+msgid "Calibrage ADAS requis"
+msgstr "Calibración ADAS necesaria"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:452
+msgid "Multimédia et télématique"
+msgstr "Multimedia y telemática"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:453
+msgid "Autoradio / unité multimédia"
+msgstr "Autorradio / unidad multimedia"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:454
+msgid "Écran central"
+msgstr "Pantalla central"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:455
+msgid "Navigation GPS"
+msgstr "Navegación GPS"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:456
+msgid "Antenne GPS"
+msgstr "Antena GPS"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:457
+msgid "Antenne radio"
+msgstr "Antena de radio"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:458
+msgid "Amplificateur audio"
+msgstr "Amplificador de audio"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:459
+msgid "Haut-parleur"
+msgstr "Altavoz"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:460
+msgid "Module Bluetooth / téléphone"
+msgstr "Módulo Bluetooth / teléfono"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:461
+msgid "Module télématique"
+msgstr "Módulo telemático"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:462
+msgid "Microphone"
+msgstr "Micrófono"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:463
+msgid "Port USB"
+msgstr "Puerto USB"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:465
+msgid "Réseau de communication (CAN / LIN)"
+msgstr "Red de comunicación (CAN / LIN)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:466
+msgid "Perte de communication avec le calculateur moteur"
+msgstr "Pérdida de comunicación con la centralita del motor"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:467
+msgid "Perte de communication avec la boîte de vitesses"
+msgstr "Pérdida de comunicación con la caja de cambios"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:468
+msgid "Perte de communication avec l'ABS / ESP"
+msgstr "Pérdida de comunicación con el ABS / ESP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:469
+msgid "Perte de communication avec le calculateur d'habitacle"
+msgstr "Pérdida de comunicación con la centralita del habitáculo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:470
+msgid "Perte de communication avec le combiné d'instruments"
+msgstr "Pérdida de comunicación con el cuadro de instrumentos"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:471
+msgid "Perte de communication avec le calculateur d'airbag"
+msgstr "Pérdida de comunicación con la centralita del airbag"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:472
+msgid "Perte de communication avec la direction assistée"
+msgstr "Pérdida de comunicación con la dirección asistida"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:473
+msgid "Bus CAN moteur"
+msgstr "Bus CAN del motor"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:474
+msgid "Bus CAN habitacle"
+msgstr "Bus CAN del habitáculo"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:475
+msgid "Bus LIN"
+msgstr "Bus LIN"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:476
+msgid "Bus FlexRay / MOST"
+msgstr "Bus FlexRay / MOST"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:477
+msgid "Passerelle de diagnostic (gateway)"
+msgstr "Pasarela de diagnóstico (gateway)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:478
+msgid "Prise de diagnostic OBD"
+msgstr "Toma de diagnóstico OBD"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:479
+msgid "Faisceau électrique / connecteur"
+msgstr "Mazo de cables / conector"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:480
+msgid "Masse électrique"
+msgstr "Masa eléctrica"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:481
+msgid "Codage / programmation calculateur"
+msgstr "Codificación / programación de la centralita"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:483
+msgid "Hybride et électrique"
+msgstr "Híbrido y eléctrico"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:484
+msgid "Batterie haute tension"
+msgstr "Batería de alta tensión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:485
+msgid "Module de batterie haute tension"
+msgstr "Módulo de batería de alta tensión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:486
+msgid "Calculateur de batterie (BMS)"
+msgstr "Sistema de gestión de la batería (BMS)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:487
+msgid "Capteur de température de batterie HT"
+msgstr "Sensor de temperatura de la batería de AT"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:488
+msgid "Onduleur / convertisseur de traction"
+msgstr "Inversor de tracción"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:489
+msgid "Moteur électrique de traction"
+msgstr "Motor eléctrico de tracción"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:490
+msgid "Moteur-générateur (MG1 / MG2)"
+msgstr "Motor-generador (MG1 / MG2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:491
+msgid "Convertisseur DC/DC"
+msgstr "Convertidor CC/CC"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:492
+msgid "Chargeur embarqué (OBC)"
+msgstr "Cargador a bordo (OBC)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:493
+msgid "Prise de charge"
+msgstr "Toma de carga"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:494
+msgid "Verrouillage de prise de charge"
+msgstr "Bloqueo de la toma de carga"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:495
+msgid "Câble de charge"
+msgstr "Cable de carga"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:496
+msgid "Contacteur haute tension"
+msgstr "Contactor de alta tensión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:497
+msgid "Résistance de précharge"
+msgstr "Resistencia de precarga"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:498
+msgid "Défaut d'isolement haute tension"
+msgstr "Fallo de aislamiento de alta tensión"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:499
+msgid "Interlock haute tension (HVIL)"
+msgstr "Interbloqueo de alta tensión (HVIL)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:500
+msgid "Pompe de refroidissement batterie"
+msgstr "Bomba de refrigeración de la batería"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:501
+msgid "Circuit de refroidissement électronique de puissance"
+msgstr "Circuito de refrigeración de la electrónica de potencia"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:502
+msgid "Pompe à chaleur"
+msgstr "Bomba de calor"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:503
+msgid "Compresseur de climatisation électrique"
+msgstr "Compresor eléctrico del aire acondicionado"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:504
+msgid "Générateur de son piéton (AVAS)"
+msgstr "Generador de sonido para peatones (AVAS)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:507
+msgid "Autre (préciser)"
+msgstr "Otro (especificar)"
 
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:11
 msgid "Supprimer le diagnostic"
 msgstr "Eliminar el diagnóstico"
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:14
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:20
 msgid "Voulez-vous vraiment supprimer ce diagnostic ?"
 msgstr "¿Realmente desea eliminar este diagnóstico?"
 
@@ -34105,16 +35922,12 @@ msgstr "Modificar el diagnóstico"
 msgid "Nouveau diagnostic"
 msgstr "Nuevo diagnóstico"
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:61
-msgid "Marque et modèle"
-msgstr "Marca y modelo"
-
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:71
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:72
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:77
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:78
 msgid "Défaut"
 msgstr "Avería"
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:99
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:106
 msgid "Retour à la liste des diagnostics"
 msgstr "Volver a la lista de diagnósticos"
 
@@ -34126,38 +35939,38 @@ msgstr "Lista de diagnósticos"
 msgid "Ajouter un diagnostic"
 msgstr "Añadir un diagnóstico"
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:30
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:38
 msgid "Code défaut (ex. P0301)"
 msgstr "Código de avería (p. ej. P0301)"
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:109
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:117
 msgid "Aucun diagnostic enregistré."
 msgstr "No hay ningún diagnóstico registrado."
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:112
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:120
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ diagnostics"
 msgstr "Mostrando _START_ a _END_ de _TOTAL_ diagnósticos"
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:113
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:114
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:121
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:122
 msgid "Aucun diagnostic trouvé"
 msgstr "No se ha encontrado ningún diagnóstico"
 
-#: voiture/voiture_diagnostic/views.py:71
+#: voiture/voiture_diagnostic/views.py:65
 #, python-format
 msgid "Diagnostic '%(code)s' créé avec succès."
 msgstr "Diagnóstico '%(code)s' creado correctamente."
 
-#: voiture/voiture_diagnostic/views.py:91
+#: voiture/voiture_diagnostic/views.py:84
 #, python-format
 msgid "Diagnostic '%(code)s' mis à jour."
 msgstr "Diagnóstico '%(code)s' actualizado."
 
-#: voiture/voiture_diagnostic/views.py:111
+#: voiture/voiture_diagnostic/views.py:103
 msgid "Diagnostic supprimé."
 msgstr "Diagnóstico eliminado."
 
-#: voiture/voiture_diagnostic/views.py:113
+#: voiture/voiture_diagnostic/views.py:105
 msgid "Impossible de supprimer ce diagnostic."
 msgstr "No se puede eliminar este diagnóstico."
 

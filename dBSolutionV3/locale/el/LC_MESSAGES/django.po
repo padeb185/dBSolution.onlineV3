@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 13:23+0200\n"
+"POT-Creation-Date: 2026-10-12 13:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -277,6 +277,8 @@ msgstr "Γενικές Πληροφορίες"
 #: recharge/templates/recharge/electricite_detail.html:37
 #: recharge/templates/recharge/electricite_stat.html:72
 #: recharge/templates/recharge/recharge_list.html:81
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:30
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:50
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:40
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:50
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/modifier_exemplaire.html:44
@@ -1574,7 +1576,7 @@ msgstr "Μεταδεδομένα"
 #: voiture/voiture_boite/models.py:71
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:114
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:151
-#: voiture/voiture_diagnostic/models.py:61
+#: voiture/voiture_diagnostic/models.py:64
 #: voiture/voiture_embrayage/models.py:137
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:86
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:109
@@ -1701,7 +1703,7 @@ msgstr "Δημιουργήθηκε στις"
 #: voiture/voiture_boite/models.py:72
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:118
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:152
-#: voiture/voiture_diagnostic/models.py:62
+#: voiture/voiture_diagnostic/models.py:65
 #: voiture/voiture_embrayage/models.py:138
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:87
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:113
@@ -3244,6 +3246,7 @@ msgstr "Λεπτομέρειες του ελέγχου του κλιματισμ
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:111
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:124
 #: maintenance/models.py:34 piece/piece_distribution/models.py:12
+#: voiture/voiture_diagnostic/pieces_defaut.py:107
 msgid "Courroie de distribution"
 msgstr "Ιμάντας χρονισμού"
 
@@ -3416,6 +3419,7 @@ msgstr "Λεπτομέρειες του ελέγχου του εναλλακτή
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:83
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:96
 #: maintenance/models.py:39 piece/piece_electricite/models.py:8
+#: voiture/voiture_diagnostic/pieces_defaut.py:191
 msgid "Alternateur"
 msgstr "Δυναμό"
 
@@ -4137,7 +4141,7 @@ msgstr "Επιστροφή στη λίστα ελέγχων σινεμπλόκ"
 #: maintenance/pneus/views.py:701 maintenance/pneus/views.py:737
 #: maintenance/silent_blocs/views.py:101 maintenance/silent_blocs/views.py:600
 #: maintenance/silent_blocs/views.py:636 recharge/views.py:435
-#: recharge/views.py:456 voiture/voiture_diagnostic/views.py:22
+#: recharge/views.py:456 voiture/voiture_diagnostic/views.py:21
 #: voiture/voiture_embrayage/views.py:179
 #: voiture/voiture_exemplaire/views.py:524
 #: voiture/voiture_exemplaire/views.py:544
@@ -5254,6 +5258,7 @@ msgstr "Αφυγραντήρας"
 #: maintenance/autres_interventions/climatisation/views.py:496
 #: maintenance/autres_interventions/climatisation/views.py:917
 #: piece/piece_climatisation/models.py:13
+#: voiture/voiture_diagnostic/pieces_defaut.py:317
 msgid "Condenseur"
 msgstr "Συμπυκνωτής"
 
@@ -5775,6 +5780,7 @@ msgstr "Ο έλεγχος του συστήματος εισαγωγής κατ�
 #: maintenance/autres_interventions/moteur/admission/views.py:978
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:586
 #: piece/piece_filtres/models.py:7
+#: voiture/voiture_diagnostic/pieces_defaut.py:12
 msgid "Filtre à air"
 msgstr "Φίλτρο αέρα"
 
@@ -5868,6 +5874,7 @@ msgstr "Δια intercooler"
 #: maintenance/autres_interventions/moteur/admission/views.py:590
 #: maintenance/autres_interventions/moteur/admission/views.py:1059
 #: piece/piece_electronique/models.py:17 piece/piece_moteur/models.py:38
+#: voiture/voiture_diagnostic/pieces_defaut.py:135
 msgid "Vanne EGR"
 msgstr "Βαλβίδα EGR"
 
@@ -6021,6 +6028,7 @@ msgstr "Ρότορας διανομέα"
 #: _backup_detail_views/maintenance/autres_interventions/moteur/allumage/views.py:912
 #: maintenance/autres_interventions/moteur/allumage/views.py:534
 #: maintenance/autres_interventions/moteur/allumage/views.py:913
+#: voiture/voiture_diagnostic/pieces_defaut.py:83
 msgid "Module d'allumage"
 msgstr "Μονάδα ανάφλεξης"
 
@@ -6103,7 +6111,7 @@ msgstr "Ο έλεγχος εναλλακτήρα καταγράφηκε με ε�
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:961
 #: maintenance/autres_interventions/moteur/injection/views.py:619
 #: maintenance/autres_interventions/moteur/injection/views.py:1021
-#: theme/templates/dashboard.html:277 voiture/voiture_diagnostic/models.py:65
+#: theme/templates/dashboard.html:277 voiture/voiture_diagnostic/models.py:68
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:9
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:12
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:9
@@ -6264,6 +6272,7 @@ msgstr "Αντλία καυσίμου"
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:478
 #: maintenance/autres_interventions/moteur/injection/views.py:538
 #: maintenance/autres_interventions/moteur/injection/views.py:940
+#: voiture/voiture_diagnostic/pieces_defaut.py:42
 msgid "Pompe haute pression"
 msgstr "Αντλία υψηλής πίεσης"
 
@@ -6620,6 +6629,7 @@ msgstr "Ψυγείο"
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1018
 #: maintenance/autres_interventions/refroidissement/views.py:575
 #: maintenance/autres_interventions/refroidissement/views.py:992
+#: voiture/voiture_diagnostic/pieces_defaut.py:160
 msgid "Thermostat"
 msgstr "Θερμοστάτης"
 
@@ -7032,24 +7042,28 @@ msgstr "Πίσω φως ομίχλης"
 #: _backup_detail_views/maintenance/carrosserie_interne/views.py:1015
 #: maintenance/carrosserie_interne/models.py:563
 #: maintenance/carrosserie_interne/views.py:1016
+#: voiture/voiture_diagnostic/pieces_defaut.py:370
 msgid "Clignotant avant droit"
 msgstr "Εμπρός δεξί φλας"
 
 #: _backup_detail_views/maintenance/carrosserie_interne/views.py:1023
 #: maintenance/carrosserie_interne/models.py:572
 #: maintenance/carrosserie_interne/views.py:1024
+#: voiture/voiture_diagnostic/pieces_defaut.py:369
 msgid "Clignotant avant gauche"
 msgstr "Εμπρός αριστερό φλας"
 
 #: _backup_detail_views/maintenance/carrosserie_interne/views.py:1031
 #: maintenance/carrosserie_interne/models.py:581
 #: maintenance/carrosserie_interne/views.py:1032
+#: voiture/voiture_diagnostic/pieces_defaut.py:372
 msgid "Clignotant arrière droit"
 msgstr "Πίσω δεξί φλας"
 
 #: _backup_detail_views/maintenance/carrosserie_interne/views.py:1039
 #: maintenance/carrosserie_interne/models.py:590
 #: maintenance/carrosserie_interne/views.py:1040
+#: voiture/voiture_diagnostic/pieces_defaut.py:371
 msgid "Clignotant arrière gauche"
 msgstr "Φλας Πίσω Αριστερά"
 
@@ -7076,6 +7090,7 @@ msgstr "Φλας Πίσω Αριστερά"
 #: maintenance/entretien/templates/entretien/entretien_check.html:1215
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:1219
 #: piece/piece_feux/models.py:13
+#: voiture/voiture_diagnostic/pieces_defaut.py:367
 msgid "Troisième feu stop"
 msgstr "Τρίτο φανάρι φρένων"
 
@@ -7221,7 +7236,7 @@ msgstr "Ο έλεγχος διαγράφηκε με επιτυχία."
 
 #: _backup_detail_views/maintenance/checkup_track/views.py:106
 #: maintenance/checkup_track/views.py:107
-#: voiture/voiture_diagnostic/views.py:47
+#: voiture/voiture_diagnostic/views.py:41
 msgid ""
 "Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent "
 "accéder à cette page."
@@ -8109,7 +8124,7 @@ msgstr "Επιστροφή στον πίνακα ελέγχου προμηθευ
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:120
 #: recharge/templates/recharge/recharge_list.html:158
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:113
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:110
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:118
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:104
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:107
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:112
@@ -8225,7 +8240,7 @@ msgstr "Παγκόσμια αναζήτηση:"
 #: recharge/templates/recharge/recharge_list.html:159
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:114
 #: voiture/voiture_boite/templates/voiture_boite/list.html:97
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:111
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:119
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:105
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:108
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:113
@@ -8356,7 +8371,7 @@ msgstr "Δεν βρέθηκε κανένα τιμολόγιο"
 #: recharge/templates/recharge/recharge_list.html:164
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:119
 #: voiture/voiture_boite/templates/voiture_boite/list.html:102
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:116
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:124
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:110
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:113
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:118
@@ -8473,7 +8488,7 @@ msgstr "Πρώτος"
 #: recharge/templates/recharge/recharge_list.html:165
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:120
 #: voiture/voiture_boite/templates/voiture_boite/list.html:103
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:117
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:125
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:111
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:114
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:119
@@ -8590,7 +8605,7 @@ msgstr "Τελευταίος"
 #: recharge/templates/recharge/recharge_list.html:166
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:121
 #: voiture/voiture_boite/templates/voiture_boite/list.html:104
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:118
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:126
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:112
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:115
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:120
@@ -8707,7 +8722,7 @@ msgstr "Επόμενος"
 #: recharge/templates/recharge/recharge_list.html:167
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:122
 #: voiture/voiture_boite/templates/voiture_boite/list.html:105
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:119
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:127
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:113
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_list.html:116
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_list.html:121
@@ -8812,7 +8827,7 @@ msgstr "Μη διαθέσιμες πληροφορίες"
 #: recharge/templates/recharge/recharge_list.html:148
 #: societe_cliente/templates/societe_cliente/societe_cliente_list.html:101
 #: voiture/voiture_boite/templates/voiture_boite/list.html:84
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:98
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:106
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:94
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:111
 #: voiture/voiture_freins_av/templates/voiture_freins_av/dashboard_frein.html:45
@@ -9643,8 +9658,12 @@ msgstr "Ημερομηνία"
 #: piece/models.py:58 piece/templates/piece/piece_detail.html:10
 #: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:97
 #: recharge/models.py:121 recharge/templates/recharge/recharge_list.html:82
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:18
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:60
+#: voiture/voiture_diagnostic/models.py:30
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:24
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:68
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:69
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:34
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:51
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:20
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/liste.html:49
 #: voiture/voiture_location/models.py:131
@@ -11133,9 +11152,6 @@ msgstr "Τύπος"
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:45
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:56
 #: piece/templates/piece/piece_detail.html:5 recharge/models.py:109
-#: voiture/voiture_diagnostic/models.py:27
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:34
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:51
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:36
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:71
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:37
@@ -11753,9 +11769,7 @@ msgstr "Προσθήκη μοντέλου"
 #: _backup_list_templates/voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:76
 #: fuel/forms.py:21 maintenance/templates/maintenance/creer_maintenance.html:25
 #: piece/models.py:40 piece/templates/piece/piece_detail.html:8
-#: recharge/models.py:115 voiture/voiture_diagnostic/models.py:34
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:38
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:52
+#: recharge/models.py:115
 #: voiture/voiture_modele/templates/voiture_modele/ajouter_modele.html:75
 #: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:49
 #: voiture/voiture_modele/templates/voiture_modele/voituremodele_list.html:45
@@ -12094,7 +12108,7 @@ msgstr "Αγορά εμπορευμάτων"
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:104
 #: voiture/voiture_boite/templates/voiture_boite/ajouter_boite.html:70
 #: voiture/voiture_boite/templates/voiture_boite/modifier_boite.html:71
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:82
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:89
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:81
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:93
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:85
@@ -12339,8 +12353,8 @@ msgstr "Αποθήκευση"
 #: voiture/voiture_boite/templates/voiture_boite/ajouter_boite.html:75
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:178
 #: voiture/voiture_boite/templates/voiture_boite/modifier_boite.html:75
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:29
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:86
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:35
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:93
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:86
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:111
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:97
@@ -12489,7 +12503,7 @@ msgstr "Σύνολο με ΦΠΑ"
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:158
 #: societe_cliente/templates/societe_cliente/delete_societe_cliente.html:169
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:170
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:83
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:90
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:101
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:291
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:80
@@ -14065,7 +14079,7 @@ msgstr "Δημιουργία πιλότου"
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_form.html:42
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:48
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:34
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:39
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:47
 #: voiture/voiture_embrayage/templates/voiture_embrayage/ajouter_embrayage.html:33
 #: voiture/voiture_embrayage/templates/voiture_embrayage/modifier_embrayage.html:39
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:39
@@ -14298,6 +14312,7 @@ msgstr "Ανταλλακτικό / Προϊόν"
 #: maintenance/choices.py:2425 maintenance/choices.py:2505
 #: maintenance/choices.py:2553 maintenance/pneus/models.py:52
 #: piece/piece_roue_rechange/models.py:10
+#: voiture/voiture_diagnostic/pieces_defaut.py:506
 msgid "Autre"
 msgstr "Άλλο"
 
@@ -16298,7 +16313,7 @@ msgstr "Τιμή"
 
 #: fuel/templates/fuel/fuel_delete.html:34
 #: recharge/templates/recharge/electricite_delete.html:34
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:25
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:31
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:21
 #: voiture/voiture_location/templates/voiture_location/location_confirm_delete.html:31
 msgid "Confirmer la suppression"
@@ -17083,7 +17098,7 @@ msgstr "Χιλιομετρική απόσταση πλαισίου"
 #: maintenance/templates/maintenance/creer_maintenance.html:78
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:113
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:115
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:91
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:98
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/form.html:133
 #: voiture/voiture_location/templates/voiture_location/location_form.html:112
 msgid "Date actuelle"
@@ -17251,6 +17266,7 @@ msgstr "Τιμή αγοράς χωρίς ΦΠΑ της μονάδας ABS"
 
 #: maintenance/autres_interventions/abs/models.py:135
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:446
+#: voiture/voiture_diagnostic/pieces_defaut.py:249
 msgid "Capteur ABS avant droit"
 msgstr "Αισθητήρας ABS εμπρός δεξιά"
 
@@ -17260,6 +17276,7 @@ msgstr "Τιμή αισθητήρα ABS εμπρός δεξιά"
 
 #: maintenance/autres_interventions/abs/models.py:141
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:469
+#: voiture/voiture_diagnostic/pieces_defaut.py:248
 msgid "Capteur ABS avant gauche"
 msgstr "Αισθητήρας ABS εμπρός αριστερά"
 
@@ -17269,6 +17286,7 @@ msgstr "Τιμή αισθητήρα ABS εμπρός αριστερά"
 
 #: maintenance/autres_interventions/abs/models.py:147
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:492
+#: voiture/voiture_diagnostic/pieces_defaut.py:251
 msgid "Capteur ABS arrière droit"
 msgstr "Αισθητήρας ABS πίσω δεξιά"
 
@@ -17278,6 +17296,7 @@ msgstr "Τιμή αισθητήρα ABS πίσω δεξιά"
 
 #: maintenance/autres_interventions/abs/models.py:153
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:515
+#: voiture/voiture_diagnostic/pieces_defaut.py:250
 msgid "Capteur ABS arrière gauche"
 msgstr "Αισθητήρας ABS πίσω αριστερά"
 
@@ -19046,6 +19065,7 @@ msgstr "Χιλιόμετρα κατά τη στιγμή του ελέγχου"
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:370
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:277
 #: piece/piece_boite/models.py:98
+#: voiture/voiture_diagnostic/pieces_defaut.py:225
 msgid "Convertisseur de couple"
 msgstr "Μετατροπέας ροπής"
 
@@ -19270,6 +19290,7 @@ msgstr "Αισθητήρας ταχύτητας εξόδου"
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1740
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1092
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1787
+#: voiture/voiture_diagnostic/pieces_defaut.py:179
 msgid "Capteur de température d'huile"
 msgstr "Αισθητήρας θερμοκρασίας λαδιού"
 
@@ -19278,6 +19299,7 @@ msgstr "Αισθητήρας θερμοκρασίας λαδιού"
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1764
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1113
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1811
+#: voiture/voiture_diagnostic/pieces_defaut.py:176
 msgid "Capteur de pression d'huile"
 msgstr "Αισθητήρας πίεσης λαδιού"
 
@@ -19318,6 +19340,7 @@ msgstr "Επιλογέας ταχυτήτων"
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_check.html:1884
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1218
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:1931
+#: voiture/voiture_diagnostic/pieces_defaut.py:230
 msgid "Capteur de position du sélecteur"
 msgstr "Αισθητήρας θέσης επιλογέα ταχυτήτων"
 
@@ -19957,6 +19980,7 @@ msgstr "Τιμή αγοράς του συμπυκνωτή χωρίς ΦΠΑ"
 
 #: maintenance/autres_interventions/climatisation/models.py:442
 #: maintenance/autres_interventions/climatisation/models.py:884
+#: voiture/voiture_diagnostic/pieces_defaut.py:312
 msgid "Compresseur de climatisation"
 msgstr "Συμπιεστής κλιματισμού"
 
@@ -20471,6 +20495,7 @@ msgstr "Τέφρα FAP"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:891
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:888
+#: voiture/voiture_diagnostic/pieces_defaut.py:145
 msgid "Injecteur AdBlue"
 msgstr "Εγχυτήρας AdBlue"
 
@@ -22192,6 +22217,7 @@ msgstr "Μπροστινοί προβολείς"
 #: maintenance/eclairage/templates/eclairage/modifier_eclairage.html:422
 #: maintenance/entretien/templates/entretien/entretien_check.html:1072
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:1076
+#: voiture/voiture_diagnostic/pieces_defaut.py:368
 msgid "Feu de recul"
 msgstr "Φώτα όπισθεν"
 
@@ -22647,7 +22673,7 @@ msgstr "Καθορίστε το σημείο της διαρροής."
 #: maintenance/check_up/admin.py:112
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:773
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:896
-#: maintenance/models.py:40
+#: maintenance/models.py:40 voiture/voiture_diagnostic/pieces_defaut.py:157
 msgid "Refroidissement"
 msgstr "Σύστημα ψύξης"
 
@@ -29145,6 +29171,7 @@ msgstr "Χιλιομετρική ένδειξη συντήρησης"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:601
 #: piece/piece_filtres/models.py:9
+#: voiture/voiture_diagnostic/pieces_defaut.py:49
 msgid "Filtre à carburant"
 msgstr "Φίλτρο καυσίμου"
 
@@ -29246,11 +29273,13 @@ msgstr "Βραχίονας πίσω υαλοκαθαριστήρα"
 
 #: maintenance/essuyage/models.py:284 maintenance/essuyage/models.py:963
 #: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:502
+#: voiture/voiture_diagnostic/pieces_defaut.py:403
 msgid "Moteur d'essuie-glace avant"
 msgstr "Μοτέρ εμπρός υαλοκαθαριστήρων"
 
 #: maintenance/essuyage/models.py:311 maintenance/essuyage/models.py:964
 #: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:517
+#: voiture/voiture_diagnostic/pieces_defaut.py:404
 msgid "Moteur d'essuie-glace arrière"
 msgstr "Μοτέρ πίσω υαλοκαθαριστήρα"
 
@@ -30304,7 +30333,7 @@ msgstr "Χιλιομετρική ένδειξη κατά την επέμβαση
 
 #: maintenance/templates/maintenance/partials/intervention_detail.html:110
 #: piece/templates/piece/piece_detail.html:48
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:78
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:85
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:82
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:92
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:113
@@ -30676,6 +30705,7 @@ msgid "Batterie haute tension (hybride/électrique)"
 msgstr "Μπαταρία υψηλής τάσης (υβριδική/ηλεκτρική)"
 
 #: piece/piece_batterie/models.py:18
+#: voiture/voiture_diagnostic/pieces_defaut.py:194
 msgid "Capteur de batterie (IBS)"
 msgstr "Αισθητήρας μπαταρίας (IBS)"
 
@@ -31062,6 +31092,7 @@ msgid "Pièces de direction"
 msgstr "Εξαρτήματα τιμονιού"
 
 #: piece/piece_distribution/models.py:13
+#: voiture/voiture_diagnostic/pieces_defaut.py:106
 msgid "Chaîne de distribution"
 msgstr "Αλυσίδα χρονισμού"
 
@@ -31146,22 +31177,27 @@ msgid "Pièces d’échappement"
 msgstr "Εξαρτήματα εξαγωγής"
 
 #: piece/piece_electricite/models.py:10
+#: voiture/voiture_diagnostic/pieces_defaut.py:196
 msgid "Démarreur"
 msgstr "Μίζα"
 
 #: piece/piece_electricite/models.py:11
+#: voiture/voiture_diagnostic/pieces_defaut.py:390
 msgid "Lève-vitre avant gauche"
 msgstr "Ηλεκτρικό παράθυρο εμπρός αριστερά"
 
 #: piece/piece_electricite/models.py:12
+#: voiture/voiture_diagnostic/pieces_defaut.py:391
 msgid "Lève-vitre avant droit"
 msgstr "Ηλεκτρικό παράθυρο εμπρός δεξιά"
 
 #: piece/piece_electricite/models.py:13
+#: voiture/voiture_diagnostic/pieces_defaut.py:392
 msgid "Lève-vitre arrière gauche"
 msgstr "Ηλεκτρικό παράθυρο πίσω αριστερά"
 
 #: piece/piece_electricite/models.py:14
+#: voiture/voiture_diagnostic/pieces_defaut.py:393
 msgid "Lève-vitre arrière droit"
 msgstr "Ηλεκτρικό παράθυρο πίσω δεξιά"
 
@@ -33396,7 +33432,7 @@ msgid "Aucune activité enregistrée"
 msgstr "Δεν έχει καταγραφεί καμία δραστηριότητα"
 
 #: theme/templates/dashboard.html:265 voiture/voiture_diagnostic/apps.py:7
-#: voiture/voiture_diagnostic/models.py:66
+#: voiture/voiture_diagnostic/models.py:69
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:4
 msgid "Diagnostics"
 msgstr "Διαγνώσεις"
@@ -34007,6 +34043,7 @@ msgid "N° de boîte"
 msgstr "Αρ. κιβωτίου ταχυτήτων"
 
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:107
+#: voiture/voiture_diagnostic/pieces_defaut.py:175
 msgid "Lubrification"
 msgstr "Λίπανση"
 
@@ -34113,45 +34150,1825 @@ msgstr "Διαγραφή του κιβωτίου ταχυτήτων"
 msgid "La boîte « %(nom)s » a bien été supprimée."
 msgstr "Το κιβώτιο ταχυτήτων « %(nom)s » διαγράφηκε με επιτυχία."
 
-#: voiture/voiture_diagnostic/models.py:39
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:16
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:50
+#: voiture/voiture_diagnostic/models.py:35
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:22
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:52
 msgid "Code défaut"
 msgstr "Κωδικός βλάβης"
 
-#: voiture/voiture_diagnostic/models.py:43
+#: voiture/voiture_diagnostic/models.py:39
 msgid "Code défaut invalide (lettres majuscules, chiffres et tirets)."
 msgstr "Μη έγκυρος κωδικός βλάβης (κεφαλαία γράμματα, ψηφία και παύλες)."
 
-#: voiture/voiture_diagnostic/models.py:46
+#: voiture/voiture_diagnostic/models.py:42
 msgid "Ex. : P0301, U0100, 2C4F"
 msgstr "Π.χ.: P0301, U0100, 2C4F"
 
-#: voiture/voiture_diagnostic/models.py:51
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:17
+#: voiture/voiture_diagnostic/models.py:48
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:23
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:42
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:53
 msgid "Pièce en défaut"
 msgstr "Ελαττωματικό εξάρτημα"
 
-#: voiture/voiture_diagnostic/models.py:52
-msgid "Ex. : bobine d'allumage cylindre 1"
-msgstr "Π.χ.: πολλαπλασιαστής κυλίνδρου 1"
+#: voiture/voiture_diagnostic/models.py:55
+msgid "Autre pièce (préciser)"
+msgstr "Άλλο εξάρτημα (διευκρινίστε)"
 
-#: voiture/voiture_diagnostic/models.py:58
+#: voiture/voiture_diagnostic/models.py:61
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:54
 msgid "Description / solution"
 msgstr "Περιγραφή / λύση"
 
-#: voiture/voiture_diagnostic/models.py:91
-msgid "Ce modèle n'appartient pas à la marque choisie."
-msgstr "Αυτό το μοντέλο δεν ανήκει στην επιλεγμένη μάρκα."
+#: voiture/voiture_diagnostic/models.py:96
+msgid "Précisez la pièce en défaut."
+msgstr "Διευκρινίστε το ελαττωματικό εξάρτημα."
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:5
+msgid "Admission d'air et suralimentation"
+msgstr "Εισαγωγή αέρα και υπερπλήρωση"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:6
+msgid "Débitmètre d'air (MAF)"
+msgstr "Μετρητής μάζας αέρα (MAF)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:7
+msgid "Capteur de pression collecteur d'admission (MAP)"
+msgstr "Αισθητήρας πίεσης πολλαπλής εισαγωγής (MAP)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:8
+msgid "Capteur de température d'air d'admission"
+msgstr "Αισθητήρας θερμοκρασίας αέρα εισαγωγής"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:9
+msgid "Capteur de pression atmosphérique"
+msgstr "Αισθητήρας ατμοσφαιρικής πίεσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:10
+msgid "Boîtier papillon motorisé"
+msgstr "Ηλεκτρονική πεταλούδα γκαζιού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:11
+msgid "Capteur de position papillon"
+msgstr "Αισθητήρας θέσης πεταλούδας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:13
+msgid "Fuite d'air à l'admission (durite, collecteur)"
+msgstr "Διαρροή αέρα στην εισαγωγή (κολάρο, πολλαπλή)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:14
+msgid "Volets de collecteur d'admission (swirl)"
+msgstr "Πτερύγια στροβιλισμού πολλαπλής εισαγωγής"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:15
+msgid "Actionneur de volets d'admission"
+msgstr "Ενεργοποιητής πτερυγίων εισαγωγής"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:16
+msgid "Collecteur d'admission à longueur variable"
+msgstr "Πολλαπλή εισαγωγής μεταβλητού μήκους"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:17
+msgid "Turbocompresseur"
+msgstr "Υπερσυμπιεστής (τούρμπο)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:18
+msgid "Turbo à géométrie variable (actionneur VNT)"
+msgstr "Τούρμπο μεταβλητής γεωμετρίας (ενεργοποιητής VNT)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:19
+msgid "Wastegate / actionneur de turbo"
+msgstr "Wastegate / ενεργοποιητής τούρμπο"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:20
+msgid "Électrovanne de régulation de pression de turbo"
+msgstr "Ηλεκτροβαλβίδα ρύθμισης πίεσης τούρμπο"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:21
+msgid "Capteur de pression de suralimentation"
+msgstr "Αισθητήρας πίεσης υπερπλήρωσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:22
+msgid "Capteur de température de suralimentation"
+msgstr "Αισθητήρας θερμοκρασίας αέρα υπερπλήρωσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:23
+msgid "Échangeur d'air (intercooler)"
+msgstr "Ψυγείο αέρα (intercooler)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:24
+msgid "Durite d'intercooler"
+msgstr "Κολάρο intercooler"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:25
+msgid "Valve de décharge (dump valve)"
+msgstr "Βαλβίδα εκτόνωσης (dump valve)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:26
+msgid "Compresseur volumétrique"
+msgstr "Μηχανικός υπερσυμπιεστής (κομπρέσορας)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:27
+msgid "Embrayage de compresseur volumétrique"
+msgstr "Συμπλέκτης κομπρέσορα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:29
+msgid "Carburant et injection"
+msgstr "Καύσιμο και ψεκασμός"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:30
+msgid "Injecteur cylindre 1"
+msgstr "Μπεκ κυλίνδρου 1"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:31
+msgid "Injecteur cylindre 2"
+msgstr "Μπεκ κυλίνδρου 2"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:32
+msgid "Injecteur cylindre 3"
+msgstr "Μπεκ κυλίνδρου 3"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:33
+msgid "Injecteur cylindre 4"
+msgstr "Μπεκ κυλίνδρου 4"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:34
+msgid "Injecteur cylindre 5"
+msgstr "Μπεκ κυλίνδρου 5"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:35
+msgid "Injecteur cylindre 6"
+msgstr "Μπεκ κυλίνδρου 6"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:36
+msgid "Injecteur cylindre 7"
+msgstr "Μπεκ κυλίνδρου 7"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:37
+msgid "Injecteur cylindre 8"
+msgstr "Μπεκ κυλίνδρου 8"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:38
+msgid "Injecteurs (général)"
+msgstr "Μπεκ (γενικά)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:39
+msgid "Pompe à carburant basse pression (réservoir)"
+msgstr "Αντλία καυσίμου χαμηλής πίεσης (ρεζερβουάρ)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:40
+msgid "Module de commande de pompe à carburant"
+msgstr "Μονάδα ελέγχου αντλίας καυσίμου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:41
+msgid "Relais de pompe à carburant"
+msgstr "Ρελέ αντλίας καυσίμου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:43
+msgid "Capteur de pression de rampe (rail)"
+msgstr "Αισθητήρας πίεσης κοινού αυλού (rail)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:44
+msgid "Régulateur de pression de rampe"
+msgstr "Ρυθμιστής πίεσης κοινού αυλού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:45
+msgid "Vanne de dosage carburant (IMV)"
+msgstr "Βαλβίδα δοσομέτρησης καυσίμου (IMV)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:46
+msgid "Régulateur de pression carburant"
+msgstr "Ρυθμιστής πίεσης καυσίμου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:47
+msgid "Capteur de pression carburant basse pression"
+msgstr "Αισθητήρας πίεσης καυσίμου χαμηλής πίεσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:48
+msgid "Capteur de température de carburant"
+msgstr "Αισθητήρας θερμοκρασίας καυσίμου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:50
+msgid "Capteur de présence d'eau dans le gazole"
+msgstr "Αισθητήρας νερού στο πετρέλαιο"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:51
+msgid "Réchauffeur de gazole"
+msgstr "Θερμαντήρας πετρελαίου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:52
+msgid "Jauge / capteur de niveau de carburant"
+msgstr "Φλοτέρ / αισθητήρας στάθμης καυσίμου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:53
+msgid "Électrovanne de purge canister (EVAP)"
+msgstr "Ηλεκτροβαλβίδα καθαρισμού canister (EVAP)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:54
+msgid "Électrovanne de mise à l'air canister"
+msgstr "Ηλεκτροβαλβίδα εξαερισμού canister"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:55
+msgid "Canister à charbon actif"
+msgstr "Φίλτρο ενεργού άνθρακα (canister)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:56
+msgid "Fuite du système EVAP"
+msgstr "Διαρροή συστήματος EVAP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:57
+msgid "Capteur de pression du réservoir"
+msgstr "Αισθητήρας πίεσης ρεζερβουάρ"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:58
+msgid "Bouchon de réservoir"
+msgstr "Τάπα ρεζερβουάρ"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:59
+msgid "Capteur de composition carburant (flex fuel)"
+msgstr "Αισθητήρας σύνθεσης καυσίμου (flex fuel)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:60
+msgid "Injecteur GPL"
+msgstr "Μπεκ υγραερίου (LPG)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:61
+msgid "Électrovanne GPL"
+msgstr "Ηλεκτροβαλβίδα υγραερίου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:62
+msgid "Détendeur GPL"
+msgstr "Μειωτήρας πίεσης υγραερίου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:64
+msgid "Allumage et préchauffage"
+msgstr "Ανάφλεξη και προθέρμανση"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:65
+msgid "Bobine d'allumage cylindre 1"
+msgstr "Πολλαπλασιαστής κυλίνδρου 1"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:66
+msgid "Bobine d'allumage cylindre 2"
+msgstr "Πολλαπλασιαστής κυλίνδρου 2"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:67
+msgid "Bobine d'allumage cylindre 3"
+msgstr "Πολλαπλασιαστής κυλίνδρου 3"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:68
+msgid "Bobine d'allumage cylindre 4"
+msgstr "Πολλαπλασιαστής κυλίνδρου 4"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:69
+msgid "Bobine d'allumage cylindre 5"
+msgstr "Πολλαπλασιαστής κυλίνδρου 5"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:70
+msgid "Bobine d'allumage cylindre 6"
+msgstr "Πολλαπλασιαστής κυλίνδρου 6"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:71
+msgid "Bobine d'allumage cylindre 7"
+msgstr "Πολλαπλασιαστής κυλίνδρου 7"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:72
+msgid "Bobine d'allumage cylindre 8"
+msgstr "Πολλαπλασιαστής κυλίνδρου 8"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:73
+msgid "Bougie d'allumage cylindre 1"
+msgstr "Μπουζί κυλίνδρου 1"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:74
+msgid "Bougie d'allumage cylindre 2"
+msgstr "Μπουζί κυλίνδρου 2"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:75
+msgid "Bougie d'allumage cylindre 3"
+msgstr "Μπουζί κυλίνδρου 3"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:76
+msgid "Bougie d'allumage cylindre 4"
+msgstr "Μπουζί κυλίνδρου 4"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:77
+msgid "Bougie d'allumage cylindre 5"
+msgstr "Μπουζί κυλίνδρου 5"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:78
+msgid "Bougie d'allumage cylindre 6"
+msgstr "Μπουζί κυλίνδρου 6"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:79
+msgid "Bougie d'allumage cylindre 7"
+msgstr "Μπουζί κυλίνδρου 7"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:80
+msgid "Bougie d'allumage cylindre 8"
+msgstr "Μπουζί κυλίνδρου 8"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:81
+msgid "Bobine d'allumage (jumo / bloc)"
+msgstr "Πολλαπλασιαστής (μπλοκ)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:82
+msgid "Câble / fil de bougie"
+msgstr "Μπουζοκαλώδιο"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:84
+msgid "Bougie de préchauffage cylindre 1"
+msgstr "Προθερμαντήρας κυλίνδρου 1"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:85
+msgid "Bougie de préchauffage cylindre 2"
+msgstr "Προθερμαντήρας κυλίνδρου 2"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:86
+msgid "Bougie de préchauffage cylindre 3"
+msgstr "Προθερμαντήρας κυλίνδρου 3"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:87
+msgid "Bougie de préchauffage cylindre 4"
+msgstr "Προθερμαντήρας κυλίνδρου 4"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:88
+msgid "Bougie de préchauffage cylindre 5"
+msgstr "Προθερμαντήρας κυλίνδρου 5"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:89
+msgid "Bougie de préchauffage cylindre 6"
+msgstr "Προθερμαντήρας κυλίνδρου 6"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:90
+msgid "Boîtier / relais de préchauffage"
+msgstr "Ρελέ / μονάδα προθέρμανσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:91
+msgid "Capteur de cliquetis 1"
+msgstr "Αισθητήρας κρουστικής καύσης 1"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:92
+msgid "Capteur de cliquetis 2"
+msgstr "Αισθητήρας κρουστικής καύσης 2"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:94
+msgid "Distribution et calage"
+msgstr "Χρονισμός και διανομή"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:95
+msgid "Capteur de position de vilebrequin (PMH)"
+msgstr "Αισθητήρας θέσης στροφαλοφόρου (ΑΝΣ)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:96
+msgid "Cible / volant moteur"
+msgstr "Οδοντωτός τροχός / βολάν"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:97
+msgid "Capteur d'arbre à cames admission (banc 1)"
+msgstr "Αισθητήρας εκκεντροφόρου εισαγωγής (σειρά 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:98
+msgid "Capteur d'arbre à cames admission (banc 2)"
+msgstr "Αισθητήρας εκκεντροφόρου εισαγωγής (σειρά 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:99
+msgid "Capteur d'arbre à cames échappement (banc 1)"
+msgstr "Αισθητήρας εκκεντροφόρου εξαγωγής (σειρά 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:100
+msgid "Capteur d'arbre à cames échappement (banc 2)"
+msgstr "Αισθητήρας εκκεντροφόρου εξαγωγής (σειρά 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:101
+msgid "Déphaseur d'arbre à cames admission (VVT)"
+msgstr "Μεταβλητός χρονισμός εκκεντροφόρου εισαγωγής (VVT)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:102
+msgid "Déphaseur d'arbre à cames échappement (VVT)"
+msgstr "Μεταβλητός χρονισμός εκκεντροφόρου εξαγωγής (VVT)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:103
+msgid "Électrovanne de déphaseur admission"
+msgstr "Ηλεκτροβαλβίδα μεταβλητού χρονισμού εισαγωγής"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:104
+msgid "Électrovanne de déphaseur échappement"
+msgstr "Ηλεκτροβαλβίδα μεταβλητού χρονισμού εξαγωγής"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:105
+msgid "Corrélation vilebrequin / arbre à cames (distribution décalée)"
+msgstr "Συσχέτιση στροφαλοφόρου / εκκεντροφόρου (μετατοπισμένος χρονισμός)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:108
+msgid "Tendeur de distribution"
+msgstr "Τεντωτήρας χρονισμού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:109
+msgid "Moteur Valvetronic / levée variable"
+msgstr "Μοτέρ Valvetronic / μεταβλητή ανύψωση βαλβίδων"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:110
+msgid "Capteur de position Valvetronic"
+msgstr "Αισθητήρας θέσης Valvetronic"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:111
+msgid "Poussoirs / levée de soupapes variable (VTEC, VarioCam)"
+msgstr "Ωστήρια / μεταβλητή ανύψωση βαλβίδων (VTEC, VarioCam)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:113
+msgid "Échappement et dépollution"
+msgstr "Εξαγωγή και αντιρρύπανση"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:114
+msgid "Sonde lambda amont (banc 1)"
+msgstr "Αισθητήρας λάμδα πριν τον καταλύτη (σειρά 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:115
+msgid "Sonde lambda amont (banc 2)"
+msgstr "Αισθητήρας λάμδα πριν τον καταλύτη (σειρά 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:116
+msgid "Sonde lambda aval (banc 1)"
+msgstr "Αισθητήρας λάμδα μετά τον καταλύτη (σειρά 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:117
+msgid "Sonde lambda aval (banc 2)"
+msgstr "Αισθητήρας λάμδα μετά τον καταλύτη (σειρά 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:118
+msgid "Chauffage de sonde lambda amont (banc 1)"
+msgstr "Θέρμανση αισθητήρα λάμδα πριν τον καταλύτη (σειρά 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:119
+msgid "Chauffage de sonde lambda amont (banc 2)"
+msgstr "Θέρμανση αισθητήρα λάμδα πριν τον καταλύτη (σειρά 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:120
+msgid "Chauffage de sonde lambda aval (banc 1)"
+msgstr "Θέρμανση αισθητήρα λάμδα μετά τον καταλύτη (σειρά 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:121
+msgid "Chauffage de sonde lambda aval (banc 2)"
+msgstr "Θέρμανση αισθητήρα λάμδα μετά τον καταλύτη (σειρά 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:122
+msgid "Sonde lambda large bande"
+msgstr "Αισθητήρας λάμδα ευρείας ζώνης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:123
+msgid "Catalyseur (banc 1)"
+msgstr "Καταλύτης (σειρά 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:124
+msgid "Catalyseur (banc 2)"
+msgstr "Καταλύτης (σειρά 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:125
+msgid "Filtre à particules (FAP / DPF)"
+msgstr "Φίλτρο σωματιδίων (DPF)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:126
+msgid "Filtre à particules essence (GPF / OPF)"
+msgstr "Φίλτρο σωματιδίων βενζίνης (GPF / OPF)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:127
+msgid "Capteur de pression différentielle FAP"
+msgstr "Αισθητήρας διαφορικής πίεσης DPF"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:128
+msgid "Durite de capteur de pression FAP"
+msgstr "Σωληνάκι αισθητήρα πίεσης DPF"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:129
+msgid "Capteur de température gaz d'échappement amont turbo"
+msgstr "Αισθητήρας θερμοκρασίας καυσαερίων πριν το τούρμπο"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:130
+msgid "Capteur de température gaz d'échappement amont catalyseur"
+msgstr "Αισθητήρας θερμοκρασίας καυσαερίων πριν τον καταλύτη"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:131
+msgid "Capteur de température gaz d'échappement amont FAP"
+msgstr "Αισθητήρας θερμοκρασίας καυσαερίων πριν το DPF"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:132
+msgid "Capteur de température gaz d'échappement aval FAP"
+msgstr "Αισθητήρας θερμοκρασίας καυσαερίων μετά το DPF"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:133
+msgid "Additif FAP (Eolys / réservoir)"
+msgstr "Πρόσθετο DPF (Eolys / δοχείο)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:134
+msgid "Pompe d'additif FAP"
+msgstr "Αντλία πρόσθετου DPF"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:136
+msgid "Capteur de position de vanne EGR"
+msgstr "Αισθητήρας θέσης βαλβίδας EGR"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:137
+msgid "Refroidisseur EGR"
+msgstr "Ψυγείο EGR"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:138
+msgid "Vanne de by-pass refroidisseur EGR"
+msgstr "Βαλβίδα παράκαμψης ψυγείου EGR"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:139
+msgid "Vanne EGR basse pression"
+msgstr "Βαλβίδα EGR χαμηλής πίεσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:140
+msgid "Volet d'échappement / papillon d'échappement"
+msgstr "Πτερύγιο / πεταλούδα εξάτμισης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:141
+msgid "Capteur NOx amont"
+msgstr "Αισθητήρας NOx πριν τον καταλύτη"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:142
+msgid "Capteur NOx aval"
+msgstr "Αισθητήρας NOx μετά τον καταλύτη"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:143
+msgid "Catalyseur SCR"
+msgstr "Καταλύτης SCR"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:144
+msgid "Piège à NOx (NSC / LNT)"
+msgstr "Παγίδα NOx (NSC / LNT)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:146
+msgid "Pompe AdBlue"
+msgstr "Αντλία AdBlue"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:147
+msgid "Réservoir AdBlue"
+msgstr "Δοχείο AdBlue"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:148
+msgid "Chauffage du circuit AdBlue"
+msgstr "Θέρμανση κυκλώματος AdBlue"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:149
+msgid "Capteur de niveau / qualité AdBlue"
+msgstr "Αισθητήρας στάθμης / ποιότητας AdBlue"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:150
+msgid "Calculateur SCR / AdBlue"
+msgstr "Μονάδα ελέγχου SCR / AdBlue"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:151
+msgid "Pompe à air secondaire"
+msgstr "Αντλία δευτερεύοντος αέρα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:152
+msgid "Vanne d'air secondaire"
+msgstr "Βαλβίδα δευτερεύοντος αέρα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:153
+msgid "Clapet d'échappement piloté"
+msgstr "Ηλεκτρονική βαλβίδα εξάτμισης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:154
+msgid "Fuite d'échappement"
+msgstr "Διαρροή εξάτμισης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:155
+msgid "Silencieux / ligne d'échappement"
+msgstr "Σιλανσιέ / σύστημα εξάτμισης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:158
+msgid "Capteur de température de liquide de refroidissement"
+msgstr "Αισθητήρας θερμοκρασίας ψυκτικού υγρού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:159
+msgid "Capteur de température sortie radiateur"
+msgstr "Αισθητήρας θερμοκρασίας εξόδου ψυγείου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:161
+msgid "Thermostat piloté (cartographique)"
+msgstr "Ηλεκτρονικός θερμοστάτης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:162
+msgid "Pompe à eau mécanique"
+msgstr "Μηχανική αντλία νερού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:163
+msgid "Pompe à eau électrique"
+msgstr "Ηλεκτρική αντλία νερού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:164
+msgid "Pompe à eau additionnelle"
+msgstr "Βοηθητική αντλία νερού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:165
+msgid "Pompe à eau commutable"
+msgstr "Αντλία νερού με απεμπλοκή"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:166
+msgid "Ventilateur de refroidissement (GMV)"
+msgstr "Βεντιλατέρ ψυγείου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:167
+msgid "Relais / module de ventilateur"
+msgstr "Ρελέ / μονάδα βεντιλατέρ"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:168
+msgid "Résistance de ventilateur"
+msgstr "Αντίσταση βεντιλατέρ"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:169
+msgid "Radiateur de refroidissement"
+msgstr "Ψυγείο νερού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:170
+msgid "Capteur de niveau de liquide de refroidissement"
+msgstr "Αισθητήρας στάθμης ψυκτικού υγρού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:171
+msgid "Vase d'expansion / bouchon"
+msgstr "Δοχείο διαστολής / τάπα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:172
+msgid "Durite de refroidissement"
+msgstr "Κολάρο ψύξης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:173
+msgid "Vanne de régulation de liquide de refroidissement"
+msgstr "Βαλβίδα ρύθμισης ψυκτικού υγρού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:177
+msgid "Manocontact de pression d'huile"
+msgstr "Βαλβίδα (μανοστάτης) πίεσης λαδιού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:178
+msgid "Capteur de niveau d'huile"
+msgstr "Αισθητήρας στάθμης λαδιού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:180
+msgid "Capteur de qualité d'huile"
+msgstr "Αισθητήρας ποιότητας λαδιού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:181
+msgid "Pompe à huile à débit variable"
+msgstr "Αντλία λαδιού μεταβλητής παροχής"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:182
+msgid "Électrovanne de pompe à huile"
+msgstr "Ηλεκτροβαλβίδα αντλίας λαδιού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:183
+msgid "Échangeur huile / eau"
+msgstr "Εναλλάκτης λαδιού / νερού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:184
+msgid "Gicleurs de fond de piston (électrovanne)"
+msgstr "Ψεκαστήρες ψύξης εμβόλων (ηλεκτροβαλβίδα)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:185
+msgid "Séparateur d'huile / reniflard (PCV)"
+msgstr "Διαχωριστής λαδιού / εξαερισμός στροφαλοθαλάμου (PCV)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:186
+msgid "Chauffage de reniflard"
+msgstr "Θέρμανση εξαερισμού στροφαλοθαλάμου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:188
+msgid "Gestion moteur et alimentation électrique"
+msgstr "Διαχείριση κινητήρα και τροφοδοσία"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:189
+msgid "Calculateur moteur (ECU)"
+msgstr "Εγκέφαλος κινητήρα (ECU)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:190
+msgid "Relais principal du calculateur moteur"
+msgstr "Κύριο ρελέ εγκεφάλου κινητήρα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:192
+msgid "Régulateur d'alternateur"
+msgstr "Ρυθμιστής τάσης δυναμό"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:193
+msgid "Batterie 12 V"
+msgstr "Μπαταρία 12 V"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:195
+msgid "Batterie auxiliaire"
+msgstr "Βοηθητική μπαταρία"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:197
+msgid "Relais de démarreur"
+msgstr "Ρελέ μίζας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:198
+msgid "Alterno-démarreur"
+msgstr "Εκκινητής-γεννήτρια"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:199
+msgid "Système Stop & Start"
+msgstr "Σύστημα Stop & Start"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:200
+msgid "Capteur de position de pédale d'accélérateur"
+msgstr "Αισθητήρας θέσης πεντάλ γκαζιού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:201
+msgid "Contacteur de pédale de frein"
+msgstr "Διακόπτης πεντάλ φρένου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:202
+msgid "Contacteur de pédale d'embrayage"
+msgstr "Διακόπτης πεντάλ συμπλέκτη"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:203
+msgid "Capteur de position de pédale d'embrayage"
+msgstr "Αισθητήρας θέσης πεντάλ συμπλέκτη"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:204
+msgid "Régulateur de vitesse (commande)"
+msgstr "Cruise control (διακόπτης)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:205
+msgid "Limiteur de vitesse"
+msgstr "Περιοριστής ταχύτητας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:206
+msgid "Ratés d'allumage multiples / aléatoires"
+msgstr "Πολλαπλές / τυχαίες αστοχίες ανάφλεξης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:207
+msgid "Mélange trop pauvre (banc 1)"
+msgstr "Πολύ φτωχό μείγμα (σειρά 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:208
+msgid "Mélange trop pauvre (banc 2)"
+msgstr "Πολύ φτωχό μείγμα (σειρά 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:209
+msgid "Mélange trop riche (banc 1)"
+msgstr "Πολύ πλούσιο μείγμα (σειρά 1)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:210
+msgid "Mélange trop riche (banc 2)"
+msgstr "Πολύ πλούσιο μείγμα (σειρά 2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:211
+msgid "Support moteur actif"
+msgstr "Ενεργή βάση κινητήρα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:212
+msgid "Fusible / alimentation calculateur"
+msgstr "Ασφάλεια / τροφοδοσία εγκεφάλου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:213
+msgid "Tension d'alimentation trop basse"
+msgstr "Πολύ χαμηλή τάση τροφοδοσίας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:214
+msgid "Tension d'alimentation trop élevée"
+msgstr "Πολύ υψηλή τάση τροφοδοσίας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:216
+msgid "Boîte de vitesses et transmission"
+msgstr "Κιβώτιο ταχυτήτων και μετάδοση"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:217
+msgid "Calculateur de boîte automatique (TCU)"
+msgstr "Εγκέφαλος αυτόματου κιβωτίου (TCU)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:218
+msgid "Mécatronique de boîte"
+msgstr "Μηχατρονική μονάδα κιβωτίου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:219
+msgid "Capteur de vitesse arbre d'entrée"
+msgstr "Αισθητήρας στροφών άξονα εισόδου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:220
+msgid "Capteur de vitesse arbre de sortie"
+msgstr "Αισθητήρας στροφών άξονα εξόδου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:221
+msgid "Capteur de vitesse arbre intermédiaire"
+msgstr "Αισθητήρας στροφών ενδιάμεσου άξονα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:222
+msgid "Électrovanne de passage de rapport"
+msgstr "Ηλεκτροβαλβίδα αλλαγής ταχύτητας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:223
+msgid "Électrovanne de régulation de pression"
+msgstr "Ηλεκτροβαλβίδα ρύθμισης πίεσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:224
+msgid "Électrovanne de pontage du convertisseur"
+msgstr "Ηλεκτροβαλβίδα κλειδώματος μετατροπέα ροπής"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:226
+msgid "Capteur de température d'huile de boîte"
+msgstr "Αισθητήρας θερμοκρασίας λαδιού κιβωτίου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:227
+msgid "Capteur de pression d'huile de boîte"
+msgstr "Αισθητήρας πίεσης λαδιού κιβωτίου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:228
+msgid "Pompe à huile de boîte (électrique)"
+msgstr "Αντλία λαδιού κιβωτίου (ηλεκτρική)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:229
+msgid "Sélecteur de vitesses / levier"
+msgstr "Επιλογέας ταχυτήτων / λεβιές"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:231
+msgid "Capteur de rapport engagé"
+msgstr "Αισθητήρας επιλεγμένης ταχύτητας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:232
+msgid "Contacteur de point mort"
+msgstr "Διακόπτης νεκρού σημείου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:233
+msgid "Contacteur de feux de recul"
+msgstr "Διακόπτης φώτων όπισθεν"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:234
+msgid "Embrayage 1 (double embrayage)"
+msgstr "Συμπλέκτης 1 (διπλός συμπλέκτης)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:235
+msgid "Embrayage 2 (double embrayage)"
+msgstr "Συμπλέκτης 2 (διπλός συμπλέκτης)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:236
+msgid "Actionneur d'embrayage"
+msgstr "Ενεργοποιητής συμπλέκτη"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:237
+msgid "Embrayage / volant bimasse"
+msgstr "Συμπλέκτης / διπλό βολάν"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:238
+msgid "Émetteur / récepteur d'embrayage"
+msgstr "Άνω / κάτω αντλία συμπλέκτη"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:239
+msgid "Actionneur de boîte robotisée"
+msgstr "Ενεργοποιητής ρομποτικού κιβωτίου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:240
+msgid "Boîte de transfert"
+msgstr "Κιβώτιο μεταφοράς"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:241
+msgid "Moteur de boîte de transfert"
+msgstr "Μοτέρ κιβωτίου μεταφοράς"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:242
+msgid "Coupleur 4x4 (Haldex)"
+msgstr "Συμπλέκτης 4x4 (Haldex)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:243
+msgid "Pompe de coupleur Haldex"
+msgstr "Αντλία συμπλέκτη Haldex"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:244
+msgid "Différentiel piloté / autobloquant"
+msgstr "Ηλεκτρονικό διαφορικό / περιορισμένης ολίσθησης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:245
+msgid "Capteur de vitesse véhicule"
+msgstr "Αισθητήρας ταχύτητας οχήματος"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:247
+msgid "Freinage, ABS et ESP"
+msgstr "Φρένα, ABS και ESP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:252
+msgid "Couronne / cible ABS avant gauche"
+msgstr "Οδοντωτός δακτύλιος ABS εμπρός αριστερά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:253
+msgid "Couronne / cible ABS avant droit"
+msgstr "Οδοντωτός δακτύλιος ABS εμπρός δεξιά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:254
+msgid "Couronne / cible ABS arrière gauche"
+msgstr "Οδοντωτός δακτύλιος ABS πίσω αριστερά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:255
+msgid "Couronne / cible ABS arrière droit"
+msgstr "Οδοντωτός δακτύλιος ABS πίσω δεξιά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:256
+msgid "Groupe hydraulique ABS / ESP"
+msgstr "Υδραυλική μονάδα ABS / ESP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:257
+msgid "Calculateur ABS / ESP"
+msgstr "Εγκέφαλος ABS / ESP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:258
+msgid "Pompe de groupe ABS"
+msgstr "Αντλία μονάδας ABS"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:259
+msgid "Électrovanne de groupe ABS"
+msgstr "Ηλεκτροβαλβίδα μονάδας ABS"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:260
+msgid "Capteur d'angle de volant"
+msgstr "Αισθητήρας γωνίας τιμονιού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:261
+msgid "Capteur de lacet / accélération (G-sensor)"
+msgstr "Αισθητήρας εκτροπής / επιτάχυνσης (G-sensor)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:262
+msgid "Capteur de pression de freinage"
+msgstr "Αισθητήρας πίεσης φρένων"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:263
+msgid "Contacteur de feux stop"
+msgstr "Διακόπτης φώτων φρένων (stop)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:264
+msgid "Frein de stationnement électrique gauche"
+msgstr "Ηλεκτρικό χειρόφρενο αριστερά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:265
+msgid "Frein de stationnement électrique droit"
+msgstr "Ηλεκτρικό χειρόφρενο δεξιά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:266
+msgid "Calculateur de frein de stationnement"
+msgstr "Εγκέφαλος χειρόφρενου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:267
+msgid "Bouton de frein de stationnement"
+msgstr "Διακόπτης χειρόφρενου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:268
+msgid "Témoin d'usure de plaquettes avant"
+msgstr "Αισθητήρας φθοράς εμπρός τακακιών"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:269
+msgid "Témoin d'usure de plaquettes arrière"
+msgstr "Αισθητήρας φθοράς πίσω τακακιών"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:270
+msgid "Capteur de niveau de liquide de frein"
+msgstr "Αισθητήρας στάθμης υγρού φρένων"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:271
+msgid "Pompe à vide de servofrein"
+msgstr "Αντλία κενού σερβόφρενου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:272
+msgid "Capteur de dépression de servofrein"
+msgstr "Αισθητήρας κενού σερβόφρενου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:273
+msgid "Servofrein électrique (iBooster)"
+msgstr "Ηλεκτρικό σερβόφρενο (iBooster)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:274
+msgid "Aide au démarrage en côte"
+msgstr "Υποβοήθηση εκκίνησης σε ανηφόρα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:276
+msgid "Direction et suspension"
+msgstr "Τιμόνι και ανάρτηση"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:277
+msgid "Direction assistée électrique (moteur)"
+msgstr "Ηλεκτρική υποβοήθηση τιμονιού (μοτέρ)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:278
+msgid "Calculateur de direction assistée"
+msgstr "Εγκέφαλος υποβοήθησης τιμονιού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:279
+msgid "Capteur de couple de direction"
+msgstr "Αισθητήρας ροπής τιμονιού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:280
+msgid "Pompe de direction assistée"
+msgstr "Αντλία υδραυλικού τιμονιού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:281
+msgid "Électropompe de direction assistée"
+msgstr "Ηλεκτροϋδραυλική αντλία τιμονιού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:282
+msgid "Capteur de pression de direction"
+msgstr "Αισθητήρας πίεσης τιμονιού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:283
+msgid "Direction active / roues arrière directrices"
+msgstr "Ενεργό τιμόνι / στρεφόμενοι πίσω τροχοί"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:284
+msgid "Amortisseur piloté avant gauche"
+msgstr "Ηλεκτρονικό αμορτισέρ εμπρός αριστερά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:285
+msgid "Amortisseur piloté avant droit"
+msgstr "Ηλεκτρονικό αμορτισέρ εμπρός δεξιά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:286
+msgid "Amortisseur piloté arrière gauche"
+msgstr "Ηλεκτρονικό αμορτισέρ πίσω αριστερά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:287
+msgid "Amortisseur piloté arrière droit"
+msgstr "Ηλεκτρονικό αμορτισέρ πίσω δεξιά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:288
+msgid "Capteur de hauteur avant gauche"
+msgstr "Αισθητήρας ύψους εμπρός αριστερά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:289
+msgid "Capteur de hauteur avant droit"
+msgstr "Αισθητήρας ύψους εμπρός δεξιά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:290
+msgid "Capteur de hauteur arrière gauche"
+msgstr "Αισθητήρας ύψους πίσω αριστερά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:291
+msgid "Capteur de hauteur arrière droit"
+msgstr "Αισθητήρας ύψους πίσω δεξιά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:292
+msgid "Calculateur de suspension"
+msgstr "Εγκέφαλος ανάρτησης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:293
+msgid "Compresseur de suspension pneumatique"
+msgstr "Συμπιεστής αερανάρτησης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:294
+msgid "Relais de compresseur de suspension"
+msgstr "Ρελέ συμπιεστή αερανάρτησης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:295
+msgid "Coussin d'air avant"
+msgstr "Εμπρός αερόσουστα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:296
+msgid "Coussin d'air arrière"
+msgstr "Πίσω αερόσουστα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:297
+msgid "Bloc d'électrovannes de suspension"
+msgstr "Μπλοκ ηλεκτροβαλβίδων ανάρτησης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:298
+msgid "Accumulateur de suspension"
+msgstr "Συσσωρευτής ανάρτησης (σφαίρα)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:299
+msgid "Barre anti-roulis active"
+msgstr "Ενεργή αντιστρεπτική δοκός"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:300
+msgid "Capteur d'accélération de caisse"
+msgstr "Αισθητήρας επιτάχυνσης αμαξώματος"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:302
+msgid "Pneumatiques (TPMS)"
+msgstr "Ελαστικά (TPMS)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:303
+msgid "Capteur de pression de pneu avant gauche"
+msgstr "Αισθητήρας πίεσης ελαστικού εμπρός αριστερά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:304
+msgid "Capteur de pression de pneu avant droit"
+msgstr "Αισθητήρας πίεσης ελαστικού εμπρός δεξιά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:305
+msgid "Capteur de pression de pneu arrière gauche"
+msgstr "Αισθητήρας πίεσης ελαστικού πίσω αριστερά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:306
+msgid "Capteur de pression de pneu arrière droit"
+msgstr "Αισθητήρας πίεσης ελαστικού πίσω δεξιά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:307
+msgid "Capteur de pression de roue de secours"
+msgstr "Αισθητήρας πίεσης ρεζέρβας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:308
+msgid "Calculateur TPMS"
+msgstr "Εγκέφαλος TPMS"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:309
+msgid "Antenne TPMS"
+msgstr "Κεραία TPMS"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:311
+msgid "Climatisation et chauffage"
+msgstr "Κλιματισμός και θέρμανση"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:313
+msgid "Embrayage de compresseur de climatisation"
+msgstr "Μαγνητικός συμπλέκτης κομπρεσέρ A/C"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:314
+msgid "Électrovanne de compresseur (cylindrée variable)"
+msgstr "Ηλεκτροβαλβίδα κομπρεσέρ (μεταβλητής απόδοσης)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:315
+msgid "Capteur de pression de climatisation"
+msgstr "Αισθητήρας πίεσης A/C"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:316
+msgid "Capteur de température d'évaporateur"
+msgstr "Αισθητήρας θερμοκρασίας εξατμιστή"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:318
+msgid "Détendeur / vanne d'expansion"
+msgstr "Εκτονωτική βαλβίδα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:319
+msgid "Fuite de fluide frigorigène"
+msgstr "Διαρροή ψυκτικού υγρού A/C"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:320
+msgid "Pulseur d'air habitacle"
+msgstr "Μοτέρ καλοριφέρ (φυσητήρας)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:321
+msgid "Résistance / module de pulseur"
+msgstr "Αντίσταση / μονάδα φυσητήρα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:322
+msgid "Moteur de volet de mixage"
+msgstr "Μοτέρ ντίζας ανάμειξης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:323
+msgid "Moteur de volet de répartition"
+msgstr "Μοτέρ ντίζας κατανομής"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:324
+msgid "Moteur de volet de recyclage"
+msgstr "Μοτέρ ντίζας ανακυκλοφορίας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:325
+msgid "Capteur de température habitacle"
+msgstr "Αισθητήρας θερμοκρασίας καμπίνας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:326
+msgid "Capteur de température extérieure"
+msgstr "Αισθητήρας εξωτερικής θερμοκρασίας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:327
+msgid "Capteur d'ensoleillement"
+msgstr "Αισθητήρας ηλιακής ακτινοβολίας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:328
+msgid "Capteur de qualité d'air"
+msgstr "Αισθητήρας ποιότητας αέρα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:329
+msgid "Calculateur de climatisation"
+msgstr "Εγκέφαλος κλιματισμού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:330
+msgid "Panneau de commande de climatisation"
+msgstr "Πάνελ χειρισμού κλιματισμού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:331
+msgid "Chauffage additionnel (Webasto / Eberspächer)"
+msgstr "Πρόσθετη θέρμανση (Webasto / Eberspächer)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:332
+msgid "Résistance de chauffage additionnelle (PTC)"
+msgstr "Πρόσθετη αντίσταση θέρμανσης (PTC)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:333
+msgid "Vanne de chauffage"
+msgstr "Βαλβίδα καλοριφέρ"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:334
+msgid "Pompe de circulation de chauffage"
+msgstr "Αντλία κυκλοφορίας θέρμανσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:336
+msgid "Airbags et sécurité passive"
+msgstr "Αερόσακοι και παθητική ασφάλεια"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:337
+msgid "Airbag conducteur"
+msgstr "Αερόσακος οδηγού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:338
+msgid "Airbag passager"
+msgstr "Αερόσακος συνοδηγού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:339
+msgid "Airbag latéral conducteur"
+msgstr "Πλευρικός αερόσακος οδηγού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:340
+msgid "Airbag latéral passager"
+msgstr "Πλευρικός αερόσακος συνοδηγού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:341
+msgid "Airbag latéral arrière"
+msgstr "Πίσω πλευρικός αερόσακος"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:342
+msgid "Airbag rideau gauche"
+msgstr "Αερόσακος κουρτίνα αριστερά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:343
+msgid "Airbag rideau droit"
+msgstr "Αερόσακος κουρτίνα δεξιά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:344
+msgid "Airbag de genoux"
+msgstr "Αερόσακος γονάτων"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:345
+msgid "Prétensionneur de ceinture conducteur"
+msgstr "Προεντατήρας ζώνης οδηγού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:346
+msgid "Prétensionneur de ceinture passager"
+msgstr "Προεντατήρας ζώνης συνοδηγού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:347
+msgid "Prétensionneur de ceinture arrière"
+msgstr "Πίσω προεντατήρας ζώνης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:348
+msgid "Contacteur tournant (ruban d'airbag)"
+msgstr "Ταινία αερόσακου (clock spring)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:349
+msgid "Capteur de choc frontal"
+msgstr "Αισθητήρας μετωπικής σύγκρουσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:350
+msgid "Capteur de choc latéral gauche"
+msgstr "Αισθητήρας πλευρικής σύγκρουσης αριστερά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:351
+msgid "Capteur de choc latéral droit"
+msgstr "Αισθητήρας πλευρικής σύγκρουσης δεξιά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:352
+msgid "Calculateur d'airbag"
+msgstr "Εγκέφαλος αερόσακων"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:353
+msgid "Capteur de présence / occupation passager"
+msgstr "Αισθητήρας παρουσίας συνοδηγού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:354
+msgid "Contacteur de bouclage de ceinture"
+msgstr "Διακόπτης κουμπώματος ζώνης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:355
+msgid "Désactivation airbag passager"
+msgstr "Απενεργοποίηση αερόσακου συνοδηγού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:356
+msgid "Batterie / coupe-circuit pyrotechnique"
+msgstr "Πυροτεχνικός διακόπτης μπαταρίας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:357
+msgid "Appel d'urgence (eCall)"
+msgstr "Κλήση έκτακτης ανάγκης (eCall)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:359
+msgid "Éclairage et signalisation"
+msgstr "Φωτισμός και σηματοδότηση"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:360
+msgid "Feu de croisement gauche"
+msgstr "Μεσαία σκάλα αριστερά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:361
+msgid "Feu de croisement droit"
+msgstr "Μεσαία σκάλα δεξιά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:362
+msgid "Feu de route gauche"
+msgstr "Μεγάλη σκάλα αριστερά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:363
+msgid "Feu de route droit"
+msgstr "Μεγάλη σκάλα δεξιά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:364
+msgid "Feu de position avant"
+msgstr "Εμπρός φως θέσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:365
+msgid "Feu de position arrière"
+msgstr "Πίσω φως θέσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:366
+msgid "Feu stop"
+msgstr "Φως φρένων (stop)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:373
+msgid "Répétiteur de clignotant"
+msgstr "Πλαϊνό φλας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:374
+msgid "Feu antibrouillard avant"
+msgstr "Εμπρός προβολέας ομίχλης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:375
+msgid "Feu antibrouillard arrière"
+msgstr "Πίσω φως ομίχλης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:376
+msgid "Éclairage de plaque"
+msgstr "Φωτισμός πινακίδας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:377
+msgid "Feu de jour (DRL)"
+msgstr "Φως ημέρας (DRL)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:378
+msgid "Ballast xénon"
+msgstr "Ballast ξένον"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:379
+msgid "Module de commande LED"
+msgstr "Μονάδα ελέγχου LED"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:380
+msgid "Phare directionnel / AFS"
+msgstr "Προσαρμοζόμενοι προβολείς / AFS"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:381
+msgid "Correcteur de portée de phare"
+msgstr "Ρυθμιστής ύψους προβολέων"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:382
+msgid "Capteur d'assiette (correcteur de phare)"
+msgstr "Αισθητήρας κλίσης (ρυθμιστής προβολέων)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:383
+msgid "Calculateur d'éclairage"
+msgstr "Εγκέφαλος φωτισμού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:384
+msgid "Commodo d'éclairage"
+msgstr "Διακόπτης φώτων (χειριστήριο)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:385
+msgid "Capteur de pluie / luminosité"
+msgstr "Αισθητήρας βροχής / φωτεινότητας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:387
+msgid "Carrosserie, confort et accès"
+msgstr "Αμάξωμα, άνεση και πρόσβαση"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:388
+msgid "Calculateur d'habitacle (BSI / BCM)"
+msgstr "Εγκέφαλος αμαξώματος (BSI / BCM)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:389
+msgid "Boîtier de servitude moteur (BSM / fusibles)"
+msgstr "Ασφαλειοθήκη χώρου κινητήρα (BSM)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:394
+msgid "Serrure de porte avant gauche"
+msgstr "Κλειδαριά πόρτας εμπρός αριστερά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:395
+msgid "Serrure de porte avant droite"
+msgstr "Κλειδαριά πόρτας εμπρός δεξιά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:396
+msgid "Serrure de porte arrière gauche"
+msgstr "Κλειδαριά πόρτας πίσω αριστερά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:397
+msgid "Serrure de porte arrière droite"
+msgstr "Κλειδαριά πόρτας πίσω δεξιά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:398
+msgid "Serrure de hayon / coffre"
+msgstr "Κλειδαριά πόρτας χώρου αποσκευών"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:399
+msgid "Verrouillage centralisé"
+msgstr "Κεντρικό κλείδωμα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:400
+msgid "Rétroviseur extérieur gauche"
+msgstr "Αριστερός εξωτερικός καθρέπτης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:401
+msgid "Rétroviseur extérieur droit"
+msgstr "Δεξιός εξωτερικός καθρέπτης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:402
+msgid "Rétroviseur électrochrome"
+msgstr "Ηλεκτροχρωμικός καθρέπτης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:405
+msgid "Pompe de lave-glace"
+msgstr "Αντλία νερού υαλοκαθαριστήρων"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:406
+msgid "Capteur de niveau de lave-glace"
+msgstr "Αισθητήρας στάθμης νερού υαλοκαθαριστήρων"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:407
+msgid "Lave-phares"
+msgstr "Πλυστικό προβολέων"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:408
+msgid "Avertisseur sonore (klaxon)"
+msgstr "Κόρνα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:409
+msgid "Toit ouvrant"
+msgstr "Ηλιοροφή"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:410
+msgid "Capote électrique"
+msgstr "Ηλεκτρική οροφή κάμπριο"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:411
+msgid "Hayon électrique"
+msgstr "Ηλεκτρική πόρτα χώρου αποσκευών"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:412
+msgid "Siège électrique conducteur"
+msgstr "Ηλεκτρικό κάθισμα οδηγού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:413
+msgid "Siège électrique passager"
+msgstr "Ηλεκτρικό κάθισμα συνοδηγού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:414
+msgid "Chauffage de siège"
+msgstr "Θέρμανση καθίσματος"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:415
+msgid "Ventilation de siège"
+msgstr "Αερισμός καθίσματος"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:416
+msgid "Volant chauffant"
+msgstr "Θερμαινόμενο τιμόνι"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:417
+msgid "Lunette arrière chauffante"
+msgstr "Θερμαινόμενο πίσω τζάμι"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:418
+msgid "Pare-brise chauffant"
+msgstr "Θερμαινόμενο παρμπρίζ"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:419
+msgid "Combiné d'instruments"
+msgstr "Πίνακας οργάνων"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:420
+msgid "Affichage tête haute (HUD)"
+msgstr "Προβολή head-up (HUD)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:421
+msgid "Alarme / sirène"
+msgstr "Συναγερμός / σειρήνα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:422
+msgid "Capteur volumétrique d'alarme"
+msgstr "Ογκομετρικός αισθητήρας συναγερμού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:424
+msgid "Clé, antidémarrage et accès sans clé"
+msgstr "Κλειδί, ακινητοποιητής και πρόσβαση χωρίς κλειδί"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:425
+msgid "Clé / télécommande"
+msgstr "Κλειδί / τηλεχειριστήριο"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:426
+msgid "Pile de clé"
+msgstr "Μπαταρία κλειδιού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:427
+msgid "Transpondeur de clé"
+msgstr "Transponder κλειδιού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:428
+msgid "Antidémarrage (immobiliseur)"
+msgstr "Ακινητοποιητής (immobilizer)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:429
+msgid "Antenne d'antidémarrage"
+msgstr "Κεραία ακινητοποιητή"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:430
+msgid "Calculateur d'accès sans clé (Keyless)"
+msgstr "Εγκέφαλος πρόσβασης χωρίς κλειδί (Keyless)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:431
+msgid "Antenne d'accès sans clé"
+msgstr "Κεραία πρόσβασης χωρίς κλειδί"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:432
+msgid "Bouton de démarrage"
+msgstr "Κουμπί εκκίνησης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:433
+msgid "Antivol de direction électrique (ELV)"
+msgstr "Ηλεκτρική κλειδαριά τιμονιού (ELV)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:434
+msgid "Contacteur / Neiman"
+msgstr "Διακόπτης μίζας / κλειδαριά τιμονιού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:436
+msgid "Aides à la conduite (ADAS)"
+msgstr "Συστήματα υποβοήθησης οδήγησης (ADAS)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:437
+msgid "Capteur de stationnement avant"
+msgstr "Εμπρός αισθητήρας στάθμευσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:438
+msgid "Capteur de stationnement arrière"
+msgstr "Πίσω αισθητήρας στάθμευσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:439
+msgid "Calculateur d'aide au stationnement"
+msgstr "Εγκέφαλος υποβοήθησης στάθμευσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:440
+msgid "Caméra de recul"
+msgstr "Κάμερα οπισθοπορείας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:441
+msgid "Caméra 360°"
+msgstr "Κάμερα 360°"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:442
+msgid "Caméra frontale (pare-brise)"
+msgstr "Εμπρός κάμερα (παρμπρίζ)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:443
+msgid "Radar de régulateur adaptatif (ACC)"
+msgstr "Ραντάρ προσαρμοζόμενου cruise control (ACC)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:444
+msgid "Radar d'angle mort gauche"
+msgstr "Ραντάρ τυφλού σημείου αριστερά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:445
+msgid "Radar d'angle mort droit"
+msgstr "Ραντάρ τυφλού σημείου δεξιά"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:446
+msgid "Aide au maintien de voie"
+msgstr "Υποβοήθηση διατήρησης λωρίδας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:447
+msgid "Freinage d'urgence automatique"
+msgstr "Αυτόματη πέδηση έκτακτης ανάγκης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:448
+msgid "Reconnaissance des panneaux"
+msgstr "Αναγνώριση πινακίδων"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:449
+msgid "Vision nocturne"
+msgstr "Νυχτερινή όραση"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:450
+msgid "Calibrage ADAS requis"
+msgstr "Απαιτείται βαθμονόμηση ADAS"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:452
+msgid "Multimédia et télématique"
+msgstr "Πολυμέσα και τηλεματική"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:453
+msgid "Autoradio / unité multimédia"
+msgstr "Ράδιο / μονάδα πολυμέσων"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:454
+msgid "Écran central"
+msgstr "Κεντρική οθόνη"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:455
+msgid "Navigation GPS"
+msgstr "Πλοήγηση GPS"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:456
+msgid "Antenne GPS"
+msgstr "Κεραία GPS"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:457
+msgid "Antenne radio"
+msgstr "Κεραία ραδιοφώνου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:458
+msgid "Amplificateur audio"
+msgstr "Ενισχυτής ήχου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:459
+msgid "Haut-parleur"
+msgstr "Ηχείο"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:460
+msgid "Module Bluetooth / téléphone"
+msgstr "Μονάδα Bluetooth / τηλεφώνου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:461
+msgid "Module télématique"
+msgstr "Μονάδα τηλεματικής"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:462
+msgid "Microphone"
+msgstr "Μικρόφωνο"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:463
+msgid "Port USB"
+msgstr "Θύρα USB"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:465
+msgid "Réseau de communication (CAN / LIN)"
+msgstr "Δίκτυο επικοινωνίας (CAN / LIN)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:466
+msgid "Perte de communication avec le calculateur moteur"
+msgstr "Απώλεια επικοινωνίας με τον εγκέφαλο κινητήρα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:467
+msgid "Perte de communication avec la boîte de vitesses"
+msgstr "Απώλεια επικοινωνίας με το κιβώτιο ταχυτήτων"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:468
+msgid "Perte de communication avec l'ABS / ESP"
+msgstr "Απώλεια επικοινωνίας με το ABS / ESP"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:469
+msgid "Perte de communication avec le calculateur d'habitacle"
+msgstr "Απώλεια επικοινωνίας με τον εγκέφαλο αμαξώματος"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:470
+msgid "Perte de communication avec le combiné d'instruments"
+msgstr "Απώλεια επικοινωνίας με τον πίνακα οργάνων"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:471
+msgid "Perte de communication avec le calculateur d'airbag"
+msgstr "Απώλεια επικοινωνίας με τον εγκέφαλο αερόσακων"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:472
+msgid "Perte de communication avec la direction assistée"
+msgstr "Απώλεια επικοινωνίας με την υποβοήθηση τιμονιού"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:473
+msgid "Bus CAN moteur"
+msgstr "Δίαυλος CAN κινητήρα"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:474
+msgid "Bus CAN habitacle"
+msgstr "Δίαυλος CAN καμπίνας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:475
+msgid "Bus LIN"
+msgstr "Δίαυλος LIN"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:476
+msgid "Bus FlexRay / MOST"
+msgstr "Δίαυλος FlexRay / MOST"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:477
+msgid "Passerelle de diagnostic (gateway)"
+msgstr "Πύλη διάγνωσης (gateway)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:478
+msgid "Prise de diagnostic OBD"
+msgstr "Υποδοχή διάγνωσης OBD"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:479
+msgid "Faisceau électrique / connecteur"
+msgstr "Πλεξούδα καλωδίων / φις"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:480
+msgid "Masse électrique"
+msgstr "Γείωση"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:481
+msgid "Codage / programmation calculateur"
+msgstr "Κωδικοποίηση / προγραμματισμός εγκεφάλου"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:483
+msgid "Hybride et électrique"
+msgstr "Υβριδικό και ηλεκτρικό"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:484
+msgid "Batterie haute tension"
+msgstr "Μπαταρία υψηλής τάσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:485
+msgid "Module de batterie haute tension"
+msgstr "Μονάδα μπαταρίας υψηλής τάσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:486
+msgid "Calculateur de batterie (BMS)"
+msgstr "Σύστημα διαχείρισης μπαταρίας (BMS)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:487
+msgid "Capteur de température de batterie HT"
+msgstr "Αισθητήρας θερμοκρασίας μπαταρίας ΥΤ"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:488
+msgid "Onduleur / convertisseur de traction"
+msgstr "Αντιστροφέας έλξης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:489
+msgid "Moteur électrique de traction"
+msgstr "Ηλεκτροκινητήρας έλξης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:490
+msgid "Moteur-générateur (MG1 / MG2)"
+msgstr "Κινητήρας-γεννήτρια (MG1 / MG2)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:491
+msgid "Convertisseur DC/DC"
+msgstr "Μετατροπέας DC/DC"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:492
+msgid "Chargeur embarqué (OBC)"
+msgstr "Ενσωματωμένος φορτιστής (OBC)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:493
+msgid "Prise de charge"
+msgstr "Θύρα φόρτισης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:494
+msgid "Verrouillage de prise de charge"
+msgstr "Κλείδωμα θύρας φόρτισης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:495
+msgid "Câble de charge"
+msgstr "Καλώδιο φόρτισης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:496
+msgid "Contacteur haute tension"
+msgstr "Ρελέ υψηλής τάσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:497
+msgid "Résistance de précharge"
+msgstr "Αντίσταση προφόρτισης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:498
+msgid "Défaut d'isolement haute tension"
+msgstr "Σφάλμα μόνωσης υψηλής τάσης"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:499
+msgid "Interlock haute tension (HVIL)"
+msgstr "Interlock υψηλής τάσης (HVIL)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:500
+msgid "Pompe de refroidissement batterie"
+msgstr "Αντλία ψύξης μπαταρίας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:501
+msgid "Circuit de refroidissement électronique de puissance"
+msgstr "Κύκλωμα ψύξης ηλεκτρονικών ισχύος"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:502
+msgid "Pompe à chaleur"
+msgstr "Αντλία θερμότητας"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:503
+msgid "Compresseur de climatisation électrique"
+msgstr "Ηλεκτρικό κομπρεσέρ A/C"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:504
+msgid "Générateur de son piéton (AVAS)"
+msgstr "Γεννήτρια ήχου πεζών (AVAS)"
+
+#: voiture/voiture_diagnostic/pieces_defaut.py:507
+msgid "Autre (préciser)"
+msgstr "Άλλο (διευκρινίστε)"
 
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:11
 msgid "Supprimer le diagnostic"
 msgstr "Διαγραφή διάγνωσης"
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:14
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_confirm_delete.html:20
 msgid "Voulez-vous vraiment supprimer ce diagnostic ?"
 msgstr "Θέλετε πραγματικά να διαγράψετε αυτή τη διάγνωση;"
 
@@ -34163,16 +35980,12 @@ msgstr "Επεξεργασία διάγνωσης"
 msgid "Nouveau diagnostic"
 msgstr "Νέα διάγνωση"
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:61
-msgid "Marque et modèle"
-msgstr "Μάρκα και μοντέλο"
-
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:71
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:72
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:77
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:78
 msgid "Défaut"
 msgstr "Βλάβη"
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:99
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_form.html:106
 msgid "Retour à la liste des diagnostics"
 msgstr "Επιστροφή στη λίστα διαγνώσεων"
 
@@ -34184,38 +35997,38 @@ msgstr "Λίστα διαγνώσεων"
 msgid "Ajouter un diagnostic"
 msgstr "Προσθήκη διάγνωσης"
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:30
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:38
 msgid "Code défaut (ex. P0301)"
 msgstr "Κωδικός βλάβης (π.χ. P0301)"
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:109
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:117
 msgid "Aucun diagnostic enregistré."
 msgstr "Δεν έχει καταχωρηθεί διάγνωση."
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:112
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:120
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ diagnostics"
 msgstr "Εμφάνιση _START_ έως _END_ από _TOTAL_ διαγνώσεις"
 
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:113
-#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:114
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:121
+#: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_list.html:122
 msgid "Aucun diagnostic trouvé"
 msgstr "Δεν βρέθηκε διάγνωση"
 
-#: voiture/voiture_diagnostic/views.py:71
+#: voiture/voiture_diagnostic/views.py:65
 #, python-format
 msgid "Diagnostic '%(code)s' créé avec succès."
 msgstr "Η διάγνωση '%(code)s' δημιουργήθηκε με επιτυχία."
 
-#: voiture/voiture_diagnostic/views.py:91
+#: voiture/voiture_diagnostic/views.py:84
 #, python-format
 msgid "Diagnostic '%(code)s' mis à jour."
 msgstr "Η διάγνωση '%(code)s' ενημερώθηκε."
 
-#: voiture/voiture_diagnostic/views.py:111
+#: voiture/voiture_diagnostic/views.py:103
 msgid "Diagnostic supprimé."
 msgstr "Η διάγνωση διαγράφηκε."
 
-#: voiture/voiture_diagnostic/views.py:113
+#: voiture/voiture_diagnostic/views.py:105
 msgid "Impossible de supprimer ce diagnostic."
 msgstr "Δεν είναι δυνατή η διαγραφή αυτής της διάγνωσης."
 
