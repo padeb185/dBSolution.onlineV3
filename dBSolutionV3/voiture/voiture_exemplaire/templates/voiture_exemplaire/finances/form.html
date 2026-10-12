@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load i18n widget_tweaks static %}
+
+{% block content %}
+<br>
+<br>
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+
+    <div class="mb-6">
+
+        <h1 class="text-2xl font-bold">
+
+            <!-- Ligne 1 : icône + titre -->
+            <div class="flex items-center gap-4">
+                {% include "voiture_exemplaire/finances/_icone.html" with classe="w-[60px] h-[60px]" %}
+
+                <span>
+                    {% if manquants %}
+                        {% trans "Compléter les données financières" %}
+                    {% else %}
+                        {% trans "Modifier les données financières" %}
+                    {% endif %}
+                </span>
+            </div>
+
+            <!-- Ligne 2 : marque + modèle + variante -->
+            <div class="flex items-center justify-center gap-4 mt-3">
+
+                {% static 'images/marques/' as marques_path %}
+
+                <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                     alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                     class="w-20 h-20 object-contain"
+                     onerror="this.style.display='none';">
+
+                <span class="font-semibold">
+                    {{ exemplaire.voiture_modele.nom_modele }}
+
+                    {% if exemplaire.voiture_modele.nom_variante %}
+                        {{ exemplaire.voiture_modele.nom_variante }}
+                    {% endif %}
+                </span>
+
+            </div>
+
+        </h1>
+
+    </div>
+
+    <!-- Plaque -->
+    <div class="mb-4 flex justify-center">
+        {% include "maintenance/partials/plaque.html" %}
+    </div>
+
+    <!-- Messages -->
+    {% include "voiture_exemplaire/finances/_messages.html" %}
+
+    {% if form.errors %}
+        <div class="mb-4 bg-red-100 text-red-800 border border-red-300 p-3 rounded">
+            <strong>{% trans "Erreurs :" %}</strong>
+            <ul class="list-disc ml-5 mt-2">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }} : {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if police and police.prime_annuelle is not None and not exemplaire.assurance %}
+        <div class="mb-4 bg-blue-50 border border-blue-200 text-blue-800 p-3 rounded text-sm">
+            {% trans "Assurance pré-remplie depuis la police active" %} {{ police.numero_contrat }}.
+        </div>
+    {% endif %}
+
+    <br>
+
+    {% trans "manquant" as manquant_label %}
+
+    <!-- Form -->
+    <form method="POST" id="finances-form" class="space-y-4">
+
+        {% csrf_token %}
+
+        <!-- Achat -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/achatmds.png' %}" alt="{% trans 'Achat' %}" class="w-20 h-20">
+            {% trans "Achat" %}
+        </h2>
+        {% include "voiture_exemplaire/finances/_champ.html" with field=form.prix_achat %}
+        {% include "voiture_exemplaire/finances/_champ.html" with field=form.taxe_mise_en_circulation %}
+
+        <br>
+
+        <!-- Coûts annuels -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/assurance-voiture.png' %}" alt="{% trans 'Assurance' %}" class="w-20 h-20">
+            {% trans "Assurance et taxes annuelles" %}
+        </h2>
+        {% include "voiture_exemplaire/finances/_champ.html" with field=form.assurance %}
+        {% include "voiture_exemplaire/finances/_champ.html" with field=form.taxe_roulage %}
+
+        <br>
+
+        <!-- Propriétaires -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/proprietaire.png' %}" alt="{% trans 'Propriétaires' %}" class="w-20 h-20">
+            {% trans "Propriétaires" %}
+        </h2>
+        {% include "voiture_exemplaire/finances/_champ.html" with field=form.nombre_proprietaires %}
+        {% include "voiture_exemplaire/finances/_champ.html" with field=form.part_proprietaires_pourcent %}
+
+        <!-- Boutons -->
+        <div class="flex gap-3 mt-6">
+            <button type="submit"
+                    class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Enregistrer" %}
+            </button>
+
+            <a href="{% url 'voiture_exemplaire:finances_detail' exemplaire_id=exemplaire.id %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                {% trans "Annuler" %}
+            </a>
+        </div>
+
+        <!-- Date -->
+        <p class="text-sm text-gray-500 mt-4">
+            {% trans "Date actuelle" %} : {% now "Y-m-d H:i" %}
+        </p>
+
+    </form>
+</div>
+
+<div class="max-w-xl mx-auto mt-4">
+    <a href="{% url 'voiture_exemplaire:finances_liste' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour à la liste des finances" %}
+    </a>
+</div>
+<style>
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+}
+.input-error {
+    border-color: #dc2626 !important;
+}
+</style>
+<br>
+<br>
+{% endblock %}

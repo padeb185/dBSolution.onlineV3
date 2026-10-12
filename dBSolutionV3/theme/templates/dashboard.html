@@ -724,6 +724,21 @@
     </a>
     {% endif %}
 
+    <!-- Données financières des véhicules -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/exemplaires/finances/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Finances véhicules" %}
+            </h2>
+            <p class="text-gray-600 text-sm">
+                {% trans "Prix d'achat, assurance, taxes" %}
+            </p>
+        </div>
+
+        {% include "voiture_exemplaire/finances/_icone.html" with classe="w-[60px] h-[60px]" %}
+    </a>
+
 </div>
 
 {% endif %}

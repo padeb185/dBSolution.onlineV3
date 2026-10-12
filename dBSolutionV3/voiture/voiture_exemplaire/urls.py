@@ -2,7 +2,8 @@ from django.urls import path
 from .views import ajouter_exemplaire_all, liste_exemplaires, voiture_exemplaire_detail, \
     moteur_autocomplete, modifier_exemplaire, \
     liste_exemplaires_all, lier_boite_exemplaire, lier_moteur_exemplaire, lier_embrayage_exemplaire, \
-    lier_freins, lier_frein_ar, lier_pneus_av, lier_pneus_ar, supprimer_exemplaire_all
+    lier_freins, lier_frein_ar, lier_pneus_av, lier_pneus_ar, supprimer_exemplaire_all, \
+    finances_liste, finances_detail, finances_modifier, finances_supprimer
 
 app_name = "voiture_exemplaire"
 
@@ -39,5 +40,10 @@ urlpatterns = [
 
     path("exemplaire/<uuid:exemplaire_id>/supprimer/",supprimer_exemplaire_all,name="supprimer_exemplaire_all"),
 
-]
 
+    # Données financières (Direction)
+    path("finances/", finances_liste, name="finances_liste"),
+    path("finances/<uuid:exemplaire_id>/", finances_detail, name="finances_detail"),
+    path("finances/<uuid:exemplaire_id>/modifier/", finances_modifier, name="finances_modifier"),
+    path("finances/<uuid:exemplaire_id>/supprimer/", finances_supprimer, name="finances_supprimer"),
+]

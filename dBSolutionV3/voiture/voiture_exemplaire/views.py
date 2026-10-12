@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.views.decorators.cache import never_cache
-from .forms import VoitureExemplaireForm
+from .forms import VoitureExemplaireForm, VoitureExemplaireFinanceForm, FINANCE_FIELDS
 from .models import VoitureExemplaire
 from ..voiture_modele.models import VoitureModele
 from ..voiture_moteur.models import MoteurVoiture
@@ -589,3 +589,181 @@ def supprimer_exemplaire_all(request, exemplaire_id):
             "marque": marque,
         }
     )
+
+
+# =====================================================================
+# DONNÉES FINANCIÈRES — CRUD (onglet Direction)
+# =====================================================================
+
+FINANCE_ROLES = ["direction"]
+
+
+def _finance_autorise(user):
+    return user.is_superuser or getattr(user, "role", None) in FINANCE_ROLES
+
+
+def _finance_manquants(exemplaire):
+    """Liste des champs financiers encore vides."""
+    return [f for f in FINANCE_FIELDS if getattr(exemplaire, f) is None]
+
+
+def _finance_queryset(request):
+    return (
+        VoitureExemplaire.objects
+        .select_related("voiture_marque", "voiture_modele", "client")
+        .filter(societe=request.user.societe)
+    )
+
+
+def _police_active(exemplaire):
+    """Police d'assurance active liée au véhicule (si l'app est utilisée)."""
+    polices = getattr(exemplaire, "polices_assurance", None)
+    if polices is None:
+        return None
+    return polices.filter(actif=True).order_by("-date_debut").first()
+
+
+@never_cache
+@login_required
+def finances_liste(request):
+    if not _finance_autorise(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    filtre = request.GET.get("filtre", "tous")
+    q = (request.GET.get("q") or "").strip()
+
+    exemplaires = _finance_queryset(request).order_by(
+        "voiture_marque__nom_marque", "voiture_modele__nom_modele", "immatriculation"
+    )
+
+    if q:
+        from django.db.models import Q
+        exemplaires = exemplaires.filter(
+            Q(immatriculation__icontains=q)
+            | Q(numero_vin__icontains=q)
+            | Q(voiture_marque__nom_marque__icontains=q)
+            | Q(voiture_modele__nom_modele__icontains=q)
+        )
+
+    lignes = []
+    nb_complets = 0
+    for ex in exemplaires:
+        manquants = _finance_manquants(ex)
+        complet = not manquants
+        nb_complets += complet
+        if filtre == "incomplets" and complet:
+            continue
+        if filtre == "complets" and not complet:
+            continue
+        ex.nb_manquants = len(manquants)
+        ex.cout_fixe_annuel = (ex.assurance or 0) + (ex.taxe_roulage or 0)
+        lignes.append(ex)
+
+    total = exemplaires.count()
+
+    return render(request, "voiture_exemplaire/finances/liste.html", {
+        "exemplaires": lignes,
+        "filtre": filtre,
+        "q": q,
+        "total": total,
+        "nb_complets": nb_complets,
+        "nb_incomplets": total - nb_complets,
+        "nb_champs": len(FINANCE_FIELDS),
+    })
+
+
+@never_cache
+@login_required
+def finances_detail(request, exemplaire_id):
+    if not _finance_autorise(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    exemplaire = get_object_or_404(_finance_queryset(request), id=exemplaire_id)
+    manquants = _finance_manquants(exemplaire)
+
+    labels = VoitureExemplaireFinanceForm().fields
+    champs = [
+        {"nom": f, "label": labels[f].label, "valeur": getattr(exemplaire, f)}
+        for f in FINANCE_FIELDS
+    ]
+
+    return render(request, "voiture_exemplaire/finances/detail.html", {
+        "exemplaire": exemplaire,
+        "champs": champs,
+        "manquants": manquants,
+        "police": _police_active(exemplaire),
+        "cout_fixe_annuel": (exemplaire.assurance or 0) + (exemplaire.taxe_roulage or 0),
+        "cout_acquisition": (exemplaire.prix_achat or 0) + (exemplaire.taxe_mise_en_circulation or 0),
+    })
+
+
+@login_required
+def finances_modifier(request, exemplaire_id):
+    """Création (compléter les champs vides) et modification des données financières."""
+    if not _finance_autorise(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    exemplaire = get_object_or_404(_finance_queryset(request), id=exemplaire_id)
+    police = _police_active(exemplaire)
+
+    if request.method == "POST":
+        form = VoitureExemplaireFinanceForm(request.POST, instance=exemplaire)
+        if form.is_valid():
+            from django.utils import timezone
+            # update() : n'écrit que les champs financiers, sans relancer
+            # le décodage VIN ni le recalcul des kilométrages de save().
+            VoitureExemplaire.objects.filter(pk=exemplaire.pk).update(
+                updated_at=timezone.now(),
+                **{f: form.cleaned_data.get(f) for f in FINANCE_FIELDS},
+            )
+            messages.success(
+                request,
+                _("Données financières de '%(vehicule)s' enregistrées.") % {
+                    "vehicule": f"{exemplaire.voiture_marque} {exemplaire.immatriculation}"
+                },
+            )
+            return redirect("voiture_exemplaire:finances_detail", exemplaire_id=exemplaire.id)
+    else:
+        initial = {}
+        # Pré-remplissage de l'assurance depuis la police active si vide
+        if exemplaire.assurance is None and police and police.prime_annuelle is not None:
+            initial["assurance"] = police.prime_annuelle
+        form = VoitureExemplaireFinanceForm(instance=exemplaire, initial=initial)
+
+    return render(request, "voiture_exemplaire/finances/form.html", {
+        "form": form,
+        "exemplaire": exemplaire,
+        "police": police,
+        "manquants": _finance_manquants(exemplaire),
+    })
+
+
+@login_required
+def finances_supprimer(request, exemplaire_id):
+    """Efface les données financières (le véhicule lui-même est conservé)."""
+    if not _finance_autorise(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    exemplaire = get_object_or_404(_finance_queryset(request), id=exemplaire_id)
+
+    if request.method == "POST":
+        from django.utils import timezone
+        VoitureExemplaire.objects.filter(pk=exemplaire.pk).update(
+            updated_at=timezone.now(),
+            **{f: None for f in FINANCE_FIELDS},
+        )
+        messages.success(
+            request,
+            _("Données financières de '%(vehicule)s' supprimées.") % {
+                "vehicule": f"{exemplaire.voiture_marque} {exemplaire.immatriculation}"
+            },
+        )
+        return redirect("voiture_exemplaire:finances_liste")
+
+    return render(request, "voiture_exemplaire/finances/supprimer.html", {
+        "exemplaire": exemplaire,
+    })

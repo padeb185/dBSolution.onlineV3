@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<br>
+<div class="max-w-3xl mx-auto p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-4 flex items-center gap-4">
+        {% include "voiture_exemplaire/finances/_icone.html" with classe="w-20 h-20" %}
+        {% trans "Données financières" %}
+    </h1>
+
+    {% include "voiture_exemplaire/finances/_messages.html" %}
+
+    <div class="mb-4">
+        {% include "maintenance/partials/plaque.html" with exemplaire=exemplaire taille="grande" %}
+    </div>
+
+    <!-- Données présentes du véhicule (lecture seule) -->
+    <h2 class="text-lg font-semibold mb-2">{% trans "Véhicule" %}</h2>
+    <dl class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm mb-6">
+        <dt class="text-gray-600">{% trans "Marque / modèle" %}</dt>
+        <dd>{{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }} {{ exemplaire.voiture_modele.nom_variante|default:"" }}</dd>
+        <dt class="text-gray-600">{% trans "VIN" %}</dt>
+        <dd class="font-mono">{{ exemplaire.numero_vin }}</dd>
+        <dt class="text-gray-600">{% trans "Année de production" %}</dt>
+        <dd>{{ exemplaire.annee_production|default:"—" }}{% if exemplaire.mois_production %}/{{ exemplaire.mois_production }}{% endif %}</dd>
+        <dt class="text-gray-600">{% trans "Mise en circulation" %}</dt>
+        <dd>{{ exemplaire.date_mise_en_circulation|date:"d/m/Y"|default:"—" }}</dd>
+        <dt class="text-gray-600">{% trans "Type d'utilisation" %}</dt>
+        <dd>{{ exemplaire.get_type_utilisation_display }}</dd>
+        <dt class="text-gray-600">{% trans "Kilométrage châssis" %}</dt>
+        <dd>{{ exemplaire.kilometres_chassis|default:0 }} km</dd>
+        {% if exemplaire.client %}
+        <dt class="text-gray-600">{% trans "Client" %}</dt>
+        <dd>{{ exemplaire.client }}</dd>
+        {% endif %}
+    </dl>
+
+    <!-- Données financières -->
+    <h2 class="text-lg font-semibold mb-2">{% trans "Finances" %}</h2>
+    <dl class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm mb-4">
+        {% for c in champs %}
+            <dt class="text-gray-600">{{ c.label }}</dt>
+            <dd>
+                {% if c.valeur is None %}
+                    <span class="px-2 py-0.5 rounded bg-orange-100 text-orange-800 text-xs font-semibold">{% trans "Manquant" %}</span>
+                {% else %}
+                    {{ c.valeur }}
+                {% endif %}
+            </dd>
+        {% endfor %}
+    </dl>
+
+    {% if police %}
+    <p class="text-sm text-gray-600 mb-4">
+        {% trans "Police d'assurance active" %} : {{ police.numero_contrat }}
+        {% if police.prime_annuelle is not None %}— {% trans "prime annuelle" %} {{ police.prime_annuelle|floatformat:2 }} €{% endif %}
+    </p>
+    {% endif %}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="bg-blue-50 rounded p-4">
+            <p class="text-gray-600 text-sm">{% trans "Coût d'acquisition (achat + taxe MEC)" %}</p>
+            <p class="text-xl font-bold">{{ cout_acquisition|floatformat:2 }} €</p>
+        </div>
+        <div class="bg-blue-50 rounded p-4">
+            <p class="text-gray-600 text-sm">{% trans "Coûts fixes annuels (assurance + roulage)" %}</p>
+            <p class="text-xl font-bold">{{ cout_fixe_annuel|floatformat:2 }} €</p>
+        </div>
+    </div>
+
+    <div class="flex flex-wrap gap-3">
+        <a href="{% url 'voiture_exemplaire:finances_modifier' exemplaire_id=exemplaire.id %}"
+           class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+            {% if manquants %}{% trans "Compléter" %}{% else %}{% trans "Modifier" %}{% endif %}
+        </a>
+        <a href="{% url 'voiture_exemplaire:finances_supprimer' exemplaire_id=exemplaire.id %}"
+           class="flex-1 bg-red-700 text-white px-5 py-4 rounded hover:bg-red-400 font-semibold text-center">
+            {% trans "Supprimer" %}
+        </a>
+        <a href="{% url 'voiture_exemplaire:finances_liste' %}"
+           class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+            {% trans "Retour" %}
+        </a>
+    </div>
+</div>
+{% endblock %}

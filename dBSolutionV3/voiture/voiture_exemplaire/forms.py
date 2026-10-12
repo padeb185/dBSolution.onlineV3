@@ -139,3 +139,51 @@ class VoitureExemplaireForm(forms.ModelForm):
             instance.save()
 
         return instance
+
+# =====================================================================
+# DONNÉES FINANCIÈRES (onglet Direction)
+# =====================================================================
+
+FINANCE_FIELDS = (
+    "prix_achat",
+    "assurance",
+    "taxe_mise_en_circulation",
+    "taxe_roulage",
+    "nombre_proprietaires",
+    "part_proprietaires_pourcent",
+)
+
+
+class VoitureExemplaireFinanceForm(forms.ModelForm):
+    """
+    Complète les données financières d'un exemplaire existant.
+    Les données d'identification (marque, VIN, km...) ne sont pas modifiables ici.
+    """
+
+    class Meta:
+        model = VoitureExemplaire
+        fields = FINANCE_FIELDS
+        labels = {
+            "prix_achat": _("Prix d'achat (€)"),
+            "assurance": _("Assurance annuelle (€)"),
+            "taxe_mise_en_circulation": _("Taxe de mise en circulation (€)"),
+            "taxe_roulage": _("Taxe de roulage annuelle (€)"),
+            "nombre_proprietaires": _("Nombre de propriétaires"),
+            "part_proprietaires_pourcent": _("Part des propriétaires (%)"),
+        }
+        widgets = {
+            "prix_achat": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
+            "assurance": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
+            "taxe_mise_en_circulation": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
+            "taxe_roulage": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
+            "nombre_proprietaires": forms.NumberInput(attrs={"min": "1", "max": "10"}),
+            "part_proprietaires_pourcent": forms.NumberInput(attrs={"step": "0.01", "min": "0", "max": "100"}),
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        for name in ("prix_achat", "assurance", "taxe_mise_en_circulation", "taxe_roulage"):
+            value = cleaned_data.get(name)
+            if value is not None and value < 0:
+                self.add_error(name, _("Le montant ne peut pas être négatif."))
+        return cleaned_data
