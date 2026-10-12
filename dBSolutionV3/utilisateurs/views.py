@@ -97,6 +97,7 @@ def dashboard_view(request):
     total_adresse = total_assurance = total_modele = total_outils = 0
     total_recharge = total_main = total_proprietaire = total_client = 0
     total_location = 0
+    total_diagnostic = 0
 
 
     marques = moteurs = exemplaires = boites = embrayages = freins = \
@@ -190,6 +191,8 @@ def dashboard_view(request):
 
             from voiture.voiture_location.models import Location
             total_location = Location.objects.filter(societe=societe).count()
+            from voiture.voiture_diagnostic.models import Diagnostic
+            total_diagnostic = Diagnostic.objects.filter(societe=societe).count()
 
     context.update({
         'user': user,
@@ -228,6 +231,7 @@ def dashboard_view(request):
         'total_proprietaire': total_proprietaire,
         'total_client': total_client,
         'total_location': total_location,
+        'total_diagnostic': total_diagnostic,
         "total_maintenances_user": total_maintenances_user,
         "total_assurance_police" : total_assurance_police,
 

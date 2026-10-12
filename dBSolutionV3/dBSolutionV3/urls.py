@@ -56,6 +56,9 @@ urlpatterns += i18n_patterns(
         include(("voiture.voiture_exemplaire.urls", "voiture_exemplaire"), namespace="voiture_exemplaire")
     ),
 
+    # Diagnostics (codes défaut)
+    path("diagnostic/", include(("voiture.voiture_diagnostic.urls", "voiture_diagnostic"), namespace="voiture_diagnostic")),
+
     # Locations (circuit / route)
     path("location/", include(("voiture.voiture_location.urls", "voiture_location"), namespace="voiture_location")),
 

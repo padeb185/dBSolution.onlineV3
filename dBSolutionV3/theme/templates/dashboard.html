@@ -256,6 +256,28 @@
              class="w-[60px] h-[60px]">
     </a>
 
+    <!-- Diagnostics (codes défaut) -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/diagnostic/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Diagnostics" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_diagnostic }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/diagnostic.png' %}"
+             alt="{% trans 'Diagnostic' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
 </div>
 
 {% endif %}
