@@ -251,8 +251,8 @@ def erreurs_emission(facture):
         if societe and not societe.adresse:
             erreurs.append(_("Votre société n'a pas d'adresse."))
     else:
-        if not facture.client_particulier:
-            erreurs.append(_("Sélectionnez le client particulier."))
+        if not facture.client_particulier and not facture.client_atelier:
+            erreurs.append(_("Sélectionnez le client ou le client atelier."))
     return erreurs
 
 

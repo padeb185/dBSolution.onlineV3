@@ -2,6 +2,7 @@ from django import forms
 from django.forms import inlineformset_factory
 from django.utils.translation import gettext_lazy as _
 
+from client_atelier.models import ClientAtelier
 from client_particulier.models import ClientParticulier
 from societe_cliente.models import SocieteCliente
 
@@ -9,6 +10,9 @@ from .models import Facture, FactureLine, ParametresPeppol
 
 
 class FactureForm(forms.ModelForm):
+    # Facture client : un seul choix parmi les clients et les clients atelier
+    client_choix = forms.ChoiceField(label=_("Client"), required=False)
+
     class Meta:
         model = Facture
         fields = [
@@ -43,14 +47,64 @@ class FactureForm(forms.ModelForm):
         else:
             del self.fields["societe_cliente"]
             del self.fields["autoliquidation"]
-            self.fields["client_particulier"].queryset = (
-                ClientParticulier.objects.filter(societe=societe).order_by("nom", "prenom")
+            del self.fields["client_particulier"]
+
+            clients = ClientParticulier.objects.filter(societe=societe).order_by("nom", "prenom")
+            ateliers = (
+                ClientAtelier.objects.filter(societe=societe)
+                .select_related("client_particulier", "societe_cliente")
+                .order_by("client_particulier__nom", "client_particulier__prenom", "societe_cliente__nom_societe_cliente")
             )
-            self.fields["client_particulier"].label_from_instance = lambda c: f"{c.nom} {c.prenom}"
+
+            def libelle_atelier(ca):
+                cp = ca.client_particulier
+                if cp:
+                    return f"{cp.nom} {cp.prenom}"
+                return getattr(ca.societe_cliente, "nom_societe_cliente", "") or str(ca.pk)
+
+            self.fields["client_choix"].choices = [
+                ("", "---------"),
+                (_("Clients"), [(f"particulier:{c.pk}", f"{c.nom} {c.prenom}") for c in clients]),
+                (_("Clients atelier"), [(f"atelier:{ca.pk}", libelle_atelier(ca)) for ca in ateliers]),
+            ]
+            if self.instance.client_atelier_id:
+                self.initial["client_choix"] = f"atelier:{self.instance.client_atelier_id}"
+            elif self.instance.client_particulier_id:
+                self.initial["client_choix"] = f"particulier:{self.instance.client_particulier_id}"
 
         for name, field in self.fields.items():
             if name not in ("autoliquidation", "client_est_societe"):
                 field.widget.attrs.setdefault("class", "input")
+
+        if self.instance.est_pro:
+            del self.fields["client_choix"]
+
+    def clean_client_choix(self):
+        valeur = self.cleaned_data.get("client_choix")
+        if not valeur:
+            return None
+        type_client, _sep, pk = valeur.partition(":")
+        modele = {"particulier": ClientParticulier, "atelier": ClientAtelier}.get(type_client)
+        if modele is None:
+            raise forms.ValidationError(_("Client invalide."))
+        try:
+            return type_client, modele.objects.get(pk=pk)
+        except (modele.DoesNotExist, ValueError):
+            raise forms.ValidationError(_("Client introuvable."))
+
+    def _post_clean(self):
+        # Affecte le client choisi (particulier ou atelier) avant la validation du modèle
+        if "client_choix" in self.fields:
+            choix = self.cleaned_data.get("client_choix")
+            self.instance.client_particulier = None
+            self.instance.client_atelier = None
+            if choix and not self.cleaned_data.get("client_est_societe"):
+                type_client, obj = choix
+                if type_client == "atelier":
+                    self.instance.client_atelier = obj
+                else:
+                    self.instance.client_particulier = obj
+        super()._post_clean()
 
 
 class FactureLineForm(forms.ModelForm):

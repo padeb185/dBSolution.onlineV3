@@ -149,6 +149,16 @@ class Facture(models.Model):
         verbose_name=_("Client particulier"),
     )
 
+    # Client atelier (alternative au client particulier)
+    client_atelier = models.ForeignKey(
+        "client_atelier.ClientAtelier",
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="factures",
+        verbose_name=_("Client atelier"),
+    )
+
     # Client professionnel
     societe_cliente = models.ForeignKey(
         SocieteCliente,
@@ -247,7 +257,17 @@ class Facture(models.Model):
     def client(self):
         if self.client_est_societe:
             return self.societe
-        return self.societe_cliente if self.est_pro else self.client_particulier
+        if self.est_pro:
+            return self.societe_cliente
+        return self.client_atelier or self.client_particulier
+
+    @staticmethod
+    def nom_client_atelier(client_atelier):
+        cp = getattr(client_atelier, "client_particulier", None)
+        if cp:
+            return f"{cp.prenom} {cp.nom}".strip()
+        sc = getattr(client_atelier, "societe_cliente", None)
+        return (getattr(sc, "nom_societe_cliente", "") or "") if sc else ""
 
     def nom_client_courant(self):
         if self.est_emise and self.client_nom:
@@ -256,6 +276,8 @@ class Facture(models.Model):
             return getattr(self.societe, "nom", "") or ""
         if self.est_pro and self.societe_cliente:
             return self.societe_cliente.nom_societe_cliente or ""
+        if self.client_atelier:
+            return self.nom_client_atelier(self.client_atelier)
         if self.client_particulier:
             return f"{self.client_particulier.prenom} {self.client_particulier.nom}".strip()
         return ""
@@ -264,8 +286,15 @@ class Facture(models.Model):
         """Fige les coordonnées du client sur la facture (à l'émission)."""
         client = self.client
         adresse = getattr(client, "adresse", None) if client else None
+        email = (getattr(client, "email", "") or "") if client else ""
+        # Client atelier : adresse / email repris de la fiche client liée si absents
+        if self.client_atelier and client is self.client_atelier:
+            lie = self.client_atelier.client_particulier or self.client_atelier.societe_cliente
+            if lie is not None:
+                adresse = adresse or getattr(lie, "adresse", None)
+                email = email or (getattr(lie, "email", "") or "")
         self.client_nom = self.nom_client_courant()
-        self.client_email = (getattr(client, "email", "") or "") if client else ""
+        self.client_email = email
         self.client_tva = (
             (getattr(client, "numero_tva", "") or "")
             if client and (self.est_pro or self.client_est_societe) else ""

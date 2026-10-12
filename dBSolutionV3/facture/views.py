@@ -58,6 +58,7 @@ def _get_facture(request, pk):
     return get_object_or_404(
         _factures(request).select_related(
             "societe", "societe__adresse", "client_particulier", "client_particulier__adresse",
+            "client_atelier__client_particulier", "client_atelier__societe_cliente",
             "societe_cliente", "societe_cliente__adresse", "voiture_exemplaire",
             "voiture_exemplaire__voiture_marque", "voiture_exemplaire__voiture_modele",
         ),
@@ -147,7 +148,7 @@ def facture_list_view(request):
         return _refuser(request)
 
     factures = _factures(request).select_related(
-        "client_particulier", "societe_cliente", "voiture_exemplaire"
+        "client_particulier", "client_atelier__client_particulier", "societe_cliente", "voiture_exemplaire"
     )
     return render(request, "facture/facture_list.html", {"factures": factures})
 
