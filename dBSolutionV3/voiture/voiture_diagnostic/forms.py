@@ -2,21 +2,23 @@ from django import forms
 from django.forms import inlineformset_factory
 from django.utils.translation import gettext_lazy as _
 
+from maindoeuvre.models import MainDoeuvre
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from .models import Diagnostic, DiagnosticCode
 
 
 class DiagnosticForm(forms.ModelForm):
+    # Temps de main-d'œuvre (enregistré dans MainDoeuvre, comme pour les checkups)
+    temps_heures = forms.IntegerField(label=_("Heures"), required=False, min_value=0)
+    temps_minutes = forms.IntegerField(label=_("Minutes"), required=False, min_value=0, max_value=59)
+
     class Meta:
         model = Diagnostic
-        fields = ("voiture_exemplaire", "date_diagnostic", "kilometrage", "description",
-                  "temps_minutes", "taux_horaire")
+        fields = ("voiture_exemplaire", "date_diagnostic", "kilometrage", "description", "taux_horaire")
         widgets = {
             "date_diagnostic": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "kilometrage": forms.NumberInput(attrs={"min": "0"}),
             "description": forms.Textarea(attrs={"rows": 3}),
-            "temps_minutes": forms.NumberInput(attrs={"min": "0", "step": "5"}),
-            "taux_horaire": forms.NumberInput(attrs={"min": "0", "step": "0.01"}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -24,7 +26,11 @@ class DiagnosticForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         societe = getattr(self.user, "societe", None)
 
-        self.fields["taux_horaire"].help_text = _("Sans temps, le taux est facturé comme forfait.")
+        # Temps de main-d'œuvre existant
+        if self.instance.pk and self.instance.main_oeuvre:
+            self.fields["temps_heures"].initial = self.instance.main_oeuvre.heures
+            self.fields["temps_minutes"].initial = self.instance.main_oeuvre.minutes
+
         # Nouveau diagnostic : taux horaire repris du dernier diagnostic de la société
         if not self.instance.pk and societe is not None and not self.initial.get("taux_horaire"):
             dernier = (
@@ -55,6 +61,27 @@ class DiagnosticForm(forms.ModelForm):
         instance = super().save(commit=False)
         if self.user is not None and not instance.societe_id:
             instance.societe = self.user.societe
+
+        # Main-d'œuvre : création ou mise à jour (temps, véhicule, taux)
+        total_minutes = (self.cleaned_data.get("temps_heures") or 0) * 60 + (self.cleaned_data.get("temps_minutes") or 0)
+        descriptif = f"{_('Diagnostic')} {instance.voiture_exemplaire or ''}".strip()[:255]
+        if instance.main_oeuvre_id:
+            MainDoeuvre.objects.filter(pk=instance.main_oeuvre_id).update(
+                temps_minutes=total_minutes,
+                taux_horaire=instance.taux_horaire,
+                voiture_exemplaire=instance.voiture_exemplaire,
+                descriptif=descriptif,
+            )
+        else:
+            instance.main_oeuvre = MainDoeuvre.objects.create(
+                societe=instance.societe,
+                utilisateur=self.user,
+                voiture_exemplaire=instance.voiture_exemplaire,
+                kilometres_chassis=instance.kilometrage or getattr(instance.voiture_exemplaire, "kilometres_chassis", 0) or 0,
+                taux_horaire=instance.taux_horaire,
+                temps_minutes=total_minutes,
+                descriptif=descriptif,
+            )
         # Kilométrage repris du véhicule s'il n'est pas saisi
         if instance.kilometrage is None and instance.voiture_exemplaire_id:
             instance.kilometrage = instance.voiture_exemplaire.kilometres_chassis

@@ -101,6 +101,22 @@
 <div class="box">{{ diagnostic.description|linebreaks }}</div>
 {% endif %}
 
+<h2>{% trans "Main-d'œuvre" %}</h2>
+<div class="box">
+    <div class="grid">
+        <div>
+            <p><span class="label">{% trans "Temps de travail" %} :</span> {{ diagnostic.temps_main_oeuvre_display }}</p>
+            <p><span class="label">{% trans "Taux horaire HTVA" %} :</span> {{ diagnostic.taux_horaire|floatformat:2 }} €</p>
+        </div>
+        <div>
+            <p><span class="label">{% trans "Technicien" %} :</span>
+                {% if diagnostic.main_oeuvre and diagnostic.main_oeuvre.utilisateur %}{{ diagnostic.main_oeuvre.utilisateur }}{% else %}-{% endif %}
+            </p>
+            <p><span class="label">{% trans "Prix HTVA" %} :</span> {{ diagnostic.cout_main_oeuvre|floatformat:2 }} €</p>
+        </div>
+    </div>
+</div>
+
 <div class="footer">
     {% trans "Document généré automatiquement par CarsCosts.com." %}
     <br>

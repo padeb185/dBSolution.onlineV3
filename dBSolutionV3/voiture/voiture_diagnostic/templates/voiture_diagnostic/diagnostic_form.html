@@ -110,11 +110,16 @@
         {% include "voiture_diagnostic/_champ.html" with field=form.description %}
 
         <br>
+        <!-- Section temps main d'œuvre (comme les checkups) -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/main-doeuvre.png' %}" alt="{% trans 'Facturation' %}" class="w-20 h-20">
-            {% trans "Facturation" %}
+            <img src="{% static 'icons/main-doeuvre.png' %}" alt="{% trans 'Temps' %}" class="w-20 h-20">
+            {% trans "Temps de main d'œuvre" %}
         </h2>
-        {% include "voiture_diagnostic/_champ.html" with field=form.temps_minutes %}
+
+        <div class="grid grid-cols-2 gap-4">
+            {% include "voiture_diagnostic/_champ.html" with field=form.temps_heures %}
+            {% include "voiture_diagnostic/_champ.html" with field=form.temps_minutes %}
+        </div>
         {% include "voiture_diagnostic/_champ.html" with field=form.taux_horaire %}
 
         <!-- Boutons -->

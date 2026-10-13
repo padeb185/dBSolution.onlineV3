@@ -130,13 +130,7 @@
                     <td class="border px-4 py-2" data-order="{{ d.date_diagnostic|date:'Y-m-d' }}">
                         {{ d.date_diagnostic|date:"d/m/Y" }}
                     </td>
-                    <td class="border px-4 py-2 font-semibold">
-                        <a href="{% url 'voiture_diagnostic:diagnostic_detail' diagnostic_id=d.id %}" class="text-blue-700 hover:underline">{% trans "Diagnostic" %}</a>
-                        <div class="mt-1">
-                        {% for c in d.codes.all %}<span class="font-mono font-bold px-1.5 py-0.5 rounded bg-gray-900 text-yellow-300 text-xs mr-1">{{ c.code_defaut }}</span>{% endfor %}
-                        </div>
-                        <span class="text-sm font-normal text-gray-500">{{ d.temps_display }} – {{ d.cout_htva|floatformat:2 }} € HTVA</span>
-                    </td>
+                    <td class="border px-4 py-2 font-semibold">{% trans "Diagnostic" %}</td>
                     <td class="border px-4 py-2">
                         {% if exemplaire %}{% include "maintenance/partials/plaque.html" with taille="petite" %}{% else %}-{% endif %}
                     </td>

@@ -222,14 +222,13 @@ def _taux_tva_societe(societe):
 
 
 def lignes_depuis_diagnostic(diagnostic, marge_main_oeuvre, taux_tva):
-    """Ligne de main-d'œuvre d'un diagnostic (codes défaut repris dans le libellé)."""
+    """Ligne de main-d'œuvre d'un diagnostic : temps de la main-d'œuvre × taux horaire (comme les checkups)."""
     codes = ", ".join(c.code_defaut for c in diagnostic.codes.all())
-    if diagnostic.temps_minutes:
-        quantite = arrondi(Decimal(diagnostic.temps_minutes) / Decimal("60"))
-        description = _("Diagnostic (%(temps)s)") % {"temps": diagnostic.temps_display}
-    else:
-        quantite = Decimal("1.00")
-        description = _("Diagnostic (forfait)")
+    quantite = arrondi(Decimal(diagnostic.temps_minutes) / Decimal("60"))
+    description = _("Diagnostic (%(temps)s)") % {"temps": diagnostic.temps_main_oeuvre_display}
+    technicien = getattr(diagnostic.main_oeuvre, "utilisateur", None) if diagnostic.main_oeuvre_id else None
+    if technicien:
+        description += f" – {technicien.prenom} {technicien.nom}"
     if codes:
         description += " – " + _("codes défaut : %(codes)s") % {"codes": codes}
     return [{

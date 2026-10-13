@@ -33,6 +33,7 @@ def _queryset(request):
         .select_related(
             "voiture_exemplaire__voiture_marque",
             "voiture_exemplaire__voiture_modele",
+            "main_oeuvre__utilisateur",
         )
         .prefetch_related(
             Prefetch("codes", queryset=DiagnosticCode.objects.order_by("ordre", "code_defaut")),

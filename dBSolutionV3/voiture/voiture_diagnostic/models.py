@@ -7,6 +7,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from maintenance.choices import TAUX_HORAIRE_CHOICES
+
 from .pieces_defaut import PIECE_AUTRE, PIECES_DEFAUT_CHOICES
 
 
@@ -46,16 +48,21 @@ class Diagnostic(models.Model):
         verbose_name=_("Description / solution"),
     )
 
-    # Facturation du diagnostic (main-d'œuvre)
-    temps_minutes = models.PositiveIntegerField(
-        _("Temps du diagnostic (minutes)"),
-        default=0,
+    # Main-d'œuvre du diagnostic (comme les checkups) : temps dans MainDoeuvre, prix via le taux horaire
+    main_oeuvre = models.ForeignKey(
+        "maindoeuvre.MainDoeuvre",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="diagnostic",
+        verbose_name=_("Main d'oeuvre"),
     )
     taux_horaire = models.DecimalField(
-        _("Taux horaire HTVA (€)"),
-        max_digits=8,
+        max_digits=10,
         decimal_places=2,
-        default=Decimal("0.00"),
+        choices=TAUX_HORAIRE_CHOICES,
+        default=Decimal("50.00"),
+        verbose_name=_("Taux horaire"),
     )
 
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
@@ -73,20 +80,31 @@ class Diagnostic(models.Model):
     def liste_codes(self):
         return ", ".join(c.code_defaut for c in self.codes.all())
 
+    # ======================================================
+    # MAIN-D'ŒUVRE (mêmes propriétés que Checkup)
+    # ======================================================
     @property
-    def temps_display(self):
-        minutes = self.temps_minutes or 0
-        return f"{minutes // 60}h{minutes % 60:02d}"
+    def temps_minutes(self):
+        return (self.main_oeuvre.temps_minutes or 0) if self.main_oeuvre else 0
+
+    @property
+    def temps_main_oeuvre_display(self):
+        heures, minutes = divmod(self.temps_minutes, 60)
+        return f"{heures}h{minutes:02d}"
+
+    # Compatibilité (facturation, templates existants)
+    temps_display = temps_main_oeuvre_display
+
+    @property
+    def cout_main_oeuvre(self):
+        if not self.main_oeuvre:
+            return Decimal("0.00")
+        cout = Decimal(self.temps_minutes) / Decimal("60") * Decimal(str(self.taux_horaire or Decimal("50.00")))
+        return cout.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
     @property
     def cout_htva(self):
-        """Coût HTVA du diagnostic (temps × taux horaire, ou taux seul comme forfait si aucun temps)."""
-        taux = Decimal(self.taux_horaire or 0)
-        if self.temps_minutes:
-            montant = Decimal(self.temps_minutes) / Decimal("60") * taux
-        else:
-            montant = taux
-        return montant.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        return self.cout_main_oeuvre
 
     @property
     def factures_liees(self):

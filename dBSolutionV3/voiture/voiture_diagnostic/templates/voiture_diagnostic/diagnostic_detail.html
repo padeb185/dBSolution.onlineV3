@@ -104,13 +104,19 @@
     </div>
     {% endif %}
 
-    <!-- Facturation -->
+    <!-- Main-d'œuvre (comme les checkups) -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h2 class="text-lg font-semibold mb-4">{% trans "Facturation" %}</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            <p><strong>{% trans "Temps" %} :</strong> {{ diagnostic.temps_display }}</p>
-            <p><strong>{% trans "Taux horaire" %} :</strong> {{ diagnostic.taux_horaire|floatformat:2 }} €</p>
-            <p class="text-lg"><strong>{% trans "Total HTVA" %} :</strong> {{ diagnostic.cout_htva|floatformat:2 }} €</p>
+        <h2 class="text-lg font-semibold mb-4 flex items-center gap-4">
+            <img src="{% static 'icons/main-doeuvre.png' %}" alt="{% trans 'Temps' %}" class="w-12 h-12">
+            {% trans "Main-d'œuvre" %}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <p><strong>{% trans "Temps de travail" %} :</strong> {{ diagnostic.temps_main_oeuvre_display }}</p>
+            <p><strong>{% trans "Taux horaire HTVA" %} :</strong> {{ diagnostic.taux_horaire|floatformat:2 }} €</p>
+            <p><strong>{% trans "Technicien" %} :</strong>
+                {% if diagnostic.main_oeuvre and diagnostic.main_oeuvre.utilisateur %}{{ diagnostic.main_oeuvre.utilisateur }}{% else %}-{% endif %}
+            </p>
+            <p class="text-lg"><strong>{% trans "Prix HTVA" %} :</strong> {{ diagnostic.cout_main_oeuvre|floatformat:2 }} €</p>
         </div>
 
         {% with factures=diagnostic.factures.all %}
