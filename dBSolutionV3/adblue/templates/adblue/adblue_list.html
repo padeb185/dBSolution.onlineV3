@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des pleins d'AdBlue" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/adblue.png' %}" alt="AdBlue"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des pleins d'AdBlue" %}
+</h1>
+      {% if messages %}
+        {% for message in messages %}
+            <div class="mb-3 px-4 py-2 rounded
+                {% if message.tags == 'success' %}
+                    bg-green-100 text-green-800 border border-green-300
+                {% else %}
+                    bg-red-100 text-red-800 border border-red-300
+                {% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+<div class="inline-flex gap-4">
+    <a href="{% url 'adblue:ajouter_adblue_all' %}"
+       class="bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ajouter un plein d'AdBlue" %}
+    </a>
+
+    <a href="{% url 'adblue:adblue_stat' %}"
+       class="bg-green-600 text-white px-5 py-4 rounded hover:bg-green-400 font-semibold text-center">
+        {% trans "Voir les statistiques" %}
+    </a>
+</div>
+
+<br>
+<br>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
+        <input id="search-utilisateur" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Utilisateur' %}">
+
+        <input id="search-immatriculation" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'immatriculation' %}">
+
+        <input id="search-exemplaire" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'exemplaire' %}">
+
+
+        <input id="search-conditionnement" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'pompe, bidon, ...' %}">
+
+        <input id="search-litres" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans '14,32 Litres' %}">
+
+        <input id="search-date" type="date"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Date' %}">
+
+
+    </div>
+</div>
+
+
+
+
+<!-- Table -->
+<table id="adblues-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Utilisateur" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Véhicule" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Kilomètres" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Conditionnement" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Litres" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Prix Total" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Prix au litre" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+   <tbody>
+    {% for adblue in adblues %}
+        <tr>
+            <!-- 0 Utilisateur -->
+            <td class="border px-4 py-2">
+                {{ adblue.utilisateur }}
+            </td>
+
+            <!-- 1 Immatriculation -->
+            <td class="border px-4 py-2">
+                {% with exemplaire=adblue.voiture_exemplaire %}
+                    {% if exemplaire %}
+                        {% include "maintenance/partials/plaque.html" with taille="petite" %}
+                    {% else %}
+                        —
+                    {% endif %}
+                {% endwith %}
+            </td>
+
+            <!-- 2 Véhicule -->
+            <td class="border px-4 py-2">
+                {% if adblue.voiture_exemplaire %}
+                    {{ adblue.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}
+                    {{ adblue.voiture_exemplaire.voiture_modele.nom_modele }}
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+
+            <!-- 3 Kilomètres -->
+            <td class="border px-4 py-2"
+                data-order="{{ adblue.kilometrage_adblue|default:0 }}">
+                {{ adblue.kilometrage_adblue|default:"—" }}
+            </td>
+
+            <!-- 4 Conditionnement -->
+            <td class="border px-4 py-2">
+                {{ adblue.get_conditionnement_display }}
+            </td>
+
+            <!-- 5 Litres -->
+            <td class="border px-4 py-2"
+                data-order="{{ adblue.litres|default:0 }}">
+                {{ adblue.litres|default:"—" }}
+            </td>
+
+            <!-- 6 Prix total -->
+            <td class="border px-4 py-2"
+                data-order="{{ adblue.prix_adblue|default:0 }}">
+                {{ adblue.prix_adblue|floatformat:2 }} €
+            </td>
+
+            <!-- 7 Prix au litre -->
+            <td class="border px-4 py-2"
+                data-order="{{ adblue.prix_litre|default:0 }}">
+                {{ adblue.prix_litre|floatformat:3 }} €
+            </td>
+
+            <!-- 9 Date -->
+            <td class="border px-4 py-2"
+                data-order="{{ adblue.date|date:'Y-m-d' }}">
+                {{ adblue.date|date:"d/m/Y" }}
+            </td>
+
+            <!-- 10 Info -->
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'adblue:adblue_detail' adblue_id=adblue.id %}"
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+
+
+</table>
+
+<br>
+<br>
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+<br>
+<br>
+<!-- DataTables JS -->
+<script>
+$(document).ready(function () {
+
+    const table = $('#adblues-table').DataTable({
+
+        language: {
+            emptyTable: "{% trans 'Aucun élément enregistré.' %}",
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ pleins' %}",
+            infoEmpty: "{% trans 'Aucun plein trouvé' %}",
+            zeroRecords: "{% trans 'Aucun plein trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+
+        // =========================
+        // TRI INITIAL PAR DATE
+        // =========================
+        order: [[8, 'desc']],
+
+        // =========================
+        // CONFIGURATION COLONNES
+        // =========================
+        columnDefs: [
+
+            // Colonne Info
+            {
+                targets: 9,
+                orderable: false,
+                searchable: false
+            },
+
+            // Colonnes numériques
+            {
+                targets: [3, 5, 6, 7],
+                type: 'num'
+            }
+        ]
+    });
+
+
+    // =========================
+    // UTILISATEUR
+    // =========================
+    $('#search-utilisateur').on('keyup change', function () {
+        table.column(0).search(this.value).draw();
+    });
+
+
+    // =========================
+    // IMMATRICULATION
+    // =========================
+    $('#search-immatriculation').on('keyup change', function () {
+        table.column(1).search(this.value).draw();
+    });
+
+
+    // =========================
+    // VÉHICULE
+    // =========================
+    $('#search-exemplaire').on('keyup change', function () {
+        table.column(2).search(this.value).draw();
+    });
+
+
+    // =========================
+    // TYPE CARBURANT
+    // =========================
+    $('#search-conditionnement').on('keyup change', function () {
+        table.column(4).search(this.value).draw();
+    });
+
+
+    // =========================
+    // LITRES
+    // =========================
+    $('#search-litres').on('keyup change', function () {
+        table.column(5).search(this.value).draw();
+    });
+
+
+    // =========================
+    // DATE
+    // =========================
+    $('#search-date').on('change', function () {
+
+        let date = this.value;
+
+        if (date) {
+            const morceaux = date.split('-');
+
+            date =
+                morceaux[2] + '/' +
+                morceaux[1] + '/' +
+                morceaux[0];
+        }
+
+        table.column(8).search(date).draw();
+    });
+
+});
+</script>
+{% endblock %}

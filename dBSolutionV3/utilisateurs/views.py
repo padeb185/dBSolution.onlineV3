@@ -19,6 +19,7 @@ from client_particulier.models import ClientParticulier
 from carrosserie.models import Carrosserie
 from societe_cliente.models import SocieteCliente
 from fuel.models import Fuel
+from adblue.models import AdBlue
 from assurance.models import Assurance
 from assurance_police.models import AssurancePolice
 from outillage.models import Outillage
@@ -84,6 +85,7 @@ def dashboard_view(request):
 
     # --- Stats initialisées à zéro ---
     total_carburant = 0
+    total_adblue = 0
     total_assurance_police = 0
     total_client_atelier = 0
     total_maintenances_user = 0
@@ -134,6 +136,7 @@ def dashboard_view(request):
             societe_cliente = SocieteCliente.objects.filter(societe=societe)
             adresse = Adresse.objects.filter(societe=societe)
             carburant = Fuel.objects.filter(societe=societe)
+            adblue = AdBlue.objects.filter(societe=societe)
             assurance = Assurance.objects.filter(societe=societe)
             assurance_police = AssurancePolice.objects.filter(societe=societe)
             outils = Outillage.objects.filter(societe=societe)
@@ -158,6 +161,7 @@ def dashboard_view(request):
             total_societe_cliente = societe_cliente.count()
             total_adresse = adresse.count()
             total_carburant = carburant.count()
+            total_adblue = adblue.count()
             total_assurance = assurance.count()
             total_assurance_police = assurance_police.count()
             total_outils = outils.count()
@@ -229,6 +233,7 @@ def dashboard_view(request):
         'total_societe_cliente': total_societe_cliente,
         'total_adresse': total_adresse,
         'total_carburant': total_carburant,
+        'total_adblue': total_adblue,
         'total_assurance': total_assurance,
         'total_outils': total_outils,
         'total_recharge': total_recharge,

@@ -171,6 +171,7 @@ TENANT_APPS = (
     'maintenance.autres_interventions.moteur.injection',
 
     'fuel',
+    'adblue',
 
     'achat_mds',
 

@@ -1,6 +1,6 @@
 """
 Calcul de la TVA d'une période : TVA à payer (factures émises) et TVA à récupérer
-(achats, outillage, carburant, électricité), avec le solde et les grilles indicatives
+(achats, outillage, carburant, AdBlue, électricité), avec le solde et les grilles indicatives
 de la déclaration TVA belge.
 """
 from calendar import monthrange
@@ -32,6 +32,7 @@ class CalculTVA:
         "achats": {"label": _("Achats (factures fournisseurs)"), "deductible": 100},
         "outillage": {"label": _("Outillage"), "deductible": 100},
         "carburant": {"label": _("Carburant"), "deductible": 100},
+        "adblue": {"label": _("AdBlue"), "deductible": 100},
         "electricite": {"label": _("Recharges électriques"), "deductible": 100},
         # Maintenances externes (garages officiels, B2B) dans le pays de la société :
         # TVA déductible via la déclaration périodique.
@@ -177,6 +178,18 @@ class CalculTVA:
             n += 1
         return base, tva, n
 
+    def _adblue(self):
+        from adblue.models import AdBlue
+        base = tva = ZERO
+        n = 0
+        for plein in AdBlue.objects.filter(
+            self._filtre_societe(), validation=True, date__date__range=(self.debut, self.fin)
+        ):
+            base += plein.montant_ht or ZERO
+            tva += plein.montant_tva or ZERO
+            n += 1
+        return base, tva, n
+
     def _electricite(self):
         from recharge.models import Electricite
         base = tva = ZERO
@@ -237,6 +250,7 @@ class CalculTVA:
             "achats": self._achats,
             "outillage": self._outillage,
             "carburant": self._carburant,
+            "adblue": self._adblue,
             "electricite": self._electricite,
             "maintenances_externes": self._maintenances_externes,
             "maintenances_externes_etranger": self._maintenances_externes_etranger,

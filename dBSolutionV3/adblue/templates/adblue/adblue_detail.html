@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+       <h1 class="text-2xl font-bold flex items-center gap-4">
+            {% with image_name=adblue.nom_station|slugify %}
+                {% static 'icons/adblue.png' as default_icon %}
+                <img src="{% static 'adblue/'|add:image_name|add:'.png' %}"
+                     alt="{{ adblue.nom_station }}"
+                     class="w-12 h-12"
+                     onerror="this.onerror=null; this.src='{{ default_icon }}';">
+            {% endwith %}
+            <span>{% trans "Détails du plein d'AdBlue :" %}</span>
+           <span>{{ adblue.voiture_exemplaire.voiture_marque.nom_marque }} {{ adblue.voiture_exemplaire.voiture_modele.nom_modele }} {{ adblue.voiture_exemplaire.voiture_modele.nom_variante }}</span>
+        </h1>
+
+    </div>
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Informations générales" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Immatriculation" %} :</strong>
+
+                <div>
+                    {% include "adblue/partials/plaque.html" %}
+                </div>
+
+            </p>
+
+            <p>
+                <strong>{% trans "Kilomètres" %} :</strong>
+                {{ adblue.kilometrage_adblue }}
+            </p>
+            <p>
+                <strong>{% trans "AdBlue" %} :</strong>
+                {{ adblue.get_conditionnement_display }}
+            </p>
+             <p>
+                <strong>{% trans "Litres" %} :</strong>
+                {{ adblue.litres }}
+            </p>
+             <p>
+                <strong>{% trans "Montant TVAC" %} :</strong>
+                {{ adblue.prix_adblue }}
+            </p>
+              <p>
+                <strong>{% trans "Montant TVA" %} :</strong>
+                {{ adblue.montant_tva }}
+            </p>
+             <p>
+                <strong>{% trans "Prix au litre" %} :</strong>
+                {{ adblue.prix_litre }}
+            </p>
+            <p>
+                <strong>{% trans "Pays" %} :</strong>
+                {{ adblue.get_pays_display }}
+            </p>
+        </div>
+
+        <!-- Peppol -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">
+                {% trans "Remarques" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Remarques" %} :</strong><br>
+                {{ adblue.remarques }}
+            </p>
+
+        </div>
+
+        <div class="mt-auto w-full">
+            <a href="{% url 'adblue:modifier_adblue' adblue.id %}" class="block w-full">
+                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Modifier le plein" %}
+                </button>
+            </a>
+        </div>
+       <div class="mt-auto w-full">
+            <a href="{% url 'adblue:adblue_exemplaire_stat' exemplaire_id=exemplaire.id %}" class="block w-full">
+                <button type="button" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold">
+                    {% trans "Voir les statistiques du véhicule" %}
+                </button>
+            </a>
+        </div>
+    </div>
+
+          {% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}
+        <div class="mt-auto w-full">
+            <a href="{% url 'adblue:adblue_delete' adblue_id=adblue.id %}"
+               class="block w-full text-center px-4 py-2 rounded font-semibold"
+               style="background-color:#b91c1c; color:white;">
+
+                {% trans "Supprimer le plein d'AdBlue" %}
+
+            </a>
+        </div>
+        {% endif %}
+    <br>
+
+
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
+
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ adblue.created_at|date:"d/m/Y H:i" }}
+        </p>
+         <p>
+            <strong>{% trans "Mis à jour le:" %} :</strong>
+            {{ adblue.updated_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
+
+
+    <br>
+
+    <!-- Actions -->
+    <div>
+        <!-- Chaque bouton prend 50% de la largeur du conteneur -->
+        <a href="{% url 'adblue:adblue_list' %}"
+          class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Retour à la liste des pleins" %}
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}
+
+

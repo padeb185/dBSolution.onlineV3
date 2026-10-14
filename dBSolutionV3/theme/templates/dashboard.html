@@ -234,6 +234,28 @@
              class="w-[60px] h-[60px]">
     </a>
 
+    <!-- AdBlue -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/adblue/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "AdBlue" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Nombre total :" %}
+                <span class="font-bold">
+                    {{ total_adblue }}
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/adblue.png' %}"
+             alt="{% trans 'AdBlue' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
     <!-- Recharges électriques -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/recharge/recharge/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">

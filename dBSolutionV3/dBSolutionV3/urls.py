@@ -113,6 +113,8 @@ urlpatterns += i18n_patterns(
 
     path("fuel/", include("fuel.urls", namespace="fuel")),
 
+    path("adblue/", include("adblue.urls", namespace="adblue")),
+
     path("assurance/", include("assurance.urls", namespace="assurance")),
 
     path("assurance_police/", include("assurance_police.urls", namespace="assurance_police")),
