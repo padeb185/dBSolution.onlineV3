@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du contrôle de la chaîne de distribution" %}{% endblock %}
+
+{% block content %}
+    {% url 'chaine_distribution:modifier_chaine' chaine.pk as url_modifier %}
+    {% url 'chaine_distribution:chaine_detail_pdf' chaine.pk as url_pdf %}
+    {% url 'chaine_distribution:delete_chaine' chaine.pk as url_delete %}
+    {% if exemplaire %}{% url 'chaine_distribution:chaine_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du contrôle de la chaîne de distribution" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=chaine km_controle=chaine.kilometrage_chaine icone="chaine-de-distribution.png" %}
+{% endblock %}

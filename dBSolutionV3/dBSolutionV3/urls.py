@@ -166,6 +166,7 @@ urlpatterns += i18n_patterns(
     path('maintenance/checkup_track/', include('maintenance.checkup_track.urls', namespace='checkup_track')),
 
     path('courroie/',include(('maintenance.autres_interventions.moteur.courroie.urls', 'courroie'), namespace='courroie')),
+    path('chaine_distribution/', include(('maintenance.autres_interventions.moteur.chaine_distribution.urls', 'chaine_distribution'), namespace='chaine_distribution')),
 
     path("abs/", include("maintenance.autres_interventions.abs.urls", namespace="abs")),
 

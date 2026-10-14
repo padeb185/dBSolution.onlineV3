@@ -36,6 +36,7 @@ from maintenance.autres_interventions.moteur.admission.models import Admission
 from maintenance.autres_interventions.moteur.alternateur.models import Alternateur
 from maintenance.autres_interventions.abs.models import Abs
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
+from maintenance.autres_interventions.moteur.chaine_distribution.models import ChaineDistribution
 from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
 from maintenance.autres_interventions.moteur.turbo.models import Turbo
 from maintenance.check_up.models import Checkup
@@ -158,6 +159,10 @@ def choisir_type_maintenance(request, exemplaire_id):
             voiture_exemplaire=exemplaire
         )
 
+        chaine = ChaineDistribution.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
+
         turbo = Turbo.objects.filter(
             voiture_exemplaire=exemplaire
         )
@@ -215,6 +220,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             + admission.count()
             + alternateur.count()
             + courroie.count()
+            + chaine.count()
             + turbo.count()
             + remplacement_moteur.count()
             + abs_qs.count()

@@ -225,6 +225,11 @@ DESCRIPTIFS_TRADUISIBLES = [
     "Controle de la courroie de distribution",
 
     # ==========================================================
+    # CHAÎNE DE DISTRIBUTION
+    # ==========================================================
+    "Chaîne de distribution",
+
+    # ==========================================================
     # EMBRAYAGE
     # ==========================================================
     "Remplacement de l'embrayage",

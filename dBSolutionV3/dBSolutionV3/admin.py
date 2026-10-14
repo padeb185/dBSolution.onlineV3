@@ -33,6 +33,7 @@ from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models
 from maintenance.autres_interventions.geometrie.models import GeometrieVoiture
 from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBteVitesseAuto
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
+from maintenance.autres_interventions.moteur.chaine_distribution.models import ChaineDistribution
 from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
 from maintenance.carrosserie_interne.models import CarrosserieInterne
 from maintenance.checkup_track.models import CheckupTrack
@@ -79,6 +80,7 @@ admin.site.register(GeometrieVoiture)
 admin.site.register(ControleBoite)
 admin.site.register(ControleBteVitesseAuto)
 admin.site.register(CourroieDistribution)
+admin.site.register(ChaineDistribution)
 admin.site.register(RemplacementMoteur)
 admin.site.register(CarrosserieInterne)
 

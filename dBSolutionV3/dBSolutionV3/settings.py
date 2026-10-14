@@ -269,6 +269,7 @@ TENANT_APPS = (
     'maintenance.autres_interventions.moteur.admission',
     'maintenance.autres_interventions.moteur.alternateur',
     "maintenance.autres_interventions.moteur.courroie.apps.CourroieConfig",
+    "maintenance.autres_interventions.moteur.chaine_distribution.apps.ChaineDistributionConfig",
     "maintenance.autres_interventions.courroie_accessoires.apps.CourroieAccessoiresConfig",
 
     'maindoeuvre',
