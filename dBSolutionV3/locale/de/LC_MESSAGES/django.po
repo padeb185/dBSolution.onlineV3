@@ -196,8 +196,8 @@ msgstr "Allgemeine Informationen"
 #: facture/templates/facture/delete_facture.html:61
 #: facture/templates/facture/facture_list.html:30
 #: facture/templates/facture/facture_pdf.html:153
-#: facture/templates/facture/maintenances_a_facturer.html:62 fuel/models.py:162
-#: fuel/templates/fuel/fuel_detail.html:33
+#: facture/templates/facture/maintenances_a_facturer.html:62
+#: fuel/models.py:162 fuel/templates/fuel/fuel_detail.html:33
 #: fuel/templates/fuel/fuel_list.html:80 fuel/templates/fuel/fuel_stat.html:77
 #: fuel/templates/fuel/fuel_stat.html:126
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:40
@@ -1491,7 +1491,8 @@ msgstr "Zeit"
 #: voiture/voiture_embrayage/forms.py:28
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:80
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:73
-#: voiture/voiture_freins_ar/forms.py:46 voiture/voiture_freins_ar/models.py:80
+#: voiture/voiture_freins_ar/forms.py:46
+#: voiture/voiture_freins_ar/models.py:80
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:92
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:79
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:83
@@ -1721,8 +1722,8 @@ msgstr "Metadaten"
 #: maintenance/esthetique/cire/models.py:248
 #: maintenance/esthetique/decontamination/models.py:248
 #: maintenance/esthetique/nettoyage_exterieur/models.py:213
-#: maintenance/esthetique/polish/models.py:260 maintenance/freins/models.py:419
-#: maintenance/jeux_pieces/models.py:1147
+#: maintenance/esthetique/polish/models.py:260
+#: maintenance/freins/models.py:419 maintenance/jeux_pieces/models.py:1147
 #: maintenance/maintenance_externe/models.py:92
 #: maintenance/nettoyage_interieur/models.py:234
 #: maintenance/niveaux/models.py:175 maintenance/pneus/models.py:351
@@ -1857,8 +1858,8 @@ msgstr "Erstellt am"
 #: maintenance/esthetique/cire/models.py:249
 #: maintenance/esthetique/decontamination/models.py:249
 #: maintenance/esthetique/nettoyage_exterieur/models.py:214
-#: maintenance/esthetique/polish/models.py:261 maintenance/freins/models.py:420
-#: maintenance/jeux_pieces/models.py:1148
+#: maintenance/esthetique/polish/models.py:261
+#: maintenance/freins/models.py:420 maintenance/jeux_pieces/models.py:1148
 #: maintenance/maintenance_externe/models.py:93
 #: maintenance/nettoyage_interieur/models.py:235
 #: maintenance/niveaux/models.py:176 maintenance/pneus/models.py:352
@@ -2230,7 +2231,8 @@ msgstr "Anziehen der Radschrauben"
 #: maintenance/esthetique/cire/models.py:233
 #: maintenance/esthetique/decontamination/models.py:233
 #: maintenance/esthetique/nettoyage_exterieur/models.py:208
-#: maintenance/esthetique/polish/models.py:245 maintenance/freins/models.py:414
+#: maintenance/esthetique/polish/models.py:245
+#: maintenance/freins/models.py:414
 #: maintenance/freins/templates/freins/freins_check.html:754
 #: maintenance/freins/templates/freins/modifier_freins.html:752
 #: maintenance/jeux_pieces/models.py:1144
@@ -3020,7 +3022,8 @@ msgstr "Seite"
 #: voiture/voiture_boite/forms.py:16
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:43
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:83
-#: voiture/voiture_embrayage/forms.py:21 voiture/voiture_embrayage/models.py:82
+#: voiture/voiture_embrayage/forms.py:21
+#: voiture/voiture_embrayage/models.py:82
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:45
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:45
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:35
@@ -4208,7 +4211,8 @@ msgstr "Details der Außenreinigung"
 #: maintenance/autres_interventions/moteur/rodage/models.py:60
 #: maintenance/autres_interventions/moteur/turbo/models.py:36
 #: maintenance/autres_interventions/refroidissement/models.py:66
-#: maintenance/bruits/models.py:24 maintenance/carrosserie_interne/models.py:37
+#: maintenance/bruits/models.py:24
+#: maintenance/carrosserie_interne/models.py:37
 #: maintenance/eclairage/models.py:51 maintenance/entretien/models.py:52
 #: maintenance/freins/models.py:37 maintenance/jeux_pieces/models.py:64
 #: maintenance/models.py:165 maintenance/pneus/models.py:83
@@ -5989,8 +5993,8 @@ msgid ""
 "Le kilométrage du contrôle de l'échappement ne peut pas être inférieur au "
 "kilométrage actuel du véhicule."
 msgstr ""
-"Der Kilometerstand bei der Abgasanlagenprüfung darf nicht niedriger sein als "
-"der aktuelle Kilometerstand des Fahrzeugs."
+"Der Kilometerstand bei der Abgasanlagenprüfung darf nicht niedriger sein als"
+" der aktuelle Kilometerstand des Fahrzeugs."
 
 #: _backup_detail_views/maintenance/autres_interventions/echappement/views.py:500
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:23
@@ -6039,8 +6043,8 @@ msgid ""
 "Le kilométrage du remplacement de l'embrayage ne peut pas être inférieur au "
 "kilométrage actuel du véhicule."
 msgstr ""
-"Der Kilometerstand beim Austausch der Kupplung darf nicht niedriger sein als "
-"der aktuelle Kilometerstand des Fahrzeugs."
+"Der Kilometerstand beim Austausch der Kupplung darf nicht niedriger sein als"
+" der aktuelle Kilometerstand des Fahrzeugs."
 
 #: _backup_detail_views/maintenance/autres_interventions/embrayage/views.py:287
 #: maintenance/autres_interventions/embrayage/views.py:288
@@ -6291,8 +6295,8 @@ msgid ""
 "Le kilométrage du contrôle de l'admission ne peut pas être inférieur au "
 "kilométrage actuel du véhicule."
 msgstr ""
-"Der Kilometerstand bei der Ansaugsystemprüfung darf nicht niedriger sein als "
-"der aktuelle Kilometerstand des Fahrzeugs."
+"Der Kilometerstand bei der Ansaugsystemprüfung darf nicht niedriger sein als"
+" der aktuelle Kilometerstand des Fahrzeugs."
 
 #: _backup_detail_views/maintenance/autres_interventions/moteur/admission/views.py:461
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_check.html:21
@@ -6473,8 +6477,8 @@ msgstr "Dichtungen"
 #: maintenance/esthetique/cire/models.py:242
 #: maintenance/esthetique/decontamination/models.py:242
 #: maintenance/esthetique/nettoyage_exterieur/models.py:169
-#: maintenance/esthetique/polish/models.py:254 maintenance/freins/models.py:375
-#: maintenance/jeux_pieces/models.py:1103
+#: maintenance/esthetique/polish/models.py:254
+#: maintenance/freins/models.py:375 maintenance/jeux_pieces/models.py:1103
 #: maintenance/nettoyage_interieur/models.py:190
 #: maintenance/niveaux/models.py:184 maintenance/pneus/models.py:307
 #: maintenance/silent_blocs/models.py:665 theme/templates/dashboard.html:733
@@ -6604,7 +6608,8 @@ msgstr "Nockenwellensensor"
 #: _backup_detail_views/maintenance/autres_interventions/moteur/courroie/views.py:815
 #: _backup_detail_views/maintenance/autres_interventions/moteur/injection/views.py:657
 #: _backup_detail_views/maintenance/autres_interventions/moteur/injection/views.py:1059
-#: facture/models.py:370 maintenance/autres_interventions/batterie/views.py:512
+#: facture/models.py:370
+#: maintenance/autres_interventions/batterie/views.py:512
 #: maintenance/autres_interventions/batterie/views.py:816
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:594
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:687
@@ -6992,7 +6997,8 @@ msgstr "Motorwechsel erfolgreich gespeichert"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:390
 msgid ""
 "Seul le dernier remplacement du moteur peut voir son kilométrage modifié."
-msgstr "Nur der Kilometerstand des letzten Motorwechsels kann geändert werden."
+msgstr ""
+"Nur der Kilometerstand des letzten Motorwechsels kann geändert werden."
 
 #: _backup_detail_views/maintenance/autres_interventions/moteur/remplacement_moteur/views.py:462
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:463
@@ -7961,8 +7967,8 @@ msgstr "Wartung erfolgreich gelöscht."
 #: _backup_detail_views/maintenance/essuyage/views.py:157
 #: maintenance/essuyage/views.py:158
 msgid ""
-"Le kilométrage du Checkup-Essuyage ne peut pas être inférieur au kilométrage "
-"actuel du véhicule."
+"Le kilométrage du Checkup-Essuyage ne peut pas être inférieur au kilométrage"
+" actuel du véhicule."
 msgstr ""
 "Der Kilometerstand des Scheibenwischer-Check-ups darf nicht niedriger sein "
 "als der aktuelle Kilometerstand des Fahrzeugs."
@@ -8324,8 +8330,8 @@ msgid ""
 "Le kilométrage du contrôle des pneus ne peut pas être inférieur au "
 "kilométrage actuel du véhicule."
 msgstr ""
-"Der Kilometerstand bei der Reifenkontrolle darf nicht niedriger sein als der "
-"aktuelle Kilometerstand des Fahrzeugs."
+"Der Kilometerstand bei der Reifenkontrolle darf nicht niedriger sein als der"
+" aktuelle Kilometerstand des Fahrzeugs."
 
 #: _backup_detail_views/maintenance/pneus/views.py:330
 #: maintenance/pneus/templates/pneus/controle_pneus.html:20
@@ -8592,7 +8598,8 @@ msgstr "Rechnungsdatum"
 #: facture/templates/facture/facture_list.html:59
 #: fournisseur/templates/fournisseur/fournisseur_list.html:69
 #: fournisseur/templates/fournisseur/fournisseur_list.html:93
-#: fuel/templates/fuel/fuel_list.html:88 fuel/templates/fuel/fuel_list.html:159
+#: fuel/templates/fuel/fuel_list.html:88
+#: fuel/templates/fuel/fuel_list.html:159
 #: outillage/templates/outillage/outillage_list.html:71
 #: outillage/templates/outillage/outillage_list.html:86
 #: piece/templates/piece/piece_list.html:58
@@ -10334,8 +10341,9 @@ msgstr "Datum"
 #: agenda/templates/agenda/delete_agenda.html:96 facture/models.py:147
 #: facture/templates/facture/_entete_facture.html:20
 #: facture/templates/facture/facture_pdf.html:152
-#: facture/templates/facture/maintenances_a_facturer.html:63 fuel/models.py:116
-#: fuel/templates/fuel/fuel_list.html:81 maindoeuvre/models.py:37
+#: facture/templates/facture/maintenances_a_facturer.html:63
+#: fuel/models.py:116 fuel/templates/fuel/fuel_list.html:81
+#: maindoeuvre/models.py:37
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:277
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:361
 #: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:341
@@ -11335,7 +11343,8 @@ msgstr "Prüfung des Einspritzsystems für:"
 #: _backup_list_templates/maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:181
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:176
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ Contrôles Injection"
-msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Einspritzprüfungen"
+msgstr ""
+"Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Einspritzprüfungen"
 
 #: _backup_list_templates/maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:4
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:4
@@ -11664,7 +11673,8 @@ msgstr "Kontrolle des Scheibenwischsystems"
 
 #: _backup_list_templates/maintenance/essuyage/templates/essuyage/essuyage_list.html:179
 #: maintenance/essuyage/templates/essuyage/essuyage_list.html:174
-msgid "Affichage de _START_ à _END_ sur _TOTAL_ contrôle du système d'essuyage"
+msgid ""
+"Affichage de _START_ à _END_ sur _TOTAL_ contrôle du système d'essuyage"
 msgstr ""
 "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Kontrollen des "
 "Scheibenwischsystems"
@@ -11866,7 +11876,8 @@ msgstr "Werkzeug hinzufügen"
 #: _backup_list_templates/outillage/templates/outillage/outillage_list.html:32
 #: _backup_list_templates/outillage/templates/outillage/outillage_list.html:65
 #: achat_mds/forms.py:12 achat_mds/models.py:23
-#: achat_mds/templates/achat_mds/achat_detail.html:37 fournisseur/models.py:102
+#: achat_mds/templates/achat_mds/achat_detail.html:37
+#: fournisseur/models.py:102
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:60
 #: investissements/models.py:19 outillage/forms.py:21 outillage/models.py:24
 #: outillage/templates/outillage/outillage_detail.html:38
@@ -12290,7 +12301,8 @@ msgstr "Miteigentümer hinzufügen"
 #: _backup_list_templates/proprietaire/templates/proprietaire/proprietaire_voiture_list.html:66
 #: adblue/templates/adblue/adblue_stat.html:71
 #: adblue/templates/adblue/adblue_stat.html:119
-#: fuel/templates/fuel/fuel_stat.html:71 fuel/templates/fuel/fuel_stat.html:119
+#: fuel/templates/fuel/fuel_stat.html:71
+#: fuel/templates/fuel/fuel_stat.html:119
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:50
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:66
 #: recharge/templates/recharge/electricite_stat.html:71
@@ -13313,8 +13325,8 @@ msgstr "Keine Einträge vorhanden."
 msgid ""
 "Voulez-vous vraiment supprimer cet achat ? Cette action est irréversible."
 msgstr ""
-"Möchten Sie diesen Kauf wirklich löschen? Diese Aktion kann nicht rückgängig "
-"gemacht werden."
+"Möchten Sie diesen Kauf wirklich löschen? Diese Aktion kann nicht rückgängig"
+" gemacht werden."
 
 #: achat_mds/templates/achat_mds/delete_achat.html:21
 #: outillage/templates/outillage/delete_outillage.html:44
@@ -13459,7 +13471,8 @@ msgstr "Kauf löschen"
 #: achat_mds/views.py:171
 #, python-format
 msgid ""
-"Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé ailleurs."
+"Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé "
+"ailleurs."
 msgstr ""
 "Der Kauf « %(ref)s » kann nicht gelöscht werden, da er noch an anderer "
 "Stelle verwendet wird."
@@ -14149,7 +14162,8 @@ msgstr "AdBlue-Statistiken pro Fahrzeug"
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:35
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:88
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:119
-#: fuel/templates/fuel/fuel_stat.html:17 fuel/templates/fuel/fuel_stat.html:133
+#: fuel/templates/fuel/fuel_stat.html:17
+#: fuel/templates/fuel/fuel_stat.html:133
 #: fuel/templates/fuel/fuel_stat.html:231
 #: fuel/templates/fuel/fuel_stat.html:258
 msgid "Pleins"
@@ -14172,7 +14186,8 @@ msgstr "Gesamtliter"
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:45
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:90
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:121
-#: fuel/templates/fuel/fuel_stat.html:27 fuel/templates/fuel/fuel_stat.html:147
+#: fuel/templates/fuel/fuel_stat.html:27
+#: fuel/templates/fuel/fuel_stat.html:147
 #: fuel/templates/fuel/fuel_stat.html:233
 #: fuel/templates/fuel/fuel_stat.html:260
 #: recharge/templates/recharge/electricite_exemplaire_stat.html:45
@@ -14190,7 +14205,8 @@ msgstr "Gesamtkosten"
 #: adblue/templates/adblue/adblue_stat.html:32
 #: adblue/templates/adblue/adblue_stat.html:154
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:50
-#: fuel/templates/fuel/fuel_stat.html:32 fuel/templates/fuel/fuel_stat.html:154
+#: fuel/templates/fuel/fuel_stat.html:32
+#: fuel/templates/fuel/fuel_stat.html:154
 msgid "Prix moyen / L"
 msgstr "Durchschnittspreis / L"
 
@@ -14841,7 +14857,8 @@ msgstr "Adresse erstellen"
 
 #: adresse/templates/adresse/delete_adresse.html:14
 msgid ""
-"Voulez-vous vraiment supprimer cette adresse ? Cette action est irréversible."
+"Voulez-vous vraiment supprimer cette adresse ? Cette action est "
+"irréversible."
 msgstr ""
 "Möchten Sie diese Adresse wirklich löschen? Diese Aktion kann nicht "
 "rückgängig gemacht werden."
@@ -14851,8 +14868,8 @@ msgid ""
 "Cette adresse ne peut pas être supprimée car elle est encore utilisée. "
 "Modifiez d'abord l'adresse des éléments ci-dessous."
 msgstr ""
-"Diese Adresse kann nicht gelöscht werden, da sie noch verwendet wird. Ändern "
-"Sie zunächst die Adresse der unten aufgeführten Elemente."
+"Diese Adresse kann nicht gelöscht werden, da sie noch verwendet wird. Ändern"
+" Sie zunächst die Adresse der unten aufgeführten Elemente."
 
 #: adresse/templates/adresse/delete_adresse.html:28
 msgid "Adresse utilisée par"
@@ -14869,7 +14886,8 @@ msgid ""
 msgstr ""
 "Diese Elemente werden nicht gelöscht: Ihr Adressfeld wird lediglich geleert."
 
-#: adresse/templates/adresse/delete_adresse.html:71 client_atelier/forms.py:128
+#: adresse/templates/adresse/delete_adresse.html:71
+#: client_atelier/forms.py:128
 msgid "Boîte"
 msgstr "Briefkasten"
 
@@ -15478,8 +15496,8 @@ msgid ""
 "Impossible de supprimer « %(nom)s » : elle est encore liée à d'autres "
 "éléments."
 msgstr ""
-"« %(nom)s » kann nicht gelöscht werden, da die Versicherung noch mit anderen "
-"Elementen verknüpft ist."
+"« %(nom)s » kann nicht gelöscht werden, da die Versicherung noch mit anderen"
+" Elementen verknüpft ist."
 
 #: assurance/views.py:269
 #, python-format
@@ -15865,7 +15883,8 @@ msgstr "Zurück zu den Karosseriedetails"
 #: client_particulier/views.py:103 client_particulier/views.py:199
 #: client_pilotage/views.py:137 client_pilotage/views.py:244
 #: proprietaire/views.py:114 proprietaire/views.py:229
-#: voiture/voiture_embrayage/views.py:53 voiture/voiture_freins_ar/views.py:125
+#: voiture/voiture_embrayage/views.py:53
+#: voiture/voiture_freins_ar/views.py:125
 #: voiture/voiture_freins_av/views.py:85
 msgid "Veuillez corriger les erreurs du formulaire."
 msgstr "Bitte korrigieren Sie die Fehler im Formular."
@@ -16028,8 +16047,8 @@ msgid ""
 "Voulez-vous vraiment supprimer ce client atelier ? Cette action est "
 "irréversible."
 msgstr ""
-"Möchten Sie diesen Werkstattkunden wirklich löschen? Diese Aktion kann nicht "
-"rückgängig gemacht werden."
+"Möchten Sie diesen Werkstattkunden wirklich löschen? Diese Aktion kann nicht"
+" rückgängig gemacht werden."
 
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:45
 msgid "Véhicule(s) associé(s)"
@@ -16358,7 +16377,8 @@ msgid "Supprimer le client pilotage"
 msgstr "Fahrkunden löschen"
 
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:14
-msgid "Ce client pilotage ne peut pas être supprimé car il est encore utilisé."
+msgid ""
+"Ce client pilotage ne peut pas être supprimé car il est encore utilisé."
 msgstr ""
 "Dieser Fahrkunde kann nicht gelöscht werden, da er noch verwendet wird."
 
@@ -16721,11 +16741,11 @@ msgstr "Peppol-ID des Ausstellers"
 
 #: facture/models.py:522
 msgid ""
-"Ex : 0208:0123456789 (numéro d'entreprise belge). Vide : déduit du numéro de "
-"TVA."
+"Ex : 0208:0123456789 (numéro d'entreprise belge). Vide : déduit du numéro de"
+" TVA."
 msgstr ""
-"Z. B. 0208:0123456789 (belgische Unternehmensnummer). Leer: wird aus der USt-"
-"IdNr. abgeleitet."
+"Z. B. 0208:0123456789 (belgische Unternehmensnummer). Leer: wird aus der "
+"USt-IdNr. abgeleitet."
 
 #: facture/models.py:526
 msgid "URL du serveur de test"
@@ -16996,8 +17016,8 @@ msgstr ""
 #: facture/templates/facture/facture_form.html:101
 #, python-format
 msgid ""
-"Client assujetti dans un autre pays de l'UE : TVA à 0 %%, mention "
-"« autoliquidation »."
+"Client assujetti dans un autre pays de l'UE : TVA à 0 %%, mention « "
+"autoliquidation »."
 msgstr ""
 "Steuerpflichtiger Kunde in einem anderen EU-Land: 0 %% MwSt., Vermerk "
 "„Steuerschuldnerschaft des Leistungsempfängers“."
@@ -17028,7 +17048,8 @@ msgid "Enregistrer le brouillon"
 msgstr "Entwurf speichern"
 
 #: facture/templates/facture/facture_form.html:184
-msgid "La facture recevra un numéro définitif et ne pourra plus être modifiée."
+msgid ""
+"La facture recevra un numéro définitif et ne pourra plus être modifiée."
 msgstr ""
 "Die Rechnung erhält eine endgültige Nummer und kann nicht mehr geändert "
 "werden."
@@ -17112,8 +17133,8 @@ msgid ""
 "Autoliquidation – TVA due par le cocontractant (article 196 de la directive "
 "2006/112/CE)."
 msgstr ""
-"Steuerschuldnerschaft des Leistungsempfängers – MwSt. vom Leistungsempfänger "
-"geschuldet (Artikel 196 der Richtlinie 2006/112/EG)."
+"Steuerschuldnerschaft des Leistungsempfängers – MwSt. vom Leistungsempfänger"
+" geschuldet (Artikel 196 der Richtlinie 2006/112/EG)."
 
 #: facture/templates/facture/facture_pdf.html:283
 msgid "Merci d'effectuer le paiement sur le compte"
@@ -17236,11 +17257,11 @@ msgstr "Ausgestellte Rechnungen und Entwürfe"
 #: facture/templates/facture/maintenances_a_facturer.html:37
 msgid ""
 "Cochez une ou plusieurs maintenances d'un même véhicule, puis choisissez le "
-"type de facture. Vous pourrez ensuite ajuster les marges et les lignes avant "
-"d'émettre la facture."
+"type de facture. Vous pourrez ensuite ajuster les marges et les lignes avant"
+" d'émettre la facture."
 msgstr ""
-"Markieren Sie eine oder mehrere Wartungen desselben Fahrzeugs und wählen Sie "
-"dann die Rechnungsart. Anschließend können Sie Margen und Positionen "
+"Markieren Sie eine oder mehrere Wartungen desselben Fahrzeugs und wählen Sie"
+" dann die Rechnungsart. Anschließend können Sie Margen und Positionen "
 "anpassen, bevor Sie die Rechnung ausstellen."
 
 #: facture/templates/facture/maintenances_a_facturer.html:51
@@ -17316,8 +17337,8 @@ msgstr "Kein Test durchgeführt."
 
 #: facture/templates/facture/parametres_peppol.html:63
 msgid ""
-"Un point d'accès est aussi défini dans settings.py : il n'est utilisé que si "
-"l'envoi n'est pas activé ici."
+"Un point d'accès est aussi défini dans settings.py : il n'est utilisé que si"
+" l'envoi n'est pas activé ici."
 msgstr ""
 "In settings.py ist ebenfalls ein Access Point definiert: Er wird nur "
 "verwendet, wenn der Versand hier nicht aktiviert ist."
@@ -17329,8 +17350,8 @@ msgstr "Allgemein"
 
 #: facture/templates/facture/parametres_peppol.html:89
 msgid ""
-"Utilisez le serveur de test tant que les factures n'ont pas été validées par "
-"votre fournisseur Peppol."
+"Utilisez le serveur de test tant que les factures n'ont pas été validées par"
+" votre fournisseur Peppol."
 msgstr ""
 "Verwenden Sie den Testserver, solange die Rechnungen nicht von Ihrem Peppol-"
 "Anbieter freigegeben wurden."
@@ -17365,8 +17386,8 @@ msgid ""
 "Ces informations sont fournies par votre point d'accès Peppol (Access "
 "Point). Les clés API ne sont jamais réaffichées."
 msgstr ""
-"Diese Angaben erhalten Sie von Ihrem Peppol-Zugangspunkt (Access Point). API-"
-"Schlüssel werden nie wieder angezeigt."
+"Diese Angaben erhalten Sie von Ihrem Peppol-Zugangspunkt (Access Point). "
+"API-Schlüssel werden nie wieder angezeigt."
 
 #: facture/templates/facture/parametres_peppol.html:176
 msgid "Enregistrer les paramètres"
@@ -17422,7 +17443,8 @@ msgstr "ausgestellte Rechnung(en)"
 msgid "TVA à récupérer (achats)"
 msgstr "Erstattungsfähige MwSt. (Einkäufe)"
 
-#: facture/templates/facture/tva.html:98 facture/templates/facture/tva.html:164
+#: facture/templates/facture/tva.html:98
+#: facture/templates/facture/tva.html:164
 msgid "TVA payée"
 msgstr "Gezahlte MwSt."
 
@@ -17465,14 +17487,14 @@ msgstr "Gesamt"
 #: facture/templates/facture/tva.html:150
 #, python-format
 msgid ""
-"%(n)s maintenance interne (facture à notre société) n'est pas une vente : la "
-"TVA sur ses pièces est récupérée via les achats fournisseurs."
+"%(n)s maintenance interne (facture à notre société) n'est pas une vente : la"
+" TVA sur ses pièces est récupérée via les achats fournisseurs."
 msgid_plural ""
 "%(n)s maintenances internes (factures à notre société) ne sont pas des "
 "ventes : la TVA sur leurs pièces est récupérée via les achats fournisseurs."
 msgstr[0] ""
-"%(n)s interne Wartung (Rechnung an unsere Firma) ist kein Verkauf: Die MwSt. "
-"auf ihre Teile wird über die Lieferanteneinkäufe zurückgefordert."
+"%(n)s interne Wartung (Rechnung an unsere Firma) ist kein Verkauf: Die MwSt."
+" auf ihre Teile wird über die Lieferanteneinkäufe zurückgefordert."
 msgstr[1] ""
 "%(n)s interne Wartungen (Rechnungen an unsere Firma) sind keine Verkäufe: "
 "Die MwSt. auf ihre Teile wird über die Lieferanteneinkäufe zurückgefordert."
@@ -17512,8 +17534,8 @@ msgid ""
 "encore repris pour ce pays. Les montants (bases par taux, TVA due, TVA "
 "déductible, solde) restent valables."
 msgstr ""
-"Generisches Modell: Die Feldnummern des nationalen Formulars sind für dieses "
-"Land noch nicht hinterlegt. Die Beträge (Bemessungsgrundlagen nach "
+"Generisches Modell: Die Feldnummern des nationalen Formulars sind für dieses"
+" Land noch nicht hinterlegt. Die Beträge (Bemessungsgrundlagen nach "
 "Steuersatz, geschuldete MwSt., abziehbare MwSt., Saldo) bleiben gültig."
 
 #: facture/templates/facture/tva.html:216
@@ -17542,7 +17564,8 @@ msgstr "Einkäufe (Lieferantenrechnungen)"
 msgid "Outillage"
 msgstr "Werkzeug"
 
-#: facture/tva.py:34 fuel/models.py:220 fuel/templates/fuel/fuel_detail.html:46
+#: facture/tva.py:34 fuel/models.py:220
+#: fuel/templates/fuel/fuel_detail.html:46
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:9
 #: fuel/templates/fuel/fuel_form.html:12 fuel/templates/fuel/fuel_stat.html:9
 #: fuel/templates/fuel/modifier_fuel.html:190
@@ -17577,7 +17600,8 @@ msgstr "Interne Wartungen (Teile) – in den Einkäufen enthalten"
 #, python-format
 msgid "Base à %(taux)s %% (taux sans case dédiée – à vérifier)"
 msgstr ""
-"Bemessungsgrundlage zu %(taux)s %% (Steuersatz ohne eigenes Feld – zu prüfen)"
+"Bemessungsgrundlage zu %(taux)s %% (Steuersatz ohne eigenes Feld – zu "
+"prüfen)"
 
 #: facture/tva.py:345
 msgid "Prestations intracommunautaires (autoliquidation)"
@@ -17877,7 +17901,8 @@ msgstr "Diese Diagnose ist mit keinem Fahrzeug verknüpft."
 
 #: facture/views.py:163 facture/views.py:192
 msgid ""
-"Brouillon de facture créé. Vérifiez les marges et les lignes avant d'émettre."
+"Brouillon de facture créé. Vérifiez les marges et les lignes avant "
+"d'émettre."
 msgstr ""
 "Rechnungsentwurf erstellt. Prüfen Sie Margen und Positionen vor dem "
 "Ausstellen."
@@ -17962,7 +17987,8 @@ msgstr "%(env)s-Server: %(res)s"
 
 #: facture/views.py:502
 msgid ""
-"Une facture émise ne peut pas être supprimée (établissez une note de crédit)."
+"Une facture émise ne peut pas être supprimée (établissez une note de "
+"crédit)."
 msgstr ""
 "Eine ausgestellte Rechnung kann nicht gelöscht werden (erstellen Sie eine "
 "Gutschrift)."
@@ -18558,7 +18584,8 @@ msgstr "Arbeitsleistung löschen"
 msgid ""
 "Cette main-d'œuvre ne peut pas être supprimée car elle est encore utilisée."
 msgstr ""
-"Diese Arbeitsleistung kann nicht gelöscht werden, da sie noch verwendet wird."
+"Diese Arbeitsleistung kann nicht gelöscht werden, da sie noch verwendet "
+"wird."
 
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:18
 msgid ""
@@ -18784,9 +18811,10 @@ msgstr "Die Arbeitsleistung « %(nom)s » wurde erfolgreich gelöscht."
 #: maintenance/autres_interventions/moteur/rodage/forms.py:57
 #: maintenance/autres_interventions/moteur/turbo/forms.py:39
 #: maintenance/autres_interventions/refroidissement/forms.py:42
-#: maintenance/carrosserie_interne/forms.py:52 maintenance/check_up/forms.py:43
-#: maintenance/checkup_track/forms.py:44 maintenance/eclairage/forms.py:43
-#: maintenance/entretien/forms.py:43 maintenance/essuyage/forms.py:40
+#: maintenance/carrosserie_interne/forms.py:52
+#: maintenance/check_up/forms.py:43 maintenance/checkup_track/forms.py:44
+#: maintenance/eclairage/forms.py:43 maintenance/entretien/forms.py:43
+#: maintenance/essuyage/forms.py:40
 #: maintenance/esthetique/ceramique/forms.py:42
 #: maintenance/esthetique/cire/forms.py:42
 #: maintenance/esthetique/decontamination/forms.py:42
@@ -19013,9 +19041,9 @@ msgstr "Einkaufspreis der Bremsflüssigkeit ohne MwSt."
 #: maintenance/esthetique/cire/models.py:185
 #: maintenance/esthetique/decontamination/models.py:185
 #: maintenance/esthetique/nettoyage_exterieur/models.py:145
-#: maintenance/esthetique/polish/models.py:197 maintenance/freins/models.py:357
-#: maintenance/jeux_pieces/models.py:1081 maintenance/models.py:57
-#: maintenance/nettoyage_interieur/models.py:166
+#: maintenance/esthetique/polish/models.py:197
+#: maintenance/freins/models.py:357 maintenance/jeux_pieces/models.py:1081
+#: maintenance/models.py:57 maintenance/nettoyage_interieur/models.py:166
 #: maintenance/niveaux/models.py:161 maintenance/pneus/models.py:283
 #: maintenance/silent_blocs/models.py:644
 #: voiture/voiture_exemplaire/models.py:318
@@ -19052,9 +19080,9 @@ msgstr "Grün"
 #: maintenance/esthetique/cire/models.py:186
 #: maintenance/esthetique/decontamination/models.py:186
 #: maintenance/esthetique/nettoyage_exterieur/models.py:146
-#: maintenance/esthetique/polish/models.py:198 maintenance/freins/models.py:358
-#: maintenance/jeux_pieces/models.py:1082 maintenance/models.py:58
-#: maintenance/nettoyage_interieur/models.py:167
+#: maintenance/esthetique/polish/models.py:198
+#: maintenance/freins/models.py:358 maintenance/jeux_pieces/models.py:1082
+#: maintenance/models.py:58 maintenance/nettoyage_interieur/models.py:167
 #: maintenance/niveaux/models.py:162 maintenance/pneus/models.py:284
 #: maintenance/silent_blocs/models.py:645
 #: voiture/voiture_exemplaire/models.py:319
@@ -19091,9 +19119,9 @@ msgstr "Gelb"
 #: maintenance/esthetique/cire/models.py:187
 #: maintenance/esthetique/decontamination/models.py:187
 #: maintenance/esthetique/nettoyage_exterieur/models.py:147
-#: maintenance/esthetique/polish/models.py:199 maintenance/freins/models.py:359
-#: maintenance/jeux_pieces/models.py:1083 maintenance/models.py:59
-#: maintenance/nettoyage_interieur/models.py:168
+#: maintenance/esthetique/polish/models.py:199
+#: maintenance/freins/models.py:359 maintenance/jeux_pieces/models.py:1083
+#: maintenance/models.py:59 maintenance/nettoyage_interieur/models.py:168
 #: maintenance/niveaux/models.py:163 maintenance/pneus/models.py:285
 #: maintenance/silent_blocs/models.py:646
 #: voiture/voiture_exemplaire/models.py:320
@@ -19129,8 +19157,8 @@ msgstr "Rot"
 #: maintenance/esthetique/cire/models.py:194
 #: maintenance/esthetique/decontamination/models.py:194
 #: maintenance/esthetique/nettoyage_exterieur/models.py:154
-#: maintenance/esthetique/polish/models.py:206 maintenance/freins/models.py:366
-#: maintenance/jeux_pieces/models.py:1090
+#: maintenance/esthetique/polish/models.py:206
+#: maintenance/freins/models.py:366 maintenance/jeux_pieces/models.py:1090
 #: maintenance/nettoyage_interieur/models.py:175
 #: maintenance/niveaux/models.py:170 maintenance/pneus/models.py:292
 #: maintenance/silent_blocs/models.py:653
@@ -19168,8 +19196,8 @@ msgstr "Visueller Zustand / Tag"
 #: maintenance/esthetique/cire/models.py:208
 #: maintenance/esthetique/decontamination/models.py:208
 #: maintenance/esthetique/nettoyage_exterieur/models.py:183
-#: maintenance/esthetique/polish/models.py:220 maintenance/freins/models.py:389
-#: maintenance/jeux_pieces/models.py:1119
+#: maintenance/esthetique/polish/models.py:220
+#: maintenance/freins/models.py:389 maintenance/jeux_pieces/models.py:1119
 #: maintenance/nettoyage_interieur/models.py:204
 #: maintenance/niveaux/models.py:201 maintenance/pneus/models.py:321
 #: maintenance/silent_blocs/models.py:684
@@ -19206,8 +19234,8 @@ msgstr "Name des Technikers"
 #: maintenance/esthetique/cire/models.py:214
 #: maintenance/esthetique/decontamination/models.py:214
 #: maintenance/esthetique/nettoyage_exterieur/models.py:189
-#: maintenance/esthetique/polish/models.py:226 maintenance/freins/models.py:395
-#: maintenance/jeux_pieces/models.py:1125
+#: maintenance/esthetique/polish/models.py:226
+#: maintenance/freins/models.py:395 maintenance/jeux_pieces/models.py:1125
 #: maintenance/nettoyage_interieur/models.py:210
 #: maintenance/niveaux/models.py:207 maintenance/pneus/models.py:327
 #: maintenance/silent_blocs/models.py:690
@@ -20482,30 +20510,31 @@ msgstr "Diagnosedetails"
 #: maintenance/esthetique/polish/models.py:171
 #: maintenance/esthetique/polish/models.py:176
 #: maintenance/esthetique/polish/models.py:181
-#: maintenance/esthetique/polish/models.py:186 maintenance/freins/models.py:118
-#: maintenance/freins/models.py:143 maintenance/freins/models.py:178
-#: maintenance/freins/models.py:220 maintenance/freins/models.py:252
-#: maintenance/freins/models.py:276 maintenance/freins/models.py:299
-#: maintenance/freins/models.py:322 maintenance/freins/models.py:345
-#: maintenance/jeux_pieces/models.py:153 maintenance/jeux_pieces/models.py:176
-#: maintenance/jeux_pieces/models.py:199 maintenance/jeux_pieces/models.py:222
-#: maintenance/jeux_pieces/models.py:245 maintenance/jeux_pieces/models.py:268
-#: maintenance/jeux_pieces/models.py:291 maintenance/jeux_pieces/models.py:314
-#: maintenance/jeux_pieces/models.py:337 maintenance/jeux_pieces/models.py:360
-#: maintenance/jeux_pieces/models.py:383 maintenance/jeux_pieces/models.py:406
-#: maintenance/jeux_pieces/models.py:429 maintenance/jeux_pieces/models.py:452
-#: maintenance/jeux_pieces/models.py:475 maintenance/jeux_pieces/models.py:498
-#: maintenance/jeux_pieces/models.py:521 maintenance/jeux_pieces/models.py:544
-#: maintenance/jeux_pieces/models.py:567 maintenance/jeux_pieces/models.py:590
-#: maintenance/jeux_pieces/models.py:613 maintenance/jeux_pieces/models.py:636
-#: maintenance/jeux_pieces/models.py:659 maintenance/jeux_pieces/models.py:682
-#: maintenance/jeux_pieces/models.py:705 maintenance/jeux_pieces/models.py:728
-#: maintenance/jeux_pieces/models.py:751 maintenance/jeux_pieces/models.py:774
-#: maintenance/jeux_pieces/models.py:797 maintenance/jeux_pieces/models.py:820
-#: maintenance/jeux_pieces/models.py:843 maintenance/jeux_pieces/models.py:866
-#: maintenance/jeux_pieces/models.py:889 maintenance/jeux_pieces/models.py:912
-#: maintenance/jeux_pieces/models.py:935 maintenance/jeux_pieces/models.py:958
-#: maintenance/jeux_pieces/models.py:981 maintenance/jeux_pieces/models.py:1004
+#: maintenance/esthetique/polish/models.py:186
+#: maintenance/freins/models.py:118 maintenance/freins/models.py:143
+#: maintenance/freins/models.py:178 maintenance/freins/models.py:220
+#: maintenance/freins/models.py:252 maintenance/freins/models.py:276
+#: maintenance/freins/models.py:299 maintenance/freins/models.py:322
+#: maintenance/freins/models.py:345 maintenance/jeux_pieces/models.py:153
+#: maintenance/jeux_pieces/models.py:176 maintenance/jeux_pieces/models.py:199
+#: maintenance/jeux_pieces/models.py:222 maintenance/jeux_pieces/models.py:245
+#: maintenance/jeux_pieces/models.py:268 maintenance/jeux_pieces/models.py:291
+#: maintenance/jeux_pieces/models.py:314 maintenance/jeux_pieces/models.py:337
+#: maintenance/jeux_pieces/models.py:360 maintenance/jeux_pieces/models.py:383
+#: maintenance/jeux_pieces/models.py:406 maintenance/jeux_pieces/models.py:429
+#: maintenance/jeux_pieces/models.py:452 maintenance/jeux_pieces/models.py:475
+#: maintenance/jeux_pieces/models.py:498 maintenance/jeux_pieces/models.py:521
+#: maintenance/jeux_pieces/models.py:544 maintenance/jeux_pieces/models.py:567
+#: maintenance/jeux_pieces/models.py:590 maintenance/jeux_pieces/models.py:613
+#: maintenance/jeux_pieces/models.py:636 maintenance/jeux_pieces/models.py:659
+#: maintenance/jeux_pieces/models.py:682 maintenance/jeux_pieces/models.py:705
+#: maintenance/jeux_pieces/models.py:728 maintenance/jeux_pieces/models.py:751
+#: maintenance/jeux_pieces/models.py:774 maintenance/jeux_pieces/models.py:797
+#: maintenance/jeux_pieces/models.py:820 maintenance/jeux_pieces/models.py:843
+#: maintenance/jeux_pieces/models.py:866 maintenance/jeux_pieces/models.py:889
+#: maintenance/jeux_pieces/models.py:912 maintenance/jeux_pieces/models.py:935
+#: maintenance/jeux_pieces/models.py:958 maintenance/jeux_pieces/models.py:981
+#: maintenance/jeux_pieces/models.py:1004
 #: maintenance/jeux_pieces/models.py:1027
 #: maintenance/jeux_pieces/models.py:1050
 #: maintenance/jeux_pieces/models.py:1073
@@ -20607,8 +20636,8 @@ msgstr ""
 #: maintenance/autres_interventions/batterie/models.py:360
 #, python-format
 msgid ""
-"Technologie incompatible avec la batterie d'origine (%(orig)s). Technologies "
-"acceptées : %(ok)s."
+"Technologie incompatible avec la batterie d'origine (%(orig)s). Technologies"
+" acceptées : %(ok)s."
 msgstr ""
 "Technologie nicht kompatibel mit der Originalbatterie (%(orig)s). Zulässige "
 "Technologien: %(ok)s."
@@ -20663,8 +20692,8 @@ msgstr "Gesundheitszustand %(soh)s %%: Batterie gealtert."
 #: maintenance/autres_interventions/batterie/models.py:442
 #, python-format
 msgid ""
-"Tension au démarrage %(v)s V inférieure à %(s)s V avec une batterie "
-"chargée : batterie usée."
+"Tension au démarrage %(v)s V inférieure à %(s)s V avec une batterie chargée "
+": batterie usée."
 msgstr ""
 "Startspannung %(v)s V unter %(s)s V bei geladener Batterie: Batterie "
 "verschlissen."
@@ -21445,7 +21474,8 @@ msgstr "Getriebedetails"
 #: maintenance/autres_interventions/moteur/allumage/models.py:18
 #: maintenance/check_up/models.py:31 maintenance/check_up/models.py:89
 #: maintenance/checkup_track/models.py:29
-#: maintenance/checkup_track/models.py:108 maintenance/jeux_pieces/models.py:18
+#: maintenance/checkup_track/models.py:108
+#: maintenance/jeux_pieces/models.py:18
 #: maintenance/templatetags/intervention_tags.py:53
 msgid "Non présent"
 msgstr "Nicht vorhanden"
@@ -21967,7 +21997,8 @@ msgid "Élément contrôlé"
 msgstr "Geprüftes Element"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/delete_bte_auto.html:14
-msgid "Voulez-vous vraiment supprimer le contrôle de la boite automatique pour"
+msgid ""
+"Voulez-vous vraiment supprimer le contrôle de la boite automatique pour"
 msgstr "Möchten Sie die Kontrolle des Automatikgetriebes wirklich löschen für"
 
 #: maintenance/autres_interventions/cardan/models.py:16
@@ -22000,7 +22031,8 @@ msgstr "Repariert"
 #: maintenance/choices.py:2291 maintenance/choices.py:2362
 #: maintenance/choices.py:2404 maintenance/choices.py:2429
 #: maintenance/choices.py:2508 maintenance/choices.py:2558
-#: voiture/voiture_embrayage/models.py:9 voiture/voiture_embrayage/models.py:18
+#: voiture/voiture_embrayage/models.py:9
+#: voiture/voiture_embrayage/models.py:18
 #: voiture/voiture_embrayage/models.py:24
 #: voiture/voiture_embrayage/models.py:34
 #: voiture/voiture_embrayage/models.py:44
@@ -22187,8 +22219,8 @@ msgid ""
 "Voulez-vous vraiment supprimer le contrôle cardan du %(date)s (%(km)s km) "
 "pour :"
 msgstr ""
-"Möchten Sie die Antriebswellenprüfung vom %(date)s (%(km)s km) für folgendes "
-"Fahrzeug wirklich löschen:"
+"Möchten Sie die Antriebswellenprüfung vom %(date)s (%(km)s km) für folgendes"
+" Fahrzeug wirklich löschen:"
 
 #: maintenance/autres_interventions/cardan/templates/cardan/delete_cardan.html:27
 msgid ""
@@ -22419,8 +22451,8 @@ msgid ""
 "Le kilométrage du contrôle de climatisation ne peut pas être inférieur au "
 "kilométrage actuel du véhicule."
 msgstr ""
-"Der Kilometerstand der Klimaanlagenprüfung darf nicht niedriger sein als der "
-"aktuelle Kilometerstand des Fahrzeugs."
+"Der Kilometerstand der Klimaanlagenprüfung darf nicht niedriger sein als der"
+" aktuelle Kilometerstand des Fahrzeugs."
 
 #: maintenance/autres_interventions/climatisation/models.py:684
 msgid "Veuillez préciser le type de gaz utilisé."
@@ -23446,7 +23478,8 @@ msgstr "Ansaugungen"
 #: maintenance/autres_interventions/moteur/allumage/models.py:550
 msgid "Le kilométrage ne peut pas être inférieur au kilométrage actuel."
 msgstr ""
-"Der Kilometerstand darf nicht niedriger als der aktuelle Kilometerstand sein."
+"Der Kilometerstand darf nicht niedriger als der aktuelle Kilometerstand "
+"sein."
 
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_check.html:322
 #: maintenance/autres_interventions/moteur/admission/templates/admission/modifier_admission.html:315
@@ -26504,8 +26537,8 @@ msgid "Nouveaux pneus arrière (remplacement / autre monte)"
 msgstr "Neue Hinterreifen (Austausch / anderer Satz)"
 
 #: maintenance/check_up/models.py:1786 maintenance/checkup_track/models.py:668
-#: maintenance/checkup_track/models.py:1159 maintenance/eclairage/models.py:438
-#: maintenance/entretien/models.py:811
+#: maintenance/checkup_track/models.py:1159
+#: maintenance/eclairage/models.py:438 maintenance/entretien/models.py:811
 msgid "Éclaire plaque"
 msgstr "Kennzeichenbeleuchtung"
 
@@ -27430,7 +27463,8 @@ msgstr "Abschlepphaken"
 #: maintenance/esthetique/nettoyage_exterieur/models.py:238
 #: maintenance/nettoyage_interieur/models.py:267
 msgid "ne peut pas être inférieur au kilométrage actuel de la voiture "
-msgstr "kann nicht kleiner sein als der aktuelle Kilometerstand des Fahrzeugs "
+msgstr ""
+"kann nicht kleiner sein als der aktuelle Kilometerstand des Fahrzeugs "
 
 #: maintenance/checkup_track/models.py:1004
 #: maintenance/checkup_track/models.py:1011
@@ -27583,7 +27617,8 @@ msgid "Fabricant des plaquettes avant"
 msgstr "Hersteller der vorderen Bremsbeläge"
 
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1043
-#: voiture/voiture_freins_ar/models.py:76 voiture/voiture_freins_av/forms.py:42
+#: voiture/voiture_freins_ar/models.py:76
+#: voiture/voiture_freins_av/forms.py:42
 #: voiture/voiture_freins_av/models.py:96
 msgid "Matière des plaquettes avant"
 msgstr "Material der vorderen Bremsbeläge"
@@ -27602,7 +27637,8 @@ msgid "Fabricant des disques avant"
 msgstr "Hersteller der vorderen Bremsscheiben"
 
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1125
-#: voiture/voiture_freins_av/forms.py:37 voiture/voiture_freins_av/models.py:82
+#: voiture/voiture_freins_av/forms.py:37
+#: voiture/voiture_freins_av/models.py:82
 msgid "Matière des disques avant"
 msgstr "Material der vorderen Bremsscheiben"
 
@@ -27642,7 +27678,8 @@ msgid "Fabricant des disques arrière"
 msgstr "Hersteller der hinteren Bremsscheiben"
 
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1275
-#: voiture/voiture_freins_ar/forms.py:39 voiture/voiture_freins_ar/models.py:58
+#: voiture/voiture_freins_ar/forms.py:39
+#: voiture/voiture_freins_ar/models.py:58
 msgid "Matière des disques arrière"
 msgstr "Material der hinteren Bremsscheiben"
 
@@ -32297,10 +32334,8 @@ msgstr "Zurück zur Liste der Kontrollen des Scheibenwischsystems"
 #: maintenance/esthetique/cire/models.py:20
 #: maintenance/esthetique/decontamination/models.py:20
 #: maintenance/esthetique/polish/models.py:20
-#, fuzzy
-#| msgid "Effectuées :"
 msgid "Effectué"
-msgstr "Durchgeführt:"
+msgstr "Durchgeführt"
 
 #: maintenance/esthetique/ceramique/models.py:24
 #: maintenance/esthetique/ceramique/models.py:138
@@ -32308,17 +32343,15 @@ msgstr "Durchgeführt:"
 #: maintenance/esthetique/ceramique/views.py:462
 #: maintenance/esthetique/ceramique/views.py:780
 msgid "Préparation / dégraissage (panel wipe)"
-msgstr ""
+msgstr "Vorbereitung / Entfettung (Panel Wipe)"
 
 #: maintenance/esthetique/ceramique/models.py:25
 #: maintenance/esthetique/ceramique/models.py:143
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail_pdf.html:412
 #: maintenance/esthetique/ceramique/views.py:467
 #: maintenance/esthetique/ceramique/views.py:785
-#, fuzzy
-#| msgid "Créer une carrosserie"
 msgid "Revêtement céramique carrosserie"
-msgstr "Karosserie erstellen"
+msgstr "Keramikversiegelung Karosserie"
 
 #: maintenance/esthetique/ceramique/models.py:26
 #: maintenance/esthetique/ceramique/models.py:148
@@ -32326,27 +32359,23 @@ msgstr "Karosserie erstellen"
 #: maintenance/esthetique/ceramique/views.py:472
 #: maintenance/esthetique/ceramique/views.py:790
 msgid "Couche supplémentaire / top coat"
-msgstr ""
+msgstr "Zusätzliche Schicht / Top Coat"
 
 #: maintenance/esthetique/ceramique/models.py:27
 #: maintenance/esthetique/ceramique/models.py:153
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail_pdf.html:438
 #: maintenance/esthetique/ceramique/views.py:477
 #: maintenance/esthetique/ceramique/views.py:795
-#, fuzzy
-#| msgid "Céramique haute performance"
 msgid "Céramique jantes / étriers"
-msgstr "Hochleistungs-Keramik"
+msgstr "Keramik Felgen / Bremssättel"
 
 #: maintenance/esthetique/ceramique/models.py:28
 #: maintenance/esthetique/ceramique/models.py:158
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail_pdf.html:451
 #: maintenance/esthetique/ceramique/views.py:482
 #: maintenance/esthetique/ceramique/views.py:800
-#, fuzzy
-#| msgid "Céramique"
 msgid "Céramique vitres"
-msgstr "Keramik"
+msgstr "Keramik Scheiben"
 
 #: maintenance/esthetique/ceramique/models.py:29
 #: maintenance/esthetique/ceramique/models.py:163
@@ -32354,17 +32383,15 @@ msgstr "Keramik"
 #: maintenance/esthetique/ceramique/views.py:487
 #: maintenance/esthetique/ceramique/views.py:805
 msgid "Céramique plastiques / garnitures"
-msgstr ""
+msgstr "Keramik Kunststoffe / Zierleisten"
 
 #: maintenance/esthetique/ceramique/models.py:30
 #: maintenance/esthetique/ceramique/models.py:168
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail_pdf.html:477
 #: maintenance/esthetique/ceramique/views.py:492
 #: maintenance/esthetique/ceramique/views.py:810
-#, fuzzy
-#| msgid "Céramique"
 msgid "Céramique optiques"
-msgstr "Keramik"
+msgstr "Keramik Scheinwerfer"
 
 #: maintenance/esthetique/ceramique/models.py:31
 #: maintenance/esthetique/ceramique/models.py:173
@@ -32372,7 +32399,7 @@ msgstr "Keramik"
 #: maintenance/esthetique/ceramique/views.py:497
 #: maintenance/esthetique/ceramique/views.py:815
 msgid "Cuisson / séchage infrarouge"
-msgstr ""
+msgstr "Infrarot-Aushärtung / -Trocknung"
 
 #: maintenance/esthetique/ceramique/models.py:32
 #: maintenance/esthetique/ceramique/models.py:178
@@ -32380,7 +32407,7 @@ msgstr ""
 #: maintenance/esthetique/ceramique/views.py:502
 #: maintenance/esthetique/ceramique/views.py:820
 msgid "Produit d'entretien (shampoing / spray)"
-msgstr ""
+msgstr "Pflegeprodukt (Shampoo / Spray)"
 
 #: maintenance/esthetique/ceramique/models.py:112
 #: maintenance/esthetique/cire/models.py:111
@@ -32394,56 +32421,42 @@ msgstr "Kilometerstand beim Eingriff"
 #: maintenance/esthetique/cire/models.py:265
 #: maintenance/esthetique/decontamination/models.py:265
 #: maintenance/esthetique/polish/models.py:277
-#, fuzzy
-#| msgid ""
-#| "Le kilométrage ne peut pas être inférieur au kilométrage actuel du "
-#| "véhicule."
 msgid "Le kilométrage ne peut pas être inférieur au kilométrage du véhicule."
 msgstr ""
-"Der Kilometerstand darf nicht niedriger als der aktuelle Kilometerstand des "
-"Fahrzeugs sein."
+"Der Kilometerstand darf nicht niedriger sein als der Kilometerstand des "
+"Fahrzeugs."
 
 #: maintenance/esthetique/ceramique/models.py:276
 #: maintenance/esthetique/ceramique/models.py:457
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail_pdf.html:382
 #: maintenance/esthetique/ceramique/views.py:406
 #: maintenance/esthetique/ceramique/views.py:1112 maintenance/models.py:41
-#, fuzzy
-#| msgid "Hybride et électrique"
 msgid "Traitement céramique"
-msgstr "Hybrid und Elektro"
+msgstr "Keramikversiegelung"
 
 #: maintenance/esthetique/ceramique/models.py:277
 msgid "Traitements céramiques"
-msgstr ""
+msgstr "Keramikversiegelungen"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail.html:4
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail.html:11
-#, fuzzy
-#| msgid "Détails du remplacement moteur"
 msgid "Détails du traitement céramique"
-msgstr "Details des Motorwechsels"
+msgstr "Details der Keramikversiegelung"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail_pdf.html:319
-#, fuzzy
-#| msgid "Détails du remplacement moteur"
 msgid "Détail du traitement céramique"
-msgstr "Details des Motorwechsels"
+msgstr "Details der Keramikversiegelung"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail_pdf.html:390
 #: maintenance/esthetique/cire/templates/cire/cire_detail_pdf.html:390
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_detail_pdf.html:390
 #: maintenance/esthetique/polish/templates/polish/polish_detail_pdf.html:390
-#, fuzzy
-#| msgid "Pièces / produits"
 msgid "Prestation / produit"
-msgstr "Teile / Produkte"
+msgstr "Leistung / Produkt"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:21
-#, fuzzy
-#| msgid "Ajouter un remplacement boite"
 msgid "Ajouter un traitement céramique"
-msgstr "Getriebewechsel hinzufügen"
+msgstr "Keramikversiegelung hinzufügen"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:317
 #: maintenance/esthetique/ceramique/templates/ceramique/modifier_ceramique.html:315
@@ -32460,51 +32473,41 @@ msgid "Retour à la liste"
 msgstr "Zurück zur Liste"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_list.html:4
-#, fuzzy
-#| msgid "Liste des interventions électronique moteur"
 msgid "Liste des interventions : Céramique"
-msgstr "Liste der Eingriffe an der Motorelektronik"
+msgstr "Liste der Eingriffe: Keramik"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_list.html:19
 msgid "Traitement céramique pour :"
-msgstr ""
+msgstr "Keramikversiegelung für:"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_list.html:53
 #: maintenance/esthetique/cire/templates/cire/cire_list.html:53
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_list.html:53
 #: maintenance/esthetique/polish/templates/polish/polish_list.html:53
-#, fuzzy
-#| msgid "Autres interventions"
 msgid "Ajouter une intervention"
-msgstr "Weitere Arbeiten"
+msgstr "Eingriff hinzufügen"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_list.html:164
 #: maintenance/esthetique/cire/templates/cire/cire_list.html:164
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_list.html:164
 #: maintenance/esthetique/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:137
 #: maintenance/esthetique/polish/templates/polish/polish_list.html:164
-#, fuzzy
-#| msgid "Retour au tableau de bord"
 msgid "Retour au tableau Esthétique"
-msgstr "Zurück zum Dashboard"
+msgstr "Zurück zum Aufbereitungs-Dashboard"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_list.html:175
 #: maintenance/esthetique/cire/templates/cire/cire_list.html:175
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_list.html:175
 #: maintenance/esthetique/polish/templates/polish/polish_list.html:175
-#, fuzzy
-#| msgid "Aucun entretien enregistré pour cet exemplaire."
 msgid "Aucune intervention enregistrée pour cet exemplaire."
-msgstr "Keine Wartungen für dieses Fahrzeug erfasst."
+msgstr "Kein Eingriff für dieses Fahrzeug erfasst."
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_list.html:178
 #: maintenance/esthetique/cire/templates/cire/cire_list.html:178
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_list.html:178
 #: maintenance/esthetique/polish/templates/polish/polish_list.html:178
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ entretiens"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ interventions"
-msgstr "Anzeige von _START_ bis _END_ von _TOTAL_ Wartungen"
+msgstr "_START_ bis _END_ von _TOTAL_ Eingriffen"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_list.html:179
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_list.html:180
@@ -32514,78 +32517,56 @@ msgstr "Anzeige von _START_ bis _END_ von _TOTAL_ Wartungen"
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_list.html:180
 #: maintenance/esthetique/polish/templates/polish/polish_list.html:179
 #: maintenance/esthetique/polish/templates/polish/polish_list.html:180
-#, fuzzy
-#| msgid "Aucun entretien trouvé"
 msgid "Aucune intervention trouvée"
-msgstr "Keine Wartung gefunden"
+msgstr "Kein Eingriff gefunden"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/delete_ceramique.html:10
-#, fuzzy
-#| msgid "Supprimer le remplacement moteur"
 msgid "Supprimer le traitement céramique"
-msgstr "Motoraustausch löschen"
+msgstr "Keramikversiegelung löschen"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/delete_ceramique.html:14
-#, fuzzy
-#| msgid "Voulez-vous vraiment supprimer l'entretien pour"
 msgid "Voulez-vous vraiment supprimer le traitement céramique pour"
-msgstr "Möchten Sie diese Wartung wirklich löschen für"
+msgstr "Möchten Sie die Keramikversiegelung wirklich löschen für"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/modifier_ceramique.html:21
-#, fuzzy
-#| msgid "Modifier le nettoyage extérieur"
 msgid "Modifier le traitement céramique"
-msgstr "Außenreinigung bearbeiten"
+msgstr "Keramikversiegelung ändern"
 
 #: maintenance/esthetique/ceramique/views.py:414
-#, fuzzy
-#| msgid "Entretien enregistré avec succès."
 msgid "Traitement céramique enregistré avec succès."
-msgstr "Maintenance successfully saved."
+msgstr "Keramikversiegelung erfolgreich gespeichert."
 
 #: maintenance/esthetique/ceramique/views.py:735
-#, fuzzy
-#| msgid "Modification du remplacement moteur"
 msgid "Modification du traitement céramique"
-msgstr "Motorersatz bearbeiten"
+msgstr "Änderung der Keramikversiegelung"
 
 #: maintenance/esthetique/ceramique/views.py:745
-#, fuzzy
-#| msgid "Entretien modifié avec succès !"
 msgid "Traitement céramique modifié avec succès !"
-msgstr "Wartung erfolgreich bearbeitet!"
+msgstr "Keramikversiegelung erfolgreich geändert!"
 
 #: maintenance/esthetique/ceramique/views.py:1004
-#, fuzzy
-#| msgid "Suppression du remplacement moteur"
 msgid "Suppression du traitement céramique"
-msgstr "Löschen des Motoraustauschs"
+msgstr "Löschung der Keramikversiegelung"
 
 #: maintenance/esthetique/ceramique/views.py:1017
-#, fuzzy
-#| msgid "Recharge électrique supprimée avec succès."
 msgid "Traitement céramique supprimé avec succès."
-msgstr "Elektrischer Ladevorgang erfolgreich gelöscht."
+msgstr "Keramikversiegelung erfolgreich gelöscht."
 
 #: maintenance/esthetique/cire/models.py:24
 #: maintenance/esthetique/cire/models.py:137
 #: maintenance/esthetique/cire/templates/cire/cire_detail_pdf.html:399
 #: maintenance/esthetique/cire/views.py:462
 #: maintenance/esthetique/cire/views.py:775
-#, fuzzy
-#| msgid "Kit réparation étrier"
 msgid "Préparation / dégraissage"
-msgstr "Reparatursatz Bremssattel"
+msgstr "Vorbereitung / Entfettung"
 
 #: maintenance/esthetique/cire/models.py:25
 #: maintenance/esthetique/cire/models.py:142
 #: maintenance/esthetique/cire/templates/cire/cire_detail_pdf.html:412
 #: maintenance/esthetique/cire/views.py:467
 #: maintenance/esthetique/cire/views.py:780
-#, fuzzy
-#| msgid "Carrosserie"
 msgid "Cire carrosserie"
-msgstr "Karosserie"
+msgstr "Karosseriewachs"
 
 #: maintenance/esthetique/cire/models.py:26
 #: maintenance/esthetique/cire/models.py:147
@@ -32593,17 +32574,15 @@ msgstr "Karosserie"
 #: maintenance/esthetique/cire/views.py:472
 #: maintenance/esthetique/cire/views.py:785
 msgid "Scellant synthétique (sealant)"
-msgstr ""
+msgstr "Synthetische Versiegelung (Sealant)"
 
 #: maintenance/esthetique/cire/models.py:27
 #: maintenance/esthetique/cire/models.py:152
 #: maintenance/esthetique/cire/templates/cire/cire_detail_pdf.html:438
 #: maintenance/esthetique/cire/views.py:477
 #: maintenance/esthetique/cire/views.py:790
-#, fuzzy
-#| msgid "Pression des pneus"
 msgid "Protection des jantes"
-msgstr "Reifendruck"
+msgstr "Felgenschutz"
 
 #: maintenance/esthetique/cire/models.py:28
 #: maintenance/esthetique/cire/models.py:157
@@ -32611,17 +32590,15 @@ msgstr "Reifendruck"
 #: maintenance/esthetique/cire/views.py:482
 #: maintenance/esthetique/cire/views.py:795
 msgid "Rénovation / protection des plastiques extérieurs"
-msgstr ""
+msgstr "Aufbereitung / Schutz der Außenkunststoffe"
 
 #: maintenance/esthetique/cire/models.py:29
 #: maintenance/esthetique/cire/models.py:162
 #: maintenance/esthetique/cire/templates/cire/cire_detail_pdf.html:464
 #: maintenance/esthetique/cire/views.py:487
 #: maintenance/esthetique/cire/views.py:800
-#, fuzzy
-#| msgid "Pression des pneus"
 msgid "Dressing pneus"
-msgstr "Reifendruck"
+msgstr "Reifenpflege (Tyre Dressing)"
 
 #: maintenance/esthetique/cire/models.py:30
 #: maintenance/esthetique/cire/models.py:167
@@ -32629,17 +32606,15 @@ msgstr "Reifendruck"
 #: maintenance/esthetique/cire/views.py:492
 #: maintenance/esthetique/cire/views.py:805
 msgid "Traitement hydrophobe des vitres"
-msgstr ""
+msgstr "Hydrophobe Scheibenversiegelung"
 
 #: maintenance/esthetique/cire/models.py:31
 #: maintenance/esthetique/cire/models.py:172
 #: maintenance/esthetique/cire/templates/cire/cire_detail_pdf.html:490
 #: maintenance/esthetique/cire/views.py:497
 #: maintenance/esthetique/cire/views.py:810
-#, fuzzy
-#| msgid "Lexus Original"
 msgid "Lustrage final"
-msgstr "Lexus Original"
+msgstr "Abschlusspolitur"
 
 #: maintenance/esthetique/cire/models.py:270
 #: maintenance/esthetique/cire/models.py:451
@@ -32650,90 +32625,64 @@ msgstr "Lexus Original"
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:151
 #: maintenance/models.py:40
 msgid "Cire"
-msgstr ""
+msgstr "Wachs"
 
 #: maintenance/esthetique/cire/models.py:271
 msgid "Cires"
-msgstr ""
+msgstr "Wachsbehandlungen"
 
 #: maintenance/esthetique/cire/templates/cire/cire_detail.html:4
 #: maintenance/esthetique/cire/templates/cire/cire_detail.html:11
-#, fuzzy
-#| msgid "Détails de la facture :"
 msgid "Détails de la cire"
-msgstr "Rechnungsdetails:"
+msgstr "Details der Wachsbehandlung"
 
 #: maintenance/esthetique/cire/templates/cire/cire_detail_pdf.html:319
-#, fuzzy
-#| msgid "Détails de la facture :"
 msgid "Détail de la cire"
-msgstr "Rechnungsdetails:"
+msgstr "Details der Wachsbehandlung"
 
 #: maintenance/esthetique/cire/templates/cire/cire_form.html:21
-#, fuzzy
-#| msgid "Ajouter un client"
 msgid "Ajouter une cire"
-msgstr "Kunden hinzufügen"
+msgstr "Wachsbehandlung hinzufügen"
 
 #: maintenance/esthetique/cire/templates/cire/cire_list.html:4
-#, fuzzy
-#| msgid "Liste des interventions carrosserie"
 msgid "Liste des interventions : Cire"
-msgstr "Liste der Karosserieeingriffe"
+msgstr "Liste der Eingriffe: Wachs"
 
 #: maintenance/esthetique/cire/templates/cire/cire_list.html:19
-#, fuzzy
-#| msgid "Prête pour :"
 msgid "Cire pour :"
-msgstr "Bereit für:"
+msgstr "Wachsbehandlung für:"
 
 #: maintenance/esthetique/cire/templates/cire/delete_cire.html:10
-#, fuzzy
-#| msgid "Supprimer la police"
 msgid "Supprimer la cire"
-msgstr "Versicherungspolice löschen"
+msgstr "Wachsbehandlung löschen"
 
 #: maintenance/esthetique/cire/templates/cire/delete_cire.html:14
-#, fuzzy
-#| msgid "Voulez-vous vraiment supprimer le contrôle pour"
 msgid "Voulez-vous vraiment supprimer la cire pour"
-msgstr "Möchten Sie diese Kontrolle wirklich löschen für"
+msgstr "Möchten Sie die Wachsbehandlung wirklich löschen für"
 
 #: maintenance/esthetique/cire/templates/cire/modifier_cire.html:21
-#, fuzzy
-#| msgid "Modifier la recharge"
 msgid "Modifier la cire"
-msgstr "Ladung bearbeiten"
+msgstr "Wachsbehandlung ändern"
 
 #: maintenance/esthetique/cire/views.py:414
-#, fuzzy
-#| msgid "Checkup enregistré avec succès."
 msgid "Cire enregistrée avec succès."
-msgstr "Check erfolgreich gespeichert."
+msgstr "Wachsbehandlung erfolgreich gespeichert."
 
 #: maintenance/esthetique/cire/views.py:730
-#, fuzzy
-#| msgid "Modification de la carrosserie"
 msgid "Modification de la cire"
-msgstr "Karosserie bearbeiten"
+msgstr "Änderung der Wachsbehandlung"
 
 #: maintenance/esthetique/cire/views.py:740
-#, fuzzy
-#| msgid "Checkup modifié avec succès !"
 msgid "Cire modifiée avec succès !"
-msgstr "Checkup erfolgreich geändert!"
+msgstr "Wachsbehandlung erfolgreich geändert!"
 
 #: maintenance/esthetique/cire/views.py:994
-#, fuzzy
-#| msgid "Suppression de l'adresse"
 msgid "Suppression de la cire"
-msgstr "Adresse löschen"
+msgstr "Löschung der Wachsbehandlung"
 
 #: maintenance/esthetique/cire/views.py:1007
-#, fuzzy
-#| msgid "Checkup supprimé avec succès."
 msgid "Cire supprimée avec succès."
-msgstr "Checkup erfolgreich gelöscht."
+msgstr "Wachsbehandlung erfolgreich gelöscht."
 
 #: maintenance/esthetique/decontamination/models.py:24
 #: maintenance/esthetique/decontamination/models.py:137
@@ -32741,7 +32690,7 @@ msgstr "Checkup erfolgreich gelöscht."
 #: maintenance/esthetique/decontamination/views.py:462
 #: maintenance/esthetique/decontamination/views.py:775
 msgid "Prélavage / mousse active"
-msgstr ""
+msgstr "Vorwäsche / Aktivschaum"
 
 #: maintenance/esthetique/decontamination/models.py:25
 #: maintenance/esthetique/decontamination/models.py:142
@@ -32749,7 +32698,7 @@ msgstr ""
 #: maintenance/esthetique/decontamination/views.py:467
 #: maintenance/esthetique/decontamination/views.py:780
 msgid "Lavage manuel (méthode deux seaux)"
-msgstr ""
+msgstr "Handwäsche (Zwei-Eimer-Methode)"
 
 #: maintenance/esthetique/decontamination/models.py:26
 #: maintenance/esthetique/decontamination/models.py:147
@@ -32757,7 +32706,7 @@ msgstr ""
 #: maintenance/esthetique/decontamination/views.py:472
 #: maintenance/esthetique/decontamination/views.py:785
 msgid "Décontamination ferreuse (iron remover)"
-msgstr ""
+msgstr "Flugrostentfernung (Iron Remover)"
 
 #: maintenance/esthetique/decontamination/models.py:27
 #: maintenance/esthetique/decontamination/models.py:152
@@ -32765,7 +32714,7 @@ msgstr ""
 #: maintenance/esthetique/decontamination/views.py:477
 #: maintenance/esthetique/decontamination/views.py:790
 msgid "Élimination du goudron / de la colle"
-msgstr ""
+msgstr "Teer- / Klebstoffentfernung"
 
 #: maintenance/esthetique/decontamination/models.py:28
 #: maintenance/esthetique/decontamination/models.py:157
@@ -32773,27 +32722,23 @@ msgstr ""
 #: maintenance/esthetique/decontamination/views.py:482
 #: maintenance/esthetique/decontamination/views.py:795
 msgid "Décontamination mécanique (clay bar / gomme)"
-msgstr ""
+msgstr "Mechanische Dekontamination (Clay Bar / Knete)"
 
 #: maintenance/esthetique/decontamination/models.py:29
 #: maintenance/esthetique/decontamination/models.py:162
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_detail_pdf.html:464
 #: maintenance/esthetique/decontamination/views.py:487
 #: maintenance/esthetique/decontamination/views.py:800
-#, fuzzy
-#| msgid "Détail des factures"
 msgid "Décontamination des jantes"
-msgstr "Rechnungsdetails"
+msgstr "Felgendekontamination"
 
 #: maintenance/esthetique/decontamination/models.py:30
 #: maintenance/esthetique/decontamination/models.py:167
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_detail_pdf.html:477
 #: maintenance/esthetique/decontamination/views.py:492
 #: maintenance/esthetique/decontamination/views.py:805
-#, fuzzy
-#| msgid "Détail des factures"
 msgid "Décontamination des vitres"
-msgstr "Rechnungsdetails"
+msgstr "Scheibendekontamination"
 
 #: maintenance/esthetique/decontamination/models.py:31
 #: maintenance/esthetique/decontamination/models.py:172
@@ -32801,7 +32746,7 @@ msgstr "Rechnungsdetails"
 #: maintenance/esthetique/decontamination/views.py:497
 #: maintenance/esthetique/decontamination/views.py:810
 msgid "Rinçage / séchage"
-msgstr ""
+msgstr "Spülen / Trocknen"
 
 #: maintenance/esthetique/decontamination/models.py:270
 #: maintenance/esthetique/decontamination/models.py:451
@@ -32811,95 +32756,65 @@ msgstr ""
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:82
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:95
 #: maintenance/models.py:39
-#, fuzzy
-#| msgid "Désignation"
 msgid "Décontamination"
-msgstr "Bezeichnung"
+msgstr "Dekontamination"
 
 #: maintenance/esthetique/decontamination/models.py:271
-#, fuzzy
-#| msgid "Désignation"
 msgid "Décontaminations"
-msgstr "Bezeichnung"
+msgstr "Dekontaminationen"
 
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_detail.html:4
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_detail.html:11
-#, fuzzy
-#| msgid "Détails de la géométrie"
 msgid "Détails de la décontamination"
-msgstr "Details der Achsvermessung"
+msgstr "Details der Dekontamination"
 
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_detail_pdf.html:319
-#, fuzzy
-#| msgid "Détails de la géométrie"
 msgid "Détail de la décontamination"
-msgstr "Details der Achsvermessung"
+msgstr "Details der Dekontamination"
 
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:21
-#, fuzzy
-#| msgid "Ajouter une location"
 msgid "Ajouter une décontamination"
-msgstr "Vermietung hinzufügen"
+msgstr "Dekontamination hinzufügen"
 
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_list.html:4
-#, fuzzy
-#| msgid "Liste des interventions électronique moteur"
 msgid "Liste des interventions : Décontamination"
-msgstr "Liste der Eingriffe an der Motorelektronik"
+msgstr "Liste der Eingriffe: Dekontamination"
 
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_list.html:19
-#, fuzzy
-#| msgid "Contrôle climatisation pour :"
 msgid "Décontamination pour :"
-msgstr "Klimaanlagenprüfung für:"
+msgstr "Dekontamination für:"
 
 #: maintenance/esthetique/decontamination/templates/decontamination/delete_decontamination.html:10
-#, fuzzy
-#| msgid "Supprimer la location"
 msgid "Supprimer la décontamination"
-msgstr "Vermietung löschen"
+msgstr "Dekontamination löschen"
 
 #: maintenance/esthetique/decontamination/templates/decontamination/delete_decontamination.html:14
-#, fuzzy
-#| msgid "Voulez-vous vraiment supprimer l'entretien pour"
 msgid "Voulez-vous vraiment supprimer la décontamination pour"
-msgstr "Möchten Sie diese Wartung wirklich löschen für"
+msgstr "Möchten Sie die Dekontamination wirklich löschen für"
 
 #: maintenance/esthetique/decontamination/templates/decontamination/modifier_decontamination.html:21
-#, fuzzy
-#| msgid "Modifier la location"
 msgid "Modifier la décontamination"
-msgstr "Vermietung bearbeiten"
+msgstr "Dekontamination ändern"
 
 #: maintenance/esthetique/decontamination/views.py:414
-#, fuzzy
-#| msgid "Géométrie enregistrée avec succès."
 msgid "Décontamination enregistrée avec succès."
-msgstr "Achsvermessung erfolgreich gespeichert."
+msgstr "Dekontamination erfolgreich gespeichert."
 
 #: maintenance/esthetique/decontamination/views.py:730
-#, fuzzy
-#| msgid "Modification de l'entretien"
 msgid "Modification de la décontamination"
-msgstr "Wartung bearbeiten"
+msgstr "Änderung der Dekontamination"
 
 #: maintenance/esthetique/decontamination/views.py:740
-#, fuzzy
-#| msgid "Entretien modifié avec succès !"
 msgid "Décontamination modifiée avec succès !"
-msgstr "Wartung erfolgreich bearbeitet!"
+msgstr "Dekontamination erfolgreich geändert!"
 
 #: maintenance/esthetique/decontamination/views.py:994
-#, fuzzy
-#| msgid "Suppression de l'achat"
 msgid "Suppression de la décontamination"
-msgstr "Kauf löschen"
+msgstr "Löschung der Dekontamination"
 
 #: maintenance/esthetique/decontamination/views.py:1007
-#, fuzzy
-#| msgid "Entretien supprimé avec succès."
 msgid "Décontamination supprimée avec succès."
-msgstr "Wartung erfolgreich gelöscht."
+msgstr "Dekontamination erfolgreich gelöscht."
 
 #: maintenance/esthetique/nettoyage_exterieur/models.py:89
 msgid "Kilométrage au moment du Nettoyage extérieur"
@@ -32946,17 +32861,15 @@ msgstr "Kontrolle der Außenreinigung"
 #: maintenance/esthetique/polish/views.py:462
 #: maintenance/esthetique/polish/views.py:785
 msgid "Inspection / mesure de l'épaisseur de peinture"
-msgstr ""
+msgstr "Inspektion / Lackschichtdickenmessung"
 
 #: maintenance/esthetique/polish/models.py:25
 #: maintenance/esthetique/polish/models.py:144
 #: maintenance/esthetique/polish/templates/polish/polish_detail_pdf.html:412
 #: maintenance/esthetique/polish/views.py:467
 #: maintenance/esthetique/polish/views.py:790
-#, fuzzy
-#| msgid "Marque des disques"
 msgid "Masquage des joints et plastiques"
-msgstr "Marke der Bremsscheiben"
+msgstr "Abkleben von Dichtungen und Kunststoffen"
 
 #: maintenance/esthetique/polish/models.py:26
 #: maintenance/esthetique/polish/models.py:149
@@ -32964,7 +32877,7 @@ msgstr "Marke der Bremsscheiben"
 #: maintenance/esthetique/polish/views.py:472
 #: maintenance/esthetique/polish/views.py:795
 msgid "Dégraissage (panel wipe / IPA)"
-msgstr ""
+msgstr "Entfettung (Panel Wipe / IPA)"
 
 #: maintenance/esthetique/polish/models.py:27
 #: maintenance/esthetique/polish/models.py:154
@@ -32972,17 +32885,15 @@ msgstr ""
 #: maintenance/esthetique/polish/views.py:477
 #: maintenance/esthetique/polish/views.py:800
 msgid "Polissage abrasif (coupe)"
-msgstr ""
+msgstr "Schleifpolitur (Cut)"
 
 #: maintenance/esthetique/polish/models.py:28
 #: maintenance/esthetique/polish/models.py:159
 #: maintenance/esthetique/polish/templates/polish/polish_detail_pdf.html:451
 #: maintenance/esthetique/polish/views.py:482
 #: maintenance/esthetique/polish/views.py:805
-#, fuzzy
-#| msgid "Mois de fin"
 msgid "Polissage de finition"
-msgstr "Endmonat"
+msgstr "Finish-Politur"
 
 #: maintenance/esthetique/polish/models.py:29
 #: maintenance/esthetique/polish/models.py:164
@@ -32990,7 +32901,7 @@ msgstr "Endmonat"
 #: maintenance/esthetique/polish/views.py:487
 #: maintenance/esthetique/polish/views.py:810
 msgid "Lustrage / jeweling"
-msgstr ""
+msgstr "Hochglanzpolitur / Jeweling"
 
 #: maintenance/esthetique/polish/models.py:30
 #: maintenance/esthetique/polish/models.py:169
@@ -32998,17 +32909,15 @@ msgstr ""
 #: maintenance/esthetique/polish/views.py:492
 #: maintenance/esthetique/polish/views.py:815
 msgid "Correction de rayures / retouches"
-msgstr ""
+msgstr "Kratzerkorrektur / Ausbesserungen"
 
 #: maintenance/esthetique/polish/models.py:31
 #: maintenance/esthetique/polish/models.py:174
 #: maintenance/esthetique/polish/templates/polish/polish_detail_pdf.html:490
 #: maintenance/esthetique/polish/views.py:497
 #: maintenance/esthetique/polish/views.py:820
-#, fuzzy
-#| msgid "Etat des pneumatiques"
 msgid "Rénovation des optiques"
-msgstr "Reifenzustand"
+msgstr "Scheinwerferaufbereitung"
 
 #: maintenance/esthetique/polish/models.py:32
 #: maintenance/esthetique/polish/models.py:179
@@ -33016,7 +32925,7 @@ msgstr "Reifenzustand"
 #: maintenance/esthetique/polish/views.py:502
 #: maintenance/esthetique/polish/views.py:825
 msgid "Pads / mousses de polissage"
-msgstr ""
+msgstr "Polierpads / -schwämme"
 
 #: maintenance/esthetique/polish/models.py:33
 #: maintenance/esthetique/polish/models.py:184
@@ -33024,7 +32933,7 @@ msgstr ""
 #: maintenance/esthetique/polish/views.py:507
 #: maintenance/esthetique/polish/views.py:830
 msgid "Microfibres"
-msgstr ""
+msgstr "Mikrofasertücher"
 
 #: maintenance/esthetique/polish/models.py:282
 #: maintenance/esthetique/polish/models.py:283
@@ -33036,119 +32945,83 @@ msgstr ""
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:123
 #: maintenance/models.py:38
 msgid "Polish"
-msgstr ""
+msgstr "Politur"
 
 #: maintenance/esthetique/polish/templates/polish/delete_polish.html:10
-#, fuzzy
-#| msgid "Supprimer la police"
 msgid "Supprimer le polish"
-msgstr "Versicherungspolice löschen"
+msgstr "Politur löschen"
 
 #: maintenance/esthetique/polish/templates/polish/delete_polish.html:14
-#, fuzzy
-#| msgid "Voulez-vous vraiment supprimer le contrôle pour"
 msgid "Voulez-vous vraiment supprimer le polish pour"
-msgstr "Möchten Sie diese Kontrolle wirklich löschen für"
+msgstr "Möchten Sie die Politur wirklich löschen für"
 
 #: maintenance/esthetique/polish/templates/polish/modifier_polish.html:21
-#, fuzzy
-#| msgid "Modifier le plein"
 msgid "Modifier le polish"
-msgstr "Betankung bearbeiten"
+msgstr "Politur ändern"
 
 #: maintenance/esthetique/polish/templates/polish/polish_detail.html:4
 #: maintenance/esthetique/polish/templates/polish/polish_detail.html:11
-#, fuzzy
-#| msgid "Détails du pilote :"
 msgid "Détails du polish"
-msgstr "Pilotendetails:"
+msgstr "Details der Politur"
 
 #: maintenance/esthetique/polish/templates/polish/polish_detail_pdf.html:319
-#, fuzzy
-#| msgid "Détails du pilote :"
 msgid "Détail du polish"
-msgstr "Pilotendetails:"
+msgstr "Details der Politur"
 
 #: maintenance/esthetique/polish/templates/polish/polish_form.html:21
-#, fuzzy
-#| msgid "Ajouter un outil"
 msgid "Ajouter un polish"
-msgstr "Werkzeug hinzufügen"
+msgstr "Politur hinzufügen"
 
 #: maintenance/esthetique/polish/templates/polish/polish_list.html:4
-#, fuzzy
-#| msgid "Liste des interventions carrosserie"
 msgid "Liste des interventions : Polish"
-msgstr "Liste der Karosserieeingriffe"
+msgstr "Liste der Eingriffe: Politur"
 
 #: maintenance/esthetique/polish/templates/polish/polish_list.html:19
-#, fuzzy
-#| msgid "Rodage pour :"
 msgid "Polish pour :"
-msgstr "Einfahren für:"
+msgstr "Politur für:"
 
 #: maintenance/esthetique/polish/views.py:414
-#, fuzzy
-#| msgid "Achat enregistré avec succès."
 msgid "Polish enregistré avec succès."
-msgstr "Kauf erfolgreich gespeichert."
+msgstr "Politur erfolgreich gespeichert."
 
 #: maintenance/esthetique/polish/views.py:740
-#, fuzzy
-#| msgid "Modification du rodage"
 msgid "Modification du polish"
-msgstr "Einfahren bearbeiten"
+msgstr "Änderung der Politur"
 
 #: maintenance/esthetique/polish/views.py:750
-#, fuzzy
-#| msgid "Achat modifié avec succès !"
 msgid "Polish modifié avec succès !"
-msgstr "Einkauf erfolgreich geändert!"
+msgstr "Politur erfolgreich geändert!"
 
 #: maintenance/esthetique/polish/views.py:1014
-#, fuzzy
-#| msgid "Suppression du fournisseur"
 msgid "Suppression du polish"
-msgstr "Lieferanten löschen"
+msgstr "Löschung der Politur"
 
 #: maintenance/esthetique/polish/views.py:1027
-#, fuzzy
-#| msgid "Pneus supprimés avec succès."
 msgid "Polish supprimé avec succès."
-msgstr "Reifen erfolgreich gelöscht."
+msgstr "Politur erfolgreich gelöscht."
 
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:5
-#, fuzzy
-#| msgid "Tableau de bord des voitures"
 msgid "Tableau de bord esthétique"
-msgstr "Fahrzeug-Dashboard"
+msgstr "Aufbereitungs-Dashboard"
 
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:15
 #: maintenance/templates/maintenance/choisir_type.html:95
 #: maintenance/templates/maintenance/choisir_type.html:100
-#, fuzzy
-#| msgid "Huile synthétique"
 msgid "Esthétique"
-msgstr "Synthetisches Öl"
+msgstr "Fahrzeugaufbereitung"
 
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:20
-#, fuzzy
-#| msgid "Choisir une intervention pour :"
 msgid "Esthétique – choisir une intervention pour :"
-msgstr "Eine Intervention auswählen für:"
+msgstr "Fahrzeugaufbereitung – Eingriff wählen für:"
 
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:54
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:67
-#, fuzzy
-#| msgid "Nettoyé"
 msgid "Nettoyage"
-msgstr "Gereinigt"
+msgstr "Reinigung"
 
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:196
-#, fuzzy
-#| msgid "Retour à la liste des maintenances"
 msgid "Retour au choix de la maintenance"
-msgstr "Zur Wartungsliste zurückkehren"
+msgstr "Zurück zur Wartungsauswahl"
 
 #: maintenance/freins/models.py:92
 msgid "Kilométrage du controle des freins"
@@ -33658,7 +33531,8 @@ msgid "Kilométrage du contrôle niveaux"
 msgstr "Kilometerstand bei der Flüssigkeitsstandkontrolle"
 
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:352
-#: voiture/voiture_location/models.py:11 voiture/voiture_location/models.py:174
+#: voiture/voiture_location/models.py:11
+#: voiture/voiture_location/models.py:174
 #: voiture/voiture_location/templates/voiture_location/location_list.html:39
 msgid "Circuit"
 msgstr "Kreislauf"
@@ -34064,7 +33938,7 @@ msgstr "Wartungsart wählen für:"
 
 #: maintenance/templates/maintenance/choisir_type.html:96
 msgid "Nettoyage, décontamination, polish, cire, céramique"
-msgstr ""
+msgstr "Reinigung, Dekontamination, Politur, Wachs, Keramik"
 
 #: maintenance/templates/maintenance/creer_maintenance.html:10
 msgid "Créer un check-up complet pour :"
@@ -34271,11 +34145,13 @@ msgstr "Werkzeug löschen"
 
 #: outillage/templates/outillage/delete_outillage.html:14
 msgid "Cet outillage ne peut pas être supprimé car il est encore utilisé."
-msgstr "Dieses Werkzeug kann nicht gelöscht werden, da es noch verwendet wird."
+msgstr ""
+"Dieses Werkzeug kann nicht gelöscht werden, da es noch verwendet wird."
 
 #: outillage/templates/outillage/delete_outillage.html:18
 msgid ""
-"Voulez-vous vraiment supprimer cet outillage ? Cette action est irréversible."
+"Voulez-vous vraiment supprimer cet outillage ? Cette action est "
+"irréversible."
 msgstr ""
 "Möchten Sie dieses Werkzeug wirklich löschen? Diese Aktion kann nicht "
 "rückgängig gemacht werden."
@@ -34814,10 +34690,10 @@ msgstr "Gasmenge"
 msgid "Type de pièce de climatisation"
 msgstr "Art des Klimaanlagenteils"
 
-#: piece/piece_climatisation/models.py:32 piece/piece_differentiel/models.py:34
-#: piece/piece_direction/models.py:33 piece/piece_distribution/models.py:35
-#: piece/piece_echappement/models.py:34 piece/piece_essuyage/models.py:26
-#: piece/piece_freins/models.py:57
+#: piece/piece_climatisation/models.py:32
+#: piece/piece_differentiel/models.py:34 piece/piece_direction/models.py:33
+#: piece/piece_distribution/models.py:35 piece/piece_echappement/models.py:34
+#: piece/piece_essuyage/models.py:26 piece/piece_freins/models.py:57
 msgid "Moteurs compatibles"
 msgstr "Kompatible Motoren"
 
@@ -34829,10 +34705,10 @@ msgstr "Klimaanlagenteil"
 msgid "Pièces de climatisation"
 msgstr "Klimaanlagenteile"
 
-#: piece/piece_climatisation/models.py:40 piece/piece_differentiel/models.py:42
-#: piece/piece_direction/models.py:41 piece/piece_distribution/models.py:43
-#: piece/piece_echappement/models.py:42 piece/piece_essuyage/models.py:34
-#: piece/piece_freins/models.py:65
+#: piece/piece_climatisation/models.py:40
+#: piece/piece_differentiel/models.py:42 piece/piece_direction/models.py:41
+#: piece/piece_distribution/models.py:43 piece/piece_echappement/models.py:42
+#: piece/piece_essuyage/models.py:34 piece/piece_freins/models.py:65
 #, python-format
 msgid "%(type)s – %(piece)s"
 msgstr "%(type)s  %(piece)s"
@@ -36492,8 +36368,8 @@ msgstr "Eigentumsanteile"
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:56
 #, python-format
 msgid ""
-"Les véhicules ne sont pas supprimés, mais le total des parts de leurs autres "
-"propriétaires n'atteindra plus 100 %%."
+"Les véhicules ne sont pas supprimés, mais le total des parts de leurs autres"
+" propriétaires n'atteindra plus 100 %%."
 msgstr ""
 "Die Fahrzeuge werden nicht gelöscht, aber die Summe der Anteile ihrer "
 "anderen Eigentümer wird nicht mehr 100 %% erreichen."
@@ -36512,7 +36388,8 @@ msgstr "Eigentumsanteil löschen"
 #: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:14
 msgid "Cette part ne peut pas être supprimée car elle est encore utilisée."
 msgstr ""
-"Dieser Eigentumsanteil kann nicht gelöscht werden, da er noch verwendet wird."
+"Dieser Eigentumsanteil kann nicht gelöscht werden, da er noch verwendet "
+"wird."
 
 #: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:18
 msgid ""
@@ -36673,8 +36550,8 @@ msgid ""
 "Impossible de supprimer « %(nom)s » : ce propriétaire est encore utilisé "
 "ailleurs."
 msgstr ""
-"« %(nom)s » kann nicht gelöscht werden, da dieser Eigentümer noch an anderer "
-"Stelle verwendet wird."
+"« %(nom)s » kann nicht gelöscht werden, da dieser Eigentümer noch an anderer"
+" Stelle verwendet wird."
 
 #: proprietaire/views.py:379
 #, python-format
@@ -36682,8 +36559,8 @@ msgid ""
 "Impossible de supprimer « %(nom)s » : le propriétaire ou son adresse est "
 "encore utilisé ailleurs."
 msgstr ""
-"« %(nom)s » kann nicht gelöscht werden, da der Eigentümer oder seine Adresse "
-"noch an anderer Stelle verwendet wird."
+"« %(nom)s » kann nicht gelöscht werden, da der Eigentümer oder seine Adresse"
+" noch an anderer Stelle verwendet wird."
 
 #: proprietaire/views.py:383
 #, python-format
@@ -37133,8 +37010,8 @@ msgid ""
 "encore. Certaines fonctionnalités peuvent être temporairement indisponibles."
 msgstr ""
 "Die Website befindet sich derzeit im Aufbau oder die angeforderte Seite "
-"existiert noch nicht. Einige Funktionen können vorübergehend nicht verfügbar "
-"sein."
+"existiert noch nicht. Einige Funktionen können vorübergehend nicht verfügbar"
+" sein."
 
 #: theme/templates/404.html:32
 msgid "Retour à la page précédente"
@@ -37661,8 +37538,8 @@ msgid ""
 "votre adresse e-mail, votre mot de passe et votre code Authy ou Google "
 "Authenticator."
 msgstr ""
-"Die Zwei-Faktor-Authentifizierung wurde aktiviert. Melden Sie sich jetzt mit "
-"Ihrer E-Mail-Adresse, Ihrem Passwort und Ihrem Authy- oder Google-"
+"Die Zwei-Faktor-Authentifizierung wurde aktiviert. Melden Sie sich jetzt mit"
+" Ihrer E-Mail-Adresse, Ihrem Passwort und Ihrem Authy- oder Google-"
 "Authenticator-Code an."
 
 #: utilisateurs/views.py:570
@@ -37694,7 +37571,8 @@ msgid "Ce compte n'est associé à aucune société privée."
 msgstr "Dieses Konto ist keinem privaten Unternehmen zugeordnet."
 
 #: utilisateurs/views.py:1083
-msgid "Veuillez saisir le code de sécurité généré par votre application Authy."
+msgid ""
+"Veuillez saisir le code de sécurité généré par votre application Authy."
 msgstr ""
 "Bitte geben Sie den von Ihrer Authy-App generierten Sicherheitscode ein."
 
@@ -37806,7 +37684,8 @@ msgstr "Zurück zur Liste der Getriebe"
 
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:14
 msgid "Cette boîte ne peut pas être supprimée car elle est encore utilisée."
-msgstr "Dieses Getriebe kann nicht gelöscht werden, da es noch verwendet wird."
+msgstr ""
+"Dieses Getriebe kann nicht gelöscht werden, da es noch verwendet wird."
 
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:18
 msgid ""
@@ -37834,8 +37713,8 @@ msgstr "Betroffene(s) Modell(e)"
 
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:56
 msgid ""
-"Ces véhicules et modèles ne seront pas supprimés : seul leur lien avec cette "
-"boîte sera retiré."
+"Ces véhicules et modèles ne seront pas supprimés : seul leur lien avec cette"
+" boîte sera retiré."
 msgstr ""
 "Diese Fahrzeuge und Modelle werden nicht gelöscht: Nur ihre Verknüpfung mit "
 "diesem Getriebe wird entfernt."
@@ -39979,7 +39858,8 @@ msgstr "Kupplung löschen"
 
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:13
 msgid ""
-"Voulez-vous vraiment supprimer cet embrayage ? Cette action est irréversible."
+"Voulez-vous vraiment supprimer cet embrayage ? Cette action est "
+"irréversible."
 msgstr ""
 "Möchten Sie diese Kupplung wirklich löschen? Diese Aktion kann nicht "
 "rückgängig gemacht werden."
@@ -40052,8 +39932,8 @@ msgstr "Kupplung löschen"
 
 #: voiture/voiture_embrayage/views.py:238
 msgid ""
-"Impossible de supprimer cet embrayage : il est encore référencé par d'autres "
-"données."
+"Impossible de supprimer cet embrayage : il est encore référencé par d'autres"
+" données."
 msgstr ""
 "Diese Kupplung kann nicht gelöscht werden, da sie noch von anderen Daten "
 "referenziert wird."
@@ -40135,8 +40015,8 @@ msgid ""
 "Le numéro VIN doit contenir exactement 17 caractères alphanumériques "
 "(lettres A-H, J-N, P, R-Z et chiffres)."
 msgstr ""
-"Die VIN-Nummer muss genau 17 alphanumerische Zeichen enthalten (Buchstaben A-"
-"H, J-N, P, R-Z und Ziffern)."
+"Die VIN-Nummer muss genau 17 alphanumerische Zeichen enthalten (Buchstaben "
+"A-H, J-N, P, R-Z und Ziffern)."
 
 #: voiture/voiture_exemplaire/models.py:172
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:56
@@ -40432,8 +40312,8 @@ msgstr "Finanzdaten löschen"
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:14
 #, python-format
 msgid ""
-"Les données financières du véhicule %(vehicule)s (%(immat)s) seront "
-"effacées : prix d'achat, assurance, taxes et propriétaires."
+"Les données financières du véhicule %(vehicule)s (%(immat)s) seront effacées"
+" : prix d'achat, assurance, taxes et propriétaires."
 msgstr ""
 "Die Finanzdaten des Fahrzeugs %(vehicule)s (%(immat)s) werden gelöscht: "
 "Kaufpreis, Versicherung, Steuern und Eigentümer."
@@ -40545,9 +40425,9 @@ msgstr "montiert"
 
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/lier_pneus.html:82
 msgid ""
-"Lier corrige les pneus de cette monte sans compter de nouveau train. Pour un "
-"remplacement (nouveau train à 0 km), utilisez « Remplacer le train » sur la "
-"fiche du véhicule."
+"Lier corrige les pneus de cette monte sans compter de nouveau train. Pour un"
+" remplacement (nouveau train à 0 km), utilisez « Remplacer le train » sur la"
+" fiche du véhicule."
 msgstr ""
 "Verknüpfen korrigiert die Reifen dieses Satzes, ohne einen neuen Satz zu "
 "zählen. Für einen Austausch (neuer Satz bei 0 km) verwenden Sie „Satz "
@@ -40702,11 +40582,11 @@ msgstr ""
 #: voiture/voiture_exemplaire/views.py:244
 #, python-format
 msgid ""
-"Train n°%(ancien)s archivé (%(km)s km). Nouveau train n°%(nouveau)s installé "
-"à 0 km."
+"Train n°%(ancien)s archivé (%(km)s km). Nouveau train n°%(nouveau)s installé"
+" à 0 km."
 msgstr ""
-"Satz Nr. %(ancien)s archiviert (%(km)s km). Neuer Satz Nr. %(nouveau)s bei 0 "
-"km montiert."
+"Satz Nr. %(ancien)s archiviert (%(km)s km). Neuer Satz Nr. %(nouveau)s bei 0"
+" km montiert."
 
 #: voiture/voiture_exemplaire/views.py:250
 #, python-format
@@ -40885,8 +40765,8 @@ msgstr "Hinteres Bremssystem löschen"
 
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:13
 msgid ""
-"Voulez-vous vraiment supprimer ce système de freinage arrière ? Cette action "
-"est irréversible."
+"Voulez-vous vraiment supprimer ce système de freinage arrière ? Cette action"
+" est irréversible."
 msgstr ""
 "Möchten Sie dieses hintere Bremssystem wirklich löschen? Diese Aktion kann "
 "nicht rückgängig gemacht werden."
@@ -40955,7 +40835,8 @@ msgstr "Hinterradbremsen bearbeiten"
 msgid "Retour aux détails des freins arrière"
 msgstr "Zurück zu den Details der hinteren Bremsen"
 
-#: voiture/voiture_freins_ar/views.py:59 voiture/voiture_freins_ar/views.py:116
+#: voiture/voiture_freins_ar/views.py:59
+#: voiture/voiture_freins_ar/views.py:116
 msgid "Freins arrière ajoutés avec succès !"
 msgstr "Hintere Bremsen erfolgreich hinzugefügt!"
 
@@ -42143,23 +42024,19 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                Attention : %(counter)s entrée d'historique est liée à ces "
-"pneus.\n"
+"                Attention : %(counter)s entrée d'historique est liée à ces pneus.\n"
 "            "
 msgid_plural ""
 "\n"
-"                Attention : %(counter)s entrées d'historique sont liées à "
-"ces pneus.\n"
+"                Attention : %(counter)s entrées d'historique sont liées à ces pneus.\n"
 "            "
 msgstr[0] ""
 "\n"
-"                Achtung: %(counter)s Verlaufseintrag ist mit diesen Reifen "
-"verknüpft.\n"
+"                Achtung: %(counter)s Verlaufseintrag ist mit diesen Reifen verknüpft.\n"
 "            "
 msgstr[1] ""
 "\n"
-"                Achtung: %(counter)s Verlaufseinträge sind mit diesen Reifen "
-"verknüpft.\n"
+"                Achtung: %(counter)s Verlaufseinträge sind mit diesen Reifen verknüpft.\n"
 "            "
 
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:73

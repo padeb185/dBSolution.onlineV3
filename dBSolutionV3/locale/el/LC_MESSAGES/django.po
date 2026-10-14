@@ -196,8 +196,8 @@ msgstr "Γενικές Πληροφορίες"
 #: facture/templates/facture/delete_facture.html:61
 #: facture/templates/facture/facture_list.html:30
 #: facture/templates/facture/facture_pdf.html:153
-#: facture/templates/facture/maintenances_a_facturer.html:62 fuel/models.py:162
-#: fuel/templates/fuel/fuel_detail.html:33
+#: facture/templates/facture/maintenances_a_facturer.html:62
+#: fuel/models.py:162 fuel/templates/fuel/fuel_detail.html:33
 #: fuel/templates/fuel/fuel_list.html:80 fuel/templates/fuel/fuel_stat.html:77
 #: fuel/templates/fuel/fuel_stat.html:126
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:40
@@ -1491,7 +1491,8 @@ msgstr "Χρόνος"
 #: voiture/voiture_embrayage/forms.py:28
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:80
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:73
-#: voiture/voiture_freins_ar/forms.py:46 voiture/voiture_freins_ar/models.py:80
+#: voiture/voiture_freins_ar/forms.py:46
+#: voiture/voiture_freins_ar/models.py:80
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:92
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:79
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:83
@@ -1721,8 +1722,8 @@ msgstr "Μεταδεδομένα"
 #: maintenance/esthetique/cire/models.py:248
 #: maintenance/esthetique/decontamination/models.py:248
 #: maintenance/esthetique/nettoyage_exterieur/models.py:213
-#: maintenance/esthetique/polish/models.py:260 maintenance/freins/models.py:419
-#: maintenance/jeux_pieces/models.py:1147
+#: maintenance/esthetique/polish/models.py:260
+#: maintenance/freins/models.py:419 maintenance/jeux_pieces/models.py:1147
 #: maintenance/maintenance_externe/models.py:92
 #: maintenance/nettoyage_interieur/models.py:234
 #: maintenance/niveaux/models.py:175 maintenance/pneus/models.py:351
@@ -1857,8 +1858,8 @@ msgstr "Δημιουργήθηκε στις"
 #: maintenance/esthetique/cire/models.py:249
 #: maintenance/esthetique/decontamination/models.py:249
 #: maintenance/esthetique/nettoyage_exterieur/models.py:214
-#: maintenance/esthetique/polish/models.py:261 maintenance/freins/models.py:420
-#: maintenance/jeux_pieces/models.py:1148
+#: maintenance/esthetique/polish/models.py:261
+#: maintenance/freins/models.py:420 maintenance/jeux_pieces/models.py:1148
 #: maintenance/maintenance_externe/models.py:93
 #: maintenance/nettoyage_interieur/models.py:235
 #: maintenance/niveaux/models.py:176 maintenance/pneus/models.py:352
@@ -2230,7 +2231,8 @@ msgstr "Σφίξιμο των τροχών"
 #: maintenance/esthetique/cire/models.py:233
 #: maintenance/esthetique/decontamination/models.py:233
 #: maintenance/esthetique/nettoyage_exterieur/models.py:208
-#: maintenance/esthetique/polish/models.py:245 maintenance/freins/models.py:414
+#: maintenance/esthetique/polish/models.py:245
+#: maintenance/freins/models.py:414
 #: maintenance/freins/templates/freins/freins_check.html:754
 #: maintenance/freins/templates/freins/modifier_freins.html:752
 #: maintenance/jeux_pieces/models.py:1144
@@ -3020,7 +3022,8 @@ msgstr "Πλευρά"
 #: voiture/voiture_boite/forms.py:16
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:43
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:83
-#: voiture/voiture_embrayage/forms.py:21 voiture/voiture_embrayage/models.py:82
+#: voiture/voiture_embrayage/forms.py:21
+#: voiture/voiture_embrayage/models.py:82
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:45
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:45
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:35
@@ -4208,7 +4211,8 @@ msgstr "Λεπτομέρειες εξωτερικού καθαρισμού"
 #: maintenance/autres_interventions/moteur/rodage/models.py:60
 #: maintenance/autres_interventions/moteur/turbo/models.py:36
 #: maintenance/autres_interventions/refroidissement/models.py:66
-#: maintenance/bruits/models.py:24 maintenance/carrosserie_interne/models.py:37
+#: maintenance/bruits/models.py:24
+#: maintenance/carrosserie_interne/models.py:37
 #: maintenance/eclairage/models.py:51 maintenance/entretien/models.py:52
 #: maintenance/freins/models.py:37 maintenance/jeux_pieces/models.py:64
 #: maintenance/models.py:165 maintenance/pneus/models.py:83
@@ -5553,8 +5557,8 @@ msgid ""
 "Le kilométrage du contrôle ne peut pas être inférieur au kilométrage actuel "
 "du véhicule."
 msgstr ""
-"Τα χιλιόμετρα κατά τον έλεγχο δεν μπορούν να είναι μικρότερα από τα τρέχοντα "
-"χιλιόμετρα του οχήματος."
+"Τα χιλιόμετρα κατά τον έλεγχο δεν μπορούν να είναι μικρότερα από τα τρέχοντα"
+" χιλιόμετρα του οχήματος."
 
 #: _backup_detail_views/maintenance/autres_interventions/boite_de_vitesse/views.py:302
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:22
@@ -6474,8 +6478,8 @@ msgstr "Φλάντζες"
 #: maintenance/esthetique/cire/models.py:242
 #: maintenance/esthetique/decontamination/models.py:242
 #: maintenance/esthetique/nettoyage_exterieur/models.py:169
-#: maintenance/esthetique/polish/models.py:254 maintenance/freins/models.py:375
-#: maintenance/jeux_pieces/models.py:1103
+#: maintenance/esthetique/polish/models.py:254
+#: maintenance/freins/models.py:375 maintenance/jeux_pieces/models.py:1103
 #: maintenance/nettoyage_interieur/models.py:190
 #: maintenance/niveaux/models.py:184 maintenance/pneus/models.py:307
 #: maintenance/silent_blocs/models.py:665 theme/templates/dashboard.html:733
@@ -6605,7 +6609,8 @@ msgstr "Αισθητήρας εκκεντροφόρου"
 #: _backup_detail_views/maintenance/autres_interventions/moteur/courroie/views.py:815
 #: _backup_detail_views/maintenance/autres_interventions/moteur/injection/views.py:657
 #: _backup_detail_views/maintenance/autres_interventions/moteur/injection/views.py:1059
-#: facture/models.py:370 maintenance/autres_interventions/batterie/views.py:512
+#: facture/models.py:370
+#: maintenance/autres_interventions/batterie/views.py:512
 #: maintenance/autres_interventions/batterie/views.py:816
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:594
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:687
@@ -7302,7 +7307,8 @@ msgstr "Ο έλεγχος του συστήματος ψύξης διαγράφ�
 #: _backup_detail_views/maintenance/carrosserie_interne/views.py:182
 #: maintenance/carrosserie_interne/views.py:183
 msgid "Le kilométrage de l'intervention est obligatoire."
-msgstr "Η χιλιομετρική ένδειξη κατά τη στιγμή της επέμβασης είναι υποχρεωτική."
+msgstr ""
+"Η χιλιομετρική ένδειξη κατά τη στιγμή της επέμβασης είναι υποχρεωτική."
 
 #: _backup_detail_views/maintenance/carrosserie_interne/views.py:193
 #: maintenance/carrosserie_interne/views.py:194
@@ -7965,8 +7971,8 @@ msgstr "Η συντήρηση διαγράφηκε με επιτυχία."
 #: _backup_detail_views/maintenance/essuyage/views.py:157
 #: maintenance/essuyage/views.py:158
 msgid ""
-"Le kilométrage du Checkup-Essuyage ne peut pas être inférieur au kilométrage "
-"actuel du véhicule."
+"Le kilométrage du Checkup-Essuyage ne peut pas être inférieur au kilométrage"
+" actuel du véhicule."
 msgstr ""
 "Τα χιλιόμετρα του check-up του συστήματος υαλοκαθαριστήρων δεν μπορούν να "
 "είναι μικρότερα από τα τρέχοντα χιλιόμετρα του οχήματος."
@@ -8596,7 +8602,8 @@ msgstr "Ημερομηνία τιμολόγησης"
 #: facture/templates/facture/facture_list.html:59
 #: fournisseur/templates/fournisseur/fournisseur_list.html:69
 #: fournisseur/templates/fournisseur/fournisseur_list.html:93
-#: fuel/templates/fuel/fuel_list.html:88 fuel/templates/fuel/fuel_list.html:159
+#: fuel/templates/fuel/fuel_list.html:88
+#: fuel/templates/fuel/fuel_list.html:159
 #: outillage/templates/outillage/outillage_list.html:71
 #: outillage/templates/outillage/outillage_list.html:86
 #: piece/templates/piece/piece_list.html:58
@@ -10338,8 +10345,9 @@ msgstr "Ημερομηνία"
 #: agenda/templates/agenda/delete_agenda.html:96 facture/models.py:147
 #: facture/templates/facture/_entete_facture.html:20
 #: facture/templates/facture/facture_pdf.html:152
-#: facture/templates/facture/maintenances_a_facturer.html:63 fuel/models.py:116
-#: fuel/templates/fuel/fuel_list.html:81 maindoeuvre/models.py:37
+#: facture/templates/facture/maintenances_a_facturer.html:63
+#: fuel/models.py:116 fuel/templates/fuel/fuel_list.html:81
+#: maindoeuvre/models.py:37
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:277
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:361
 #: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:341
@@ -11234,7 +11242,8 @@ msgstr "Χλμ πλαισίου"
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:182
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ remplacements de l'embrayage"
 msgstr ""
-"Εμφάνιση από _START_ έως _END_ από συνολικά _TOTAL_ αντικαταστάσεις συμπλέκτη"
+"Εμφάνιση από _START_ έως _END_ από συνολικά _TOTAL_ αντικαταστάσεις "
+"συμπλέκτη"
 
 #: _backup_list_templates/maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:4
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:4
@@ -11669,7 +11678,8 @@ msgstr "Έλεγχος συστήματος υαλοκαθαριστήρων"
 
 #: _backup_list_templates/maintenance/essuyage/templates/essuyage/essuyage_list.html:179
 #: maintenance/essuyage/templates/essuyage/essuyage_list.html:174
-msgid "Affichage de _START_ à _END_ sur _TOTAL_ contrôle du système d'essuyage"
+msgid ""
+"Affichage de _START_ à _END_ sur _TOTAL_ contrôle du système d'essuyage"
 msgstr ""
 "Εμφάνιση από _START_ έως _END_ από συνολικά _TOTAL_ ελέγχους του συστήματος "
 "υαλοκαθαριστήρων"
@@ -11871,7 +11881,8 @@ msgstr "Προσθήκη εργαλείου"
 #: _backup_list_templates/outillage/templates/outillage/outillage_list.html:32
 #: _backup_list_templates/outillage/templates/outillage/outillage_list.html:65
 #: achat_mds/forms.py:12 achat_mds/models.py:23
-#: achat_mds/templates/achat_mds/achat_detail.html:37 fournisseur/models.py:102
+#: achat_mds/templates/achat_mds/achat_detail.html:37
+#: fournisseur/models.py:102
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:60
 #: investissements/models.py:19 outillage/forms.py:21 outillage/models.py:24
 #: outillage/templates/outillage/outillage_detail.html:38
@@ -12295,7 +12306,8 @@ msgstr "Προσθήκη συνιδιοκτήτη"
 #: _backup_list_templates/proprietaire/templates/proprietaire/proprietaire_voiture_list.html:66
 #: adblue/templates/adblue/adblue_stat.html:71
 #: adblue/templates/adblue/adblue_stat.html:119
-#: fuel/templates/fuel/fuel_stat.html:71 fuel/templates/fuel/fuel_stat.html:119
+#: fuel/templates/fuel/fuel_stat.html:71
+#: fuel/templates/fuel/fuel_stat.html:119
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:50
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:66
 #: recharge/templates/recharge/electricite_stat.html:71
@@ -13464,7 +13476,8 @@ msgstr "Διαγραφή της αγοράς"
 #: achat_mds/views.py:171
 #, python-format
 msgid ""
-"Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé ailleurs."
+"Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé "
+"ailleurs."
 msgstr ""
 "Δεν είναι δυνατή η διαγραφή της αγοράς « %(ref)s »: εξακολουθεί να "
 "χρησιμοποιείται αλλού."
@@ -14154,7 +14167,8 @@ msgstr "Στατιστικά AdBlue ανά όχημα"
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:35
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:88
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:119
-#: fuel/templates/fuel/fuel_stat.html:17 fuel/templates/fuel/fuel_stat.html:133
+#: fuel/templates/fuel/fuel_stat.html:17
+#: fuel/templates/fuel/fuel_stat.html:133
 #: fuel/templates/fuel/fuel_stat.html:231
 #: fuel/templates/fuel/fuel_stat.html:258
 msgid "Pleins"
@@ -14177,7 +14191,8 @@ msgstr "Συνολικά λίτρα"
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:45
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:90
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:121
-#: fuel/templates/fuel/fuel_stat.html:27 fuel/templates/fuel/fuel_stat.html:147
+#: fuel/templates/fuel/fuel_stat.html:27
+#: fuel/templates/fuel/fuel_stat.html:147
 #: fuel/templates/fuel/fuel_stat.html:233
 #: fuel/templates/fuel/fuel_stat.html:260
 #: recharge/templates/recharge/electricite_exemplaire_stat.html:45
@@ -14195,7 +14210,8 @@ msgstr "Συνολικό κόστος"
 #: adblue/templates/adblue/adblue_stat.html:32
 #: adblue/templates/adblue/adblue_stat.html:154
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:50
-#: fuel/templates/fuel/fuel_stat.html:32 fuel/templates/fuel/fuel_stat.html:154
+#: fuel/templates/fuel/fuel_stat.html:32
+#: fuel/templates/fuel/fuel_stat.html:154
 msgid "Prix moyen / L"
 msgstr "Μέση τιμή / L"
 
@@ -14846,10 +14862,11 @@ msgstr "Δημιουργία διεύθυνσης"
 
 #: adresse/templates/adresse/delete_adresse.html:14
 msgid ""
-"Voulez-vous vraiment supprimer cette adresse ? Cette action est irréversible."
+"Voulez-vous vraiment supprimer cette adresse ? Cette action est "
+"irréversible."
 msgstr ""
-"Θέλετε πραγματικά να διαγράψετε αυτήν τη διεύθυνση; Αυτή η ενέργεια είναι μη "
-"αναστρέψιμη."
+"Θέλετε πραγματικά να διαγράψετε αυτήν τη διεύθυνση; Αυτή η ενέργεια είναι μη"
+" αναστρέψιμη."
 
 #: adresse/templates/adresse/delete_adresse.html:18
 msgid ""
@@ -14875,7 +14892,8 @@ msgstr ""
 "Αυτά τα στοιχεία δεν θα διαγραφούν: το πεδίο διεύθυνσής τους απλώς θα "
 "αδειάσει."
 
-#: adresse/templates/adresse/delete_adresse.html:71 client_atelier/forms.py:128
+#: adresse/templates/adresse/delete_adresse.html:71
+#: client_atelier/forms.py:128
 msgid "Boîte"
 msgstr "Θυρίδα"
 
@@ -15186,8 +15204,8 @@ msgid ""
 "Voulez-vous vraiment retirer cette maintenance de l'agenda ? Cette action "
 "est irréversible."
 msgstr ""
-"Θέλετε πραγματικά να αφαιρέσετε αυτή την προγραμματισμένη εργασία συντήρησης "
-"από το ημερολόγιο; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί."
+"Θέλετε πραγματικά να αφαιρέσετε αυτή την προγραμματισμένη εργασία συντήρησης"
+" από το ημερολόγιο; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί."
 
 #: agenda/templates/agenda/delete_agenda.html:29
 #: carrosserie/templates/carrosserie/delete_carrosserie.html:29
@@ -15259,8 +15277,8 @@ msgstr "Διαγραφή προγραμματισμένης εργασίας σ�
 msgid ""
 "Impossible de supprimer « %(nom)s » : elle est encore utilisée ailleurs."
 msgstr ""
-"Δεν είναι δυνατή η διαγραφή του στοιχείου « %(nom)s », επειδή εξακολουθεί να "
-"χρησιμοποιείται αλλού."
+"Δεν είναι δυνατή η διαγραφή του στοιχείου « %(nom)s », επειδή εξακολουθεί να"
+" χρησιμοποιείται αλλού."
 
 #: agenda/views.py:288
 #, python-format
@@ -15437,8 +15455,8 @@ msgid ""
 "Voulez-vous vraiment supprimer cette assurance ? Cette action est "
 "irréversible."
 msgstr ""
-"Θέλετε πραγματικά να διαγράψετε αυτήν την ασφάλιση; Αυτή η ενέργεια είναι μη "
-"αναστρέψιμη."
+"Θέλετε πραγματικά να διαγράψετε αυτήν την ασφάλιση; Αυτή η ενέργεια είναι μη"
+" αναστρέψιμη."
 
 #: assurance/templates/assurance/delete_assurance.html:21
 msgid "Société concernée"
@@ -15876,7 +15894,8 @@ msgstr "Επιστροφή στις λεπτομέρειες του αμαξώμ
 #: client_particulier/views.py:103 client_particulier/views.py:199
 #: client_pilotage/views.py:137 client_pilotage/views.py:244
 #: proprietaire/views.py:114 proprietaire/views.py:229
-#: voiture/voiture_embrayage/views.py:53 voiture/voiture_freins_ar/views.py:125
+#: voiture/voiture_embrayage/views.py:53
+#: voiture/voiture_freins_ar/views.py:125
 #: voiture/voiture_freins_av/views.py:85
 msgid "Veuillez corriger les erreurs du formulaire."
 msgstr "Παρακαλώ διορθώστε τα σφάλματα στη φόρμα."
@@ -16040,8 +16059,8 @@ msgid ""
 "Voulez-vous vraiment supprimer ce client atelier ? Cette action est "
 "irréversible."
 msgstr ""
-"Θέλετε πραγματικά να διαγράψετε αυτόν τον πελάτη συνεργείου; Αυτή η ενέργεια "
-"είναι μη αναστρέψιμη."
+"Θέλετε πραγματικά να διαγράψετε αυτόν τον πελάτη συνεργείου; Αυτή η ενέργεια"
+" είναι μη αναστρέψιμη."
 
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:45
 msgid "Véhicule(s) associé(s)"
@@ -16370,7 +16389,8 @@ msgid "Supprimer le client pilotage"
 msgstr "Διαγραφή του πελάτη οδήγησης"
 
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:14
-msgid "Ce client pilotage ne peut pas être supprimé car il est encore utilisé."
+msgid ""
+"Ce client pilotage ne peut pas être supprimé car il est encore utilisé."
 msgstr ""
 "Αυτός ο πελάτης οδήγησης δεν μπορεί να διαγραφεί επειδή εξακολουθεί να "
 "χρησιμοποιείται."
@@ -16734,8 +16754,8 @@ msgstr "Αναγνωριστικό Peppol εκδότη"
 
 #: facture/models.py:522
 msgid ""
-"Ex : 0208:0123456789 (numéro d'entreprise belge). Vide : déduit du numéro de "
-"TVA."
+"Ex : 0208:0123456789 (numéro d'entreprise belge). Vide : déduit du numéro de"
+" TVA."
 msgstr ""
 "Π.χ.: 0208:0123456789 (βελγικός αριθμός επιχείρησης). Κενό: προκύπτει από "
 "τον ΑΦΜ."
@@ -16862,7 +16882,8 @@ msgstr "Διαγραφή του πρόχειρου τιμολογίου"
 
 #: facture/templates/facture/delete_facture.html:15
 msgid "Ce brouillon ne peut pas être supprimé car il est encore utilisé."
-msgstr "Αυτό το πρόχειρο δεν μπορεί να διαγραφεί επειδή χρησιμοποιείται ακόμη."
+msgstr ""
+"Αυτό το πρόχειρο δεν μπορεί να διαγραφεί επειδή χρησιμοποιείται ακόμη."
 
 #: facture/templates/facture/delete_facture.html:17
 msgid ""
@@ -17008,8 +17029,8 @@ msgstr ""
 #: facture/templates/facture/facture_form.html:101
 #, python-format
 msgid ""
-"Client assujetti dans un autre pays de l'UE : TVA à 0 %%, mention "
-"« autoliquidation »."
+"Client assujetti dans un autre pays de l'UE : TVA à 0 %%, mention « "
+"autoliquidation »."
 msgstr ""
 "Υποκείμενος πελάτης σε άλλη χώρα της ΕΕ: ΦΠΑ 0 %%, ένδειξη «αντίστροφη "
 "επιβάρυνση»."
@@ -17040,7 +17061,8 @@ msgid "Enregistrer le brouillon"
 msgstr "Αποθήκευση πρόχειρου"
 
 #: facture/templates/facture/facture_form.html:184
-msgid "La facture recevra un numéro définitif et ne pourra plus être modifiée."
+msgid ""
+"La facture recevra un numéro définitif et ne pourra plus être modifiée."
 msgstr ""
 "Το τιμολόγιο θα λάβει οριστικό αριθμό και δεν θα μπορεί πλέον να "
 "τροποποιηθεί."
@@ -17124,8 +17146,8 @@ msgid ""
 "Autoliquidation – TVA due par le cocontractant (article 196 de la directive "
 "2006/112/CE)."
 msgstr ""
-"Αντίστροφη επιβάρυνση – ο ΦΠΑ οφείλεται από τον λήπτη (άρθρο 196 της οδηγίας "
-"2006/112/ΕΚ)."
+"Αντίστροφη επιβάρυνση – ο ΦΠΑ οφείλεται από τον λήπτη (άρθρο 196 της οδηγίας"
+" 2006/112/ΕΚ)."
 
 #: facture/templates/facture/facture_pdf.html:283
 msgid "Merci d'effectuer le paiement sur le compte"
@@ -17248,8 +17270,8 @@ msgstr "Εκδοθέντα τιμολόγια και πρόχειρα"
 #: facture/templates/facture/maintenances_a_facturer.html:37
 msgid ""
 "Cochez une ou plusieurs maintenances d'un même véhicule, puis choisissez le "
-"type de facture. Vous pourrez ensuite ajuster les marges et les lignes avant "
-"d'émettre la facture."
+"type de facture. Vous pourrez ensuite ajuster les marges et les lignes avant"
+" d'émettre la facture."
 msgstr ""
 "Επιλέξτε μία ή περισσότερες συντηρήσεις του ίδιου οχήματος και, στη "
 "συνέχεια, τον τύπο τιμολογίου. Έπειτα μπορείτε να προσαρμόσετε τα περιθώρια "
@@ -17328,8 +17350,8 @@ msgstr "Δεν έχει γίνει κανένας έλεγχος."
 
 #: facture/templates/facture/parametres_peppol.html:63
 msgid ""
-"Un point d'accès est aussi défini dans settings.py : il n'est utilisé que si "
-"l'envoi n'est pas activé ici."
+"Un point d'accès est aussi défini dans settings.py : il n'est utilisé que si"
+" l'envoi n'est pas activé ici."
 msgstr ""
 "Ένα σημείο πρόσβασης ορίζεται επίσης στο settings.py: χρησιμοποιείται μόνο "
 "αν η αποστολή δεν είναι ενεργοποιημένη εδώ."
@@ -17341,8 +17363,8 @@ msgstr "Γενικά"
 
 #: facture/templates/facture/parametres_peppol.html:89
 msgid ""
-"Utilisez le serveur de test tant que les factures n'ont pas été validées par "
-"votre fournisseur Peppol."
+"Utilisez le serveur de test tant que les factures n'ont pas été validées par"
+" votre fournisseur Peppol."
 msgstr ""
 "Χρησιμοποιήστε τον διακομιστή δοκιμής μέχρι να επικυρωθούν τα τιμολόγια από "
 "τον πάροχο Peppol σας."
@@ -17415,8 +17437,8 @@ msgid ""
 "Ex. : en Belgique, la TVA sur le carburant d'une voiture de société n'est "
 "souvent déductible qu'à 50 %%. Vérifiez avec votre comptable."
 msgstr ""
-"Π.χ.: στο Βέλγιο ο ΦΠΑ στα καύσιμα εταιρικού αυτοκινήτου συχνά εκπίπτει μόνο "
-"κατά 50 %%. Επιβεβαιώστε με τον λογιστή σας."
+"Π.χ.: στο Βέλγιο ο ΦΠΑ στα καύσιμα εταιρικού αυτοκινήτου συχνά εκπίπτει μόνο"
+" κατά 50 %%. Επιβεβαιώστε με τον λογιστή σας."
 
 #: facture/templates/facture/tva.html:84
 msgid "Calculer"
@@ -17434,7 +17456,8 @@ msgstr "εκδοθέν(τα) τιμολόγιο(-α)"
 msgid "TVA à récupérer (achats)"
 msgstr "ΦΠΑ προς ανάκτηση (αγορές)"
 
-#: facture/templates/facture/tva.html:98 facture/templates/facture/tva.html:164
+#: facture/templates/facture/tva.html:98
+#: facture/templates/facture/tva.html:164
 msgid "TVA payée"
 msgstr "Καταβληθείς ΦΠΑ"
 
@@ -17477,8 +17500,8 @@ msgstr "Σύνολο"
 #: facture/templates/facture/tva.html:150
 #, python-format
 msgid ""
-"%(n)s maintenance interne (facture à notre société) n'est pas une vente : la "
-"TVA sur ses pièces est récupérée via les achats fournisseurs."
+"%(n)s maintenance interne (facture à notre société) n'est pas une vente : la"
+" TVA sur ses pièces est récupérée via les achats fournisseurs."
 msgid_plural ""
 "%(n)s maintenances internes (factures à notre société) ne sont pas des "
 "ventes : la TVA sur leurs pièces est récupérée via les achats fournisseurs."
@@ -17542,8 +17565,8 @@ msgid ""
 "Calcul indicatif basé sur les données encodées dans CarsCosts : à faire "
 "valider par votre comptable avant la déclaration."
 msgstr ""
-"Ενδεικτικός υπολογισμός με βάση τα δεδομένα του CarsCosts: ζητήστε επικύρωση "
-"από τον λογιστή σας πριν από τη δήλωση."
+"Ενδεικτικός υπολογισμός με βάση τα δεδομένα του CarsCosts: ζητήστε επικύρωση"
+" από τον λογιστή σας πριν από τη δήλωση."
 
 #: facture/tva.py:32
 msgid "Achats (factures fournisseurs)"
@@ -17555,7 +17578,8 @@ msgstr "Αγορές (τιμολόγια προμηθευτών)"
 msgid "Outillage"
 msgstr "Εργαλεία"
 
-#: facture/tva.py:34 fuel/models.py:220 fuel/templates/fuel/fuel_detail.html:46
+#: facture/tva.py:34 fuel/models.py:220
+#: fuel/templates/fuel/fuel_detail.html:46
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:9
 #: fuel/templates/fuel/fuel_form.html:12 fuel/templates/fuel/fuel_stat.html:9
 #: fuel/templates/fuel/modifier_fuel.html:190
@@ -17889,7 +17913,8 @@ msgstr "Αυτή η διάγνωση δεν συνδέεται με κανένα
 
 #: facture/views.py:163 facture/views.py:192
 msgid ""
-"Brouillon de facture créé. Vérifiez les marges et les lignes avant d'émettre."
+"Brouillon de facture créé. Vérifiez les marges et les lignes avant "
+"d'émettre."
 msgstr ""
 "Δημιουργήθηκε πρόχειρο τιμολόγιο. Ελέγξτε τα περιθώρια και τις γραμμές πριν "
 "από την έκδοση."
@@ -17939,7 +17964,8 @@ msgstr "Το τιμολόγιο στάλθηκε μέσω Peppol."
 
 #: facture/views.py:398
 msgid "Seule une facture professionnelle émise peut être envoyée via Peppol."
-msgstr "Μόνο ένα εκδοθέν επαγγελματικό τιμολόγιο μπορεί να σταλεί μέσω Peppol."
+msgstr ""
+"Μόνο ένα εκδοθέν επαγγελματικό τιμολόγιο μπορεί να σταλεί μέσω Peppol."
 
 #: facture/views.py:427
 msgid "activé"
@@ -17964,7 +17990,8 @@ msgstr "δοκιμής"
 #: facture/views.py:469
 #, python-format
 msgid "Renseignez l'URL et la clé API du serveur de %(env)s."
-msgstr "Συμπληρώστε τη διεύθυνση URL και το κλειδί API του διακομιστή %(env)s."
+msgstr ""
+"Συμπληρώστε τη διεύθυνση URL και το κλειδί API του διακομιστή %(env)s."
 
 #: facture/views.py:484 facture/views.py:486
 #, python-format
@@ -17973,7 +18000,8 @@ msgstr "Διακομιστής %(env)s: %(res)s"
 
 #: facture/views.py:502
 msgid ""
-"Une facture émise ne peut pas être supprimée (établissez une note de crédit)."
+"Une facture émise ne peut pas être supprimée (établissez une note de "
+"crédit)."
 msgstr ""
 "Ένα εκδοθέν τιμολόγιο δεν μπορεί να διαγραφεί (εκδώστε πιστωτικό σημείωμα)."
 
@@ -18569,7 +18597,8 @@ msgstr "Διαγραφή της εργασίας"
 msgid ""
 "Cette main-d'œuvre ne peut pas être supprimée car elle est encore utilisée."
 msgstr ""
-"Αυτή η εργασία δεν μπορεί να διαγραφεί επειδή εξακολουθεί να χρησιμοποιείται."
+"Αυτή η εργασία δεν μπορεί να διαγραφεί επειδή εξακολουθεί να "
+"χρησιμοποιείται."
 
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:18
 msgid ""
@@ -18795,9 +18824,10 @@ msgstr "Η εργασία « %(nom)s » διαγράφηκε με επιτυχί
 #: maintenance/autres_interventions/moteur/rodage/forms.py:57
 #: maintenance/autres_interventions/moteur/turbo/forms.py:39
 #: maintenance/autres_interventions/refroidissement/forms.py:42
-#: maintenance/carrosserie_interne/forms.py:52 maintenance/check_up/forms.py:43
-#: maintenance/checkup_track/forms.py:44 maintenance/eclairage/forms.py:43
-#: maintenance/entretien/forms.py:43 maintenance/essuyage/forms.py:40
+#: maintenance/carrosserie_interne/forms.py:52
+#: maintenance/check_up/forms.py:43 maintenance/checkup_track/forms.py:44
+#: maintenance/eclairage/forms.py:43 maintenance/entretien/forms.py:43
+#: maintenance/essuyage/forms.py:40
 #: maintenance/esthetique/ceramique/forms.py:42
 #: maintenance/esthetique/cire/forms.py:42
 #: maintenance/esthetique/decontamination/forms.py:42
@@ -19024,9 +19054,9 @@ msgstr "Τιμή αγοράς του υγρού χωρίς ΦΠΑ"
 #: maintenance/esthetique/cire/models.py:185
 #: maintenance/esthetique/decontamination/models.py:185
 #: maintenance/esthetique/nettoyage_exterieur/models.py:145
-#: maintenance/esthetique/polish/models.py:197 maintenance/freins/models.py:357
-#: maintenance/jeux_pieces/models.py:1081 maintenance/models.py:57
-#: maintenance/nettoyage_interieur/models.py:166
+#: maintenance/esthetique/polish/models.py:197
+#: maintenance/freins/models.py:357 maintenance/jeux_pieces/models.py:1081
+#: maintenance/models.py:57 maintenance/nettoyage_interieur/models.py:166
 #: maintenance/niveaux/models.py:161 maintenance/pneus/models.py:283
 #: maintenance/silent_blocs/models.py:644
 #: voiture/voiture_exemplaire/models.py:318
@@ -19063,9 +19093,9 @@ msgstr "Πράσινο"
 #: maintenance/esthetique/cire/models.py:186
 #: maintenance/esthetique/decontamination/models.py:186
 #: maintenance/esthetique/nettoyage_exterieur/models.py:146
-#: maintenance/esthetique/polish/models.py:198 maintenance/freins/models.py:358
-#: maintenance/jeux_pieces/models.py:1082 maintenance/models.py:58
-#: maintenance/nettoyage_interieur/models.py:167
+#: maintenance/esthetique/polish/models.py:198
+#: maintenance/freins/models.py:358 maintenance/jeux_pieces/models.py:1082
+#: maintenance/models.py:58 maintenance/nettoyage_interieur/models.py:167
 #: maintenance/niveaux/models.py:162 maintenance/pneus/models.py:284
 #: maintenance/silent_blocs/models.py:645
 #: voiture/voiture_exemplaire/models.py:319
@@ -19102,9 +19132,9 @@ msgstr "Κίτρινο"
 #: maintenance/esthetique/cire/models.py:187
 #: maintenance/esthetique/decontamination/models.py:187
 #: maintenance/esthetique/nettoyage_exterieur/models.py:147
-#: maintenance/esthetique/polish/models.py:199 maintenance/freins/models.py:359
-#: maintenance/jeux_pieces/models.py:1083 maintenance/models.py:59
-#: maintenance/nettoyage_interieur/models.py:168
+#: maintenance/esthetique/polish/models.py:199
+#: maintenance/freins/models.py:359 maintenance/jeux_pieces/models.py:1083
+#: maintenance/models.py:59 maintenance/nettoyage_interieur/models.py:168
 #: maintenance/niveaux/models.py:163 maintenance/pneus/models.py:285
 #: maintenance/silent_blocs/models.py:646
 #: voiture/voiture_exemplaire/models.py:320
@@ -19140,8 +19170,8 @@ msgstr "Κόκκινο"
 #: maintenance/esthetique/cire/models.py:194
 #: maintenance/esthetique/decontamination/models.py:194
 #: maintenance/esthetique/nettoyage_exterieur/models.py:154
-#: maintenance/esthetique/polish/models.py:206 maintenance/freins/models.py:366
-#: maintenance/jeux_pieces/models.py:1090
+#: maintenance/esthetique/polish/models.py:206
+#: maintenance/freins/models.py:366 maintenance/jeux_pieces/models.py:1090
 #: maintenance/nettoyage_interieur/models.py:175
 #: maintenance/niveaux/models.py:170 maintenance/pneus/models.py:292
 #: maintenance/silent_blocs/models.py:653
@@ -19179,8 +19209,8 @@ msgstr "Οπτική κατάσταση / Ετικέτα"
 #: maintenance/esthetique/cire/models.py:208
 #: maintenance/esthetique/decontamination/models.py:208
 #: maintenance/esthetique/nettoyage_exterieur/models.py:183
-#: maintenance/esthetique/polish/models.py:220 maintenance/freins/models.py:389
-#: maintenance/jeux_pieces/models.py:1119
+#: maintenance/esthetique/polish/models.py:220
+#: maintenance/freins/models.py:389 maintenance/jeux_pieces/models.py:1119
 #: maintenance/nettoyage_interieur/models.py:204
 #: maintenance/niveaux/models.py:201 maintenance/pneus/models.py:321
 #: maintenance/silent_blocs/models.py:684
@@ -19217,8 +19247,8 @@ msgstr "Όνομα τεχνικού"
 #: maintenance/esthetique/cire/models.py:214
 #: maintenance/esthetique/decontamination/models.py:214
 #: maintenance/esthetique/nettoyage_exterieur/models.py:189
-#: maintenance/esthetique/polish/models.py:226 maintenance/freins/models.py:395
-#: maintenance/jeux_pieces/models.py:1125
+#: maintenance/esthetique/polish/models.py:226
+#: maintenance/freins/models.py:395 maintenance/jeux_pieces/models.py:1125
 #: maintenance/nettoyage_interieur/models.py:210
 #: maintenance/niveaux/models.py:207 maintenance/pneus/models.py:327
 #: maintenance/silent_blocs/models.py:690
@@ -20494,30 +20524,31 @@ msgstr "Λεπτομέρειες διάγνωσης"
 #: maintenance/esthetique/polish/models.py:171
 #: maintenance/esthetique/polish/models.py:176
 #: maintenance/esthetique/polish/models.py:181
-#: maintenance/esthetique/polish/models.py:186 maintenance/freins/models.py:118
-#: maintenance/freins/models.py:143 maintenance/freins/models.py:178
-#: maintenance/freins/models.py:220 maintenance/freins/models.py:252
-#: maintenance/freins/models.py:276 maintenance/freins/models.py:299
-#: maintenance/freins/models.py:322 maintenance/freins/models.py:345
-#: maintenance/jeux_pieces/models.py:153 maintenance/jeux_pieces/models.py:176
-#: maintenance/jeux_pieces/models.py:199 maintenance/jeux_pieces/models.py:222
-#: maintenance/jeux_pieces/models.py:245 maintenance/jeux_pieces/models.py:268
-#: maintenance/jeux_pieces/models.py:291 maintenance/jeux_pieces/models.py:314
-#: maintenance/jeux_pieces/models.py:337 maintenance/jeux_pieces/models.py:360
-#: maintenance/jeux_pieces/models.py:383 maintenance/jeux_pieces/models.py:406
-#: maintenance/jeux_pieces/models.py:429 maintenance/jeux_pieces/models.py:452
-#: maintenance/jeux_pieces/models.py:475 maintenance/jeux_pieces/models.py:498
-#: maintenance/jeux_pieces/models.py:521 maintenance/jeux_pieces/models.py:544
-#: maintenance/jeux_pieces/models.py:567 maintenance/jeux_pieces/models.py:590
-#: maintenance/jeux_pieces/models.py:613 maintenance/jeux_pieces/models.py:636
-#: maintenance/jeux_pieces/models.py:659 maintenance/jeux_pieces/models.py:682
-#: maintenance/jeux_pieces/models.py:705 maintenance/jeux_pieces/models.py:728
-#: maintenance/jeux_pieces/models.py:751 maintenance/jeux_pieces/models.py:774
-#: maintenance/jeux_pieces/models.py:797 maintenance/jeux_pieces/models.py:820
-#: maintenance/jeux_pieces/models.py:843 maintenance/jeux_pieces/models.py:866
-#: maintenance/jeux_pieces/models.py:889 maintenance/jeux_pieces/models.py:912
-#: maintenance/jeux_pieces/models.py:935 maintenance/jeux_pieces/models.py:958
-#: maintenance/jeux_pieces/models.py:981 maintenance/jeux_pieces/models.py:1004
+#: maintenance/esthetique/polish/models.py:186
+#: maintenance/freins/models.py:118 maintenance/freins/models.py:143
+#: maintenance/freins/models.py:178 maintenance/freins/models.py:220
+#: maintenance/freins/models.py:252 maintenance/freins/models.py:276
+#: maintenance/freins/models.py:299 maintenance/freins/models.py:322
+#: maintenance/freins/models.py:345 maintenance/jeux_pieces/models.py:153
+#: maintenance/jeux_pieces/models.py:176 maintenance/jeux_pieces/models.py:199
+#: maintenance/jeux_pieces/models.py:222 maintenance/jeux_pieces/models.py:245
+#: maintenance/jeux_pieces/models.py:268 maintenance/jeux_pieces/models.py:291
+#: maintenance/jeux_pieces/models.py:314 maintenance/jeux_pieces/models.py:337
+#: maintenance/jeux_pieces/models.py:360 maintenance/jeux_pieces/models.py:383
+#: maintenance/jeux_pieces/models.py:406 maintenance/jeux_pieces/models.py:429
+#: maintenance/jeux_pieces/models.py:452 maintenance/jeux_pieces/models.py:475
+#: maintenance/jeux_pieces/models.py:498 maintenance/jeux_pieces/models.py:521
+#: maintenance/jeux_pieces/models.py:544 maintenance/jeux_pieces/models.py:567
+#: maintenance/jeux_pieces/models.py:590 maintenance/jeux_pieces/models.py:613
+#: maintenance/jeux_pieces/models.py:636 maintenance/jeux_pieces/models.py:659
+#: maintenance/jeux_pieces/models.py:682 maintenance/jeux_pieces/models.py:705
+#: maintenance/jeux_pieces/models.py:728 maintenance/jeux_pieces/models.py:751
+#: maintenance/jeux_pieces/models.py:774 maintenance/jeux_pieces/models.py:797
+#: maintenance/jeux_pieces/models.py:820 maintenance/jeux_pieces/models.py:843
+#: maintenance/jeux_pieces/models.py:866 maintenance/jeux_pieces/models.py:889
+#: maintenance/jeux_pieces/models.py:912 maintenance/jeux_pieces/models.py:935
+#: maintenance/jeux_pieces/models.py:958 maintenance/jeux_pieces/models.py:981
+#: maintenance/jeux_pieces/models.py:1004
 #: maintenance/jeux_pieces/models.py:1027
 #: maintenance/jeux_pieces/models.py:1050
 #: maintenance/jeux_pieces/models.py:1073
@@ -20611,13 +20642,14 @@ msgid ""
 "Le courant de démarrage doit être au moins égal à celui d'origine (%(a)s A "
 "EN)."
 msgstr ""
-"Το ρεύμα εκκίνησης πρέπει να είναι τουλάχιστον ίσο με το αρχικό (%(a)s A EN)."
+"Το ρεύμα εκκίνησης πρέπει να είναι τουλάχιστον ίσο με το αρχικό (%(a)s A "
+"EN)."
 
 #: maintenance/autres_interventions/batterie/models.py:360
 #, python-format
 msgid ""
-"Technologie incompatible avec la batterie d'origine (%(orig)s). Technologies "
-"acceptées : %(ok)s."
+"Technologie incompatible avec la batterie d'origine (%(orig)s). Technologies"
+" acceptées : %(ok)s."
 msgstr ""
 "Τεχνολογία μη συμβατή με την αρχική μπαταρία (%(orig)s). Αποδεκτές "
 "τεχνολογίες: %(ok)s."
@@ -20671,8 +20703,8 @@ msgstr "Κατάσταση υγείας %(soh)s %%: κουρασμένη μπα�
 #: maintenance/autres_interventions/batterie/models.py:442
 #, python-format
 msgid ""
-"Tension au démarrage %(v)s V inférieure à %(s)s V avec une batterie "
-"chargée : batterie usée."
+"Tension au démarrage %(v)s V inférieure à %(s)s V avec une batterie chargée "
+": batterie usée."
 msgstr ""
 "Τάση εκκίνησης %(v)s V κάτω από %(s)s V με φορτισμένη μπαταρία: φθαρμένη "
 "μπαταρία."
@@ -21455,7 +21487,8 @@ msgstr "Λεπτομέρειες κιβωτίου ταχυτήτων"
 #: maintenance/autres_interventions/moteur/allumage/models.py:18
 #: maintenance/check_up/models.py:31 maintenance/check_up/models.py:89
 #: maintenance/checkup_track/models.py:29
-#: maintenance/checkup_track/models.py:108 maintenance/jeux_pieces/models.py:18
+#: maintenance/checkup_track/models.py:108
+#: maintenance/jeux_pieces/models.py:18
 #: maintenance/templatetags/intervention_tags.py:53
 msgid "Non présent"
 msgstr "Δεν υπάρχει"
@@ -21977,7 +22010,8 @@ msgid "Élément contrôlé"
 msgstr "Ελεγχόμενο στοιχείο"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/delete_bte_auto.html:14
-msgid "Voulez-vous vraiment supprimer le contrôle de la boite automatique pour"
+msgid ""
+"Voulez-vous vraiment supprimer le contrôle de la boite automatique pour"
 msgstr ""
 "Θέλετε πραγματικά να διαγράψετε τον έλεγχο του αυτόματου κιβωτίου ταχυτήτων "
 "για"
@@ -22012,7 +22046,8 @@ msgstr "Επισκευάστηκε"
 #: maintenance/choices.py:2291 maintenance/choices.py:2362
 #: maintenance/choices.py:2404 maintenance/choices.py:2429
 #: maintenance/choices.py:2508 maintenance/choices.py:2558
-#: voiture/voiture_embrayage/models.py:9 voiture/voiture_embrayage/models.py:18
+#: voiture/voiture_embrayage/models.py:9
+#: voiture/voiture_embrayage/models.py:18
 #: voiture/voiture_embrayage/models.py:24
 #: voiture/voiture_embrayage/models.py:34
 #: voiture/voiture_embrayage/models.py:44
@@ -22151,8 +22186,9 @@ msgid ""
 "Le kilométrage du contrôle (%(km_controle)s) ne peut pas être inférieur au "
 "kilométrage avant intervention (%(km_voiture)s)."
 msgstr ""
-"Η χιλιομετρική ένδειξη κατά τον έλεγχο (%(km_controle)s) δεν μπορεί να είναι "
-"μικρότερη από τη χιλιομετρική ένδειξη πριν από την επέμβαση (%(km_voiture)s)."
+"Η χιλιομετρική ένδειξη κατά τον έλεγχο (%(km_controle)s) δεν μπορεί να είναι"
+" μικρότερη από τη χιλιομετρική ένδειξη πριν από την επέμβαση "
+"(%(km_voiture)s)."
 
 #: maintenance/autres_interventions/cardan/models.py:891
 msgid "Contrôles cardans"
@@ -24175,8 +24211,8 @@ msgid ""
 "Le kilométrage de l'électronique moteur ne peut pas être inférieur au "
 "kilométrage du véhicule."
 msgstr ""
-"Τα χιλιόμετρα των ηλεκτρονικών κινητήρα δεν μπορούν να είναι λιγότερα από τα "
-"χιλιόμετρα του οχήματος."
+"Τα χιλιόμετρα των ηλεκτρονικών κινητήρα δεν μπορούν να είναι λιγότερα από τα"
+" χιλιόμετρα του οχήματος."
 
 #: maintenance/autres_interventions/moteur/electronique_moteur/models.py:429
 #: maintenance/autres_interventions/moteur/electronique_moteur/models.py:430
@@ -24269,8 +24305,8 @@ msgid ""
 "Le kilométrage du contrôle de l'injection ne peut pas être inférieur au "
 "kilométrage actuel du véhicule."
 msgstr ""
-"Η χιλιομετρική ένδειξη κατά τον έλεγχο του συστήματος ψεκασμού δεν μπορεί να "
-"είναι μικρότερη από την τρέχουσα χιλιομετρική ένδειξη του οχήματος."
+"Η χιλιομετρική ένδειξη κατά τον έλεγχο του συστήματος ψεκασμού δεν μπορεί να"
+" είναι μικρότερη από την τρέχουσα χιλιομετρική ένδειξη του οχήματος."
 
 #: maintenance/autres_interventions/moteur/injection/models.py:19
 #: voiture/voiture_moteur/models.py:20
@@ -24423,8 +24459,8 @@ msgid ""
 "Le kilométrage du controle injection ne peut pas être inférieur au "
 "kilométrage du véhicule."
 msgstr ""
-"Η χιλιομετρική ένδειξη κατά τον έλεγχο του συστήματος ψεκασμού δεν μπορεί να "
-"είναι μικρότερη από τη χιλιομετρική ένδειξη του οχήματος."
+"Η χιλιομετρική ένδειξη κατά τον έλεγχο του συστήματος ψεκασμού δεν μπορεί να"
+" είναι μικρότερη από τη χιλιομετρική ένδειξη του οχήματος."
 
 #: maintenance/autres_interventions/moteur/injection/models.py:599
 msgid "Injections"
@@ -24436,7 +24472,8 @@ msgstr "Έλεγχος συστήματος ψεκασμού"
 
 #: maintenance/autres_interventions/moteur/injection/templates/injection/delete_injection.html:14
 msgid "Voulez-vous vraiment supprimer le contrôle de l'injection pour"
-msgstr "Θέλετε πραγματικά να διαγράψετε τον έλεγχο του συστήματος ψεκασμού για"
+msgstr ""
+"Θέλετε πραγματικά να διαγράψετε τον έλεγχο του συστήματος ψεκασμού για"
 
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:4
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail.html:11
@@ -25991,8 +26028,8 @@ msgid ""
 "Le kilométrage de l'intervention (%(intervention)s) ne peut pas être "
 "inférieur au kilométrage actuel (%(current)s)."
 msgstr ""
-"Η χιλιομετρική απόσταση της επέμβασης (%(intervention)s) δεν μπορεί να είναι "
-"μικρότερη από την τρέχουσα χιλιομετρική απόσταση (%(current)s)."
+"Η χιλιομετρική απόσταση της επέμβασης (%(intervention)s) δεν μπορεί να είναι"
+" μικρότερη από την τρέχουσα χιλιομετρική απόσταση (%(current)s)."
 
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_create.html:330
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/modifier_carrosserie_interne.html:326
@@ -26519,8 +26556,8 @@ msgid "Nouveaux pneus arrière (remplacement / autre monte)"
 msgstr "Νέα πίσω ελαστικά (αντικατάσταση / άλλο σετ)"
 
 #: maintenance/check_up/models.py:1786 maintenance/checkup_track/models.py:668
-#: maintenance/checkup_track/models.py:1159 maintenance/eclairage/models.py:438
-#: maintenance/entretien/models.py:811
+#: maintenance/checkup_track/models.py:1159
+#: maintenance/eclairage/models.py:438 maintenance/entretien/models.py:811
 msgid "Éclaire plaque"
 msgstr "Φωτισμός πινακίδας κυκλοφορίας"
 
@@ -27600,7 +27637,8 @@ msgid "Fabricant des plaquettes avant"
 msgstr "Κατασκευαστής των εμπρός τακακιών"
 
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1043
-#: voiture/voiture_freins_ar/models.py:76 voiture/voiture_freins_av/forms.py:42
+#: voiture/voiture_freins_ar/models.py:76
+#: voiture/voiture_freins_av/forms.py:42
 #: voiture/voiture_freins_av/models.py:96
 msgid "Matière des plaquettes avant"
 msgstr "Υλικό εμπρός τακακιών"
@@ -27619,7 +27657,8 @@ msgid "Fabricant des disques avant"
 msgstr "Κατασκευαστής των εμπρός δίσκων"
 
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1125
-#: voiture/voiture_freins_av/forms.py:37 voiture/voiture_freins_av/models.py:82
+#: voiture/voiture_freins_av/forms.py:37
+#: voiture/voiture_freins_av/models.py:82
 msgid "Matière des disques avant"
 msgstr "Υλικό εμπρός δίσκων"
 
@@ -27659,7 +27698,8 @@ msgid "Fabricant des disques arrière"
 msgstr "Κατασκευαστής των πίσω δίσκων"
 
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1275
-#: voiture/voiture_freins_ar/forms.py:39 voiture/voiture_freins_ar/models.py:58
+#: voiture/voiture_freins_ar/forms.py:39
+#: voiture/voiture_freins_ar/models.py:58
 msgid "Matière des disques arrière"
 msgstr "Υλικό πίσω δίσκων"
 
@@ -32314,10 +32354,8 @@ msgstr "Επιστροφή στη λίστα ελέγχων του συστήμ�
 #: maintenance/esthetique/cire/models.py:20
 #: maintenance/esthetique/decontamination/models.py:20
 #: maintenance/esthetique/polish/models.py:20
-#, fuzzy
-#| msgid "Effectuées :"
 msgid "Effectué"
-msgstr "Ολοκληρώθηκαν:"
+msgstr "Ολοκληρώθηκε"
 
 #: maintenance/esthetique/ceramique/models.py:24
 #: maintenance/esthetique/ceramique/models.py:138
@@ -32325,17 +32363,15 @@ msgstr "Ολοκληρώθηκαν:"
 #: maintenance/esthetique/ceramique/views.py:462
 #: maintenance/esthetique/ceramique/views.py:780
 msgid "Préparation / dégraissage (panel wipe)"
-msgstr ""
+msgstr "Προετοιμασία / απολίπανση (panel wipe)"
 
 #: maintenance/esthetique/ceramique/models.py:25
 #: maintenance/esthetique/ceramique/models.py:143
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail_pdf.html:412
 #: maintenance/esthetique/ceramique/views.py:467
 #: maintenance/esthetique/ceramique/views.py:785
-#, fuzzy
-#| msgid "Créer une carrosserie"
 msgid "Revêtement céramique carrosserie"
-msgstr "Δημιουργία αμαξώματος"
+msgstr "Κεραμική επίστρωση αμαξώματος"
 
 #: maintenance/esthetique/ceramique/models.py:26
 #: maintenance/esthetique/ceramique/models.py:148
@@ -32343,27 +32379,23 @@ msgstr "Δημιουργία αμαξώματος"
 #: maintenance/esthetique/ceramique/views.py:472
 #: maintenance/esthetique/ceramique/views.py:790
 msgid "Couche supplémentaire / top coat"
-msgstr ""
+msgstr "Επιπλέον στρώση / top coat"
 
 #: maintenance/esthetique/ceramique/models.py:27
 #: maintenance/esthetique/ceramique/models.py:153
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail_pdf.html:438
 #: maintenance/esthetique/ceramique/views.py:477
 #: maintenance/esthetique/ceramique/views.py:795
-#, fuzzy
-#| msgid "Céramique haute performance"
 msgid "Céramique jantes / étriers"
-msgstr "Κεραμικό υψηλών επιδόσεων"
+msgstr "Κεραμική επίστρωση ζαντών / δαγκανών"
 
 #: maintenance/esthetique/ceramique/models.py:28
 #: maintenance/esthetique/ceramique/models.py:158
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail_pdf.html:451
 #: maintenance/esthetique/ceramique/views.py:482
 #: maintenance/esthetique/ceramique/views.py:800
-#, fuzzy
-#| msgid "Céramique"
 msgid "Céramique vitres"
-msgstr "Κεραμικό"
+msgstr "Κεραμική επίστρωση τζαμιών"
 
 #: maintenance/esthetique/ceramique/models.py:29
 #: maintenance/esthetique/ceramique/models.py:163
@@ -32371,17 +32403,15 @@ msgstr "Κεραμικό"
 #: maintenance/esthetique/ceramique/views.py:487
 #: maintenance/esthetique/ceramique/views.py:805
 msgid "Céramique plastiques / garnitures"
-msgstr ""
+msgstr "Κεραμική επίστρωση πλαστικών / διακοσμητικών"
 
 #: maintenance/esthetique/ceramique/models.py:30
 #: maintenance/esthetique/ceramique/models.py:168
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail_pdf.html:477
 #: maintenance/esthetique/ceramique/views.py:492
 #: maintenance/esthetique/ceramique/views.py:810
-#, fuzzy
-#| msgid "Céramique"
 msgid "Céramique optiques"
-msgstr "Κεραμικό"
+msgstr "Κεραμική επίστρωση φανών"
 
 #: maintenance/esthetique/ceramique/models.py:31
 #: maintenance/esthetique/ceramique/models.py:173
@@ -32389,7 +32419,7 @@ msgstr "Κεραμικό"
 #: maintenance/esthetique/ceramique/views.py:497
 #: maintenance/esthetique/ceramique/views.py:815
 msgid "Cuisson / séchage infrarouge"
-msgstr ""
+msgstr "Σκλήρυνση / στέγνωμα με υπέρυθρες"
 
 #: maintenance/esthetique/ceramique/models.py:32
 #: maintenance/esthetique/ceramique/models.py:178
@@ -32397,7 +32427,7 @@ msgstr ""
 #: maintenance/esthetique/ceramique/views.py:502
 #: maintenance/esthetique/ceramique/views.py:820
 msgid "Produit d'entretien (shampoing / spray)"
-msgstr ""
+msgstr "Προϊόν συντήρησης (σαμπουάν / σπρέι)"
 
 #: maintenance/esthetique/ceramique/models.py:112
 #: maintenance/esthetique/cire/models.py:111
@@ -32411,56 +32441,41 @@ msgstr "Χιλιομετρική ένδειξη κατά την επέμβαση
 #: maintenance/esthetique/cire/models.py:265
 #: maintenance/esthetique/decontamination/models.py:265
 #: maintenance/esthetique/polish/models.py:277
-#, fuzzy
-#| msgid ""
-#| "Le kilométrage ne peut pas être inférieur au kilométrage actuel du "
-#| "véhicule."
 msgid "Le kilométrage ne peut pas être inférieur au kilométrage du véhicule."
 msgstr ""
-"Τα χιλιόμετρα δεν μπορούν να είναι μικρότερα από τα τρέχοντα χιλιόμετρα του "
-"οχήματος."
+"Τα χιλιόμετρα δεν μπορούν να είναι λιγότερα από τα χιλιόμετρα του οχήματος."
 
 #: maintenance/esthetique/ceramique/models.py:276
 #: maintenance/esthetique/ceramique/models.py:457
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail_pdf.html:382
 #: maintenance/esthetique/ceramique/views.py:406
 #: maintenance/esthetique/ceramique/views.py:1112 maintenance/models.py:41
-#, fuzzy
-#| msgid "Hybride et électrique"
 msgid "Traitement céramique"
-msgstr "Υβριδικό και ηλεκτρικό"
+msgstr "Κεραμική επίστρωση"
 
 #: maintenance/esthetique/ceramique/models.py:277
 msgid "Traitements céramiques"
-msgstr ""
+msgstr "Κεραμικές επιστρώσεις"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail.html:4
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail.html:11
-#, fuzzy
-#| msgid "Détails du remplacement moteur"
 msgid "Détails du traitement céramique"
-msgstr "Λεπτομέρειες αντικατάστασης κινητήρα"
+msgstr "Λεπτομέρειες κεραμικής επίστρωσης"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail_pdf.html:319
-#, fuzzy
-#| msgid "Détails du remplacement moteur"
 msgid "Détail du traitement céramique"
-msgstr "Λεπτομέρειες αντικατάστασης κινητήρα"
+msgstr "Λεπτομέρεια κεραμικής επίστρωσης"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_detail_pdf.html:390
 #: maintenance/esthetique/cire/templates/cire/cire_detail_pdf.html:390
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_detail_pdf.html:390
 #: maintenance/esthetique/polish/templates/polish/polish_detail_pdf.html:390
-#, fuzzy
-#| msgid "Pièces / produits"
 msgid "Prestation / produit"
-msgstr "Ανταλλακτικά / Προϊόντα"
+msgstr "Υπηρεσία / προϊόν"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:21
-#, fuzzy
-#| msgid "Ajouter un remplacement boite"
 msgid "Ajouter un traitement céramique"
-msgstr "Προσθήκη αντικατάστασης κιβωτίου ταχυτήτων"
+msgstr "Προσθήκη κεραμικής επίστρωσης"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:317
 #: maintenance/esthetique/ceramique/templates/ceramique/modifier_ceramique.html:315
@@ -32477,51 +32492,41 @@ msgid "Retour à la liste"
 msgstr "Επιστροφή στη λίστα"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_list.html:4
-#, fuzzy
-#| msgid "Liste des interventions électronique moteur"
 msgid "Liste des interventions : Céramique"
-msgstr "Λίστα επεμβάσεων στα ηλεκτρονικά κινητήρα"
+msgstr "Λίστα εργασιών: Κεραμική"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_list.html:19
 msgid "Traitement céramique pour :"
-msgstr ""
+msgstr "Κεραμική επίστρωση για:"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_list.html:53
 #: maintenance/esthetique/cire/templates/cire/cire_list.html:53
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_list.html:53
 #: maintenance/esthetique/polish/templates/polish/polish_list.html:53
-#, fuzzy
-#| msgid "Autres interventions"
 msgid "Ajouter une intervention"
-msgstr "Άλλες επεμβάσεις"
+msgstr "Προσθήκη εργασίας"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_list.html:164
 #: maintenance/esthetique/cire/templates/cire/cire_list.html:164
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_list.html:164
 #: maintenance/esthetique/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:137
 #: maintenance/esthetique/polish/templates/polish/polish_list.html:164
-#, fuzzy
-#| msgid "Retour au tableau de bord"
 msgid "Retour au tableau Esthétique"
-msgstr "Επιστροφή στον πίνακα ελέγχου"
+msgstr "Επιστροφή στον πίνακα Αισθητικής"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_list.html:175
 #: maintenance/esthetique/cire/templates/cire/cire_list.html:175
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_list.html:175
 #: maintenance/esthetique/polish/templates/polish/polish_list.html:175
-#, fuzzy
-#| msgid "Aucun entretien enregistré pour cet exemplaire."
 msgid "Aucune intervention enregistrée pour cet exemplaire."
-msgstr "Καμία συντήρηση δεν καταγράφηκε για αυτό το δείγμα."
+msgstr "Δεν έχει καταχωρηθεί καμία εργασία για αυτό το όχημα."
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_list.html:178
 #: maintenance/esthetique/cire/templates/cire/cire_list.html:178
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_list.html:178
 #: maintenance/esthetique/polish/templates/polish/polish_list.html:178
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ entretiens"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ interventions"
-msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ συντηρήσεις"
+msgstr "Εμφάνιση _START_ έως _END_ από _TOTAL_ εργασίες"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_list.html:179
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_list.html:180
@@ -32531,78 +32536,56 @@ msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ συντηρ
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_list.html:180
 #: maintenance/esthetique/polish/templates/polish/polish_list.html:179
 #: maintenance/esthetique/polish/templates/polish/polish_list.html:180
-#, fuzzy
-#| msgid "Aucun entretien trouvé"
 msgid "Aucune intervention trouvée"
-msgstr "Δεν βρέθηκε καμία συντήρηση"
+msgstr "Δεν βρέθηκε καμία εργασία"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/delete_ceramique.html:10
-#, fuzzy
-#| msgid "Supprimer le remplacement moteur"
 msgid "Supprimer le traitement céramique"
-msgstr "Διαγραφή της αντικατάστασης του κινητήρα"
+msgstr "Διαγραφή κεραμικής επίστρωσης"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/delete_ceramique.html:14
-#, fuzzy
-#| msgid "Voulez-vous vraiment supprimer l'entretien pour"
 msgid "Voulez-vous vraiment supprimer le traitement céramique pour"
-msgstr "Θέλετε πραγματικά να διαγράψετε αυτή τη συντήρηση για"
+msgstr "Θέλετε πραγματικά να διαγράψετε την κεραμική επίστρωση για"
 
 #: maintenance/esthetique/ceramique/templates/ceramique/modifier_ceramique.html:21
-#, fuzzy
-#| msgid "Modifier le nettoyage extérieur"
 msgid "Modifier le traitement céramique"
-msgstr "Τροποποίηση εξωτερικού καθαρισμού"
+msgstr "Τροποποίηση κεραμικής επίστρωσης"
 
 #: maintenance/esthetique/ceramique/views.py:414
-#, fuzzy
-#| msgid "Entretien enregistré avec succès."
 msgid "Traitement céramique enregistré avec succès."
-msgstr "Η συντήρηση καταχωρήθηκε με επιτυχία."
+msgstr "Η κεραμική επίστρωση καταχωρήθηκε με επιτυχία."
 
 #: maintenance/esthetique/ceramique/views.py:735
-#, fuzzy
-#| msgid "Modification du remplacement moteur"
 msgid "Modification du traitement céramique"
-msgstr "Τροποποίηση της αντικατάστασης του κινητήρα"
+msgstr "Τροποποίηση κεραμικής επίστρωσης"
 
 #: maintenance/esthetique/ceramique/views.py:745
-#, fuzzy
-#| msgid "Entretien modifié avec succès !"
 msgid "Traitement céramique modifié avec succès !"
-msgstr "Η συντήρηση τροποποιήθηκε με επιτυχία!"
+msgstr "Η κεραμική επίστρωση τροποποιήθηκε με επιτυχία!"
 
 #: maintenance/esthetique/ceramique/views.py:1004
-#, fuzzy
-#| msgid "Suppression du remplacement moteur"
 msgid "Suppression du traitement céramique"
-msgstr "Διαγραφή της αντικατάστασης του κινητήρα"
+msgstr "Διαγραφή κεραμικής επίστρωσης"
 
 #: maintenance/esthetique/ceramique/views.py:1017
-#, fuzzy
-#| msgid "Recharge électrique supprimée avec succès."
 msgid "Traitement céramique supprimé avec succès."
-msgstr "Η ηλεκτρική φόρτιση διαγράφηκε με επιτυχία."
+msgstr "Η κεραμική επίστρωση διαγράφηκε με επιτυχία."
 
 #: maintenance/esthetique/cire/models.py:24
 #: maintenance/esthetique/cire/models.py:137
 #: maintenance/esthetique/cire/templates/cire/cire_detail_pdf.html:399
 #: maintenance/esthetique/cire/views.py:462
 #: maintenance/esthetique/cire/views.py:775
-#, fuzzy
-#| msgid "Kit réparation étrier"
 msgid "Préparation / dégraissage"
-msgstr "Σετ επισκευής δαγκάνας"
+msgstr "Προετοιμασία / απολίπανση"
 
 #: maintenance/esthetique/cire/models.py:25
 #: maintenance/esthetique/cire/models.py:142
 #: maintenance/esthetique/cire/templates/cire/cire_detail_pdf.html:412
 #: maintenance/esthetique/cire/views.py:467
 #: maintenance/esthetique/cire/views.py:780
-#, fuzzy
-#| msgid "Carrosserie"
 msgid "Cire carrosserie"
-msgstr "Αμάξωμα"
+msgstr "Κερί αμαξώματος"
 
 #: maintenance/esthetique/cire/models.py:26
 #: maintenance/esthetique/cire/models.py:147
@@ -32610,17 +32593,15 @@ msgstr "Αμάξωμα"
 #: maintenance/esthetique/cire/views.py:472
 #: maintenance/esthetique/cire/views.py:785
 msgid "Scellant synthétique (sealant)"
-msgstr ""
+msgstr "Συνθετικό σφραγιστικό (sealant)"
 
 #: maintenance/esthetique/cire/models.py:27
 #: maintenance/esthetique/cire/models.py:152
 #: maintenance/esthetique/cire/templates/cire/cire_detail_pdf.html:438
 #: maintenance/esthetique/cire/views.py:477
 #: maintenance/esthetique/cire/views.py:790
-#, fuzzy
-#| msgid "Pression des pneus"
 msgid "Protection des jantes"
-msgstr "Πίεση ελαστικών"
+msgstr "Προστασία ζαντών"
 
 #: maintenance/esthetique/cire/models.py:28
 #: maintenance/esthetique/cire/models.py:157
@@ -32628,17 +32609,15 @@ msgstr "Πίεση ελαστικών"
 #: maintenance/esthetique/cire/views.py:482
 #: maintenance/esthetique/cire/views.py:795
 msgid "Rénovation / protection des plastiques extérieurs"
-msgstr ""
+msgstr "Αποκατάσταση / προστασία εξωτερικών πλαστικών"
 
 #: maintenance/esthetique/cire/models.py:29
 #: maintenance/esthetique/cire/models.py:162
 #: maintenance/esthetique/cire/templates/cire/cire_detail_pdf.html:464
 #: maintenance/esthetique/cire/views.py:487
 #: maintenance/esthetique/cire/views.py:800
-#, fuzzy
-#| msgid "Pression des pneus"
 msgid "Dressing pneus"
-msgstr "Πίεση ελαστικών"
+msgstr "Γυαλιστικό ελαστικών"
 
 #: maintenance/esthetique/cire/models.py:30
 #: maintenance/esthetique/cire/models.py:167
@@ -32646,17 +32625,15 @@ msgstr "Πίεση ελαστικών"
 #: maintenance/esthetique/cire/views.py:492
 #: maintenance/esthetique/cire/views.py:805
 msgid "Traitement hydrophobe des vitres"
-msgstr ""
+msgstr "Υδροφοβική επεξεργασία τζαμιών"
 
 #: maintenance/esthetique/cire/models.py:31
 #: maintenance/esthetique/cire/models.py:172
 #: maintenance/esthetique/cire/templates/cire/cire_detail_pdf.html:490
 #: maintenance/esthetique/cire/views.py:497
 #: maintenance/esthetique/cire/views.py:810
-#, fuzzy
-#| msgid "Lexus Original"
 msgid "Lustrage final"
-msgstr "Lexus Original"
+msgstr "Τελικό γυάλισμα"
 
 #: maintenance/esthetique/cire/models.py:270
 #: maintenance/esthetique/cire/models.py:451
@@ -32667,90 +32644,64 @@ msgstr "Lexus Original"
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:151
 #: maintenance/models.py:40
 msgid "Cire"
-msgstr ""
+msgstr "Κερί"
 
 #: maintenance/esthetique/cire/models.py:271
 msgid "Cires"
-msgstr ""
+msgstr "Κερώματα"
 
 #: maintenance/esthetique/cire/templates/cire/cire_detail.html:4
 #: maintenance/esthetique/cire/templates/cire/cire_detail.html:11
-#, fuzzy
-#| msgid "Détails de la facture :"
 msgid "Détails de la cire"
-msgstr "Στοιχεία τιμολογίου:"
+msgstr "Λεπτομέρειες κερώματος"
 
 #: maintenance/esthetique/cire/templates/cire/cire_detail_pdf.html:319
-#, fuzzy
-#| msgid "Détails de la facture :"
 msgid "Détail de la cire"
-msgstr "Στοιχεία τιμολογίου:"
+msgstr "Λεπτομέρεια κερώματος"
 
 #: maintenance/esthetique/cire/templates/cire/cire_form.html:21
-#, fuzzy
-#| msgid "Ajouter un client"
 msgid "Ajouter une cire"
-msgstr "Προσθήκη πελάτη"
+msgstr "Προσθήκη κεριού"
 
 #: maintenance/esthetique/cire/templates/cire/cire_list.html:4
-#, fuzzy
-#| msgid "Liste des interventions carrosserie"
 msgid "Liste des interventions : Cire"
-msgstr "Λίστα επεμβάσεων καροσερί"
+msgstr "Λίστα εργασιών: Κερί"
 
 #: maintenance/esthetique/cire/templates/cire/cire_list.html:19
-#, fuzzy
-#| msgid "Prête pour :"
 msgid "Cire pour :"
-msgstr "Έτοιμο για:"
+msgstr "Κέρωμα για:"
 
 #: maintenance/esthetique/cire/templates/cire/delete_cire.html:10
-#, fuzzy
-#| msgid "Supprimer la police"
 msgid "Supprimer la cire"
-msgstr "Διαγραφή του ασφαλιστηρίου συμβολαίου"
+msgstr "Διαγραφή κερώματος"
 
 #: maintenance/esthetique/cire/templates/cire/delete_cire.html:14
-#, fuzzy
-#| msgid "Voulez-vous vraiment supprimer le contrôle pour"
 msgid "Voulez-vous vraiment supprimer la cire pour"
-msgstr "Θέλετε πραγματικά να διαγράψετε αυτόν τον έλεγχο για"
+msgstr "Θέλετε πραγματικά να διαγράψετε το κέρωμα για"
 
 #: maintenance/esthetique/cire/templates/cire/modifier_cire.html:21
-#, fuzzy
-#| msgid "Modifier la recharge"
 msgid "Modifier la cire"
-msgstr "Τροποποίηση επαναφόρτισης"
+msgstr "Τροποποίηση κερώματος"
 
 #: maintenance/esthetique/cire/views.py:414
-#, fuzzy
-#| msgid "Checkup enregistré avec succès."
 msgid "Cire enregistrée avec succès."
-msgstr "Ο γενικός έλεγχος καταχωρήθηκε με επιτυχία."
+msgstr "Το κέρωμα καταχωρήθηκε με επιτυχία."
 
 #: maintenance/esthetique/cire/views.py:730
-#, fuzzy
-#| msgid "Modification de la carrosserie"
 msgid "Modification de la cire"
-msgstr "Τροποποίηση αμαξώματος"
+msgstr "Τροποποίηση κερώματος"
 
 #: maintenance/esthetique/cire/views.py:740
-#, fuzzy
-#| msgid "Checkup modifié avec succès !"
 msgid "Cire modifiée avec succès !"
-msgstr "Το checkup τροποποιήθηκε με επιτυχία!"
+msgstr "Το κέρωμα τροποποιήθηκε με επιτυχία!"
 
 #: maintenance/esthetique/cire/views.py:994
-#, fuzzy
-#| msgid "Suppression de l'adresse"
 msgid "Suppression de la cire"
-msgstr "Διαγραφή της διεύθυνσης"
+msgstr "Διαγραφή κερώματος"
 
 #: maintenance/esthetique/cire/views.py:1007
-#, fuzzy
-#| msgid "Checkup supprimé avec succès."
 msgid "Cire supprimée avec succès."
-msgstr "Ο έλεγχος διαγράφηκε με επιτυχία."
+msgstr "Το κέρωμα διαγράφηκε με επιτυχία."
 
 #: maintenance/esthetique/decontamination/models.py:24
 #: maintenance/esthetique/decontamination/models.py:137
@@ -32758,7 +32709,7 @@ msgstr "Ο έλεγχος διαγράφηκε με επιτυχία."
 #: maintenance/esthetique/decontamination/views.py:462
 #: maintenance/esthetique/decontamination/views.py:775
 msgid "Prélavage / mousse active"
-msgstr ""
+msgstr "Προπλύση / ενεργός αφρός"
 
 #: maintenance/esthetique/decontamination/models.py:25
 #: maintenance/esthetique/decontamination/models.py:142
@@ -32766,7 +32717,7 @@ msgstr ""
 #: maintenance/esthetique/decontamination/views.py:467
 #: maintenance/esthetique/decontamination/views.py:780
 msgid "Lavage manuel (méthode deux seaux)"
-msgstr ""
+msgstr "Χειροκίνητο πλύσιμο (μέθοδος δύο κουβάδων)"
 
 #: maintenance/esthetique/decontamination/models.py:26
 #: maintenance/esthetique/decontamination/models.py:147
@@ -32774,7 +32725,7 @@ msgstr ""
 #: maintenance/esthetique/decontamination/views.py:472
 #: maintenance/esthetique/decontamination/views.py:785
 msgid "Décontamination ferreuse (iron remover)"
-msgstr ""
+msgstr "Απομάκρυνση σιδηρούχων ρύπων (iron remover)"
 
 #: maintenance/esthetique/decontamination/models.py:27
 #: maintenance/esthetique/decontamination/models.py:152
@@ -32782,7 +32733,7 @@ msgstr ""
 #: maintenance/esthetique/decontamination/views.py:477
 #: maintenance/esthetique/decontamination/views.py:790
 msgid "Élimination du goudron / de la colle"
-msgstr ""
+msgstr "Αφαίρεση πίσσας / κόλλας"
 
 #: maintenance/esthetique/decontamination/models.py:28
 #: maintenance/esthetique/decontamination/models.py:157
@@ -32790,27 +32741,23 @@ msgstr ""
 #: maintenance/esthetique/decontamination/views.py:482
 #: maintenance/esthetique/decontamination/views.py:795
 msgid "Décontamination mécanique (clay bar / gomme)"
-msgstr ""
+msgstr "Μηχανική απολύμανση (clay bar / πηλός)"
 
 #: maintenance/esthetique/decontamination/models.py:29
 #: maintenance/esthetique/decontamination/models.py:162
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_detail_pdf.html:464
 #: maintenance/esthetique/decontamination/views.py:487
 #: maintenance/esthetique/decontamination/views.py:800
-#, fuzzy
-#| msgid "Détail des factures"
 msgid "Décontamination des jantes"
-msgstr "Αναλυτικά στοιχεία τιμολογίων"
+msgstr "Απολύμανση ζαντών"
 
 #: maintenance/esthetique/decontamination/models.py:30
 #: maintenance/esthetique/decontamination/models.py:167
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_detail_pdf.html:477
 #: maintenance/esthetique/decontamination/views.py:492
 #: maintenance/esthetique/decontamination/views.py:805
-#, fuzzy
-#| msgid "Détail des factures"
 msgid "Décontamination des vitres"
-msgstr "Αναλυτικά στοιχεία τιμολογίων"
+msgstr "Απολύμανση τζαμιών"
 
 #: maintenance/esthetique/decontamination/models.py:31
 #: maintenance/esthetique/decontamination/models.py:172
@@ -32818,7 +32765,7 @@ msgstr "Αναλυτικά στοιχεία τιμολογίων"
 #: maintenance/esthetique/decontamination/views.py:497
 #: maintenance/esthetique/decontamination/views.py:810
 msgid "Rinçage / séchage"
-msgstr ""
+msgstr "Ξέβγαλμα / στέγνωμα"
 
 #: maintenance/esthetique/decontamination/models.py:270
 #: maintenance/esthetique/decontamination/models.py:451
@@ -32828,95 +32775,65 @@ msgstr ""
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:82
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:95
 #: maintenance/models.py:39
-#, fuzzy
-#| msgid "Désignation"
 msgid "Décontamination"
-msgstr "Ονομασία"
+msgstr "Απολύμανση βαφής"
 
 #: maintenance/esthetique/decontamination/models.py:271
-#, fuzzy
-#| msgid "Désignation"
 msgid "Décontaminations"
-msgstr "Ονομασία"
+msgstr "Απολυμάνσεις βαφής"
 
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_detail.html:4
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_detail.html:11
-#, fuzzy
-#| msgid "Détails de la géométrie"
 msgid "Détails de la décontamination"
-msgstr "Λεπτομέρειες γεωμετρίας"
+msgstr "Λεπτομέρειες απολύμανσης"
 
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_detail_pdf.html:319
-#, fuzzy
-#| msgid "Détails de la géométrie"
 msgid "Détail de la décontamination"
-msgstr "Λεπτομέρειες γεωμετρίας"
+msgstr "Λεπτομέρεια απολύμανσης"
 
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:21
-#, fuzzy
-#| msgid "Ajouter une location"
 msgid "Ajouter une décontamination"
-msgstr "Προσθήκη ενοικίασης"
+msgstr "Προσθήκη απολύμανσης βαφής"
 
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_list.html:4
-#, fuzzy
-#| msgid "Liste des interventions électronique moteur"
 msgid "Liste des interventions : Décontamination"
-msgstr "Λίστα επεμβάσεων στα ηλεκτρονικά κινητήρα"
+msgstr "Λίστα εργασιών: Απολύμανση βαφής"
 
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_list.html:19
-#, fuzzy
-#| msgid "Contrôle climatisation pour :"
 msgid "Décontamination pour :"
-msgstr "Έλεγχος κλιματισμού για:"
+msgstr "Απολύμανση για:"
 
 #: maintenance/esthetique/decontamination/templates/decontamination/delete_decontamination.html:10
-#, fuzzy
-#| msgid "Supprimer la location"
 msgid "Supprimer la décontamination"
-msgstr "Διαγραφή ενοικίασης"
+msgstr "Διαγραφή απολύμανσης"
 
 #: maintenance/esthetique/decontamination/templates/decontamination/delete_decontamination.html:14
-#, fuzzy
-#| msgid "Voulez-vous vraiment supprimer l'entretien pour"
 msgid "Voulez-vous vraiment supprimer la décontamination pour"
-msgstr "Θέλετε πραγματικά να διαγράψετε αυτή τη συντήρηση για"
+msgstr "Θέλετε πραγματικά να διαγράψετε την απολύμανση για"
 
 #: maintenance/esthetique/decontamination/templates/decontamination/modifier_decontamination.html:21
-#, fuzzy
-#| msgid "Modifier la location"
 msgid "Modifier la décontamination"
-msgstr "Επεξεργασία ενοικίασης"
+msgstr "Τροποποίηση απολύμανσης"
 
 #: maintenance/esthetique/decontamination/views.py:414
-#, fuzzy
-#| msgid "Géométrie enregistrée avec succès."
 msgid "Décontamination enregistrée avec succès."
-msgstr "Η γεωμετρία αποθηκεύτηκε με επιτυχία."
+msgstr "Η απολύμανση καταχωρήθηκε με επιτυχία."
 
 #: maintenance/esthetique/decontamination/views.py:730
-#, fuzzy
-#| msgid "Modification de l'entretien"
 msgid "Modification de la décontamination"
-msgstr "Τροποποίηση συντήρησης"
+msgstr "Τροποποίηση απολύμανσης"
 
 #: maintenance/esthetique/decontamination/views.py:740
-#, fuzzy
-#| msgid "Entretien modifié avec succès !"
 msgid "Décontamination modifiée avec succès !"
-msgstr "Η συντήρηση τροποποιήθηκε με επιτυχία!"
+msgstr "Η απολύμανση τροποποιήθηκε με επιτυχία!"
 
 #: maintenance/esthetique/decontamination/views.py:994
-#, fuzzy
-#| msgid "Suppression de l'achat"
 msgid "Suppression de la décontamination"
-msgstr "Διαγραφή της αγοράς"
+msgstr "Διαγραφή απολύμανσης"
 
 #: maintenance/esthetique/decontamination/views.py:1007
-#, fuzzy
-#| msgid "Entretien supprimé avec succès."
 msgid "Décontamination supprimée avec succès."
-msgstr "Η συντήρηση διαγράφηκε με επιτυχία."
+msgstr "Η απολύμανση διαγράφηκε με επιτυχία."
 
 #: maintenance/esthetique/nettoyage_exterieur/models.py:89
 msgid "Kilométrage au moment du Nettoyage extérieur"
@@ -32963,17 +32880,15 @@ msgstr "Έλεγχος εξωτερικού καθαρισμού"
 #: maintenance/esthetique/polish/views.py:462
 #: maintenance/esthetique/polish/views.py:785
 msgid "Inspection / mesure de l'épaisseur de peinture"
-msgstr ""
+msgstr "Έλεγχος / μέτρηση πάχους βαφής"
 
 #: maintenance/esthetique/polish/models.py:25
 #: maintenance/esthetique/polish/models.py:144
 #: maintenance/esthetique/polish/templates/polish/polish_detail_pdf.html:412
 #: maintenance/esthetique/polish/views.py:467
 #: maintenance/esthetique/polish/views.py:790
-#, fuzzy
-#| msgid "Marque des disques"
 msgid "Masquage des joints et plastiques"
-msgstr "Μάρκα δίσκων"
+msgstr "Κάλυψη λάστιχων και πλαστικών"
 
 #: maintenance/esthetique/polish/models.py:26
 #: maintenance/esthetique/polish/models.py:149
@@ -32981,7 +32896,7 @@ msgstr "Μάρκα δίσκων"
 #: maintenance/esthetique/polish/views.py:472
 #: maintenance/esthetique/polish/views.py:795
 msgid "Dégraissage (panel wipe / IPA)"
-msgstr ""
+msgstr "Απολίπανση (panel wipe / IPA)"
 
 #: maintenance/esthetique/polish/models.py:27
 #: maintenance/esthetique/polish/models.py:154
@@ -32989,17 +32904,15 @@ msgstr ""
 #: maintenance/esthetique/polish/views.py:477
 #: maintenance/esthetique/polish/views.py:800
 msgid "Polissage abrasif (coupe)"
-msgstr ""
+msgstr "Λειαντικό γυάλισμα (cut)"
 
 #: maintenance/esthetique/polish/models.py:28
 #: maintenance/esthetique/polish/models.py:159
 #: maintenance/esthetique/polish/templates/polish/polish_detail_pdf.html:451
 #: maintenance/esthetique/polish/views.py:482
 #: maintenance/esthetique/polish/views.py:805
-#, fuzzy
-#| msgid "Mois de fin"
 msgid "Polissage de finition"
-msgstr "Μήνας λήξης"
+msgstr "Γυάλισμα φινιρίσματος"
 
 #: maintenance/esthetique/polish/models.py:29
 #: maintenance/esthetique/polish/models.py:164
@@ -33007,7 +32920,7 @@ msgstr "Μήνας λήξης"
 #: maintenance/esthetique/polish/views.py:487
 #: maintenance/esthetique/polish/views.py:810
 msgid "Lustrage / jeweling"
-msgstr ""
+msgstr "Τελικό γυάλισμα / jeweling"
 
 #: maintenance/esthetique/polish/models.py:30
 #: maintenance/esthetique/polish/models.py:169
@@ -33015,17 +32928,15 @@ msgstr ""
 #: maintenance/esthetique/polish/views.py:492
 #: maintenance/esthetique/polish/views.py:815
 msgid "Correction de rayures / retouches"
-msgstr ""
+msgstr "Διόρθωση γρατζουνιών / ρετουσαρίσματα"
 
 #: maintenance/esthetique/polish/models.py:31
 #: maintenance/esthetique/polish/models.py:174
 #: maintenance/esthetique/polish/templates/polish/polish_detail_pdf.html:490
 #: maintenance/esthetique/polish/views.py:497
 #: maintenance/esthetique/polish/views.py:820
-#, fuzzy
-#| msgid "Etat des pneumatiques"
 msgid "Rénovation des optiques"
-msgstr "Κατάσταση των ελαστικών"
+msgstr "Αποκατάσταση φανών"
 
 #: maintenance/esthetique/polish/models.py:32
 #: maintenance/esthetique/polish/models.py:179
@@ -33033,7 +32944,7 @@ msgstr "Κατάσταση των ελαστικών"
 #: maintenance/esthetique/polish/views.py:502
 #: maintenance/esthetique/polish/views.py:825
 msgid "Pads / mousses de polissage"
-msgstr ""
+msgstr "Σφουγγάρια / pads γυαλίσματος"
 
 #: maintenance/esthetique/polish/models.py:33
 #: maintenance/esthetique/polish/models.py:184
@@ -33041,7 +32952,7 @@ msgstr ""
 #: maintenance/esthetique/polish/views.py:507
 #: maintenance/esthetique/polish/views.py:830
 msgid "Microfibres"
-msgstr ""
+msgstr "Πανιά μικροϊνών"
 
 #: maintenance/esthetique/polish/models.py:282
 #: maintenance/esthetique/polish/models.py:283
@@ -33053,119 +32964,83 @@ msgstr ""
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:123
 #: maintenance/models.py:38
 msgid "Polish"
-msgstr ""
+msgstr "Γυάλισμα"
 
 #: maintenance/esthetique/polish/templates/polish/delete_polish.html:10
-#, fuzzy
-#| msgid "Supprimer la police"
 msgid "Supprimer le polish"
-msgstr "Διαγραφή του ασφαλιστηρίου συμβολαίου"
+msgstr "Διαγραφή γυαλίσματος"
 
 #: maintenance/esthetique/polish/templates/polish/delete_polish.html:14
-#, fuzzy
-#| msgid "Voulez-vous vraiment supprimer le contrôle pour"
 msgid "Voulez-vous vraiment supprimer le polish pour"
-msgstr "Θέλετε πραγματικά να διαγράψετε αυτόν τον έλεγχο για"
+msgstr "Θέλετε πραγματικά να διαγράψετε το γυάλισμα για"
 
 #: maintenance/esthetique/polish/templates/polish/modifier_polish.html:21
-#, fuzzy
-#| msgid "Modifier le plein"
 msgid "Modifier le polish"
-msgstr "Επεξεργασία γεμίσματος"
+msgstr "Τροποποίηση γυαλίσματος"
 
 #: maintenance/esthetique/polish/templates/polish/polish_detail.html:4
 #: maintenance/esthetique/polish/templates/polish/polish_detail.html:11
-#, fuzzy
-#| msgid "Détails du pilote :"
 msgid "Détails du polish"
-msgstr "Στοιχεία του πιλότου:"
+msgstr "Λεπτομέρειες γυαλίσματος"
 
 #: maintenance/esthetique/polish/templates/polish/polish_detail_pdf.html:319
-#, fuzzy
-#| msgid "Détails du pilote :"
 msgid "Détail du polish"
-msgstr "Στοιχεία του πιλότου:"
+msgstr "Λεπτομέρεια γυαλίσματος"
 
 #: maintenance/esthetique/polish/templates/polish/polish_form.html:21
-#, fuzzy
-#| msgid "Ajouter un outil"
 msgid "Ajouter un polish"
-msgstr "Προσθήκη εργαλείου"
+msgstr "Προσθήκη γυαλίσματος"
 
 #: maintenance/esthetique/polish/templates/polish/polish_list.html:4
-#, fuzzy
-#| msgid "Liste des interventions carrosserie"
 msgid "Liste des interventions : Polish"
-msgstr "Λίστα επεμβάσεων καροσερί"
+msgstr "Λίστα εργασιών: Γυάλισμα"
 
 #: maintenance/esthetique/polish/templates/polish/polish_list.html:19
-#, fuzzy
-#| msgid "Rodage pour :"
 msgid "Polish pour :"
-msgstr "Στρώσιμο για:"
+msgstr "Γυάλισμα για:"
 
 #: maintenance/esthetique/polish/views.py:414
-#, fuzzy
-#| msgid "Achat enregistré avec succès."
 msgid "Polish enregistré avec succès."
-msgstr "Η αγορά καταχωρήθηκε με επιτυχία."
+msgstr "Το γυάλισμα καταχωρήθηκε με επιτυχία."
 
 #: maintenance/esthetique/polish/views.py:740
-#, fuzzy
-#| msgid "Modification du rodage"
 msgid "Modification du polish"
-msgstr "Τροποποίηση στρωσίματος"
+msgstr "Τροποποίηση γυαλίσματος"
 
 #: maintenance/esthetique/polish/views.py:750
-#, fuzzy
-#| msgid "Achat modifié avec succès !"
 msgid "Polish modifié avec succès !"
-msgstr "Η αγορά τροποποιήθηκε με επιτυχία!"
+msgstr "Το γυάλισμα τροποποιήθηκε με επιτυχία!"
 
 #: maintenance/esthetique/polish/views.py:1014
-#, fuzzy
-#| msgid "Suppression du fournisseur"
 msgid "Suppression du polish"
-msgstr "Διαγραφή του προμηθευτή"
+msgstr "Διαγραφή γυαλίσματος"
 
 #: maintenance/esthetique/polish/views.py:1027
-#, fuzzy
-#| msgid "Pneus supprimés avec succès."
 msgid "Polish supprimé avec succès."
-msgstr "Τα ελαστικά διαγράφηκαν με επιτυχία."
+msgstr "Το γυάλισμα διαγράφηκε με επιτυχία."
 
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:5
-#, fuzzy
-#| msgid "Tableau de bord des voitures"
 msgid "Tableau de bord esthétique"
-msgstr "Πίνακας ελέγχου αυτοκινήτων"
+msgstr "Πίνακας αισθητικής"
 
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:15
 #: maintenance/templates/maintenance/choisir_type.html:95
 #: maintenance/templates/maintenance/choisir_type.html:100
-#, fuzzy
-#| msgid "Huile synthétique"
 msgid "Esthétique"
-msgstr "Synthetisches Öl"
+msgstr "Αισθητική"
 
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:20
-#, fuzzy
-#| msgid "Choisir une intervention pour :"
 msgid "Esthétique – choisir une intervention pour :"
-msgstr "Επιλέξτε μια εργασία για:"
+msgstr "Αισθητική – επιλέξτε εργασία για:"
 
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:54
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:67
-#, fuzzy
-#| msgid "Nettoyé"
 msgid "Nettoyage"
-msgstr "Καθαρισμένο"
+msgstr "Καθαρισμός"
 
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:196
-#, fuzzy
-#| msgid "Retour à la liste des maintenances"
 msgid "Retour au choix de la maintenance"
-msgstr "Επιστροφή στη λίστα συντηρήσεων"
+msgstr "Επιστροφή στην επιλογή συντήρησης"
 
 #: maintenance/freins/models.py:92
 msgid "Kilométrage du controle des freins"
@@ -33674,7 +33549,8 @@ msgid "Kilométrage du contrôle niveaux"
 msgstr "Χιλιομετρική ένδειξη ελέγχου στάθμης υγρών"
 
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:352
-#: voiture/voiture_location/models.py:11 voiture/voiture_location/models.py:174
+#: voiture/voiture_location/models.py:11
+#: voiture/voiture_location/models.py:174
 #: voiture/voiture_location/templates/voiture_location/location_list.html:39
 msgid "Circuit"
 msgstr "Κύκλωμα"
@@ -34079,7 +33955,7 @@ msgstr "Επιλέξτε τον τύπο συντήρησης για:"
 
 #: maintenance/templates/maintenance/choisir_type.html:96
 msgid "Nettoyage, décontamination, polish, cire, céramique"
-msgstr ""
+msgstr "Καθαρισμός, απολύμανση, γυάλισμα, κερί, κεραμική"
 
 #: maintenance/templates/maintenance/creer_maintenance.html:10
 msgid "Créer un check-up complet pour :"
@@ -34292,7 +34168,8 @@ msgstr ""
 
 #: outillage/templates/outillage/delete_outillage.html:18
 msgid ""
-"Voulez-vous vraiment supprimer cet outillage ? Cette action est irréversible."
+"Voulez-vous vraiment supprimer cet outillage ? Cette action est "
+"irréversible."
 msgstr ""
 "Θέλετε πραγματικά να διαγράψετε αυτό το εργαλείο; Αυτή η ενέργεια είναι μη "
 "αναστρέψιμη."
@@ -34831,10 +34708,10 @@ msgstr "Ποσότητα αερίου"
 msgid "Type de pièce de climatisation"
 msgstr "Τύπος εξαρτήματος κλιματισμού"
 
-#: piece/piece_climatisation/models.py:32 piece/piece_differentiel/models.py:34
-#: piece/piece_direction/models.py:33 piece/piece_distribution/models.py:35
-#: piece/piece_echappement/models.py:34 piece/piece_essuyage/models.py:26
-#: piece/piece_freins/models.py:57
+#: piece/piece_climatisation/models.py:32
+#: piece/piece_differentiel/models.py:34 piece/piece_direction/models.py:33
+#: piece/piece_distribution/models.py:35 piece/piece_echappement/models.py:34
+#: piece/piece_essuyage/models.py:26 piece/piece_freins/models.py:57
 msgid "Moteurs compatibles"
 msgstr "Συμβατοί κινητήρες"
 
@@ -34846,10 +34723,10 @@ msgstr "Εξάρτημα κλιματισμού"
 msgid "Pièces de climatisation"
 msgstr "Εξαρτήματα κλιματισμού"
 
-#: piece/piece_climatisation/models.py:40 piece/piece_differentiel/models.py:42
-#: piece/piece_direction/models.py:41 piece/piece_distribution/models.py:43
-#: piece/piece_echappement/models.py:42 piece/piece_essuyage/models.py:34
-#: piece/piece_freins/models.py:65
+#: piece/piece_climatisation/models.py:40
+#: piece/piece_differentiel/models.py:42 piece/piece_direction/models.py:41
+#: piece/piece_distribution/models.py:43 piece/piece_echappement/models.py:42
+#: piece/piece_essuyage/models.py:34 piece/piece_freins/models.py:65
 #, python-format
 msgid "%(type)s – %(piece)s"
 msgstr "%(type)s – %(piece)s"
@@ -36510,8 +36387,8 @@ msgstr "Μερίδια ιδιοκτησίας"
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:56
 #, python-format
 msgid ""
-"Les véhicules ne sont pas supprimés, mais le total des parts de leurs autres "
-"propriétaires n'atteindra plus 100 %%."
+"Les véhicules ne sont pas supprimés, mais le total des parts de leurs autres"
+" propriétaires n'atteindra plus 100 %%."
 msgstr ""
 "Τα οχήματα δεν διαγράφονται, αλλά το σύνολο των μεριδίων των άλλων "
 "ιδιοκτητών τους δεν θα φτάνει πλέον το 100 %%."
@@ -37695,7 +37572,8 @@ msgstr "Η μηνιαία μισθοδοσία καταχωρήθηκε με ε�
 #: utilisateurs/views.py:923 utilisateurs/views.py:928
 msgid "Adresse e-mail ou mot de passe incorrect."
 msgstr ""
-"Η διεύθυνση ηλεκτρονικού ταχυδρομείου ή ο κωδικός πρόσβασης είναι λανθασμένα."
+"Η διεύθυνση ηλεκτρονικού ταχυδρομείου ή ο κωδικός πρόσβασης είναι "
+"λανθασμένα."
 
 #: utilisateurs/views.py:938
 msgid "Aucune société n'est associée à ce compte."
@@ -37710,7 +37588,8 @@ msgid "Ce compte n'est associé à aucune société privée."
 msgstr "Αυτός ο λογαριασμός δεν έχει συσχετιστεί με καμία ιδιωτική εταιρεία."
 
 #: utilisateurs/views.py:1083
-msgid "Veuillez saisir le code de sécurité généré par votre application Authy."
+msgid ""
+"Veuillez saisir le code de sécurité généré par votre application Authy."
 msgstr ""
 "Παρακαλώ εισαγάγετε τον κωδικό ασφαλείας που δημιουργήθηκε από την εφαρμογή "
 "Authy."
@@ -37853,8 +37732,8 @@ msgstr "Επηρεαζόμενο(-α) μοντέλο(-α)"
 
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:56
 msgid ""
-"Ces véhicules et modèles ne seront pas supprimés : seul leur lien avec cette "
-"boîte sera retiré."
+"Ces véhicules et modèles ne seront pas supprimés : seul leur lien avec cette"
+" boîte sera retiré."
 msgstr ""
 "Αυτά τα οχήματα και τα μοντέλα δεν θα διαγραφούν: θα καταργηθεί μόνο η "
 "σύνδεσή τους με αυτό το κιβώτιο ταχυτήτων."
@@ -37977,7 +37856,8 @@ msgstr "Διευκρινίστε το εξάρτημα"
 
 #: voiture/voiture_diagnostic/forms.py:120
 msgid "Le même code défaut est encodé deux fois avec la même pièce."
-msgstr "Ο ίδιος κωδικός βλάβης έχει καταχωρηθεί δύο φορές με το ίδιο εξάρτημα."
+msgstr ""
+"Ο ίδιος κωδικός βλάβης έχει καταχωρηθεί δύο φορές με το ίδιο εξάρτημα."
 
 #: voiture/voiture_diagnostic/models.py:36
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_detail.html:48
@@ -39998,7 +39878,8 @@ msgstr "Διαγραφή συμπλέκτη"
 
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:13
 msgid ""
-"Voulez-vous vraiment supprimer cet embrayage ? Cette action est irréversible."
+"Voulez-vous vraiment supprimer cet embrayage ? Cette action est "
+"irréversible."
 msgstr ""
 "Θέλετε πραγματικά να διαγράψετε αυτόν τον συμπλέκτη; Αυτή η ενέργεια είναι "
 "μη αναστρέψιμη."
@@ -40071,8 +39952,8 @@ msgstr "Διαγραφή του συμπλέκτη"
 
 #: voiture/voiture_embrayage/views.py:238
 msgid ""
-"Impossible de supprimer cet embrayage : il est encore référencé par d'autres "
-"données."
+"Impossible de supprimer cet embrayage : il est encore référencé par d'autres"
+" données."
 msgstr ""
 "Δεν είναι δυνατή η διαγραφή αυτού του συμπλέκτη: εξακολουθεί να αναφέρεται "
 "από άλλα δεδομένα."
@@ -40450,8 +40331,8 @@ msgstr "Διαγραφή οικονομικών στοιχείων"
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:14
 #, python-format
 msgid ""
-"Les données financières du véhicule %(vehicule)s (%(immat)s) seront "
-"effacées : prix d'achat, assurance, taxes et propriétaires."
+"Les données financières du véhicule %(vehicule)s (%(immat)s) seront effacées"
+" : prix d'achat, assurance, taxes et propriétaires."
 msgstr ""
 "Τα οικονομικά στοιχεία του οχήματος %(vehicule)s (%(immat)s) θα διαγραφούν: "
 "τιμή αγοράς, ασφάλιση, φόροι και ιδιοκτήτες."
@@ -40563,9 +40444,9 @@ msgstr "τοποθετημένο"
 
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/lier_pneus.html:82
 msgid ""
-"Lier corrige les pneus de cette monte sans compter de nouveau train. Pour un "
-"remplacement (nouveau train à 0 km), utilisez « Remplacer le train » sur la "
-"fiche du véhicule."
+"Lier corrige les pneus de cette monte sans compter de nouveau train. Pour un"
+" remplacement (nouveau train à 0 km), utilisez « Remplacer le train » sur la"
+" fiche du véhicule."
 msgstr ""
 "Η σύνδεση διορθώνει τα ελαστικά αυτού του σετ χωρίς να μετρά νέο σετ. Για "
 "αντικατάσταση (νέο σετ στα 0 km), χρησιμοποιήστε «Αντικατάσταση σετ» στην "
@@ -40721,8 +40602,8 @@ msgstr ""
 #: voiture/voiture_exemplaire/views.py:244
 #, python-format
 msgid ""
-"Train n°%(ancien)s archivé (%(km)s km). Nouveau train n°%(nouveau)s installé "
-"à 0 km."
+"Train n°%(ancien)s archivé (%(km)s km). Nouveau train n°%(nouveau)s installé"
+" à 0 km."
 msgstr ""
 "Το σετ αρ. %(ancien)s αρχειοθετήθηκε (%(km)s km). Νέο σετ αρ. %(nouveau)s "
 "τοποθετήθηκε στα 0 km."
@@ -40904,11 +40785,11 @@ msgstr "Διαγραφή του συστήματος πίσω φρένων"
 
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:13
 msgid ""
-"Voulez-vous vraiment supprimer ce système de freinage arrière ? Cette action "
-"est irréversible."
+"Voulez-vous vraiment supprimer ce système de freinage arrière ? Cette action"
+" est irréversible."
 msgstr ""
-"Θέλετε πραγματικά να διαγράψετε αυτό το σύστημα πίσω φρένων; Αυτή η ενέργεια "
-"είναι μη αναστρέψιμη."
+"Θέλετε πραγματικά να διαγράψετε αυτό το σύστημα πίσω φρένων; Αυτή η ενέργεια"
+" είναι μη αναστρέψιμη."
 
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:42
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:77
@@ -40974,7 +40855,8 @@ msgstr "Επεξεργασία πίσω φρένων"
 msgid "Retour aux détails des freins arrière"
 msgstr "Επιστροφή στις λεπτομέρειες πίσω φρένων"
 
-#: voiture/voiture_freins_ar/views.py:59 voiture/voiture_freins_ar/views.py:116
+#: voiture/voiture_freins_ar/views.py:59
+#: voiture/voiture_freins_ar/views.py:116
 msgid "Freins arrière ajoutés avec succès !"
 msgstr "Τα πίσω φρένα προστέθηκαν με επιτυχία!"
 
@@ -41649,8 +41531,8 @@ msgstr ""
 msgid ""
 "Voulez-vous vraiment supprimer ce moteur ? Cette action est irréversible."
 msgstr ""
-"Θέλετε πραγματικά να διαγράψετε αυτόν τον κινητήρα; Αυτή η ενέργεια είναι μη "
-"αναστρέψιμη."
+"Θέλετε πραγματικά να διαγράψετε αυτόν τον κινητήρα; Αυτή η ενέργεια είναι μη"
+" αναστρέψιμη."
 
 #: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:56
 msgid ""
@@ -42164,23 +42046,19 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"                Attention : %(counter)s entrée d'historique est liée à ces "
-"pneus.\n"
+"                Attention : %(counter)s entrée d'historique est liée à ces pneus.\n"
 "            "
 msgid_plural ""
 "\n"
-"                Attention : %(counter)s entrées d'historique sont liées à "
-"ces pneus.\n"
+"                Attention : %(counter)s entrées d'historique sont liées à ces pneus.\n"
 "            "
 msgstr[0] ""
 "\n"
-"                Προσοχή: %(counter)s καταχώριση ιστορικού συνδέεται με αυτά "
-"τα ελαστικά.\n"
+"                Προσοχή: %(counter)s καταχώριση ιστορικού συνδέεται με αυτά τα ελαστικά.\n"
 "            "
 msgstr[1] ""
 "\n"
-"                Προσοχή: %(counter)s καταχωρίσεις ιστορικού συνδέονται με "
-"αυτά τα ελαστικά.\n"
+"                Προσοχή: %(counter)s καταχωρίσεις ιστορικού συνδέονται με αυτά τα ελαστικά.\n"
 "            "
 
 #: voiture/voiture_pneus/templates/voiture_pneus/delete_pneus.html:73
@@ -42287,8 +42165,8 @@ msgid ""
 "Impossible de supprimer ces pneus : ils sont encore référencés par d'autres "
 "données."
 msgstr ""
-"Δεν είναι δυνατή η διαγραφή αυτών των ελαστικών: εξακολουθούν να αναφέρονται "
-"από άλλα δεδομένα."
+"Δεν είναι δυνατή η διαγραφή αυτών των ελαστικών: εξακολουθούν να αναφέρονται"
+" από άλλα δεδομένα."
 
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
