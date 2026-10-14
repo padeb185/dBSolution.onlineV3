@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du contrôle de l'électronique moteur" %}{% endblock %}
+
+{% block content %}
+    {% url 'electronique_moteur:modifier_electronique' electronique.pk as url_modifier %}
+    {% url 'electronique_moteur:electronique_detail_pdf' electronique.pk as url_pdf %}
+    {% url 'electronique_moteur:delete_electronique' electronique.pk as url_delete %}
+    {% if exemplaire %}{% url 'electronique_moteur:electronique_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du contrôle de l'électronique moteur" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=electronique km_controle=electronique.kilometrage_electronique icone="calculateur.png" %}
+{% endblock %}

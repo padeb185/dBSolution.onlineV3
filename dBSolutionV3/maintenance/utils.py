@@ -6,7 +6,7 @@ from utilisateurs.models import Utilisateur
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from maintenance.check_up.models import Checkup
 from maintenance.freins.models import ControleFreins
-from maintenance.nettoyage_exterieur.models import NettoyageExterieur
+from maintenance.esthetique.nettoyage_exterieur.models import NettoyageExterieur
 from maintenance.nettoyage_interieur.models import NettoyageInterieur
 
 

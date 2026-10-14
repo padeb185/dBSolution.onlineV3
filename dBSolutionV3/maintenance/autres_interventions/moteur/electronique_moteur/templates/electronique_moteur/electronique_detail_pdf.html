@@ -1,0 +1,929 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+{% if electronique.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ electronique.tech_societe.nom }}
+            </div>
+
+            {% if electronique.tech_societe.adresse %}
+                <div>
+                    {{ electronique.tech_societe.adresse.rue }}
+                    {{ electronique.tech_societe.adresse.numero }}
+                    {% if electronique.tech_societe.adresse.boite %}
+                        / {{ electronique.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ electronique.tech_societe.adresse.code_postal }}
+                    {{ electronique.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if electronique.tech_societe.adresse.pays %}
+                <div>{{ electronique.tech_societe.adresse.pays }}
+                    {{ electronique.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if electronique.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ electronique.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if electronique.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ electronique.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ electronique.tech_societe.nom }}.png"
+                alt="{{ electronique.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Détail électronique moteur" %}</h1>
+
+<!-- ================= INFOS ================= -->
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ electronique.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ electronique.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ electronique.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ electronique.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ electronique.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage électronique moteur" %} :</span>
+            {{ electronique.kilometrage_electronique }} km
+        </div>
+
+
+
+<!-- ================= TAG ================= -->
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if electronique.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ electronique.get_tag_display }}
+                </span>
+
+            {% elif electronique.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ electronique.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ electronique.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= DIAGNOSTIC ================= -->
+<h2>{% trans "Diagnostic" %}</h2>
+
+<div class="box">
+    <div><span class="label">{% trans "Codes défaut relevés (OBD)" %} :</span></div>
+    <div>{{ electronique.diagnostic_codes_defaut|default:"-"|linebreaksbr }}</div>
+    <div>
+        <span class="label">{% trans "Codes défaut effacés après intervention" %} :</span>
+        {% if electronique.diagnostic_codes_effaces %}{% trans "Oui" %}{% else %}{% trans "Non" %}{% endif %}
+        &nbsp;·&nbsp;
+        <span class="label">{% trans "Essai routier effectué" %} :</span>
+        {% if electronique.diagnostic_essai_routier %}{% trans "Oui" %}{% else %}{% trans "Non" %}{% endif %}
+    </div>
+</div>
+
+<h2>{% trans "Capteurs" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% trans "Capteur de cliquetis" %}</td>
+                <td>
+                    {% if electronique.capteur_cliquetis == "OK" %}<span class="ok">{{ electronique.get_capteur_cliquetis_display }}</span>
+                    {% elif electronique.capteur_cliquetis == "NOT_OK" %}<span class="not-ok">{{ electronique.get_capteur_cliquetis_display }}</span>
+                    {% elif electronique.capteur_cliquetis == "REMPLACE" %}<span class="remplace">{{ electronique.get_capteur_cliquetis_display }}</span>{% endif %}
+                    {% if electronique.capteur_cliquetis_fabricant and electronique.capteur_cliquetis_fabricant != "CHOISIR" %} — {{ electronique.get_capteur_cliquetis_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Capteur de position de vilebrequin (PMH)" %}</td>
+                <td>
+                    {% if electronique.capteur_vilebrequin == "OK" %}<span class="ok">{{ electronique.get_capteur_vilebrequin_display }}</span>
+                    {% elif electronique.capteur_vilebrequin == "NOT_OK" %}<span class="not-ok">{{ electronique.get_capteur_vilebrequin_display }}</span>
+                    {% elif electronique.capteur_vilebrequin == "REMPLACE" %}<span class="remplace">{{ electronique.get_capteur_vilebrequin_display }}</span>{% endif %}
+                    {% if electronique.capteur_vilebrequin_fabricant and electronique.capteur_vilebrequin_fabricant != "CHOISIR" %} — {{ electronique.get_capteur_vilebrequin_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Capteur de position d'arbre à cames" %}</td>
+                <td>
+                    {% if electronique.capteur_arbre_cames == "OK" %}<span class="ok">{{ electronique.get_capteur_arbre_cames_display }}</span>
+                    {% elif electronique.capteur_arbre_cames == "NOT_OK" %}<span class="not-ok">{{ electronique.get_capteur_arbre_cames_display }}</span>
+                    {% elif electronique.capteur_arbre_cames == "REMPLACE" %}<span class="remplace">{{ electronique.get_capteur_arbre_cames_display }}</span>{% endif %}
+                    {% if electronique.capteur_arbre_cames_fabricant and electronique.capteur_arbre_cames_fabricant != "CHOISIR" %} — {{ electronique.get_capteur_arbre_cames_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Sonde de température de liquide de refroidissement" %}</td>
+                <td>
+                    {% if electronique.sonde_temperature_eau == "OK" %}<span class="ok">{{ electronique.get_sonde_temperature_eau_display }}</span>
+                    {% elif electronique.sonde_temperature_eau == "NOT_OK" %}<span class="not-ok">{{ electronique.get_sonde_temperature_eau_display }}</span>
+                    {% elif electronique.sonde_temperature_eau == "REMPLACE" %}<span class="remplace">{{ electronique.get_sonde_temperature_eau_display }}</span>{% endif %}
+                    {% if electronique.sonde_temperature_eau_fabricant and electronique.sonde_temperature_eau_fabricant != "CHOISIR" %} — {{ electronique.get_sonde_temperature_eau_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Sonde de température d'air d'admission" %}</td>
+                <td>
+                    {% if electronique.sonde_temperature_air == "OK" %}<span class="ok">{{ electronique.get_sonde_temperature_air_display }}</span>
+                    {% elif electronique.sonde_temperature_air == "NOT_OK" %}<span class="not-ok">{{ electronique.get_sonde_temperature_air_display }}</span>
+                    {% elif electronique.sonde_temperature_air == "REMPLACE" %}<span class="remplace">{{ electronique.get_sonde_temperature_air_display }}</span>{% endif %}
+                    {% if electronique.sonde_temperature_air_fabricant and electronique.sonde_temperature_air_fabricant != "CHOISIR" %} — {{ electronique.get_sonde_temperature_air_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Sonde de température d'huile" %}</td>
+                <td>
+                    {% if electronique.sonde_temperature_huile == "OK" %}<span class="ok">{{ electronique.get_sonde_temperature_huile_display }}</span>
+                    {% elif electronique.sonde_temperature_huile == "NOT_OK" %}<span class="not-ok">{{ electronique.get_sonde_temperature_huile_display }}</span>
+                    {% elif electronique.sonde_temperature_huile == "REMPLACE" %}<span class="remplace">{{ electronique.get_sonde_temperature_huile_display }}</span>{% endif %}
+                    {% if electronique.sonde_temperature_huile_fabricant and electronique.sonde_temperature_huile_fabricant != "CHOISIR" %} — {{ electronique.get_sonde_temperature_huile_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Sonde de température des gaz d'échappement" %}</td>
+                <td>
+                    {% if electronique.sonde_temperature_echappement == "OK" %}<span class="ok">{{ electronique.get_sonde_temperature_echappement_display }}</span>
+                    {% elif electronique.sonde_temperature_echappement == "NOT_OK" %}<span class="not-ok">{{ electronique.get_sonde_temperature_echappement_display }}</span>
+                    {% elif electronique.sonde_temperature_echappement == "REMPLACE" %}<span class="remplace">{{ electronique.get_sonde_temperature_echappement_display }}</span>{% endif %}
+                    {% if electronique.sonde_temperature_echappement_fabricant and electronique.sonde_temperature_echappement_fabricant != "CHOISIR" %} — {{ electronique.get_sonde_temperature_echappement_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Débitmètre d'air (MAF)" %}</td>
+                <td>
+                    {% if electronique.debitmetre == "OK" %}<span class="ok">{{ electronique.get_debitmetre_display }}</span>
+                    {% elif electronique.debitmetre == "NOT_OK" %}<span class="not-ok">{{ electronique.get_debitmetre_display }}</span>
+                    {% elif electronique.debitmetre == "REMPLACE" %}<span class="remplace">{{ electronique.get_debitmetre_display }}</span>{% endif %}
+                    {% if electronique.debitmetre_fabricant and electronique.debitmetre_fabricant != "CHOISIR" %} — {{ electronique.get_debitmetre_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Capteur de pression d'admission (MAP)" %}</td>
+                <td>
+                    {% if electronique.capteur_pression_admission == "OK" %}<span class="ok">{{ electronique.get_capteur_pression_admission_display }}</span>
+                    {% elif electronique.capteur_pression_admission == "NOT_OK" %}<span class="not-ok">{{ electronique.get_capteur_pression_admission_display }}</span>
+                    {% elif electronique.capteur_pression_admission == "REMPLACE" %}<span class="remplace">{{ electronique.get_capteur_pression_admission_display }}</span>{% endif %}
+                    {% if electronique.capteur_pression_admission_fabricant and electronique.capteur_pression_admission_fabricant != "CHOISIR" %} — {{ electronique.get_capteur_pression_admission_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Capteur de pression de suralimentation" %}</td>
+                <td>
+                    {% if electronique.capteur_pression_suralimentation == "OK" %}<span class="ok">{{ electronique.get_capteur_pression_suralimentation_display }}</span>
+                    {% elif electronique.capteur_pression_suralimentation == "NOT_OK" %}<span class="not-ok">{{ electronique.get_capteur_pression_suralimentation_display }}</span>
+                    {% elif electronique.capteur_pression_suralimentation == "REMPLACE" %}<span class="remplace">{{ electronique.get_capteur_pression_suralimentation_display }}</span>{% endif %}
+                    {% if electronique.capteur_pression_suralimentation_fabricant and electronique.capteur_pression_suralimentation_fabricant != "CHOISIR" %} — {{ electronique.get_capteur_pression_suralimentation_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Capteur de pression d'huile" %}</td>
+                <td>
+                    {% if electronique.capteur_pression_huile == "OK" %}<span class="ok">{{ electronique.get_capteur_pression_huile_display }}</span>
+                    {% elif electronique.capteur_pression_huile == "NOT_OK" %}<span class="not-ok">{{ electronique.get_capteur_pression_huile_display }}</span>
+                    {% elif electronique.capteur_pression_huile == "REMPLACE" %}<span class="remplace">{{ electronique.get_capteur_pression_huile_display }}</span>{% endif %}
+                    {% if electronique.capteur_pression_huile_fabricant and electronique.capteur_pression_huile_fabricant != "CHOISIR" %} — {{ electronique.get_capteur_pression_huile_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Capteur de pression de carburant (rampe)" %}</td>
+                <td>
+                    {% if electronique.capteur_pression_carburant == "OK" %}<span class="ok">{{ electronique.get_capteur_pression_carburant_display }}</span>
+                    {% elif electronique.capteur_pression_carburant == "NOT_OK" %}<span class="not-ok">{{ electronique.get_capteur_pression_carburant_display }}</span>
+                    {% elif electronique.capteur_pression_carburant == "REMPLACE" %}<span class="remplace">{{ electronique.get_capteur_pression_carburant_display }}</span>{% endif %}
+                    {% if electronique.capteur_pression_carburant_fabricant and electronique.capteur_pression_carburant_fabricant != "CHOISIR" %} — {{ electronique.get_capteur_pression_carburant_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Capteur de pression différentielle (FAP)" %}</td>
+                <td>
+                    {% if electronique.capteur_pression_differentielle == "OK" %}<span class="ok">{{ electronique.get_capteur_pression_differentielle_display }}</span>
+                    {% elif electronique.capteur_pression_differentielle == "NOT_OK" %}<span class="not-ok">{{ electronique.get_capteur_pression_differentielle_display }}</span>
+                    {% elif electronique.capteur_pression_differentielle == "REMPLACE" %}<span class="remplace">{{ electronique.get_capteur_pression_differentielle_display }}</span>{% endif %}
+                    {% if electronique.capteur_pression_differentielle_fabricant and electronique.capteur_pression_differentielle_fabricant != "CHOISIR" %} — {{ electronique.get_capteur_pression_differentielle_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Sonde lambda amont" %}</td>
+                <td>
+                    {% if electronique.sonde_lambda_amont == "OK" %}<span class="ok">{{ electronique.get_sonde_lambda_amont_display }}</span>
+                    {% elif electronique.sonde_lambda_amont == "NOT_OK" %}<span class="not-ok">{{ electronique.get_sonde_lambda_amont_display }}</span>
+                    {% elif electronique.sonde_lambda_amont == "REMPLACE" %}<span class="remplace">{{ electronique.get_sonde_lambda_amont_display }}</span>{% endif %}
+                    {% if electronique.sonde_lambda_amont_fabricant and electronique.sonde_lambda_amont_fabricant != "CHOISIR" %} — {{ electronique.get_sonde_lambda_amont_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Sonde lambda aval" %}</td>
+                <td>
+                    {% if electronique.sonde_lambda_aval == "OK" %}<span class="ok">{{ electronique.get_sonde_lambda_aval_display }}</span>
+                    {% elif electronique.sonde_lambda_aval == "NOT_OK" %}<span class="not-ok">{{ electronique.get_sonde_lambda_aval_display }}</span>
+                    {% elif electronique.sonde_lambda_aval == "REMPLACE" %}<span class="remplace">{{ electronique.get_sonde_lambda_aval_display }}</span>{% endif %}
+                    {% if electronique.sonde_lambda_aval_fabricant and electronique.sonde_lambda_aval_fabricant != "CHOISIR" %} — {{ electronique.get_sonde_lambda_aval_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Capteur de position de pédale d'accélérateur" %}</td>
+                <td>
+                    {% if electronique.capteur_pedale == "OK" %}<span class="ok">{{ electronique.get_capteur_pedale_display }}</span>
+                    {% elif electronique.capteur_pedale == "NOT_OK" %}<span class="not-ok">{{ electronique.get_capteur_pedale_display }}</span>
+                    {% elif electronique.capteur_pedale == "REMPLACE" %}<span class="remplace">{{ electronique.get_capteur_pedale_display }}</span>{% endif %}
+                    {% if electronique.capteur_pedale_fabricant and electronique.capteur_pedale_fabricant != "CHOISIR" %} — {{ electronique.get_capteur_pedale_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Capteur de niveau d'huile" %}</td>
+                <td>
+                    {% if electronique.capteur_niveau_huile == "OK" %}<span class="ok">{{ electronique.get_capteur_niveau_huile_display }}</span>
+                    {% elif electronique.capteur_niveau_huile == "NOT_OK" %}<span class="not-ok">{{ electronique.get_capteur_niveau_huile_display }}</span>
+                    {% elif electronique.capteur_niveau_huile == "REMPLACE" %}<span class="remplace">{{ electronique.get_capteur_niveau_huile_display }}</span>{% endif %}
+                    {% if electronique.capteur_niveau_huile_fabricant and electronique.capteur_niveau_huile_fabricant != "CHOISIR" %} — {{ electronique.get_capteur_niveau_huile_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Actionneurs" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% trans "Injecteurs" %}</td>
+                <td>
+                    {% if electronique.injecteurs == "OK" %}<span class="ok">{{ electronique.get_injecteurs_display }}</span>
+                    {% elif electronique.injecteurs == "NOT_OK" %}<span class="not-ok">{{ electronique.get_injecteurs_display }}</span>
+                    {% elif electronique.injecteurs == "REMPLACE" %}<span class="remplace">{{ electronique.get_injecteurs_display }}</span>{% endif %}
+                    {% if electronique.injecteurs_fabricant and electronique.injecteurs_fabricant != "CHOISIR" %} — {{ electronique.get_injecteurs_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Vanne EGR" %}</td>
+                <td>
+                    {% if electronique.vanne_egr == "OK" %}<span class="ok">{{ electronique.get_vanne_egr_display }}</span>
+                    {% elif electronique.vanne_egr == "NOT_OK" %}<span class="not-ok">{{ electronique.get_vanne_egr_display }}</span>
+                    {% elif electronique.vanne_egr == "REMPLACE" %}<span class="remplace">{{ electronique.get_vanne_egr_display }}</span>{% endif %}
+                    {% if electronique.vanne_egr_fabricant and electronique.vanne_egr_fabricant != "CHOISIR" %} — {{ electronique.get_vanne_egr_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Boîtier papillon" %}</td>
+                <td>
+                    {% if electronique.boitier_papillon == "OK" %}<span class="ok">{{ electronique.get_boitier_papillon_display }}</span>
+                    {% elif electronique.boitier_papillon == "NOT_OK" %}<span class="not-ok">{{ electronique.get_boitier_papillon_display }}</span>
+                    {% elif electronique.boitier_papillon == "REMPLACE" %}<span class="remplace">{{ electronique.get_boitier_papillon_display }}</span>{% endif %}
+                    {% if electronique.boitier_papillon_fabricant and electronique.boitier_papillon_fabricant != "CHOISIR" %} — {{ electronique.get_boitier_papillon_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Bobines d'allumage" %}</td>
+                <td>
+                    {% if electronique.bobines_allumage == "OK" %}<span class="ok">{{ electronique.get_bobines_allumage_display }}</span>
+                    {% elif electronique.bobines_allumage == "NOT_OK" %}<span class="not-ok">{{ electronique.get_bobines_allumage_display }}</span>
+                    {% elif electronique.bobines_allumage == "REMPLACE" %}<span class="remplace">{{ electronique.get_bobines_allumage_display }}</span>{% endif %}
+                    {% if electronique.bobines_allumage_fabricant and electronique.bobines_allumage_fabricant != "CHOISIR" %} — {{ electronique.get_bobines_allumage_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Bougies / boîtier de préchauffage" %}</td>
+                <td>
+                    {% if electronique.bougies_prechauffage == "OK" %}<span class="ok">{{ electronique.get_bougies_prechauffage_display }}</span>
+                    {% elif electronique.bougies_prechauffage == "NOT_OK" %}<span class="not-ok">{{ electronique.get_bougies_prechauffage_display }}</span>
+                    {% elif electronique.bougies_prechauffage == "REMPLACE" %}<span class="remplace">{{ electronique.get_bougies_prechauffage_display }}</span>{% endif %}
+                    {% if electronique.bougies_prechauffage_fabricant and electronique.bougies_prechauffage_fabricant != "CHOISIR" %} — {{ electronique.get_bougies_prechauffage_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Électrovanne / actionneur de turbo" %}</td>
+                <td>
+                    {% if electronique.actionneur_turbo == "OK" %}<span class="ok">{{ electronique.get_actionneur_turbo_display }}</span>
+                    {% elif electronique.actionneur_turbo == "NOT_OK" %}<span class="not-ok">{{ electronique.get_actionneur_turbo_display }}</span>
+                    {% elif electronique.actionneur_turbo == "REMPLACE" %}<span class="remplace">{{ electronique.get_actionneur_turbo_display }}</span>{% endif %}
+                    {% if electronique.actionneur_turbo_fabricant and electronique.actionneur_turbo_fabricant != "CHOISIR" %} — {{ electronique.get_actionneur_turbo_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Électrovanne de déphaseur d'arbre à cames (VVT)" %}</td>
+                <td>
+                    {% if electronique.electrovanne_vvt == "OK" %}<span class="ok">{{ electronique.get_electrovanne_vvt_display }}</span>
+                    {% elif electronique.electrovanne_vvt == "NOT_OK" %}<span class="not-ok">{{ electronique.get_electrovanne_vvt_display }}</span>
+                    {% elif electronique.electrovanne_vvt == "REMPLACE" %}<span class="remplace">{{ electronique.get_electrovanne_vvt_display }}</span>{% endif %}
+                    {% if electronique.electrovanne_vvt_fabricant and electronique.electrovanne_vvt_fabricant != "CHOISIR" %} — {{ electronique.get_electrovanne_vvt_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Régulateur de pression de carburant" %}</td>
+                <td>
+                    {% if electronique.regulateur_pression_carburant == "OK" %}<span class="ok">{{ electronique.get_regulateur_pression_carburant_display }}</span>
+                    {% elif electronique.regulateur_pression_carburant == "NOT_OK" %}<span class="not-ok">{{ electronique.get_regulateur_pression_carburant_display }}</span>
+                    {% elif electronique.regulateur_pression_carburant == "REMPLACE" %}<span class="remplace">{{ electronique.get_regulateur_pression_carburant_display }}</span>{% endif %}
+                    {% if electronique.regulateur_pression_carburant_fabricant and electronique.regulateur_pression_carburant_fabricant != "CHOISIR" %} — {{ electronique.get_regulateur_pression_carburant_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Électrovanne de purge canister" %}</td>
+                <td>
+                    {% if electronique.electrovanne_canister == "OK" %}<span class="ok">{{ electronique.get_electrovanne_canister_display }}</span>
+                    {% elif electronique.electrovanne_canister == "NOT_OK" %}<span class="not-ok">{{ electronique.get_electrovanne_canister_display }}</span>
+                    {% elif electronique.electrovanne_canister == "REMPLACE" %}<span class="remplace">{{ electronique.get_electrovanne_canister_display }}</span>{% endif %}
+                    {% if electronique.electrovanne_canister_fabricant and electronique.electrovanne_canister_fabricant != "CHOISIR" %} — {{ electronique.get_electrovanne_canister_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Actionneur de volets d'admission (swirl)" %}</td>
+                <td>
+                    {% if electronique.volets_admission == "OK" %}<span class="ok">{{ electronique.get_volets_admission_display }}</span>
+                    {% elif electronique.volets_admission == "NOT_OK" %}<span class="not-ok">{{ electronique.get_volets_admission_display }}</span>
+                    {% elif electronique.volets_admission == "REMPLACE" %}<span class="remplace">{{ electronique.get_volets_admission_display }}</span>{% endif %}
+                    {% if electronique.volets_admission_fabricant and electronique.volets_admission_fabricant != "CHOISIR" %} — {{ electronique.get_volets_admission_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Thermostat piloté" %}</td>
+                <td>
+                    {% if electronique.thermostat_pilote == "OK" %}<span class="ok">{{ electronique.get_thermostat_pilote_display }}</span>
+                    {% elif electronique.thermostat_pilote == "NOT_OK" %}<span class="not-ok">{{ electronique.get_thermostat_pilote_display }}</span>
+                    {% elif electronique.thermostat_pilote == "REMPLACE" %}<span class="remplace">{{ electronique.get_thermostat_pilote_display }}</span>{% endif %}
+                    {% if electronique.thermostat_pilote_fabricant and electronique.thermostat_pilote_fabricant != "CHOISIR" %} — {{ electronique.get_thermostat_pilote_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Motoventilateur" %}</td>
+                <td>
+                    {% if electronique.motoventilateur == "OK" %}<span class="ok">{{ electronique.get_motoventilateur_display }}</span>
+                    {% elif electronique.motoventilateur == "NOT_OK" %}<span class="not-ok">{{ electronique.get_motoventilateur_display }}</span>
+                    {% elif electronique.motoventilateur == "REMPLACE" %}<span class="remplace">{{ electronique.get_motoventilateur_display }}</span>{% endif %}
+                    {% if electronique.motoventilateur_fabricant and electronique.motoventilateur_fabricant != "CHOISIR" %} — {{ electronique.get_motoventilateur_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Calculateur / faisceau" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% trans "Calculateur moteur (ECU)" %}</td>
+                <td>
+                    {% if electronique.calculateur_moteur == "OK" %}<span class="ok">{{ electronique.get_calculateur_moteur_display }}</span>
+                    {% elif electronique.calculateur_moteur == "NOT_OK" %}<span class="not-ok">{{ electronique.get_calculateur_moteur_display }}</span>
+                    {% elif electronique.calculateur_moteur == "REMPLACE" %}<span class="remplace">{{ electronique.get_calculateur_moteur_display }}</span>{% endif %}
+                    {% if electronique.calculateur_moteur_fabricant and electronique.calculateur_moteur_fabricant != "CHOISIR" %} — {{ electronique.get_calculateur_moteur_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Faisceau moteur" %}</td>
+                <td>
+                    {% if electronique.faisceau_moteur == "OK" %}<span class="ok">{{ electronique.get_faisceau_moteur_display }}</span>
+                    {% elif electronique.faisceau_moteur == "NOT_OK" %}<span class="not-ok">{{ electronique.get_faisceau_moteur_display }}</span>
+                    {% elif electronique.faisceau_moteur == "REMPLACE" %}<span class="remplace">{{ electronique.get_faisceau_moteur_display }}</span>{% endif %}
+                    {% if electronique.faisceau_moteur_fabricant and electronique.faisceau_moteur_fabricant != "CHOISIR" %} — {{ electronique.get_faisceau_moteur_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Connecteurs / cosses" %}</td>
+                <td>
+                    {% if electronique.connecteurs == "OK" %}<span class="ok">{{ electronique.get_connecteurs_display }}</span>
+                    {% elif electronique.connecteurs == "NOT_OK" %}<span class="not-ok">{{ electronique.get_connecteurs_display }}</span>
+                    {% elif electronique.connecteurs == "REMPLACE" %}<span class="remplace">{{ electronique.get_connecteurs_display }}</span>{% endif %}
+                    {% if electronique.connecteurs_fabricant and electronique.connecteurs_fabricant != "CHOISIR" %} — {{ electronique.get_connecteurs_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ electronique.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if electronique.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ electronique.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ electronique.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ electronique.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        <td class="text-right">
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ electronique.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ electronique.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
+
+        <table class="table-2-cols">
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ electronique.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ electronique.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+
+<br>
+<!-- ================= REMARQUES ================= -->
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ electronique.remarques|default:_("Aucune remarque.") }}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

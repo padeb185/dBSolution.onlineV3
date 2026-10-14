@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}
+    {% trans "Tableau de bord esthétique" %}
+{% endblock %}
+
+{% block content %}
+
+<div class="p-6">
+    <h1 class="text-2xl font-bold mb-6 flex flex-col md:flex-row md:items-center gap-3">
+    <div class="flex items-center gap-3">
+
+        <img src="{% static 'icons/nettoyage_ext.png' %}"
+             alt="{% trans 'Esthétique' %}"
+             class="w-16 h-16 object-contain">
+
+        <div class="flex items-center gap-2">
+
+            {% trans "Esthétique – choisir une intervention pour :" %}
+
+            {% static 'images/marques/' as marques_path %}
+
+            <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                 alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                 class="w-16 h-16 object-contain">
+
+            <span class="font-semibold">
+                {{ exemplaire.voiture_modele.nom_modele }}
+
+                {% if exemplaire.voiture_modele.nom_variante %}
+                    {{ exemplaire.voiture_modele.nom_variante }}
+                {% endif %}
+            </span>
+
+        </div>
+    </div>
+
+    {% include "maintenance/partials/plaque.html" %}
+</h1>
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+        <!-- ================================================== -->
+        <!-- NETTOYAGE EXTÉRIEUR -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'nettoyage_exterieur:nettoyage_ext_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Nettoyage" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_nettoyage_exterieur|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/nettoyage_ext.png' %}"
+                alt="{% trans 'Nettoyage' %}"
+                class="h-[60px] w-[60px] object-contain"
+            >
+        </a>
+
+        <!-- ================================================== -->
+        <!-- DÉCONTAMINATION -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'decontamination:decontamination_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Décontamination" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_decontamination|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/decontamination.png' %}"
+                alt="{% trans 'Décontamination' %}"
+                class="h-[60px] w-[60px] object-contain"
+            >
+        </a>
+
+        <!-- ================================================== -->
+        <!-- POLISH -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'polish:polish_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Polish" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_polish|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/polish.png' %}"
+                alt="{% trans 'Polish' %}"
+                class="h-[60px] w-[60px] object-contain"
+            >
+        </a>
+
+        <!-- ================================================== -->
+        <!-- CIRE -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'cire:cire_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Cire" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_cire|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/cire.png' %}"
+                alt="{% trans 'Cire' %}"
+                class="h-[60px] w-[60px] object-contain"
+            >
+        </a>
+
+        <!-- ================================================== -->
+        <!-- CÉRAMIQUE -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'ceramique:ceramique_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Céramique" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_ceramique|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/ceramique.png' %}"
+                alt="{% trans 'Céramique' %}"
+                class="h-[60px] w-[60px] object-contain"
+            >
+        </a>
+
+    </div>
+
+    <!-- ================================================== -->
+    <!-- RETOUR -->
+    <!-- ================================================== -->
+
+    <div class="mt-10">
+
+        <a
+            href="{% url 'maintenance:choisir_type' exemplaire.id %}"
+            class="block rounded bg-blue-700 px-5 py-4 text-center font-semibold text-white hover:bg-blue-400"
+        >
+            {% trans "Retour au choix de la maintenance" %}
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

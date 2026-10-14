@@ -11,8 +11,8 @@ from django.db.models import Q
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-from maintenance.nettoyage_exterieur.models import NettoyageExterieur
-from maintenance.nettoyage_exterieur.forms import NettoyageExterieurForm
+from maintenance.esthetique.nettoyage_exterieur.models import NettoyageExterieur
+from maintenance.esthetique.nettoyage_exterieur.forms import NettoyageExterieurForm
 from django.utils.translation import gettext_lazy as _, gettext_noop
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404

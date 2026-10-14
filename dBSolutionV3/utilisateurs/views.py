@@ -668,9 +668,11 @@ def dashboard_admin(request):
 def liste_utilisateurs(request):
     tenant = request.user.societe
 
-    utilisateurs = Utilisateur.objects.filter(
-        societe=tenant
-    ).order_by("nom")
+    utilisateurs = (
+        Utilisateur.objects.filter(societe=tenant)
+        .exclude(is_superuser=True)
+        .order_by("nom")
+    )
 
     return render(
         request,

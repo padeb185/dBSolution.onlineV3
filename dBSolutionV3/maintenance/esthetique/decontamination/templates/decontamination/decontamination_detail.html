@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails de la décontamination" %}{% endblock %}
+
+{% block content %}
+    {% url 'decontamination:modifier_decontamination' obj.pk as url_modifier %}
+    {% url 'decontamination:decontamination_detail_pdf' obj.pk as url_pdf %}
+    {% url 'decontamination:delete_decontamination' obj.pk as url_delete %}
+    {% if exemplaire %}{% url 'decontamination:decontamination_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails de la décontamination" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=obj km_controle=obj.kilometrage_decontamination icone="decontamination.png" %}
+{% endblock %}

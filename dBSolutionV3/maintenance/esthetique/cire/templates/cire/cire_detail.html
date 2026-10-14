@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails de la cire" %}{% endblock %}
+
+{% block content %}
+    {% url 'cire:modifier_cire' obj.pk as url_modifier %}
+    {% url 'cire:cire_detail_pdf' obj.pk as url_pdf %}
+    {% url 'cire:delete_cire' obj.pk as url_delete %}
+    {% if exemplaire %}{% url 'cire:cire_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails de la cire" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=obj km_controle=obj.kilometrage_cire icone="cire.png" %}
+{% endblock %}

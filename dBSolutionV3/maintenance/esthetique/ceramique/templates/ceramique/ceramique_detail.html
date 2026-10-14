@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du traitement céramique" %}{% endblock %}
+
+{% block content %}
+    {% url 'ceramique:modifier_ceramique' obj.pk as url_modifier %}
+    {% url 'ceramique:ceramique_detail_pdf' obj.pk as url_pdf %}
+    {% url 'ceramique:delete_ceramique' obj.pk as url_delete %}
+    {% if exemplaire %}{% url 'ceramique:ceramique_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du traitement céramique" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=obj km_controle=obj.kilometrage_ceramique icone="ceramique.png" %}
+{% endblock %}

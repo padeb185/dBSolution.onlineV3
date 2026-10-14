@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du polish" %}{% endblock %}
+
+{% block content %}
+    {% url 'polish:modifier_polish' obj.pk as url_modifier %}
+    {% url 'polish:polish_detail_pdf' obj.pk as url_pdf %}
+    {% url 'polish:delete_polish' obj.pk as url_delete %}
+    {% if exemplaire %}{% url 'polish:polish_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du polish" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=obj km_controle=obj.kilometrage_polish icone="polish.png" %}
+{% endblock %}

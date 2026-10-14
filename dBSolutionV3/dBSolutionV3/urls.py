@@ -129,7 +129,12 @@ urlpatterns += i18n_patterns(
 
     path('maintenance/jeux_pieces/', include('maintenance.jeux_pieces.urls', namespace='jeux_pieces')),
 
-    path('maintenance/nettoyage-exterieur/', include(('maintenance.nettoyage_exterieur.urls', 'nettoyage_exterieur'),namespace='nettoyage_exterieur')),
+    path('maintenance/nettoyage-exterieur/', include(('maintenance.esthetique.nettoyage_exterieur.urls', 'nettoyage_exterieur'),namespace='nettoyage_exterieur')),
+    path('maintenance/esthetique/', include(('maintenance.esthetique.urls', 'esthetique'), namespace='esthetique')),
+    path('maintenance/esthetique/polish/', include(('maintenance.esthetique.polish.urls', 'polish'), namespace='polish')),
+    path('maintenance/esthetique/decontamination/', include(('maintenance.esthetique.decontamination.urls', 'decontamination'), namespace='decontamination')),
+    path('maintenance/esthetique/cire/', include(('maintenance.esthetique.cire.urls', 'cire'), namespace='cire')),
+    path('maintenance/esthetique/ceramique/', include(('maintenance.esthetique.ceramique.urls', 'ceramique'), namespace='ceramique')),
 
     path("__reload__/", include("django_browser_reload.urls")),
 
@@ -169,6 +174,7 @@ urlpatterns += i18n_patterns(
 
     path('courroie/',include(('maintenance.autres_interventions.moteur.courroie.urls', 'courroie'), namespace='courroie')),
     path('chaine_distribution/', include(('maintenance.autres_interventions.moteur.chaine_distribution.urls', 'chaine_distribution'), namespace='chaine_distribution')),
+    path('electronique_moteur/', include(('maintenance.autres_interventions.moteur.electronique_moteur.urls', 'electronique_moteur'), namespace='electronique_moteur')),
 
     path("abs/", include("maintenance.autres_interventions.abs.urls", namespace="abs")),
 

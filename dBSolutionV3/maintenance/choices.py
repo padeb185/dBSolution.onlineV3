@@ -2551,3 +2551,36 @@ class FabricantCardan(models.TextChoices):
     QA1 = "QA1", _("QA1")
 
     AUTRE = "AUTRE", _("Autre")
+
+
+class FabricantEsthetique(models.TextChoices):
+    """Marques de produits d'esthétique automobile (polish, cire, céramique, décontamination)."""
+    CHOISIR = "CHOISIR", _("Choisir")
+    THREE_M = "3M", "3M"
+    ADAMS = "ADAMS", "Adam's Polishes"
+    AUTOGLYM = "AUTOGLYM", "Autoglym"
+    BILT_HAMBER = "BILT_HAMBER", "Bilt Hamber"
+    CARPRO = "CARPRO", "CarPro"
+    CHEMICAL_GUYS = "CHEMICAL_GUYS", "Chemical Guys"
+    COLLINITE = "COLLINITE", "Collinite"
+    DODO_JUICE = "DODO_JUICE", "Dodo Juice"
+    FLEXIPADS = "FLEXIPADS", "Flexipads"
+    GTECHNIQ = "GTECHNIQ", "Gtechniq"
+    GYEON = "GYEON", "Gyeon"
+    IGL = "IGL", "IGL Coatings"
+    KOCH_CHEMIE = "KOCH_CHEMIE", "Koch-Chemie"
+    LABOCOSMETICA = "LABOCOSMETICA", "Labocosmetica"
+    LAKE_COUNTRY = "LAKE_COUNTRY", "Lake Country"
+    MENZERNA = "MENZERNA", "Menzerna"
+    MEGUIARS = "MEGUIARS", "Meguiar's"
+    MOTHERS = "MOTHERS", "Mothers"
+    NANOLEX = "NANOLEX", "Nanolex"
+    ONYX = "ONYX", "Onyx Coating"
+    RUPES = "RUPES", "Rupes"
+    SCHOLL = "SCHOLL", "Scholl Concepts"
+    SONAX = "SONAX", "Sonax"
+    SOFT99 = "SOFT99", "Soft99"
+    SWISSVAX = "SWISSVAX", "Swissvax"
+    TURTLE_WAX = "TURTLE_WAX", "Turtle Wax"
+    ZAINO = "ZAINO", "Zaino"
+    AUTRE = "AUTRE", _("Autre")

@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, TVAConfig
 from maintenance.models import Maintenance
 from django.conf import settings
-from maintenance.nettoyage_exterieur.models import EtatAjouter
+from maintenance.esthetique.nettoyage_exterieur.models import EtatAjouter
 from utils.mixin import TechnicienMixin
 
 

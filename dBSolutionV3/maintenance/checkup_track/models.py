@@ -10,7 +10,7 @@ from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, Fabrican
     FabricantAmpoule, TVAConfig, HuileEtat, HuileBoiteEtat, RefroidissementQualiteEtat, HuilePontEtat, FabricantPiece, \
     FabricantPneus, LaveGlaceQualite
 from maintenance.models import Maintenance
-from maintenance.nettoyage_exterieur.models import EtatAjouter
+from maintenance.esthetique.nettoyage_exterieur.models import EtatAjouter
 from django.conf import settings
 from utils.mixin import TechnicienMixin
 

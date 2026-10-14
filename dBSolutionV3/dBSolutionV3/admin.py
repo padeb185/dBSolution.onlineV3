@@ -35,6 +35,11 @@ from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBte
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
 from maintenance.autres_interventions.moteur.chaine_distribution.models import ChaineDistribution
 from maintenance.autres_interventions.batterie.models import Batterie
+from maintenance.autres_interventions.moteur.electronique_moteur.models import ElectroniqueMoteur
+from maintenance.esthetique.polish.models import Polish
+from maintenance.esthetique.decontamination.models import Decontamination
+from maintenance.esthetique.cire.models import Cire
+from maintenance.esthetique.ceramique.models import Ceramique
 from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
 from maintenance.carrosserie_interne.models import CarrosserieInterne
 from maintenance.checkup_track.models import CheckupTrack
@@ -83,6 +88,11 @@ admin.site.register(ControleBteVitesseAuto)
 admin.site.register(CourroieDistribution)
 admin.site.register(ChaineDistribution)
 admin.site.register(Batterie)
+admin.site.register(ElectroniqueMoteur)
+admin.site.register(Polish)
+admin.site.register(Decontamination)
+admin.site.register(Cire)
+admin.site.register(Ceramique)
 admin.site.register(RemplacementMoteur)
 admin.site.register(CarrosserieInterne)
 

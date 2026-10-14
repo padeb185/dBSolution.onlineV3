@@ -19,7 +19,8 @@ from django.utils import timezone
 from maintenance.types_maintenances import TYPES_MAINTENANCE
 from utilisateurs.models import Mecanicien
 from maintenance.jeux_pieces.models import ControleJeuxPieces
-from maintenance.nettoyage_exterieur.models import NettoyageExterieur
+from maintenance.esthetique.nettoyage_exterieur.models import NettoyageExterieur
+from maintenance.esthetique.views import totaux_esthetique
 from maintenance.nettoyage_interieur.models import NettoyageInterieur
 from maintenance.freins.models import ControleFreins
 from maintenance.niveaux.models import Niveau
@@ -37,6 +38,7 @@ from maintenance.autres_interventions.moteur.alternateur.models import Alternate
 from maintenance.autres_interventions.abs.models import Abs
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
 from maintenance.autres_interventions.moteur.chaine_distribution.models import ChaineDistribution
+from maintenance.autres_interventions.moteur.electronique_moteur.models import ElectroniqueMoteur
 from maintenance.autres_interventions.batterie.models import Batterie
 from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
 from maintenance.autres_interventions.moteur.turbo.models import Turbo
@@ -164,6 +166,10 @@ def choisir_type_maintenance(request, exemplaire_id):
             voiture_exemplaire=exemplaire
         )
 
+        electronique = ElectroniqueMoteur.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
+
         turbo = Turbo.objects.filter(
             voiture_exemplaire=exemplaire
         )
@@ -226,6 +232,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             + alternateur.count()
             + courroie.count()
             + chaine.count()
+            + electronique.count()
             + turbo.count()
             + remplacement_moteur.count()
             + abs_qs.count()
@@ -286,6 +293,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             "total_niveaux": total_niveaux,
             "total_autres": total_autres,
             "total_nettoyage_exterieur": total_nettoyage_exterieur,
+            "total_esthetique": totaux_esthetique(exemplaire)["total_esthetique"],
             "total_nettoyage_interieur": total_nettoyage_interieur,
             "total_jeux_pieces": total_jeux_pieces,
             "total_silent": total_silent,

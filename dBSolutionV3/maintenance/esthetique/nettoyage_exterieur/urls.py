@@ -1,4 +1,4 @@
-# maintenance/nettoyage_exterieur/urls.py
+# maintenance/esthetique/nettoyage_exterieur/urls.py
 from django.urls import path
 from .views import modifier_nettoyage_ext_view, NettoyageExterieurListView, nettoyage_exterieur_view, \
     nettoyage_ext_detail, nettoyage_exterieur_pdf_view, delete_nettoyage_exterieur_view
