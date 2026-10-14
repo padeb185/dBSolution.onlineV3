@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-14 12:29+0200\n"
+"POT-Creation-Date: 2026-10-14 12:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -203,6 +203,8 @@ msgstr "Algemene informatie"
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:40
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:66
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:93
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:66
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:93
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:63
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:100
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:343
@@ -268,7 +270,7 @@ msgstr "Algemene informatie"
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:89
 #: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:40
 #: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:50
-#: maintenance/models.py:120
+#: maintenance/models.py:121
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:61
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:88
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_list.html:62
@@ -363,6 +365,8 @@ msgstr "Kenteken"
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:47
 #: maintenance/autres_interventions/abs/views.py:342
 #: maintenance/autres_interventions/abs/views.py:644
+#: maintenance/autres_interventions/batterie/views.py:462
+#: maintenance/autres_interventions/batterie/views.py:765
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:315
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:556
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:228
@@ -505,6 +509,8 @@ msgstr "Kilometerstand"
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:52
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:341
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:95
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:359
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:95
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:403
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:104
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:629
@@ -715,6 +721,12 @@ msgstr "Label"
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:96
 #: maintenance/autres_interventions/abs/views.py:388
 #: maintenance/autres_interventions/abs/views.py:726
+#: maintenance/autres_interventions/batterie/models.py:231
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:331
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:78
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:96
+#: maintenance/autres_interventions/batterie/views.py:507
+#: maintenance/autres_interventions/batterie/views.py:811
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:342
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:261
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:319
@@ -1055,6 +1067,9 @@ msgstr "Datum interventie"
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:570
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:85
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:98
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:457
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:85
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:98
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:86
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:107
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:728
@@ -1237,6 +1252,10 @@ msgstr "Tijd"
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:751
 #: maintenance/autres_interventions/abs/views.py:378
 #: maintenance/autres_interventions/abs/views.py:708
+#: maintenance/autres_interventions/batterie/models.py:207
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:635
+#: maintenance/autres_interventions/batterie/views.py:497
+#: maintenance/autres_interventions/batterie/views.py:801
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:309
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:239
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:798
@@ -1577,6 +1596,7 @@ msgstr "Metadata"
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:111
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:128
 #: maintenance/autres_interventions/abs/models.py:260
+#: maintenance/autres_interventions/batterie/models.py:276
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:378
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:308
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1544
@@ -1707,6 +1727,7 @@ msgstr "Aangemaakt op"
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:112
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:133
 #: maintenance/autres_interventions/abs/models.py:261
+#: maintenance/autres_interventions/batterie/models.py:277
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:379
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:309
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1545
@@ -1919,6 +1940,9 @@ msgstr "Variatie"
 #: maintenance/autres_interventions/abs/models.py:189
 #: maintenance/autres_interventions/abs/views.py:383
 #: maintenance/autres_interventions/abs/views.py:717
+#: maintenance/autres_interventions/batterie/models.py:204
+#: maintenance/autres_interventions/batterie/views.py:502
+#: maintenance/autres_interventions/batterie/views.py:806
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:325
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:245
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:350
@@ -2038,6 +2062,7 @@ msgstr "Aandraaien van de wielen"
 #: maintenance/autres_interventions/abs/models.py:255
 #: maintenance/autres_interventions/abs/views.py:393
 #: maintenance/autres_interventions/abs/views.py:735
+#: maintenance/autres_interventions/batterie/models.py:261
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:372
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:290
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:360
@@ -2135,6 +2160,7 @@ msgstr "Totaal onderdelen excl. btw"
 #: facture/templates/facture/facture_pdf.html:222
 #: facture/templates/facture/facture_pdf.html:261
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:615
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:500
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:658
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:773
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1517
@@ -2219,6 +2245,8 @@ msgstr "Onderdeel"
 #: facture/templates/facture/parametres_peppol.html:24
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:394
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:611
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:436
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:496
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:654
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:402
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:769
@@ -2341,6 +2369,11 @@ msgstr "Zijde"
 #: maintenance/autres_interventions/abs/models.py:148
 #: maintenance/autres_interventions/abs/models.py:154
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:612
+#: maintenance/autres_interventions/batterie/models.py:189
+#: maintenance/autres_interventions/batterie/models.py:199
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:386
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:438
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:497
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:109
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:123
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:142
@@ -2806,6 +2839,9 @@ msgstr "Fabrikant"
 #: maintenance/autres_interventions/abs/models.py:149
 #: maintenance/autres_interventions/abs/models.py:155
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:613
+#: maintenance/autres_interventions/batterie/models.py:191
+#: maintenance/autres_interventions/batterie/models.py:201
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:498
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:112
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:126
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:144
@@ -3250,6 +3286,7 @@ msgstr "Aantal"
 #: _backup_list_templates/outillage/templates/outillage/outillage_list.html:49
 #: _backup_list_templates/outillage/templates/outillage/outillage_list.html:69
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:581
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:468
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:610
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:739
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1483
@@ -3382,7 +3419,7 @@ msgstr "Details van de koppelingsvervanging"
 #: maintenance/autres_interventions/embrayage/models.py:398
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_form.html:21
 #: maintenance/autres_interventions/embrayage/views.py:281
-#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:371
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:403
 msgid "Remplacement de l'embrayage"
 msgstr "Vervanging van de koppeling"
 
@@ -3478,7 +3515,7 @@ msgstr "Details van de ontstekingscontrole"
 #: maintenance/autres_interventions/moteur/allumage/views.py:1242
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:251
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:264
-#: maintenance/models.py:43 maintenance/types_maintenances.py:14
+#: maintenance/models.py:44 maintenance/types_maintenances.py:14
 msgid "Allumage"
 msgstr "Ontstekingssysteem"
 
@@ -3503,7 +3540,7 @@ msgstr "Details van de dynamocontrole"
 #: maintenance/autres_interventions/moteur/alternateur/views.py:1150
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:83
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:96
-#: maintenance/models.py:40 piece/piece_electricite/models.py:8
+#: maintenance/models.py:41 piece/piece_electricite/models.py:8
 #: voiture/voiture_diagnostic/pieces_defaut.py:191
 msgid "Alternateur"
 msgstr "Dynamo"
@@ -3573,7 +3610,7 @@ msgstr "Details van het inrijden"
 #: maintenance/autres_interventions/moteur/rodage/views.py:947
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:223
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:236
-#: maintenance/models.py:36 maintenance/types_maintenances.py:13
+#: maintenance/models.py:37 maintenance/types_maintenances.py:13
 msgid "Rodage"
 msgstr "Inrijden"
 
@@ -3698,7 +3735,7 @@ msgid "Détails du controle de l'éclairage"
 msgstr "Details van de verlichtingscontrole"
 
 #: _backup_detail_templates/maintenance/eclairage/templates/eclairage/eclairage_detail.html:61
-#: maintenance/eclairage/models.py:551 maintenance/models.py:47
+#: maintenance/eclairage/models.py:551 maintenance/models.py:48
 #: maintenance/templates/maintenance/choisir_type.html:175
 msgid "Éclairage"
 msgstr "Verlichting"
@@ -3896,7 +3933,7 @@ msgstr "Details van de buitenreiniging"
 #: maintenance/bruits/models.py:24 maintenance/carrosserie_interne/models.py:37
 #: maintenance/eclairage/models.py:51 maintenance/entretien/models.py:52
 #: maintenance/freins/models.py:37 maintenance/jeux_pieces/models.py:64
-#: maintenance/models.py:159 maintenance/pneus/models.py:83
+#: maintenance/models.py:160 maintenance/pneus/models.py:83
 #: theme/templates/dashboard.html:62 theme/templates/dashboard.html:74
 #: theme/templates/dashboard.html:211
 msgid "Maintenance"
@@ -4153,6 +4190,9 @@ msgstr "Terug naar de lijst van silent blocks controles"
 #: maintenance/autres_interventions/abs/views.py:102
 #: maintenance/autres_interventions/abs/views.py:780
 #: maintenance/autres_interventions/abs/views.py:816
+#: maintenance/autres_interventions/batterie/views.py:103
+#: maintenance/autres_interventions/batterie/views.py:864
+#: maintenance/autres_interventions/batterie/views.py:900
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:104
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:634
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:658
@@ -4334,6 +4374,8 @@ msgstr "ABS-systeemcontrole succesvol opgeslagen."
 #: facture/views.py:434 fournisseur/views.py:124 fuel/views.py:471
 #: maindoeuvre/views.py:191 maintenance/autres_interventions/abs/views.py:311
 #: maintenance/autres_interventions/abs/views.py:623
+#: maintenance/autres_interventions/batterie/views.py:431
+#: maintenance/autres_interventions/batterie/views.py:747
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:542
 #: maintenance/autres_interventions/boite_de_vitesse/views.py:322
 #: maintenance/autres_interventions/boite_de_vitesse/views.py:533
@@ -4489,6 +4531,9 @@ msgstr "Remvloeistof"
 #: maintenance/autres_interventions/abs/models.py:108
 #: maintenance/autres_interventions/abs/views.py:367
 #: maintenance/autres_interventions/abs/views.py:690
+#: maintenance/autres_interventions/batterie/models.py:71
+#: maintenance/autres_interventions/batterie/views.py:492
+#: maintenance/autres_interventions/batterie/views.py:795
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:31
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:41
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:384
@@ -4614,6 +4659,8 @@ msgstr "Land"
 #: _backup_detail_views/maintenance/essuyage/views.py:900
 #: maintenance/autres_interventions/abs/views.py:372
 #: maintenance/autres_interventions/abs/views.py:699
+#: maintenance/autres_interventions/batterie/views.py:487
+#: maintenance/autres_interventions/batterie/views.py:790
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:581
 #: maintenance/autres_interventions/courroie_accessoires/views.py:376
 #: maintenance/autres_interventions/courroie_accessoires/views.py:631
@@ -4682,6 +4729,7 @@ msgstr "Label"
 #: _backup_detail_views/maintenance/pneus/views.py:508
 #: _backup_detail_views/maintenance/silent_blocs/views.py:439
 #: maintenance/autres_interventions/abs/views.py:503
+#: maintenance/autres_interventions/batterie/views.py:625
 #: maintenance/autres_interventions/boite_de_vitesse/views.py:430
 #: maintenance/autres_interventions/bte_vitesse_auto/views.py:456
 #: maintenance/autres_interventions/climatisation/views.py:686
@@ -4741,6 +4789,7 @@ msgstr "De kilometerstand mag niet negatief zijn."
 #: _backup_detail_views/maintenance/silent_blocs/views.py:445
 #: adblue/views.py:392 fuel/views.py:392
 #: maintenance/autres_interventions/abs/views.py:509
+#: maintenance/autres_interventions/batterie/views.py:633
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:449
 #: maintenance/autres_interventions/boite_de_vitesse/views.py:436
 #: maintenance/autres_interventions/bte_vitesse_auto/views.py:462
@@ -4859,6 +4908,7 @@ msgstr "ABS-controle succesvol verwijderd."
 #: _backup_detail_views/maintenance/silent_blocs/views.py:731
 #: adblue/views.py:599 fuel/views.py:599
 #: maintenance/autres_interventions/abs/views.py:910
+#: maintenance/autres_interventions/batterie/views.py:998
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:732
 #: maintenance/autres_interventions/boite_de_vitesse/views.py:712
 #: maintenance/autres_interventions/bte_vitesse_auto/views.py:733
@@ -4985,6 +5035,7 @@ msgstr "Op nul zetten"
 #: _backup_list_templates/maintenance/pneus/templates/pneus/pneus_list.html:69
 #: _backup_list_templates/maintenance/silent_blocs/templates/silent_blocs/silent_list.html:69
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:74
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:74
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:340
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:70
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:71
@@ -5026,7 +5077,7 @@ msgstr "Op nul zetten"
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux.html:791
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:69
 #: maintenance/jeux_pieces/templates/jeux_pieces/modifier_jeux_pieces.html:798
-#: maintenance/models.py:128
+#: maintenance/models.py:129
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:318
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:69
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/simple.html:319
@@ -5066,6 +5117,8 @@ msgstr "Vervanging van de versnellingsbak succesvol gewijzigd!"
 #: _backup_detail_views/maintenance/nettoyage_exterieur/views.py:579
 #: _backup_detail_views/maintenance/nettoyage_interieur/views.py:613
 #: _backup_detail_views/maintenance/pneus/views.py:636
+#: maintenance/autres_interventions/batterie/forms.py:150
+#: maintenance/autres_interventions/batterie/views.py:744
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:539
 #: maintenance/autres_interventions/courroie_accessoires/forms.py:147
 #: maintenance/autres_interventions/courroie_accessoires/views.py:590
@@ -5119,6 +5172,7 @@ msgstr "Versnellingsbak vervangen"
 #: _backup_detail_views/maintenance/autres_interventions/moteur/rodage/views.py:158
 #: _backup_detail_views/maintenance/autres_interventions/moteur/turbo/views.py:173
 #: _backup_detail_views/maintenance/autres_interventions/refroidissement/views.py:157
+#: maintenance/autres_interventions/batterie/views.py:156
 #: maintenance/autres_interventions/boite_de_vitesse/views.py:158
 #: maintenance/autres_interventions/bte_vitesse_auto/views.py:160
 #: maintenance/autres_interventions/cardan/views.py:139
@@ -5234,7 +5288,7 @@ msgstr "Automatische versnellingsbak"
 #: _backup_detail_views/maintenance/autres_interventions/climatisation/views.py:306
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_form.html:21
 #: maintenance/autres_interventions/climatisation/views.py:307
-#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:282
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:314
 msgid "Contrôle de la climatisation"
 msgstr "Aircocontrole"
 
@@ -5440,8 +5494,8 @@ msgstr "Aircocontrole succesvol verwijderd."
 #: _backup_detail_views/maintenance/autres_interventions/climatisation/views.py:1281
 #: maintenance/autres_interventions/climatisation/models.py:637
 #: maintenance/autres_interventions/climatisation/views.py:1282
-#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:295
-#: maintenance/models.py:39
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:327
+#: maintenance/models.py:40
 msgid "Climatisation"
 msgstr "Airconditioning"
 
@@ -5480,7 +5534,7 @@ msgstr "Fout bij het opslaan: %(error)s"
 #: maintenance/autres_interventions/moteur/alternateur/views.py:533
 #: maintenance/autres_interventions/moteur/alternateur/views.py:856
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:218
-#: maintenance/models.py:37
+#: maintenance/models.py:38
 msgid "Courroie d'accessoires"
 msgstr "Accessoiresriem"
 
@@ -5545,6 +5599,7 @@ msgstr "Toegang geweigerd."
 #: _backup_detail_views/maintenance/autres_interventions/moteur/rodage/views.py:148
 #: _backup_detail_views/maintenance/autres_interventions/moteur/turbo/views.py:163
 #: _backup_detail_views/maintenance/autres_interventions/refroidissement/views.py:147
+#: maintenance/autres_interventions/batterie/views.py:146
 #: maintenance/autres_interventions/echappement/views.py:280
 #: maintenance/autres_interventions/embrayage/views.py:163
 #: maintenance/autres_interventions/geometrie/views.py:177
@@ -5604,7 +5659,7 @@ msgstr "Controle van het uitlaatsysteem succesvol verwijderd."
 #: maintenance/autres_interventions/echappement/models.py:485
 #: maintenance/autres_interventions/echappement/templates/echappement/dashboard_echappement.html:46
 #: maintenance/autres_interventions/echappement/views.py:1146
-#: maintenance/models.py:38
+#: maintenance/models.py:39
 #: maintenance/silent_blocs/templates/silent_blocs/modifier_silent.html:547
 #: maintenance/silent_blocs/templates/silent_blocs/silent_check.html:544
 msgid "Echappement"
@@ -5659,7 +5714,7 @@ msgstr "Koppelingsvervanging succesvol verwijderd."
 #: maintenance/autres_interventions/embrayage/models.py:132
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_detail_pdf.html:406
 #: maintenance/autres_interventions/embrayage/views.py:667
-#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:384
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:416
 #: piece/piece_embrayage/models.py:13 piece/piece_embrayage/models.py:42
 msgid "Disque d'embrayage"
 msgstr "Koppelingsschijf"
@@ -5713,7 +5768,7 @@ msgstr "Versnellingsbakkeerring"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:280
 #: maintenance/autres_interventions/embrayage/models.py:303
 #: maintenance/autres_interventions/embrayage/views.py:900
-#: maintenance/models.py:42 piece/piece_embrayage/models.py:72
+#: maintenance/models.py:43 piece/piece_embrayage/models.py:72
 #: theme/templates/dashboard.html:405
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:40
 msgid "Embrayage"
@@ -5859,7 +5914,7 @@ msgstr "Uitlijningscontrole succesvol verwijderd."
 #: maintenance/autres_interventions/geometrie/views.py:1304
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:154
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:167
-#: maintenance/models.py:46
+#: maintenance/models.py:47
 msgid "Géométrie"
 msgstr "Uitlijning"
 
@@ -6018,6 +6073,7 @@ msgstr "Pakkingen"
 #: _backup_detail_views/maintenance/autres_interventions/moteur/admission/views.py:630
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:296
 #: maintenance/autres_interventions/abs/models.py:216
+#: maintenance/autres_interventions/batterie/models.py:270
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:333
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:299
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1512
@@ -6171,7 +6227,8 @@ msgstr "Nokkenassensor"
 #: _backup_detail_views/maintenance/autres_interventions/moteur/courroie/views.py:815
 #: _backup_detail_views/maintenance/autres_interventions/moteur/injection/views.py:657
 #: _backup_detail_views/maintenance/autres_interventions/moteur/injection/views.py:1059
-#: facture/models.py:370
+#: facture/models.py:370 maintenance/autres_interventions/batterie/views.py:512
+#: maintenance/autres_interventions/batterie/views.py:816
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:594
 #: maintenance/autres_interventions/moteur/allumage/templates/allumage/allumage_detail_pdf.html:687
 #: maintenance/autres_interventions/moteur/allumage/views.py:603
@@ -6230,6 +6287,9 @@ msgstr "Dynamocontrole succesvol geregistreerd."
 #: _backup_detail_views/maintenance/autres_interventions/moteur/injection/views.py:1020
 #: facture/models.py:397 facture/templates/facture/_entete_facture.html:41
 #: facture/templates/facture/maintenances_a_facturer.html:133
+#: maintenance/autres_interventions/batterie/models.py:180
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:410
+#: maintenance/autres_interventions/batterie/templates/batterie/partials/batterie_infos.html:4
 #: maintenance/autres_interventions/moteur/alternateur/views.py:513
 #: maintenance/autres_interventions/moteur/alternateur/views.py:846
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:961
@@ -6508,7 +6568,7 @@ msgstr "Controle van het injectiesysteem succesvol verwijderd."
 #: maintenance/autres_interventions/moteur/injection/views.py:1321
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:279
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:292
-#: maintenance/models.py:45
+#: maintenance/models.py:46
 msgid "Injection"
 msgstr "Injectie"
 
@@ -7342,6 +7402,7 @@ msgid "Checkup enregistré avec succès."
 msgstr "Controle succesvol geregistreerd."
 
 #: _backup_detail_views/maintenance/check_up/views.py:464
+#: maintenance/autres_interventions/batterie/forms.py:126
 #: maintenance/autres_interventions/courroie_accessoires/forms.py:123
 #: maintenance/autres_interventions/moteur/chaine_distribution/forms.py:126
 #: maintenance/autres_interventions/moteur/courroie/forms.py:126
@@ -7614,7 +7675,7 @@ msgstr "Controle van het ruitenwissersysteem succesvol verwijderd."
 
 #: _backup_detail_views/maintenance/essuyage/views.py:1340
 #: maintenance/essuyage/models.py:930 maintenance/essuyage/views.py:1341
-#: maintenance/models.py:44
+#: maintenance/models.py:45
 #: maintenance/templates/maintenance/choisir_type.html:165
 msgid "Essuyage"
 msgstr "Ruitenwissers"
@@ -8242,6 +8303,7 @@ msgstr "Terug naar het leveranciersdashboard"
 #: garage_officiel/templates/garage_officiel/garage_list.html:99
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:142
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:174
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:176
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:215
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:168
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:170
@@ -8362,6 +8424,7 @@ msgstr "Globale zoekopdracht:"
 #: garage_officiel/templates/garage_officiel/garage_list.html:100
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:143
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:175
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:177
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:216
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:169
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:171
@@ -8498,6 +8561,7 @@ msgstr "Geen facturen gevonden"
 #: garage_officiel/templates/garage_officiel/garage_list.html:105
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:148
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:180
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:182
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:222
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:174
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:176
@@ -8620,6 +8684,7 @@ msgstr "Eerste"
 #: garage_officiel/templates/garage_officiel/garage_list.html:105
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:149
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:181
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:183
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:223
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:175
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:177
@@ -8742,6 +8807,7 @@ msgstr "Laatste"
 #: garage_officiel/templates/garage_officiel/garage_list.html:106
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:150
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:182
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:184
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:224
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:176
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:178
@@ -8864,6 +8930,7 @@ msgstr "Volgende"
 #: garage_officiel/templates/garage_officiel/garage_list.html:106
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:151
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:183
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:185
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:225
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:177
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:179
@@ -9712,6 +9779,9 @@ msgstr "14,32 Liters"
 #: maintenance/autres_interventions/abs/models.py:258
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:326
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:97
+#: maintenance/autres_interventions/batterie/models.py:274
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:326
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:97
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:376
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:306
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:314
@@ -9826,6 +9896,7 @@ msgstr "Datum"
 #: fuel/templates/fuel/fuel_list.html:81 maindoeuvre/models.py:37
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:277
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:361
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:341
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:339
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:338
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:320
@@ -9955,6 +10026,8 @@ msgstr "Voertuig"
 #: fuel/templates/fuel/fuel_list.html:82
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:70
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:94
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:70
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:94
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:66
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:90
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:67
@@ -10093,6 +10166,7 @@ msgstr "Tijd (min)"
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:51
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:68
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:586
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:473
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:626
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:744
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1488
@@ -10176,6 +10250,7 @@ msgstr "Kostprijs"
 #: garage_officiel/templates/garage_officiel/garage_list.html:38
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:70
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:99
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:99
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:108
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:95
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:97
@@ -10252,6 +10327,7 @@ msgstr "Actie"
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:89
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_list.html:112
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:149
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:151
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:173
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:144
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:147
@@ -10418,6 +10494,8 @@ msgstr "Weergave van _START_ tot _END_ van _TOTAL_ ABS-controles"
 #: _backup_list_templates/maintenance/essuyage/templates/essuyage/essuyage_list.html:181
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:177
 #: maintenance/autres_interventions/abs/templates/abs/abs_list.html:178
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:179
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:180
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:218
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_list.html:219
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:176
@@ -10621,6 +10699,7 @@ msgstr "Terug naar de lijst met andere interventies"
 
 #: _backup_list_templates/maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:181
 #: _backup_list_templates/maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:183
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:178
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:182
 #: maintenance/autres_interventions/moteur/chaine_distribution/templates/chaine_distribution/chaine_list.html:178
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:178
@@ -10654,6 +10733,7 @@ msgstr "Koppelingsvervanging voor:"
 
 #: _backup_list_templates/maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:50
 #: _backup_list_templates/maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:53
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:53
 #: maintenance/autres_interventions/embrayage/templates/embrayage/embrayage_list.html:50
 #: maintenance/autres_interventions/moteur/chaine_distribution/templates/chaine_distribution/chaine_list.html:53
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:53
@@ -10759,6 +10839,7 @@ msgstr "Controle van de distributieriem voor:"
 
 #: _backup_list_templates/maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:159
 #: _backup_list_templates/maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:157
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:175
 #: maintenance/autres_interventions/moteur/chaine_distribution/templates/chaine_distribution/chaine_list.html:175
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:175
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_list.html:173
@@ -10928,7 +11009,7 @@ msgstr "Geen carrosserie-interventies geregistreerd voor dit exemplaar."
 #: _backup_list_templates/maintenance/niveaux/templates/niveaux/niveaux_list.html:143
 #: _backup_list_templates/maintenance/pneus/templates/pneus/pneus_list.html:141
 #: _backup_list_templates/maintenance/silent_blocs/templates/silent_blocs/silent_list.html:150
-#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:404
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:436
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:140
 #: maintenance/check_up/templates/check_up/checkup_list.html:141
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:140
@@ -11437,6 +11518,7 @@ msgstr "Actief"
 
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:80
 #: agenda/templates/agenda/agenda_detail.html:80
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:443
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:393
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:972
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:463
@@ -11469,6 +11551,7 @@ msgstr "Ja"
 
 #: _backup_list_templates/piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:82
 #: agenda/templates/agenda/agenda_detail.html:82
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:443
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:397
 #: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:974
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:467
@@ -11596,6 +11679,8 @@ msgstr "Een eigenaar toevoegen"
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:272
 #: maintenance/autres_interventions/abs/models.py:246
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:336
+#: maintenance/autres_interventions/batterie/models.py:252
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:336
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:363
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:20
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:282
@@ -12195,6 +12280,7 @@ msgstr "Peppol-ID"
 #: facture/templates/facture/facture_pdf.html:125
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:235
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:301
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:304
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:288
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:296
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:278
@@ -12294,6 +12380,8 @@ msgstr "Goederen aankoop"
 #: maindoeuvre/templates/maindoeuvre/modifier_maindoeuvre.html:94
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:308
 #: maintenance/autres_interventions/abs/templates/abs/modifier_abs.html:308
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_form.html:298
+#: maintenance/autres_interventions/batterie/templates/batterie/modifier_batterie.html:299
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/modifier_remplacement_boite.html:281
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_form.html:307
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:855
@@ -12448,6 +12536,11 @@ msgstr "Opslaan"
 #: maintenance/autres_interventions/abs/templates/abs/delete_abs.html:53
 #: maintenance/autres_interventions/abs/templates/abs/modifier_abs.html:196
 #: maintenance/autres_interventions/abs/templates/abs/modifier_abs.html:314
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_form.html:195
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_form.html:303
+#: maintenance/autres_interventions/batterie/templates/batterie/delete_batterie.html:55
+#: maintenance/autres_interventions/batterie/templates/batterie/modifier_batterie.html:194
+#: maintenance/autres_interventions/batterie/templates/batterie/modifier_batterie.html:305
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/delete_remplacement_boite.html:57
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/modifier_remplacement_boite.html:180
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/modifier_remplacement_boite.html:286
@@ -12755,6 +12848,7 @@ msgstr "Totaal incl. btw"
 #: garage_officiel/templates/garage_officiel/garage_list.html:75
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:135
 #: maintenance/autres_interventions/abs/templates/abs/delete_abs.html:38
+#: maintenance/autres_interventions/batterie/templates/batterie/delete_batterie.html:40
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/delete_remplacement_boite.html:42
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/delete_boite.html:39
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/delete_bte_auto.html:41
@@ -12849,6 +12943,8 @@ msgstr "Maximaal volume (L)"
 #: adblue/forms.py:36 adblue/models.py:177 fuel/forms.py:36 fuel/models.py:182
 #: maintenance/autres_interventions/abs/forms.py:16
 #: maintenance/autres_interventions/abs/models.py:101
+#: maintenance/autres_interventions/batterie/forms.py:19
+#: maintenance/autres_interventions/batterie/models.py:145
 #: maintenance/autres_interventions/boite_de_vitesse/forms.py:17
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:102
 #: maintenance/autres_interventions/bte_vitesse_auto/forms.py:17
@@ -13153,6 +13249,7 @@ msgstr "Bedrijf"
 
 #: adblue/models.py:117 fuel/models.py:122 maindoeuvre/models.py:44
 #: maintenance/autres_interventions/abs/models.py:51
+#: maintenance/autres_interventions/batterie/models.py:96
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:56
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:75
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:57
@@ -13182,6 +13279,7 @@ msgstr "Chassis kilometrage"
 
 #: adblue/models.py:125 fuel/models.py:130
 #: maintenance/autres_interventions/abs/models.py:59
+#: maintenance/autres_interventions/batterie/models.py:104
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:64
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:90
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:120
@@ -13216,6 +13314,7 @@ msgstr "Terugvalkilometerstand"
 
 #: adblue/models.py:134 fuel/models.py:139
 #: maintenance/autres_interventions/abs/models.py:69
+#: maintenance/autres_interventions/batterie/models.py:114
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:74
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:103
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:79
@@ -13251,6 +13350,7 @@ msgstr "Rollback-kilometerstand versnellingsbak"
 
 #: adblue/models.py:143 fuel/models.py:148
 #: maintenance/autres_interventions/abs/models.py:78
+#: maintenance/autres_interventions/batterie/models.py:123
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:83
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:112
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:88
@@ -13284,6 +13384,7 @@ msgstr "Rollback-kilometerstand motor"
 
 #: adblue/models.py:152 fuel/models.py:157
 #: maintenance/autres_interventions/abs/models.py:87
+#: maintenance/autres_interventions/batterie/models.py:132
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:92
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:129
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:97
@@ -13364,7 +13465,7 @@ msgstr "Validatie"
 #: adblue/templates/adblue/adblue_exemplaire_stat.html:9
 #: adblue/templates/adblue/adblue_form.html:12
 #: adblue/templates/adblue/adblue_stat.html:9
-#: adblue/templates/adblue/modifier_adblue.html:190
+#: adblue/templates/adblue/modifier_adblue.html:190 facture/tva.py:35
 #: theme/templates/dashboard.html:243 theme/templates/dashboard.html:255
 msgid "AdBlue"
 msgstr "AdBlue"
@@ -13655,6 +13756,8 @@ msgstr "AdBlue toevoegen"
 #: fuel/templates/fuel/modifier_fuel.html:144
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:175
 #: maintenance/autres_interventions/abs/templates/abs/modifier_abs.html:175
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_form.html:174
+#: maintenance/autres_interventions/batterie/templates/batterie/modifier_batterie.html:173
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/modifier_remplacement_boite.html:163
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_form.html:177
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:179
@@ -13729,6 +13832,8 @@ msgstr "Kilometerstand bevestigen"
 #: fuel/templates/fuel/modifier_fuel.html:148
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:179
 #: maintenance/autres_interventions/abs/templates/abs/modifier_abs.html:179
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_form.html:178
+#: maintenance/autres_interventions/batterie/templates/batterie/modifier_batterie.html:177
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/modifier_remplacement_boite.html:167
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_form.html:181
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:183
@@ -13803,6 +13908,8 @@ msgstr "Het verschil in kilometerstand bedraagt"
 #: fuel/templates/fuel/modifier_fuel.html:155
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:186
 #: maintenance/autres_interventions/abs/templates/abs/modifier_abs.html:186
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_form.html:185
+#: maintenance/autres_interventions/batterie/templates/batterie/modifier_batterie.html:184
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/modifier_remplacement_boite.html:174
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_form.html:188
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:190
@@ -13881,6 +13988,8 @@ msgstr ""
 #: fuel/templates/fuel/modifier_fuel.html:173
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:204
 #: maintenance/autres_interventions/abs/templates/abs/modifier_abs.html:204
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_form.html:203
+#: maintenance/autres_interventions/batterie/templates/batterie/modifier_batterie.html:202
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/modifier_remplacement_boite.html:184
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_form.html:206
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:208
@@ -14314,6 +14423,7 @@ msgstr "Gepland onderhoud verwijderen"
 
 #: agenda/templates/agenda/agenda_detail.html:131
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:757
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:638
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:804
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:922
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1659
@@ -14397,6 +14507,8 @@ msgstr "Bijv.: circuitdag op Spa op 18/10"
 
 #: agenda/templates/agenda/agenda_list.html:138
 #: maintenance/autres_interventions/abs/models.py:19
+#: maintenance/autres_interventions/batterie/models.py:18
+#: maintenance/autres_interventions/batterie/models.py:58
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:17
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:19
 #: maintenance/autres_interventions/cardan/models.py:13
@@ -14645,8 +14757,9 @@ msgstr "Verzekeraar"
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:254
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:286
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:318
-#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:347
-#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:375
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:350
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:379
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:407
 #: maintenance/templates/maintenance/choisir_type.html:46
 #: maintenance/templates/maintenance/choisir_type.html:56
 #: maintenance/templates/maintenance/choisir_type.html:66
@@ -15009,6 +15122,7 @@ msgstr "Voornaam van de verantwoordelijke"
 #: garage_officiel/models.py:53
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:229
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:295
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:298
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:282
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:290
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:272
@@ -15573,6 +15687,7 @@ msgstr "Een piloot aanmaken"
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_form.html:38
 #: maindoeuvre/templates/maindoeuvre/modifier_maindoeuvre.html:50
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:69
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_form.html:71
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/modifier_remplacement_boite.html:60
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_form.html:70
 #: maintenance/autres_interventions/cardan/templates/cardan/cardan_check.html:65
@@ -15734,7 +15849,7 @@ msgstr "Factuurtype"
 
 #: facture/models.py:130
 #: garage_officiel/templates/garage_officiel/garage_list.html:37
-#: maintenance/autres_interventions/models.py:152 maintenance/models.py:160
+#: maintenance/autres_interventions/models.py:152 maintenance/models.py:161
 #: theme/templates/dashboard.html:199
 msgid "Maintenances"
 msgstr "Onderhoudsbeurten"
@@ -15886,6 +16001,7 @@ msgstr "Marge (%)"
 #: facture/templates/facture/facture_form.html:127
 #: facture/templates/facture/facture_pdf.html:220
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:614
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:499
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:657
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:772
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1516
@@ -16374,6 +16490,7 @@ msgstr "met de mededeling"
 
 #: facture/templates/facture/facture_pdf.html:295
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:763
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:643
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:809
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:928
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1665
@@ -16413,6 +16530,7 @@ msgstr "Document automatisch gegenereerd door CarsCosts.com."
 
 #: facture/templates/facture/facture_pdf.html:297
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:765
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:645
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:811
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:930
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1667
@@ -16786,282 +16904,282 @@ msgstr "Gereedschap"
 msgid "Carburant"
 msgstr "Brandstof"
 
-#: facture/tva.py:35 recharge/templates/recharge/electricite_stat.html:11
+#: facture/tva.py:36 recharge/templates/recharge/electricite_stat.html:11
 #: theme/templates/dashboard.html:265
 msgid "Recharges électriques"
 msgstr "Elektrische lading"
 
-#: facture/tva.py:38
+#: facture/tva.py:39
 msgid "Maintenances externes (garages officiels, B2B)"
 msgstr "Extern onderhoud (officiële garages, B2B)"
 
-#: facture/tva.py:42
+#: facture/tva.py:43
 msgid ""
 "Maintenances externes à l'étranger – remboursement UE (hors déclaration)"
 msgstr "Extern onderhoud in het buitenland – EU-teruggaaf (buiten aangifte)"
 
-#: facture/tva.py:50
+#: facture/tva.py:51
 msgid "Maintenances internes (pièces) – incluses dans les achats"
 msgstr "Interne onderhouden (onderdelen) – inbegrepen in de aankopen"
 
-#: facture/tva.py:318
+#: facture/tva.py:332
 #, python-format
 msgid "Base à %(taux)s %% (taux sans case dédiée – à vérifier)"
 msgstr "Maatstaf tegen %(taux)s %% (tarief zonder eigen vak – te controleren)"
 
-#: facture/tva.py:331
+#: facture/tva.py:345
 msgid "Prestations intracommunautaires (autoliquidation)"
 msgstr "Intracommunautaire diensten (btw verlegd)"
 
-#: facture/tva.py:332
+#: facture/tva.py:346
 msgid "TVA due"
 msgstr "Verschuldigde btw"
 
-#: facture/tva.py:333 facture/tva.py:371
+#: facture/tva.py:347 facture/tva.py:385
 msgid "TVA déductible"
 msgstr "Aftrekbare btw"
 
-#: facture/tva.py:340
+#: facture/tva.py:354
 msgid "TVA à payer"
 msgstr "Te betalen btw"
 
-#: facture/tva.py:341
+#: facture/tva.py:355
 msgid "Crédit de TVA (à récupérer)"
 msgstr "Btw-tegoed (terug te vorderen)"
 
-#: facture/tva.py:346
+#: facture/tva.py:360
 msgid "Déclaration périodique de TVA"
 msgstr "Periodieke btw-aangifte"
 
-#: facture/tva.py:361
+#: facture/tva.py:375
 msgid "Déclaration périodique à la TVA (Intervat)"
 msgstr "Periodieke btw-aangifte (Intervat)"
 
-#: facture/tva.py:363
+#: facture/tva.py:377
 msgid "Opérations soumises à un régime particulier / 0 %"
 msgstr "Handelingen onderworpen aan een bijzondere regeling / 0 %"
 
-#: facture/tva.py:364
+#: facture/tva.py:378
 msgid "Opérations à 6 %"
 msgstr "Handelingen tegen 6 %"
 
-#: facture/tva.py:365
+#: facture/tva.py:379
 msgid "Opérations à 12 %"
 msgstr "Handelingen tegen 12 %"
 
-#: facture/tva.py:366
+#: facture/tva.py:380
 msgid "Opérations à 21 %"
 msgstr "Handelingen tegen 21 %"
 
-#: facture/tva.py:369
+#: facture/tva.py:383
 msgid "Services intracommunautaires (autoliquidation)"
 msgstr "Intracommunautaire diensten (btw verlegd)"
 
-#: facture/tva.py:370
+#: facture/tva.py:384
 msgid "TVA due sur les opérations"
 msgstr "Verschuldigde btw op de handelingen"
 
-#: facture/tva.py:372
+#: facture/tva.py:386
 msgid "Taxe due à l'État"
 msgstr "Aan de staat verschuldigde belasting"
 
-#: facture/tva.py:373
+#: facture/tva.py:387
 msgid "Sommes dues par l'État"
 msgstr "Door de staat verschuldigde sommen"
 
-#: facture/tva.py:377
+#: facture/tva.py:391
 msgid "Déclaration CA3 (formulaire 3310-CA3)"
 msgstr "CA3-aangifte (formulier 3310-CA3)"
 
-#: facture/tva.py:379
+#: facture/tva.py:393
 msgid "Taux normal 20 % – base hors taxe"
 msgstr "Normaal tarief 20 % – maatstaf excl. btw"
 
-#: facture/tva.py:380
+#: facture/tva.py:394
 msgid "Taux réduit 10 % – base hors taxe"
 msgstr "Verlaagd tarief 10 % – maatstaf excl. btw"
 
-#: facture/tva.py:381
+#: facture/tva.py:395
 msgid "Taux réduit 5,5 % – base hors taxe"
 msgstr "Verlaagd tarief 5,5 % – maatstaf excl. btw"
 
-#: facture/tva.py:382
+#: facture/tva.py:396
 msgid "Taux particulier 2,1 % – base hors taxe"
 msgstr "Bijzonder tarief 2,1 % – maatstaf excl. btw"
 
-#: facture/tva.py:385
+#: facture/tva.py:399
 msgid "Autres opérations non imposables (prestations intracommunautaires)"
 msgstr "Andere niet-belastbare handelingen (intracommunautaire diensten)"
 
-#: facture/tva.py:386
+#: facture/tva.py:400
 msgid "Total de la TVA brute due"
 msgstr "Totaal verschuldigde bruto-btw"
 
-#: facture/tva.py:387
+#: facture/tva.py:401
 msgid "Total TVA déductible"
 msgstr "Totaal aftrekbare btw"
 
-#: facture/tva.py:388
+#: facture/tva.py:402
 msgid "TVA nette due"
 msgstr "Verschuldigde netto-btw"
 
-#: facture/tva.py:389
+#: facture/tva.py:403
 msgid "Crédit de TVA"
 msgstr "Btw-tegoed"
 
-#: facture/tva.py:393
+#: facture/tva.py:407
 msgid "Umsatzsteuer-Voranmeldung (UStVA)"
 msgstr "Voorlopige btw-aangifte (UStVA)"
 
-#: facture/tva.py:395
+#: facture/tva.py:409
 msgid "Steuerpflichtige Umsätze 19 % – Bemessungsgrundlage"
 msgstr "Belastbare handelingen 19 % – maatstaf"
 
-#: facture/tva.py:396
+#: facture/tva.py:410
 msgid "Steuerpflichtige Umsätze 7 % – Bemessungsgrundlage"
 msgstr "Belastbare handelingen 7 % – maatstaf"
 
-#: facture/tva.py:399
+#: facture/tva.py:413
 msgid "Nicht steuerbare sonstige Leistungen (EU, Reverse Charge)"
 msgstr "Niet-belastbare overige diensten (EU, btw verlegd)"
 
-#: facture/tva.py:401
+#: facture/tva.py:415
 msgid "Vorsteuerbeträge"
 msgstr "Voorbelasting"
 
-#: facture/tva.py:402
+#: facture/tva.py:416
 msgid "Verbleibende Umsatzsteuer-Vorauszahlung"
 msgstr "Resterende btw-voorschotbetaling"
 
-#: facture/tva.py:403
+#: facture/tva.py:417
 msgid "Verbleibender Überschuss (negativ)"
 msgstr "Resterend overschot (negatief)"
 
-#: facture/tva.py:407
+#: facture/tva.py:421
 msgid "Aangifte omzetbelasting"
 msgstr "Aangifte omzetbelasting"
 
-#: facture/tva.py:409
+#: facture/tva.py:423
 msgid "Leveringen/diensten belast met hoog tarief (21 %)"
 msgstr "Leveringen/diensten belast met hoog tarief (21 %)"
 
-#: facture/tva.py:410
+#: facture/tva.py:424
 msgid "Leveringen/diensten belast met laag tarief (9 %)"
 msgstr "Leveringen/diensten belast met laag tarief (9 %)"
 
-#: facture/tva.py:411
+#: facture/tva.py:425
 msgid "Leveringen/diensten belast met 0 % of niet bij u belast"
 msgstr "Leveringen/diensten belast met 0 % of niet bij u belast"
 
-#: facture/tva.py:414
+#: facture/tva.py:428
 msgid "Leveringen naar/diensten in landen binnen de EU"
 msgstr "Leveringen naar/diensten in landen binnen de EU"
 
-#: facture/tva.py:415
+#: facture/tva.py:429
 msgid "Verschuldigde omzetbelasting"
 msgstr "Verschuldigde omzetbelasting"
 
-#: facture/tva.py:416
+#: facture/tva.py:430
 msgid "Voorbelasting"
 msgstr "Voorbelasting"
 
-#: facture/tva.py:417
+#: facture/tva.py:431
 msgid "Totaal te betalen"
 msgstr "Totaal te betalen"
 
-#: facture/tva.py:418
+#: facture/tva.py:432
 msgid "Totaal terug te vragen"
 msgstr "Totaal terug te vragen"
 
-#: facture/tva.py:422
+#: facture/tva.py:436
 msgid "Modelo 303 (IVA)"
 msgstr "Modelo 303 (btw)"
 
-#: facture/tva.py:424
+#: facture/tva.py:438
 msgid "Régimen general 4 % – base imponible"
 msgstr "Algemene regeling 4 % – maatstaf"
 
-#: facture/tva.py:425
+#: facture/tva.py:439
 msgid "Régimen general 10 % – base imponible"
 msgstr "Algemene regeling 10 % – maatstaf"
 
-#: facture/tva.py:426
+#: facture/tva.py:440
 msgid "Régimen general 21 % – base imponible"
 msgstr "Algemene regeling 21 % – maatstaf"
 
-#: facture/tva.py:429
+#: facture/tva.py:443
 msgid "Operaciones no sujetas por reglas de localización"
 msgstr "Handelingen niet belast volgens de plaatsbepalingsregels"
 
-#: facture/tva.py:430
+#: facture/tva.py:444
 msgid "Total cuota devengada"
 msgstr "Totaal verschuldigde belasting"
 
-#: facture/tva.py:431
+#: facture/tva.py:445
 msgid "Total a deducir"
 msgstr "Totaal aftrekbaar"
 
-#: facture/tva.py:432
+#: facture/tva.py:446
 msgid "Resultado de la liquidación (a ingresar)"
 msgstr "Resultaat van de aangifte (te betalen)"
 
-#: facture/tva.py:433
+#: facture/tva.py:447
 msgid "Resultado de la liquidación (a compensar / devolver)"
 msgstr "Resultaat van de aangifte (te verrekenen / terug te geven)"
 
-#: facture/tva.py:437
+#: facture/tva.py:451
 msgid "Comunicazione liquidazioni periodiche IVA (LIPE)"
 msgstr "Periodieke btw-afrekening (LIPE)"
 
-#: facture/tva.py:438
+#: facture/tva.py:452
 msgid "Totale operazioni attive (al netto dell'IVA)"
 msgstr "Totaal actieve handelingen (excl. btw)"
 
-#: facture/tva.py:442
+#: facture/tva.py:456
 msgid "IVA esigibile"
 msgstr "Opeisbare btw"
 
-#: facture/tva.py:443
+#: facture/tva.py:457
 msgid "IVA detratta"
 msgstr "Afgetrokken btw"
 
-#: facture/tva.py:444
+#: facture/tva.py:458
 msgid "IVA dovuta"
 msgstr "Verschuldigde btw"
 
-#: facture/tva.py:445
+#: facture/tva.py:459
 msgid "IVA a credito"
 msgstr "Btw-tegoed"
 
-#: facture/tva.py:449
+#: facture/tva.py:463
 msgid "Umsatzsteuervoranmeldung (U30)"
 msgstr "Voorlopige btw-aangifte (U30)"
 
-#: facture/tva.py:450
+#: facture/tva.py:464
 msgid "Gesamtbetrag der Bemessungsgrundlagen"
 msgstr "Totaal van de maatstaven van heffing"
 
-#: facture/tva.py:452
+#: facture/tva.py:466
 msgid "Normalsteuersatz 20 % – Bemessungsgrundlage"
 msgstr "Normaal tarief 20 % – maatstaf"
 
-#: facture/tva.py:453
+#: facture/tva.py:467
 msgid "Ermäßigter Steuersatz 10 % – Bemessungsgrundlage"
 msgstr "Verlaagd tarief 10 % – maatstaf"
 
-#: facture/tva.py:454
+#: facture/tva.py:468
 msgid "Ermäßigter Steuersatz 13 % – Bemessungsgrundlage"
 msgstr "Verlaagd tarief 13 % – maatstaf"
 
-#: facture/tva.py:459
+#: facture/tva.py:473
 msgid "Gesamtbetrag der Vorsteuern"
 msgstr "Totale voorbelasting"
 
-#: facture/tva.py:460
+#: facture/tva.py:474
 msgid "Vorauszahlung (Zahllast)"
 msgstr "Voorschot (te betalen)"
 
-#: facture/tva.py:461
+#: facture/tva.py:475
 msgid "Überschuss"
 msgstr "Overschot"
 
@@ -17799,7 +17917,7 @@ msgid "Intervention"
 msgstr "Interventie"
 
 #: maindoeuvre/templates/maindoeuvre/delete_main_oeuvre.html:73
-#: maintenance/jeux_pieces/models.py:47 maintenance/models.py:76
+#: maintenance/jeux_pieces/models.py:47 maintenance/models.py:77
 #: theme/templates/dashboard.html:183 theme/templates/dashboard.html:187
 #: utilisateurs/models.py:85 utilisateurs/views.py:300
 msgid "Mécanicien"
@@ -17820,6 +17938,7 @@ msgstr "Details van de arbeidskosten"
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail.html:65
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_form.html:16
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:565
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:452
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:723
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1467
 #: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:243
@@ -17899,6 +18018,7 @@ msgstr "Chassis kilometrage"
 
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_form.html:93
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:319
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_form.html:309
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/modifier_remplacement_boite.html:292
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_form.html:318
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:867
@@ -17979,6 +18099,7 @@ msgid "La main-d'œuvre « %(nom)s » a bien été supprimée."
 msgstr "De arbeidskosten « %(nom)s » zijn succesvol verwijderd."
 
 #: maintenance/autres_interventions/abs/forms.py:40
+#: maintenance/autres_interventions/batterie/forms.py:43
 #: maintenance/autres_interventions/boite_de_vitesse/forms.py:41
 #: maintenance/autres_interventions/bte_vitesse_auto/forms.py:41
 #: maintenance/autres_interventions/climatisation/forms.py:44
@@ -18005,6 +18126,7 @@ msgid "Ajoutez des remarques ici..."
 msgstr "Voeg hier opmerkingen toe..."
 
 #: maintenance/autres_interventions/abs/forms.py:196
+#: maintenance/autres_interventions/batterie/forms.py:217
 #: maintenance/autres_interventions/boite_de_vitesse/forms.py:205
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/forms.py:351
 #: maintenance/autres_interventions/bte_vitesse_auto/forms.py:195
@@ -18033,6 +18155,7 @@ msgstr ""
 "U moet bevestigen dat de wielbouten zijn VASTGEZET voordat u kunt valideren."
 
 #: maintenance/autres_interventions/abs/models.py:20
+#: maintenance/autres_interventions/batterie/models.py:19
 #: maintenance/autres_interventions/courroie_accessoires/models.py:16
 #: maintenance/autres_interventions/echappement/models.py:19
 #: maintenance/autres_interventions/embrayage/models.py:20
@@ -18046,6 +18169,7 @@ msgid "A Remplacer"
 msgstr "Te vervangen"
 
 #: maintenance/autres_interventions/abs/models.py:21
+#: maintenance/autres_interventions/batterie/models.py:20
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:19
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:21
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1810
@@ -18184,6 +18308,7 @@ msgid "Prix d'achat du liquide HTVA"
 msgstr "Aankoopprijs van de remvloeistof excl. btw"
 
 #: maintenance/autres_interventions/abs/models.py:198
+#: maintenance/autres_interventions/batterie/models.py:213
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:312
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:183
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1492
@@ -18207,7 +18332,7 @@ msgstr "Aankoopprijs van de remvloeistof excl. btw"
 #: maintenance/check_up/models.py:1865 maintenance/checkup_track/models.py:830
 #: maintenance/eclairage/models.py:469 maintenance/entretien/models.py:889
 #: maintenance/essuyage/models.py:728 maintenance/freins/models.py:357
-#: maintenance/jeux_pieces/models.py:1081 maintenance/models.py:51
+#: maintenance/jeux_pieces/models.py:1081 maintenance/models.py:52
 #: maintenance/nettoyage_exterieur/models.py:145
 #: maintenance/nettoyage_interieur/models.py:166
 #: maintenance/niveaux/models.py:161 maintenance/pneus/models.py:283
@@ -18217,6 +18342,7 @@ msgid "Vert"
 msgstr "Groen"
 
 #: maintenance/autres_interventions/abs/models.py:199
+#: maintenance/autres_interventions/batterie/models.py:214
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:313
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:184
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1493
@@ -18240,7 +18366,7 @@ msgstr "Groen"
 #: maintenance/check_up/models.py:1866 maintenance/checkup_track/models.py:831
 #: maintenance/eclairage/models.py:470 maintenance/entretien/models.py:890
 #: maintenance/essuyage/models.py:729 maintenance/freins/models.py:358
-#: maintenance/jeux_pieces/models.py:1082 maintenance/models.py:52
+#: maintenance/jeux_pieces/models.py:1082 maintenance/models.py:53
 #: maintenance/nettoyage_exterieur/models.py:146
 #: maintenance/nettoyage_interieur/models.py:167
 #: maintenance/niveaux/models.py:162 maintenance/pneus/models.py:284
@@ -18250,6 +18376,7 @@ msgid "Jaune"
 msgstr "Geel"
 
 #: maintenance/autres_interventions/abs/models.py:200
+#: maintenance/autres_interventions/batterie/models.py:215
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:314
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:185
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1494
@@ -18273,7 +18400,7 @@ msgstr "Geel"
 #: maintenance/check_up/models.py:1867 maintenance/checkup_track/models.py:832
 #: maintenance/eclairage/models.py:471 maintenance/entretien/models.py:891
 #: maintenance/essuyage/models.py:730 maintenance/freins/models.py:359
-#: maintenance/jeux_pieces/models.py:1083 maintenance/models.py:53
+#: maintenance/jeux_pieces/models.py:1083 maintenance/models.py:54
 #: maintenance/nettoyage_exterieur/models.py:147
 #: maintenance/nettoyage_interieur/models.py:168
 #: maintenance/niveaux/models.py:163 maintenance/pneus/models.py:285
@@ -18283,6 +18410,7 @@ msgid "Rouge"
 msgstr "Rood"
 
 #: maintenance/autres_interventions/abs/models.py:207
+#: maintenance/autres_interventions/batterie/models.py:222
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:321
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:192
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1500
@@ -18315,6 +18443,7 @@ msgid "État visuel / Tag"
 msgstr "Visuele staat / Tag"
 
 #: maintenance/autres_interventions/abs/models.py:230
+#: maintenance/autres_interventions/batterie/models.py:236
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:347
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:266
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1524
@@ -18347,6 +18476,7 @@ msgid "Nom du technicien"
 msgstr "Achternaam van de technicus"
 
 #: maintenance/autres_interventions/abs/models.py:236
+#: maintenance/autres_interventions/batterie/models.py:242
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:353
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:272
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1525
@@ -18430,6 +18560,7 @@ msgid "Liquide de Frein"
 msgstr "Remvloeistof"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:576
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:463
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:605
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:734
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1478
@@ -18468,6 +18599,7 @@ msgid "Taux horaire HTVA"
 msgstr "Uurtarief excl. btw"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:590
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:477
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:748
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1492
 #: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:254
@@ -18500,6 +18632,7 @@ msgid "Aucune main d'œuvre liée"
 msgstr "Geen arbeidsuren geregistreerd."
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:601
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:486
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:759
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1503
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:898
@@ -18520,6 +18653,7 @@ msgid "Pièces, produits utilisés et main d'oeuvre"
 msgstr "Gebruikte onderdelen, producten en arbeidskosten"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:610
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:495
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:653
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:768
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1512
@@ -18551,6 +18685,7 @@ msgid "Pièce / Produit"
 msgstr "Onderdeel / Product"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:674
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:559
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:721
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:832
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1579
@@ -18578,6 +18713,8 @@ msgstr "Totaal onderdelen en producten excl. btw"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:684
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:717
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:569
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:602
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:731
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:763
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:842
@@ -18648,6 +18785,8 @@ msgstr "Arbeidsloon (excl. btw)"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:694
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:731
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:579
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:616
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:741
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:777
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:852
@@ -18716,6 +18855,7 @@ msgid "Total général avec main-d'œuvre HTVA"
 msgstr "Totaal inclusief arbeidskosten exclusief btw"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:708
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:593
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:754
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:866
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:1613
@@ -18750,6 +18890,8 @@ msgstr "Geen onderdelen of producten gebruikt."
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:268
 #: maintenance/autres_interventions/abs/templates/abs/modifier_abs.html:268
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_form.html:259
+#: maintenance/autres_interventions/batterie/templates/batterie/modifier_batterie.html:258
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/modifier_remplacement_boite.html:250
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_form.html:266
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:814
@@ -18819,6 +18961,8 @@ msgstr "Arbeidstijd"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:275
 #: maintenance/autres_interventions/abs/templates/abs/modifier_abs.html:275
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_form.html:266
+#: maintenance/autres_interventions/batterie/templates/batterie/modifier_batterie.html:265
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/forms.py:22
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/modifier_remplacement_boite.html:256
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_form.html:273
@@ -18892,6 +19036,8 @@ msgstr "Uren"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:290
 #: maintenance/autres_interventions/abs/templates/abs/modifier_abs.html:290
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_form.html:281
+#: maintenance/autres_interventions/batterie/templates/batterie/modifier_batterie.html:280
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/forms.py:29
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/modifier_remplacement_boite.html:266
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_form.html:288
@@ -18971,6 +19117,83 @@ msgstr "Wilt u de ABS-controle echt verwijderen voor"
 msgid "Modifier le contrôle de l'ABS"
 msgstr "ABS-controle bewerken"
 
+#: maintenance/autres_interventions/batterie/forms.py:158
+#: maintenance/autres_interventions/courroie_accessoires/forms.py:155
+#: maintenance/autres_interventions/moteur/chaine_distribution/forms.py:158
+#: maintenance/autres_interventions/moteur/courroie/forms.py:158
+#, python-format
+msgid "Le kilométrage doit être ≥ %(km)s"
+msgstr "De kilometerstand moet ≥ %(km)s zijn"
+
+#: maintenance/autres_interventions/batterie/models.py:24
+#: maintenance/autres_interventions/batterie/models.py:188
+#: maintenance/autres_interventions/batterie/templates/batterie/partials/batterie_infos.html:29
+msgid "Batterie neuve"
+msgstr "Nieuwe accu"
+
+#: maintenance/autres_interventions/batterie/models.py:25
+#: maintenance/autres_interventions/batterie/models.py:198
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:445
+#: maintenance/autres_interventions/batterie/views.py:482
+#: maintenance/autres_interventions/batterie/views.py:785
+msgid "Cosses / bornes"
+msgstr "Polen / klemmen"
+
+#: maintenance/autres_interventions/batterie/models.py:30
+msgid "6 V"
+msgstr "6 V"
+
+#: maintenance/autres_interventions/batterie/models.py:31
+msgid "12 V"
+msgstr "12 V"
+
+#: maintenance/autres_interventions/batterie/models.py:32
+msgid "24 V"
+msgstr "24 V"
+
+#: maintenance/autres_interventions/batterie/models.py:33
+msgid "48 V (hybride léger)"
+msgstr "48 V (mild hybride)"
+
+#: maintenance/autres_interventions/batterie/models.py:37
+msgid "Plomb-acide (standard)"
+msgstr "Loodzuur (standaard)"
+
+#: maintenance/autres_interventions/batterie/models.py:38
+msgid "EFB (Start & Stop)"
+msgstr "EFB (Start & Stop)"
+
+#: maintenance/autres_interventions/batterie/models.py:39
+msgid "AGM (Start & Stop)"
+msgstr "AGM (Start & Stop)"
+
+#: maintenance/autres_interventions/batterie/models.py:40
+msgid "Gel"
+msgstr "Gel"
+
+#: maintenance/autres_interventions/batterie/models.py:41
+msgid "Lithium (LiFePO4)"
+msgstr "Lithium (LiFePO4)"
+
+#: maintenance/autres_interventions/batterie/models.py:49
+msgid "Non testée"
+msgstr "Niet getest"
+
+#: maintenance/autres_interventions/batterie/models.py:50
+#: maintenance/autres_interventions/climatisation/models.py:32
+#: maintenance/autres_interventions/refroidissement/models.py:42
+msgid "Bonne"
+msgstr "Goed"
+
+#: maintenance/autres_interventions/batterie/models.py:51
+msgid "À recharger puis retester"
+msgstr "Opladen en opnieuw testen"
+
+#: maintenance/autres_interventions/batterie/models.py:52
+msgid "Faible – à surveiller"
+msgstr "Zwak – in het oog houden"
+
+#: maintenance/autres_interventions/batterie/models.py:53
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:18
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:20
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:1809
@@ -18999,12 +19222,88 @@ msgstr "ABS-controle bewerken"
 msgid "À remplacer"
 msgstr "Te vervangen"
 
-#: maintenance/autres_interventions/boite_de_vitesse/models.py:96
-#: maintenance/autres_interventions/moteur/admission/models.py:105
-#: maintenance/autres_interventions/moteur/turbo/models.py:92
-msgid "Kilométrage au moment du controle"
-msgstr "Kilometerstand op het moment van controle"
+#: maintenance/autres_interventions/batterie/models.py:57
+msgid "Non mesuré"
+msgstr "Niet gemeten"
 
+#: maintenance/autres_interventions/batterie/models.py:59
+msgid "Sous-charge (alternateur / régulateur ?)"
+msgstr "Onderlading (dynamo / regelaar?)"
+
+#: maintenance/autres_interventions/batterie/models.py:60
+msgid "Surcharge (régulateur ?)"
+msgstr "Overlading (regelaar?)"
+
+#: maintenance/autres_interventions/batterie/models.py:139
+msgid "Kilométrage de la batterie"
+msgstr "Kilometerstand van de accu"
+
+#: maintenance/autres_interventions/batterie/models.py:165
+msgid "Fabricant de la batterie en place"
+msgstr "Fabrikant van de geplaatste accu"
+
+#: maintenance/autres_interventions/batterie/models.py:166
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:387
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:439
+msgid "Technologie"
+msgstr "Technologie"
+
+#: maintenance/autres_interventions/batterie/models.py:167
+msgid "Tension nominale (V)"
+msgstr "Nominale spanning (V)"
+
+#: maintenance/autres_interventions/batterie/models.py:168
+msgid "Capacité (Ah)"
+msgstr "Capaciteit (Ah)"
+
+#: maintenance/autres_interventions/batterie/models.py:169
+msgid "Courant de démarrage nominal (A EN)"
+msgstr "Nominale koudstartstroom (A EN)"
+
+#: maintenance/autres_interventions/batterie/models.py:174
+msgid "Tension au repos (V)"
+msgstr "Rustspanning (V)"
+
+#: maintenance/autres_interventions/batterie/models.py:174
+msgid "Moteur arrêté depuis au moins 1 h, consommateurs coupés."
+msgstr "Motor minstens 1 u uit, alle verbruikers uitgeschakeld."
+
+#: maintenance/autres_interventions/batterie/models.py:175
+msgid "Tension minimale au démarrage (V)"
+msgstr "Minimale spanning bij het starten (V)"
+
+#: maintenance/autres_interventions/batterie/models.py:176
+msgid "Tension de charge moteur tournant (V)"
+msgstr "Laadspanning bij draaiende motor (V)"
+
+#: maintenance/autres_interventions/batterie/models.py:177
+msgid "Courant de démarrage mesuré au testeur (A EN)"
+msgstr "Met de tester gemeten koudstartstroom (A EN)"
+
+#: maintenance/autres_interventions/batterie/models.py:178
+msgid "État de santé SOH (%)"
+msgstr "Gezondheidstoestand SOH (%)"
+
+#: maintenance/autres_interventions/batterie/models.py:178
+msgid "Valeur indiquée par le testeur, si disponible."
+msgstr "Waarde aangegeven door de tester, indien beschikbaar."
+
+#: maintenance/autres_interventions/batterie/models.py:181
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:418
+#: maintenance/autres_interventions/batterie/templates/batterie/partials/batterie_infos.html:13
+msgid "Circuit de charge"
+msgstr "Laadcircuit"
+
+#: maintenance/autres_interventions/batterie/models.py:182
+msgid "État de charge estimé (%)"
+msgstr "Geschatte laadtoestand (%)"
+
+#: maintenance/autres_interventions/batterie/models.py:183
+msgid "Détail du diagnostic"
+msgstr "Details van de diagnose"
+
+#: maintenance/autres_interventions/batterie/models.py:190
+#: maintenance/autres_interventions/batterie/models.py:200
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:118
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:132
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:147
@@ -19383,6 +19682,353 @@ msgstr "Kilometerstand op het moment van controle"
 #: maintenance/silent_blocs/models.py:635
 msgid "Prix d'achat HTVA"
 msgstr "Aankoopprijs excl. btw"
+
+#: maintenance/autres_interventions/batterie/models.py:192
+msgid "Technologie de la batterie neuve"
+msgstr "Technologie van de nieuwe accu"
+
+#: maintenance/autres_interventions/batterie/models.py:193
+msgid "Tension nominale de la batterie neuve (V)"
+msgstr "Nominale spanning van de nieuwe accu (V)"
+
+#: maintenance/autres_interventions/batterie/models.py:194
+msgid "Capacité de la batterie neuve (Ah)"
+msgstr "Capaciteit van de nieuwe accu (Ah)"
+
+#: maintenance/autres_interventions/batterie/models.py:195
+msgid "Courant de démarrage de la batterie neuve (A EN)"
+msgstr "Koudstartstroom van de nieuwe accu (A EN)"
+
+#: maintenance/autres_interventions/batterie/models.py:196
+msgid "Batterie enregistrée / codée dans le véhicule (BMS)"
+msgstr "Accu geregistreerd / gecodeerd in het voertuig (BMS)"
+
+#: maintenance/autres_interventions/batterie/models.py:196
+msgid ""
+"Obligatoire sur de nombreux véhicules Start & Stop (BMW, VAG, Mercedes…)."
+msgstr "Verplicht op veel Start & Stop-voertuigen (BMW, VAG, Mercedes…)."
+
+#: maintenance/autres_interventions/batterie/models.py:293
+msgid ""
+"Le kilométrage de la batterie ne peut pas être inférieur au kilométrage du "
+"véhicule."
+msgstr ""
+"De kilometerstand van de accu mag niet lager zijn dan de kilometerstand van "
+"het voertuig."
+
+#: maintenance/autres_interventions/batterie/models.py:318
+#, python-format
+msgid ""
+"La tension doit être identique à celle de la batterie d'origine (%(v)s V)."
+msgstr ""
+"De spanning moet identiek zijn aan die van de originele accu (%(v)s V)."
+
+#: maintenance/autres_interventions/batterie/models.py:322
+msgid "Indiquez la capacité (Ah) de la batterie neuve."
+msgstr "Geef de capaciteit (Ah) van de nieuwe accu op."
+
+#: maintenance/autres_interventions/batterie/models.py:325
+#, python-format
+msgid "La capacité doit être au moins égale à celle d'origine (%(ah)s Ah)."
+msgstr "De capaciteit moet minstens gelijk zijn aan de originele (%(ah)s Ah)."
+
+#: maintenance/autres_interventions/batterie/models.py:329
+msgid "Indiquez le courant de démarrage (A EN) de la batterie neuve."
+msgstr "Geef de koudstartstroom (A EN) van de nieuwe accu op."
+
+#: maintenance/autres_interventions/batterie/models.py:332
+#, python-format
+msgid ""
+"Le courant de démarrage doit être au moins égal à celui d'origine (%(a)s A "
+"EN)."
+msgstr ""
+"De koudstartstroom moet minstens gelijk zijn aan de originele (%(a)s A EN)."
+
+#: maintenance/autres_interventions/batterie/models.py:338
+#, python-format
+msgid ""
+"Technologie incompatible avec la batterie d'origine (%(orig)s). Technologies "
+"acceptées : %(ok)s."
+msgstr ""
+"Technologie niet compatibel met de originele accu (%(orig)s). Aanvaarde "
+"technologieën: %(ok)s."
+
+#: maintenance/autres_interventions/batterie/models.py:379
+msgid ""
+"Batterie lithium : l'état de charge ne se déduit pas de la tension au repos."
+msgstr ""
+"Lithiumaccu: de laadtoestand kan niet uit de rustspanning worden afgeleid."
+
+#: maintenance/autres_interventions/batterie/models.py:382
+#, python-format
+msgid "Tension au repos %(v)s V → état de charge estimé %(soc)s %%."
+msgstr "Rustspanning %(v)s V → geschatte laadtoestand %(soc)s %%."
+
+#: maintenance/autres_interventions/batterie/models.py:386
+msgid ""
+"Décharge profonde : recharger puis retester. Si la tension ne tient pas, "
+"remplacer."
+msgstr ""
+"Diepe ontlading: opladen en opnieuw testen. Als de spanning niet standhoudt, "
+"vervangen."
+
+#: maintenance/autres_interventions/batterie/models.py:388
+msgid "Batterie insuffisamment chargée : recharger avant de conclure."
+msgstr "Accu onvoldoende geladen: opladen vóór een conclusie."
+
+#: maintenance/autres_interventions/batterie/models.py:395
+#, python-format
+msgid "Courant de démarrage mesuré %(m)s A pour %(n)s A nominal (%(r)s %%)."
+msgstr "Gemeten koudstartstroom %(m)s A voor %(n)s A nominaal (%(r)s %%)."
+
+#: maintenance/autres_interventions/batterie/models.py:398
+msgid "Moins de 60 % du courant nominal : batterie usée."
+msgstr "Minder dan 60 % van de nominale stroom: accu versleten."
+
+#: maintenance/autres_interventions/batterie/models.py:401
+msgid "Entre 60 et 80 % du courant nominal : batterie faible."
+msgstr "Tussen 60 en 80 % van de nominale stroom: zwakke accu."
+
+#: maintenance/autres_interventions/batterie/models.py:408
+#, python-format
+msgid "État de santé %(soh)s %% : remplacement conseillé."
+msgstr "Gezondheidstoestand %(soh)s %%: vervanging aanbevolen."
+
+#: maintenance/autres_interventions/batterie/models.py:411
+#, python-format
+msgid "État de santé %(soh)s %% : batterie fatiguée."
+msgstr "Gezondheidstoestand %(soh)s %%: vermoeide accu."
+
+#: maintenance/autres_interventions/batterie/models.py:420
+#, python-format
+msgid ""
+"Tension au démarrage %(v)s V inférieure à %(s)s V avec une batterie chargée :"
+" batterie usée."
+msgstr ""
+"Startspanning %(v)s V lager dan %(s)s V met een geladen accu: accu versleten."
+
+#: maintenance/autres_interventions/batterie/models.py:423
+#, python-format
+msgid ""
+"Tension au démarrage %(v)s V trop basse : recharger puis refaire le test."
+msgstr "Startspanning %(v)s V te laag: opladen en de test herhalen."
+
+#: maintenance/autres_interventions/batterie/models.py:431
+#, python-format
+msgid ""
+"Tension de charge %(v)s V trop basse : contrôler l'alternateur, la courroie "
+"et le régulateur (attention aux alternateurs pilotés)."
+msgstr ""
+"Laadspanning %(v)s V te laag: controleer de dynamo, de riem en de regelaar "
+"(let op gestuurde dynamo's)."
+
+#: maintenance/autres_interventions/batterie/models.py:434
+#, python-format
+msgid "Tension de charge %(v)s V trop élevée : contrôler le régulateur."
+msgstr "Laadspanning %(v)s V te hoog: controleer de regelaar."
+
+#: maintenance/autres_interventions/batterie/models.py:456
+#: maintenance/autres_interventions/batterie/models.py:641
+#: maintenance/autres_interventions/batterie/views.py:406
+#: maintenance/autres_interventions/batterie/views.py:1082
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:282
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:295
+#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1171
+#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1989
+#: maintenance/check_up/templates/check_up/controle_total.html:930
+#: maintenance/check_up/templates/check_up/modifier_checkup.html:929
+#: maintenance/models.py:36 piece/piece_electricite/models.py:9
+#: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:61
+msgid "Batterie"
+msgstr "Accu"
+
+#: maintenance/autres_interventions/batterie/models.py:457
+msgid "Batteries"
+msgstr "Accu's"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail.html:4
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail.html:11
+msgid "Détails du contrôle de la batterie"
+msgstr "Details van de accucontrole"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:319
+msgid "Détail batterie"
+msgstr "Details accu"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:346
+#: maintenance/autres_interventions/moteur/chaine_distribution/templates/chaine_distribution/chaine_detail_pdf.html:346
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:346
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:389
+msgid "Kilométrage véhicule"
+msgstr "Kilometerstand voertuig"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:351
+msgid "Kilométrage batterie"
+msgstr "Kilometerstand accu"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:382
+#: maintenance/autres_interventions/batterie/templates/batterie/partials/batterie_infos.html:14
+#: maintenance/autres_interventions/batterie/views.py:467
+#: maintenance/autres_interventions/batterie/views.py:770
+msgid "Batterie en place"
+msgstr "Geplaatste accu"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:388
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:440
+msgid "Tension nominale"
+msgstr "Nominale spanning"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:389
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:441
+msgid "Capacité"
+msgstr "Capaciteit"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:390
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:442
+msgid "Courant de démarrage"
+msgstr "Koudstartstroom"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:394
+#: maintenance/autres_interventions/batterie/views.py:472
+#: maintenance/autres_interventions/batterie/views.py:775
+msgid "Test / diagnostic"
+msgstr "Test / diagnose"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:399
+msgid "Mesure"
+msgstr "Meting"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:400
+#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:358
+#: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:209
+#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:390
+#: maintenance/autres_interventions/moteur/chaine_distribution/templates/chaine_distribution/chaine_detail_pdf.html:391
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:391
+#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:443
+#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:410
+msgid "Résultat"
+msgstr "Resultaat"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:404
+msgid "Tension au repos"
+msgstr "Rustspanning"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:404
+#: maintenance/autres_interventions/batterie/templates/batterie/partials/batterie_infos.html:20
+#: maintenance/autres_interventions/batterie/templates/batterie/partials/batterie_infos.html:23
+msgid "charge"
+msgstr "lading"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:405
+msgid "Tension minimale au démarrage"
+msgstr "Minimale startspanning"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:406
+msgid "Tension de charge moteur tournant"
+msgstr "Laadspanning bij draaiende motor"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:407
+msgid "Courant de démarrage mesuré"
+msgstr "Gemeten koudstartstroom"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:408
+msgid "État de santé SOH"
+msgstr "Gezondheidstoestand SOH"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:432
+#: maintenance/autres_interventions/batterie/views.py:477
+#: maintenance/autres_interventions/batterie/views.py:780
+msgid "Remplacement de la batterie"
+msgstr "Vervanging van de accu"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_detail_pdf.html:443
+msgid "Enregistrement BMS"
+msgstr "BMS-registratie"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_form.html:21
+msgid "Test et remplacement de la batterie"
+msgstr "Test en vervanging van de accu"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_form.html:317
+#: maintenance/autres_interventions/batterie/templates/batterie/modifier_batterie.html:315
+msgid "Retour à la liste des contrôles batterie"
+msgstr "Terug naar de lijst met accucontroles"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:4
+msgid "Liste des tests et remplacements de batteries"
+msgstr "Lijst van accutests en -vervangingen"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:19
+msgid "Contrôle de la batterie pour :"
+msgstr "Accucontrole voor:"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/batterie_list.html:164
+msgid "Retour aux autres interventions"
+msgstr "Terug naar de andere interventies"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/delete_batterie.html:10
+msgid "Supprimer le contrôle de la batterie"
+msgstr "De accucontrole verwijderen"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/delete_batterie.html:14
+msgid "Voulez-vous vraiment supprimer le contrôle de la batterie pour"
+msgstr "Wilt u de accucontrole echt verwijderen voor"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/modifier_batterie.html:21
+msgid "Modifier le remplacement de la batterie"
+msgstr "De vervanging van de accu wijzigen"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/partials/batterie_infos.html:17
+msgid "Mesures"
+msgstr "Metingen"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/partials/batterie_infos.html:18
+msgid "repos"
+msgstr "rust"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/partials/batterie_infos.html:19
+msgid "démarrage"
+msgstr "starten"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/partials/batterie_infos.html:32
+msgid "enregistrée (BMS)"
+msgstr "geregistreerd (BMS)"
+
+#: maintenance/autres_interventions/batterie/templates/batterie/partials/batterie_infos.html:32
+msgid "non enregistrée (BMS)"
+msgstr "niet geregistreerd (BMS)"
+
+#: maintenance/autres_interventions/batterie/views.py:414
+msgid "Test de la batterie enregistré avec succès."
+msgstr "Accutest succesvol opgeslagen."
+
+#: maintenance/autres_interventions/batterie/views.py:418
+#: maintenance/autres_interventions/batterie/views.py:735
+#, python-format
+msgid "Diagnostic : %(diag)s."
+msgstr "Diagnose: %(diag)s."
+
+#: maintenance/autres_interventions/batterie/views.py:720
+msgid "Modification batterie"
+msgstr "Wijziging accu"
+
+#: maintenance/autres_interventions/batterie/views.py:730
+msgid "Test / remplacement de la batterie modifié avec succès !"
+msgstr "Test / vervanging van de accu succesvol gewijzigd!"
+
+#: maintenance/autres_interventions/batterie/views.py:974
+msgid "Suppression du contrôle de la batterie"
+msgstr "Verwijdering van de accucontrole"
+
+#: maintenance/autres_interventions/batterie/views.py:987
+msgid "Contrôle de la batterie supprimé avec succès."
+msgstr "Accucontrole succesvol verwijderd."
+
+#: maintenance/autres_interventions/boite_de_vitesse/models.py:96
+#: maintenance/autres_interventions/moteur/admission/models.py:105
+#: maintenance/autres_interventions/moteur/turbo/models.py:92
+msgid "Kilométrage au moment du controle"
+msgstr "Kilometerstand op het moment van controle"
 
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:139
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:441
@@ -19851,7 +20497,7 @@ msgid "Rapport du contrôle de la boîte de vitesse"
 msgstr "Rapport van de controle van de versnellingsbak"
 
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:353
-#: maintenance/autres_interventions/models.py:139 maintenance/models.py:146
+#: maintenance/autres_interventions/models.py:139 maintenance/models.py:147
 msgid "Kilométrage boîte"
 msgstr "Versnellingsbakkilometrage"
 
@@ -20438,16 +21084,6 @@ msgstr "Kilometerstand controle"
 msgid "Élément contrôlé"
 msgstr "Gecontroleerd onderdeel"
 
-#: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:358
-#: maintenance/autres_interventions/cardan/templates/cardan/cardan_detail_pdf.html:209
-#: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:390
-#: maintenance/autres_interventions/moteur/chaine_distribution/templates/chaine_distribution/chaine_detail_pdf.html:391
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:391
-#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:443
-#: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:410
-msgid "Résultat"
-msgstr "Resultaat"
-
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/delete_bte_auto.html:14
 msgid "Voulez-vous vraiment supprimer le contrôle de la boite automatique pour"
 msgstr ""
@@ -20633,7 +21269,7 @@ msgstr "Aandrijfascontroles"
 #: maintenance/autres_interventions/cardan/templates/cardan/delete_cardan.html:11
 #: maintenance/autres_interventions/cardan/templates/cardan/modifier_cardan.html:19
 #: maintenance/autres_interventions/cardan/views.py:488
-#: maintenance/models.py:48
+#: maintenance/models.py:49
 msgid "Cardan"
 msgstr "Aandrijfas"
 
@@ -20708,11 +21344,6 @@ msgstr "Aandrijfascontrole succesvol verwijderd."
 #: maintenance/autres_interventions/climatisation/models.py:28
 msgid "Non nécessaire"
 msgstr "Niet nodig"
-
-#: maintenance/autres_interventions/climatisation/models.py:32
-#: maintenance/autres_interventions/refroidissement/models.py:42
-msgid "Bonne"
-msgstr "Goed"
 
 #: maintenance/autres_interventions/climatisation/models.py:33
 #: maintenance/autres_interventions/refroidissement/models.py:45
@@ -20945,7 +21576,7 @@ msgstr "Rapport van de aircocontrole"
 #: maintenance/autres_interventions/models.py:134
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:375
 #: maintenance/essuyage/templates/essuyage/essuyage_detail_pdf.html:363
-#: maintenance/models.py:141 voiture/voiture_boite/forms.py:28
+#: maintenance/models.py:142 voiture/voiture_boite/forms.py:28
 #: voiture/voiture_embrayage/forms.py:20
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/detail.html:32
 msgid "Kilométrage châssis"
@@ -21061,13 +21692,6 @@ msgstr "Aircocontrole wijzigen"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/modifier_clim.html:314
 msgid "Retour à la liste des contrôles de la climatisation"
 msgstr "Terug naar de lijst met aircocontroles"
-
-#: maintenance/autres_interventions/courroie_accessoires/forms.py:155
-#: maintenance/autres_interventions/moteur/chaine_distribution/forms.py:158
-#: maintenance/autres_interventions/moteur/courroie/forms.py:158
-#, python-format
-msgid "Le kilométrage doit être ≥ %(km)s"
-msgstr "De kilometerstand moet ≥ %(km)s zijn"
 
 #: maintenance/autres_interventions/courroie_accessoires/models.py:60
 msgid "Kilométrage du contrôle de la courroie d'accessoires"
@@ -21859,19 +22483,19 @@ msgstr "Uitlijningscontrole wijzigen"
 msgid "Autres interventions"
 msgstr "Andere werkzaamheden"
 
-#: maintenance/autres_interventions/models.py:105 maintenance/models.py:67
+#: maintenance/autres_interventions/models.py:105 maintenance/models.py:68
 msgid "Voiture exemplaire"
 msgstr "Exemplaar auto"
 
-#: maintenance/autres_interventions/models.py:114 maintenance/models.py:121
+#: maintenance/autres_interventions/models.py:114 maintenance/models.py:122
 msgid "Date d'intervention"
 msgstr "Datum interventie"
 
-#: maintenance/autres_interventions/models.py:116 maintenance/models.py:123
+#: maintenance/autres_interventions/models.py:116 maintenance/models.py:124
 msgid "Date de la dernière intervention"
 msgstr "Datum laatste interventie"
 
-#: maintenance/autres_interventions/models.py:128 maintenance/models.py:135
+#: maintenance/autres_interventions/models.py:128 maintenance/models.py:136
 msgid "Kilométrage total"
 msgstr "Total kilometrage"
 
@@ -21879,18 +22503,18 @@ msgstr "Total kilometrage"
 msgid "Kilométrage à la dernière intervention"
 msgstr "Kilometrage bij laatste interventie"
 
-#: maintenance/autres_interventions/models.py:138 maintenance/models.py:145
+#: maintenance/autres_interventions/models.py:138 maintenance/models.py:146
 msgid "Kilométrage moteur"
 msgstr "Motor kilometrage"
 
 #: maintenance/autres_interventions/models.py:143
 #: maintenance/maintenance_externe/models.py:48
 #: maintenance/maintenance_externe/templates/maintenance_externe/maintenance_externe_list.html:42
-#: maintenance/models.py:150
+#: maintenance/models.py:151
 msgid "Type de maintenance"
 msgstr "Onderhoudstype"
 
-#: maintenance/autres_interventions/models.py:163 maintenance/models.py:173
+#: maintenance/autres_interventions/models.py:163 maintenance/models.py:174
 #, python-format
 msgid "Maintenance %(voiture)s (%(date)s)"
 msgstr "Onderhoud %(voiture)s (%(date)s)"
@@ -22237,12 +22861,6 @@ msgstr "Details van de controle van de distributieketting"
 #: maintenance/autres_interventions/moteur/chaine_distribution/templates/chaine_distribution/chaine_detail_pdf.html:319
 msgid "Détail chaîne de distribution"
 msgstr "Details distributieketting"
-
-#: maintenance/autres_interventions/moteur/chaine_distribution/templates/chaine_distribution/chaine_detail_pdf.html:346
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:346
-#: maintenance/autres_interventions/moteur/injection/templates/injection/injection_detail_pdf.html:389
-msgid "Kilométrage véhicule"
-msgstr "Kilometerstand voertuig"
 
 #: maintenance/autres_interventions/moteur/chaine_distribution/templates/chaine_distribution/chaine_detail_pdf.html:351
 msgid "Kilométrage chaîne"
@@ -23728,7 +24346,7 @@ msgstr "Geef de locatie van het lek op."
 #: maintenance/check_up/admin.py:112
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:773
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:896
-#: maintenance/models.py:41 voiture/voiture_diagnostic/pieces_defaut.py:157
+#: maintenance/models.py:42 voiture/voiture_diagnostic/pieces_defaut.py:157
 msgid "Refroidissement"
 msgstr "Koeling"
 
@@ -23877,7 +24495,7 @@ msgid "Fonctionnement du chauffage correct"
 msgstr "Correcte werking van de verwarming"
 
 #: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_form.html:21
-#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:314
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:346
 msgid "Contrôle du refroidissement"
 msgstr "Controle van het koelsysteem"
 
@@ -23914,15 +24532,15 @@ msgstr "Uitlaatdashboard"
 msgid "Échappement"
 msgstr "Uitlaatsystemen"
 
-#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:327
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:359
 msgid "Système de refroidissement"
 msgstr "koelsysteem"
 
-#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:343
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:375
 msgid "Contrôle des cardans"
 msgstr "Controle van de aandrijfassen"
 
-#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:356
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:388
 msgid "cardans"
 msgstr "Aandrijfassen"
 
@@ -24842,15 +25460,6 @@ msgstr "Remvloeistofspecificatie"
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:703
 msgid "Quantité de liquide de frein"
 msgstr "Hoeveelheid remvloeistof"
-
-#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1171
-#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1989
-#: maintenance/check_up/templates/check_up/controle_total.html:930
-#: maintenance/check_up/templates/check_up/modifier_checkup.html:929
-#: piece/piece_electricite/models.py:9
-#: voiture/voiture_modele/templates/voiture_modele/voiture_modele_detail.html:61
-msgid "Batterie"
-msgstr "Accu"
 
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:1224
 msgid "Capacité de la batterie"
@@ -30594,12 +31203,12 @@ msgstr "Versleten"
 msgid "Hors service"
 msgstr "Buiten gebruik"
 
-#: maintenance/jeux_pieces/models.py:46 maintenance/models.py:85
+#: maintenance/jeux_pieces/models.py:46 maintenance/models.py:86
 #: utilisateurs/models.py:84 utilisateurs/views.py:299
 msgid "Apprenti"
 msgstr "Leerling"
 
-#: maintenance/jeux_pieces/models.py:48 maintenance/models.py:94
+#: maintenance/jeux_pieces/models.py:48 maintenance/models.py:95
 #: theme/templates/dashboard.html:318
 msgid "Chef mécanicien"
 msgstr "Hoofdmonteur"
@@ -30817,7 +31426,7 @@ msgstr "Speling onderdelen"
 msgid "Silent bloc"
 msgstr "Silentblok"
 
-#: maintenance/models.py:137 maintenance/templates/maintenance/list.html:82
+#: maintenance/models.py:138 maintenance/templates/maintenance/list.html:82
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:54
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/list.html:82
 msgid "Kilométrage du dernier entretien"

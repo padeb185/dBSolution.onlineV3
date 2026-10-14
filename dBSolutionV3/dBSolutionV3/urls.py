@@ -189,6 +189,7 @@ urlpatterns += i18n_patterns(
     path("courroie_accessoires/", include(("maintenance.autres_interventions.courroie_accessoires.urls", "courroie_accessoires"), namespace="courroie_accessoires")),
 
     path("echappement/",include(("maintenance.autres_interventions.echappement.urls", "dashboard_echappement"),namespace="dashboard_echappement")),
+    path("batterie/", include(("maintenance.autres_interventions.batterie.urls", "batterie"), namespace="batterie")),
 
     path("climatisation/",include(("maintenance.autres_interventions.climatisation.urls", "climatisation"),namespace="climatisation")),
 

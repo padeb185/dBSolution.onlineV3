@@ -1,0 +1,649 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+{% if batterie.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ batterie.tech_societe.nom }}
+            </div>
+
+            {% if batterie.tech_societe.adresse %}
+                <div>
+                    {{ batterie.tech_societe.adresse.rue }}
+                    {{ batterie.tech_societe.adresse.numero }}
+                    {% if batterie.tech_societe.adresse.boite %}
+                        / {{ batterie.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ batterie.tech_societe.adresse.code_postal }}
+                    {{ batterie.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if batterie.tech_societe.adresse.pays %}
+                <div>{{ batterie.tech_societe.adresse.pays }}
+                    {{ batterie.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if batterie.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ batterie.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if batterie.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ batterie.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ batterie.tech_societe.nom }}.png"
+                alt="{{ batterie.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Détail batterie" %}</h1>
+
+<!-- ================= INFOS ================= -->
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ batterie.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ batterie.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ batterie.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ batterie.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ batterie.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage batterie" %} :</span>
+            {{ batterie.kilometrage_batterie }} km
+        </div>
+
+
+
+<!-- ================= TAG ================= -->
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if batterie.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ batterie.get_tag_display }}
+                </span>
+
+            {% elif batterie.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ batterie.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ batterie.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= BATTERIE ================= -->
+<h2>{% trans "Batterie en place" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Fabricant" %} :</span> {{ batterie.get_actuelle_fabricant_display }}</div>
+        <div><span class="label">{% trans "Technologie" %} :</span> {{ batterie.get_actuelle_technologie_display }}</div>
+        <div><span class="label">{% trans "Tension nominale" %} :</span> {{ batterie.actuelle_tension }} V</div>
+        <div><span class="label">{% trans "Capacité" %} :</span> {{ batterie.actuelle_capacite_ah }} Ah</div>
+        <div><span class="label">{% trans "Courant de démarrage" %} :</span> {{ batterie.actuelle_cca }} A EN</div>
+    </div>
+</div>
+
+<h2>{% trans "Test / diagnostic" %}</h2>
+
+<table class="table-2-cols">
+    <thead>
+        <tr>
+            <th>{% trans "Mesure" %}</th>
+            <th>{% trans "Résultat" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>{% trans "Tension au repos" %}</td><td>{{ batterie.test_tension_repos|default:"-" }} V{% if batterie.test_etat_charge is not None %} ({% trans "charge" %} {{ batterie.test_etat_charge }} %){% endif %}</td></tr>
+        <tr><td>{% trans "Tension minimale au démarrage" %}</td><td>{{ batterie.test_tension_demarrage|default:"-" }} V</td></tr>
+        <tr><td>{% trans "Tension de charge moteur tournant" %}</td><td>{{ batterie.test_tension_charge|default:"-" }} V</td></tr>
+        <tr><td>{% trans "Courant de démarrage mesuré" %}</td><td>{{ batterie.test_cca_mesure|default:"-" }} A EN</td></tr>
+        <tr><td>{% trans "État de santé SOH" %}</td><td>{% if batterie.test_soh is not None %}{{ batterie.test_soh }} %{% else %}-{% endif %}</td></tr>
+        <tr>
+            <td>{% trans "Diagnostic" %}</td>
+            <td>
+                {% if batterie.test_diagnostic == "BONNE" %}<span class="ok">{{ batterie.get_test_diagnostic_display }}</span>
+                {% elif batterie.test_diagnostic == "A_REMPLACER" %}<span class="not-ok">{{ batterie.get_test_diagnostic_display }}</span>
+                {% else %}<span class="remplace">{{ batterie.get_test_diagnostic_display }}</span>{% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>{% trans "Circuit de charge" %}</td>
+            <td>
+                {% if batterie.test_circuit_charge == "OK" %}<span class="ok">{{ batterie.get_test_circuit_charge_display }}</span>
+                {% elif batterie.test_circuit_charge == "NON_MESURE" %}{{ batterie.get_test_circuit_charge_display }}
+                {% else %}<span class="not-ok">{{ batterie.get_test_circuit_charge_display }}</span>{% endif %}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{% if batterie.test_detail %}
+<div class="box">{{ batterie.test_detail|linebreaksbr }}</div>
+{% endif %}
+
+<h2>{% trans "Remplacement de la batterie" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "État" %} :</span> {{ batterie.get_batterie_neuve_display }}</div>
+        {% if batterie.batterie_neuve == "REMPLACE" %}
+        <div><span class="label">{% trans "Fabricant" %} :</span> {{ batterie.get_batterie_neuve_fabricant_display }}</div>
+        <div><span class="label">{% trans "Technologie" %} :</span> {{ batterie.get_batterie_neuve_technologie_display }}</div>
+        <div><span class="label">{% trans "Tension nominale" %} :</span> {{ batterie.batterie_neuve_tension }} V</div>
+        <div><span class="label">{% trans "Capacité" %} :</span> {{ batterie.batterie_neuve_capacite_ah }} Ah</div>
+        <div><span class="label">{% trans "Courant de démarrage" %} :</span> {{ batterie.batterie_neuve_cca }} A EN</div>
+        <div><span class="label">{% trans "Enregistrement BMS" %} :</span> {% if batterie.batterie_neuve_enregistree %}{% trans "Oui" %}{% else %}{% trans "Non" %}{% endif %}</div>
+        {% endif %}
+        <div><span class="label">{% trans "Cosses / bornes" %} :</span> {{ batterie.get_cosses_display }}</div>
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ batterie.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if batterie.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ batterie.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ batterie.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ batterie.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        <td class="text-right">
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ batterie.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ batterie.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
+
+        <table class="table-2-cols">
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ batterie.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ batterie.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+
+<br>
+<!-- ================= REMARQUES ================= -->
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ batterie.remarques|default:_("Aucune remarque.") }}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

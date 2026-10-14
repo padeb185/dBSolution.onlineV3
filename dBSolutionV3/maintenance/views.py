@@ -37,6 +37,7 @@ from maintenance.autres_interventions.moteur.alternateur.models import Alternate
 from maintenance.autres_interventions.abs.models import Abs
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
 from maintenance.autres_interventions.moteur.chaine_distribution.models import ChaineDistribution
+from maintenance.autres_interventions.batterie.models import Batterie
 from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
 from maintenance.autres_interventions.moteur.turbo.models import Turbo
 from maintenance.check_up.models import Checkup
@@ -190,6 +191,10 @@ def choisir_type_maintenance(request, exemplaire_id):
             voiture_exemplaire=exemplaire
         )
 
+        batterie = Batterie.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
+
         # --------------------------------------------------
         # Totaux
         # --------------------------------------------------
@@ -226,6 +231,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             + abs_qs.count()
             + courroie_access.count()
             + echappement.count()
+            + batterie.count()
             + remplacement_boite.count()
 
         )

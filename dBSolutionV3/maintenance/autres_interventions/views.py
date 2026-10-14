@@ -10,6 +10,7 @@ from maintenance.autres_interventions.cardan.models import Cardan
 from maintenance.autres_interventions.climatisation.models import Climatisation
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from maintenance.autres_interventions.echappement.models import Echappement
+from maintenance.autres_interventions.batterie.models import Batterie
 from maintenance.autres_interventions.embrayage.models import Embrayage
 from maintenance.autres_interventions.moteur.allumage.models import Allumage
 from maintenance.autres_interventions.refroidissement.models import Refroidissement
@@ -87,6 +88,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     turbo = Turbo.objects.none()
     remplacement_moteur = RemplacementMoteur.objects.none()
     echappement = Echappement.objects.none()
+    batterie = Batterie.objects.none()
     climatisation = Climatisation.objects.none()
     refroidissement = Refroidissement.objects.none()
     embrayage = Embrayage.objects.none()
@@ -103,6 +105,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     total_remplacement_boite = 0
     total_access = 0
     total_echappement = 0
+    total_batterie = 0
     total_clim = 0
     total_ref = 0
     total_embrayage = 0
@@ -153,6 +156,10 @@ def choisir_autre_maintenance(request, exemplaire_id):
                 voiture_exemplaire=exemplaire
             )
 
+            batterie = Batterie.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
+
             refroidissement = Refroidissement.objects.filter(
                 voiture_exemplaire=exemplaire
             )
@@ -179,6 +186,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_remplacement_boite = remplacement_boite.count()
             total_access = courroie_access.count()
             total_echappement = echappement.count()
+            total_batterie = batterie.count()
             total_clim = climatisation.count()
             total_ref = refroidissement.count()
             total_turbo = turbo.count()
@@ -289,6 +297,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_remplacement_boite": total_remplacement_boite,
         "total_access": total_access,
         "total_echappement": total_echappement,
+        "total_batterie": total_batterie,
         "total_clim": total_clim,
 
         "total_int_moteur": total_int_moteur,

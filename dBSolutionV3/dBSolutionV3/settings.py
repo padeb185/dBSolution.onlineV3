@@ -154,6 +154,7 @@ TENANT_APPS = (
     'maintenance.nettoyage_interieur',
     'maintenance.nettoyage_exterieur',
     'maintenance.autres_interventions',
+    'maintenance.autres_interventions.batterie.apps.BatterieConfig',
     'maintenance.pneus',
     'maintenance.checkup_track',
     'maintenance.eclairage',

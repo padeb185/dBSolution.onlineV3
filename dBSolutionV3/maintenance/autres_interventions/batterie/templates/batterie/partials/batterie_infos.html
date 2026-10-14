@@ -1,0 +1,35 @@
+{% load i18n %}
+<div class="border-t pt-3 mt-1">
+    <p>
+        <strong>{% trans "Diagnostic" %} :</strong>
+        <span class="px-2 py-1 rounded font-bold border-2
+            {% if obj.test_diagnostic == 'BONNE' %}bg-green-100 text-green-800 border-green-300
+            {% elif obj.test_diagnostic == 'A_REMPLACER' %}bg-red-100 text-red-800 border-red-300
+            {% elif obj.test_diagnostic == 'NON_TESTE' %}bg-gray-100 text-gray-700 border-gray-300
+            {% else %}bg-yellow-100 text-yellow-800 border-yellow-500{% endif %}">
+            {{ obj.get_test_diagnostic_display }}
+        </span>
+    </p>
+    <p><strong>{% trans "Circuit de charge" %} :</strong> {{ obj.get_test_circuit_charge_display }}</p>
+    <p><strong>{% trans "Batterie en place" %} :</strong>
+        {{ obj.get_actuelle_fabricant_display }} · {{ obj.get_actuelle_technologie_display }} ·
+        {{ obj.actuelle_tension }} V · {{ obj.actuelle_capacite_ah }} Ah · {{ obj.actuelle_cca }} A EN</p>
+    <p><strong>{% trans "Mesures" %} :</strong>
+        {% trans "repos" %} {{ obj.test_tension_repos|default:"-" }} V ·
+        {% trans "démarrage" %} {{ obj.test_tension_demarrage|default:"-" }} V ·
+        {% trans "charge" %} {{ obj.test_tension_charge|default:"-" }} V ·
+        {{ obj.test_cca_mesure|default:"-" }} A EN
+        {% if obj.test_soh is not None %}· SOH {{ obj.test_soh }} %{% endif %}
+        {% if obj.test_etat_charge is not None %}· {% trans "charge" %} {{ obj.test_etat_charge }} %{% endif %}
+    </p>
+    {% if obj.test_detail %}
+        <p class="text-sm text-gray-600 whitespace-pre-line">{{ obj.test_detail }}</p>
+    {% endif %}
+    {% if obj.batterie_neuve == 'REMPLACE' %}
+        <p><strong>{% trans "Batterie neuve" %} :</strong>
+            {{ obj.get_batterie_neuve_fabricant_display }} · {{ obj.get_batterie_neuve_technologie_display }} ·
+            {{ obj.batterie_neuve_tension }} V · {{ obj.batterie_neuve_capacite_ah }} Ah · {{ obj.batterie_neuve_cca }} A EN
+            {% if obj.batterie_neuve_enregistree %}· {% trans "enregistrée (BMS)" %}{% else %}· {% trans "non enregistrée (BMS)" %}{% endif %}
+        </p>
+    {% endif %}
+</div>
