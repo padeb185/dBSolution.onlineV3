@@ -460,7 +460,7 @@ def chaine_form_view(request, exemplaire_id):
         },
         {
             "title": _("Chaîne de distribution"),
-            "icon": "icons/courroie-de-distribution.png",
+            "icon": "icons/chaine-de-distribution.png",
             "fields": [form[f.name] for f in form if f.name.startswith("chaine_distribution")],
         },
         {
@@ -788,7 +788,7 @@ def modifier_chaine_view(request, chaine_id):
         },
         {
             "title": _("Chaîne de distribution"),
-            "icon": "icons/courroie-de-distribution.png",
+            "icon": "icons/chaine-de-distribution.png",
             "fields": [form[f.name] for f in form if f.name.startswith("chaine_distribution")],
         },
         {
