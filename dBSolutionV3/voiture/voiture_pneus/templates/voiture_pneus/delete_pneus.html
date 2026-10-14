@@ -50,7 +50,7 @@
         <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Pneus" %}</h2>
         <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
             <dt class="text-gray-600">{% trans "Manufacturier" %}</dt>
-            <dd class="font-medium">{{ pneus.manufacturier|default:"—" }}</dd>
+            <dd class="font-medium">{{ pneus.get_manufacturier_display|default:"—" }}</dd>
 
             <dt class="text-gray-600">{% trans "Modèle" %}</dt>
             <dd class="font-medium">{{ pneus.nom_type|default:"—" }}</dd>

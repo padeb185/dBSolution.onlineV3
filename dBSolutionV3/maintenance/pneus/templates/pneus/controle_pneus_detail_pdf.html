@@ -507,6 +507,7 @@
         <tr>
             <th>{% trans "Train" %}</th>
             <th>{% trans "État" %}</th>
+            <th>{% trans "Fabricant" %}</th>
             <th>{% trans "Nombre montés" %}</th>
         </tr>
     </thead>
@@ -519,12 +520,13 @@
                 <span class="etat-vert">{{ controle_pneus.get_pneu_train_av_display }}</span>
             {% elif controle_pneus.pneu_train_av == "A_REMPLACER" %}
                 <span class="etat-rouge">{{ controle_pneus.get_pneu_train_av_display }}</span>
-            {% elif controle_pneus.pneu_train_av == "REMPLACE" %}
+            {% elif controle_pneus.pneu_train_av == "REMPLACE" or controle_pneus.pneu_train_av == "CHANGEMENT_MONTE" %}
                 <span class="etat-bleu">{{ controle_pneus.get_pneu_train_av_display }}</span>
             {% else %}
                 <span class="etat-gris">{{ controle_pneus.get_pneu_train_av_display|default:"-" }}</span>
             {% endif %}
         </td>
+        <td>{% if controle_pneus.pneu_train_av_fabricant and controle_pneus.pneu_train_av_fabricant != "CHOISIR" %}{{ controle_pneus.get_pneu_train_av_fabricant_display }}{% else %}-{% endif %}{% if controle_pneus.pneu_train_av_nouveau_id %}<br><small>{{ controle_pneus.pneu_train_av_nouveau }}</small>{% endif %}</td>
         <td>{{ controle_pneus.pneu_train_av_quantite }}</td>
     </tr>
 
@@ -535,12 +537,13 @@
                 <span class="etat-vert">{{ controle_pneus.get_pneu_train_ar_display }}</span>
             {% elif controle_pneus.pneu_train_ar == "A_REMPLACER" %}
                 <span class="etat-rouge">{{ controle_pneus.get_pneu_train_ar_display }}</span>
-            {% elif controle_pneus.pneu_train_ar == "REMPLACE" %}
+            {% elif controle_pneus.pneu_train_ar == "REMPLACE" or controle_pneus.pneu_train_ar == "CHANGEMENT_MONTE" %}
                 <span class="etat-bleu">{{ controle_pneus.get_pneu_train_ar_display }}</span>
             {% else %}
                 <span class="etat-gris">{{ controle_pneus.get_pneu_train_ar_display|default:"-" }}</span>
             {% endif %}
         </td>
+        <td>{% if controle_pneus.pneu_train_ar_fabricant and controle_pneus.pneu_train_ar_fabricant != "CHOISIR" %}{{ controle_pneus.get_pneu_train_ar_fabricant_display }}{% else %}-{% endif %}{% if controle_pneus.pneu_train_ar_nouveau_id %}<br><small>{{ controle_pneus.pneu_train_ar_nouveau }}</small>{% endif %}</td>
         <td>{{ controle_pneus.pneu_train_ar_quantite }}</td>
     </tr>
 </tbody>

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 
-{% block title %}{{ pneus.manufacturier }} {% endblock %}
+{% block title %}{{ pneus.get_manufacturier_display }} {% endblock %}
 
 
 {% block content %}
@@ -13,7 +13,7 @@
 
             <img
                 src="{% static 'images/' %}{{ pneus.manufacturier|lower|slugify }}.png"
-                alt="{{ pneus.manufacturier }}"
+                alt="{{ pneus.get_manufacturier_display }}"
                 style="width:150px; height:50px; object-fit:contain;"
                 onerror="this.style.display='none';"
             >
@@ -36,7 +36,7 @@
 
             <p>
                 <strong>{% trans "Manufacturier" %} :</strong>
-                {{ pneus.manufacturier }}
+                {{ pneus.get_manufacturier_display }}
             </p>
             <p>
                 <strong>{% trans "Type" %} :</strong>

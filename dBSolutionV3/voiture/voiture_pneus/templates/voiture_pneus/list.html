@@ -91,13 +91,13 @@
         <tr>
             <td class="border px-4 py-2 text-center">
                 <span class="hidden">
-                    {{ pneu.manufacturier }}
+                    {{ pneu.get_manufacturier_display }}
                 </span>
                 <img
                     src="{% static 'images/'|add:pneu.manufacturier|lower|add:'.png' %}"
-                    alt="{{ pneu.manufacturier }}"
+                    alt="{{ pneu.get_manufacturier_display }}"
                     style="width:120px; height:35px; object-fit:contain;"
-                    onerror="this.onerror=null; this.outerHTML='{{ pneu.manufacturier }}';"
+                    onerror="this.onerror=null; this.outerHTML='{{ pneu.get_manufacturier_display|escapejs }}';"
                 >
             </td>
             <td class="border px-4 py-2">{{ pneu.get_type_pneus_display }}</td>

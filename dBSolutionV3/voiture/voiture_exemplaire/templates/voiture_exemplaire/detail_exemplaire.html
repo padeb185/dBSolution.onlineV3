@@ -258,7 +258,7 @@
                 <span class="font-medium">{% trans "Train n°" %}{{ t.numero }}</span>
                 · {{ t.get_monte_display }}
                 {% if t.type_pneus %}· {{ t.get_type_pneus_display }}{% endif %}
-                · <span>{{ t.libelle_pneus }}</span>
+                · <span>{{ t.libelle }}</span>
                 <span class="float-right font-semibold">{{ t.km_effectues }} km</span>
             </div>
         {% else %}
@@ -271,7 +271,7 @@
                 <span class="font-medium">{% trans "Train n°" %}{{ t.numero }}</span>
                 · {{ t.get_monte_display }} ({% trans "non monté" %})
                 {% if t.type_pneus %}· {{ t.get_type_pneus_display }}{% endif %}
-                · <span>{{ t.libelle_pneus }}</span>
+                · <span>{{ t.libelle }}</span>
                 <span class="float-right">{{ t.km_effectues }} km</span>
             </div>
         {% endfor %}
@@ -299,7 +299,7 @@
                             <td class="py-1">{{ h.numero }}</td>
                             <td>{{ h.get_monte_display }}</td>
                             <td>{{ h.get_type_pneus_display|default:"—" }}</td>
-                            <td>{{ h.libelle_pneus|default:"—" }}</td>
+                            <td>{{ h.libelle|default:"—" }}</td>
                             <td>{{ h.date_montage|date:"d/m/Y" }}</td>
                             <td>{{ h.date_remplacement|date:"d/m/Y"|default:"—" }}</td>
                             <td class="text-right font-medium">{{ h.km_effectues }} km</td>

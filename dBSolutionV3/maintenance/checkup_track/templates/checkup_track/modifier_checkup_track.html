@@ -1827,7 +1827,7 @@
             {% with pneu=exemplaire.pneu_avant %}
                 {% if pneu %}
                     <div class="bg-gray-100 rounded-md p-3 space-y-1">
-                        <p><span class="font-semibold">{% trans "Marque :" %}</span> {{ pneu.manufacturier }}</p>
+                        <p><span class="font-semibold">{% trans "Marque :" %}</span> {{ pneu.get_manufacturier_display }}</p>
                         <p><span class="font-semibold">{% trans "Type :" %}</span> {{ pneu.get_type_pneus_display }} {{ pneu.nom_type|default:"" }}</p>
                         <p><span class="font-semibold">{% trans "Taille :" %}</span> {{ pneu.taille }}</p>
                         <p><span class="font-semibold">{% trans "Indices :" %}</span> {{ pneu.indice_charge }}{{ pneu.indice_vitesse }}</p>
@@ -1890,7 +1890,7 @@
             {% with pneu=exemplaire.pneu_arriere %}
                 {% if pneu %}
                     <div class="bg-gray-100 rounded-md p-3 space-y-1">
-                        <p><span class="font-semibold">{% trans "Marque :" %}</span> {{ pneu.manufacturier }}</p>
+                        <p><span class="font-semibold">{% trans "Marque :" %}</span> {{ pneu.get_manufacturier_display }}</p>
                         <p><span class="font-semibold">{% trans "Type :" %}</span> {{ pneu.get_type_pneus_display }} {{ pneu.nom_type|default:"" }}</p>
                         <p><span class="font-semibold">{% trans "Taille :" %}</span> {{ pneu.taille }}</p>
                         <p><span class="font-semibold">{% trans "Indices :" %}</span> {{ pneu.indice_charge }}{{ pneu.indice_vitesse }}</p>

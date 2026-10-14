@@ -103,7 +103,7 @@ def ajouter_pneus_simple(request):
             messages.success(
                 request,
                 _(
-                    f"Le pneu '{pneu.manufacturier} "
+                    f"Le pneu '{pneu.get_manufacturier_display()} "
                     f"{pneu.pneus_largeur}/{pneu.pneus_hauteur} "
                     f"R{pneu.pneus_jante}' a été ajouté avec succès !"
                 ),
@@ -244,7 +244,7 @@ def delete_pneus_view(request, pneus_id):
         # Infos à conserver AVANT suppression
         pneus_pk = pneus.pk
         pneus_str = (
-            f"{pneus.manufacturier} {pneus.nom_type or ''} "
+            f"{pneus.get_manufacturier_display()} {pneus.nom_type or ''} "
             f"{pneus.pneus_largeur}/{pneus.pneus_hauteur} R{pneus.pneus_jante}"
         ).strip()
         exemplaires_str = ", ".join(str(e) for e in exemplaires_lies)

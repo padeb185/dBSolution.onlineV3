@@ -12,7 +12,7 @@
 
         <img
             src="{% static 'images/' %}{{ pneus.manufacturier|lower|slugify }}.png"
-            alt="{{ pneus.manufacturier }}"
+            alt="{{ pneus.get_manufacturier_display }}"
             style="width:150px; height:50px; object-fit:contain;"
             onerror="this.style.display='none';"
         >

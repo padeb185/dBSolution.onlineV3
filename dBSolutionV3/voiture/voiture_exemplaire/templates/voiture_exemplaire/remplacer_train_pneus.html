@@ -46,7 +46,7 @@
                 {% trans "Train actuel n°" %}{{ train.numero }} — {{ train.get_monte_display }}
                 {% if train.type_pneus %}· {{ train.get_type_pneus_display }}{% endif %}
             </div>
-            <div>{{ train.libelle_pneus }}</div>
+            <div>{{ train.libelle }}</div>
             <div class="text-sm text-gray-600 mt-1">
                 {% trans "Km effectués :" %} <strong>{{ train.km_effectues }} km</strong>
                 · {% trans "monté le" %} {{ train.date_montage|date:"d/m/Y" }}
@@ -70,7 +70,7 @@
                 <option value="">{% trans "Sélectionner les pneus" %}</option>
                 {% for pneu in pneus %}
                     <option value="{{ pneu.id }}">
-                        {{ pneu.manufacturier }} {{ pneu.get_type_pneus_display }} {{ pneu.nom_type|default:"" }}
+                        {{ pneu.get_manufacturier_display }} {{ pneu.get_type_pneus_display }} {{ pneu.nom_type|default:"" }}
                         {{ pneu.taille }} {{ pneu.indice_charge }}{{ pneu.indice_vitesse }}
                         {% if pneu.emplacement == 'avant_arriere' %}({% trans "Av. et Ar." %}){% endif %}
                     </option>

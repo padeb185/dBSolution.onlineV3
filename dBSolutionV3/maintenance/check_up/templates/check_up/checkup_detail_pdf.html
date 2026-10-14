@@ -2218,6 +2218,7 @@
         <tr>
             <th>{% trans "Train" %}</th>
             <th>{% trans "État" %}</th>
+            <th>{% trans "Fabricant" %}</th>
             <th>{% trans "Nombre montés" %}</th>
         </tr>
     </thead>
@@ -2230,12 +2231,13 @@
                 <span class="etat-vert">{{ checkup.get_pneu_train_av_display }}</span>
             {% elif checkup.pneu_train_av == "A_REMPLACER" %}
                 <span class="etat-rouge">{{ checkup.get_pneu_train_av_display }}</span>
-            {% elif checkup.pneu_train_av == "REMPLACE" %}
+            {% elif checkup.pneu_train_av == "REMPLACE" or checkup.pneu_train_av == "CHANGEMENT_MONTE" %}
                 <span class="etat-bleu">{{ checkup.get_pneu_train_av_display }}</span>
             {% else %}
                 <span class="etat-gris">{{ checkup.get_pneu_train_av_display|default:"-" }}</span>
             {% endif %}
         </td>
+        <td>{% if checkup.pneu_train_av_fabricant and checkup.pneu_train_av_fabricant != "CHOISIR" %}{{ checkup.get_pneu_train_av_fabricant_display }}{% else %}-{% endif %}{% if checkup.pneu_train_av_nouveau_id %}<br><small>{{ checkup.pneu_train_av_nouveau }}</small>{% endif %}</td>
         <td>{{ checkup.pneu_train_av_quantite }}</td>
     </tr>
 
@@ -2246,12 +2248,13 @@
                 <span class="etat-vert">{{ checkup.get_pneu_train_ar_display }}</span>
             {% elif checkup.pneu_train_ar == "A_REMPLACER" %}
                 <span class="etat-rouge">{{ checkup.get_pneu_train_ar_display }}</span>
-            {% elif checkup.pneu_train_ar == "REMPLACE" %}
+            {% elif checkup.pneu_train_ar == "REMPLACE" or checkup.pneu_train_ar == "CHANGEMENT_MONTE" %}
                 <span class="etat-bleu">{{ checkup.get_pneu_train_ar_display }}</span>
             {% else %}
                 <span class="etat-gris">{{ checkup.get_pneu_train_ar_display|default:"-" }}</span>
             {% endif %}
         </td>
+        <td>{% if checkup.pneu_train_ar_fabricant and checkup.pneu_train_ar_fabricant != "CHOISIR" %}{{ checkup.get_pneu_train_ar_fabricant_display }}{% else %}-{% endif %}{% if checkup.pneu_train_ar_nouveau_id %}<br><small>{{ checkup.pneu_train_ar_nouveau }}</small>{% endif %}</td>
         <td>{{ checkup.pneu_train_ar_quantite }}</td>
     </tr>
 </tbody>

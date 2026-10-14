@@ -232,7 +232,7 @@ class VoiturePneus(models.Model):
         return f"{self.pneus_largeur}/{self.pneus_hauteur} R{self.pneus_jante}"
 
     def __str__(self):
-        return f"{self.manufacturier} {self.taille} - {self.get_type_pneus_display()}"
+        return f"{self.get_manufacturier_display()} {self.taille} - {self.get_type_pneus_display()}"
 
 
 
@@ -360,6 +360,11 @@ class TrainPneus(models.Model):
                 name="unique_numero_train_par_position",
             ),
         ]
+
+    @property
+    def libelle(self):
+        """Libellé à jour des pneus (copie figée si la fiche pneu a été supprimée)."""
+        return str(self.voiture_pneus) if self.voiture_pneus_id else self.libelle_pneus
 
     # ------------------------------------------------------------------
     # Kilométrage

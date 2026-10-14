@@ -69,7 +69,7 @@
             ({% if monte == 'seconde' %}{% trans "seconde monte" %}{% else %}{% trans "première monte" %}{% endif %}) :
         </span>
         {% if pneu_actuel %}
-            {{ pneu_actuel.manufacturier }} {{ pneu_actuel.get_type_pneus_display }} {{ pneu_actuel.nom_type|default:"" }}
+            {{ pneu_actuel.get_manufacturier_display }} {{ pneu_actuel.get_type_pneus_display }} {{ pneu_actuel.nom_type|default:"" }}
             {{ pneu_actuel.taille }}
             <div class="text-sm text-gray-600 mt-1">
                 {% trans "Train n°" %}{{ train.numero }} · {{ train.km_effectues }} km
@@ -102,7 +102,7 @@
             {% for pneu in pneus %}
                 <option value="{{ pneu.id }}"
                         {% if pneu_actuel and pneu.id == pneu_actuel.id %}selected{% endif %}>
-                    {{ pneu.manufacturier }}
+                    {{ pneu.get_manufacturier_display }}
                     {{ pneu.get_type_pneus_display }} {{ pneu.nom_type|default:"" }}
                     {{ pneu.taille }}
                     {{ pneu.indice_charge }}{{ pneu.indice_vitesse }}

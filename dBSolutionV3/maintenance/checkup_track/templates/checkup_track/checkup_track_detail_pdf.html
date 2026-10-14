@@ -1795,7 +1795,7 @@
                     <span class="etat-rouge">
                         {{ checkup_track.get_pneu_train_av_display }}
                     </span>
-                {% elif checkup_track.pneu_train_av == "REMPLACE" %}
+                {% elif checkup_track.pneu_train_av == "REMPLACE" or checkup_track.pneu_train_av == "CHANGEMENT_MONTE" %}
                     <span class="etat-bleu">
                         {{ checkup_track.get_pneu_train_av_display }}
                     </span>
@@ -1805,6 +1805,11 @@
                     </span>
                 {% endif %}
             </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Fabricant des pneus avant" %}</td>
+            <td>{% if checkup_track.pneu_train_av_fabricant and checkup_track.pneu_train_av_fabricant != "CHOISIR" %}{{ checkup_track.get_pneu_train_av_fabricant_display }}{% else %}-{% endif %}{% if checkup_track.pneu_train_av_nouveau_id %}<br><small>{{ checkup_track.pneu_train_av_nouveau }}</small>{% endif %}</td>
         </tr>
 
         <tr>
@@ -1818,7 +1823,7 @@
                     <span class="etat-rouge">
                         {{ checkup_track.get_pneu_train_ar_display }}
                     </span>
-                {% elif checkup_track.pneu_train_ar == "REMPLACE" %}
+                {% elif checkup_track.pneu_train_ar == "REMPLACE" or checkup_track.pneu_train_ar == "CHANGEMENT_MONTE" %}
                     <span class="etat-bleu">
                         {{ checkup_track.get_pneu_train_ar_display }}
                     </span>
@@ -1828,6 +1833,11 @@
                     </span>
                 {% endif %}
             </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Fabricant des pneus arrière" %}</td>
+            <td>{% if checkup_track.pneu_train_ar_fabricant and checkup_track.pneu_train_ar_fabricant != "CHOISIR" %}{{ checkup_track.get_pneu_train_ar_fabricant_display }}{% else %}-{% endif %}{% if checkup_track.pneu_train_ar_nouveau_id %}<br><small>{{ checkup_track.pneu_train_ar_nouveau }}</small>{% endif %}</td>
         </tr>
 
         <tr>
