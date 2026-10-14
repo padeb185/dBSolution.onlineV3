@@ -20,17 +20,28 @@
     </p>
 
     <!-- ONGLETS AVANT / ARRIÈRE -->
-    <div class="flex gap-2 mb-6">
-        <a href="{% url 'voiture_exemplaire:lier_pneus_av' exemplaire_id=exemplaire.id %}"
+    <div class="flex gap-2 mb-3">
+        <a href="{% url 'voiture_exemplaire:lier_pneus_av' exemplaire_id=exemplaire.id %}?monte={{ monte }}"
            class="flex-1 text-center px-4 py-2 rounded font-semibold
                   {% if emplacement == 'avant' %}bg-blue-700 text-white{% else %}bg-gray-100 text-gray-700 hover:bg-gray-200{% endif %}">
             {% trans "Avant" %}
         </a>
-        <a href="{% url 'voiture_exemplaire:lier_pneus_ar' exemplaire_id=exemplaire.id %}"
+        <a href="{% url 'voiture_exemplaire:lier_pneus_ar' exemplaire_id=exemplaire.id %}?monte={{ monte }}"
            class="flex-1 text-center px-4 py-2 rounded font-semibold
                   {% if emplacement == 'arriere' %}bg-blue-700 text-white{% else %}bg-gray-100 text-gray-700 hover:bg-gray-200{% endif %}">
             {% trans "Arrière" %}
         </a>
+    </div>
+
+    <!-- ONGLETS PREMIÈRE / SECONDE MONTE -->
+    <div class="flex gap-2 mb-6">
+        {% for code, label in montes %}
+            <a href="{% if emplacement == 'avant' %}{% url 'voiture_exemplaire:lier_pneus_av' exemplaire_id=exemplaire.id %}{% else %}{% url 'voiture_exemplaire:lier_pneus_ar' exemplaire_id=exemplaire.id %}{% endif %}?monte={{ code }}"
+               class="flex-1 text-center px-4 py-2 rounded font-semibold text-sm
+                      {% if monte == code %}bg-gray-800 text-white{% else %}bg-gray-100 text-gray-700 hover:bg-gray-200{% endif %}">
+                {{ label }}{% if code == 'seconde' %} ({% trans "ex. hiver" %}){% endif %}
+            </a>
+        {% endfor %}
     </div>
 
     <!-- MESSAGES -->
@@ -51,21 +62,30 @@
     <div class="mb-6 px-4 py-3 rounded bg-gray-100">
         <span class="font-semibold">
             {% if emplacement == 'avant' %}
-                {% trans "Pneus avant actuels :" %}
+                {% trans "Pneus avant actuels" %}
             {% else %}
-                {% trans "Pneus arrière actuels :" %}
+                {% trans "Pneus arrière actuels" %}
             {% endif %}
+            ({% if monte == 'seconde' %}{% trans "seconde monte" %}{% else %}{% trans "première monte" %}{% endif %}) :
         </span>
         {% if pneu_actuel %}
-            {{ pneu_actuel.manufacturier }} {{ pneu_actuel.nom_type|default:"" }}
+            {{ pneu_actuel.manufacturier }} {{ pneu_actuel.get_type_pneus_display }} {{ pneu_actuel.nom_type|default:"" }}
             {{ pneu_actuel.taille }}
+            <div class="text-sm text-gray-600 mt-1">
+                {% trans "Train n°" %}{{ train.numero }} · {{ train.km_effectues }} km
+                · {% if train.est_monte %}{% trans "monté" %}{% else %}{% trans "non monté" %}{% endif %}
+            </div>
         {% else %}
             <span class="text-gray-500">{% trans "Aucun" %}</span>
         {% endif %}
+        <p class="text-xs text-gray-500 mt-2">
+            {% trans "Lier corrige les pneus de cette monte sans compter de nouveau train. Pour un remplacement (nouveau train à 0 km), utilisez « Remplacer le train » sur la fiche du véhicule." %}
+        </p>
     </div>
 
     <form method="post">
         {% csrf_token %}
+        <input type="hidden" name="monte" value="{{ monte }}">
 
         <label for="pneu_id" class="block mb-2 font-semibold">
             {% if emplacement == 'avant' %}
@@ -102,8 +122,14 @@
             {% else %}
                 {% trans "Lier les pneus arrière" %}
             {% endif %}
+            {% if monte == 'seconde' %}({% trans "seconde monte" %}){% endif %}
         </button>
     </form>
+
+    <a href="{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=exemplaire.id %}"
+       class="block text-center mt-4 text-blue-700 hover:underline">
+        {% trans "Retour au véhicule" %}
+    </a>
 
 </div>
 {% endblock %}

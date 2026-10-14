@@ -234,47 +234,103 @@
 
 <ul class="space-y-2">
 
-    <!-- PNEUS AVANT -->
-    <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
-        <div>
-            <span class="font-semibold">{% trans "Avant :" %}</span>
-            {% with pneu=exemplaire.pneu_avant %}
-                {% if pneu %}
-                    <span class="font-medium">{{ pneu.manufacturier }}</span>
-                    <span>{{ pneu.get_type_pneus_display }} {{ pneu.nom_type|default:"" }}</span>
-                    <span>{{ pneu.taille }} {{ pneu.indice_charge }}{{ pneu.indice_vitesse }}</span>
-                    {% if pneu.numero_oem %}<span class="text-gray-500">OEM {{ pneu.numero_oem }}</span>{% endif %}
-                {% else %}
-                    <span class="text-gray-500">{% trans "Aucun pneu enregistré" %}</span>
-                {% endif %}
-            {% endwith %}
+    {% for essieu in trains_pneus %}
+    <li class="border p-3 rounded-md">
+        <div class="flex justify-between items-center gap-4 mb-2">
+            <span class="font-semibold">
+                {{ essieu.label }}
+                <span class="ml-2 text-sm font-normal text-gray-600">
+                    {{ essieu.nombre_trains }} {% if essieu.nombre_trains > 1 %}{% trans "trains" %}{% else %}{% trans "train" %}{% endif %}
+                    · {{ essieu.km_total }} km {% trans "au total" %}
+                </span>
+            </span>
+            <span class="flex gap-4 whitespace-nowrap">
+                <a href="{% if essieu.position == 'avant' %}{% url 'voiture_exemplaire:lier_pneus_av' exemplaire_id=exemplaire.id %}{% else %}{% url 'voiture_exemplaire:lier_pneus_ar' exemplaire_id=exemplaire.id %}{% endif %}"
+                   class="text-blue-700 hover:underline">{% trans "Modifier" %}</a>
+                <a href="{% url 'voiture_exemplaire:remplacer_train_pneus' exemplaire_id=exemplaire.id position=essieu.position %}{% if essieu.train_monte %}?monte={{ essieu.train_monte.monte }}{% endif %}"
+                   class="text-blue-700 hover:underline">{% trans "Remplacer le train" %}</a>
+            </span>
         </div>
-        <a href="{% url 'voiture_exemplaire:lier_pneus_av' exemplaire_id=exemplaire.id %}"
-           class="text-blue-700 hover:underline whitespace-nowrap">
-            {% trans "Modifier" %}
-        </a>
-    </li>
 
-    <!-- PNEUS ARRIÈRE -->
-    <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center gap-4">
-        <div>
-            <span class="font-semibold">{% trans "Arrière :" %}</span>
-            {% with pneu=exemplaire.pneu_arriere %}
-                {% if pneu %}
-                    <span class="font-medium">{{ pneu.manufacturier }}</span>
-                    <span>{{ pneu.get_type_pneus_display }} {{ pneu.nom_type|default:"" }}</span>
-                    <span>{{ pneu.taille }} {{ pneu.indice_charge }}{{ pneu.indice_vitesse }}</span>
-                    {% if pneu.numero_oem %}<span class="text-gray-500">OEM {{ pneu.numero_oem }}</span>{% endif %}
-                {% else %}
-                    <span class="text-gray-500">{% trans "Aucun pneu enregistré" %}</span>
-                {% endif %}
-            {% endwith %}
-        </div>
-        <a href="{% url 'voiture_exemplaire:lier_pneus_ar' exemplaire_id=exemplaire.id %}"
-           class="text-blue-700 hover:underline whitespace-nowrap">
-            {% trans "Modifier" %}
-        </a>
+        {% with t=essieu.train_monte %}
+        {% if t %}
+            <div class="bg-green-50 border border-green-200 rounded px-3 py-2">
+                <span class="font-medium">{% trans "Train n°" %}{{ t.numero }}</span>
+                · {{ t.get_monte_display }}
+                {% if t.type_pneus %}· {{ t.get_type_pneus_display }}{% endif %}
+                · <span>{{ t.libelle_pneus }}</span>
+                <span class="float-right font-semibold">{{ t.km_effectues }} km</span>
+            </div>
+        {% else %}
+            <span class="text-gray-500">{% trans "Aucun pneu enregistré" %}</span>
+        {% endif %}
+        {% endwith %}
+
+        {% for t in essieu.autres_actifs %}
+            <div class="bg-gray-50 border rounded px-3 py-2 mt-2 text-gray-700">
+                <span class="font-medium">{% trans "Train n°" %}{{ t.numero }}</span>
+                · {{ t.get_monte_display }} ({% trans "non monté" %})
+                {% if t.type_pneus %}· {{ t.get_type_pneus_display }}{% endif %}
+                · <span>{{ t.libelle_pneus }}</span>
+                <span class="float-right">{{ t.km_effectues }} km</span>
+            </div>
+        {% endfor %}
+
+        {% if essieu.historique %}
+            <details class="mt-3">
+                <summary class="cursor-pointer text-sm text-gray-600">
+                    {% trans "Historique des trains remplacés" %} ({{ essieu.historique|length }})
+                </summary>
+                <table class="w-full text-sm mt-2">
+                    <thead>
+                        <tr class="text-left text-gray-500 border-b">
+                            <th class="py-1">{% trans "N°" %}</th>
+                            <th>{% trans "Monte" %}</th>
+                            <th>{% trans "Type" %}</th>
+                            <th>{% trans "Pneus" %}</th>
+                            <th>{% trans "Monté le" %}</th>
+                            <th>{% trans "Remplacé le" %}</th>
+                            <th class="text-right">{% trans "Km effectués" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for h in essieu.historique %}
+                        <tr class="border-b last:border-0">
+                            <td class="py-1">{{ h.numero }}</td>
+                            <td>{{ h.get_monte_display }}</td>
+                            <td>{{ h.get_type_pneus_display|default:"—" }}</td>
+                            <td>{{ h.libelle_pneus|default:"—" }}</td>
+                            <td>{{ h.date_montage|date:"d/m/Y" }}</td>
+                            <td>{{ h.date_remplacement|date:"d/m/Y"|default:"—" }}</td>
+                            <td class="text-right font-medium">{{ h.km_effectues }} km</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </details>
+        {% endif %}
     </li>
+    {% endfor %}
+
+    {% if a_seconde_monte %}
+    <li class="border p-3 rounded-md bg-blue-50">
+        <form method="post" action="{% url 'voiture_exemplaire:basculer_monte_pneus' exemplaire_id=exemplaire.id %}"
+              class="flex flex-wrap items-center gap-3">
+            {% csrf_token %}
+            <span class="font-semibold">{% trans "Changer de monte (première ↔ seconde)" %}</span>
+            <label class="text-sm text-gray-600">{% trans "au km" %}
+                <input type="number" name="km_chassis" min="{{ exemplaire.kilometres_chassis|default:0 }}"
+                       value="{{ exemplaire.kilometres_chassis|default:0 }}" class="border rounded p-1 w-32 ml-1">
+            </label>
+            <button type="submit" class="px-4 py-1 bg-blue-700 text-white rounded hover:bg-blue-500">
+                {% trans "Basculer" %}
+            </button>
+        </form>
+        <p class="text-xs text-gray-500 mt-1">
+            {% trans "Les kilomètres de chaque monte sont conservés et reprennent au prochain montage." %}
+        </p>
+    </li>
+    {% endif %}
 
 </ul>
 

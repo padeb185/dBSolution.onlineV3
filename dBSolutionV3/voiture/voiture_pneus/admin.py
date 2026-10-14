@@ -36,3 +36,18 @@ class VoiturePneusAdmin(admin.ModelAdmin):
         }),
     )
     readonly_fields = ("kilometre_pneus_av", "kilometre_pneus_ar", "date_remplacement", "created_at")
+
+
+from .models import TrainPneus
+
+
+@admin.register(TrainPneus)
+class TrainPneusAdmin(admin.ModelAdmin):
+    list_display = (
+        "voiture_exemplaire", "position", "numero", "monte", "type_pneus",
+        "libelle_pneus", "actif", "est_monte", "km_effectues", "date_montage", "date_remplacement",
+    )
+    list_filter = ("position", "monte", "actif", "est_monte", "type_pneus")
+    search_fields = ("voiture_exemplaire__immatriculation", "libelle_pneus")
+    autocomplete_fields = ()
+    readonly_fields = ("km_effectues", "created_at", "updated_at")

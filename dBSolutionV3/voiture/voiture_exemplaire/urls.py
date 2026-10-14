@@ -3,6 +3,7 @@ from .views import ajouter_exemplaire_all, liste_exemplaires, voiture_exemplaire
     moteur_autocomplete, modifier_exemplaire, \
     liste_exemplaires_all, lier_boite_exemplaire, lier_moteur_exemplaire, lier_embrayage_exemplaire, \
     lier_freins, lier_frein_ar, lier_pneus_av, lier_pneus_ar, supprimer_exemplaire_all, \
+    remplacer_train_pneus, basculer_monte_pneus, \
     finances_liste, finances_detail, finances_modifier, finances_supprimer
 
 app_name = "voiture_exemplaire"
@@ -37,6 +38,10 @@ urlpatterns = [
     path("exemplaire/<uuid:exemplaire_id>/lier-pneus-av/", lier_pneus_av, name="lier_pneus_av"),
 
     path("exemplaire/<uuid:exemplaire_id>/lier-pneus-ar/", lier_pneus_ar, name="lier_pneus_ar"),
+
+    path("exemplaire/<uuid:exemplaire_id>/pneus/remplacer/<str:position>/", remplacer_train_pneus, name="remplacer_train_pneus"),
+
+    path("exemplaire/<uuid:exemplaire_id>/pneus/basculer-monte/", basculer_monte_pneus, name="basculer_monte_pneus"),
 
     path("exemplaire/<uuid:exemplaire_id>/supprimer/",supprimer_exemplaire_all,name="supprimer_exemplaire_all"),
 

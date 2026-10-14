@@ -234,3 +234,144 @@ class VoiturePneus(models.Model):
     def __str__(self):
         return f"{self.manufacturier} {self.taille} - {self.get_type_pneus_display()}"
 
+
+
+class TrainPneus(models.Model):
+    """
+    Un « train » = un jeu de pneus monté sur un essieu (avant ou arrière)
+    d'un véhicule précis.
+
+    - Le compteur de trains commence à 1 (première monte d'origine) et
+      s'incrémente à chaque remplacement, séparément pour l'avant et l'arrière.
+    - Un véhicule peut avoir deux montes actives par essieu :
+      la première monte (ex. été) et une seconde monte (ex. hiver).
+      Une seule est montée à la fois ; les km de chaque monte se cumulent
+      d'une saison à l'autre.
+    - Lors d'un remplacement, l'ancien train est figé (actif=False) avec
+      ses km effectués, et le nouveau train repart de zéro.
+    """
+
+    class Position(models.TextChoices):
+        AVANT = "avant", _("Avant")
+        ARRIERE = "arriere", _("Arrière")
+
+    class Monte(models.TextChoices):
+        PREMIERE = "premiere", _("Première monte")
+        SECONDE = "seconde", _("Seconde monte")
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="trains_pneus",
+        null=True,
+        blank=True,
+    )
+
+    voiture_exemplaire = models.ForeignKey(
+        "voiture_exemplaire.VoitureExemplaire",
+        on_delete=models.CASCADE,
+        related_name="trains_pneus",
+        verbose_name=_("Véhicule"),
+    )
+
+    voiture_pneus = models.ForeignKey(
+        VoiturePneus,
+        on_delete=models.SET_NULL,
+        related_name="trains",
+        null=True,
+        blank=True,
+        verbose_name=_("Pneus"),
+    )
+
+    # Copie du libellé : l'historique reste lisible même si la fiche pneu est supprimée
+    libelle_pneus = models.CharField(max_length=200, blank=True, default="")
+
+    position = models.CharField(max_length=10, choices=Position.choices)
+    monte = models.CharField(max_length=10, choices=Monte.choices, default=Monte.PREMIERE)
+    type_pneus = models.CharField(
+        max_length=20,
+        choices=VoiturePneus.TypePneus.choices,
+        blank=True,
+        default="",
+    )
+
+    numero = models.PositiveSmallIntegerField(verbose_name=_("N° de train"))
+
+    actif = models.BooleanField(
+        default=True,
+        help_text=_("Faux une fois le train remplacé (archivé dans l'historique)."),
+    )
+    est_monte = models.BooleanField(
+        default=False,
+        help_text=_("Vrai si ce train est actuellement monté sur le véhicule."),
+    )
+
+    km_montage = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Km châssis au dernier montage"),
+    )
+    km_cumules = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Km cumulés lors des montages précédents"),
+    )
+
+    date_montage = models.DateField(default=timezone.localdate, verbose_name=_("Date de montage"))
+    date_remplacement = models.DateField(null=True, blank=True, verbose_name=_("Date de remplacement"))
+    km_remplacement = models.PositiveIntegerField(
+        null=True, blank=True, verbose_name=_("Km châssis au remplacement")
+    )
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
+    class Meta:
+        ordering = ["voiture_exemplaire", "position", "numero"]
+        verbose_name = _("Train de pneus")
+        verbose_name_plural = _("Trains de pneus")
+        constraints = [
+            models.UniqueConstraint(
+                fields=["voiture_exemplaire", "position", "numero"],
+                name="unique_numero_train_par_position",
+            ),
+        ]
+
+    # ------------------------------------------------------------------
+    # Kilométrage
+    # ------------------------------------------------------------------
+    def _km_chassis(self):
+        return self.voiture_exemplaire.kilometres_chassis or 0
+
+    @property
+    def km_effectues(self):
+        """Km parcourus avec ce train (cumul de tous ses montages)."""
+        total = self.km_cumules or 0
+        if self.est_monte and self.actif:
+            total += max(0, self._km_chassis() - (self.km_montage or 0))
+        return total
+
+    def demonter(self, km_chassis):
+        if self.est_monte:
+            self.km_cumules = (self.km_cumules or 0) + max(0, km_chassis - (self.km_montage or 0))
+            self.est_monte = False
+
+    def monter(self, km_chassis):
+        if not self.est_monte:
+            self.est_monte = True
+            self.km_montage = km_chassis
+
+    # ------------------------------------------------------------------
+    def save(self, *args, **kwargs):
+        if self.voiture_pneus_id:
+            self.libelle_pneus = str(self.voiture_pneus)[:200]
+            self.type_pneus = self.voiture_pneus.type_pneus
+        if not self.societe_id and self.voiture_exemplaire_id:
+            self.societe_id = self.voiture_exemplaire.societe_id
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return (
+            f"{self.voiture_exemplaire} | {self.get_position_display()} "
+            f"train n°{self.numero} ({self.get_monte_display()})"
+        )

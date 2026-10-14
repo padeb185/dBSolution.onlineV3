@@ -14,7 +14,11 @@ from ..voiture_boite.models import VoitureBoite
 from ..voiture_embrayage.models import VoitureEmbrayage
 from ..voiture_freins_av.models import VoitureFreinsAV
 from ..voiture_freins_ar.models import VoitureFreinsAR
-from ..voiture_pneus.models import VoiturePneus
+from ..voiture_pneus.models import VoiturePneus, TrainPneus
+from ..voiture_pneus import services_trains as trains_services
+from django.db.models import Q
+from django.utils import timezone
+from django.utils.dateparse import parse_date
 from django.db.models.deletion import ProtectedError
 
 
@@ -72,6 +76,9 @@ def voiture_exemplaire_detail(request, exemplaire_id):
 
     exemplaire.refresh_from_db()
 
+    trains_services.initialiser_trains(exemplaire)
+    trains_pneus = trains_services.resume_trains(exemplaire)
+
     return render(
         request,
         "voiture_exemplaire/detail_exemplaire.html",
@@ -79,6 +86,8 @@ def voiture_exemplaire_detail(request, exemplaire_id):
             "exemplaire": exemplaire,
             "modele": modele,
             "marque": marque,
+            "trains_pneus": trains_pneus,
+            "a_seconde_monte": any(p["autres_actifs"] or (p["train_monte"] and p["train_monte"].monte == "seconde") for p in trains_pneus),
         },
     )
 
@@ -111,42 +120,48 @@ def lier_boite_exemplaire(request, exemplaire_id):
 EMPLACEMENTS = VoiturePneus.EmplacementPneus
 
 
+def _pneus_compatibles(request, position):
+    """Pneus du catalogue de la société compatibles avec l'essieu."""
+    return (
+        VoiturePneus.objects
+        .filter(emplacement__in=[position, EMPLACEMENTS.AVANT_ET_ARRIERE])
+        .filter(Q(societe=getattr(request.user, "societe", None)) | Q(societe__isnull=True))
+        .order_by("manufacturier")
+    )
+
+
+def _monte_demandee(request):
+    monte = request.POST.get("monte") or request.GET.get("monte") or TrainPneus.Monte.PREMIERE
+    return monte if monte in TrainPneus.Monte.values else TrainPneus.Monte.PREMIERE
+
+
 def _lier_pneus(request, exemplaire_id, emplacement, url_name, titre):
     exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+    monte = _monte_demandee(request)
+    pneus = _pneus_compatibles(request, emplacement)
 
-    emplacements_compatibles = [emplacement, EMPLACEMENTS.AVANT_ET_ARRIERE]
-    pneus = VoiturePneus.objects.filter(
-        emplacement__in=emplacements_compatibles
-    ).order_by("manufacturier")
+    trains_services.initialiser_trains(exemplaire)
 
     if request.method == "POST":
         pneu_id = request.POST.get("pneu_id")
 
         if pneu_id:
             pneu = get_object_or_404(pneus, id=pneu_id)
-
-            # Retirer les anciens pneus de cet emplacement
-            anciens = exemplaire.pneus.filter(emplacement=emplacement).exclude(id=pneu.id)
-            for ancien in anciens:
-                ancien.voitures_exemplaires.remove(exemplaire)
-
-            pneu.voitures_exemplaires.add(exemplaire)
+            trains_services.lier_pneus(exemplaire, emplacement, monte, pneu)
 
             messages.success(
                 request,
-                _("Les pneus ont été liés au véhicule « %(vehicule)s » avec succès.") % {
+                _("Les pneus (%(monte)s) ont été liés au véhicule « %(vehicule)s » avec succès.") % {
+                    "monte": TrainPneus.Monte(monte).label,
                     "vehicule": f"{exemplaire.voiture_marque} {exemplaire.immatriculation}",
                 },
             )
-            return redirect(url_name, exemplaire_id=exemplaire.id)
+            return redirect(f"{reverse(url_name, kwargs={'exemplaire_id': exemplaire.id})}?monte={monte}")
 
         messages.error(request, _("Veuillez sélectionner des pneus à lier."))
 
-    pneu_actuel = (
-        exemplaire.pneu_avant
-        if emplacement == EMPLACEMENTS.AVANT
-        else exemplaire.pneu_arriere
-    )
+    train = trains_services.train_actif(exemplaire, emplacement, monte)
+    pneu_actuel = train.voiture_pneus if train else None
 
     return render(
         request,
@@ -156,6 +171,9 @@ def _lier_pneus(request, exemplaire_id, emplacement, url_name, titre):
             "pneus": pneus,
             "title": titre,
             "emplacement": emplacement,  # "avant" ou "arriere"
+            "monte": monte,              # "premiere" ou "seconde"
+            "montes": TrainPneus.Monte.choices,
+            "train": train,
             "pneu_actuel": pneu_actuel,
         },
     )
@@ -181,6 +199,100 @@ def lier_pneus_ar(request, exemplaire_id):
         url_name="voiture_exemplaire:lier_pneus_ar",
         titre=_("Lier des pneus arrière à un véhicule"),
     )
+
+
+def _entier_positif(valeur, defaut):
+    try:
+        valeur = int(str(valeur).replace(" ", "").replace(".", ""))
+    except (TypeError, ValueError):
+        return defaut
+    return valeur if valeur >= 0 else defaut
+
+
+@login_required
+def remplacer_train_pneus(request, exemplaire_id, position):
+    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+    if position not in TrainPneus.Position.values:
+        return redirect("voiture_exemplaire:voiture_exemplaire_detail", exemplaire_id=exemplaire.id)
+
+    trains_services.initialiser_trains(exemplaire)
+    monte = _monte_demandee(request)
+    pneus = _pneus_compatibles(request, position)
+    km_actuel = exemplaire.kilometres_chassis or 0
+    train = trains_services.train_actif(exemplaire, position, monte)
+
+    if request.method == "POST":
+        pneu_id = request.POST.get("pneu_id")
+        km = _entier_positif(request.POST.get("km_chassis"), km_actuel)
+        date = parse_date(request.POST.get("date_remplacement") or "") or timezone.localdate()
+
+        erreurs = []
+        if not pneu_id:
+            erreurs.append(_("Veuillez sélectionner les nouveaux pneus."))
+        if km < km_actuel:
+            erreurs.append(
+                _("Le kilométrage (%(km)s) ne peut pas être inférieur au kilométrage actuel du véhicule (%(actuel)s).")
+                % {"km": km, "actuel": km_actuel}
+            )
+
+        if not erreurs:
+            pneu = get_object_or_404(pneus, id=pneu_id)
+            ancien, nouveau = trains_services.remplacer_train(exemplaire, position, monte, pneu, km, date)
+            if ancien:
+                messages.success(
+                    request,
+                    _("Train n°%(ancien)s archivé (%(km)s km). Nouveau train n°%(nouveau)s installé à 0 km.")
+                    % {"ancien": ancien.numero, "km": ancien.km_effectues, "nouveau": nouveau.numero},
+                )
+            else:
+                messages.success(
+                    request,
+                    _("Train n°%(nouveau)s installé.") % {"nouveau": nouveau.numero},
+                )
+            return redirect("voiture_exemplaire:voiture_exemplaire_detail", exemplaire_id=exemplaire.id)
+
+        for erreur in erreurs:
+            messages.error(request, erreur)
+
+    return render(
+        request,
+        "voiture_exemplaire/remplacer_train_pneus.html",
+        {
+            "exemplaire": exemplaire,
+            "position": position,
+            "position_label": TrainPneus.Position(position).label,
+            "monte": monte,
+            "montes": TrainPneus.Monte.choices,
+            "train": train,
+            "pneus": pneus,
+            "km_actuel": km_actuel,
+            "aujourdhui": timezone.localdate(),
+        },
+    )
+
+
+@login_required
+def basculer_monte_pneus(request, exemplaire_id):
+    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+    if request.method != "POST":
+        return redirect("voiture_exemplaire:voiture_exemplaire_detail", exemplaire_id=exemplaire.id)
+
+    km_actuel = exemplaire.kilometres_chassis or 0
+    km = _entier_positif(request.POST.get("km_chassis"), km_actuel)
+    if km < km_actuel:
+        messages.error(
+            request,
+            _("Le kilométrage (%(km)s) ne peut pas être inférieur au kilométrage actuel du véhicule (%(actuel)s).")
+            % {"km": km, "actuel": km_actuel},
+        )
+    else:
+        nb = trains_services.basculer_monte(exemplaire, km)
+        if nb:
+            messages.success(request, _("Monte basculée (première ↔ seconde) au kilométrage %(km)s.") % {"km": km})
+        else:
+            messages.error(request, _("Aucune seconde monte n'est enregistrée pour ce véhicule."))
+
+    return redirect("voiture_exemplaire:voiture_exemplaire_detail", exemplaire_id=exemplaire.id)
 
 
 
