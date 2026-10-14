@@ -460,42 +460,42 @@ def cire_form_view(request, exemplaire_id):
         },
         {
             "title": _("Préparation / dégraissage"),
-            "icon": "icons/cire.png",
+            "icon": "icons/preparation_cire.png",
             "fields": [form[f.name] for f in form if f.name.startswith("preparation_cire")],
         },
         {
             "title": _("Cire carrosserie"),
-            "icon": "icons/cire.png",
+            "icon": "icons/cire_carrosserie.png",
             "fields": [form[f.name] for f in form if f.name.startswith("cire_carrosserie")],
         },
         {
             "title": _("Scellant synthétique (sealant)"),
-            "icon": "icons/cire.png",
+            "icon": "icons/scellant.png",
             "fields": [form[f.name] for f in form if f.name.startswith("scellant")],
         },
         {
             "title": _("Protection des jantes"),
-            "icon": "icons/cire.png",
+            "icon": "icons/cire_jantes.png",
             "fields": [form[f.name] for f in form if f.name.startswith("cire_jantes")],
         },
         {
             "title": _("Rénovation / protection des plastiques extérieurs"),
-            "icon": "icons/cire.png",
+            "icon": "icons/protection_plastiques.png",
             "fields": [form[f.name] for f in form if f.name.startswith("protection_plastiques")],
         },
         {
             "title": _("Dressing pneus"),
-            "icon": "icons/cire.png",
+            "icon": "icons/dressing_pneus.png",
             "fields": [form[f.name] for f in form if f.name.startswith("dressing_pneus")],
         },
         {
             "title": _("Traitement hydrophobe des vitres"),
-            "icon": "icons/cire.png",
+            "icon": "icons/vitres_hydrophobe.png",
             "fields": [form[f.name] for f in form if f.name.startswith("vitres_hydrophobe")],
         },
         {
             "title": _("Lustrage final"),
-            "icon": "icons/cire.png",
+            "icon": "icons/lustrage_final.png",
             "fields": [form[f.name] for f in form if f.name.startswith("lustrage_final")],
         },
         {
@@ -773,42 +773,42 @@ def modifier_cire_view(request, cire_id):
         },
         {
             "title": _("Préparation / dégraissage"),
-            "icon": "icons/cire.png",
+            "icon": "icons/preparation_cire.png",
             "fields": [form[f.name] for f in form if f.name.startswith("preparation_cire")],
         },
         {
             "title": _("Cire carrosserie"),
-            "icon": "icons/cire.png",
+            "icon": "icons/cire_carrosserie.png",
             "fields": [form[f.name] for f in form if f.name.startswith("cire_carrosserie")],
         },
         {
             "title": _("Scellant synthétique (sealant)"),
-            "icon": "icons/cire.png",
+            "icon": "icons/scellant.png",
             "fields": [form[f.name] for f in form if f.name.startswith("scellant")],
         },
         {
             "title": _("Protection des jantes"),
-            "icon": "icons/cire.png",
+            "icon": "icons/cire_jantes.png",
             "fields": [form[f.name] for f in form if f.name.startswith("cire_jantes")],
         },
         {
             "title": _("Rénovation / protection des plastiques extérieurs"),
-            "icon": "icons/cire.png",
+            "icon": "icons/protection_plastiques.png",
             "fields": [form[f.name] for f in form if f.name.startswith("protection_plastiques")],
         },
         {
             "title": _("Dressing pneus"),
-            "icon": "icons/cire.png",
+            "icon": "icons/dressing_pneus.png",
             "fields": [form[f.name] for f in form if f.name.startswith("dressing_pneus")],
         },
         {
             "title": _("Traitement hydrophobe des vitres"),
-            "icon": "icons/cire.png",
+            "icon": "icons/vitres_hydrophobe.png",
             "fields": [form[f.name] for f in form if f.name.startswith("vitres_hydrophobe")],
         },
         {
             "title": _("Lustrage final"),
-            "icon": "icons/cire.png",
+            "icon": "icons/lustrage_final.png",
             "fields": [form[f.name] for f in form if f.name.startswith("lustrage_final")],
         },
         {

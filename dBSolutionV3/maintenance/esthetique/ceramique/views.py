@@ -460,47 +460,47 @@ def ceramique_form_view(request, exemplaire_id):
         },
         {
             "title": _("Préparation / dégraissage (panel wipe)"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/preparation_ceramique.png",
             "fields": [form[f.name] for f in form if f.name.startswith("preparation_ceramique")],
         },
         {
             "title": _("Revêtement céramique carrosserie"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/ceramique_carrosserie.png",
             "fields": [form[f.name] for f in form if f.name.startswith("ceramique_carrosserie")],
         },
         {
             "title": _("Couche supplémentaire / top coat"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/couche_supplementaire.png",
             "fields": [form[f.name] for f in form if f.name.startswith("couche_supplementaire")],
         },
         {
             "title": _("Céramique jantes / étriers"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/ceramique_jantes.png",
             "fields": [form[f.name] for f in form if f.name.startswith("ceramique_jantes")],
         },
         {
             "title": _("Céramique vitres"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/ceramique_vitres.png",
             "fields": [form[f.name] for f in form if f.name.startswith("ceramique_vitres")],
         },
         {
             "title": _("Céramique plastiques / garnitures"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/ceramique_plastiques.png",
             "fields": [form[f.name] for f in form if f.name.startswith("ceramique_plastiques")],
         },
         {
             "title": _("Céramique optiques"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/ceramique_optiques.png",
             "fields": [form[f.name] for f in form if f.name.startswith("ceramique_optiques")],
         },
         {
             "title": _("Cuisson / séchage infrarouge"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/sechage_infrarouge.png",
             "fields": [form[f.name] for f in form if f.name.startswith("sechage_infrarouge")],
         },
         {
             "title": _("Produit d'entretien (shampoing / spray)"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/entretien_ceramique.png",
             "fields": [form[f.name] for f in form if f.name.startswith("entretien_ceramique")],
         },
         {
@@ -778,47 +778,47 @@ def modifier_ceramique_view(request, ceramique_id):
         },
         {
             "title": _("Préparation / dégraissage (panel wipe)"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/preparation_ceramique.png",
             "fields": [form[f.name] for f in form if f.name.startswith("preparation_ceramique")],
         },
         {
             "title": _("Revêtement céramique carrosserie"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/ceramique_carrosserie.png",
             "fields": [form[f.name] for f in form if f.name.startswith("ceramique_carrosserie")],
         },
         {
             "title": _("Couche supplémentaire / top coat"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/couche_supplementaire.png",
             "fields": [form[f.name] for f in form if f.name.startswith("couche_supplementaire")],
         },
         {
             "title": _("Céramique jantes / étriers"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/ceramique_jantes.png",
             "fields": [form[f.name] for f in form if f.name.startswith("ceramique_jantes")],
         },
         {
             "title": _("Céramique vitres"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/ceramique_vitres.png",
             "fields": [form[f.name] for f in form if f.name.startswith("ceramique_vitres")],
         },
         {
             "title": _("Céramique plastiques / garnitures"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/ceramique_plastiques.png",
             "fields": [form[f.name] for f in form if f.name.startswith("ceramique_plastiques")],
         },
         {
             "title": _("Céramique optiques"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/ceramique_optiques.png",
             "fields": [form[f.name] for f in form if f.name.startswith("ceramique_optiques")],
         },
         {
             "title": _("Cuisson / séchage infrarouge"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/sechage_infrarouge.png",
             "fields": [form[f.name] for f in form if f.name.startswith("sechage_infrarouge")],
         },
         {
             "title": _("Produit d'entretien (shampoing / spray)"),
-            "icon": "icons/ceramique.png",
+            "icon": "icons/entretien_ceramique.png",
             "fields": [form[f.name] for f in form if f.name.startswith("entretien_ceramique")],
         },
         {

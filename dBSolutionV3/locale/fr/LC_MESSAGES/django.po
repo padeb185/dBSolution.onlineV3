@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-14 14:05+0200\n"
+"POT-Creation-Date: 2026-10-14 14:36+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -12887,16 +12887,16 @@ msgstr ""
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:1676
 #: maintenance/essuyage/templates/essuyage/essuyage_form.html:335
 #: maintenance/essuyage/templates/essuyage/modifier_essuyage.html:333
-#: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:298
+#: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:299
 #: maintenance/esthetique/ceramique/templates/ceramique/modifier_ceramique.html:299
-#: maintenance/esthetique/cire/templates/cire/cire_form.html:298
+#: maintenance/esthetique/cire/templates/cire/cire_form.html:300
 #: maintenance/esthetique/cire/templates/cire/modifier_cire.html:299
-#: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:298
+#: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:300
 #: maintenance/esthetique/decontamination/templates/decontamination/modifier_decontamination.html:299
 #: maintenance/esthetique/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:454
 #: maintenance/esthetique/nettoyage_exterieur/templates/nettoyage_exterieur/simple.html:458
 #: maintenance/esthetique/polish/templates/polish/modifier_polish.html:299
-#: maintenance/esthetique/polish/templates/polish/polish_form.html:298
+#: maintenance/esthetique/polish/templates/polish/polish_form.html:300
 #: maintenance/freins/templates/freins/freins_check.html:836
 #: maintenance/freins/templates/freins/modifier_freins.html:833
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux.html:946
@@ -13134,17 +13134,17 @@ msgstr ""
 #: maintenance/essuyage/templates/essuyage/modifier_essuyage.html:197
 #: maintenance/essuyage/templates/essuyage/modifier_essuyage.html:339
 #: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:195
-#: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:303
+#: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:304
 #: maintenance/esthetique/ceramique/templates/ceramique/delete_ceramique.html:55
 #: maintenance/esthetique/ceramique/templates/ceramique/modifier_ceramique.html:194
 #: maintenance/esthetique/ceramique/templates/ceramique/modifier_ceramique.html:305
 #: maintenance/esthetique/cire/templates/cire/cire_form.html:195
-#: maintenance/esthetique/cire/templates/cire/cire_form.html:303
+#: maintenance/esthetique/cire/templates/cire/cire_form.html:305
 #: maintenance/esthetique/cire/templates/cire/delete_cire.html:55
 #: maintenance/esthetique/cire/templates/cire/modifier_cire.html:194
 #: maintenance/esthetique/cire/templates/cire/modifier_cire.html:305
 #: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:195
-#: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:303
+#: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:305
 #: maintenance/esthetique/decontamination/templates/decontamination/delete_decontamination.html:55
 #: maintenance/esthetique/decontamination/templates/decontamination/modifier_decontamination.html:194
 #: maintenance/esthetique/decontamination/templates/decontamination/modifier_decontamination.html:305
@@ -13157,7 +13157,7 @@ msgstr ""
 #: maintenance/esthetique/polish/templates/polish/modifier_polish.html:194
 #: maintenance/esthetique/polish/templates/polish/modifier_polish.html:305
 #: maintenance/esthetique/polish/templates/polish/polish_form.html:195
-#: maintenance/esthetique/polish/templates/polish/polish_form.html:303
+#: maintenance/esthetique/polish/templates/polish/polish_form.html:305
 #: maintenance/freins/templates/freins/delete_freins.html:54
 #: maintenance/freins/templates/freins/freins_check.html:199
 #: maintenance/freins/templates/freins/freins_check.html:841
@@ -18553,10 +18553,10 @@ msgstr ""
 #: maintenance/entretien/templates/entretien/entretien_check.html:1683
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:1688
 #: maintenance/essuyage/templates/essuyage/essuyage_form.html:347
-#: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:309
-#: maintenance/esthetique/cire/templates/cire/cire_form.html:309
-#: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:309
-#: maintenance/esthetique/polish/templates/polish/polish_form.html:309
+#: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:310
+#: maintenance/esthetique/cire/templates/cire/cire_form.html:311
+#: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:311
+#: maintenance/esthetique/polish/templates/polish/polish_form.html:311
 #: maintenance/freins/templates/freins/freins_check.html:848
 #: maintenance/freins/templates/freins/modifier_freins.html:845
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux.html:958
@@ -19539,16 +19539,16 @@ msgstr ""
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:1631
 #: maintenance/essuyage/templates/essuyage/essuyage_form.html:294
 #: maintenance/essuyage/templates/essuyage/modifier_essuyage.html:292
-#: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:259
+#: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:260
 #: maintenance/esthetique/ceramique/templates/ceramique/modifier_ceramique.html:258
-#: maintenance/esthetique/cire/templates/cire/cire_form.html:259
+#: maintenance/esthetique/cire/templates/cire/cire_form.html:261
 #: maintenance/esthetique/cire/templates/cire/modifier_cire.html:258
-#: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:259
+#: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:261
 #: maintenance/esthetique/decontamination/templates/decontamination/modifier_decontamination.html:258
 #: maintenance/esthetique/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:413
 #: maintenance/esthetique/nettoyage_exterieur/templates/nettoyage_exterieur/simple.html:414
 #: maintenance/esthetique/polish/templates/polish/modifier_polish.html:258
-#: maintenance/esthetique/polish/templates/polish/polish_form.html:259
+#: maintenance/esthetique/polish/templates/polish/polish_form.html:261
 #: maintenance/freins/templates/freins/freins_check.html:792
 #: maintenance/freins/templates/freins/modifier_freins.html:790
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux.html:900
@@ -19624,16 +19624,16 @@ msgstr ""
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:1638
 #: maintenance/essuyage/templates/essuyage/essuyage_form.html:301
 #: maintenance/essuyage/templates/essuyage/modifier_essuyage.html:299
-#: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:266
+#: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:267
 #: maintenance/esthetique/ceramique/templates/ceramique/modifier_ceramique.html:265
-#: maintenance/esthetique/cire/templates/cire/cire_form.html:266
+#: maintenance/esthetique/cire/templates/cire/cire_form.html:268
 #: maintenance/esthetique/cire/templates/cire/modifier_cire.html:265
-#: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:266
+#: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:268
 #: maintenance/esthetique/decontamination/templates/decontamination/modifier_decontamination.html:265
 #: maintenance/esthetique/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:420
 #: maintenance/esthetique/nettoyage_exterieur/templates/nettoyage_exterieur/simple.html:421
 #: maintenance/esthetique/polish/templates/polish/modifier_polish.html:265
-#: maintenance/esthetique/polish/templates/polish/polish_form.html:266
+#: maintenance/esthetique/polish/templates/polish/polish_form.html:268
 #: maintenance/freins/templates/freins/freins_check.html:799
 #: maintenance/freins/templates/freins/modifier_freins.html:797
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux.html:907
@@ -19709,16 +19709,16 @@ msgstr ""
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:1653
 #: maintenance/essuyage/templates/essuyage/essuyage_form.html:316
 #: maintenance/essuyage/templates/essuyage/modifier_essuyage.html:314
-#: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:281
+#: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:282
 #: maintenance/esthetique/ceramique/templates/ceramique/modifier_ceramique.html:280
-#: maintenance/esthetique/cire/templates/cire/cire_form.html:281
+#: maintenance/esthetique/cire/templates/cire/cire_form.html:283
 #: maintenance/esthetique/cire/templates/cire/modifier_cire.html:280
-#: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:281
+#: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:283
 #: maintenance/esthetique/decontamination/templates/decontamination/modifier_decontamination.html:280
 #: maintenance/esthetique/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:436
 #: maintenance/esthetique/nettoyage_exterieur/templates/nettoyage_exterieur/simple.html:437
 #: maintenance/esthetique/polish/templates/polish/modifier_polish.html:280
-#: maintenance/esthetique/polish/templates/polish/polish_form.html:281
+#: maintenance/esthetique/polish/templates/polish/polish_form.html:283
 #: maintenance/freins/templates/freins/freins_check.html:815
 #: maintenance/freins/templates/freins/modifier_freins.html:813
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux.html:923
@@ -32201,14 +32201,14 @@ msgstr ""
 msgid "Ajouter un traitement céramique"
 msgstr ""
 
-#: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:317
+#: maintenance/esthetique/ceramique/templates/ceramique/ceramique_form.html:318
 #: maintenance/esthetique/ceramique/templates/ceramique/modifier_ceramique.html:315
-#: maintenance/esthetique/cire/templates/cire/cire_form.html:317
+#: maintenance/esthetique/cire/templates/cire/cire_form.html:319
 #: maintenance/esthetique/cire/templates/cire/modifier_cire.html:315
-#: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:317
+#: maintenance/esthetique/decontamination/templates/decontamination/decontamination_form.html:319
 #: maintenance/esthetique/decontamination/templates/decontamination/modifier_decontamination.html:315
 #: maintenance/esthetique/polish/templates/polish/modifier_polish.html:315
-#: maintenance/esthetique/polish/templates/polish/polish_form.html:317
+#: maintenance/esthetique/polish/templates/polish/polish_form.html:319
 #: maintenance/templates/maintenance/partials/intervention_detail.html:198
 #: maintenance/templates/maintenance/partials/intervention_detail.html:203
 #: piece/templates/piece/piece_detail.html:50
@@ -32688,7 +32688,7 @@ msgstr ""
 #: maintenance/esthetique/templates/esthetique/dashboard_esthetique.html:123
 #: maintenance/models.py:38
 msgid "Polish"
-msgstr ""
+msgstr "Polish"
 
 #: maintenance/esthetique/polish/templates/polish/delete_polish.html:10
 msgid "Supprimer le polish"

@@ -460,42 +460,42 @@ def decontamination_form_view(request, exemplaire_id):
         },
         {
             "title": _("Prélavage / mousse active"),
-            "icon": "icons/decontamination.png",
+            "icon": "icons/prelavage.png",
             "fields": [form[f.name] for f in form if f.name.startswith("prelavage")],
         },
         {
             "title": _("Lavage manuel (méthode deux seaux)"),
-            "icon": "icons/decontamination.png",
+            "icon": "icons/lavage_manuel.png",
             "fields": [form[f.name] for f in form if f.name.startswith("lavage_manuel")],
         },
         {
             "title": _("Décontamination ferreuse (iron remover)"),
-            "icon": "icons/decontamination.png",
+            "icon": "icons/decontamination_ferreuse.png",
             "fields": [form[f.name] for f in form if f.name.startswith("decontamination_ferreuse")],
         },
         {
             "title": _("Élimination du goudron / de la colle"),
-            "icon": "icons/decontamination.png",
+            "icon": "icons/goudron.png",
             "fields": [form[f.name] for f in form if f.name.startswith("goudron")],
         },
         {
             "title": _("Décontamination mécanique (clay bar / gomme)"),
-            "icon": "icons/decontamination.png",
+            "icon": "icons/clay_bar.png",
             "fields": [form[f.name] for f in form if f.name.startswith("clay_bar")],
         },
         {
             "title": _("Décontamination des jantes"),
-            "icon": "icons/decontamination.png",
+            "icon": "icons/decontamination_jantes.png",
             "fields": [form[f.name] for f in form if f.name.startswith("decontamination_jantes")],
         },
         {
             "title": _("Décontamination des vitres"),
-            "icon": "icons/decontamination.png",
+            "icon": "icons/decontamination_vitres.png",
             "fields": [form[f.name] for f in form if f.name.startswith("decontamination_vitres")],
         },
         {
             "title": _("Rinçage / séchage"),
-            "icon": "icons/decontamination.png",
+            "icon": "icons/rincage_sechage.png",
             "fields": [form[f.name] for f in form if f.name.startswith("rincage_sechage")],
         },
         {
@@ -773,42 +773,42 @@ def modifier_decontamination_view(request, decontamination_id):
         },
         {
             "title": _("Prélavage / mousse active"),
-            "icon": "icons/decontamination.png",
+            "icon": "icons/prelavage.png",
             "fields": [form[f.name] for f in form if f.name.startswith("prelavage")],
         },
         {
             "title": _("Lavage manuel (méthode deux seaux)"),
-            "icon": "icons/decontamination.png",
+            "icon": "icons/lavage_manuel.png",
             "fields": [form[f.name] for f in form if f.name.startswith("lavage_manuel")],
         },
         {
             "title": _("Décontamination ferreuse (iron remover)"),
-            "icon": "icons/decontamination.png",
+            "icon": "icons/decontamination_ferreuse.png",
             "fields": [form[f.name] for f in form if f.name.startswith("decontamination_ferreuse")],
         },
         {
             "title": _("Élimination du goudron / de la colle"),
-            "icon": "icons/decontamination.png",
+            "icon": "icons/goudron.png",
             "fields": [form[f.name] for f in form if f.name.startswith("goudron")],
         },
         {
             "title": _("Décontamination mécanique (clay bar / gomme)"),
-            "icon": "icons/decontamination.png",
+            "icon": "icons/clay_bar.png",
             "fields": [form[f.name] for f in form if f.name.startswith("clay_bar")],
         },
         {
             "title": _("Décontamination des jantes"),
-            "icon": "icons/decontamination.png",
+            "icon": "icons/decontamination_jantes.png",
             "fields": [form[f.name] for f in form if f.name.startswith("decontamination_jantes")],
         },
         {
             "title": _("Décontamination des vitres"),
-            "icon": "icons/decontamination.png",
+            "icon": "icons/decontamination_vitres.png",
             "fields": [form[f.name] for f in form if f.name.startswith("decontamination_vitres")],
         },
         {
             "title": _("Rinçage / séchage"),
-            "icon": "icons/decontamination.png",
+            "icon": "icons/rincage_sechage.png",
             "fields": [form[f.name] for f in form if f.name.startswith("rincage_sechage")],
         },
         {
