@@ -77,6 +77,10 @@ class CheckupTrackForm(forms.ModelForm):
         self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
 
+        # Trains de pneus : train actuel + choix des nouveaux pneus
+        from voiture.voiture_pneus.services_trains import preparer_formulaire_maintenance
+        preparer_formulaire_maintenance(self, exemplaire=self.exemplaire, user=self.user)
+
         # =========================
         # VARIATION KILOMÉTRAGE
         # =========================

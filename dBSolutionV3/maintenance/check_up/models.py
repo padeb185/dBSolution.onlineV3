@@ -71,6 +71,14 @@ class PneuEtat(models.TextChoices):
     REMPLACE = "REMPLACE", _("Remplacé")
 
 
+class PneuTrainEtat(models.TextChoices):
+    """État d'un train de pneus (avant / arrière) lors d'une maintenance."""
+    OK = "OK", _("OK")
+    A_REMPLACER = "A_REMPLACER", _("À remplacer")
+    REMPLACE = "REMPLACE", _("Remplacé")
+    CHANGEMENT_MONTE = "CHANGEMENT_MONTE", _("Changement de monte (été ↔ hiver)")
+
+
 class QualiteLiquideFrein(models.TextChoices):
     DOT3 = "DOT3", _("DOT 3")
     DOT4 = "DOT4", _("DOT 4")
@@ -1403,7 +1411,7 @@ class Checkup(TechnicienMixin, models.Model):
         verbose_name=_("Pression du pneu arrière gauche en bar"),
     )
 
-    pneu_train_av = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK,verbose_name=_("Pneus avant à remplacer"))
+    pneu_train_av = models.CharField(max_length=25, choices=PneuTrainEtat.choices, default=PneuTrainEtat.OK,verbose_name=_("Pneus avant à remplacer"))
     pneu_train_av_fabricant = models.CharField(
         max_length=30,
         choices=FabricantPneus.choices,
@@ -1418,8 +1426,17 @@ class Checkup(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA")
     )
     pneu_train_av_quantite = models.PositiveIntegerField(default=0, null=True, blank=True, verbose_name=_("Quantité"))
+    pneu_train_av_nouveau = models.ForeignKey(
+        "voiture_pneus.VoiturePneus",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="+",
+        verbose_name=_("Nouveaux pneus avant (remplacement / autre monte)"),
+        help_text=_("Remplacement : laisser vide pour reprendre la même référence. Changement de monte : pneus de l'autre monte, seulement si elle n'est pas encore enregistrée."),
+    )
 
-    pneu_train_ar = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("Pneus arrière à remplacer"))
+    pneu_train_ar = models.CharField(max_length=25, choices=PneuTrainEtat.choices, default=PneuTrainEtat.OK, verbose_name=_("Pneus arrière à remplacer"))
     pneu_train_ar_fabricant = models.CharField(
         max_length=30,
         choices=FabricantPneus.choices,
@@ -1433,6 +1450,15 @@ class Checkup(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA")
     )
     pneu_train_ar_quantite = models.PositiveIntegerField(default=0, null=True, blank=True, verbose_name=_("Quantité"))
+    pneu_train_ar_nouveau = models.ForeignKey(
+        "voiture_pneus.VoiturePneus",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="+",
+        verbose_name=_("Nouveaux pneus arrière (remplacement / autre monte)"),
+        help_text=_("Remplacement : laisser vide pour reprendre la même référence. Changement de monte : pneus de l'autre monte, seulement si elle n'est pas encore enregistrée."),
+    )
 
 
 

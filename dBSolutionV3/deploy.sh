@@ -29,6 +29,8 @@ ssh -t -p 2222 "$SERVEUR" "
     sudo chown -R padeb:www-data $DISTANT
     sudo find $DISTANT -type d -exec chmod 755 {} \;
     sudo find $DISTANT -type f -exec chmod 644 {} \;
+    sudo chmod 640 $DISTANT/.env
+    sudo chgrp -R www-data $DISTANT/media && sudo find $DISTANT/media -type d -exec chmod 2750 {} \; && sudo find $DISTANT/media -type f -exec chmod 640 {} \;
     sudo systemctl restart carscosts.service
     sudo nginx -t && sudo systemctl reload nginx
 "

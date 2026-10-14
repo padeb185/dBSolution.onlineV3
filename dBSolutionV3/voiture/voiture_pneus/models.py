@@ -323,6 +323,30 @@ class TrainPneus(models.Model):
         null=True, blank=True, verbose_name=_("Km châssis au remplacement")
     )
 
+    # Remplacement enregistré depuis une maintenance (check-up, check-up piste,
+    # contrôle pneus) : "<app_label.modele>:<pk>:<position>"
+    origine = models.CharField(max_length=120, blank=True, default="", db_index=True)
+    train_remplace = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="remplace_par",
+        verbose_name=_("Train remplacé"),
+    )
+
+    # Changement de monte enregistré depuis une maintenance : ce train a été
+    # monté à la place de `train_demonte` (permet d'annuler la bascule).
+    origine_montage = models.CharField(max_length=120, blank=True, default="", db_index=True)
+    train_demonte = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="+",
+        verbose_name=_("Train démonté"),
+    )
+
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
