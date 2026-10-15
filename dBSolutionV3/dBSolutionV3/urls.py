@@ -131,6 +131,12 @@ urlpatterns += i18n_patterns(
 
     path('maintenance/nettoyage-exterieur/', include(('maintenance.esthetique.nettoyage_exterieur.urls', 'nettoyage_exterieur'),namespace='nettoyage_exterieur')),
     path('maintenance/esthetique/', include(('maintenance.esthetique.urls', 'esthetique'), namespace='esthetique')),
+    path('maintenance/freinage/', include(('maintenance.systeme_freinage.urls', 'systeme_freinage'), namespace='systeme_freinage')),
+    path('maintenance/freinage/nettoyage-freins/', include(('maintenance.systeme_freinage.nettoyage_freins.urls', 'nettoyage_freins'), namespace='nettoyage_freins')),
+    path('maintenance/freinage/tambours/', include(('maintenance.systeme_freinage.tambours.urls', 'tambours'), namespace='tambours')),
+    path('maintenance/freinage/frein-main/', include(('maintenance.systeme_freinage.frein_main.urls', 'frein_main'), namespace='frein_main')),
+    path('maintenance/freinage/frein-main-hydraulique/', include(('maintenance.systeme_freinage.frein_main_hydraulique.urls', 'frein_main_hydraulique'), namespace='frein_main_hydraulique')),
+    path('maintenance/freinage/renovation-machoires/', include(('maintenance.systeme_freinage.renovation_machoires.urls', 'renovation_machoires'), namespace='renovation_machoires')),
     path('maintenance/esthetique/polish/', include(('maintenance.esthetique.polish.urls', 'polish'), namespace='polish')),
     path('maintenance/esthetique/decontamination/', include(('maintenance.esthetique.decontamination.urls', 'decontamination'), namespace='decontamination')),
     path('maintenance/esthetique/cire/', include(('maintenance.esthetique.cire.urls', 'cire'), namespace='cire')),

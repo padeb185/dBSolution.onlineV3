@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du contrôle du frein à main hydraulique" %}{% endblock %}
+
+{% block content %}
+    {% url 'frein_main_hydraulique:modifier_frein_main_hydraulique' frein_main_hydraulique.pk as url_modifier %}
+    {% url 'frein_main_hydraulique:frein_main_hydraulique_detail_pdf' frein_main_hydraulique.pk as url_pdf %}
+    {% url 'frein_main_hydraulique:delete_frein_main_hydraulique' frein_main_hydraulique.pk as url_delete %}
+    {% if exemplaire %}{% url 'frein_main_hydraulique:frein_main_hydraulique_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du contrôle du frein à main hydraulique" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=frein_main_hydraulique km_controle=frein_main_hydraulique.kilometrage_frein_main_hydraulique icone="freins_frein_main_hydraulique.png" %}
+{% endblock %}

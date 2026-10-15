@@ -1,0 +1,729 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+{% if frein_main.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ frein_main.tech_societe.nom }}
+            </div>
+
+            {% if frein_main.tech_societe.adresse %}
+                <div>
+                    {{ frein_main.tech_societe.adresse.rue }}
+                    {{ frein_main.tech_societe.adresse.numero }}
+                    {% if frein_main.tech_societe.adresse.boite %}
+                        / {{ frein_main.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ frein_main.tech_societe.adresse.code_postal }}
+                    {{ frein_main.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if frein_main.tech_societe.adresse.pays %}
+                <div>{{ frein_main.tech_societe.adresse.pays }}
+                    {{ frein_main.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if frein_main.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ frein_main.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if frein_main.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ frein_main.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ frein_main.tech_societe.nom }}.png"
+                alt="{{ frein_main.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Détail frein à main" %}</h1>
+
+<!-- ================= INFOS ================= -->
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ frein_main.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ frein_main.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ frein_main.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ frein_main.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ frein_main.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage frein à main" %} :</span>
+            {{ frein_main.kilometrage_frein_main }} km
+        </div>
+
+
+
+<!-- ================= TAG ================= -->
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if frein_main.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ frein_main.get_tag_display }}
+                </span>
+
+            {% elif frein_main.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ frein_main.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ frein_main.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= CONTRÔLES ET MESURES ================= -->
+<h2>{% trans "Contrôles et mesures" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Nombre de crans au serrage" %} :</span> {{ frein_main.controle_crans|default:"-" }}</div>
+        <div><span class="label">{% trans "Efficacité contrôlée (pente / banc de freinage)" %} :</span> {% if frein_main.controle_efficacite %}{% trans "Oui" %}{% else %}{% trans "Non" %}{% endif %}</div>
+        <div><span class="label">{% trans "Témoin de frein de stationnement fonctionnel" %} :</span> {% if frein_main.controle_temoin %}{% trans "Oui" %}{% else %}{% trans "Non" %}{% endif %}</div>
+        <div><span class="label">{% trans "Frein de stationnement électrique (EPB)" %} :</span> {% if frein_main.controle_epb %}{% trans "Oui" %}{% else %}{% trans "Non" %}{% endif %}</div>
+        <div><span class="label">{% trans "Mode maintenance / calibrage EPB effectué" %} :</span> {% if frein_main.controle_epb_calibrage %}{% trans "Oui" %}{% else %}{% trans "Non" %}{% endif %}</div>
+    </div>
+</div>
+
+<h2>{% trans "Commande" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% trans "Levier de frein à main" %}</td>
+                <td>
+                    {% if frein_main.levier_frein_main == "OK" %}<span class="ok">{{ frein_main.get_levier_frein_main_display }}</span>
+                    {% elif frein_main.levier_frein_main == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_levier_frein_main_display }}</span>
+                    {% elif frein_main.levier_frein_main == "REMPLACE" %}<span class="remplace">{{ frein_main.get_levier_frein_main_display }}</span>{% endif %}
+                    {% if frein_main.levier_frein_main_fabricant and frein_main.levier_frein_main_fabricant != "CHOISIR" %} — {{ frein_main.get_levier_frein_main_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Contacteur de témoin" %}</td>
+                <td>
+                    {% if frein_main.contacteur_temoin == "OK" %}<span class="ok">{{ frein_main.get_contacteur_temoin_display }}</span>
+                    {% elif frein_main.contacteur_temoin == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_contacteur_temoin_display }}</span>
+                    {% elif frein_main.contacteur_temoin == "REMPLACE" %}<span class="remplace">{{ frein_main.get_contacteur_temoin_display }}</span>{% endif %}
+                    {% if frein_main.contacteur_temoin_fabricant and frein_main.contacteur_temoin_fabricant != "CHOISIR" %} — {{ frein_main.get_contacteur_temoin_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Câbles et réglage" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% trans "Câble principal" %}</td>
+                <td>
+                    {% if frein_main.cable_principal == "OK" %}<span class="ok">{{ frein_main.get_cable_principal_display }}</span>
+                    {% elif frein_main.cable_principal == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_cable_principal_display }}</span>
+                    {% elif frein_main.cable_principal == "REMPLACE" %}<span class="remplace">{{ frein_main.get_cable_principal_display }}</span>{% endif %}
+                    {% if frein_main.cable_principal_fabricant and frein_main.cable_principal_fabricant != "CHOISIR" %} — {{ frein_main.get_cable_principal_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Câbles secondaires (gauche / droit)" %}</td>
+                <td>
+                    {% if frein_main.cables_secondaires == "OK" %}<span class="ok">{{ frein_main.get_cables_secondaires_display }}</span>
+                    {% elif frein_main.cables_secondaires == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_cables_secondaires_display }}</span>
+                    {% elif frein_main.cables_secondaires == "REMPLACE" %}<span class="remplace">{{ frein_main.get_cables_secondaires_display }}</span>{% endif %}
+                    {% if frein_main.cables_secondaires_fabricant and frein_main.cables_secondaires_fabricant != "CHOISIR" %} — {{ frein_main.get_cables_secondaires_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Palonnier / égaliseur" %}</td>
+                <td>
+                    {% if frein_main.palonnier == "OK" %}<span class="ok">{{ frein_main.get_palonnier_display }}</span>
+                    {% elif frein_main.palonnier == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_palonnier_display }}</span>
+                    {% elif frein_main.palonnier == "REMPLACE" %}<span class="remplace">{{ frein_main.get_palonnier_display }}</span>{% endif %}
+                    {% if frein_main.palonnier_fabricant and frein_main.palonnier_fabricant != "CHOISIR" %} — {{ frein_main.get_palonnier_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Tendeur / écrou de réglage" %}</td>
+                <td>
+                    {% if frein_main.tendeur_reglage == "OK" %}<span class="ok">{{ frein_main.get_tendeur_reglage_display }}</span>
+                    {% elif frein_main.tendeur_reglage == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_tendeur_reglage_display }}</span>
+                    {% elif frein_main.tendeur_reglage == "REMPLACE" %}<span class="remplace">{{ frein_main.get_tendeur_reglage_display }}</span>{% endif %}
+                    {% if frein_main.tendeur_reglage_fabricant and frein_main.tendeur_reglage_fabricant != "CHOISIR" %} — {{ frein_main.get_tendeur_reglage_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Mâchoires de frein à main (tambour dans disque)" %}</td>
+                <td>
+                    {% if frein_main.machoires_frein_main == "OK" %}<span class="ok">{{ frein_main.get_machoires_frein_main_display }}</span>
+                    {% elif frein_main.machoires_frein_main == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_machoires_frein_main_display }}</span>
+                    {% elif frein_main.machoires_frein_main == "REMPLACE" %}<span class="remplace">{{ frein_main.get_machoires_frein_main_display }}</span>{% endif %}
+                    {% if frein_main.machoires_frein_main_fabricant and frein_main.machoires_frein_main_fabricant != "CHOISIR" %} — {{ frein_main.get_machoires_frein_main_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Frein de stationnement électrique" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% trans "Moteur d'étrier EPB gauche" %}</td>
+                <td>
+                    {% if frein_main.moteur_epb_gauche == "OK" %}<span class="ok">{{ frein_main.get_moteur_epb_gauche_display }}</span>
+                    {% elif frein_main.moteur_epb_gauche == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_moteur_epb_gauche_display }}</span>
+                    {% elif frein_main.moteur_epb_gauche == "REMPLACE" %}<span class="remplace">{{ frein_main.get_moteur_epb_gauche_display }}</span>{% endif %}
+                    {% if frein_main.moteur_epb_gauche_fabricant and frein_main.moteur_epb_gauche_fabricant != "CHOISIR" %} — {{ frein_main.get_moteur_epb_gauche_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Moteur d'étrier EPB droit" %}</td>
+                <td>
+                    {% if frein_main.moteur_epb_droit == "OK" %}<span class="ok">{{ frein_main.get_moteur_epb_droit_display }}</span>
+                    {% elif frein_main.moteur_epb_droit == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_moteur_epb_droit_display }}</span>
+                    {% elif frein_main.moteur_epb_droit == "REMPLACE" %}<span class="remplace">{{ frein_main.get_moteur_epb_droit_display }}</span>{% endif %}
+                    {% if frein_main.moteur_epb_droit_fabricant and frein_main.moteur_epb_droit_fabricant != "CHOISIR" %} — {{ frein_main.get_moteur_epb_droit_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Bouton / commande EPB" %}</td>
+                <td>
+                    {% if frein_main.commande_epb == "OK" %}<span class="ok">{{ frein_main.get_commande_epb_display }}</span>
+                    {% elif frein_main.commande_epb == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_commande_epb_display }}</span>
+                    {% elif frein_main.commande_epb == "REMPLACE" %}<span class="remplace">{{ frein_main.get_commande_epb_display }}</span>{% endif %}
+                    {% if frein_main.commande_epb_fabricant and frein_main.commande_epb_fabricant != "CHOISIR" %} — {{ frein_main.get_commande_epb_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ frein_main.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if frein_main.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ frein_main.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ frein_main.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ frein_main.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        <td class="text-right">
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ frein_main.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ frein_main.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
+
+        <table class="table-2-cols">
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ frein_main.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ frein_main.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+
+<br>
+<!-- ================= REMARQUES ================= -->
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ frein_main.remarques|default:_("Aucune remarque.") }}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

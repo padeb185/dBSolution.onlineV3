@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du contrôle du nettoyage des freins" %}{% endblock %}
+
+{% block content %}
+    {% url 'nettoyage_freins:modifier_nettoyage_freins' nettoyage_freins.pk as url_modifier %}
+    {% url 'nettoyage_freins:nettoyage_freins_detail_pdf' nettoyage_freins.pk as url_pdf %}
+    {% url 'nettoyage_freins:delete_nettoyage_freins' nettoyage_freins.pk as url_delete %}
+    {% if exemplaire %}{% url 'nettoyage_freins:nettoyage_freins_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du contrôle du nettoyage des freins" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=nettoyage_freins km_controle=nettoyage_freins.kilometrage_nettoyage_freins icone="freins_nettoyage.png" %}
+{% endblock %}

@@ -245,6 +245,15 @@ DESCRIPTIFS_TRADUISIBLES = [
     "Lubrification moteur",
 
     # ==========================================================
+    # SYSTÈME DE FREINAGE
+    # ==========================================================
+    "Nettoyage des freins",
+    "Tambours de frein",
+    "Frein à main",
+    "Frein à main hydraulique",
+    "Rénovation des mâchoires de frein",
+
+    # ==========================================================
     # ESTHÉTIQUE
     # ==========================================================
     "Polish",

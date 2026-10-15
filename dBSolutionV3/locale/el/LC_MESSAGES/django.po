@@ -42737,3 +42737,679 @@ msgstr "Ολοκληρωμένη ενοικίαση"
 #: tva location
 msgid "TVA due à la réception d'un acompte (sur le montant reçu), le solde à la fin de la location – que la location soit payée ou non."
 msgstr "Ο ΦΠΑ οφείλεται με την είσπραξη προκαταβολής (επί του ποσού) και το υπόλοιπο στο τέλος της ενοικίασης – είτε έχει πληρωθεί είτε όχι."
+
+#: maintenance/systeme_freinage
+msgid "Absence de fuite"
+msgstr "Χωρίς διαρροές"
+
+#: maintenance/systeme_freinage
+msgid "Accessoires"
+msgstr "Εξαρτήματα"
+
+#: maintenance/systeme_freinage
+msgid "Bouton / commande EPB"
+msgstr "Διακόπτης / χειριστήριο EPB"
+
+#: maintenance/systeme_freinage
+msgid "Cache-poussière (soufflets)"
+msgstr "Προστατευτικά σκόνης"
+
+#: maintenance/systeme_freinage
+msgid "Colonnettes / glissières"
+msgstr "Οδηγοί / πείροι"
+
+#: maintenance/systeme_freinage
+msgid "Commande"
+msgstr "Χειρισμός"
+
+#: maintenance/systeme_freinage
+msgid "Contacteur de témoin"
+msgstr "Διακόπτης λυχνίας"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle de la rénovation des mâchoires de frein pour :"
+msgstr "Έλεγχος (Ανακατασκευή δαγκανών φρένων) για:"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle de la rénovation des mâchoires de frein supprimé avec succès."
+msgstr "Ο έλεγχος (Ανακατασκευή δαγκανών φρένων) διαγράφηκε με επιτυχία."
+
+#: maintenance/systeme_freinage
+msgid "Contrôle des tambours de frein pour :"
+msgstr "Έλεγχος (Ταμπούρα φρένων) για:"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle des tambours de frein supprimé avec succès."
+msgstr "Ο έλεγχος (Ταμπούρα φρένων) διαγράφηκε με επιτυχία."
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du frein à main hydraulique pour :"
+msgstr "Έλεγχος (Υδραυλικό χειρόφρενο) για:"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du frein à main hydraulique supprimé avec succès."
+msgstr "Ο έλεγχος (Υδραυλικό χειρόφρενο) διαγράφηκε με επιτυχία."
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du frein à main pour :"
+msgstr "Έλεγχος (Χειρόφρενο) για:"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du frein à main supprimé avec succès."
+msgstr "Ο έλεγχος (Χειρόφρενο) διαγράφηκε με επιτυχία."
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du nettoyage des freins pour :"
+msgstr "Έλεγχος (Καθαρισμός φρένων) για:"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du nettoyage des freins supprimé avec succès."
+msgstr "Ο έλεγχος (Καθαρισμός φρένων) διαγράφηκε με επιτυχία."
+
+#: maintenance/systeme_freinage
+msgid "Contrôle, nettoyage, tambours, frein à main, rénovation des mâchoires"
+msgstr "Έλεγχος, καθαρισμός, ταμπούρα, χειρόφρενο, ανακατασκευή δαγκανών"
+
+#: maintenance/systeme_freinage
+msgid "Course du levier conforme"
+msgstr "Διαδρομή μοχλού εντός ορίων"
+
+#: maintenance/systeme_freinage
+msgid "Cylindre récepteur droit"
+msgstr "Δεξί κυλινδράκι τροχού"
+
+#: maintenance/systeme_freinage
+msgid "Cylindre récepteur gauche"
+msgstr "Αριστερό κυλινδράκι τροχού"
+
+#: maintenance/systeme_freinage
+msgid "Câble principal"
+msgstr "Κύριο συρματόσχοινο"
+
+#: maintenance/systeme_freinage
+msgid "Câbles et réglage"
+msgstr "Συρματόσχοινα και ρύθμιση"
+
+#: maintenance/systeme_freinage
+msgid "Câbles secondaires (gauche / droit)"
+msgstr "Δευτερεύοντα συρματόσχοινα (αριστ. / δεξ.)"
+
+#: maintenance/systeme_freinage
+msgid "Diamètre intérieur tambour droit (mm)"
+msgstr "Εσωτερική διάμετρος δεξιού ταμπούρου (mm)"
+
+#: maintenance/systeme_freinage
+msgid "Diamètre intérieur tambour gauche (mm)"
+msgstr "Εσωτερική διάμετρος αριστερού ταμπούρου (mm)"
+
+#: maintenance/systeme_freinage
+msgid "Diamètre maximal admissible (mm)"
+msgstr "Μέγιστη επιτρεπόμενη διάμετρος (mm)"
+
+#: maintenance/systeme_freinage
+msgid "Durites (tressées / aviation)"
+msgstr "Σωληνάκια (πλεκτά / aviation)"
+
+#: maintenance/systeme_freinage
+msgid "Détail frein à main"
+msgstr "Λεπτομέρειες (Χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Détail frein à main hydraulique"
+msgstr "Λεπτομέρειες (Υδραυλικό χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Détail nettoyage des freins"
+msgstr "Λεπτομέρειες (Καθαρισμός φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Détail rénovation des mâchoires de frein"
+msgstr "Λεπτομέρειες (Ανακατασκευή δαγκανών φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Détail tambours de frein"
+msgstr "Λεπτομέρειες (Ταμπούρα φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Détails du contrôle de la rénovation des mâchoires de frein"
+msgstr "Λεπτομέρειες ελέγχου (Ανακατασκευή δαγκανών φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Détails du contrôle des tambours de frein"
+msgstr "Λεπτομέρειες ελέγχου (Ταμπούρα φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Détails du contrôle du frein à main"
+msgstr "Λεπτομέρειες ελέγχου (Χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Détails du contrôle du frein à main hydraulique"
+msgstr "Λεπτομέρειες ελέγχου (Υδραυλικό χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Détails du contrôle du nettoyage des freins"
+msgstr "Λεπτομέρειες ελέγχου (Καθαρισμός φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Efficacité contrôlée (pente / banc de freinage)"
+msgstr "Έλεγχος αποτελεσματικότητας (κλίση / φρενόμετρο)"
+
+#: maintenance/systeme_freinage
+msgid "Essai de freinage effectué"
+msgstr "Πραγματοποιήθηκε δοκιμή πέδησης"
+
+#: maintenance/systeme_freinage
+msgid "Essai effectué"
+msgstr "Πραγματοποιήθηκε δοκιμή"
+
+#: maintenance/systeme_freinage
+msgid "Finition"
+msgstr "Φινίρισμα"
+
+#: maintenance/systeme_freinage
+msgid "Frein de stationnement électrique"
+msgstr "Ηλεκτρικό φρένο στάθμευσης"
+
+#: maintenance/systeme_freinage
+msgid "Frein de stationnement électrique (EPB)"
+msgstr "Ηλεκτρικό φρένο στάθμευσης (EPB)"
+
+#: maintenance/systeme_freinage
+msgid "Frein à main"
+msgstr "Χειρόφρενο"
+
+#: maintenance/systeme_freinage
+msgid "Frein à main hydraulique"
+msgstr "Υδραυλικό χειρόφρενο"
+
+#: maintenance/systeme_freinage
+msgid "Freinage"
+msgstr "Πέδηση"
+
+#: maintenance/systeme_freinage
+msgid "Freins arrière nettoyés"
+msgstr "Καθαρίστηκαν τα πίσω φρένα"
+
+#: maintenance/systeme_freinage
+msgid "Freins avant nettoyés"
+msgstr "Καθαρίστηκαν τα εμπρός φρένα"
+
+#: maintenance/systeme_freinage
+msgid "Freins – choisir une intervention pour :"
+msgstr "Φρένα – επιλέξτε εργασία για:"
+
+#: maintenance/systeme_freinage
+msgid "Glissières / colonnettes d'étriers"
+msgstr "Οδηγοί δαγκανών"
+
+#: maintenance/systeme_freinage
+msgid "Glissières graissées (graisse spéciale freins)"
+msgstr "Λιπάνθηκαν οι οδηγοί (γράσο φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Graisse spéciale freins"
+msgstr "Γράσο φρένων"
+
+#: maintenance/systeme_freinage
+msgid "Guidage et fixation"
+msgstr "Οδήγηση και στήριξη"
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main"
+msgstr "Εργασία: Χειρόφρενο"
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main enregistrée avec succès."
+msgstr "Η εργασία (Χειρόφρενο) αποθηκεύτηκε με επιτυχία."
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main hydraulique"
+msgstr "Εργασία: Υδραυλικό χειρόφρενο"
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main hydraulique enregistrée avec succès."
+msgstr "Η εργασία (Υδραυλικό χειρόφρενο) αποθηκεύτηκε με επιτυχία."
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main hydraulique modifiée avec succès !"
+msgstr "Η εργασία (Υδραυλικό χειρόφρενο) τροποποιήθηκε με επιτυχία!"
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main modifiée avec succès !"
+msgstr "Η εργασία (Χειρόφρενο) τροποποιήθηκε με επιτυχία!"
+
+#: maintenance/systeme_freinage
+msgid "Intervention nettoyage des freins"
+msgstr "Εργασία: Καθαρισμός φρένων"
+
+#: maintenance/systeme_freinage
+msgid "Intervention nettoyage des freins enregistrée avec succès."
+msgstr "Η εργασία (Καθαρισμός φρένων) αποθηκεύτηκε με επιτυχία."
+
+#: maintenance/systeme_freinage
+msgid "Intervention nettoyage des freins modifiée avec succès !"
+msgstr "Η εργασία (Καθαρισμός φρένων) τροποποιήθηκε με επιτυχία!"
+
+#: maintenance/systeme_freinage
+msgid "Intervention rénovation des mâchoires de frein"
+msgstr "Εργασία: Ανακατασκευή δαγκανών φρένων"
+
+#: maintenance/systeme_freinage
+msgid "Intervention rénovation des mâchoires de frein enregistrée avec succès."
+msgstr "Η εργασία (Ανακατασκευή δαγκανών φρένων) αποθηκεύτηκε με επιτυχία."
+
+#: maintenance/systeme_freinage
+msgid "Intervention rénovation des mâchoires de frein modifiée avec succès !"
+msgstr "Η εργασία (Ανακατασκευή δαγκανών φρένων) τροποποιήθηκε με επιτυχία!"
+
+#: maintenance/systeme_freinage
+msgid "Intervention tambours de frein"
+msgstr "Εργασία: Ταμπούρα φρένων"
+
+#: maintenance/systeme_freinage
+msgid "Intervention tambours de frein enregistrée avec succès."
+msgstr "Η εργασία (Ταμπούρα φρένων) αποθηκεύτηκε με επιτυχία."
+
+#: maintenance/systeme_freinage
+msgid "Intervention tambours de frein modifiée avec succès !"
+msgstr "Η εργασία (Ταμπούρα φρένων) τροποποιήθηκε με επιτυχία!"
+
+#: maintenance/systeme_freinage
+msgid "Joints de piston"
+msgstr "Τσιμούχες εμβόλων"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage de la rénovation des mâchoires de frein"
+msgstr "Χιλιόμετρα (Ανακατασκευή δαγκανών φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage des tambours de frein"
+msgstr "Χιλιόμετρα (Ταμπούρα φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage du frein à main"
+msgstr "Χιλιόμετρα (Χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage du frein à main hydraulique"
+msgstr "Χιλιόμετρα (Υδραυλικό χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage du nettoyage des freins"
+msgstr "Χιλιόμετρα (Καθαρισμός φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage frein à main"
+msgstr "Χιλιόμετρα (Χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage frein à main hydraulique"
+msgstr "Χιλιόμετρα (Υδραυλικό χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage nettoyage des freins"
+msgstr "Χιλιόμετρα (Καθαρισμός φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage rénovation des mâchoires de frein"
+msgstr "Χιλιόμετρα (Ανακατασκευή δαγκανών φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage tambours de frein"
+msgstr "Χιλιόμετρα (Ταμπούρα φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Kit de réparation (joints)"
+msgstr "Κιτ επισκευής (τσιμούχες)"
+
+#: maintenance/systeme_freinage
+msgid "Levier de frein à main"
+msgstr "Μοχλός χειρόφρενου"
+
+#: maintenance/systeme_freinage
+msgid "Levier hydraulique"
+msgstr "Υδραυλικός μοχλός"
+
+#: maintenance/systeme_freinage
+msgid "Liquide de frein (DOT)"
+msgstr "Υγρό φρένων (DOT)"
+
+#: maintenance/systeme_freinage
+msgid "Liste des interventions frein à main"
+msgstr "Λίστα εργασιών (Χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Liste des interventions frein à main hydraulique"
+msgstr "Λίστα εργασιών (Υδραυλικό χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Liste des interventions nettoyage des freins"
+msgstr "Λίστα εργασιών (Καθαρισμός φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Liste des interventions rénovation des mâchoires de frein"
+msgstr "Λίστα εργασιών (Ανακατασκευή δαγκανών φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Liste des interventions tambours de frein"
+msgstr "Λίστα εργασιών (Ταμπούρα φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Maître-cylindre du frein à main"
+msgstr "Αντλία χειρόφρενου"
+
+#: maintenance/systeme_freinage
+msgid "Mode maintenance / calibrage EPB effectué"
+msgstr "Λειτουργία συντήρησης / βαθμονόμηση EPB"
+
+#: maintenance/systeme_freinage
+msgid "Modification frein à main"
+msgstr "Τροποποίηση (Χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Modification frein à main hydraulique"
+msgstr "Τροποποίηση (Υδραυλικό χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Modification nettoyage des freins"
+msgstr "Τροποποίηση (Καθαρισμός φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Modification rénovation des mâchoires de frein"
+msgstr "Τροποποίηση (Ανακατασκευή δαγκανών φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Modification tambours de frein"
+msgstr "Τροποποίηση (Ταμπούρα φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Modifier l'intervention frein à main"
+msgstr "Επεξεργασία εργασίας (Χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Modifier l'intervention frein à main hydraulique"
+msgstr "Επεξεργασία εργασίας (Υδραυλικό χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Modifier l'intervention nettoyage des freins"
+msgstr "Επεξεργασία εργασίας (Καθαρισμός φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Modifier l'intervention rénovation des mâchoires de frein"
+msgstr "Επεξεργασία εργασίας (Ανακατασκευή δαγκανών φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Modifier l'intervention tambours de frein"
+msgstr "Επεξεργασία εργασίας (Ταμπούρα φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Moteur d'étrier EPB droit"
+msgstr "Δεξί μοτέρ δαγκάνας EPB"
+
+#: maintenance/systeme_freinage
+msgid "Moteur d'étrier EPB gauche"
+msgstr "Αριστερό μοτέρ δαγκάνας EPB"
+
+#: maintenance/systeme_freinage
+msgid "Mâchoires / patins (garnitures)"
+msgstr "Σιαγόνες (θερμοκόλλες)"
+
+#: maintenance/systeme_freinage
+msgid "Mâchoires de frein à main (tambour dans disque)"
+msgstr "Σιαγόνες χειρόφρενου (ταμπούρο στον δίσκο)"
+
+#: maintenance/systeme_freinage
+msgid "Mâchoires et mécanisme"
+msgstr "Σιαγόνες και μηχανισμός"
+
+#: maintenance/systeme_freinage
+msgid "Nettoyage des freins"
+msgstr "Καθαρισμός φρένων"
+
+#: maintenance/systeme_freinage
+msgid "Nettoyant freins"
+msgstr "Καθαριστικό φρένων"
+
+#: maintenance/systeme_freinage
+msgid "Nombre de crans au serrage"
+msgstr "Αριθμός δοντιών στο σήκωμα"
+
+#: maintenance/systeme_freinage
+msgid "Palonnier / égaliseur"
+msgstr "Εξισωτής"
+
+#: maintenance/systeme_freinage
+msgid "Patte / levier de frein à main"
+msgstr "Μοχλός χειρόφρενου (στη σιαγόνα)"
+
+#: maintenance/systeme_freinage
+msgid "Peinture / couleur"
+msgstr "Βαφή / χρώμα"
+
+#: maintenance/systeme_freinage
+msgid "Peinture haute température"
+msgstr "Βαφή υψηλής θερμοκρασίας"
+
+#: maintenance/systeme_freinage
+msgid "Pistons"
+msgstr "Έμβολα"
+
+#: maintenance/systeme_freinage
+msgid "Pistons et étanchéité"
+msgstr "Έμβολα και στεγανότητα"
+
+#: maintenance/systeme_freinage
+msgid "Plaquettes du frein à main"
+msgstr "Τακάκια χειρόφρενου"
+
+#: maintenance/systeme_freinage
+msgid "Plateau de frein"
+msgstr "Πλάκα φρένου"
+
+#: maintenance/systeme_freinage
+msgid "Position des mâchoires (AV G, AV D, AR G, AR D)"
+msgstr "Θέση δαγκανών (ΕΑ, ΕΔ, ΠΑ, ΠΔ)"
+
+#: maintenance/systeme_freinage
+msgid "Produit nettoyant utilisé"
+msgstr "Χρησιμοποιηθέν καθαριστικό"
+
+#: maintenance/systeme_freinage
+msgid "Purge effectuée"
+msgstr "Πραγματοποιήθηκε εξαέρωση"
+
+#: maintenance/systeme_freinage
+msgid "Raccords / adaptateurs"
+msgstr "Ρακόρ / αντάπτορες"
+
+#: maintenance/systeme_freinage
+msgid "Ressorts / clips anti-bruit"
+msgstr "Ελατήρια / κλιπ κατά του θορύβου"
+
+#: maintenance/systeme_freinage
+msgid "Ressorts / clips de plaquettes"
+msgstr "Ελατήρια / κλιπ τακακιών"
+
+#: maintenance/systeme_freinage
+msgid "Ressorts de rappel"
+msgstr "Ελατήρια επαναφοράς"
+
+#: maintenance/systeme_freinage
+msgid "Ressorts et goupilles de maintien"
+msgstr "Ελατήρια και πείροι συγκράτησης"
+
+#: maintenance/systeme_freinage
+msgid "Retour à la liste des contrôles frein à main"
+msgstr "Επιστροφή στη λίστα ελέγχων (Χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Retour à la liste des contrôles frein à main hydraulique"
+msgstr "Επιστροφή στη λίστα ελέγχων (Υδραυλικό χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Retour à la liste des contrôles nettoyage des freins"
+msgstr "Επιστροφή στη λίστα ελέγχων (Καθαρισμός φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Retour à la liste des contrôles rénovation des mâchoires de frein"
+msgstr "Επιστροφή στη λίστα ελέγχων (Ανακατασκευή δαγκανών φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Retour à la liste des contrôles tambours de frein"
+msgstr "Επιστροφή στη λίστα ελέγχων (Ταμπούρα φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Roues démontées"
+msgstr "Αφαιρέθηκαν οι τροχοί"
+
+#: maintenance/systeme_freinage
+msgid "Réglage des mâchoires effectué"
+msgstr "Πραγματοποιήθηκε ρύθμιση σιαγόνων"
+
+#: maintenance/systeme_freinage
+msgid "Régleur / rattrapage automatique"
+msgstr "Ρυθμιστής / αυτόματη ρύθμιση"
+
+#: maintenance/systeme_freinage
+msgid "Rénovation des mâchoires de frein"
+msgstr "Ανακατασκευή δαγκανών φρένων"
+
+#: maintenance/systeme_freinage
+msgid "Réservoir de liquide"
+msgstr "Δοχείο υγρού"
+
+#: maintenance/systeme_freinage
+msgid "Sablage / décapage"
+msgstr "Αμμοβολή / απογύμνωση"
+
+#: maintenance/systeme_freinage
+msgid "Soufflets / cache-poussière"
+msgstr "Φυσούνες / προστατευτικά σκόνης"
+
+#: maintenance/systeme_freinage
+msgid "Soufflets de glissières"
+msgstr "Φυσούνες οδηγών"
+
+#: maintenance/systeme_freinage
+msgid "Support / fixation du levier"
+msgstr "Βάση / στήριξη μοχλού"
+
+#: maintenance/systeme_freinage
+msgid "Support d'étrier (chape)"
+msgstr "Βάση δαγκάνας"
+
+#: maintenance/systeme_freinage
+msgid "Suppression du contrôle de la rénovation des mâchoires de frein"
+msgstr "Διαγραφή ελέγχου (Ανακατασκευή δαγκανών φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Suppression du contrôle des tambours de frein"
+msgstr "Διαγραφή ελέγχου (Ταμπούρα φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Suppression du contrôle du frein à main"
+msgstr "Διαγραφή ελέγχου (Χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Suppression du contrôle du frein à main hydraulique"
+msgstr "Διαγραφή ελέγχου (Υδραυλικό χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Suppression du contrôle du nettoyage des freins"
+msgstr "Διαγραφή ελέγχου (Καθαρισμός φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Supprimer le contrôle de la rénovation des mâchoires de frein"
+msgstr "Διαγραφή ελέγχου (Ανακατασκευή δαγκανών φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Supprimer le contrôle des tambours de frein"
+msgstr "Διαγραφή ελέγχου (Ταμπούρα φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Supprimer le contrôle du frein à main"
+msgstr "Διαγραφή ελέγχου (Χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Supprimer le contrôle du frein à main hydraulique"
+msgstr "Διαγραφή ελέγχου (Υδραυλικό χειρόφρενο)"
+
+#: maintenance/systeme_freinage
+msgid "Supprimer le contrôle du nettoyage des freins"
+msgstr "Διαγραφή ελέγχου (Καθαρισμός φρένων)"
+
+#: maintenance/systeme_freinage
+msgid "Tableau de bord freins"
+msgstr "Πίνακας φρένων"
+
+#: maintenance/systeme_freinage
+msgid "Tambour droit"
+msgstr "Δεξί ταμπούρο"
+
+#: maintenance/systeme_freinage
+msgid "Tambour gauche"
+msgstr "Αριστερό ταμπούρο"
+
+#: maintenance/systeme_freinage
+msgid "Tambours"
+msgstr "Ταμπούρα"
+
+#: maintenance/systeme_freinage
+msgid "Tambours arrière"
+msgstr "Πίσω ταμπούρα"
+
+#: maintenance/systeme_freinage
+msgid "Tambours de frein"
+msgstr "Ταμπούρα φρένων"
+
+#: maintenance/systeme_freinage
+msgid "Tendeur / écrou de réglage"
+msgstr "Τεντωτήρας / παξιμάδι ρύθμισης"
+
+#: maintenance/systeme_freinage
+msgid "Témoin de frein de stationnement fonctionnel"
+msgstr "Λυχνία φρένου στάθμευσης λειτουργεί"
+
+#: maintenance/systeme_freinage
+msgid "Vanne / répartiteur (bypass)"
+msgstr "Βαλβίδα / κατανεμητής (bypass)"
+
+#: maintenance/systeme_freinage
+msgid "Vis de purge"
+msgstr "Βίδα εξαέρωσης"
+
+#: maintenance/systeme_freinage
+msgid "Voulez-vous vraiment supprimer le contrôle de la rénovation des mâchoires de frein pour"
+msgstr "Θέλετε σίγουρα να διαγράψετε τον έλεγχο (Ανακατασκευή δαγκανών φρένων) για"
+
+#: maintenance/systeme_freinage
+msgid "Voulez-vous vraiment supprimer le contrôle des tambours de frein pour"
+msgstr "Θέλετε σίγουρα να διαγράψετε τον έλεγχο (Ταμπούρα φρένων) για"
+
+#: maintenance/systeme_freinage
+msgid "Voulez-vous vraiment supprimer le contrôle du frein à main hydraulique pour"
+msgstr "Θέλετε σίγουρα να διαγράψετε τον έλεγχο (Υδραυλικό χειρόφρενο) για"
+
+#: maintenance/systeme_freinage
+msgid "Voulez-vous vraiment supprimer le contrôle du frein à main pour"
+msgstr "Θέλετε σίγουρα να διαγράψετε τον έλεγχο (Χειρόφρενο) για"
+
+#: maintenance/systeme_freinage
+msgid "Voulez-vous vraiment supprimer le contrôle du nettoyage des freins pour"
+msgstr "Θέλετε σίγουρα να διαγράψετε τον έλεγχο (Καθαρισμός φρένων) για"
+
+#: maintenance/systeme_freinage
+msgid "Épaisseur des garnitures (mm)"
+msgstr "Πάχος θερμοκολλήσεων (mm)"
+
+#: maintenance/systeme_freinage
+msgid "Étriers arrière"
+msgstr "Πίσω δαγκάνες"
+
+#: maintenance/systeme_freinage
+msgid "Étriers avant"
+msgstr "Εμπρός δαγκάνες"
+
+#: maintenance/systeme_freinage
+msgid "Étriers dédiés au frein à main"
+msgstr "Ειδικές δαγκάνες χειρόφρενου"

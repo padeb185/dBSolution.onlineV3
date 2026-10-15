@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du contrôle de la rénovation des mâchoires de frein" %}{% endblock %}
+
+{% block content %}
+    {% url 'renovation_machoires:modifier_renovation_machoires' renovation_machoires.pk as url_modifier %}
+    {% url 'renovation_machoires:renovation_machoires_detail_pdf' renovation_machoires.pk as url_pdf %}
+    {% url 'renovation_machoires:delete_renovation_machoires' renovation_machoires.pk as url_delete %}
+    {% if exemplaire %}{% url 'renovation_machoires:renovation_machoires_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du contrôle de la rénovation des mâchoires de frein" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=renovation_machoires km_controle=renovation_machoires.kilometrage_renovation_machoires icone="freins_renovation_machoires.png" %}
+{% endblock %}

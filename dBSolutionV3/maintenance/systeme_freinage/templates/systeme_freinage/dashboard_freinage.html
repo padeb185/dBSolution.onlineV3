@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}
+    {% trans "Tableau de bord freins" %}
+{% endblock %}
+
+{% block content %}
+
+<div class="p-6">
+    <h1 class="text-2xl font-bold mb-6 flex flex-col md:flex-row md:items-center gap-3">
+    <div class="flex items-center gap-3">
+
+        <img src="{% static 'icons/freins.png' %}"
+             alt="{% trans 'Freins' %}"
+             class="w-16 h-16 object-contain">
+
+        <div class="flex items-center gap-2">
+
+            {% trans "Freins – choisir une intervention pour :" %}
+
+            {% static 'images/marques/' as marques_path %}
+
+            <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                 alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                 class="w-16 h-16 object-contain">
+
+            <span class="font-semibold">
+                {{ exemplaire.voiture_modele.nom_modele }}
+
+                {% if exemplaire.voiture_modele.nom_variante %}
+                    {{ exemplaire.voiture_modele.nom_variante }}
+                {% endif %}
+            </span>
+
+        </div>
+    </div>
+
+    {% include "maintenance/partials/plaque.html" %}
+</h1>
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+        <!-- ================================================== -->
+        <!-- CONTRÔLE DES FREINS -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'freins:freins_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Contrôle des freins" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_controle_freins|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/freins.png' %}"
+                alt="{% trans 'Contrôle des freins' %}"
+                class="h-[60px] w-[60px] object-contain"
+            >
+        </a>
+
+        <!-- ================================================== -->
+        <!-- NETTOYAGE DES FREINS -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'nettoyage_freins:nettoyage_freins_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Nettoyage des freins" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_nettoyage_freins|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/freins_nettoyage.png' %}"
+                alt="{% trans 'Nettoyage des freins' %}"
+                class="h-[60px] w-[60px] object-contain"
+            >
+        </a>
+
+        <!-- ================================================== -->
+        <!-- TAMBOURS -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'tambours:tambours_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Tambours de frein" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_tambours|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/freins_tambours.png' %}"
+                alt="{% trans 'Tambours de frein' %}"
+                class="h-[60px] w-[60px] object-contain"
+            >
+        </a>
+
+        <!-- ================================================== -->
+        <!-- FREIN À MAIN -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'frein_main:frein_main_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Frein à main" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_frein_main|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/freins_frein_main.png' %}"
+                alt="{% trans 'Frein à main' %}"
+                class="h-[60px] w-[60px] object-contain"
+            >
+        </a>
+
+        <!-- ================================================== -->
+        <!-- FREIN À MAIN HYDRAULIQUE -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'frein_main_hydraulique:frein_main_hydraulique_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Frein à main hydraulique" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_frein_main_hydraulique|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/freins_frein_main_hydraulique.png' %}"
+                alt="{% trans 'Frein à main hydraulique' %}"
+                class="h-[60px] w-[60px] object-contain"
+            >
+        </a>
+
+        <!-- ================================================== -->
+        <!-- RÉNOVATION DES MÂCHOIRES -->
+        <!-- ================================================== -->
+
+        <a
+            href="{% url 'renovation_machoires:renovation_machoires_list' exemplaire_id=exemplaire.id %}"
+            class="flex items-center justify-between rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div>
+                <h2 class="mb-1 text-lg font-semibold">
+                    {% trans "Rénovation des mâchoires de frein" %}
+                </h2>
+
+                <p class="text-sm text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">
+                        {{ total_renovation_machoires|default:0 }}
+                    </span>
+                </p>
+            </div>
+
+            <img
+                src="{% static 'icons/freins_renovation_machoires.png' %}"
+                alt="{% trans 'Rénovation des mâchoires de frein' %}"
+                class="h-[60px] w-[60px] object-contain"
+            >
+        </a>
+
+    </div>
+
+    <!-- ================================================== -->
+    <!-- RETOUR -->
+    <!-- ================================================== -->
+
+    <div class="mt-10">
+
+        <a
+            href="{% url 'maintenance:choisir_type' exemplaire.id %}"
+            class="block rounded bg-blue-700 px-5 py-4 text-center font-semibold text-white hover:bg-blue-400"
+        >
+            {% trans "Retour au choix de la maintenance" %}
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

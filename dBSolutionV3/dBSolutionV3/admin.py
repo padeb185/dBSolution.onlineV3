@@ -38,6 +38,11 @@ from maintenance.autres_interventions.batterie.models import Batterie
 from maintenance.autres_interventions.moteur.electronique_moteur.models import ElectroniqueMoteur
 from maintenance.autres_interventions.moteur.lubrification.models import Lubrification
 from maintenance.esthetique.polish.models import Polish
+from maintenance.systeme_freinage.nettoyage_freins.models import NettoyageFreins
+from maintenance.systeme_freinage.tambours.models import Tambours
+from maintenance.systeme_freinage.frein_main.models import FreinMain
+from maintenance.systeme_freinage.frein_main_hydraulique.models import FreinMainHydraulique
+from maintenance.systeme_freinage.renovation_machoires.models import RenovationMachoires
 from maintenance.esthetique.decontamination.models import Decontamination
 from maintenance.esthetique.cire.models import Cire
 from maintenance.esthetique.ceramique.models import Ceramique
@@ -92,6 +97,11 @@ admin.site.register(Batterie)
 admin.site.register(ElectroniqueMoteur)
 admin.site.register(Lubrification)
 admin.site.register(Polish)
+admin.site.register(NettoyageFreins)
+admin.site.register(Tambours)
+admin.site.register(FreinMain)
+admin.site.register(FreinMainHydraulique)
+admin.site.register(RenovationMachoires)
 admin.site.register(Decontamination)
 admin.site.register(Cire)
 admin.site.register(Ceramique)

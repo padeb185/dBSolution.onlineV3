@@ -42717,3 +42717,679 @@ msgstr "Vermietung durchgeführt"
 #: tva location
 msgid "TVA due à la réception d'un acompte (sur le montant reçu), le solde à la fin de la location – que la location soit payée ou non."
 msgstr "Die MwSt. ist bei Erhalt einer Anzahlung (auf den erhaltenen Betrag) fällig, der Rest am Ende der Vermietung – unabhängig davon, ob die Vermietung bezahlt ist."
+
+#: maintenance/systeme_freinage
+msgid "Absence de fuite"
+msgstr "Keine Undichtigkeit"
+
+#: maintenance/systeme_freinage
+msgid "Accessoires"
+msgstr "Zubehör"
+
+#: maintenance/systeme_freinage
+msgid "Bouton / commande EPB"
+msgstr "EPB-Taster / Bedienung"
+
+#: maintenance/systeme_freinage
+msgid "Cache-poussière (soufflets)"
+msgstr "Staubmanschetten"
+
+#: maintenance/systeme_freinage
+msgid "Colonnettes / glissières"
+msgstr "Führungsbolzen"
+
+#: maintenance/systeme_freinage
+msgid "Commande"
+msgstr "Bedienung"
+
+#: maintenance/systeme_freinage
+msgid "Contacteur de témoin"
+msgstr "Kontrollleuchtenschalter"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle de la rénovation des mâchoires de frein pour :"
+msgstr "Kontrolle (Überholung der Bremssättel) für:"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle de la rénovation des mâchoires de frein supprimé avec succès."
+msgstr "Kontrolle (Überholung der Bremssättel) erfolgreich gelöscht."
+
+#: maintenance/systeme_freinage
+msgid "Contrôle des tambours de frein pour :"
+msgstr "Kontrolle (Bremstrommeln) für:"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle des tambours de frein supprimé avec succès."
+msgstr "Kontrolle (Bremstrommeln) erfolgreich gelöscht."
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du frein à main hydraulique pour :"
+msgstr "Kontrolle (Hydraulische Handbremse) für:"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du frein à main hydraulique supprimé avec succès."
+msgstr "Kontrolle (Hydraulische Handbremse) erfolgreich gelöscht."
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du frein à main pour :"
+msgstr "Kontrolle (Handbremse) für:"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du frein à main supprimé avec succès."
+msgstr "Kontrolle (Handbremse) erfolgreich gelöscht."
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du nettoyage des freins pour :"
+msgstr "Kontrolle (Bremsenreinigung) für:"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du nettoyage des freins supprimé avec succès."
+msgstr "Kontrolle (Bremsenreinigung) erfolgreich gelöscht."
+
+#: maintenance/systeme_freinage
+msgid "Contrôle, nettoyage, tambours, frein à main, rénovation des mâchoires"
+msgstr "Kontrolle, Reinigung, Trommeln, Handbremse, Bremssattel-Überholung"
+
+#: maintenance/systeme_freinage
+msgid "Course du levier conforme"
+msgstr "Hebelweg in Ordnung"
+
+#: maintenance/systeme_freinage
+msgid "Cylindre récepteur droit"
+msgstr "Radbremszylinder rechts"
+
+#: maintenance/systeme_freinage
+msgid "Cylindre récepteur gauche"
+msgstr "Radbremszylinder links"
+
+#: maintenance/systeme_freinage
+msgid "Câble principal"
+msgstr "Hauptseil"
+
+#: maintenance/systeme_freinage
+msgid "Câbles et réglage"
+msgstr "Seile und Einstellung"
+
+#: maintenance/systeme_freinage
+msgid "Câbles secondaires (gauche / droit)"
+msgstr "Nebenseile (links / rechts)"
+
+#: maintenance/systeme_freinage
+msgid "Diamètre intérieur tambour droit (mm)"
+msgstr "Innendurchmesser Trommel rechts (mm)"
+
+#: maintenance/systeme_freinage
+msgid "Diamètre intérieur tambour gauche (mm)"
+msgstr "Innendurchmesser Trommel links (mm)"
+
+#: maintenance/systeme_freinage
+msgid "Diamètre maximal admissible (mm)"
+msgstr "Maximal zulässiger Durchmesser (mm)"
+
+#: maintenance/systeme_freinage
+msgid "Durites (tressées / aviation)"
+msgstr "Leitungen (Stahlflex / Aviation)"
+
+#: maintenance/systeme_freinage
+msgid "Détail frein à main"
+msgstr "Details (Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Détail frein à main hydraulique"
+msgstr "Details (Hydraulische Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Détail nettoyage des freins"
+msgstr "Details (Bremsenreinigung)"
+
+#: maintenance/systeme_freinage
+msgid "Détail rénovation des mâchoires de frein"
+msgstr "Details (Überholung der Bremssättel)"
+
+#: maintenance/systeme_freinage
+msgid "Détail tambours de frein"
+msgstr "Details (Bremstrommeln)"
+
+#: maintenance/systeme_freinage
+msgid "Détails du contrôle de la rénovation des mâchoires de frein"
+msgstr "Details der Kontrolle (Überholung der Bremssättel)"
+
+#: maintenance/systeme_freinage
+msgid "Détails du contrôle des tambours de frein"
+msgstr "Details der Kontrolle (Bremstrommeln)"
+
+#: maintenance/systeme_freinage
+msgid "Détails du contrôle du frein à main"
+msgstr "Details der Kontrolle (Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Détails du contrôle du frein à main hydraulique"
+msgstr "Details der Kontrolle (Hydraulische Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Détails du contrôle du nettoyage des freins"
+msgstr "Details der Kontrolle (Bremsenreinigung)"
+
+#: maintenance/systeme_freinage
+msgid "Efficacité contrôlée (pente / banc de freinage)"
+msgstr "Wirksamkeit geprüft (Gefälle / Bremsprüfstand)"
+
+#: maintenance/systeme_freinage
+msgid "Essai de freinage effectué"
+msgstr "Bremsprobe durchgeführt"
+
+#: maintenance/systeme_freinage
+msgid "Essai effectué"
+msgstr "Test durchgeführt"
+
+#: maintenance/systeme_freinage
+msgid "Finition"
+msgstr "Finish"
+
+#: maintenance/systeme_freinage
+msgid "Frein de stationnement électrique"
+msgstr "Elektrische Parkbremse"
+
+#: maintenance/systeme_freinage
+msgid "Frein de stationnement électrique (EPB)"
+msgstr "Elektrische Parkbremse (EPB)"
+
+#: maintenance/systeme_freinage
+msgid "Frein à main"
+msgstr "Handbremse"
+
+#: maintenance/systeme_freinage
+msgid "Frein à main hydraulique"
+msgstr "Hydraulische Handbremse"
+
+#: maintenance/systeme_freinage
+msgid "Freinage"
+msgstr "Bremsen"
+
+#: maintenance/systeme_freinage
+msgid "Freins arrière nettoyés"
+msgstr "Hintere Bremsen gereinigt"
+
+#: maintenance/systeme_freinage
+msgid "Freins avant nettoyés"
+msgstr "Vordere Bremsen gereinigt"
+
+#: maintenance/systeme_freinage
+msgid "Freins – choisir une intervention pour :"
+msgstr "Bremsen – Eingriff wählen für:"
+
+#: maintenance/systeme_freinage
+msgid "Glissières / colonnettes d'étriers"
+msgstr "Bremssattel-Führungsbolzen"
+
+#: maintenance/systeme_freinage
+msgid "Glissières graissées (graisse spéciale freins)"
+msgstr "Führungen gefettet (Bremsenfett)"
+
+#: maintenance/systeme_freinage
+msgid "Graisse spéciale freins"
+msgstr "Bremsenfett"
+
+#: maintenance/systeme_freinage
+msgid "Guidage et fixation"
+msgstr "Führung und Befestigung"
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main"
+msgstr "Eingriff: Handbremse"
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main enregistrée avec succès."
+msgstr "Eingriff (Handbremse) erfolgreich gespeichert."
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main hydraulique"
+msgstr "Eingriff: Hydraulische Handbremse"
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main hydraulique enregistrée avec succès."
+msgstr "Eingriff (Hydraulische Handbremse) erfolgreich gespeichert."
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main hydraulique modifiée avec succès !"
+msgstr "Eingriff (Hydraulische Handbremse) erfolgreich geändert!"
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main modifiée avec succès !"
+msgstr "Eingriff (Handbremse) erfolgreich geändert!"
+
+#: maintenance/systeme_freinage
+msgid "Intervention nettoyage des freins"
+msgstr "Eingriff: Bremsenreinigung"
+
+#: maintenance/systeme_freinage
+msgid "Intervention nettoyage des freins enregistrée avec succès."
+msgstr "Eingriff (Bremsenreinigung) erfolgreich gespeichert."
+
+#: maintenance/systeme_freinage
+msgid "Intervention nettoyage des freins modifiée avec succès !"
+msgstr "Eingriff (Bremsenreinigung) erfolgreich geändert!"
+
+#: maintenance/systeme_freinage
+msgid "Intervention rénovation des mâchoires de frein"
+msgstr "Eingriff: Überholung der Bremssättel"
+
+#: maintenance/systeme_freinage
+msgid "Intervention rénovation des mâchoires de frein enregistrée avec succès."
+msgstr "Eingriff (Überholung der Bremssättel) erfolgreich gespeichert."
+
+#: maintenance/systeme_freinage
+msgid "Intervention rénovation des mâchoires de frein modifiée avec succès !"
+msgstr "Eingriff (Überholung der Bremssättel) erfolgreich geändert!"
+
+#: maintenance/systeme_freinage
+msgid "Intervention tambours de frein"
+msgstr "Eingriff: Bremstrommeln"
+
+#: maintenance/systeme_freinage
+msgid "Intervention tambours de frein enregistrée avec succès."
+msgstr "Eingriff (Bremstrommeln) erfolgreich gespeichert."
+
+#: maintenance/systeme_freinage
+msgid "Intervention tambours de frein modifiée avec succès !"
+msgstr "Eingriff (Bremstrommeln) erfolgreich geändert!"
+
+#: maintenance/systeme_freinage
+msgid "Joints de piston"
+msgstr "Kolbendichtungen"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage de la rénovation des mâchoires de frein"
+msgstr "Kilometerstand (Überholung der Bremssättel)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage des tambours de frein"
+msgstr "Kilometerstand (Bremstrommeln)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage du frein à main"
+msgstr "Kilometerstand (Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage du frein à main hydraulique"
+msgstr "Kilometerstand (Hydraulische Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage du nettoyage des freins"
+msgstr "Kilometerstand (Bremsenreinigung)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage frein à main"
+msgstr "Kilometerstand (Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage frein à main hydraulique"
+msgstr "Kilometerstand (Hydraulische Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage nettoyage des freins"
+msgstr "Kilometerstand (Bremsenreinigung)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage rénovation des mâchoires de frein"
+msgstr "Kilometerstand (Überholung der Bremssättel)"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage tambours de frein"
+msgstr "Kilometerstand (Bremstrommeln)"
+
+#: maintenance/systeme_freinage
+msgid "Kit de réparation (joints)"
+msgstr "Reparatursatz (Dichtungen)"
+
+#: maintenance/systeme_freinage
+msgid "Levier de frein à main"
+msgstr "Handbremshebel"
+
+#: maintenance/systeme_freinage
+msgid "Levier hydraulique"
+msgstr "Hydraulikhebel"
+
+#: maintenance/systeme_freinage
+msgid "Liquide de frein (DOT)"
+msgstr "Bremsflüssigkeit (DOT)"
+
+#: maintenance/systeme_freinage
+msgid "Liste des interventions frein à main"
+msgstr "Liste der Eingriffe (Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Liste des interventions frein à main hydraulique"
+msgstr "Liste der Eingriffe (Hydraulische Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Liste des interventions nettoyage des freins"
+msgstr "Liste der Eingriffe (Bremsenreinigung)"
+
+#: maintenance/systeme_freinage
+msgid "Liste des interventions rénovation des mâchoires de frein"
+msgstr "Liste der Eingriffe (Überholung der Bremssättel)"
+
+#: maintenance/systeme_freinage
+msgid "Liste des interventions tambours de frein"
+msgstr "Liste der Eingriffe (Bremstrommeln)"
+
+#: maintenance/systeme_freinage
+msgid "Maître-cylindre du frein à main"
+msgstr "Hauptzylinder der Handbremse"
+
+#: maintenance/systeme_freinage
+msgid "Mode maintenance / calibrage EPB effectué"
+msgstr "EPB-Wartungsmodus / Kalibrierung durchgeführt"
+
+#: maintenance/systeme_freinage
+msgid "Modification frein à main"
+msgstr "Änderung (Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Modification frein à main hydraulique"
+msgstr "Änderung (Hydraulische Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Modification nettoyage des freins"
+msgstr "Änderung (Bremsenreinigung)"
+
+#: maintenance/systeme_freinage
+msgid "Modification rénovation des mâchoires de frein"
+msgstr "Änderung (Überholung der Bremssättel)"
+
+#: maintenance/systeme_freinage
+msgid "Modification tambours de frein"
+msgstr "Änderung (Bremstrommeln)"
+
+#: maintenance/systeme_freinage
+msgid "Modifier l'intervention frein à main"
+msgstr "Eingriff bearbeiten (Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Modifier l'intervention frein à main hydraulique"
+msgstr "Eingriff bearbeiten (Hydraulische Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Modifier l'intervention nettoyage des freins"
+msgstr "Eingriff bearbeiten (Bremsenreinigung)"
+
+#: maintenance/systeme_freinage
+msgid "Modifier l'intervention rénovation des mâchoires de frein"
+msgstr "Eingriff bearbeiten (Überholung der Bremssättel)"
+
+#: maintenance/systeme_freinage
+msgid "Modifier l'intervention tambours de frein"
+msgstr "Eingriff bearbeiten (Bremstrommeln)"
+
+#: maintenance/systeme_freinage
+msgid "Moteur d'étrier EPB droit"
+msgstr "EPB-Sattelmotor rechts"
+
+#: maintenance/systeme_freinage
+msgid "Moteur d'étrier EPB gauche"
+msgstr "EPB-Sattelmotor links"
+
+#: maintenance/systeme_freinage
+msgid "Mâchoires / patins (garnitures)"
+msgstr "Bremsbacken (Beläge)"
+
+#: maintenance/systeme_freinage
+msgid "Mâchoires de frein à main (tambour dans disque)"
+msgstr "Handbremsbacken (Trommel im Scheibe)"
+
+#: maintenance/systeme_freinage
+msgid "Mâchoires et mécanisme"
+msgstr "Backen und Mechanik"
+
+#: maintenance/systeme_freinage
+msgid "Nettoyage des freins"
+msgstr "Bremsenreinigung"
+
+#: maintenance/systeme_freinage
+msgid "Nettoyant freins"
+msgstr "Bremsenreiniger"
+
+#: maintenance/systeme_freinage
+msgid "Nombre de crans au serrage"
+msgstr "Anzahl Rasten beim Anziehen"
+
+#: maintenance/systeme_freinage
+msgid "Palonnier / égaliseur"
+msgstr "Ausgleichsbügel"
+
+#: maintenance/systeme_freinage
+msgid "Patte / levier de frein à main"
+msgstr "Handbremshebel an der Backe"
+
+#: maintenance/systeme_freinage
+msgid "Peinture / couleur"
+msgstr "Lack / Farbe"
+
+#: maintenance/systeme_freinage
+msgid "Peinture haute température"
+msgstr "Hochtemperaturlack"
+
+#: maintenance/systeme_freinage
+msgid "Pistons"
+msgstr "Kolben"
+
+#: maintenance/systeme_freinage
+msgid "Pistons et étanchéité"
+msgstr "Kolben und Dichtung"
+
+#: maintenance/systeme_freinage
+msgid "Plaquettes du frein à main"
+msgstr "Handbremsbeläge"
+
+#: maintenance/systeme_freinage
+msgid "Plateau de frein"
+msgstr "Bremsträgerplatte"
+
+#: maintenance/systeme_freinage
+msgid "Position des mâchoires (AV G, AV D, AR G, AR D)"
+msgstr "Position der Sättel (VL, VR, HL, HR)"
+
+#: maintenance/systeme_freinage
+msgid "Produit nettoyant utilisé"
+msgstr "Verwendetes Reinigungsmittel"
+
+#: maintenance/systeme_freinage
+msgid "Purge effectuée"
+msgstr "Entlüftung durchgeführt"
+
+#: maintenance/systeme_freinage
+msgid "Raccords / adaptateurs"
+msgstr "Anschlüsse / Adapter"
+
+#: maintenance/systeme_freinage
+msgid "Ressorts / clips anti-bruit"
+msgstr "Dämpfungsfedern / Clips"
+
+#: maintenance/systeme_freinage
+msgid "Ressorts / clips de plaquettes"
+msgstr "Belagfedern / Clips"
+
+#: maintenance/systeme_freinage
+msgid "Ressorts de rappel"
+msgstr "Rückholfedern"
+
+#: maintenance/systeme_freinage
+msgid "Ressorts et goupilles de maintien"
+msgstr "Haltefedern und -stifte"
+
+#: maintenance/systeme_freinage
+msgid "Retour à la liste des contrôles frein à main"
+msgstr "Zurück zur Liste der Kontrollen (Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Retour à la liste des contrôles frein à main hydraulique"
+msgstr "Zurück zur Liste der Kontrollen (Hydraulische Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Retour à la liste des contrôles nettoyage des freins"
+msgstr "Zurück zur Liste der Kontrollen (Bremsenreinigung)"
+
+#: maintenance/systeme_freinage
+msgid "Retour à la liste des contrôles rénovation des mâchoires de frein"
+msgstr "Zurück zur Liste der Kontrollen (Überholung der Bremssättel)"
+
+#: maintenance/systeme_freinage
+msgid "Retour à la liste des contrôles tambours de frein"
+msgstr "Zurück zur Liste der Kontrollen (Bremstrommeln)"
+
+#: maintenance/systeme_freinage
+msgid "Roues démontées"
+msgstr "Räder demontiert"
+
+#: maintenance/systeme_freinage
+msgid "Réglage des mâchoires effectué"
+msgstr "Backeneinstellung durchgeführt"
+
+#: maintenance/systeme_freinage
+msgid "Régleur / rattrapage automatique"
+msgstr "Nachsteller / automatische Nachstellung"
+
+#: maintenance/systeme_freinage
+msgid "Rénovation des mâchoires de frein"
+msgstr "Überholung der Bremssättel"
+
+#: maintenance/systeme_freinage
+msgid "Réservoir de liquide"
+msgstr "Flüssigkeitsbehälter"
+
+#: maintenance/systeme_freinage
+msgid "Sablage / décapage"
+msgstr "Sandstrahlen / Abbeizen"
+
+#: maintenance/systeme_freinage
+msgid "Soufflets / cache-poussière"
+msgstr "Manschetten / Staubkappen"
+
+#: maintenance/systeme_freinage
+msgid "Soufflets de glissières"
+msgstr "Führungsmanschetten"
+
+#: maintenance/systeme_freinage
+msgid "Support / fixation du levier"
+msgstr "Hebelhalter / Befestigung"
+
+#: maintenance/systeme_freinage
+msgid "Support d'étrier (chape)"
+msgstr "Bremssattelhalter"
+
+#: maintenance/systeme_freinage
+msgid "Suppression du contrôle de la rénovation des mâchoires de frein"
+msgstr "Löschung der Kontrolle (Überholung der Bremssättel)"
+
+#: maintenance/systeme_freinage
+msgid "Suppression du contrôle des tambours de frein"
+msgstr "Löschung der Kontrolle (Bremstrommeln)"
+
+#: maintenance/systeme_freinage
+msgid "Suppression du contrôle du frein à main"
+msgstr "Löschung der Kontrolle (Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Suppression du contrôle du frein à main hydraulique"
+msgstr "Löschung der Kontrolle (Hydraulische Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Suppression du contrôle du nettoyage des freins"
+msgstr "Löschung der Kontrolle (Bremsenreinigung)"
+
+#: maintenance/systeme_freinage
+msgid "Supprimer le contrôle de la rénovation des mâchoires de frein"
+msgstr "Kontrolle löschen (Überholung der Bremssättel)"
+
+#: maintenance/systeme_freinage
+msgid "Supprimer le contrôle des tambours de frein"
+msgstr "Kontrolle löschen (Bremstrommeln)"
+
+#: maintenance/systeme_freinage
+msgid "Supprimer le contrôle du frein à main"
+msgstr "Kontrolle löschen (Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Supprimer le contrôle du frein à main hydraulique"
+msgstr "Kontrolle löschen (Hydraulische Handbremse)"
+
+#: maintenance/systeme_freinage
+msgid "Supprimer le contrôle du nettoyage des freins"
+msgstr "Kontrolle löschen (Bremsenreinigung)"
+
+#: maintenance/systeme_freinage
+msgid "Tableau de bord freins"
+msgstr "Bremsen-Übersicht"
+
+#: maintenance/systeme_freinage
+msgid "Tambour droit"
+msgstr "Trommel rechts"
+
+#: maintenance/systeme_freinage
+msgid "Tambour gauche"
+msgstr "Trommel links"
+
+#: maintenance/systeme_freinage
+msgid "Tambours"
+msgstr "Trommeln"
+
+#: maintenance/systeme_freinage
+msgid "Tambours arrière"
+msgstr "Hintere Trommeln"
+
+#: maintenance/systeme_freinage
+msgid "Tambours de frein"
+msgstr "Bremstrommeln"
+
+#: maintenance/systeme_freinage
+msgid "Tendeur / écrou de réglage"
+msgstr "Spanner / Einstellmutter"
+
+#: maintenance/systeme_freinage
+msgid "Témoin de frein de stationnement fonctionnel"
+msgstr "Parkbremskontrollleuchte funktioniert"
+
+#: maintenance/systeme_freinage
+msgid "Vanne / répartiteur (bypass)"
+msgstr "Ventil / Verteiler (Bypass)"
+
+#: maintenance/systeme_freinage
+msgid "Vis de purge"
+msgstr "Entlüftungsschraube"
+
+#: maintenance/systeme_freinage
+msgid "Voulez-vous vraiment supprimer le contrôle de la rénovation des mâchoires de frein pour"
+msgstr "Möchten Sie die Kontrolle (Überholung der Bremssättel) wirklich löschen für"
+
+#: maintenance/systeme_freinage
+msgid "Voulez-vous vraiment supprimer le contrôle des tambours de frein pour"
+msgstr "Möchten Sie die Kontrolle (Bremstrommeln) wirklich löschen für"
+
+#: maintenance/systeme_freinage
+msgid "Voulez-vous vraiment supprimer le contrôle du frein à main hydraulique pour"
+msgstr "Möchten Sie die Kontrolle (Hydraulische Handbremse) wirklich löschen für"
+
+#: maintenance/systeme_freinage
+msgid "Voulez-vous vraiment supprimer le contrôle du frein à main pour"
+msgstr "Möchten Sie die Kontrolle (Handbremse) wirklich löschen für"
+
+#: maintenance/systeme_freinage
+msgid "Voulez-vous vraiment supprimer le contrôle du nettoyage des freins pour"
+msgstr "Möchten Sie die Kontrolle (Bremsenreinigung) wirklich löschen für"
+
+#: maintenance/systeme_freinage
+msgid "Épaisseur des garnitures (mm)"
+msgstr "Belagstärke (mm)"
+
+#: maintenance/systeme_freinage
+msgid "Étriers arrière"
+msgstr "Hintere Bremssättel"
+
+#: maintenance/systeme_freinage
+msgid "Étriers avant"
+msgstr "Vordere Bremssättel"
+
+#: maintenance/systeme_freinage
+msgid "Étriers dédiés au frein à main"
+msgstr "Separate Handbrems-Sättel"

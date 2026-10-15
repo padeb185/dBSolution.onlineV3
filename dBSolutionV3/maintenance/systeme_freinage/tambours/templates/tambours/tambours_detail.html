@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du contrôle des tambours de frein" %}{% endblock %}
+
+{% block content %}
+    {% url 'tambours:modifier_tambours' tambours.pk as url_modifier %}
+    {% url 'tambours:tambours_detail_pdf' tambours.pk as url_pdf %}
+    {% url 'tambours:delete_tambours' tambours.pk as url_delete %}
+    {% if exemplaire %}{% url 'tambours:tambours_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du contrôle des tambours de frein" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=tambours km_controle=tambours.kilometrage_tambours icone="freins_tambours.png" %}
+{% endblock %}

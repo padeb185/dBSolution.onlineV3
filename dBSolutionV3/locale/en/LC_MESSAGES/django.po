@@ -42614,3 +42614,679 @@ msgstr "Rental completed"
 #: tva location
 msgid "TVA due à la réception d'un acompte (sur le montant reçu), le solde à la fin de la location – que la location soit payée ou non."
 msgstr "VAT is due when a deposit is received (on the amount received) and the balance at the end of the rental – whether or not the rental has been paid."
+
+#: maintenance/systeme_freinage
+msgid "Absence de fuite"
+msgstr "No leaks"
+
+#: maintenance/systeme_freinage
+msgid "Accessoires"
+msgstr "Accessories"
+
+#: maintenance/systeme_freinage
+msgid "Bouton / commande EPB"
+msgstr "EPB button / control"
+
+#: maintenance/systeme_freinage
+msgid "Cache-poussière (soufflets)"
+msgstr "Dust boots"
+
+#: maintenance/systeme_freinage
+msgid "Colonnettes / glissières"
+msgstr "Guide pins / slides"
+
+#: maintenance/systeme_freinage
+msgid "Commande"
+msgstr "Control"
+
+#: maintenance/systeme_freinage
+msgid "Contacteur de témoin"
+msgstr "Warning light switch"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle de la rénovation des mâchoires de frein pour :"
+msgstr "Brake caliper refurbishment inspection for:"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle de la rénovation des mâchoires de frein supprimé avec succès."
+msgstr "Brake caliper refurbishment inspection deleted successfully."
+
+#: maintenance/systeme_freinage
+msgid "Contrôle des tambours de frein pour :"
+msgstr "Brake drums inspection for:"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle des tambours de frein supprimé avec succès."
+msgstr "Brake drums inspection deleted successfully."
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du frein à main hydraulique pour :"
+msgstr "Hydraulic handbrake inspection for:"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du frein à main hydraulique supprimé avec succès."
+msgstr "Hydraulic handbrake inspection deleted successfully."
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du frein à main pour :"
+msgstr "Handbrake inspection for:"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du frein à main supprimé avec succès."
+msgstr "Handbrake inspection deleted successfully."
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du nettoyage des freins pour :"
+msgstr "Brake cleaning inspection for:"
+
+#: maintenance/systeme_freinage
+msgid "Contrôle du nettoyage des freins supprimé avec succès."
+msgstr "Brake cleaning inspection deleted successfully."
+
+#: maintenance/systeme_freinage
+msgid "Contrôle, nettoyage, tambours, frein à main, rénovation des mâchoires"
+msgstr "Inspection, cleaning, drums, handbrake, caliper refurbishment"
+
+#: maintenance/systeme_freinage
+msgid "Course du levier conforme"
+msgstr "Lever travel within spec"
+
+#: maintenance/systeme_freinage
+msgid "Cylindre récepteur droit"
+msgstr "Right wheel cylinder"
+
+#: maintenance/systeme_freinage
+msgid "Cylindre récepteur gauche"
+msgstr "Left wheel cylinder"
+
+#: maintenance/systeme_freinage
+msgid "Câble principal"
+msgstr "Main cable"
+
+#: maintenance/systeme_freinage
+msgid "Câbles et réglage"
+msgstr "Cables and adjustment"
+
+#: maintenance/systeme_freinage
+msgid "Câbles secondaires (gauche / droit)"
+msgstr "Secondary cables (left / right)"
+
+#: maintenance/systeme_freinage
+msgid "Diamètre intérieur tambour droit (mm)"
+msgstr "Right drum inner diameter (mm)"
+
+#: maintenance/systeme_freinage
+msgid "Diamètre intérieur tambour gauche (mm)"
+msgstr "Left drum inner diameter (mm)"
+
+#: maintenance/systeme_freinage
+msgid "Diamètre maximal admissible (mm)"
+msgstr "Maximum allowable diameter (mm)"
+
+#: maintenance/systeme_freinage
+msgid "Durites (tressées / aviation)"
+msgstr "Hoses (braided / aviation)"
+
+#: maintenance/systeme_freinage
+msgid "Détail frein à main"
+msgstr "Handbrake details"
+
+#: maintenance/systeme_freinage
+msgid "Détail frein à main hydraulique"
+msgstr "Hydraulic handbrake details"
+
+#: maintenance/systeme_freinage
+msgid "Détail nettoyage des freins"
+msgstr "Brake cleaning details"
+
+#: maintenance/systeme_freinage
+msgid "Détail rénovation des mâchoires de frein"
+msgstr "Brake caliper refurbishment details"
+
+#: maintenance/systeme_freinage
+msgid "Détail tambours de frein"
+msgstr "Brake drums details"
+
+#: maintenance/systeme_freinage
+msgid "Détails du contrôle de la rénovation des mâchoires de frein"
+msgstr "Brake caliper refurbishment inspection details"
+
+#: maintenance/systeme_freinage
+msgid "Détails du contrôle des tambours de frein"
+msgstr "Brake drums inspection details"
+
+#: maintenance/systeme_freinage
+msgid "Détails du contrôle du frein à main"
+msgstr "Handbrake inspection details"
+
+#: maintenance/systeme_freinage
+msgid "Détails du contrôle du frein à main hydraulique"
+msgstr "Hydraulic handbrake inspection details"
+
+#: maintenance/systeme_freinage
+msgid "Détails du contrôle du nettoyage des freins"
+msgstr "Brake cleaning inspection details"
+
+#: maintenance/systeme_freinage
+msgid "Efficacité contrôlée (pente / banc de freinage)"
+msgstr "Effectiveness checked (slope / brake tester)"
+
+#: maintenance/systeme_freinage
+msgid "Essai de freinage effectué"
+msgstr "Brake test carried out"
+
+#: maintenance/systeme_freinage
+msgid "Essai effectué"
+msgstr "Test carried out"
+
+#: maintenance/systeme_freinage
+msgid "Finition"
+msgstr "Finishing"
+
+#: maintenance/systeme_freinage
+msgid "Frein de stationnement électrique"
+msgstr "Electric parking brake"
+
+#: maintenance/systeme_freinage
+msgid "Frein de stationnement électrique (EPB)"
+msgstr "Electric parking brake (EPB)"
+
+#: maintenance/systeme_freinage
+msgid "Frein à main"
+msgstr "Handbrake"
+
+#: maintenance/systeme_freinage
+msgid "Frein à main hydraulique"
+msgstr "Hydraulic handbrake"
+
+#: maintenance/systeme_freinage
+msgid "Freinage"
+msgstr "Braking"
+
+#: maintenance/systeme_freinage
+msgid "Freins arrière nettoyés"
+msgstr "Rear brakes cleaned"
+
+#: maintenance/systeme_freinage
+msgid "Freins avant nettoyés"
+msgstr "Front brakes cleaned"
+
+#: maintenance/systeme_freinage
+msgid "Freins – choisir une intervention pour :"
+msgstr "Brakes – choose a job for:"
+
+#: maintenance/systeme_freinage
+msgid "Glissières / colonnettes d'étriers"
+msgstr "Caliper slides / guide pins"
+
+#: maintenance/systeme_freinage
+msgid "Glissières graissées (graisse spéciale freins)"
+msgstr "Slides greased (brake grease)"
+
+#: maintenance/systeme_freinage
+msgid "Graisse spéciale freins"
+msgstr "Brake grease"
+
+#: maintenance/systeme_freinage
+msgid "Guidage et fixation"
+msgstr "Guiding and mounting"
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main"
+msgstr "Handbrake work"
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main enregistrée avec succès."
+msgstr "Handbrake work saved successfully."
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main hydraulique"
+msgstr "Hydraulic handbrake work"
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main hydraulique enregistrée avec succès."
+msgstr "Hydraulic handbrake work saved successfully."
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main hydraulique modifiée avec succès !"
+msgstr "Hydraulic handbrake work updated successfully!"
+
+#: maintenance/systeme_freinage
+msgid "Intervention frein à main modifiée avec succès !"
+msgstr "Handbrake work updated successfully!"
+
+#: maintenance/systeme_freinage
+msgid "Intervention nettoyage des freins"
+msgstr "Brake cleaning work"
+
+#: maintenance/systeme_freinage
+msgid "Intervention nettoyage des freins enregistrée avec succès."
+msgstr "Brake cleaning work saved successfully."
+
+#: maintenance/systeme_freinage
+msgid "Intervention nettoyage des freins modifiée avec succès !"
+msgstr "Brake cleaning work updated successfully!"
+
+#: maintenance/systeme_freinage
+msgid "Intervention rénovation des mâchoires de frein"
+msgstr "Brake caliper refurbishment work"
+
+#: maintenance/systeme_freinage
+msgid "Intervention rénovation des mâchoires de frein enregistrée avec succès."
+msgstr "Brake caliper refurbishment work saved successfully."
+
+#: maintenance/systeme_freinage
+msgid "Intervention rénovation des mâchoires de frein modifiée avec succès !"
+msgstr "Brake caliper refurbishment work updated successfully!"
+
+#: maintenance/systeme_freinage
+msgid "Intervention tambours de frein"
+msgstr "Brake drums work"
+
+#: maintenance/systeme_freinage
+msgid "Intervention tambours de frein enregistrée avec succès."
+msgstr "Brake drums work saved successfully."
+
+#: maintenance/systeme_freinage
+msgid "Intervention tambours de frein modifiée avec succès !"
+msgstr "Brake drums work updated successfully!"
+
+#: maintenance/systeme_freinage
+msgid "Joints de piston"
+msgstr "Piston seals"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage de la rénovation des mâchoires de frein"
+msgstr "Brake caliper refurbishment mileage"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage des tambours de frein"
+msgstr "Brake drums mileage"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage du frein à main"
+msgstr "Handbrake mileage"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage du frein à main hydraulique"
+msgstr "Hydraulic handbrake mileage"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage du nettoyage des freins"
+msgstr "Brake cleaning mileage"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage frein à main"
+msgstr "Handbrake mileage"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage frein à main hydraulique"
+msgstr "Hydraulic handbrake mileage"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage nettoyage des freins"
+msgstr "Brake cleaning mileage"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage rénovation des mâchoires de frein"
+msgstr "Brake caliper refurbishment mileage"
+
+#: maintenance/systeme_freinage
+msgid "Kilométrage tambours de frein"
+msgstr "Brake drums mileage"
+
+#: maintenance/systeme_freinage
+msgid "Kit de réparation (joints)"
+msgstr "Repair kit (seals)"
+
+#: maintenance/systeme_freinage
+msgid "Levier de frein à main"
+msgstr "Handbrake lever"
+
+#: maintenance/systeme_freinage
+msgid "Levier hydraulique"
+msgstr "Hydraulic lever"
+
+#: maintenance/systeme_freinage
+msgid "Liquide de frein (DOT)"
+msgstr "Brake fluid (DOT)"
+
+#: maintenance/systeme_freinage
+msgid "Liste des interventions frein à main"
+msgstr "Handbrake work list"
+
+#: maintenance/systeme_freinage
+msgid "Liste des interventions frein à main hydraulique"
+msgstr "Hydraulic handbrake work list"
+
+#: maintenance/systeme_freinage
+msgid "Liste des interventions nettoyage des freins"
+msgstr "Brake cleaning work list"
+
+#: maintenance/systeme_freinage
+msgid "Liste des interventions rénovation des mâchoires de frein"
+msgstr "Brake caliper refurbishment work list"
+
+#: maintenance/systeme_freinage
+msgid "Liste des interventions tambours de frein"
+msgstr "Brake drums work list"
+
+#: maintenance/systeme_freinage
+msgid "Maître-cylindre du frein à main"
+msgstr "Handbrake master cylinder"
+
+#: maintenance/systeme_freinage
+msgid "Mode maintenance / calibrage EPB effectué"
+msgstr "EPB maintenance mode / calibration done"
+
+#: maintenance/systeme_freinage
+msgid "Modification frein à main"
+msgstr "Handbrake updated"
+
+#: maintenance/systeme_freinage
+msgid "Modification frein à main hydraulique"
+msgstr "Hydraulic handbrake updated"
+
+#: maintenance/systeme_freinage
+msgid "Modification nettoyage des freins"
+msgstr "Brake cleaning updated"
+
+#: maintenance/systeme_freinage
+msgid "Modification rénovation des mâchoires de frein"
+msgstr "Brake caliper refurbishment updated"
+
+#: maintenance/systeme_freinage
+msgid "Modification tambours de frein"
+msgstr "Brake drums updated"
+
+#: maintenance/systeme_freinage
+msgid "Modifier l'intervention frein à main"
+msgstr "Edit handbrake work"
+
+#: maintenance/systeme_freinage
+msgid "Modifier l'intervention frein à main hydraulique"
+msgstr "Edit hydraulic handbrake work"
+
+#: maintenance/systeme_freinage
+msgid "Modifier l'intervention nettoyage des freins"
+msgstr "Edit brake cleaning work"
+
+#: maintenance/systeme_freinage
+msgid "Modifier l'intervention rénovation des mâchoires de frein"
+msgstr "Edit brake caliper refurbishment work"
+
+#: maintenance/systeme_freinage
+msgid "Modifier l'intervention tambours de frein"
+msgstr "Edit brake drums work"
+
+#: maintenance/systeme_freinage
+msgid "Moteur d'étrier EPB droit"
+msgstr "Right EPB caliper motor"
+
+#: maintenance/systeme_freinage
+msgid "Moteur d'étrier EPB gauche"
+msgstr "Left EPB caliper motor"
+
+#: maintenance/systeme_freinage
+msgid "Mâchoires / patins (garnitures)"
+msgstr "Brake shoes (linings)"
+
+#: maintenance/systeme_freinage
+msgid "Mâchoires de frein à main (tambour dans disque)"
+msgstr "Handbrake shoes (drum-in-disc)"
+
+#: maintenance/systeme_freinage
+msgid "Mâchoires et mécanisme"
+msgstr "Shoes and mechanism"
+
+#: maintenance/systeme_freinage
+msgid "Nettoyage des freins"
+msgstr "Brake cleaning"
+
+#: maintenance/systeme_freinage
+msgid "Nettoyant freins"
+msgstr "Brake cleaner"
+
+#: maintenance/systeme_freinage
+msgid "Nombre de crans au serrage"
+msgstr "Number of clicks when applied"
+
+#: maintenance/systeme_freinage
+msgid "Palonnier / égaliseur"
+msgstr "Equalizer"
+
+#: maintenance/systeme_freinage
+msgid "Patte / levier de frein à main"
+msgstr "Handbrake lever arm (on shoe)"
+
+#: maintenance/systeme_freinage
+msgid "Peinture / couleur"
+msgstr "Paint / colour"
+
+#: maintenance/systeme_freinage
+msgid "Peinture haute température"
+msgstr "High-temperature paint"
+
+#: maintenance/systeme_freinage
+msgid "Pistons"
+msgstr "Pistons"
+
+#: maintenance/systeme_freinage
+msgid "Pistons et étanchéité"
+msgstr "Pistons and sealing"
+
+#: maintenance/systeme_freinage
+msgid "Plaquettes du frein à main"
+msgstr "Handbrake pads"
+
+#: maintenance/systeme_freinage
+msgid "Plateau de frein"
+msgstr "Brake backing plate"
+
+#: maintenance/systeme_freinage
+msgid "Position des mâchoires (AV G, AV D, AR G, AR D)"
+msgstr "Caliper position (FL, FR, RL, RR)"
+
+#: maintenance/systeme_freinage
+msgid "Produit nettoyant utilisé"
+msgstr "Cleaning product used"
+
+#: maintenance/systeme_freinage
+msgid "Purge effectuée"
+msgstr "Bleeding done"
+
+#: maintenance/systeme_freinage
+msgid "Raccords / adaptateurs"
+msgstr "Fittings / adapters"
+
+#: maintenance/systeme_freinage
+msgid "Ressorts / clips anti-bruit"
+msgstr "Anti-rattle springs / clips"
+
+#: maintenance/systeme_freinage
+msgid "Ressorts / clips de plaquettes"
+msgstr "Pad springs / clips"
+
+#: maintenance/systeme_freinage
+msgid "Ressorts de rappel"
+msgstr "Return springs"
+
+#: maintenance/systeme_freinage
+msgid "Ressorts et goupilles de maintien"
+msgstr "Hold-down springs and pins"
+
+#: maintenance/systeme_freinage
+msgid "Retour à la liste des contrôles frein à main"
+msgstr "Back to the handbrake inspections list"
+
+#: maintenance/systeme_freinage
+msgid "Retour à la liste des contrôles frein à main hydraulique"
+msgstr "Back to the hydraulic handbrake inspections list"
+
+#: maintenance/systeme_freinage
+msgid "Retour à la liste des contrôles nettoyage des freins"
+msgstr "Back to the brake cleaning inspections list"
+
+#: maintenance/systeme_freinage
+msgid "Retour à la liste des contrôles rénovation des mâchoires de frein"
+msgstr "Back to the brake caliper refurbishment inspections list"
+
+#: maintenance/systeme_freinage
+msgid "Retour à la liste des contrôles tambours de frein"
+msgstr "Back to the brake drums inspections list"
+
+#: maintenance/systeme_freinage
+msgid "Roues démontées"
+msgstr "Wheels removed"
+
+#: maintenance/systeme_freinage
+msgid "Réglage des mâchoires effectué"
+msgstr "Shoe adjustment done"
+
+#: maintenance/systeme_freinage
+msgid "Régleur / rattrapage automatique"
+msgstr "Adjuster / self-adjuster"
+
+#: maintenance/systeme_freinage
+msgid "Rénovation des mâchoires de frein"
+msgstr "Brake caliper refurbishment"
+
+#: maintenance/systeme_freinage
+msgid "Réservoir de liquide"
+msgstr "Fluid reservoir"
+
+#: maintenance/systeme_freinage
+msgid "Sablage / décapage"
+msgstr "Sandblasting / stripping"
+
+#: maintenance/systeme_freinage
+msgid "Soufflets / cache-poussière"
+msgstr "Boots / dust covers"
+
+#: maintenance/systeme_freinage
+msgid "Soufflets de glissières"
+msgstr "Slide boots"
+
+#: maintenance/systeme_freinage
+msgid "Support / fixation du levier"
+msgstr "Lever bracket / mounting"
+
+#: maintenance/systeme_freinage
+msgid "Support d'étrier (chape)"
+msgstr "Caliper bracket (carrier)"
+
+#: maintenance/systeme_freinage
+msgid "Suppression du contrôle de la rénovation des mâchoires de frein"
+msgstr "Brake caliper refurbishment inspection deleted"
+
+#: maintenance/systeme_freinage
+msgid "Suppression du contrôle des tambours de frein"
+msgstr "Brake drums inspection deleted"
+
+#: maintenance/systeme_freinage
+msgid "Suppression du contrôle du frein à main"
+msgstr "Handbrake inspection deleted"
+
+#: maintenance/systeme_freinage
+msgid "Suppression du contrôle du frein à main hydraulique"
+msgstr "Hydraulic handbrake inspection deleted"
+
+#: maintenance/systeme_freinage
+msgid "Suppression du contrôle du nettoyage des freins"
+msgstr "Brake cleaning inspection deleted"
+
+#: maintenance/systeme_freinage
+msgid "Supprimer le contrôle de la rénovation des mâchoires de frein"
+msgstr "Delete brake caliper refurbishment inspection"
+
+#: maintenance/systeme_freinage
+msgid "Supprimer le contrôle des tambours de frein"
+msgstr "Delete brake drums inspection"
+
+#: maintenance/systeme_freinage
+msgid "Supprimer le contrôle du frein à main"
+msgstr "Delete handbrake inspection"
+
+#: maintenance/systeme_freinage
+msgid "Supprimer le contrôle du frein à main hydraulique"
+msgstr "Delete hydraulic handbrake inspection"
+
+#: maintenance/systeme_freinage
+msgid "Supprimer le contrôle du nettoyage des freins"
+msgstr "Delete brake cleaning inspection"
+
+#: maintenance/systeme_freinage
+msgid "Tableau de bord freins"
+msgstr "Brakes dashboard"
+
+#: maintenance/systeme_freinage
+msgid "Tambour droit"
+msgstr "Right drum"
+
+#: maintenance/systeme_freinage
+msgid "Tambour gauche"
+msgstr "Left drum"
+
+#: maintenance/systeme_freinage
+msgid "Tambours"
+msgstr "Drums"
+
+#: maintenance/systeme_freinage
+msgid "Tambours arrière"
+msgstr "Rear drums"
+
+#: maintenance/systeme_freinage
+msgid "Tambours de frein"
+msgstr "Brake drums"
+
+#: maintenance/systeme_freinage
+msgid "Tendeur / écrou de réglage"
+msgstr "Tensioner / adjusting nut"
+
+#: maintenance/systeme_freinage
+msgid "Témoin de frein de stationnement fonctionnel"
+msgstr "Parking brake warning light working"
+
+#: maintenance/systeme_freinage
+msgid "Vanne / répartiteur (bypass)"
+msgstr "Valve / bias (bypass)"
+
+#: maintenance/systeme_freinage
+msgid "Vis de purge"
+msgstr "Bleed screw"
+
+#: maintenance/systeme_freinage
+msgid "Voulez-vous vraiment supprimer le contrôle de la rénovation des mâchoires de frein pour"
+msgstr "Do you really want to delete the brake caliper refurbishment inspection for"
+
+#: maintenance/systeme_freinage
+msgid "Voulez-vous vraiment supprimer le contrôle des tambours de frein pour"
+msgstr "Do you really want to delete the brake drums inspection for"
+
+#: maintenance/systeme_freinage
+msgid "Voulez-vous vraiment supprimer le contrôle du frein à main hydraulique pour"
+msgstr "Do you really want to delete the hydraulic handbrake inspection for"
+
+#: maintenance/systeme_freinage
+msgid "Voulez-vous vraiment supprimer le contrôle du frein à main pour"
+msgstr "Do you really want to delete the handbrake inspection for"
+
+#: maintenance/systeme_freinage
+msgid "Voulez-vous vraiment supprimer le contrôle du nettoyage des freins pour"
+msgstr "Do you really want to delete the brake cleaning inspection for"
+
+#: maintenance/systeme_freinage
+msgid "Épaisseur des garnitures (mm)"
+msgstr "Lining thickness (mm)"
+
+#: maintenance/systeme_freinage
+msgid "Étriers arrière"
+msgstr "Rear calipers"
+
+#: maintenance/systeme_freinage
+msgid "Étriers avant"
+msgstr "Front calipers"
+
+#: maintenance/systeme_freinage
+msgid "Étriers dédiés au frein à main"
+msgstr "Dedicated handbrake calipers"

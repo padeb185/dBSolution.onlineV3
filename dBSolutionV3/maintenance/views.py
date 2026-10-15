@@ -21,6 +21,7 @@ from utilisateurs.models import Mecanicien
 from maintenance.jeux_pieces.models import ControleJeuxPieces
 from maintenance.esthetique.nettoyage_exterieur.models import NettoyageExterieur
 from maintenance.esthetique.views import totaux_esthetique
+from maintenance.systeme_freinage.views import totaux_freinage
 from maintenance.nettoyage_interieur.models import NettoyageInterieur
 from maintenance.freins.models import ControleFreins
 from maintenance.niveaux.models import Niveau
@@ -294,7 +295,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             "total_checkup": total_checkup,
             "total_entretien": total_entretien,
             "total_essuyage": total_essuyage,
-            "total_freins": total_freins,
+            "total_freins": totaux_freinage(exemplaire)["total_freinage"],
             "total_pneus": total_pneus,
             "total_niveaux": total_niveaux,
             "total_autres": total_autres,

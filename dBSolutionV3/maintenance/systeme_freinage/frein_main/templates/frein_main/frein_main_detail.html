@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du contrôle du frein à main" %}{% endblock %}
+
+{% block content %}
+    {% url 'frein_main:modifier_frein_main' frein_main.pk as url_modifier %}
+    {% url 'frein_main:frein_main_detail_pdf' frein_main.pk as url_pdf %}
+    {% url 'frein_main:delete_frein_main' frein_main.pk as url_delete %}
+    {% if exemplaire %}{% url 'frein_main:frein_main_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du contrôle du frein à main" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=frein_main km_controle=frein_main.kilometrage_frein_main icone="freins_frein_main.png" %}
+{% endblock %}
