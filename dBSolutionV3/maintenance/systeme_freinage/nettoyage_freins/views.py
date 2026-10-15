@@ -495,22 +495,22 @@ def nettoyage_freins_form_view(request, exemplaire_id):
         },
         {
             "title": _("Tambours arrière"),
-            "icon": "icons/boite-tambour.png",
+            "icon": "icons/freins_tambour_arriere.png",
             "fields": [form[f.name] for f in form if f.name == "tambours_arriere" or f.name.startswith("tambours_arriere_")],
         },
         {
             "title": _("Glissières / colonnettes d'étriers"),
-            "icon": "icons/visserie.png",
+            "icon": "icons/freins_glissieres.png",
             "fields": [form[f.name] for f in form if f.name == "glissieres" or f.name.startswith("glissieres_")],
         },
         {
             "title": _("Ressorts / clips anti-bruit"),
-            "icon": "icons/visserie.png",
+            "icon": "icons/freins_ressorts.png",
             "fields": [form[f.name] for f in form if f.name == "ressorts_anti_bruit" or f.name.startswith("ressorts_anti_bruit_")],
         },
         {
             "title": _("Soufflets / cache-poussière"),
-            "icon": "icons/joint.png",
+            "icon": "icons/freins_soufflets.png",
             "fields": [form[f.name] for f in form if f.name == "cache_poussiere" or f.name.startswith("cache_poussiere_")],
         },
         {
@@ -838,22 +838,22 @@ def modifier_nettoyage_freins_view(request, nettoyage_freins_id):
         },
         {
             "title": _("Tambours arrière"),
-            "icon": "icons/boite-tambour.png",
+            "icon": "icons/freins_tambour_arriere.png",
             "fields": [form[f.name] for f in form if f.name == "tambours_arriere" or f.name.startswith("tambours_arriere_")],
         },
         {
             "title": _("Glissières / colonnettes d'étriers"),
-            "icon": "icons/visserie.png",
+            "icon": "icons/freins_glissieres.png",
             "fields": [form[f.name] for f in form if f.name == "glissieres" or f.name.startswith("glissieres_")],
         },
         {
             "title": _("Ressorts / clips anti-bruit"),
-            "icon": "icons/visserie.png",
+            "icon": "icons/freins_ressorts.png",
             "fields": [form[f.name] for f in form if f.name == "ressorts_anti_bruit" or f.name.startswith("ressorts_anti_bruit_")],
         },
         {
             "title": _("Soufflets / cache-poussière"),
-            "icon": "icons/joint.png",
+            "icon": "icons/freins_soufflets.png",
             "fields": [form[f.name] for f in form if f.name == "cache_poussiere" or f.name.startswith("cache_poussiere_")],
         },
         {
