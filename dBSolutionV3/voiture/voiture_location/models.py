@@ -7,6 +7,26 @@ from django.db import models
 from django.utils.translation import gettext, gettext_lazy as _, ngettext
 
 
+DEUX_DECIMALES = Decimal("0.01")
+
+
+def prix_htva_depuis_tvac(prix_tvac, taux):
+    """
+    Prix HTVA à partir d'un prix TVAC, choisi pour que HTVA + TVA (arrondie)
+    retombe exactement sur le prix TVAC saisi (pas d'écart d'un centime).
+    """
+    tvac = Decimal(str(prix_tvac or 0)).quantize(DEUX_DECIMALES, rounding=ROUND_HALF_UP)
+    taux = Decimal(str(taux or 0))
+    if not tvac or not taux:
+        return tvac
+    ht = (tvac / (Decimal("1") + taux / Decimal("100"))).quantize(DEUX_DECIMALES, rounding=ROUND_HALF_UP)
+    for candidat in (ht, ht - DEUX_DECIMALES, ht + DEUX_DECIMALES):
+        tva = (candidat * taux / Decimal("100")).quantize(DEUX_DECIMALES, rounding=ROUND_HALF_UP)
+        if candidat + tva == tvac:
+            return candidat
+    return ht
+
+
 class TypeLocation(models.TextChoices):
     CIRCUIT = "circuit", _("Circuit")
     ROUTE = "route", _("Route")
@@ -282,6 +302,64 @@ class Location(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         self.synchroniser_agenda()
+
+    # -------------------------
+    # PRIX / TVA (le prix saisi est TVAC)
+    # -------------------------
+    @property
+    def pays_tva(self):
+        from maintenance.choices import TVAConfig
+        adresse = getattr(self.societe, "adresse", None)
+        code = (getattr(adresse, "code_pays", "") or TVAConfig.DEFAULT_PAYS)[:2].upper()
+        return code if code in TVAConfig.TVA_PIECES else TVAConfig.DEFAULT_PAYS
+
+    @property
+    def taux_tva(self):
+        from maintenance.choices import TVAConfig
+        return Decimal(str(TVAConfig.get_tva(self.pays_tva))).quantize(DEUX_DECIMALES)
+
+    @property
+    def prix_tvac(self):
+        return Decimal(str(self.prix or 0)).quantize(DEUX_DECIMALES, rounding=ROUND_HALF_UP)
+
+    @property
+    def prix_htva(self):
+        return prix_htva_depuis_tvac(self.prix_tvac, self.taux_tva)
+
+    @property
+    def montant_tva(self):
+        return (self.prix_tvac - self.prix_htva).quantize(DEUX_DECIMALES)
+
+    # -------------------------
+    # FACTURE
+    # -------------------------
+    @property
+    def facture(self):
+        """Facture liée (émise de préférence, sinon brouillon), ou None."""
+        factures = list(self.factures.all())
+        emises = [f for f in factures if f.statut == "EMISE"]
+        return (emises or factures or [None])[0]
+
+    @property
+    def libelle_facture(self):
+        """Description de la ligne de facture."""
+        vehicule = self.voiture_exemplaire
+        nom_vehicule = " ".join(filter(None, [
+            getattr(getattr(vehicule, "voiture_marque", None), "nom_marque", ""),
+            getattr(getattr(vehicule, "voiture_modele", None), "nom_modele", ""),
+            getattr(vehicule, "immatriculation", "") or "",
+        ]))
+        dates = f"{self.date_debut:%d/%m/%Y}"
+        if self.date_fin and self.date_fin != self.date_debut:
+            dates += f" – {self.date_fin:%d/%m/%Y}"
+        texte = gettext("Location %(type)s %(lieu)s – %(vehicule)s – %(distance)s (%(dates)s)") % {
+            "type": self.get_type_location_display().lower(),
+            "lieu": self.lieu,
+            "vehicule": nom_vehicule,
+            "distance": self.distance_affichage or "—",
+            "dates": dates,
+        }
+        return texte[:255]
 
     @property
     def prix_par_km(self):

@@ -36,6 +36,7 @@ from maintenance.autres_interventions.moteur.courroie.models import CourroieDist
 from maintenance.autres_interventions.moteur.chaine_distribution.models import ChaineDistribution
 from maintenance.autres_interventions.batterie.models import Batterie
 from maintenance.autres_interventions.moteur.electronique_moteur.models import ElectroniqueMoteur
+from maintenance.autres_interventions.moteur.lubrification.models import Lubrification
 from maintenance.esthetique.polish.models import Polish
 from maintenance.esthetique.decontamination.models import Decontamination
 from maintenance.esthetique.cire.models import Cire
@@ -89,6 +90,7 @@ admin.site.register(CourroieDistribution)
 admin.site.register(ChaineDistribution)
 admin.site.register(Batterie)
 admin.site.register(ElectroniqueMoteur)
+admin.site.register(Lubrification)
 admin.site.register(Polish)
 admin.site.register(Decontamination)
 admin.site.register(Cire)

@@ -9,7 +9,7 @@
     <div class="mb-6">
         <h1 class="text-2xl font-bold">
             <div class="flex items-center gap-4">
-                <img src="{% static 'icons/voiture-de-course.png' %}" alt="{% trans 'Location' %}"
+                <img src="{% static 'icons/location_nouvelle.png' %}" alt="{% trans 'Location' %}"
                      style="width:60px; height:60px;">
                 <span>
                     {% if location %}{% trans "Modifier la location" %}{% else %}{% trans "Nouvelle location" %}{% endif %}
@@ -65,7 +65,7 @@
 
         <!-- Véhicule -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/voiture-de-course.png' %}" alt="{% trans 'Véhicule' %}" class="w-20 h-20">
+            <img src="{% static 'icons/location_vehicule_client.png' %}" alt="{% trans 'Véhicule' %}" class="w-20 h-20">
             {% trans "Véhicule et client" %}
         </h2>
         {% include "voiture_location/_champ.html" with field=form.voiture_exemplaire %}
@@ -75,7 +75,7 @@
 
         <!-- Lieu -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/compteur-de-vitesse.png' %}" alt="{% trans 'Lieu' %}" class="w-20 h-20">
+            <img src="{% static 'icons/location_circuit_route.png' %}" alt="{% trans 'Lieu' %}" class="w-20 h-20">
             {% trans "Circuit ou route" %}
         </h2>
         {% include "voiture_location/_champ.html" with field=form.type_location %}
@@ -86,7 +86,7 @@
 
         <!-- Période, km et prix -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
-            <img src="{% static 'icons/agenda.png' %}" alt="{% trans 'Période' %}" class="w-20 h-20">
+            <img src="{% static 'icons/location_periode_prix.png' %}" alt="{% trans 'Période' %}" class="w-20 h-20">
             {% trans "Période, kilométrage et prix" %}
         </h2>
         {% include "voiture_location/_champ.html" with field=form.date_debut %}
@@ -94,6 +94,20 @@
         {% include "voiture_location/_champ.html" with field=form.nombre_tours %}
         {% include "voiture_location/_champ.html" with field=form.kilometrage %}
         {% include "voiture_location/_champ.html" with field=form.prix %}
+        <div id="detail-tva" class="mb-4 grid grid-cols-3 gap-3 text-sm" data-taux="{{ taux_tva|stringformat:'s' }}">
+            <div class="bg-gray-50 border rounded p-2">
+                <div class="text-gray-500">{% trans "Prix HTVA" %}</div>
+                <div class="font-semibold" id="prix-htva">—</div>
+            </div>
+            <div class="bg-gray-50 border rounded p-2">
+                <div class="text-gray-500">{% trans "TVA" %} ({{ taux_tva|floatformat:"-2" }} %)</div>
+                <div class="font-semibold" id="prix-tva">—</div>
+            </div>
+            <div class="bg-gray-50 border rounded p-2">
+                <div class="text-gray-500">{% trans "Prix TVAC" %}</div>
+                <div class="font-semibold" id="prix-tvac">—</div>
+            </div>
+        </div>
         {% include "voiture_location/_champ.html" with field=form.remarques %}
 
         <!-- Boutons -->
@@ -153,6 +167,28 @@
     }
     type.addEventListener("change", majAffichage);
     majAffichage();
+})();
+
+// Détail HTVA / TVA à partir du prix TVAC saisi
+(function () {
+    const prix = document.getElementById("id_prix");
+    const bloc = document.getElementById("detail-tva");
+    if (!prix || !bloc) return;
+    const taux = parseFloat(String(bloc.dataset.taux).replace(",", ".")) || 0;
+    const fmt = (v) => v.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " €";
+    function maj() {
+        const tvac = parseFloat(String(prix.value).replace(",", "."));
+        if (isNaN(tvac)) {
+            ["prix-htva", "prix-tva", "prix-tvac"].forEach(id => document.getElementById(id).textContent = "—");
+            return;
+        }
+        const htva = Math.round(tvac / (1 + taux / 100) * 100) / 100;
+        document.getElementById("prix-htva").textContent = fmt(htva);
+        document.getElementById("prix-tva").textContent = fmt(Math.round((tvac - htva) * 100) / 100);
+        document.getElementById("prix-tvac").textContent = fmt(tvac);
+    }
+    prix.addEventListener("input", maj);
+    maj();
 })();
 </script>
 {% endblock %}

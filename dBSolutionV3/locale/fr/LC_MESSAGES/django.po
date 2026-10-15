@@ -41788,3 +41788,344 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
 msgstr ""
+
+# ==========================================================
+# LUBRIFICATION MOTEUR
+# ==========================================================
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Bouchon de remplissage d'huile"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Bouchon de vidange et joint"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Bâche à huile (carter sec)"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Carter et réservoir"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Clapet régulateur de pression d'huile"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Contrôle de la lubrification moteur pour :"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Contrôle de la lubrification moteur supprimé avec succès."
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Contrôle et niveau"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Contrôles et mesures"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Crépine d'huile"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Détail lubrification moteur"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Détails du contrôle de la lubrification moteur"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Entraînement de pompe à huile (chaîne / pignons)"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Ex. : 5W-30, 0W-20, 10W-60…"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Ex. : ACEA C3, VW 504.00, MB 229.51…"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Filtration"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Fuite d'huile constatée"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Gicleurs"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Gicleurs de fond de piston"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Intervention lubrification moteur"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Intervention lubrification moteur enregistrée avec succès."
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Intervention lubrification moteur modifiée avec succès !"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Jauge à huile et tube"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Joint de carter d'huile"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Kilométrage de la lubrification moteur"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Kilométrage lubrification moteur"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Liste des interventions lubrification moteur"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Lubrification moteur"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Manocontact / capteur de pression d'huile"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Modification lubrification moteur"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Modifier l'intervention lubrification moteur"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Norme / homologation de l'huile"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Pompe de récupération (carter sec)"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Pompe et aspiration"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Pompe à huile"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Pression d'huile au ralenti (bar)"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Pression d'huile à 3000 tr/min (bar)"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Présence de limaille ou de dépôts dans l'huile"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Quantité d'huile (litres)"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Raccords et joints de tuyauterie"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Radiateur d'huile"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Rampe de graissage / gicleurs de culasse"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Refroidissement de l'huile"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Reniflard / déshuileur"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Retour à la liste des contrôles lubrification moteur"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Sonde de niveau d'huile"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Support de filtre à huile et joint"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Suppression du contrôle de la lubrification moteur"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Supprimer le contrôle de la lubrification moteur"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Température de l'huile lors de la mesure (°C)"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Thermostat d'huile"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Tuyauterie"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Tuyaux / durites d'huile"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Témoin de pression d'huile éteint moteur tournant"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Viscosité de l'huile"
+msgstr ""
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Voulez-vous vraiment supprimer le contrôle de la lubrification moteur pour"
+msgstr ""
+
+# ==========================================================
+# LOCATIONS : VENTES / FACTURATION
+# ==========================================================
+
+#: voiture/voiture_location
+msgid "Aucune location sur la période."
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Brouillon de facture créé. Le prix de location est TVAC : vérifiez la ligne avant d'émettre."
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Cette location est déjà facturée."
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Création d'une facture de location"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Dont locations (circuit / route)"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Facturer particulier"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Facturer pro"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Facturer à un client particulier"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Facturer à un client professionnel"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Facturées"
+msgstr ""
+
+#: voiture/voiture_location
+#, python-format
+msgid "Location %(type)s %(lieu)s – %(vehicule)s – %(distance)s (%(dates)s)"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Nombre de locations"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Non facturée"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Non facturées"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Prix TVAC (€)"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Prix de la location TVA comprise : la TVA est calculée au taux du pays de la société."
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Répartition"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Seules les locations facturées (facture émise) entrent dans la déclaration TVA."
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Sélectionnez le client professionnel avant d'émettre la facture."
+msgstr ""
+
+#: voiture/voiture_location
+msgid "TVA à payer à l'État (via les factures émises)"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Total TVA (année) :"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Total TVAC (année) :"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Toutes les ventes"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Ventes"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Ventes détails"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "Ventes détails – locations"
+msgstr ""
+
+#: voiture/voiture_location
+msgid "base HTVA"
+msgstr ""

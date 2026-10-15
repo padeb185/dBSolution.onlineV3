@@ -145,6 +145,13 @@
                     </tr>
                 </tbody>
             </table>
+            {% if a_payer.base_locations %}
+                <p class="text-sm text-gray-600 mt-2">
+                    {% trans "Dont locations (circuit / route)" %} :
+                    {% trans "base HTVA" %} {{ a_payer.base_locations|floatformat:2 }} € –
+                    {% trans "TVA" %} {{ a_payer.tva_locations|floatformat:2 }} €
+                </p>
+            {% endif %}
             {% if a_payer.factures_internes %}
                 <p class="text-sm text-gray-600 mt-2">
                     {% blocktrans count n=a_payer.factures_internes|length %}{{ n }} maintenance interne (facture à notre société) n'est pas une vente : la TVA sur ses pièces est récupérée via les achats fournisseurs.{% plural %}{{ n }} maintenances internes (factures à notre société) ne sont pas des ventes : la TVA sur leurs pièces est récupérée via les achats fournisseurs.{% endblocktrans %}

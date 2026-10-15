@@ -679,8 +679,36 @@
             </p>
         </div>
 
-        <img src="{% static 'icons/voiture-de-course.png' %}"
+        <img src="{% static 'icons/location.png' %}"
              alt="{% trans 'Location' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <!-- Ventes détails (locations : HTVA / TVA / TVAC) -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/location/ventes/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Ventes détails" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Total TVA (année) :" %}
+                <span class="font-bold">
+                    {{ ventes_tva_annee|floatformat:2 }} €
+                </span>
+            </p>
+            <p class="text-gray-600 text-sm">
+                {% trans "Total TVAC (année) :" %}
+                <span class="font-bold">
+                    {{ ventes_tvac_annee|floatformat:2 }} €
+                </span>
+            </p>
+        </div>
+
+        <img src="{% static 'icons/ventes_details.png' %}"
+             alt="{% trans 'Ventes détails' %}"
              class="w-[60px] h-[60px]">
     </a>
 

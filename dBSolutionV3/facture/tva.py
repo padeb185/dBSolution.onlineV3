@@ -110,8 +110,10 @@ class CalculTVA:
         if self._a_payer is not None:
             return self._a_payer
 
+        from .models import FactureLine
         par_taux = {}
         base_autoliquidation = ZERO
+        base_locations = tva_locations = ZERO
         internes = []
         nb_factures = 0
 
@@ -121,6 +123,11 @@ class CalculTVA:
                 internes.append(facture)
                 continue
             nb_factures += 1
+            if not facture.autoliquidation:
+                for ligne in facture.lines.all():
+                    if ligne.type_ligne == FactureLine.TypeLigne.LOCATION:
+                        base_locations += ligne.total_ht
+                        tva_locations += arrondi(ligne.total_ht * Decimal(ligne.vat_rate or 0) / Decimal("100"))
             for taux, groupe in facture.totaux_par_taux().items():
                 if facture.autoliquidation:
                     base_autoliquidation += groupe["base"]
@@ -138,6 +145,9 @@ class CalculTVA:
             "base": arrondi(sum((l["base"] for l in lignes), ZERO)),
             "tva": arrondi(sum((l["tva"] for l in lignes), ZERO)),
             "base_autoliquidation": arrondi(base_autoliquidation),
+            # Part des locations (circuit / route) dans les ventes — information
+            "base_locations": arrondi(base_locations),
+            "tva_locations": arrondi(tva_locations),
             "nb_factures": nb_factures,
             "factures_internes": internes,
         }

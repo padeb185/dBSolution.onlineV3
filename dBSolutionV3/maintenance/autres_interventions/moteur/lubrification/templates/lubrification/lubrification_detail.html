@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du contrôle de la lubrification moteur" %}{% endblock %}
+
+{% block content %}
+    {% url 'lubrification:modifier_lubrification' lubrification.pk as url_modifier %}
+    {% url 'lubrification:lubrification_detail_pdf' lubrification.pk as url_pdf %}
+    {% url 'lubrification:delete_lubrification' lubrification.pk as url_delete %}
+    {% if exemplaire %}{% url 'lubrification:lubrification_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du contrôle de la lubrification moteur" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=lubrification km_controle=lubrification.kilometrage_lubrification icone="lubrification.png" %}
+{% endblock %}

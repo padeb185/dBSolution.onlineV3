@@ -92,6 +92,10 @@ class LocationForm(forms.ModelForm):
         elif inst.client_id:
             self.initial["locataire"] = f"client:{inst.client_id}"
 
+        # Le prix de location est saisi TVAC
+        self.fields["prix"].label = _("Prix TVAC (€)")
+        self.fields["prix"].help_text = _("Prix de la location TVA comprise : la TVA est calculée au taux du pays de la société.")
+
         # Ordre d'affichage : le client juste après le véhicule
         self.order_fields(["voiture_exemplaire", "locataire"])
 

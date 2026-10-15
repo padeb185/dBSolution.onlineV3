@@ -35,6 +35,7 @@ class Maintenance(models.Model):
         CHAINE_DISTRI = "CHAINE_DISTRI", _("Chaîne de distribution")
         BATTERIE = "BATTERIE", _("Batterie")
         ELECTRONIQUE_MOTEUR = "ELECTRONIQUE_MOTEUR", _("Électronique moteur")
+        LUBRIFICATION = "LUBRIFICATION", _("Lubrification moteur")
         POLISH = "POLISH", _("Polish")
         DECONTAMINATION = "DECONTAMINATION", _("Décontamination")
         CIRE = "CIRE", _("Cire")

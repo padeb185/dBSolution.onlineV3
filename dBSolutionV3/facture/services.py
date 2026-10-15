@@ -243,6 +243,45 @@ def lignes_depuis_diagnostic(diagnostic, marge_main_oeuvre, taux_tva):
     }]
 
 
+@transaction.atomic
+def creer_facture_depuis_location(location, type_facture, user):
+    """
+    Brouillon de facture pour une location. Le prix de la location est TVAC :
+    la ligne reprend le prix HTVA (prix TVAC / (1 + taux)) au taux de TVA du pays de la société.
+    """
+    est_pro = type_facture == Facture.TypeFacture.PRO
+    particulier = location.client
+    if particulier is None and location.client_pilotage_id:
+        particulier = location.client_pilotage.client_particulier
+
+    facture = Facture.objects.create(
+        type_facture=type_facture,
+        societe=location.societe or getattr(user, "societe", None),
+        voiture_exemplaire=location.voiture_exemplaire,
+        client_particulier=None if est_pro else particulier,
+        societe_cliente=location.societe_cliente if est_pro else None,
+        issue_date=timezone.localdate(),
+        due_date=timezone.localdate() + timedelta(days=30),
+        cree_par=user,
+    )
+    facture.locations.add(location)
+    FactureLine.objects.create(
+        facture=facture,
+        location=location,
+        ordre=1,
+        type_ligne=FactureLine.TypeLigne.LOCATION,
+        description=location.libelle_facture,
+        reference="",
+        quantity=Decimal("1.00"),
+        unit_cost=None,
+        marge=Decimal("0.00"),
+        unit_price=location.prix_htva,
+        vat_rate=location.taux_tva,
+    )
+    facture.recalculer_totaux()
+    return facture
+
+
 def creer_facture_depuis_diagnostic(diagnostic, type_facture, user):
     return creer_facture_depuis_maintenances([], type_facture, user, diagnostics=[diagnostic])
 

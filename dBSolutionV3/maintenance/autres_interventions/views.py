@@ -28,6 +28,7 @@ from maintenance.autres_interventions.abs.models import Abs
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
 from maintenance.autres_interventions.moteur.chaine_distribution.models import ChaineDistribution
 from maintenance.autres_interventions.moteur.electronique_moteur.models import ElectroniqueMoteur
+from maintenance.autres_interventions.moteur.lubrification.models import Lubrification
 from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
 from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models import RemplacementBoite
 from maintenance.autres_interventions.moteur.turbo.models import Turbo
@@ -87,6 +88,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     courroie = CourroieDistribution.objects.none()
     chaine = ChaineDistribution.objects.none()
     electronique = ElectroniqueMoteur.objects.none()
+    lubrification = Lubrification.objects.none()
     turbo = Turbo.objects.none()
     remplacement_moteur = RemplacementMoteur.objects.none()
     echappement = Echappement.objects.none()
@@ -218,6 +220,10 @@ def choisir_autre_maintenance(request, exemplaire_id):
                 voiture_exemplaire=exemplaire
             )
 
+            lubrification = Lubrification.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
+
             turbo = Turbo.objects.filter(
                 voiture_exemplaire=exemplaire
             )
@@ -235,6 +241,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
                     + courroie.count()
                     + chaine.count()
                     + electronique.count()
+                    + lubrification.count()
                     + turbo.count()
                     + remplacement_moteur.count()
                     + allumage.count()
@@ -253,6 +260,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
                 + courroie.count()
                 + chaine.count()
                 + electronique.count()
+                + lubrification.count()
                 + turbo.count()
                 + remplacement_moteur.count()
                 + allumage.count()

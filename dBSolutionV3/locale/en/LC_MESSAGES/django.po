@@ -42023,3 +42023,344 @@ msgstr "Tires deleted successfully."
 
 #~ msgid "Diagnostic (forfait)"
 #~ msgstr "Diagnostic (flat fee)"
+
+# ==========================================================
+# LUBRIFICATION MOTEUR
+# ==========================================================
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Bouchon de remplissage d'huile"
+msgstr "Oil filler cap"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Bouchon de vidange et joint"
+msgstr "Drain plug and washer"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Bâche à huile (carter sec)"
+msgstr "Oil tank (dry sump)"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Carter et réservoir"
+msgstr "Sump and reservoir"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Clapet régulateur de pression d'huile"
+msgstr "Oil pressure relief valve"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Contrôle de la lubrification moteur pour :"
+msgstr "Engine lubrication inspection for:"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Contrôle de la lubrification moteur supprimé avec succès."
+msgstr "Engine lubrication inspection deleted successfully."
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Contrôle et niveau"
+msgstr "Monitoring and level"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Contrôles et mesures"
+msgstr "Checks and measurements"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Crépine d'huile"
+msgstr "Oil pickup strainer"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Détail lubrification moteur"
+msgstr "Engine lubrication details"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Détails du contrôle de la lubrification moteur"
+msgstr "Engine lubrication inspection details"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Entraînement de pompe à huile (chaîne / pignons)"
+msgstr "Oil pump drive (chain / gears)"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Ex. : 5W-30, 0W-20, 10W-60…"
+msgstr "E.g.: 5W-30, 0W-20, 10W-60…"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Ex. : ACEA C3, VW 504.00, MB 229.51…"
+msgstr "E.g.: ACEA C3, VW 504.00, MB 229.51…"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Filtration"
+msgstr "Filtration"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Fuite d'huile constatée"
+msgstr "Oil leak found"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Gicleurs"
+msgstr "Oil jets"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Gicleurs de fond de piston"
+msgstr "Piston cooling jets"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Intervention lubrification moteur"
+msgstr "Engine lubrication work"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Intervention lubrification moteur enregistrée avec succès."
+msgstr "Engine lubrication work saved successfully."
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Intervention lubrification moteur modifiée avec succès !"
+msgstr "Engine lubrication work updated successfully!"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Jauge à huile et tube"
+msgstr "Dipstick and tube"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Joint de carter d'huile"
+msgstr "Oil sump gasket"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Kilométrage de la lubrification moteur"
+msgstr "Engine lubrication mileage"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Kilométrage lubrification moteur"
+msgstr "Engine lubrication mileage"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Liste des interventions lubrification moteur"
+msgstr "Engine lubrication work list"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Lubrification moteur"
+msgstr "Engine lubrication"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Manocontact / capteur de pression d'huile"
+msgstr "Oil pressure switch / sensor"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Modification lubrification moteur"
+msgstr "Engine lubrication update"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Modifier l'intervention lubrification moteur"
+msgstr "Edit engine lubrication work"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Norme / homologation de l'huile"
+msgstr "Oil standard / approval"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Pompe de récupération (carter sec)"
+msgstr "Scavenge pump (dry sump)"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Pompe et aspiration"
+msgstr "Pump and pickup"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Pompe à huile"
+msgstr "Oil pump"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Pression d'huile au ralenti (bar)"
+msgstr "Oil pressure at idle (bar)"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Pression d'huile à 3000 tr/min (bar)"
+msgstr "Oil pressure at 3000 rpm (bar)"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Présence de limaille ou de dépôts dans l'huile"
+msgstr "Metal particles or deposits in the oil"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Quantité d'huile (litres)"
+msgstr "Oil quantity (litres)"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Raccords et joints de tuyauterie"
+msgstr "Line fittings and seals"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Radiateur d'huile"
+msgstr "Oil cooler (radiator)"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Rampe de graissage / gicleurs de culasse"
+msgstr "Oil gallery / cylinder head jets"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Refroidissement de l'huile"
+msgstr "Oil cooling"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Reniflard / déshuileur"
+msgstr "Breather / oil separator"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Retour à la liste des contrôles lubrification moteur"
+msgstr "Back to engine lubrication inspections list"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Sonde de niveau d'huile"
+msgstr "Oil level sensor"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Support de filtre à huile et joint"
+msgstr "Oil filter housing and gasket"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Suppression du contrôle de la lubrification moteur"
+msgstr "Deletion of engine lubrication inspection"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Supprimer le contrôle de la lubrification moteur"
+msgstr "Delete engine lubrication inspection"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Température de l'huile lors de la mesure (°C)"
+msgstr "Oil temperature during measurement (°C)"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Thermostat d'huile"
+msgstr "Oil thermostat"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Tuyauterie"
+msgstr "Piping"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Tuyaux / durites d'huile"
+msgstr "Oil lines / hoses"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Témoin de pression d'huile éteint moteur tournant"
+msgstr "Oil pressure warning light off with engine running"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Viscosité de l'huile"
+msgstr "Oil viscosity"
+
+#: maintenance/autres_interventions/moteur/lubrification
+msgid "Voulez-vous vraiment supprimer le contrôle de la lubrification moteur pour"
+msgstr "Do you really want to delete the engine lubrication inspection for"
+
+# ==========================================================
+# LOCATIONS : VENTES / FACTURATION
+# ==========================================================
+
+#: voiture/voiture_location
+msgid "Aucune location sur la période."
+msgstr "No rentals in this period."
+
+#: voiture/voiture_location
+msgid "Brouillon de facture créé. Le prix de location est TVAC : vérifiez la ligne avant d'émettre."
+msgstr "Draft invoice created. The rental price includes VAT: check the line before issuing."
+
+#: voiture/voiture_location
+msgid "Cette location est déjà facturée."
+msgstr "This rental has already been invoiced."
+
+#: voiture/voiture_location
+msgid "Création d'une facture de location"
+msgstr "Rental invoice created"
+
+#: voiture/voiture_location
+msgid "Dont locations (circuit / route)"
+msgstr "Of which rentals (track / road)"
+
+#: voiture/voiture_location
+msgid "Facturer particulier"
+msgstr "Invoice individual"
+
+#: voiture/voiture_location
+msgid "Facturer pro"
+msgstr "Invoice business"
+
+#: voiture/voiture_location
+msgid "Facturer à un client particulier"
+msgstr "Invoice an individual customer"
+
+#: voiture/voiture_location
+msgid "Facturer à un client professionnel"
+msgstr "Invoice a business customer"
+
+#: voiture/voiture_location
+msgid "Facturées"
+msgstr "Invoiced"
+
+#: voiture/voiture_location
+#, python-format
+msgid "Location %(type)s %(lieu)s – %(vehicule)s – %(distance)s (%(dates)s)"
+msgstr "Rental %(type)s %(lieu)s – %(vehicule)s – %(distance)s (%(dates)s)"
+
+#: voiture/voiture_location
+msgid "Nombre de locations"
+msgstr "Number of rentals"
+
+#: voiture/voiture_location
+msgid "Non facturée"
+msgstr "Not invoiced"
+
+#: voiture/voiture_location
+msgid "Non facturées"
+msgstr "Not invoiced"
+
+#: voiture/voiture_location
+msgid "Prix TVAC (€)"
+msgstr "Price incl. VAT (€)"
+
+#: voiture/voiture_location
+msgid "Prix de la location TVA comprise : la TVA est calculée au taux du pays de la société."
+msgstr "Rental price including VAT: VAT is calculated at the rate of the company's country."
+
+#: voiture/voiture_location
+msgid "Répartition"
+msgstr "Breakdown"
+
+#: voiture/voiture_location
+msgid "Seules les locations facturées (facture émise) entrent dans la déclaration TVA."
+msgstr "Only invoiced rentals (issued invoice) are included in the VAT return."
+
+#: voiture/voiture_location
+msgid "Sélectionnez le client professionnel avant d'émettre la facture."
+msgstr "Select the business customer before issuing the invoice."
+
+#: voiture/voiture_location
+msgid "TVA à payer à l'État (via les factures émises)"
+msgstr "VAT payable to the State (via issued invoices)"
+
+#: voiture/voiture_location
+msgid "Total TVA (année) :"
+msgstr "Total VAT (year):"
+
+#: voiture/voiture_location
+msgid "Total TVAC (année) :"
+msgstr "Total incl. VAT (year):"
+
+#: voiture/voiture_location
+msgid "Toutes les ventes"
+msgstr "All sales"
+
+#: voiture/voiture_location
+msgid "Ventes"
+msgstr "Sales"
+
+#: voiture/voiture_location
+msgid "Ventes détails"
+msgstr "Sales details"
+
+#: voiture/voiture_location
+msgid "Ventes détails – locations"
+msgstr "Sales details – rentals"
+
+#: voiture/voiture_location
+msgid "base HTVA"
+msgstr "base excl. VAT"

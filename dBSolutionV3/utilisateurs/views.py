@@ -99,6 +99,8 @@ def dashboard_view(request):
     total_adresse = total_assurance = total_modele = total_outils = 0
     total_recharge = total_main = total_proprietaire = total_client = 0
     total_location = 0
+    ventes_tva_annee = 0
+    ventes_tvac_annee = 0
     total_diagnostic = 0
     total_garage_officiel = total_maintenance_externe = 0
 
@@ -196,6 +198,13 @@ def dashboard_view(request):
 
             from voiture.voiture_location.models import Location
             total_location = Location.objects.filter(societe=societe).count()
+            # Ventes (locations) de l'année en cours : prix TVAC -> TVA
+            locations_annee = list(
+                Location.objects.filter(societe=societe, date_debut__year=timezone.localdate().year)
+                .select_related("societe__adresse")
+            )
+            ventes_tva_annee = sum((l.montant_tva for l in locations_annee), 0)
+            ventes_tvac_annee = sum((l.prix_tvac for l in locations_annee), 0)
             from voiture.voiture_diagnostic.models import Diagnostic
             total_diagnostic = Diagnostic.objects.filter(societe=societe).count()
             from garage_officiel.models import GarageOfficiel
@@ -241,6 +250,8 @@ def dashboard_view(request):
         'total_proprietaire': total_proprietaire,
         'total_client': total_client,
         'total_location': total_location,
+        'ventes_tva_annee': ventes_tva_annee,
+        'ventes_tvac_annee': ventes_tvac_annee,
         'total_diagnostic': total_diagnostic,
         'total_garage_officiel': total_garage_officiel,
         'total_maintenance_externe': total_maintenance_externe,

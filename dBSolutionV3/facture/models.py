@@ -147,6 +147,14 @@ class Facture(models.Model):
         verbose_name=_("Véhicule"),
     )
 
+    # Locations facturées (prix de location TVAC)
+    locations = models.ManyToManyField(
+        "voiture_location.Location",
+        related_name="factures",
+        blank=True,
+        verbose_name=_("Locations"),
+    )
+
     # Client particulier
     client_particulier = models.ForeignKey(
         "client_particulier.ClientParticulier",
@@ -368,6 +376,7 @@ class FactureLine(models.Model):
     class TypeLigne(models.TextChoices):
         PIECE = "PIECE", _("Pièce / produit")
         MAIN_OEUVRE = "MAIN_OEUVRE", _("Main-d'œuvre")
+        LOCATION = "LOCATION", _("Location")
         AUTRE = "AUTRE", _("Autre")
 
     facture = models.ForeignKey(
@@ -395,6 +404,15 @@ class FactureLine(models.Model):
         blank=True,
         related_name="lignes_facture",
         verbose_name=_("Diagnostic"),
+    )
+
+    location = models.ForeignKey(
+        "voiture_location.Location",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="lignes_facture",
+        verbose_name=_("Location"),
     )
 
     type_ligne = models.CharField(

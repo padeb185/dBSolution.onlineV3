@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Ventes détails" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/ventes_details.png' %}" alt="{% trans 'Ventes' %}"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Ventes détails – locations" %}
+</h1>
+
+{% include "voiture_location/_messages.html" %}
+
+<!-- Période -->
+<form method="get" class="bg-white shadow-md rounded-lg p-4 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
+        <div>
+            <label class="font-semibold" for="periode">{% trans "Période" %}</label>
+            <select name="periode" id="periode" class="border rounded px-3 py-2 w-full" onchange="this.form.submit()">
+                <option value="mois" {% if type_periode == "mois" %}selected{% endif %}>{% trans "Mois" %}</option>
+                <option value="trimestre" {% if type_periode == "trimestre" %}selected{% endif %}>{% trans "Trimestre" %}</option>
+                <option value="annee" {% if type_periode == "annee" %}selected{% endif %}>{% trans "Année" %}</option>
+                <option value="tout" {% if type_periode == "tout" %}selected{% endif %}>{% trans "Toutes les ventes" %}</option>
+            </select>
+        </div>
+        {% if type_periode != "tout" %}
+        <div>
+            <label class="font-semibold" for="annee">{% trans "Année" %}</label>
+            <select name="annee" id="annee" class="border rounded px-3 py-2 w-full">
+                {% for a in annees %}<option value="{{ a }}" {% if a == annee %}selected{% endif %}>{{ a }}</option>{% endfor %}
+            </select>
+        </div>
+        {% endif %}
+        {% if type_periode == "mois" %}
+        <div>
+            <label class="font-semibold" for="numero">{% trans "Mois" %}</label>
+            <select name="numero" id="numero" class="border rounded px-3 py-2 w-full">
+                {% for m in mois %}<option value="{{ m }}" {% if m == numero %}selected{% endif %}>{{ m }}</option>{% endfor %}
+            </select>
+        </div>
+        {% elif type_periode == "trimestre" %}
+        <div>
+            <label class="font-semibold" for="numero">{% trans "Trimestre" %}</label>
+            <select name="numero" id="numero" class="border rounded px-3 py-2 w-full">
+                {% for t in trimestres %}<option value="{{ t }}" {% if t == numero %}selected{% endif %}>T{{ t }}</option>{% endfor %}
+            </select>
+        </div>
+        {% endif %}
+        <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+            {% trans "Afficher" %}
+        </button>
+    </div>
+    {% if debut %}
+        <p class="text-sm text-gray-500 mt-2">{% trans "Du" %} {{ debut|date:"d/m/Y" }} {% trans "au" %} {{ fin|date:"d/m/Y" }}</p>
+    {% endif %}
+</form>
+
+<!-- Résumé -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-2">{% trans "Nombre de locations" %}</h2>
+        <p class="text-2xl font-bold">{{ totaux.nb }}</p>
+        <p class="text-sm text-gray-600">{{ totaux.km }} km</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-2">{% trans "Total HTVA" %}</h2>
+        <p class="text-2xl font-bold">{{ totaux.htva|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-2">{% trans "Total TVA" %}</h2>
+        <p class="text-2xl font-bold text-red-800">{{ totaux.tva|floatformat:2 }} €</p>
+        <p class="text-sm text-gray-600">{% trans "TVA à payer à l'État (via les factures émises)" %}</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-2">{% trans "Total TVAC" %}</h2>
+        <p class="text-2xl font-bold text-green-800">{{ totaux.tvac|floatformat:2 }} €</p>
+    </div>
+</div>
+
+<!-- Répartition -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-2 py-2 text-left">{% trans "Répartition" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Nombre" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "HTVA" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "TVA" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "TVAC" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="border px-2 py-1">{% trans "Circuit" %}</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_circuit.nb }}</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_circuit.htva|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_circuit.tva|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_circuit.tvac|floatformat:2 }} €</td>
+            </tr>
+            <tr>
+                <td class="border px-2 py-1">{% trans "Route" %}</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_route.nb }}</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_route.htva|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_route.tva|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_route.tvac|floatformat:2 }} €</td>
+            </tr>
+            <tr>
+                <td class="border px-2 py-1">{% trans "Facturées" %}</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_facturees.nb }}</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_facturees.htva|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_facturees.tva|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_facturees.tvac|floatformat:2 }} €</td>
+            </tr>
+            <tr>
+                <td class="border px-2 py-1">{% trans "Non facturées" %}</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_non_facturees.nb }}</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_non_facturees.htva|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_non_facturees.tva|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux_non_facturees.tvac|floatformat:2 }} €</td>
+            </tr>
+            <tr class="bg-gray-100 font-semibold">
+                <td class="border px-2 py-1">{% trans "Total" %}</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.nb }}</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.htva|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.tva|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.tvac|floatformat:2 }} €</td>
+            </tr>
+        </tbody>
+    </table>
+    {% if totaux_non_facturees.nb %}
+        <p class="text-sm text-gray-600 mt-2">
+            {% trans "Seules les locations facturées (facture émise) entrent dans la déclaration TVA." %}
+        </p>
+    {% endif %}
+</div>
+
+<!-- Détail -->
+<table id="ventes-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Date" %}</th>
+            <th class="border px-4 py-2">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2">{% trans "Véhicule" %}</th>
+            <th class="border px-4 py-2">{% trans "Client" %}</th>
+            <th class="border px-4 py-2">{% trans "Type" %}</th>
+            <th class="border px-4 py-2">{% trans "Circuit / route" %}</th>
+            <th class="border px-4 py-2">{% trans "Kilométrage" %}</th>
+            <th class="border px-4 py-2 text-right">{% trans "HTVA" %}</th>
+            <th class="border px-4 py-2 text-right">{% trans "TVA" %}</th>
+            <th class="border px-4 py-2 text-right">{% trans "TVAC" %}</th>
+            <th class="border px-4 py-2">{% trans "Facture" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for loc in locations %}
+        <tr>
+            <td class="border px-4 py-2" data-order="{{ loc.date_debut|date:'Y-m-d' }}">{{ loc.date_debut|date:"d/m/Y" }}</td>
+            <td class="border px-4 py-2">
+                {% with exemplaire=loc.voiture_exemplaire %}{% include "maintenance/partials/plaque.html" with taille="petite" %}{% endwith %}
+            </td>
+            <td class="border px-4 py-2">{{ loc.voiture_exemplaire.voiture_marque.nom_marque }} {{ loc.voiture_exemplaire.voiture_modele.nom_modele }}</td>
+            <td class="border px-4 py-2">{{ loc.locataire|default:"—" }}</td>
+            <td class="border px-4 py-2">{{ loc.get_type_location_display }}</td>
+            <td class="border px-4 py-2">{{ loc.lieu|default:"—" }}</td>
+            <td class="border px-4 py-2" data-order="{{ loc.kilometrage|default:0 }}">{{ loc.distance_affichage|default:"—" }}</td>
+            <td class="border px-4 py-2 text-right" data-order="{{ loc.prix_htva }}">{{ loc.prix_htva|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right" data-order="{{ loc.montant_tva }}">{{ loc.montant_tva|floatformat:2 }} € <span class="text-xs text-gray-500">({{ loc.taux_tva|floatformat:"-2" }} %)</span></td>
+            <td class="border px-4 py-2 text-right font-semibold" data-order="{{ loc.prix_tvac }}">{{ loc.prix_tvac|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-center whitespace-nowrap">{% include "voiture_location/_facture_location.html" %}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr class="bg-gray-100 font-semibold">
+            <td class="border px-4 py-2" colspan="7">{% trans "Total" %}</td>
+            <td class="border px-4 py-2 text-right">{{ totaux.htva|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ totaux.tva|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ totaux.tvac|floatformat:2 }} €</td>
+            <td class="border px-4 py-2"></td>
+        </tr>
+    </tfoot>
+</table>
+
+<br><br>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <a href="{% url 'voiture_location:location_liste' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour à la liste des locations" %}
+    </a>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="block w-full bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+
+<br><br>
+
+<script>
+$(document).ready(function () {
+    $('#ventes-table').DataTable({
+        language: {
+            emptyTable: "{% trans 'Aucune location sur la période.' %}",
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ locations' %}",
+            infoEmpty: "{% trans 'Aucune location trouvée' %}",
+            zeroRecords: "{% trans 'Aucune location trouvée' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, 'desc']],
+        columnDefs: [
+            { targets: 10, orderable: false, searchable: false },
+            { targets: [6, 7, 8, 9], type: 'num' }
+        ]
+    });
+});
+</script>
+{% endblock %}

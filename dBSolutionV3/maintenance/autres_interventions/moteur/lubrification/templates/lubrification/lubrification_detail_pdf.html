@@ -1,0 +1,947 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+{% if lubrification.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ lubrification.tech_societe.nom }}
+            </div>
+
+            {% if lubrification.tech_societe.adresse %}
+                <div>
+                    {{ lubrification.tech_societe.adresse.rue }}
+                    {{ lubrification.tech_societe.adresse.numero }}
+                    {% if lubrification.tech_societe.adresse.boite %}
+                        / {{ lubrification.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ lubrification.tech_societe.adresse.code_postal }}
+                    {{ lubrification.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if lubrification.tech_societe.adresse.pays %}
+                <div>{{ lubrification.tech_societe.adresse.pays }}
+                    {{ lubrification.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if lubrification.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ lubrification.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if lubrification.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ lubrification.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ lubrification.tech_societe.nom }}.png"
+                alt="{{ lubrification.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Détail lubrification moteur" %}</h1>
+
+<!-- ================= INFOS ================= -->
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ lubrification.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ lubrification.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ lubrification.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ lubrification.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ lubrification.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage lubrification moteur" %} :</span>
+            {{ lubrification.kilometrage_lubrification }} km
+        </div>
+
+
+
+<!-- ================= TAG ================= -->
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if lubrification.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ lubrification.get_tag_display }}
+                </span>
+
+            {% elif lubrification.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ lubrification.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ lubrification.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= CONTRÔLES ET MESURES ================= -->
+<h2>{% trans "Contrôles et mesures" %}</h2>
+
+<div class="box">
+    <div>
+        <span class="label">{% trans "Viscosité de l'huile" %} :</span> {{ lubrification.controle_huile_viscosite|default:"-" }}
+        &nbsp;·&nbsp;
+        <span class="label">{% trans "Norme / homologation de l'huile" %} :</span> {{ lubrification.controle_huile_norme|default:"-" }}
+        &nbsp;·&nbsp;
+        <span class="label">{% trans "Quantité d'huile (litres)" %} :</span> {{ lubrification.controle_huile_quantite|default:"-" }}
+    </div>
+    <div>
+        <span class="label">{% trans "Pression d'huile au ralenti (bar)" %} :</span> {{ lubrification.controle_pression_ralenti|default:"-" }}
+        &nbsp;·&nbsp;
+        <span class="label">{% trans "Pression d'huile à 3000 tr/min (bar)" %} :</span> {{ lubrification.controle_pression_regime|default:"-" }}
+        &nbsp;·&nbsp;
+        <span class="label">{% trans "Température de l'huile lors de la mesure (°C)" %} :</span> {{ lubrification.controle_temperature_huile|default:"-" }}
+    </div>
+    <div>
+        <span class="label">{% trans "Témoin de pression d'huile éteint moteur tournant" %} :</span>
+        {% if lubrification.controle_temoin_pression %}{% trans "Oui" %}{% else %}{% trans "Non" %}{% endif %}
+        &nbsp;·&nbsp;
+        <span class="label">{% trans "Fuite d'huile constatée" %} :</span>
+        {% if lubrification.controle_fuite %}{% trans "Oui" %}{% else %}{% trans "Non" %}{% endif %}
+        &nbsp;·&nbsp;
+        <span class="label">{% trans "Présence de limaille ou de dépôts dans l'huile" %} :</span>
+        {% if lubrification.controle_limaille %}{% trans "Oui" %}{% else %}{% trans "Non" %}{% endif %}
+    </div>
+</div>
+
+<h2>{% trans "Pompe et aspiration" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% trans "Pompe à huile" %}</td>
+                <td>
+                    {% if lubrification.pompe_huile == "OK" %}<span class="ok">{{ lubrification.get_pompe_huile_display }}</span>
+                    {% elif lubrification.pompe_huile == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_pompe_huile_display }}</span>
+                    {% elif lubrification.pompe_huile == "REMPLACE" %}<span class="remplace">{{ lubrification.get_pompe_huile_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Entraînement de pompe à huile (chaîne / pignons)" %}</td>
+                <td>
+                    {% if lubrification.entrainement_pompe_huile == "OK" %}<span class="ok">{{ lubrification.get_entrainement_pompe_huile_display }}</span>
+                    {% elif lubrification.entrainement_pompe_huile == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_entrainement_pompe_huile_display }}</span>
+                    {% elif lubrification.entrainement_pompe_huile == "REMPLACE" %}<span class="remplace">{{ lubrification.get_entrainement_pompe_huile_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Clapet régulateur de pression d'huile" %}</td>
+                <td>
+                    {% if lubrification.clapet_regulateur_pression == "OK" %}<span class="ok">{{ lubrification.get_clapet_regulateur_pression_display }}</span>
+                    {% elif lubrification.clapet_regulateur_pression == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_clapet_regulateur_pression_display }}</span>
+                    {% elif lubrification.clapet_regulateur_pression == "REMPLACE" %}<span class="remplace">{{ lubrification.get_clapet_regulateur_pression_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Crépine d'huile" %}</td>
+                <td>
+                    {% if lubrification.crepine_huile == "OK" %}<span class="ok">{{ lubrification.get_crepine_huile_display }}</span>
+                    {% elif lubrification.crepine_huile == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_crepine_huile_display }}</span>
+                    {% elif lubrification.crepine_huile == "REMPLACE" %}<span class="remplace">{{ lubrification.get_crepine_huile_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Carter et réservoir" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% trans "Carter d'huile" %}</td>
+                <td>
+                    {% if lubrification.carter_huile == "OK" %}<span class="ok">{{ lubrification.get_carter_huile_display }}</span>
+                    {% elif lubrification.carter_huile == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_carter_huile_display }}</span>
+                    {% elif lubrification.carter_huile == "REMPLACE" %}<span class="remplace">{{ lubrification.get_carter_huile_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Joint de carter d'huile" %}</td>
+                <td>
+                    {% if lubrification.joint_carter_huile == "OK" %}<span class="ok">{{ lubrification.get_joint_carter_huile_display }}</span>
+                    {% elif lubrification.joint_carter_huile == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_joint_carter_huile_display }}</span>
+                    {% elif lubrification.joint_carter_huile == "REMPLACE" %}<span class="remplace">{{ lubrification.get_joint_carter_huile_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Bouchon de vidange et joint" %}</td>
+                <td>
+                    {% if lubrification.bouchon_vidange == "OK" %}<span class="ok">{{ lubrification.get_bouchon_vidange_display }}</span>
+                    {% elif lubrification.bouchon_vidange == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_bouchon_vidange_display }}</span>
+                    {% elif lubrification.bouchon_vidange == "REMPLACE" %}<span class="remplace">{{ lubrification.get_bouchon_vidange_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Bâche à huile (carter sec)" %}</td>
+                <td>
+                    {% if lubrification.bache_huile == "OK" %}<span class="ok">{{ lubrification.get_bache_huile_display }}</span>
+                    {% elif lubrification.bache_huile == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_bache_huile_display }}</span>
+                    {% elif lubrification.bache_huile == "REMPLACE" %}<span class="remplace">{{ lubrification.get_bache_huile_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Pompe de récupération (carter sec)" %}</td>
+                <td>
+                    {% if lubrification.pompe_recuperation == "OK" %}<span class="ok">{{ lubrification.get_pompe_recuperation_display }}</span>
+                    {% elif lubrification.pompe_recuperation == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_pompe_recuperation_display }}</span>
+                    {% elif lubrification.pompe_recuperation == "REMPLACE" %}<span class="remplace">{{ lubrification.get_pompe_recuperation_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Tuyauterie" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% trans "Tuyaux / durites d'huile" %}</td>
+                <td>
+                    {% if lubrification.tuyaux_huile == "OK" %}<span class="ok">{{ lubrification.get_tuyaux_huile_display }}</span>
+                    {% elif lubrification.tuyaux_huile == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_tuyaux_huile_display }}</span>
+                    {% elif lubrification.tuyaux_huile == "REMPLACE" %}<span class="remplace">{{ lubrification.get_tuyaux_huile_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Raccords et joints de tuyauterie" %}</td>
+                <td>
+                    {% if lubrification.raccords_huile == "OK" %}<span class="ok">{{ lubrification.get_raccords_huile_display }}</span>
+                    {% elif lubrification.raccords_huile == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_raccords_huile_display }}</span>
+                    {% elif lubrification.raccords_huile == "REMPLACE" %}<span class="remplace">{{ lubrification.get_raccords_huile_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Reniflard / déshuileur" %}</td>
+                <td>
+                    {% if lubrification.reniflard == "OK" %}<span class="ok">{{ lubrification.get_reniflard_display }}</span>
+                    {% elif lubrification.reniflard == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_reniflard_display }}</span>
+                    {% elif lubrification.reniflard == "REMPLACE" %}<span class="remplace">{{ lubrification.get_reniflard_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Filtration" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% trans "Filtre à huile" %}</td>
+                <td>
+                    {% if lubrification.filtre_huile == "OK" %}<span class="ok">{{ lubrification.get_filtre_huile_display }}</span>
+                    {% elif lubrification.filtre_huile == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_filtre_huile_display }}</span>
+                    {% elif lubrification.filtre_huile == "REMPLACE" %}<span class="remplace">{{ lubrification.get_filtre_huile_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Support de filtre à huile et joint" %}</td>
+                <td>
+                    {% if lubrification.support_filtre_huile == "OK" %}<span class="ok">{{ lubrification.get_support_filtre_huile_display }}</span>
+                    {% elif lubrification.support_filtre_huile == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_support_filtre_huile_display }}</span>
+                    {% elif lubrification.support_filtre_huile == "REMPLACE" %}<span class="remplace">{{ lubrification.get_support_filtre_huile_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Refroidissement de l'huile" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% trans "Échangeur huile / eau" %}</td>
+                <td>
+                    {% if lubrification.echangeur_huile == "OK" %}<span class="ok">{{ lubrification.get_echangeur_huile_display }}</span>
+                    {% elif lubrification.echangeur_huile == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_echangeur_huile_display }}</span>
+                    {% elif lubrification.echangeur_huile == "REMPLACE" %}<span class="remplace">{{ lubrification.get_echangeur_huile_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Radiateur d'huile" %}</td>
+                <td>
+                    {% if lubrification.radiateur_huile == "OK" %}<span class="ok">{{ lubrification.get_radiateur_huile_display }}</span>
+                    {% elif lubrification.radiateur_huile == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_radiateur_huile_display }}</span>
+                    {% elif lubrification.radiateur_huile == "REMPLACE" %}<span class="remplace">{{ lubrification.get_radiateur_huile_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Thermostat d'huile" %}</td>
+                <td>
+                    {% if lubrification.thermostat_huile == "OK" %}<span class="ok">{{ lubrification.get_thermostat_huile_display }}</span>
+                    {% elif lubrification.thermostat_huile == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_thermostat_huile_display }}</span>
+                    {% elif lubrification.thermostat_huile == "REMPLACE" %}<span class="remplace">{{ lubrification.get_thermostat_huile_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Gicleurs" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% trans "Gicleurs de fond de piston" %}</td>
+                <td>
+                    {% if lubrification.gicleurs_pistons == "OK" %}<span class="ok">{{ lubrification.get_gicleurs_pistons_display }}</span>
+                    {% elif lubrification.gicleurs_pistons == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_gicleurs_pistons_display }}</span>
+                    {% elif lubrification.gicleurs_pistons == "REMPLACE" %}<span class="remplace">{{ lubrification.get_gicleurs_pistons_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Rampe de graissage / gicleurs de culasse" %}</td>
+                <td>
+                    {% if lubrification.rampe_graissage == "OK" %}<span class="ok">{{ lubrification.get_rampe_graissage_display }}</span>
+                    {% elif lubrification.rampe_graissage == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_rampe_graissage_display }}</span>
+                    {% elif lubrification.rampe_graissage == "REMPLACE" %}<span class="remplace">{{ lubrification.get_rampe_graissage_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Contrôle et niveau" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% trans "Manocontact / capteur de pression d'huile" %}</td>
+                <td>
+                    {% if lubrification.manocontact_huile == "OK" %}<span class="ok">{{ lubrification.get_manocontact_huile_display }}</span>
+                    {% elif lubrification.manocontact_huile == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_manocontact_huile_display }}</span>
+                    {% elif lubrification.manocontact_huile == "REMPLACE" %}<span class="remplace">{{ lubrification.get_manocontact_huile_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Sonde de niveau d'huile" %}</td>
+                <td>
+                    {% if lubrification.sonde_niveau_huile == "OK" %}<span class="ok">{{ lubrification.get_sonde_niveau_huile_display }}</span>
+                    {% elif lubrification.sonde_niveau_huile == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_sonde_niveau_huile_display }}</span>
+                    {% elif lubrification.sonde_niveau_huile == "REMPLACE" %}<span class="remplace">{{ lubrification.get_sonde_niveau_huile_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Jauge à huile et tube" %}</td>
+                <td>
+                    {% if lubrification.jauge_huile == "OK" %}<span class="ok">{{ lubrification.get_jauge_huile_display }}</span>
+                    {% elif lubrification.jauge_huile == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_jauge_huile_display }}</span>
+                    {% elif lubrification.jauge_huile == "REMPLACE" %}<span class="remplace">{{ lubrification.get_jauge_huile_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Bouchon de remplissage d'huile" %}</td>
+                <td>
+                    {% if lubrification.bouchon_remplissage == "OK" %}<span class="ok">{{ lubrification.get_bouchon_remplissage_display }}</span>
+                    {% elif lubrification.bouchon_remplissage == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_bouchon_remplissage_display }}</span>
+                    {% elif lubrification.bouchon_remplissage == "REMPLACE" %}<span class="remplace">{{ lubrification.get_bouchon_remplissage_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Huile moteur" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% trans "Huile moteur" %}</td>
+                <td>
+                    {% if lubrification.huile_moteur == "OK" %}<span class="ok">{{ lubrification.get_huile_moteur_display }}</span>
+                    {% elif lubrification.huile_moteur == "NOT_OK" %}<span class="not-ok">{{ lubrification.get_huile_moteur_display }}</span>
+                    {% elif lubrification.huile_moteur == "REMPLACE" %}<span class="remplace">{{ lubrification.get_huile_moteur_display }}</span>{% endif %}
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ lubrification.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if lubrification.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ lubrification.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ lubrification.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ lubrification.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        <td class="text-right">
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ lubrification.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ lubrification.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
+
+        <table class="table-2-cols">
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ lubrification.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ lubrification.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+
+<br>
+<!-- ================= REMARQUES ================= -->
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ lubrification.remarques|default:_("Aucune remarque.") }}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% load i18n %}
+{% with facture=loc.facture %}
+{% if facture %}
+    <a href="{% url 'facture:detail' pk=facture.pk %}"
+       class="px-2 py-1 rounded text-xs font-semibold {% if facture.est_emise %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+        {% if facture.est_emise %}{{ facture.numero }}{% else %}{% trans "Brouillon" %}{% endif %}
+        – {{ facture.get_type_facture_display }}
+    </a>
+{% elif peut_facturer %}
+    <form method="post" action="{% url 'voiture_location:location_facturer' location_id=loc.id %}" class="inline">
+        {% csrf_token %}
+        <input type="hidden" name="type_facture" value="{{ type_client|default:'CLIENT' }}">
+        <button type="submit" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 text-xs"
+                title="{% trans 'Facturer à un client particulier' %}">
+            {% trans "Facturer particulier" %}
+        </button>
+    </form>
+    <form method="post" action="{% url 'voiture_location:location_facturer' location_id=loc.id %}" class="inline">
+        {% csrf_token %}
+        <input type="hidden" name="type_facture" value="{{ type_pro|default:'PRO' }}">
+        <button type="submit" class="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700 text-xs"
+                title="{% trans 'Facturer à un client professionnel' %}">
+            {% trans "Facturer pro" %}
+        </button>
+    </form>
+{% else %}
+    <span class="text-gray-500 text-xs">{% trans "Non facturée" %}</span>
+{% endif %}
+{% endwith %}
