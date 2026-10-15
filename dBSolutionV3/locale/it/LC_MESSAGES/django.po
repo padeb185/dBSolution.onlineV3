@@ -42545,3 +42545,36 @@ msgstr "«Non assegnato»: noleggi registrati prima dell'aggiunta del venditore.
 #: voiture/voiture_location
 msgid "Mes statistiques"
 msgstr "Le mie statistiche"
+
+#: voiture/voiture_exemplaire
+msgid "Neuf"
+msgstr "Nuovo"
+
+#: voiture/voiture_exemplaire
+msgid "Occasion"
+msgstr "Usato"
+
+#: voiture/voiture_exemplaire
+msgid "Véhicule acheté"
+msgstr "Veicolo acquistato"
+
+#: voiture/voiture_exemplaire
+msgid "Kilométrage de départ"
+msgstr "Chilometraggio iniziale"
+
+#: voiture/voiture_exemplaire
+msgid "Kilométrage de départ (km)"
+msgstr "Chilometraggio iniziale (km)"
+
+#: voiture/voiture_exemplaire
+msgid "Neuf : 0 km. Occasion : kilométrage du véhicule au moment de l'achat."
+msgstr "Nuovo: 0 km. Usato: chilometraggio del veicolo al momento dell'acquisto."
+
+#: voiture/voiture_exemplaire
+msgid "Indiquez le kilométrage de départ du véhicule d'occasion."
+msgstr "Indica il chilometraggio iniziale del veicolo usato."
+
+#: voiture/voiture_exemplaire
+#, python-format
+msgid "Le kilométrage de départ ne peut pas dépasser le kilométrage actuel (%(km)s km)."
+msgstr "Il chilometraggio iniziale non può superare quello attuale (%(km)s km)."

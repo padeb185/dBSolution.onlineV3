@@ -42599,3 +42599,36 @@ msgstr "«Δεν έχει ανατεθεί»: ενοικιάσεις που κα
 #: voiture/voiture_location
 msgid "Mes statistiques"
 msgstr "Τα στατιστικά μου"
+
+#: voiture/voiture_exemplaire
+msgid "Neuf"
+msgstr "Καινούργιο"
+
+#: voiture/voiture_exemplaire
+msgid "Occasion"
+msgstr "Μεταχειρισμένο"
+
+#: voiture/voiture_exemplaire
+msgid "Véhicule acheté"
+msgstr "Αγορασμένο όχημα"
+
+#: voiture/voiture_exemplaire
+msgid "Kilométrage de départ"
+msgstr "Αρχικά χιλιόμετρα"
+
+#: voiture/voiture_exemplaire
+msgid "Kilométrage de départ (km)"
+msgstr "Αρχικά χιλιόμετρα (km)"
+
+#: voiture/voiture_exemplaire
+msgid "Neuf : 0 km. Occasion : kilométrage du véhicule au moment de l'achat."
+msgstr "Καινούργιο: 0 km. Μεταχειρισμένο: χιλιόμετρα του οχήματος κατά την αγορά."
+
+#: voiture/voiture_exemplaire
+msgid "Indiquez le kilométrage de départ du véhicule d'occasion."
+msgstr "Συμπληρώστε τα αρχικά χιλιόμετρα του μεταχειρισμένου οχήματος."
+
+#: voiture/voiture_exemplaire
+#, python-format
+msgid "Le kilométrage de départ ne peut pas dépasser le kilométrage actuel (%(km)s km)."
+msgstr "Τα αρχικά χιλιόμετρα δεν μπορούν να υπερβαίνουν τα τρέχοντα (%(km)s km)."

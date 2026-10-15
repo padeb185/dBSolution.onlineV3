@@ -42579,3 +42579,36 @@ msgstr "„Nicht zugewiesen“: Vermietungen, die vor Einführung des Verkäufer
 #: voiture/voiture_location
 msgid "Mes statistiques"
 msgstr "Meine Statistiken"
+
+#: voiture/voiture_exemplaire
+msgid "Neuf"
+msgstr "Neu"
+
+#: voiture/voiture_exemplaire
+msgid "Occasion"
+msgstr "Gebraucht"
+
+#: voiture/voiture_exemplaire
+msgid "Véhicule acheté"
+msgstr "Fahrzeug gekauft"
+
+#: voiture/voiture_exemplaire
+msgid "Kilométrage de départ"
+msgstr "Kilometerstand beim Kauf"
+
+#: voiture/voiture_exemplaire
+msgid "Kilométrage de départ (km)"
+msgstr "Kilometerstand beim Kauf (km)"
+
+#: voiture/voiture_exemplaire
+msgid "Neuf : 0 km. Occasion : kilométrage du véhicule au moment de l'achat."
+msgstr "Neu: 0 km. Gebraucht: Kilometerstand des Fahrzeugs zum Kaufzeitpunkt."
+
+#: voiture/voiture_exemplaire
+msgid "Indiquez le kilométrage de départ du véhicule d'occasion."
+msgstr "Geben Sie den Kilometerstand des Gebrauchtfahrzeugs beim Kauf an."
+
+#: voiture/voiture_exemplaire
+#, python-format
+msgid "Le kilométrage de départ ne peut pas dépasser le kilométrage actuel (%(km)s km)."
+msgstr "Der Kilometerstand beim Kauf darf den aktuellen Kilometerstand (%(km)s km) nicht überschreiten."

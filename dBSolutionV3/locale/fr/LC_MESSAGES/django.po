@@ -42241,3 +42241,36 @@ msgstr ""
 #: voiture/voiture_location
 msgid "Mes statistiques"
 msgstr ""
+
+#: voiture/voiture_exemplaire
+msgid "Neuf"
+msgstr ""
+
+#: voiture/voiture_exemplaire
+msgid "Occasion"
+msgstr ""
+
+#: voiture/voiture_exemplaire
+msgid "Véhicule acheté"
+msgstr ""
+
+#: voiture/voiture_exemplaire
+msgid "Kilométrage de départ"
+msgstr ""
+
+#: voiture/voiture_exemplaire
+msgid "Kilométrage de départ (km)"
+msgstr ""
+
+#: voiture/voiture_exemplaire
+msgid "Neuf : 0 km. Occasion : kilométrage du véhicule au moment de l'achat."
+msgstr ""
+
+#: voiture/voiture_exemplaire
+msgid "Indiquez le kilométrage de départ du véhicule d'occasion."
+msgstr ""
+
+#: voiture/voiture_exemplaire
+#, python-format
+msgid "Le kilométrage de départ ne peut pas dépasser le kilométrage actuel (%(km)s km)."
+msgstr ""

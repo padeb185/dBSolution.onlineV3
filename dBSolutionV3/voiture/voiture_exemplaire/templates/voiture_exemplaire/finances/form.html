@@ -92,6 +92,8 @@
             <img src="{% static 'icons/achatmds.png' %}" alt="{% trans 'Achat' %}" class="w-20 h-20">
             {% trans "Achat" %}
         </h2>
+        {% include "voiture_exemplaire/finances/_champ.html" with field=form.etat_achat %}
+        {% include "voiture_exemplaire/finances/_champ.html" with field=form.kilometrage_achat %}
         {% include "voiture_exemplaire/finances/_champ.html" with field=form.prix_achat %}
         {% include "voiture_exemplaire/finances/_champ.html" with field=form.taxe_mise_en_circulation %}
 
@@ -154,6 +156,27 @@
     border-color: #dc2626 !important;
 }
 </style>
+<script>
+// Neuf : kilométrage de départ = 0 (non modifiable) ; occasion : à compléter
+(function () {
+    const etat = document.getElementById("id_etat_achat");
+    const km = document.getElementById("id_kilometrage_achat");
+    if (!etat || !km) return;
+    function maj() {
+        if (etat.value === "NEUF") {
+            km.value = 0;
+            km.readOnly = true;
+            km.classList.add("bg-gray-100");
+        } else {
+            km.readOnly = false;
+            km.classList.remove("bg-gray-100");
+            if (etat.value === "OCCASION" && km.value === "0") km.value = "";
+        }
+    }
+    etat.addEventListener("change", maj);
+    maj();
+})();
+</script>
 <br>
 <br>
 {% endblock %}

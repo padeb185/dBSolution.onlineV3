@@ -253,6 +253,26 @@ class VoitureExemplaire(models.Model):
     code_couleur = models.CharField(max_length=50, blank=True, null=True)
 
     # 💰 Données financières
+    ETAT_ACHAT_CHOICES = [
+        ("NEUF", _("Neuf")),
+        ("OCCASION", _("Occasion")),
+    ]
+
+    etat_achat = models.CharField(
+        max_length=10,
+        choices=ETAT_ACHAT_CHOICES,
+        null=True,
+        blank=True,
+        verbose_name=_("Véhicule acheté"),
+    )
+
+    # Kilométrage au moment de l'achat : 0 pour un véhicule neuf, à compléter pour une occasion
+    kilometrage_achat = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        verbose_name=_("Kilométrage de départ"),
+    )
+
     prix_achat = models.DecimalField(
         max_digits=10,
         decimal_places=2,

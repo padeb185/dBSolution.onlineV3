@@ -6,6 +6,26 @@ from .utils_vin import VinDecoderService
 INVALID_VIN_CHARS = set("IOQ")
 
 
+def valider_kilometrage_achat(form, cleaned_data):
+    """
+    Neuf : kilométrage de départ = 0.
+    Occasion : kilométrage de départ obligatoire, ≤ kilométrage châssis.
+    """
+    etat = cleaned_data.get("etat_achat")
+    km = cleaned_data.get("kilometrage_achat")
+    km_chassis = cleaned_data.get("kilometres_chassis", form.instance.kilometres_chassis)
+    if etat == "NEUF":
+        cleaned_data["kilometrage_achat"] = 0
+    elif etat == "OCCASION" and km in (None, ""):
+        form.add_error("kilometrage_achat", _("Indiquez le kilométrage de départ du véhicule d'occasion."))
+    elif etat == "OCCASION" and km is not None and km_chassis is not None and km > km_chassis:
+        form.add_error(
+            "kilometrage_achat",
+            _("Le kilométrage de départ ne peut pas dépasser le kilométrage actuel (%(km)s km).") % {"km": km_chassis},
+        )
+    return cleaned_data
+
+
 class VoitureExemplaireForm(forms.ModelForm):
     date_mise_en_circulation = forms.DateField(
         required=False,
@@ -31,6 +51,8 @@ class VoitureExemplaireForm(forms.ModelForm):
             "type_utilisation",
             "cote_conduite",
             "kilometres_chassis",
+            "etat_achat",
+            "kilometrage_achat",
             "kilometres_moteur",
             "kilometres_boite",
             "kilometres_embrayage",
@@ -53,6 +75,14 @@ class VoitureExemplaireForm(forms.ModelForm):
                 "class": "input"
             }),
             "est_apres_2010": forms.CheckboxInput(attrs={"class": "mt-2"}),
+            "kilometrage_achat": forms.NumberInput(attrs={"min": "0"}),
+        }
+        labels = {
+            "etat_achat": _("Véhicule acheté"),
+            "kilometrage_achat": _("Kilométrage de départ (km)"),
+        }
+        help_texts = {
+            "kilometrage_achat": _("Neuf : 0 km. Occasion : kilométrage du véhicule au moment de l'achat."),
         }
 
     def __init__(self, *args, **kwargs):
@@ -77,6 +107,8 @@ class VoitureExemplaireForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
+
+        valider_kilometrage_achat(self, cleaned_data)
 
         vin = cleaned_data.get("numero_vin")
         voiture_marque = cleaned_data.get("voiture_marque")
@@ -145,6 +177,8 @@ class VoitureExemplaireForm(forms.ModelForm):
 # =====================================================================
 
 FINANCE_FIELDS = (
+    "etat_achat",
+    "kilometrage_achat",
     "prix_achat",
     "assurance",
     "taxe_mise_en_circulation",
@@ -164,6 +198,8 @@ class VoitureExemplaireFinanceForm(forms.ModelForm):
         model = VoitureExemplaire
         fields = FINANCE_FIELDS
         labels = {
+            "etat_achat": _("Véhicule acheté"),
+            "kilometrage_achat": _("Kilométrage de départ (km)"),
             "prix_achat": _("Prix d'achat (€)"),
             "assurance": _("Assurance annuelle (€)"),
             "taxe_mise_en_circulation": _("Taxe de mise en circulation (€)"),
@@ -171,7 +207,11 @@ class VoitureExemplaireFinanceForm(forms.ModelForm):
             "nombre_proprietaires": _("Nombre de propriétaires"),
             "part_proprietaires_pourcent": _("Part des propriétaires (%)"),
         }
+        help_texts = {
+            "kilometrage_achat": _("Neuf : 0 km. Occasion : kilométrage du véhicule au moment de l'achat."),
+        }
         widgets = {
+            "kilometrage_achat": forms.NumberInput(attrs={"min": "0"}),
             "prix_achat": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
             "assurance": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
             "taxe_mise_en_circulation": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
@@ -186,4 +226,7 @@ class VoitureExemplaireFinanceForm(forms.ModelForm):
             value = cleaned_data.get(name)
             if value is not None and value < 0:
                 self.add_error(name, _("Le montant ne peut pas être négatif."))
+
+        # Kilométrage de départ : 0 pour un neuf, obligatoire pour une occasion
+        valider_kilometrage_achat(self, cleaned_data)
         return cleaned_data

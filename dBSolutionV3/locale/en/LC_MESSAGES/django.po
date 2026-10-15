@@ -42476,3 +42476,36 @@ msgstr "“Not assigned”: rentals recorded before the salesperson field was ad
 #: voiture/voiture_location
 msgid "Mes statistiques"
 msgstr "My statistics"
+
+#: voiture/voiture_exemplaire
+msgid "Neuf"
+msgstr "New"
+
+#: voiture/voiture_exemplaire
+msgid "Occasion"
+msgstr "Used"
+
+#: voiture/voiture_exemplaire
+msgid "Véhicule acheté"
+msgstr "Vehicle bought"
+
+#: voiture/voiture_exemplaire
+msgid "Kilométrage de départ"
+msgstr "Starting mileage"
+
+#: voiture/voiture_exemplaire
+msgid "Kilométrage de départ (km)"
+msgstr "Starting mileage (km)"
+
+#: voiture/voiture_exemplaire
+msgid "Neuf : 0 km. Occasion : kilométrage du véhicule au moment de l'achat."
+msgstr "New: 0 km. Used: the vehicle's mileage at the time of purchase."
+
+#: voiture/voiture_exemplaire
+msgid "Indiquez le kilométrage de départ du véhicule d'occasion."
+msgstr "Enter the starting mileage of the used vehicle."
+
+#: voiture/voiture_exemplaire
+#, python-format
+msgid "Le kilométrage de départ ne peut pas dépasser le kilométrage actuel (%(km)s km)."
+msgstr "The starting mileage cannot exceed the current mileage (%(km)s km)."

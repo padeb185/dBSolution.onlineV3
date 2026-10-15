@@ -796,10 +796,14 @@ def finances_detail(request, exemplaire_id):
     manquants = _finance_manquants(exemplaire)
 
     labels = VoitureExemplaireFinanceForm().fields
-    champs = [
-        {"nom": f, "label": labels[f].label, "valeur": getattr(exemplaire, f)}
-        for f in FINANCE_FIELDS
-    ]
+    champs = []
+    for f in FINANCE_FIELDS:
+        valeur = getattr(exemplaire, f)
+        if f == "etat_achat" and valeur is not None:
+            valeur = exemplaire.get_etat_achat_display()
+        elif f == "kilometrage_achat" and valeur is not None:
+            valeur = f"{valeur} km"
+        champs.append({"nom": f, "label": labels[f].label, "valeur": valeur})
 
     return render(request, "voiture_exemplaire/finances/detail.html", {
         "exemplaire": exemplaire,

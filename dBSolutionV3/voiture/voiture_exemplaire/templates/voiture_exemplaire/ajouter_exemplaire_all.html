@@ -184,4 +184,25 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<script>
+// Neuf : kilométrage de départ = 0 (non modifiable) ; occasion : à compléter
+document.addEventListener("DOMContentLoaded", function () {
+    const etat = document.getElementById("id_etat_achat");
+    const km = document.getElementById("id_kilometrage_achat");
+    if (!etat || !km) return;
+    function maj() {
+        if (etat.value === "NEUF") {
+            km.value = 0;
+            km.readOnly = true;
+            km.classList.add("bg-gray-100");
+        } else {
+            km.readOnly = false;
+            km.classList.remove("bg-gray-100");
+            if (etat.value === "OCCASION" && km.value === "0") km.value = "";
+        }
+    }
+    etat.addEventListener("change", maj);
+    maj();
+});
+</script>
 {% endblock %}

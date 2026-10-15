@@ -42552,3 +42552,36 @@ msgstr "‘Niet toegewezen’: verhuringen die vóór de toevoeging van de verko
 #: voiture/voiture_location
 msgid "Mes statistiques"
 msgstr "Mijn statistieken"
+
+#: voiture/voiture_exemplaire
+msgid "Neuf"
+msgstr "Nieuw"
+
+#: voiture/voiture_exemplaire
+msgid "Occasion"
+msgstr "Tweedehands"
+
+#: voiture/voiture_exemplaire
+msgid "Véhicule acheté"
+msgstr "Voertuig gekocht"
+
+#: voiture/voiture_exemplaire
+msgid "Kilométrage de départ"
+msgstr "Kilometerstand bij aankoop"
+
+#: voiture/voiture_exemplaire
+msgid "Kilométrage de départ (km)"
+msgstr "Kilometerstand bij aankoop (km)"
+
+#: voiture/voiture_exemplaire
+msgid "Neuf : 0 km. Occasion : kilométrage du véhicule au moment de l'achat."
+msgstr "Nieuw: 0 km. Tweedehands: kilometerstand van het voertuig bij aankoop."
+
+#: voiture/voiture_exemplaire
+msgid "Indiquez le kilométrage de départ du véhicule d'occasion."
+msgstr "Geef de kilometerstand van het tweedehandsvoertuig bij aankoop op."
+
+#: voiture/voiture_exemplaire
+#, python-format
+msgid "Le kilométrage de départ ne peut pas dépasser le kilométrage actuel (%(km)s km)."
+msgstr "De kilometerstand bij aankoop mag de huidige kilometerstand (%(km)s km) niet overschrijden."
