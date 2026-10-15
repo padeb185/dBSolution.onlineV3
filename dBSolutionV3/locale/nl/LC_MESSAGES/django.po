@@ -42666,3 +42666,27 @@ msgstr "Onbekende betalingsstatus."
 #: paiement
 msgid "À payer"
 msgstr "Te betalen"
+
+#: tva location
+msgid "Date de l'acompte"
+msgstr "Datum van het voorschot"
+
+#: tva location
+msgid "Date de réception : la TVA sur l'acompte est due à cette date."
+msgstr "Ontvangstdatum: de btw op het voorschot is op deze datum verschuldigd."
+
+#: tva location
+msgid "Acomptes reçus avant la location"
+msgstr "Voorschotten ontvangen vóór de verhuring"
+
+#: tva location
+msgid "Locations réalisées (solde)"
+msgstr "Uitgevoerde verhuringen (saldo)"
+
+#: tva location
+msgid "Location réalisée"
+msgstr "Verhuring uitgevoerd"
+
+#: tva location
+msgid "TVA due à la réception d'un acompte (sur le montant reçu), le solde à la fin de la location – que la location soit payée ou non."
+msgstr "Btw is verschuldigd bij ontvangst van een voorschot (op het ontvangen bedrag), het saldo aan het einde van de verhuring – ongeacht of de verhuring betaald is."

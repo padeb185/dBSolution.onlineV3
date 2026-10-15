@@ -248,6 +248,12 @@ class Location(models.Model):
         validators=[MinValueValidator(Decimal("0"))],
         verbose_name=_("Montant de l'acompte (€)"),
     )
+    date_acompte = models.DateField(
+        null=True,
+        blank=True,
+        verbose_name=_("Date de l'acompte"),
+        help_text=_("Date de réception : la TVA sur l'acompte est due à cette date."),
+    )
     payee = models.BooleanField(default=False, verbose_name=_("Payée"))
 
     remarques = models.TextField(null=True, blank=True, verbose_name=_("Remarques"))
@@ -395,6 +401,49 @@ class Location(models.Model):
     def reste_a_payer(self):
         return max((self.prix_tvac - self.montant_paye).quantize(DEUX_DECIMALES), Decimal("0.00"))
 
+    # -------------------------
+    # TVA : exigibilité (art. 22 Code TVA belge / art. 65 directive 2006/112)
+    # -------------------------
+    @property
+    def date_fait_generateur(self):
+        """Prestation achevée : fin de la location (ou début si d'un jour)."""
+        return self.date_fin or self.date_debut
+
+    @property
+    def acompte_anticipe(self):
+        """Acompte reçu avant la prestation : TVA exigible à sa réception."""
+        return bool(
+            self.acompte and self.montant_acompte and self.date_acompte
+            and self.date_acompte < self.date_fait_generateur
+        )
+
+    def evenements_tva(self):
+        """
+        Répartition de la TVA de la location dans le temps :
+        - acompte reçu avant la prestation : TVA due à la date de l'acompte (sur le montant reçu) ;
+        - solde : TVA due à la fin de la prestation.
+        [{"date", "nature", "tvac", "base", "tva"}] — la somme égale toujours la TVA de la location.
+        """
+        taux = self.taux_tva
+        tva_totale = self.montant_tva
+        evenements = []
+        tva_acompte = Decimal("0.00")
+        tvac_acompte = Decimal("0.00")
+        if self.acompte_anticipe:
+            tvac_acompte = Decimal(self.montant_acompte).quantize(DEUX_DECIMALES)
+            tva_acompte = (tvac_acompte * taux / (Decimal("100") + taux)).quantize(DEUX_DECIMALES, rounding=ROUND_HALF_UP)
+            evenements.append({
+                "date": self.date_acompte, "nature": "acompte",
+                "tvac": tvac_acompte, "base": tvac_acompte - tva_acompte, "tva": tva_acompte,
+            })
+        tvac_solde = self.prix_tvac - tvac_acompte
+        tva_solde = tva_totale - tva_acompte
+        evenements.append({
+            "date": self.date_fait_generateur, "nature": "solde",
+            "tvac": tvac_solde, "base": tvac_solde - tva_solde, "tva": tva_solde,
+        })
+        return evenements
+
     def synchroniser_paiement_facture(self):
         """Recopie le paiement de la location sur sa facture émise."""
         facture = self.facture_emise
@@ -476,16 +525,19 @@ class Location(models.Model):
         # Paiement
         if self.payee and (self._state.adding or self.facture_emise is None):
             errors["payee"] = _("La location ne peut être marquée payée qu'une fois sa facture émise.")
-        if self.payee:
-            self.acompte = False
-            self.montant_acompte = None
-        elif self.acompte:
+        # L'acompte est conservé même quand la location est payée :
+        # sa TVA a été due à la date de réception de l'acompte.
+        if self.acompte:
             if not self.montant_acompte or self.montant_acompte <= 0:
                 errors["montant_acompte"] = _("Indiquez le montant de l'acompte.")
             elif self.prix is not None and self.montant_acompte >= self.prix:
                 errors["montant_acompte"] = _("L'acompte doit être inférieur au prix TVAC.")
+            if not self.date_acompte:
+                from django.utils import timezone
+                self.date_acompte = timezone.localdate()
         else:
             self.montant_acompte = None
+            self.date_acompte = None
 
         if errors:
             raise ValidationError(errors)

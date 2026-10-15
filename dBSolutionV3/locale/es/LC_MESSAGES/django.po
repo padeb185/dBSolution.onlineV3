@@ -42657,3 +42657,27 @@ msgstr "Estado de pago desconocido."
 #: paiement
 msgid "À payer"
 msgstr "Por pagar"
+
+#: tva location
+msgid "Date de l'acompte"
+msgstr "Fecha del anticipo"
+
+#: tva location
+msgid "Date de réception : la TVA sur l'acompte est due à cette date."
+msgstr "Fecha de recepción: el IVA del anticipo se devenga en esta fecha."
+
+#: tva location
+msgid "Acomptes reçus avant la location"
+msgstr "Anticipos recibidos antes del alquiler"
+
+#: tva location
+msgid "Locations réalisées (solde)"
+msgstr "Alquileres realizados (saldo)"
+
+#: tva location
+msgid "Location réalisée"
+msgstr "Alquiler realizado"
+
+#: tva location
+msgid "TVA due à la réception d'un acompte (sur le montant reçu), le solde à la fin de la location – que la location soit payée ou non."
+msgstr "IVA devengada al recibir un anticipo (sobre el importe recibido) y el saldo al final del alquiler, esté pagado o no."

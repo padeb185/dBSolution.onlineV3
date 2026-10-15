@@ -41,6 +41,7 @@ class LocationForm(forms.ModelForm):
             "prix",
             "acompte",
             "montant_acompte",
+            "date_acompte",
             "payee",
             "remarques",
         )
@@ -51,6 +52,7 @@ class LocationForm(forms.ModelForm):
             "kilometrage": forms.NumberInput(attrs={"min": "0"}),
             "prix": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
             "montant_acompte": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
+            "date_acompte": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "remarques": forms.Textarea(attrs={"rows": 3}),
         }
 

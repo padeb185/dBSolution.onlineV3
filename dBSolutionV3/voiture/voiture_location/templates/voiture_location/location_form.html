@@ -126,6 +126,7 @@
             {% if form.acompte.errors %}<p class="text-red-600 text-sm mt-1">{{ form.acompte.errors|striptags }}</p>{% endif %}
         </div>
         {% include "voiture_location/_champ.html" with field=form.montant_acompte %}
+        {% include "voiture_location/_champ.html" with field=form.date_acompte %}
         <div class="mb-4" id="bloc-payee">
             <label class="inline-flex items-center gap-2 {% if form.payee.field.disabled %}opacity-50{% endif %}">
                 {{ form.payee|add_class:"form-checkbox h-5 w-5 text-green-600" }}
@@ -194,19 +195,18 @@
     majAffichage();
 })();
 
-// Paiement : montant de l'acompte visible seulement si « Acompte » est coché ; « Payée » décoche l'acompte
+// Paiement : montant et date de l'acompte visibles seulement si « Acompte » est coché
 (function () {
     const acompte = document.getElementById("id_acompte");
     const montant = document.getElementById("bloc-montant_acompte");
-    const payee = document.getElementById("id_payee");
+    const date = document.getElementById("bloc-date_acompte");
     if (!acompte || !montant) return;
     function maj() {
-        if (payee && payee.checked) { acompte.checked = false; }
-        acompte.disabled = !!(payee && payee.checked);
-        montant.style.display = acompte.checked ? "" : "none";
+        const v = acompte.checked ? "" : "none";
+        montant.style.display = v;
+        if (date) date.style.display = v;
     }
     acompte.addEventListener("change", maj);
-    if (payee) payee.addEventListener("change", maj);
     maj();
 })();
 

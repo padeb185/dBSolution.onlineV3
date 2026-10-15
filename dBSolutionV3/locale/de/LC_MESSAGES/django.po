@@ -42693,3 +42693,27 @@ msgstr "Unbekannter Zahlungsstatus."
 #: paiement
 msgid "À payer"
 msgstr "Zu zahlen"
+
+#: tva location
+msgid "Date de l'acompte"
+msgstr "Datum der Anzahlung"
+
+#: tva location
+msgid "Date de réception : la TVA sur l'acompte est due à cette date."
+msgstr "Eingangsdatum: Die MwSt. auf die Anzahlung ist an diesem Datum fällig."
+
+#: tva location
+msgid "Acomptes reçus avant la location"
+msgstr "Vor der Vermietung erhaltene Anzahlungen"
+
+#: tva location
+msgid "Locations réalisées (solde)"
+msgstr "Durchgeführte Vermietungen (Rest)"
+
+#: tva location
+msgid "Location réalisée"
+msgstr "Vermietung durchgeführt"
+
+#: tva location
+msgid "TVA due à la réception d'un acompte (sur le montant reçu), le solde à la fin de la location – que la location soit payée ou non."
+msgstr "Die MwSt. ist bei Erhalt einer Anzahlung (auf den erhaltenen Betrag) fällig, der Rest am Ende der Vermietung – unabhängig davon, ob die Vermietung bezahlt ist."

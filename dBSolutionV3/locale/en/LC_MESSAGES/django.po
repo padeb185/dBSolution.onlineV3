@@ -42590,3 +42590,27 @@ msgstr "Unknown payment status."
 #: paiement
 msgid "À payer"
 msgstr "To be paid"
+
+#: tva location
+msgid "Date de l'acompte"
+msgstr "Deposit date"
+
+#: tva location
+msgid "Date de réception : la TVA sur l'acompte est due à cette date."
+msgstr "Date received: VAT on the deposit is due on this date."
+
+#: tva location
+msgid "Acomptes reçus avant la location"
+msgstr "Deposits received before the rental"
+
+#: tva location
+msgid "Locations réalisées (solde)"
+msgstr "Rentals completed (balance)"
+
+#: tva location
+msgid "Location réalisée"
+msgstr "Rental completed"
+
+#: tva location
+msgid "TVA due à la réception d'un acompte (sur le montant reçu), le solde à la fin de la location – que la location soit payée ou non."
+msgstr "VAT is due when a deposit is received (on the amount received) and the balance at the end of the rental – whether or not the rental has been paid."

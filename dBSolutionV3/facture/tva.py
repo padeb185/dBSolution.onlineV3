@@ -106,9 +106,16 @@ class CalculTVA:
         )
 
     def locations_periode(self):
+        """Locations dont un acompte ou la prestation (fin de location) tombe dans la période."""
         from voiture.voiture_location.models import Location
+        periode = (self.debut, self.fin)
         return (
-            Location.objects.filter(societe=self.societe, date_debut__range=(self.debut, self.fin))
+            Location.objects.filter(societe=self.societe)
+            .filter(
+                Q(date_acompte__range=periode)
+                | Q(date_fin__range=periode)
+                | Q(date_fin__isnull=True, date_debut__range=periode)
+            )
             .select_related("societe__adresse", "voiture_exemplaire")
             .prefetch_related("factures")
             .order_by("date_debut")
@@ -150,33 +157,37 @@ class CalculTVA:
                     continue
                 ajouter(taux, base, arrondi(base * taux / Decimal("100")))
 
-        # 2) Locations (circuit / route) de la période, facturées ou non :
-        #    la TVA est due sur la location (prix TVAC, date de début de la location).
+        # 2) Locations (circuit / route), facturées ou non — exigibilité de la TVA
+        #    (art. 22 Code TVA belge, art. 65 directive 2006/112/CE) :
+        #    - acompte reçu avant la prestation : TVA due à la réception, sur le montant reçu ;
+        #    - solde : TVA due à la fin de la prestation (fin de la location).
         #    Les lignes « Location » des factures ne sont pas recomptées en 1).
-        locations = {
-            "facturees": {"nb": 0, "base": ZERO, "tva": ZERO, "tvac": ZERO},
-            "non_facturees": {"nb": 0, "base": ZERO, "tva": ZERO, "tvac": ZERO},
-            "liste": [],
-        }
+        vide = lambda: {"nb": 0, "base": ZERO, "tva": ZERO, "tvac": ZERO}
+        locations = {"acomptes": vide(), "prestations": vide(), "liste": []}
         for location in self.locations_periode():
             emises = [f for f in location.factures.all() if f.statut == Facture.Statut.EMISE]
             facture = emises[0] if emises else None
             if facture is not None and facture.client_est_societe:
                 continue
-            groupe = locations["facturees" if facture else "non_facturees"]
-            groupe["nb"] += 1
-            if facture is not None and facture.autoliquidation:
-                base_autoliquidation += location.prix_htva
-                groupe["base"] += location.prix_htva
-                groupe["tvac"] += location.prix_htva
-                tva = ZERO
-            else:
-                ajouter(arrondi(location.taux_tva), location.prix_htva, location.montant_tva)
-                groupe["base"] += location.prix_htva
-                groupe["tva"] += location.montant_tva
-                groupe["tvac"] += location.prix_tvac
-                tva = location.montant_tva
-            locations["liste"].append({"location": location, "facture": facture, "tva": tva})
+            for ev in location.evenements_tva():
+                if not (self.debut <= ev["date"] <= self.fin):
+                    continue
+                groupe = locations["acomptes" if ev["nature"] == "acompte" else "prestations"]
+                groupe["nb"] += 1
+                groupe["tvac"] += ev["tvac"]
+                if facture is not None and facture.autoliquidation:
+                    base_autoliquidation += ev["tvac"]
+                    groupe["base"] += ev["tvac"]
+                    tva = ZERO
+                else:
+                    ajouter(arrondi(location.taux_tva), ev["base"], ev["tva"])
+                    groupe["base"] += ev["base"]
+                    groupe["tva"] += ev["tva"]
+                    tva = ev["tva"]
+                locations["liste"].append({
+                    "location": location, "facture": facture, "nature": ev["nature"],
+                    "date": ev["date"], "tvac": ev["tvac"], "tva": tva,
+                })
 
         lignes = [
             {**l, "base": arrondi(l["base"]), "tva": arrondi(l["tva"])}
@@ -189,12 +200,12 @@ class CalculTVA:
             "base_autoliquidation": arrondi(base_autoliquidation),
             # Locations (circuit / route) incluses dans la TVA à payer
             "locations": {
-                "facturees": {k: (arrondi(v) if k != "nb" else v) for k, v in locations["facturees"].items()},
-                "non_facturees": {k: (arrondi(v) if k != "nb" else v) for k, v in locations["non_facturees"].items()},
-                "liste": locations["liste"],
-                "tva": arrondi(locations["facturees"]["tva"] + locations["non_facturees"]["tva"]),
-                "base": arrondi(locations["facturees"]["base"] + locations["non_facturees"]["base"]),
-                "nb": locations["facturees"]["nb"] + locations["non_facturees"]["nb"],
+                "acomptes": {k: (arrondi(v) if k != "nb" else v) for k, v in locations["acomptes"].items()},
+                "prestations": {k: (arrondi(v) if k != "nb" else v) for k, v in locations["prestations"].items()},
+                "liste": sorted(locations["liste"], key=lambda l: l["date"]),
+                "tva": arrondi(locations["acomptes"]["tva"] + locations["prestations"]["tva"]),
+                "base": arrondi(locations["acomptes"]["base"] + locations["prestations"]["base"]),
+                "nb": len({l["location"].pk for l in locations["liste"]}),
             },
             "nb_factures": nb_factures,
             "factures_internes": internes,

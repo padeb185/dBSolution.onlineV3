@@ -612,9 +612,16 @@ def facture_paiement_view(request, pk):
             # Locations liées : même statut
             for location in facture.locations.all():
                 location.payee = facture.est_payee
-                location.acompte = facture.statut_paiement == Facture.StatutPaiement.ACOMPTE
-                location.montant_acompte = facture.montant_paye if location.acompte else None
-                location.save(update_fields=["payee", "acompte", "montant_acompte", "updated_at"])
+                if facture.statut_paiement == Facture.StatutPaiement.ACOMPTE:
+                    location.acompte = True
+                    location.montant_acompte = facture.montant_paye
+                    location.date_acompte = location.date_acompte or facture.date_paiement
+                elif facture.statut_paiement == Facture.StatutPaiement.A_PAYER:
+                    location.acompte = False
+                    location.montant_acompte = None
+                    location.date_acompte = None
+                # Payé : l'acompte éventuel est conservé (TVA déjà due à sa réception)
+                location.save(update_fields=["payee", "acompte", "montant_acompte", "date_acompte", "updated_at"])
     except ValueError as e:
         messages.error(request, str(e))
         return redirect("facture:detail", pk=facture.pk)

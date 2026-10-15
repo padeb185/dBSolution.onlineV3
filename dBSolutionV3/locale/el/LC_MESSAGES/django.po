@@ -42713,3 +42713,27 @@ msgstr "Άγνωστη κατάσταση πληρωμής."
 #: paiement
 msgid "À payer"
 msgstr "Προς πληρωμή"
+
+#: tva location
+msgid "Date de l'acompte"
+msgstr "Ημερομηνία προκαταβολής"
+
+#: tva location
+msgid "Date de réception : la TVA sur l'acompte est due à cette date."
+msgstr "Ημερομηνία είσπραξης: ο ΦΠΑ της προκαταβολής οφείλεται σε αυτή την ημερομηνία."
+
+#: tva location
+msgid "Acomptes reçus avant la location"
+msgstr "Προκαταβολές πριν από την ενοικίαση"
+
+#: tva location
+msgid "Locations réalisées (solde)"
+msgstr "Ολοκληρωμένες ενοικιάσεις (υπόλοιπο)"
+
+#: tva location
+msgid "Location réalisée"
+msgstr "Ολοκληρωμένη ενοικίαση"
+
+#: tva location
+msgid "TVA due à la réception d'un acompte (sur le montant reçu), le solde à la fin de la location – que la location soit payée ou non."
+msgstr "Ο ΦΠΑ οφείλεται με την είσπραξη προκαταβολής (επί του ποσού) και το υπόλοιπο στο τέλος της ενοικίασης – είτε έχει πληρωθεί είτε όχι."
