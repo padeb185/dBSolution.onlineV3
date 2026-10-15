@@ -152,6 +152,7 @@
             <th class="border px-4 py-2 text-right">{% trans "TVA" %}</th>
             <th class="border px-4 py-2 text-right">{% trans "TVAC" %}</th>
             <th class="border px-4 py-2">{% trans "Facture" %}</th>
+            <th class="border px-4 py-2">{% trans "Paiement" %}</th>
         </tr>
     </thead>
     <tbody>
@@ -171,6 +172,7 @@
             <td class="border px-4 py-2 text-right" data-order="{{ loc.montant_tva }}">{{ loc.montant_tva|floatformat:2 }} € <span class="text-xs text-gray-500">({{ loc.taux_tva|floatformat:"-2" }} %)</span></td>
             <td class="border px-4 py-2 text-right font-semibold" data-order="{{ loc.prix_tvac }}">{{ loc.prix_tvac|floatformat:2 }} €</td>
             <td class="border px-4 py-2 text-center whitespace-nowrap">{% include "voiture_location/_facture_location.html" %}</td>
+            <td class="border px-4 py-2 text-center whitespace-nowrap">{% include "voiture_location/_paiement_location.html" %}</td>
         </tr>
     {% endfor %}
     </tbody>
@@ -180,6 +182,7 @@
             <td class="border px-4 py-2 text-right">{{ totaux.htva|floatformat:2 }} €</td>
             <td class="border px-4 py-2 text-right">{{ totaux.tva|floatformat:2 }} €</td>
             <td class="border px-4 py-2 text-right">{{ totaux.tvac|floatformat:2 }} €</td>
+            <td class="border px-4 py-2"></td>
             <td class="border px-4 py-2"></td>
         </tr>
     </tfoot>
@@ -219,7 +222,7 @@ $(document).ready(function () {
         },
         order: [[0, 'desc']],
         columnDefs: [
-            { targets: 11, orderable: false, searchable: false },
+            { targets: [11, 12], orderable: false, searchable: false },
             { targets: [7, 8, 9, 10], type: 'num' }
         ]
     });

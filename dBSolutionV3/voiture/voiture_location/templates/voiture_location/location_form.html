@@ -111,6 +111,30 @@
         </div>
         {% include "voiture_location/_champ.html" with field=form.remarques %}
 
+        <br>
+
+        <!-- Paiement -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/location_paiement.png' %}" alt="{% trans 'Paiement' %}" class="w-20 h-20">
+            {% trans "Paiement" %}
+        </h2>
+        <div class="mb-4" id="bloc-acompte">
+            <label class="inline-flex items-center gap-2">
+                {{ form.acompte|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                <span class="font-semibold text-gray-700">{{ form.acompte.label }}</span>
+            </label>
+            {% if form.acompte.errors %}<p class="text-red-600 text-sm mt-1">{{ form.acompte.errors|striptags }}</p>{% endif %}
+        </div>
+        {% include "voiture_location/_champ.html" with field=form.montant_acompte %}
+        <div class="mb-4" id="bloc-payee">
+            <label class="inline-flex items-center gap-2 {% if form.payee.field.disabled %}opacity-50{% endif %}">
+                {{ form.payee|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                <span class="font-semibold text-gray-700">{{ form.payee.label }}</span>
+            </label>
+            {% if form.payee.help_text %}<p class="text-gray-500 text-sm mt-1 ml-7">{{ form.payee.help_text }}</p>{% endif %}
+            {% if form.payee.errors %}<p class="text-red-600 text-sm mt-1 ml-7">{{ form.payee.errors|striptags }}</p>{% endif %}
+        </div>
+
         <!-- Boutons -->
         <div class="flex gap-3 mt-6">
             <button type="submit"
@@ -168,6 +192,22 @@
     }
     type.addEventListener("change", majAffichage);
     majAffichage();
+})();
+
+// Paiement : montant de l'acompte visible seulement si « Acompte » est coché ; « Payée » décoche l'acompte
+(function () {
+    const acompte = document.getElementById("id_acompte");
+    const montant = document.getElementById("bloc-montant_acompte");
+    const payee = document.getElementById("id_payee");
+    if (!acompte || !montant) return;
+    function maj() {
+        if (payee && payee.checked) { acompte.checked = false; }
+        acompte.disabled = !!(payee && payee.checked);
+        montant.style.display = acompte.checked ? "" : "none";
+    }
+    acompte.addEventListener("change", maj);
+    if (payee) payee.addEventListener("change", maj);
+    maj();
 })();
 
 // Détail HTVA / TVA à partir du prix TVAC saisi

@@ -42585,3 +42585,84 @@ msgstr "Geef de kilometerstand van het tweedehandsvoertuig bij aankoop op."
 #, python-format
 msgid "Le kilométrage de départ ne peut pas dépasser le kilométrage actuel (%(km)s km)."
 msgstr "De kilometerstand bij aankoop mag de huidige kilometerstand (%(km)s km) niet overschrijden."
+
+#: paiement
+msgid "Acompte"
+msgstr "Voorschot"
+
+#: paiement
+msgid "Acompte versé"
+msgstr "Voorschot betaald"
+
+#: paiement
+msgid "Disponible une fois la facture de la location émise."
+msgstr "Beschikbaar zodra de factuur van de verhuring is uitgegeven."
+
+#: paiement
+msgid "Enregistrer le paiement"
+msgstr "Betaling opslaan"
+
+#: paiement
+msgid "Indiquez le montant de l'acompte."
+msgstr "Geef het bedrag van het voorschot op."
+
+#: paiement
+msgid "L'acompte doit être inférieur au prix TVAC."
+msgstr "Het voorschot moet lager zijn dan de prijs incl. btw."
+
+#: paiement
+msgid "L'acompte doit être inférieur au total : cochez « Payé »."
+msgstr "Het voorschot moet lager zijn dan het totaal: kies ‘Betaald’."
+
+#: paiement
+msgid "La location ne peut être marquée payée qu'une fois sa facture émise."
+msgstr "De verhuring kan pas als betaald worden gemarkeerd zodra de factuur is uitgegeven."
+
+#: paiement
+msgid "Le paiement ne peut être enregistré que sur une facture émise."
+msgstr "Een betaling kan alleen op een uitgegeven factuur worden geregistreerd."
+
+#: paiement
+msgid "Montant de l'acompte (€)"
+msgstr "Bedrag van het voorschot (€)"
+
+#: paiement
+msgid "Montant payé"
+msgstr "Betaald bedrag"
+
+#: paiement
+msgid "Paiement de la facture"
+msgstr "Betaling van de factuur"
+
+#: paiement
+#, python-format
+msgid "Paiement enregistré : %(statut)s."
+msgstr "Betaling geregistreerd: %(statut)s."
+
+#: paiement
+msgid "Payé"
+msgstr "Betaald"
+
+#: paiement
+msgid "Payée"
+msgstr "Betaald"
+
+#: paiement
+msgid "Reste"
+msgstr "Resterend"
+
+#: paiement
+msgid "Reste à payer"
+msgstr "Nog te betalen"
+
+#: paiement
+msgid "Statut de paiement"
+msgstr "Betalingsstatus"
+
+#: paiement
+msgid "Statut de paiement inconnu."
+msgstr "Onbekende betalingsstatus."
+
+#: paiement
+msgid "À payer"
+msgstr "Te betalen"

@@ -39,6 +39,9 @@ class LocationForm(forms.ModelForm):
             "nombre_tours",
             "kilometrage",
             "prix",
+            "acompte",
+            "montant_acompte",
+            "payee",
             "remarques",
         )
         widgets = {
@@ -47,6 +50,7 @@ class LocationForm(forms.ModelForm):
             "nombre_tours": forms.NumberInput(attrs={"min": "1"}),
             "kilometrage": forms.NumberInput(attrs={"min": "0"}),
             "prix": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
+            "montant_acompte": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
             "remarques": forms.Textarea(attrs={"rows": 3}),
         }
 
@@ -111,6 +115,14 @@ class LocationForm(forms.ModelForm):
             )
             if self.instance.pk:
                 self.initial["vendeur"] = self.instance.vendeur_id
+
+        # Paiement : « Payée » seulement si la facture de la location est émise
+        self.facture_emise = None if self.instance._state.adding else self.instance.facture_emise
+        if self.facture_emise is None:
+            self.fields["payee"].disabled = True
+            self.fields["payee"].help_text = _("Disponible une fois la facture de la location émise.")
+        else:
+            self.fields["payee"].help_text = _("Facture %(numero)s") % {"numero": self.facture_emise.numero}
 
         # Le prix de location est saisi TVAC
         self.fields["prix"].label = _("Prix TVAC (€)")

@@ -42509,3 +42509,84 @@ msgstr "Enter the starting mileage of the used vehicle."
 #, python-format
 msgid "Le kilométrage de départ ne peut pas dépasser le kilométrage actuel (%(km)s km)."
 msgstr "The starting mileage cannot exceed the current mileage (%(km)s km)."
+
+#: paiement
+msgid "Acompte"
+msgstr "Deposit"
+
+#: paiement
+msgid "Acompte versé"
+msgstr "Deposit paid"
+
+#: paiement
+msgid "Disponible une fois la facture de la location émise."
+msgstr "Available once the rental invoice has been issued."
+
+#: paiement
+msgid "Enregistrer le paiement"
+msgstr "Save payment"
+
+#: paiement
+msgid "Indiquez le montant de l'acompte."
+msgstr "Enter the deposit amount."
+
+#: paiement
+msgid "L'acompte doit être inférieur au prix TVAC."
+msgstr "The deposit must be lower than the price incl. VAT."
+
+#: paiement
+msgid "L'acompte doit être inférieur au total : cochez « Payé »."
+msgstr "The deposit must be lower than the total: choose “Paid”."
+
+#: paiement
+msgid "La location ne peut être marquée payée qu'une fois sa facture émise."
+msgstr "The rental can only be marked as paid once its invoice has been issued."
+
+#: paiement
+msgid "Le paiement ne peut être enregistré que sur une facture émise."
+msgstr "Payment can only be recorded on an issued invoice."
+
+#: paiement
+msgid "Montant de l'acompte (€)"
+msgstr "Deposit amount (€)"
+
+#: paiement
+msgid "Montant payé"
+msgstr "Amount paid"
+
+#: paiement
+msgid "Paiement de la facture"
+msgstr "Invoice payment"
+
+#: paiement
+#, python-format
+msgid "Paiement enregistré : %(statut)s."
+msgstr "Payment recorded: %(statut)s."
+
+#: paiement
+msgid "Payé"
+msgstr "Paid"
+
+#: paiement
+msgid "Payée"
+msgstr "Paid"
+
+#: paiement
+msgid "Reste"
+msgstr "Remaining"
+
+#: paiement
+msgid "Reste à payer"
+msgstr "Balance due"
+
+#: paiement
+msgid "Statut de paiement"
+msgstr "Payment status"
+
+#: paiement
+msgid "Statut de paiement inconnu."
+msgstr "Unknown payment status."
+
+#: paiement
+msgid "À payer"
+msgstr "To be paid"

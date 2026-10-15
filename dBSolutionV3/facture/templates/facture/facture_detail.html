@@ -44,6 +44,54 @@
         </div>
     </div>
 
+    <!-- Paiement -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4 flex items-center gap-3">
+            {% trans "Paiement" %}
+            {% with f=facture %}{% include "facture/_paiement.html" %}{% endwith %}
+        </h2>
+        <p class="mb-4 text-sm text-gray-700">
+            {% trans "Montant payé" %} : <strong>{{ facture.montant_paye|floatformat:2 }} €</strong>
+            — {% trans "Reste à payer" %} : <strong>{{ facture.reste_a_payer|floatformat:2 }} €</strong>
+            {% if facture.date_paiement %}— {% trans "Date de paiement" %} : {{ facture.date_paiement|date:"d/m/Y" }}{% endif %}
+        </p>
+        <form method="post" action="{% url 'facture:paiement' facture.pk %}" id="form-paiement"
+              class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+            {% csrf_token %}
+            <div>
+                <label class="font-semibold block mb-1" for="statut_paiement">{% trans "Statut de paiement" %}</label>
+                <select name="statut_paiement" id="statut_paiement" class="border rounded px-3 py-2 w-full">
+                    <option value="A_PAYER" {% if facture.statut_paiement == "A_PAYER" %}selected{% endif %}>{% trans "À payer" %}</option>
+                    <option value="ACOMPTE" {% if facture.statut_paiement == "ACOMPTE" %}selected{% endif %}>{% trans "Acompte" %}</option>
+                    <option value="PAYE" {% if facture.statut_paiement == "PAYE" %}selected{% endif %}>{% trans "Payé" %}</option>
+                </select>
+            </div>
+            <div id="bloc-montant-paye">
+                <label class="font-semibold block mb-1" for="montant_paye">{% trans "Montant de l'acompte (€)" %}</label>
+                <input type="number" step="0.01" min="0" name="montant_paye" id="montant_paye"
+                       value="{% if facture.statut_paiement == 'ACOMPTE' %}{{ facture.montant_paye|stringformat:'s' }}{% endif %}"
+                       class="border rounded px-3 py-2 w-full">
+            </div>
+            <div>
+                <label class="font-semibold block mb-1" for="date_paiement">{% trans "Date de paiement" %}</label>
+                <input type="date" name="date_paiement" id="date_paiement"
+                       value="{{ facture.date_paiement|date:'Y-m-d' }}" class="border rounded px-3 py-2 w-full">
+            </div>
+            <button type="submit" class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold">
+                {% trans "Enregistrer le paiement" %}
+            </button>
+        </form>
+        <script>
+        (function () {
+            const s = document.getElementById("statut_paiement");
+            const b = document.getElementById("bloc-montant-paye");
+            if (!s || !b) return;
+            function maj() { b.style.display = s.value === "ACOMPTE" ? "" : "none"; }
+            s.addEventListener("change", maj); maj();
+        })();
+        </script>
+    </div>
+
     <!-- Lignes -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
         <h2 class="text-lg font-semibold mb-4">{% trans "Lignes de la facture" %}</h2>

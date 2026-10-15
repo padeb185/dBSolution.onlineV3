@@ -42632,3 +42632,84 @@ msgstr "Συμπληρώστε τα αρχικά χιλιόμετρα του μ�
 #, python-format
 msgid "Le kilométrage de départ ne peut pas dépasser le kilométrage actuel (%(km)s km)."
 msgstr "Τα αρχικά χιλιόμετρα δεν μπορούν να υπερβαίνουν τα τρέχοντα (%(km)s km)."
+
+#: paiement
+msgid "Acompte"
+msgstr "Προκαταβολή"
+
+#: paiement
+msgid "Acompte versé"
+msgstr "Καταβλήθηκε προκαταβολή"
+
+#: paiement
+msgid "Disponible une fois la facture de la location émise."
+msgstr "Διαθέσιμο μόλις εκδοθεί το τιμολόγιο της ενοικίασης."
+
+#: paiement
+msgid "Enregistrer le paiement"
+msgstr "Καταχώριση πληρωμής"
+
+#: paiement
+msgid "Indiquez le montant de l'acompte."
+msgstr "Συμπληρώστε το ποσό της προκαταβολής."
+
+#: paiement
+msgid "L'acompte doit être inférieur au prix TVAC."
+msgstr "Η προκαταβολή πρέπει να είναι μικρότερη από την τιμή με ΦΠΑ."
+
+#: paiement
+msgid "L'acompte doit être inférieur au total : cochez « Payé »."
+msgstr "Η προκαταβολή πρέπει να είναι μικρότερη από το σύνολο: επιλέξτε «Πληρωμένο»."
+
+#: paiement
+msgid "La location ne peut être marquée payée qu'une fois sa facture émise."
+msgstr "Η ενοικίαση μπορεί να σημειωθεί ως πληρωμένη μόνο αφού εκδοθεί το τιμολόγιό της."
+
+#: paiement
+msgid "Le paiement ne peut être enregistré que sur une facture émise."
+msgstr "Η πληρωμή μπορεί να καταχωριστεί μόνο σε εκδοθέν τιμολόγιο."
+
+#: paiement
+msgid "Montant de l'acompte (€)"
+msgstr "Ποσό προκαταβολής (€)"
+
+#: paiement
+msgid "Montant payé"
+msgstr "Καταβληθέν ποσό"
+
+#: paiement
+msgid "Paiement de la facture"
+msgstr "Πληρωμή τιμολογίου"
+
+#: paiement
+#, python-format
+msgid "Paiement enregistré : %(statut)s."
+msgstr "Η πληρωμή καταχωρίστηκε: %(statut)s."
+
+#: paiement
+msgid "Payé"
+msgstr "Πληρωμένο"
+
+#: paiement
+msgid "Payée"
+msgstr "Πληρωμένη"
+
+#: paiement
+msgid "Reste"
+msgstr "Υπόλοιπο"
+
+#: paiement
+msgid "Reste à payer"
+msgstr "Υπόλοιπο πληρωτέο"
+
+#: paiement
+msgid "Statut de paiement"
+msgstr "Κατάσταση πληρωμής"
+
+#: paiement
+msgid "Statut de paiement inconnu."
+msgstr "Άγνωστη κατάσταση πληρωμής."
+
+#: paiement
+msgid "À payer"
+msgstr "Προς πληρωμή"

@@ -42612,3 +42612,84 @@ msgstr "Geben Sie den Kilometerstand des Gebrauchtfahrzeugs beim Kauf an."
 #, python-format
 msgid "Le kilométrage de départ ne peut pas dépasser le kilométrage actuel (%(km)s km)."
 msgstr "Der Kilometerstand beim Kauf darf den aktuellen Kilometerstand (%(km)s km) nicht überschreiten."
+
+#: paiement
+msgid "Acompte"
+msgstr "Anzahlung"
+
+#: paiement
+msgid "Acompte versé"
+msgstr "Anzahlung geleistet"
+
+#: paiement
+msgid "Disponible une fois la facture de la location émise."
+msgstr "Verfügbar, sobald die Rechnung der Vermietung ausgestellt ist."
+
+#: paiement
+msgid "Enregistrer le paiement"
+msgstr "Zahlung speichern"
+
+#: paiement
+msgid "Indiquez le montant de l'acompte."
+msgstr "Geben Sie den Betrag der Anzahlung an."
+
+#: paiement
+msgid "L'acompte doit être inférieur au prix TVAC."
+msgstr "Die Anzahlung muss unter dem Bruttopreis liegen."
+
+#: paiement
+msgid "L'acompte doit être inférieur au total : cochez « Payé »."
+msgstr "Die Anzahlung muss unter dem Gesamtbetrag liegen: wählen Sie „Bezahlt“."
+
+#: paiement
+msgid "La location ne peut être marquée payée qu'une fois sa facture émise."
+msgstr "Die Vermietung kann erst als bezahlt markiert werden, wenn ihre Rechnung ausgestellt ist."
+
+#: paiement
+msgid "Le paiement ne peut être enregistré que sur une facture émise."
+msgstr "Eine Zahlung kann nur für eine ausgestellte Rechnung erfasst werden."
+
+#: paiement
+msgid "Montant de l'acompte (€)"
+msgstr "Anzahlungsbetrag (€)"
+
+#: paiement
+msgid "Montant payé"
+msgstr "Bezahlter Betrag"
+
+#: paiement
+msgid "Paiement de la facture"
+msgstr "Zahlung der Rechnung"
+
+#: paiement
+#, python-format
+msgid "Paiement enregistré : %(statut)s."
+msgstr "Zahlung erfasst: %(statut)s."
+
+#: paiement
+msgid "Payé"
+msgstr "Bezahlt"
+
+#: paiement
+msgid "Payée"
+msgstr "Bezahlt"
+
+#: paiement
+msgid "Reste"
+msgstr "Rest"
+
+#: paiement
+msgid "Reste à payer"
+msgstr "Restbetrag"
+
+#: paiement
+msgid "Statut de paiement"
+msgstr "Zahlungsstatus"
+
+#: paiement
+msgid "Statut de paiement inconnu."
+msgstr "Unbekannter Zahlungsstatus."
+
+#: paiement
+msgid "À payer"
+msgstr "Zu zahlen"

@@ -238,6 +238,18 @@ class Location(models.Model):
         verbose_name=_("Prix (€)"),
     )
 
+    # Paiement : acompte (montant) ou payé (uniquement si la facture est émise)
+    acompte = models.BooleanField(default=False, verbose_name=_("Acompte versé"))
+    montant_acompte = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(Decimal("0"))],
+        verbose_name=_("Montant de l'acompte (€)"),
+    )
+    payee = models.BooleanField(default=False, verbose_name=_("Payée"))
+
     remarques = models.TextField(null=True, blank=True, verbose_name=_("Remarques"))
 
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
@@ -352,6 +364,54 @@ class Location(models.Model):
         return (emises or factures or [None])[0]
 
     @property
+    def facture_emise(self):
+        f = self.facture
+        return f if f is not None and f.statut == "EMISE" else None
+
+    # -------------------------
+    # PAIEMENT
+    # -------------------------
+    @property
+    def statut_paiement(self):
+        if self.payee:
+            return "PAYE"
+        if self.acompte and self.montant_acompte:
+            return "ACOMPTE"
+        return "A_PAYER"
+
+    @property
+    def statut_paiement_display(self):
+        return {"PAYE": _("Payé"), "ACOMPTE": _("Acompte"), "A_PAYER": _("À payer")}[self.statut_paiement]
+
+    @property
+    def montant_paye(self):
+        if self.payee:
+            return self.prix_tvac
+        if self.acompte and self.montant_acompte:
+            return Decimal(self.montant_acompte).quantize(DEUX_DECIMALES)
+        return Decimal("0.00")
+
+    @property
+    def reste_a_payer(self):
+        return max((self.prix_tvac - self.montant_paye).quantize(DEUX_DECIMALES), Decimal("0.00"))
+
+    def synchroniser_paiement_facture(self):
+        """Recopie le paiement de la location sur sa facture émise."""
+        facture = self.facture_emise
+        if facture is None:
+            return
+        statut = self.statut_paiement
+        montant = self.montant_paye
+        # Facture avec d'autres lignes : l'acompte reste celui saisi, plafonné au total
+        if statut == "ACOMPTE" and montant >= Decimal(facture.total or 0):
+            statut = "PAYE"
+        try:
+            facture.appliquer_paiement(statut, montant)
+        except ValueError:
+            return
+        facture.save(update_fields=["statut_paiement", "montant_paye", "date_paiement", "updated_at"])
+
+    @property
     def libelle_facture(self):
         """Description de la ligne de facture."""
         vehicule = self.voiture_exemplaire
@@ -412,6 +472,20 @@ class Location(models.Model):
 
         if self.date_debut and self.date_fin and self.date_fin < self.date_debut:
             errors["date_fin"] = _("La date de fin doit être postérieure à la date de début.")
+
+        # Paiement
+        if self.payee and (self._state.adding or self.facture_emise is None):
+            errors["payee"] = _("La location ne peut être marquée payée qu'une fois sa facture émise.")
+        if self.payee:
+            self.acompte = False
+            self.montant_acompte = None
+        elif self.acompte:
+            if not self.montant_acompte or self.montant_acompte <= 0:
+                errors["montant_acompte"] = _("Indiquez le montant de l'acompte.")
+            elif self.prix is not None and self.montant_acompte >= self.prix:
+                errors["montant_acompte"] = _("L'acompte doit être inférieur au prix TVAC.")
+        else:
+            self.montant_acompte = None
 
         if errors:
             raise ValidationError(errors)

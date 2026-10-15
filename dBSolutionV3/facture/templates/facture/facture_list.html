@@ -30,6 +30,7 @@
                 <th class="border px-4 py-2 text-left">{% trans "Immatriculation" %}</th>
                 <th class="border px-4 py-2 text-right">{% trans "Total TVAC" %}</th>
                 <th class="border px-4 py-2 text-left">{% trans "Statut" %}</th>
+                <th class="border px-4 py-2 text-left">{% trans "Paiement" %}</th>
                 <th class="border px-4 py-2 text-center">{% trans "Info" %}</th>
             </tr>
         </thead>
@@ -52,6 +53,9 @@
                     <span class="px-2 py-1 rounded text-sm font-semibold {% if f.est_emise %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
                         {{ f.get_statut_display }}
                     </span>
+                </td>
+                <td class="border px-4 py-2" data-search="{{ f.get_statut_paiement_display }}">
+                    {% if f.est_emise %}{% include "facture/_paiement.html" %}{% else %}<span class="text-gray-400">—</span>{% endif %}
                 </td>
                 <td class="border px-4 py-2 text-center">
                     <a href="{% if f.est_emise %}{% url 'facture:detail' f.pk %}{% else %}{% url 'facture:modifier' f.pk %}{% endif %}"

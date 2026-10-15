@@ -356,4 +356,20 @@ def emettre_facture(facture):
         facture.xml_ubl = generate_peppol_invoice(facture).decode("utf-8")
         facture.save(update_fields=["xml_ubl"])
 
+    # Location(s) facturée(s) : l'acompte déjà versé est repris sur la facture
+    acomptes = sum(
+        (l.montant_paye for l in facture.locations.all()),
+        Decimal("0.00"),
+    )
+    if acomptes > 0:
+        try:
+            statut = (
+                Facture.StatutPaiement.PAYE if acomptes >= facture.total
+                else Facture.StatutPaiement.ACOMPTE
+            )
+            facture.appliquer_paiement(statut, acomptes)
+            facture.save(update_fields=["statut_paiement", "montant_paye", "date_paiement", "updated_at"])
+        except ValueError:
+            pass
+
     return facture

@@ -73,6 +73,7 @@
             <th class="border px-4 py-2 cursor-pointer">{% trans "Prix TVAC" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
             <th class="border px-4 py-2">{% trans "Facture" %}</th>
+            <th class="border px-4 py-2">{% trans "Paiement" %}</th>
             <th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>
         </tr>
     </thead>
@@ -107,6 +108,9 @@
             </td>
             <td class="border px-4 py-2 text-center whitespace-nowrap">
                 {% include "voiture_location/_facture_location.html" %}
+            </td>
+            <td class="border px-4 py-2 text-center whitespace-nowrap" data-search="{{ loc.statut_paiement_display }}">
+                {% include "voiture_location/_paiement_location.html" %}
             </td>
             <td class="border px-4 py-2 text-center whitespace-nowrap">
                 <a href="{% url 'voiture_location:location_detail' location_id=loc.id %}"
@@ -150,7 +154,7 @@ $(document).ready(function () {
         },
         order: [[7, 'desc']],
         columnDefs: [
-            { targets: 9, orderable: false, searchable: false },
+            { targets: 10, orderable: false, searchable: false },
             { targets: [5, 6], type: 'num' }
         ]
     });

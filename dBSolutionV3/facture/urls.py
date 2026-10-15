@@ -16,5 +16,6 @@ urlpatterns = [
     path("<uuid:pk>/pdf/", views.facture_pdf_view, name="pdf"),
     path("<uuid:pk>/xml/", views.facture_xml_view, name="xml"),
     path("<uuid:pk>/peppol/", views.facture_envoyer_peppol_view, name="envoyer_peppol"),
+    path("<uuid:pk>/paiement/", views.facture_paiement_view, name="paiement"),
     path("<uuid:pk>/supprimer/", views.delete_facture_view, name="delete_facture"),
 ]

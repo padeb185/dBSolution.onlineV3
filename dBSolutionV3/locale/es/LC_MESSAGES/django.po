@@ -42576,3 +42576,84 @@ msgstr "Indique el kilometraje inicial del vehículo usado."
 #, python-format
 msgid "Le kilométrage de départ ne peut pas dépasser le kilométrage actuel (%(km)s km)."
 msgstr "El kilometraje inicial no puede superar el kilometraje actual (%(km)s km)."
+
+#: paiement
+msgid "Acompte"
+msgstr "Anticipo"
+
+#: paiement
+msgid "Acompte versé"
+msgstr "Anticipo pagado"
+
+#: paiement
+msgid "Disponible une fois la facture de la location émise."
+msgstr "Disponible una vez emitida la factura del alquiler."
+
+#: paiement
+msgid "Enregistrer le paiement"
+msgstr "Registrar el pago"
+
+#: paiement
+msgid "Indiquez le montant de l'acompte."
+msgstr "Indique el importe del anticipo."
+
+#: paiement
+msgid "L'acompte doit être inférieur au prix TVAC."
+msgstr "El anticipo debe ser inferior al precio IVA incluido."
+
+#: paiement
+msgid "L'acompte doit être inférieur au total : cochez « Payé »."
+msgstr "El anticipo debe ser inferior al total: elija «Pagado»."
+
+#: paiement
+msgid "La location ne peut être marquée payée qu'une fois sa facture émise."
+msgstr "El alquiler solo puede marcarse como pagado una vez emitida su factura."
+
+#: paiement
+msgid "Le paiement ne peut être enregistré que sur une facture émise."
+msgstr "El pago solo puede registrarse en una factura emitida."
+
+#: paiement
+msgid "Montant de l'acompte (€)"
+msgstr "Importe del anticipo (€)"
+
+#: paiement
+msgid "Montant payé"
+msgstr "Importe pagado"
+
+#: paiement
+msgid "Paiement de la facture"
+msgstr "Pago de la factura"
+
+#: paiement
+#, python-format
+msgid "Paiement enregistré : %(statut)s."
+msgstr "Pago registrado: %(statut)s."
+
+#: paiement
+msgid "Payé"
+msgstr "Pagado"
+
+#: paiement
+msgid "Payée"
+msgstr "Pagada"
+
+#: paiement
+msgid "Reste"
+msgstr "Resta"
+
+#: paiement
+msgid "Reste à payer"
+msgstr "Pendiente de pago"
+
+#: paiement
+msgid "Statut de paiement"
+msgstr "Estado del pago"
+
+#: paiement
+msgid "Statut de paiement inconnu."
+msgstr "Estado de pago desconocido."
+
+#: paiement
+msgid "À payer"
+msgstr "Por pagar"

@@ -98,6 +98,8 @@
             </h2>
             {% with loc=location %}
                 <div>{% include "voiture_location/_facture_location.html" %}</div>
+                <p><strong>{% trans "Paiement" %} :</strong> {% include "voiture_location/_paiement_location.html" %}</p>
+                <p><strong>{% trans "Montant payé" %} :</strong> {{ location.montant_paye|floatformat:2 }} € — <strong>{% trans "Reste à payer" %} :</strong> {{ location.reste_a_payer|floatformat:2 }} €</p>
             {% endwith %}
         </div>
 

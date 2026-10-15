@@ -74,6 +74,11 @@ class Facture(models.Model):
         BROUILLON = "BROUILLON", _("Brouillon")
         EMISE = "EMISE", _("Émise")
 
+    class StatutPaiement(models.TextChoices):
+        A_PAYER = "A_PAYER", _("À payer")
+        ACOMPTE = "ACOMPTE", _("Acompte")
+        PAYE = "PAYE", _("Payé")
+
     id_facture = models.UUIDField(
         _("Identifiant facture"),
         primary_key=True,
@@ -226,6 +231,16 @@ class Facture(models.Model):
 
     remarques = models.TextField(_("Remarques"), blank=True)
 
+    # Paiement (uniquement pour une facture émise)
+    statut_paiement = models.CharField(
+        _("Statut de paiement"),
+        max_length=10,
+        choices=StatutPaiement.choices,
+        default=StatutPaiement.A_PAYER,
+    )
+    montant_paye = models.DecimalField(_("Montant payé"), max_digits=12, decimal_places=2, default=Decimal("0.00"))
+    date_paiement = models.DateField(_("Date de paiement"), null=True, blank=True)
+
     # Facture électronique (UBL 2.1 / Peppol BIS Billing 3.0)
     xml_ubl = models.TextField(_("XML UBL"), blank=True)
     peppol_envoyee_le = models.DateTimeField(_("Envoyée via Peppol le"), null=True, blank=True)
@@ -265,6 +280,43 @@ class Facture(models.Model):
     @property
     def est_emise(self):
         return self.statut == self.Statut.EMISE
+
+    # -------------------------
+    # PAIEMENT
+    # -------------------------
+    @property
+    def est_payee(self):
+        return self.statut_paiement == self.StatutPaiement.PAYE
+
+    @property
+    def reste_a_payer(self):
+        return max(arrondi(Decimal(self.total or 0) - Decimal(self.montant_paye or 0)), Decimal("0.00"))
+
+    def appliquer_paiement(self, statut, montant=None, date=None):
+        """
+        Met à jour le statut de paiement (sans sauvegarder) :
+        payé -> montant = total ; acompte -> montant saisi ; à payer -> 0.
+        Lève ValueError si le paiement est incohérent.
+        """
+        from django.utils import timezone
+        if not self.est_emise:
+            raise ValueError(_("Le paiement ne peut être enregistré que sur une facture émise."))
+        if statut == self.StatutPaiement.PAYE:
+            self.montant_paye = arrondi(self.total)
+            self.date_paiement = date or self.date_paiement or timezone.localdate()
+        elif statut == self.StatutPaiement.ACOMPTE:
+            montant = arrondi(montant)
+            if montant <= 0:
+                raise ValueError(_("Indiquez le montant de l'acompte."))
+            if montant >= arrondi(self.total):
+                raise ValueError(_("L'acompte doit être inférieur au total : cochez « Payé »."))
+            self.montant_paye = montant
+            self.date_paiement = date or self.date_paiement or timezone.localdate()
+        else:
+            statut = self.StatutPaiement.A_PAYER
+            self.montant_paye = Decimal("0.00")
+            self.date_paiement = None
+        self.statut_paiement = statut
 
     # -------------------------
     # CLIENT

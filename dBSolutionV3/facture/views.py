@@ -40,6 +40,7 @@ ACTION_EMISSION_FACTURE = gettext_noop("Émission de la facture")
 ACTION_SUPPRESSION_FACTURE = gettext_noop("Suppression d'un brouillon de facture")
 ACTION_PARAMETRES_PEPPOL = gettext_noop("Modification des paramètres Peppol")
 ACTION_ENVOI_PEPPOL = gettext_noop("Envoi Peppol de la facture")
+ACTION_PAIEMENT_FACTURE = gettext_noop("Paiement de la facture")
 
 
 def _peut(user, roles):
@@ -576,3 +577,48 @@ def tva_view(request):
         "mois": range(1, 13),
         "trimestres": range(1, 5),
     })
+
+
+# -----------------------------
+# Paiement d'une facture émise (à payer / acompte / payé)
+# -----------------------------
+@login_required
+@require_POST
+def facture_paiement_view(request, pk):
+    if not _peut(request.user, ROLES_FACTURATION):
+        return _refuser(request)
+
+    facture = _get_facture(request, pk)
+    statut = request.POST.get("statut_paiement")
+    if statut not in Facture.StatutPaiement.values:
+        messages.error(request, _("Statut de paiement inconnu."))
+        return redirect("facture:detail", pk=facture.pk)
+
+    try:
+        montant = Decimal((request.POST.get("montant_paye") or "0").replace(",", "."))
+    except Exception:
+        montant = Decimal("0")
+    date_paiement = None
+    if request.POST.get("date_paiement"):
+        try:
+            date_paiement = datetime.strptime(request.POST["date_paiement"], "%Y-%m-%d").date()
+        except ValueError:
+            date_paiement = None
+
+    try:
+        with transaction.atomic():
+            facture.appliquer_paiement(statut, montant, date_paiement)
+            facture.save(update_fields=["statut_paiement", "montant_paye", "date_paiement", "updated_at"])
+            # Locations liées : même statut
+            for location in facture.locations.all():
+                location.payee = facture.est_payee
+                location.acompte = facture.statut_paiement == Facture.StatutPaiement.ACOMPTE
+                location.montant_acompte = facture.montant_paye if location.acompte else None
+                location.save(update_fields=["payee", "acompte", "montant_acompte", "updated_at"])
+    except ValueError as e:
+        messages.error(request, str(e))
+        return redirect("facture:detail", pk=facture.pk)
+
+    _log(request.user, ACTION_PAIEMENT_FACTURE, facture)
+    messages.success(request, _("Paiement enregistré : %(statut)s.") % {"statut": facture.get_statut_paiement_display()})
+    return redirect("facture:detail", pk=facture.pk)

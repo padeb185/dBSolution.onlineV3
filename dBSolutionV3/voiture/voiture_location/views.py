@@ -105,6 +105,7 @@ def location_modifier(request, location_id):
     form = LocationForm(request.POST or None, instance=location, user=request.user)
     if request.method == "POST" and form.is_valid():
         location = form.save()
+        location.synchroniser_paiement_facture()
         _log(request.user, ACTION_MODIFICATION_LOCATION, location)
         messages.success(request, _("Location '%(loc)s' mise à jour.") % {"loc": location})
         return redirect("voiture_location:location_detail", location_id=location.id)

@@ -42274,3 +42274,84 @@ msgstr ""
 #, python-format
 msgid "Le kilométrage de départ ne peut pas dépasser le kilométrage actuel (%(km)s km)."
 msgstr ""
+
+#: paiement
+msgid "Acompte"
+msgstr ""
+
+#: paiement
+msgid "Acompte versé"
+msgstr ""
+
+#: paiement
+msgid "Disponible une fois la facture de la location émise."
+msgstr ""
+
+#: paiement
+msgid "Enregistrer le paiement"
+msgstr ""
+
+#: paiement
+msgid "Indiquez le montant de l'acompte."
+msgstr ""
+
+#: paiement
+msgid "L'acompte doit être inférieur au prix TVAC."
+msgstr ""
+
+#: paiement
+msgid "L'acompte doit être inférieur au total : cochez « Payé »."
+msgstr ""
+
+#: paiement
+msgid "La location ne peut être marquée payée qu'une fois sa facture émise."
+msgstr ""
+
+#: paiement
+msgid "Le paiement ne peut être enregistré que sur une facture émise."
+msgstr ""
+
+#: paiement
+msgid "Montant de l'acompte (€)"
+msgstr ""
+
+#: paiement
+msgid "Montant payé"
+msgstr ""
+
+#: paiement
+msgid "Paiement de la facture"
+msgstr ""
+
+#: paiement
+#, python-format
+msgid "Paiement enregistré : %(statut)s."
+msgstr ""
+
+#: paiement
+msgid "Payé"
+msgstr ""
+
+#: paiement
+msgid "Payée"
+msgstr ""
+
+#: paiement
+msgid "Reste"
+msgstr ""
+
+#: paiement
+msgid "Reste à payer"
+msgstr ""
+
+#: paiement
+msgid "Statut de paiement"
+msgstr ""
+
+#: paiement
+msgid "Statut de paiement inconnu."
+msgstr ""
+
+#: paiement
+msgid "À payer"
+msgstr ""

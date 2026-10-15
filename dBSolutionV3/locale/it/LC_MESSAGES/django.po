@@ -42578,3 +42578,84 @@ msgstr "Indica il chilometraggio iniziale del veicolo usato."
 #, python-format
 msgid "Le kilométrage de départ ne peut pas dépasser le kilométrage actuel (%(km)s km)."
 msgstr "Il chilometraggio iniziale non può superare quello attuale (%(km)s km)."
+
+#: paiement
+msgid "Acompte"
+msgstr "Acconto"
+
+#: paiement
+msgid "Acompte versé"
+msgstr "Acconto versato"
+
+#: paiement
+msgid "Disponible une fois la facture de la location émise."
+msgstr "Disponibile una volta emessa la fattura del noleggio."
+
+#: paiement
+msgid "Enregistrer le paiement"
+msgstr "Registra il pagamento"
+
+#: paiement
+msgid "Indiquez le montant de l'acompte."
+msgstr "Indica l'importo dell'acconto."
+
+#: paiement
+msgid "L'acompte doit être inférieur au prix TVAC."
+msgstr "L'acconto deve essere inferiore al prezzo IVA inclusa."
+
+#: paiement
+msgid "L'acompte doit être inférieur au total : cochez « Payé »."
+msgstr "L'acconto deve essere inferiore al totale: scegli «Pagato»."
+
+#: paiement
+msgid "La location ne peut être marquée payée qu'une fois sa facture émise."
+msgstr "Il noleggio può essere segnato come pagato solo dopo l'emissione della fattura."
+
+#: paiement
+msgid "Le paiement ne peut être enregistré que sur une facture émise."
+msgstr "Il pagamento può essere registrato solo su una fattura emessa."
+
+#: paiement
+msgid "Montant de l'acompte (€)"
+msgstr "Importo dell'acconto (€)"
+
+#: paiement
+msgid "Montant payé"
+msgstr "Importo pagato"
+
+#: paiement
+msgid "Paiement de la facture"
+msgstr "Pagamento della fattura"
+
+#: paiement
+#, python-format
+msgid "Paiement enregistré : %(statut)s."
+msgstr "Pagamento registrato: %(statut)s."
+
+#: paiement
+msgid "Payé"
+msgstr "Pagato"
+
+#: paiement
+msgid "Payée"
+msgstr "Pagata"
+
+#: paiement
+msgid "Reste"
+msgstr "Residuo"
+
+#: paiement
+msgid "Reste à payer"
+msgstr "Residuo da pagare"
+
+#: paiement
+msgid "Statut de paiement"
+msgstr "Stato del pagamento"
+
+#: paiement
+msgid "Statut de paiement inconnu."
+msgstr "Stato del pagamento sconosciuto."
+
+#: paiement
+msgid "À payer"
+msgstr "Da pagare"
