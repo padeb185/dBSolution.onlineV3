@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load i18n static %}
 
 {% block content %}
+{% static 'images/marques/' as marques_path %}
 <div class="p-6 w-full">
 
     <h1 class="text-2xl font-bold mb-6 flex items-center gap-4">
@@ -60,9 +61,18 @@
             {% for ex in exemplaires %}
                 <tr class="border-t hover:bg-blue-50">
                     <td class="px-4 py-3">
-                        <span class="font-semibold">{{ ex.voiture_marque.nom_marque }} {{ ex.voiture_modele.nom_modele }}</span>
-                        {% if ex.voiture_modele.nom_variante %}<br><span class="text-gray-500">{{ ex.voiture_modele.nom_variante }}</span>{% endif %}
-                        {% if ex.annee_production %}<br><span class="text-gray-500">{{ ex.annee_production }}</span>{% endif %}
+                        <div class="flex items-center gap-3">
+                            <img src="{{ marques_path }}{{ ex.voiture_marque.nom_marque|lower }}.png"
+                                 alt="{{ ex.voiture_marque.nom_marque }}"
+                                 title="{{ ex.voiture_marque.nom_marque }}"
+                                 class="w-12 h-12 object-contain flex-shrink-0"
+                                 onerror="this.style.display='none';">
+                            <div>
+                                <span class="font-semibold">{{ ex.voiture_marque.nom_marque }} {{ ex.voiture_modele.nom_modele }}</span>
+                                {% if ex.voiture_modele.nom_variante %}<br><span class="text-gray-500">{{ ex.voiture_modele.nom_variante }}</span>{% endif %}
+                                {% if ex.annee_production %}<br><span class="text-gray-500">{{ ex.annee_production }}</span>{% endif %}
+                            </div>
+                        </div>
                     </td>
                     <td class="px-4 py-3">{% include "maintenance/partials/plaque.html" with exemplaire=ex taille="petite" %}</td>
                     <td class="px-4 py-3 text-right">{{ ex.kilometres_chassis|default:0 }} km</td>

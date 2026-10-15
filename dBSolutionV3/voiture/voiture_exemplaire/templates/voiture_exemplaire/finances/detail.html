@@ -72,7 +72,7 @@
 
     <div class="flex flex-wrap gap-3">
         <a href="{% url 'voiture_exemplaire:finances_modifier' exemplaire_id=exemplaire.id %}"
-           class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+           class="flex-1 bg-green-700 text-white px-5 py-4 rounded hover:bg-green-500 font-semibold text-center">
             {% if manquants %}{% trans "Compléter" %}{% else %}{% trans "Modifier" %}{% endif %}
         </a>
         <a href="{% url 'voiture_exemplaire:finances_supprimer' exemplaire_id=exemplaire.id %}"
@@ -80,7 +80,7 @@
             {% trans "Supprimer" %}
         </a>
         <a href="{% url 'voiture_exemplaire:finances_liste' %}"
-           class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+           class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
             {% trans "Retour" %}
         </a>
     </div>
