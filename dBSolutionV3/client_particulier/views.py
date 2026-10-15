@@ -19,6 +19,7 @@ from django.utils.translation import gettext as _, gettext_noop
 from utilisateurs.models import UserLog
 
 from .models import ClientParticulier
+from utils.securite import peut_supprimer, refuser_suppression
 
 
 
@@ -304,6 +305,9 @@ def _masquer(valeur, visibles=4):
 
 @login_required
 def delete_client_view(request, pk):
+    if not peut_supprimer(request.user):
+        return refuser_suppression(request)
+
     client = get_object_or_404(
         ClientParticulier.objects.select_related("adresse", "societe"),
         pk=pk,

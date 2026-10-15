@@ -13,6 +13,7 @@ from django.utils.translation import gettext as _, gettext_noop
 from utilisateurs.models import UserLog
 
 from .models import AchatMds
+from utils.securite import peut_supprimer, refuser_suppression
 
 
 
@@ -141,6 +142,9 @@ ACTION_SUPPRESSION_ACHAT = gettext_noop("Suppression de l'achat")
 @never_cache
 @login_required
 def delete_achat_view(request, pk):
+    if not peut_supprimer(request.user):
+        return refuser_suppression(request)
+
     achat = get_object_or_404(
         AchatMds.objects.select_related("fournisseur", "societe"),
         pk=pk,

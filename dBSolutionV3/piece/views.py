@@ -1,3 +1,5 @@
+from utils.securite import peut_supprimer, refuser_suppression
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -55,10 +57,15 @@ class PieceUpdateView(UpdateView):
     success_url = reverse_lazy("piece:list")
 
 # Suppression d'une pièce
-class PieceDeleteView(DeleteView):
+class PieceDeleteView(LoginRequiredMixin, DeleteView):
     model = Piece
     template_name = "piece/piece_confirm_delete.html"
     success_url = reverse_lazy("piece:list")
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and not peut_supprimer(request.user):
+            return refuser_suppression(request)
+        return super().dispatch(request, *args, **kwargs)
 
 
 

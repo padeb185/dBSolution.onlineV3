@@ -17,6 +17,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _, gettext_noop
 
 from .models import AssurancePolice
+from utils.securite import peut_supprimer, refuser_suppression
 
 
 
@@ -181,6 +182,9 @@ ACTION_SUPPRESSION_POLICE = gettext_noop("Suppression de la police d'assurance")
 
 @login_required
 def delete_assurance_police_view(request, pk):
+    if not peut_supprimer(request.user):
+        return refuser_suppression(request)
+
     police = get_object_or_404(
         AssurancePolice.objects.select_related("assurance", "voiture_exemplaire", "societe"),
         pk=pk,

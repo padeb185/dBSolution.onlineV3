@@ -14,6 +14,7 @@ from django.utils.translation import gettext as _, gettext_noop
 
 from core.suppression import analyser_suppression
 from .models import Outillage
+from utils.securite import peut_supprimer, refuser_suppression
 
 
 
@@ -146,6 +147,9 @@ ACTION_SUPPRESSION_OUTILLAGE = gettext_noop("Suppression de l'outillage")
 
 @login_required
 def delete_outillage_view(request, pk):
+    if not peut_supprimer(request.user):
+        return refuser_suppression(request)
+
     outillage = get_object_or_404(
         Outillage.objects.select_related("fournisseur", "societe"),
         pk=pk,

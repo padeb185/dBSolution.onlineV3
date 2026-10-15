@@ -20,6 +20,7 @@ from django.utils.translation import gettext as _, gettext_noop
 from utilisateurs.models import UserLog
 
 from .models import ClientAtelier
+from utils.securite import peut_supprimer, refuser_suppression
 
 
 
@@ -398,6 +399,9 @@ ACTION_SUPPRESSION_CLIENT_ATELIER = gettext_noop("Suppression du client atelier"
 
 @login_required
 def delete_client_atelier_view(request, pk):
+    if not peut_supprimer(request.user):
+        return refuser_suppression(request)
+
     client_atelier = get_object_or_404(
         ClientAtelier.objects
         .select_related("client_particulier", "societe_cliente", "adresse", "societe")

@@ -19,6 +19,7 @@ from django.utils.translation import gettext as _, gettext_noop
 
 from core.suppression import analyser_suppression
 from .models import MainDoeuvre
+from utils.securite import peut_supprimer, refuser_suppression
 
 
 
@@ -272,6 +273,9 @@ def _redirect_apres_suppression(voiture_id):
 @never_cache
 @login_required
 def delete_main_oeuvre_view(request, pk):
+    if not peut_supprimer(request.user):
+        return refuser_suppression(request)
+
     main_oeuvre = get_object_or_404(
         MainDoeuvre.objects.select_related("utilisateur", "voiture_exemplaire", "societe"),
         pk=pk,

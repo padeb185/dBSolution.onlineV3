@@ -46,6 +46,8 @@
 <p><strong>{% trans "Date de création" %}:</strong> {{ piece.date_creation }}</p>
 
 <a href="{% url 'piece:edit' piece.pk %}">{% trans "Modifier" %}</a> |
+{% if request.user.role == "direction" or request.user.role == "chef_mecanicien" or request.user.is_superuser %}
 <a href="{% url 'piece:delete' piece.pk %}">{% trans "Supprimer" %}</a> |
+{% endif %}
 <a href="{% url 'piece:list' %}">{% trans "Retour à la liste" %}</a>
 {% endblock %}

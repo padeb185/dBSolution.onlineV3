@@ -17,6 +17,7 @@ from adresse.models import Adresse
 from django.utils.translation import gettext as _, gettext_noop
 from .models import Adresse
 from societe.models import Societe
+from utils.securite import peut_supprimer, refuser_suppression
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -164,6 +165,9 @@ ACTION_SUPPRESSION_ADRESSE = gettext_noop("Suppression de l'adresse")
 
 @login_required
 def delete_adresse_view(request, pk):
+    if not peut_supprimer(request.user):
+        return refuser_suppression(request)
+
     adresse = get_object_or_404(Adresse.objects.select_related("societe"), pk=pk)
 
     analyse = analyser_suppression(adresse)

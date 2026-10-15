@@ -16,6 +16,7 @@ from assurance.forms import AssuranceForm
 from adresse.forms import AdresseForm
 from assurance_police.models import AssurancePolice
 from utilisateurs.models import UserLog
+from utils.securite import peut_supprimer, refuser_suppression
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -222,6 +223,9 @@ ACTION_SUPPRESSION_ASSURANCE = gettext_noop("Suppression de l'assurance")
 
 @login_required
 def delete_assurance_view(request, pk):
+    if not peut_supprimer(request.user):
+        return refuser_suppression(request)
+
     assurance = get_object_or_404(
         Assurance.objects.select_related("adresse", "societe"),
         pk=pk,

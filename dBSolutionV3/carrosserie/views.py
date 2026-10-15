@@ -17,6 +17,7 @@ from django.utils.translation import gettext as _, gettext_noop
 
 from core.suppression import analyser_suppression
 from .models import Carrosserie
+from utils.securite import peut_supprimer, refuser_suppression
 
 
 
@@ -197,6 +198,9 @@ ACTION_SUPPRESSION_CARROSSERIE = gettext_noop("Suppression de la carrosserie")
 
 @login_required
 def delete_carrosserie_view(request, pk):
+    if not peut_supprimer(request.user):
+        return refuser_suppression(request)
+
     carrosserie = get_object_or_404(
         Carrosserie.objects.select_related("adresse", "societe"),
         pk=pk,

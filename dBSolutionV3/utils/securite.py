@@ -18,3 +18,25 @@ def q_intervention_tenant(user, prefix="voiture_exemplaire__"):
         | Q(**{f"{prefix}client__isnull": True, f"{prefix}societe": societe})
         | Q(voiture_exemplaire__isnull=True, tech_societe=societe)
     )
+
+
+# ------------------------------------------------------------
+# Suppressions : réservées à la direction, au chef mécanicien et au super admin
+# ------------------------------------------------------------
+ROLES_SUPPRESSION = ("direction", "chef_mecanicien")
+
+
+def peut_supprimer(user):
+    return bool(
+        getattr(user, "is_superuser", False)
+        or getattr(user, "role", None) in ROLES_SUPPRESSION
+    )
+
+
+def refuser_suppression(request):
+    from django.contrib import messages
+    from django.shortcuts import redirect
+    from django.utils.translation import gettext as _
+
+    messages.error(request, _("Accès refusé"))
+    return redirect("utilisateurs:dashboard")

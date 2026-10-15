@@ -27,7 +27,7 @@
     <form method="post" class="flex gap-3">
         {% csrf_token %}
         <button type="submit"
-                class="flex-1 bg-red-600 text-white px-5 py-4 rounded hover:bg-red-400 font-semibold text-center">
+                class="flex-1 bg-red-700 text-white px-5 py-4 rounded hover:bg-red-400 font-semibold text-center">
             {% trans "Confirmer la suppression" %}
         </button>
         <a href="{% url 'voiture_location:location_detail' location_id=location.id %}"

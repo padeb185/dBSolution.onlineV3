@@ -13,6 +13,8 @@ from .forms import LocationForm
 from .models import Location
 
 ROLES_AUTORISES = ["vendeur", "direction", "chef_mecanicien"]
+# Suppression : direction, chef mécanicien (+ super admin)
+ROLES_SUPPRESSION = ["direction", "chef_mecanicien"]
 
 ACTION_FACTURE_LOCATION = gettext_noop("Création d'une facture de location")
 
@@ -97,9 +99,9 @@ def location_modifier(request, location_id):
 
 @login_required
 def location_supprimer(request, location_id):
-    if not _autorise(request.user):
+    if not (request.user.is_superuser or getattr(request.user, "role", None) in ROLES_SUPPRESSION):
         messages.error(request, _("Accès refusé"))
-        return redirect("utilisateurs:dashboard")
+        return redirect("voiture_location:location_detail", location_id=location_id)
 
     location = get_object_or_404(_queryset(request), id=location_id)
     if request.method == "POST":

@@ -19,6 +19,7 @@ from django.utils.translation import gettext as _, gettext_noop
 
 from core.suppression import analyser_suppression, masquer
 from .models import Proprietaire
+from utils.securite import peut_supprimer, refuser_suppression
 
 
 
@@ -327,6 +328,9 @@ ACTION_SUPPRESSION_PROPRIETAIRE = gettext_noop("Suppression du propriétaire")
 
 @login_required
 def delete_proprietaire_view(request, pk):
+    if not peut_supprimer(request.user):
+        return refuser_suppression(request)
+
     proprietaire = get_object_or_404(
         Proprietaire.objects.select_related("adresse", "societe"),
         pk=pk,
@@ -425,6 +429,9 @@ def _redirect_premier(*candidats):
 
 @login_required
 def delete_proprietaire_voiture_view(request, pk):
+    if not peut_supprimer(request.user):
+        return refuser_suppression(request)
+
     part = get_object_or_404(
         ProprietaireVoiture.objects.select_related("proprietaire", "voiture_exemplaire", "societe"),
         pk=pk,

@@ -18,6 +18,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _, gettext_noop
 
 from .models import Fournisseur
+from utils.securite import peut_supprimer, refuser_suppression
 
 
 
@@ -255,6 +256,9 @@ ACTION_SUPPRESSION_FOUR = gettext_noop("Suppression du fournisseur")
 
 @login_required
 def delete_fournisseur_view(request, pk):
+    if not peut_supprimer(request.user):
+        return refuser_suppression(request)
+
     fournisseur = get_object_or_404(
         Fournisseur.objects.select_related("adresse", "societe"),
         pk=pk,

@@ -15,6 +15,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _, gettext_noop
 
 from .models import ClientPilotage
+from utils.securite import peut_supprimer, refuser_suppression
 
 
 
@@ -264,6 +265,9 @@ ACTION_SUPPRESSION_CLIENT_PILOTAGE = gettext_noop("Suppression du client pilotag
 
 @login_required
 def delete_client_pilotage_view(request, pk):
+    if not peut_supprimer(request.user):
+        return refuser_suppression(request)
+
     client_pilotage = get_object_or_404(
         ClientPilotage.objects.select_related("client_particulier", "adresse", "societe"),
         pk=pk,

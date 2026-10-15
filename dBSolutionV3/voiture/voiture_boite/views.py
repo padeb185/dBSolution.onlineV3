@@ -12,6 +12,7 @@ from django.utils.translation import gettext as _, gettext_noop
 
 from core.suppression import analyser_suppression
 from .models import VoitureBoite
+from utils.securite import peut_supprimer, refuser_suppression
 
 
 
@@ -151,6 +152,9 @@ ACTION_SUPPRESSION_BOITE = gettext_noop("Suppression de la boîte de vitesse")
 
 @login_required
 def delete_boite_view(request, pk):
+    if not peut_supprimer(request.user):
+        return refuser_suppression(request)
+
     boite = get_object_or_404(
         VoitureBoite.objects.prefetch_related("voitures_exemplaires", "voitures_modeles"),
         pk=pk,

@@ -12,6 +12,7 @@ from django.utils.translation import gettext as _, gettext_noop
 
 from core.suppression import analyser_suppression
 from .models import MoteurVoiture
+from utils.securite import peut_supprimer, refuser_suppression
 
 
 
@@ -120,6 +121,9 @@ ACTION_SUPPRESSION_MOTEUR = gettext_noop("Suppression du moteur")
 
 @login_required
 def delete_moteur_view(request, pk):
+    if not peut_supprimer(request.user):
+        return refuser_suppression(request)
+
     moteur = get_object_or_404(
         MoteurVoiture.objects
         .select_related("boite")
