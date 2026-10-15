@@ -6,7 +6,7 @@
 <br>
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
     <h1 class="text-2xl font-bold mb-4 flex items-center gap-4 text-red-700">
-        <img src="{% static 'icons/voiture-de-course.png' %}" alt="{% trans 'Location' %}"
+        <img src="{% static 'icons/location.png' %}" alt="{% trans 'Location' %}"
              style="width:60px; height:60px;">
         {% trans "Supprimer la location" %}
     </h1>
@@ -30,7 +30,7 @@
                 class="flex-1 bg-red-600 text-white px-5 py-4 rounded hover:bg-red-400 font-semibold text-center">
             {% trans "Confirmer la suppression" %}
         </button>
-        <a href="{% url 'voiture_location:location_liste' %}"
+        <a href="{% url 'voiture_location:location_detail' location_id=location.id %}"
            class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
             {% trans "Annuler" %}
         </a>

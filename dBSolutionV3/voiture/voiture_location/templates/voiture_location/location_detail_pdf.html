@@ -1,0 +1,365 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+{% if societe %}
+    <div class="societe-header">
+        <div class="societe-informations">
+            <div class="societe-nom">{{ societe.nom }}</div>
+            {% if societe.adresse %}
+                <div>{{ societe.adresse.rue }} {{ societe.adresse.numero }}{% if societe.adresse.boite %} / {{ societe.adresse.boite }}{% endif %}</div>
+                <div>{{ societe.adresse.code_postal }} {{ societe.adresse.ville }}</div>
+                {% if societe.adresse.pays %}<div>{{ societe.adresse.pays }} {{ societe.adresse.code_pays }}</div>{% endif %}
+            {% endif %}
+            {% if societe.numero_tva %}<div><strong>{% trans "Numéro de TVA" %} :</strong> {{ societe.numero_tva }}</div>{% endif %}
+            {% if societe.iban %}<div><strong>{% trans "Numéro de compte" %} :</strong> {{ societe.iban }}</div>{% endif %}
+        </div>
+        <div class="societe-logo">
+            <img src="{% static 'societe/' %}{{ societe.nom }}.png" alt="{{ societe.nom }}">
+        </div>
+    </div>
+{% endif %}
+
+<h1>{% trans "Détail de la location" %}</h1>
+
+<h2>{% trans "Véhicule et client" %}</h2>
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Immatriculation" %} :</span> {{ location.voiture_exemplaire.immatriculation|default:"-" }}</div>
+        <div><span class="label">{% trans "Véhicule" %} :</span>
+            {{ location.voiture_exemplaire.voiture_marque.nom_marque }} {{ location.voiture_exemplaire.voiture_modele.nom_modele }}
+            {% if location.voiture_exemplaire.voiture_modele.nom_variante %}{{ location.voiture_exemplaire.voiture_modele.nom_variante }}{% endif %}
+        </div>
+        <div><span class="label">{% trans "Client" %} :</span> {{ location.locataire|default:"—" }}</div>
+    </div>
+</div>
+
+<h2>{% trans "Circuit ou route" %}</h2>
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Type de location" %} :</span> {{ location.get_type_location_display }}</div>
+        {% if location.type_location == "circuit" %}
+            <div><span class="label">{% trans "Circuit" %} :</span> {{ location.get_circuit_display|default:"—" }}</div>
+            <div><span class="label">{% trans "Nombre de tours" %} :</span> {{ location.nombre_tours|default:"—" }}</div>
+            {% if location.longueur_circuit_km %}<div><span class="label">{% trans "Longueur du circuit" %} :</span> {{ location.longueur_circuit_km|floatformat:"-3" }} km</div>{% endif %}
+        {% else %}
+            <div><span class="label">{% trans "Route / itinéraire" %} :</span> {{ location.route|default:"—" }}</div>
+        {% endif %}
+        <div><span class="label">{% trans "Kilométrage" %} :</span> {% if location.kilometrage is not None %}{{ location.kilometrage }} km{% else %}—{% endif %}</div>
+    </div>
+</div>
+
+<h2>{% trans "Période, kilométrage et prix" %}</h2>
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Date de début" %} :</span> {{ location.date_debut|date:"d/m/Y" }}</div>
+        <div><span class="label">{% trans "Date de fin" %} :</span> {{ location.date_fin|date:"d/m/Y"|default:"—" }}</div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Description" %}</th>
+                <th class="text-right">{% trans "Prix HTVA" %}</th>
+                <th class="text-right">{% trans "TVA" %} ({{ location.taux_tva|floatformat:"-2" }} %)</th>
+                <th class="text-right">{% trans "Prix TVAC" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ location.libelle_facture }}</td>
+                <td class="text-right">{{ location.prix_htva|floatformat:2 }} €</td>
+                <td class="text-right">{{ location.montant_tva|floatformat:2 }} €</td>
+                <td class="text-right">{{ location.prix_tvac|floatformat:2 }} €</td>
+            </tr>
+            <tr class="total-general">
+                <td>{% trans "Total" %}</td>
+                <td class="text-right">{{ location.prix_htva|floatformat:2 }} €</td>
+                <td class="text-right">{{ location.montant_tva|floatformat:2 }} €</td>
+                <td class="text-right">{{ location.prix_tvac|floatformat:2 }} €</td>
+            </tr>
+        </tbody>
+    </table>
+    {% with facture=location.facture %}
+        {% if facture %}
+            <div style="margin-top:8px;"><span class="label">{% trans "Facture" %} :</span>
+                {% if facture.est_emise %}{{ facture.numero }}{% else %}{% trans "Brouillon" %}{% endif %} – {{ facture.get_type_facture_display }}
+            </div>
+        {% endif %}
+    {% endwith %}
+</div>
+
+{% if location.remarques %}
+<h2>{% trans "Remarques" %}</h2>
+<div class="box">{{ location.remarques|linebreaksbr }}</div>
+{% endif %}
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

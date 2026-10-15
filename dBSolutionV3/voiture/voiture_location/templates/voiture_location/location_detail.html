@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Détail de la location" %}{% endblock %}
+
+{% block content %}
+<div class="p-6 w-full">
+
+    <h1 class="text-2xl font-bold mb-6 flex flex-col md:flex-row md:items-center gap-3">
+        <div class="flex items-center gap-3">
+            <img src="{% static 'icons/location.png' %}" alt="{% trans 'Location' %}" class="w-16 h-16">
+            <div class="flex items-center gap-2">
+                {% trans "Détail de la location" %}
+                {% if exemplaire %}
+                    {% static 'images/marques/' as marques_path %}
+                    <img src="{{ marques_path }}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                         alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                         class="w-20 h-20 object-contain" onerror="this.style.display='none';">
+                    <span class="font-semibold">
+                        {{ exemplaire.voiture_modele.nom_modele }}
+                        {% if exemplaire.voiture_modele.nom_variante %}{{ exemplaire.voiture_modele.nom_variante }}{% endif %}
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+    </h1>
+
+    {% include "voiture_location/_messages.html" %}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Véhicule et client -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2 flex items-center gap-3">
+                <img src="{% static 'icons/location_vehicule_client.png' %}" alt="" class="w-10 h-10">
+                {% trans "Véhicule et client" %}
+            </h2>
+            {% if exemplaire %}
+            <div>
+                <strong>{% trans "Immatriculation" %} :</strong>
+                <div class="mt-2">{% include "maintenance/partials/plaque.html" %}</div>
+            </div>
+            <p><strong>{% trans "Véhicule" %} :</strong>
+                {{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }}
+                {% if exemplaire.voiture_modele.nom_variante %}{{ exemplaire.voiture_modele.nom_variante }}{% endif %}
+            </p>
+            {% endif %}
+            <p><strong>{% trans "Client" %} :</strong> {{ location.locataire|default:"—" }}</p>
+        </div>
+
+        <!-- Circuit ou route -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2 flex items-center gap-3">
+                <img src="{% static 'icons/location_circuit_route.png' %}" alt="" class="w-10 h-10">
+                {% trans "Circuit ou route" %}
+            </h2>
+            <p><strong>{% trans "Type de location" %} :</strong>
+                {% if location.type_location == "circuit" %}
+                    <span class="px-2 py-1 rounded bg-red-100 text-red-800 text-xs font-semibold">{{ location.get_type_location_display }}</span>
+                {% else %}
+                    <span class="px-2 py-1 rounded bg-blue-100 text-blue-800 text-xs font-semibold">{{ location.get_type_location_display }}</span>
+                {% endif %}
+            </p>
+            {% if location.type_location == "circuit" %}
+                <p><strong>{% trans "Circuit" %} :</strong> {{ location.get_circuit_display|default:"—" }}</p>
+                {% if location.longueur_circuit_km %}
+                    <p><strong>{% trans "Longueur du circuit" %} :</strong> {{ location.longueur_circuit_km|floatformat:"-3" }} km</p>
+                {% endif %}
+                <p><strong>{% trans "Nombre de tours" %} :</strong> {{ location.nombre_tours|default:"—" }}</p>
+            {% else %}
+                <p><strong>{% trans "Route / itinéraire" %} :</strong> {{ location.route|default:"—" }}</p>
+            {% endif %}
+            <p><strong>{% trans "Kilométrage" %} :</strong> {% if location.kilometrage is not None %}{{ location.kilometrage }} km{% else %}—{% endif %}</p>
+        </div>
+
+        <!-- Période et prix -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2 flex items-center gap-3">
+                <img src="{% static 'icons/location_periode_prix.png' %}" alt="" class="w-10 h-10">
+                {% trans "Période, kilométrage et prix" %}
+            </h2>
+            <p><strong>{% trans "Date de début" %} :</strong> {{ location.date_debut|date:"d/m/Y" }}</p>
+            <p><strong>{% trans "Date de fin" %} :</strong> {{ location.date_fin|date:"d/m/Y"|default:"—" }}</p>
+            <p><strong>{% trans "Prix HTVA" %} :</strong> {{ location.prix_htva|floatformat:2 }} €</p>
+            <p><strong>{% trans "TVA" %} ({{ location.taux_tva|floatformat:"-2" }} %) :</strong> {{ location.montant_tva|floatformat:2 }} €</p>
+            <p class="text-lg"><strong>{% trans "Prix TVAC" %} :</strong> {{ location.prix_tvac|floatformat:2 }} €</p>
+            {% if location.prix_par_km %}
+                <p><strong>{% trans "Prix par km (TVAC)" %} :</strong> {{ location.prix_par_km|floatformat:2 }} €</p>
+            {% endif %}
+        </div>
+
+        <!-- Facture -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2 flex items-center gap-3">
+                {% include "facture/_icone.html" with classe="w-10 h-10" %}
+                {% trans "Facture" %}
+            </h2>
+            {% with loc=location %}
+                <div>{% include "voiture_location/_facture_location.html" %}</div>
+            {% endwith %}
+        </div>
+
+        <!-- Boutons -->
+        <div class="w-full">
+            <a href="{% url 'voiture_location:location_modifier' location_id=location.id %}"
+               class="block w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Modifier" %}
+            </a>
+        </div>
+        <div class="w-full">
+            <a href="{% url 'voiture_location:location_pdf' location_id=location.id %}" target="_blank"
+               class="block w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Télécharger le PDF" %}
+            </a>
+        </div>
+    </div>
+
+    <!-- Remarques -->
+    {% if location.remarques %}
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Remarques" %}</h2>
+        {{ location.remarques|linebreaks }}
+    </div>
+    {% endif %}
+
+    <!-- Supprimer -->
+    <div class="w-full mb-6">
+        <a href="{% url 'voiture_location:location_supprimer' location_id=location.id %}"
+           class="block w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold text-center">
+            {% trans "Supprimer" %}
+        </a>
+    </div>
+
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Métadonnées" %}</h2>
+        <p><strong>{% trans "Créé le" %} :</strong> {{ location.created_at|date:"d/m/Y H:i"|default:"-" }}</p>
+        <p><strong>{% trans "Mis à jour le" %} :</strong> {{ location.updated_at|date:"d/m/Y H:i"|default:"-" }}</p>
+    </div>
+
+    <!-- Retour -->
+    <a href="{% url 'voiture_location:location_liste' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour à la liste des locations" %}
+    </a>
+</div>
+{% endblock %}

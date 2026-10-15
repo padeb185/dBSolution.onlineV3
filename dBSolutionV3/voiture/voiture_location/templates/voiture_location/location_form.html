@@ -116,7 +116,7 @@
                     class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
                 {% trans "Enregistrer" %}
             </button>
-            <a href="{% url 'voiture_location:location_liste' %}"
+            <a href="{% if location %}{% url 'voiture_location:location_detail' location_id=location.id %}{% else %}{% url 'voiture_location:location_liste' %}{% endif %}"
                class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
                 {% trans "Annuler" %}
             </a>

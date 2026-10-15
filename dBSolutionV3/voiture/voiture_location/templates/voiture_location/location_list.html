@@ -99,13 +99,9 @@
                 {% include "voiture_location/_facture_location.html" %}
             </td>
             <td class="border px-4 py-2 text-center whitespace-nowrap">
-                <a href="{% url 'voiture_location:location_modifier' location_id=loc.id %}"
+                <a href="{% url 'voiture_location:location_detail' location_id=loc.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
-                    {% trans "Modifier" %}
-                </a>
-                <a href="{% url 'voiture_location:location_supprimer' location_id=loc.id %}"
-                   class="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700 transition">
-                    {% trans "Supprimer" %}
+                    {% trans "Infos" %}
                 </a>
             </td>
         </tr>

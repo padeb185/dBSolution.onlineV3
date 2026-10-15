@@ -88,7 +88,7 @@ def location_modifier(request, location_id):
     if request.method == "POST" and form.is_valid():
         location = form.save()
         messages.success(request, _("Location '%(loc)s' mise à jour.") % {"loc": location})
-        return redirect("voiture_location:location_liste")
+        return redirect("voiture_location:location_detail", location_id=location.id)
 
     return render(request, "voiture_location/location_form.html", {
         "form": form, "location": location, "taux_tva": location.taux_tva,
@@ -218,3 +218,48 @@ def ventes_detail(request):
         "trimestres": range(1, 5),
         "peut_facturer": _peut_facturer(request.user),
     })
+
+
+# -----------------------------
+# Détail d'une location + PDF
+# -----------------------------
+@never_cache
+@login_required
+def location_detail(request, location_id):
+    if not _autorise(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    location = get_object_or_404(_queryset(request), id=location_id)
+    return render(request, "voiture_location/location_detail.html", {
+        "location": location,
+        "exemplaire": location.voiture_exemplaire,
+        "peut_facturer": _peut_facturer(request.user),
+        "type_client": "CLIENT",
+        "type_pro": "PRO",
+    })
+
+
+@login_required
+def location_pdf(request, location_id):
+    if not _autorise(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    from django.http import HttpResponse
+    from django.template.loader import render_to_string
+    from weasyprint import HTML
+
+    location = get_object_or_404(_queryset(request), id=location_id)
+    html = render_to_string("voiture_location/location_detail_pdf.html", {
+        "location": location,
+        "societe": request.user.societe,
+        "date_export": timezone.now(),
+    }, request=request)
+    pdf = HTML(string=html, base_url=request.build_absolute_uri()).write_pdf()
+
+    immatriculation = str(getattr(location.voiture_exemplaire, "immatriculation", "") or "sans_immatriculation")
+    nom_fichier = f"{_('Location')}_{immatriculation}_{location.date_debut:%Y-%m-%d}.pdf".replace(" ", "_")
+    response = HttpResponse(pdf, content_type="application/pdf")
+    response["Content-Disposition"] = f'inline; filename="{nom_fichier}"'
+    return response
