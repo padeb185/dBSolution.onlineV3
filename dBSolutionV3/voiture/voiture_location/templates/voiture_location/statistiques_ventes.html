@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Statistiques des ventes" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% if voit_tout %}{% static 'icons/statistiques_ventes.png' %}{% else %}{% static 'icons/mes_statistiques.png' %}{% endif %}" alt="{% trans 'Statistiques' %}"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% if voit_tout %}{% trans "Statistiques des ventes par vendeur" %}{% else %}{% trans "Mes statistiques de ventes" %}{% endif %}
+</h1>
+{% if not voit_tout %}
+    <p class="mb-4 text-gray-700">
+        {% trans "Vendeur" %} : <span class="font-semibold">{{ vendeur_connecte.prenom }} {{ vendeur_connecte.nom }}</span>
+        <span class="text-sm text-gray-500">({{ vendeur_connecte.get_role_display }})</span>
+    </p>
+{% endif %}
+
+{% include "voiture_location/_messages.html" %}
+
+<!-- Période -->
+<form method="get" class="bg-white shadow-md rounded-lg p-4 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
+        <div>
+            <label class="font-semibold" for="periode">{% trans "Période" %}</label>
+            <select name="periode" id="periode" class="border rounded px-3 py-2 w-full" onchange="this.form.submit()">
+                <option value="mois" {% if type_periode == "mois" %}selected{% endif %}>{% trans "Mois" %}</option>
+                <option value="trimestre" {% if type_periode == "trimestre" %}selected{% endif %}>{% trans "Trimestre" %}</option>
+                <option value="annee" {% if type_periode == "annee" %}selected{% endif %}>{% trans "Année" %}</option>
+                <option value="tout" {% if type_periode == "tout" %}selected{% endif %}>{% trans "Toutes les ventes" %}</option>
+            </select>
+        </div>
+        {% if type_periode != "tout" %}
+        <div>
+            <label class="font-semibold" for="annee">{% trans "Année" %}</label>
+            <select name="annee" id="annee" class="border rounded px-3 py-2 w-full">
+                {% for a in annees %}<option value="{{ a }}" {% if a == annee %}selected{% endif %}>{{ a }}</option>{% endfor %}
+            </select>
+        </div>
+        {% endif %}
+        {% if type_periode == "mois" %}
+        <div>
+            <label class="font-semibold" for="numero">{% trans "Mois" %}</label>
+            <select name="numero" id="numero" class="border rounded px-3 py-2 w-full">
+                {% for m in mois %}<option value="{{ m }}" {% if m == numero %}selected{% endif %}>{{ m }}</option>{% endfor %}
+            </select>
+        </div>
+        {% elif type_periode == "trimestre" %}
+        <div>
+            <label class="font-semibold" for="numero">{% trans "Trimestre" %}</label>
+            <select name="numero" id="numero" class="border rounded px-3 py-2 w-full">
+                {% for t in trimestres %}<option value="{{ t }}" {% if t == numero %}selected{% endif %}>T{{ t }}</option>{% endfor %}
+            </select>
+        </div>
+        {% endif %}
+        <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+            {% trans "Afficher" %}
+        </button>
+    </div>
+    {% if debut %}
+        <p class="text-sm text-gray-500 mt-2">{% trans "Du" %} {{ debut|date:"d/m/Y" }} {% trans "au" %} {{ fin|date:"d/m/Y" }}</p>
+    {% endif %}
+</form>
+
+<!-- Résumé -->
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <h2 class="text-sm font-semibold text-gray-600 mb-1">{% trans "Nombre de ventes" %}</h2>
+        <p class="text-2xl font-bold">{{ totaux.nb }}</p>
+        <p class="text-xs text-gray-500">{% trans "Circuit" %} {{ totaux.nb_circuit }} · {% trans "Route" %} {{ totaux.nb_route }}</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <h2 class="text-sm font-semibold text-gray-600 mb-1">{% trans "Total HTVA" %}</h2>
+        <p class="text-2xl font-bold">{{ totaux.htva|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <h2 class="text-sm font-semibold text-gray-600 mb-1">{% trans "Total TVA" %}</h2>
+        <p class="text-2xl font-bold text-red-800">{{ totaux.tva|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <h2 class="text-sm font-semibold text-gray-600 mb-1">{% trans "Total TVAC" %}</h2>
+        <p class="text-2xl font-bold text-green-800">{{ totaux.tvac|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <h2 class="text-sm font-semibold text-gray-600 mb-1">{% trans "Panier moyen TVAC" %}</h2>
+        <p class="text-2xl font-bold">{{ totaux.panier_moyen|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <h2 class="text-sm font-semibold text-gray-600 mb-1">{% trans "Kilomètres vendus" %}</h2>
+        <p class="text-2xl font-bold">{{ totaux.km }} km</p>
+        <p class="text-xs text-gray-500">{% trans "Facturées" %} {{ totaux.nb_facturees }} / {{ totaux.nb }}</p>
+    </div>
+</div>
+
+<!-- Par vendeur -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+        <img src="{% static 'icons/vendeur.png' %}" alt="" class="w-8 h-8">
+        {% trans "Par vendeur" %}
+    </h2>
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-2 py-2 text-left">{% trans "Vendeur" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Ventes" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Circuit" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Route" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Kilométrage" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "HTVA" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "TVA" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "TVAC" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Panier moyen TVAC" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Facturées" %}</th>
+                <th class="border px-2 py-2 text-left" style="min-width:140px">{% trans "Part du chiffre" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for v in par_vendeur %}
+            <tr>
+                <td class="border px-2 py-1">
+                    <span class="font-semibold">{{ v.nom }}</span>
+                    {% if v.role %}<span class="text-xs text-gray-500">({{ v.role }})</span>{% endif %}
+                </td>
+                <td class="border px-2 py-1 text-right">{{ v.nb }}</td>
+                <td class="border px-2 py-1 text-right">{{ v.nb_circuit }}</td>
+                <td class="border px-2 py-1 text-right">{{ v.nb_route }}</td>
+                <td class="border px-2 py-1 text-right">{{ v.km }} km</td>
+                <td class="border px-2 py-1 text-right">{{ v.htva|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ v.tva|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right font-semibold">{{ v.tvac|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ v.panier_moyen|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ v.nb_facturees }} / {{ v.nb }}</td>
+                <td class="border px-2 py-1">
+                    <div class="flex items-center gap-2">
+                        <div class="flex-1 bg-gray-100 rounded h-3">
+                            <div class="bg-green-600 h-3 rounded" style="width: {{ v.part|stringformat:'s' }}%"></div>
+                        </div>
+                        <span class="text-xs">{{ v.part|floatformat:1 }} %</span>
+                    </div>
+                </td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="11" class="border px-2 py-2 text-gray-500">{% trans "Aucune location sur la période." %}</td></tr>
+        {% endfor %}
+        </tbody>
+        {% if par_vendeur %}
+        <tfoot>
+            <tr class="bg-gray-100 font-semibold">
+                <td class="border px-2 py-1">{% trans "Total" %}</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.nb }}</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.nb_circuit }}</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.nb_route }}</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.km }} km</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.htva|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.tva|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.tvac|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.panier_moyen|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ totaux.nb_facturees }} / {{ totaux.nb }}</td>
+                <td class="border px-2 py-1">100 %</td>
+            </tr>
+        </tfoot>
+        {% endif %}
+    </table>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+    <!-- Par mois -->
+    <div class="bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+            <img src="{% static 'icons/location_periode_prix.png' %}" alt="" class="w-8 h-8">
+            {% trans "Par mois" %}
+        </h2>
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-2 py-2 text-left">{% trans "Mois" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Ventes" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "TVA" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "TVAC" %}</th>
+                    <th class="border px-2 py-2 text-left" style="min-width:120px"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for m in par_mois %}
+                <tr>
+                    <td class="border px-2 py-1">{{ m.date|date:"F Y" }}</td>
+                    <td class="border px-2 py-1 text-right">{{ m.nb }}</td>
+                    <td class="border px-2 py-1 text-right">{{ m.tva|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ m.tvac|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1">
+                        <div class="bg-gray-100 rounded h-3"><div class="bg-blue-600 h-3 rounded" style="width: {{ m.largeur }}%"></div></div>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="5" class="border px-2 py-2 text-gray-500">{% trans "Aucune location sur la période." %}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Circuits / routes -->
+    <div class="bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+            <img src="{% static 'icons/location_circuit_route.png' %}" alt="" class="w-8 h-8">
+            {% trans "Circuits et routes les plus vendus" %}
+        </h2>
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-2 py-2 text-left">{% trans "Circuit / route" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Ventes" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Kilométrage" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "TVAC" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for l in top_lieux %}
+                <tr>
+                    <td class="border px-2 py-1">{{ l.lieu }} <span class="text-xs text-gray-500">({{ l.type }})</span></td>
+                    <td class="border px-2 py-1 text-right">{{ l.nb }}</td>
+                    <td class="border px-2 py-1 text-right">{{ l.km }} km</td>
+                    <td class="border px-2 py-1 text-right">{{ l.tvac|floatformat:2 }} €</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="4" class="border px-2 py-2 text-gray-500">{% trans "Aucune location sur la période." %}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if voit_tout %}
+<p class="text-sm text-gray-500 mb-6">
+    {% trans "« Non attribué » : locations enregistrées avant l'ajout du vendeur. La direction peut indiquer le vendeur en modifiant la location." %}
+</p>
+{% endif %}
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <a href="{% url 'voiture_location:ventes_detail' %}"
+       class="block w-full bg-green-700 text-white px-5 py-4 rounded hover:bg-green-500 font-semibold text-center">
+        {% trans "Ventes détails" %}
+    </a>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+<br><br>
+{% endblock %}

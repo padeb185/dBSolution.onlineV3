@@ -144,6 +144,7 @@
             <th class="border px-4 py-2">{% trans "Immatriculation" %}</th>
             <th class="border px-4 py-2">{% trans "Véhicule" %}</th>
             <th class="border px-4 py-2">{% trans "Client" %}</th>
+            <th class="border px-4 py-2">{% trans "Vendeur" %}</th>
             <th class="border px-4 py-2">{% trans "Type" %}</th>
             <th class="border px-4 py-2">{% trans "Circuit / route" %}</th>
             <th class="border px-4 py-2">{% trans "Kilométrage" %}</th>
@@ -162,6 +163,7 @@
             </td>
             <td class="border px-4 py-2">{{ loc.voiture_exemplaire.voiture_marque.nom_marque }} {{ loc.voiture_exemplaire.voiture_modele.nom_modele }}</td>
             <td class="border px-4 py-2">{{ loc.locataire|default:"—" }}</td>
+            <td class="border px-4 py-2">{% if loc.vendeur %}{{ loc.vendeur.prenom }} {{ loc.vendeur.nom }}{% else %}—{% endif %}</td>
             <td class="border px-4 py-2">{{ loc.get_type_location_display }}</td>
             <td class="border px-4 py-2">{{ loc.lieu|default:"—" }}</td>
             <td class="border px-4 py-2" data-order="{{ loc.kilometrage|default:0 }}">{{ loc.distance_affichage|default:"—" }}</td>
@@ -174,7 +176,7 @@
     </tbody>
     <tfoot>
         <tr class="bg-gray-100 font-semibold">
-            <td class="border px-4 py-2" colspan="7">{% trans "Total" %}</td>
+            <td class="border px-4 py-2" colspan="8">{% trans "Total" %}</td>
             <td class="border px-4 py-2 text-right">{{ totaux.htva|floatformat:2 }} €</td>
             <td class="border px-4 py-2 text-right">{{ totaux.tva|floatformat:2 }} €</td>
             <td class="border px-4 py-2 text-right">{{ totaux.tvac|floatformat:2 }} €</td>
@@ -217,8 +219,8 @@ $(document).ready(function () {
         },
         order: [[0, 'desc']],
         columnDefs: [
-            { targets: 10, orderable: false, searchable: false },
-            { targets: [6, 7, 8, 9], type: 'num' }
+            { targets: 11, orderable: false, searchable: false },
+            { targets: [7, 8, 9, 10], type: 'num' }
         ]
     });
 });

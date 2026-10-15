@@ -16,7 +16,21 @@ ROLES_AUTORISES = ["vendeur", "direction", "chef_mecanicien"]
 # Suppression : direction, chef mécanicien (+ super admin)
 ROLES_SUPPRESSION = ["direction", "chef_mecanicien"]
 
+ACTION_CREATION_LOCATION = gettext_noop("Nouvelle location")
+ACTION_MODIFICATION_LOCATION = gettext_noop("Modification de la location")
+ACTION_SUPPRESSION_LOCATION = gettext_noop("Suppression de la location")
 ACTION_FACTURE_LOCATION = gettext_noop("Création d'une facture de location")
+
+
+def _log(user, action, location):
+    """Journal d'activité (même format que les maintenances : « Action - immatriculation – détail »)."""
+    from utilisateurs.models import UserLog
+    immatriculation = getattr(location.voiture_exemplaire, "immatriculation", "") or "-"
+    detail = location.lieu or location.get_type_location_display()
+    texte = f"{action} - {immatriculation}"
+    if detail:
+        texte += f" – {detail} ({location.date_debut:%d/%m/%Y})"
+    UserLog.objects.create(utilisateur=user, action=texte[:255])
 
 
 def _autorise(user):
@@ -34,6 +48,7 @@ def _queryset(request):
             "societe_cliente",
             "client_pilotage__client_particulier",
             "societe__adresse",
+            "vendeur",
         )
         .prefetch_related("factures")
     )
@@ -71,6 +86,7 @@ def location_ajouter(request):
     form = LocationForm(request.POST or None, user=request.user, initial=initial)
     if request.method == "POST" and form.is_valid():
         location = form.save()
+        _log(request.user, ACTION_CREATION_LOCATION, location)
         messages.success(request, _("Location '%(loc)s' créée avec succès.") % {"loc": location})
         return redirect("voiture_location:location_liste")
 
@@ -89,6 +105,7 @@ def location_modifier(request, location_id):
     form = LocationForm(request.POST or None, instance=location, user=request.user)
     if request.method == "POST" and form.is_valid():
         location = form.save()
+        _log(request.user, ACTION_MODIFICATION_LOCATION, location)
         messages.success(request, _("Location '%(loc)s' mise à jour.") % {"loc": location})
         return redirect("voiture_location:location_detail", location_id=location.id)
 
@@ -106,7 +123,10 @@ def location_supprimer(request, location_id):
     location = get_object_or_404(_queryset(request), id=location_id)
     if request.method == "POST":
         try:
-            location.delete()
+            from django.db import transaction
+            with transaction.atomic():
+                _log(request.user, ACTION_SUPPRESSION_LOCATION, location)
+                location.delete()
             messages.success(request, _("Location supprimée."))
         except ProtectedError:
             messages.error(request, _("Impossible de supprimer cette location."))
@@ -127,8 +147,6 @@ def location_facturer(request, location_id):
 
     from facture.models import Facture
     from facture.services import creer_facture_depuis_location
-    from utilisateurs.models import UserLog
-
     location = get_object_or_404(_queryset(request), id=location_id)
 
     existante = location.facture
@@ -142,10 +160,7 @@ def location_facturer(request, location_id):
         return redirect("voiture_location:location_liste")
 
     facture = creer_facture_depuis_location(location, type_facture, request.user)
-    UserLog.objects.create(
-        utilisateur=request.user,
-        action=f"{ACTION_FACTURE_LOCATION} : {location}",
-    )
+    _log(request.user, ACTION_FACTURE_LOCATION, location)
     if type_facture == Facture.TypeFacture.PRO and not facture.societe_cliente_id:
         messages.warning(request, _("Sélectionnez le client professionnel avant d'émettre la facture."))
     messages.success(request, _("Brouillon de facture créé. Le prix de location est TVAC : vérifiez la ligne avant d'émettre."))
@@ -265,3 +280,142 @@ def location_pdf(request, location_id):
     response = HttpResponse(pdf, content_type="application/pdf")
     response["Content-Disposition"] = f'inline; filename="{nom_fichier}"'
     return response
+
+
+# -----------------------------
+# Statistiques de ventes par vendeur
+# -----------------------------
+ROLES_STATS_TOUT = ["direction"]
+
+
+def _periode(request):
+    """Lit la période demandée (mois / trimestre / année / tout) : dict + bornes."""
+    from facture.tva import CalculTVA
+
+    aujourdhui = timezone.localdate()
+    type_periode = request.GET.get("periode", "annee")
+    if type_periode not in TYPES_PERIODE_VENTES:
+        type_periode = "annee"
+
+    def entier(nom, defaut):
+        try:
+            return int(request.GET.get(nom, defaut))
+        except (TypeError, ValueError):
+            return defaut
+
+    annee = entier("annee", aujourdhui.year)
+    numero_defaut = aujourdhui.month if type_periode == "mois" else (aujourdhui.month - 1) // 3 + 1
+    numero = entier("numero", numero_defaut)
+    debut = fin = None
+    if type_periode != "tout":
+        debut, fin = CalculTVA.bornes(type_periode, annee, numero)
+    return {
+        "type_periode": type_periode, "annee": annee, "numero": numero, "debut": debut, "fin": fin,
+        "annees": range(aujourdhui.year - 5, aujourdhui.year + 1),
+        "mois": range(1, 13), "trimestres": range(1, 5),
+    }
+
+
+def _cumul_ventes(liste):
+    zero = Decimal("0.00")
+    nb = len(liste)
+    tvac = sum((l.prix_tvac for l in liste), zero)
+    facturees = [l for l in liste if l.facture is not None and l.facture.est_emise]
+    return {
+        "nb": nb,
+        "nb_circuit": sum(1 for l in liste if l.type_location == "circuit"),
+        "nb_route": sum(1 for l in liste if l.type_location == "route"),
+        "km": sum((l.kilometrage or 0 for l in liste), 0),
+        "htva": sum((l.prix_htva for l in liste), zero),
+        "tva": sum((l.montant_tva for l in liste), zero),
+        "tvac": tvac,
+        "nb_facturees": len(facturees),
+        "tvac_facturees": sum((l.prix_tvac for l in facturees), zero),
+        "panier_moyen": (tvac / nb).quantize(Decimal("0.01")) if nb else zero,
+    }
+
+
+def _voit_tout(user):
+    return user.is_superuser or getattr(user, "role", None) in ROLES_STATS_TOUT
+
+
+@never_cache
+@login_required
+def statistiques_ventes(request):
+    """Statistiques de tous les vendeurs : direction (+ super admin) uniquement."""
+    if not _voit_tout(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+    return _statistiques(request, voit_tout=True)
+
+
+@never_cache
+@login_required
+def mes_statistiques(request):
+    """Même page, limitée aux ventes de l'utilisateur connecté."""
+    if not _autorise(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+    return _statistiques(request, voit_tout=False)
+
+
+def _statistiques(request, voit_tout):
+    periode = _periode(request)
+
+    locations = _queryset(request)
+    if periode["debut"]:
+        locations = locations.filter(date_debut__range=(periode["debut"], periode["fin"]))
+    if not voit_tout:
+        locations = locations.filter(vendeur=request.user)
+    locations = list(locations.order_by("date_debut"))
+
+    totaux = _cumul_ventes(locations)
+
+    # --- Par vendeur ---
+    groupes = {}
+    for l in locations:
+        groupes.setdefault(l.vendeur_id, {"vendeur": l.vendeur, "locations": []})["locations"].append(l)
+    par_vendeur = []
+    for g in groupes.values():
+        stats = _cumul_ventes(g["locations"])
+        vendeur = g["vendeur"]
+        stats.update({
+            "vendeur": vendeur,
+            "nom": f"{vendeur.prenom} {vendeur.nom}".strip() if vendeur else _("Non attribué"),
+            "role": vendeur.get_role_display() if vendeur else "",
+            "part": (stats["tvac"] * 100 / totaux["tvac"]).quantize(Decimal("0.1")) if totaux["tvac"] else Decimal("0"),
+        })
+        par_vendeur.append(stats)
+    par_vendeur.sort(key=lambda s: s["tvac"], reverse=True)
+
+    # --- Par mois ---
+    mois = {}
+    for l in locations:
+        mois.setdefault((l.date_debut.year, l.date_debut.month), []).append(l)
+    par_mois = [
+        {"annee": a, "mois": m, "date": l_[0].date_debut.replace(day=1), **_cumul_ventes(l_)}
+        for (a, m), l_ in sorted(mois.items())
+    ]
+    max_mois = max((m["tvac"] for m in par_mois), default=Decimal("0"))
+    for m in par_mois:
+        m["largeur"] = int(m["tvac"] * 100 / max_mois) if max_mois else 0
+
+    # --- Circuits / routes les plus vendus ---
+    lieux = {}
+    for l in locations:
+        cle = l.lieu or l.get_type_location_display()
+        lieux.setdefault(cle, []).append(l)
+    top_lieux = sorted(
+        ({"lieu": k, "type": v[0].get_type_location_display(), **_cumul_ventes(v)} for k, v in lieux.items()),
+        key=lambda s: s["tvac"], reverse=True,
+    )[:10]
+
+    return render(request, "voiture_location/statistiques_ventes.html", {
+        **periode,
+        "voit_tout": voit_tout,
+        "vendeur_connecte": request.user,
+        "totaux": totaux,
+        "par_vendeur": par_vendeur,
+        "par_mois": par_mois,
+        "top_lieux": top_lieux,
+    })

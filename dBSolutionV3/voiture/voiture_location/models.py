@@ -1,6 +1,7 @@
 import uuid
 from decimal import Decimal, ROUND_HALF_UP
 
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models
@@ -176,6 +177,16 @@ class Location(models.Model):
         null=True,
         blank=True,
         verbose_name=_("Client pilotage"),
+    )
+
+    # Utilisateur qui a réalisé la vente (vendeur, direction…)
+    vendeur = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        related_name="locations_vendues",
+        null=True,
+        blank=True,
+        verbose_name=_("Vendeur"),
     )
 
     type_location = models.CharField(

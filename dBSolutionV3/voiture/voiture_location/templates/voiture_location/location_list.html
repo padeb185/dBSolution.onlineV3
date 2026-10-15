@@ -22,6 +22,16 @@
        class="bg-green-600 text-white px-5 py-4 rounded hover:bg-green-500 font-semibold text-center">
         {% trans "Ventes détails" %}
     </a>
+    {% if request.user.role == "direction" or request.user.is_superuser %}
+    <a href="{% url 'voiture_location:statistiques_ventes' %}"
+       class="bg-indigo-700 text-white px-5 py-4 rounded hover:bg-indigo-500 font-semibold text-center">
+        {% trans "Statistiques" %}
+    </a>
+    {% endif %}
+    <a href="{% url 'voiture_location:mes_statistiques' %}"
+       class="bg-indigo-700 text-white px-5 py-4 rounded hover:bg-indigo-500 font-semibold text-center">
+        {% trans "Mes statistiques" %}
+    </a>
 </div>
 
 <br>

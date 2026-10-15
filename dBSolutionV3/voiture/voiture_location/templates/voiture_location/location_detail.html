@@ -46,6 +46,7 @@
             </p>
             {% endif %}
             <p><strong>{% trans "Client" %} :</strong> {{ location.locataire|default:"—" }}</p>
+            <p><strong>{% trans "Vendeur" %} :</strong> {% if location.vendeur %}{{ location.vendeur.prenom }} {{ location.vendeur.nom }}{% else %}{% trans "Non attribué" %}{% endif %}</p>
         </div>
 
         <!-- Circuit ou route -->

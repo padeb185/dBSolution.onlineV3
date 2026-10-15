@@ -70,6 +70,7 @@
         </h2>
         {% include "voiture_location/_champ.html" with field=form.voiture_exemplaire %}
         {% include "voiture_location/_champ.html" with field=form.locataire %}
+        {% if form.vendeur %}{% include "voiture_location/_champ.html" with field=form.vendeur %}{% endif %}
 
         <br>
 

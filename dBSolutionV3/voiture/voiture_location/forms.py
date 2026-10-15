@@ -2,11 +2,16 @@ from django import forms
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.utils.translation import gettext_lazy as _
 
+from utilisateurs.models import Utilisateur
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from .models import Location
 from client_particulier.models import ClientParticulier
 from client_pilotage.models import ClientPilotage
 from societe_cliente.models import SocieteCliente
+
+# Rôles pouvant être indiqués comme vendeur d'une location
+ROLES_VENDEUR = ("vendeur", "direction", "chef_mecanicien")
+
 
 # préfixe -> (modèle, champ de Location)
 TYPES_CLIENT = {
@@ -92,6 +97,21 @@ class LocationForm(forms.ModelForm):
         elif inst.client_id:
             self.initial["locataire"] = f"client:{inst.client_id}"
 
+        # Vendeur : choisi par la direction / le super admin, sinon l'utilisateur connecté
+        if self.user is not None and (self.user.is_superuser or getattr(self.user, "role", None) == "direction"):
+            vendeurs = Utilisateur.objects.filter(is_active=True, role__in=ROLES_VENDEUR)
+            if societe is not None:
+                vendeurs = vendeurs.filter(societe=societe)
+            self.fields["vendeur"] = forms.ModelChoiceField(
+                queryset=vendeurs.order_by("nom", "prenom"),
+                required=False,
+                label=_("Vendeur"),
+                initial=self.instance.vendeur_id if self.instance.pk else self.user.pk,
+                help_text=_("Utilisé pour les statistiques de ventes."),
+            )
+            if self.instance.pk:
+                self.initial["vendeur"] = self.instance.vendeur_id
+
         # Le prix de location est saisi TVAC
         self.fields["prix"].label = _("Prix TVAC (€)")
         self.fields["prix"].help_text = _("Prix de la location TVA comprise : la TVA est calculée au taux du pays de la société.")
@@ -127,6 +147,11 @@ class LocationForm(forms.ModelForm):
         instance = super().save(commit=False)
         if self.user is not None and not instance.societe_id:
             instance.societe = self.user.societe
+        if "vendeur" in self.fields:
+            instance.vendeur = self.cleaned_data.get("vendeur")
+        elif self.user is not None and not instance.vendeur_id:
+            # Nouvelle location : le vendeur est l'utilisateur connecté
+            instance.vendeur = self.user
         if commit:
             instance.save()
         return instance
