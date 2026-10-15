@@ -42364,3 +42364,31 @@ msgstr "Sales details – rentals"
 #: voiture/voiture_location
 msgid "base HTVA"
 msgstr "base excl. VAT"
+
+#: facture/tva
+msgid "Facturées (incluses via les factures émises)"
+msgstr "Invoiced (included via issued invoices)"
+
+#: facture/tva
+msgid "Non facturées (ajoutées depuis le prix TVAC)"
+msgstr "Not invoiced (added from the price incl. VAT)"
+
+#: facture/tva
+msgid "location(s) non facturée(s)"
+msgstr "rental(s) not invoiced"
+
+#: facture/tva
+msgid "Les locations non facturées sont ajoutées à la TVA à payer à partir de leur prix TVAC."
+msgstr "Rentals that are not invoiced are added to the VAT payable based on their price incl. VAT."
+
+#: facture/tva
+msgid "TVA à payer à l'État"
+msgstr "VAT payable to the State"
+
+#: facture/tva
+msgid "Détail des locations comptées"
+msgstr "Details of the rentals counted"
+
+#: facture/tva
+msgid "Dont locations"
+msgstr "Of which rentals"

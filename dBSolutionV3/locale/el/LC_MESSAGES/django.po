@@ -42487,3 +42487,31 @@ msgstr "Λεπτομέρειες πωλήσεων – ενοικιάσεις"
 #: voiture/voiture_location
 msgid "base HTVA"
 msgstr "βάση χωρίς ΦΠΑ"
+
+#: facture/tva
+msgid "Facturées (incluses via les factures émises)"
+msgstr "Τιμολογημένες (περιλαμβάνονται μέσω των εκδοθέντων τιμολογίων)"
+
+#: facture/tva
+msgid "Non facturées (ajoutées depuis le prix TVAC)"
+msgstr "Μη τιμολογημένες (προστίθενται από την τιμή με ΦΠΑ)"
+
+#: facture/tva
+msgid "location(s) non facturée(s)"
+msgstr "μη τιμολογημένη(ες) ενοικίαση(εις)"
+
+#: facture/tva
+msgid "Les locations non facturées sont ajoutées à la TVA à payer à partir de leur prix TVAC."
+msgstr "Οι μη τιμολογημένες ενοικιάσεις προστίθενται στον πληρωτέο ΦΠΑ βάσει της τιμής τους με ΦΠΑ."
+
+#: facture/tva
+msgid "TVA à payer à l'État"
+msgstr "ΦΠΑ πληρωτέος στο Δημόσιο"
+
+#: facture/tva
+msgid "Détail des locations comptées"
+msgstr "Λεπτομέρειες των ενοικιάσεων που υπολογίστηκαν"
+
+#: facture/tva
+msgid "Dont locations"
+msgstr "Εκ των οποίων ενοικιάσεις"

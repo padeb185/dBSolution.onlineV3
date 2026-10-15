@@ -12,7 +12,7 @@
         <input type="hidden" name="type_facture" value="{{ type_client|default:'CLIENT' }}">
         <button type="submit" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 text-xs"
                 title="{% trans 'Facturer à un client particulier' %}">
-            {% trans "Facturer particulier" %}
+            {% trans "Client" %}
         </button>
     </form>
     <form method="post" action="{% url 'voiture_location:location_facturer' location_id=loc.id %}" class="inline">
@@ -20,7 +20,7 @@
         <input type="hidden" name="type_facture" value="{{ type_pro|default:'PRO' }}">
         <button type="submit" class="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700 text-xs"
                 title="{% trans 'Facturer à un client professionnel' %}">
-            {% trans "Facturer pro" %}
+            {% trans "Pro" %}
         </button>
     </form>
 {% else %}

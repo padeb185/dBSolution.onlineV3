@@ -42467,3 +42467,31 @@ msgstr "Verkaufsdetails – Vermietungen"
 #: voiture/voiture_location
 msgid "base HTVA"
 msgstr "Bemessungsgrundlage netto"
+
+#: facture/tva
+msgid "Facturées (incluses via les factures émises)"
+msgstr "Abgerechnet (über ausgestellte Rechnungen enthalten)"
+
+#: facture/tva
+msgid "Non facturées (ajoutées depuis le prix TVAC)"
+msgstr "Nicht abgerechnet (aus dem Bruttopreis hinzugefügt)"
+
+#: facture/tva
+msgid "location(s) non facturée(s)"
+msgstr "nicht abgerechnete Vermietung(en)"
+
+#: facture/tva
+msgid "Les locations non facturées sont ajoutées à la TVA à payer à partir de leur prix TVAC."
+msgstr "Nicht abgerechnete Vermietungen werden anhand ihres Bruttopreises zur zahlbaren MwSt. hinzugefügt."
+
+#: facture/tva
+msgid "TVA à payer à l'État"
+msgstr "An den Staat zu zahlende MwSt."
+
+#: facture/tva
+msgid "Détail des locations comptées"
+msgstr "Details der berücksichtigten Vermietungen"
+
+#: facture/tva
+msgid "Dont locations"
+msgstr "Davon Vermietungen"

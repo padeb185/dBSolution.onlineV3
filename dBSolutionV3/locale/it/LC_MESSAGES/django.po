@@ -42433,3 +42433,31 @@ msgstr "Dettaglio vendite – noleggi"
 #: voiture/voiture_location
 msgid "base HTVA"
 msgstr "imponibile IVA esclusa"
+
+#: facture/tva
+msgid "Facturées (incluses via les factures émises)"
+msgstr "Fatturati (inclusi tramite le fatture emesse)"
+
+#: facture/tva
+msgid "Non facturées (ajoutées depuis le prix TVAC)"
+msgstr "Non fatturati (aggiunti dal prezzo IVA inclusa)"
+
+#: facture/tva
+msgid "location(s) non facturée(s)"
+msgstr "noleggio/i non fatturato/i"
+
+#: facture/tva
+msgid "Les locations non facturées sont ajoutées à la TVA à payer à partir de leur prix TVAC."
+msgstr "I noleggi non fatturati sono aggiunti all'IVA da versare in base al prezzo IVA inclusa."
+
+#: facture/tva
+msgid "TVA à payer à l'État"
+msgstr "IVA da versare allo Stato"
+
+#: facture/tva
+msgid "Détail des locations comptées"
+msgstr "Dettaglio dei noleggi conteggiati"
+
+#: facture/tva
+msgid "Dont locations"
+msgstr "Di cui noleggi"

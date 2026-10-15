@@ -71,7 +71,7 @@
     <div class="bg-white shadow-md rounded-lg p-6">
         <h2 class="text-lg font-semibold mb-2">{% trans "Total TVA" %}</h2>
         <p class="text-2xl font-bold text-red-800">{{ totaux.tva|floatformat:2 }} €</p>
-        <p class="text-sm text-gray-600">{% trans "TVA à payer à l'État (via les factures émises)" %}</p>
+        <p class="text-sm text-gray-600">{% trans "TVA à payer à l'État" %}</p>
     </div>
     <div class="bg-white shadow-md rounded-lg p-6">
         <h2 class="text-lg font-semibold mb-2">{% trans "Total TVAC" %}</h2>
@@ -131,7 +131,7 @@
     </table>
     {% if totaux_non_facturees.nb %}
         <p class="text-sm text-gray-600 mt-2">
-            {% trans "Seules les locations facturées (facture émise) entrent dans la déclaration TVA." %}
+            {% trans "Les locations non facturées sont ajoutées à la TVA à payer à partir de leur prix TVAC." %}
         </p>
     {% endif %}
 </div>
@@ -191,7 +191,7 @@
         {% trans "Retour à la liste des locations" %}
     </a>
     <a href="{% url 'utilisateurs:dashboard' %}"
-       class="block w-full bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Retour au tableau de bord" %}
     </a>
 </div>

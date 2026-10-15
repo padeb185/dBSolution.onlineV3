@@ -105,6 +105,15 @@ class CalculTVA:
             .order_by("issue_date", "numero")
         )
 
+    def locations_periode(self):
+        from voiture.voiture_location.models import Location
+        return (
+            Location.objects.filter(societe=self.societe, date_debut__range=(self.debut, self.fin))
+            .select_related("societe__adresse", "voiture_exemplaire")
+            .prefetch_related("factures")
+            .order_by("date_debut")
+        )
+
     @property
     def tva_a_payer(self):
         if self._a_payer is not None:
@@ -113,28 +122,61 @@ class CalculTVA:
         from .models import FactureLine
         par_taux = {}
         base_autoliquidation = ZERO
-        base_locations = tva_locations = ZERO
         internes = []
         nb_factures = 0
 
+        def ajouter(taux, base, tva):
+            ligne = par_taux.setdefault(taux, {"taux": taux, "base": ZERO, "tva": ZERO})
+            ligne["base"] += base
+            ligne["tva"] += tva
+
+        # 1) Factures émises de la période (hors lignes de location, comptées en 2)
         for facture in self.factures_periode():
             # Facture à notre propre société : pas une vente, hors déclaration
             if facture.client_est_societe:
                 internes.append(facture)
                 continue
             nb_factures += 1
-            if not facture.autoliquidation:
-                for ligne in facture.lines.all():
-                    if ligne.type_ligne == FactureLine.TypeLigne.LOCATION:
-                        base_locations += ligne.total_ht
-                        tva_locations += arrondi(ligne.total_ht * Decimal(ligne.vat_rate or 0) / Decimal("100"))
-            for taux, groupe in facture.totaux_par_taux().items():
-                if facture.autoliquidation:
-                    base_autoliquidation += groupe["base"]
+            groupes = {}
+            for ligne in facture.lines.all():
+                if ligne.type_ligne == FactureLine.TypeLigne.LOCATION:
                     continue
-                ligne = par_taux.setdefault(taux, {"taux": taux, "base": ZERO, "tva": ZERO})
-                ligne["base"] += groupe["base"]
-                ligne["tva"] += groupe["tva"]
+                taux = ZERO if facture.autoliquidation else arrondi(ligne.vat_rate)
+                groupes[taux] = groupes.get(taux, ZERO) + ligne.total_ht
+            for taux, base in groupes.items():
+                base = arrondi(base)
+                if facture.autoliquidation:
+                    base_autoliquidation += base
+                    continue
+                ajouter(taux, base, arrondi(base * taux / Decimal("100")))
+
+        # 2) Locations (circuit / route) de la période, facturées ou non :
+        #    la TVA est due sur la location (prix TVAC, date de début de la location).
+        #    Les lignes « Location » des factures ne sont pas recomptées en 1).
+        locations = {
+            "facturees": {"nb": 0, "base": ZERO, "tva": ZERO, "tvac": ZERO},
+            "non_facturees": {"nb": 0, "base": ZERO, "tva": ZERO, "tvac": ZERO},
+            "liste": [],
+        }
+        for location in self.locations_periode():
+            emises = [f for f in location.factures.all() if f.statut == Facture.Statut.EMISE]
+            facture = emises[0] if emises else None
+            if facture is not None and facture.client_est_societe:
+                continue
+            groupe = locations["facturees" if facture else "non_facturees"]
+            groupe["nb"] += 1
+            if facture is not None and facture.autoliquidation:
+                base_autoliquidation += location.prix_htva
+                groupe["base"] += location.prix_htva
+                groupe["tvac"] += location.prix_htva
+                tva = ZERO
+            else:
+                ajouter(arrondi(location.taux_tva), location.prix_htva, location.montant_tva)
+                groupe["base"] += location.prix_htva
+                groupe["tva"] += location.montant_tva
+                groupe["tvac"] += location.prix_tvac
+                tva = location.montant_tva
+            locations["liste"].append({"location": location, "facture": facture, "tva": tva})
 
         lignes = [
             {**l, "base": arrondi(l["base"]), "tva": arrondi(l["tva"])}
@@ -145,9 +187,15 @@ class CalculTVA:
             "base": arrondi(sum((l["base"] for l in lignes), ZERO)),
             "tva": arrondi(sum((l["tva"] for l in lignes), ZERO)),
             "base_autoliquidation": arrondi(base_autoliquidation),
-            # Part des locations (circuit / route) dans les ventes — information
-            "base_locations": arrondi(base_locations),
-            "tva_locations": arrondi(tva_locations),
+            # Locations (circuit / route) incluses dans la TVA à payer
+            "locations": {
+                "facturees": {k: (arrondi(v) if k != "nb" else v) for k, v in locations["facturees"].items()},
+                "non_facturees": {k: (arrondi(v) if k != "nb" else v) for k, v in locations["non_facturees"].items()},
+                "liste": locations["liste"],
+                "tva": arrondi(locations["facturees"]["tva"] + locations["non_facturees"]["tva"]),
+                "base": arrondi(locations["facturees"]["base"] + locations["non_facturees"]["base"]),
+                "nb": locations["facturees"]["nb"] + locations["non_facturees"]["nb"],
+            },
             "nb_factures": nb_factures,
             "factures_internes": internes,
         }
