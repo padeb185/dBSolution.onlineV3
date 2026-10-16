@@ -514,6 +514,11 @@ def tambours_form_view(request, exemplaire_id):
             "fields": [form[f.name] for f in form if f.name == "plateau_frein" or f.name.startswith("plateau_frein_")],
         },
         {
+            "title": _("Niveau de liquide de frein / Purge"),
+            "icon": "icons/liquide_frein.png",
+            "fields": [form[f.name] for f in form if f.name == "liquide_frein" or f.name.startswith("liquide_frein_")],
+        },
+        {
             "title": _("Etiquette"),
             "icon": "icons/tag.png",
             "fields": [form[f.name] for f in form if "tag" in f.name],
@@ -845,6 +850,11 @@ def modifier_tambours_view(request, tambours_id):
             "title": _("Plateau de frein"),
             "icon": "icons/tamb_plateau.png",
             "fields": [form[f.name] for f in form if f.name == "plateau_frein" or f.name.startswith("plateau_frein_")],
+        },
+        {
+            "title": _("Niveau de liquide de frein / Purge"),
+            "icon": "icons/liquide_frein.png",
+            "fields": [form[f.name] for f in form if f.name == "liquide_frein" or f.name.startswith("liquide_frein_")],
         },
         {
             "title": _("Etiquette"),

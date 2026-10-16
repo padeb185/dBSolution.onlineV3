@@ -408,7 +408,6 @@
                     {% if frein_main.levier_frein_main == "OK" %}<span class="ok">{{ frein_main.get_levier_frein_main_display }}</span>
                     {% elif frein_main.levier_frein_main == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_levier_frein_main_display }}</span>
                     {% elif frein_main.levier_frein_main == "REMPLACE" %}<span class="remplace">{{ frein_main.get_levier_frein_main_display }}</span>{% endif %}
-                    {% if frein_main.levier_frein_main_fabricant and frein_main.levier_frein_main_fabricant != "CHOISIR" %} — {{ frein_main.get_levier_frein_main_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -417,7 +416,6 @@
                     {% if frein_main.contacteur_temoin == "OK" %}<span class="ok">{{ frein_main.get_contacteur_temoin_display }}</span>
                     {% elif frein_main.contacteur_temoin == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_contacteur_temoin_display }}</span>
                     {% elif frein_main.contacteur_temoin == "REMPLACE" %}<span class="remplace">{{ frein_main.get_contacteur_temoin_display }}</span>{% endif %}
-                    {% if frein_main.contacteur_temoin_fabricant and frein_main.contacteur_temoin_fabricant != "CHOISIR" %} — {{ frein_main.get_contacteur_temoin_fabricant_display }}{% endif %}
                 </td>
             </tr>
         </tbody>
@@ -441,7 +439,6 @@
                     {% if frein_main.cable_principal == "OK" %}<span class="ok">{{ frein_main.get_cable_principal_display }}</span>
                     {% elif frein_main.cable_principal == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_cable_principal_display }}</span>
                     {% elif frein_main.cable_principal == "REMPLACE" %}<span class="remplace">{{ frein_main.get_cable_principal_display }}</span>{% endif %}
-                    {% if frein_main.cable_principal_fabricant and frein_main.cable_principal_fabricant != "CHOISIR" %} — {{ frein_main.get_cable_principal_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -450,7 +447,6 @@
                     {% if frein_main.cables_secondaires == "OK" %}<span class="ok">{{ frein_main.get_cables_secondaires_display }}</span>
                     {% elif frein_main.cables_secondaires == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_cables_secondaires_display }}</span>
                     {% elif frein_main.cables_secondaires == "REMPLACE" %}<span class="remplace">{{ frein_main.get_cables_secondaires_display }}</span>{% endif %}
-                    {% if frein_main.cables_secondaires_fabricant and frein_main.cables_secondaires_fabricant != "CHOISIR" %} — {{ frein_main.get_cables_secondaires_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -459,7 +455,6 @@
                     {% if frein_main.palonnier == "OK" %}<span class="ok">{{ frein_main.get_palonnier_display }}</span>
                     {% elif frein_main.palonnier == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_palonnier_display }}</span>
                     {% elif frein_main.palonnier == "REMPLACE" %}<span class="remplace">{{ frein_main.get_palonnier_display }}</span>{% endif %}
-                    {% if frein_main.palonnier_fabricant and frein_main.palonnier_fabricant != "CHOISIR" %} — {{ frein_main.get_palonnier_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -468,7 +463,6 @@
                     {% if frein_main.tendeur_reglage == "OK" %}<span class="ok">{{ frein_main.get_tendeur_reglage_display }}</span>
                     {% elif frein_main.tendeur_reglage == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_tendeur_reglage_display }}</span>
                     {% elif frein_main.tendeur_reglage == "REMPLACE" %}<span class="remplace">{{ frein_main.get_tendeur_reglage_display }}</span>{% endif %}
-                    {% if frein_main.tendeur_reglage_fabricant and frein_main.tendeur_reglage_fabricant != "CHOISIR" %} — {{ frein_main.get_tendeur_reglage_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -477,7 +471,6 @@
                     {% if frein_main.machoires_frein_main == "OK" %}<span class="ok">{{ frein_main.get_machoires_frein_main_display }}</span>
                     {% elif frein_main.machoires_frein_main == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_machoires_frein_main_display }}</span>
                     {% elif frein_main.machoires_frein_main == "REMPLACE" %}<span class="remplace">{{ frein_main.get_machoires_frein_main_display }}</span>{% endif %}
-                    {% if frein_main.machoires_frein_main_fabricant and frein_main.machoires_frein_main_fabricant != "CHOISIR" %} — {{ frein_main.get_machoires_frein_main_fabricant_display }}{% endif %}
                 </td>
             </tr>
         </tbody>
@@ -501,7 +494,6 @@
                     {% if frein_main.moteur_epb_gauche == "OK" %}<span class="ok">{{ frein_main.get_moteur_epb_gauche_display }}</span>
                     {% elif frein_main.moteur_epb_gauche == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_moteur_epb_gauche_display }}</span>
                     {% elif frein_main.moteur_epb_gauche == "REMPLACE" %}<span class="remplace">{{ frein_main.get_moteur_epb_gauche_display }}</span>{% endif %}
-                    {% if frein_main.moteur_epb_gauche_fabricant and frein_main.moteur_epb_gauche_fabricant != "CHOISIR" %} — {{ frein_main.get_moteur_epb_gauche_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -510,7 +502,6 @@
                     {% if frein_main.moteur_epb_droit == "OK" %}<span class="ok">{{ frein_main.get_moteur_epb_droit_display }}</span>
                     {% elif frein_main.moteur_epb_droit == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_moteur_epb_droit_display }}</span>
                     {% elif frein_main.moteur_epb_droit == "REMPLACE" %}<span class="remplace">{{ frein_main.get_moteur_epb_droit_display }}</span>{% endif %}
-                    {% if frein_main.moteur_epb_droit_fabricant and frein_main.moteur_epb_droit_fabricant != "CHOISIR" %} — {{ frein_main.get_moteur_epb_droit_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -519,7 +510,30 @@
                     {% if frein_main.commande_epb == "OK" %}<span class="ok">{{ frein_main.get_commande_epb_display }}</span>
                     {% elif frein_main.commande_epb == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_commande_epb_display }}</span>
                     {% elif frein_main.commande_epb == "REMPLACE" %}<span class="remplace">{{ frein_main.get_commande_epb_display }}</span>{% endif %}
-                    {% if frein_main.commande_epb_fabricant and frein_main.commande_epb_fabricant != "CHOISIR" %} — {{ frein_main.get_commande_epb_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Liquide de frein" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% trans "Liquide de frein" %}</td>
+                <td>
+                    {% if frein_main.liquide_frein == "OK" %}<span class="ok">{{ frein_main.get_liquide_frein_display }}</span>
+                    {% elif frein_main.liquide_frein == "NOT_OK" %}<span class="not-ok">{{ frein_main.get_liquide_frein_display }}</span>
+                    {% elif frein_main.liquide_frein == "REMPLACE" %}<span class="remplace">{{ frein_main.get_liquide_frein_display }}</span>{% endif %}
+                    {% if frein_main.liquide_frein_qualite %} — {{ frein_main.get_liquide_frein_qualite_display }}{% endif %}
                 </td>
             </tr>
         </tbody>

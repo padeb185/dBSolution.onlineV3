@@ -409,7 +409,6 @@
                     {% if tambours.tambour_gauche == "OK" %}<span class="ok">{{ tambours.get_tambour_gauche_display }}</span>
                     {% elif tambours.tambour_gauche == "NOT_OK" %}<span class="not-ok">{{ tambours.get_tambour_gauche_display }}</span>
                     {% elif tambours.tambour_gauche == "REMPLACE" %}<span class="remplace">{{ tambours.get_tambour_gauche_display }}</span>{% endif %}
-                    {% if tambours.tambour_gauche_fabricant and tambours.tambour_gauche_fabricant != "CHOISIR" %} — {{ tambours.get_tambour_gauche_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -418,7 +417,6 @@
                     {% if tambours.tambour_droit == "OK" %}<span class="ok">{{ tambours.get_tambour_droit_display }}</span>
                     {% elif tambours.tambour_droit == "NOT_OK" %}<span class="not-ok">{{ tambours.get_tambour_droit_display }}</span>
                     {% elif tambours.tambour_droit == "REMPLACE" %}<span class="remplace">{{ tambours.get_tambour_droit_display }}</span>{% endif %}
-                    {% if tambours.tambour_droit_fabricant and tambours.tambour_droit_fabricant != "CHOISIR" %} — {{ tambours.get_tambour_droit_fabricant_display }}{% endif %}
                 </td>
             </tr>
         </tbody>
@@ -442,7 +440,6 @@
                     {% if tambours.cylindre_recepteur_gauche == "OK" %}<span class="ok">{{ tambours.get_cylindre_recepteur_gauche_display }}</span>
                     {% elif tambours.cylindre_recepteur_gauche == "NOT_OK" %}<span class="not-ok">{{ tambours.get_cylindre_recepteur_gauche_display }}</span>
                     {% elif tambours.cylindre_recepteur_gauche == "REMPLACE" %}<span class="remplace">{{ tambours.get_cylindre_recepteur_gauche_display }}</span>{% endif %}
-                    {% if tambours.cylindre_recepteur_gauche_fabricant and tambours.cylindre_recepteur_gauche_fabricant != "CHOISIR" %} — {{ tambours.get_cylindre_recepteur_gauche_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -451,7 +448,6 @@
                     {% if tambours.cylindre_recepteur_droit == "OK" %}<span class="ok">{{ tambours.get_cylindre_recepteur_droit_display }}</span>
                     {% elif tambours.cylindre_recepteur_droit == "NOT_OK" %}<span class="not-ok">{{ tambours.get_cylindre_recepteur_droit_display }}</span>
                     {% elif tambours.cylindre_recepteur_droit == "REMPLACE" %}<span class="remplace">{{ tambours.get_cylindre_recepteur_droit_display }}</span>{% endif %}
-                    {% if tambours.cylindre_recepteur_droit_fabricant and tambours.cylindre_recepteur_droit_fabricant != "CHOISIR" %} — {{ tambours.get_cylindre_recepteur_droit_fabricant_display }}{% endif %}
                 </td>
             </tr>
         </tbody>
@@ -475,7 +471,6 @@
                     {% if tambours.machoires_patins == "OK" %}<span class="ok">{{ tambours.get_machoires_patins_display }}</span>
                     {% elif tambours.machoires_patins == "NOT_OK" %}<span class="not-ok">{{ tambours.get_machoires_patins_display }}</span>
                     {% elif tambours.machoires_patins == "REMPLACE" %}<span class="remplace">{{ tambours.get_machoires_patins_display }}</span>{% endif %}
-                    {% if tambours.machoires_patins_fabricant and tambours.machoires_patins_fabricant != "CHOISIR" %} — {{ tambours.get_machoires_patins_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -484,7 +479,6 @@
                     {% if tambours.ressorts_rappel == "OK" %}<span class="ok">{{ tambours.get_ressorts_rappel_display }}</span>
                     {% elif tambours.ressorts_rappel == "NOT_OK" %}<span class="not-ok">{{ tambours.get_ressorts_rappel_display }}</span>
                     {% elif tambours.ressorts_rappel == "REMPLACE" %}<span class="remplace">{{ tambours.get_ressorts_rappel_display }}</span>{% endif %}
-                    {% if tambours.ressorts_rappel_fabricant and tambours.ressorts_rappel_fabricant != "CHOISIR" %} — {{ tambours.get_ressorts_rappel_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -493,7 +487,6 @@
                     {% if tambours.ressorts_maintien == "OK" %}<span class="ok">{{ tambours.get_ressorts_maintien_display }}</span>
                     {% elif tambours.ressorts_maintien == "NOT_OK" %}<span class="not-ok">{{ tambours.get_ressorts_maintien_display }}</span>
                     {% elif tambours.ressorts_maintien == "REMPLACE" %}<span class="remplace">{{ tambours.get_ressorts_maintien_display }}</span>{% endif %}
-                    {% if tambours.ressorts_maintien_fabricant and tambours.ressorts_maintien_fabricant != "CHOISIR" %} — {{ tambours.get_ressorts_maintien_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -502,7 +495,6 @@
                     {% if tambours.regleur == "OK" %}<span class="ok">{{ tambours.get_regleur_display }}</span>
                     {% elif tambours.regleur == "NOT_OK" %}<span class="not-ok">{{ tambours.get_regleur_display }}</span>
                     {% elif tambours.regleur == "REMPLACE" %}<span class="remplace">{{ tambours.get_regleur_display }}</span>{% endif %}
-                    {% if tambours.regleur_fabricant and tambours.regleur_fabricant != "CHOISIR" %} — {{ tambours.get_regleur_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -511,7 +503,6 @@
                     {% if tambours.patte_frein_main == "OK" %}<span class="ok">{{ tambours.get_patte_frein_main_display }}</span>
                     {% elif tambours.patte_frein_main == "NOT_OK" %}<span class="not-ok">{{ tambours.get_patte_frein_main_display }}</span>
                     {% elif tambours.patte_frein_main == "REMPLACE" %}<span class="remplace">{{ tambours.get_patte_frein_main_display }}</span>{% endif %}
-                    {% if tambours.patte_frein_main_fabricant and tambours.patte_frein_main_fabricant != "CHOISIR" %} — {{ tambours.get_patte_frein_main_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -520,7 +511,30 @@
                     {% if tambours.plateau_frein == "OK" %}<span class="ok">{{ tambours.get_plateau_frein_display }}</span>
                     {% elif tambours.plateau_frein == "NOT_OK" %}<span class="not-ok">{{ tambours.get_plateau_frein_display }}</span>
                     {% elif tambours.plateau_frein == "REMPLACE" %}<span class="remplace">{{ tambours.get_plateau_frein_display }}</span>{% endif %}
-                    {% if tambours.plateau_frein_fabricant and tambours.plateau_frein_fabricant != "CHOISIR" %} — {{ tambours.get_plateau_frein_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Liquide de frein" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{% trans "Liquide de frein" %}</td>
+                <td>
+                    {% if tambours.liquide_frein == "OK" %}<span class="ok">{{ tambours.get_liquide_frein_display }}</span>
+                    {% elif tambours.liquide_frein == "NOT_OK" %}<span class="not-ok">{{ tambours.get_liquide_frein_display }}</span>
+                    {% elif tambours.liquide_frein == "REMPLACE" %}<span class="remplace">{{ tambours.get_liquide_frein_display }}</span>{% endif %}
+                    {% if tambours.liquide_frein_qualite %} — {{ tambours.get_liquide_frein_qualite_display }}{% endif %}
                 </td>
             </tr>
         </tbody>

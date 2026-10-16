@@ -514,6 +514,11 @@ def frein_main_form_view(request, exemplaire_id):
             "fields": [form[f.name] for f in form if f.name == "commande_epb" or f.name.startswith("commande_epb_")],
         },
         {
+            "title": _("Niveau de liquide de frein / Purge"),
+            "icon": "icons/liquide_frein.png",
+            "fields": [form[f.name] for f in form if f.name == "liquide_frein" or f.name.startswith("liquide_frein_")],
+        },
+        {
             "title": _("Etiquette"),
             "icon": "icons/tag.png",
             "fields": [form[f.name] for f in form if "tag" in f.name],
@@ -845,6 +850,11 @@ def modifier_frein_main_view(request, frein_main_id):
             "title": _("Bouton / commande EPB"),
             "icon": "icons/fm_commande_epb.png",
             "fields": [form[f.name] for f in form if f.name == "commande_epb" or f.name.startswith("commande_epb_")],
+        },
+        {
+            "title": _("Niveau de liquide de frein / Purge"),
+            "icon": "icons/liquide_frein.png",
+            "fields": [form[f.name] for f in form if f.name == "liquide_frein" or f.name.startswith("liquide_frein_")],
         },
         {
             "title": _("Etiquette"),

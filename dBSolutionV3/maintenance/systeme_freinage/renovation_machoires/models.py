@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError, FieldDoesNotExist
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.choices import FabricantFrein, TVAConfig, RouesSerrageEtat, TAUX_HORAIRE_CHOICES
+from maintenance.choices import FabricantFrein, TVAConfig, RouesSerrageEtat, TAUX_HORAIRE_CHOICES, LiquideFreinsQualite
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -204,9 +204,17 @@ class RenovationMachoires(TechnicienMixin, models.Model):
 
     liquide_frein = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Liquide de frein"))
     liquide_frein_fabricant = models.CharField(max_length=30, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR, verbose_name=_("Fabricant"))
+    liquide_frein_qualite =  models.CharField(max_length=100, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4, blank=True,verbose_name=_("Spécification liquide de frein"))
     liquide_frein_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
-    liquide_frein_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
-
+    liquide_frein_quantite = models.DecimalField(
+        max_digits=4,
+        decimal_places=2,
+        default=0.0,
+        null=True,
+        blank=True,
+        verbose_name=_("Quantité"),
+        validators=[StepValueValidator(0.1)],
+    )
 
 
     serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,

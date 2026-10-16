@@ -403,33 +403,36 @@
             </tr>
         </thead>
         <tbody>
+            {% if nettoyage_freins.disques_avant != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Disques avant" %}</td>
                 <td>
                     {% if nettoyage_freins.disques_avant == "OK" %}<span class="ok">{{ nettoyage_freins.get_disques_avant_display }}</span>
                     {% elif nettoyage_freins.disques_avant == "NOT_OK" %}<span class="not-ok">{{ nettoyage_freins.get_disques_avant_display }}</span>
-                    {% elif nettoyage_freins.disques_avant == "REMPLACE" %}<span class="remplace">{{ nettoyage_freins.get_disques_avant_display }}</span>{% endif %}
-                    {% if nettoyage_freins.disques_avant_fabricant and nettoyage_freins.disques_avant_fabricant != "CHOISIR" %} — {{ nettoyage_freins.get_disques_avant_fabricant_display }}{% endif %}
+                    {% elif nettoyage_freins.disques_avant == "REMPLACE" or nettoyage_freins.disques_avant == "AJOUTER" or nettoyage_freins.disques_avant == "NETTOYER" %}<span class="remplace">{{ nettoyage_freins.get_disques_avant_display }}</span>{% endif %}
                 </td>
             </tr>
+            {% endif %}
+            {% if nettoyage_freins.plaquettes_avant != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Plaquettes avant" %}</td>
                 <td>
                     {% if nettoyage_freins.plaquettes_avant == "OK" %}<span class="ok">{{ nettoyage_freins.get_plaquettes_avant_display }}</span>
                     {% elif nettoyage_freins.plaquettes_avant == "NOT_OK" %}<span class="not-ok">{{ nettoyage_freins.get_plaquettes_avant_display }}</span>
-                    {% elif nettoyage_freins.plaquettes_avant == "REMPLACE" %}<span class="remplace">{{ nettoyage_freins.get_plaquettes_avant_display }}</span>{% endif %}
-                    {% if nettoyage_freins.plaquettes_avant_fabricant and nettoyage_freins.plaquettes_avant_fabricant != "CHOISIR" %} — {{ nettoyage_freins.get_plaquettes_avant_fabricant_display }}{% endif %}
+                    {% elif nettoyage_freins.plaquettes_avant == "REMPLACE" or nettoyage_freins.plaquettes_avant == "AJOUTER" or nettoyage_freins.plaquettes_avant == "NETTOYER" %}<span class="remplace">{{ nettoyage_freins.get_plaquettes_avant_display }}</span>{% endif %}
                 </td>
             </tr>
+            {% endif %}
+            {% if nettoyage_freins.etriers_avant != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Étriers avant" %}</td>
                 <td>
                     {% if nettoyage_freins.etriers_avant == "OK" %}<span class="ok">{{ nettoyage_freins.get_etriers_avant_display }}</span>
                     {% elif nettoyage_freins.etriers_avant == "NOT_OK" %}<span class="not-ok">{{ nettoyage_freins.get_etriers_avant_display }}</span>
-                    {% elif nettoyage_freins.etriers_avant == "REMPLACE" %}<span class="remplace">{{ nettoyage_freins.get_etriers_avant_display }}</span>{% endif %}
-                    {% if nettoyage_freins.etriers_avant_fabricant and nettoyage_freins.etriers_avant_fabricant != "CHOISIR" %} — {{ nettoyage_freins.get_etriers_avant_fabricant_display }}{% endif %}
+                    {% elif nettoyage_freins.etriers_avant == "REMPLACE" or nettoyage_freins.etriers_avant == "AJOUTER" or nettoyage_freins.etriers_avant == "NETTOYER" %}<span class="remplace">{{ nettoyage_freins.get_etriers_avant_display }}</span>{% endif %}
                 </td>
             </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>
@@ -445,42 +448,50 @@
             </tr>
         </thead>
         <tbody>
+            {% if nettoyage_freins.disques_arriere != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Disques arrière" %}</td>
                 <td>
                     {% if nettoyage_freins.disques_arriere == "OK" %}<span class="ok">{{ nettoyage_freins.get_disques_arriere_display }}</span>
                     {% elif nettoyage_freins.disques_arriere == "NOT_OK" %}<span class="not-ok">{{ nettoyage_freins.get_disques_arriere_display }}</span>
-                    {% elif nettoyage_freins.disques_arriere == "REMPLACE" %}<span class="remplace">{{ nettoyage_freins.get_disques_arriere_display }}</span>{% endif %}
-                    {% if nettoyage_freins.disques_arriere_fabricant and nettoyage_freins.disques_arriere_fabricant != "CHOISIR" %} — {{ nettoyage_freins.get_disques_arriere_fabricant_display }}{% endif %}
+                    {% elif nettoyage_freins.disques_arriere == "REMPLACE" or nettoyage_freins.disques_arriere == "AJOUTER" or nettoyage_freins.disques_arriere == "NETTOYER" %}<span class="remplace">{{ nettoyage_freins.get_disques_arriere_display }}</span>{% endif %}
+
                 </td>
             </tr>
+            {% endif %}
+            {% if nettoyage_freins.plaquettes_arriere != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Plaquettes arrière" %}</td>
                 <td>
                     {% if nettoyage_freins.plaquettes_arriere == "OK" %}<span class="ok">{{ nettoyage_freins.get_plaquettes_arriere_display }}</span>
                     {% elif nettoyage_freins.plaquettes_arriere == "NOT_OK" %}<span class="not-ok">{{ nettoyage_freins.get_plaquettes_arriere_display }}</span>
-                    {% elif nettoyage_freins.plaquettes_arriere == "REMPLACE" %}<span class="remplace">{{ nettoyage_freins.get_plaquettes_arriere_display }}</span>{% endif %}
-                    {% if nettoyage_freins.plaquettes_arriere_fabricant and nettoyage_freins.plaquettes_arriere_fabricant != "CHOISIR" %} — {{ nettoyage_freins.get_plaquettes_arriere_fabricant_display }}{% endif %}
+                    {% elif nettoyage_freins.plaquettes_arriere == "REMPLACE" or nettoyage_freins.plaquettes_arriere == "AJOUTER" or nettoyage_freins.plaquettes_arriere == "NETTOYER" %}<span class="remplace">{{ nettoyage_freins.get_plaquettes_arriere_display }}</span>{% endif %}
+
                 </td>
             </tr>
+            {% endif %}
+            {% if nettoyage_freins.etriers_arriere != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Étriers arrière" %}</td>
                 <td>
                     {% if nettoyage_freins.etriers_arriere == "OK" %}<span class="ok">{{ nettoyage_freins.get_etriers_arriere_display }}</span>
                     {% elif nettoyage_freins.etriers_arriere == "NOT_OK" %}<span class="not-ok">{{ nettoyage_freins.get_etriers_arriere_display }}</span>
-                    {% elif nettoyage_freins.etriers_arriere == "REMPLACE" %}<span class="remplace">{{ nettoyage_freins.get_etriers_arriere_display }}</span>{% endif %}
-                    {% if nettoyage_freins.etriers_arriere_fabricant and nettoyage_freins.etriers_arriere_fabricant != "CHOISIR" %} — {{ nettoyage_freins.get_etriers_arriere_fabricant_display }}{% endif %}
+                    {% elif nettoyage_freins.etriers_arriere == "REMPLACE" or nettoyage_freins.etriers_arriere == "AJOUTER" or nettoyage_freins.etriers_arriere == "NETTOYER" %}<span class="remplace">{{ nettoyage_freins.get_etriers_arriere_display }}</span>{% endif %}
+
                 </td>
             </tr>
+            {% endif %}
+            {% if nettoyage_freins.tambours_arriere != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Tambours arrière" %}</td>
                 <td>
                     {% if nettoyage_freins.tambours_arriere == "OK" %}<span class="ok">{{ nettoyage_freins.get_tambours_arriere_display }}</span>
                     {% elif nettoyage_freins.tambours_arriere == "NOT_OK" %}<span class="not-ok">{{ nettoyage_freins.get_tambours_arriere_display }}</span>
-                    {% elif nettoyage_freins.tambours_arriere == "REMPLACE" %}<span class="remplace">{{ nettoyage_freins.get_tambours_arriere_display }}</span>{% endif %}
-                    {% if nettoyage_freins.tambours_arriere_fabricant and nettoyage_freins.tambours_arriere_fabricant != "CHOISIR" %} — {{ nettoyage_freins.get_tambours_arriere_fabricant_display }}{% endif %}
+                    {% elif nettoyage_freins.tambours_arriere == "REMPLACE" or nettoyage_freins.tambours_arriere == "AJOUTER" or nettoyage_freins.tambours_arriere == "NETTOYER" %}<span class="remplace">{{ nettoyage_freins.get_tambours_arriere_display }}</span>{% endif %}
+
                 </td>
             </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>
@@ -496,33 +507,38 @@
             </tr>
         </thead>
         <tbody>
+            {% if nettoyage_freins.glissieres != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Glissières / colonnettes d'étriers" %}</td>
                 <td>
                     {% if nettoyage_freins.glissieres == "OK" %}<span class="ok">{{ nettoyage_freins.get_glissieres_display }}</span>
                     {% elif nettoyage_freins.glissieres == "NOT_OK" %}<span class="not-ok">{{ nettoyage_freins.get_glissieres_display }}</span>
-                    {% elif nettoyage_freins.glissieres == "REMPLACE" %}<span class="remplace">{{ nettoyage_freins.get_glissieres_display }}</span>{% endif %}
-                    {% if nettoyage_freins.glissieres_fabricant and nettoyage_freins.glissieres_fabricant != "CHOISIR" %} — {{ nettoyage_freins.get_glissieres_fabricant_display }}{% endif %}
+                    {% elif nettoyage_freins.glissieres == "REMPLACE" or nettoyage_freins.glissieres == "AJOUTER" or nettoyage_freins.glissieres == "NETTOYER" %}<span class="remplace">{{ nettoyage_freins.get_glissieres_display }}</span>{% endif %}
+
                 </td>
             </tr>
+            {% endif %}
+            {% if nettoyage_freins.ressorts_anti_bruit != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Ressorts / clips anti-bruit" %}</td>
                 <td>
                     {% if nettoyage_freins.ressorts_anti_bruit == "OK" %}<span class="ok">{{ nettoyage_freins.get_ressorts_anti_bruit_display }}</span>
                     {% elif nettoyage_freins.ressorts_anti_bruit == "NOT_OK" %}<span class="not-ok">{{ nettoyage_freins.get_ressorts_anti_bruit_display }}</span>
-                    {% elif nettoyage_freins.ressorts_anti_bruit == "REMPLACE" %}<span class="remplace">{{ nettoyage_freins.get_ressorts_anti_bruit_display }}</span>{% endif %}
-                    {% if nettoyage_freins.ressorts_anti_bruit_fabricant and nettoyage_freins.ressorts_anti_bruit_fabricant != "CHOISIR" %} — {{ nettoyage_freins.get_ressorts_anti_bruit_fabricant_display }}{% endif %}
+                    {% elif nettoyage_freins.ressorts_anti_bruit == "REMPLACE" or nettoyage_freins.ressorts_anti_bruit == "AJOUTER" or nettoyage_freins.ressorts_anti_bruit == "NETTOYER" %}<span class="remplace">{{ nettoyage_freins.get_ressorts_anti_bruit_display }}</span>{% endif %}
+
                 </td>
             </tr>
+            {% endif %}
+            {% if nettoyage_freins.cache_poussiere != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Soufflets / cache-poussière" %}</td>
                 <td>
                     {% if nettoyage_freins.cache_poussiere == "OK" %}<span class="ok">{{ nettoyage_freins.get_cache_poussiere_display }}</span>
                     {% elif nettoyage_freins.cache_poussiere == "NOT_OK" %}<span class="not-ok">{{ nettoyage_freins.get_cache_poussiere_display }}</span>
-                    {% elif nettoyage_freins.cache_poussiere == "REMPLACE" %}<span class="remplace">{{ nettoyage_freins.get_cache_poussiere_display }}</span>{% endif %}
-                    {% if nettoyage_freins.cache_poussiere_fabricant and nettoyage_freins.cache_poussiere_fabricant != "CHOISIR" %} — {{ nettoyage_freins.get_cache_poussiere_fabricant_display }}{% endif %}
-                </td>
+                    {% elif nettoyage_freins.cache_poussiere == "REMPLACE" or nettoyage_freins.cache_poussiere == "AJOUTER" or nettoyage_freins.cache_poussiere == "NETTOYER" %}<span class="remplace">{{ nettoyage_freins.get_cache_poussiere_display }}</span>{% endif %}
+
             </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>
@@ -538,24 +554,54 @@
             </tr>
         </thead>
         <tbody>
+            {% if nettoyage_freins.nettoyant_freins != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Nettoyant freins" %}</td>
                 <td>
                     {% if nettoyage_freins.nettoyant_freins == "OK" %}<span class="ok">{{ nettoyage_freins.get_nettoyant_freins_display }}</span>
                     {% elif nettoyage_freins.nettoyant_freins == "NOT_OK" %}<span class="not-ok">{{ nettoyage_freins.get_nettoyant_freins_display }}</span>
-                    {% elif nettoyage_freins.nettoyant_freins == "REMPLACE" %}<span class="remplace">{{ nettoyage_freins.get_nettoyant_freins_display }}</span>{% endif %}
-                    {% if nettoyage_freins.nettoyant_freins_fabricant and nettoyage_freins.nettoyant_freins_fabricant != "CHOISIR" %} — {{ nettoyage_freins.get_nettoyant_freins_fabricant_display }}{% endif %}
+                    {% elif nettoyage_freins.nettoyant_freins == "REMPLACE" or nettoyage_freins.nettoyant_freins == "AJOUTER" or nettoyage_freins.nettoyant_freins == "NETTOYER" %}<span class="remplace">{{ nettoyage_freins.get_nettoyant_freins_display }}</span>{% endif %}
+
                 </td>
             </tr>
+            {% endif %}
+            {% if nettoyage_freins.graisse_freins != "NON_PRESENT" %}
             <tr>
                 <td>{% trans "Graisse spéciale freins" %}</td>
                 <td>
                     {% if nettoyage_freins.graisse_freins == "OK" %}<span class="ok">{{ nettoyage_freins.get_graisse_freins_display }}</span>
                     {% elif nettoyage_freins.graisse_freins == "NOT_OK" %}<span class="not-ok">{{ nettoyage_freins.get_graisse_freins_display }}</span>
-                    {% elif nettoyage_freins.graisse_freins == "REMPLACE" %}<span class="remplace">{{ nettoyage_freins.get_graisse_freins_display }}</span>{% endif %}
-                    {% if nettoyage_freins.graisse_freins_fabricant and nettoyage_freins.graisse_freins_fabricant != "CHOISIR" %} — {{ nettoyage_freins.get_graisse_freins_fabricant_display }}{% endif %}
+                    {% elif nettoyage_freins.graisse_freins == "REMPLACE" or nettoyage_freins.graisse_freins == "AJOUTER" or nettoyage_freins.graisse_freins == "NETTOYER" %}<span class="remplace">{{ nettoyage_freins.get_graisse_freins_display }}</span>{% endif %}
+
                 </td>
             </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Liquide de frein" %}</h2>
+
+<div>
+    <table class="table-2-cols">
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if nettoyage_freins.liquide_frein != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Liquide de frein" %}</td>
+                <td>
+                    {% if nettoyage_freins.liquide_frein == "OK" %}<span class="ok">{{ nettoyage_freins.get_liquide_frein_display }}</span>
+                    {% elif nettoyage_freins.liquide_frein == "NOT_OK" %}<span class="not-ok">{{ nettoyage_freins.get_liquide_frein_display }}</span>
+                    {% elif nettoyage_freins.liquide_frein == "REMPLACE" or nettoyage_freins.liquide_frein == "AJOUTER" or nettoyage_freins.liquide_frein == "NETTOYER" %}<span class="remplace">{{ nettoyage_freins.get_liquide_frein_display }}</span>{% endif %}
+                    {% if nettoyage_freins.liquide_frein_qualite %} — {{ nettoyage_freins.get_liquide_frein_qualite_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>
@@ -629,12 +675,12 @@
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
                                     <span class="etat-rouge">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "REMPLACE" %}
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" or ligne.etat == "NETTOYER" %}
                                     <span class="etat-bleu">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>

@@ -408,7 +408,6 @@
                     {% if renovation_machoires.kit_reparation == "OK" %}<span class="ok">{{ renovation_machoires.get_kit_reparation_display }}</span>
                     {% elif renovation_machoires.kit_reparation == "NOT_OK" %}<span class="not-ok">{{ renovation_machoires.get_kit_reparation_display }}</span>
                     {% elif renovation_machoires.kit_reparation == "REMPLACE" %}<span class="remplace">{{ renovation_machoires.get_kit_reparation_display }}</span>{% endif %}
-                    {% if renovation_machoires.kit_reparation_fabricant and renovation_machoires.kit_reparation_fabricant != "CHOISIR" %} — {{ renovation_machoires.get_kit_reparation_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -417,7 +416,6 @@
                     {% if renovation_machoires.pistons == "OK" %}<span class="ok">{{ renovation_machoires.get_pistons_display }}</span>
                     {% elif renovation_machoires.pistons == "NOT_OK" %}<span class="not-ok">{{ renovation_machoires.get_pistons_display }}</span>
                     {% elif renovation_machoires.pistons == "REMPLACE" %}<span class="remplace">{{ renovation_machoires.get_pistons_display }}</span>{% endif %}
-                    {% if renovation_machoires.pistons_fabricant and renovation_machoires.pistons_fabricant != "CHOISIR" %} — {{ renovation_machoires.get_pistons_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -426,7 +424,6 @@
                     {% if renovation_machoires.joints_pistons == "OK" %}<span class="ok">{{ renovation_machoires.get_joints_pistons_display }}</span>
                     {% elif renovation_machoires.joints_pistons == "NOT_OK" %}<span class="not-ok">{{ renovation_machoires.get_joints_pistons_display }}</span>
                     {% elif renovation_machoires.joints_pistons == "REMPLACE" %}<span class="remplace">{{ renovation_machoires.get_joints_pistons_display }}</span>{% endif %}
-                    {% if renovation_machoires.joints_pistons_fabricant and renovation_machoires.joints_pistons_fabricant != "CHOISIR" %} — {{ renovation_machoires.get_joints_pistons_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -435,7 +432,6 @@
                     {% if renovation_machoires.cache_poussiere == "OK" %}<span class="ok">{{ renovation_machoires.get_cache_poussiere_display }}</span>
                     {% elif renovation_machoires.cache_poussiere == "NOT_OK" %}<span class="not-ok">{{ renovation_machoires.get_cache_poussiere_display }}</span>
                     {% elif renovation_machoires.cache_poussiere == "REMPLACE" %}<span class="remplace">{{ renovation_machoires.get_cache_poussiere_display }}</span>{% endif %}
-                    {% if renovation_machoires.cache_poussiere_fabricant and renovation_machoires.cache_poussiere_fabricant != "CHOISIR" %} — {{ renovation_machoires.get_cache_poussiere_fabricant_display }}{% endif %}
                 </td>
             </tr>
         </tbody>
@@ -459,7 +455,6 @@
                     {% if renovation_machoires.glissieres == "OK" %}<span class="ok">{{ renovation_machoires.get_glissieres_display }}</span>
                     {% elif renovation_machoires.glissieres == "NOT_OK" %}<span class="not-ok">{{ renovation_machoires.get_glissieres_display }}</span>
                     {% elif renovation_machoires.glissieres == "REMPLACE" %}<span class="remplace">{{ renovation_machoires.get_glissieres_display }}</span>{% endif %}
-                    {% if renovation_machoires.glissieres_fabricant and renovation_machoires.glissieres_fabricant != "CHOISIR" %} — {{ renovation_machoires.get_glissieres_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -468,7 +463,6 @@
                     {% if renovation_machoires.soufflets_glissieres == "OK" %}<span class="ok">{{ renovation_machoires.get_soufflets_glissieres_display }}</span>
                     {% elif renovation_machoires.soufflets_glissieres == "NOT_OK" %}<span class="not-ok">{{ renovation_machoires.get_soufflets_glissieres_display }}</span>
                     {% elif renovation_machoires.soufflets_glissieres == "REMPLACE" %}<span class="remplace">{{ renovation_machoires.get_soufflets_glissieres_display }}</span>{% endif %}
-                    {% if renovation_machoires.soufflets_glissieres_fabricant and renovation_machoires.soufflets_glissieres_fabricant != "CHOISIR" %} — {{ renovation_machoires.get_soufflets_glissieres_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -477,7 +471,6 @@
                     {% if renovation_machoires.vis_purge == "OK" %}<span class="ok">{{ renovation_machoires.get_vis_purge_display }}</span>
                     {% elif renovation_machoires.vis_purge == "NOT_OK" %}<span class="not-ok">{{ renovation_machoires.get_vis_purge_display }}</span>
                     {% elif renovation_machoires.vis_purge == "REMPLACE" %}<span class="remplace">{{ renovation_machoires.get_vis_purge_display }}</span>{% endif %}
-                    {% if renovation_machoires.vis_purge_fabricant and renovation_machoires.vis_purge_fabricant != "CHOISIR" %} — {{ renovation_machoires.get_vis_purge_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -486,7 +479,6 @@
                     {% if renovation_machoires.support_etrier == "OK" %}<span class="ok">{{ renovation_machoires.get_support_etrier_display }}</span>
                     {% elif renovation_machoires.support_etrier == "NOT_OK" %}<span class="not-ok">{{ renovation_machoires.get_support_etrier_display }}</span>
                     {% elif renovation_machoires.support_etrier == "REMPLACE" %}<span class="remplace">{{ renovation_machoires.get_support_etrier_display }}</span>{% endif %}
-                    {% if renovation_machoires.support_etrier_fabricant and renovation_machoires.support_etrier_fabricant != "CHOISIR" %} — {{ renovation_machoires.get_support_etrier_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -495,7 +487,6 @@
                     {% if renovation_machoires.ressorts_plaquettes == "OK" %}<span class="ok">{{ renovation_machoires.get_ressorts_plaquettes_display }}</span>
                     {% elif renovation_machoires.ressorts_plaquettes == "NOT_OK" %}<span class="not-ok">{{ renovation_machoires.get_ressorts_plaquettes_display }}</span>
                     {% elif renovation_machoires.ressorts_plaquettes == "REMPLACE" %}<span class="remplace">{{ renovation_machoires.get_ressorts_plaquettes_display }}</span>{% endif %}
-                    {% if renovation_machoires.ressorts_plaquettes_fabricant and renovation_machoires.ressorts_plaquettes_fabricant != "CHOISIR" %} — {{ renovation_machoires.get_ressorts_plaquettes_fabricant_display }}{% endif %}
                 </td>
             </tr>
         </tbody>
@@ -519,7 +510,6 @@
                     {% if renovation_machoires.peinture_etrier == "OK" %}<span class="ok">{{ renovation_machoires.get_peinture_etrier_display }}</span>
                     {% elif renovation_machoires.peinture_etrier == "NOT_OK" %}<span class="not-ok">{{ renovation_machoires.get_peinture_etrier_display }}</span>
                     {% elif renovation_machoires.peinture_etrier == "REMPLACE" %}<span class="remplace">{{ renovation_machoires.get_peinture_etrier_display }}</span>{% endif %}
-                    {% if renovation_machoires.peinture_etrier_fabricant and renovation_machoires.peinture_etrier_fabricant != "CHOISIR" %} — {{ renovation_machoires.get_peinture_etrier_fabricant_display }}{% endif %}
                 </td>
             </tr>
             <tr>
@@ -528,7 +518,7 @@
                     {% if renovation_machoires.liquide_frein == "OK" %}<span class="ok">{{ renovation_machoires.get_liquide_frein_display }}</span>
                     {% elif renovation_machoires.liquide_frein == "NOT_OK" %}<span class="not-ok">{{ renovation_machoires.get_liquide_frein_display }}</span>
                     {% elif renovation_machoires.liquide_frein == "REMPLACE" %}<span class="remplace">{{ renovation_machoires.get_liquide_frein_display }}</span>{% endif %}
-                    {% if renovation_machoires.liquide_frein_fabricant and renovation_machoires.liquide_frein_fabricant != "CHOISIR" %} — {{ renovation_machoires.get_liquide_frein_fabricant_display }}{% endif %}
+                    {% if renovation_machoires.liquide_frein_qualite %} — {{ renovation_machoires.get_liquide_frein_qualite_display }}{% endif %}
                 </td>
             </tr>
         </tbody>
