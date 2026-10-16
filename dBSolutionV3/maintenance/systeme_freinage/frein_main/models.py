@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError, FieldDoesNotExist
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.choices import FabricantPiece, TVAConfig, RouesSerrageEtat, TAUX_HORAIRE_CHOICES
+from maintenance.choices import FabricantFrein, TVAConfig, RouesSerrageEtat, TAUX_HORAIRE_CHOICES
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -146,12 +146,12 @@ class FreinMain(TechnicienMixin, models.Model):
     # COMMANDE
     # -------------------------
     levier_frein_main = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Levier de frein à main"))
-    levier_frein_main_fabricant = models.CharField(max_length=30, choices=FabricantPiece.choices, default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
+    levier_frein_main_fabricant = models.CharField(max_length=30, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR, verbose_name=_("Fabricant"))
     levier_frein_main_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     levier_frein_main_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     contacteur_temoin = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Contacteur de témoin"))
-    contacteur_temoin_fabricant = models.CharField(max_length=30, choices=FabricantPiece.choices, default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
+    contacteur_temoin_fabricant = models.CharField(max_length=30, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR, verbose_name=_("Fabricant"))
     contacteur_temoin_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     contacteur_temoin_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
@@ -159,27 +159,27 @@ class FreinMain(TechnicienMixin, models.Model):
     # CÂBLES ET RÉGLAGE
     # -------------------------
     cable_principal = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Câble principal"))
-    cable_principal_fabricant = models.CharField(max_length=30, choices=FabricantPiece.choices, default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
+    cable_principal_fabricant = models.CharField(max_length=30, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR, verbose_name=_("Fabricant"))
     cable_principal_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     cable_principal_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     cables_secondaires = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Câbles secondaires (gauche / droit)"))
-    cables_secondaires_fabricant = models.CharField(max_length=30, choices=FabricantPiece.choices, default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
+    cables_secondaires_fabricant = models.CharField(max_length=30, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR, verbose_name=_("Fabricant"))
     cables_secondaires_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     cables_secondaires_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     palonnier = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Palonnier / égaliseur"))
-    palonnier_fabricant = models.CharField(max_length=30, choices=FabricantPiece.choices, default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
+    palonnier_fabricant = models.CharField(max_length=30, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR, verbose_name=_("Fabricant"))
     palonnier_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     palonnier_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     tendeur_reglage = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Tendeur / écrou de réglage"))
-    tendeur_reglage_fabricant = models.CharField(max_length=30, choices=FabricantPiece.choices, default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
+    tendeur_reglage_fabricant = models.CharField(max_length=30, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR, verbose_name=_("Fabricant"))
     tendeur_reglage_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     tendeur_reglage_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     machoires_frein_main = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Mâchoires de frein à main (tambour dans disque)"))
-    machoires_frein_main_fabricant = models.CharField(max_length=30, choices=FabricantPiece.choices, default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
+    machoires_frein_main_fabricant = models.CharField(max_length=30, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR, verbose_name=_("Fabricant"))
     machoires_frein_main_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     machoires_frein_main_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
@@ -187,17 +187,17 @@ class FreinMain(TechnicienMixin, models.Model):
     # FREIN DE STATIONNEMENT ÉLECTRIQUE
     # -------------------------
     moteur_epb_gauche = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Moteur d'étrier EPB gauche"))
-    moteur_epb_gauche_fabricant = models.CharField(max_length=30, choices=FabricantPiece.choices, default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
+    moteur_epb_gauche_fabricant = models.CharField(max_length=30, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR, verbose_name=_("Fabricant"))
     moteur_epb_gauche_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     moteur_epb_gauche_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     moteur_epb_droit = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Moteur d'étrier EPB droit"))
-    moteur_epb_droit_fabricant = models.CharField(max_length=30, choices=FabricantPiece.choices, default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
+    moteur_epb_droit_fabricant = models.CharField(max_length=30, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR, verbose_name=_("Fabricant"))
     moteur_epb_droit_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     moteur_epb_droit_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     commande_epb = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bouton / commande EPB"))
-    commande_epb_fabricant = models.CharField(max_length=30, choices=FabricantPiece.choices, default=FabricantPiece.CHOISIR, verbose_name=_("Fabricant"))
+    commande_epb_fabricant = models.CharField(max_length=30, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR, verbose_name=_("Fabricant"))
     commande_epb_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     commande_epb_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
