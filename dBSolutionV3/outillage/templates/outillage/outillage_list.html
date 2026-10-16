@@ -74,7 +74,21 @@
     <tbody>
         {% for outillage in outillages %}
         <tr>
-            <td class="border px-4 py-2">{{ outillage.fournisseur }}</td>
+            <td class="border px-4 py-2 text-center">
+                {% if outillage.fournisseur %}
+                <span class="hidden">
+                    {{ outillage.fournisseur }}
+                </span>
+                <img
+                    src="{% static 'images/'|add:outillage.fournisseur.nom|lower|add:'.png' %}"
+                    alt="{{ outillage.fournisseur }}"
+                    style="width:120px; height:35px; object-fit:contain;"
+                    onerror="this.onerror=null; this.outerHTML='{{ outillage.fournisseur|escapejs }}';"
+                >
+                {% else %}
+                -
+                {% endif %}
+            </td>
             <td class="border px-4 py-2">{{ outillage.libelle }}</td>
             <td class="border px-4 py-2">{{ outillage.reference }}</td>
             <td class="border px-4 py-2">{{ outillage.quantite }}</td>

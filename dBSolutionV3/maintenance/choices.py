@@ -932,6 +932,37 @@ class FabricantCapteurEchappement(models.TextChoices):
 
     AUTRE = "AUTRE", _("Autre")
 
+class FabricantCapteur(models.TextChoices):
+    CHOISIR = "CHOISIR", _("Choisir")
+    OEM = "OEM", _("Constructeur OEM")
+
+    BOSCH = "BOSCH", _("Bosch")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
+    DELPHI = "DELPHI", _("Delphi")
+    DENSO = "DENSO", _("Denso")
+    EPS = "EPS", _("EPS")
+    ERA = "ERA", _("ERA")
+    FACET = "FACET", _("Facet")
+    FAE = "FAE", _("FAE")
+    FEBI = "FEBI", _("Febi Bilstein")
+    HELLA = "HELLA", _("Hella")
+    HITACHI = "HITACHI", _("Hitachi")
+    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
+    METZGER = "METZGER", _("Metzger")
+    MEYLE = "MEYLE", _("Meyle")
+    NGK = "NGK", _("NGK / NTK")
+    PIERBURG = "PIERBURG", _("Pierburg")
+    RIDEX = "RIDEX", _("Ridex")
+    SIDAT = "SIDAT", _("SIDAT")
+    STARK = "STARK", _("Stark")
+    TOPRAN = "TOPRAN", _("Topran")
+    VALEO = "VALEO", _("Valeo")
+    VDO = "VDO", _("VDO")
+    VEMO = "VEMO", _("Vemo")
+    WALKER = "WALKER", _("Walker Products")
+
+    AUTRE = "AUTRE", _("Autre")
+
 
 class FabricantSilentBloc(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")

@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 
 from django.db import transaction
 from django.http import JsonResponse
+from django.template.loader import render_to_string
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.utils import timezone
@@ -1400,6 +1401,15 @@ def autocomplete_immatriculation(request):
             "modele": modele.nom_modele if modele else "",
             "volume": modele.taille_reservoir if modele else "",
             "kilometres_chassis": voiture.kilometres_chassis or 0,
+            "plaque_html": render_to_string(
+                "maintenance/partials/plaque.html",
+                {
+                    "pays_plaque": voiture.pays,
+                    "immat_plaque": voiture.immatriculation,
+                    "taille": "petite",
+                },
+                request=request,
+            ),
         })
 
     return JsonResponse(resultats, safe=False)

@@ -446,7 +446,7 @@
                     {% elif chaine.pignon_distribution == "REMPLACE" %}
                         <span class="remplace">{{ chaine.get_pignon_distribution_display }}</span>
                     {% endif %}
-                    {% if chaine.pignon_distribution_fabricant and chaine.pignon_distribution_fabricant != "CHOISIR" %} — {{ chaine.get_pignon_distribution_fabricant_display }}{% endif %}
+
                 </td>
             </tr>
 
@@ -474,7 +474,7 @@
                     {% elif chaine.joints_distribution == "REMPLACE" %}
                         <span class="remplace">{{ chaine.get_joints_distribution_display }}</span>
                     {% endif %}
-                    {% if chaine.joints_distribution_fabricant and chaine.joints_distribution_fabricant != "CHOISIR" %} — {{ chaine.get_joints_distribution_fabricant_display }}{% endif %}
+
                 </td>
             </tr>
 
@@ -488,7 +488,7 @@
                     {% elif chaine.outil_pigeage == "REMPLACE" %}
                         <span class="remplace">{{ chaine.get_outil_pigeage_display }}</span>
                     {% endif %}
-                    {% if chaine.outil_pigeage_fabricant and chaine.outil_pigeage_fabricant != "CHOISIR" %} — {{ chaine.get_outil_pigeage_fabricant_display }}{% endif %}
+
                 </td>
             </tr>
 
@@ -502,7 +502,7 @@
                     {% elif chaine.pompe_a_eau == "REMPLACE" %}
                         <span class="remplace">{{ chaine.get_pompe_a_eau_display }}</span>
                     {% endif %}
-                    {% if chaine.pompe_a_eau_fabricant and chaine.pompe_a_eau_fabricant != "CHOISIR" %} — {{ chaine.get_pompe_a_eau_fabricant_display }}{% endif %}
+
                 </td>
             </tr>
 

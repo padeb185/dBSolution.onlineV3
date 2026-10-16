@@ -178,9 +178,9 @@
                              top: 100%;
                              left: 0;
 
-                             width: 300px;
-                             min-width: 200px;
-                             max-width: 300px;
+                             width: 100%;
+                             min-width: 300px;
+                             max-width: 480px;
 
                              max-height: 320px;
                              overflow-y: auto;
@@ -452,10 +452,30 @@ if (immatInput) {
                 const ligne =
                     document.createElement("div");
 
-                ligne.textContent = plaque;
+                // Plaque mise en forme (rendue côté serveur)
+                // + marque / modèle à droite
+                ligne.style.display = "flex";
+                ligne.style.alignItems = "center";
+                ligne.style.gap = "10px";
+
+                if (voiture.plaque_html) {
+                    ligne.innerHTML = voiture.plaque_html;
+                } else {
+                    ligne.textContent = plaque;
+                }
+
+                const infos = document.createElement("span");
+                infos.textContent =
+                    [voiture.marque, voiture.modele]
+                        .filter(Boolean)
+                        .join(" ");
+                infos.style.fontSize = "13px";
+                infos.style.color = "#4b5563";
+                infos.style.whiteSpace = "nowrap";
+                ligne.appendChild(infos);
 
                 ligne.style.padding =
-                    "12px 40px 12px 15px";
+                    "8px 15px";
 
                 ligne.style.cursor =
                     "pointer";
