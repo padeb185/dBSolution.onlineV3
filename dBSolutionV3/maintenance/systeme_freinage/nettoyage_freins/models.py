@@ -18,6 +18,9 @@ class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("OK")
     NOT_OK = "NOT_OK", _("A Remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
+    AJOUTER = "AJOUTER", _("Ajouté")
+    NETTOYER = "NETTOYER", _("Nettoyé")
+    NON_PRESENT = "NON_PRESENT", _("Non présent")
 
 
 PIECES_NETTOYAGE_FREINS = [
@@ -148,6 +151,8 @@ class NettoyageFreins(TechnicienMixin, models.Model):
     # -------------------------
     # AVANT
     # -------------------------
+    disques_avant_epaisseur = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant (mm)"))
+    disques_avant_fentes = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes"))
     disques_avant = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Disques avant"))
     disques_avant_fabricant = models.CharField(max_length=30, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR, verbose_name=_("Fabricant"))
     disques_avant_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
@@ -166,6 +171,8 @@ class NettoyageFreins(TechnicienMixin, models.Model):
     # -------------------------
     # ARRIÈRE
     # -------------------------
+    disques_arriere_epaisseur = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant (mm)"))
+    disques_arriere_fentes = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes"))
     disques_arriere = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Disques arrière"))
     disques_arriere_fabricant = models.CharField(max_length=30, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR, verbose_name=_("Fabricant"))
     disques_arriere_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
@@ -181,7 +188,7 @@ class NettoyageFreins(TechnicienMixin, models.Model):
     etriers_arriere_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     etriers_arriere_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
-    tambours_arriere = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Tambours arrière"))
+    tambours_arriere = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NON_PRESENT, verbose_name=_("Tambours arrière"))
     tambours_arriere_fabricant = models.CharField(max_length=30, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR, verbose_name=_("Fabricant"))
     tambours_arriere_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     tambours_arriere_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))

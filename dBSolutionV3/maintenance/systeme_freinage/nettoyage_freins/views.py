@@ -465,6 +465,7 @@ def nettoyage_freins_form_view(request, exemplaire_id):
         },
         {
             "title": _("Disques avant"),
+            "key": "disques_avant",
             "icon": "icons/disque-de-frein.png",
             "fields": [form[f.name] for f in form if f.name == "disques_avant" or f.name.startswith("disques_avant_")],
         },
@@ -480,6 +481,7 @@ def nettoyage_freins_form_view(request, exemplaire_id):
         },
         {
             "title": _("Disques arrière"),
+            "key": "disques_arriere",
             "icon": "icons/disque-de-frein.png",
             "fields": [form[f.name] for f in form if f.name == "disques_arriere" or f.name.startswith("disques_arriere_")],
         },
@@ -808,6 +810,7 @@ def modifier_nettoyage_freins_view(request, nettoyage_freins_id):
         },
         {
             "title": _("Disques avant"),
+            "key": "disques_avant",
             "icon": "icons/disque-de-frein.png",
             "fields": [form[f.name] for f in form if f.name == "disques_avant" or f.name.startswith("disques_avant_")],
         },
@@ -823,6 +826,7 @@ def modifier_nettoyage_freins_view(request, nettoyage_freins_id):
         },
         {
             "title": _("Disques arrière"),
+            "key": "disques_arriere",
             "icon": "icons/disque-de-frein.png",
             "fields": [form[f.name] for f in form if f.name == "disques_arriere" or f.name.startswith("disques_arriere_")],
         },

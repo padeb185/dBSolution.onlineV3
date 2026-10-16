@@ -46,194 +46,171 @@ class CoteConduite(models.TextChoices):
 
 class FabricantCarrosserie(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
-    ORIGINE = "ORIGINE", _("Pièce d'origine constructeur (OEM)")
+    ORIGINE = "ORIGINE", _("Constructeur OEM")
 
-    # -------------------------
-    # Tôlerie / pare-chocs / éléments de carrosserie
-    # -------------------------
-    VAN_WEZEL = "VAN_WEZEL", _("Van Wezel")
+    THREE_M = "3M", _("3M")
+    AGC = "AGC", _("AGC Automotive")
+    ALKAR = "ALKAR", _("Alkar")
+    AUTOMOTIVE_LIGHTING = "AUTOMOTIVE_LIGHTING", _("Automotive Lighting")
+    AXALTA = "AXALTA", _("Axalta")
     BLIC = "BLIC", _("Blic")
-    KLOKKERHOLM = "KLOKKERHOLM", _("Klokkerholm")
-    PRASCO = "PRASCO", _("Prasco")
+    BOSCH = "BOSCH", _("Bosch")
+    CARGLASS = "CARGLASS", _("Carglass")
+    CROMAX = "CROMAX", _("Cromax")
+    DE_BEER = "DE_BEER", _("De Beer")
+    DEPO = "DEPO", _("Depo")
     DIEDERICHS = "DIEDERICHS", _("Diederichs")
-    POLCAR = "POLCAR", _("Polcar")
-    JUMASA = "JUMASA", _("Jumasa")
-    TYG = "TYG", _("TYG (Tong Yang)")
-    SIGNEDA = "SIGNEDA", _("Signeda")
-    PLASTIC_OMNIUM = "PLASTIC_OMNIUM", _("OPmobility (Plastic Omnium)")
-    MAGNA = "MAGNA", _("Magna")
-    GESTAMP = "GESTAMP", _("Gestamp")
+    DORMAN = "DORMAN", _("Dorman")
+    FICOSA = "FICOSA", _("Ficosa")
     FLEX_N_GATE = "FLEX_N_GATE", _("Flex-N-Gate")
     FORVIA = "FORVIA", _("Forvia (Faurecia)")
-    KIRCHHOFF = "KIRCHHOFF", _("Kirchhoff Automotive")
-
-    # -------------------------
-    # Éclairage / optiques
-    # -------------------------
+    FUYAO = "FUYAO", _("Fuyao")
+    GENTEX = "GENTEX", _("Gentex")
+    GESTAMP = "GESTAMP", _("Gestamp")
+    GLASURIT = "GLASURIT", _("Glasurit (BASF)")
+    GUARDIAN = "GUARDIAN", _("Guardian Glass")
     HELLA = "HELLA", _("Hella (Forvia)")
-    VALEO = "VALEO", _("Valeo")
-    MARELLI = "MARELLI", _("Marelli (Magneti Marelli)")
-    AUTOMOTIVE_LIGHTING = "AUTOMOTIVE_LIGHTING", _("Automotive Lighting")
-    ZKW = "ZKW", _("ZKW")
+    JUMASA = "JUMASA", _("Jumasa")
+    KIRCHHOFF = "KIRCHHOFF", _("Kirchhoff Automotive")
+    KLOKKERHOLM = "KLOKKERHOLM", _("Klokkerholm")
     KOITO = "KOITO", _("Koito")
-    STANLEY = "STANLEY", _("Stanley Electric")
-    DEPO = "DEPO", _("Depo")
-    TYC = "TYC", _("TYC")
-    ULO = "ULO", _("Ulo")
+    LECHLER = "LECHLER", _("Lechler")
+    LESJOFORS = "LESJOFORS", _("Lesjöfors")
+    MAGNA = "MAGNA", _("Magna")
+    MARELLI = "MARELLI", _("Marelli (Magneti Marelli)")
+    MEKRA = "MEKRA", _("Mekra Lang")
+    MIPA = "MIPA", _("Mipa")
+    MIRKA = "MIRKA", _("Mirka")
+    NEXA = "NEXA", _("Nexa Autocolor")
+    NOVOL = "NOVOL", _("Novol")
+    PLASTIC_OMNIUM = "PLASTIC_OMNIUM", _("OPmobility (Plastic Omnium)")
     OSRAM = "OSRAM", _("Osram")
     PHILIPS = "PHILIPS", _("Philips")
-
-    # -------------------------
-    # Rétroviseurs
-    # -------------------------
-    FICOSA = "FICOSA", _("Ficosa")
-    MEKRA = "MEKRA", _("Mekra Lang")
-    ALKAR = "ALKAR", _("Alkar")
-    GENTEX = "GENTEX", _("Gentex")
-    SMR = "SMR", _("SMR (Motherson)")
-
-    # -------------------------
-    # Vitrage
-    # -------------------------
-    SAINT_GOBAIN = "SAINT_GOBAIN", _("Saint-Gobain Sekurit")
     PILKINGTON = "PILKINGTON", _("Pilkington")
-    AGC = "AGC", _("AGC Automotive")
-    FUYAO = "FUYAO", _("Fuyao")
-    GUARDIAN = "GUARDIAN", _("Guardian Glass")
-    XYG = "XYG", _("XYG")
-    CARGLASS = "CARGLASS", _("Carglass")
-
-    # -------------------------
-    # Peinture / produits de carrosserie
-    # -------------------------
+    POLCAR = "POLCAR", _("Polcar")
     PPG = "PPG", _("PPG")
-    AXALTA = "AXALTA", _("Axalta")
-    STANDOX = "STANDOX", _("Standox")
-    SPIES_HECKER = "SPIES_HECKER", _("Spies Hecker")
-    CROMAX = "CROMAX", _("Cromax")
-    GLASURIT = "GLASURIT", _("Glasurit (BASF)")
+    PRASCO = "PRASCO", _("Prasco")
     RM = "RM", _("R-M (BASF)")
-    SIKKENS = "SIKKENS", _("Sikkens (AkzoNobel)")
-    LECHLER = "LECHLER", _("Lechler")
-    DE_BEER = "DE_BEER", _("De Beer")
-    MIPA = "MIPA", _("Mipa")
-    NEXA = "NEXA", _("Nexa Autocolor")
     ROBERLO = "ROBERLO", _("Roberlo")
-    U_POL = "U_POL", _("U-POL")
-    TROTON = "TROTON", _("Troton")
-    NOVOL = "NOVOL", _("Novol")
-    TEROSON = "TEROSON", _("Teroson (Henkel)")
+    SAINT_GOBAIN = "SAINT_GOBAIN", _("Saint-Gobain Sekurit")
+    SIGNEDA = "SIGNEDA", _("Signeda")
     SIKA = "SIKA", _("Sika")
-    WURTH = "WURTH", _("Würth")
-    MIRKA = "MIRKA", _("Mirka")
-    THREE_M = "3M", _("3M")
-
-    # -------------------------
-    # Accessoires / divers carrosserie
-    # -------------------------
+    SIKKENS = "SIKKENS", _("Sikkens (AkzoNobel)")
+    SMR = "SMR", _("SMR (Motherson)")
+    SPIES_HECKER = "SPIES_HECKER", _("Spies Hecker")
     STABILUS = "STABILUS", _("Stabilus (vérins)")
-    LESJOFORS = "LESJOFORS", _("Lesjöfors")
-    BOSCH = "BOSCH", _("Bosch")
+    STANDOX = "STANDOX", _("Standox")
+    STANLEY = "STANLEY", _("Stanley Electric")
     SWF = "SWF", _("SWF")
+    TEROSON = "TEROSON", _("Teroson (Henkel)")
     TRICO = "TRICO", _("Trico")
+    TROTON = "TROTON", _("Troton")
+    TYC = "TYC", _("TYC")
+    TYG = "TYG", _("TYG (Tong Yang)")
+    U_POL = "U_POL", _("U-POL")
+    ULO = "ULO", _("Ulo")
+    VALEO = "VALEO", _("Valeo")
+    VAN_WEZEL = "VAN_WEZEL", _("Van Wezel")
     WEATHERTECH = "WEATHERTECH", _("WeatherTech")
-    DORMAN = "DORMAN", _("Dorman")
+    WURTH = "WURTH", _("Würth")
+    XYG = "XYG", _("XYG")
+    ZKW = "ZKW", _("ZKW")
 
     AUTRE = "AUTRE", _("Autre")
+
 
 class FabricantLubrifiant(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
-    CASTROL = "CASTROL", _("Castrol")
-    MOTUL = "MOTUL", _("Motul")
-    MOBIL = "MOBIL", _("Mobil 1")
-    SHELL = "SHELL", _("Shell")
-    TOTAL = "TOTAL", _("TotalEnergies")
-    ELF = "ELF", _("ELF")
-    LIQUI_MOLY = "LIQUI_MOLY", _("Liqui Moly")
-    FUCHS = "FUCHS", _("Fuchs")
-    VALVOLINE = "VALVOLINE", _("Valvoline")
-    PENRITE = "PENRITE", _("Penrite")
-    RAVENOL = "RAVENOL", _("Ravenol")
-    ROWE = "ROWE", _("Rowe")
-    ENEOS = "ENEOS", _("ENEOS")
-    PETRONAS = "PETRONAS", _("Petronas")
-    EUROL = "EUROL", _("Eurol")
-    COMMA = "COMMA", _("Comma")
-    MANNOL = "MANNOL", _("Mannol")
-    YACCO = "YACCO", _("Yacco")
-    REDLINE = "REDLINE", _("Red Line")
-    AMSOIL = "AMSOIL", _("Amsoil")
-    KROON_OIL = "KROON_OIL", _("Kroon-Oil")
-    FEBI = "FEBI", _("Febi Bilstein")
-    SWAG = "SWAG", _("SWAG")
-    PENTOSIN = "PENTOSIN", _("Pentosin")
-    ZF = "ZF", _("ZF")
     AISIN = "AISIN", _("Aisin")
-    TOYOTA = "TOYOTA", _("Toyota")
-    HONDA = "HONDA", _("Honda")
-    NISSAN = "NISSAN", _("Nissan")
-    MERCEDES = "MERCEDES", _("Mercedes-Benz")
+    AMSOIL = "AMSOIL", _("Amsoil")
     BMW = "BMW", _("BMW")
-    VOLKSWAGEN = "VOLKSWAGEN", _("Volkswagen")
-    PORSCHE = "PORSCHE", _("Porsche")
-    RENAULT = "RENAULT", _("Renault")
-    PSA = "PSA", _("Peugeot / Citroën")
-    HYUNDAI_KIA = "HYUNDAI_KIA", _("Hyundai / Kia")
+    CASTROL = "CASTROL", _("Castrol")
+    COMMA = "COMMA", _("Comma")
+    ELF = "ELF", _("ELF")
+    ENEOS = "ENEOS", _("ENEOS")
+    EUROL = "EUROL", _("Eurol")
+    FEBI = "FEBI", _("Febi Bilstein")
     FORD = "FORD", _("Ford")
+    FUCHS = "FUCHS", _("Fuchs")
     GM = "GM", _("General Motors")
+    HONDA = "HONDA", _("Honda")
+    HYUNDAI_KIA = "HYUNDAI_KIA", _("Hyundai / Kia")
+    KROON_OIL = "KROON_OIL", _("Kroon-Oil")
+    LIQUI_MOLY = "LIQUI_MOLY", _("Liqui Moly")
+    MANNOL = "MANNOL", _("Mannol")
+    MERCEDES = "MERCEDES", _("Mercedes-Benz")
+    MOBIL = "MOBIL", _("Mobil 1")
     MOPAR = "MOPAR", _("Mopar")
+    MOTUL = "MOTUL", _("Motul")
+    NISSAN = "NISSAN", _("Nissan")
+    PENRITE = "PENRITE", _("Penrite")
+    PENTOSIN = "PENTOSIN", _("Pentosin")
+    PETRONAS = "PETRONAS", _("Petronas")
+    PSA = "PSA", _("Peugeot / Citroën")
+    PORSCHE = "PORSCHE", _("Porsche")
+    RAVENOL = "RAVENOL", _("Ravenol")
+    REDLINE = "REDLINE", _("Red Line")
+    RENAULT = "RENAULT", _("Renault")
+    ROWE = "ROWE", _("Rowe")
+    SHELL = "SHELL", _("Shell")
+    SWAG = "SWAG", _("SWAG")
+    TOTAL = "TOTAL", _("TotalEnergies")
+    TOYOTA = "TOYOTA", _("Toyota")
+    VALVOLINE = "VALVOLINE", _("Valvoline")
+    VOLKSWAGEN = "VOLKSWAGEN", _("Volkswagen")
+    YACCO = "YACCO", _("Yacco")
+    ZF = "ZF", _("ZF")
+
     AUTRE = "AUTRE", _("Autre")
-    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
-
-
 
 
 class FabricantFiltre(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
+    ALCO = "ALCO", "ALCO Filters"
+    ASHIKA = "ASHIKA", "Ashika"
+    BALDWIN = "BALDWIN", "Baldwin Filters"
+    BLUE_PRINT = "BLUE_PRINT", "Blue Print"
     BOSCH = "BOSCH", "Bosch"
-    MANN_FILTER = "MANN_FILTER", "MANN-Filter"
-    MAHLE = "MAHLE", "Mahle"
+    CHAMPION = "CHAMPION", "Champion"
+    COMLINE = "COMLINE", "Comline"
+    COOPERSFIAAM = "COOPERSFIAAM", "CoopersFiaam"
+    DELPHI = "DELPHI", "Delphi"
+    DENCKERMANN = "DENCKERMANN", "Denckermann"
+    DONALDSON = "DONALDSON", "Donaldson"
+    FEBI = "FEBI", "Febi Bilstein"
+    FILTRON = "FILTRON", "Filtron"
+    FLEETGUARD = "FLEETGUARD", "Fleetguard"
+    FRAM = "FRAM", "Fram"
+    HENGST = "HENGST", "Hengst"
+    HERTH_BUSS = "HERTH_BUSS", "Herth+Buss"
+    JAPANPARTS = "JAPANPARTS", "Japanparts"
+    JC_PREMIUM = "JC_PREMIUM", "JC Premium"
     KN = "KN", "KN"
     KNECHT = "KNECHT", "Knecht"
-    PURFLUX = "PURFLUX", "Purflux"
-    HENGST = "HENGST", "Hengst"
-    UFI = "UFI", "UFI"
-    FILTRON = "FILTRON", "Filtron"
-    FRAM = "FRAM", "Fram"
-    CHAMPION = "CHAMPION", "Champion"
-    WIX = "WIX", "WIX Filters"
-    NIPPARTS = "NIPPARTS", "Nipparts"
-    BLUE_PRINT = "BLUE_PRINT", "Blue Print"
-    JAPANPARTS = "JAPANPARTS", "Japanparts"
-    HERTH_BUSS = "HERTH_BUSS", "Herth+Buss"
-    SOFIMA = "SOFIMA", "Sofima"
-    MISFAT = "MISFAT", "Misfat"
-    FEBI = "FEBI", "Febi Bilstein"
-    SWAG = "SWAG", "SWAG"
-    SCT = "SCT", "SCT Germany"
-    DENCKERMANN = "DENCKERMANN", "Denckermann"
-    COMLINE = "COMLINE", "Comline"
-    VALEO = "VALEO", "Valeo"
-    DELPHI = "DELPHI", "Delphi"
-    MEYLE = "MEYLE", "Meyle"
-    RIDEX = "RIDEX", "RIDEX"
-    TOPRAN = "TOPRAN", "Topran"
-    VAICO = "VAICO", "Vaico"
+    MAHLE = "MAHLE", "Mahle"
+    MANN_FILTER = "MANN_FILTER", "MANN-Filter"
     MAXGEAR = "MAXGEAR", "Maxgear"
-    JC_PREMIUM = "JC_PREMIUM", "JC Premium"
-    ASHIKA = "ASHIKA", "Ashika"
-    ALCO = "ALCO", "ALCO Filters"
-    DONALDSON = "DONALDSON", "Donaldson"
-    FLEETGUARD = "FLEETGUARD", "Fleetguard"
-    BALDWIN = "BALDWIN", "Baldwin Filters"
-    COOPERSFIAAM = "COOPERSFIAAM", "CoopersFiaam"
-    TECNECO = "TECNECO", "Tecneco"
+    MEYLE = "MEYLE", "Meyle"
+    MISFAT = "MISFAT", "Misfat"
+    NIPPARTS = "NIPPARTS", "Nipparts"
     OPEN_PARTS = "OPEN_PARTS", "Open Parts"
-    AUTRE = "AUTRE", _("Autre")
-    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
+    PURFLUX = "PURFLUX", "Purflux"
+    RIDEX = "RIDEX", "RIDEX"
+    SCT = "SCT", "SCT Germany"
+    SOFIMA = "SOFIMA", "Sofima"
+    SWAG = "SWAG", "SWAG"
+    TECNECO = "TECNECO", "Tecneco"
+    TOPRAN = "TOPRAN", "Topran"
+    UFI = "UFI", "UFI"
+    VAICO = "VAICO", "Vaico"
+    VALEO = "VALEO", "Valeo"
+    WIX = "WIX", "WIX Filters"
 
+    AUTRE = "AUTRE", _("Autre")
 
 
 class AmpouleAutomobile(models.TextChoices):
@@ -319,124 +296,97 @@ class AmpouleAutomobile(models.TextChoices):
 
 class FabricantPiece(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
-    # Groupe Bosch
-    BOSCH = "BOSCH", "Bosch"
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
-    # Filtration
-    MANN_FILTER = "MANN_FILTER", "MANN-Filter"
-    MAHLE = "MAHLE", "Mahle"
-    KNECHT = "KNECHT", "Knecht"
-    HENGST = "HENGST", "Hengst"
-    PURFLUX = "PURFLUX", "Purflux"
-    UFI = "UFI", "UFI"
-    FILTRON = "FILTRON", "Filtron"
-    FRAM = "FRAM", "Fram"
-    WIX = "WIX", "WIX Filters"
-    ALCO = "ALCO", "ALCO Filters"
-    SOFIMA = "SOFIMA", "Sofima"
-    DONALDSON = "DONALDSON", "Donaldson"
-    FLEETGUARD = "FLEETGUARD", "Fleetguard"
-    BALDWIN = "BALDWIN", "Baldwin"
-
-    # Allumage
-    NGK = "NGK", "NGK"
-    DENSO = "DENSO", "Denso"
-    BERU = "BERU", "Beru"
-    CHAMPION = "CHAMPION", "Champion"
-
-    # Embrayage / Transmission
-    LUK = "LUK", "LuK"
-    SACHS = "SACHS", "Sachs"
-    VALEO = "VALEO", "Valeo"
     AISIN = "AISIN", "Aisin"
-
-    # Freinage
-    BREMBO = "BREMBO", "Brembo"
+    ALCO = "ALCO", "ALCO Filters"
+    ASHIKA = "ASHIKA", "Ashika"
     ATE = "ATE", "ATE"
-    TEXTAR = "TEXTAR", "Textar"
-    FERODO = "FERODO", "Ferodo"
-    TRW = "TRW", "TRW"
-    JURID = "JURID", "Jurid"
-    PAGID = "PAGID", "Pagid"
-    REMSA = "REMSA", "Remsa"
-
-    # Suspension / Direction
-    LEMFORDER = "LEMFORDER", "Lemförder"
-    MEYLE = "MEYLE", "Meyle"
-    FEBI_BILSTEIN = "FEBI_BILSTEIN", "Febi Bilstein"
-    SWAG = "SWAG", "SWAG"
-    MOOG = "MOOG", "Moog"
-    SIDEM = "SIDEM", "Sidem"
-    DELPHI = "DELPHI", "Delphi"
-
-    # Roulements
-    SKF = "SKF", "SKF"
-    FAG = "FAG", "FAG"
-    TIMKEN = "TIMKEN", "Timken"
-    NSK = "NSK", "NSK"
-    KOYO = "KOYO", "Koyo"
-    NTN = "NTN", "NTN"
-    SNR = "SNR", "SNR"
-
-    # Courroies / Distribution
-    CONTINENTAL = "CONTINENTAL", "Continental"
-    GATES = "GATES", "Gates"
-    DAYCO = "DAYCO", "Dayco"
-
-    # Refroidissement
+    AUDI = "AUDI", "Audi"
+    BALDWIN = "BALDWIN", "Baldwin"
     BEHR = "BEHR", "Behr"
-    HELLA = "HELLA", "Hella"
-    NRF = "NRF", "NRF"
-
-    # Électricité
-    VARTA = "VARTA", "Varta"
+    BERU = "BERU", "Beru"
+    BLUE_PRINT = "BLUE_PRINT", "Blue Print"
+    BMW = "BMW", "BMW"
+    BOSCH = "BOSCH", "Bosch"
+    BREMBO = "BREMBO", "Brembo"
+    CHAMPION = "CHAMPION", "Champion"
+    CITROEN = "CITROEN", "Citroën"
+    COMLINE = "COMLINE", "Comline"
+    CONTINENTAL = "CONTINENTAL", "Continental"
+    DAYCO = "DAYCO", "Dayco"
+    DELPHI = "DELPHI", "Delphi"
+    DENCKERMANN = "DENCKERMANN", "Denckermann"
+    DENSO = "DENSO", "Denso"
+    DONALDSON = "DONALDSON", "Donaldson"
     EXIDE = "EXIDE", "Exide"
+    FAG = "FAG", "FAG"
+    FEBI_BILSTEIN = "FEBI_BILSTEIN", "Febi Bilstein"
+    FERODO = "FERODO", "Ferodo"
+    FILTRON = "FILTRON", "Filtron"
+    FLEETGUARD = "FLEETGUARD", "Fleetguard"
+    FORD = "FORD", "Ford"
+    FRAM = "FRAM", "Fram"
+    GATES = "GATES", "Gates"
+    HELLA = "HELLA", "Hella"
+    HENGST = "HENGST", "Hengst"
+    HERTH_BUSS = "HERTH_BUSS", "Herth+Buss"
+    HONDA = "HONDA", "Honda"
+    HYUNDAI = "HYUNDAI", "Hyundai"
+    JAPANPARTS = "JAPANPARTS", "Japanparts"
+    JC_PREMIUM = "JC_PREMIUM", "JC Premium"
+    JURID = "JURID", "Jurid"
+    KIA = "KIA", "Kia"
+    KNECHT = "KNECHT", "Knecht"
+    KOYO = "KOYO", "Koyo"
+    LEMFORDER = "LEMFORDER", "Lemförder"
+    LUK = "LUK", "LuK"
+    MAHLE = "MAHLE", "Mahle"
+    MANN_FILTER = "MANN_FILTER", "MANN-Filter"
+    MAXGEAR = "MAXGEAR", "Maxgear"
+    MERCEDES = "MERCEDES", "Mercedes-Benz"
+    MEYLE = "MEYLE", "Meyle"
+    MOOG = "MOOG", "Moog"
+    NGK = "NGK", "NGK"
+    NIPPARTS = "NIPPARTS", "Nipparts"
+    NISSAN = "NISSAN", "Nissan"
+    NRF = "NRF", "NRF"
+    NSK = "NSK", "NSK"
+    NTN = "NTN", "NTN"
+    OPEL = "OPEL", "Opel"
+    OPEN_PARTS = "OPEN_PARTS", "Open Parts"
+    OSRAM = "OSRAM", "Osram"
+    PAGID = "PAGID", "Pagid"
+    PEUGEOT = "PEUGEOT", "Peugeot"
+    PHILIPS = "PHILIPS", "Philips"
+    PIERBURG = "PIERBURG", "Pierburg"
+    PORSCHE = "PORSCHE", "Porsche"
+    PURFLUX = "PURFLUX", "Purflux"
+    REMSA = "REMSA", "Remsa"
+    RENAULT = "RENAULT", "Renault"
+    RIDEX = "RIDEX", "RIDEX"
+    SACHS = "SACHS", "Sachs"
+    SIDEM = "SIDEM", "Sidem"
+    SKF = "SKF", "SKF"
+    SNR = "SNR", "SNR"
+    SOFIMA = "SOFIMA", "Sofima"
+    SWAG = "SWAG", "SWAG"
+    TEXTAR = "TEXTAR", "Textar"
+    TIMKEN = "TIMKEN", "Timken"
+    TOPRAN = "TOPRAN", "Topran"
+    TOYOTA = "TOYOTA", "Toyota"
+    TRW = "TRW", "TRW"
+    UFI = "UFI", "UFI"
+    VAICO = "VAICO", "Vaico"
+    VALEO = "VALEO", "Valeo"
+    VARTA = "VARTA", "Varta"
+    VDO = "VDO", "VDO"
+    VOLKSWAGEN = "VOLKSWAGEN", "Volkswagen"
+    WALKER = "WALKER", "Walker"
+    WIX = "WIX", "WIX Filters"
     YUASA = "YUASA", "Yuasa"
 
-    # Éclairage
-    OSRAM = "OSRAM", "Osram"
-    PHILIPS = "PHILIPS", "Philips"
-
-    # Echappement / Capteurs
-    WALKER = "WALKER", "Walker"
-    PIERBURG = "PIERBURG", "Pierburg"
-    VDO = "VDO", "VDO"
-
-    # Constructeurs
-    BMW = "BMW", "BMW"
-    MERCEDES = "MERCEDES", "Mercedes-Benz"
-    AUDI = "AUDI", "Audi"
-    VOLKSWAGEN = "VOLKSWAGEN", "Volkswagen"
-    PORSCHE = "PORSCHE", "Porsche"
-    OPEL = "OPEL", "Opel"
-    FORD = "FORD", "Ford"
-    RENAULT = "RENAULT", "Renault"
-    PEUGEOT = "PEUGEOT", "Peugeot"
-    CITROEN = "CITROEN", "Citroën"
-    TOYOTA = "TOYOTA", "Toyota"
-    HONDA = "HONDA", "Honda"
-    NISSAN = "NISSAN", "Nissan"
-    HYUNDAI = "HYUNDAI", "Hyundai"
-    KIA = "KIA", "Kia"
-
-    # Aftermarket
-    HERTH_BUSS = "HERTH_BUSS", "Herth+Buss"
-    JAPANPARTS = "JAPANPARTS", "Japanparts"
-    BLUE_PRINT = "BLUE_PRINT", "Blue Print"
-    NIPPARTS = "NIPPARTS", "Nipparts"
-    COMLINE = "COMLINE", "Comline"
-    DENCKERMANN = "DENCKERMANN", "Denckermann"
-    VAICO = "VAICO", "Vaico"
-    TOPRAN = "TOPRAN", "Topran"
-    RIDEX = "RIDEX", "RIDEX"
-    MAXGEAR = "MAXGEAR", "Maxgear"
-    JC_PREMIUM = "JC_PREMIUM", "JC Premium"
-    ASHIKA = "ASHIKA", "Ashika"
-    OPEN_PARTS = "OPEN_PARTS", "Open Parts"
-
     AUTRE = "AUTRE", _("Autre")
-    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
-
 
 
 class TypeHuileDirection(models.TextChoices):
@@ -473,60 +423,59 @@ class TypeHuileDirection(models.TextChoices):
 
 class FabricantFrein(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
+    ADVICS = "ADVICS", _("Advics")
+    AKEBONO = "AKEBONO", _("Akebono")
     ATE = "ATE", _("ATE")
-    BREMBO = "BREMBO", _("Brembo")
+    BENDIX = "BENDIX", _("Bendix")
+    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
     BOSCH = "BOSCH", _("Bosch")
-    TRW = "TRW", _("TRW")
-    FERODO = "FERODO", _("Ferodo")
-    TEXTAR = "TEXTAR", _("Textar")
-    PAGID = "PAGID", _("Pagid")
-    JURID = "JURID", _("Jurid")
+    BREMBO = "BREMBO", _("Brembo")
+    CIFAM = "CIFAM", _("Cifam")
+    COMLINE = "COMLINE", _("Comline")
     DELPHI = "DELPHI", _("Delphi")
-    VALEO = "VALEO", _("Valeo")
+    DIXCEL = "DIXCEL", _("Dixcel")
+    DON = "DON", _("DON")
+    EBC = "EBC", _("EBC Brakes")
+    FEBI = "FEBI", _("Febi Bilstein")
+    FERODO = "FERODO", _("Ferodo")
     HELLA = "HELLA", _("Hella")
     HELLA_PAGID = "HELLA_PAGID", _("Hella Pagid")
-    ZIMMERMANN = "ZIMMERMANN", _("Zimmermann")
-    MEYLE = "MEYLE", _("Meyle")
-    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
-    NIPPARTS = "NIPPARTS", _("Nipparts")
-    MINTEX = "MINTEX", _("Mintex")
-    ROADHOUSE = "ROADHOUSE", _("Roadhouse")
-    REMSA = "REMSA", _("Remsa")
-    ICER = "ICER", _("ICER")
-    EBC = "EBC", _("EBC Brakes")
-    STOPTECH = "STOPTECH", _("StopTech")
-    AKEBONO = "AKEBONO", _("Akebono")
-    ADVICS = "ADVICS", _("Advics")
-    NISSHINBO = "NISSHINBO", _("Nisshinbo")
-    BENDIX = "BENDIX", _("Bendix")
-    COMLINE = "COMLINE", _("Comline")
-    FEBI = "FEBI", _("Febi Bilstein")
-    SWAG = "SWAG", _("SWAG")
-    MAPCO = "MAPCO", _("Mapco")
-    NK = "NK", _("NK")
-    JAPANPARTS = "JAPANPARTS", _("Japanparts")
     HERTH_BUSS = "HERTH_BUSS", _("Herth+Buss")
-    DON = "DON", _("DON")
-    TOMEX = "TOMEX", _("Tomex")
+    ICER = "ICER", _("ICER")
+    JAPANPARTS = "JAPANPARTS", _("Japanparts")
+    JURID = "JURID", _("Jurid")
     LPR = "LPR", _("LPR")
-    CIFAM = "CIFAM", _("Cifam")
+    MAPCO = "MAPCO", _("Mapco")
     METELLI = "METELLI", _("Metelli")
+    MEYLE = "MEYLE", _("Meyle")
+    MINTEX = "MINTEX", _("Mintex")
+    NIPPARTS = "NIPPARTS", _("Nipparts")
+    NISSHINBO = "NISSHINBO", _("Nisshinbo")
+    NK = "NK", _("NK")
+    PAGID = "PAGID", _("Pagid")
     QUINTON_HAZELL = "QUINTON_HAZELL", _("Quinton Hazell")
+    REMSA = "REMSA", _("Remsa")
+    ROADHOUSE = "ROADHOUSE", _("Roadhouse")
     SKF = "SKF", _("SKF")
     SNR = "SNR", _("SNR")
+    STOPTECH = "STOPTECH", _("StopTech")
+    SWAG = "SWAG", _("SWAG")
+    TEXTAR = "TEXTAR", _("Textar")
+    TOMEX = "TOMEX", _("Tomex")
+    TRW = "TRW", _("TRW")
+    VALEO = "VALEO", _("Valeo")
     WINMAX = "WINMAX", _("Winmax")
-    DIXCEL = "DIXCEL", _("Dixcel")
+    ZIMMERMANN = "ZIMMERMANN", _("Zimmermann")
+
     AUTRE = "AUTRE", _("Autre")
-    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
-
-
-
-
 
 
 class RefroidissementFabricant(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
+
     ABRO = "ABRO", _("ABRO")
     AISIN = "AISIN", _("AISIN")
     ARECA = "ARECA", _("Areca")
@@ -570,14 +519,14 @@ class RefroidissementFabricant(models.TextChoices):
     OPEL = "OPEL", _("Opel")
     ORLEN = "ORLEN", _("Orlen")
     PEMCO = "PEMCO", _("Pemco")
-    PEUGEOT_CITROEN = "PEUGEOT_CITROEN", _("Peugeot Citroën")
     PETRONAS = "PETRONAS", _("Petronas")
+    PEUGEOT_CITROEN = "PEUGEOT_CITROEN", _("Peugeot Citroën")
     PORSCHE = "PORSCHE", _("Porsche")
     PRESTONE = "PRESTONE", _("Prestone")
     PUTOLINE = "PUTOLINE", _("Putoline")
     RAVENOL = "RAVENOL", _("Ravenol")
-    REPSOL = "REPSOL", _("Repsol")
     RENAULT = "RENAULT", _("Renault")
+    REPSOL = "REPSOL", _("Repsol")
     ROWE = "ROWE", _("ROWE")
     SHELL = "SHELL", _("Shell")
     SONAX = "SONAX", _("Sonax")
@@ -588,34 +537,32 @@ class RefroidissementFabricant(models.TextChoices):
     TOTALENERGIES = "TOTALENERGIES", _("TotalEnergies")
     TOYOTA = "TOYOTA", _("Toyota")
     TRIPLE_QX = "TRIPLE_QX", _("Triple QX")
+    VAG = "VAG", _("VAG")
     VALEO = "VALEO", _("Valeo")
     VALVOLINE = "VALVOLINE", _("Valvoline")
-    VAG = "VAG", _("VAG")
     VOLVO = "VOLVO", _("Volvo")
     WOLF = "WOLF", _("Wolf")
     XENUM = "XENUM", _("Xenum")
     YACCO = "YACCO", _("Yacco")
     YAMAHA = "YAMAHA", _("Yamaha")
+
     AUTRE = "AUTRE", _("Autre")
-    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
-
-
-
-
 
 
 class FabricantSuspension(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir un fabricant")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
     AC_DELCO = "AC_DELCO", _("ACDelco")
     AIR_LIFT = "AIR_LIFT", _("Air Lift")
     AL_KO = "AL_KO", _("AL-KO")
     AP_SPORTFAHRWERKE = "AP_SPORTFAHRWERKE", _("AP Sportfahrwerke")
     ARN_NOTT = "ARNOTT", _("Arnott")
+    BC_RACING = "BC_RACING", _("BC Racing")
     BILSTEIN = "BILSTEIN", _("Bilstein")
+    BMW = "BMW", _("BMW")
     BOGE = "BOGE", _("Boge")
     BOSCH = "BOSCH", _("Bosch")
-    BC_RACING = "BC_RACING", _("BC Racing")
     COBRA = "COBRA", _("Cobra Suspension")
     DELPHI = "DELPHI", _("Delphi")
     EIBACH = "EIBACH", _("Eibach")
@@ -626,14 +573,15 @@ class FabricantSuspension(models.TextChoices):
     JAPANPARTS = "JAPANPARTS", _("Japanparts")
     JAPKO = "JAPKO", _("Japko")
     JOM = "JOM", _("JOM")
-    KAYABA = "KAYABA", _("KYB")
-    K_W = "K_W", _("KW Suspensions")
     KONI = "KONI", _("Koni")
+    K_W = "K_W", _("KW Suspensions")
+    KAYABA = "KAYABA", _("KYB")
     LEMFORDER = "LEMFORDER", _("Lemförder")
     LESJOFORS = "LESJOFORS", _("Lesjöfors")
     MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
     MAPCO = "MAPCO", _("Mapco")
     MAXGEAR = "MAXGEAR", _("Maxgear")
+    MERCEDES_BENZ = "MERCEDES_BENZ", _("Mercedes-Benz")
     MEYLE = "MEYLE", _("Meyle")
     MONROE = "MONROE", _("Monroe")
     MOOG = "MOOG", _("Moog")
@@ -641,38 +589,34 @@ class FabricantSuspension(models.TextChoices):
     NK = "NK", _("NK")
     OPTIMAL = "OPTIMAL", _("Optimal")
     OROPARTS = "OROPARTS", _("Oro Parts")
+    PORSCHE = "PORSCHE", _("Porsche")
     PROFIT = "PROFIT", _("Profit")
     QUINTON_HAZELL = "QUINTON_HAZELL", _("Quinton Hazell")
+    RENAULT = "RENAULT", _("Renault")
     RIDEX = "RIDEX", _("Ridex")
     SACHS = "SACHS", _("Sachs")
     SNR = "SNR", _("SNR")
     SPIDAN = "SPIDAN", _("Spidan")
     ST_SUSPENSIONS = "ST_SUSPENSIONS", _("ST Suspensions")
+    STELLANTIS = "STELLANTIS", _("Stellantis")
     SWAG = "SWAG", _("SWAG")
     TA_TECHNIX = "TA_TECHNIX", _("TA Technix")
     TEIN = "TEIN", _("Tein")
+    TOYOTA = "TOYOTA", _("Toyota")
     TRW = "TRW", _("TRW")
     VOGTLAND = "VOGTLAND", _("Vogtland")
+    VAG = "VAG", _("Volkswagen Audi Group")
+    VOLVO = "VOLVO", _("Volvo")
     WEITEC = "WEITEC", _("Weitec")
     XYZ_RACING = "XYZ_RACING", _("XYZ Racing")
     ZF = "ZF", _("ZF")
 
-    BMW = "BMW", _("BMW")
-    MERCEDES_BENZ = "MERCEDES_BENZ", _("Mercedes-Benz")
-    PORSCHE = "PORSCHE", _("Porsche")
-    RENAULT = "RENAULT", _("Renault")
-    STELLANTIS = "STELLANTIS", _("Stellantis")
-    TOYOTA = "TOYOTA", _("Toyota")
-    VAG = "VAG", _("Volkswagen Audi Group")
-    VOLVO = "VOLVO", _("Volvo")
-
     AUTRE = "AUTRE", _("Autre")
-    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
-
 
 
 class FabricantRoulement(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir un fabricant")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
     AIC = "AIC", _("AIC")
     ASHIKA = "ASHIKA", _("Ashika")
@@ -680,6 +624,7 @@ class FabricantRoulement(models.TextChoices):
     BENDIX = "BENDIX", _("Bendix")
     BGA = "BGA", _("BGA")
     BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
+    BMW = "BMW", _("BMW")
     BORG_AND_BECK = "BORG_AND_BECK", _("Borg & Beck")
     BTA = "BTA", _("BTA")
     CORTECO = "CORTECO", _("Corteco")
@@ -689,71 +634,66 @@ class FabricantRoulement(models.TextChoices):
     FEBEST = "FEBEST", _("Febest")
     FEBI_BILSTEIN = "FEBI_BILSTEIN", _("Febi Bilstein")
     FLENNOR = "FLENNOR", _("Flennor")
+    FORD = "FORD", _("Ford")
+    GENERAL_MOTORS = "GENERAL_MOTORS", _("General Motors")
     GSP = "GSP", _("GSP")
     HERTH_BUSS = "HERTH_BUSS", _("Herth+Buss")
+    HONDA = "HONDA", _("Honda")
+    HYUNDAI = "HYUNDAI", _("Hyundai")
     INA = "INA", _("INA")
     JAPANPARTS = "JAPANPARTS", _("Japanparts")
     JAPKO = "JAPKO", _("Japko")
     JP_GROUP = "JP_GROUP", _("JP Group")
     KAMOKA = "KAMOKA", _("Kamoka")
     KAVO_PARTS = "KAVO_PARTS", _("Kavo Parts")
+    KIA = "KIA", _("Kia")
     KOYO = "KOYO", _("Koyo")
     LPR = "LPR", _("LPR")
     MAPCO = "MAPCO", _("Mapco")
     MAXGEAR = "MAXGEAR", _("Maxgear")
+    MAZDA = "MAZDA", _("Mazda")
+    MERCEDES_BENZ = "MERCEDES_BENZ", _("Mercedes-Benz")
     METELLI = "METELLI", _("Metelli")
     MEYLE = "MEYLE", _("Meyle")
+    MITSUBISHI = "MITSUBISHI", _("Mitsubishi")
     MOOG = "MOOG", _("Moog")
     NATIONAL = "NATIONAL", _("National")
     NIPPARTS = "NIPPARTS", _("Nipparts")
+    NISSAN = "NISSAN", _("Nissan")
     NK = "NK", _("NK")
     NTN = "NTN", _("NTN")
     OPTIMAL = "OPTIMAL", _("Optimal")
     PEX = "PEX", _("PEX")
+    PORSCHE = "PORSCHE", _("Porsche")
     QUINTON_HAZELL = "QUINTON_HAZELL", _("Quinton Hazell")
+    RENAULT = "RENAULT", _("Renault")
     RIDEX = "RIDEX", _("Ridex")
     RUVILLE = "RUVILLE", _("Ruville")
     SKF = "SKF", _("SKF")
+    VKBA = "VKBA", _("SKF VKBA")
     SNR = "SNR", _("SNR")
     SPIDAN = "SPIDAN", _("Spidan")
-    SWAG = "SWAG", _("SWAG")
-    TIMKEN = "TIMKEN", _("Timken")
-    TOPRAN = "TOPRAN", _("Topran")
-    TRISCAN = "TRISCAN", _("Triscan")
-    TRW = "TRW", _("TRW")
-    VAICO = "VAICO", _("Vaico")
-    VKBA = "VKBA", _("SKF VKBA")
-    WHEELPRO = "WHEELPRO", _("WheelPro")
-    ZF = "ZF", _("ZF")
-
-    BMW = "BMW", _("BMW")
-    FORD = "FORD", _("Ford")
-    GENERAL_MOTORS = "GENERAL_MOTORS", _("General Motors")
-    HONDA = "HONDA", _("Honda")
-    HYUNDAI = "HYUNDAI", _("Hyundai")
-    KIA = "KIA", _("Kia")
-    MAZDA = "MAZDA", _("Mazda")
-    MERCEDES_BENZ = "MERCEDES_BENZ", _("Mercedes-Benz")
-    MITSUBISHI = "MITSUBISHI", _("Mitsubishi")
-    NISSAN = "NISSAN", _("Nissan")
-    PORSCHE = "PORSCHE", _("Porsche")
-    RENAULT = "RENAULT", _("Renault")
     STELLANTIS = "STELLANTIS", _("Stellantis")
     SUBARU = "SUBARU", _("Subaru")
     SUZUKI = "SUZUKI", _("Suzuki")
+    SWAG = "SWAG", _("SWAG")
+    TIMKEN = "TIMKEN", _("Timken")
+    TOPRAN = "TOPRAN", _("Topran")
     TOYOTA = "TOYOTA", _("Toyota")
+    TRISCAN = "TRISCAN", _("Triscan")
+    TRW = "TRW", _("TRW")
+    VAICO = "VAICO", _("Vaico")
     VAG = "VAG", _("Volkswagen Audi Group")
     VOLVO = "VOLVO", _("Volvo")
+    WHEELPRO = "WHEELPRO", _("WheelPro")
+    ZF = "ZF", _("ZF")
 
     AUTRE = "AUTRE", _("Autre")
-    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
-
-
-
 
 
 class FabricantPneus(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir un fabricant")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
     ACHILLES = "ACHILLES", _("Achilles")
     APOLLO = "APOLLO", _("Apollo")
@@ -785,14 +725,14 @@ class FabricantPneus(models.TextChoices):
     FORTUNA = "FORTUNA", _("Fortuna")
     FULDA = "FULDA", _("Fulda")
     GENERAL_TIRE = "GENERAL_TIRE", _("General Tire")
-    GITI = "GITI", _("Giti")
     GISLAVED = "GISLAVED", _("Gislaved")
+    GITI = "GITI", _("Giti")
     GOFORM = "GOFORM", _("Goform")
     GOODYEAR = "GOODYEAR", _("Goodyear")
     GRENLANDER = "GRENLANDER", _("Grenlander")
     GT_RADIAL = "GT_RADIAL", _("GT Radial")
-    HANKOOK = "HANKOOK", _("Hankook")
     HAIDA = "HAIDA", _("Haida")
+    HANKOOK = "HANKOOK", _("Hankook")
     HIFLY = "HIFLY", _("Hifly")
     INFINITY = "INFINITY", _("Infinity")
     KELLY = "KELLY", _("Kelly")
@@ -829,8 +769,8 @@ class FabricantPneus(models.TextChoices):
     ROCKBLADE = "ROCKBLADE", _("Rockblade")
     ROTALLA = "ROTALLA", _("Rotalla")
     SAILUN = "SAILUN", _("Sailun")
-    SEMPERIT = "SEMPERIT", _("Semperit")
     SAVA = "SAVA", _("Sava")
+    SEMPERIT = "SEMPERIT", _("Semperit")
     STAR_PERFORMER = "STAR_PERFORMER", _("Star Performer")
     SUMITOMO = "SUMITOMO", _("Sumitomo")
     SUNNY = "SUNNY", _("Sunny")
@@ -850,38 +790,32 @@ class FabricantPneus(models.TextChoices):
     AUTRE = "AUTRE", _("Autre")
 
 
-
-
-
 class FabricantBougies(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
-    NGK = "NGK", _("NGK")
-    DENSO = "DENSO", _("DENSO")
-    BOSCH = "BOSCH", _("Bosch")
-    CHAMPION = "CHAMPION", _("Champion")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
+
+    ACDELCO = "ACDELCO", _("ACDelco")
+    AUTOLITE = "AUTOLITE", _("Autolite")
     BERU = "BERU", _("Beru")
+    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
+    BORGWARNER = "BORGWARNER", _("BorgWarner")
+    BOSCH = "BOSCH", _("Bosch")
+    BRISK = "BRISK", _("Brisk")
+    CHAMPION = "CHAMPION", _("Champion")
+    DELPHI = "DELPHI", _("Delphi")
+    DENSO = "DENSO", _("DENSO")
     EYQUEM = "EYQUEM", _("Eyquem")
-    VALEO = "VALEO", _("Valeo")
     FEBI = "FEBI", _("Febi Bilstein")
     HELLA = "HELLA", _("Hella")
+    JAPANPARTS = "JAPANPARTS", _("Japanparts")
     MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
-    DELPHI = "DELPHI", _("Delphi")
-    BORGWARNER = "BORGWARNER", _("BorgWarner")
-    MOTORCRAFT = "MOTORCRAFT", _("Motorcraft")
-    ACDELCO = "ACDELCO", _("ACDelco")
     MOPAR = "MOPAR", _("Mopar")
+    MOTORCRAFT = "MOTORCRAFT", _("Motorcraft")
+    NGK = "NGK", _("NGK")
+    NPS = "NPS", _("NPS")
     PIERBURG = "PIERBURG", _("Pierburg")
     RIDEX = "RIDEX", _("RIDEX")
-    JAPANPARTS = "JAPANPARTS", _("Japanparts")
-    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
-    NPS = "NPS", _("NPS")
-    AUTOLITE = "AUTOLITE", _("Autolite")
-    BRISK = "BRISK", _("Brisk")
-
-
-
-
-
+    VALEO = "VALEO", _("Valeo")
 
 
 class MatiereFrein(models.TextChoices):
@@ -912,922 +846,822 @@ class TypeDisqueFrein(models.TextChoices):
 
 class FabricantBatterie(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
-    BOSCH = "BOSCH", _("Bosch")
-    VARTA = "VARTA", _("Varta")
-    EXIDE = "EXIDE", _("Exide")
-    YUASA = "YUASA", _("Yuasa")
+    ACDELCO = "ACDELCO", _("ACDelco")
     BANNER = "BANNER", _("Banner")
-    FIAMM = "FIAMM", _("Fiamm")
-    TUDOR = "TUDOR", _("Tudor")
-    FULMEN = "FULMEN", _("Fulmen")
+    BOSCH = "BOSCH", _("Bosch")
     CENTRA = "CENTRA", _("Centra")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
+    EXIDE = "EXIDE", _("Exide")
+    FIAMM = "FIAMM", _("Fiamm")
+    FULMEN = "FULMEN", _("Fulmen")
     HANKOOK = "HANKOOK", _("Hankook")
+    INTERSTATE = "INTERSTATE", _("Interstate")
+    MOLL = "MOLL", _("Moll")
     MUTLU = "MUTLU", _("Mutlu")
-    TAB = "TAB", _("TAB")
-    TOPLA = "TOPLA", _("Topla")
     ODYSSEY = "ODYSSEY", _("Odyssey")
     OPTIMA = "OPTIMA", _("Optima")
-    INTERSTATE = "INTERSTATE", _("Interstate")
-    ACDELCO = "ACDELCO", _("ACDelco")
-    MOLL = "MOLL", _("Moll")
-    CONTINENTAL = "CONTINENTAL", _("Continental")
+    TAB = "TAB", _("TAB")
+    TOPLA = "TOPLA", _("Topla")
+    TUDOR = "TUDOR", _("Tudor")
+    VARTA = "VARTA", _("Varta")
+    YUASA = "YUASA", _("Yuasa")
+
     AUTRE = "AUTRE", _("Autre")
-
-    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
-
 
 
 class FabricantEchappement(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
     AKRAPOVIC = "AKRAPOVIC", _("Akrapovič")
-    REMUS = "REMUS", _("Remus")
-    SUPERSPRINT = "SUPERSPRINT", _("Supersprint")
-    MILLTEK = "MILLTEK", _("Milltek Sport")
-    MAGNAFLOW = "MAGNAFLOW", _("MagnaFlow")
-    BORLA = "BORLA", _("Borla")
-    EISENMANN = "EISENMANN", _("Eisenmann")
-    FOX = "FOX", _("FOX")
-    BASTUCK = "BASTUCK", _("Bastuck")
-    RAGAZZON = "RAGAZZON", _("Ragazzon")
-    SCORPION = "SCORPION", _("Scorpion")
-    COBRA = "COBRA", _("Cobra Sport")
-    MIVV = "MIVV", _("MIVV")
     ARROW = "ARROW", _("Arrow")
-    BOSAL = "BOSAL", _("Bosal")
-    WALKER = "WALKER", _("Walker")
-    EBERSPACHER = "EBERSPACHER", _("Eberspächer")
-    IMASAF = "IMASAF", _("IMASAF")
-    ERNST = "ERNST", _("Ernst")
-    POLMO = "POLMO", _("Polmo")
+    BASTUCK = "BASTUCK", _("Bastuck")
     BMW = "BMW", _("BMW")
+    BORLA = "BORLA", _("Borla")
+    BOSAL = "BOSAL", _("Bosal")
+    COBRA = "COBRA", _("Cobra Sport")
+    EBERSPACHER = "EBERSPACHER", _("Eberspächer")
+    EISENMANN = "EISENMANN", _("Eisenmann")
+    ERNST = "ERNST", _("Ernst")
+    FOX = "FOX", _("FOX")
+    IMASAF = "IMASAF", _("IMASAF")
+    MAGNAFLOW = "MAGNAFLOW", _("MagnaFlow")
+    MILLTEK = "MILLTEK", _("Milltek Sport")
+    MIVV = "MIVV", _("MIVV")
+    POLMO = "POLMO", _("Polmo")
     PORSCHE = "PORSCHE", _("Porsche")
-    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
-
+    RAGAZZON = "RAGAZZON", _("Ragazzon")
+    REMUS = "REMUS", _("Remus")
+    SCORPION = "SCORPION", _("Scorpion")
+    SUPERSPRINT = "SUPERSPRINT", _("Supersprint")
+    WALKER = "WALKER", _("Walker")
 
     AUTRE = "AUTRE", _("Autre")
-
-
 
 
 class FabricantCapteurEchappement(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    OEM = "OEM", _("Constructeur OEM")
 
     BOSCH = "BOSCH", _("Bosch")
-    DENSO = "DENSO", _("Denso")
-    NGK = "NGK", _("NGK / NTK")
-    DELPHI = "DELPHI", _("Delphi")
-    HELLA = "HELLA", _("Hella")
-    VDO = "VDO", _("VDO")
     CONTINENTAL = "CONTINENTAL", _("Continental")
-    PIERBURG = "PIERBURG", _("Pierburg")
-    FACET = "FACET", _("Facet")
-    FEBI = "FEBI", _("Febi Bilstein")
-    MEYLE = "MEYLE", _("Meyle")
-    VEMO = "VEMO", _("Vemo")
-    ERA = "ERA", _("ERA")
-    FAE = "FAE", _("FAE")
+    DELPHI = "DELPHI", _("Delphi")
+    DENSO = "DENSO", _("Denso")
     EPS = "EPS", _("EPS")
-    RIDEX = "RIDEX", _("Ridex")
-    STARK = "STARK", _("Stark")
-    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
+    ERA = "ERA", _("ERA")
+    FACET = "FACET", _("Facet")
+    FAE = "FAE", _("FAE")
+    FEBI = "FEBI", _("Febi Bilstein")
+    HELLA = "HELLA", _("Hella")
     HITACHI = "HITACHI", _("Hitachi")
-    VALEO = "VALEO", _("Valeo")
-    WALKER = "WALKER", _("Walker Products")
-    SIDAT = "SIDAT", _("SIDAT")
+    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
     METZGER = "METZGER", _("Metzger")
+    MEYLE = "MEYLE", _("Meyle")
+    NGK = "NGK", _("NGK / NTK")
+    PIERBURG = "PIERBURG", _("Pierburg")
+    RIDEX = "RIDEX", _("Ridex")
+    SIDAT = "SIDAT", _("SIDAT")
+    STARK = "STARK", _("Stark")
     TOPRAN = "TOPRAN", _("Topran")
+    VALEO = "VALEO", _("Valeo")
+    VDO = "VDO", _("VDO")
+    VEMO = "VEMO", _("Vemo")
+    WALKER = "WALKER", _("Walker Products")
 
-    OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre")
-
 
 
 class FabricantSilentBloc(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    OEM = "OEM", _("Constructeur OEM")
 
-    LEMFORDER = "LEMFORDER", _("Lemförder")
+    BIRTH = "BIRTH", _("Birth")
+    CORTECO = "CORTECO", _("Corteco")
+    DELPHI = "DELPHI", _("Delphi")
     FEBI = "FEBI", _("Febi Bilstein")
+    LEMFORDER = "LEMFORDER", _("Lemförder")
+    MAPCO = "MAPCO", _("Mapco")
+    METZGER = "METZGER", _("Metzger")
     MEYLE = "MEYLE", _("Meyle")
-    TRW = "TRW", _("TRW")
     MOOG = "MOOG", _("Moog")
+    OPTIMAL = "OPTIMAL", _("Optimal")
+    POWERFLEX = "POWERFLEX", _("Powerflex")
+    RIDEX = "RIDEX", _("Ridex")
     SACHS = "SACHS", _("Sachs")
+    SASIC = "SASIC", _("Sasic")
+    SIDEM = "SIDEM", _("Sidem")
     SKF = "SKF", _("SKF")
     SNR = "SNR", _("SNR")
-    DELPHI = "DELPHI", _("Delphi")
-    SIDEM = "SIDEM", _("Sidem")
-    CORTECO = "CORTECO", _("Corteco")
-    SWAG = "SWAG", _("SWAG")
-    VAICO = "VAICO", _("Vaico")
-    MAPCO = "MAPCO", _("Mapco")
-    OPTIMAL = "OPTIMAL", _("Optimal")
-    BIRTH = "BIRTH", _("Birth")
-    SASIC = "SASIC", _("Sasic")
-    METZGER = "METZGER", _("Metzger")
-    TOPRAN = "TOPRAN", _("Topran")
-    RIDEX = "RIDEX", _("Ridex")
     STARK = "STARK", _("Stark")
-
-    POWERFLEX = "POWERFLEX", _("Powerflex")
-    SUPERPRO = "SUPERPRO", _("SuperPro")
     STRONGFLEX = "STRONGFLEX", _("Strongflex")
+    SUPERPRO = "SUPERPRO", _("SuperPro")
+    SWAG = "SWAG", _("SWAG")
+    TOPRAN = "TOPRAN", _("Topran")
+    TRW = "TRW", _("TRW")
+    VAICO = "VAICO", _("Vaico")
 
-    OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre")
-
 
 
 class CourroieDistributionFabricant(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    ORIGINE = "ORIGINE", _("Constructeur OEM")
 
-    CONTINENTAL = "CONTINENTAL", _("Continental / ContiTech")
-    GATES = "GATES", _("Gates")
-    DAYCO = "DAYCO", _("Dayco")
-    BOSCH = "BOSCH", _("Bosch")
-    SKF = "SKF", _("SKF")
-    INA = "INA", _("INA")
-    SNR = "SNR", _("SNR")
-    HUTCHINSON = "HUTCHINSON", _("Hutchinson")
-    OPTIBELT = "OPTIBELT", _("Optibelt")
-    MEYLE = "MEYLE", _("Meyle")
-    FEBI = "FEBI", _("Febi Bilstein")
-    SWAG = "SWAG", _("SWAG")
     BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
-    METELLI = "METELLI", _("Metelli")
-    HEPU = "HEPU", _("HEPU")
-    GRAF = "GRAF", _("GRAF")
+    BOSCH = "BOSCH", _("Bosch")
+    CONTINENTAL = "CONTINENTAL", _("Continental / ContiTech")
+    DAYCO = "DAYCO", _("Dayco")
     DOLZ = "DOLZ", _("DOLZ")
-    QUINTON_HAZELL = "QUINTON_HAZELL", _("Quinton Hazell")
+    FEBI = "FEBI", _("Febi Bilstein")
+    GATES = "GATES", _("Gates")
+    GRAF = "GRAF", _("GRAF")
+    HEPU = "HEPU", _("HEPU")
+    HUTCHINSON = "HUTCHINSON", _("Hutchinson")
+    INA = "INA", _("INA")
     MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
+    METELLI = "METELLI", _("Metelli")
+    MEYLE = "MEYLE", _("Meyle")
+    OPTIBELT = "OPTIBELT", _("Optibelt")
+    QUINTON_HAZELL = "QUINTON_HAZELL", _("Quinton Hazell")
+    SKF = "SKF", _("SKF")
+    SNR = "SNR", _("SNR")
+    SWAG = "SWAG", _("SWAG")
 
-    ORIGINE = "ORIGINE", _("Pièce d'origine / OEM")
     AUTRE = "AUTRE", _("Autre")
-
-
 
 
 class FabricantTurbo(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
-    GARRETT = "GARRETT", _("Garrett")
+    AISIN = "AISIN", _("Aisin")
+    ALANKO = "ALANKO", _("ALANKO")
+    BE_TURBO = "BE_TURBO", _("BE Turbo")
     BORGWARNER = "BORGWARNER", _("BorgWarner")
+    BOSCH_MAHLE = "BOSCH_MAHLE", _("Bosch Mahle Turbo Systems")
+    BTS_TURBO = "BTS_TURBO", _("BTS Turbo")
+    COMP_TURBO = "COMP_TURBO", _("Comp Turbo")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
+    CUMMINS = "CUMMINS", _("Cummins Turbo Technologies")
+    DELPHI = "DELPHI", _("Delphi")
+    ELSTOCK = "ELSTOCK", _("Elstock")
+    GARRETT = "GARRETT", _("Garrett")
+    HITACHI = "HITACHI", _("Hitachi")
+    HOLSET = "HOLSET", _("Holset")
+    HONEYWELL = "HONEYWELL", _("Honeywell")
+    IHI = "IHI", _("IHI")
+    JRONE = "JRONE", _("JRone")
     KKK = "KKK", _("KKK")
-    SCHWITZER = "SCHWITZER", _("Schwitzer")
-
+    LOBA = "LOBA", _("LOBA Motorsport")
+    LUCAS = "LUCAS", _("Lucas")
+    MAHLE = "MAHLE", _("MAHLE")
+    MELETT = "MELETT", _("Melett")
     MITSUBISHI = "MITSUBISHI", _("Mitsubishi")
     MHI = "MHI", _("Mitsubishi Heavy Industries (MHI)")
-    IHI = "IHI", _("IHI")
-
-    HOLSET = "HOLSET", _("Holset")
-    CUMMINS = "CUMMINS", _("Cummins Turbo Technologies")
-
-    CONTINENTAL = "CONTINENTAL", _("Continental")
-    MAHLE = "MAHLE", _("MAHLE")
-    BOSCH_MAHLE = "BOSCH_MAHLE", _("Bosch Mahle Turbo Systems")
-
-    HITACHI = "HITACHI", _("Hitachi")
-    TOYOTA = "TOYOTA", _("Toyota")
-    AISIN = "AISIN", _("Aisin")
-
-    HONEYWELL = "HONEYWELL", _("Honeywell")
-    ROTOMASTER = "ROTOMASTER", _("Rotomaster")
-
-    TURBO_TECHNICS = "TURBO_TECHNICS", _("Turbo Technics")
-    TURBOSMART = "TURBOSMART", _("Turbosmart")
-    TURBONETICS = "TURBONETICS", _("Turbonetics")
-    PRECISION = "PRECISION", _("Precision Turbo & Engine")
-    COMP_TURBO = "COMP_TURBO", _("Comp Turbo")
-    TIAL = "TIAL", _("TiAL Sport")
-
-    TTE = "TTE", _("The Turbo Engineers (TTE)")
-    LOBA = "LOBA", _("LOBA Motorsport")
-    WEISTEC = "WEISTEC", _("Weistec")
-    PURE_TURBOS = "PURE_TURBOS", _("Pure Turbos")
-
-    MELETT = "MELETT", _("Melett")
-    JRONE = "JRONE", _("JRone")
-    SL_TURBO = "SL_TURBO", _("SL Turbo")
-
-    NISSENS = "NISSENS", _("Nissens")
-    DELPHI = "DELPHI", _("Delphi")
-    NRF = "NRF", _("NRF")
-
-    RIDEX = "RIDEX", _("RIDEX")
-    STARK = "STARK", _("STARK")
-    ALANKO = "ALANKO", _("ALANKO")
-    LUCAS = "LUCAS", _("Lucas")
-    BTS_TURBO = "BTS_TURBO", _("BTS Turbo")
-    BE_TURBO = "BE_TURBO", _("BE Turbo")
-    TURBO_MOTOR = "TURBO_MOTOR", _("Turbo Motor")
     MOTAIR = "MOTAIR", _("Motair")
-    ELSTOCK = "ELSTOCK", _("Elstock")
+    NISSENS = "NISSENS", _("Nissens")
+    NRF = "NRF", _("NRF")
+    PRECISION = "PRECISION", _("Precision Turbo & Engine")
+    PURE_TURBOS = "PURE_TURBOS", _("Pure Turbos")
+    RIDEX = "RIDEX", _("RIDEX")
+    ROTOMASTER = "ROTOMASTER", _("Rotomaster")
+    SCHWITZER = "SCHWITZER", _("Schwitzer")
+    SL_TURBO = "SL_TURBO", _("SL Turbo")
+    STARK = "STARK", _("STARK")
+    TTE = "TTE", _("The Turbo Engineers (TTE)")
+    TIAL = "TIAL", _("TiAL Sport")
+    TOYOTA = "TOYOTA", _("Toyota")
+    TURBO_MOTOR = "TURBO_MOTOR", _("Turbo Motor")
+    TURBO_TECHNICS = "TURBO_TECHNICS", _("Turbo Technics")
     TURBO_S_M = "TURBO_S_M", _("Turbo's Hoet")
+    TURBONETICS = "TURBONETICS", _("Turbonetics")
+    TURBOSMART = "TURBOSMART", _("Turbosmart")
+    WEISTEC = "WEISTEC", _("Weistec")
 
     AUTRE = "AUTRE", _("Autre")
-
-
-
 
 
 class FabricantIntercooler(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
-    # Fabricants OEM / équipementiers
-    MAHLE = "MAHLE", _("MAHLE")
-    BEHR = "BEHR", _("Behr")
-    VALEO = "VALEO", _("Valeo")
-    DENSO = "DENSO", _("Denso")
-    DELPHI = "DELPHI", _("Delphi")
-    MODINE = "MODINE", _("Modine")
-    HANON = "HANON", _("Hanon Systems")
-    SANDEN = "SANDEN", _("Sanden")
-    MARELLI = "MARELLI", _("Marelli")
-    NRF = "NRF", _("NRF")
-    NISSENS = "NISSENS", _("Nissens")
-    AVA = "AVA", _("AVA Cooling Systems")
-    KOYORAD = "KOYORAD", _("Koyorad")
-    TYC = "TYC", _("TYC")
-
-    # Turbo / systèmes de suralimentation
-    GARRETT = "GARRETT", _("Garrett")
-    BORGWARNER = "BORGWARNER", _("BorgWarner")
-    MITSUBISHI = "MITSUBISHI", _("Mitsubishi")
-    IHI = "IHI", _("IHI")
-
-    # Performance / compétition
-    WAGNER_TUNING = "WAGNER_TUNING", _("Wagner Tuning")
-    MISHIMOTO = "MISHIMOTO", _("Mishimoto")
-    FORGE = "FORGE", _("Forge Motorsport")
+    ABAKUS = "ABAKUS", _("ABAKUS")
     AIRTEC = "AIRTEC", _("AIRTEC Motorsport")
-    DO88 = "DO88", _("do88")
-    CSF = "CSF", _("CSF")
-    PWR = "PWR", _("PWR")
-    PROALLOY = "PROALLOY", _("Pro Alloy")
-    TURBOSMART = "TURBOSMART", _("Turbosmart")
     AMS = "AMS", _("AMS Performance")
     APR = "APR", _("APR")
-    CTS_TURBO = "CTS_TURBO", _("CTS Turbo")
-    DINAN = "DINAN", _("Dinan")
+    AVA = "AVA", _("AVA Cooling Systems")
+    BEHR = "BEHR", _("Behr")
+    BORGWARNER = "BORGWARNER", _("BorgWarner")
     COBB = "COBB", _("COBB Tuning")
-
-    # Aftermarket / remplacement
-    HELLA = "HELLA", _("HELLA")
-    RIDEX = "RIDEX", _("RIDEX")
-    STARK = "STARK", _("STARK")
+    CSF = "CSF", _("CSF")
+    CTS_TURBO = "CTS_TURBO", _("CTS Turbo")
+    DELPHI = "DELPHI", _("Delphi")
+    DENSO = "DENSO", _("Denso")
+    DINAN = "DINAN", _("Dinan")
+    DO88 = "DO88", _("do88")
     FEBI = "FEBI", _("FEBI Bilstein")
-    MEYLE = "MEYLE", _("MEYLE")
-    METZGER = "METZGER", _("Metzger")
-    VAN_WEZEL = "VAN_WEZEL", _("Van Wezel")
-    PRASCO = "PRASCO", _("Prasco")
-    THERMOTEC = "THERMOTEC", _("Thermotec")
-    KALE = "KALE", _("KALE")
+    FORGE = "FORGE", _("Forge Motorsport")
+    GARRETT = "GARRETT", _("Garrett")
+    HANON = "HANON", _("Hanon Systems")
+    HELLA = "HELLA", _("HELLA")
+    IHI = "IHI", _("IHI")
     JP_GROUP = "JP_GROUP", _("JP Group")
+    KALE = "KALE", _("KALE")
+    KOYORAD = "KOYORAD", _("Koyorad")
+    MAHLE = "MAHLE", _("MAHLE")
+    MARELLI = "MARELLI", _("Marelli")
     MAXGEAR = "MAXGEAR", _("MAXGEAR")
-    ABAKUS = "ABAKUS", _("ABAKUS")
+    METZGER = "METZGER", _("Metzger")
+    MEYLE = "MEYLE", _("MEYLE")
+    MISHIMOTO = "MISHIMOTO", _("Mishimoto")
+    MITSUBISHI = "MITSUBISHI", _("Mitsubishi")
+    MODINE = "MODINE", _("Modine")
+    NISSENS = "NISSENS", _("Nissens")
+    NRF = "NRF", _("NRF")
+    PRASCO = "PRASCO", _("Prasco")
+    PROALLOY = "PROALLOY", _("Pro Alloy")
+    PWR = "PWR", _("PWR")
+    RIDEX = "RIDEX", _("RIDEX")
+    SANDEN = "SANDEN", _("Sanden")
+    STARK = "STARK", _("STARK")
+    THERMOTEC = "THERMOTEC", _("Thermotec")
+    TURBOSMART = "TURBOSMART", _("Turbosmart")
+    TYC = "TYC", _("TYC")
+    VALEO = "VALEO", _("Valeo")
+    VAN_WEZEL = "VAN_WEZEL", _("Van Wezel")
+    WAGNER_TUNING = "WAGNER_TUNING", _("Wagner Tuning")
 
     AUTRE = "AUTRE", _("Autre")
-
 
 
 class FabricantVanneEGR(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
-    # Équipementiers / OEM
+    ABAKUS = "ABAKUS", _("ABAKUS")
+    AISIN = "AISIN", _("Aisin")
+    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
     BOSCH = "BOSCH", _("Bosch")
-    PIERBURG = "PIERBURG", _("Pierburg")
-    WAHLER = "WAHLER", _("Wahler")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
     DELPHI = "DELPHI", _("Delphi")
     DENSO = "DENSO", _("Denso")
-    CONTINENTAL = "CONTINENTAL", _("Continental")
-    VDO = "VDO", _("VDO")
-    HELLA = "HELLA", _("HELLA")
-    VALEO = "VALEO", _("Valeo")
-    MARELLI = "MARELLI", _("Marelli")
-    HITACHI = "HITACHI", _("Hitachi")
-    AISIN = "AISIN", _("Aisin")
-    MAHLE = "MAHLE", _("MAHLE")
-
-    # Aftermarket
-    FEBI = "FEBI", _("FEBI Bilstein")
-    SWAG = "SWAG", _("SWAG")
-    MEYLE = "MEYLE", _("MEYLE")
-    METZGER = "METZGER", _("Metzger")
     ERA = "ERA", _("ERA")
+    ESEN_SKV = "ESEN_SKV", _("ESEN SKV")
     FACET = "FACET", _("Facet")
-    VEMO = "VEMO", _("VEMO")
-    TOPRAN = "TOPRAN", _("Topran")
-    MAPCO = "MAPCO", _("MAPCO")
-    TRISCAN = "TRISCAN", _("Triscan")
-    SIDAT = "SIDAT", _("SIDAT")
+    FEBI = "FEBI", _("FEBI Bilstein")
     FISPA = "FISPA", _("FISPA")
+    HELLA = "HELLA", _("HELLA")
+    HERTH_BUSS = "HERTH_BUSS", _("Herth+Buss")
+    HITACHI = "HITACHI", _("Hitachi")
+    MAHLE = "MAHLE", _("MAHLE")
+    MAPCO = "MAPCO", _("MAPCO")
+    MARELLI = "MARELLI", _("Marelli")
+    MAXGEAR = "MAXGEAR", _("MAXGEAR")
+    MEAT_DORIA = "MEAT_DORIA", _("Meat & Doria")
+    METZGER = "METZGER", _("Metzger")
+    MEYLE = "MEYLE", _("MEYLE")
     NRF = "NRF", _("NRF")
     NTY = "NTY", _("NTY")
-    RIDEX = "RIDEX", _("RIDEX")
-    STARK = "STARK", _("STARK")
-    MAXGEAR = "MAXGEAR", _("MAXGEAR")
-    ABAKUS = "ABAKUS", _("ABAKUS")
-    ESEN_SKV = "ESEN_SKV", _("ESEN SKV")
-    MEAT_DORIA = "MEAT_DORIA", _("Meat & Doria")
-    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
-    HERTH_BUSS = "HERTH_BUSS", _("Herth+Buss")
+    PIERBURG = "PIERBURG", _("Pierburg")
     QUINTON_HAZELL = "QUINTON_HAZELL", _("Quinton Hazell")
+    RIDEX = "RIDEX", _("RIDEX")
+    SIDAT = "SIDAT", _("SIDAT")
+    STARK = "STARK", _("STARK")
+    SWAG = "SWAG", _("SWAG")
+    TOPRAN = "TOPRAN", _("Topran")
+    TRISCAN = "TRISCAN", _("Triscan")
+    VALEO = "VALEO", _("Valeo")
+    VDO = "VDO", _("VDO")
+    VEMO = "VEMO", _("VEMO")
+    WAHLER = "WAHLER", _("Wahler")
 
     AUTRE = "AUTRE", _("Autre")
-
-
-
 
 
 class FabricantDurite(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
-    # OEM / grands équipementiers
+    ABAKUS = "ABAKUS", _("ABAKUS")
+    AIRTEC = "AIRTEC", _("AIRTEC Motorsport")
+    BEHR = "BEHR", _("Behr")
+    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
+    BOSCH = "BOSCH", _("Bosch")
+    COHLINE = "COHLINE", _("Cohline")
     CONTINENTAL = "CONTINENTAL", _("Continental")
     CONTITECH = "CONTITECH", _("ContiTech")
-    GATES = "GATES", _("Gates")
     DAYCO = "DAYCO", _("Dayco")
-    HUTCHINSON = "HUTCHINSON", _("Hutchinson")
-    PARKER = "PARKER", _("Parker")
-    COHLINE = "COHLINE", _("Cohline")
-    NORMA = "NORMA", _("NORMA Group")
-    VERITAS = "VERITAS", _("Veritas")
+    DELPHI = "DELPHI", _("Delphi")
+    DO88 = "DO88", _("do88")
+    FEBI = "FEBI", _("FEBI Bilstein")
+    FORGE = "FORGE", _("Forge Motorsport")
     FREUDENBERG = "FREUDENBERG", _("Freudenberg")
-    TEKNIKUM = "TEKNIKUM", _("Teknikum")
-
-    # Refroidissement / moteur
+    GATES = "GATES", _("Gates")
+    HELLA = "HELLA", _("HELLA")
+    HERTH_BUSS = "HERTH_BUSS", _("Herth+Buss")
+    HUTCHINSON = "HUTCHINSON", _("Hutchinson")
+    IMPERGOM = "IMPERGOM", _("Impergom")
+    JP_GROUP = "JP_GROUP", _("JP Group")
     MAHLE = "MAHLE", _("MAHLE")
-    BEHR = "BEHR", _("Behr")
-    VALEO = "VALEO", _("Valeo")
-    NISSENS = "NISSENS", _("Nissens")
-    NRF = "NRF", _("NRF")
+    MAPCO = "MAPCO", _("MAPCO")
+    MAXGEAR = "MAXGEAR", _("MAXGEAR")
     METZGER = "METZGER", _("Metzger")
     MEYLE = "MEYLE", _("MEYLE")
-    FEBI = "FEBI", _("FEBI Bilstein")
-    SWAG = "SWAG", _("SWAG")
-    TOPRAN = "TOPRAN", _("Topran")
-    VAICO = "VAICO", _("VAICO")
-
-    # Turbo / intercooler / admission
-    FORGE = "FORGE", _("Forge Motorsport")
-    SAMCO = "SAMCO", _("Samco Sport")
-    DO88 = "DO88", _("do88")
     MISHIMOTO = "MISHIMOTO", _("Mishimoto")
-    WAGNER_TUNING = "WAGNER_TUNING", _("Wagner Tuning")
-    AIRTEC = "AIRTEC", _("AIRTEC Motorsport")
-
-    # Carburant / huile / hydraulique
-    BOSCH = "BOSCH", _("Bosch")
-    DELPHI = "DELPHI", _("Delphi")
+    NISSENS = "NISSENS", _("Nissens")
+    NORMA = "NORMA", _("NORMA Group")
+    NRF = "NRF", _("NRF")
+    PARKER = "PARKER", _("Parker")
     PIERBURG = "PIERBURG", _("Pierburg")
-    HELLA = "HELLA", _("HELLA")
-
-    # Aftermarket
-    IMPERGOM = "IMPERGOM", _("Impergom")
     RAPRO = "RAPRO", _("Rapro")
-    THERMOTEC = "THERMOTEC", _("Thermotec")
-    TRISCAN = "TRISCAN", _("Triscan")
-    MAPCO = "MAPCO", _("MAPCO")
-    JP_GROUP = "JP_GROUP", _("JP Group")
-    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
-    HERTH_BUSS = "HERTH_BUSS", _("Herth+Buss")
     RIDEX = "RIDEX", _("RIDEX")
+    SAMCO = "SAMCO", _("Samco Sport")
     STARK = "STARK", _("STARK")
-    MAXGEAR = "MAXGEAR", _("MAXGEAR")
-    ABAKUS = "ABAKUS", _("ABAKUS")
+    SWAG = "SWAG", _("SWAG")
+    TEKNIKUM = "TEKNIKUM", _("Teknikum")
+    THERMOTEC = "THERMOTEC", _("Thermotec")
+    TOPRAN = "TOPRAN", _("Topran")
+    TRISCAN = "TRISCAN", _("Triscan")
+    VAICO = "VAICO", _("VAICO")
+    VALEO = "VALEO", _("Valeo")
+    VERITAS = "VERITAS", _("Veritas")
+    WAGNER_TUNING = "WAGNER_TUNING", _("Wagner Tuning")
 
     AUTRE = "AUTRE", _("Autre")
-
-
 
 
 class FabricantAlternateur(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
-    BOSCH = "BOSCH", _("Bosch")
-    VALEO = "VALEO", _("Valeo")
-    DENSO = "DENSO", _("Denso")
-    DELPHI = "DELPHI", _("Delphi")
-    HITACHI = "HITACHI", _("Hitachi")
-    MITSUBISHI = "MITSUBISHI", _("Mitsubishi Electric")
-    HELLA = "HELLA", _("Hella")
-    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
-    LUCAS = "LUCAS", _("Lucas")
-    PRESTOLITE = "PRESTOLITE", _("Prestolite")
-    REMY = "REMY", _("Remy")
-    MANDO = "MANDO", _("Mando")
-    AS_PL = "AS_PL", _("AS-PL")
-    HC_CARGO = "HC_CARGO", _("HC-Cargo")
-    MAHLE = "MAHLE", _("Mahle")
-    VISTEON = "VISTEON", _("Visteon")
-    MOTORCRAFT = "MOTORCRAFT", _("Motorcraft")
     ACDELCO = "ACDELCO", _("ACDelco")
-    MOPAR = "MOPAR", _("Mopar")
-    MOBILETRON = "MOBILETRON", _("Mobiletron")
-    ERA = "ERA", _("ERA")
-    MEAT_DORIA = "MEAT_DORIA", _("Meat & Doria")
-    FEBI = "FEBI", _("Febi Bilstein")
-    HERTH_BUSS = "HERTH_BUSS", _("Herth+Buss")
-    JP_GROUP = "JP_GROUP", _("JP Group")
-    MAPCO = "MAPCO", _("Mapco")
-    RIDEX = "RIDEX", _("Ridex")
-    STARK = "STARK", _("Stark")
-    WAI = "WAI", _("WAI Global")
-    POWERMAX = "POWERMAX", _("PowerMax")
-    BV_PSH = "BV_PSH", _("BV PSH")
-    ELSTOCK = "ELSTOCK", _("Elstock")
-    CEVAM = "CEVAM", _("CEVAM")
-    SNRA = "SNRA", _("SNRA")
-    LAUBER = "LAUBER", _("Lauber")
-    CASCO = "CASCO", _("Casco")
-    SANDO = "SANDO", _("Sando")
-    EUROTEC = "EUROTEC", _("Eurotec")
-    ALANKO = "ALANKO", _("Alanko")
-    ROTOVIS = "ROTOVIS", _("Rotovis")
-    EAI = "EAI", _("EAI")
-    AUTEX = "AUTEX", _("Autex")
-    QUINTON_HAZELL = "QUINTON_HAZELL", _("Quinton Hazell")
-    TRW = "TRW", _("TRW")
-    CONTINENTAL = "CONTINENTAL", _("Continental")
-    VDO = "VDO", _("VDO")
-    NIPPARTS = "NIPPARTS", _("Nipparts")
-    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
     ACKOJAP = "ACKOJAP", _("ACKOJA")
+    ALANKO = "ALANKO", _("Alanko")
+    AS_PL = "AS_PL", _("AS-PL")
+    AUTEX = "AUTEX", _("Autex")
+    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
+    BOSCH = "BOSCH", _("Bosch")
+    BV_PSH = "BV_PSH", _("BV PSH")
+    CASCO = "CASCO", _("Casco")
+    CEVAM = "CEVAM", _("CEVAM")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
+    DELPHI = "DELPHI", _("Delphi")
+    DENSO = "DENSO", _("Denso")
+    EAI = "EAI", _("EAI")
+    ELSTOCK = "ELSTOCK", _("Elstock")
+    ERA = "ERA", _("ERA")
     ERA_BENELUX = "ERA_BENELUX", _("ERA Benelux")
+    EUROTEC = "EUROTEC", _("Eurotec")
+    FEBI = "FEBI", _("Febi Bilstein")
+    HC_CARGO = "HC_CARGO", _("HC-Cargo")
+    HELLA = "HELLA", _("Hella")
+    HERTH_BUSS = "HERTH_BUSS", _("Herth+Buss")
+    HITACHI = "HITACHI", _("Hitachi")
+    JP_GROUP = "JP_GROUP", _("JP Group")
+    LAUBER = "LAUBER", _("Lauber")
+    LUCAS = "LUCAS", _("Lucas")
+    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
+    MAHLE = "MAHLE", _("Mahle")
+    MANDO = "MANDO", _("Mando")
+    MAPCO = "MAPCO", _("Mapco")
+    MEAT_DORIA = "MEAT_DORIA", _("Meat & Doria")
+    MITSUBISHI = "MITSUBISHI", _("Mitsubishi Electric")
+    MOBILETRON = "MOBILETRON", _("Mobiletron")
+    MOPAR = "MOPAR", _("Mopar")
+    MOTORCRAFT = "MOTORCRAFT", _("Motorcraft")
+    NIPPARTS = "NIPPARTS", _("Nipparts")
+    POWERMAX = "POWERMAX", _("PowerMax")
+    PRESTOLITE = "PRESTOLITE", _("Prestolite")
+    QUINTON_HAZELL = "QUINTON_HAZELL", _("Quinton Hazell")
+    REMY = "REMY", _("Remy")
+    RIDEX = "RIDEX", _("Ridex")
+    ROTOVIS = "ROTOVIS", _("Rotovis")
+    SANDO = "SANDO", _("Sando")
+    SNRA = "SNRA", _("SNRA")
+    STARK = "STARK", _("Stark")
+    TRW = "TRW", _("TRW")
+    VALEO = "VALEO", _("Valeo")
+    VDO = "VDO", _("VDO")
+    VISTEON = "VISTEON", _("Visteon")
+    WAI = "WAI", _("WAI Global")
 
     AUTRE = "AUTRE", _("Autre")
-
-
-
-
 
 
 class FabricantCourroie(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
-    CONTINENTAL = "CONTINENTAL", _("Continental / ContiTech")
-    GATES = "GATES", _("Gates")
-    DAYCO = "DAYCO", _("Dayco")
-    BOSCH = "BOSCH", _("Bosch")
-    SKF = "SKF", _("SKF")
-    INA = "INA", _("INA")
-    SNR = "SNR", _("SNR")
-    HUTCHINSON = "HUTCHINSON", _("Hutchinson")
-    OPTIBELT = "OPTIBELT", _("Optibelt")
-    MITSUBOSHI = "MITSUBOSHI", _("Mitsuboshi")
+    ACKOJA = "ACKOJA", _("ACKOJA")
+    ASHIKA = "ASHIKA", _("Ashika")
     BANDO = "BANDO", _("Bando")
-    MEYLE = "MEYLE", _("Meyle")
-    FEBI = "FEBI", _("Febi Bilstein")
-    SWAG = "SWAG", _("SWAG")
     BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
-    QUINTON_HAZELL = "QUINTON_HAZELL", _("Quinton Hazell")
-    MAPCO = "MAPCO", _("Mapco")
-    RIDEX = "RIDEX", _("Ridex")
-    STARK = "STARK", _("Stark")
-    VAICO = "VAICO", _("Vaico")
-    TOPRAN = "TOPRAN", _("Topran")
-    TRISCAN = "TRISCAN", _("Triscan")
-    METELLI = "METELLI", _("Metelli")
+    BOSCH = "BOSCH", _("Bosch")
+    CONTINENTAL = "CONTINENTAL", _("Continental / ContiTech")
+    DAYCO = "DAYCO", _("Dayco")
+    DOLZ = "DOLZ", _("Dolz")
+    FEBI = "FEBI", _("Febi Bilstein")
+    GATES = "GATES", _("Gates")
     GRAF = "GRAF", _("Graf")
     HEPU = "HEPU", _("HEPU")
-    DOLZ = "DOLZ", _("Dolz")
-    KAVO_PARTS = "KAVO_PARTS", _("Kavo Parts")
-    JAPANPARTS = "JAPANPARTS", _("Japanparts")
-    ASHIKA = "ASHIKA", _("Ashika")
     HERTH_BUSS = "HERTH_BUSS", _("Herth+Buss")
-    NIPPARTS = "NIPPARTS", _("Nipparts")
-    ACKOJA = "ACKOJA", _("ACKOJA")
+    HUTCHINSON = "HUTCHINSON", _("Hutchinson")
+    INA = "INA", _("INA")
+    JAPANPARTS = "JAPANPARTS", _("Japanparts")
+    KAVO_PARTS = "KAVO_PARTS", _("Kavo Parts")
     MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
+    MAPCO = "MAPCO", _("Mapco")
+    METELLI = "METELLI", _("Metelli")
+    MEYLE = "MEYLE", _("Meyle")
+    MITSUBOSHI = "MITSUBOSHI", _("Mitsuboshi")
+    NIPPARTS = "NIPPARTS", _("Nipparts")
+    OPTIBELT = "OPTIBELT", _("Optibelt")
+    QUINTON_HAZELL = "QUINTON_HAZELL", _("Quinton Hazell")
+    RIDEX = "RIDEX", _("Ridex")
+    SKF = "SKF", _("SKF")
+    SNR = "SNR", _("SNR")
+    STARK = "STARK", _("Stark")
+    SWAG = "SWAG", _("SWAG")
+    TOPRAN = "TOPRAN", _("Topran")
+    TRISCAN = "TRISCAN", _("Triscan")
+    VAICO = "VAICO", _("Vaico")
     VALEO = "VALEO", _("Valeo")
 
     AUTRE = "AUTRE", _("Autre")
 
 
-
-
-
-
 class FabricantEmbrayage(models.TextChoices):
-    # ============================================================
-    # GRANDS ÉQUIPEMENTIERS / OEM
-    # ============================================================
     CHOISIR = "CHOISIR", _("Choisir")
+    OEM = "OEM", _("Constructeur OEM")
 
-    LUK = "LUK", _("LuK / Schaeffler")
-    SACHS = "SACHS", _("SACHS / ZF")
-    VALEO = "VALEO", _("Valeo")
-    EXEDY = "EXEDY", _("EXEDY")
-    AISIN = "AISIN", _("AISIN")
-    FCC = "FCC", _("F.C.C.")
-    BORGWARNER = "BORGWARNER", _("BorgWarner")
-    EATON = "EATON", _("Eaton")
-    TWIN_DISC = "TWIN_DISC", _("Twin Disc")
-    SETCO = "SETCO", _("Setco Automotive")
-    TIELIU = "TIELIU", _("Zhejiang Tieliu")
-    RAICAM = "RAICAM", _("Raicam")
-    NISSIN = "NISSIN", _("Nissin")
-    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
-    CONTINENTAL = "CONTINENTAL", _("Continental")
-    NSK = "NSK", _("NSK")
-    FCC_JAPAN = "FCC_JAPAN", _("FCC Japan")
-
-    # ============================================================
-    # PERFORMANCE / SPORT / COMPÉTITION
-    # ============================================================
-
-    AP_RACING = "AP_RACING", _("AP Racing")
-    TILTON = "TILTON", _("Tilton Engineering")
-    OS_GIKEN = "OS_GIKEN", _("OS Giken")
     ACT = "ACT", _("ACT (Advanced Clutch Technology)")
-    SPEC = "SPEC", _("SPEC Clutch")
+    AISIN = "AISIN", _("AISIN")
+    ALFA_ROMEO = "ALFA_ROMEO", _("Alfa Romeo Original")
+    AP_RACING = "AP_RACING", _("AP Racing")
+    ASHIKA = "ASHIKA", _("ASHIKA")
+    ATS = "ATS", _("ATS")
+    AUDI = "AUDI", _("Audi Original")
+    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
+    BMW = "BMW", _("BMW Original")
+    BORG_BECK = "BORG_BECK", _("Borg & Beck")
+    BORGWARNER = "BORGWARNER", _("BorgWarner")
+    CARBONETIC = "CARBONETIC", _("Carbonetic")
+    CEI = "CEI", _("CEI")
     CENTERFORCE = "CENTERFORCE", _("Centerforce")
+    CITROEN = "CITROEN", _("Citroën Original")
     CLUTCH_MASTERS = "CLUTCH_MASTERS", _("Clutch Masters")
     COMPETITION_CLUTCH = "COMPETITION_CLUTCH", _("Competition Clutch")
-    HELIX = "HELIX", _("Helix Autosport")
-    MANTIC = "MANTIC", _("Mantic Clutch")
-    QUARTER_MASTER = "QUARTER_MASTER", _("Quarter Master")
-    MCLEOD = "MCLEOD", _("McLeod Racing")
-    HAYS = "HAYS", _("Hays Clutches")
-    RAM = "RAM", _("RAM Clutches")
-    SOUTH_BEND = "SOUTH_BEND", _("South Bend Clutch")
-    XTREME = "XTREME", _("Xtreme Clutch")
-    DKM = "DKM", _("DKM Clutch")
-    FIDANZA = "FIDANZA", _("Fidanza")
-    CARBONETIC = "CARBONETIC", _("Carbonetic")
-    NPC = "NPC", _("NPC Performance Clutches")
-
-    # ============================================================
-    # JAPON / PERFORMANCE JAPONAISE
-    # ============================================================
-
-    HKS = "HKS", _("HKS")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
     CUSCO = "CUSCO", _("CUSCO")
-    ORC = "ORC", _("Ogura Racing Clutch (ORC)")
-    ATS = "ATS", _("ATS")
-    NISMO = "NISMO", _("NISMO")
-    TRD = "TRD", _("TRD")
-    STI = "STI", _("STI")
-    TODA = "TODA", _("Toda Racing")
-    JUN = "JUN", _("JUN Auto")
-    GREDDY = "GREDDY", _("GReddy / TRUST")
-
-    # ============================================================
-    # EUROPE / AFTERMARKET
-    # ============================================================
-
-    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
-    FEBI = "FEBI", _("febi bilstein")
-    MEYLE = "MEYLE", _("MEYLE")
-    MAPCO = "MAPCO", _("MAPCO")
-    RIDEX = "RIDEX", _("RIDEX")
-    STARK = "STARK", _("STARK")
-    NK = "NK", _("NK")
-    JP_GROUP = "JP_GROUP", _("JP Group")
-    MAXGEAR = "MAXGEAR", _("MAXGEAR")
-    KAMOKA = "KAMOKA", _("KAMOKA")
+    DACIA = "DACIA", _("Dacia Original")
     DENCKERMANN = "DENCKERMANN", _("Denckermann")
-    STATIM = "STATIM", _("STATIM")
-    MECARM = "MECARM", _("MECARM")
-    KAWE = "KAWE", _("KAWE")
-    NATIONAL = "NATIONAL", _("National")
-    BORG_BECK = "BORG_BECK", _("Borg & Beck")
-    QH = "QH", _("Quinton Hazell")
-    LPR = "LPR", _("LPR")
+    DKM = "DKM", _("DKM Clutch")
+    EATON = "EATON", _("Eaton")
+    EURORICAMBI = "EURORICAMBI", _("Euroricambi")
+    EXEDY = "EXEDY", _("EXEDY")
+    FCC = "FCC", _("F.C.C.")
+    INCONNU = "INCONNU", _("Fabricant inconnu")
     FAST = "FAST", _("FAST")
-    SAMKO = "SAMKO", _("SAMKO")
-    STARLINE = "STARLINE", _("Starline")
-    ASHIKA = "ASHIKA", _("ASHIKA")
+    FCC_JAPAN = "FCC_JAPAN", _("FCC Japan")
+    FEBI = "FEBI", _("febi bilstein")
+    FIAT = "FIAT", _("Fiat Original")
+    FIDANZA = "FIDANZA", _("Fidanza")
+    FORD = "FORD", _("Ford Original")
+    GREDDY = "GREDDY", _("GReddy / TRUST")
+    HAMMER = "HAMMER", _("Hammer Kupplungen")
+    HAYS = "HAYS", _("Hays Clutches")
+    HELIX = "HELIX", _("Helix Autosport")
+    HKS = "HKS", _("HKS")
+    HONDA = "HONDA", _("Honda Original")
+    HYUNDAI = "HYUNDAI", _("Hyundai Original")
+    JAGUAR = "JAGUAR", _("Jaguar Original")
     JAPANPARTS = "JAPANPARTS", _("Japanparts")
     JAPKO = "JAPKO", _("JAPKO")
-
-    # ============================================================
-    # POIDS LOURDS / UTILITAIRES / INDUSTRIEL
-    # ============================================================
-
-    KNORR_BREMSE = "KNORR_BREMSE", _("Knorr-Bremse")
-    WABCO = "WABCO", _("WABCO / ZF")
-    HAMMER = "HAMMER", _("Hammer Kupplungen")
-    LIPE = "LIPE", _("LIPE Clutch")
-    CEI = "CEI", _("CEI")
-    EURORICAMBI = "EURORICAMBI", _("Euroricambi")
-
-    # ============================================================
-    # CONSTRUCTEURS / PIÈCES D'ORIGINE
-    # ============================================================
-
-    BMW = "BMW", _("BMW Original")
-    MINI = "MINI", _("MINI Original")
-    MERCEDES = "MERCEDES", _("Mercedes-Benz Original")
-    AUDI = "AUDI", _("Audi Original")
-    VOLKSWAGEN = "VOLKSWAGEN", _("Volkswagen Original")
-    PORSCHE = "PORSCHE", _("Porsche Original")
-    FORD = "FORD", _("Ford Original")
-    OPEL = "OPEL", _("Opel Original")
-    PEUGEOT = "PEUGEOT", _("Peugeot Original")
-    CITROEN = "CITROEN", _("Citroën Original")
-    RENAULT = "RENAULT", _("Renault Original")
-    DACIA = "DACIA", _("Dacia Original")
-    FIAT = "FIAT", _("Fiat Original")
-    ALFA_ROMEO = "ALFA_ROMEO", _("Alfa Romeo Original")
-    LANCIA = "LANCIA", _("Lancia Original")
-    VOLVO = "VOLVO", _("Volvo Original")
-    TOYOTA = "TOYOTA", _("Toyota Original")
-    LEXUS = "LEXUS", _("Lexus Original")
-    HONDA = "HONDA", _("Honda Original")
-    NISSAN = "NISSAN", _("Nissan Original")
-    MAZDA = "MAZDA", _("Mazda Original")
-    SUBARU = "SUBARU", _("Subaru Original")
-    MITSUBISHI = "MITSUBISHI", _("Mitsubishi Original")
-    SUZUKI = "SUZUKI", _("Suzuki Original")
-    HYUNDAI = "HYUNDAI", _("Hyundai Original")
+    JP_GROUP = "JP_GROUP", _("JP Group")
+    JUN = "JUN", _("JUN Auto")
+    KAMOKA = "KAMOKA", _("KAMOKA")
+    KAWE = "KAWE", _("KAWE")
     KIA = "KIA", _("Kia Original")
+    KNORR_BREMSE = "KNORR_BREMSE", _("Knorr-Bremse")
+    LANCIA = "LANCIA", _("Lancia Original")
     LAND_ROVER = "LAND_ROVER", _("Land Rover Original")
-    JAGUAR = "JAGUAR", _("Jaguar Original")
+    LEXUS = "LEXUS", _("Lexus Original")
+    LIPE = "LIPE", _("LIPE Clutch")
+    LPR = "LPR", _("LPR")
+    LUK = "LUK", _("LuK / Schaeffler")
+    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
+    MANTIC = "MANTIC", _("Mantic Clutch")
+    MAPCO = "MAPCO", _("MAPCO")
+    MAXGEAR = "MAXGEAR", _("MAXGEAR")
+    MAZDA = "MAZDA", _("Mazda Original")
+    MCLEOD = "MCLEOD", _("McLeod Racing")
+    MECARM = "MECARM", _("MECARM")
+    MERCEDES = "MERCEDES", _("Mercedes-Benz Original")
+    MEYLE = "MEYLE", _("MEYLE")
+    MINI = "MINI", _("MINI Original")
+    MITSUBISHI = "MITSUBISHI", _("Mitsubishi Original")
+    NATIONAL = "NATIONAL", _("National")
+    NISMO = "NISMO", _("NISMO")
+    NISSAN = "NISSAN", _("Nissan Original")
+    NISSIN = "NISSIN", _("Nissin")
+    NK = "NK", _("NK")
+    NPC = "NPC", _("NPC Performance Clutches")
+    NSK = "NSK", _("NSK")
+    ORC = "ORC", _("Ogura Racing Clutch (ORC)")
+    OPEL = "OPEL", _("Opel Original")
+    OS_GIKEN = "OS_GIKEN", _("OS Giken")
+    PEUGEOT = "PEUGEOT", _("Peugeot Original")
+    PORSCHE = "PORSCHE", _("Porsche Original")
+    QUARTER_MASTER = "QUARTER_MASTER", _("Quarter Master")
+    QH = "QH", _("Quinton Hazell")
+    RAICAM = "RAICAM", _("Raicam")
+    RAM = "RAM", _("RAM Clutches")
+    RENAULT = "RENAULT", _("Renault Original")
+    RIDEX = "RIDEX", _("RIDEX")
+    SACHS = "SACHS", _("SACHS / ZF")
+    SAMKO = "SAMKO", _("SAMKO")
+    SETCO = "SETCO", _("Setco Automotive")
+    SOUTH_BEND = "SOUTH_BEND", _("South Bend Clutch")
+    SPEC = "SPEC", _("SPEC Clutch")
+    STARK = "STARK", _("STARK")
+    STARLINE = "STARLINE", _("Starline")
+    STATIM = "STATIM", _("STATIM")
+    STI = "STI", _("STI")
+    SUBARU = "SUBARU", _("Subaru Original")
+    SUZUKI = "SUZUKI", _("Suzuki Original")
+    TILTON = "TILTON", _("Tilton Engineering")
+    TODA = "TODA", _("Toda Racing")
+    TOYOTA = "TOYOTA", _("Toyota Original")
+    TRD = "TRD", _("TRD")
+    TWIN_DISC = "TWIN_DISC", _("Twin Disc")
+    VALEO = "VALEO", _("Valeo")
+    VOLKSWAGEN = "VOLKSWAGEN", _("Volkswagen Original")
+    VOLVO = "VOLVO", _("Volvo Original")
+    WABCO = "WABCO", _("WABCO / ZF")
+    XTREME = "XTREME", _("Xtreme Clutch")
+    TIELIU = "TIELIU", _("Zhejiang Tieliu")
 
-    # ============================================================
-    # GÉNÉRIQUE
-    # ============================================================
-
-    OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
-    INCONNU = "INCONNU", _("Fabricant inconnu")
-
-
 
 
 class FabricantJointSpi(models.TextChoices):
-
     CHOISIR = "CHOISIR", _("Choisir")
-    # ============================================================
-    # GRANDS FABRICANTS / OEM
-    # ============================================================
+    OEM = "OEM", _("Constructeur OEM")
 
-    CORTECO = "CORTECO", _("Corteco")
-    FREUDENBERG = "FREUDENBERG", _("Freudenberg")
-    ELRING = "ELRING", _("Elring")
-    VICTOR_REINZ = "VICTOR_REINZ", _("Victor Reinz")
-    SKF = "SKF", _("SKF")
-    NOK = "NOK", _("NOK")
-    NAK = "NAK", _("NAK")
-    KACO = "KACO", _("KACO")
-    TRELLEBORG = "TRELLEBORG", _("Trelleborg")
-    PARKER = "PARKER", _("Parker")
-    SAKAGAMI = "SAKAGAMI", _("Sakagami")
-    MUSASHI = "MUSASHI", _("Musashi Oil Seal")
-    ARS = "ARS", _("ARS")
-    PAYEN = "PAYEN", _("Payen")
     AJUSA = "AJUSA", _("Ajusa")
-
-    # ============================================================
-    # ROULEMENTS / TRANSMISSION / ÉTANCHÉITÉ
-    # ============================================================
-
-    FAG = "FAG", _("FAG / Schaeffler")
-    INA = "INA", _("INA / Schaeffler")
-    SNR = "SNR", _("NTN-SNR")
-    NTN = "NTN", _("NTN")
-    KOYO = "KOYO", _("Koyo / JTEKT")
-    TIMKEN = "TIMKEN", _("Timken")
-    NSK = "NSK", _("NSK")
-
-    # ============================================================
-    # AFTERMARKET EUROPÉEN
-    # ============================================================
-
-    FEBI = "FEBI", _("febi bilstein")
-    SWAG = "SWAG", _("SWAG")
-    MEYLE = "MEYLE", _("MEYLE")
-    METZGER = "METZGER", _("Metzger")
-    TOPRAN = "TOPRAN", _("TOPRAN")
-    VAICO = "VAICO", _("VAICO")
-    MAPCO = "MAPCO", _("MAPCO")
-    JP_GROUP = "JP_GROUP", _("JP Group")
-    MAXGEAR = "MAXGEAR", _("MAXGEAR")
-    RIDEX = "RIDEX", _("RIDEX")
-    STARK = "STARK", _("STARK")
-    AUTOMEGA = "AUTOMEGA", _("AUTOMEGA")
-    TRUCKTEC = "TRUCKTEC", _("TRUCKTEC Automotive")
-    BGA = "BGA", _("BGA")
-    FAI = "FAI", _("FAI AutoParts")
-    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
-    IMPERGOM = "IMPERGOM", _("IMPERGOM")
-    ORIGINAL_IMPERIUM = "ORIGINAL_IMPERIUM", _("Original Imperium")
-
-    # ============================================================
-    # AFTERMARKET ASIATIQUE
-    # ============================================================
-
+    ALFA_ROMEO = "ALFA_ROMEO", _("Alfa Romeo Original")
+    ARS = "ARS", _("ARS")
     ASHIKA = "ASHIKA", _("ASHIKA")
+    AUDI = "AUDI", _("Audi Original")
+    AUTOMEGA = "AUTOMEGA", _("AUTOMEGA")
+    BGA = "BGA", _("BGA")
+    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
+    BMW = "BMW", _("BMW Original")
+    CITROEN = "CITROEN", _("Citroën Original")
+    CORTECO = "CORTECO", _("Corteco")
+    CUPRA = "CUPRA", _("CUPRA Original")
+    DACIA = "DACIA", _("Dacia Original")
+    DS = "DS", _("DS Automobiles Original")
+    ELRING = "ELRING", _("Elring")
+    INCONNU = "INCONNU", _("Fabricant inconnu")
+    FAG = "FAG", _("FAG / Schaeffler")
+    FAI = "FAI", _("FAI AutoParts")
+    FEBEST = "FEBEST", _("FEBEST")
+    FEBI = "FEBI", _("febi bilstein")
+    FERRARI = "FERRARI", _("Ferrari Original")
+    FIAT = "FIAT", _("Fiat Original")
+    FORD = "FORD", _("Ford Original")
+    FREUDENBERG = "FREUDENBERG", _("Freudenberg")
+    GSP = "GSP", _("GSP")
+    HONDA = "HONDA", _("Honda Original")
+    HYUNDAI = "HYUNDAI", _("Hyundai Original")
+    IMPERGOM = "IMPERGOM", _("IMPERGOM")
+    INA = "INA", _("INA / Schaeffler")
+    INFINITI = "INFINITI", _("Infiniti Original")
+    JAGUAR = "JAGUAR", _("Jaguar Original")
     JAPANPARTS = "JAPANPARTS", _("Japanparts")
     JAPKO = "JAPKO", _("JAPKO")
-    FEBEST = "FEBEST", _("FEBEST")
-    GSP = "GSP", _("GSP")
-    MASUMA = "MASUMA", _("Masuma")
-
-    # ============================================================
-    # CONSTRUCTEURS / PIÈCES D'ORIGINE
-    # ============================================================
-
-    BMW = "BMW", _("BMW Original")
-    MINI = "MINI", _("MINI Original")
-    MERCEDES = "MERCEDES", _("Mercedes-Benz Original")
-    AUDI = "AUDI", _("Audi Original")
-    VOLKSWAGEN = "VOLKSWAGEN", _("Volkswagen Original")
-    SKODA = "SKODA", _("Škoda Original")
-    SEAT = "SEAT", _("SEAT Original")
-    CUPRA = "CUPRA", _("CUPRA Original")
-    PORSCHE = "PORSCHE", _("Porsche Original")
-
-    OPEL = "OPEL", _("Opel Original")
-    FORD = "FORD", _("Ford Original")
-    VOLVO = "VOLVO", _("Volvo Original")
-    SAAB = "SAAB", _("Saab Original")
-
-    PEUGEOT = "PEUGEOT", _("Peugeot Original")
-    CITROEN = "CITROEN", _("Citroën Original")
-    DS = "DS", _("DS Automobiles Original")
-    RENAULT = "RENAULT", _("Renault Original")
-    DACIA = "DACIA", _("Dacia Original")
-
-    FIAT = "FIAT", _("Fiat Original")
-    ALFA_ROMEO = "ALFA_ROMEO", _("Alfa Romeo Original")
-    LANCIA = "LANCIA", _("Lancia Original")
-    MASERATI = "MASERATI", _("Maserati Original")
-    FERRARI = "FERRARI", _("Ferrari Original")
-
-    TOYOTA = "TOYOTA", _("Toyota Original")
-    LEXUS = "LEXUS", _("Lexus Original")
-    HONDA = "HONDA", _("Honda Original")
-    NISSAN = "NISSAN", _("Nissan Original")
-    INFINITI = "INFINITI", _("Infiniti Original")
-    MAZDA = "MAZDA", _("Mazda Original")
-    SUBARU = "SUBARU", _("Subaru Original")
-    MITSUBISHI = "MITSUBISHI", _("Mitsubishi Original")
-    SUZUKI = "SUZUKI", _("Suzuki Original")
-
-    HYUNDAI = "HYUNDAI", _("Hyundai Original")
+    JP_GROUP = "JP_GROUP", _("JP Group")
+    KACO = "KACO", _("KACO")
     KIA = "KIA", _("Kia Original")
-
-    JAGUAR = "JAGUAR", _("Jaguar Original")
+    KOYO = "KOYO", _("Koyo / JTEKT")
+    LANCIA = "LANCIA", _("Lancia Original")
     LAND_ROVER = "LAND_ROVER", _("Land Rover Original")
+    LEXUS = "LEXUS", _("Lexus Original")
+    MAPCO = "MAPCO", _("MAPCO")
+    MASERATI = "MASERATI", _("Maserati Original")
+    MASUMA = "MASUMA", _("Masuma")
+    MAXGEAR = "MAXGEAR", _("MAXGEAR")
+    MAZDA = "MAZDA", _("Mazda Original")
+    MERCEDES = "MERCEDES", _("Mercedes-Benz Original")
+    METZGER = "METZGER", _("Metzger")
+    MEYLE = "MEYLE", _("MEYLE")
+    MINI = "MINI", _("MINI Original")
+    MITSUBISHI = "MITSUBISHI", _("Mitsubishi Original")
+    MUSASHI = "MUSASHI", _("Musashi Oil Seal")
+    NAK = "NAK", _("NAK")
+    NISSAN = "NISSAN", _("Nissan Original")
+    NOK = "NOK", _("NOK")
+    NSK = "NSK", _("NSK")
+    NTN = "NTN", _("NTN")
+    SNR = "SNR", _("NTN-SNR")
+    OPEL = "OPEL", _("Opel Original")
+    ORIGINAL_IMPERIUM = "ORIGINAL_IMPERIUM", _("Original Imperium")
+    PARKER = "PARKER", _("Parker")
+    PAYEN = "PAYEN", _("Payen")
+    PEUGEOT = "PEUGEOT", _("Peugeot Original")
+    PORSCHE = "PORSCHE", _("Porsche Original")
+    RENAULT = "RENAULT", _("Renault Original")
+    RIDEX = "RIDEX", _("RIDEX")
+    SAAB = "SAAB", _("Saab Original")
+    SAKAGAMI = "SAKAGAMI", _("Sakagami")
+    SEAT = "SEAT", _("SEAT Original")
+    SKF = "SKF", _("SKF")
+    SKODA = "SKODA", _("Škoda Original")
+    STARK = "STARK", _("STARK")
+    SUBARU = "SUBARU", _("Subaru Original")
+    SUZUKI = "SUZUKI", _("Suzuki Original")
+    SWAG = "SWAG", _("SWAG")
+    TIMKEN = "TIMKEN", _("Timken")
+    TOPRAN = "TOPRAN", _("TOPRAN")
+    TOYOTA = "TOYOTA", _("Toyota Original")
+    TRELLEBORG = "TRELLEBORG", _("Trelleborg")
+    TRUCKTEC = "TRUCKTEC", _("TRUCKTEC Automotive")
+    VAICO = "VAICO", _("VAICO")
+    VICTOR_REINZ = "VICTOR_REINZ", _("Victor Reinz")
+    VOLKSWAGEN = "VOLKSWAGEN", _("Volkswagen Original")
+    VOLVO = "VOLVO", _("Volvo Original")
 
-    # ============================================================
-    # GÉNÉRIQUE
-    # ============================================================
-
-    OEM = "OEM", _("Origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre fabricant")
-    INCONNU = "INCONNU", _("Fabricant inconnu")
-
 
 
 class FabricantPompeCarburant(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    OEM = "OEM", _("Constructeur OEM")
 
     BOSCH = "BOSCH", _("Bosch")
     DELPHI = "DELPHI", _("Delphi")
     DENSO = "DENSO", _("Denso")
-    VDO = "VDO", _("VDO")
-    PIERBURG = "PIERBURG", _("Pierburg")
+    INCONNU = "INCONNU", _("Fabricant inconnu")
     HITACHI = "HITACHI", _("Hitachi")
     MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
-    WALBRO = "WALBRO", _("Walbro")
+    PIERBURG = "PIERBURG", _("Pierburg")
     TI_AUTOMOTIVE = "TI_AUTOMOTIVE", _("TI Automotive")
-    OEM = "OEM", _("Origine constructeur (OEM)")
-    AUTRE = "AUTRE", _("Autre fabricant")
-    INCONNU = "INCONNU", _("Fabricant inconnu")
+    VDO = "VDO", _("VDO")
+    WALBRO = "WALBRO", _("Walbro")
 
+    AUTRE = "AUTRE", _("Autre fabricant")
 
 
 class FabricantPompeHautePression(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    OEM = "OEM", _("Constructeur OEM")
 
     BOSCH = "BOSCH", _("Bosch")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
     DELPHI = "DELPHI", _("Delphi")
     DENSO = "DENSO", _("Denso")
-    CONTINENTAL = "CONTINENTAL", _("Continental")
-    VDO = "VDO", _("VDO")
-    HITACHI = "HITACHI", _("Hitachi")
-    OEM = "OEM", _("Origine constructeur (OEM)")
-    AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
+    HITACHI = "HITACHI", _("Hitachi")
+    VDO = "VDO", _("VDO")
 
+    AUTRE = "AUTRE", _("Autre fabricant")
 
 
 class FabricantRampeInjection(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    OEM = "OEM", _("Constructeur OEM")
+
     BOSCH = "BOSCH", _("Bosch")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
     DELPHI = "DELPHI", _("Delphi")
     DENSO = "DENSO", _("Denso")
-    CONTINENTAL = "CONTINENTAL", _("Continental")
-    VDO = "VDO", _("VDO")
-    HITACHI = "HITACHI", _("Hitachi")
-    OEM = "OEM", _("Origine constructeur (OEM)")
-    AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
+    HITACHI = "HITACHI", _("Hitachi")
+    VDO = "VDO", _("VDO")
 
+    AUTRE = "AUTRE", _("Autre fabricant")
 
 
 class FabricantCapteurPressionRampe(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    OEM = "OEM", _("Constructeur OEM")
 
     BOSCH = "BOSCH", _("Bosch")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
     DELPHI = "DELPHI", _("Delphi")
     DENSO = "DENSO", _("Denso")
-    CONTINENTAL = "CONTINENTAL", _("Continental")
-    VDO = "VDO", _("VDO")
-    HELLA = "HELLA", _("Hella")
+    INCONNU = "INCONNU", _("Fabricant inconnu")
     FACET = "FACET", _("Facet")
     FAE = "FAE", _("FAE")
-    OEM = "OEM", _("Origine constructeur (OEM)")
+    HELLA = "HELLA", _("Hella")
+    VDO = "VDO", _("VDO")
+
     AUTRE = "AUTRE", _("Autre fabricant")
-    INCONNU = "INCONNU", _("Fabricant inconnu")
 
 
 class FabricantTuyauxHautePression(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    OEM = "OEM", _("Constructeur OEM")
 
     BOSCH = "BOSCH", _("Bosch")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
     DELPHI = "DELPHI", _("Delphi")
     DENSO = "DENSO", _("Denso")
-    CONTINENTAL = "CONTINENTAL", _("Continental")
-    OEM = "OEM", _("Origine constructeur (OEM)")
-    AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
+
+    AUTRE = "AUTRE", _("Autre fabricant")
 
 
 class FabricantInjecteur(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    OEM = "OEM", _("Constructeur OEM")
 
     BOSCH = "BOSCH", _("Bosch")
+    CONTINENTAL = "CONTINENTAL", _("Continental")
     DELPHI = "DELPHI", _("Delphi")
     DENSO = "DENSO", _("Denso")
-    CONTINENTAL = "CONTINENTAL", _("Continental")
-    VDO = "VDO", _("VDO")
-    SIEMENS = "SIEMENS", _("Siemens")
+    INCONNU = "INCONNU", _("Fabricant inconnu")
     HITACHI = "HITACHI", _("Hitachi")
     KEIHIN = "KEIHIN", _("Keihin")
     MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
-    OEM = "OEM", _("Origine constructeur (OEM)")
+    SIEMENS = "SIEMENS", _("Siemens")
+    VDO = "VDO", _("VDO")
+
     AUTRE = "AUTRE", _("Autre fabricant")
-    INCONNU = "INCONNU", _("Fabricant inconnu")
 
 
 class FabricantConnecteurInjecteur(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    OEM = "OEM", _("Constructeur OEM")
 
+    AMP = "AMP", _("AMP")
     BOSCH = "BOSCH", _("Bosch")
     DELPHI = "DELPHI", _("Delphi")
     DENSO = "DENSO", _("Denso")
-    TE_CONNECTIVITY = "TE_CONNECTIVITY", _("TE Connectivity")
-    AMP = "AMP", _("AMP")
-    MOLEX = "MOLEX", _("Molex")
-    OEM = "OEM", _("Origine constructeur (OEM)")
-    AUTRE = "AUTRE", _("Autre fabricant")
     INCONNU = "INCONNU", _("Fabricant inconnu")
+    MOLEX = "MOLEX", _("Molex")
+    TE_CONNECTIVITY = "TE_CONNECTIVITY", _("TE Connectivity")
 
+    AUTRE = "AUTRE", _("Autre fabricant")
 
 
 class FabricantAmpoule(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
     BOSCH = "BOSCH", _("Bosch")
+    GE = "GE", _("GE")
+    HELLA = "HELLA", _("Hella")
+    MTECH = "MTECH", _("M-Tech")
+    NARVA = "NARVA", _("Narva")
+    NEOLUX = "NEOLUX", _("Neolux")
     OSRAM = "OSRAM", _("Osram")
     PHILIPS = "PHILIPS", _("Philips")
-    HELLA = "HELLA", _("Hella")
-    VALEO = "VALEO", _("Valeo")
-    NARVA = "NARVA", _("Narva")
-    GE = "GE", _("GE")
-    RING = "RING", _("Ring")
     PIAA = "PIAA", _("PIAA")
-    MTECH = "MTECH", _("M-Tech")
-    NEOLUX = "NEOLUX", _("Neolux")
+    RING = "RING", _("Ring")
     TUNGSRAM = "TUNGSRAM", _("Tungsram")
-    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
-    AUTRE = "AUTRE", _("Autre")
+    VALEO = "VALEO", _("Valeo")
 
+    AUTRE = "AUTRE", _("Autre")
 
 
 class FabricantMoteur(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
-    # Constructeurs automobiles
+    ABARTH = "ABARTH", _("Abarth")
+    AER = "AER", _("AER")
     ALFA_ROMEO = "ALFA_ROMEO", _("Alfa Romeo")
+    ALPINA = "ALPINA", _("Alpina")
     ALPINE = "ALPINE", _("Alpine")
+    AMG = "AMG", _("AMG")
     ASTON_MARTIN = "ASTON_MARTIN", _("Aston Martin")
     AUDI = "AUDI", _("Audi")
     BENTLEY = "BENTLEY", _("Bentley")
     BMW = "BMW", _("BMW")
+    BMW_M = "BMW_M", _("BMW M")
     BUGATTI = "BUGATTI", _("Bugatti")
     CITROEN = "CITROEN", _("Citroën")
+    COSWORTH = "COSWORTH", _("Cosworth")
+    COTAL = "COTAL", _("Cotal")
+    CUMMINS = "CUMMINS", _("Cummins")
     DACIA = "DACIA", _("Dacia")
+    DEUTZ = "DEUTZ", _("Deutz")
     FERRARI = "FERRARI", _("Ferrari")
     FIAT = "FIAT", _("Fiat")
     FORD = "FORD", _("Ford")
     GM = "GM", _("General Motors")
+    GORDINI = "GORDINI", _("Gordini")
+    HART = "HART", _("Hart")
     HONDA = "HONDA", _("Honda")
+    HPD = "HPD", _("HPD (Honda Performance Development)")
     HYUNDAI = "HYUNDAI", _("Hyundai")
+    ILMOR = "ILMOR", _("Ilmor")
     JAGUAR = "JAGUAR", _("Jaguar")
+    JUDD = "JUDD", _("Judd")
     KIA = "KIA", _("Kia")
     LAMBORGHINI = "LAMBORGHINI", _("Lamborghini")
     LAND_ROVER = "LAND_ROVER", _("Land Rover")
@@ -1836,66 +1670,62 @@ class FabricantMoteur(models.TextChoices):
     MASERATI = "MASERATI", _("Maserati")
     MAZDA = "MAZDA", _("Mazda")
     MCLAREN = "MCLAREN", _("McLaren")
+    MECACHROME = "MECACHROME", _("Mecachrome")
     MERCEDES = "MERCEDES", _("Mercedes-Benz")
     MINI = "MINI", _("Mini")
     MITSUBISHI = "MITSUBISHI", _("Mitsubishi")
+    MUGEN = "MUGEN", _("Mugen")
+    NISMO = "NISMO", _("Nismo")
     NISSAN = "NISSAN", _("Nissan")
     OPEL = "OPEL", _("Opel")
+    ORECA = "ORECA", _("Oreca")
+    PERKINS = "PERKINS", _("Perkins")
     PEUGEOT = "PEUGEOT", _("Peugeot")
     PORSCHE = "PORSCHE", _("Porsche")
     RENAULT = "RENAULT", _("Renault")
     ROLLS_ROYCE = "ROLLS_ROYCE", _("Rolls-Royce")
+    ROTAX = "ROTAX", _("Rotax")
     SEAT = "SEAT", _("Seat")
     SKODA = "SKODA", _("Škoda")
     SUBARU = "SUBARU", _("Subaru")
     SUZUKI = "SUZUKI", _("Suzuki")
     TOYOTA = "TOYOTA", _("Toyota")
+    TRD = "TRD", _("TRD (Toyota Racing Development)")
+    VM_MOTORI = "VM_MOTORI", _("VM Motori")
     VOLKSWAGEN = "VOLKSWAGEN", _("Volkswagen")
     VOLVO = "VOLVO", _("Volvo")
-
-    # Motoristes / préparateurs
-    AMG = "AMG", _("AMG")
-    BMW_M = "BMW_M", _("BMW M")
-    COSWORTH = "COSWORTH", _("Cosworth")
-    COTAL = "COTAL", _("Cotal")
-    GORDINI = "GORDINI", _("Gordini")
-    HART = "HART", _("Hart")
-    ILMOR = "ILMOR", _("Ilmor")
-    JUDD = "JUDD", _("Judd")
-    MECACHROME = "MECACHROME", _("Mecachrome")
-    MUGEN = "MUGEN", _("Mugen")
-    NISMO = "NISMO", _("Nismo")
-    ORECA = "ORECA", _("Oreca")
-    AER = "AER", _("AER")
-    ALPINA = "ALPINA", _("Alpina")
-    ABARTH = "ABARTH", _("Abarth")
-    HPD = "HPD", _("HPD (Honda Performance Development)")
-    TRD = "TRD", _("TRD (Toyota Racing Development)")
     YAMAHA = "YAMAHA", _("Yamaha")
-    ROTAX = "ROTAX", _("Rotax")
-    CUMMINS = "CUMMINS", _("Cummins")
-    PERKINS = "PERKINS", _("Perkins")
-    DEUTZ = "DEUTZ", _("Deutz")
-    VM_MOTORI = "VM_MOTORI", _("VM Motori")
 
-    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
     AUTRE = "AUTRE", _("Autre")
 
 
 class FabricantBoite(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
 
-    # Constructeurs automobiles (boîtes maison)
+    AISIN = "AISIN", _("Aisin")
+    ALBINS = "ALBINS", _("Albins")
     ALFA_ROMEO = "ALFA_ROMEO", _("Alfa Romeo")
+    ALLISON = "ALLISON", _("Allison")
     AUDI = "AUDI", _("Audi")
     BMW = "BMW", _("BMW")
+    BORGWARNER = "BORGWARNER", _("BorgWarner")
     CITROEN = "CITROEN", _("Citroën")
+    DANA = "DANA", _("Dana")
+    DRENTH = "DRENTH", _("Drenth")
+    EATON = "EATON", _("Eaton")
     FERRARI = "FERRARI", _("Ferrari")
     FIAT = "FIAT", _("Fiat")
     FORD = "FORD", _("Ford")
     GM = "GM", _("General Motors")
+    GETRAG = "GETRAG", _("Getrag (Magna)")
+    GRAZIANO = "GRAZIANO", _("Graziano")
+    HEWLAND = "HEWLAND", _("Hewland")
+    HOLINGER = "HOLINGER", _("Holinger")
     HONDA = "HONDA", _("Honda")
     HYUNDAI = "HYUNDAI", _("Hyundai")
+    HYUNDAI_TRANSYS = "HYUNDAI_TRANSYS", _("Hyundai Transys")
+    JATCO = "JATCO", _("Jatco")
     MAZDA = "MAZDA", _("Mazda")
     MERCEDES = "MERCEDES", _("Mercedes-Benz")
     MITSUBISHI = "MITSUBISHI", _("Mitsubishi")
@@ -1903,39 +1733,21 @@ class FabricantBoite(models.TextChoices):
     OPEL = "OPEL", _("Opel")
     PEUGEOT = "PEUGEOT", _("Peugeot")
     PORSCHE = "PORSCHE", _("Porsche")
-    RENAULT = "RENAULT", _("Renault")
-    SUBARU = "SUBARU", _("Subaru")
-    TOYOTA = "TOYOTA", _("Toyota")
-    VOLKSWAGEN = "VOLKSWAGEN", _("Volkswagen")
-    VOLVO = "VOLVO", _("Volvo")
-
-    # Équipementiers boîtes de vitesses
-    AISIN = "AISIN", _("Aisin")
-    ALLISON = "ALLISON", _("Allison")
-    BORGWARNER = "BORGWARNER", _("BorgWarner")
-    DANA = "DANA", _("Dana")
-    EATON = "EATON", _("Eaton")
-    GETRAG = "GETRAG", _("Getrag (Magna)")
-    GRAZIANO = "GRAZIANO", _("Graziano")
-    HYUNDAI_TRANSYS = "HYUNDAI_TRANSYS", _("Hyundai Transys")
-    JATCO = "JATCO", _("Jatco")
     PUNCH = "PUNCH", _("Punch Powertrain")
-    TREMEC = "TREMEC", _("Tremec")
-    VOITH = "VOITH", _("Voith")
-    ZF = "ZF", _("ZF")
-
-    # Boîtes compétition / préparateurs
-    ALBINS = "ALBINS", _("Albins")
-    DRENTH = "DRENTH", _("Drenth")
-    HEWLAND = "HEWLAND", _("Hewland")
-    HOLINGER = "HOLINGER", _("Holinger")
     QUAIFE = "QUAIFE", _("Quaife")
+    RENAULT = "RENAULT", _("Renault")
     RICARDO = "RICARDO", _("Ricardo")
     SADEV = "SADEV", _("Sadev")
     SAMSONAS = "SAMSONAS", _("Samsonas")
+    SUBARU = "SUBARU", _("Subaru")
+    TOYOTA = "TOYOTA", _("Toyota")
+    TREMEC = "TREMEC", _("Tremec")
+    VOITH = "VOITH", _("Voith")
+    VOLKSWAGEN = "VOLKSWAGEN", _("Volkswagen")
+    VOLVO = "VOLVO", _("Volvo")
     XTRAC = "XTRAC", _("Xtrac")
+    ZF = "ZF", _("ZF")
 
-    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur")
     AUTRE = "AUTRE", _("Autre")
 
 
@@ -2360,30 +2172,29 @@ class HuileBoiteAutoEtat(models.TextChoices):
 
 class FabricantAllumage(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    OEM = "OEM", _("Constructeur OEM")
 
-    OEM = "OEM", _("Origine constructeur (OEM)")
-
-    BOSCH = "BOSCH", _("Bosch")
-    NGK = "NGK", _("NGK")
     BERU = "BERU", _("Beru")
-    DENSO = "DENSO", _("Denso")
-    DELPHI = "DELPHI", _("Delphi")
-    HELLA = "HELLA", _("Hella")
-    VALEO = "VALEO", _("Valeo")
+    BOSCH = "BOSCH", _("Bosch")
     BREMBO = "BREMBO", _("Brembo")
-    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
-    CHAMPION = "CHAMPION", _("Champion")
     BREMI = "BREMI", _("Bremi")
-    HITACHI = "HITACHI", _("Hitachi")
-    VDO = "VDO", _("VDO")
+    CHAMPION = "CHAMPION", _("Champion")
     CONTINENTAL = "CONTINENTAL", _("Continental")
-    FACET = "FACET", _("Facet")
+    DELPHI = "DELPHI", _("Delphi")
+    DENSO = "DENSO", _("Denso")
     ERA = "ERA", _("ERA")
-    MEYLE = "MEYLE", _("Meyle")
+    INCONNU = "INCONNU", _("Fabricant inconnu")
+    FACET = "FACET", _("Facet")
     FEBI = "FEBI", _("Febi Bilstein")
+    HELLA = "HELLA", _("Hella")
+    HITACHI = "HITACHI", _("Hitachi")
+    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
+    MEYLE = "MEYLE", _("Meyle")
+    NGK = "NGK", _("NGK")
+    VALEO = "VALEO", _("Valeo")
+    VDO = "VDO", _("VDO")
 
     AUTRE = "AUTRE", _("Autre fabricant")
-    INCONNU = "INCONNU", _("Fabricant inconnu")
 
 
 class EtatOKNotOKNiveau(models.TextChoices):
@@ -2402,6 +2213,7 @@ from django.utils.translation import gettext_lazy as _
 
 class MarqueAmortisseur(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    ORIGINE = "Origine", _("Constructeur OEM")
 
     BILSTEIN = "Bilstein", "Bilstein"
     BOGE = "Boge", "Boge"
@@ -2421,134 +2233,93 @@ class MarqueAmortisseur(models.TextChoices):
     SHOWA = "Showa", "Showa"
     TEIN = "Tein", "Tein"
     TOKICO = "Tokico", "Tokico"
-    ORIGINE = "Origine", _("Origine constructeur (OEM)")
+
     AUTRE = "Autre", _("Autre")
 
 
 class FabricantClim(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    ORIGINE = "ORIGINE", _("Constructeur OEM")
 
-    # =====================================================
-    # PIÈCES DE CLIMATISATION (compresseurs, condenseurs,
-    # évaporateurs, détendeurs, bouteilles déshydratantes)
-    # =====================================================
-    DENSO = "DENSO", _("Denso")
-    VALEO = "VALEO", _("Valeo")
-    SANDEN = "SANDEN", _("Sanden")
-    MAHLE = "MAHLE", _("Mahle (ex-Behr)")
-    HELLA = "HELLA", _("Hella / Behr Hella Service")
-    HANON = "HANON", _("Hanon Systems (ex-Halla Visteon)")
-    MARELLI = "MARELLI", _("Marelli (Magneti Marelli / Calsonic Kansei)")
+    ARKEMA = "ARKEMA", _("Arkema (Forane)")
+    AVA = "AVA", _("AVA Quality Cooling")
+    BLUECHEM = "BLUECHEM", _("Bluechem")
+    BOSCH = "BOSCH", _("Bosch")
+    CHEMOURS = "CHEMOURS", _("Chemours (Opteon)")
+    CORTECO = "CORTECO", _("Corteco")
+    DAIKIN = "DAIKIN", _("Daikin")
     DELPHI = "DELPHI", _("Delphi")
+    DENSO = "DENSO", _("Denso")
+    ECOTECHNICS = "ECOTECHNICS", _("Ecotechnics")
+    ERRECOM = "ERRECOM", _("Errecom")
+    FUCHS = "FUCHS", _("Fuchs")
+    HANON = "HANON", _("Hanon Systems (ex-Halla Visteon)")
+    HELLA = "HELLA", _("Hella / Behr Hella Service")
+    HENGST = "HENGST", _("Hengst")
+    HIGHLY = "HIGHLY", _("Highly")
+    HONEYWELL = "HONEYWELL", _("Honeywell (Solstice)")
+    IDEMITSU = "IDEMITSU", _("Idemitsu")
+    KALE = "KALE", _("Kale")
+    KOURA = "KOURA", _("Koura (Klea)")
+    LIQUI_MOLY = "LIQUI_MOLY", _("Liqui Moly")
+    MAHLE = "MAHLE", _("Mahle (ex-Behr)")
+    MANN_FILTER = "MANN_FILTER", _("Mann-Filter")
+    MARELLI = "MARELLI", _("Marelli (Magneti Marelli / Calsonic Kansei)")
+    MEAT_DORIA = "MEAT_DORIA", _("Meat & Doria")
     NISSENS = "NISSENS", _("Nissens")
     NRF = "NRF", _("NRF")
-    AVA = "AVA", _("AVA Quality Cooling")
-    VAN_WEZEL = "VAN_WEZEL", _("Van Wezel")
+    PURFLUX = "PURFLUX", _("Purflux")
+    ROBINAIR = "ROBINAIR", _("Robinair")
+    SANDEN = "SANDEN", _("Sanden")
+    SELTEC = "SELTEC", _("Seltec")
+    SPECTRONICS = "SPECTRONICS", _("Spectronics (Tracerline)")
+    SPIN = "SPIN", _("Spin")
+    TEXA = "TEXA", _("Texa")
     THERMOTEC = "THERMOTEC", _("Thermotec")
     TYC = "TYC", _("TYC")
-    KALE = "KALE", _("Kale")
-    MEAT_DORIA = "MEAT_DORIA", _("Meat & Doria")
-    BOSCH = "BOSCH", _("Bosch")
-    HIGHLY = "HIGHLY", _("Highly")
-    ZEXEL = "ZEXEL", _("Zexel")
-    SELTEC = "SELTEC", _("Seltec")
-
-    # =====================================================
-    # FILTRES D'HABITACLE
-    # =====================================================
-    MANN_FILTER = "MANN_FILTER", _("Mann-Filter")
-    CORTECO = "CORTECO", _("Corteco")
-    PURFLUX = "PURFLUX", _("Purflux")
     UFI = "UFI", _("UFI")
-    HENGST = "HENGST", _("Hengst")
-
-    # =====================================================
-    # HUILES DE CLIM (PAG, POE)
-    # =====================================================
-    ERRECOM = "ERRECOM", _("Errecom")
-    IDEMITSU = "IDEMITSU", _("Idemitsu")
-    FUCHS = "FUCHS", _("Fuchs")
-    LIQUI_MOLY = "LIQUI_MOLY", _("Liqui Moly")
+    UVIEW = "UVIEW", _("UView")
+    VALEO = "VALEO", _("Valeo")
+    VAN_WEZEL = "VAN_WEZEL", _("Van Wezel")
+    WAECO = "WAECO", _("Waeco / Dometic")
+    WIGAM = "WIGAM", _("Wigam")
     WURTH = "WURTH", _("Würth")
     WYNNS = "WYNNS", _("Wynn's")
-    WAECO = "WAECO", _("Waeco / Dometic")
+    ZEXEL = "ZEXEL", _("Zexel")
 
-    # =====================================================
-    # GAZ RÉFRIGÉRANTS (R134a, R1234yf, R744)
-    # =====================================================
-    HONEYWELL = "HONEYWELL", _("Honeywell (Solstice)")
-    CHEMOURS = "CHEMOURS", _("Chemours (Opteon)")
-    ARKEMA = "ARKEMA", _("Arkema (Forane)")
-    DAIKIN = "DAIKIN", _("Daikin")
-    KOURA = "KOURA", _("Koura (Klea)")
-
-    # =====================================================
-    # TRACEURS UV / DÉTECTION DE FUITES
-    # =====================================================
-    SPECTRONICS = "SPECTRONICS", _("Spectronics (Tracerline)")
-    UVIEW = "UVIEW", _("UView")
-    WIGAM = "WIGAM", _("Wigam")
-    BLUECHEM = "BLUECHEM", _("Bluechem")
-
-    # =====================================================
-    # STATIONS / ÉQUIPEMENTS DE RECHARGE
-    # =====================================================
-    TEXA = "TEXA", _("Texa")
-    ROBINAIR = "ROBINAIR", _("Robinair")
-    ECOTECHNICS = "ECOTECHNICS", _("Ecotechnics")
-    SPIN = "SPIN", _("Spin")
-
-    # =====================================================
-    # ORIGINE / AUTRE
-    # =====================================================
-    ORIGINE = "ORIGINE", _("Pièce d'origine constructeur (OEM)")
     AUTRE = "AUTRE", _("Autre")
+
 
 class FabricantCardan(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR_OEM = "CONSTRUCTEUR_OEM", _("Constructeur OEM")
 
-    # ============================================================
-    # ORIGINE
-    # ============================================================
-    CONSTRUCTEUR_OEM = "CONSTRUCTEUR_OEM", _("Constructeur (OEM)")
-
-    # ============================================================
-    # ÉQUIPEMENTIERS TRANSMISSION
-    # ============================================================
-    GKN = "GKN", _("GKN / Löbro / Spidan")
-    NTN_SNR = "NTN_SNR", _("NTN-SNR")
-    SKF = "SKF", _("SKF")
-    ZF = "ZF", _("ZF / Lemförder")
-    DANA = "DANA", _("Dana / Spicer")
-    NEAPCO = "NEAPCO", _("Neapco")
-    IFA = "IFA", _("IFA Rotorion")
-    HYUNDAI_WIA = "HYUNDAI_WIA", _("Hyundai WIA")
-
-    # ============================================================
-    # AFTERMARKET
-    # ============================================================
-    MEYLE = "MEYLE", _("Meyle")
-    FEBI = "FEBI", _("Febi Bilstein")
-    METELLI = "METELLI", _("Metelli")
-    BOSCH = "BOSCH", _("Bosch")
-    TRW = "TRW", _("TRW")
-    DELPHI = "DELPHI", _("Delphi")
-    CORTECO = "CORTECO", _("Corteco")
-    FAG = "FAG", _("FAG / Schaeffler")
-    RIDEX = "RIDEX", _("RIDEX")
     BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
-    VAICO = "VAICO", _("Vaico")
-    TOPRAN = "TOPRAN", _("Topran")
-    SWAG = "SWAG", _("SWAG")
-    MAPCO = "MAPCO", _("MAPCO")
+    BOSCH = "BOSCH", _("Bosch")
+    CORTECO = "CORTECO", _("Corteco")
+    DANA = "DANA", _("Dana / Spicer")
+    DELPHI = "DELPHI", _("Delphi")
+    FAG = "FAG", _("FAG / Schaeffler")
+    FEBI = "FEBI", _("Febi Bilstein")
+    GKN = "GKN", _("GKN / Löbro / Spidan")
+    HYUNDAI_WIA = "HYUNDAI_WIA", _("Hyundai WIA")
+    IFA = "IFA", _("IFA Rotorion")
     JAPANPARTS = "JAPANPARTS", _("Japanparts")
-
-    # ============================================================
-    # PERFORMANCE / COMPÉTITION
-    # ============================================================
-    DRIVESHAFT_SHOP = "DRIVESHAFT_SHOP", _("The Driveshaft Shop")
-    RCV = "RCV", _("RCV Performance")
+    MAPCO = "MAPCO", _("MAPCO")
+    METELLI = "METELLI", _("Metelli")
+    MEYLE = "MEYLE", _("Meyle")
+    NEAPCO = "NEAPCO", _("Neapco")
+    NTN_SNR = "NTN_SNR", _("NTN-SNR")
     QA1 = "QA1", _("QA1")
+    RCV = "RCV", _("RCV Performance")
+    RIDEX = "RIDEX", _("RIDEX")
+    SKF = "SKF", _("SKF")
+    SWAG = "SWAG", _("SWAG")
+    DRIVESHAFT_SHOP = "DRIVESHAFT_SHOP", _("The Driveshaft Shop")
+    TOPRAN = "TOPRAN", _("Topran")
+    TRW = "TRW", _("TRW")
+    VAICO = "VAICO", _("Vaico")
+    ZF = "ZF", _("ZF / Lemförder")
 
     AUTRE = "AUTRE", _("Autre")
 
@@ -2556,6 +2327,8 @@ class FabricantCardan(models.TextChoices):
 class FabricantEsthetique(models.TextChoices):
     """Marques de produits d'esthétique automobile (polish, cire, céramique, décontamination)."""
     CHOISIR = "CHOISIR", _("Choisir")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Constructeur OEM")
+
     THREE_M = "3M", "3M"
     ADAMS = "ADAMS", "Adam's Polishes"
     AUTOGLYM = "AUTOGLYM", "Autoglym"
@@ -2571,16 +2344,19 @@ class FabricantEsthetique(models.TextChoices):
     KOCH_CHEMIE = "KOCH_CHEMIE", "Koch-Chemie"
     LABOCOSMETICA = "LABOCOSMETICA", "Labocosmetica"
     LAKE_COUNTRY = "LAKE_COUNTRY", "Lake Country"
-    MENZERNA = "MENZERNA", "Menzerna"
     MEGUIARS = "MEGUIARS", "Meguiar's"
+    MENZERNA = "MENZERNA", "Menzerna"
     MOTHERS = "MOTHERS", "Mothers"
     NANOLEX = "NANOLEX", "Nanolex"
     ONYX = "ONYX", "Onyx Coating"
     RUPES = "RUPES", "Rupes"
     SCHOLL = "SCHOLL", "Scholl Concepts"
-    SONAX = "SONAX", "Sonax"
     SOFT99 = "SOFT99", "Soft99"
+    SONAX = "SONAX", "Sonax"
     SWISSVAX = "SWISSVAX", "Swissvax"
     TURTLE_WAX = "TURTLE_WAX", "Turtle Wax"
     ZAINO = "ZAINO", "Zaino"
+
     AUTRE = "AUTRE", _("Autre")
+
+
