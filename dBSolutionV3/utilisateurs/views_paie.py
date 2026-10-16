@@ -464,8 +464,8 @@ def paie_comptabilite_csv(request):
     response.write("﻿")  # BOM pour Excel
 
     w = csv.writer(response, delimiter=";")
-    w.writerow(["Date", "Journal", "Pièce", "Compte", "Intitulé du compte",
-                "Libellé", "Travailleur", "Débit", "Crédit"])
+    w.writerow([_("Date"), _("Journal"), _("Pièce"), _("Compte"), _("Intitulé du compte"),
+                _("Libellé"), _("Travailleur"), _("Débit"), _("Crédit")])
 
     def fmt(x):
         return f"{x:.2f}".replace(".", ",") if x else ""

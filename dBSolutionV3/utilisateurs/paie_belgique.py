@@ -438,16 +438,18 @@ def calculer_paie(brut, statut="employe", taux_patronal=None, situation_familial
 # ==================================================================
 # COMPTABILISATION (PCMN – plan comptable minimum normalisé belge)
 # ==================================================================
+from django.utils.translation import gettext as _, gettext_noop as N_
+
 COMPTES = {
-    "620200": "Rémunérations et avantages sociaux directs – employés",
-    "620300": "Rémunérations et avantages sociaux directs – ouvriers",
-    "621000": "Cotisations patronales d'assurances sociales",
-    "625000": "Provisions pour pécules de vacances (dotations)",
-    "453000": "Précomptes retenus",
-    "454000": "Office National de Sécurité Sociale",
-    "455000": "Rémunérations",
-    "456000": "Pécules de vacances",
-    "550000": "Banque – compte courant",
+    "620200": N_("Rémunérations et avantages sociaux directs – employés"),
+    "620300": N_("Rémunérations et avantages sociaux directs – ouvriers"),
+    "621000": N_("Cotisations patronales d'assurances sociales"),
+    "625000": N_("Provisions pour pécules de vacances (dotations)"),
+    "453000": N_("Précomptes retenus"),
+    "454000": N_("Office National de Sécurité Sociale"),
+    "455000": N_("Rémunérations"),
+    "456000": N_("Pécules de vacances"),
+    "550000": N_("Banque – compte courant"),
 }
 
 
@@ -463,43 +465,43 @@ def ecritures_paie(statut, brut, cotisations_patronales=ZERO, cotisation_co2=ZER
     def ligne(compte, libelle, debit=ZERO, credit=ZERO, type_="salaire"):
         debit, credit = r2(debit or 0), r2(credit or 0)
         if debit or credit:
-            L.append({"compte": compte, "intitule": COMPTES.get(compte, ""),
+            L.append({"compte": compte, "intitule": _(COMPTES[compte]) if compte in COMPTES else "",
                       "libelle": libelle, "debit": debit, "credit": credit, "type": type_})
 
     compte_brut = "620300" if statut == "ouvrier" else "620200"
 
     # ---- Charges
-    ligne(compte_brut, "Salaire brut", debit=brut)
-    ligne("621000", "Cotisations patronales ONSS (après réductions)", debit=cotisations_patronales)
-    ligne("621000", "Cotisation de solidarité CO2 (voiture de société)", debit=cotisation_co2)
+    ligne(compte_brut, _("Salaire brut"), debit=brut)
+    ligne("621000", _("Cotisations patronales ONSS (après réductions)"), debit=cotisations_patronales)
+    ligne("621000", _("Cotisation de solidarité CO2 (voiture de société)"), debit=cotisation_co2)
     if statut == "ouvrier":
-        ligne("621000", "Cotisations vacances annuelles ouvriers", debit=cotisations_vacances)
+        ligne("621000", _("Cotisations vacances annuelles ouvriers"), debit=cotisations_vacances)
     else:
-        ligne("625000", "Provision double pécule de vacances", debit=cotisations_vacances)
+        ligne("625000", _("Provision double pécule de vacances"), debit=cotisations_vacances)
 
     # ---- Dettes
-    ligne("454000", "ONSS travailleur (13,07 % – bonus à l'emploi)", credit=onss)
-    ligne("454000", "Cotisation spéciale de sécurité sociale", credit=csss)
-    ligne("454000", "Cotisations patronales ONSS", credit=cotisations_patronales)
-    ligne("454000", "Cotisation de solidarité CO2", credit=cotisation_co2)
+    ligne("454000", _("ONSS travailleur (13,07 % – bonus à l'emploi)"), credit=onss)
+    ligne("454000", _("Cotisation spéciale de sécurité sociale"), credit=csss)
+    ligne("454000", _("Cotisations patronales ONSS"), credit=cotisations_patronales)
+    ligne("454000", _("Cotisation de solidarité CO2"), credit=cotisation_co2)
     if statut == "ouvrier":
-        ligne("454000", "Cotisations vacances annuelles ouvriers", credit=cotisations_vacances)
+        ligne("454000", _("Cotisations vacances annuelles ouvriers"), credit=cotisations_vacances)
     else:
-        ligne("456000", "Provision double pécule de vacances", credit=cotisations_vacances)
-    ligne("453000", "Précompte professionnel", credit=precompte)
-    ligne("455000", "Salaire net à payer", credit=net_salaire)
+        ligne("456000", _("Provision double pécule de vacances"), credit=cotisations_vacances)
+    ligne("453000", _("Précompte professionnel"), credit=precompte)
+    ligne("455000", _("Salaire net à payer"), credit=net_salaire)
 
     # ---- Double pécule payé ce mois (employés) : utilisation de la provision
     if double_pecule and double_pecule.get("brut"):
-        ligne("456000", "Double pécule de vacances brut", debit=double_pecule["brut"], type_="pecule")
-        ligne("454000", "Retenue ONSS double pécule", credit=double_pecule.get("onss"), type_="pecule")
-        ligne("453000", "Précompte double pécule", credit=double_pecule.get("precompte"), type_="pecule")
-        ligne("455000", "Double pécule net à payer", credit=double_pecule.get("net"), type_="pecule")
+        ligne("456000", _("Double pécule de vacances brut"), debit=double_pecule["brut"], type_="pecule")
+        ligne("454000", _("Retenue ONSS double pécule"), credit=double_pecule.get("onss"), type_="pecule")
+        ligne("453000", _("Précompte double pécule"), credit=double_pecule.get("precompte"), type_="pecule")
+        ligne("455000", _("Double pécule net à payer"), credit=double_pecule.get("net"), type_="pecule")
 
     # ---- Paiement du net
     if date_paiement:
         total_net = D(net_salaire or 0) + D((double_pecule or {}).get("net") or 0)
-        ligne("455000", "Paiement du salaire net", debit=total_net, type_="paiement")
-        ligne("550000", "Paiement du salaire net", credit=total_net, type_="paiement")
+        ligne("455000", _("Paiement du salaire net"), debit=total_net, type_="paiement")
+        ligne("550000", _("Paiement du salaire net"), credit=total_net, type_="paiement")
 
     return L
