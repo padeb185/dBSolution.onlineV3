@@ -35,6 +35,8 @@
             <div class="mb-3 px-4 py-2 rounded
                 {% if message.tags == 'success' %}
                     bg-green-100 text-green-800 border border-green-300
+                {% elif message.tags == 'info' %}
+                    bg-blue-100 text-blue-800 border border-blue-300
                 {% else %}
                     bg-red-100 text-red-800 border border-red-300
                 {% endif %}">
@@ -76,15 +78,33 @@
             {{ form.annee|add_class:"input" }}
         </div>
 
-        <h2 class="text-xl font-semibold mb-4 mt-8 border-b pb-1">
-            {% trans "Salaire" %}
-        </h2>
+        {% for titre, champs in form.sections %}
+            <h2 class="text-xl font-semibold mb-4 mt-8 border-b pb-1">
+                {{ titre }}
+            </h2>
 
-        {% for field in form %}
-            {% if field.name != "mois" and field.name != "annee" %}
-                <div class="mb-4">
-                    <label class="block font-semibold mb-1">{{ field.label }}</label>
-                    {{ field|add_class:"input" }}
+            {% if forloop.last %}
+                <p class="text-sm text-gray-500 mb-4">
+                    {% trans "Calcul automatique selon les barèmes belges 2026 (estimation, à vérifier avec votre secrétariat social)." %}
+                </p>
+                <div class="bg-blue-50 border border-blue-200 rounded p-4 mb-4">
+            {% endif %}
+
+            {% for field in champs %}
+                <div class="mb-4" id="bloc_{{ field.name }}">
+                    {% if field.field.widget.input_type == "checkbox" %}
+                        <label class="inline-flex items-center gap-2">
+                            {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                            <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                        </label>
+                    {% else %}
+                        <label class="block font-semibold mb-1">{{ field.label }}</label>
+                        {% if field.field.disabled %}
+                            {{ field|add_class:"input bg-gray-100" }}
+                        {% else %}
+                            {{ field|add_class:"input" }}
+                        {% endif %}
+                    {% endif %}
 
                     {% if field.help_text %}
                         <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
@@ -94,8 +114,17 @@
                         <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
                     {% endif %}
                 </div>
+            {% endfor %}
+
+            {% if forloop.last %}
+                </div>
             {% endif %}
         {% endfor %}
+
+        <button type="submit" name="calculer" value="1"
+                class="w-full bg-green-700 text-white px-5 py-4 rounded hover:bg-green-500 font-semibold text-center mt-2">
+            {% trans "Calculer le salaire" %}
+        </button>
 
         <div class="flex gap-3 mt-6">
             <button type="submit"
@@ -141,6 +170,33 @@
         return cookieValue;
     }
     const csrftoken = getCookie('csrftoken');
+
+    // Affiche uniquement les champs utiles selon la CP et la voiture de société
+    document.addEventListener("DOMContentLoaded", function () {
+        const cp = document.getElementById("id_commission_paritaire");
+        const voiture = document.getElementById("id_voiture_societe");
+        const statut = document.getElementById("id_statut_travailleur");
+
+        const afficher = (noms, visible) => noms.forEach(nom => {
+            const bloc = document.getElementById("bloc_" + nom);
+            if (bloc) bloc.style.display = visible ? "" : "none";
+        });
+
+        function maj() {
+            const valeurCp = cp ? cp.value : "";
+            afficher(["categorie_cp"], valeurCp === "CP112");
+            afficher(["classe_cp200", "annees_experience", "anciennete_un_an"], valeurCp === "CP200");
+            afficher([
+                "voiture_valeur_catalogue", "voiture_co2", "voiture_carburant",
+                "voiture_date_immatriculation", "voiture_commandee_apres_07_2023",
+                "voiture_contribution_personnelle"
+            ], voiture && voiture.checked);
+            afficher(["double_pecule_ce_mois"], !statut || statut.value === "employe");
+        }
+
+        [cp, voiture, statut].forEach(el => el && el.addEventListener("change", maj));
+        maj();
+    });
     </script>
 
 {% endblock %}

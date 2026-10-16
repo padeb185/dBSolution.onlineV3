@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto mt-10 mb-10 p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-4 text-red-700">
+        {% trans "Supprimer la paie" %}
+    </h1>
+
+    <p class="mb-6">
+        {% trans "Voulez-vous vraiment supprimer cette paie ? Cette action est irréversible." %}
+    </p>
+
+    <div class="mb-4 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Paie" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Travailleur" %}</dt>
+            <dd class="font-medium">{{ paie.utilisateur.prenom }} {{ paie.utilisateur.nom }}</dd>
+
+            <dt class="text-gray-600">{% trans "Période" %}</dt>
+            <dd class="font-medium">{{ mois_nom }} {{ paie.annee }}</dd>
+
+            <dt class="text-gray-600">{% trans "Statut" %}</dt>
+            <dd class="font-medium">{{ paie.get_statut_travailleur_display }}</dd>
+        </dl>
+    </div>
+
+    <div class="mb-6 border rounded">
+        <h2 class="bg-gray-100 px-4 py-2 font-semibold">{% trans "Montants" %}</h2>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Brut" %}</dt>
+            <dd class="font-medium">{{ paie.salaire_brut_mensuel|default:0|floatformat:2 }} €</dd>
+
+            <dt class="text-gray-600">{% trans "Net" %}</dt>
+            <dd class="font-medium">{{ paie.salaire_net_mois|default:0|floatformat:2 }} €</dd>
+
+            <dt class="text-gray-600 font-semibold">{% trans "Coût employeur" %}</dt>
+            <dd class="font-bold">{{ paie.salaire_brut_mensuel_employeur|default:0|floatformat:2 }} €</dd>
+        </dl>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="flex gap-4 w-full">
+            <button type="submit"
+                    class="w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold">
+                {% trans "Supprimer" %}
+            </button>
+
+            <a href="{% url 'utilisateurs:paie_detail' paie.pk %}" class="block w-full">
+                <button type="button"
+                        class="w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold">
+                    {% trans "Annuler" %}
+                </button>
+            </a>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

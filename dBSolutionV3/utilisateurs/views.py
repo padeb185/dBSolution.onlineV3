@@ -727,14 +727,27 @@ def creer_paie_utilisateur(request):
         )
 
         if form.is_valid():
-            form.save()
+            # Bouton « Calculer » : on calcule sans enregistrer
+            if "calculer" in request.POST:
+                paie = form.save(commit=False)
+                paie.calculer()
+                form = PaieUtilisateurForm(
+                    instance=paie,
+                    societe=request.user.societe,
+                )
+                messages.info(
+                    request,
+                    _("Calcul effectué – vérifiez puis enregistrez.")
+                )
+            else:
+                form.save()
 
-            messages.success(
-                request,
-                _("La paie mensuelle a été enregistrée avec succès.")
-            )
+                messages.success(
+                    request,
+                    _("La paie mensuelle a été enregistrée avec succès.")
+                )
 
-            return redirect("utilisateurs:dashboard")
+                return redirect("utilisateurs:dashboard")
 
     else:
         form = PaieUtilisateurForm(

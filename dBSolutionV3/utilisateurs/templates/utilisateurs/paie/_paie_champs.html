@@ -1,0 +1,97 @@
+{% load i18n widget_tweaks %}
+{# Sections et champs d'une paie – utilisé par paie_form, modifier_paie et paie_detail #}
+
+<h2 class="text-xl font-semibold mb-4 mt-4 border-b pb-1">{% trans "Période" %}</h2>
+
+<div class="grid grid-cols-2 gap-4">
+    <div class="mb-4">
+        <label class="block font-semibold mb-1">{{ form.mois.label }}</label>
+        {{ form.mois|add_class:"input" }}
+        {% if form.mois.errors %}<p class="text-red-600 text-sm mt-1">{{ form.mois.errors|striptags }}</p>{% endif %}
+    </div>
+    <div class="mb-4">
+        <label class="block font-semibold mb-1">{{ form.annee.label }}</label>
+        {{ form.annee|add_class:"input" }}
+        {% if form.annee.errors %}<p class="text-red-600 text-sm mt-1">{{ form.annee.errors|striptags }}</p>{% endif %}
+    </div>
+</div>
+
+{% for titre, champs in form.sections %}
+    <h2 class="text-xl font-semibold mb-4 mt-8 border-b pb-1">{{ titre }}</h2>
+
+    {% if forloop.last %}
+        <p class="text-sm text-gray-500 mb-4">
+            {% trans "Calcul automatique selon les barèmes belges 2026 (estimation, à vérifier avec votre secrétariat social)." %}
+        </p>
+        <div class="bg-blue-50 border border-blue-200 rounded p-4 mb-4">
+    {% endif %}
+
+    {% for field in champs %}
+        <div class="mb-4" id="bloc_{{ field.name }}">
+            {% if field.field.widget.input_type == "checkbox" %}
+                <label class="inline-flex items-center gap-2">
+                    {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                    <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                </label>
+            {% else %}
+                <label class="block font-semibold mb-1">{{ field.label }}</label>
+                {% if field.field.disabled %}
+                    {{ field|add_class:"input bg-gray-100" }}
+                {% else %}
+                    {{ field|add_class:"input" }}
+                {% endif %}
+            {% endif %}
+
+            {% if field.help_text and not lecture_seule %}
+                <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+            {% endif %}
+
+            {% if field.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    {% if forloop.last %}
+        </div>
+    {% endif %}
+{% endfor %}
+
+<style>
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+}
+</style>
+
+<script>
+// Affiche uniquement les champs utiles selon la CP, le statut et la voiture de société
+document.addEventListener("DOMContentLoaded", function () {
+    const cp = document.getElementById("id_commission_paritaire");
+    const voiture = document.getElementById("id_voiture_societe");
+    const statut = document.getElementById("id_statut_travailleur");
+
+    const afficher = (noms, visible) => noms.forEach(nom => {
+        const bloc = document.getElementById("bloc_" + nom);
+        if (bloc) bloc.style.display = visible ? "" : "none";
+    });
+
+    function maj() {
+        const valeurCp = cp ? cp.value : "";
+        afficher(["categorie_cp"], valeurCp === "CP112");
+        afficher(["classe_cp200", "annees_experience", "anciennete_un_an"], valeurCp === "CP200");
+        afficher([
+            "voiture_valeur_catalogue", "voiture_co2", "voiture_carburant",
+            "voiture_date_immatriculation", "voiture_commandee_apres_07_2023",
+            "voiture_contribution_personnelle"
+        ], voiture && voiture.checked);
+        afficher(["double_pecule_ce_mois"], !statut || statut.value === "employe");
+    }
+
+    [cp, voiture, statut].forEach(el => el && el.addEventListener("change", maj));
+    maj();
+});
+</script>

@@ -212,14 +212,101 @@ class UtilisateurCreationForm(forms.ModelForm):
 
 
 class PaieUtilisateurForm(forms.ModelForm):
+    # Champs calculés automatiquement (affichés en lecture seule)
+    CHAMPS_CALCULES = [
+        "montant_heures_sup",
+        "salaire_brut_majore",
+        "taux_onss",
+        "bonus_emploi",
+        "montant_onss",
+        "atn_voiture",
+        "atn_total",
+        "salaire_imposable",
+        "taux_precompte_professionnel",
+        "montant_precompte",
+        "csss",
+        "double_pecule_brut",
+        "double_pecule_net",
+        "salaire_net_mois",
+        "cotisations_patronales",
+        "reduction_structurelle",
+        "cotisations_vacances",
+        "cotisation_co2",
+        "salaire_brut_mensuel_employeur",
+        "salaire_total",
+    ]
+
+    # Champs recopiés depuis la dernière paie du travailleur (nouvelle paie)
+    CHAMPS_REPRIS = [
+        "statut_travailleur", "commission_paritaire", "categorie_cp", "classe_cp200",
+        "annees_experience", "anciennete_un_an", "regime_travail",
+        "situation_familiale", "parent_isole", "nombre_enfants_charge",
+        "nombre_enfants_handicapes", "beneficiaire_handicape", "conjoint_handicape",
+        "salaire_brut_heure", "salaire_brut_mensuel", "taux_charges_patronales",
+        "reduction_groupe_cible", "atn_autres", "voiture_societe",
+        "voiture_valeur_catalogue", "voiture_co2", "voiture_carburant",
+        "voiture_date_immatriculation", "voiture_commandee_apres_07_2023",
+        "voiture_contribution_personnelle",
+    ]
+
+    SECTIONS = [
+        (_("Travailleur et commission paritaire"), [
+            "utilisateur", "statut_travailleur", "commission_paritaire", "categorie_cp",
+            "classe_cp200", "annees_experience", "anciennete_un_an", "regime_travail",
+        ]),
+        (_("Situation familiale (précompte professionnel)"), [
+            "situation_familiale", "parent_isole", "nombre_enfants_charge",
+            "nombre_enfants_handicapes", "beneficiaire_handicape", "conjoint_handicape",
+        ]),
+        (_("Prestations et salaire"), [
+            "salaire_brut_heure", "nombre_jours_preste", "nombre_heures_preste",
+            "salaire_brut_mensuel", "heures_supplementaires", "majoration_heures_sup",
+            "taux_charges_patronales", "reduction_groupe_cible", "conges_payes",
+        ]),
+        (_("Pécule de vacances"), ["double_pecule_ce_mois"]),
+        (_("Avantages en nature"), [
+            "atn_autres", "voiture_societe", "voiture_valeur_catalogue", "voiture_co2",
+            "voiture_carburant", "voiture_date_immatriculation",
+            "voiture_commandee_apres_07_2023", "voiture_contribution_personnelle",
+        ]),
+        (_("Calcul du salaire"), CHAMPS_CALCULES),
+    ]
+
     class Meta:
         model = PaieUtilisateur
-        fields = "__all__"
+        exclude = [
+            "date_paiement",
+            "double_pecule_onss",
+            "double_pecule_precompte",
+        ]
+        widgets = {
+            "voiture_date_immatriculation": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+        }
 
     def __init__(self, *args, **kwargs):
         societe = kwargs.pop("societe", None)
 
         super().__init__(*args, **kwargs)
+
+        for nom in self.CHAMPS_CALCULES:
+            if nom in self.fields:
+                self.fields[nom].disabled = True
+                self.fields[nom].required = False
+
+        if "salaire_brut_mensuel" in self.fields:
+            self.fields["salaire_brut_mensuel"].help_text = _(
+                "Calculé automatiquement (heures × taux horaire) si des heures sont saisies."
+            )
+        if "taux_charges_patronales" in self.fields:
+            self.fields["taux_charges_patronales"].help_text = _(
+                "En %. Laisser vide pour le taux facial de 25 %."
+            )
+
+    def sections(self):
+        return [
+            (titre, [self[nom] for nom in noms if nom in self.fields])
+            for titre, noms in self.SECTIONS
+        ]
 
         if societe is not None:
             self.fields["utilisateur"].queryset = (

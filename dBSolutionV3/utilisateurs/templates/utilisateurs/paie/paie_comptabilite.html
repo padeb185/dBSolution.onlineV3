@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Comptabilité des salaires" %}{% endblock %}
+
+{% block content %}
+<br>
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+    <h1 class="text-2xl font-bold flex items-center">
+        <img src="{% static 'icons/equipe.png' %}" alt=""
+             style="width:60px; height:60px; margin-right:10px;">
+        {% trans "Comptabilité des salaires" %}
+    </h1>
+
+    <form method="get" class="flex flex-wrap items-center gap-2">
+        <select name="annee" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            {% for a in annees %}
+                <option value="{{ a }}" {% if a == annee %}selected{% endif %}>{{ a }}</option>
+            {% endfor %}
+        </select>
+        <select name="mois" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            <option value="">{% trans "Toute l'année" %}</option>
+            {% for num, nom in mois_choix %}
+                <option value="{{ num }}" {% if num == mois %}selected{% endif %}>{{ nom }}</option>
+            {% endfor %}
+        </select>
+        <a href="{% url 'utilisateurs:paie_comptabilite_csv' %}?annee={{ annee }}{% if mois %}&mois={{ mois }}{% endif %}"
+           class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold">
+            {% trans "Exporter le journal (CSV)" %}
+        </a>
+    </form>
+</div>
+
+{% include "partials/messages.html" %}
+
+<!-- Dettes à régler -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-green-600">
+        <p class="text-gray-500 text-sm">{% trans "Salaires nets à payer (455)" %}</p>
+        <p class="text-2xl font-bold text-green-700">{{ total_a_payer|floatformat:2 }} €</p>
+        <p class="text-gray-500 text-xs">{% trans "Déjà payé" %} : {{ total_paye|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-red-600">
+        <p class="text-gray-500 text-sm">{% trans "Précompte professionnel à verser – SPF Finances (453)" %}</p>
+        <p class="text-2xl font-bold text-red-700">{{ total_precompte|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-blue-600">
+        <p class="text-gray-500 text-sm">{% trans "Cotisations à verser – ONSS (454)" %}</p>
+        <p class="text-2xl font-bold text-blue-700">{{ total_onss|floatformat:2 }} €</p>
+    </div>
+</div>
+
+<!-- Nets à payer -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Salaires nets à payer" %}</h2>
+    {% if non_payees %}
+    <div class="overflow-x-auto">
+        <table class="min-w-full table-auto border-collapse border border-gray-200">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-3 py-2 text-left">{% trans "Travailleur" %}</th>
+                    <th class="border px-3 py-2 text-left">{% trans "Période" %}</th>
+                    <th class="border px-3 py-2 text-left">{% trans "IBAN" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Net à payer" %}</th>
+                    <th class="border px-3 py-2 text-center">{% trans "Paiement" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for paie in non_payees %}
+                <tr>
+                    <td class="border px-3 py-2">
+                        <a href="{% url 'utilisateurs:paie_detail' paie.pk %}" class="text-blue-700 hover:underline">
+                            {{ paie.utilisateur.prenom }} {{ paie.utilisateur.nom }}
+                        </a>
+                    </td>
+                    <td class="border px-3 py-2">{{ paie.mois|stringformat:"02d" }}/{{ paie.annee }}</td>
+                    <td class="border px-3 py-2">{{ paie.utilisateur.numero_compte_bancaire|default:"—" }}</td>
+                    <td class="border px-3 py-2 text-right font-semibold">{{ paie.net_a_payer|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-center">
+                        <form method="post" action="{% url 'utilisateurs:paie_payer' paie.pk %}" class="flex gap-2 justify-center">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                            <input type="date" name="date_paiement" value="{{ aujourdhui|date:'Y-m-d' }}" class="border rounded px-2 py-1">
+                            <button type="submit" class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">
+                                {% trans "Payé" %}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p class="text-green-700">{% trans "Tous les salaires nets de la période sont payés." %}</p>
+    {% endif %}
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <!-- Précompte -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-1">{% trans "Précompte professionnel (SPF Finances)" %}</h2>
+        <p class="text-gray-500 text-sm mb-4">{% trans "Déclaration et paiement mensuels, au plus tard le 15 du mois suivant." %}</p>
+        <table class="min-w-full table-auto border-collapse border border-gray-200">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-3 py-2 text-left">{% trans "Période" %}</th>
+                    <th class="border px-3 py-2 text-left">{% trans "Échéance" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Montant" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in precompte %}
+                <tr class="{% if p.echeance < aujourdhui %}text-gray-400{% endif %}">
+                    <td class="border px-3 py-2">{{ p.periode }}</td>
+                    <td class="border px-3 py-2">{{ p.echeance|date:"d/m/Y" }}</td>
+                    <td class="border px-3 py-2 text-right">{{ p.montant|floatformat:2 }} €</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="3" class="border px-3 py-2 text-gray-500">{% trans "Aucune paie." %}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ONSS -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-1">{% trans "ONSS (cotisations sociales)" %}</h2>
+        <p class="text-gray-500 text-sm mb-4">{% trans "Solde trimestriel à payer au plus tard le dernier jour du mois qui suit le trimestre (provisions mensuelles selon votre régime)." %}</p>
+        <table class="min-w-full table-auto border-collapse border border-gray-200">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-3 py-2 text-left">{% trans "Trimestre" %}</th>
+                    <th class="border px-3 py-2 text-left">{% trans "Échéance" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Montant" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for o in onss %}
+                <tr class="{% if o.echeance < aujourdhui %}text-gray-400{% endif %}">
+                    <td class="border px-3 py-2">{{ o.periode }}</td>
+                    <td class="border px-3 py-2">{{ o.echeance|date:"d/m/Y" }}</td>
+                    <td class="border px-3 py-2 text-right">{{ o.montant|floatformat:2 }} €</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="3" class="border px-3 py-2 text-gray-500">{% trans "Aucune paie." %}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Balance par compte -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Balance des comptes (PCMN)" %}</h2>
+    <div class="overflow-x-auto">
+        <table class="min-w-full table-auto border-collapse border border-gray-200">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-3 py-2 text-left">{% trans "Compte" %}</th>
+                    <th class="border px-3 py-2 text-left">{% trans "Intitulé" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Débit" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Crédit" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Solde" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in balance %}
+                <tr>
+                    <td class="border px-3 py-2 font-mono">{{ b.compte }}</td>
+                    <td class="border px-3 py-2">{{ b.intitule }}</td>
+                    <td class="border px-3 py-2 text-right">{% if b.debit %}{{ b.debit|floatformat:2 }}{% endif %}</td>
+                    <td class="border px-3 py-2 text-right">{% if b.credit %}{{ b.credit|floatformat:2 }}{% endif %}</td>
+                    <td class="border px-3 py-2 text-right font-semibold">{{ b.solde|floatformat:2 }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="5" class="border px-3 py-2 text-gray-500">{% trans "Aucune écriture pour cette période." %}</td></tr>
+                {% endfor %}
+            </tbody>
+            {% if balance %}
+            <tfoot>
+                <tr class="bg-blue-50 font-bold">
+                    <td class="border px-3 py-2" colspan="2">{% trans "Total" %}</td>
+                    <td class="border px-3 py-2 text-right">{{ total_debit|floatformat:2 }}</td>
+                    <td class="border px-3 py-2 text-right">{{ total_credit|floatformat:2 }}</td>
+                    <td class="border px-3 py-2"></td>
+                </tr>
+            </tfoot>
+            {% endif %}
+        </table>
+    </div>
+</div>
+
+<!-- Journal détaillé -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Journal des salaires" %}</h2>
+    {% for entree in journal %}
+        <h3 class="font-semibold mt-4 mb-2">
+            <a href="{% url 'utilisateurs:paie_detail' entree.paie.pk %}" class="text-blue-700 hover:underline">
+                PAIE-{{ entree.paie.annee }}{{ entree.paie.mois|stringformat:"02d" }}-{{ entree.paie.pk }}
+            </a>
+            · {{ entree.paie.utilisateur.prenom }} {{ entree.paie.utilisateur.nom }}
+            {% if entree.paie.est_paye %}
+                <span class="ml-2 px-2 py-0.5 rounded bg-green-100 text-green-800 text-xs">{% trans "payé le" %} {{ entree.paie.date_paiement|date:"d/m/Y" }}</span>
+            {% else %}
+                <span class="ml-2 px-2 py-0.5 rounded bg-yellow-100 text-yellow-800 text-xs">{% trans "net à payer" %}</span>
+            {% endif %}
+        </h3>
+        {% include "utilisateurs/paie/_ecritures.html" with lignes=entree.lignes %}
+    {% empty %}
+        <p class="text-gray-500">{% trans "Aucune paie pour cette période." %}</p>
+    {% endfor %}
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10">
+    <a href="{% url 'utilisateurs:paie_panneau' %}"
+       class="block w-full bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+        {% trans "Panneau de contrôle des paies" %}
+    </a>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+{% endblock %}

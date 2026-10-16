@@ -892,13 +892,13 @@
              class="w-[60px] h-[60px] mr-[10px]">
     </a>
 
-    <!-- Créer une paie -->
-    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/paie/creer/"
+    <!-- Paies mensuelles -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/paie/"
        class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
 
         <div>
             <h2 class="text-lg font-semibold mb-2">
-                {% trans "Créer une paie mensuelle" %}
+                {% trans "Paies mensuelles" %}
             </h2>
         </div>
 

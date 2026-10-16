@@ -1,0 +1,11 @@
+{% load i18n %}
+{% with pieces=obj.pieces_deposees %}
+<p>
+    <strong>{% trans "Pièces démontées (dépose / repose)" %} :</strong>
+    {% if pieces %}
+        {{ pieces|join:", " }}
+    {% else %}
+        -
+    {% endif %}
+</p>
+{% endwith %}

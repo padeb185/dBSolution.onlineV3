@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Liste des paies" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/equipe.png' %}" alt=""
+         style="width:60px; height:60px; margin-right:10px;">
+    {% if travailleur %}
+        {% trans "Paies de" %} {{ travailleur.prenom }} {{ travailleur.nom }}
+    {% else %}
+        {% trans "Toutes les paies" %}
+    {% endif %}
+    {% if annee %}<span class="ml-2 text-gray-500">– {{ annee }}</span>{% endif %}
+</h1>
+
+{% include "partials/messages.html" %}
+
+<div class="flex flex-col md:flex-row gap-3 mb-6">
+    <a href="{% url 'utilisateurs:creer_paie_utilisateur' %}{% if travailleur %}?utilisateur={{ travailleur.pk }}{% endif %}"
+       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ajouter une paie" %}
+    </a>
+    <a href="{% url 'utilisateurs:paie_panneau' %}"
+       class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+        {% trans "Panneau de contrôle des paies" %}
+    </a>
+</div>
+
+<!-- Totaux -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <p class="text-gray-500 text-sm">{% trans "Nombre de paies" %}</p>
+        <p class="text-xl font-bold">{{ totaux.nb|default:0 }}</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <p class="text-gray-500 text-sm">{% trans "Total brut" %}</p>
+        <p class="text-xl font-bold">{{ totaux.brut|default:0|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <p class="text-gray-500 text-sm">{% trans "Total net" %}</p>
+        <p class="text-xl font-bold text-green-700">{{ totaux.net|default:0|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <p class="text-gray-500 text-sm">{% trans "Précompte" %}</p>
+        <p class="text-xl font-bold text-red-700">{{ totaux.precompte|default:0|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <p class="text-gray-500 text-sm">{% trans "Coût employeur" %}</p>
+        <p class="text-xl font-bold text-blue-700">{{ totaux.cout|default:0|floatformat:2 }} €</p>
+    </div>
+</div>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
+        {% if not travailleur %}
+        <input id="search-travailleur" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Travailleur' %}">
+        {% endif %}
+        <input id="search-periode" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Période (ex. 2026-05)' %}">
+        <input id="search-statut" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Statut' %}">
+        <input id="search-cp" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Commission paritaire' %}">
+    </div>
+</div>
+
+<table id="paies-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Travailleur" %}</th>
+            <th class="border px-4 py-2">{% trans "Période" %}</th>
+            <th class="border px-4 py-2">{% trans "Statut" %}</th>
+            <th class="border px-4 py-2">{% trans "CP" %}</th>
+            <th class="border px-4 py-2 text-right">{% trans "Brut" %}</th>
+            <th class="border px-4 py-2 text-right">{% trans "ONSS" %}</th>
+            <th class="border px-4 py-2 text-right">{% trans "Précompte" %}</th>
+            <th class="border px-4 py-2 text-right">{% trans "Net" %}</th>
+            <th class="border px-4 py-2 text-right">{% trans "Coût employeur" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for paie in paies %}
+        <tr>
+            <td class="border px-4 py-2">{{ paie.utilisateur.prenom }} {{ paie.utilisateur.nom }}</td>
+            <td class="border px-4 py-2" data-order="{{ paie.annee }}{{ paie.mois|stringformat:'02d' }}">{{ paie.annee }}-{{ paie.mois|stringformat:"02d" }}</td>
+            <td class="border px-4 py-2">{{ paie.get_statut_travailleur_display }}</td>
+            <td class="border px-4 py-2">{{ paie.commission_paritaire }}</td>
+            <td class="border px-4 py-2 text-right">{{ paie.salaire_brut_mensuel|default:0|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ paie.montant_onss|default:0|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ paie.montant_precompte|default:0|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right font-semibold text-green-700">{{ paie.salaire_net_mois|default:0|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ paie.salaire_brut_mensuel_employeur|default:0|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'utilisateurs:paie_detail' paie.pk %}"
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+<br>
+
+<script>
+$(document).ready(function () {
+    var table = $('#paies-table').DataTable({
+        pageLength: 25,
+        language: {
+            emptyTable: "{% trans 'Aucune paie enregistrée.' %}",
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ paies' %}",
+            infoEmpty: "{% trans 'Aucune paie trouvée' %}",
+            zeroRecords: "{% trans 'Aucune paie trouvée' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[1, "desc"]]
+    });
+
+    $('#search-travailleur').on('keyup', function () { table.column(0).search(this.value).draw(); });
+    $('#search-periode').on('keyup', function () { table.column(1).search(this.value).draw(); });
+    $('#search-statut').on('keyup', function () { table.column(2).search(this.value).draw(); });
+    $('#search-cp').on('keyup', function () { table.column(3).search(this.value).draw(); });
+});
+</script>
+{% endblock %}

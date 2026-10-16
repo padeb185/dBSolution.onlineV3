@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Panneau de contrôle des paies" %}{% endblock %}
+
+{% block content %}
+<br>
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+    <h1 class="text-2xl font-bold flex items-center">
+        <img src="{% static 'icons/equipe.png' %}" alt=""
+             style="width:60px; height:60px; margin-right:10px;">
+        {% trans "Panneau de contrôle des paies" %}
+    </h1>
+
+    <form method="get" class="flex items-center gap-2">
+        <label for="annee" class="font-semibold">{% trans "Année" %}</label>
+        <select id="annee" name="annee" onchange="this.form.submit()"
+                class="border rounded px-3 py-2">
+            {% for a in annees %}
+                <option value="{{ a }}" {% if a == annee %}selected{% endif %}>{{ a }}</option>
+            {% endfor %}
+        </select>
+    </form>
+</div>
+
+{% include "partials/messages.html" %}
+
+<!-- Actions -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+    <a href="{% url 'utilisateurs:creer_paie_utilisateur' %}"
+       class="block bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Créer une paie mensuelle" %}
+    </a>
+    <a href="{% url 'utilisateurs:paie_list' %}"
+       class="block bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+        {% trans "Toutes les paies" %}
+    </a>
+    <a href="{% url 'utilisateurs:paie_comptabilite' %}?annee={{ annee }}"
+       class="block bg-green-700 text-white px-5 py-4 rounded hover:bg-green-500 font-semibold text-center">
+        {% trans "Comptabilité et nets à payer" %}
+    </a>
+</div>
+
+<!-- Totaux de l'année -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <p class="text-gray-500 text-sm">{% trans "Paies" %} {{ annee }}</p>
+        <p class="text-2xl font-bold">{{ totaux.nb|default:0 }}</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <p class="text-gray-500 text-sm">{% trans "Total brut" %}</p>
+        <p class="text-xl font-bold">{{ totaux.brut|default:0|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <p class="text-gray-500 text-sm">{% trans "ONSS travailleurs" %}</p>
+        <p class="text-xl font-bold">{{ totaux.onss|default:0|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <p class="text-gray-500 text-sm">{% trans "Précompte professionnel" %}</p>
+        <p class="text-xl font-bold text-red-700">{{ totaux.precompte|default:0|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <p class="text-gray-500 text-sm">{% trans "Total net" %}</p>
+        <p class="text-xl font-bold text-green-700">{{ totaux.net|default:0|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <p class="text-gray-500 text-sm">{% trans "Coût employeur" %}</p>
+        <p class="text-xl font-bold text-blue-700">{{ totaux.cout|default:0|floatformat:2 }} €</p>
+    </div>
+</div>
+
+<!-- Par travailleur -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Paies par travailleur" %} – {{ annee }}</h2>
+
+    {% if par_travailleur %}
+    <div class="overflow-x-auto">
+        <table class="min-w-full table-auto border-collapse border border-gray-200">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-3 py-2 text-left">{% trans "Travailleur" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Paies" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Brut" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Précompte" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Net" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Coût employeur" %}</th>
+                    <th class="border px-3 py-2 text-center">{% trans "Actions" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in par_travailleur %}
+                <tr>
+                    <td class="border px-3 py-2">{{ t.utilisateur__prenom }} {{ t.utilisateur__nom }}</td>
+                    <td class="border px-3 py-2 text-right">{{ t.nb }}</td>
+                    <td class="border px-3 py-2 text-right">{{ t.brut|default:0|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ t.precompte|default:0|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right text-green-700 font-semibold">{{ t.net|default:0|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ t.cout|default:0|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-center whitespace-nowrap">
+                        <a href="{% url 'utilisateurs:paie_list_travailleur' t.utilisateur %}?annee={{ annee }}"
+                           class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">{% trans "Paies" %}</a>
+                        <a href="{% url 'utilisateurs:creer_paie_utilisateur' %}?utilisateur={{ t.utilisateur }}"
+                           class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">{% trans "Nouvelle" %}</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p class="text-gray-500">{% trans "Aucune paie enregistrée pour cette année." %}</p>
+    {% endif %}
+</div>
+
+<!-- Par mois -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Paies par mois" %} – {{ annee }}</h2>
+    <div class="overflow-x-auto">
+        <table class="min-w-full table-auto border-collapse border border-gray-200">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-3 py-2 text-left">{% trans "Mois" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Paies" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Brut" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "ONSS" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Précompte" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Net" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Coût employeur" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in par_mois %}
+                <tr class="{% if not m.nb %}text-gray-400{% endif %}">
+                    <td class="border px-3 py-2">{{ m.nom }}</td>
+                    <td class="border px-3 py-2 text-right">{{ m.nb }}</td>
+                    <td class="border px-3 py-2 text-right">{{ m.brut|default:0|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ m.onss|default:0|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ m.precompte|default:0|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ m.net|default:0|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ m.cout|default:0|floatformat:2 }} €</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr class="bg-blue-50 font-bold">
+                    <td class="border px-3 py-2">{% trans "Total" %}</td>
+                    <td class="border px-3 py-2 text-right">{{ totaux.nb|default:0 }}</td>
+                    <td class="border px-3 py-2 text-right">{{ totaux.brut|default:0|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ totaux.onss|default:0|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ totaux.precompte|default:0|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ totaux.net|default:0|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ totaux.cout|default:0|floatformat:2 }} €</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <!-- Dernières paies -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Dernières paies" %}</h2>
+        {% if dernieres %}
+            <ul class="divide-y">
+                {% for paie in dernieres %}
+                <li class="py-2 flex justify-between items-center">
+                    <a href="{% url 'utilisateurs:paie_detail' paie.pk %}" class="text-blue-700 hover:underline">
+                        {{ paie.annee }}-{{ paie.mois|stringformat:"02d" }} · {{ paie.utilisateur.prenom }} {{ paie.utilisateur.nom }}
+                    </a>
+                    <span class="font-semibold">{{ paie.salaire_net_mois|default:0|floatformat:2 }} €</span>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-gray-500">{% trans "Aucune paie enregistrée." %}</p>
+        {% endif %}
+    </div>
+
+    <!-- Sans paie ce mois -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Sans paie pour" %} {{ mois_courant }}</h2>
+        {% if sans_paie %}
+            <ul class="divide-y">
+                {% for u in sans_paie %}
+                <li class="py-2 flex justify-between items-center">
+                    <span>{{ u.prenom }} {{ u.nom }} <span class="text-gray-500 text-sm">· {{ u.get_role_display }}</span></span>
+                    <a href="{% url 'utilisateurs:creer_paie_utilisateur' %}?utilisateur={{ u.pk }}"
+                       class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 text-sm">{% trans "Créer" %}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-green-700">{% trans "Tous les travailleurs ont une paie ce mois-ci." %}</p>
+        {% endif %}
+    </div>
+</div>
+
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+<br>
+{% endblock %}

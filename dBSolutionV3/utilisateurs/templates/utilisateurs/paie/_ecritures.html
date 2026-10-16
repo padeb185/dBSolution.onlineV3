@@ -1,0 +1,25 @@
+{% load i18n %}
+<div class="overflow-x-auto mb-2">
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-3 py-1 text-left">{% trans "Compte" %}</th>
+                <th class="border px-3 py-1 text-left">{% trans "Intitulé" %}</th>
+                <th class="border px-3 py-1 text-left">{% trans "Libellé" %}</th>
+                <th class="border px-3 py-1 text-right">{% trans "Débit" %}</th>
+                <th class="border px-3 py-1 text-right">{% trans "Crédit" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for l in lignes %}
+            <tr class="{% if l.type == 'paiement' %}bg-green-50{% elif l.type == 'pecule' %}bg-yellow-50{% endif %}">
+                <td class="border px-3 py-1 font-mono">{{ l.compte }}</td>
+                <td class="border px-3 py-1">{{ l.intitule }}</td>
+                <td class="border px-3 py-1">{{ l.libelle }}</td>
+                <td class="border px-3 py-1 text-right">{% if l.debit %}{{ l.debit|floatformat:2 }}{% endif %}</td>
+                <td class="border px-3 py-1 text-right">{% if l.credit %}{{ l.credit|floatformat:2 }}{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

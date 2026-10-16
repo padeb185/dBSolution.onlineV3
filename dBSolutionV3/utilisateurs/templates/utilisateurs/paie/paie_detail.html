@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Détail de la paie" %}{% endblock %}
+
+{% block content %}
+<br>
+<div class="max-w-4xl mx-auto">
+
+    <h1 class="text-2xl font-bold mb-2 flex items-center gap-4">
+        <img src="{% static 'icons/equipe.png' %}" alt="" class="w-16 h-16">
+        <span>{% trans "Paie" %} {{ mois_nom }} {{ paie.annee }}</span>
+    </h1>
+    <p class="text-gray-600 mb-6">
+        <a href="{% url 'utilisateurs:paie_list_travailleur' paie.utilisateur_id %}" class="text-blue-700 hover:underline font-semibold">
+            {{ paie.utilisateur.prenom }} {{ paie.utilisateur.nom }}
+        </a>
+        · {{ paie.utilisateur.get_role_display }}
+        · {{ paie.get_statut_travailleur_display }}
+        · {{ paie.get_commission_paritaire_display }}
+    </p>
+
+    {% include "partials/messages.html" %}
+
+    <!-- Synthèse -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white shadow-md rounded-lg p-4">
+            <p class="text-gray-500 text-sm">{% trans "Brut" %}</p>
+            <p class="text-xl font-bold">{{ paie.salaire_brut_mensuel|default:0|floatformat:2 }} €</p>
+        </div>
+        <div class="bg-white shadow-md rounded-lg p-4">
+            <p class="text-gray-500 text-sm">{% trans "Net à payer" %}</p>
+            <p class="text-xl font-bold text-green-700">{{ paie.salaire_net_mois|default:0|floatformat:2 }} €</p>
+        </div>
+        <div class="bg-white shadow-md rounded-lg p-4">
+            <p class="text-gray-500 text-sm">{% trans "Précompte professionnel" %}</p>
+            <p class="text-xl font-bold text-red-700">{{ paie.montant_precompte|default:0|floatformat:2 }} €</p>
+            <p class="text-gray-500 text-xs">{% trans "ONSS" %} : {{ paie.montant_onss|default:0|floatformat:2 }} €</p>
+        </div>
+        <div class="bg-white shadow-md rounded-lg p-4">
+            <p class="text-gray-500 text-sm">{% trans "Coût employeur" %}</p>
+            <p class="text-xl font-bold text-blue-700">{{ paie.salaire_brut_mensuel_employeur|default:0|floatformat:2 }} €</p>
+        </div>
+    </div>
+
+    <!-- Paiement du net -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Paiement du salaire net" %}</h2>
+        {% if paie.est_paye %}
+            <p class="mb-3">
+                <span class="px-2 py-1 rounded bg-green-100 text-green-800 font-semibold">
+                    {% trans "Payé le" %} {{ paie.date_paiement|date:"d/m/Y" }}
+                </span>
+                — {{ paie.net_a_payer|floatformat:2 }} €
+                {% if paie.utilisateur.numero_compte_bancaire %}· {{ paie.utilisateur.numero_compte_bancaire }}{% endif %}
+            </p>
+            <form method="post" action="{% url 'utilisateurs:paie_payer' paie.pk %}">
+                {% csrf_token %}
+                <button type="submit" name="annuler" value="1"
+                        class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold">
+                    {% trans "Annuler le paiement" %}
+                </button>
+            </form>
+        {% else %}
+            <p class="mb-3">
+                {% trans "Net à payer" %} : <strong>{{ paie.net_a_payer|floatformat:2 }} €</strong>
+                {% if paie.double_pecule_net %}
+                    <span class="text-gray-500">({% trans "dont double pécule" %} {{ paie.double_pecule_net|floatformat:2 }} €)</span>
+                {% endif %}
+                {% if paie.utilisateur.numero_compte_bancaire %}· {{ paie.utilisateur.numero_compte_bancaire }}{% endif %}
+            </p>
+            <form method="post" action="{% url 'utilisateurs:paie_payer' paie.pk %}" class="flex flex-wrap gap-2 items-center">
+                {% csrf_token %}
+                <input type="date" name="date_paiement" value="{% now 'Y-m-d' %}" class="border rounded px-3 py-2">
+                <button type="submit"
+                        class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold">
+                    {% trans "Marquer comme payé" %}
+                </button>
+            </form>
+        {% endif %}
+    </div>
+
+    <!-- Comptabilisation -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-1">{% trans "Comptabilisation (PCMN)" %}</h2>
+        <p class="text-gray-500 text-sm mb-4">
+            {% trans "Pièce" %} PAIE-{{ paie.annee }}{{ paie.mois|stringformat:"02d" }}-{{ paie.pk }}
+            · {% trans "journal des opérations diverses, paiement au journal de banque" %}
+        </p>
+        {% include "utilisateurs/paie/_ecritures.html" with lignes=paie.ecritures_comptables %}
+    </div>
+
+    <!-- Fiche complète (lecture seule) -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        {% include "utilisateurs/paie/_paie_champs.html" with lecture_seule=True %}
+    </div>
+
+    <p class="text-xs text-gray-500 mb-6">
+        {% trans "Les montants sont des estimations calculées selon les barèmes belges 2026." %}
+    </p>
+
+    <!-- Actions -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+        <a href="{% url 'utilisateurs:modifier_paie' paie.pk %}"
+           class="block w-full bg-blue-700 text-white px-4 py-3 rounded hover:bg-blue-400 font-semibold text-center">
+            {% trans "Modifier" %}
+        </a>
+        <a href="{% url 'utilisateurs:creer_paie_utilisateur' %}?utilisateur={{ paie.utilisateur_id }}"
+           class="block w-full bg-green-700 text-white px-4 py-3 rounded hover:bg-green-500 font-semibold text-center">
+            {% trans "Nouvelle paie pour ce travailleur" %}
+        </a>
+        <a href="{% url 'utilisateurs:delete_paie' paie.pk %}"
+           class="block w-full bg-red-700 text-white px-4 py-3 rounded hover:bg-red-400 font-semibold text-center">
+            {% trans "Supprimer" %}
+        </a>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10">
+        <a href="{% url 'utilisateurs:paie_list_travailleur' paie.utilisateur_id %}"
+           class="block w-full bg-gray-300 text-black px-4 py-3 rounded hover:bg-gray-400 font-semibold text-center">
+            {% trans "Toutes les paies de ce travailleur" %}
+        </a>
+        <a href="{% url 'utilisateurs:paie_panneau' %}"
+           class="block w-full bg-gray-300 text-black px-4 py-3 rounded hover:bg-gray-400 font-semibold text-center">
+            {% trans "Panneau de contrôle des paies" %}
+        </a>
+    </div>
+</div>
+{% endblock %}

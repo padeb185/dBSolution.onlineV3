@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Créer une paie mensuelle" %}{% endblock %}
+
+{% block content %}
+<br>
+<br>
+
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-6 flex items-center gap-4">
+        <img src="{% static 'icons/equipe.png' %}" alt="" class="w-16 h-16">
+        <span>{% trans "Créer une paie mensuelle" %}</span>
+    </h1>
+
+    {% include "partials/messages.html" %}
+
+    {% if form.non_field_errors %}
+        <div class="bg-red-100 text-red-800 border border-red-300 p-4 rounded mb-6">
+            {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% include "utilisateurs/paie/_paie_champs.html" %}
+
+        <button type="submit" name="calculer" value="1"
+                class="w-full bg-green-700 text-white px-5 py-4 rounded hover:bg-green-500 font-semibold text-center mt-2">
+            {% trans "Calculer le salaire" %}
+        </button>
+
+        <div class="flex gap-3 mt-6">
+            <button type="submit"
+                    class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Enregistrer" %}
+            </button>
+
+            <a href="{% url 'utilisateurs:paie_panneau' %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                {% trans "Annuler" %}
+            </a>
+        </div>
+
+        <p class="text-sm text-gray-500 mt-4">
+            {% trans "Date actuelle" %} : {{ now|date:"Y-m-d H:i" }}
+        </p>
+    </form>
+</div>
+<br>
+{% endblock %}
