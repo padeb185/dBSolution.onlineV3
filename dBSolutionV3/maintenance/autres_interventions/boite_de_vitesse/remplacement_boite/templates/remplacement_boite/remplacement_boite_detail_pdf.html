@@ -500,6 +500,23 @@
 </div>
 
 <!-- ================================================== -->
+<!-- PIÈCES À DÉMONTER (DÉPOSE / REPOSE) -->
+<!-- ================================================== -->
+{% with pieces=remplacement.pieces_deposees %}
+{% if pieces %}
+<h2>{% trans "Pièces démontées (dépose / repose)" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        {% for piece in pieces %}
+            <div><span class="etat-vert">✓</span> {{ piece }}</div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endwith %}
+
+<!-- ================================================== -->
 <!-- HUILE DE BOÎTE -->
 <!-- ================================================== -->
 

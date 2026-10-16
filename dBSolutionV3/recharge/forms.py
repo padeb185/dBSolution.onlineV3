@@ -12,6 +12,14 @@ class ElectriciteForm(forms.ModelForm):
     voiture_marque = forms.CharField(label="Marque", required=False, disabled=True)
     voiture_modele = forms.CharField(label="Modèle", required=False, disabled=True)
 
+    capacite_batterie_display = forms.DecimalField(
+        label=_("Capacité batterie max (kWh)"),
+        required=False,
+        disabled=True,
+        max_digits=10,
+        decimal_places=2,
+    )
+
     kilometrage_variation = forms.IntegerField(
         required=False,
         label=_("Variation du kilométrage"),
@@ -106,6 +114,7 @@ class ElectriciteForm(forms.ModelForm):
 
             "voiture_marque",
             "voiture_modele",
+            "capacite_batterie_display",
 
             "kilometres_chassis",
             "kilometrage_electricite",
@@ -161,6 +170,9 @@ class ElectriciteForm(forms.ModelForm):
         if voiture:
             self.fields["voiture_marque"].initial = voiture.voiture_modele.voiture_marque.nom_marque
             self.fields["voiture_modele"].initial = voiture.voiture_modele.nom_modele
+            self.fields["capacite_batterie_display"].initial = (
+                voiture.voiture_modele.capacite_batterie or 0
+            )
 
             if not self.data.get("kilometrage_electricite"):
                 self.fields["kilometrage_electricite"].initial = voiture.kilometres_chassis
@@ -206,6 +218,37 @@ class ElectriciteForm(forms.ModelForm):
         return kilometrage_electricite
 
 
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        voiture = cleaned_data.get("voiture_exemplaire")
+        kw = cleaned_data.get("kW")
+
+        if voiture:
+            modele = getattr(voiture, "voiture_modele", None)
+
+            capacite_max = (
+                getattr(modele, "capacite_batterie", None)
+                if modele
+                else None
+            )
+
+            if (
+                kw is not None
+                and capacite_max
+                and kw > capacite_max
+            ):
+                self.add_error(
+                    "kW",
+                    (
+                        f"La quantité saisie ({kw} kWh) dépasse "
+                        f"la capacité maximale de la batterie "
+                        f"({capacite_max} kWh)."
+                    ),
+                )
+
+        return cleaned_data
 
     def save(self, commit=True):
         instance = super().save(commit=False)

@@ -414,6 +414,9 @@ def check_immatriculation_elect(request):
                 "modele": modele,
                 "kilometres_chassis": kilometres_chassis,
                 "volume_max": volume_max,
+                "volume": (
+                    getattr(voiture.voiture_modele, "capacite_batterie", None) or ""
+                ) if voiture.voiture_modele else "",
             }
         )
 
@@ -1392,6 +1395,7 @@ def autocomplete_immatriculation(request):
             "marque": marque.nom_marque if marque else "",
             "modele": modele.nom_modele if modele else "",
             "volume": modele.taille_reservoir if modele else "",
+            "capacite_batterie": modele.capacite_batterie if modele else "",
             "kilometres_chassis": voiture.kilometres_chassis or 0,
             "plaque_html": render_to_string(
                 "maintenance/partials/plaque.html",

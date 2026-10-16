@@ -322,6 +322,11 @@ def remplacement_boite_form_view(request, exemplaire_id):
             "fields": [form[f.name] for f in form if "remplacement_boite" in f.name],
         },
         {
+            "title": _("Pièces à démonter (dépose / repose)"),
+            "icon": "icons/outils.png",
+            "fields": [form[f.name] for f in form if f.name.startswith("depose_")],
+        },
+        {
             "title": _("Niveau de la boîte de vitesse"),
             "icon": "icons/niveaux.png",
             "fields": [form[f.name] for f in form if "boite_niveau" in f.name],
@@ -561,6 +566,11 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
             "title": _("Remplacement de la boîte de vitesse"),
             "icon": "icons/boite-de-vitesse.png",
             "fields": [form[f.name] for f in form if "remplacement_boite" in f.name],
+        },
+        {
+            "title": _("Pièces à démonter (dépose / repose)"),
+            "icon": "icons/outils.png",
+            "fields": [form[f.name] for f in form if f.name.startswith("depose_")],
         },
         {
             "title": _("Niveau de la boîte de vitesse"),

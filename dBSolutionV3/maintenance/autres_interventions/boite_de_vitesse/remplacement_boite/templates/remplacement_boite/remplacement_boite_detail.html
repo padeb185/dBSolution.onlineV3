@@ -10,5 +10,5 @@
     {% if exemplaire %}{% url 'remplacement_boite:remplacement_boite_list' exemplaire.id as url_list %}{% endif %}
     {% trans "Détails du remplacement de la boîte de vitesse" as titre %}
 
-    {% include "maintenance/partials/intervention_detail.html" with obj=remplacement_boite km_controle=remplacement_boite.kilometres_remplacement icone="boite-de-vitesse.png" %}
+    {% include "maintenance/partials/intervention_detail.html" with obj=remplacement_boite km_controle=remplacement_boite.kilometres_remplacement icone="boite-de-vitesse.png" infos_template="remplacement_boite/partials/remplacement_boite_infos.html" %}
 {% endblock %}

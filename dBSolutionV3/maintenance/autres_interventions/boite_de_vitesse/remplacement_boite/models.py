@@ -30,6 +30,26 @@ class NomPays(models.TextChoices):
 
 
 
+# Pièces à démonter (dépose / repose) lors du remplacement de boîte
+PIECES_DEPOSE_REPOSE = [
+    ("depose_batterie", _("Batterie")),
+    ("depose_bac_batterie", _("Bac batterie")),
+    ("depose_filtre_air", _("Filtre à air")),
+    ("depose_demarreur", _("Démarreur")),
+    ("depose_cardans", _("Cardans")),
+    ("depose_arbre_transmission", _("Arbre de transmission")),
+    ("depose_capteur", _("Capteur")),
+    ("depose_connecteurs", _("Connecteurs")),
+    ("depose_roues", _("Roues")),
+    ("depose_commande_embrayage", _("Câble ou tuyau hydraulique d'embrayage")),
+    ("depose_support_moteur", _("Support moteur")),
+    ("depose_support_boite", _("Support de boîte")),
+    ("depose_traverse_renfort", _("Traverse de renfort")),
+    ("depose_coquille_aile", _("Coquille d'aile")),
+    ("depose_cable_masse", _("Câble de masse")),
+]
+
+
 class RemplacementBoite(TechnicienMixin, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
@@ -235,6 +255,26 @@ class RemplacementBoite(TechnicienMixin, models.Model):
 
 
 
+
+    # -------------------------
+    # PIÈCES À DÉMONTER (DÉPOSE / REPOSE)
+    # -------------------------
+    depose_batterie = models.BooleanField(default=False, verbose_name=_("Batterie"))
+    depose_bac_batterie = models.BooleanField(default=False, verbose_name=_("Bac batterie"))
+    depose_filtre_air = models.BooleanField(default=False, verbose_name=_("Filtre à air"))
+    depose_demarreur = models.BooleanField(default=False, verbose_name=_("Démarreur"))
+    depose_cardans = models.BooleanField(default=False, verbose_name=_("Cardans"))
+    depose_arbre_transmission = models.BooleanField(default=False, verbose_name=_("Arbre de transmission"))
+    depose_capteur = models.BooleanField(default=False, verbose_name=_("Capteur"))
+    depose_connecteurs = models.BooleanField(default=False, verbose_name=_("Connecteurs"))
+    depose_roues = models.BooleanField(default=False, verbose_name=_("Roues"))
+    depose_commande_embrayage = models.BooleanField(default=False, verbose_name=_("Câble ou tuyau hydraulique d'embrayage"))
+    depose_support_moteur = models.BooleanField(default=False, verbose_name=_("Support moteur"))
+    depose_support_boite = models.BooleanField(default=False, verbose_name=_("Support de boîte"))
+    depose_traverse_renfort = models.BooleanField(default=False, verbose_name=_("Traverse de renfort"))
+    depose_coquille_aile = models.BooleanField(default=False, verbose_name=_("Coquille d'aile"))
+    depose_cable_masse = models.BooleanField(default=False, verbose_name=_("Câble de masse"))
+
     remarques = models.TextField(
         verbose_name=_("Remarques"),
         blank=True,
@@ -307,6 +347,10 @@ class RemplacementBoite(TechnicienMixin, models.Model):
 
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
+    def pieces_deposees(self):
+        """Libellés des pièces déposées / reposées pendant l'intervention."""
+        return [label for champ, label in PIECES_DEPOSE_REPOSE if getattr(self, champ, False)]
 
     def assign_technicien(self, user):
         self.tech_technicien = user
