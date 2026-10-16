@@ -4,7 +4,8 @@ from django.conf import settings
 from django.core.exceptions import ValidationError, FieldDoesNotExist
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.choices import FabricantFrein, TVAConfig, RouesSerrageEtat, TAUX_HORAIRE_CHOICES, LiquideFreinsQualite
+from maintenance.choices import FabricantFrein, TVAConfig, RouesSerrageEtat, TAUX_HORAIRE_CHOICES, LiquideFreinsQualite, \
+    FabricantLubrifiant
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -33,6 +34,8 @@ PIECES_RENOVATION_MACHOIRES = [
     ("peinture_etrier", _("Peinture haute température")),
     ("liquide_frein", _("Liquide de frein")),
 ]
+
+PRODUITS_CONSOMMABLES = {"liquide_frein"}
 
 
 class RenovationMachoires(TechnicienMixin, models.Model):
@@ -203,7 +206,7 @@ class RenovationMachoires(TechnicienMixin, models.Model):
     peinture_etrier_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     liquide_frein = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Liquide de frein"))
-    liquide_frein_fabricant = models.CharField(max_length=30, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR, verbose_name=_("Fabricant"))
+    liquide_frein_fabricant = models.CharField(max_length=30, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.CHOISIR, verbose_name=_("Fabricant"))
     liquide_frein_qualite =  models.CharField(max_length=100, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4, blank=True,verbose_name=_("Spécification liquide de frein"))
     liquide_frein_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     liquide_frein_quantite = models.DecimalField(
@@ -584,7 +587,9 @@ class RenovationMachoires(TechnicienMixin, models.Model):
         for prefix, label in pieces:
             etat = getattr(self, prefix, None)
 
-            if etat not in [
+            # Le liquide de frein est un consommable : il est compté
+            # dès qu'une quantité est saisie, quel que soit l'état.
+            if prefix not in PRODUITS_CONSOMMABLES and etat not in [
                 EtatOKNotOK.NOT_OK,
                 EtatOKNotOK.REMPLACE,
             ]:

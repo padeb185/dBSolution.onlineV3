@@ -588,6 +588,7 @@ class FreinMainHydraulique(TechnicienMixin, models.Model):
             if etat not in [
                 EtatOKNotOK.NOT_OK,
                 EtatOKNotOK.REMPLACE,
+                EtatOKNotOK.AJOUTER,
             ]:
                 continue
 
