@@ -16,9 +16,13 @@
                 </span>
             </span>
         </h1>
-        <a href="{% url 'facture:maintenances' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">
-            {% trans "Facturation" %}
-        </a>
+        <div class="flex gap-2">
+            <a href="?{% if request.GET %}{{ request.GET.urlencode }}&{% else %}periode={{ type_periode }}&annee={{ annee }}&numero={{ numero }}&pays={{ pays }}&{% endif %}export=csv"
+               class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold">{% trans "Exporter en CSV" %}</a>
+            <a href="{% url 'facture:maintenances' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">
+                {% trans "Facturation" %}
+            </a>
+        </div>
     </div>
 
     {% include "partials/messages.html" %}

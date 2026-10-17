@@ -589,6 +589,9 @@ def tva_view(request):
         for k in tot_internes:
             tot_internes[k] += c[k]
 
+    if request.GET.get("export") == "csv":
+        return _tva_csv(calcul, type_periode, annee, numero, pays, internes, tot_internes)
+
     return render(request, "facture/tva.html", {
         "internes": internes,
         "tot_internes": tot_internes,
@@ -605,6 +608,104 @@ def tva_view(request):
         "mois": range(1, 13),
         "trimestres": range(1, 5),
     })
+
+
+def _tva_csv(calcul, type_periode, annee, numero, pays, internes, tot_internes):
+    """Export CSV (séparateur « ; », virgule décimale) de la page TVA pour le comptable."""
+    import csv
+
+    from .models import FactureLine
+    from .tva import arrondi
+
+    suffixe = {"mois": f"-{numero:02d}", "trimestre": f"-T{numero}"}.get(type_periode, "")
+    response = HttpResponse(content_type="text/csv; charset=utf-8")
+    response["Content-Disposition"] = f'attachment; filename="tva_{annee}{suffixe}_{pays}.csv"'
+    response.write("\ufeff")
+    w = csv.writer(response, delimiter=";")
+    fmt = lambda x: f"{x:.2f}".replace(".", ",") if x is not None else ""
+    fmt_taux = lambda x: f"{x:g}".replace(".", ",") + " %"
+    a_payer, a_recuperer = calcul.tva_a_payer, calcul.tva_a_recuperer
+
+    # En-tête
+    w.writerow([_("TVA à payer et à récupérer")])
+    w.writerow([_("Du"), calcul.debut.strftime("%d/%m/%Y"), _("au"), calcul.fin.strftime("%d/%m/%Y")])
+    w.writerow([_("Pays de la déclaration"), pays])
+    w.writerow([])
+
+    # Résumé
+    w.writerow([_("Résumé")])
+    w.writerow([_("TVA à payer (ventes)"), fmt(a_payer["tva"])])
+    w.writerow([_("TVA déductible"), fmt(a_recuperer["tva_deductible"])])
+    w.writerow([_("Solde") + " (" + (_("à payer") if calcul.solde > 0 else _("à récupérer")) + ")", fmt(abs(calcul.solde))])
+    w.writerow([])
+
+    # Ventes : détail par facture et par taux (hors lignes de location, comptées plus bas)
+    w.writerow([_("TVA à payer – détail des factures émises")])
+    w.writerow([_("Date"), _("Facture"), _("Client"), _("Taux"), _("Base HTVA"), _("TVA"), _("Autoliquidation")])
+    for facture in calcul.factures_periode():
+        if facture.client_est_societe:
+            continue
+        groupes = {}
+        for ligne in facture.lines.all():
+            if ligne.type_ligne == FactureLine.TypeLigne.LOCATION:
+                continue
+            taux = Decimal("0") if facture.autoliquidation else arrondi(ligne.vat_rate)
+            groupes[taux] = groupes.get(taux, Decimal("0")) + ligne.total_ht
+        for taux, base in sorted(groupes.items()):
+            base = arrondi(base)
+            tva = Decimal("0.00") if facture.autoliquidation else arrondi(base * taux / Decimal("100"))
+            w.writerow([facture.issue_date.strftime("%d/%m/%Y"), facture.numero or "", facture.nom_client_courant(),
+                        fmt_taux(taux), fmt(base), fmt(tva), _("Oui") if facture.autoliquidation else ""])
+    w.writerow([])
+
+    # Locations
+    locs = a_payer["locations"]
+    w.writerow([_("Locations (circuit / route)")])
+    w.writerow([_("Date"), _("Location"), _("Facture"), _("Nature"), _("Montant TVAC"), _("TVA")])
+    for l in locs["liste"]:
+        w.writerow([l["date"].strftime("%d/%m/%Y"), str(l["location"]), l["facture"].numero if l["facture"] else "",
+                    _("Acompte") if l["nature"] == "acompte" else _("Prestation"), fmt(l["tvac"]), fmt(l["tva"])])
+    w.writerow([_("Total"), "", "", "", "", fmt(locs["tva"])])
+    w.writerow([])
+
+    # TVA à payer par taux
+    w.writerow([_("TVA à payer – par taux")])
+    w.writerow([_("Taux"), _("Base HTVA"), _("TVA")])
+    for l in a_payer["lignes"]:
+        w.writerow([fmt_taux(l["taux"]), fmt(l["base"]), fmt(l["tva"])])
+    if a_payer["base_autoliquidation"]:
+        w.writerow([_("Autoliquidation"), fmt(a_payer["base_autoliquidation"]), fmt(Decimal("0"))])
+    w.writerow([_("Total"), fmt(a_payer["base"]), fmt(a_payer["tva"])])
+    w.writerow([])
+
+    # TVA à récupérer par source
+    w.writerow([_("TVA à récupérer – par source")])
+    w.writerow([_("Source"), _("Nombre"), _("Base HTVA"), _("TVA"), _("Déductible (%)"), _("TVA déductible"), _("Remarque")])
+    for l in a_recuperer["lignes"]:
+        w.writerow([l["label"], l["nb"], fmt(l["base"]), fmt(l["tva"]), fmt(l["deductible"]), fmt(l["tva_deductible"]),
+                    _("Informatif (hors total)") if l["informatif"] else ""])
+    w.writerow([_("Total"), "", fmt(a_recuperer["base"]), fmt(a_recuperer["tva"]), "", fmt(a_recuperer["tva_deductible"]), ""])
+    w.writerow([])
+
+    # Déclaration nationale
+    declaration = calcul.declaration(pays)
+    w.writerow([declaration["formulaire"], declaration["pays_nom"]])
+    w.writerow([_("Grille"), _("Libellé"), _("Montant")])
+    for l in declaration["lignes"]:
+        w.writerow([l["grille"], l["libelle"], fmt(l["montant"])])
+    w.writerow([])
+
+    # Maintenances internes
+    w.writerow([_("Maintenances internes : coûts à charge de la société")])
+    w.writerow([_("Date"), _("Facture"), _("Véhicule"), _("Pièces au prix d'achat HTVA"), _("TVA pièces (récupérée via achats)"),
+                _("Main-d'œuvre HTVA"), _("Autres HTVA"), _("Coût de revient HTVA")])
+    for i in internes:
+        f = i["facture"]
+        w.writerow([f.issue_date.strftime("%d/%m/%Y"), f.numero or "", str(f.voiture_exemplaire) if f.voiture_exemplaire else "",
+                    fmt(i["pieces"]), fmt(i["tva_pieces"]), fmt(i["main_oeuvre"]), fmt(i["autres"]), fmt(i["total"])])
+    w.writerow([_("Total"), "", "", fmt(tot_internes["pieces"]), fmt(tot_internes["tva_pieces"]),
+                fmt(tot_internes["main_oeuvre"]), fmt(tot_internes["autres"]), fmt(tot_internes["total"])])
+    return response
 
 
 # -----------------------------

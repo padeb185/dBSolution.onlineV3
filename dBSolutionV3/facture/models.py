@@ -457,7 +457,22 @@ class Facture(models.Model):
             groupe["tva"] = arrondi(groupe["base"] * taux / Decimal("100"))
         return dict(sorted(groupes.items()))
 
+    def appliquer_tva_interne(self):
+        """
+        Facture à notre propre société : la main-d'œuvre interne n'est pas une prestation
+        vendue, elle ne porte pas de TVA (taux forcé à 0 %). Les pièces gardent leur taux
+        (TVA récupérée via les achats fournisseurs, affichée pour information).
+        """
+        if not self.pk or not self.client_est_societe:
+            return 0
+        n = self.lines.filter(type_ligne=FactureLine.TypeLigne.MAIN_OEUVRE).exclude(
+            vat_rate=Decimal("0.00")).update(vat_rate=Decimal("0.00"))
+        if n:
+            getattr(self, "_prefetched_objects_cache", {}).pop("lines", None)
+        return n
+
     def recalculer_totaux(self, save=True):
+        self.appliquer_tva_interne()
         groupes = self.totaux_par_taux()
         self.total_ht = arrondi(sum((g["base"] for g in groupes.values()), Decimal("0.00")))
         self.total_tva = arrondi(sum((g["tva"] for g in groupes.values()), Decimal("0.00")))
@@ -615,6 +630,10 @@ class FactureLine(models.Model):
 
     def save(self, *args, **kwargs):
         self.calculer_prix()
+        # Main-d'œuvre interne (facture à notre société) : pas de TVA
+        if (self.type_ligne == self.TypeLigne.MAIN_OEUVRE and self.facture_id
+                and self.facture.client_est_societe):
+            self.vat_rate = Decimal("0.00")
         super().save(*args, **kwargs)
 
 

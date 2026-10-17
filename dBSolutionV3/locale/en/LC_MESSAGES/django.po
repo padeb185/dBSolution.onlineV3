@@ -197,8 +197,8 @@ msgstr "General Information"
 #: facture/templates/facture/delete_facture.html:61
 #: facture/templates/facture/facture_list.html:30
 #: facture/templates/facture/facture_pdf.html:153
-#: facture/templates/facture/maintenances_a_facturer.html:62 fuel/models.py:162
-#: fuel/templates/fuel/fuel_detail.html:33
+#: facture/templates/facture/maintenances_a_facturer.html:62
+#: fuel/models.py:162 fuel/templates/fuel/fuel_detail.html:33
 #: fuel/templates/fuel/fuel_list.html:84 fuel/templates/fuel/fuel_stat.html:77
 #: fuel/templates/fuel/fuel_stat.html:126
 #: fuel/templates/fuel/totaux/energie_totaux.html:244
@@ -1692,7 +1692,8 @@ msgstr "Time"
 #: voiture/voiture_embrayage/forms.py:28
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:80
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:73
-#: voiture/voiture_freins_ar/forms.py:46 voiture/voiture_freins_ar/models.py:80
+#: voiture/voiture_freins_ar/forms.py:46
+#: voiture/voiture_freins_ar/models.py:80
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:92
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:79
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/freins_ar_detail.html:83
@@ -1932,8 +1933,8 @@ msgstr "Metadata"
 #: maintenance/esthetique/cire/models.py:248
 #: maintenance/esthetique/decontamination/models.py:248
 #: maintenance/esthetique/nettoyage_exterieur/models.py:213
-#: maintenance/esthetique/polish/models.py:260 maintenance/freins/models.py:419
-#: maintenance/jeux_pieces/models.py:1147
+#: maintenance/esthetique/polish/models.py:260
+#: maintenance/freins/models.py:419 maintenance/jeux_pieces/models.py:1147
 #: maintenance/maintenance_externe/models.py:92
 #: maintenance/nettoyage_interieur/models.py:234
 #: maintenance/niveaux/models.py:175 maintenance/pneus/models.py:351
@@ -2080,8 +2081,8 @@ msgstr "Created at"
 #: maintenance/esthetique/cire/models.py:249
 #: maintenance/esthetique/decontamination/models.py:249
 #: maintenance/esthetique/nettoyage_exterieur/models.py:214
-#: maintenance/esthetique/polish/models.py:261 maintenance/freins/models.py:420
-#: maintenance/jeux_pieces/models.py:1148
+#: maintenance/esthetique/polish/models.py:261
+#: maintenance/freins/models.py:420 maintenance/jeux_pieces/models.py:1148
 #: maintenance/maintenance_externe/models.py:93
 #: maintenance/nettoyage_interieur/models.py:235
 #: maintenance/niveaux/models.py:176 maintenance/pneus/models.py:352
@@ -2499,7 +2500,8 @@ msgstr "Wheel Torque Check"
 #: maintenance/esthetique/cire/models.py:233
 #: maintenance/esthetique/decontamination/models.py:233
 #: maintenance/esthetique/nettoyage_exterieur/models.py:208
-#: maintenance/esthetique/polish/models.py:245 maintenance/freins/models.py:414
+#: maintenance/esthetique/polish/models.py:245
+#: maintenance/freins/models.py:414
 #: maintenance/freins/templates/freins/freins_check.html:754
 #: maintenance/freins/templates/freins/modifier_freins.html:752
 #: maintenance/jeux_pieces/models.py:1144
@@ -3466,7 +3468,8 @@ msgstr "Side"
 #: voiture/voiture_boite/forms.py:16
 #: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:43
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:83
-#: voiture/voiture_embrayage/forms.py:21 voiture/voiture_embrayage/models.py:82
+#: voiture/voiture_embrayage/forms.py:21
+#: voiture/voiture_embrayage/models.py:82
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:45
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:45
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:35
@@ -4815,7 +4818,8 @@ msgstr "Exterior cleaning details"
 #: maintenance/autres_interventions/moteur/turbo/models.py:36
 #: maintenance/autres_interventions/refroidissement/models.py:66
 #: maintenance/autres_interventions/roulement/models.py:47
-#: maintenance/bruits/models.py:24 maintenance/carrosserie_interne/models.py:37
+#: maintenance/bruits/models.py:24
+#: maintenance/carrosserie_interne/models.py:37
 #: maintenance/eclairage/models.py:51 maintenance/entretien/models.py:52
 #: maintenance/freins/models.py:37 maintenance/jeux_pieces/models.py:64
 #: maintenance/models.py:175 maintenance/pneus/models.py:83
@@ -5070,8 +5074,8 @@ msgstr "Back to Bushing Checks List"
 #: adblue/views.py:518 adblue/views.py:539 agenda/views.py:66
 #: agenda/views.py:112 agenda/views.py:142 agenda/views.py:178
 #: agenda/views.py:211 agenda/views.py:252 agenda/views_location.py:26
-#: facture/views.py:51 facture/views.py:499 fuel/views.py:518 fuel/views.py:539
-#: garage_officiel/views.py:19
+#: facture/views.py:51 facture/views.py:499 fuel/views.py:518
+#: fuel/views.py:539 garage_officiel/views.py:19
 #: maintenance/autres_interventions/abs/views.py:102
 #: maintenance/autres_interventions/abs/views.py:780
 #: maintenance/autres_interventions/abs/views.py:816
@@ -5229,8 +5233,8 @@ msgid ""
 "Le kilométrage du contrôle du système ABS ne peut pas être inférieur au "
 "kilométrage actuel du véhicule."
 msgstr ""
-"The ABS system inspection mileage cannot be lower than the vehicle's current "
-"mileage."
+"The ABS system inspection mileage cannot be lower than the vehicle's current"
+" mileage."
 
 #: _backup_detail_views/maintenance/autres_interventions/abs/views.py:293
 #: maintenance/autres_interventions/abs/templates/abs/abs_form.html:20
@@ -7297,8 +7301,8 @@ msgstr "Seal"
 #: maintenance/esthetique/cire/models.py:242
 #: maintenance/esthetique/decontamination/models.py:242
 #: maintenance/esthetique/nettoyage_exterieur/models.py:169
-#: maintenance/esthetique/polish/models.py:254 maintenance/freins/models.py:375
-#: maintenance/jeux_pieces/models.py:1103
+#: maintenance/esthetique/polish/models.py:254
+#: maintenance/freins/models.py:375 maintenance/jeux_pieces/models.py:1103
 #: maintenance/nettoyage_interieur/models.py:190
 #: maintenance/niveaux/models.py:184 maintenance/pneus/models.py:307
 #: maintenance/silent_blocs/models.py:665
@@ -7434,7 +7438,8 @@ msgstr "Camshaft position sensor"
 #: _backup_detail_views/maintenance/autres_interventions/moteur/courroie/views.py:815
 #: _backup_detail_views/maintenance/autres_interventions/moteur/injection/views.py:657
 #: _backup_detail_views/maintenance/autres_interventions/moteur/injection/views.py:1059
-#: facture/models.py:430 maintenance/autres_interventions/batterie/views.py:512
+#: facture/models.py:430
+#: maintenance/autres_interventions/batterie/views.py:512
 #: maintenance/autres_interventions/batterie/views.py:816
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:611
 #: maintenance/autres_interventions/bte_vitesse_auto/remplacement_bte_auto/templates/remplacement_bte_auto/remplacement_bte_auto_detail_pdf.html:611
@@ -8663,8 +8668,8 @@ msgstr "Bodywork inspection deleted successfully."
 #: _backup_detail_views/maintenance/check_up/views.py:145
 #: maintenance/check_up/views.py:146
 msgid ""
-"Le kilométrage du Checkup ne peut pas être inférieur au kilométrage actuel du"
-" véhicule."
+"Le kilométrage du Checkup ne peut pas être inférieur au kilométrage actuel "
+"du véhicule."
 msgstr ""
 "The checkup mileage cannot be lower than the vehicle's current mileage."
 
@@ -8848,8 +8853,8 @@ msgstr "Service deleted successfully."
 #: _backup_detail_views/maintenance/essuyage/views.py:157
 #: maintenance/essuyage/views.py:158
 msgid ""
-"Le kilométrage du Checkup-Essuyage ne peut pas être inférieur au kilométrage "
-"actuel du véhicule."
+"Le kilométrage du Checkup-Essuyage ne peut pas être inférieur au kilométrage"
+" actuel du véhicule."
 msgstr ""
 "The wiper system checkup mileage cannot be lower than the vehicle's current "
 "mileage."
@@ -9491,7 +9496,8 @@ msgstr "Invoice date"
 #: facture/templates/facture/facture_list.html:63
 #: fournisseur/templates/fournisseur/fournisseur_list.html:69
 #: fournisseur/templates/fournisseur/fournisseur_list.html:93
-#: fuel/templates/fuel/fuel_list.html:92 fuel/templates/fuel/fuel_list.html:169
+#: fuel/templates/fuel/fuel_list.html:92
+#: fuel/templates/fuel/fuel_list.html:169
 #: outillage/templates/outillage/outillage_list.html:71
 #: outillage/templates/outillage/outillage_list.html:100
 #: piece/templates/piece/piece_list.html:58
@@ -11347,8 +11353,8 @@ msgstr "Date"
 #: agenda/templates/agenda/partials/table_locations.html:7
 #: facture/models.py:152 facture/templates/facture/_entete_facture.html:20
 #: facture/templates/facture/facture_pdf.html:152
-#: facture/templates/facture/maintenances_a_facturer.html:63 fuel/models.py:116
-#: fuel/templates/fuel/fuel_list.html:85
+#: facture/templates/facture/maintenances_a_facturer.html:63
+#: fuel/models.py:116 fuel/templates/fuel/fuel_list.html:85
 #: fuel/templates/fuel/totaux/energie_totaux.html:243
 #: fuel/templates/fuel/totaux/energie_totaux_pdf.html:172
 #: maindoeuvre/models.py:37
@@ -12851,7 +12857,8 @@ msgstr "Wiper system inspection"
 
 #: _backup_list_templates/maintenance/essuyage/templates/essuyage/essuyage_list.html:179
 #: maintenance/essuyage/templates/essuyage/essuyage_list.html:187
-msgid "Affichage de _START_ à _END_ sur _TOTAL_ contrôle du système d'essuyage"
+msgid ""
+"Affichage de _START_ à _END_ sur _TOTAL_ contrôle du système d'essuyage"
 msgstr "Showing _START_ to _END_ of _TOTAL_ wiper system inspections"
 
 #: _backup_list_templates/maintenance/freins/templates/freins/freins_list.html:4
@@ -13051,7 +13058,8 @@ msgstr "Add a tool"
 #: _backup_list_templates/outillage/templates/outillage/outillage_list.html:32
 #: _backup_list_templates/outillage/templates/outillage/outillage_list.html:65
 #: achat_mds/forms.py:12 achat_mds/models.py:23
-#: achat_mds/templates/achat_mds/achat_detail.html:37 fournisseur/models.py:102
+#: achat_mds/templates/achat_mds/achat_detail.html:37
+#: fournisseur/models.py:102
 #: fournisseur/templates/fournisseur/delete_fournisseur.html:60
 #: investissements/models.py:19 outillage/forms.py:21 outillage/models.py:24
 #: outillage/templates/outillage/outillage_detail.html:38
@@ -13544,7 +13552,8 @@ msgstr "Add co-owner"
 #: _backup_list_templates/proprietaire/templates/proprietaire/proprietaire_voiture_list.html:66
 #: adblue/templates/adblue/adblue_stat.html:71
 #: adblue/templates/adblue/adblue_stat.html:119
-#: fuel/templates/fuel/fuel_stat.html:71 fuel/templates/fuel/fuel_stat.html:119
+#: fuel/templates/fuel/fuel_stat.html:71
+#: fuel/templates/fuel/fuel_stat.html:119
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:50
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:66
 #: recharge/templates/recharge/electricite_stat.html:71
@@ -14825,7 +14834,8 @@ msgstr "Purchase deletion"
 #: achat_mds/views.py:175
 #, python-format
 msgid ""
-"Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé ailleurs."
+"Impossible de supprimer l'achat « %(ref)s » : il est encore utilisé "
+"ailleurs."
 msgstr ""
 "Unable to delete the purchase “%(ref)s”: it is still being used elsewhere."
 
@@ -15614,7 +15624,8 @@ msgstr "AdBlue statistics per vehicle"
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:35
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:88
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:119
-#: fuel/templates/fuel/fuel_stat.html:17 fuel/templates/fuel/fuel_stat.html:133
+#: fuel/templates/fuel/fuel_stat.html:17
+#: fuel/templates/fuel/fuel_stat.html:133
 #: fuel/templates/fuel/fuel_stat.html:231
 #: fuel/templates/fuel/fuel_stat.html:258
 msgid "Pleins"
@@ -15637,7 +15648,8 @@ msgstr "Total liters"
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:45
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:90
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:121
-#: fuel/templates/fuel/fuel_stat.html:27 fuel/templates/fuel/fuel_stat.html:147
+#: fuel/templates/fuel/fuel_stat.html:27
+#: fuel/templates/fuel/fuel_stat.html:147
 #: fuel/templates/fuel/fuel_stat.html:233
 #: fuel/templates/fuel/fuel_stat.html:260
 #: recharge/templates/recharge/electricite_exemplaire_stat.html:45
@@ -15655,7 +15667,8 @@ msgstr "Total cost"
 #: adblue/templates/adblue/adblue_stat.html:32
 #: adblue/templates/adblue/adblue_stat.html:154
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:50
-#: fuel/templates/fuel/fuel_stat.html:32 fuel/templates/fuel/fuel_stat.html:154
+#: fuel/templates/fuel/fuel_stat.html:32
+#: fuel/templates/fuel/fuel_stat.html:154
 msgid "Prix moyen / L"
 msgstr "Average price / L"
 
@@ -16122,8 +16135,8 @@ msgid ""
 "Cette variation est supérieure à 2 000 km. Voulez-vous vraiment enregistrer "
 "ce kilométrage ?"
 msgstr ""
-"This difference is greater than 2,000 km. Are you sure you want to save this "
-"mileage?"
+"This difference is greater than 2,000 km. Are you sure you want to save this"
+" mileage?"
 
 #: adblue/templates/adblue/adblue_form.html:159
 #: adblue/templates/adblue/modifier_adblue.html:173
@@ -16325,8 +16338,8 @@ msgid ""
 "Une intervention a été enregistrée après ce plein : son kilométrage ne peut "
 "plus être modifié."
 msgstr ""
-"A service has been recorded after this refuelling: its mileage can no longer "
-"be changed."
+"A service has been recorded after this refuelling: its mileage can no longer"
+" be changed."
 
 #: adblue/views.py:456
 msgid "Modification d'un plein d'AdBlue"
@@ -16411,7 +16424,8 @@ msgstr "Create address"
 
 #: adresse/templates/adresse/delete_adresse.html:14
 msgid ""
-"Voulez-vous vraiment supprimer cette adresse ? Cette action est irréversible."
+"Voulez-vous vraiment supprimer cette adresse ? Cette action est "
+"irréversible."
 msgstr ""
 "Do you really want to delete this address? This action cannot be undone."
 
@@ -16438,7 +16452,8 @@ msgid ""
 msgstr ""
 "These items will not be deleted: their address field will simply be cleared."
 
-#: adresse/templates/adresse/delete_adresse.html:71 client_atelier/forms.py:128
+#: adresse/templates/adresse/delete_adresse.html:71
+#: client_atelier/forms.py:128
 msgid "Boîte"
 msgstr "Mailbox"
 
@@ -16493,8 +16508,8 @@ msgstr "The address “%(adresse)s” has been successfully deleted."
 
 #: agenda/forms.py:155
 msgid ""
-"Le kilométrage après location ne peut pas être inférieur au kilométrage avant"
-" location."
+"Le kilométrage après location ne peut pas être inférieur au kilométrage "
+"avant location."
 msgstr ""
 "The mileage after rental cannot be lower than the mileage before rental."
 
@@ -17023,8 +17038,8 @@ msgstr "Return check"
 
 #: agenda/templates/agenda/agenda_location_controle.html:79
 msgid ""
-"Tag jaune par défaut au retour ; tag rouge automatiquement si la carrosserie "
-"ou le bruit moteur pose problème."
+"Tag jaune par défaut au retour ; tag rouge automatiquement si la carrosserie"
+" ou le bruit moteur pose problème."
 msgstr ""
 "Yellow tag by default on return; red tag automatically if the bodywork or "
 "engine noise is a problem."
@@ -17070,11 +17085,11 @@ msgstr ""
 
 #: agenda/templates/agenda/delete_agenda.html:20
 msgid ""
-"Voulez-vous vraiment retirer cette maintenance de l'agenda ? Cette action est"
-" irréversible."
+"Voulez-vous vraiment retirer cette maintenance de l'agenda ? Cette action "
+"est irréversible."
 msgstr ""
-"Are you sure you want to remove this scheduled maintenance from the calendar?"
-" This action cannot be undone."
+"Are you sure you want to remove this scheduled maintenance from the "
+"calendar? This action cannot be undone."
 
 #: agenda/templates/agenda/delete_agenda.html:29
 #: carrosserie/templates/carrosserie/delete_carrosserie.html:29
@@ -17183,9 +17198,9 @@ msgstr "No rentals."
 #: maintenance/esthetique/cire/models.py:185
 #: maintenance/esthetique/decontamination/models.py:185
 #: maintenance/esthetique/nettoyage_exterieur/models.py:145
-#: maintenance/esthetique/polish/models.py:197 maintenance/freins/models.py:357
-#: maintenance/jeux_pieces/models.py:1081 maintenance/models.py:67
-#: maintenance/nettoyage_interieur/models.py:166
+#: maintenance/esthetique/polish/models.py:197
+#: maintenance/freins/models.py:357 maintenance/jeux_pieces/models.py:1081
+#: maintenance/models.py:67 maintenance/nettoyage_interieur/models.py:166
 #: maintenance/niveaux/models.py:161 maintenance/pneus/models.py:283
 #: maintenance/silent_blocs/models.py:644
 #: maintenance/systeme_freinage/frein_main/models.py:232
@@ -17233,9 +17248,9 @@ msgstr "Green"
 #: maintenance/esthetique/cire/models.py:187
 #: maintenance/esthetique/decontamination/models.py:187
 #: maintenance/esthetique/nettoyage_exterieur/models.py:147
-#: maintenance/esthetique/polish/models.py:199 maintenance/freins/models.py:359
-#: maintenance/jeux_pieces/models.py:1083 maintenance/models.py:69
-#: maintenance/nettoyage_interieur/models.py:168
+#: maintenance/esthetique/polish/models.py:199
+#: maintenance/freins/models.py:359 maintenance/jeux_pieces/models.py:1083
+#: maintenance/models.py:69 maintenance/nettoyage_interieur/models.py:168
 #: maintenance/niveaux/models.py:163 maintenance/pneus/models.py:285
 #: maintenance/silent_blocs/models.py:646
 #: maintenance/systeme_freinage/frein_main/models.py:234
@@ -17283,9 +17298,9 @@ msgstr "Red"
 #: maintenance/esthetique/cire/models.py:186
 #: maintenance/esthetique/decontamination/models.py:186
 #: maintenance/esthetique/nettoyage_exterieur/models.py:146
-#: maintenance/esthetique/polish/models.py:198 maintenance/freins/models.py:358
-#: maintenance/jeux_pieces/models.py:1082 maintenance/models.py:68
-#: maintenance/nettoyage_interieur/models.py:167
+#: maintenance/esthetique/polish/models.py:198
+#: maintenance/freins/models.py:358 maintenance/jeux_pieces/models.py:1082
+#: maintenance/models.py:68 maintenance/nettoyage_interieur/models.py:167
 #: maintenance/niveaux/models.py:162 maintenance/pneus/models.py:284
 #: maintenance/silent_blocs/models.py:645
 #: maintenance/systeme_freinage/frein_main/models.py:233
@@ -17997,7 +18012,8 @@ msgstr "Back to body shop details"
 #: client_particulier/views.py:104 client_particulier/views.py:200
 #: client_pilotage/views.py:138 client_pilotage/views.py:245
 #: proprietaire/views.py:115 proprietaire/views.py:230
-#: voiture/voiture_embrayage/views.py:53 voiture/voiture_freins_ar/views.py:125
+#: voiture/voiture_embrayage/views.py:53
+#: voiture/voiture_freins_ar/views.py:125
 #: voiture/voiture_freins_av/views.py:85
 msgid "Veuillez corriger les erreurs du formulaire."
 msgstr "Please correct the errors in the form."
@@ -18016,8 +18032,8 @@ msgid ""
 "Impossible de supprimer « %(nom)s » : la carrosserie ou son adresse est "
 "encore utilisée ailleurs."
 msgstr ""
-"Unable to delete “%(nom)s”: the body shop or its address is still being used "
-"elsewhere."
+"Unable to delete “%(nom)s”: the body shop or its address is still being used"
+" elsewhere."
 
 #: carrosserie/views.py:249
 #, python-format
@@ -18171,8 +18187,8 @@ msgid ""
 "Ces véhicules ne seront pas supprimés : seul leur lien avec ce client sera "
 "retiré."
 msgstr ""
-"These vehicles will not be deleted: only their link to this customer will be "
-"removed."
+"These vehicles will not be deleted: only their link to this customer will be"
+" removed."
 
 #: client_atelier/templates/client_atelier/delete_client_atelier.html:86
 msgid "Particulier"
@@ -18478,8 +18494,10 @@ msgid "Supprimer le client pilotage"
 msgstr "Delete the driving customer"
 
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:14
-msgid "Ce client pilotage ne peut pas être supprimé car il est encore utilisé."
-msgstr "This driving customer cannot be deleted because they are still in use."
+msgid ""
+"Ce client pilotage ne peut pas être supprimé car il est encore utilisé."
+msgstr ""
+"This driving customer cannot be deleted because they are still in use."
 
 #: client_pilotage/templates/client_pilotage/delete_client_pilotage.html:18
 msgid ""
@@ -18901,11 +18919,11 @@ msgstr "Sender Peppol identifier"
 
 #: facture/models.py:592
 msgid ""
-"Ex : 0208:0123456789 (numéro d'entreprise belge). Vide : déduit du numéro de "
-"TVA."
+"Ex : 0208:0123456789 (numéro d'entreprise belge). Vide : déduit du numéro de"
+" TVA."
 msgstr ""
-"E.g. 0208:0123456789 (Belgian company number). Leave blank to derive it from "
-"the VAT number."
+"E.g. 0208:0123456789 (Belgian company number). Leave blank to derive it from"
+" the VAT number."
 
 #: facture/models.py:596
 msgid "URL du serveur de test"
@@ -19164,8 +19182,8 @@ msgid ""
 "Le numéro de TVA, l'adresse et l'identifiant Peppol du client sont repris "
 "dans le XML."
 msgstr ""
-"The customer's VAT number, address and Peppol identifier are included in the "
-"XML."
+"The customer's VAT number, address and Peppol identifier are included in the"
+" XML."
 
 #: facture/templates/facture/facture_form.html:55
 msgid "Clients particuliers et clients atelier."
@@ -19188,8 +19206,8 @@ msgid ""
 "La marge de chaque ligne reste modifiable dans le tableau ci-dessous. Coûts "
 "et marges n'apparaissent ni sur le PDF ni dans le XML."
 msgstr ""
-"The margin for each line item can still be modified in the table below. Costs"
-" and margins are not displayed in the PDF or XML."
+"The margin for each line item can still be modified in the table below. "
+"Costs and margins are not displayed in the PDF or XML."
 
 #: facture/templates/facture/facture_form.html:101
 #, python-format
@@ -19207,8 +19225,8 @@ msgid ""
 "d'ajouter une ligne libre."
 msgstr ""
 "When a cost is provided, the unit price is calculated as: cost × (1 + "
-"markup). Without a cost, the entered unit price is used as is. The last empty"
-" row allows you to add a custom line item."
+"markup). Without a cost, the entered unit price is used as is. The last "
+"empty row allows you to add a custom line item."
 
 #: facture/templates/facture/facture_form.html:159
 #: voiture/voiture_location/templates/voiture_location/location_form.html:157
@@ -19229,8 +19247,10 @@ msgid "Enregistrer le brouillon"
 msgstr "Save draft"
 
 #: facture/templates/facture/facture_form.html:184
-msgid "La facture recevra un numéro définitif et ne pourra plus être modifiée."
-msgstr "The invoice will receive a final number and can no longer be modified."
+msgid ""
+"La facture recevra un numéro définitif et ne pourra plus être modifiée."
+msgstr ""
+"The invoice will receive a final number and can no longer be modified."
 
 #: facture/templates/facture/facture_form.html:185
 msgid "Émettre la facture ?"
@@ -19460,12 +19480,12 @@ msgstr "Issued invoices and drafts"
 #: facture/templates/facture/maintenances_a_facturer.html:37
 msgid ""
 "Cochez une ou plusieurs maintenances d'un même véhicule, puis choisissez le "
-"type de facture. Vous pourrez ensuite ajuster les marges et les lignes avant "
-"d'émettre la facture."
+"type de facture. Vous pourrez ensuite ajuster les marges et les lignes avant"
+" d'émettre la facture."
 msgstr ""
-"Select one or more maintenance records for the same vehicle, then choose the "
-"invoice type. You can then adjust the margins and line items before issuing "
-"the invoice."
+"Select one or more maintenance records for the same vehicle, then choose the"
+" invoice type. You can then adjust the margins and line items before issuing"
+" the invoice."
 
 #: facture/templates/facture/maintenances_a_facturer.html:51
 #: voiture/voiture_diagnostic/templates/voiture_diagnostic/diagnostic_detail.html:149
@@ -19540,8 +19560,8 @@ msgstr "No test performed."
 
 #: facture/templates/facture/parametres_peppol.html:63
 msgid ""
-"Un point d'accès est aussi défini dans settings.py : il n'est utilisé que si "
-"l'envoi n'est pas activé ici."
+"Un point d'accès est aussi défini dans settings.py : il n'est utilisé que si"
+" l'envoi n'est pas activé ici."
 msgstr ""
 "An access point is also defined in settings.py: it is only used if Peppol "
 "sending is not enabled here."
@@ -19553,8 +19573,8 @@ msgstr "General"
 
 #: facture/templates/facture/parametres_peppol.html:89
 msgid ""
-"Utilisez le serveur de test tant que les factures n'ont pas été validées par "
-"votre fournisseur Peppol."
+"Utilisez le serveur de test tant que les factures n'ont pas été validées par"
+" votre fournisseur Peppol."
 msgstr ""
 "Use the test server until your invoices have been validated by your Peppol "
 "provider."
@@ -19586,11 +19606,11 @@ msgstr "Authentication and connection"
 
 #: facture/templates/facture/parametres_peppol.html:170
 msgid ""
-"Ces informations sont fournies par votre point d'accès Peppol (Access Point)."
-" Les clés API ne sont jamais réaffichées."
+"Ces informations sont fournies par votre point d'accès Peppol (Access "
+"Point). Les clés API ne sont jamais réaffichées."
 msgstr ""
-"This information is provided by your Peppol Access Point. API keys are never "
-"displayed again."
+"This information is provided by your Peppol Access Point. API keys are never"
+" displayed again."
 
 #: facture/templates/facture/parametres_peppol.html:176
 msgid "Enregistrer les paramètres"
@@ -19738,8 +19758,8 @@ msgstr "Rentals completed (balance)"
 
 #: facture/templates/facture/tva.html:183
 msgid ""
-"TVA due à la réception d'un acompte (sur le montant reçu), le solde à la fin "
-"de la location – que la location soit payée ou non."
+"TVA due à la réception d'un acompte (sur le montant reçu), le solde à la fin"
+" de la location – que la location soit payée ou non."
 msgstr ""
 "VAT is due when a deposit is received (on the amount received) and the "
 "balance at the end of the rental – whether or not the rental has been paid."
@@ -19792,14 +19812,14 @@ msgstr "Sales details"
 #: facture/templates/facture/tva.html:211
 #, python-format
 msgid ""
-"%(n)s maintenance interne (facture à notre société) n'est pas une vente : la "
-"TVA sur ses pièces est récupérée via les achats fournisseurs."
+"%(n)s maintenance interne (facture à notre société) n'est pas une vente : la"
+" TVA sur ses pièces est récupérée via les achats fournisseurs."
 msgid_plural ""
-"%(n)s maintenances internes (factures à notre société) ne sont pas des ventes"
-" : la TVA sur leurs pièces est récupérée via les achats fournisseurs."
+"%(n)s maintenances internes (factures à notre société) ne sont pas des "
+"ventes : la TVA sur leurs pièces est récupérée via les achats fournisseurs."
 msgstr[0] ""
-"%(n)s internal maintenance record (invoice to our company) is not a sale: VAT"
-" on its parts is recovered through supplier purchases."
+"%(n)s internal maintenance record (invoice to our company) is not a sale: "
+"VAT on its parts is recovered through supplier purchases."
 msgstr[1] ""
 "%(n)s internal maintenance records (invoices to our company) are not sales: "
 "VAT on their parts is recovered through supplier purchases."
@@ -19848,8 +19868,8 @@ msgid ""
 "encore repris pour ce pays. Les montants (bases par taux, TVA due, TVA "
 "déductible, solde) restent valables."
 msgstr ""
-"Generic template: the box numbers of the national VAT return form are not yet"
-" included for this country. The amounts (taxable bases by rate, VAT due, "
+"Generic template: the box numbers of the national VAT return form are not "
+"yet included for this country. The amounts (taxable bases by rate, VAT due, "
 "deductible VAT and balance) remain valid."
 
 #: facture/templates/facture/tva.html:277
@@ -19880,7 +19900,8 @@ msgstr "Purchases (supplier invoices)"
 msgid "Outillage"
 msgstr "Tools and equipment"
 
-#: facture/tva.py:34 fuel/models.py:220 fuel/templates/fuel/fuel_detail.html:46
+#: facture/tva.py:34 fuel/models.py:220
+#: fuel/templates/fuel/fuel_detail.html:46
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:9
 #: fuel/templates/fuel/fuel_form.html:12 fuel/templates/fuel/fuel_stat.html:9
 #: fuel/templates/fuel/modifier_fuel.html:190
@@ -20219,7 +20240,8 @@ msgstr "This diagnostic is not linked to any vehicle."
 
 #: facture/views.py:164 facture/views.py:193
 msgid ""
-"Brouillon de facture créé. Vérifiez les marges et les lignes avant d'émettre."
+"Brouillon de facture créé. Vérifiez les marges et les lignes avant "
+"d'émettre."
 msgstr ""
 "Invoice draft created. Check the margins and line items before issuing."
 
@@ -20300,7 +20322,8 @@ msgstr "%(env)s server: %(res)s"
 
 #: facture/views.py:503
 msgid ""
-"Une facture émise ne peut pas être supprimée (établissez une note de crédit)."
+"Une facture émise ne peut pas être supprimée (établissez une note de "
+"crédit)."
 msgstr "An issued invoice cannot be deleted (issue a credit note instead)."
 
 #: facture/views.py:512
@@ -20675,8 +20698,8 @@ msgstr "Accounting – trial balance"
 msgid ""
 "Écritures d'achat générées pour chaque plein, recharge et AdBlue (PCMN)."
 msgstr ""
-"Purchase entries generated for each refuel, charge and AdBlue (Belgian chart "
-"of accounts)."
+"Purchase entries generated for each refuel, charge and AdBlue (Belgian chart"
+" of accounts)."
 
 #: fuel/templates/fuel/totaux/energie_totaux.html:279
 #: fuel/templates/fuel/totaux/energie_totaux.html:311
@@ -21130,7 +21153,8 @@ msgstr "Garage deleted."
 msgid ""
 "Impossible de supprimer ce garage : des maintenances externes y sont liées."
 msgstr ""
-"This garage cannot be deleted: external maintenance records are linked to it."
+"This garage cannot be deleted: external maintenance records are linked to "
+"it."
 
 #: investissements/models.py:26 maintenance/bruits/models.py:17
 #: maintenance/check_up/admin.py:102
@@ -21490,9 +21514,10 @@ msgstr "The labor entry “%(nom)s” has been successfully deleted."
 #: maintenance/autres_interventions/moteur/rodage/forms.py:57
 #: maintenance/autres_interventions/moteur/turbo/forms.py:39
 #: maintenance/autres_interventions/refroidissement/forms.py:42
-#: maintenance/carrosserie_interne/forms.py:52 maintenance/check_up/forms.py:43
-#: maintenance/checkup_track/forms.py:44 maintenance/eclairage/forms.py:43
-#: maintenance/entretien/forms.py:43 maintenance/essuyage/forms.py:40
+#: maintenance/carrosserie_interne/forms.py:52
+#: maintenance/check_up/forms.py:43 maintenance/checkup_track/forms.py:44
+#: maintenance/eclairage/forms.py:43 maintenance/entretien/forms.py:43
+#: maintenance/essuyage/forms.py:40
 #: maintenance/esthetique/ceramique/forms.py:42
 #: maintenance/esthetique/cire/forms.py:42
 #: maintenance/esthetique/decontamination/forms.py:42
@@ -21766,8 +21791,8 @@ msgstr "Brake fluid purchase price (excl. VAT)"
 #: maintenance/esthetique/cire/models.py:194
 #: maintenance/esthetique/decontamination/models.py:194
 #: maintenance/esthetique/nettoyage_exterieur/models.py:154
-#: maintenance/esthetique/polish/models.py:206 maintenance/freins/models.py:366
-#: maintenance/jeux_pieces/models.py:1090
+#: maintenance/esthetique/polish/models.py:206
+#: maintenance/freins/models.py:366 maintenance/jeux_pieces/models.py:1090
 #: maintenance/nettoyage_interieur/models.py:175
 #: maintenance/niveaux/models.py:170 maintenance/pneus/models.py:292
 #: maintenance/silent_blocs/models.py:653
@@ -21815,8 +21840,8 @@ msgstr "Visual state / Tag"
 #: maintenance/esthetique/cire/models.py:208
 #: maintenance/esthetique/decontamination/models.py:208
 #: maintenance/esthetique/nettoyage_exterieur/models.py:183
-#: maintenance/esthetique/polish/models.py:220 maintenance/freins/models.py:389
-#: maintenance/jeux_pieces/models.py:1119
+#: maintenance/esthetique/polish/models.py:220
+#: maintenance/freins/models.py:389 maintenance/jeux_pieces/models.py:1119
 #: maintenance/nettoyage_interieur/models.py:204
 #: maintenance/niveaux/models.py:201 maintenance/pneus/models.py:321
 #: maintenance/silent_blocs/models.py:684
@@ -21863,8 +21888,8 @@ msgstr "Technician name"
 #: maintenance/esthetique/cire/models.py:214
 #: maintenance/esthetique/decontamination/models.py:214
 #: maintenance/esthetique/nettoyage_exterieur/models.py:189
-#: maintenance/esthetique/polish/models.py:226 maintenance/freins/models.py:395
-#: maintenance/jeux_pieces/models.py:1125
+#: maintenance/esthetique/polish/models.py:226
+#: maintenance/freins/models.py:395 maintenance/jeux_pieces/models.py:1125
 #: maintenance/nettoyage_interieur/models.py:210
 #: maintenance/niveaux/models.py:207 maintenance/pneus/models.py:327
 #: maintenance/silent_blocs/models.py:690
@@ -23368,30 +23393,31 @@ msgstr "Diagnosis details"
 #: maintenance/esthetique/polish/models.py:171
 #: maintenance/esthetique/polish/models.py:176
 #: maintenance/esthetique/polish/models.py:181
-#: maintenance/esthetique/polish/models.py:186 maintenance/freins/models.py:118
-#: maintenance/freins/models.py:143 maintenance/freins/models.py:178
-#: maintenance/freins/models.py:220 maintenance/freins/models.py:252
-#: maintenance/freins/models.py:276 maintenance/freins/models.py:299
-#: maintenance/freins/models.py:322 maintenance/freins/models.py:345
-#: maintenance/jeux_pieces/models.py:153 maintenance/jeux_pieces/models.py:176
-#: maintenance/jeux_pieces/models.py:199 maintenance/jeux_pieces/models.py:222
-#: maintenance/jeux_pieces/models.py:245 maintenance/jeux_pieces/models.py:268
-#: maintenance/jeux_pieces/models.py:291 maintenance/jeux_pieces/models.py:314
-#: maintenance/jeux_pieces/models.py:337 maintenance/jeux_pieces/models.py:360
-#: maintenance/jeux_pieces/models.py:383 maintenance/jeux_pieces/models.py:406
-#: maintenance/jeux_pieces/models.py:429 maintenance/jeux_pieces/models.py:452
-#: maintenance/jeux_pieces/models.py:475 maintenance/jeux_pieces/models.py:498
-#: maintenance/jeux_pieces/models.py:521 maintenance/jeux_pieces/models.py:544
-#: maintenance/jeux_pieces/models.py:567 maintenance/jeux_pieces/models.py:590
-#: maintenance/jeux_pieces/models.py:613 maintenance/jeux_pieces/models.py:636
-#: maintenance/jeux_pieces/models.py:659 maintenance/jeux_pieces/models.py:682
-#: maintenance/jeux_pieces/models.py:705 maintenance/jeux_pieces/models.py:728
-#: maintenance/jeux_pieces/models.py:751 maintenance/jeux_pieces/models.py:774
-#: maintenance/jeux_pieces/models.py:797 maintenance/jeux_pieces/models.py:820
-#: maintenance/jeux_pieces/models.py:843 maintenance/jeux_pieces/models.py:866
-#: maintenance/jeux_pieces/models.py:889 maintenance/jeux_pieces/models.py:912
-#: maintenance/jeux_pieces/models.py:935 maintenance/jeux_pieces/models.py:958
-#: maintenance/jeux_pieces/models.py:981 maintenance/jeux_pieces/models.py:1004
+#: maintenance/esthetique/polish/models.py:186
+#: maintenance/freins/models.py:118 maintenance/freins/models.py:143
+#: maintenance/freins/models.py:178 maintenance/freins/models.py:220
+#: maintenance/freins/models.py:252 maintenance/freins/models.py:276
+#: maintenance/freins/models.py:299 maintenance/freins/models.py:322
+#: maintenance/freins/models.py:345 maintenance/jeux_pieces/models.py:153
+#: maintenance/jeux_pieces/models.py:176 maintenance/jeux_pieces/models.py:199
+#: maintenance/jeux_pieces/models.py:222 maintenance/jeux_pieces/models.py:245
+#: maintenance/jeux_pieces/models.py:268 maintenance/jeux_pieces/models.py:291
+#: maintenance/jeux_pieces/models.py:314 maintenance/jeux_pieces/models.py:337
+#: maintenance/jeux_pieces/models.py:360 maintenance/jeux_pieces/models.py:383
+#: maintenance/jeux_pieces/models.py:406 maintenance/jeux_pieces/models.py:429
+#: maintenance/jeux_pieces/models.py:452 maintenance/jeux_pieces/models.py:475
+#: maintenance/jeux_pieces/models.py:498 maintenance/jeux_pieces/models.py:521
+#: maintenance/jeux_pieces/models.py:544 maintenance/jeux_pieces/models.py:567
+#: maintenance/jeux_pieces/models.py:590 maintenance/jeux_pieces/models.py:613
+#: maintenance/jeux_pieces/models.py:636 maintenance/jeux_pieces/models.py:659
+#: maintenance/jeux_pieces/models.py:682 maintenance/jeux_pieces/models.py:705
+#: maintenance/jeux_pieces/models.py:728 maintenance/jeux_pieces/models.py:751
+#: maintenance/jeux_pieces/models.py:774 maintenance/jeux_pieces/models.py:797
+#: maintenance/jeux_pieces/models.py:820 maintenance/jeux_pieces/models.py:843
+#: maintenance/jeux_pieces/models.py:866 maintenance/jeux_pieces/models.py:889
+#: maintenance/jeux_pieces/models.py:912 maintenance/jeux_pieces/models.py:935
+#: maintenance/jeux_pieces/models.py:958 maintenance/jeux_pieces/models.py:981
+#: maintenance/jeux_pieces/models.py:1004
 #: maintenance/jeux_pieces/models.py:1027
 #: maintenance/jeux_pieces/models.py:1050
 #: maintenance/jeux_pieces/models.py:1073
@@ -23539,14 +23565,14 @@ msgid ""
 "Le courant de démarrage doit être au moins égal à celui d'origine (%(a)s A "
 "EN)."
 msgstr ""
-"The cold cranking current must be at least equal to the original one (%(a)s A"
-" EN)."
+"The cold cranking current must be at least equal to the original one (%(a)s "
+"A EN)."
 
 #: maintenance/autres_interventions/batterie/models.py:360
 #, python-format
 msgid ""
-"Technologie incompatible avec la batterie d'origine (%(orig)s). Technologies "
-"acceptées : %(ok)s."
+"Technologie incompatible avec la batterie d'origine (%(orig)s). Technologies"
+" acceptées : %(ok)s."
 msgstr ""
 "Technology incompatible with the original battery (%(orig)s). Accepted "
 "technologies: %(ok)s."
@@ -23600,8 +23626,8 @@ msgstr "State of health %(soh)s %%: battery tired."
 #: maintenance/autres_interventions/batterie/models.py:442
 #, python-format
 msgid ""
-"Tension au démarrage %(v)s V inférieure à %(s)s V avec une batterie chargée :"
-" batterie usée."
+"Tension au démarrage %(v)s V inférieure à %(s)s V avec une batterie chargée "
+": batterie usée."
 msgstr ""
 "Cranking voltage %(v)s V below %(s)s V with a charged battery: battery worn "
 "out."
@@ -24578,7 +24604,8 @@ msgstr "Gearbox details"
 #: maintenance/autres_interventions/roulement/models.py:17
 #: maintenance/check_up/models.py:31 maintenance/check_up/models.py:89
 #: maintenance/checkup_track/models.py:29
-#: maintenance/checkup_track/models.py:108 maintenance/jeux_pieces/models.py:18
+#: maintenance/checkup_track/models.py:108
+#: maintenance/jeux_pieces/models.py:18
 #: maintenance/systeme_freinage/nettoyage_freins/models.py:24
 #: maintenance/templatetags/intervention_tags.py:53
 msgid "Non présent"
@@ -25254,8 +25281,10 @@ msgid "Tableau de bord boîte automatique"
 msgstr "Automatic gearbox dashboard"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/delete_bte_auto.html:14
-msgid "Voulez-vous vraiment supprimer le contrôle de la boite automatique pour"
-msgstr "Do you really want to delete the automatic transmission inspection for"
+msgid ""
+"Voulez-vous vraiment supprimer le contrôle de la boite automatique pour"
+msgstr ""
+"Do you really want to delete the automatic transmission inspection for"
 
 #: maintenance/autres_interventions/cardan/models.py:16
 #: maintenance/autres_interventions/roulement/models.py:16
@@ -25425,8 +25454,8 @@ msgid ""
 "Le kilométrage du contrôle (%(km_controle)s) ne peut pas être inférieur au "
 "kilométrage avant intervention (%(km_voiture)s)."
 msgstr ""
-"The mileage of the tire inspection (%(km_controle)s) cannot be lower than the"
-" vehicle's current mileage (%(km_voiture)s)."
+"The mileage of the tire inspection (%(km_controle)s) cannot be lower than "
+"the vehicle's current mileage (%(km_voiture)s)."
 
 #: maintenance/autres_interventions/cardan/models.py:891
 msgid "Contrôles cardans"
@@ -25476,8 +25505,8 @@ msgid ""
 "Voulez-vous vraiment supprimer le contrôle cardan du %(date)s (%(km)s km) "
 "pour :"
 msgstr ""
-"Are you sure you want to delete the CV axle inspection dated %(date)s (%(km)s"
-" km) for:"
+"Are you sure you want to delete the CV axle inspection dated %(date)s "
+"(%(km)s km) for:"
 
 #: maintenance/autres_interventions/cardan/templates/cardan/delete_cardan.html:27
 #: maintenance/autres_interventions/roulement/templates/roulement/delete_roulement.html:27
@@ -29876,11 +29905,11 @@ msgstr "Bearing"
 #: maintenance/autres_interventions/roulement/templates/roulement/delete_roulement.html:19
 #, python-format
 msgid ""
-"Voulez-vous vraiment supprimer le contrôle des roulements de roue du %(date)s"
-" (%(km)s km) pour :"
+"Voulez-vous vraiment supprimer le contrôle des roulements de roue du "
+"%(date)s (%(km)s km) pour :"
 msgstr ""
-"Do you really want to delete the wheel bearing check of %(date)s (%(km)s km) "
-"for:"
+"Do you really want to delete the wheel bearing check of %(date)s (%(km)s km)"
+" for:"
 
 #: maintenance/autres_interventions/roulement/templates/roulement/modifier_roulement.html:4
 #: maintenance/autres_interventions/roulement/templates/roulement/modifier_roulement.html:21
@@ -30174,8 +30203,8 @@ msgid ""
 "Le kilométrage de l'intervention (%(intervention)s) ne peut pas être "
 "inférieur au kilométrage actuel (%(current)s)."
 msgstr ""
-"The mileage of the service (%(intervention)s) cannot be less than the current"
-" mileage (%(current)s)."
+"The mileage of the service (%(intervention)s) cannot be less than the "
+"current mileage (%(current)s)."
 
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_create.html:330
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/modifier_carrosserie_interne.html:326
@@ -30687,8 +30716,8 @@ msgid ""
 "monte : pneus de l'autre monte, seulement si elle n'est pas encore "
 "enregistrée."
 msgstr ""
-"Replacement: leave empty to keep the same reference. Set change: tyres of the"
-" other set, only if it is not yet recorded."
+"Replacement: leave empty to keep the same reference. Set change: tyres of "
+"the other set, only if it is not yet recorded."
 
 #: maintenance/check_up/models.py:1439 maintenance/pneus/models.py:235
 msgid "Pneus arrière à remplacer"
@@ -30700,8 +30729,8 @@ msgid "Nouveaux pneus arrière (remplacement / autre monte)"
 msgstr "New rear tyres (replacement / other set)"
 
 #: maintenance/check_up/models.py:1786 maintenance/checkup_track/models.py:668
-#: maintenance/checkup_track/models.py:1159 maintenance/eclairage/models.py:438
-#: maintenance/entretien/models.py:811
+#: maintenance/checkup_track/models.py:1159
+#: maintenance/eclairage/models.py:438 maintenance/entretien/models.py:811
 msgid "Éclaire plaque"
 msgstr "License plate light"
 
@@ -31786,7 +31815,8 @@ msgid "Fabricant des plaquettes avant"
 msgstr "Front brake pad manufacturer"
 
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1043
-#: voiture/voiture_freins_ar/models.py:76 voiture/voiture_freins_av/forms.py:42
+#: voiture/voiture_freins_ar/models.py:76
+#: voiture/voiture_freins_av/forms.py:42
 #: voiture/voiture_freins_av/models.py:96
 msgid "Matière des plaquettes avant"
 msgstr "Front brake pad material"
@@ -31805,7 +31835,8 @@ msgid "Fabricant des disques avant"
 msgstr "Front brake disc manufacturer"
 
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1125
-#: voiture/voiture_freins_av/forms.py:37 voiture/voiture_freins_av/models.py:82
+#: voiture/voiture_freins_av/forms.py:37
+#: voiture/voiture_freins_av/models.py:82
 msgid "Matière des disques avant"
 msgstr "Front brake disc material"
 
@@ -31845,7 +31876,8 @@ msgid "Fabricant des disques arrière"
 msgstr "Rear brake disc manufacturer"
 
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:1275
-#: voiture/voiture_freins_ar/forms.py:39 voiture/voiture_freins_ar/models.py:58
+#: voiture/voiture_freins_ar/forms.py:39
+#: voiture/voiture_freins_ar/models.py:58
 msgid "Matière des disques arrière"
 msgstr "Rear brake disc material"
 
@@ -37582,7 +37614,8 @@ msgstr "Bushing"
 msgid "Nettoyage des freins"
 msgstr "Brake cleaning"
 
-#: maintenance/models.py:40 maintenance/systeme_freinage/tambours/models.py:323
+#: maintenance/models.py:40
+#: maintenance/systeme_freinage/tambours/models.py:323
 #: maintenance/systeme_freinage/tambours/models.py:324
 #: maintenance/systeme_freinage/tambours/models.py:501
 #: maintenance/systeme_freinage/tambours/views.py:406
@@ -37747,7 +37780,8 @@ msgstr "Mileage at fluid levels inspection"
 
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:352
 #: maintenance/systeme_freinage/frein_main_hydraulique/templates/frein_main_hydraulique/frein_main_hydraulique_detail_pdf.html:441
-#: voiture/voiture_location/models.py:32 voiture/voiture_location/models.py:205
+#: voiture/voiture_location/models.py:32
+#: voiture/voiture_location/models.py:205
 #: voiture/voiture_location/templates/voiture_location/location_detail.html:66
 #: voiture/voiture_location/templates/voiture_location/location_detail_pdf.html:304
 #: voiture/voiture_location/templates/voiture_location/location_list.html:53
@@ -37877,11 +37911,11 @@ msgstr "Tire inspection – Maintenance %(id)s"
 #: maintenance/pneus/models.py:382
 #, python-format
 msgid ""
-"Le kilométrage du contrôle pneus (%(km_controle)s) ne peut pas être inférieur"
-" au kilométrage actuel de la voiture (%(km_voiture)s)."
+"Le kilométrage du contrôle pneus (%(km_controle)s) ne peut pas être "
+"inférieur au kilométrage actuel de la voiture (%(km_voiture)s)."
 msgstr ""
-"The mileage of the tire inspection (%(km_controle)s) cannot be lower than the"
-" vehicle's current mileage (%(km_voiture)s)."
+"The mileage of the tire inspection (%(km_controle)s) cannot be lower than "
+"the vehicle's current mileage (%(km_voiture)s)."
 
 #: maintenance/pneus/models.py:405
 msgid "Controle des pneus"
@@ -38640,7 +38674,8 @@ msgid "Supprimer le contrôle du nettoyage des freins"
 msgstr "Delete brake cleaning inspection"
 
 #: maintenance/systeme_freinage/nettoyage_freins/templates/nettoyage_freins/delete_nettoyage_freins.html:14
-msgid "Voulez-vous vraiment supprimer le contrôle du nettoyage des freins pour"
+msgid ""
+"Voulez-vous vraiment supprimer le contrôle du nettoyage des freins pour"
 msgstr "Do you really want to delete the brake cleaning inspection for"
 
 #: maintenance/systeme_freinage/nettoyage_freins/templates/nettoyage_freins/modifier_nettoyage_freins.html:21
@@ -38809,8 +38844,8 @@ msgstr "Delete brake caliper refurbishment inspection"
 
 #: maintenance/systeme_freinage/renovation_machoires/templates/renovation_machoires/delete_renovation_machoires.html:14
 msgid ""
-"Voulez-vous vraiment supprimer le contrôle de la rénovation des mâchoires de "
-"frein pour"
+"Voulez-vous vraiment supprimer le contrôle de la rénovation des mâchoires de"
+" frein pour"
 msgstr ""
 "Do you really want to delete the brake caliper refurbishment inspection for"
 
@@ -38861,7 +38896,8 @@ msgid "Contrôle de la rénovation des mâchoires de frein pour :"
 msgstr "Brake caliper refurbishment inspection for:"
 
 #: maintenance/systeme_freinage/renovation_machoires/views.py:414
-msgid "Intervention rénovation des mâchoires de frein enregistrée avec succès."
+msgid ""
+"Intervention rénovation des mâchoires de frein enregistrée avec succès."
 msgstr "Brake caliper refurbishment work saved successfully."
 
 #: maintenance/systeme_freinage/renovation_machoires/views.py:755
@@ -39313,7 +39349,8 @@ msgstr "This tool cannot be deleted because it is still in use."
 
 #: outillage/templates/outillage/delete_outillage.html:18
 msgid ""
-"Voulez-vous vraiment supprimer cet outillage ? Cette action est irréversible."
+"Voulez-vous vraiment supprimer cet outillage ? Cette action est "
+"irréversible."
 msgstr "Do you really want to delete this tool? This action cannot be undone."
 
 #: outillage/templates/outillage/delete_outillage.html:53
@@ -39855,10 +39892,10 @@ msgstr "Gas quantity"
 msgid "Type de pièce de climatisation"
 msgstr "AC part type"
 
-#: piece/piece_climatisation/models.py:32 piece/piece_differentiel/models.py:34
-#: piece/piece_direction/models.py:33 piece/piece_distribution/models.py:35
-#: piece/piece_echappement/models.py:34 piece/piece_essuyage/models.py:26
-#: piece/piece_freins/models.py:57
+#: piece/piece_climatisation/models.py:32
+#: piece/piece_differentiel/models.py:34 piece/piece_direction/models.py:33
+#: piece/piece_distribution/models.py:35 piece/piece_echappement/models.py:34
+#: piece/piece_essuyage/models.py:26 piece/piece_freins/models.py:57
 msgid "Moteurs compatibles"
 msgstr "Compatible engines"
 
@@ -39870,10 +39907,10 @@ msgstr "AC part"
 msgid "Pièces de climatisation"
 msgstr "AC parts"
 
-#: piece/piece_climatisation/models.py:40 piece/piece_differentiel/models.py:42
-#: piece/piece_direction/models.py:41 piece/piece_distribution/models.py:43
-#: piece/piece_echappement/models.py:42 piece/piece_essuyage/models.py:34
-#: piece/piece_freins/models.py:65
+#: piece/piece_climatisation/models.py:40
+#: piece/piece_differentiel/models.py:42 piece/piece_direction/models.py:41
+#: piece/piece_distribution/models.py:43 piece/piece_echappement/models.py:42
+#: piece/piece_essuyage/models.py:34 piece/piece_freins/models.py:65
 #, python-format
 msgid "%(type)s – %(piece)s"
 msgstr "%(type)s – %(piece)s"
@@ -41492,7 +41529,8 @@ msgstr "This owner cannot be deleted because they are still in use."
 msgid ""
 "Voulez-vous vraiment supprimer ce propriétaire ? Cette action est "
 "irréversible."
-msgstr "Do you really want to delete this owner? This action cannot be undone."
+msgstr ""
+"Do you really want to delete this owner? This action cannot be undone."
 
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:46
 msgid "Parts de propriété"
@@ -41501,8 +41539,8 @@ msgstr "Ownership shares"
 #: proprietaire/templates/proprietaire/delete_proprietaire.html:56
 #, python-format
 msgid ""
-"Les véhicules ne sont pas supprimés, mais le total des parts de leurs autres "
-"propriétaires n'atteindra plus 100 %%."
+"Les véhicules ne sont pas supprimés, mais le total des parts de leurs autres"
+" propriétaires n'atteindra plus 100 %%."
 msgstr ""
 "The vehicles will not be deleted, but the total ownership shares of their "
 "remaining owners will no longer reach 100 %%."
@@ -41527,8 +41565,8 @@ msgid ""
 "Voulez-vous vraiment retirer ce propriétaire de ce véhicule ? Cette action "
 "est irréversible."
 msgstr ""
-"Do you really want to remove this owner from this vehicle? This action cannot"
-" be undone."
+"Do you really want to remove this owner from this vehicle? This action "
+"cannot be undone."
 
 #: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:42
 msgid "Impact sur la répartition du véhicule"
@@ -41555,8 +41593,8 @@ msgid ""
 "Le propriétaire et le véhicule ne sont pas supprimés : seule cette part est "
 "retirée."
 msgstr ""
-"The owner and the vehicle will not be deleted: only this ownership share will"
-" be removed."
+"The owner and the vehicle will not be deleted: only this ownership share "
+"will be removed."
 
 #: proprietaire/templates/proprietaire/delete_proprietaire_voiture.html:92
 msgid "Part de propriété"
@@ -41900,8 +41938,8 @@ msgstr "Maximum number of users"
 
 #: societe_cliente/forms.py:139
 msgid ""
-"Le numéro de TVA doit commencer par un code pays européen valide (ex: BE, FR,"
-" DE...)."
+"Le numéro de TVA doit commencer par un code pays européen valide (ex: BE, "
+"FR, DE...)."
 msgstr ""
 "The VAT number must start with a valid European country code (e.g., BE, FR, "
 "DE...)."
@@ -42224,7 +42262,8 @@ msgstr "Tools"
 
 #: theme/templates/dashboard.html:611 theme/templates/dashboard.html:615
 #: utilisateurs/models.py:91 utilisateurs/views.py:321
-#: voiture/voiture_location/forms.py:114 voiture/voiture_location/models.py:189
+#: voiture/voiture_location/forms.py:114
+#: voiture/voiture_location/models.py:189
 #: voiture/voiture_location/templates/voiture_location/location_detail.html:49
 #: voiture/voiture_location/templates/voiture_location/statistiques_ventes.html:15
 #: voiture/voiture_location/templates/voiture_location/statistiques_ventes.html:105
@@ -42759,7 +42798,8 @@ msgid "Réduction groupe-cible (montant mensuel)"
 msgstr "Target group reduction (monthly amount)"
 
 #: utilisateurs/models.py:642
-msgid "Ex. premiers engagements, travailleurs âgés… selon votre région / ONSS."
+msgid ""
+"Ex. premiers engagements, travailleurs âgés… selon votre région / ONSS."
 msgstr "E.g. first hires, older workers… depending on your region / NSSO."
 
 #: utilisateurs/models.py:650
@@ -42988,8 +43028,8 @@ msgstr "Create monthly payroll"
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:88
 #: utilisateurs/templates/utilisateurs/paie/_paie_champs.html:24
 msgid ""
-"Calcul automatique selon les barèmes belges 2026 (estimation, à vérifier avec"
-" votre secrétariat social)."
+"Calcul automatique selon les barèmes belges 2026 (estimation, à vérifier "
+"avec votre secrétariat social)."
 msgstr ""
 "Automatic calculation based on the 2026 Belgian scales (estimate, to be "
 "checked with your payroll provider)."
@@ -43147,7 +43187,8 @@ msgstr "Withholding tax (FPS Finance)"
 #: utilisateurs/templates/utilisateurs/paie/paie_comptabilite.html:103
 msgid "Déclaration et paiement mensuels, au plus tard le 15 du mois suivant."
 msgstr ""
-"Monthly return and payment, by the 15th of the following month at the latest."
+"Monthly return and payment, by the 15th of the following month at the "
+"latest."
 
 #: utilisateurs/templates/utilisateurs/paie/paie_comptabilite.html:108
 #: utilisateurs/templates/utilisateurs/paie/paie_comptabilite.html:134
@@ -43168,8 +43209,8 @@ msgid ""
 "Solde trimestriel à payer au plus tard le dernier jour du mois qui suit le "
 "trimestre (provisions mensuelles selon votre régime)."
 msgstr ""
-"Quarterly balance payable by the last day of the month following the quarter "
-"(monthly advances depending on your scheme)."
+"Quarterly balance payable by the last day of the month following the quarter"
+" (monthly advances depending on your scheme)."
 
 #: utilisateurs/templates/utilisateurs/paie/paie_comptabilite.html:155
 msgid "Balance des comptes (PCMN)"
@@ -43432,7 +43473,8 @@ msgid "Ce compte n'est associé à aucune société privée."
 msgstr "This account is not associated with any private company."
 
 #: utilisateurs/views.py:1111
-msgid "Veuillez saisir le code de sécurité généré par votre application Authy."
+msgid ""
+"Veuillez saisir le code de sécurité généré par votre application Authy."
 msgstr "Please enter the security code generated by your Authy app."
 
 #: utilisateurs/views.py:1128
@@ -43587,8 +43629,8 @@ msgstr "Affected model(s)"
 
 #: voiture/voiture_boite/templates/voiture_boite/delete_boite.html:56
 msgid ""
-"Ces véhicules et modèles ne seront pas supprimés : seul leur lien avec cette "
-"boîte sera retiré."
+"Ces véhicules et modèles ne seront pas supprimés : seul leur lien avec cette"
+" boîte sera retiré."
 msgstr ""
 "These vehicles and models will not be deleted: only their link to this "
 "gearbox will be removed."
@@ -45724,7 +45766,8 @@ msgstr "Delete the clutch"
 
 #: voiture/voiture_embrayage/templates/voiture_embrayage/delete_embrayage.html:13
 msgid ""
-"Voulez-vous vraiment supprimer cet embrayage ? Cette action est irréversible."
+"Voulez-vous vraiment supprimer cet embrayage ? Cette action est "
+"irréversible."
 msgstr ""
 "Do you really want to delete this clutch? This action cannot be undone."
 
@@ -45796,8 +45839,8 @@ msgstr "Clutch deletion"
 
 #: voiture/voiture_embrayage/views.py:238
 msgid ""
-"Impossible de supprimer cet embrayage : il est encore référencé par d'autres "
-"données."
+"Impossible de supprimer cet embrayage : il est encore référencé par d'autres"
+" données."
 msgstr "Unable to delete this clutch: it is still referenced by other data."
 
 #: voiture/voiture_embrayage/views.py:249
@@ -45901,11 +45944,11 @@ msgstr "5000 km"
 
 #: voiture/voiture_exemplaire/models.py:124
 msgid ""
-"Le numéro VIN doit contenir exactement 17 caractères alphanumériques (lettres"
-" A-H, J-N, P, R-Z et chiffres)."
+"Le numéro VIN doit contenir exactement 17 caractères alphanumériques "
+"(lettres A-H, J-N, P, R-Z et chiffres)."
 msgstr ""
-"The VIN must contain exactly 17 alphanumeric characters (letters A-H, J-N, P,"
-" R-Z and digits)."
+"The VIN must contain exactly 17 alphanumeric characters (letters A-H, J-N, "
+"P, R-Z and digits)."
 
 #: voiture/voiture_exemplaire/models.py:172
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:56
@@ -46204,8 +46247,8 @@ msgstr "Delete the financial data"
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/finances/supprimer.html:14
 #, python-format
 msgid ""
-"Les données financières du véhicule %(vehicule)s (%(immat)s) seront effacées "
-": prix d'achat, assurance, taxes et propriétaires."
+"Les données financières du véhicule %(vehicule)s (%(immat)s) seront effacées"
+" : prix d'achat, assurance, taxes et propriétaires."
 msgstr ""
 "The financial data of vehicle %(vehicule)s (%(immat)s) will be deleted: "
 "purchase price, insurance, taxes and owners."
@@ -46317,9 +46360,9 @@ msgstr "fitted"
 
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/lier_pneus.html:82
 msgid ""
-"Lier corrige les pneus de cette monte sans compter de nouveau train. Pour un "
-"remplacement (nouveau train à 0 km), utilisez « Remplacer le train » sur la "
-"fiche du véhicule."
+"Lier corrige les pneus de cette monte sans compter de nouveau train. Pour un"
+" remplacement (nouveau train à 0 km), utilisez « Remplacer le train » sur la"
+" fiche du véhicule."
 msgstr ""
 "Linking corrects the tyres of this set without counting a new set. For a "
 "replacement (new set at 0 km), use “Replace the set” on the vehicle page."
@@ -46402,8 +46445,8 @@ msgstr "not currently fitted"
 
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/remplacer_train_pneus.html:56
 msgid ""
-"Ce train sera archivé dans l'historique avec ses kilomètres. Le nouveau train"
-" repartira de 0 km."
+"Ce train sera archivé dans l'historique avec ses kilomètres. Le nouveau "
+"train repartira de 0 km."
 msgstr ""
 "This set will be archived in the history with its kilometres. The new set "
 "will start from 0 km."
@@ -46473,11 +46516,11 @@ msgstr ""
 #: voiture/voiture_exemplaire/views.py:244
 #, python-format
 msgid ""
-"Train n°%(ancien)s archivé (%(km)s km). Nouveau train n°%(nouveau)s installé "
-"à 0 km."
+"Train n°%(ancien)s archivé (%(km)s km). Nouveau train n°%(nouveau)s installé"
+" à 0 km."
 msgstr ""
-"Set no. %(ancien)s archived (%(km)s km). New set no. %(nouveau)s fitted at 0 "
-"km."
+"Set no. %(ancien)s archived (%(km)s km). New set no. %(nouveau)s fitted at 0"
+" km."
 
 #: voiture/voiture_exemplaire/views.py:250
 #, python-format
@@ -46654,11 +46697,11 @@ msgstr "Delete the rear braking system"
 
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:13
 msgid ""
-"Voulez-vous vraiment supprimer ce système de freinage arrière ? Cette action "
-"est irréversible."
+"Voulez-vous vraiment supprimer ce système de freinage arrière ? Cette action"
+" est irréversible."
 msgstr ""
-"Do you really want to delete this rear braking system? This action cannot be "
-"undone."
+"Do you really want to delete this rear braking system? This action cannot be"
+" undone."
 
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:42
 #: voiture/voiture_freins_ar/templates/voiture_freins_ar/delete_frein_ar.html:77
@@ -46724,7 +46767,8 @@ msgstr "Edit rear brakes"
 msgid "Retour aux détails des freins arrière"
 msgstr "Back to rear brake details"
 
-#: voiture/voiture_freins_ar/views.py:59 voiture/voiture_freins_ar/views.py:116
+#: voiture/voiture_freins_ar/views.py:59
+#: voiture/voiture_freins_ar/views.py:116
 msgid "Freins arrière ajoutés avec succès !"
 msgstr "Rear brakes updated successfully."
 
@@ -46818,8 +46862,8 @@ msgid ""
 "Voulez-vous vraiment supprimer ce système de freinage avant ? Cette action "
 "est irréversible."
 msgstr ""
-"Do you really want to delete this front braking system? This action cannot be"
-" undone."
+"Do you really want to delete this front braking system? This action cannot "
+"be undone."
 
 #: voiture/voiture_freins_av/templates/voiture_freins_av/freins_av_detail.html:16
 msgid "Détails des freins avant :"
@@ -46879,8 +46923,8 @@ msgstr "Price incl. VAT (€)"
 
 #: voiture/voiture_location/forms.py:131
 msgid ""
-"Prix de la location TVA comprise : la TVA est calculée au taux du pays de la "
-"société."
+"Prix de la location TVA comprise : la TVA est calculée au taux du pays de la"
+" société."
 msgstr ""
 "Rental price including VAT: VAT is calculated at the rate of the company's "
 "country."
@@ -47112,8 +47156,8 @@ msgstr "Rent another vehicle to the same client"
 
 #: voiture/voiture_location/templates/voiture_location/location_form.html:136
 msgid ""
-"Une location est créée par véhicule. Le client, le vendeur, les remarques et "
-"la remise sont communs."
+"Une location est créée par véhicule. Le client, le vendeur, les remarques et"
+" la remise sont communs."
 msgstr ""
 "One rental is created per vehicle. The client, salesperson, notes and "
 "discount are shared."
@@ -47137,11 +47181,11 @@ msgstr "Discount"
 
 #: voiture/voiture_location/templates/voiture_location/location_form.html:195
 msgid ""
-"L'acompte et le paiement s'appliquent à la location du véhicule 1 ; ceux des "
-"autres véhicules se saisissent ensuite sur chaque location."
+"L'acompte et le paiement s'appliquent à la location du véhicule 1 ; ceux des"
+" autres véhicules se saisissent ensuite sur chaque location."
 msgstr ""
-"The deposit and payment apply to the rental of vehicle 1; those of the other "
-"vehicles are entered afterwards on each rental."
+"The deposit and payment apply to the rental of vehicle 1; those of the other"
+" vehicles are entered afterwards on each rental."
 
 #: voiture/voiture_location/templates/voiture_location/location_list.html:11
 msgid "Liste des locations"
@@ -47695,8 +47739,8 @@ msgid ""
 "Ces véhicules et modèles ne seront pas supprimés : seul leur lien avec ce "
 "moteur sera retiré."
 msgstr ""
-"These vehicles and models will not be deleted: only their link to this engine"
-" will be removed."
+"These vehicles and models will not be deleted: only their link to this "
+"engine will be removed."
 
 #: voiture/voiture_moteur/templates/voiture_moteur/delete_moteur.html:89
 #: voiture/voiture_moteur/templates/voiture_moteur/moteur_detail.html:49
@@ -48319,7 +48363,8 @@ msgstr "Deletion of the tires"
 msgid ""
 "Impossible de supprimer ces pneus : ils sont encore référencés par d'autres "
 "données."
-msgstr "Unable to delete these tires: they are still referenced by other data."
+msgstr ""
+"Unable to delete these tires: they are still referenced by other data."
 
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
@@ -48463,8 +48508,8 @@ msgid ""
 "plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une "
 "carte."
 msgstr ""
-"Cash payment refused: the cash total (%(total)s €) exceeds the limit allowed "
-"in %(pays)s (%(plafond)s €). Use a transfer or a card."
+"Cash payment refused: the cash total (%(total)s €) exceeds the limit allowed"
+" in %(pays)s (%(plafond)s €). Use a transfer or a card."
 
 msgid "Paiement enregistré."
 msgstr "Payment recorded."
@@ -48490,11 +48535,11 @@ msgstr "Invoice fully paid."
 
 #, python-format
 msgid ""
-"Paiement en espèces limité à %(plafond)s € par facture (%(pays)s), paiements "
-"fractionnés compris."
+"Paiement en espèces limité à %(plafond)s € par facture (%(pays)s), paiements"
+" fractionnés compris."
 msgstr ""
-"Cash payment limited to %(plafond)s € per invoice (%(pays)s), split payments "
-"included."
+"Cash payment limited to %(plafond)s € per invoice (%(pays)s), split payments"
+" included."
 
 #, python-format
 msgid "Déjà reçu en espèces : %(deja)s €."
@@ -48543,12 +48588,12 @@ msgid "Maintenances internes : coûts à charge de la société"
 msgstr "Internal maintenance: costs borne by the company"
 
 msgid ""
-"Une facture à votre propre société n'est pas une vente : pas de TVA à payer, "
-"pas de chiffre d'affaires. La TVA sur les pièces est récupérée via les achats"
-" fournisseurs. Le reste (pièces au prix d'achat HTVA + main-d'œuvre) est une "
-"charge d'entretien de vos véhicules : elle est déjà dans votre comptabilité "
-"(achats pour les pièces, salaires pour la main-d'œuvre) et est imputée ici au"
-" véhicule concerné, sans nouvelle écriture."
+"Une facture à votre propre société n'est pas une vente : pas de TVA à payer,"
+" pas de chiffre d'affaires. La TVA sur les pièces est récupérée via les "
+"achats fournisseurs. Le reste (pièces au prix d'achat HTVA + main-d'œuvre) "
+"est une charge d'entretien de vos véhicules : elle est déjà dans votre "
+"comptabilité (achats pour les pièces, salaires pour la main-d'œuvre) et est "
+"imputée ici au véhicule concerné, sans nouvelle écriture."
 msgstr ""
 "An invoice to your own company is not a sale: no VAT payable, no turnover. "
 "VAT on parts is recovered through supplier purchases. The rest (parts at "
@@ -48577,6 +48622,54 @@ msgstr ""
 msgid "Aucune facture interne pour ce véhicule."
 msgstr "No internal invoice for this vehicle."
 
+#: facture/views.py
+msgid "Exporter en CSV"
+msgstr "Export to CSV"
+
+#: facture/views.py
+msgid "Résumé"
+msgstr "Summary"
+
+#: facture/views.py
+msgid "à payer"
+msgstr "payable"
+
+#: facture/views.py
+msgid "à récupérer"
+msgstr "recoverable"
+
+#: facture/views.py
+msgid "TVA à payer – détail des factures émises"
+msgstr "VAT payable – issued invoices detail"
+
+#: facture/views.py
+msgid "Locations (circuit / route)"
+msgstr "Rentals (track / road)"
+
+#: facture/views.py
+msgid "Nature"
+msgstr "Type"
+
+#: facture/views.py
+msgid "Prestation"
+msgstr "Service"
+
+#: facture/views.py
+msgid "Déductible (%)"
+msgstr "Deductible (%)"
+
+#: facture/views.py
+msgid "Remarque"
+msgstr "Note"
+
+#: facture/views.py
+msgid "Informatif (hors total)"
+msgstr "For information (not in total)"
+
+#: facture/views.py
+msgid "Grille"
+msgstr "Box"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Automatic gearbox services"
 
@@ -48584,13 +48677,13 @@ msgstr "No internal invoice for this vehicle."
 #~ msgstr "Additional vehicle"
 
 #~ msgid ""
-#~ "Une location est créée par véhicule (même client, lieu, dates et remarques). "
-#~ "Le prix de la section « Période, kilométrage et prix » et le paiement "
+#~ "Une location est créée par véhicule (même client, lieu, dates et remarques)."
+#~ " Le prix de la section « Période, kilométrage et prix » et le paiement "
 #~ "concernent le premier véhicule."
 #~ msgstr ""
 #~ "One rental is created per vehicle (same client, location, dates and notes). "
-#~ "The price in the “Period, mileage and price” section and the payment apply to"
-#~ " the first vehicle."
+#~ "The price in the “Period, mileage and price” section and the payment apply "
+#~ "to the first vehicle."
 
 #, python-format
 #~ msgid "Véhicule n° %(n)s : choisissez un véhicule."
@@ -48610,8 +48703,8 @@ msgstr "No internal invoice for this vehicle."
 #~ "sont communs ; le paiement ci-dessous concerne le premier véhicule."
 #~ msgstr ""
 #~ "One rental is created per vehicle, with its own location, dates, laps, "
-#~ "mileage and price. The client, salesperson and notes are shared; the payment "
-#~ "below applies to the first vehicle."
+#~ "mileage and price. The client, salesperson and notes are shared; the payment"
+#~ " below applies to the first vehicle."
 
 #~ msgid "Pièce d'origine constructeur (OEM)"
 #~ msgstr "Original Equipment Manufacturer (OEM)"
@@ -48655,7 +48748,8 @@ msgstr "No internal invoice for this vehicle."
 #~ msgid ""
 #~ "Seules les locations facturées (facture émise) entrent dans la déclaration "
 #~ "TVA."
-#~ msgstr "Only invoiced rentals (issued invoice) are included in the VAT return."
+#~ msgstr ""
+#~ "Only invoiced rentals (issued invoice) are included in the VAT return."
 
 #~ msgid "TVA à payer à l'État (via les factures émises)"
 #~ msgstr "VAT payable to the State (via issued invoices)"
