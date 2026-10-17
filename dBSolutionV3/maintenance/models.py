@@ -60,6 +60,7 @@ class Maintenance(models.Model):
         CARDAN = "CARDAN", _("Cardan")
         CULASSE = "CULASSE", _("Culasse")
         ROULEMENT = "ROULEMENT", _("Roulements de roue")
+        REMPLACEMENT_BTE_AUTO = "remplacement_bte_auto", _("Remplacement boîte automatique")
 
     class Tag(models.TextChoices):
         VERT = "VERT", _("Vert")

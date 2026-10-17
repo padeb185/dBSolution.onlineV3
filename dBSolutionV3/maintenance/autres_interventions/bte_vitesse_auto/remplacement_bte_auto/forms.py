@@ -1,0 +1,354 @@
+from decimal import Decimal
+
+from django.core.exceptions import ValidationError
+from django import forms
+from django.utils.translation import gettext_lazy as _
+
+from maindoeuvre.models import MainDoeuvre
+from maintenance.choices import RouesSerrageEtat
+from .models import RemplacementBteAuto
+
+
+class RemplacementBteAutoForm(forms.ModelForm):
+    nombre_remplacements = forms.IntegerField(
+        required=False,
+        disabled=True,
+        label=_("Nombre de remplacements")
+    )
+
+    temps_heures = forms.IntegerField(
+        required=False,
+        min_value=0,
+        label=_("Heures")
+    )
+
+    temps_minutes = forms.IntegerField(
+        required=False,
+        min_value=0,
+        max_value=59,
+        label=_("Minutes")
+    )
+
+    class Meta:
+        model = RemplacementBteAuto
+        exclude = [
+            "variation_kilometres",
+            "kilometres_dernier_entretien",
+            "remplacement_bte_auto_nombre",
+            "kilometres_boite_rollback",
+            "kilometres_moteur_rollback",
+            "kilometres_embrayage_rollback",
+            "kilometres_moteur",
+            "kilometres_embrayage",
+
+        ]
+
+        widgets = {
+            "date_derniere_intervention": forms.DateInput(attrs={"type": "date"}),
+            "boite_niveau_huile_quantite": forms.NumberInput(
+                attrs={
+                    "step": "0.1",
+                    "min": "0",
+                }
+            ),
+            "kilometres_chassis": forms.NumberInput(
+                attrs={
+                    "readonly": "readonly",
+                    "class": "bg-gray-100 cursor-not-allowed",
+                }
+            ),
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user", None)
+        self.exemplaire = kwargs.pop("exemplaire", None)
+
+        super().__init__(*args, **kwargs)
+
+        # -----------------------
+        # VOITURE / EXEMPLAIRE
+        # -----------------------
+        if self.exemplaire:
+            if "voiture_exemplaire" in self.fields:
+                self.fields["voiture_exemplaire"].initial = self.exemplaire
+                self.fields["voiture_exemplaire"].disabled = True
+
+            if "voiture_marque" in self.fields:
+                self.fields["voiture_marque"].initial = (
+                    self.exemplaire.voiture_modele.voiture_marque
+                )
+
+            if "voiture_modele" in self.fields:
+                self.fields["voiture_modele"].initial = self.exemplaire.voiture_modele
+
+            if "kilometres_chassis" in self.fields:
+                self.fields["kilometres_chassis"].initial = (
+                    self.exemplaire.kilometres_chassis
+                )
+
+            if "immatriculation" in self.fields:
+                self.fields["immatriculation"].initial = (
+                    self.exemplaire.immatriculation
+                )
+
+            if self.exemplaire and "kilometres_boite" in self.fields:
+                kilometres_chassis = self.exemplaire.kilometres_chassis or 0
+                kilometres_remplacement_boite = (
+                        self.exemplaire.kilometres_remplacement_boite or 0
+                )
+
+                km_boite = (
+                        kilometres_chassis
+                        - kilometres_remplacement_boite
+                )
+
+                # Évite une valeur négative
+                if km_boite < 0:
+                    km_boite = 0
+
+                self.instance.kilometres_boite = km_boite
+
+                self.fields["kilometres_boite"].initial = km_boite
+                self.initial["kilometres_boite"] = km_boite
+                self.fields["kilometres_boite"].widget.attrs["value"] = km_boite
+
+                self.fields["kilometres_boite"].disabled = True
+                self.fields["kilometres_boite"].widget.attrs["readonly"] = True
+
+        # -----------------------
+        # TECHNICIEN
+        # -----------------------
+        if self.user:
+            if "tech_technicien" in self.fields:
+                self.fields["tech_technicien"].initial = self.user
+                self.fields["tech_technicien"].disabled = True
+
+            if "tech_societe" in self.fields:
+                self.fields["tech_societe"].initial = self.user.societe
+                self.fields["tech_societe"].disabled = True
+
+        if "tech_last_maintained_by" in self.fields:
+            self.fields["tech_last_maintained_by"].disabled = True
+
+        # -----------------------
+        # MAIN D'ŒUVRE
+        # -----------------------
+        if "main_oeuvre" in self.fields:
+            self.fields["main_oeuvre"].queryset = (
+                MainDoeuvre.objects.select_related("utilisateur")
+                .filter(utilisateur__is_active=True)
+            )
+            self.fields["main_oeuvre"].widget.attrs.update({
+                "class": "input"
+            })
+
+        if self.instance and self.instance.main_oeuvre:
+            mo = self.instance.main_oeuvre
+
+            self.fields["temps_heures"].initial = mo.heures
+            self.fields["temps_minutes"].initial = mo.minutes
+
+            if "taux_horaire" in self.fields:
+                self.fields["taux_horaire"].initial = mo.taux_horaire
+
+        # -----------------------
+        # UX
+        # -----------------------
+        if "remplacement_effectue" in self.fields:
+            self.fields["remplacement_effectue"].help_text = _(
+                "Cochez pour remplacer la boîte de vitesse "
+                "(remise à zéro automatique du kilométrage)."
+            )
+
+        # -----------------------
+        # NOMBRE REMPLACEMENTS READONLY
+        # -----------------------
+        if "nombre_remplacements" in self.fields:
+            self.fields["nombre_remplacements"].disabled = True
+            self.fields["nombre_remplacements"].widget.attrs["readonly"] = True
+
+            instance_exists = (
+                    self.instance
+                    and self.instance.pk
+                    and RemplacementBteAuto.objects.filter(pk=self.instance.pk).exists()
+            )
+
+            if instance_exists:
+                prochain_numero = self.instance.nombre_remplacements
+
+            elif self.exemplaire:
+                prochain_numero = (
+                        RemplacementBteAuto.objects.filter(
+                            voiture_exemplaire_id=self.exemplaire.id,
+                            remplacement_effectue=True
+                        ).count() + 1
+                )
+
+            else:
+                prochain_numero = 1
+
+            self.fields["nombre_remplacements"].initial = prochain_numero
+            self.initial["nombre_remplacements"] = prochain_numero
+            self.fields["nombre_remplacements"].widget.attrs["value"] = prochain_numero
+
+
+
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        voiture = self.exemplaire or cleaned_data.get("voiture_exemplaire")
+        km_boite = cleaned_data.get("kilometres_boite")
+
+        if voiture and km_boite is not None:
+            if km_boite > voiture.kilometres_chassis:
+                self.add_error(
+                    "kilometres_boite",
+                    _(
+                        "Le kilométrage de la boite ne peut pas être supérieur "
+                        "au kilométrage du véhicule."
+                    )
+                )
+
+        return cleaned_data
+
+
+
+
+
+    def clean_kilometres_remplacement(self):
+
+        nouveau_km = self.cleaned_data.get(
+            "kilometres_remplacement"
+        )
+
+        voiture = self.exemplaire
+
+        if voiture and nouveau_km is not None:
+
+            ancien_km = voiture.kilometres_chassis or 0
+
+            if nouveau_km < ancien_km:
+                raise ValidationError(
+                    _(
+                        "Le nouveau kilométrage ne peut pas être "
+                        "inférieur au dernier kilométrage du véhicule."
+                    )
+                )
+
+        return nouveau_km
+
+
+
+
+
+
+        # ==========================================================
+        # SAVE
+        # ==========================================================
+
+    def save(self, commit=True):
+
+        instance = super().save(commit=False)
+
+        voiture = (
+                self.exemplaire
+                or instance.voiture_exemplaire
+        )
+
+        # ==========================================================
+        # EXEMPLAIRE
+        # ==========================================================
+        if voiture:
+            instance.voiture_exemplaire = voiture
+
+        # ==========================================================
+        # NOMBRE DE REMPLACEMENTS
+        # ==========================================================
+        is_new = instance.pk is None
+
+        if is_new and voiture:
+            instance.nombre_remplacements = (
+                    RemplacementBteAuto.objects.filter(
+                        voiture_exemplaire_id=voiture.id,
+                        remplacement_effectue=True,
+                    ).count() + 1
+            )
+
+        # ==========================================================
+        # MAIN-D'ŒUVRE
+        # ==========================================================
+        heures = (
+                self.cleaned_data.get("temps_heures")
+                or 0
+        )
+
+        minutes = (
+                self.cleaned_data.get("temps_minutes")
+                or 0
+        )
+
+        taux_horaire = (
+            self.cleaned_data.get("taux_horaire")
+        )
+
+        total_minutes = (
+                                heures * 60
+                        ) + minutes
+
+        main = instance.main_oeuvre
+
+        if main:
+
+            main.temps_minutes = total_minutes
+
+            if taux_horaire is not None:
+                main.taux_horaire = taux_horaire
+
+            main.save(
+                update_fields=[
+                    "temps_minutes",
+                    "taux_horaire",
+                ]
+            )
+
+        elif self.user:
+
+            main = MainDoeuvre.objects.create(
+                utilisateur=self.user,
+                temps_minutes=total_minutes,
+                taux_horaire=(
+                        taux_horaire
+                        or Decimal("50.00")
+                ),
+            )
+
+            instance.main_oeuvre = main
+
+        # ==========================================================
+        # TECHNICIEN
+        # ==========================================================
+        if self.user:
+            instance.assign_technicien(
+                self.user
+            )
+
+        # ==========================================================
+        # SAUVEGARDE
+        # ==========================================================
+        if commit:
+            instance.save()
+            self.save_m2m()
+
+        return instance
+
+
+    def clean_serrage_roues(self):
+        serrage_roues = self.cleaned_data.get("serrage_roues")
+
+        if serrage_roues != RouesSerrageEtat.FAIT:
+            raise forms.ValidationError(
+                _("Vous devez confirmer que le serrage des roues est FAIT avant de valider.")
+            )
+
+        return serrage_roues

@@ -838,3 +838,25 @@ def bte_auto_pdf_view(request, bte_auto_id):
 
 
 
+
+
+# ======================================================
+# DASHBOARD BOÎTE AUTOMATIQUE
+# (contrôles boîte automatique + remplacements boîte automatique)
+# ======================================================
+@never_cache
+@login_required
+def dashboard_bte_auto_view(request, exemplaire_id):
+    from maintenance.autres_interventions.bte_vitesse_auto.remplacement_bte_auto.models import RemplacementBteAuto
+
+    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+
+    total_bte_auto = ControleBteVitesseAuto.objects.filter(voiture_exemplaire=exemplaire).count()
+    total_remplacement_bte_auto = RemplacementBteAuto.objects.filter(voiture_exemplaire=exemplaire).count()
+
+    return render(request, "bte_auto/dashboard_bte_auto.html", {
+        "exemplaire": exemplaire,
+        "total_bte_auto": total_bte_auto,
+        "total_remplacement_bte_auto": total_remplacement_bte_auto,
+        "total_int_bte_auto": total_bte_auto + total_remplacement_bte_auto,
+    })

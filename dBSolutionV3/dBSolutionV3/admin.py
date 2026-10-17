@@ -30,6 +30,7 @@ from maintenance.autres_interventions.moteur.turbo.models import Turbo
 from maintenance.autres_interventions.abs.models import Abs
 from maintenance.autres_interventions.boite_de_vitesse.models import ControleBoite
 from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models import RemplacementBoite
+from maintenance.autres_interventions.bte_vitesse_auto.remplacement_bte_auto.models import RemplacementBteAuto
 from maintenance.autres_interventions.geometrie.models import GeometrieVoiture
 from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBteVitesseAuto
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
@@ -88,6 +89,7 @@ admin.site.register(Turbo)
 admin.site.register(Admission)
 admin.site.register(Alternateur)
 admin.site.register(RemplacementBoite)
+admin.site.register(RemplacementBteAuto)
 admin.site.register(Abs)
 admin.site.register(GeometrieVoiture)
 admin.site.register(ControleBoite)

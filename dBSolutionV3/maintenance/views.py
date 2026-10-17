@@ -7,6 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context, schema_context
 from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models import RemplacementBoite
+from maintenance.autres_interventions.bte_vitesse_auto.remplacement_bte_auto.models import RemplacementBteAuto
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from maintenance.autres_interventions.moteur import rodage
 from maintenance.autres_interventions.moteur.allumage.models import Allumage
@@ -191,6 +192,9 @@ def choisir_type_maintenance(request, exemplaire_id):
         remplacement_boite = RemplacementBoite.objects.filter(
             voiture_exemplaire=exemplaire
         )
+        remplacement_bte_auto = RemplacementBteAuto.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
         allumage = Allumage.objects.filter(
             voiture_exemplaire=exemplaire
@@ -253,6 +257,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             + echappement.count()
             + batterie.count()
             + remplacement_boite.count()
+            + remplacement_bte_auto.count()
 
         )
 

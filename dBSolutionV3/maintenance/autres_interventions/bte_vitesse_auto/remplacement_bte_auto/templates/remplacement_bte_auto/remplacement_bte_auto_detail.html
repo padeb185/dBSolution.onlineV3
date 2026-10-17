@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du remplacement de la boîte automatique" %}{% endblock %}
+
+{% block content %}
+    {% url 'remplacement_bte_auto:modifier_remplacement_bte_auto' remplacement_bte_auto.pk as url_modifier %}
+    {% url 'remplacement_bte_auto:remplacement_bte_auto_pdf' remplacement_bte_auto.pk as url_pdf %}
+    {% url 'remplacement_bte_auto:delete_remplacement_bte_auto' remplacement_bte_auto.pk as url_delete %}
+    {% if exemplaire %}{% url 'remplacement_bte_auto:remplacement_bte_auto_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du remplacement de la boîte automatique" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=remplacement_bte_auto km_controle=remplacement_bte_auto.kilometres_remplacement icone="boite-auto.png" infos_template="remplacement_bte_auto/partials/remplacement_bte_auto_infos.html" %}
+{% endblock %}

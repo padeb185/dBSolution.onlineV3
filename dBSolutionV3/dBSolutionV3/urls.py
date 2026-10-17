@@ -198,6 +198,7 @@ urlpatterns += i18n_patterns(
     path("turbo/",include(("maintenance.autres_interventions.moteur.turbo.urls", "turbo"),namespace="turbo")),
 
     path("remplacement_boite/",include(("maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.urls", "remplacement_boite"),namespace="remplacement_boite")),
+    path("remplacement_bte_auto/",include(("maintenance.autres_interventions.bte_vitesse_auto.remplacement_bte_auto.urls", "remplacement_bte_auto"),namespace="remplacement_bte_auto")),
 
     path("rodage/",include(("maintenance.autres_interventions.moteur.rodage.urls", "rodage"),namespace="rodage")),
 

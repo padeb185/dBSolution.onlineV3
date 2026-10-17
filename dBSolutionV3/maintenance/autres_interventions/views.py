@@ -33,6 +33,7 @@ from maintenance.autres_interventions.moteur.electronique_moteur.models import E
 from maintenance.autres_interventions.moteur.lubrification.models import Lubrification
 from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
 from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models import RemplacementBoite
+from maintenance.autres_interventions.bte_vitesse_auto.remplacement_bte_auto.models import RemplacementBteAuto
 from maintenance.autres_interventions.moteur.turbo.models import Turbo
 
 
@@ -84,6 +85,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     geometrie = GeometrieVoiture.objects.none()
     abs_qs = Abs.objects.none()
     remplacement_boite = RemplacementBoite.objects.none()
+    remplacement_bte_auto = RemplacementBteAuto.objects.none()
     courroie_access = CourroieAccessoires.objects.none()
     admission = Admission.objects.none()
     alternateur = Alternateur.objects.none()
@@ -111,6 +113,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
     total_geometrie = 0
     total_abs = 0
     total_remplacement_boite = 0
+    total_remplacement_bte_auto = 0
+    total_int_bte_auto = 0
     total_access = 0
     total_echappement = 0
     total_batterie = 0
@@ -157,6 +161,10 @@ def choisir_autre_maintenance(request, exemplaire_id):
                 voiture_exemplaire=exemplaire
             )
 
+            remplacement_bte_auto = RemplacementBteAuto.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
+
             courroie_access = CourroieAccessoires.objects.filter(
                 voiture_exemplaire=exemplaire
             )
@@ -196,6 +204,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_geometrie = geometrie.count()
             total_abs = abs_qs.count()
             total_remplacement_boite = remplacement_boite.count()
+            total_remplacement_bte_auto = remplacement_bte_auto.count()
+            total_int_bte_auto = total_bte_auto + total_remplacement_bte_auto
             total_access = courroie_access.count()
             total_echappement = echappement.count()
             total_batterie = batterie.count()
@@ -326,6 +336,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_geometrie": total_geometrie,
         "total_abs": total_abs,
         "total_remplacement_boite": total_remplacement_boite,
+        "total_remplacement_bte_auto": total_remplacement_bte_auto,
+        "total_int_bte_auto": total_int_bte_auto,
         "total_access": total_access,
         "total_echappement": total_echappement,
         "total_batterie": total_batterie,

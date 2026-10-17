@@ -20,6 +20,7 @@ DESCRIPTIFS_TRADUISIBLES = [
     "Checkup échappement",
     "Checkup courroie d'accessoires",
     "Remplacement boite",
+    "Remplacement boîte automatique",
     "Remplacement de l'embrayage",
 
 

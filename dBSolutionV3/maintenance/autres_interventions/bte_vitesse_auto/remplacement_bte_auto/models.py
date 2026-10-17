@@ -1,0 +1,655 @@
+import uuid
+from decimal import Decimal, ROUND_HALF_UP
+from django.core.validators import StepValueValidator
+from django.core.exceptions import ValidationError, FieldDoesNotExist
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+from client_particulier.models import ClientParticulier
+from django.conf import settings
+from maintenance.autres_interventions.boite_de_vitesse.models import HuileBoiteEtat, BoiteVitesseEtat
+from maintenance.choices import TAUX_HORAIRE_CHOICES, FabricantLubrifiant, TVAConfig, RouesSerrageEtat, \
+    EtatOKNotOKNiveau, FabricantBoite
+from maintenance.models import Maintenance
+from utils.mixin import TechnicienMixin
+
+
+
+
+
+class TypeUtilisation(models.TextChoices):
+    SOCIETE = "societe", _("Société")
+    CLIENT = "client", _("Client")
+    PRIVE = "prive", _("Privé")
+    LOCATION = "location", _("Location")
+    INTERNE = "interne", _("Interne")
+
+class NomPays(models.TextChoices):
+    BE = "Belgique", _("Belgique")
+    LU = "Luxembourg", _("Luxembourg")
+    DE = "Allemagne", _("Allemagne")
+
+
+
+# Pièces à démonter (dépose / repose) lors du remplacement de boîte
+PIECES_DEPOSE_REPOSE = [
+    ("depose_batterie", _("Batterie")),
+    ("depose_bac_batterie", _("Bac batterie")),
+    ("depose_filtre_air", _("Filtre à air")),
+    ("depose_demarreur", _("Démarreur")),
+    ("depose_cardans", _("Cardans")),
+    ("depose_arbre_transmission", _("Arbre de transmission")),
+    ("depose_capteur", _("Capteur")),
+    ("depose_connecteurs", _("Connecteurs")),
+    ("depose_roues", _("Roues")),
+    ("depose_commande_embrayage", _("Câble ou tuyau hydraulique d'embrayage")),
+    ("depose_support_moteur", _("Support moteur")),
+    ("depose_support_boite", _("Support de boîte")),
+    ("depose_traverse_renfort", _("Traverse de renfort")),
+    ("depose_coquille_aile", _("Coquille d'aile")),
+    ("depose_cable_masse", _("Câble de masse")),
+]
+
+
+class RemplacementBteAuto(TechnicienMixin, models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+
+    pays = models.CharField(
+        max_length=5,
+        choices=TVAConfig.PAYS_CHOICES,
+        default=TVAConfig.DEFAULT_PAYS,
+        verbose_name=_("Pays"),
+    )
+
+    # -------------------------
+    # RELATIONS
+    # -------------------------
+    maintenance = models.ForeignKey(
+        Maintenance,
+        on_delete=models.CASCADE,
+        related_name="remplacement_bte_auto",
+        null=True,
+        blank=True
+    )
+
+
+
+    voiture_exemplaire = models.ForeignKey(
+        "voiture_exemplaire.VoitureExemplaire",
+        on_delete=models.CASCADE,
+        related_name="remplacement_bte_auto",
+        null=True,
+        blank=True
+    )
+
+    proprietaires = models.ManyToManyField(
+        "proprietaire.ProprietaireVoiture",
+        related_name="remplacements_bte_auto",
+        blank=True
+    )
+
+    kilometres_chassis = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres chassis")
+    )
+
+    kilometres_remplacement = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres au moment du remplacement")
+    )
+
+    kilometres_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        editable=False,
+        verbose_name=_("Kilomètres rollback")
+    )
+
+
+    kilometres_boite = models.PositiveIntegerField(
+        verbose_name=_("Kilometres de la boite à remplacer")
+    )
+
+
+    kilometres_boite_rollback = models.PositiveIntegerField(
+        default=None,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres rollback boite")
+    )
+
+    kilometres_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_moteur_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres rollback moteur")
+    )
+
+    kilometres_rollback_boite = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        editable=False,
+        verbose_name=_("Kilomètres rollback")
+    )
+
+    kilometres_embrayage = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_embrayage_rollback = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres rollback embrayage")
+    )
+
+    remplacement_bte_auto_nombre = models.PositiveIntegerField(
+        default=1,
+        null=True,
+        blank=True,
+        verbose_name=_("Nombre de boite de remplacement")
+    )
+
+    nombre_boites_montes = models.PositiveIntegerField(
+        default=1,
+        editable=False,
+        verbose_name=_("Nombre de boites montées"),
+    )
+
+
+    remplacement_bte_auto_etat = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Remplacement de la boîte automatique"))
+    remplacement_bte_auto_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantBoite.choices,
+        default=FabricantBoite.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+    remplacement_bte_auto_serie = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+        verbose_name=_("Numéro de série de la boite")
+    )
+
+    remplacement_bte_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        verbose_name=_("Prix"),
+    )
+    remplacement_bte_auto_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+
+    client = models.ForeignKey(
+        ClientParticulier,
+        on_delete=models.CASCADE,
+        related_name="remplacement_bte_auto",
+        null=True,
+        blank=True,
+        verbose_name=_("Client"),
+    )
+
+    TAG_CHOICES = [
+        ("VERT", _("Vert")),
+        ("JAUNE", _("Jaune")),
+        ("ROUGE", _("Rouge")),
+    ]
+
+    tag = models.CharField(
+        max_length=10,
+        choices=TAG_CHOICES,
+        default="JAUNE",
+        verbose_name=_("État visuel / Tag"),
+    )
+
+    boite_niveau_huile_etat = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOKNiveau.choices,
+        default=EtatOKNotOKNiveau.OK,
+        verbose_name=_("Niveau d'huile"),
+    )
+    boite_niveau_huile_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantLubrifiant.choices,
+        default=FabricantLubrifiant.CHOISIR,
+        verbose_name=_("Fabricant")
+    )
+    boite_niveau_huile_qualite = models.CharField(
+        max_length=25,
+        choices=HuileBoiteEtat.choices,
+        default=HuileBoiteEtat.CHOISIR,
+        verbose_name=_("Qualité d'huile")
+    )
+
+    boite_niveau_huile_quantite = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        default=Decimal("0.0"),
+        verbose_name=_("Quantité d'huile ajoutée en litres"),
+        validators=[StepValueValidator(0.1)],
+    )
+
+    boite_niveau_huile_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=Decimal("0.00"),
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    nombre_remplacements = models.PositiveIntegerField(default=1, editable=False)
+
+    remplacement_effectue = models.BooleanField(
+        default=False,
+        verbose_name=_("Remplacement effectué"),
+    )
+
+
+
+
+    # -------------------------
+    # PIÈCES À DÉMONTER (DÉPOSE / REPOSE)
+    # -------------------------
+    depose_batterie = models.BooleanField(default=False, verbose_name=_("Batterie"))
+    depose_bac_batterie = models.BooleanField(default=False, verbose_name=_("Bac batterie"))
+    depose_filtre_air = models.BooleanField(default=False, verbose_name=_("Filtre à air"))
+    depose_demarreur = models.BooleanField(default=False, verbose_name=_("Démarreur"))
+    depose_cardans = models.BooleanField(default=False, verbose_name=_("Cardans"))
+    depose_arbre_transmission = models.BooleanField(default=False, verbose_name=_("Arbre de transmission"))
+    depose_capteur = models.BooleanField(default=False, verbose_name=_("Capteur"))
+    depose_connecteurs = models.BooleanField(default=False, verbose_name=_("Connecteurs"))
+    depose_roues = models.BooleanField(default=False, verbose_name=_("Roues"))
+    depose_commande_embrayage = models.BooleanField(default=False, verbose_name=_("Câble ou tuyau hydraulique d'embrayage"))
+    depose_support_moteur = models.BooleanField(default=False, verbose_name=_("Support moteur"))
+    depose_support_boite = models.BooleanField(default=False, verbose_name=_("Support de boîte"))
+    depose_traverse_renfort = models.BooleanField(default=False, verbose_name=_("Traverse de renfort"))
+    depose_coquille_aile = models.BooleanField(default=False, verbose_name=_("Coquille d'aile"))
+    depose_cable_masse = models.BooleanField(default=False, verbose_name=_("Câble de masse"))
+
+    remarques = models.TextField(
+        verbose_name=_("Remarques"),
+        blank=True,
+        null=True
+    )
+
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
+
+    tech_last_maintained_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="remplacement_bte_auto_maintained",
+        verbose_name=_("Dernière maintenance effectuée par")
+    )
+
+    tech_technicien = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Technicien"),
+        related_name="remplacement_bte_auto"
+    )
+
+    tech_nom_technicien = models.CharField(
+        _("Nom du technicien"),
+        max_length=255,
+        blank=True
+    )
+
+    tech_role_technicien = models.CharField(
+        _("Rôle du technicien"),
+        max_length=255,
+        blank=True
+    )
+
+    tech_societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Société"),
+        related_name="remplacement_bte_auto"
+    )
+    taux_horaire = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        choices=TAUX_HORAIRE_CHOICES,
+        default=Decimal("50.00"),
+        verbose_name=_("Taux horaire"),
+    )
+
+    main_oeuvre = models.ForeignKey(
+        "maindoeuvre.MainDoeuvre",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="remplacement_bte_auto",
+        verbose_name=_("Main d'oeuvre")
+    )
+
+
+
+
+    # --- Date d'enregistrement ---
+    date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
+    def pieces_deposees(self):
+        """Libellés des pièces déposées / reposées pendant l'intervention."""
+        return [label for champ, label in PIECES_DEPOSE_REPOSE if getattr(self, champ, False)]
+
+    def assign_technicien(self, user):
+        self.tech_technicien = user
+        self.tech_nom_technicien = f"{user.prenom} {user.nom}"
+        self.tech_role_technicien = user.role
+        self.tech_societe = user.societe
+
+
+
+
+    def __str__(self):
+        return (
+            f"{self.voiture_exemplaire.voiture_marque.nom_marque} "
+            f"{self.voiture_exemplaire.voiture_modele.nom_modele} "
+            f"{self.voiture_exemplaire.voiture_modele.nom_variante} - "
+            f"{self.voiture_exemplaire.immatriculation}"
+        )
+
+
+
+
+    def clean(self):
+        if self.voiture_exemplaire and self.voiture_exemplaire.kilometres_boite is not None:
+            if self.voiture_exemplaire.kilometres_boite > self.voiture_exemplaire.kilometres_chassis:
+                raise ValidationError({
+                    "kilometres_boite": _(
+                        "Le kilométrage de la boite ne peut pas être supérieur au kilométrage du véhicule."
+                    )
+                })
+
+    def save(self, *args, **kwargs):
+
+        is_new = not RemplacementBteAuto.objects.filter(pk=self.pk).exists()
+
+        # --------------------------------------------------
+        # NOMBRE DE REMPLACEMENTS
+        # --------------------------------------------------
+        if is_new and self.voiture_exemplaire_id:
+            self.nombre_remplacements = (
+                    RemplacementBteAuto.objects.filter(
+                        voiture_exemplaire_id=self.voiture_exemplaire_id,
+                        remplacement_effectue=True
+                    ).count() + 1
+            )
+
+        # --------------------------------------------------
+        # NOMBRE TOTAL DE BOÎTES MONTÉES
+        # boîte d'origine + remplacements
+        # --------------------------------------------------
+        self.nombre_boites_montes = (self.nombre_remplacements or 0) + 1
+
+        km = self.kilometres_chassis or 0
+
+        # --------------------------------------------------
+        # REMPLACEMENT EFFECTUÉ
+        # --------------------------------------------------
+        if self.remplacement_effectue:
+
+            if self.kilometres_remplacement is None:
+                self.kilometres_remplacement = km
+
+            self.voiture_exemplaire.kilometres_boite = (
+                    km - (self.kilometres_remplacement or km)
+            )
+
+            if self.voiture_exemplaire.kilometres_boite < 0:
+                self.voiture_exemplaire.kilometres_boite = 0
+
+        else:
+            self.voiture_exemplaire.kilometres_boite = km
+
+        # Sauvegarde de l'exemplaire
+        if self.voiture_exemplaire_id:
+            self.voiture_exemplaire.save(
+                update_fields=["kilometres_boite"]
+            )
+
+        # Sauvegarde du remplacement
+        super().save(*args, **kwargs)
+
+        # --------------------------------------------------
+        # MAIN-D'ŒUVRE
+        # --------------------------------------------------
+        if self.main_oeuvre_id and self.voiture_exemplaire_id:
+
+            task_name = (
+                    _("Remplacement boîte automatique")
+                    + " "
+                    + str(self.voiture_exemplaire)
+            )
+            if self.main_oeuvre.descriptif != task_name:
+                self.main_oeuvre.descriptif = task_name
+                self.main_oeuvre.save(update_fields=["descriptif"])
+
+
+    @property
+    def temps_main_oeuvre_display(self):
+        if not self.main_oeuvre:
+            return "0h00"
+        return self.main_oeuvre.temps_display
+
+
+
+    def calcul_piece(self, prefix):
+        prix_achat = getattr(self, f"{prefix}_prix")
+        quantite = getattr(self, f"{prefix}_quantite")
+
+        if not prix_achat or not self.pays:
+            return
+
+        tva_rate = Decimal(self.TVA_PIECES.get(self.pays, 0)) / 100
+
+        # TVA achat
+        setattr(self, f"{prefix}_tva_achat",
+                (prix_achat * tva_rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
+
+        prix_htva = prix_achat.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+        setattr(self, f"{prefix}_prix_vente_htva", prix_htva)
+
+        # TVA vente
+        tva = (prix_htva * tva_rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        setattr(self, f"{prefix}_tva_vente", tva)
+
+        # TTC
+        prix_ttc = prix_htva + tva
+        setattr(self, f"{prefix}_prix_ttc", prix_ttc)
+
+
+
+
+
+    def _get_display(self, nom_champ):
+        """
+        Retourne (valeur brute, libellé) d'un champ à choices.
+        Libellé vide si le champ est vide ou vaut "CHOISIR".
+        """
+        valeur = getattr(self, nom_champ, None) or ""
+
+        if not valeur or valeur == "CHOISIR":
+            return valeur, ""
+
+        methode = getattr(self, f"get_{nom_champ}_display", None)
+        label = methode() if callable(methode) else valeur
+
+        return valeur, str(label)
+
+
+
+
+
+    def generer_rapport_remplacement(self):
+        lignes = []
+        total_general = Decimal("0.00")
+
+        # ==================================================
+        # BOÎTE DE VITESSES
+        # ==================================================
+
+        prix_boite = Decimal(str(
+            self.remplacement_bte_auto_prix or Decimal("0.00")
+        ))
+
+        quantite_boite = Decimal(str(
+            self.remplacement_bte_auto_quantite or Decimal("0.00")
+        ))
+
+        if prix_boite > 0 and quantite_boite > 0:
+            total_boite = (prix_boite * quantite_boite).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+            total_general += total_boite
+
+            etat, etat_label = self._get_display("remplacement_bte_auto_etat")
+            fabricant, fabricant_label = self._get_display(
+                "remplacement_bte_auto_fabricant"
+            )
+
+            lignes.append({
+                "champ": str(
+                    self._meta.get_field(
+                        "remplacement_bte_auto_etat"
+                    ).verbose_name
+                ),
+                "etat": etat,
+                "etat_label": etat_label,
+                "fabricant": fabricant,
+                "fabricant_label": fabricant_label,
+                "qualite": "",
+                "qualite_label": "",
+                "oem": "",
+                "quantite": quantite_boite,
+                "prix": prix_boite,
+                "total": total_boite,
+            })
+
+        # ==================================================
+        # HUILE DE BOÎTE
+        # ==================================================
+
+        prix_huile = Decimal(str(
+            self.boite_niveau_huile_prix or Decimal("0.00")
+        ))
+
+        quantite_huile = Decimal(str(
+            self.boite_niveau_huile_quantite or Decimal("0.00")
+        ))
+
+        if prix_huile > 0 and quantite_huile > 0:
+            total_huile = (prix_huile * quantite_huile).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+            total_general += total_huile
+
+            etat, etat_label = self._get_display("boite_niveau_huile_etat")
+            fabricant, fabricant_label = self._get_display(
+                "boite_niveau_huile_fabricant"
+            )
+            qualite, qualite_label = self._get_display(
+                "boite_niveau_huile_qualite"
+            )
+
+            lignes.append({
+                "champ": _("Huile de boîte"),
+                "etat": etat,
+                "etat_label": etat_label,
+                "fabricant": fabricant,
+                "fabricant_label": fabricant_label,
+                "qualite": qualite,
+                "qualite_label": qualite_label,
+                "oem": "",
+                "quantite": quantite_huile,
+                "prix": prix_huile,
+                "total": total_huile,
+            })
+
+        return {
+            "lignes": lignes,
+            "total_general": total_general.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            ),
+        }
+
+        # ======================================================
+        # MAIN-D'ŒUVRE
+        # ======================================================
+
+    @property
+    def temps_main_oeuvre_display(self):
+        if not self.main_oeuvre:
+            return "0h00"
+
+        temps_minutes = self.main_oeuvre.temps_minutes or 0
+        heures, minutes = divmod(temps_minutes, 60)
+
+        return f"{heures}h{minutes:02d}"
+
+    @property
+    def taux_horaire_main_oeuvre(self):
+        if (
+                self.main_oeuvre
+                and self.main_oeuvre.taux_horaire is not None
+        ):
+            return self.main_oeuvre.taux_horaire
+
+        return Decimal("0.00")
+
+    @property
+    def cout_main_oeuvre(self):
+        if not self.main_oeuvre:
+            return Decimal("0.00")
+
+        temps_minutes = self.main_oeuvre.temps_minutes or 0
+        taux_horaire = (
+                self.main_oeuvre.taux_horaire or Decimal("0.00")
+        )
+
+        cout = (
+                Decimal(str(temps_minutes))
+                / Decimal("60")
+                * Decimal(str(taux_horaire))
+        )
+
+        return cout.quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
+
+    @property
+    def total_general_avec_main_oeuvre(self):
+        rapport = self.generer_rapport_remplacement()
+
+        return (
+                rapport["total_general"]
+                + self.cout_main_oeuvre
+        ).quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
