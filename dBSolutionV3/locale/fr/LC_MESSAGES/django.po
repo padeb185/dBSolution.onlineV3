@@ -45731,3 +45731,151 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:286
 msgid "Pneus supprimés avec succès."
 msgstr ""
+
+msgid "Carburants véhicules"
+msgstr "Carburants véhicules"
+
+msgid "Recharges électriques véhicules"
+msgstr "Recharges électriques véhicules"
+
+msgid "TVA étrangère à récupérer (remboursement UE)"
+msgstr "TVA étrangère à récupérer (remboursement UE)"
+
+msgid "Déductible (déclaration TVA belge)"
+msgstr "Déductible (déclaration TVA belge)"
+
+msgid "À récupérer via la procédure de remboursement UE"
+msgstr "À récupérer via la procédure de remboursement UE"
+
+msgid "Non récupérable (hors UE)"
+msgstr "Non récupérable (hors UE)"
+
+#, python-format
+msgid "TVA déductible %(taux)s %%"
+msgstr "TVA déductible %(taux)s %%"
+
+msgid "TVA non déductible"
+msgstr "TVA non déductible"
+
+#, python-format
+msgid "TVA %(pays)s %(taux)s %% à récupérer"
+msgstr "TVA %(pays)s %(taux)s %% à récupérer"
+
+#, python-format
+msgid "TVA %(pays)s non récupérable"
+msgstr "TVA %(pays)s non récupérable"
+
+msgid "Taux TVA"
+msgstr "Taux TVA"
+
+msgid "Totaux énergie"
+msgstr "Totaux énergie"
+
+msgid "Totaux carburants, recharges et AdBlue"
+msgstr "Totaux carburants, recharges et AdBlue"
+
+msgid "Déduction TVA belge (%)"
+msgstr "Déduction TVA belge (%)"
+
+msgid "PDF"
+msgstr "PDF"
+
+msgid "PDF + journal"
+msgstr "PDF + journal"
+
+msgid "Journal (CSV)"
+msgstr "Journal (CSV)"
+
+msgid "Total TTC"
+msgstr "Total TTC"
+
+msgid "HT"
+msgstr "HT"
+
+msgid "TTC"
+msgstr "TTC"
+
+msgid "Aucune opération sur cette période."
+msgstr "Aucune opération sur cette période."
+
+msgid "Totaux par type"
+msgstr "Totaux par type"
+
+msgid "Famille"
+msgstr "Famille"
+
+msgid "Prix moyen"
+msgstr "Prix moyen"
+
+msgid "TVA par pays"
+msgstr "TVA par pays"
+
+msgid "Détail"
+msgstr "Détail"
+
+msgid "Régime TVA"
+msgstr "Régime TVA"
+
+msgid "Total pays"
+msgstr "Total pays"
+
+msgid "Synthèse par régime"
+msgstr "Synthèse par régime"
+
+msgid "Déclaration TVA belge (achats en Belgique)"
+msgstr "Déclaration TVA belge (achats en Belgique)"
+
+msgid "Grille 82 – base HT"
+msgstr "Grille 82 – base HT"
+
+msgid "Grille 59 – TVA déductible"
+msgstr "Grille 59 – TVA déductible"
+
+msgid "TVA non déductible (en charge)"
+msgstr "TVA non déductible (en charge)"
+
+msgid "Par trimestre"
+msgstr "Par trimestre"
+
+msgid "Par véhicule"
+msgstr "Par véhicule"
+
+msgid "Comptabilité – balance des comptes"
+msgstr "Comptabilité – balance des comptes"
+
+msgid ""
+"Écritures d'achat générées pour chaque plein, recharge et AdBlue (PCMN)."
+msgstr ""
+"Écritures d'achat générées pour chaque plein, recharge et AdBlue (PCMN)."
+
+msgid "Journal détaillé"
+msgstr "Journal détaillé"
+
+#, python-format
+msgid ""
+"Demande de remboursement de la TVA étrangère via Intervat (procédure UE) au "
+"plus tard le %(d)s."
+msgstr ""
+"Demande de remboursement de la TVA étrangère via Intervat (procédure UE) au "
+"plus tard le %(d)s."
+
+msgid "Déduction TVA belge"
+msgstr "Déduction TVA belge"
+
+msgid "Déclaration TVA belge"
+msgstr "Déclaration TVA belge"
+
+msgid "Grille 82 (base HT)"
+msgstr "Grille 82 (base HT)"
+
+msgid "Grille 59 (TVA déductible)"
+msgstr "Grille 59 (TVA déductible)"
+
+msgid "Détail des opérations"
+msgstr "Détail des opérations"
+
+msgid "Journal des achats"
+msgstr "Journal des achats"
+
+msgid "Totaux & comptabilité"
+msgstr "Totaux & comptabilité"

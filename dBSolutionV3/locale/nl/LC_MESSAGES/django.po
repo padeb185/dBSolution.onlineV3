@@ -46156,6 +46156,154 @@ msgstr "Benaming van de rekening"
 msgid "Journal"
 msgstr "Dagboek"
 
+msgid "Carburants véhicules"
+msgstr "Brandstof voertuigen"
+
+msgid "Recharges électriques véhicules"
+msgstr "Elektrisch laden voertuigen"
+
+msgid "TVA étrangère à récupérer (remboursement UE)"
+msgstr "Terug te vorderen buitenlandse btw (EU-teruggaaf)"
+
+msgid "Déductible (déclaration TVA belge)"
+msgstr "Aftrekbaar (Belgische btw-aangifte)"
+
+msgid "À récupérer via la procédure de remboursement UE"
+msgstr "Terug te vorderen via de EU-teruggaafprocedure"
+
+msgid "Non récupérable (hors UE)"
+msgstr "Niet terugvorderbaar (buiten de EU)"
+
+#, python-format
+msgid "TVA déductible %(taux)s %%"
+msgstr "Aftrekbare btw %(taux)s %%"
+
+msgid "TVA non déductible"
+msgstr "Niet-aftrekbare btw"
+
+#, python-format
+msgid "TVA %(pays)s %(taux)s %% à récupérer"
+msgstr "Btw %(pays)s %(taux)s %% terug te vorderen"
+
+#, python-format
+msgid "TVA %(pays)s non récupérable"
+msgstr "Btw %(pays)s niet terugvorderbaar"
+
+msgid "Taux TVA"
+msgstr "Btw-tarief"
+
+msgid "Totaux énergie"
+msgstr "Energietotalen"
+
+msgid "Totaux carburants, recharges et AdBlue"
+msgstr "Totalen brandstof, laadbeurten en AdBlue"
+
+msgid "Déduction TVA belge (%)"
+msgstr "Belgische btw-aftrek (%)"
+
+msgid "PDF"
+msgstr "PDF"
+
+msgid "PDF + journal"
+msgstr "PDF + dagboek"
+
+msgid "Journal (CSV)"
+msgstr "Dagboek (CSV)"
+
+msgid "Total TTC"
+msgstr "Totaal incl. btw"
+
+msgid "HT"
+msgstr "Excl. btw"
+
+msgid "TTC"
+msgstr "Incl. btw"
+
+msgid "Aucune opération sur cette période."
+msgstr "Geen verrichtingen in deze periode."
+
+msgid "Totaux par type"
+msgstr "Totalen per type"
+
+msgid "Famille"
+msgstr "Categorie"
+
+msgid "Prix moyen"
+msgstr "Gemiddelde prijs"
+
+msgid "TVA par pays"
+msgstr "Btw per land"
+
+msgid "Détail"
+msgstr "Detail"
+
+msgid "Régime TVA"
+msgstr "Btw-regeling"
+
+msgid "Total pays"
+msgstr "Totaal land"
+
+msgid "Synthèse par régime"
+msgstr "Overzicht per regeling"
+
+msgid "Déclaration TVA belge (achats en Belgique)"
+msgstr "Belgische btw-aangifte (aankopen in België)"
+
+msgid "Grille 82 – base HT"
+msgstr "Rooster 82 – maatstaf excl. btw"
+
+msgid "Grille 59 – TVA déductible"
+msgstr "Rooster 59 – aftrekbare btw"
+
+msgid "TVA non déductible (en charge)"
+msgstr "Niet-aftrekbare btw (als kost)"
+
+msgid "Par trimestre"
+msgstr "Per kwartaal"
+
+msgid "Par véhicule"
+msgstr "Per voertuig"
+
+msgid "Comptabilité – balance des comptes"
+msgstr "Boekhouding – proef- en saldibalans"
+
+msgid ""
+"Écritures d'achat générées pour chaque plein, recharge et AdBlue (PCMN)."
+msgstr ""
+"Aankoopboekingen gegenereerd voor elke tankbeurt, laadbeurt en AdBlue (MAR)."
+
+msgid "Journal détaillé"
+msgstr "Gedetailleerd dagboek"
+
+#, python-format
+msgid ""
+"Demande de remboursement de la TVA étrangère via Intervat (procédure UE) au "
+"plus tard le %(d)s."
+msgstr ""
+"Verzoek tot teruggaaf van buitenlandse btw via Intervat (EU-procedure) "
+"uiterlijk op %(d)s."
+
+msgid "Déduction TVA belge"
+msgstr "Belgische btw-aftrek"
+
+msgid "Déclaration TVA belge"
+msgstr "Belgische btw-aangifte"
+
+msgid "Grille 82 (base HT)"
+msgstr "Rooster 82 (maatstaf excl. btw)"
+
+msgid "Grille 59 (TVA déductible)"
+msgstr "Rooster 59 (aftrekbare btw)"
+
+msgid "Détail des opérations"
+msgstr "Detail van de verrichtingen"
+
+msgid "Journal des achats"
+msgstr "Aankoopdagboek"
+
+msgid "Totaux & comptabilité"
+msgstr "Totalen & boekhouding"
+
 #~ msgid "Pièce d'origine constructeur (OEM)"
 #~ msgstr "Origineel onderdeel van de fabrikant (OEM)"
 

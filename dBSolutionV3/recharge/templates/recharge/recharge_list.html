@@ -107,7 +107,14 @@
 
             <!-- Véhicule -->
             <td class="border px-4 py-2">
-                {{ recharge.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}
+                <div class="flex items-center gap-2">
+                    <img src="{% static 'images/marques/' %}{{ recharge.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                         alt="{{ recharge.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}" title="{{ recharge.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                         class="w-10 h-10 object-contain"
+                         onerror="this.onerror=null;this.replaceWith(document.createTextNode('{{ recharge.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque|escapejs }}'));">
+                    <span class="sr-only">{{ recharge.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}</span>
+                    <span>{{ recharge.voiture_exemplaire.voiture_modele.nom_modele }}{% if recharge.voiture_exemplaire.voiture_modele.nom_variante %} {{ recharge.voiture_exemplaire.voiture_modele.nom_variante }}{% endif %}</span>
+                </div>
             </td>
 
             <!-- Kilomètres -->

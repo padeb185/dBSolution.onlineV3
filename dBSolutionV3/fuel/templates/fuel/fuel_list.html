@@ -114,8 +114,14 @@
             <!-- 2 Véhicule -->
             <td class="border px-4 py-2">
                 {% if fuel.voiture_exemplaire %}
-                    {{ fuel.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}
-                    {{ fuel.voiture_exemplaire.voiture_modele.nom_modele }}
+                <div class="flex items-center gap-2">
+                    <img src="{% static 'images/marques/' %}{{ fuel.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                         alt="{{ fuel.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}" title="{{ fuel.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                         class="w-10 h-10 object-contain"
+                         onerror="this.onerror=null;this.replaceWith(document.createTextNode('{{ fuel.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque|escapejs }}'));">
+                    <span class="sr-only">{{ fuel.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}</span>
+                    <span>{{ fuel.voiture_exemplaire.voiture_modele.nom_modele }}{% if fuel.voiture_exemplaire.voiture_modele.nom_variante %} {{ fuel.voiture_exemplaire.voiture_modele.nom_variante }}{% endif %}</span>
+                </div>
                 {% else %}
                     —
                 {% endif %}

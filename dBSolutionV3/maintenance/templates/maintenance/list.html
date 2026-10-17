@@ -48,7 +48,7 @@
                 <!-- Texte -->
                 <div>
                     <p class="font-semibold">
-                        {{ ex.voiture_marque.nom_marque }} {{ ex.voiture_modele.nom_modele }}
+                        {{ ex.voiture_modele.nom_modele }}
                     </p>
 
                     {% if ex.voiture_modele.nom_variante %}
@@ -95,7 +95,8 @@
                            height: auto !important;
                            max-width: 80px !important;
                            object-fit: contain;"
-                    onerror="this.style.display='none';"
+                    title="{{ ex.voiture_marque.nom_marque }}"
+                    onerror="this.onerror=null;this.replaceWith(document.createTextNode('{{ ex.voiture_marque.nom_marque|escapejs }}'));"
                 >
 
             </div>

@@ -46065,6 +46065,154 @@ msgstr "Account name"
 msgid "Journal"
 msgstr "Journal"
 
+msgid "Carburants véhicules"
+msgstr "Vehicle fuel"
+
+msgid "Recharges électriques véhicules"
+msgstr "Vehicle electric charging"
+
+msgid "TVA étrangère à récupérer (remboursement UE)"
+msgstr "Foreign VAT recoverable (EU refund)"
+
+msgid "Déductible (déclaration TVA belge)"
+msgstr "Deductible (Belgian VAT return)"
+
+msgid "À récupérer via la procédure de remboursement UE"
+msgstr "To be recovered via the EU refund procedure"
+
+msgid "Non récupérable (hors UE)"
+msgstr "Not recoverable (outside the EU)"
+
+#, python-format
+msgid "TVA déductible %(taux)s %%"
+msgstr "Deductible VAT %(taux)s %%"
+
+msgid "TVA non déductible"
+msgstr "Non-deductible VAT"
+
+#, python-format
+msgid "TVA %(pays)s %(taux)s %% à récupérer"
+msgstr "VAT %(pays)s %(taux)s %% recoverable"
+
+#, python-format
+msgid "TVA %(pays)s non récupérable"
+msgstr "VAT %(pays)s not recoverable"
+
+msgid "Taux TVA"
+msgstr "VAT rate"
+
+msgid "Totaux énergie"
+msgstr "Energy totals"
+
+msgid "Totaux carburants, recharges et AdBlue"
+msgstr "Fuel, charging and AdBlue totals"
+
+msgid "Déduction TVA belge (%)"
+msgstr "Belgian VAT deduction (%)"
+
+msgid "PDF"
+msgstr "PDF"
+
+msgid "PDF + journal"
+msgstr "PDF + journal"
+
+msgid "Journal (CSV)"
+msgstr "Journal (CSV)"
+
+msgid "Total TTC"
+msgstr "Total incl. VAT"
+
+msgid "HT"
+msgstr "Excl. VAT"
+
+msgid "TTC"
+msgstr "Incl. VAT"
+
+msgid "Aucune opération sur cette période."
+msgstr "No transactions in this period."
+
+msgid "Totaux par type"
+msgstr "Totals by type"
+
+msgid "Famille"
+msgstr "Category"
+
+msgid "Prix moyen"
+msgstr "Average price"
+
+msgid "TVA par pays"
+msgstr "VAT by country"
+
+msgid "Détail"
+msgstr "Detail"
+
+msgid "Régime TVA"
+msgstr "VAT treatment"
+
+msgid "Total pays"
+msgstr "Country total"
+
+msgid "Synthèse par régime"
+msgstr "Summary by treatment"
+
+msgid "Déclaration TVA belge (achats en Belgique)"
+msgstr "Belgian VAT return (purchases in Belgium)"
+
+msgid "Grille 82 – base HT"
+msgstr "Box 82 – taxable amount excl. VAT"
+
+msgid "Grille 59 – TVA déductible"
+msgstr "Box 59 – deductible VAT"
+
+msgid "TVA non déductible (en charge)"
+msgstr "Non-deductible VAT (expensed)"
+
+msgid "Par trimestre"
+msgstr "By quarter"
+
+msgid "Par véhicule"
+msgstr "By vehicle"
+
+msgid "Comptabilité – balance des comptes"
+msgstr "Accounting – trial balance"
+
+msgid ""
+"Écritures d'achat générées pour chaque plein, recharge et AdBlue (PCMN)."
+msgstr ""
+"Purchase entries generated for each refuel, charge and AdBlue (Belgian chart "
+"of accounts)."
+
+msgid "Journal détaillé"
+msgstr "Detailed journal"
+
+#, python-format
+msgid ""
+"Demande de remboursement de la TVA étrangère via Intervat (procédure UE) au "
+"plus tard le %(d)s."
+msgstr ""
+"Foreign VAT refund request via Intervat (EU procedure) no later than %(d)s."
+
+msgid "Déduction TVA belge"
+msgstr "Belgian VAT deduction"
+
+msgid "Déclaration TVA belge"
+msgstr "Belgian VAT return"
+
+msgid "Grille 82 (base HT)"
+msgstr "Box 82 (taxable amount excl. VAT)"
+
+msgid "Grille 59 (TVA déductible)"
+msgstr "Box 59 (deductible VAT)"
+
+msgid "Détail des opérations"
+msgstr "Transaction details"
+
+msgid "Journal des achats"
+msgstr "Purchase journal"
+
+msgid "Totaux & comptabilité"
+msgstr "Totals & accounting"
+
 #~ msgid "Pièce d'origine constructeur (OEM)"
 #~ msgstr "Original Equipment Manufacturer (OEM)"
 

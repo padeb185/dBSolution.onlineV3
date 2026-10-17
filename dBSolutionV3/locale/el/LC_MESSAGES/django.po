@@ -46204,6 +46204,155 @@ msgstr "Τίτλος λογαριασμού"
 msgid "Journal"
 msgstr "Ημερολόγιο"
 
+msgid "Carburants véhicules"
+msgstr "Καύσιμα οχημάτων"
+
+msgid "Recharges électriques véhicules"
+msgstr "Ηλεκτρικές φορτίσεις οχημάτων"
+
+msgid "TVA étrangère à récupérer (remboursement UE)"
+msgstr "Ανακτήσιμος αλλοδαπός ΦΠΑ (επιστροφή ΕΕ)"
+
+msgid "Déductible (déclaration TVA belge)"
+msgstr "Εκπιπτόμενος (βελγική δήλωση ΦΠΑ)"
+
+msgid "À récupérer via la procédure de remboursement UE"
+msgstr "Προς ανάκτηση μέσω της διαδικασίας επιστροφής της ΕΕ"
+
+msgid "Non récupérable (hors UE)"
+msgstr "Μη ανακτήσιμος (εκτός ΕΕ)"
+
+#, python-format
+msgid "TVA déductible %(taux)s %%"
+msgstr "Εκπιπτόμενος ΦΠΑ %(taux)s %%"
+
+msgid "TVA non déductible"
+msgstr "Μη εκπιπτόμενος ΦΠΑ"
+
+#, python-format
+msgid "TVA %(pays)s %(taux)s %% à récupérer"
+msgstr "ΦΠΑ %(pays)s %(taux)s %% προς ανάκτηση"
+
+#, python-format
+msgid "TVA %(pays)s non récupérable"
+msgstr "ΦΠΑ %(pays)s μη ανακτήσιμος"
+
+msgid "Taux TVA"
+msgstr "Συντελεστής ΦΠΑ"
+
+msgid "Totaux énergie"
+msgstr "Σύνολα ενέργειας"
+
+msgid "Totaux carburants, recharges et AdBlue"
+msgstr "Σύνολα καυσίμων, φορτίσεων και AdBlue"
+
+msgid "Déduction TVA belge (%)"
+msgstr "Έκπτωση βελγικού ΦΠΑ (%)"
+
+msgid "PDF"
+msgstr "PDF"
+
+msgid "PDF + journal"
+msgstr "PDF + ημερολόγιο"
+
+msgid "Journal (CSV)"
+msgstr "Ημερολόγιο (CSV)"
+
+msgid "Total TTC"
+msgstr "Σύνολο με ΦΠΑ"
+
+msgid "HT"
+msgstr "Χωρίς ΦΠΑ"
+
+msgid "TTC"
+msgstr "Με ΦΠΑ"
+
+msgid "Aucune opération sur cette période."
+msgstr "Καμία συναλλαγή σε αυτή την περίοδο."
+
+msgid "Totaux par type"
+msgstr "Σύνολα ανά τύπο"
+
+msgid "Famille"
+msgstr "Κατηγορία"
+
+msgid "Prix moyen"
+msgstr "Μέση τιμή"
+
+msgid "TVA par pays"
+msgstr "ΦΠΑ ανά χώρα"
+
+msgid "Détail"
+msgstr "Λεπτομέρεια"
+
+msgid "Régime TVA"
+msgstr "Καθεστώς ΦΠΑ"
+
+msgid "Total pays"
+msgstr "Σύνολο χώρας"
+
+msgid "Synthèse par régime"
+msgstr "Σύνοψη ανά καθεστώς"
+
+msgid "Déclaration TVA belge (achats en Belgique)"
+msgstr "Βελγική δήλωση ΦΠΑ (αγορές στο Βέλγιο)"
+
+msgid "Grille 82 – base HT"
+msgstr "Πεδίο 82 – φορολογητέα αξία χωρίς ΦΠΑ"
+
+msgid "Grille 59 – TVA déductible"
+msgstr "Πεδίο 59 – εκπιπτόμενος ΦΠΑ"
+
+msgid "TVA non déductible (en charge)"
+msgstr "Μη εκπιπτόμενος ΦΠΑ (ως έξοδο)"
+
+msgid "Par trimestre"
+msgstr "Ανά τρίμηνο"
+
+msgid "Par véhicule"
+msgstr "Ανά όχημα"
+
+msgid "Comptabilité – balance des comptes"
+msgstr "Λογιστική – ισοζύγιο λογαριασμών"
+
+msgid ""
+"Écritures d'achat générées pour chaque plein, recharge et AdBlue (PCMN)."
+msgstr ""
+"Εγγραφές αγορών για κάθε ανεφοδιασμό, φόρτιση και AdBlue (βελγικό λογιστικό "
+"σχέδιο)."
+
+msgid "Journal détaillé"
+msgstr "Αναλυτικό ημερολόγιο"
+
+#, python-format
+msgid ""
+"Demande de remboursement de la TVA étrangère via Intervat (procédure UE) au "
+"plus tard le %(d)s."
+msgstr ""
+"Αίτηση επιστροφής αλλοδαπού ΦΠΑ μέσω Intervat (διαδικασία ΕΕ) το αργότερο έως"
+" %(d)s."
+
+msgid "Déduction TVA belge"
+msgstr "Έκπτωση βελγικού ΦΠΑ"
+
+msgid "Déclaration TVA belge"
+msgstr "Βελγική δήλωση ΦΠΑ"
+
+msgid "Grille 82 (base HT)"
+msgstr "Πεδίο 82 (φορολογητέα αξία χωρίς ΦΠΑ)"
+
+msgid "Grille 59 (TVA déductible)"
+msgstr "Πεδίο 59 (εκπιπτόμενος ΦΠΑ)"
+
+msgid "Détail des opérations"
+msgstr "Λεπτομέρειες συναλλαγών"
+
+msgid "Journal des achats"
+msgstr "Ημερολόγιο αγορών"
+
+msgid "Totaux & comptabilité"
+msgstr "Σύνολα & λογιστική"
+
 #~ msgid "Pièce d'origine constructeur (OEM)"
 #~ msgstr "Γνήσιο ανταλλακτικό κατασκευαστή (OEM)"
 

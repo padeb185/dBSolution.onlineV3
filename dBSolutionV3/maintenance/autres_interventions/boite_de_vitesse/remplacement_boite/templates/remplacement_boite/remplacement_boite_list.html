@@ -98,6 +98,7 @@
     <thead>
         <tr class="bg-gray-100">
             <th>{% trans "Immatriculation" %}</th>
+            <th>{% trans "Véhicule" %}</th>
             <th>{% trans "Km boite" %}</th>
             <th>{% trans "Km châssis" %}</th>
             <th>{% trans "Nombre de boites" %}</th>
@@ -122,6 +123,18 @@
                 {% else %}
                     -
                 {% endif %}
+            </td>
+            <td class="border px-4 py-2" data-order="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }}">
+                {% if exemplaire %}
+                <div class="flex items-center gap-2">
+                    <img src="{% static 'images/marques/' %}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                         alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}" title="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+                         class="w-10 h-10 object-contain"
+                         onerror="this.onerror=null;this.replaceWith(document.createTextNode('{{ exemplaire.voiture_modele.voiture_marque.nom_marque|escapejs }}'));">
+                    <span class="sr-only">{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}</span>
+                    <span>{{ exemplaire.voiture_modele.nom_modele }}{% if exemplaire.voiture_modele.nom_variante %} {{ exemplaire.voiture_modele.nom_variante }}{% endif %}</span>
+                </div>
+                {% else %}—{% endif %}
             </td>
 
             <!-- KM MOTEUR -->
@@ -225,9 +238,9 @@ $(document).ready(function () {
                 previous: "{% trans 'Précédent' %}"
             }
         },
-        order: [[6, "desc"]],
+        order: [[7, "desc"]],
         columnDefs: [
-            { orderable: false, searchable: false, targets: 8 }
+            { orderable: false, searchable: false, targets: 9 }
         ]
     });
 
@@ -236,27 +249,27 @@ $(document).ready(function () {
     });
 
     $('#search-kilometres_boite').on('keyup', function () {
-        table.column(1).search(this.value).draw();
-    });
-
-    $('#search-kilometres_chassis').on('keyup', function () {
         table.column(2).search(this.value).draw();
     });
 
-    $('#search-nombre_remplacements').on('keyup', function () {
+    $('#search-kilometres_chassis').on('keyup', function () {
         table.column(3).search(this.value).draw();
     });
 
-    $('#search-utilisateur').on('keyup', function () {
-        table.column(5).search(this.value).draw();
+    $('#search-nombre_remplacements').on('keyup', function () {
+        table.column(4).search(this.value).draw();
     });
 
-    $('#search-date').on('change', function () {
+    $('#search-utilisateur').on('keyup', function () {
         table.column(6).search(this.value).draw();
     });
 
-    $('#search-temps').on('keyup', function () {
+    $('#search-date').on('change', function () {
         table.column(7).search(this.value).draw();
+    });
+
+    $('#search-temps').on('keyup', function () {
+        table.column(8).search(this.value).draw();
     });
 });
 </script>

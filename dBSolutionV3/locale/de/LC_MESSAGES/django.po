@@ -46184,6 +46184,155 @@ msgstr "Kontobezeichnung"
 msgid "Journal"
 msgstr "Journal"
 
+msgid "Carburants véhicules"
+msgstr "Fahrzeugkraftstoffe"
+
+msgid "Recharges électriques véhicules"
+msgstr "Elektrisches Laden der Fahrzeuge"
+
+msgid "TVA étrangère à récupérer (remboursement UE)"
+msgstr "Zu erstattende ausländische MwSt. (EU-Vergütung)"
+
+msgid "Déductible (déclaration TVA belge)"
+msgstr "Abziehbar (belgische MwSt.-Erklärung)"
+
+msgid "À récupérer via la procédure de remboursement UE"
+msgstr "Über das EU-Vergütungsverfahren zu erstatten"
+
+msgid "Non récupérable (hors UE)"
+msgstr "Nicht erstattungsfähig (außerhalb der EU)"
+
+#, python-format
+msgid "TVA déductible %(taux)s %%"
+msgstr "Abziehbare MwSt. %(taux)s %%"
+
+msgid "TVA non déductible"
+msgstr "Nicht abziehbare MwSt."
+
+#, python-format
+msgid "TVA %(pays)s %(taux)s %% à récupérer"
+msgstr "MwSt. %(pays)s %(taux)s %% zu erstatten"
+
+#, python-format
+msgid "TVA %(pays)s non récupérable"
+msgstr "MwSt. %(pays)s nicht erstattungsfähig"
+
+msgid "Taux TVA"
+msgstr "MwSt.-Satz"
+
+msgid "Totaux énergie"
+msgstr "Energiesummen"
+
+msgid "Totaux carburants, recharges et AdBlue"
+msgstr "Summen Kraftstoff, Ladevorgänge und AdBlue"
+
+msgid "Déduction TVA belge (%)"
+msgstr "Belgischer Vorsteuerabzug (%)"
+
+msgid "PDF"
+msgstr "PDF"
+
+msgid "PDF + journal"
+msgstr "PDF + Journal"
+
+msgid "Journal (CSV)"
+msgstr "Journal (CSV)"
+
+msgid "Total TTC"
+msgstr "Gesamt inkl. MwSt."
+
+msgid "HT"
+msgstr "Netto"
+
+msgid "TTC"
+msgstr "Brutto"
+
+msgid "Aucune opération sur cette période."
+msgstr "Keine Vorgänge in diesem Zeitraum."
+
+msgid "Totaux par type"
+msgstr "Summen nach Art"
+
+msgid "Famille"
+msgstr "Kategorie"
+
+msgid "Prix moyen"
+msgstr "Durchschnittspreis"
+
+msgid "TVA par pays"
+msgstr "MwSt. nach Land"
+
+msgid "Détail"
+msgstr "Detail"
+
+msgid "Régime TVA"
+msgstr "MwSt.-Regelung"
+
+msgid "Total pays"
+msgstr "Summe Land"
+
+msgid "Synthèse par régime"
+msgstr "Übersicht nach Regelung"
+
+msgid "Déclaration TVA belge (achats en Belgique)"
+msgstr "Belgische MwSt.-Erklärung (Einkäufe in Belgien)"
+
+msgid "Grille 82 – base HT"
+msgstr "Feld 82 – Bemessungsgrundlage netto"
+
+msgid "Grille 59 – TVA déductible"
+msgstr "Feld 59 – abziehbare Vorsteuer"
+
+msgid "TVA non déductible (en charge)"
+msgstr "Nicht abziehbare MwSt. (als Aufwand)"
+
+msgid "Par trimestre"
+msgstr "Nach Quartal"
+
+msgid "Par véhicule"
+msgstr "Nach Fahrzeug"
+
+msgid "Comptabilité – balance des comptes"
+msgstr "Buchhaltung – Saldenbilanz"
+
+msgid ""
+"Écritures d'achat générées pour chaque plein, recharge et AdBlue (PCMN)."
+msgstr ""
+"Einkaufsbuchungen für jede Betankung, Ladung und AdBlue erzeugt (belgischer "
+"Kontenrahmen)."
+
+msgid "Journal détaillé"
+msgstr "Detailliertes Journal"
+
+#, python-format
+msgid ""
+"Demande de remboursement de la TVA étrangère via Intervat (procédure UE) au "
+"plus tard le %(d)s."
+msgstr ""
+"Antrag auf Vergütung der ausländischen MwSt. über Intervat (EU-Verfahren) "
+"spätestens am %(d)s."
+
+msgid "Déduction TVA belge"
+msgstr "Belgischer Vorsteuerabzug"
+
+msgid "Déclaration TVA belge"
+msgstr "Belgische MwSt.-Erklärung"
+
+msgid "Grille 82 (base HT)"
+msgstr "Feld 82 (Bemessungsgrundlage netto)"
+
+msgid "Grille 59 (TVA déductible)"
+msgstr "Feld 59 (abziehbare Vorsteuer)"
+
+msgid "Détail des opérations"
+msgstr "Detail der Vorgänge"
+
+msgid "Journal des achats"
+msgstr "Einkaufsjournal"
+
+msgid "Totaux & comptabilité"
+msgstr "Summen & Buchhaltung"
+
 #~ msgid "Pièce d'origine constructeur (OEM)"
 #~ msgstr "Originalhersteller (OEM)"
 

@@ -46144,6 +46144,155 @@ msgstr "Denominación de la cuenta"
 msgid "Journal"
 msgstr "Diario"
 
+msgid "Carburants véhicules"
+msgstr "Combustible de vehículos"
+
+msgid "Recharges électriques véhicules"
+msgstr "Recargas eléctricas de vehículos"
+
+msgid "TVA étrangère à récupérer (remboursement UE)"
+msgstr "IVA extranjero a recuperar (devolución UE)"
+
+msgid "Déductible (déclaration TVA belge)"
+msgstr "Deducible (declaración de IVA belga)"
+
+msgid "À récupérer via la procédure de remboursement UE"
+msgstr "A recuperar mediante el procedimiento de devolución de la UE"
+
+msgid "Non récupérable (hors UE)"
+msgstr "No recuperable (fuera de la UE)"
+
+#, python-format
+msgid "TVA déductible %(taux)s %%"
+msgstr "IVA deducible %(taux)s %%"
+
+msgid "TVA non déductible"
+msgstr "IVA no deducible"
+
+#, python-format
+msgid "TVA %(pays)s %(taux)s %% à récupérer"
+msgstr "IVA %(pays)s %(taux)s %% a recuperar"
+
+#, python-format
+msgid "TVA %(pays)s non récupérable"
+msgstr "IVA %(pays)s no recuperable"
+
+msgid "Taux TVA"
+msgstr "Tipo de IVA"
+
+msgid "Totaux énergie"
+msgstr "Totales de energía"
+
+msgid "Totaux carburants, recharges et AdBlue"
+msgstr "Totales de combustible, recargas y AdBlue"
+
+msgid "Déduction TVA belge (%)"
+msgstr "Deducción del IVA belga (%)"
+
+msgid "PDF"
+msgstr "PDF"
+
+msgid "PDF + journal"
+msgstr "PDF + diario"
+
+msgid "Journal (CSV)"
+msgstr "Diario (CSV)"
+
+msgid "Total TTC"
+msgstr "Total IVA incluido"
+
+msgid "HT"
+msgstr "Sin IVA"
+
+msgid "TTC"
+msgstr "IVA incluido"
+
+msgid "Aucune opération sur cette période."
+msgstr "Ninguna operación en este período."
+
+msgid "Totaux par type"
+msgstr "Totales por tipo"
+
+msgid "Famille"
+msgstr "Categoría"
+
+msgid "Prix moyen"
+msgstr "Precio medio"
+
+msgid "TVA par pays"
+msgstr "IVA por país"
+
+msgid "Détail"
+msgstr "Detalle"
+
+msgid "Régime TVA"
+msgstr "Régimen de IVA"
+
+msgid "Total pays"
+msgstr "Total país"
+
+msgid "Synthèse par régime"
+msgstr "Resumen por régimen"
+
+msgid "Déclaration TVA belge (achats en Belgique)"
+msgstr "Declaración de IVA belga (compras en Bélgica)"
+
+msgid "Grille 82 – base HT"
+msgstr "Casilla 82 – base imponible sin IVA"
+
+msgid "Grille 59 – TVA déductible"
+msgstr "Casilla 59 – IVA deducible"
+
+msgid "TVA non déductible (en charge)"
+msgstr "IVA no deducible (como gasto)"
+
+msgid "Par trimestre"
+msgstr "Por trimestre"
+
+msgid "Par véhicule"
+msgstr "Por vehículo"
+
+msgid "Comptabilité – balance des comptes"
+msgstr "Contabilidad – balance de sumas y saldos"
+
+msgid ""
+"Écritures d'achat générées pour chaque plein, recharge et AdBlue (PCMN)."
+msgstr ""
+"Asientos de compra generados para cada repostaje, recarga y AdBlue (plan "
+"contable belga)."
+
+msgid "Journal détaillé"
+msgstr "Diario detallado"
+
+#, python-format
+msgid ""
+"Demande de remboursement de la TVA étrangère via Intervat (procédure UE) au "
+"plus tard le %(d)s."
+msgstr ""
+"Solicitud de devolución del IVA extranjero a través de Intervat "
+"(procedimiento UE) a más tardar el %(d)s."
+
+msgid "Déduction TVA belge"
+msgstr "Deducción del IVA belga"
+
+msgid "Déclaration TVA belge"
+msgstr "Declaración de IVA belga"
+
+msgid "Grille 82 (base HT)"
+msgstr "Casilla 82 (base imponible sin IVA)"
+
+msgid "Grille 59 (TVA déductible)"
+msgstr "Casilla 59 (IVA deducible)"
+
+msgid "Détail des opérations"
+msgstr "Detalle de las operaciones"
+
+msgid "Journal des achats"
+msgstr "Diario de compras"
+
+msgid "Totaux & comptabilité"
+msgstr "Totales y contabilidad"
+
 #~ msgid "Pièce d'origine constructeur (OEM)"
 #~ msgstr "Original del fabricante (OEM)"
 
