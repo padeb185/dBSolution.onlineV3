@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du contrôle de la culasse" %}{% endblock %}
+
+{% block content %}
+    {% url 'culasse:modifier_culasse' culasse.pk as url_modifier %}
+    {% url 'culasse:culasse_detail_pdf' culasse.pk as url_pdf %}
+    {% url 'culasse:delete_culasse' culasse.pk as url_delete %}
+    {% if exemplaire %}{% url 'culasse:culasse_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du contrôle de la culasse" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=culasse km_controle=culasse.kilometrage_culasse icone="culasse.png" %}
+{% endblock %}

@@ -1,0 +1,814 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+{% if culasse.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ culasse.tech_societe.nom }}
+            </div>
+
+            {% if culasse.tech_societe.adresse %}
+                <div>
+                    {{ culasse.tech_societe.adresse.rue }}
+                    {{ culasse.tech_societe.adresse.numero }}
+                    {% if culasse.tech_societe.adresse.boite %}
+                        / {{ culasse.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ culasse.tech_societe.adresse.code_postal }}
+                    {{ culasse.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if culasse.tech_societe.adresse.pays %}
+                <div>{{ culasse.tech_societe.adresse.pays }}
+                    {{ culasse.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if culasse.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ culasse.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if culasse.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ culasse.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ culasse.tech_societe.nom }}.png"
+                alt="{{ culasse.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Détail culasse" %}</h1>
+
+<!-- ================= INFOS ================= -->
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ culasse.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ culasse.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ culasse.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ culasse.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ culasse.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage culasse" %} :</span>
+            {{ culasse.kilometrage_culasse }} km
+        </div>
+
+
+
+<!-- ================= TAG ================= -->
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if culasse.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ culasse.get_tag_display }}
+                </span>
+
+            {% elif culasse.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ culasse.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ culasse.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= CULASSE ================= -->
+<h2>{% trans "Contrôle de la culasse" %}</h2>
+
+<div>
+
+    <table class="table-2-cols">
+
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>{% trans "Culasse" %}</td>
+                <td>
+                    {% if culasse.culasse == "OK" %}<span class="ok">{{ culasse.get_culasse_display }}</span>
+                    {% elif culasse.culasse == "NOT_OK" %}<span class="not-ok">{{ culasse.get_culasse_display }}</span>
+                    {% elif culasse.culasse == "REMPLACE" %}<span class="remplace">{{ culasse.get_culasse_display }}</span>
+                    {% else %}<span>{{ culasse.get_culasse_display }}</span>{% endif %}
+                    {% if culasse.culasse_fabricant and culasse.culasse_fabricant != "CHOISIR" %} — {{ culasse.get_culasse_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Joint de culasse" %}</td>
+                <td>
+                    {% if culasse.joint_culasse == "OK" %}<span class="ok">{{ culasse.get_joint_culasse_display }}</span>
+                    {% elif culasse.joint_culasse == "NOT_OK" %}<span class="not-ok">{{ culasse.get_joint_culasse_display }}</span>
+                    {% elif culasse.joint_culasse == "REMPLACE" %}<span class="remplace">{{ culasse.get_joint_culasse_display }}</span>
+                    {% else %}<span>{{ culasse.get_joint_culasse_display }}</span>{% endif %}
+                    {% if culasse.joint_culasse_fabricant and culasse.joint_culasse_fabricant != "CHOISIR" %} — {{ culasse.get_joint_culasse_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Jeu aux soupapes" %}</td>
+                <td>
+                    {% if culasse.jeu_soupapes == "OK" %}<span class="ok">{{ culasse.get_jeu_soupapes_display }}</span>
+                    {% elif culasse.jeu_soupapes == "NOT_OK" %}<span class="not-ok">{{ culasse.get_jeu_soupapes_display }}</span>
+                    {% elif culasse.jeu_soupapes == "REMPLACE" %}<span class="remplace">{{ culasse.get_jeu_soupapes_display }}</span>
+                    {% else %}<span>{{ culasse.get_jeu_soupapes_display }}</span>{% endif %}
+                    {% if culasse.jeu_soupapes_fabricant and culasse.jeu_soupapes_fabricant != "CHOISIR" %} — {{ culasse.get_jeu_soupapes_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Guides de soupapes" %}</td>
+                <td>
+                    {% if culasse.guides_soupapes == "OK" %}<span class="ok">{{ culasse.get_guides_soupapes_display }}</span>
+                    {% elif culasse.guides_soupapes == "NOT_OK" %}<span class="not-ok">{{ culasse.get_guides_soupapes_display }}</span>
+                    {% elif culasse.guides_soupapes == "REMPLACE" %}<span class="remplace">{{ culasse.get_guides_soupapes_display }}</span>
+                    {% else %}<span>{{ culasse.get_guides_soupapes_display }}</span>{% endif %}
+                    {% if culasse.guides_soupapes_fabricant and culasse.guides_soupapes_fabricant != "CHOISIR" %} — {{ culasse.get_guides_soupapes_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Soupapes" %}</td>
+                <td>
+                    {% if culasse.soupapes == "OK" %}<span class="ok">{{ culasse.get_soupapes_display }}</span>
+                    {% elif culasse.soupapes == "NOT_OK" %}<span class="not-ok">{{ culasse.get_soupapes_display }}</span>
+                    {% elif culasse.soupapes == "REMPLACE" %}<span class="remplace">{{ culasse.get_soupapes_display }}</span>
+                    {% else %}<span>{{ culasse.get_soupapes_display }}</span>{% endif %}
+                    {% if culasse.soupapes_fabricant and culasse.soupapes_fabricant != "CHOISIR" %} — {{ culasse.get_soupapes_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Ressorts de soupapes" %}</td>
+                <td>
+                    {% if culasse.ressorts_soupapes == "OK" %}<span class="ok">{{ culasse.get_ressorts_soupapes_display }}</span>
+                    {% elif culasse.ressorts_soupapes == "NOT_OK" %}<span class="not-ok">{{ culasse.get_ressorts_soupapes_display }}</span>
+                    {% elif culasse.ressorts_soupapes == "REMPLACE" %}<span class="remplace">{{ culasse.get_ressorts_soupapes_display }}</span>
+                    {% else %}<span>{{ culasse.get_ressorts_soupapes_display }}</span>{% endif %}
+                    {% if culasse.ressorts_soupapes_fabricant and culasse.ressorts_soupapes_fabricant != "CHOISIR" %} — {{ culasse.get_ressorts_soupapes_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Clavettes de soupapes" %}</td>
+                <td>
+                    {% if culasse.clavettes_soupapes == "OK" %}<span class="ok">{{ culasse.get_clavettes_soupapes_display }}</span>
+                    {% elif culasse.clavettes_soupapes == "NOT_OK" %}<span class="not-ok">{{ culasse.get_clavettes_soupapes_display }}</span>
+                    {% elif culasse.clavettes_soupapes == "REMPLACE" %}<span class="remplace">{{ culasse.get_clavettes_soupapes_display }}</span>
+                    {% else %}<span>{{ culasse.get_clavettes_soupapes_display }}</span>{% endif %}
+                    {% if culasse.clavettes_soupapes_fabricant and culasse.clavettes_soupapes_fabricant != "CHOISIR" %} — {{ culasse.get_clavettes_soupapes_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Sièges de soupapes" %}</td>
+                <td>
+                    {% if culasse.sieges_soupapes == "OK" %}<span class="ok">{{ culasse.get_sieges_soupapes_display }}</span>
+                    {% elif culasse.sieges_soupapes == "NOT_OK" %}<span class="not-ok">{{ culasse.get_sieges_soupapes_display }}</span>
+                    {% elif culasse.sieges_soupapes == "REMPLACE" %}<span class="remplace">{{ culasse.get_sieges_soupapes_display }}</span>
+                    {% else %}<span>{{ culasse.get_sieges_soupapes_display }}</span>{% endif %}
+                    {% if culasse.sieges_soupapes_fabricant and culasse.sieges_soupapes_fabricant != "CHOISIR" %} — {{ culasse.get_sieges_soupapes_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Rodage des soupapes" %}</td>
+                <td>
+                    {% if culasse.rodage_soupapes == "OK" %}<span class="ok">{{ culasse.get_rodage_soupapes_display }}</span>
+                    {% elif culasse.rodage_soupapes == "NOT_OK" %}<span class="not-ok">{{ culasse.get_rodage_soupapes_display }}</span>
+                    {% elif culasse.rodage_soupapes == "REMPLACE" %}<span class="remplace">{{ culasse.get_rodage_soupapes_display }}</span>
+                    {% else %}<span>{{ culasse.get_rodage_soupapes_display }}</span>{% endif %}
+                    {% if culasse.rodage_soupapes_fabricant and culasse.rodage_soupapes_fabricant != "CHOISIR" %} — {{ culasse.get_rodage_soupapes_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Arbre à cames d'échappement" %}</td>
+                <td>
+                    {% if culasse.arbre_cames_echappement == "OK" %}<span class="ok">{{ culasse.get_arbre_cames_echappement_display }}</span>
+                    {% elif culasse.arbre_cames_echappement == "NOT_OK" %}<span class="not-ok">{{ culasse.get_arbre_cames_echappement_display }}</span>
+                    {% elif culasse.arbre_cames_echappement == "REMPLACE" %}<span class="remplace">{{ culasse.get_arbre_cames_echappement_display }}</span>
+                    {% else %}<span>{{ culasse.get_arbre_cames_echappement_display }}</span>{% endif %}
+                    {% if culasse.arbre_cames_echappement_fabricant and culasse.arbre_cames_echappement_fabricant != "CHOISIR" %} — {{ culasse.get_arbre_cames_echappement_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Arbre à cames d'admission" %}</td>
+                <td>
+                    {% if culasse.arbre_cames_admission == "OK" %}<span class="ok">{{ culasse.get_arbre_cames_admission_display }}</span>
+                    {% elif culasse.arbre_cames_admission == "NOT_OK" %}<span class="not-ok">{{ culasse.get_arbre_cames_admission_display }}</span>
+                    {% elif culasse.arbre_cames_admission == "REMPLACE" %}<span class="remplace">{{ culasse.get_arbre_cames_admission_display }}</span>
+                    {% else %}<span>{{ culasse.get_arbre_cames_admission_display }}</span>{% endif %}
+                    {% if culasse.arbre_cames_admission_fabricant and culasse.arbre_cames_admission_fabricant != "CHOISIR" %} — {{ culasse.get_arbre_cames_admission_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Planage de la culasse" %}</td>
+                <td>
+                    {% if culasse.planage_culasse == "OK" %}<span class="ok">{{ culasse.get_planage_culasse_display }}</span>
+                    {% elif culasse.planage_culasse == "NOT_OK" %}<span class="not-ok">{{ culasse.get_planage_culasse_display }}</span>
+                    {% elif culasse.planage_culasse == "REMPLACE" %}<span class="remplace">{{ culasse.get_planage_culasse_display }}</span>
+                    {% else %}<span>{{ culasse.get_planage_culasse_display }}</span>{% endif %}
+                    {% if culasse.planage_culasse_fabricant and culasse.planage_culasse_fabricant != "CHOISIR" %} — {{ culasse.get_planage_culasse_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Poussoirs hydrauliques" %}</td>
+                <td>
+                    {% if culasse.poussoirs_hydrauliques == "OK" %}<span class="ok">{{ culasse.get_poussoirs_hydrauliques_display }}</span>
+                    {% elif culasse.poussoirs_hydrauliques == "NOT_OK" %}<span class="not-ok">{{ culasse.get_poussoirs_hydrauliques_display }}</span>
+                    {% elif culasse.poussoirs_hydrauliques == "REMPLACE" %}<span class="remplace">{{ culasse.get_poussoirs_hydrauliques_display }}</span>
+                    {% else %}<span>{{ culasse.get_poussoirs_hydrauliques_display }}</span>{% endif %}
+                    {% if culasse.poussoirs_hydrauliques_fabricant and culasse.poussoirs_hydrauliques_fabricant != "CHOISIR" %} — {{ culasse.get_poussoirs_hydrauliques_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Tiges de culbuteur" %}</td>
+                <td>
+                    {% if culasse.tiges_culbuteur == "OK" %}<span class="ok">{{ culasse.get_tiges_culbuteur_display }}</span>
+                    {% elif culasse.tiges_culbuteur == "NOT_OK" %}<span class="not-ok">{{ culasse.get_tiges_culbuteur_display }}</span>
+                    {% elif culasse.tiges_culbuteur == "REMPLACE" %}<span class="remplace">{{ culasse.get_tiges_culbuteur_display }}</span>
+                    {% else %}<span>{{ culasse.get_tiges_culbuteur_display }}</span>{% endif %}
+                    {% if culasse.tiges_culbuteur_fabricant and culasse.tiges_culbuteur_fabricant != "CHOISIR" %} — {{ culasse.get_tiges_culbuteur_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Culbuteurs" %}</td>
+                <td>
+                    {% if culasse.culbuteurs == "OK" %}<span class="ok">{{ culasse.get_culbuteurs_display }}</span>
+                    {% elif culasse.culbuteurs == "NOT_OK" %}<span class="not-ok">{{ culasse.get_culbuteurs_display }}</span>
+                    {% elif culasse.culbuteurs == "REMPLACE" %}<span class="remplace">{{ culasse.get_culbuteurs_display }}</span>
+                    {% else %}<span>{{ culasse.get_culbuteurs_display }}</span>{% endif %}
+                    {% if culasse.culbuteurs_fabricant and culasse.culbuteurs_fabricant != "CHOISIR" %} — {{ culasse.get_culbuteurs_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Huile moteur" %}</td>
+                <td>
+                    {% if culasse.huile_moteur == "OK" %}<span class="ok">{{ culasse.get_huile_moteur_display }}</span>
+                    {% elif culasse.huile_moteur == "NOT_OK" %}<span class="not-ok">{{ culasse.get_huile_moteur_display }}</span>
+                    {% elif culasse.huile_moteur == "REMPLACE" %}<span class="remplace">{{ culasse.get_huile_moteur_display }}</span>
+                    {% else %}<span>{{ culasse.get_huile_moteur_display }}</span>{% endif %}
+                    {% if culasse.huile_moteur_fabricant and culasse.huile_moteur_fabricant != "CHOISIR" %} — {{ culasse.get_huile_moteur_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Liquide de refroidissement" %}</td>
+                <td>
+                    {% if culasse.refroidissement == "OK" %}<span class="ok">{{ culasse.get_refroidissement_display }}</span>
+                    {% elif culasse.refroidissement == "NOT_OK" %}<span class="not-ok">{{ culasse.get_refroidissement_display }}</span>
+                    {% elif culasse.refroidissement == "REMPLACE" %}<span class="remplace">{{ culasse.get_refroidissement_display }}</span>
+                    {% else %}<span>{{ culasse.get_refroidissement_display }}</span>{% endif %}
+                    {% if culasse.refroidissement_fabricant and culasse.refroidissement_fabricant != "CHOISIR" %} — {{ culasse.get_refroidissement_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+</div>
+<!-- ================= HUILE MOTEUR ================= -->
+<h2>{% trans "Huile moteur" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Fabricant" %} :</span>
+            {{ culasse.get_huile_moteur_fabricant_display }}
+        </div>
+        <div>
+            <span class="label">{% trans "Viscosité" %} :</span>
+            {{ culasse.get_huile_moteur_qualite_display }}
+        </div>
+        <div>
+            <span class="label">{% trans "Quantité (L)" %} :</span>
+            {{ culasse.huile_moteur_quantite }} L
+        </div>
+    </div>
+</div>
+
+<!-- ================= REFROIDISSEMENT ================= -->
+<h2>{% trans "Liquide de refroidissement" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Fabricant" %} :</span>
+            {{ culasse.get_refroidissement_fabricant_display }}
+        </div>
+        <div>
+            <span class="label">{% trans "Qualité" %} :</span>
+            {{ culasse.get_refroidissement_qualite_display }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Quantité (L)" %} :</span>
+            {{ culasse.refroidissement_quantite }} L
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ culasse.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if culasse.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ culasse.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ culasse.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ culasse.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        <td class="text-right">
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ culasse.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ culasse.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
+
+        <table class="table-2-cols">
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ culasse.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ culasse.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+
+<br>
+<!-- ================= REMARQUES ================= -->
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ culasse.remarques|default:_("Aucune remarque.") }}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

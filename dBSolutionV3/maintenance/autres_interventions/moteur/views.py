@@ -18,6 +18,7 @@ from maintenance.autres_interventions.moteur.admission.models import Admission
 from maintenance.autres_interventions.moteur.alternateur.models import Alternateur
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
 from maintenance.autres_interventions.moteur.chaine_distribution.models import ChaineDistribution
+from maintenance.autres_interventions.moteur.culasse.models import Culasse
 from maintenance.autres_interventions.moteur.electronique_moteur.models import ElectroniqueMoteur
 from maintenance.autres_interventions.moteur.lubrification.models import Lubrification
 from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
@@ -79,6 +80,7 @@ def dashboard_moteur_view(request, exemplaire_id):
     alternateur = Alternateur.objects.filter(voiture_exemplaire=exemplaire)
     courroie = CourroieDistribution.objects.filter(voiture_exemplaire=exemplaire)
     chaine = ChaineDistribution.objects.filter(voiture_exemplaire=exemplaire)
+    culasse = Culasse.objects.filter(voiture_exemplaire=exemplaire)
     electronique = ElectroniqueMoteur.objects.filter(voiture_exemplaire=exemplaire)
     lubrification = Lubrification.objects.filter(voiture_exemplaire=exemplaire)
     moteur_remplacement = RemplacementMoteur.objects.filter(voiture_exemplaire=exemplaire)
@@ -94,6 +96,7 @@ def dashboard_moteur_view(request, exemplaire_id):
     total_alternateur = alternateur.count()
     total_courroie = courroie.count()
     total_chaine = chaine.count()
+    total_culasse = culasse.count()
     total_electronique = electronique.count()
     total_lubrification = lubrification.count()
     total_remplacement_moteur = moteur_remplacement.count()
@@ -102,7 +105,7 @@ def dashboard_moteur_view(request, exemplaire_id):
     total_allumage = allumage.count()
     total_injection = injection.count()
 
-    total_int_moteur = total_admission + total_injection + total_allumage + total_alternateur + total_courroie + total_chaine + total_electronique + total_lubrification + total_remplacement_moteur + total_turbo + total_rodage
+    total_int_moteur = total_admission + total_injection + total_allumage + total_alternateur + total_courroie + total_chaine + total_culasse + total_electronique + total_lubrification + total_remplacement_moteur + total_turbo + total_rodage
 
 
     # --- POST ---
@@ -137,6 +140,7 @@ def dashboard_moteur_view(request, exemplaire_id):
         "total_alternateur": total_alternateur,
         "total_courroie": total_courroie,
         "total_chaine": total_chaine,
+        "total_culasse": total_culasse,
         "total_electronique": total_electronique,
         "total_lubrification": total_lubrification,
         "total_remplacement_moteur": total_remplacement_moteur,
@@ -149,6 +153,7 @@ def dashboard_moteur_view(request, exemplaire_id):
         "alternateur": alternateur,
         "courroie": courroie,
         "chaine": chaine,
+        "culasse": culasse,
         "electronique": electronique,
         "lubrification": lubrification,
         "moteur_remplacement": moteur_remplacement,

@@ -34,6 +34,7 @@ from maintenance.autres_interventions.geometrie.models import GeometrieVoiture
 from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBteVitesseAuto
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
 from maintenance.autres_interventions.moteur.chaine_distribution.models import ChaineDistribution
+from maintenance.autres_interventions.moteur.culasse.models import Culasse
 from maintenance.autres_interventions.batterie.models import Batterie
 from maintenance.autres_interventions.moteur.electronique_moteur.models import ElectroniqueMoteur
 from maintenance.autres_interventions.moteur.lubrification.models import Lubrification
@@ -93,6 +94,7 @@ admin.site.register(ControleBoite)
 admin.site.register(ControleBteVitesseAuto)
 admin.site.register(CourroieDistribution)
 admin.site.register(ChaineDistribution)
+admin.site.register(Culasse)
 admin.site.register(Batterie)
 admin.site.register(ElectroniqueMoteur)
 admin.site.register(Lubrification)

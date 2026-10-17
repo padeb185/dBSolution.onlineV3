@@ -58,6 +58,7 @@ class Maintenance(models.Model):
         GEOMETRIE = "GEOMETRIE", _("Géométrie")
         ECLAIRAGE = "ECLAIRAGE", _("Éclairage")
         CARDAN = "CARDAN", _("Cardan")
+        CULASSE = "CULASSE", _("Culasse")
 
     class Tag(models.TextChoices):
         VERT = "VERT", _("Vert")
