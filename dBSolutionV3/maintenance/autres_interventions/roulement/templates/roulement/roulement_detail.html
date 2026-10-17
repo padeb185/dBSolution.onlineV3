@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du contrôle des roulements de roue" %}{% endblock %}
+
+{% block content %}
+    {% url 'roulement:modifier_roulement' roulement.pk as url_modifier %}
+    {% url 'roulement:roulement_pdf' roulement.pk as url_pdf %}
+    {% url 'roulement:delete_roulement' roulement.pk as url_delete %}
+    {% if exemplaire %}{% url 'roulement:roulement_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du contrôle des roulements de roue" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=roulement km_controle=roulement.kilometrage_roulement icone="roulement-roue.png" avec_cote=True extra_template="roulement/partials/detail_operations.html" %}
+{% endblock %}

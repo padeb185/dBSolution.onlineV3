@@ -59,6 +59,7 @@ class Maintenance(models.Model):
         ECLAIRAGE = "ECLAIRAGE", _("Éclairage")
         CARDAN = "CARDAN", _("Cardan")
         CULASSE = "CULASSE", _("Culasse")
+        ROULEMENT = "ROULEMENT", _("Roulements de roue")
 
     class Tag(models.TextChoices):
         VERT = "VERT", _("Vert")

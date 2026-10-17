@@ -160,6 +160,7 @@ urlpatterns += i18n_patterns(
 
     path('maintenance/autre/bte_auto/',include(('maintenance.autres_interventions.bte_vitesse_auto.urls', 'bte_vitesse_auto'), namespace='bte_vitesse_auto')),
     path('maintenance/autre/cardan/', include(('maintenance.autres_interventions.cardan.urls', 'cardan'), namespace='cardan')),
+    path('maintenance/autre/roulement/', include(('maintenance.autres_interventions.roulement.urls', 'roulement'), namespace='roulement')),
     path('agenda/', include(('agenda.urls', 'agenda'), namespace='agenda')),
 
     path('facture/', include(('facture.urls', 'facture'), namespace='facture')),

@@ -26,6 +26,24 @@ from django.core.exceptions import ValidationError
 from utils.securite import q_intervention_tenant
 
 
+# Icônes des pièces à démonter (dépose / repose)
+ICONES_DEPOSE = {
+    "depose_batterie": "batterie.png",
+    "depose_bac_batterie": "batterie.png",
+    "depose_filtre_air": "filtre-a-air.png",
+    "depose_cardans": "cardan.png",
+    "depose_arbre_transmission": "arbre-de-transmission.png",
+    "depose_capteur": "capteurs.png",
+    "depose_connecteurs": "em_connecteurs.png",
+    "depose_roues": "rr_depose_repose_roue.png",
+    "depose_commande_embrayage": "fm_cable_principal.png",
+    "depose_support_moteur": "silent-moteur.png",
+    "depose_support_boite": "support-boite.png",
+    "depose_coquille_aile": "aile.png",
+    "depose_cable_masse": "masse-equi.png",
+}
+
+
 
 
 
@@ -325,6 +343,11 @@ def remplacement_boite_form_view(request, exemplaire_id):
             "title": _("Pièces à démonter (dépose / repose)"),
             "icon": "icons/outils.png",
             "fields": [form[f.name] for f in form if f.name.startswith("depose_")],
+            # Rendu en cases à cocher illustrées (comme les roulements de roue)
+            "cases": [
+                {"field": form[f.name], "icone": ICONES_DEPOSE.get(f.name, "outils.png")}
+                for f in form if f.name.startswith("depose_")
+            ],
         },
         {
             "title": _("Niveau de la boîte de vitesse"),
@@ -571,6 +594,11 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
             "title": _("Pièces à démonter (dépose / repose)"),
             "icon": "icons/outils.png",
             "fields": [form[f.name] for f in form if f.name.startswith("depose_")],
+            # Rendu en cases à cocher illustrées (comme les roulements de roue)
+            "cases": [
+                {"field": form[f.name], "icone": ICONES_DEPOSE.get(f.name, "outils.png")}
+                for f in form if f.name.startswith("depose_")
+            ],
         },
         {
             "title": _("Niveau de la boîte de vitesse"),

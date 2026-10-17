@@ -7,6 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import schema_context, tenant_context
 from maintenance.autres_interventions.cardan.models import Cardan
+from maintenance.autres_interventions.roulement.models import Roulement
 from maintenance.autres_interventions.climatisation.models import Climatisation
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from maintenance.autres_interventions.echappement.models import Echappement
@@ -99,6 +100,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     refroidissement = Refroidissement.objects.none()
     embrayage = Embrayage.objects.none()
     cardan = Cardan.objects.none()
+    roulement = Roulement.objects.none()
 
 
     # -----------------------------
@@ -121,6 +123,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     total_turbo = 0
 
     total_cardan = 0
+    total_roulement = 0
 
     modeles = VoitureModele.objects.none()
 
@@ -179,6 +182,9 @@ def choisir_autre_maintenance(request, exemplaire_id):
             cardan = Cardan.objects.filter(
                 voiture_exemplaire=exemplaire
             )
+            roulement = Roulement.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
             allumage = Allumage.objects.filter(
                 voiture_exemplaire=exemplaire
             )
@@ -199,6 +205,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_embrayage = embrayage.count()
             total_allumage = allumage.count()
             total_cardan = cardan.count()
+            total_roulement = roulement.count()
 
             # ---------------- MOTEUR ----------------
 
@@ -330,6 +337,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_ref": total_ref,
         "total_embrayage": total_embrayage,
         "total_allumage" : total_allumage,
+        "total_cardan": total_cardan,
+        "total_roulement": total_roulement,
 
 
 

@@ -223,6 +223,21 @@
                     {% trans section.title %}
                 </h2>
 
+                {% if section.cases %}
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                    {% for case in section.cases %}{% with field=case.field %}
+                    <label class="cursor-pointer select-none">
+                        <input type="checkbox" name="{{ field.html_name }}" id="{{ field.id_for_label }}" class="peer sr-only"
+                               {% if field.value %}checked{% endif %}>
+                        <span class="flex items-center gap-3 p-3 rounded-lg border-2 border-gray-300 bg-white font-semibold text-gray-700 transition
+                                     hover:bg-gray-50 peer-checked:border-green-600 peer-checked:bg-green-50 peer-checked:text-green-900">
+                            <img src="{% static 'icons/' %}{{ case.icone }}" alt="" class="w-10 h-10 object-contain">
+                            {{ field.label }}
+                        </span>
+                    </label>
+                    {% endwith %}{% endfor %}
+                </div>
+                {% else %}
                 {% for field in section.fields %}
                     {% if field.name != "nombre_remplacements" %}
                     <div class="mb-4">
@@ -250,6 +265,7 @@
                     </div>
                     {% endif %}
                 {% endfor %}
+                {% endif %}
             </div>
         {% endfor %}
         <br>

@@ -10,6 +10,7 @@ Variables attendues (passées par le template de chaque app) :
   km_controle  : kilométrage saisi lors de l'intervention
   url_modifier, url_pdf, url_delete, url_list : URLs déjà résolues
   avec_cote    : (optionnel) affiche la colonne « Côté » du rapport
+  extra_template : (optionnel) template inclus avant les remarques
   infos_template : (optionnel) template d'infos propres à l'intervention
 {% endcomment %}
 
@@ -163,6 +164,9 @@ Variables attendues (passées par le template de chaque app) :
         {% endif %}
     </div>
     {% endwith %}
+
+    <!-- Bloc spécifique à l'intervention (optionnel) -->
+    {% if extra_template %}{% include extra_template %}{% endif %}
 
     <!-- Remarques -->
     {% if obj.remarques %}

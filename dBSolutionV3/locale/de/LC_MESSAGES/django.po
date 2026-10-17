@@ -46964,6 +46964,98 @@ msgstr "Löschung der Zylinderkopfprüfung"
 msgid "Modification culasse"
 msgstr "Änderung Zylinderkopf"
 
+msgid "Roulement simple"
+msgstr "Einfaches Lager"
+
+msgid "Roulement avec bague ABS"
+msgstr "Lager mit ABS-Ring"
+
+msgid "Roulement avec moyeu"
+msgstr "Radlager mit Nabe"
+
+msgid "Roulement à visser"
+msgstr "Angeschraubtes Lager"
+
+msgid "Roulement à presser"
+msgstr "Eingepresstes Lager"
+
+msgid "Dépose / repose roue"
+msgstr "Rad aus- / einbauen"
+
+msgid "Écrou de cardan"
+msgstr "Antriebswellenmutter"
+
+msgid "Rotule(s) de suspension de triangle"
+msgstr "Traggelenk(e) des Querlenkers"
+
+msgid "Porte-moyeu"
+msgstr "Radträger"
+
+msgid "Contrôle des roulements de roue"
+msgstr "Radlagerprüfung"
+
+msgid "Contrôles des roulements de roue"
+msgstr "Radlagerprüfungen"
+
+msgid "Contrôle des roulements de roue enregistré avec succès."
+msgstr "Radlagerprüfung erfolgreich gespeichert."
+
+msgid "Contrôle des roulements de roue modifié avec succès !"
+msgstr "Radlagerprüfung erfolgreich geändert!"
+
+msgid "Contrôle des roulements de roue supprimé avec succès."
+msgstr "Radlagerprüfung erfolgreich gelöscht."
+
+msgid "Supprimer le contrôle des roulements de roue"
+msgstr "Radlagerprüfung löschen"
+
+msgid "Roulement"
+msgstr "Lager"
+
+#, python-format
+msgid ""
+"Voulez-vous vraiment supprimer le contrôle des roulements de roue du %(date)s"
+" (%(km)s km) pour :"
+msgstr ""
+"Möchten Sie die Radlagerprüfung vom %(date)s (%(km)s km) wirklich löschen "
+"für:"
+
+msgid "Modifier le contrôle des roulements de roue"
+msgstr "Radlagerprüfung bearbeiten"
+
+msgid "Retour à la liste des contrôles des roulements de roue"
+msgstr "Zurück zur Liste der Radlagerprüfungen"
+
+msgid "Détails du contrôle des roulements de roue"
+msgstr "Details der Radlagerprüfung"
+
+msgid "Rapport de contrôle des roulements de roue"
+msgstr "Bericht Radlagerprüfung"
+
+msgid "Liste des contrôles des roulements de roue"
+msgstr "Liste der Radlagerprüfungen"
+
+msgid "Roulements de roue"
+msgstr "Radlager"
+
+msgid "Modification du contrôle des roulements de roue"
+msgstr "Änderung Radlagerprüfung"
+
+msgid "Suppression du contrôle des roulements de roue"
+msgstr "Löschung Radlagerprüfung"
+
+msgid "Montage du roulement"
+msgstr "Lagermontage"
+
+msgid "Montage et opérations"
+msgstr "Montage und Arbeiten"
+
+msgid "Opérations associées"
+msgstr "Zugehörige Arbeiten"
+
+msgid "Aucune"
+msgstr "Keine"
+
 #~ msgid "Pièce d'origine constructeur (OEM)"
 #~ msgstr "Originalhersteller (OEM)"
 
