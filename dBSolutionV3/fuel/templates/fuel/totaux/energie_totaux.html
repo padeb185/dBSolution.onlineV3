@@ -1,0 +1,347 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Totaux énergie" %}{% endblock %}
+
+{% block content %}
+<br>
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+    <h1 class="text-2xl font-bold flex items-center">
+        <img src="{% static 'icons/pompe-a-essence.png' %}" alt="" style="width:60px; margin-right:10px;">
+        {% trans "Totaux carburants, recharges et AdBlue" %} – {{ periode.libelle }}
+    </h1>
+</div>
+
+<!-- Sélection de la période -->
+<form method="get" id="form-periode" class="bg-white shadow-md rounded-lg p-4 mb-6 flex flex-wrap items-end gap-3">
+    <div>
+        <label class="block text-xs text-gray-500">{% trans "Période" %}</label>
+        <select name="periode" id="sel-periode" class="border rounded px-3 py-2">
+            <option value="mois" {% if periode.type == "mois" %}selected{% endif %}>{% trans "Mois" %}</option>
+            <option value="trimestre" {% if periode.type == "trimestre" %}selected{% endif %}>{% trans "Trimestre" %}</option>
+            <option value="annee" {% if periode.type == "annee" %}selected{% endif %}>{% trans "Année" %}</option>
+        </select>
+    </div>
+    <div>
+        <label class="block text-xs text-gray-500">{% trans "Année" %}</label>
+        <select name="annee" class="border rounded px-3 py-2">
+            {% for a in annees %}<option value="{{ a }}" {% if a == periode.annee %}selected{% endif %}>{{ a }}</option>{% endfor %}
+        </select>
+    </div>
+    <div id="bloc-mois">
+        <label class="block text-xs text-gray-500">{% trans "Mois" %}</label>
+        <select name="mois" class="border rounded px-3 py-2">
+            {% for num, nom in mois_choix %}<option value="{{ num }}" {% if num == periode.mois %}selected{% endif %}>{{ nom }}</option>{% endfor %}
+        </select>
+    </div>
+    <div id="bloc-trimestre">
+        <label class="block text-xs text-gray-500">{% trans "Trimestre" %}</label>
+        <select name="trimestre" class="border rounded px-3 py-2">
+            {% for t in trimestres %}<option value="{{ t }}" {% if t == periode.trimestre %}selected{% endif %}>T{{ t }}</option>{% endfor %}
+        </select>
+    </div>
+    <div>
+        <label class="block text-xs text-gray-500">{% trans "Déduction TVA belge (%)" %}</label>
+        <input type="number" name="deduction" min="0" max="100" step="1" value="{{ deduction|floatformat:0 }}"
+               class="border rounded px-3 py-2 w-24">
+    </div>
+    <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-500 font-semibold">
+        {% trans "Afficher" %}
+    </button>
+    <div class="flex gap-2 ml-auto">
+        <a href="{% url 'fuel:energie_totaux_pdf' %}?{{ query }}" target="_blank"
+           class="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-500 font-semibold">{% trans "PDF" %}</a>
+        <a href="{% url 'fuel:energie_totaux_pdf' %}?{{ query }}&journal=1" target="_blank"
+           class="bg-red-900 text-white px-4 py-2 rounded hover:bg-red-600 font-semibold">{% trans "PDF + journal" %}</a>
+        <a href="{% url 'fuel:energie_journal_csv' %}?{{ query }}"
+           class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold">{% trans "Journal (CSV)" %}</a>
+    </div>
+</form>
+
+<!-- Cartes : total + familles -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-blue-800">
+        <p class="text-gray-500 text-sm">{% trans "Total TTC" %}</p>
+        <p class="text-2xl font-bold text-blue-800">{{ total.ttc|floatformat:2 }} €</p>
+        <p class="text-gray-500 text-xs">{% trans "HT" %} {{ total.ht|floatformat:2 }} € · {% trans "TVA" %} {{ total.tva|floatformat:2 }} €</p>
+    </div>
+    {% for f in par_famille %}
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 {% if f.code == 'carburant' %}border-orange-500{% elif f.code == 'electricite' %}border-green-600{% else %}border-sky-500{% endif %}">
+        <p class="text-gray-500 text-sm">{{ f.label }} ({{ f.nb }})</p>
+        <p class="text-2xl font-bold">{{ f.ttc|floatformat:2 }} €</p>
+        <p class="text-gray-500 text-xs">{{ f.quantite|floatformat:2 }} {{ f.unite|default:"" }} · {% trans "TVA" %} {{ f.tva|floatformat:2 }} €</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% if not operations %}
+<div class="bg-white shadow-md rounded-lg p-6 mb-8 text-gray-500">{% trans "Aucune opération sur cette période." %}</div>
+{% else %}
+
+<!-- Par type -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Totaux par type" %}</h2>
+    <div class="overflow-x-auto">
+    <table class="min-w-full table-auto border-collapse border border-gray-200">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-3 py-2 text-left">{% trans "Famille" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Type" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Nombre" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Quantité" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Prix moyen" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "HT" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "TVA" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "TTC" %}</th>
+        </tr></thead>
+        <tbody>
+        {% for c in par_categorie %}
+            <tr>
+                <td class="border px-3 py-2">{{ c.famille }}</td>
+                <td class="border px-3 py-2">{{ c.label }}</td>
+                <td class="border px-3 py-2 text-right">{{ c.nb }}</td>
+                <td class="border px-3 py-2 text-right">{{ c.quantite|floatformat:2 }} {{ c.unite }}</td>
+                <td class="border px-3 py-2 text-right">{% if c.prix_moyen %}{{ c.prix_moyen|floatformat:3 }} €/{{ c.unite }}{% else %}—{% endif %}</td>
+                <td class="border px-3 py-2 text-right">{{ c.ht|floatformat:2 }} €</td>
+                <td class="border px-3 py-2 text-right">{{ c.tva|floatformat:2 }} €</td>
+                <td class="border px-3 py-2 text-right font-semibold">{{ c.ttc|floatformat:2 }} €</td>
+            </tr>
+        {% endfor %}
+            <tr class="bg-blue-50 font-bold">
+                <td class="border px-3 py-2" colspan="2">{% trans "Total" %}</td>
+                <td class="border px-3 py-2 text-right">{{ total.nb }}</td>
+                <td class="border px-3 py-2"></td><td class="border px-3 py-2"></td>
+                <td class="border px-3 py-2 text-right">{{ total.ht|floatformat:2 }} €</td>
+                <td class="border px-3 py-2 text-right">{{ total.tva|floatformat:2 }} €</td>
+                <td class="border px-3 py-2 text-right">{{ total.ttc|floatformat:2 }} €</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+
+<!-- TVA par pays -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-lg font-semibold mb-4">{% trans "TVA par pays" %}</h2>
+    <div class="overflow-x-auto">
+    <table class="min-w-full table-auto border-collapse border border-gray-200">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-3 py-2 text-left">{% trans "Pays" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Détail" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Taux" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Nombre" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "HT" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "TVA" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "TTC" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Régime TVA" %}</th>
+        </tr></thead>
+        <tbody>
+        {% for p in par_pays %}
+            <tr class="bg-gray-50 font-semibold">
+                <td class="border px-3 py-2">{{ p.nom }} ({{ p.code }})</td>
+                <td class="border px-3 py-2">{% trans "Total pays" %}</td>
+                <td class="border px-3 py-2 text-right">{{ p.taux|floatformat:"-1" }} %</td>
+                <td class="border px-3 py-2 text-right">{{ p.nb }}</td>
+                <td class="border px-3 py-2 text-right">{{ p.ht|floatformat:2 }} €</td>
+                <td class="border px-3 py-2 text-right text-red-700">{{ p.tva|floatformat:2 }} €</td>
+                <td class="border px-3 py-2 text-right">{{ p.ttc|floatformat:2 }} €</td>
+                <td class="border px-3 py-2 text-sm">{{ p.regime_label }}</td>
+            </tr>
+            {% for f in p.familles_liste %}
+            <tr class="text-sm text-gray-700">
+                <td class="border px-3 py-1"></td>
+                <td class="border px-3 py-1">{{ f.label }}</td>
+                <td class="border px-3 py-1"></td>
+                <td class="border px-3 py-1 text-right">{{ f.nb }}</td>
+                <td class="border px-3 py-1 text-right">{{ f.ht|floatformat:2 }} €</td>
+                <td class="border px-3 py-1 text-right">{{ f.tva|floatformat:2 }} €</td>
+                <td class="border px-3 py-1 text-right">{{ f.ttc|floatformat:2 }} €</td>
+                <td class="border px-3 py-1"></td>
+            </tr>
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <div>
+            <h3 class="font-semibold mb-2">{% trans "Synthèse par régime" %}</h3>
+            <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+                {% for r in regimes %}
+                <tr>
+                    <td class="border px-3 py-2">{{ r.label }}</td>
+                    <td class="border px-3 py-2 text-right">{% trans "HT" %} {{ r.ht|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right font-semibold">{% trans "TVA" %} {{ r.tva|floatformat:2 }} €</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% for r in regimes %}{% if r.code == "remboursement_ue" %}
+            <p class="text-xs text-gray-500 mt-2">{% blocktrans with d=echeance_remboursement_ue|date:"d/m/Y" %}Demande de remboursement de la TVA étrangère via Intervat (procédure UE) au plus tard le {{ d }}.{% endblocktrans %}</p>
+            {% endif %}{% endfor %}
+        </div>
+        <div>
+            <h3 class="font-semibold mb-2">{% trans "Déclaration TVA belge (achats en Belgique)" %}</h3>
+            <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+                <tr><td class="border px-3 py-2">{% trans "Grille 82 – base HT" %}</td><td class="border px-3 py-2 text-right">{{ declaration_be.grille_82|floatformat:2 }} €</td></tr>
+                <tr><td class="border px-3 py-2">{% trans "Grille 59 – TVA déductible" %} ({{ deduction|floatformat:0 }} %)</td><td class="border px-3 py-2 text-right font-semibold">{{ declaration_be.grille_59|floatformat:2 }} €</td></tr>
+                <tr><td class="border px-3 py-2">{% trans "TVA non déductible (en charge)" %}</td><td class="border px-3 py-2 text-right">{{ declaration_be.tva_non_deductible|floatformat:2 }} €</td></tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Sous-périodes -->
+{% if par_trimestre or par_mois %}
+<div class="grid grid-cols-1 {% if par_trimestre %}md:grid-cols-2{% endif %} gap-6 mb-8">
+    {% if par_trimestre %}
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Par trimestre" %}</h2>
+        <table class="min-w-full table-auto border-collapse border border-gray-200">
+            <thead><tr class="bg-gray-100">
+                <th class="border px-3 py-2 text-left">{% trans "Trimestre" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "HT" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "TVA" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "TTC" %}</th>
+            </tr></thead>
+            <tbody>{% for t in par_trimestre %}
+                <tr><td class="border px-3 py-2">{{ t.label }}</td>
+                    <td class="border px-3 py-2 text-right">{{ t.ht|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ t.tva|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right font-semibold">{{ t.ttc|floatformat:2 }} €</td></tr>
+            {% endfor %}</tbody>
+        </table>
+    </div>
+    {% endif %}
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Par mois" %}</h2>
+        <table class="min-w-full table-auto border-collapse border border-gray-200">
+            <thead><tr class="bg-gray-100">
+                <th class="border px-3 py-2 text-left">{% trans "Mois" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Nombre" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "HT" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "TVA" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "TTC" %}</th>
+            </tr></thead>
+            <tbody>{% for m in par_mois %}
+                <tr><td class="border px-3 py-2">{{ m.label }}</td>
+                    <td class="border px-3 py-2 text-right">{{ m.nb }}</td>
+                    <td class="border px-3 py-2 text-right">{{ m.ht|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ m.tva|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right font-semibold">{{ m.ttc|floatformat:2 }} €</td></tr>
+            {% endfor %}</tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<!-- Par véhicule -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Par véhicule" %}</h2>
+    <div class="overflow-x-auto">
+    <table class="min-w-full table-auto border-collapse border border-gray-200">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-3 py-2 text-left">{% trans "Véhicule" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Immatriculation" %}</th>
+            {% for code, label in familles %}<th class="border px-3 py-2 text-right">{{ label }}</th>{% endfor %}
+            <th class="border px-3 py-2 text-right">{% trans "TVA" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "TTC" %}</th>
+        </tr></thead>
+        <tbody>{% for v in par_vehicule %}
+            <tr>
+                <td class="border px-3 py-2">
+                    <div class="flex items-center gap-2">
+                        {% if v.logo %}
+                        <img src="{% static v.logo %}" alt="{{ v.marque }}" title="{{ v.marque }}"
+                             style="width:40px; height:40px; object-fit:contain;"
+                             onerror="this.onerror=null;this.replaceWith(document.createTextNode('{{ v.marque|escapejs }}'));">
+                        {% endif %}
+                        <span>{% if v.modele %}{{ v.modele }}{% else %}{{ v.vehicule }}{% endif %}</span>
+                    </div>
+                </td>
+                <td class="border px-3 py-2">
+                    {% if v.immatriculation and v.immatriculation != "—" %}{% include "maintenance/partials/plaque.html" with pays_plaque=v.pays_vehicule immat_plaque=v.immatriculation taille="petite" %}{% else %}—{% endif %}
+                </td>
+                {% for code, montant in v.familles.items %}<td class="border px-3 py-2 text-right">{% if montant %}{{ montant|floatformat:2 }} €{% else %}—{% endif %}</td>{% endfor %}
+                <td class="border px-3 py-2 text-right">{{ v.tva|floatformat:2 }} €</td>
+                <td class="border px-3 py-2 text-right font-semibold">{{ v.ttc|floatformat:2 }} €</td>
+            </tr>
+        {% endfor %}</tbody>
+    </table>
+    </div>
+</div>
+
+<!-- Comptabilité -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-lg font-semibold mb-1">{% trans "Comptabilité – balance des comptes" %}</h2>
+    <p class="text-gray-500 text-sm mb-4">{% trans "Écritures d'achat générées pour chaque plein, recharge et AdBlue (PCMN)." %}</p>
+    <table class="min-w-full table-auto border-collapse border border-gray-200">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-3 py-2 text-left">{% trans "Compte" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Intitulé" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Débit" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Crédit" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Solde" %}</th>
+        </tr></thead>
+        <tbody>
+        {% for b in compta.balance %}
+            <tr>
+                <td class="border px-3 py-2 font-mono">{{ b.compte }}</td>
+                <td class="border px-3 py-2">{{ b.intitule }}</td>
+                <td class="border px-3 py-2 text-right">{{ b.debit|floatformat:2 }}</td>
+                <td class="border px-3 py-2 text-right">{{ b.credit|floatformat:2 }}</td>
+                <td class="border px-3 py-2 text-right font-semibold">{{ b.solde|floatformat:2 }}</td>
+            </tr>
+        {% endfor %}
+            <tr class="bg-blue-50 font-bold">
+                <td class="border px-3 py-2" colspan="2">{% trans "Total" %}</td>
+                <td class="border px-3 py-2 text-right">{{ compta.total_debit|floatformat:2 }}</td>
+                <td class="border px-3 py-2 text-right">{{ compta.total_credit|floatformat:2 }}</td>
+                <td class="border px-3 py-2"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <details class="mt-6">
+        <summary class="cursor-pointer font-semibold text-blue-800">{% trans "Journal détaillé" %} ({{ operations|length }})</summary>
+        <div class="overflow-x-auto mt-3">
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+            <thead><tr class="bg-gray-100">
+                <th class="border px-2 py-1 text-left">{% trans "Date" %}</th>
+                <th class="border px-2 py-1 text-left">{% trans "Pièce" %}</th>
+                <th class="border px-2 py-1 text-left">{% trans "Compte" %}</th>
+                <th class="border px-2 py-1 text-left">{% trans "Libellé" %}</th>
+                <th class="border px-2 py-1 text-right">{% trans "Débit" %}</th>
+                <th class="border px-2 py-1 text-right">{% trans "Crédit" %}</th>
+            </tr></thead>
+            <tbody>
+            {% for e in compta.journal %}
+                {% for l in e.lignes %}
+                <tr class="{% if forloop.first %}border-t-2 border-gray-400{% endif %}">
+                    <td class="border px-2 py-1">{% if forloop.first %}{{ e.op.date|date:"d/m/Y" }}{% endif %}</td>
+                    <td class="border px-2 py-1">{% if forloop.first %}{{ e.op.piece }}{% endif %}</td>
+                    <td class="border px-2 py-1 font-mono">{{ l.compte }}</td>
+                    <td class="border px-2 py-1">{{ l.libelle }}</td>
+                    <td class="border px-2 py-1 text-right">{% if l.debit %}{{ l.debit|floatformat:2 }}{% endif %}</td>
+                    <td class="border px-2 py-1 text-right">{% if l.credit %}{{ l.credit|floatformat:2 }}{% endif %}</td>
+                </tr>
+                {% endfor %}
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </details>
+</div>
+{% endif %}
+
+<script>
+(function () {
+    var sel = document.getElementById("sel-periode");
+    function maj() {
+        document.getElementById("bloc-mois").style.display = sel.value === "mois" ? "" : "none";
+        document.getElementById("bloc-trimestre").style.display = sel.value === "trimestre" ? "" : "none";
+    }
+    sel.addEventListener("change", function () { maj(); document.getElementById("form-periode").submit(); });
+    maj();
+})();
+</script>
+{% endblock %}
