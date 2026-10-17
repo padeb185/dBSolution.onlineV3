@@ -169,3 +169,39 @@ class LocationForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+
+
+
+class LocationVehiculeSupForm(forms.ModelForm):
+    """
+    Véhicule supplémentaire loué au même client (création multiple) :
+    chaque véhicule a son propre lieu, ses dates, ses tours, son kilométrage et son prix.
+    Le client, le vendeur et les remarques sont repris de la location principale.
+    """
+
+    class Meta:
+        model = Location
+        fields = (
+            "voiture_exemplaire",
+            "type_location",
+            "circuit",
+            "route",
+            "date_debut",
+            "date_fin",
+            "nombre_tours",
+            "kilometrage",
+            "prix",
+        )
+        widgets = {
+            "date_debut": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "date_fin": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "nombre_tours": forms.NumberInput(attrs={"min": "1"}),
+            "kilometrage": forms.NumberInput(attrs={"min": "0"}),
+            "prix": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
+        }
+
+    def __init__(self, *args, vehicules=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        if vehicules is not None:
+            self.fields["voiture_exemplaire"].queryset = vehicules
+        self.fields["prix"].label = _("Prix TVAC (€)")

@@ -238,6 +238,22 @@ class Location(models.Model):
         verbose_name=_("Prix (€)"),
     )
 
+    # Remise commerciale (location de plusieurs véhicules) : « prix » est le prix après remise
+    remise_pourcent = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        default=Decimal("0"),
+        validators=[MinValueValidator(Decimal("0"))],
+        verbose_name=_("Remise (%)"),
+    )
+    prix_avant_remise = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        verbose_name=_("Prix TVAC avant remise (€)"),
+    )
+
     # Paiement : acompte (montant) ou payé (uniquement si la facture est émise)
     acompte = models.BooleanField(default=False, verbose_name=_("Acompte versé"))
     montant_acompte = models.DecimalField(

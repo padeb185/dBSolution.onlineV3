@@ -47162,6 +47162,98 @@ msgstr "Eliminación del control de la parte baja del motor"
 msgid "Modification bas moteur"
 msgstr "Modificación parte baja del motor"
 
+msgid "Choisir un véhicule"
+msgstr "Elegir un vehículo"
+
+msgid "Rechercher (immatriculation, marque, modèle)…"
+msgstr "Buscar (matrícula, marca, modelo)…"
+
+msgid "Véhicule supplémentaire"
+msgstr "Vehículo adicional"
+
+msgid "Louer un autre véhicule au même client"
+msgstr "Alquilar otro vehículo al mismo cliente"
+
+msgid ""
+"Une location est créée par véhicule (même client, lieu, dates et remarques). "
+"Le prix de la section « Période, kilométrage et prix » et le paiement "
+"concernent le premier véhicule."
+msgstr ""
+"Se crea un alquiler por vehículo (mismo cliente, lugar, fechas y "
+"observaciones). El precio de la sección « Periodo, kilometraje y precio » y "
+"el pago corresponden al primer vehículo."
+
+#, python-format
+msgid "%(n)s locations créées pour le même client : %(vehicules)s"
+msgstr "%(n)s alquileres creados para el mismo cliente: %(vehicules)s"
+
+#, python-format
+msgid "Véhicule n° %(n)s : choisissez un véhicule."
+msgstr "Vehículo n.º %(n)s: elija un vehículo."
+
+#, python-format
+msgid "Véhicule n° %(n)s : véhicule introuvable."
+msgstr "Vehículo n.º %(n)s: vehículo no encontrado."
+
+#, python-format
+msgid "Le véhicule %(v)s est sélectionné plusieurs fois."
+msgstr "El vehículo %(v)s está seleccionado varias veces."
+
+#, python-format
+msgid "Véhicule n° %(n)s : indiquez un prix TVAC valide."
+msgstr "Vehículo n.º %(n)s: indique un precio con IVA válido."
+
+msgid ""
+"Une location est créée par véhicule, avec son propre lieu, ses dates, ses "
+"tours, son kilométrage et son prix. Le client, le vendeur et les remarques "
+"sont communs ; le paiement ci-dessous concerne le premier véhicule."
+msgstr ""
+"Se crea un alquiler por vehículo, con su propio lugar, fechas, vueltas, "
+"kilometraje y precio. El cliente, el vendedor y las observaciones son "
+"comunes; el pago de abajo corresponde al primer vehículo."
+
+msgid ""
+"Vérifiez les véhicules supplémentaires : certains champs sont incorrects."
+msgstr "Revise los vehículos adicionales: algunos campos son incorrectos."
+
+msgid "Remise (%)"
+msgstr "Descuento (%)"
+
+msgid "Appliquée au prix de chaque véhicule."
+msgstr "Aplicado al precio de cada vehículo."
+
+msgid "Sous-total TVAC"
+msgstr "Subtotal IVA incluido"
+
+msgid "Remise"
+msgstr "Descuento"
+
+msgid "remise"
+msgstr "descuento"
+
+msgid ""
+"Une location est créée par véhicule. Le client, le vendeur, les remarques et "
+"la remise sont communs."
+msgstr ""
+"Se crea un alquiler por vehículo. El cliente, el vendedor, las observaciones "
+"y el descuento son comunes."
+
+msgid "La remise doit être comprise entre 0 et 99,99 %."
+msgstr "El descuento debe estar entre 0 y 99,99 %."
+
+msgid "Prix TVAC avant remise (€)"
+msgstr "Precio IVA incluido antes del descuento (€)"
+
+msgid "Prix TVAC avant remise"
+msgstr "Precio IVA incluido antes del descuento"
+
+msgid ""
+"L'acompte et le paiement s'appliquent à la location du véhicule 1 ; ceux des "
+"autres véhicules se saisissent ensuite sur chaque location."
+msgstr ""
+"El anticipo y el pago se aplican al alquiler del vehículo 1; los de los demás"
+" vehículos se introducen después en cada alquiler."
+
 #~ msgid "Pièce d'origine constructeur (OEM)"
 #~ msgstr "Original del fabricante (OEM)"
 

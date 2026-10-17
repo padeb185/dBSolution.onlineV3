@@ -1,0 +1,138 @@
+{% load static i18n %}
+{% comment %}
+Liste déroulante des véhicules mise en forme (logo, modèle, plaque) qui remplace un <select> natif.
+Le <select> reste dans le formulaire (caché) : c'est lui qui est envoyé.
+Paramètres :
+  field     : BoundField du choix du véhicule (ModelChoiceField sur VoitureExemplaire)
+  ou bien
+  auto_id   : id du <select> à remplacer   +   queryset : véhicules proposés
+  sans_init : (optionnel) n'initialise pas tout de suite (utilisé dans un <template> cloné en JS :
+              appeler ensuite window.initChoixVehicule(select))
+{% endcomment %}
+{% firstof auto_id field.auto_id as aid %}
+<div id="choix-{{ aid }}" class="choix-vehicule relative mb-4 hidden">
+
+    <!-- Bouton : véhicule sélectionné -->
+    <button type="button" class="choix-bouton w-full flex items-center justify-between gap-3 bg-white border-2 border-gray-300 rounded-lg p-3 text-left hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            aria-haspopup="listbox" aria-expanded="false">
+        <span class="choix-affichage flex-1 min-w-0">
+            <span class="text-gray-500">{% trans "Choisir un véhicule" %}</span>
+        </span>
+        <span class="text-gray-500">▾</span>
+    </button>
+
+    <!-- Liste -->
+    <div class="choix-panneau hidden absolute z-50 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg">
+        <div class="p-2 border-b">
+            <input type="text" class="choix-recherche w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                   placeholder="{% trans 'Rechercher (immatriculation, marque, modèle)…' %}" autocomplete="off">
+        </div>
+        <ul class="choix-liste max-h-80 overflow-y-auto" role="listbox">
+            {% if queryset %}
+                {% for ex in queryset %}{% include "maintenance/partials/_choix_vehicule_option.html" %}{% endfor %}
+            {% else %}
+                {% for ex in field.field.queryset %}{% include "maintenance/partials/_choix_vehicule_option.html" %}{% endfor %}
+            {% endif %}
+            <li class="choix-vide hidden px-3 py-3 text-gray-500">{% trans "Aucun véhicule trouvé." %}</li>
+        </ul>
+    </div>
+</div>
+<script>
+// Fonction partagée (définie une seule fois par page)
+window.initChoixVehicule = window.initChoixVehicule || function (select) {
+    const bloc = document.getElementById("choix-" + select.id);
+    if (!select || !bloc || bloc.dataset.init) return;
+    bloc.dataset.init = "1";
+
+    const bouton = bloc.querySelector(".choix-bouton");
+    const affichage = bloc.querySelector(".choix-affichage");
+    const panneau = bloc.querySelector(".choix-panneau");
+    const recherche = bloc.querySelector(".choix-recherche");
+    const options = Array.from(bloc.querySelectorAll(".choix-option"));
+    const vide = bloc.querySelector(".choix-vide");
+    const placeholder = affichage.innerHTML;
+
+    // On remplace le <select> natif par la liste mise en forme
+    select.classList.add("hidden");
+    bloc.classList.remove("hidden");
+
+    // Un <select> caché « required » bloquerait l'envoi sans message : on vérifie nous-mêmes
+    const obligatoire = select.required;
+    select.required = false;
+    if (select.classList.contains("input-error")) bouton.classList.add("border-red-500");
+
+    function afficherSelection() {
+        const opt = options.find(o => o.dataset.id === select.value);
+        affichage.innerHTML = "";
+        if (opt) {
+            const copie = opt.cloneNode(true);
+            copie.className = "flex flex-wrap items-center gap-4";
+            copie.removeAttribute("role");
+            affichage.appendChild(copie);
+        } else {
+            affichage.innerHTML = placeholder;
+        }
+        options.forEach(o => o.classList.toggle("bg-blue-100", o.dataset.id === select.value));
+    }
+    function filtrer() {
+        const q = recherche.value.trim().toLowerCase();
+        let n = 0;
+        options.forEach(o => {
+            const ok = !q || o.dataset.recherche.includes(q);
+            o.classList.toggle("hidden", !ok);
+            if (ok) n++;
+        });
+        vide.classList.toggle("hidden", n > 0);
+    }
+    function ouvrir() {
+        panneau.classList.remove("hidden");
+        bouton.setAttribute("aria-expanded", "true");
+        recherche.value = "";
+        filtrer();
+        recherche.focus();
+        const actif = options.find(o => o.dataset.id === select.value);
+        if (actif) actif.scrollIntoView({ block: "nearest" });
+    }
+    function fermer() {
+        panneau.classList.add("hidden");
+        bouton.setAttribute("aria-expanded", "false");
+    }
+    function choisir(id) {
+        select.value = id;
+        bouton.classList.remove("border-red-500");
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+        afficherSelection();
+        fermer();
+        bouton.focus();
+    }
+
+    if (obligatoire && select.form) {
+        select.form.addEventListener("submit", (e) => {
+            if (!select.value && document.body.contains(select)) {
+                e.preventDefault();
+                bouton.classList.add("border-red-500");
+                bouton.scrollIntoView({ block: "center" });
+                ouvrir();
+            }
+        });
+    }
+    bouton.addEventListener("click", () => panneau.classList.contains("hidden") ? ouvrir() : fermer());
+    recherche.addEventListener("input", filtrer);
+    recherche.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") { fermer(); bouton.focus(); }
+        if (e.key === "Enter") {
+            e.preventDefault();
+            const premier = options.find(o => !o.classList.contains("hidden"));
+            if (premier) choisir(premier.dataset.id);
+        }
+    });
+    options.forEach(o => o.addEventListener("click", () => choisir(o.dataset.id)));
+    document.addEventListener("click", (e) => { if (!bloc.contains(e.target)) fermer(); });
+    select.addEventListener("change", afficherSelection);
+    afficherSelection();
+};
+{% if not sans_init %}(function () {
+    const select = document.getElementById("{{ aid }}");
+    if (select) window.initChoixVehicule(select);
+})();{% endif %}
+</script>

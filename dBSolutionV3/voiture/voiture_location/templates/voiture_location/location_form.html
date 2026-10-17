@@ -63,12 +63,15 @@
     <form method="POST" id="location-form" class="space-y-4">
         {% csrf_token %}
 
+        {% if location %}
         <!-- Véhicule -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/location_vehicule_client.png' %}" alt="{% trans 'Véhicule' %}" class="w-20 h-20">
             {% trans "Véhicule et client" %}
         </h2>
         {% include "voiture_location/_champ.html" with field=form.voiture_exemplaire %}
+        {% include "maintenance/partials/apercu_vehicule_select.html" with field=form.voiture_exemplaire %}
+
         {% include "voiture_location/_champ.html" with field=form.locataire %}
         {% if form.vendeur %}{% include "voiture_location/_champ.html" with field=form.vendeur %}{% endif %}
 
@@ -113,11 +116,83 @@
 
         <br>
 
+        {% else %}
+        <!-- ================= VÉHICULES (une fiche par véhicule) ================= -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/location_vehicule_client.png' %}" alt="{% trans 'Véhicule' %}" class="w-20 h-20">
+            {% trans "Véhicules" %}
+        </h2>
+        {% include "voiture_location/_vehicule_sup.html" with idx="1" f=form vehicules=vehicules principal=True %}
+        <div id="vehicules-sup">
+            {% for idx, f in forms_sup %}
+                {% include "voiture_location/_vehicule_sup.html" with idx=idx f=f vehicules=vehicules %}
+            {% endfor %}
+        </div>
+        <button type="button" id="ajouter-vehicule"
+                class="w-full border-2 border-dashed border-blue-400 text-blue-700 px-5 py-3 rounded hover:bg-blue-50 font-semibold mb-2">
+            + {% trans "Louer un autre véhicule au même client" %}
+        </button>
+        <p class="text-sm text-gray-500 mb-4">
+            {% trans "Une location est créée par véhicule. Le client, le vendeur, les remarques et la remise sont communs." %}
+        </p>
+        <template id="modele-vehicule-sup">
+            {% include "voiture_location/_vehicule_sup.html" with idx="__ID__" f=form_sup_vide vehicules=vehicules sans_init=True %}
+        </template>
+
+        <br>
+
+        <!-- ================= CLIENT ================= -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/location_vehicule_client.png' %}" alt="{% trans 'Client' %}" class="w-20 h-20">
+            {% trans "Client" %}
+        </h2>
+        {% include "voiture_location/_champ.html" with field=form.locataire %}
+        {% if form.vendeur %}{% include "voiture_location/_champ.html" with field=form.vendeur %}{% endif %}
+        {% include "voiture_location/_champ.html" with field=form.remarques %}
+
+        <br>
+
+        <!-- ================= TOTAUX ET REMISE ================= -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+            <img src="{% static 'icons/location_periode_prix.png' %}" alt="{% trans 'Totaux' %}" class="w-20 h-20">
+            {% trans "Totaux" %}
+        </h2>
+        <div id="totaux" class="mb-4" data-taux="{{ taux_tva|stringformat:'s' }}">
+            <table class="w-full text-sm border border-gray-200 mb-3">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border px-3 py-2 text-left">{% trans "Véhicule" %}</th>
+                        <th class="border px-3 py-2 text-right">{% trans "Prix TVAC" %}</th>
+                    </tr>
+                </thead>
+                <tbody id="totaux-lignes"></tbody>
+            </table>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 items-end">
+                <div>
+                    <label for="id_remise_pourcent" class="block font-semibold mb-1">{% trans "Remise (%)" %}</label>
+                    <input type="number" name="remise_pourcent" id="id_remise_pourcent" class="input" min="0" max="99.99" step="0.01" value="{{ remise|default:'0' }}">
+                    <p class="text-gray-500 text-sm mt-1">{% trans "Appliquée au prix de chaque véhicule." %}</p>
+                </div>
+                <div class="bg-gray-50 border rounded p-3 text-sm space-y-1">
+                    <div class="flex justify-between"><span>{% trans "Sous-total TVAC" %}</span><span id="tot-sous-total" class="font-semibold">—</span></div>
+                    <div class="flex justify-between text-red-700"><span>{% trans "Remise" %}</span><span id="tot-remise">—</span></div>
+                    <div class="flex justify-between"><span>{% trans "Total HTVA" %}</span><span id="tot-htva">—</span></div>
+                    <div class="flex justify-between"><span>{% trans "TVA" %} ({{ taux_tva|floatformat:"-2" }} %)</span><span id="tot-tva">—</span></div>
+                    <div class="flex justify-between text-lg border-t pt-1"><strong>{% trans "Total TVAC" %}</strong><strong id="tot-tvac">—</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        {% endif %}
+
         <!-- Paiement -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/location_paiement.png' %}" alt="{% trans 'Paiement' %}" class="w-20 h-20">
             {% trans "Paiement" %}
         </h2>
+        {% if not location %}<p class="text-sm text-gray-500 mb-3">{% trans "L'acompte et le paiement s'appliquent à la location du véhicule 1 ; ceux des autres véhicules se saisissent ensuite sur chaque location." %}</p>{% endif %}
         <div class="mb-4" id="bloc-acompte">
             <label class="inline-flex items-center gap-2">
                 {{ form.acompte|add_class:"form-checkbox h-5 w-5 text-green-600" }}
@@ -230,6 +305,107 @@
     }
     prix.addEventListener("input", maj);
     maj();
+})();
+
+// Plusieurs véhicules : une fiche complète par véhicule + totaux avec remise
+(function () {
+    const conteneur = document.getElementById("vehicules-sup");
+    const modele = document.getElementById("modele-vehicule-sup");
+    const bouton = document.getElementById("ajouter-vehicule");
+    if (!conteneur || !modele || !bouton) return;
+    const formulaire = document.getElementById("location-form");
+    let compteur = 0;
+    conteneur.querySelectorAll(".ligne-vehicule-sup").forEach(l => { compteur = Math.max(compteur, parseInt(l.dataset.idx, 10) || 0); });
+
+    // Champs repris du véhicule 1 à l'ajout d'une fiche (modifiables ensuite)
+    const COPIES = ["type_location", "circuit", "route", "date_debut", "date_fin", "nombre_tours", "kilometrage"];
+
+    function fiches() { return Array.from(document.querySelectorAll(".ligne-vehicule-sup")); }
+    function numeroter() { fiches().forEach((f, i) => { const n = f.querySelector(".num-vehicule"); if (n) n.textContent = i + 1; }); }
+
+    function majType(fiche) {
+        const type = fiche.querySelector("[name$='type_location']");
+        if (!type) return;
+        const circuit = type.value === "circuit";
+        const bloc = (n) => fiche.querySelector(`.sup-bloc[data-bloc='${n}']`);
+        if (bloc("circuit")) bloc("circuit").style.display = circuit ? "" : "none";
+        if (bloc("nombre_tours")) bloc("nombre_tours").style.display = circuit ? "" : "none";
+        if (bloc("route")) bloc("route").style.display = circuit ? "none" : "";
+    }
+    function brancher(fiche) {
+        const btn = fiche.querySelector(".btn-retirer-vehicule");
+        if (btn) btn.addEventListener("click", () => { fiche.remove(); numeroter(); totaux(); });
+        const type = fiche.querySelector("[name$='type_location']");
+        if (type) type.addEventListener("change", () => majType(fiche));
+        majType(fiche);
+    }
+
+    // ----- Totaux -----
+    const blocTot = document.getElementById("totaux");
+    const taux = blocTot ? (parseFloat(String(blocTot.dataset.taux).replace(",", ".")) || 0) : 0;
+    const remise = document.getElementById("id_remise_pourcent");
+    const fmt = (v) => v.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+    const num = (v) => { const x = parseFloat(String(v || "").replace(",", ".")); return isNaN(x) ? 0 : x; };
+    const r2 = (v) => Math.round(v * 100) / 100;
+
+    function totaux() {
+        if (!blocTot) return;
+        const corps = document.getElementById("totaux-lignes");
+        corps.innerHTML = "";
+        let sousTotal = 0;
+        fiches().forEach((f, i) => {
+            const prix = f.querySelector("[name='prix'], [name$='-prix']");
+            const select = f.querySelector("select[name$='voiture_exemplaire']");
+            const libelle = select && select.value ? select.options[select.selectedIndex].text : "—";
+            const p = num(prix && prix.value);
+            sousTotal += p;
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td class="border px-3 py-2">${i + 1}. </td><td class="border px-3 py-2 text-right">${fmt(p)}</td>`;
+            tr.firstChild.appendChild(document.createTextNode(libelle));
+            corps.appendChild(tr);
+        });
+        const pct = Math.min(Math.max(num(remise && remise.value), 0), 99.99);
+        // Même calcul que le serveur : remise arrondie sur chaque véhicule
+        let total = 0;
+        fiches().forEach(f => {
+            const prix = f.querySelector("[name='prix'], [name$='-prix']");
+            total += r2(num(prix && prix.value) * (100 - pct) / 100);
+        });
+        const htva = r2(total / (1 + taux / 100));
+        document.getElementById("tot-sous-total").textContent = fmt(r2(sousTotal));
+        document.getElementById("tot-remise").textContent = pct ? "− " + fmt(r2(sousTotal - total)) + " (" + pct + " %)" : "—";
+        document.getElementById("tot-htva").textContent = fmt(htva);
+        document.getElementById("tot-tva").textContent = fmt(r2(total - htva));
+        document.getElementById("tot-tvac").textContent = fmt(r2(total));
+    }
+    if (formulaire) {
+        formulaire.addEventListener("input", totaux);
+        formulaire.addEventListener("change", totaux);
+    }
+
+    fiches().forEach(brancher);
+    numeroter();
+    totaux();
+
+    bouton.addEventListener("click", () => {
+        compteur += 1;
+        const tmp = document.createElement("div");
+        tmp.innerHTML = modele.innerHTML.replace(/__ID__/g, compteur).trim();
+        const fiche = tmp.querySelector(".ligne-vehicule-sup");
+        conteneur.appendChild(fiche);
+        COPIES.forEach(nom => {
+            const src = document.getElementById("id_" + nom);
+            const dst = fiche.querySelector(`[name='sup-${compteur}-${nom}']`);
+            if (src && dst) dst.value = src.value;
+        });
+        brancher(fiche);
+        const select = fiche.querySelector(`[name='sup-${compteur}-voiture_exemplaire']`);
+        if (select && window.initChoixVehicule) window.initChoixVehicule(select);
+        numeroter();
+        totaux();
+        const btnChoix = fiche.querySelector(".choix-bouton");
+        if (btnChoix) setTimeout(() => btnChoix.click(), 0);
+    });
 })();
 </script>
 {% endblock %}

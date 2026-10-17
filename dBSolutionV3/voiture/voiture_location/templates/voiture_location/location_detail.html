@@ -84,6 +84,9 @@
             <p><strong>{% trans "Date de fin" %} :</strong> {{ location.date_fin|date:"d/m/Y"|default:"—" }}</p>
             <p><strong>{% trans "Prix HTVA" %} :</strong> {{ location.prix_htva|floatformat:2 }} €</p>
             <p><strong>{% trans "TVA" %} ({{ location.taux_tva|floatformat:"-2" }} %) :</strong> {{ location.montant_tva|floatformat:2 }} €</p>
+            {% if location.remise_pourcent %}
+            <p><strong>{% trans "Prix TVAC avant remise" %} :</strong> {{ location.prix_avant_remise|floatformat:2 }} € — {% trans "remise" %} {{ location.remise_pourcent|floatformat:"-2" }} %</p>
+            {% endif %}
             <p class="text-lg"><strong>{% trans "Prix TVAC" %} :</strong> {{ location.prix_tvac|floatformat:2 }} €</p>
             {% if location.prix_par_km %}
                 <p><strong>{% trans "Prix par km (TVAC)" %} :</strong> {{ location.prix_par_km|floatformat:2 }} €</p>

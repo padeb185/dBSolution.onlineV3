@@ -1,0 +1,32 @@
+{% load i18n widget_tweaks %}
+{% comment %}
+Fiche d'un véhicule loué (création d'une ou plusieurs locations pour le même client).
+Paramètres : idx, f (formulaire), vehicules, champs_vehicule (champs affichés), principal (1er véhicule), sans_init
+{% endcomment %}
+<div class="ligne-vehicule-sup border-2 border-blue-200 rounded-lg p-4 mb-4 bg-gray-50" data-idx="{{ idx }}" {% if principal %}data-principal="1"{% endif %}>
+    {% if not principal %}<input type="hidden" name="sup_index" value="{{ idx }}">{% endif %}
+    <div class="flex items-center justify-between mb-3">
+        <span class="font-semibold text-blue-800">{% trans "Véhicule" %} <span class="num-vehicule">{% if principal %}1{% endif %}</span></span>
+        {% if not principal %}<button type="button" class="btn-retirer-vehicule text-red-700 hover:underline text-sm font-semibold">{% trans "Retirer" %}</button>{% endif %}
+    </div>
+
+    {% if not principal and f.non_field_errors %}<div class="mb-3 bg-red-100 text-red-800 border border-red-300 p-2 rounded text-sm">{{ f.non_field_errors|striptags }}</div>{% endif %}
+
+    {# Véhicule #}
+    <label class="block font-semibold mb-1">{{ f.voiture_exemplaire.label }} <span class="text-red-600">*</span></label>
+    {% if f.voiture_exemplaire.errors %}{{ f.voiture_exemplaire|add_class:"input input-error" }}{% else %}{{ f.voiture_exemplaire|add_class:"input" }}{% endif %}
+    {% include "maintenance/partials/apercu_vehicule_select.html" with auto_id=f.voiture_exemplaire.auto_id queryset=vehicules sans_init=sans_init %}
+    {% if f.voiture_exemplaire.errors %}<p class="text-red-600 text-sm -mt-3 mb-3">{{ f.voiture_exemplaire.errors|striptags }}</p>{% endif %}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {% for field in f %}{% if field.name in champs_vehicule %}
+        <div class="sup-bloc {% if field.name == 'prix' %}md:col-span-2{% endif %}" data-bloc="{{ field.name }}">
+            <label for="{{ field.id_for_label }}" class="block font-semibold mb-1">
+                {{ field.label }}{% if field.field.required %} <span class="text-red-600">*</span>{% endif %}
+            </label>
+            {% if field.errors %}{{ field|add_class:"input input-error" }}{% else %}{{ field|add_class:"input" }}{% endif %}
+            {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+        </div>
+        {% endif %}{% endfor %}
+    </div>
+</div>

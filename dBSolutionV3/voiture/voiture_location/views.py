@@ -9,7 +9,7 @@ from django.utils.translation import gettext as _, gettext_noop
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 
-from .forms import LocationForm
+from .forms import LocationForm, LocationVehiculeSupForm
 from .models import Location
 
 ROLES_AUTORISES = ["vendeur", "direction", "chef_mecanicien"]
@@ -84,15 +84,104 @@ def location_ajouter(request):
     initial = {"voiture_exemplaire": exemplaire_id} if exemplaire_id else {}
 
     form = LocationForm(request.POST or None, user=request.user, initial=initial)
-    if request.method == "POST" and form.is_valid():
-        location = form.save()
-        _log(request.user, ACTION_CREATION_LOCATION, location)
-        messages.success(request, _("Location '%(loc)s' créée avec succès.") % {"loc": location})
-        return redirect("voiture_location:location_liste")
+    vehicules = form.fields["voiture_exemplaire"].queryset
+
+    # Véhicules supplémentaires (même client) : une location complète par véhicule
+    forms_sup = []
+    if request.method == "POST":
+        for idx in request.POST.getlist("sup_index"):
+            if idx.isdigit():
+                forms_sup.append(LocationVehiculeSupForm(request.POST, prefix=f"sup-{idx}", vehicules=vehicules))
+
+    # Remise en % sur l'ensemble des véhicules
+    remise_brute = (request.POST.get("remise_pourcent") or "0").replace(",", ".") if request.method == "POST" else "0"
+    try:
+        remise = Decimal(remise_brute)
+    except Exception:
+        remise = None
+
+    if request.method == "POST":
+        principal_ok = form.is_valid()
+        if remise is None or remise < 0 or remise >= 100:
+            form.add_error(None, _("La remise doit être comprise entre 0 et 99,99 %."))
+            principal_ok = False
+        sup_ok = all([f.is_valid() for f in forms_sup])
+        doublons = _vehicules_en_double(form, forms_sup)
+        if doublons:
+            form.add_error(None, _("Le véhicule %(v)s est sélectionné plusieurs fois.") % {"v": ", ".join(doublons)})
+
+        if principal_ok and sup_ok and not doublons:
+            from django.db import transaction
+            with transaction.atomic():
+                location = form.save(commit=False)
+                _appliquer_remise(location, remise)
+                location.save()
+                _log(request.user, ACTION_CREATION_LOCATION, location)
+                creees = [location]
+                for f in forms_sup:
+                    copie = f.save(commit=False)
+                    copie.societe = location.societe
+                    copie.vendeur = location.vendeur
+                    copie.client = location.client
+                    copie.societe_cliente = location.societe_cliente
+                    copie.client_pilotage = location.client_pilotage
+                    copie.remarques = location.remarques
+                    _appliquer_remise(copie, remise)
+                    copie.save()  # crée aussi le checkup piste dans l'agenda
+                    _log(request.user, ACTION_CREATION_LOCATION, copie)
+                    creees.append(copie)
+
+            if len(creees) == 1:
+                messages.success(request, _("Location '%(loc)s' créée avec succès.") % {"loc": location})
+            else:
+                messages.success(request, _("%(n)s locations créées pour le même client : %(vehicules)s") % {
+                    "n": len(creees),
+                    "vehicules": ", ".join(l.voiture_exemplaire.immatriculation or str(l.voiture_exemplaire) for l in creees),
+                })
+            return redirect("voiture_location:location_liste")
+
+        if forms_sup and not sup_ok:
+            form.add_error(None, _("Vérifiez les véhicules supplémentaires : certains champs sont incorrects."))
 
     return render(request, "voiture_location/location_form.html", {
         "form": form, "location": None, "taux_tva": Location(societe=request.user.societe).taux_tva,
+        "vehicules": vehicules,
+        "forms_sup": [(f.prefix.split("-", 1)[1], f) for f in forms_sup],
+        "form_sup_vide": LocationVehiculeSupForm(prefix="sup-__ID__", vehicules=vehicules),
+        "champs_vehicule": CHAMPS_VEHICULE,
+        "remise": remise_brute if request.method == "POST" else "0",
     })
+
+
+# Champs propres à chaque véhicule loué (affichés dans la fiche de chaque véhicule)
+CHAMPS_VEHICULE = ["type_location", "circuit", "route", "date_debut", "date_fin", "nombre_tours", "kilometrage", "prix"]
+
+
+def _appliquer_remise(location, remise):
+    """Le prix saisi est le prix TVAC avant remise ; « prix » devient le prix après remise."""
+    from decimal import ROUND_HALF_UP
+    if remise and remise > 0:
+        location.prix_avant_remise = location.prix
+        location.remise_pourcent = remise
+        location.prix = (Decimal(location.prix) * (Decimal("100") - remise) / Decimal("100")).quantize(
+            Decimal("0.01"), rounding=ROUND_HALF_UP
+        )
+    else:
+        location.prix_avant_remise = None
+        location.remise_pourcent = Decimal("0")
+
+
+def _vehicules_en_double(form, forms_sup):
+    vus, doublons = set(), []
+    candidats = [form.cleaned_data.get("voiture_exemplaire") if hasattr(form, "cleaned_data") else None]
+    candidats += [f.cleaned_data.get("voiture_exemplaire") if hasattr(f, "cleaned_data") else None for f in forms_sup]
+    for ex in candidats:
+        if ex is None:
+            continue
+        if ex.pk in vus:
+            doublons.append(ex.immatriculation or str(ex))
+        vus.add(ex.pk)
+    return doublons
 
 
 @login_required

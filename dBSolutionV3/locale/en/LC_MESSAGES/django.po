@@ -47077,6 +47077,98 @@ msgstr "Deletion of the bottom end check"
 msgid "Modification bas moteur"
 msgstr "Bottom end edit"
 
+msgid "Choisir un véhicule"
+msgstr "Choose a vehicle"
+
+msgid "Rechercher (immatriculation, marque, modèle)…"
+msgstr "Search (registration, make, model)…"
+
+msgid "Véhicule supplémentaire"
+msgstr "Additional vehicle"
+
+msgid "Louer un autre véhicule au même client"
+msgstr "Rent another vehicle to the same client"
+
+msgid ""
+"Une location est créée par véhicule (même client, lieu, dates et remarques). "
+"Le prix de la section « Période, kilométrage et prix » et le paiement "
+"concernent le premier véhicule."
+msgstr ""
+"One rental is created per vehicle (same client, location, dates and notes). "
+"The price in the “Period, mileage and price” section and the payment apply to"
+" the first vehicle."
+
+#, python-format
+msgid "%(n)s locations créées pour le même client : %(vehicules)s"
+msgstr "%(n)s rentals created for the same client: %(vehicules)s"
+
+#, python-format
+msgid "Véhicule n° %(n)s : choisissez un véhicule."
+msgstr "Vehicle no. %(n)s: choose a vehicle."
+
+#, python-format
+msgid "Véhicule n° %(n)s : véhicule introuvable."
+msgstr "Vehicle no. %(n)s: vehicle not found."
+
+#, python-format
+msgid "Le véhicule %(v)s est sélectionné plusieurs fois."
+msgstr "Vehicle %(v)s is selected more than once."
+
+#, python-format
+msgid "Véhicule n° %(n)s : indiquez un prix TVAC valide."
+msgstr "Vehicle no. %(n)s: enter a valid price incl. VAT."
+
+msgid ""
+"Une location est créée par véhicule, avec son propre lieu, ses dates, ses "
+"tours, son kilométrage et son prix. Le client, le vendeur et les remarques "
+"sont communs ; le paiement ci-dessous concerne le premier véhicule."
+msgstr ""
+"One rental is created per vehicle, with its own location, dates, laps, "
+"mileage and price. The client, salesperson and notes are shared; the payment "
+"below applies to the first vehicle."
+
+msgid ""
+"Vérifiez les véhicules supplémentaires : certains champs sont incorrects."
+msgstr "Check the additional vehicles: some fields are incorrect."
+
+msgid "Remise (%)"
+msgstr "Discount (%)"
+
+msgid "Appliquée au prix de chaque véhicule."
+msgstr "Applied to the price of each vehicle."
+
+msgid "Sous-total TVAC"
+msgstr "Subtotal incl. VAT"
+
+msgid "Remise"
+msgstr "Discount"
+
+msgid "remise"
+msgstr "discount"
+
+msgid ""
+"Une location est créée par véhicule. Le client, le vendeur, les remarques et "
+"la remise sont communs."
+msgstr ""
+"One rental is created per vehicle. The client, salesperson, notes and "
+"discount are shared."
+
+msgid "La remise doit être comprise entre 0 et 99,99 %."
+msgstr "The discount must be between 0 and 99.99%."
+
+msgid "Prix TVAC avant remise (€)"
+msgstr "Price incl. VAT before discount (€)"
+
+msgid "Prix TVAC avant remise"
+msgstr "Price incl. VAT before discount"
+
+msgid ""
+"L'acompte et le paiement s'appliquent à la location du véhicule 1 ; ceux des "
+"autres véhicules se saisissent ensuite sur chaque location."
+msgstr ""
+"The deposit and payment apply to the rental of vehicle 1; those of the other "
+"vehicles are entered afterwards on each rental."
+
 #~ msgid "Pièce d'origine constructeur (OEM)"
 #~ msgstr "Original Equipment Manufacturer (OEM)"
 
