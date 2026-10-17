@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Objectifs de vente" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center gap-3">
+    <img src="{% static 'icons/statistiques_ventes.png' %}" alt="" class="w-16 h-16">
+    {% trans "Objectifs de vente" %} {{ annee }}
+</h1>
+
+{% include "voiture_location/_messages.html" %}
+
+<form method="get" class="bg-white shadow-md rounded-lg p-4 mb-6 flex items-end gap-3">
+    <div>
+        <label class="block font-semibold mb-1" for="annee">{% trans "Année" %}</label>
+        <select name="annee" id="annee" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            {% for a in annees %}<option value="{{ a }}" {% if a == annee %}selected{% endif %}>{{ a }}</option>{% endfor %}
+        </select>
+    </div>
+    <p class="text-sm text-gray-500">{% trans "Objectif mensuel par vendeur : montant HTVA et, si souhaité, nombre de ventes. L'objectif d'un trimestre ou d'une année est la somme des mois ; celui de la société, la somme des vendeurs." %}</p>
+</form>
+
+<form method="post" class="bg-white shadow-md rounded-lg p-4 mb-6 overflow-x-auto">
+    {% csrf_token %}
+    <input type="hidden" name="annee" value="{{ annee }}">
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-2 py-2 text-left">{% trans "Vendeur" %}</th>
+                {% for m in mois %}<th class="border px-2 py-2 text-center">{{ m|stringformat:"02d" }}</th>{% endfor %}
+                <th class="border px-2 py-2 text-right">{% trans "Total année" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for l in lignes %}
+            <tr class="ligne-objectif">
+                <td class="border px-2 py-1 align-top">
+                    <span class="font-semibold">{{ l.vendeur.prenom }} {{ l.vendeur.nom }}</span>
+                    <span class="block text-xs text-gray-500">{{ l.vendeur.get_role_display }}</span>
+                    <div class="mt-2 flex items-center gap-1">
+                        <input type="number" step="0.01" min="0" class="remplir-montant border rounded px-1 py-1 w-24" placeholder="{% trans 'Montant' %}">
+                        <button type="button" class="btn-remplir bg-gray-200 hover:bg-gray-300 rounded px-2 py-1 text-xs font-semibold" title="{% trans 'Appliquer ce montant aux 12 mois' %}">{% trans "12 mois" %}</button>
+                    </div>
+                </td>
+                {% for c in l.cellules %}
+                <td class="border px-1 py-1 align-top">
+                    <input type="number" step="0.01" min="0" name="obj-{{ l.vendeur.pk }}-{{ c.mois }}" value="{{ c.montant|default_if_none:''|stringformat:'s' }}"
+                           class="obj-montant border rounded px-1 py-1 w-24 text-right" placeholder="€ HTVA">
+                    <input type="number" step="1" min="0" name="nb-{{ l.vendeur.pk }}-{{ c.mois }}" value="{{ c.nombre|default_if_none:'' }}"
+                           class="border rounded px-1 py-1 w-24 text-right mt-1 text-xs" placeholder="{% trans 'nb ventes' %}">
+                </td>
+                {% endfor %}
+                <td class="border px-2 py-1 text-right align-top font-semibold">
+                    <span class="total-ligne">{{ l.total|floatformat:2 }}</span> €
+                    {% if l.total_nb %}<span class="block text-xs text-gray-500">{{ l.total_nb }} {% trans "ventes" %}</span>{% endif %}
+                </td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="14" class="border px-2 py-3 text-gray-500">{% trans "Aucun vendeur actif (rôles vendeur, direction, chef mécanicien)." %}</td></tr>
+        {% endfor %}
+        </tbody>
+        {% if lignes %}
+        <tfoot>
+            <tr class="bg-gray-100 font-semibold">
+                <td class="border px-2 py-2" colspan="13">{% trans "Objectif de la société" %}</td>
+                <td class="border px-2 py-2 text-right"><span id="total-societe">{{ total_societe|floatformat:2 }}</span> €</td>
+            </tr>
+        </tfoot>
+        {% endif %}
+    </table>
+
+    <div class="flex gap-3 mt-4">
+        <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-3 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer" %}</button>
+        <a href="{% url 'voiture_location:statistiques_ventes' %}" class="flex-1 bg-gray-300 px-5 py-3 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Retour aux statistiques" %}</a>
+    </div>
+</form>
+
+<script>
+(function () {
+    const num = (v) => { const x = parseFloat(String(v || "").replace(",", ".")); return isNaN(x) ? 0 : x; };
+    const fmt = (v) => v.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    function totaux() {
+        let societe = 0;
+        document.querySelectorAll(".ligne-objectif").forEach(l => {
+            let t = 0;
+            l.querySelectorAll(".obj-montant").forEach(i => t += num(i.value));
+            l.querySelector(".total-ligne").textContent = fmt(t);
+            societe += t;
+        });
+        const ts = document.getElementById("total-societe");
+        if (ts) ts.textContent = fmt(societe);
+    }
+    document.querySelectorAll(".ligne-objectif").forEach(l => {
+        l.querySelector(".btn-remplir").addEventListener("click", () => {
+            const v = l.querySelector(".remplir-montant").value;
+            if (v === "") return;
+            l.querySelectorAll(".obj-montant").forEach(i => i.value = v);
+            totaux();
+        });
+    });
+    document.addEventListener("input", (e) => { if (e.target.classList.contains("obj-montant")) totaux(); });
+})();
+</script>
+<br>
+{% endblock %}

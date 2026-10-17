@@ -48471,6 +48471,261 @@ msgstr ""
 msgid "Pneus supprimés avec succès."
 msgstr "Τα ελαστικά διαγράφηκαν με επιτυχία."
 
+#, python-format
+msgid "%(n)s valeur(s) invalide(s) ignorée(s)."
+msgstr "Αγνοήθηκαν %(n)s μη έγκυρες τιμές."
+
+#, python-format
+msgid "Objectifs %(annee)s enregistrés."
+msgstr "Οι στόχοι %(annee)s αποθηκεύτηκαν."
+
+msgid "Objectif HTVA (€)"
+msgstr "Στόχος χωρίς ΦΠΑ (€)"
+
+msgid "Objectif nombre de ventes"
+msgstr "Στόχος αριθμού πωλήσεων"
+
+msgid "Objectif de vente"
+msgstr "Στόχος πωλήσεων"
+
+msgid "Objectifs de vente"
+msgstr "Στόχοι πωλήσεων"
+
+msgid "Objectif de vente de la société"
+msgstr "Στόχος πωλήσεων της εταιρείας"
+
+msgid "Mon objectif de vente"
+msgstr "Ο στόχος πωλήσεών μου"
+
+msgid "Réalisé HTVA"
+msgstr "Πραγματοποιήθηκε χωρίς ΦΠΑ"
+
+msgid "objectif"
+msgstr "στόχος"
+
+msgid "Reste à vendre"
+msgstr "Υπόλοιπο προς πώληση"
+
+msgid "Objectif atteint !"
+msgstr "Ο στόχος επιτεύχθηκε!"
+
+msgid "Aucun objectif de vente défini pour cette période."
+msgstr "Δεν έχει οριστεί στόχος πωλήσεων για αυτή την περίοδο."
+
+msgid "Définir les objectifs"
+msgstr "Ορισμός στόχων"
+
+msgid "Objectif HTVA"
+msgstr "Στόχος χωρίς ΦΠΑ"
+
+msgid "Objectif atteint"
+msgstr "Επίτευξη στόχου"
+
+msgid "ventes"
+msgstr "πωλήσεις"
+
+msgid ""
+"Objectif mensuel par vendeur : montant HTVA et, si souhaité, nombre de "
+"ventes. L'objectif d'un trimestre ou d'une année est la somme des mois ; "
+"celui de la société, la somme des vendeurs."
+msgstr ""
+"Μηνιαίος στόχος ανά πωλητή: ποσό χωρίς ΦΠΑ και, προαιρετικά, αριθμός "
+"πωλήσεων. Ο στόχος τριμήνου ή έτους είναι το άθροισμα των μηνών· της "
+"εταιρείας το άθροισμα των πωλητών."
+
+msgid "Total année"
+msgstr "Σύνολο έτους"
+
+msgid "Appliquer ce montant aux 12 mois"
+msgstr "Εφαρμογή του ποσού στους 12 μήνες"
+
+msgid "12 mois"
+msgstr "12 μήνες"
+
+msgid "nb ventes"
+msgstr "αρ. πωλήσεων"
+
+msgid "Aucun vendeur actif (rôles vendeur, direction, chef mécanicien)."
+msgstr ""
+"Κανένας ενεργός πωλητής (ρόλοι πωλητή, διεύθυνσης, επικεφαλής μηχανικού)."
+
+msgid "Objectif de la société"
+msgstr "Στόχος της εταιρείας"
+
+msgid "Retour aux statistiques"
+msgstr "Επιστροφή στα στατιστικά"
+
+msgid "Caisse – espèces"
+msgstr "Ταμείο – μετρητά"
+
+msgid "Espèces (caisse)"
+msgstr "Μετρητά (ταμείο)"
+
+msgid "Virement bancaire"
+msgstr "Τραπεζική μεταφορά"
+
+msgid "Carte bancaire / Bancontact"
+msgstr "Τραπεζική κάρτα / Bancontact"
+
+msgid "Chèque"
+msgstr "Επιταγή"
+
+msgid "Autre (banque)"
+msgstr "Άλλο (τράπεζα)"
+
+msgid "Date du paiement"
+msgstr "Ημερομηνία πληρωμής"
+
+msgid "Encodé par"
+msgstr "Καταχωρήθηκε από"
+
+msgid "Paiement de facture"
+msgstr "Πληρωμή τιμολογίου"
+
+msgid "Paiements de factures"
+msgstr "Πληρωμές τιμολογίων"
+
+msgid "Paiement supprimé."
+msgstr "Η πληρωμή διαγράφηκε."
+
+msgid "Paiement antérieur annulé."
+msgstr "Η προηγούμενη πληρωμή ακυρώθηκε."
+
+msgid "Mode de paiement inconnu."
+msgstr "Άγνωστος τρόπος πληρωμής."
+
+msgid "Montant invalide."
+msgstr "Μη έγκυρο ποσό."
+
+msgid "Le montant doit être positif."
+msgstr "Το ποσό πρέπει να είναι θετικό."
+
+#, python-format
+msgid "Le montant dépasse le reste à payer (%(reste)s €)."
+msgstr "Το ποσό υπερβαίνει το υπόλοιπο προς πληρωμή (%(reste)s €)."
+
+#, python-format
+msgid ""
+"Paiement en espèces refusé : le total en espèces (%(total)s €) dépasse le "
+"plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une "
+"carte."
+msgstr ""
+"Η πληρωμή με μετρητά απορρίφθηκε: το σύνολο σε μετρητά (%(total)s €) "
+"υπερβαίνει το επιτρεπόμενο όριο σε %(pays)s (%(plafond)s €). Χρησιμοποιήστε "
+"μεταφορά ή κάρτα."
+
+msgid "Paiement enregistré."
+msgstr "Η πληρωμή καταχωρήθηκε."
+
+#, python-format
+msgid "Statut : %(statut)s."
+msgstr "Κατάσταση: %(statut)s."
+
+msgid "Paiement antérieur (mode non précisé)"
+msgstr "Προηγούμενη πληρωμή (χωρίς τρόπο πληρωμής)"
+
+msgid "Annuler ce paiement ?"
+msgstr "Ακύρωση αυτής της πληρωμής;"
+
+msgid "Supprimer ce paiement ?"
+msgstr "Διαγραφή αυτής της πληρωμής;"
+
+msgid "Communication, n° de ticket…"
+msgstr "Αιτιολογία, αρ. απόδειξης…"
+
+msgid "Facture entièrement payée."
+msgstr "Το τιμολόγιο εξοφλήθηκε πλήρως."
+
+#, python-format
+msgid ""
+"Paiement en espèces limité à %(plafond)s € par facture (%(pays)s), paiements "
+"fractionnés compris."
+msgstr ""
+"Πληρωμή με μετρητά έως %(plafond)s € ανά τιμολόγιο (%(pays)s), "
+"συμπεριλαμβανομένων τμηματικών πληρωμών."
+
+#, python-format
+msgid "Déjà reçu en espèces : %(deja)s €."
+msgstr "Ήδη εισπράχθηκαν σε μετρητά: %(deja)s €."
+
+#, python-format
+msgid "Client particulier non-résident (plafond %(plafond)s €)"
+msgstr "Ιδιώτης πελάτης μη κάτοικος (όριο %(plafond)s €)"
+
+#, python-format
+msgid "Pas de plafond légal de paiement en espèces enregistré pour %(pays)s."
+msgstr "Δεν έχει καταχωρηθεί νόμιμο όριο πληρωμών με μετρητά για %(pays)s."
+
+msgid "Caisse et banque"
+msgstr "Ταμείο και τράπεζα"
+
+msgid "Encaissements caisse"
+msgstr "Εισπράξεις ταμείου"
+
+msgid "paiement(s) en espèces"
+msgstr "πληρωμή(ές) με μετρητά"
+
+msgid "Encaissements banque"
+msgstr "Εισπράξεις τράπεζας"
+
+msgid "paiement(s)"
+msgstr "πληρωμή(ές)"
+
+msgid "Total encaissé"
+msgstr "Σύνολο εισπράξεων"
+
+msgid "Journal des encaissements"
+msgstr "Ημερολόγιο εισπράξεων"
+
+msgid ""
+"Espèces : journal de caisse (CAI). Virement, carte, chèque : journal de "
+"banque (BQE). Contrepartie : 400000 Clients."
+msgstr ""
+"Μετρητά: ημερολόγιο ταμείου (CAI). Μεταφορά, κάρτα, επιταγή: ημερολόγιο "
+"τράπεζας (BQE). Αντίστοιχος λογαριασμός: 400000 Πελάτες."
+
+msgid "Aucun encaissement sur la période."
+msgstr "Καμία είσπραξη στην περίοδο."
+
+msgid "Maintenances internes : coûts à charge de la société"
+msgstr "Εσωτερικές συντηρήσεις: κόστη που βαρύνουν την εταιρεία"
+
+msgid ""
+"Une facture à votre propre société n'est pas une vente : pas de TVA à payer, "
+"pas de chiffre d'affaires. La TVA sur les pièces est récupérée via les achats"
+" fournisseurs. Le reste (pièces au prix d'achat HTVA + main-d'œuvre) est une "
+"charge d'entretien de vos véhicules : elle est déjà dans votre comptabilité "
+"(achats pour les pièces, salaires pour la main-d'œuvre) et est imputée ici au"
+" véhicule concerné, sans nouvelle écriture."
+msgstr ""
+"Ένα τιμολόγιο προς την ίδια σας την εταιρεία δεν είναι πώληση: χωρίς ΦΠΑ προς"
+" απόδοση, χωρίς κύκλο εργασιών. Ο ΦΠΑ των ανταλλακτικών ανακτάται μέσω των "
+"αγορών από προμηθευτές. Το υπόλοιπο (ανταλλακτικά σε τιμή αγοράς χωρίς ΦΠΑ + "
+"εργασία) είναι έξοδο συντήρησης των οχημάτων σας: υπάρχει ήδη στη λογιστική "
+"σας (αγορές για τα ανταλλακτικά, μισθοί για την εργασία) και κατανέμεται εδώ "
+"στο αντίστοιχο όχημα, χωρίς νέα εγγραφή."
+
+msgid "Pièces au prix d'achat HTVA"
+msgstr "Ανταλλακτικά σε τιμή αγοράς χωρίς ΦΠΑ"
+
+msgid "TVA pièces (récupérée via achats)"
+msgstr "ΦΠΑ ανταλλακτικών (ανακτάται μέσω αγορών)"
+
+msgid "Autres HTVA"
+msgstr "Λοιπά χωρίς ΦΠΑ"
+
+msgid "Coût de revient HTVA"
+msgstr "Κόστος χωρίς ΦΠΑ"
+
+msgid ""
+"Entretien interne (coût de revient HTVA : pièces au prix d'achat + "
+"main-d'œuvre)"
+msgstr ""
+"Εσωτερική συντήρηση (κόστος χωρίς ΦΠΑ: ανταλλακτικά σε τιμή αγοράς + εργασία)"
+
+msgid "Aucune facture interne pour ce véhicule."
+msgstr "Κανένα εσωτερικό τιμολόγιο για αυτό το όχημα."
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Επεμβάσεις σε αυτόματο κιβώτιο"
 

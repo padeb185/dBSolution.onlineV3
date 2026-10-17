@@ -48423,6 +48423,262 @@ msgstr ""
 msgid "Pneus supprimés avec succès."
 msgstr "Banden succesvol verwijderd."
 
+#, python-format
+msgid "%(n)s valeur(s) invalide(s) ignorée(s)."
+msgstr "%(n)s ongeldige waarde(n) genegeerd."
+
+#, python-format
+msgid "Objectifs %(annee)s enregistrés."
+msgstr "Doelstellingen %(annee)s opgeslagen."
+
+msgid "Objectif HTVA (€)"
+msgstr "Doelstelling excl. btw (€)"
+
+msgid "Objectif nombre de ventes"
+msgstr "Doelstelling aantal verkopen"
+
+msgid "Objectif de vente"
+msgstr "Verkoopdoelstelling"
+
+msgid "Objectifs de vente"
+msgstr "Verkoopdoelstellingen"
+
+msgid "Objectif de vente de la société"
+msgstr "Verkoopdoelstelling van het bedrijf"
+
+msgid "Mon objectif de vente"
+msgstr "Mijn verkoopdoelstelling"
+
+msgid "Réalisé HTVA"
+msgstr "Gerealiseerd excl. btw"
+
+msgid "objectif"
+msgstr "doelstelling"
+
+msgid "Reste à vendre"
+msgstr "Nog te verkopen"
+
+msgid "Objectif atteint !"
+msgstr "Doelstelling bereikt!"
+
+msgid "Aucun objectif de vente défini pour cette période."
+msgstr "Geen verkoopdoelstelling voor deze periode."
+
+msgid "Définir les objectifs"
+msgstr "Doelstellingen bepalen"
+
+msgid "Objectif HTVA"
+msgstr "Doelstelling excl. btw"
+
+msgid "Objectif atteint"
+msgstr "Doelstelling bereikt"
+
+msgid "ventes"
+msgstr "verkopen"
+
+msgid ""
+"Objectif mensuel par vendeur : montant HTVA et, si souhaité, nombre de "
+"ventes. L'objectif d'un trimestre ou d'une année est la somme des mois ; "
+"celui de la société, la somme des vendeurs."
+msgstr ""
+"Maandelijkse doelstelling per verkoper: bedrag excl. btw en eventueel aantal "
+"verkopen. De doelstelling van een kwartaal of jaar is de som van de maanden; "
+"die van het bedrijf de som van de verkopers."
+
+msgid "Total année"
+msgstr "Totaal jaar"
+
+msgid "Appliquer ce montant aux 12 mois"
+msgstr "Dit bedrag op de 12 maanden toepassen"
+
+msgid "12 mois"
+msgstr "12 maanden"
+
+msgid "nb ventes"
+msgstr "aantal verkopen"
+
+msgid "Aucun vendeur actif (rôles vendeur, direction, chef mécanicien)."
+msgstr "Geen actieve verkoper (rollen verkoper, directie, chef-mecanicien)."
+
+msgid "Objectif de la société"
+msgstr "Doelstelling van het bedrijf"
+
+msgid "Retour aux statistiques"
+msgstr "Terug naar de statistieken"
+
+msgid "Caisse – espèces"
+msgstr "Kas – contanten"
+
+msgid "Espèces (caisse)"
+msgstr "Contant (kas)"
+
+msgid "Virement bancaire"
+msgstr "Overschrijving"
+
+msgid "Carte bancaire / Bancontact"
+msgstr "Bankkaart / Bancontact"
+
+msgid "Chèque"
+msgstr "Cheque"
+
+msgid "Autre (banque)"
+msgstr "Andere (bank)"
+
+msgid "Date du paiement"
+msgstr "Betalingsdatum"
+
+msgid "Encodé par"
+msgstr "Ingevoerd door"
+
+msgid "Paiement de facture"
+msgstr "Factuurbetaling"
+
+msgid "Paiements de factures"
+msgstr "Factuurbetalingen"
+
+msgid "Paiement supprimé."
+msgstr "Betaling verwijderd."
+
+msgid "Paiement antérieur annulé."
+msgstr "Eerdere betaling geannuleerd."
+
+msgid "Mode de paiement inconnu."
+msgstr "Onbekende betaalwijze."
+
+msgid "Montant invalide."
+msgstr "Ongeldig bedrag."
+
+msgid "Le montant doit être positif."
+msgstr "Het bedrag moet positief zijn."
+
+#, python-format
+msgid "Le montant dépasse le reste à payer (%(reste)s €)."
+msgstr "Het bedrag overschrijdt het nog te betalen saldo (%(reste)s €)."
+
+#, python-format
+msgid ""
+"Paiement en espèces refusé : le total en espèces (%(total)s €) dépasse le "
+"plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une "
+"carte."
+msgstr ""
+"Contante betaling geweigerd: het totaal in contanten (%(total)s €) "
+"overschrijdt het toegestane plafond in %(pays)s (%(plafond)s €). Gebruik een "
+"overschrijving of een kaart."
+
+msgid "Paiement enregistré."
+msgstr "Betaling geregistreerd."
+
+#, python-format
+msgid "Statut : %(statut)s."
+msgstr "Status: %(statut)s."
+
+msgid "Paiement antérieur (mode non précisé)"
+msgstr "Eerdere betaling (betaalwijze niet vermeld)"
+
+msgid "Annuler ce paiement ?"
+msgstr "Deze betaling annuleren?"
+
+msgid "Supprimer ce paiement ?"
+msgstr "Deze betaling verwijderen?"
+
+msgid "Communication, n° de ticket…"
+msgstr "Mededeling, ticketnr.…"
+
+msgid "Facture entièrement payée."
+msgstr "Factuur volledig betaald."
+
+#, python-format
+msgid ""
+"Paiement en espèces limité à %(plafond)s € par facture (%(pays)s), paiements "
+"fractionnés compris."
+msgstr ""
+"Contante betaling beperkt tot %(plafond)s € per factuur (%(pays)s), gespreide"
+" betalingen inbegrepen."
+
+#, python-format
+msgid "Déjà reçu en espèces : %(deja)s €."
+msgstr "Reeds contant ontvangen: %(deja)s €."
+
+#, python-format
+msgid "Client particulier non-résident (plafond %(plafond)s €)"
+msgstr "Niet-ingezeten particuliere klant (plafond %(plafond)s €)"
+
+#, python-format
+msgid "Pas de plafond légal de paiement en espèces enregistré pour %(pays)s."
+msgstr ""
+"Geen wettelijk plafond voor contante betalingen geregistreerd voor %(pays)s."
+
+msgid "Caisse et banque"
+msgstr "Kas en bank"
+
+msgid "Encaissements caisse"
+msgstr "Kasontvangsten"
+
+msgid "paiement(s) en espèces"
+msgstr "contante betaling(en)"
+
+msgid "Encaissements banque"
+msgstr "Bankontvangsten"
+
+msgid "paiement(s)"
+msgstr "betaling(en)"
+
+msgid "Total encaissé"
+msgstr "Totaal ontvangen"
+
+msgid "Journal des encaissements"
+msgstr "Ontvangstendagboek"
+
+msgid ""
+"Espèces : journal de caisse (CAI). Virement, carte, chèque : journal de "
+"banque (BQE). Contrepartie : 400000 Clients."
+msgstr ""
+"Contant: kasdagboek (CAI). Overschrijving, kaart, cheque: bankdagboek (BQE). "
+"Tegenrekening: 400000 Klanten."
+
+msgid "Aucun encaissement sur la période."
+msgstr "Geen ontvangsten in deze periode."
+
+msgid "Maintenances internes : coûts à charge de la société"
+msgstr "Interne onderhoud: kosten ten laste van het bedrijf"
+
+msgid ""
+"Une facture à votre propre société n'est pas une vente : pas de TVA à payer, "
+"pas de chiffre d'affaires. La TVA sur les pièces est récupérée via les achats"
+" fournisseurs. Le reste (pièces au prix d'achat HTVA + main-d'œuvre) est une "
+"charge d'entretien de vos véhicules : elle est déjà dans votre comptabilité "
+"(achats pour les pièces, salaires pour la main-d'œuvre) et est imputée ici au"
+" véhicule concerné, sans nouvelle écriture."
+msgstr ""
+"Een factuur aan uw eigen bedrijf is geen verkoop: geen btw te betalen, geen "
+"omzet. De btw op onderdelen wordt via de aankopen bij leveranciers "
+"teruggevorderd. De rest (onderdelen tegen aankoopprijs excl. btw + arbeid) is"
+" een onderhoudskost van uw voertuigen: die staat al in uw boekhouding "
+"(aankopen voor de onderdelen, lonen voor de arbeid) en wordt hier zonder "
+"nieuwe boeking aan het betrokken voertuig toegewezen."
+
+msgid "Pièces au prix d'achat HTVA"
+msgstr "Onderdelen tegen aankoopprijs excl. btw"
+
+msgid "TVA pièces (récupérée via achats)"
+msgstr "Btw onderdelen (teruggevorderd via aankopen)"
+
+msgid "Autres HTVA"
+msgstr "Overige excl. btw"
+
+msgid "Coût de revient HTVA"
+msgstr "Kostprijs excl. btw"
+
+msgid ""
+"Entretien interne (coût de revient HTVA : pièces au prix d'achat + "
+"main-d'œuvre)"
+msgstr ""
+"Intern onderhoud (kostprijs excl. btw: onderdelen tegen aankoopprijs + "
+"arbeid)"
+
+msgid "Aucune facture interne pour ce véhicule."
+msgstr "Geen interne factuur voor dit voertuig."
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Automatische versnellingsbakinterventies"
 

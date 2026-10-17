@@ -318,6 +318,69 @@ class Facture(models.Model):
             self.date_paiement = None
         self.statut_paiement = statut
 
+    # ----- Paiements détaillés (espèces / banque) -----
+    @property
+    def total_paiements_detailles(self):
+        return arrondi(sum((p.montant for p in self.paiements.all()), Decimal("0")))
+
+    @property
+    def montant_non_ventile(self):
+        """Montant payé avant le détail des paiements (mode non précisé)."""
+        return max(arrondi(Decimal(self.montant_paye or 0) - self.total_paiements_detailles), Decimal("0.00"))
+
+    @property
+    def total_especes(self):
+        from .models import PaiementFacture
+        return arrondi(sum((p.montant for p in self.paiements.all() if p.mode == PaiementFacture.Mode.ESPECES), Decimal("0")))
+
+    def couts_internes(self):
+        """
+        Facture à notre propre société (maintenance de nos véhicules) : ce n'est pas une vente.
+        Coût de revient pour le véhicule, sans marge :
+          - pièces au prix d'achat HTVA (TVA récupérée via les achats fournisseurs) ;
+          - main-d'œuvre et autres lignes au montant HTVA (temps interne).
+        """
+        z = Decimal("0.00")
+        pieces = tva_pieces = main_oeuvre = autres = z
+        for ligne in self.lines.all():
+            qte = Decimal(ligne.quantity or 0)
+            if ligne.type_ligne == FactureLine.TypeLigne.PIECE:
+                cout = arrondi(Decimal(ligne.unit_cost) * qte) if ligne.unit_cost is not None else arrondi(ligne.total_ht)
+                pieces += cout
+                tva_pieces += arrondi(cout * Decimal(ligne.vat_rate or 0) / Decimal("100"))
+            elif ligne.type_ligne == FactureLine.TypeLigne.MAIN_OEUVRE:
+                main_oeuvre += arrondi(Decimal(ligne.unit_cost) * qte) if ligne.unit_cost is not None else arrondi(ligne.total_ht)
+            else:
+                autres += arrondi(Decimal(ligne.unit_cost) * qte) if ligne.unit_cost is not None else arrondi(ligne.total_ht)
+        return {
+            "pieces": arrondi(pieces),
+            "tva_pieces": arrondi(tva_pieces),
+            "main_oeuvre": arrondi(main_oeuvre),
+            "autres": arrondi(autres),
+            "total": arrondi(pieces + main_oeuvre + autres),
+        }
+
+    def pays_vendeur(self):
+        adresse = getattr(self.societe, "adresse", None)
+        return ((getattr(adresse, "code_pays", "") or "BE")[:2]).upper()
+
+    def recalculer_paiement(self, non_ventile=Decimal("0")):
+        """
+        Statut et montant payé à partir des paiements détaillés.
+        non_ventile : montant payé enregistré avant le détail des paiements (mode non précisé), à conserver.
+        """
+        if not self.est_emise:
+            raise ValueError(_("Le paiement ne peut être enregistré que sur une facture émise."))
+        paye = arrondi(Decimal(non_ventile or 0) + self.total_paiements_detailles)
+        self.montant_paye = paye
+        derniers = sorted(self.paiements.all(), key=lambda p: p.date)
+        if paye <= 0:
+            self.statut_paiement = self.StatutPaiement.A_PAYER
+            self.date_paiement = None
+        else:
+            self.statut_paiement = self.StatutPaiement.PAYE if paye >= arrondi(self.total) else self.StatutPaiement.ACOMPTE
+            self.date_paiement = derniers[-1].date if derniers else self.date_paiement
+
     # -------------------------
     # CLIENT
     # -------------------------
@@ -660,3 +723,52 @@ class ParametresPeppol(models.Model):
         if societe is None:
             return None
         return cls.objects.filter(societe=societe).first()
+
+
+
+class PaiementFacture(models.Model):
+    """Un encaissement sur une facture émise (espèces = caisse, autres modes = banque)."""
+
+    class Mode(models.TextChoices):
+        ESPECES = "ESPECES", _("Espèces (caisse)")
+        VIREMENT = "VIREMENT", _("Virement bancaire")
+        CARTE = "CARTE", _("Carte bancaire / Bancontact")
+        CHEQUE = "CHEQUE", _("Chèque")
+        AUTRE = "AUTRE", _("Autre (banque)")
+
+    facture = models.ForeignKey(
+        Facture,
+        on_delete=models.CASCADE,
+        related_name="paiements",
+        verbose_name=_("Facture"),
+    )
+    date = models.DateField(_("Date du paiement"))
+    montant = models.DecimalField(_("Montant"), max_digits=12, decimal_places=2)
+    mode = models.CharField(_("Mode de paiement"), max_length=10, choices=Mode.choices, default=Mode.VIREMENT)
+    reference = models.CharField(_("Référence"), max_length=100, blank=True)
+    cree_par = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="paiements_factures",
+        verbose_name=_("Encodé par"),
+    )
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("Paiement de facture")
+        verbose_name_plural = _("Paiements de factures")
+        ordering = ["date", "created_at"]
+
+    def __str__(self):
+        return f"{self.facture} – {self.get_mode_display()} – {self.montant} €"
+
+    @property
+    def est_especes(self):
+        return self.mode == self.Mode.ESPECES
+
+    @property
+    def compte(self):
+        from .paiements import compte_tresorerie
+        return compte_tresorerie(self.mode)

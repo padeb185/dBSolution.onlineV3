@@ -294,6 +294,52 @@
         </p>
     </div>
 
+    <!-- Maintenances internes : où vont les coûts -->
+    {% if internes %}
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-1">{% trans "Maintenances internes : coûts à charge de la société" %}</h2>
+        <p class="text-sm text-gray-600 mb-4">
+            {% trans "Une facture à votre propre société n'est pas une vente : pas de TVA à payer, pas de chiffre d'affaires. La TVA sur les pièces est récupérée via les achats fournisseurs. Le reste (pièces au prix d'achat HTVA + main-d'œuvre) est une charge d'entretien de vos véhicules : elle est déjà dans votre comptabilité (achats pour les pièces, salaires pour la main-d'œuvre) et est imputée ici au véhicule concerné, sans nouvelle écriture." %}
+        </p>
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-2 py-2 text-left">{% trans "Facture" %}</th>
+                    <th class="border px-2 py-2 text-left">{% trans "Véhicule" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Pièces au prix d'achat HTVA" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "TVA pièces (récupérée via achats)" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Main-d'œuvre HTVA" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Autres HTVA" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Coût de revient HTVA" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for i in internes %}
+                <tr>
+                    <td class="border px-2 py-1"><a href="{% url 'facture:detail' i.facture.pk %}" class="text-blue-700 hover:underline">{{ i.facture.numero }}</a></td>
+                    <td class="border px-2 py-1">{% if i.facture.voiture_exemplaire %}{{ i.facture.voiture_exemplaire }}{% else %}—{% endif %}</td>
+                    <td class="border px-2 py-1 text-right">{{ i.pieces|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right text-gray-500">{{ i.tva_pieces|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ i.main_oeuvre|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ i.autres|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right font-semibold">{{ i.total|floatformat:2 }} €</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr class="bg-gray-100 font-semibold">
+                    <td class="border px-2 py-1" colspan="2">{% trans "Total" %}</td>
+                    <td class="border px-2 py-1 text-right">{{ tot_internes.pieces|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ tot_internes.tva_pieces|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ tot_internes.main_oeuvre|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ tot_internes.autres|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ tot_internes.total|floatformat:2 }} €</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    {% endif %}
+
     <a href="{% url 'facture:maintenances' %}"
        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-500 font-semibold text-center">
         {% trans "Retour à la facturation" %}

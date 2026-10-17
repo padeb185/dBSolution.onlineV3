@@ -22,6 +22,10 @@
                class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">
                 {% trans "TVA" %}
             </a>
+            <a href="{% url 'facture:caisse_banque' %}"
+               class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">
+                {% trans "Caisse et banque" %}
+            </a>
             {% if peut_parametrer %}
                 <a href="{% url 'facture:parametres_peppol' %}"
                    class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">

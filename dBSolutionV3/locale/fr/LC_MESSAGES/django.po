@@ -48092,6 +48092,261 @@ msgstr ""
 msgid "Pneus supprimés avec succès."
 msgstr ""
 
+#, python-format
+msgid "%(n)s valeur(s) invalide(s) ignorée(s)."
+msgstr "%(n)s valeur(s) invalide(s) ignorée(s)."
+
+#, python-format
+msgid "Objectifs %(annee)s enregistrés."
+msgstr "Objectifs %(annee)s enregistrés."
+
+msgid "Objectif HTVA (€)"
+msgstr "Objectif HTVA (€)"
+
+msgid "Objectif nombre de ventes"
+msgstr "Objectif nombre de ventes"
+
+msgid "Objectif de vente"
+msgstr "Objectif de vente"
+
+msgid "Objectifs de vente"
+msgstr "Objectifs de vente"
+
+msgid "Objectif de vente de la société"
+msgstr "Objectif de vente de la société"
+
+msgid "Mon objectif de vente"
+msgstr "Mon objectif de vente"
+
+msgid "Réalisé HTVA"
+msgstr "Réalisé HTVA"
+
+msgid "objectif"
+msgstr "objectif"
+
+msgid "Reste à vendre"
+msgstr "Reste à vendre"
+
+msgid "Objectif atteint !"
+msgstr "Objectif atteint !"
+
+msgid "Aucun objectif de vente défini pour cette période."
+msgstr "Aucun objectif de vente défini pour cette période."
+
+msgid "Définir les objectifs"
+msgstr "Définir les objectifs"
+
+msgid "Objectif HTVA"
+msgstr "Objectif HTVA"
+
+msgid "Objectif atteint"
+msgstr "Objectif atteint"
+
+msgid "ventes"
+msgstr "ventes"
+
+msgid ""
+"Objectif mensuel par vendeur : montant HTVA et, si souhaité, nombre de "
+"ventes. L'objectif d'un trimestre ou d'une année est la somme des mois ; "
+"celui de la société, la somme des vendeurs."
+msgstr ""
+"Objectif mensuel par vendeur : montant HTVA et, si souhaité, nombre de "
+"ventes. L'objectif d'un trimestre ou d'une année est la somme des mois ; "
+"celui de la société, la somme des vendeurs."
+
+msgid "Total année"
+msgstr "Total année"
+
+msgid "Appliquer ce montant aux 12 mois"
+msgstr "Appliquer ce montant aux 12 mois"
+
+msgid "12 mois"
+msgstr "12 mois"
+
+msgid "nb ventes"
+msgstr "nb ventes"
+
+msgid "Aucun vendeur actif (rôles vendeur, direction, chef mécanicien)."
+msgstr "Aucun vendeur actif (rôles vendeur, direction, chef mécanicien)."
+
+msgid "Objectif de la société"
+msgstr "Objectif de la société"
+
+msgid "Retour aux statistiques"
+msgstr "Retour aux statistiques"
+
+msgid "Caisse – espèces"
+msgstr "Caisse – espèces"
+
+msgid "Espèces (caisse)"
+msgstr "Espèces (caisse)"
+
+msgid "Virement bancaire"
+msgstr "Virement bancaire"
+
+msgid "Carte bancaire / Bancontact"
+msgstr "Carte bancaire / Bancontact"
+
+msgid "Chèque"
+msgstr "Chèque"
+
+msgid "Autre (banque)"
+msgstr "Autre (banque)"
+
+msgid "Date du paiement"
+msgstr "Date du paiement"
+
+msgid "Encodé par"
+msgstr "Encodé par"
+
+msgid "Paiement de facture"
+msgstr "Paiement de facture"
+
+msgid "Paiements de factures"
+msgstr "Paiements de factures"
+
+msgid "Paiement supprimé."
+msgstr "Paiement supprimé."
+
+msgid "Paiement antérieur annulé."
+msgstr "Paiement antérieur annulé."
+
+msgid "Mode de paiement inconnu."
+msgstr "Mode de paiement inconnu."
+
+msgid "Montant invalide."
+msgstr "Montant invalide."
+
+msgid "Le montant doit être positif."
+msgstr "Le montant doit être positif."
+
+#, python-format
+msgid "Le montant dépasse le reste à payer (%(reste)s €)."
+msgstr "Le montant dépasse le reste à payer (%(reste)s €)."
+
+#, python-format
+msgid ""
+"Paiement en espèces refusé : le total en espèces (%(total)s €) dépasse le "
+"plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une "
+"carte."
+msgstr ""
+"Paiement en espèces refusé : le total en espèces (%(total)s €) dépasse le "
+"plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une "
+"carte."
+
+msgid "Paiement enregistré."
+msgstr "Paiement enregistré."
+
+#, python-format
+msgid "Statut : %(statut)s."
+msgstr "Statut : %(statut)s."
+
+msgid "Paiement antérieur (mode non précisé)"
+msgstr "Paiement antérieur (mode non précisé)"
+
+msgid "Annuler ce paiement ?"
+msgstr "Annuler ce paiement ?"
+
+msgid "Supprimer ce paiement ?"
+msgstr "Supprimer ce paiement ?"
+
+msgid "Communication, n° de ticket…"
+msgstr "Communication, n° de ticket…"
+
+msgid "Facture entièrement payée."
+msgstr "Facture entièrement payée."
+
+#, python-format
+msgid ""
+"Paiement en espèces limité à %(plafond)s € par facture (%(pays)s), paiements "
+"fractionnés compris."
+msgstr ""
+"Paiement en espèces limité à %(plafond)s € par facture (%(pays)s), paiements "
+"fractionnés compris."
+
+#, python-format
+msgid "Déjà reçu en espèces : %(deja)s €."
+msgstr "Déjà reçu en espèces : %(deja)s €."
+
+#, python-format
+msgid "Client particulier non-résident (plafond %(plafond)s €)"
+msgstr "Client particulier non-résident (plafond %(plafond)s €)"
+
+#, python-format
+msgid "Pas de plafond légal de paiement en espèces enregistré pour %(pays)s."
+msgstr "Pas de plafond légal de paiement en espèces enregistré pour %(pays)s."
+
+msgid "Caisse et banque"
+msgstr "Caisse et banque"
+
+msgid "Encaissements caisse"
+msgstr "Encaissements caisse"
+
+msgid "paiement(s) en espèces"
+msgstr "paiement(s) en espèces"
+
+msgid "Encaissements banque"
+msgstr "Encaissements banque"
+
+msgid "paiement(s)"
+msgstr "paiement(s)"
+
+msgid "Total encaissé"
+msgstr "Total encaissé"
+
+msgid "Journal des encaissements"
+msgstr "Journal des encaissements"
+
+msgid ""
+"Espèces : journal de caisse (CAI). Virement, carte, chèque : journal de "
+"banque (BQE). Contrepartie : 400000 Clients."
+msgstr ""
+"Espèces : journal de caisse (CAI). Virement, carte, chèque : journal de "
+"banque (BQE). Contrepartie : 400000 Clients."
+
+msgid "Aucun encaissement sur la période."
+msgstr "Aucun encaissement sur la période."
+
+msgid "Maintenances internes : coûts à charge de la société"
+msgstr "Maintenances internes : coûts à charge de la société"
+
+msgid ""
+"Une facture à votre propre société n'est pas une vente : pas de TVA à payer, "
+"pas de chiffre d'affaires. La TVA sur les pièces est récupérée via les achats"
+" fournisseurs. Le reste (pièces au prix d'achat HTVA + main-d'œuvre) est une "
+"charge d'entretien de vos véhicules : elle est déjà dans votre comptabilité "
+"(achats pour les pièces, salaires pour la main-d'œuvre) et est imputée ici au"
+" véhicule concerné, sans nouvelle écriture."
+msgstr ""
+"Une facture à votre propre société n'est pas une vente : pas de TVA à payer, "
+"pas de chiffre d'affaires. La TVA sur les pièces est récupérée via les achats"
+" fournisseurs. Le reste (pièces au prix d'achat HTVA + main-d'œuvre) est une "
+"charge d'entretien de vos véhicules : elle est déjà dans votre comptabilité "
+"(achats pour les pièces, salaires pour la main-d'œuvre) et est imputée ici au"
+" véhicule concerné, sans nouvelle écriture."
+
+msgid "Pièces au prix d'achat HTVA"
+msgstr "Pièces au prix d'achat HTVA"
+
+msgid "TVA pièces (récupérée via achats)"
+msgstr "TVA pièces (récupérée via achats)"
+
+msgid "Autres HTVA"
+msgstr "Autres HTVA"
+
+msgid "Coût de revient HTVA"
+msgstr "Coût de revient HTVA"
+
+msgid ""
+"Entretien interne (coût de revient HTVA : pièces au prix d'achat + "
+"main-d'œuvre)"
+msgstr ""
+"Entretien interne (coût de revient HTVA : pièces au prix d'achat + "
+"main-d'œuvre)"
+
+msgid "Aucune facture interne pour ce véhicule."
+msgstr "Aucune facture interne pour ce véhicule."
+
 #~ msgid "Véhicule supplémentaire"
 #~ msgstr "Véhicule supplémentaire"
 

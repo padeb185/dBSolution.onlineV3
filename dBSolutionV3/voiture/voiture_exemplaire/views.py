@@ -805,7 +805,22 @@ def finances_detail(request, exemplaire_id):
             valeur = f"{valeur} km"
         champs.append({"nom": f, "label": labels[f].label, "valeur": valeur})
 
+    # Entretien interne : factures à notre propre société pour ce véhicule (coût de revient HTVA)
+    from decimal import Decimal
+    from facture.models import Facture
+    entretiens = []
+    total_entretien = Decimal("0.00")
+    for f in (
+        Facture.objects.filter(voiture_exemplaire=exemplaire, client_est_societe=True, statut=Facture.Statut.EMISE)
+        .prefetch_related("lines").order_by("-issue_date")
+    ):
+        c = f.couts_internes()
+        entretiens.append({"facture": f, **c})
+        total_entretien += c["total"]
+
     return render(request, "voiture_exemplaire/finances/detail.html", {
+        "entretiens": entretiens,
+        "total_entretien": total_entretien,
         "exemplaire": exemplaire,
         "champs": champs,
         "manquants": manquants,

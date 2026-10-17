@@ -48325,6 +48325,258 @@ msgstr "Unable to delete these tires: they are still referenced by other data."
 msgid "Pneus supprimés avec succès."
 msgstr "Tires deleted successfully."
 
+#, python-format
+msgid "%(n)s valeur(s) invalide(s) ignorée(s)."
+msgstr "%(n)s invalid value(s) ignored."
+
+#, python-format
+msgid "Objectifs %(annee)s enregistrés."
+msgstr "%(annee)s targets saved."
+
+msgid "Objectif HTVA (€)"
+msgstr "Target excl. VAT (€)"
+
+msgid "Objectif nombre de ventes"
+msgstr "Target number of sales"
+
+msgid "Objectif de vente"
+msgstr "Sales target"
+
+msgid "Objectifs de vente"
+msgstr "Sales targets"
+
+msgid "Objectif de vente de la société"
+msgstr "Company sales target"
+
+msgid "Mon objectif de vente"
+msgstr "My sales target"
+
+msgid "Réalisé HTVA"
+msgstr "Achieved excl. VAT"
+
+msgid "objectif"
+msgstr "target"
+
+msgid "Reste à vendre"
+msgstr "Left to sell"
+
+msgid "Objectif atteint !"
+msgstr "Target reached!"
+
+msgid "Aucun objectif de vente défini pour cette période."
+msgstr "No sales target set for this period."
+
+msgid "Définir les objectifs"
+msgstr "Set targets"
+
+msgid "Objectif HTVA"
+msgstr "Target excl. VAT"
+
+msgid "Objectif atteint"
+msgstr "Target achieved"
+
+msgid "ventes"
+msgstr "sales"
+
+msgid ""
+"Objectif mensuel par vendeur : montant HTVA et, si souhaité, nombre de "
+"ventes. L'objectif d'un trimestre ou d'une année est la somme des mois ; "
+"celui de la société, la somme des vendeurs."
+msgstr ""
+"Monthly target per salesperson: amount excl. VAT and, if desired, number of "
+"sales. A quarter's or year's target is the sum of the months; the company's "
+"is the sum of the salespeople."
+
+msgid "Total année"
+msgstr "Year total"
+
+msgid "Appliquer ce montant aux 12 mois"
+msgstr "Apply this amount to all 12 months"
+
+msgid "12 mois"
+msgstr "12 months"
+
+msgid "nb ventes"
+msgstr "no. of sales"
+
+msgid "Aucun vendeur actif (rôles vendeur, direction, chef mécanicien)."
+msgstr "No active salesperson (salesperson, management, head mechanic roles)."
+
+msgid "Objectif de la société"
+msgstr "Company target"
+
+msgid "Retour aux statistiques"
+msgstr "Back to statistics"
+
+msgid "Caisse – espèces"
+msgstr "Cash register – cash"
+
+msgid "Espèces (caisse)"
+msgstr "Cash (register)"
+
+msgid "Virement bancaire"
+msgstr "Bank transfer"
+
+msgid "Carte bancaire / Bancontact"
+msgstr "Bank card / Bancontact"
+
+msgid "Chèque"
+msgstr "Cheque"
+
+msgid "Autre (banque)"
+msgstr "Other (bank)"
+
+msgid "Date du paiement"
+msgstr "Payment date"
+
+msgid "Encodé par"
+msgstr "Entered by"
+
+msgid "Paiement de facture"
+msgstr "Invoice payment"
+
+msgid "Paiements de factures"
+msgstr "Invoice payments"
+
+msgid "Paiement supprimé."
+msgstr "Payment deleted."
+
+msgid "Paiement antérieur annulé."
+msgstr "Earlier payment cancelled."
+
+msgid "Mode de paiement inconnu."
+msgstr "Unknown payment method."
+
+msgid "Montant invalide."
+msgstr "Invalid amount."
+
+msgid "Le montant doit être positif."
+msgstr "The amount must be positive."
+
+#, python-format
+msgid "Le montant dépasse le reste à payer (%(reste)s €)."
+msgstr "The amount exceeds the balance due (%(reste)s €)."
+
+#, python-format
+msgid ""
+"Paiement en espèces refusé : le total en espèces (%(total)s €) dépasse le "
+"plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une "
+"carte."
+msgstr ""
+"Cash payment refused: the cash total (%(total)s €) exceeds the limit allowed "
+"in %(pays)s (%(plafond)s €). Use a transfer or a card."
+
+msgid "Paiement enregistré."
+msgstr "Payment recorded."
+
+#, python-format
+msgid "Statut : %(statut)s."
+msgstr "Status: %(statut)s."
+
+msgid "Paiement antérieur (mode non précisé)"
+msgstr "Earlier payment (method not specified)"
+
+msgid "Annuler ce paiement ?"
+msgstr "Cancel this payment?"
+
+msgid "Supprimer ce paiement ?"
+msgstr "Delete this payment?"
+
+msgid "Communication, n° de ticket…"
+msgstr "Reference, receipt no.…"
+
+msgid "Facture entièrement payée."
+msgstr "Invoice fully paid."
+
+#, python-format
+msgid ""
+"Paiement en espèces limité à %(plafond)s € par facture (%(pays)s), paiements "
+"fractionnés compris."
+msgstr ""
+"Cash payment limited to %(plafond)s € per invoice (%(pays)s), split payments "
+"included."
+
+#, python-format
+msgid "Déjà reçu en espèces : %(deja)s €."
+msgstr "Already received in cash: %(deja)s €."
+
+#, python-format
+msgid "Client particulier non-résident (plafond %(plafond)s €)"
+msgstr "Non-resident private client (limit %(plafond)s €)"
+
+#, python-format
+msgid "Pas de plafond légal de paiement en espèces enregistré pour %(pays)s."
+msgstr "No legal cash payment limit recorded for %(pays)s."
+
+msgid "Caisse et banque"
+msgstr "Cash and bank"
+
+msgid "Encaissements caisse"
+msgstr "Cash receipts"
+
+msgid "paiement(s) en espèces"
+msgstr "cash payment(s)"
+
+msgid "Encaissements banque"
+msgstr "Bank receipts"
+
+msgid "paiement(s)"
+msgstr "payment(s)"
+
+msgid "Total encaissé"
+msgstr "Total received"
+
+msgid "Journal des encaissements"
+msgstr "Receipts journal"
+
+msgid ""
+"Espèces : journal de caisse (CAI). Virement, carte, chèque : journal de "
+"banque (BQE). Contrepartie : 400000 Clients."
+msgstr ""
+"Cash: cash journal (CAI). Transfer, card, cheque: bank journal (BQE). "
+"Counterpart: 400000 Customers."
+
+msgid "Aucun encaissement sur la période."
+msgstr "No receipts in this period."
+
+msgid "Maintenances internes : coûts à charge de la société"
+msgstr "Internal maintenance: costs borne by the company"
+
+msgid ""
+"Une facture à votre propre société n'est pas une vente : pas de TVA à payer, "
+"pas de chiffre d'affaires. La TVA sur les pièces est récupérée via les achats"
+" fournisseurs. Le reste (pièces au prix d'achat HTVA + main-d'œuvre) est une "
+"charge d'entretien de vos véhicules : elle est déjà dans votre comptabilité "
+"(achats pour les pièces, salaires pour la main-d'œuvre) et est imputée ici au"
+" véhicule concerné, sans nouvelle écriture."
+msgstr ""
+"An invoice to your own company is not a sale: no VAT payable, no turnover. "
+"VAT on parts is recovered through supplier purchases. The rest (parts at "
+"purchase price excl. VAT + labour) is a maintenance expense for your "
+"vehicles: it is already in your accounts (purchases for parts, salaries for "
+"labour) and is allocated here to the vehicle concerned, without a new entry."
+
+msgid "Pièces au prix d'achat HTVA"
+msgstr "Parts at purchase price excl. VAT"
+
+msgid "TVA pièces (récupérée via achats)"
+msgstr "Parts VAT (recovered via purchases)"
+
+msgid "Autres HTVA"
+msgstr "Other excl. VAT"
+
+msgid "Coût de revient HTVA"
+msgstr "Cost price excl. VAT"
+
+msgid ""
+"Entretien interne (coût de revient HTVA : pièces au prix d'achat + "
+"main-d'œuvre)"
+msgstr ""
+"Internal maintenance (cost excl. VAT: parts at purchase price + labour)"
+
+msgid "Aucune facture interne pour ce véhicule."
+msgstr "No internal invoice for this vehicle."
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Automatic gearbox services"
 

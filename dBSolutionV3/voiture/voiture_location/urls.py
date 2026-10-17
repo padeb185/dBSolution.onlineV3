@@ -10,6 +10,7 @@ urlpatterns = [
     path("ventes/", views.ventes_detail, name="ventes_detail"),
     path("statistiques/", views.statistiques_ventes, name="statistiques_ventes"),
     path("mes-statistiques/", views.mes_statistiques, name="mes_statistiques"),
+    path("objectifs/", views.objectifs_ventes, name="objectifs_ventes"),
     path("<uuid:location_id>/facturer/", views.location_facturer, name="location_facturer"),
     path("<uuid:location_id>/", views.location_detail, name="location_detail"),
     path("<uuid:location_id>/pdf/", views.location_pdf, name="location_pdf"),

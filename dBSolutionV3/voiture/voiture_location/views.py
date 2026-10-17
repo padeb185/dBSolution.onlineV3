@@ -10,7 +10,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 
 from .forms import LocationForm, LocationVehiculeSupForm
-from .models import Location
+from .models import Location, ObjectifVente
 
 ROLES_AUTORISES = ["vendeur", "direction", "chef_mecanicien"]
 # Suppression : direction, chef mécanicien (+ super admin)
@@ -461,10 +461,17 @@ def _statistiques(request, voit_tout):
 
     totaux = _cumul_ventes(locations)
 
+    # --- Objectifs de vente (somme des objectifs mensuels de la période) ---
+    objectifs = _objectifs_periode(request.user.societe, periode, None if voit_tout else request.user)
+
     # --- Par vendeur ---
     groupes = {}
     for l in locations:
         groupes.setdefault(l.vendeur_id, {"vendeur": l.vendeur, "locations": []})["locations"].append(l)
+    # Vendeurs avec un objectif mais sans vente sur la période
+    for vid, obj in objectifs.items():
+        if vid not in groupes:
+            groupes[vid] = {"vendeur": obj["vendeur"], "locations": []}
     par_vendeur = []
     for g in groupes.values():
         stats = _cumul_ventes(g["locations"])
@@ -475,8 +482,18 @@ def _statistiques(request, voit_tout):
             "role": vendeur.get_role_display() if vendeur else "",
             "part": (stats["tvac"] * 100 / totaux["tvac"]).quantize(Decimal("0.1")) if totaux["tvac"] else Decimal("0"),
         })
+        stats.update(_avancement(stats, objectifs.get(g["vendeur"].pk if g["vendeur"] else None)))
         par_vendeur.append(stats)
     par_vendeur.sort(key=lambda s: s["tvac"], reverse=True)
+
+    # Objectif global (société ou vendeur connecté)
+    objectif_global = None
+    if objectifs:
+        objectif_global = {
+            "montant": sum((o["montant"] for o in objectifs.values()), Decimal("0")),
+            "nombre": sum((o["nombre"] or 0 for o in objectifs.values()), 0) or None,
+        }
+    avancement_global = _avancement(totaux, objectif_global)
 
     # --- Par mois ---
     mois = {}
@@ -508,4 +525,122 @@ def _statistiques(request, voit_tout):
         "par_vendeur": par_vendeur,
         "par_mois": par_mois,
         "top_lieux": top_lieux,
+        "avancement": avancement_global,
+        "a_objectifs": bool(objectifs),
+        "peut_objectifs": _voit_tout(request.user),
+    })
+
+
+# ======================================================
+# OBJECTIFS DE VENTE
+# ======================================================
+def _objectifs_periode(societe, periode, vendeur=None):
+    """{vendeur_id: {"vendeur", "montant", "nombre"}} pour les mois compris dans la période."""
+    qs = ObjectifVente.objects.filter(societe=societe).select_related("vendeur")
+    if vendeur is not None:
+        qs = qs.filter(vendeur=vendeur)
+    if periode["debut"]:
+        d, f = periode["debut"], periode["fin"]
+        qs = [o for o in qs if (d.year, d.month) <= (o.annee, o.mois) <= (f.year, f.month)]
+    resultat = {}
+    for o in qs:
+        r = resultat.setdefault(o.vendeur_id, {"vendeur": o.vendeur, "montant": Decimal("0"), "nombre": None})
+        r["montant"] += o.montant_htva or Decimal("0")
+        if o.nombre_ventes:
+            r["nombre"] = (r["nombre"] or 0) + o.nombre_ventes
+    return {k: v for k, v in resultat.items() if v["montant"] or v["nombre"]}
+
+
+def _avancement(stats, objectif):
+    """Réalisé / objectif (montant HTVA et nombre de ventes)."""
+    if not objectif:
+        return {"objectif_htva": None, "objectif_nb": None, "pct_htva": None, "pct_nb": None, "reste_htva": None}
+    montant = objectif["montant"] or Decimal("0")
+    nombre = objectif.get("nombre")
+    pct = (stats["htva"] * 100 / montant).quantize(Decimal("0.1")) if montant else None
+    pct_nb = (Decimal(stats["nb"]) * 100 / nombre).quantize(Decimal("0.1")) if nombre else None
+    return {
+        "objectif_htva": montant or None,
+        "objectif_nb": nombre,
+        "pct_htva": pct,
+        "pct_nb": pct_nb,
+        "largeur_htva": min(int(pct), 100) if pct is not None else 0,
+        "reste_htva": max(montant - stats["htva"], Decimal("0")) if montant else None,
+    }
+
+
+@never_cache
+@login_required
+def objectifs_ventes(request):
+    """Saisie des objectifs mensuels par vendeur (direction + super admin)."""
+    if not _voit_tout(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    from utilisateurs.models import Utilisateur
+    from .forms import ROLES_VENDEUR
+
+    societe = request.user.societe
+    aujourdhui = timezone.localdate()
+    try:
+        annee = int(request.POST.get("annee") or request.GET.get("annee") or aujourdhui.year)
+    except ValueError:
+        annee = aujourdhui.year
+
+    vendeurs = list(
+        Utilisateur.objects.filter(societe=societe, is_active=True, role__in=ROLES_VENDEUR).order_by("nom", "prenom")
+    )
+    existants = {
+        (o.vendeur_id, o.mois): o
+        for o in ObjectifVente.objects.filter(societe=societe, annee=annee)
+    }
+
+    if request.method == "POST":
+        erreurs = 0
+        for v in vendeurs:
+            for m in range(1, 13):
+                brut = (request.POST.get(f"obj-{v.pk}-{m}") or "").strip().replace(",", ".")
+                nb_brut = (request.POST.get(f"nb-{v.pk}-{m}") or "").strip()
+                try:
+                    montant = Decimal(brut) if brut else Decimal("0")
+                    nombre = int(nb_brut) if nb_brut else None
+                    if montant < 0 or (nombre is not None and nombre < 0):
+                        raise ValueError
+                except Exception:
+                    erreurs += 1
+                    continue
+                obj = existants.get((v.pk, m))
+                if not montant and not nombre:
+                    if obj:
+                        obj.delete()
+                    continue
+                if obj is None:
+                    obj = ObjectifVente(societe=societe, vendeur=v, annee=annee, mois=m)
+                obj.montant_htva = montant
+                obj.nombre_ventes = nombre
+                obj.save()
+        if erreurs:
+            messages.error(request, _("%(n)s valeur(s) invalide(s) ignorée(s).") % {"n": erreurs})
+        else:
+            messages.success(request, _("Objectifs %(annee)s enregistrés.") % {"annee": annee})
+        return redirect(f"{request.path}?annee={annee}")
+
+    lignes = []
+    for v in vendeurs:
+        cellules = []
+        total = Decimal("0")
+        total_nb = 0
+        for m in range(1, 13):
+            o = existants.get((v.pk, m))
+            cellules.append({"mois": m, "montant": o.montant_htva if o else None, "nombre": o.nombre_ventes if o else None})
+            total += (o.montant_htva if o else 0) or 0
+            total_nb += (o.nombre_ventes if o else 0) or 0
+        lignes.append({"vendeur": v, "cellules": cellules, "total": total, "total_nb": total_nb})
+
+    return render(request, "voiture_location/objectifs_ventes.html", {
+        "annee": annee,
+        "annees": range(aujourdhui.year - 2, aujourdhui.year + 3),
+        "mois": range(1, 13),
+        "lignes": lignes,
+        "total_societe": sum((l["total"] for l in lignes), Decimal("0")),
     })

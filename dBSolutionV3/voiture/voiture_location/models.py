@@ -557,3 +557,52 @@ class Location(models.Model):
 
         if errors:
             raise ValidationError(errors)
+
+
+class ObjectifVente(models.Model):
+    """
+    Objectif de vente mensuel d'un vendeur (montant HTVA et, en option, nombre de ventes).
+    L'objectif d'un trimestre / d'une année est la somme des mois concernés ;
+    celui de la société est la somme des objectifs des vendeurs.
+    """
+
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="objectifs_vente",
+        verbose_name=_("Société"),
+    )
+    vendeur = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="objectifs_vente",
+        verbose_name=_("Vendeur"),
+    )
+    annee = models.PositiveSmallIntegerField(verbose_name=_("Année"))
+    mois = models.PositiveSmallIntegerField(verbose_name=_("Mois"))
+    montant_htva = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=Decimal("0"),
+        validators=[MinValueValidator(Decimal("0"))],
+        verbose_name=_("Objectif HTVA (€)"),
+    )
+    nombre_ventes = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        verbose_name=_("Objectif nombre de ventes"),
+    )
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("Objectif de vente")
+        verbose_name_plural = _("Objectifs de vente")
+        ordering = ["annee", "mois"]
+        constraints = [
+            models.UniqueConstraint(fields=["societe", "vendeur", "annee", "mois"], name="objectif_vente_unique_mois"),
+        ]
+
+    def __str__(self):
+        return f"{self.vendeur} – {self.mois:02d}/{self.annee} – {self.montant_htva} €"

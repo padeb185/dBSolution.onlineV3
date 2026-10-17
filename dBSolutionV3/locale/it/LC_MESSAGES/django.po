@@ -48410,6 +48410,261 @@ msgstr ""
 msgid "Pneus supprimés avec succès."
 msgstr "Pneumatici eliminati con successo."
 
+#, python-format
+msgid "%(n)s valeur(s) invalide(s) ignorée(s)."
+msgstr "%(n)s valore/i non valido/i ignorato/i."
+
+#, python-format
+msgid "Objectifs %(annee)s enregistrés."
+msgstr "Obiettivi %(annee)s salvati."
+
+msgid "Objectif HTVA (€)"
+msgstr "Obiettivo IVA esclusa (€)"
+
+msgid "Objectif nombre de ventes"
+msgstr "Obiettivo numero di vendite"
+
+msgid "Objectif de vente"
+msgstr "Obiettivo di vendita"
+
+msgid "Objectifs de vente"
+msgstr "Obiettivi di vendita"
+
+msgid "Objectif de vente de la société"
+msgstr "Obiettivo di vendita dell'azienda"
+
+msgid "Mon objectif de vente"
+msgstr "Il mio obiettivo di vendita"
+
+msgid "Réalisé HTVA"
+msgstr "Realizzato IVA esclusa"
+
+msgid "objectif"
+msgstr "obiettivo"
+
+msgid "Reste à vendre"
+msgstr "Restante da vendere"
+
+msgid "Objectif atteint !"
+msgstr "Obiettivo raggiunto!"
+
+msgid "Aucun objectif de vente défini pour cette période."
+msgstr "Nessun obiettivo di vendita definito per questo periodo."
+
+msgid "Définir les objectifs"
+msgstr "Definisci gli obiettivi"
+
+msgid "Objectif HTVA"
+msgstr "Obiettivo IVA esclusa"
+
+msgid "Objectif atteint"
+msgstr "Obiettivo raggiunto"
+
+msgid "ventes"
+msgstr "vendite"
+
+msgid ""
+"Objectif mensuel par vendeur : montant HTVA et, si souhaité, nombre de "
+"ventes. L'objectif d'un trimestre ou d'une année est la somme des mois ; "
+"celui de la société, la somme des vendeurs."
+msgstr ""
+"Obiettivo mensile per venditore: importo IVA esclusa e, se desiderato, numero"
+" di vendite. L'obiettivo di un trimestre o di un anno è la somma dei mesi; "
+"quello dell'azienda la somma dei venditori."
+
+msgid "Total année"
+msgstr "Totale anno"
+
+msgid "Appliquer ce montant aux 12 mois"
+msgstr "Applica questo importo ai 12 mesi"
+
+msgid "12 mois"
+msgstr "12 mesi"
+
+msgid "nb ventes"
+msgstr "n. vendite"
+
+msgid "Aucun vendeur actif (rôles vendeur, direction, chef mécanicien)."
+msgstr "Nessun venditore attivo (ruoli venditore, direzione, capo meccanico)."
+
+msgid "Objectif de la société"
+msgstr "Obiettivo dell'azienda"
+
+msgid "Retour aux statistiques"
+msgstr "Torna alle statistiche"
+
+msgid "Caisse – espèces"
+msgstr "Cassa – contanti"
+
+msgid "Espèces (caisse)"
+msgstr "Contanti (cassa)"
+
+msgid "Virement bancaire"
+msgstr "Bonifico bancario"
+
+msgid "Carte bancaire / Bancontact"
+msgstr "Carta bancaria / Bancontact"
+
+msgid "Chèque"
+msgstr "Assegno"
+
+msgid "Autre (banque)"
+msgstr "Altro (banca)"
+
+msgid "Date du paiement"
+msgstr "Data del pagamento"
+
+msgid "Encodé par"
+msgstr "Inserito da"
+
+msgid "Paiement de facture"
+msgstr "Pagamento fattura"
+
+msgid "Paiements de factures"
+msgstr "Pagamenti fatture"
+
+msgid "Paiement supprimé."
+msgstr "Pagamento eliminato."
+
+msgid "Paiement antérieur annulé."
+msgstr "Pagamento precedente annullato."
+
+msgid "Mode de paiement inconnu."
+msgstr "Metodo di pagamento sconosciuto."
+
+msgid "Montant invalide."
+msgstr "Importo non valido."
+
+msgid "Le montant doit être positif."
+msgstr "L'importo deve essere positivo."
+
+#, python-format
+msgid "Le montant dépasse le reste à payer (%(reste)s €)."
+msgstr "L'importo supera il residuo da pagare (%(reste)s €)."
+
+#, python-format
+msgid ""
+"Paiement en espèces refusé : le total en espèces (%(total)s €) dépasse le "
+"plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une "
+"carte."
+msgstr ""
+"Pagamento in contanti rifiutato: il totale in contanti (%(total)s €) supera "
+"il limite consentito in %(pays)s (%(plafond)s €). Utilizza un bonifico o una "
+"carta."
+
+msgid "Paiement enregistré."
+msgstr "Pagamento registrato."
+
+#, python-format
+msgid "Statut : %(statut)s."
+msgstr "Stato: %(statut)s."
+
+msgid "Paiement antérieur (mode non précisé)"
+msgstr "Pagamento precedente (metodo non specificato)"
+
+msgid "Annuler ce paiement ?"
+msgstr "Annullare questo pagamento?"
+
+msgid "Supprimer ce paiement ?"
+msgstr "Eliminare questo pagamento?"
+
+msgid "Communication, n° de ticket…"
+msgstr "Causale, n. scontrino…"
+
+msgid "Facture entièrement payée."
+msgstr "Fattura interamente pagata."
+
+#, python-format
+msgid ""
+"Paiement en espèces limité à %(plafond)s € par facture (%(pays)s), paiements "
+"fractionnés compris."
+msgstr ""
+"Pagamento in contanti limitato a %(plafond)s € per fattura (%(pays)s), "
+"pagamenti frazionati compresi."
+
+#, python-format
+msgid "Déjà reçu en espèces : %(deja)s €."
+msgstr "Già ricevuto in contanti: %(deja)s €."
+
+#, python-format
+msgid "Client particulier non-résident (plafond %(plafond)s €)"
+msgstr "Cliente privato non residente (limite %(plafond)s €)"
+
+#, python-format
+msgid "Pas de plafond légal de paiement en espèces enregistré pour %(pays)s."
+msgstr "Nessun limite legale ai pagamenti in contanti registrato per %(pays)s."
+
+msgid "Caisse et banque"
+msgstr "Cassa e banca"
+
+msgid "Encaissements caisse"
+msgstr "Incassi di cassa"
+
+msgid "paiement(s) en espèces"
+msgstr "pagamento/i in contanti"
+
+msgid "Encaissements banque"
+msgstr "Incassi bancari"
+
+msgid "paiement(s)"
+msgstr "pagamento/i"
+
+msgid "Total encaissé"
+msgstr "Totale incassato"
+
+msgid "Journal des encaissements"
+msgstr "Giornale degli incassi"
+
+msgid ""
+"Espèces : journal de caisse (CAI). Virement, carte, chèque : journal de "
+"banque (BQE). Contrepartie : 400000 Clients."
+msgstr ""
+"Contanti: giornale di cassa (CAI). Bonifico, carta, assegno: giornale di "
+"banca (BQE). Contropartita: 400000 Clienti."
+
+msgid "Aucun encaissement sur la période."
+msgstr "Nessun incasso nel periodo."
+
+msgid "Maintenances internes : coûts à charge de la société"
+msgstr "Manutenzioni interne: costi a carico dell'azienda"
+
+msgid ""
+"Une facture à votre propre société n'est pas une vente : pas de TVA à payer, "
+"pas de chiffre d'affaires. La TVA sur les pièces est récupérée via les achats"
+" fournisseurs. Le reste (pièces au prix d'achat HTVA + main-d'œuvre) est une "
+"charge d'entretien de vos véhicules : elle est déjà dans votre comptabilité "
+"(achats pour les pièces, salaires pour la main-d'œuvre) et est imputée ici au"
+" véhicule concerné, sans nouvelle écriture."
+msgstr ""
+"Una fattura alla propria azienda non è una vendita: nessuna IVA da versare, "
+"nessun fatturato. L'IVA sui ricambi è recuperata tramite gli acquisti dai "
+"fornitori. Il resto (ricambi a prezzo d'acquisto IVA esclusa + manodopera) è "
+"un costo di manutenzione dei veicoli: è già nella contabilità (acquisti per i"
+" ricambi, stipendi per la manodopera) ed è imputato qui al veicolo "
+"interessato, senza nuova scrittura."
+
+msgid "Pièces au prix d'achat HTVA"
+msgstr "Ricambi a prezzo d'acquisto IVA esclusa"
+
+msgid "TVA pièces (récupérée via achats)"
+msgstr "IVA ricambi (recuperata tramite acquisti)"
+
+msgid "Autres HTVA"
+msgstr "Altro IVA esclusa"
+
+msgid "Coût de revient HTVA"
+msgstr "Costo IVA esclusa"
+
+msgid ""
+"Entretien interne (coût de revient HTVA : pièces au prix d'achat + "
+"main-d'œuvre)"
+msgstr ""
+"Manutenzione interna (costo IVA esclusa: ricambi a prezzo d'acquisto + "
+"manodopera)"
+
+msgid "Aucune facture interne pour ce véhicule."
+msgstr "Nessuna fattura interna per questo veicolo."
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Interventi cambio automatico"
 

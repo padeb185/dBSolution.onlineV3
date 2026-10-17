@@ -93,6 +93,36 @@
     </div>
 </div>
 
+<!-- Objectif de vente -->
+{% if avancement.objectif_htva or avancement.objectif_nb %}
+<div class="bg-white shadow-md rounded-lg p-6 mb-6">
+    <h2 class="text-lg font-semibold mb-3 flex items-center gap-2">
+        <img src="{% static 'icons/statistiques_ventes.png' %}" alt="" class="w-8 h-8">
+        {% if voit_tout %}{% trans "Objectif de vente de la société" %}{% else %}{% trans "Mon objectif de vente" %}{% endif %}
+    </h2>
+    {% if avancement.objectif_htva %}
+    <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+        <span>{% trans "Réalisé HTVA" %} <strong>{{ totaux.htva|floatformat:2 }} €</strong> / {% trans "objectif" %} <strong>{{ avancement.objectif_htva|floatformat:2 }} €</strong></span>
+        <span class="text-2xl font-bold {% if avancement.pct_htva >= 100 %}text-green-700{% elif avancement.pct_htva >= 75 %}text-yellow-600{% else %}text-red-700{% endif %}">{{ avancement.pct_htva|floatformat:1 }} %</span>
+    </div>
+    <div class="w-full bg-gray-100 rounded h-4 mb-2">
+        <div class="h-4 rounded {% if avancement.pct_htva >= 100 %}bg-green-600{% elif avancement.pct_htva >= 75 %}bg-yellow-500{% else %}bg-red-600{% endif %}" style="width: {{ avancement.largeur_htva }}%"></div>
+    </div>
+    <p class="text-sm text-gray-600">
+        {% if avancement.reste_htva %}{% trans "Reste à vendre" %} : <strong>{{ avancement.reste_htva|floatformat:2 }} € HTVA</strong>{% else %}<strong class="text-green-700">{% trans "Objectif atteint !" %}</strong>{% endif %}
+    </p>
+    {% endif %}
+    {% if avancement.objectif_nb %}
+    <p class="text-sm text-gray-600 mt-1">{% trans "Nombre de ventes" %} : <strong>{{ totaux.nb }} / {{ avancement.objectif_nb }}</strong> ({{ avancement.pct_nb|floatformat:1 }} %)</p>
+    {% endif %}
+</div>
+{% elif peut_objectifs %}
+<div class="bg-white shadow-md rounded-lg p-4 mb-6 text-sm text-gray-600">
+    {% trans "Aucun objectif de vente défini pour cette période." %}
+    <a href="{% url 'voiture_location:objectifs_ventes' %}?annee={{ annee }}" class="text-blue-700 hover:underline font-semibold">{% trans "Définir les objectifs" %} →</a>
+</div>
+{% endif %}
+
 <!-- Par vendeur -->
 <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
     <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -113,6 +143,10 @@
                 <th class="border px-2 py-2 text-right">{% trans "Panier moyen TVAC" %}</th>
                 <th class="border px-2 py-2 text-right">{% trans "Facturées" %}</th>
                 <th class="border px-2 py-2 text-left" style="min-width:140px">{% trans "Part du chiffre" %}</th>
+                {% if a_objectifs %}
+                <th class="border px-2 py-2 text-right">{% trans "Objectif HTVA" %}</th>
+                <th class="border px-2 py-2 text-left" style="min-width:160px">{% trans "Objectif atteint" %}</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -139,9 +173,22 @@
                         <span class="text-xs">{{ v.part|floatformat:1 }} %</span>
                     </div>
                 </td>
+                {% if a_objectifs %}
+                <td class="border px-2 py-1 text-right">{% if v.objectif_htva %}{{ v.objectif_htva|floatformat:2 }} €{% else %}—{% endif %}{% if v.objectif_nb %}<span class="block text-xs text-gray-500">{{ v.nb }} / {{ v.objectif_nb }} {% trans "ventes" %}</span>{% endif %}</td>
+                <td class="border px-2 py-1">
+                    {% if v.pct_htva is not None %}
+                    <div class="flex items-center gap-2">
+                        <div class="flex-1 bg-gray-100 rounded h-3">
+                            <div class="h-3 rounded {% if v.pct_htva >= 100 %}bg-green-600{% elif v.pct_htva >= 75 %}bg-yellow-500{% else %}bg-red-600{% endif %}" style="width: {{ v.largeur_htva }}%"></div>
+                        </div>
+                        <span class="text-xs font-semibold">{{ v.pct_htva|floatformat:1 }} %</span>
+                    </div>
+                    {% else %}—{% endif %}
+                </td>
+                {% endif %}
             </tr>
         {% empty %}
-            <tr><td colspan="11" class="border px-2 py-2 text-gray-500">{% trans "Aucune location sur la période." %}</td></tr>
+            <tr><td colspan="13" class="border px-2 py-2 text-gray-500">{% trans "Aucune location sur la période." %}</td></tr>
         {% endfor %}
         </tbody>
         {% if par_vendeur %}
@@ -158,6 +205,10 @@
                 <td class="border px-2 py-1 text-right">{{ totaux.panier_moyen|floatformat:2 }} €</td>
                 <td class="border px-2 py-1 text-right">{{ totaux.nb_facturees }} / {{ totaux.nb }}</td>
                 <td class="border px-2 py-1">100 %</td>
+                {% if a_objectifs %}
+                <td class="border px-2 py-1 text-right">{% if avancement.objectif_htva %}{{ avancement.objectif_htva|floatformat:2 }} €{% else %}—{% endif %}</td>
+                <td class="border px-2 py-1">{% if avancement.pct_htva is not None %}{{ avancement.pct_htva|floatformat:1 }} %{% else %}—{% endif %}</td>
+                {% endif %}
             </tr>
         </tfoot>
         {% endif %}
@@ -236,7 +287,13 @@
 </p>
 {% endif %}
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="grid grid-cols-1 md:grid-cols-{% if peut_objectifs %}3{% else %}2{% endif %} gap-4">
+    {% if peut_objectifs %}
+    <a href="{% url 'voiture_location:objectifs_ventes' %}?annee={{ annee }}"
+       class="block w-full bg-purple-700 text-white px-5 py-4 rounded hover:bg-purple-400 font-semibold text-center">
+        {% trans "Objectifs de vente" %}
+    </a>
+    {% endif %}
     <a href="{% url 'voiture_location:ventes_detail' %}"
        class="block w-full bg-green-700 text-white px-5 py-4 rounded hover:bg-green-500 font-semibold text-center">
         {% trans "Ventes détails" %}

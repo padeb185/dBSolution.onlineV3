@@ -48450,6 +48450,261 @@ msgstr ""
 msgid "Pneus supprimés avec succès."
 msgstr "Reifen erfolgreich gelöscht."
 
+#, python-format
+msgid "%(n)s valeur(s) invalide(s) ignorée(s)."
+msgstr "%(n)s ungültige(r) Wert(e) ignoriert."
+
+#, python-format
+msgid "Objectifs %(annee)s enregistrés."
+msgstr "Ziele %(annee)s gespeichert."
+
+msgid "Objectif HTVA (€)"
+msgstr "Ziel netto (€)"
+
+msgid "Objectif nombre de ventes"
+msgstr "Ziel Anzahl Verkäufe"
+
+msgid "Objectif de vente"
+msgstr "Verkaufsziel"
+
+msgid "Objectifs de vente"
+msgstr "Verkaufsziele"
+
+msgid "Objectif de vente de la société"
+msgstr "Verkaufsziel des Unternehmens"
+
+msgid "Mon objectif de vente"
+msgstr "Mein Verkaufsziel"
+
+msgid "Réalisé HTVA"
+msgstr "Erreicht netto"
+
+msgid "objectif"
+msgstr "Ziel"
+
+msgid "Reste à vendre"
+msgstr "Noch zu verkaufen"
+
+msgid "Objectif atteint !"
+msgstr "Ziel erreicht!"
+
+msgid "Aucun objectif de vente défini pour cette période."
+msgstr "Kein Verkaufsziel für diesen Zeitraum festgelegt."
+
+msgid "Définir les objectifs"
+msgstr "Ziele festlegen"
+
+msgid "Objectif HTVA"
+msgstr "Ziel netto"
+
+msgid "Objectif atteint"
+msgstr "Ziel erreicht"
+
+msgid "ventes"
+msgstr "Verkäufe"
+
+msgid ""
+"Objectif mensuel par vendeur : montant HTVA et, si souhaité, nombre de "
+"ventes. L'objectif d'un trimestre ou d'une année est la somme des mois ; "
+"celui de la société, la somme des vendeurs."
+msgstr ""
+"Monatsziel pro Verkäufer: Nettobetrag und optional Anzahl der Verkäufe. Das "
+"Ziel eines Quartals oder Jahres ist die Summe der Monate, das des "
+"Unternehmens die Summe der Verkäufer."
+
+msgid "Total année"
+msgstr "Jahressumme"
+
+msgid "Appliquer ce montant aux 12 mois"
+msgstr "Diesen Betrag auf alle 12 Monate anwenden"
+
+msgid "12 mois"
+msgstr "12 Monate"
+
+msgid "nb ventes"
+msgstr "Anz. Verkäufe"
+
+msgid "Aucun vendeur actif (rôles vendeur, direction, chef mécanicien)."
+msgstr ""
+"Kein aktiver Verkäufer (Rollen Verkäufer, Geschäftsleitung, Werkstattleiter)."
+
+msgid "Objectif de la société"
+msgstr "Unternehmensziel"
+
+msgid "Retour aux statistiques"
+msgstr "Zurück zur Statistik"
+
+msgid "Caisse – espèces"
+msgstr "Kasse – Bargeld"
+
+msgid "Espèces (caisse)"
+msgstr "Bar (Kasse)"
+
+msgid "Virement bancaire"
+msgstr "Banküberweisung"
+
+msgid "Carte bancaire / Bancontact"
+msgstr "Bankkarte / Bancontact"
+
+msgid "Chèque"
+msgstr "Scheck"
+
+msgid "Autre (banque)"
+msgstr "Sonstige (Bank)"
+
+msgid "Date du paiement"
+msgstr "Zahlungsdatum"
+
+msgid "Encodé par"
+msgstr "Erfasst von"
+
+msgid "Paiement de facture"
+msgstr "Rechnungszahlung"
+
+msgid "Paiements de factures"
+msgstr "Rechnungszahlungen"
+
+msgid "Paiement supprimé."
+msgstr "Zahlung gelöscht."
+
+msgid "Paiement antérieur annulé."
+msgstr "Frühere Zahlung storniert."
+
+msgid "Mode de paiement inconnu."
+msgstr "Unbekannte Zahlungsart."
+
+msgid "Montant invalide."
+msgstr "Ungültiger Betrag."
+
+msgid "Le montant doit être positif."
+msgstr "Der Betrag muss positiv sein."
+
+#, python-format
+msgid "Le montant dépasse le reste à payer (%(reste)s €)."
+msgstr "Der Betrag übersteigt den offenen Betrag (%(reste)s €)."
+
+#, python-format
+msgid ""
+"Paiement en espèces refusé : le total en espèces (%(total)s €) dépasse le "
+"plafond autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une "
+"carte."
+msgstr ""
+"Barzahlung abgelehnt: Der Bargeldbetrag (%(total)s €) überschreitet die in "
+"%(pays)s zulässige Grenze (%(plafond)s €). Nutzen Sie eine Überweisung oder "
+"Karte."
+
+msgid "Paiement enregistré."
+msgstr "Zahlung erfasst."
+
+#, python-format
+msgid "Statut : %(statut)s."
+msgstr "Status: %(statut)s."
+
+msgid "Paiement antérieur (mode non précisé)"
+msgstr "Frühere Zahlung (Zahlungsart nicht angegeben)"
+
+msgid "Annuler ce paiement ?"
+msgstr "Diese Zahlung stornieren?"
+
+msgid "Supprimer ce paiement ?"
+msgstr "Diese Zahlung löschen?"
+
+msgid "Communication, n° de ticket…"
+msgstr "Verwendungszweck, Belegnr.…"
+
+msgid "Facture entièrement payée."
+msgstr "Rechnung vollständig bezahlt."
+
+#, python-format
+msgid ""
+"Paiement en espèces limité à %(plafond)s € par facture (%(pays)s), paiements "
+"fractionnés compris."
+msgstr ""
+"Barzahlung auf %(plafond)s € pro Rechnung begrenzt (%(pays)s), Teilzahlungen "
+"eingeschlossen."
+
+#, python-format
+msgid "Déjà reçu en espèces : %(deja)s €."
+msgstr "Bereits bar erhalten: %(deja)s €."
+
+#, python-format
+msgid "Client particulier non-résident (plafond %(plafond)s €)"
+msgstr "Nicht ansässiger Privatkunde (Grenze %(plafond)s €)"
+
+#, python-format
+msgid "Pas de plafond légal de paiement en espèces enregistré pour %(pays)s."
+msgstr "Keine gesetzliche Bargeldgrenze für %(pays)s hinterlegt."
+
+msgid "Caisse et banque"
+msgstr "Kasse und Bank"
+
+msgid "Encaissements caisse"
+msgstr "Kasseneinnahmen"
+
+msgid "paiement(s) en espèces"
+msgstr "Barzahlung(en)"
+
+msgid "Encaissements banque"
+msgstr "Bankeinnahmen"
+
+msgid "paiement(s)"
+msgstr "Zahlung(en)"
+
+msgid "Total encaissé"
+msgstr "Gesamt eingenommen"
+
+msgid "Journal des encaissements"
+msgstr "Einnahmenjournal"
+
+msgid ""
+"Espèces : journal de caisse (CAI). Virement, carte, chèque : journal de "
+"banque (BQE). Contrepartie : 400000 Clients."
+msgstr ""
+"Bar: Kassenjournal (CAI). Überweisung, Karte, Scheck: Bankjournal (BQE). "
+"Gegenkonto: 400000 Kunden."
+
+msgid "Aucun encaissement sur la période."
+msgstr "Keine Einnahmen in diesem Zeitraum."
+
+msgid "Maintenances internes : coûts à charge de la société"
+msgstr "Interne Wartung: Kosten zulasten des Unternehmens"
+
+msgid ""
+"Une facture à votre propre société n'est pas une vente : pas de TVA à payer, "
+"pas de chiffre d'affaires. La TVA sur les pièces est récupérée via les achats"
+" fournisseurs. Le reste (pièces au prix d'achat HTVA + main-d'œuvre) est une "
+"charge d'entretien de vos véhicules : elle est déjà dans votre comptabilité "
+"(achats pour les pièces, salaires pour la main-d'œuvre) et est imputée ici au"
+" véhicule concerné, sans nouvelle écriture."
+msgstr ""
+"Eine Rechnung an Ihr eigenes Unternehmen ist kein Verkauf: keine MwSt. zu "
+"zahlen, kein Umsatz. Die MwSt. auf Teile wird über die Lieferantenkäufe "
+"erstattet. Der Rest (Teile zum Einkaufspreis netto + Arbeitszeit) ist ein "
+"Wartungsaufwand Ihrer Fahrzeuge: er ist bereits in Ihrer Buchhaltung "
+"(Einkäufe für Teile, Löhne für Arbeit) und wird hier ohne neue Buchung dem "
+"betreffenden Fahrzeug zugeordnet."
+
+msgid "Pièces au prix d'achat HTVA"
+msgstr "Teile zum Einkaufspreis netto"
+
+msgid "TVA pièces (récupérée via achats)"
+msgstr "MwSt. Teile (über Einkäufe erstattet)"
+
+msgid "Autres HTVA"
+msgstr "Sonstiges netto"
+
+msgid "Coût de revient HTVA"
+msgstr "Selbstkosten netto"
+
+msgid ""
+"Entretien interne (coût de revient HTVA : pièces au prix d'achat + "
+"main-d'œuvre)"
+msgstr ""
+"Interne Wartung (Selbstkosten netto: Teile zum Einkaufspreis + Arbeitszeit)"
+
+msgid "Aucune facture interne pour ce véhicule."
+msgstr "Keine interne Rechnung für dieses Fahrzeug."
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Eingriffe am Automatikgetriebe"
 

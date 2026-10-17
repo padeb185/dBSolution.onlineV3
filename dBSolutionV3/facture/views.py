@@ -303,7 +303,23 @@ def facture_detail_view(request, pk):
         "peppol_configure": _peppol_configure(request),
         "parametres_peppol": ParametresPeppol.pour_societe(request.user.societe),
         "peut_parametrer": _peut(request.user, ROLES_PARAMETRES),
+        **_contexte_paiement(facture),
     })
+
+
+def _contexte_paiement(facture):
+    from .models import PaiementFacture
+    from .paiements import plafond_especes
+    aujourdhui = timezone.localdate()
+    pays = facture.pays_vendeur()
+    return {
+        "paiements": list(facture.paiements.select_related("cree_par").all()),
+        "modes_paiement": PaiementFacture.Mode.choices,
+        "pays_vendeur": pays,
+        "plafond_especes": plafond_especes(pays, aujourdhui),
+        "plafond_especes_non_resident": plafond_especes(pays, aujourdhui, non_resident=True),
+        "aujourdhui": aujourdhui,
+    }
 
 
 # -----------------------------
@@ -563,7 +579,19 @@ def tva_view(request):
     if pays not in TVAConfig.TVA_PIECES:
         pays = calcul.pays_par_defaut()
 
+    # Maintenances internes (factures à notre société) : coût de revient par véhicule
+    z = Decimal("0.00")
+    internes = []
+    tot_internes = {"pieces": z, "tva_pieces": z, "main_oeuvre": z, "autres": z, "total": z}
+    for f in calcul.tva_a_payer["factures_internes"]:
+        c = f.couts_internes()
+        internes.append({"facture": f, **c})
+        for k in tot_internes:
+            tot_internes[k] += c[k]
+
     return render(request, "facture/tva.html", {
+        "internes": internes,
+        "tot_internes": tot_internes,
         "calcul": calcul,
         "a_payer": calcul.tva_a_payer,
         "a_recuperer": calcul.tva_a_recuperer,
@@ -580,52 +608,171 @@ def tva_view(request):
 
 
 # -----------------------------
-# Paiement d'une facture émise (à payer / acompte / payé)
+# Paiements d'une facture émise (espèces = caisse, autres modes = banque)
 # -----------------------------
+def _synchroniser_locations(facture):
+    """Locations liées : même statut de paiement que la facture."""
+    for location in facture.locations.all():
+        location.payee = facture.est_payee
+        if facture.statut_paiement == Facture.StatutPaiement.ACOMPTE:
+            location.acompte = True
+            location.montant_acompte = facture.montant_paye
+            location.date_acompte = location.date_acompte or facture.date_paiement
+        elif facture.statut_paiement == Facture.StatutPaiement.A_PAYER:
+            location.acompte = False
+            location.montant_acompte = None
+            location.date_acompte = None
+        # Payé : l'acompte éventuel est conservé (TVA déjà due à sa réception)
+        location.save(update_fields=["payee", "acompte", "montant_acompte", "date_acompte", "updated_at"])
+
+
 @login_required
 @require_POST
 def facture_paiement_view(request, pk):
+    from .models import PaiementFacture
+    from .paiements import depasse_plafond, plafond_especes
+
     if not _peut(request.user, ROLES_FACTURATION):
         return _refuser(request)
 
     facture = _get_facture(request, pk)
-    statut = request.POST.get("statut_paiement")
-    if statut not in Facture.StatutPaiement.values:
-        messages.error(request, _("Statut de paiement inconnu."))
+    if not facture.est_emise:
+        messages.error(request, _("Le paiement ne peut être enregistré que sur une facture émise."))
         return redirect("facture:detail", pk=facture.pk)
 
-    try:
-        montant = Decimal((request.POST.get("montant_paye") or "0").replace(",", "."))
-    except Exception:
-        montant = Decimal("0")
-    date_paiement = None
-    if request.POST.get("date_paiement"):
-        try:
-            date_paiement = datetime.strptime(request.POST["date_paiement"], "%Y-%m-%d").date()
-        except ValueError:
-            date_paiement = None
+    action = request.POST.get("action", "ajouter")
+    non_ventile = facture.montant_non_ventile
 
     try:
         with transaction.atomic():
-            facture.appliquer_paiement(statut, montant, date_paiement)
+            if action == "supprimer":
+                paiement = get_object_or_404(PaiementFacture, pk=request.POST.get("paiement_id"), facture=facture)
+                paiement.delete()
+                message = _("Paiement supprimé.")
+
+            elif action == "annuler_non_ventile":
+                non_ventile = Decimal("0")
+                message = _("Paiement antérieur annulé.")
+
+            else:
+                mode = request.POST.get("mode")
+                if mode not in PaiementFacture.Mode.values:
+                    raise ValueError(_("Mode de paiement inconnu."))
+                try:
+                    montant = Decimal((request.POST.get("montant") or "0").replace(",", ".")).quantize(Decimal("0.01"))
+                except Exception:
+                    raise ValueError(_("Montant invalide."))
+                if montant <= 0:
+                    raise ValueError(_("Le montant doit être positif."))
+                if montant > facture.reste_a_payer:
+                    raise ValueError(_("Le montant dépasse le reste à payer (%(reste)s €).") % {"reste": facture.reste_a_payer})
+                try:
+                    jour = datetime.strptime(request.POST.get("date") or "", "%Y-%m-%d").date()
+                except ValueError:
+                    jour = timezone.localdate()
+
+                if mode == PaiementFacture.Mode.ESPECES:
+                    plafond = plafond_especes(facture.pays_vendeur(), jour, request.POST.get("non_resident") == "1")
+                    total_especes = facture.total_especes + montant
+                    # Plafond légal : total des espèces reçues pour cette facture (paiements fractionnés compris)
+                    if depasse_plafond(total_especes, plafond):
+                        raise ValueError(_(
+                            "Paiement en espèces refusé : le total en espèces (%(total)s €) dépasse le plafond "
+                            "autorisé en %(pays)s (%(plafond)s €). Utilisez un virement ou une carte."
+                        ) % {"total": total_especes, "pays": facture.pays_vendeur(), "plafond": plafond["montant"]})
+
+                PaiementFacture.objects.create(
+                    facture=facture, date=jour, montant=montant, mode=mode,
+                    reference=(request.POST.get("reference") or "")[:100], cree_par=request.user,
+                )
+                message = _("Paiement enregistré.")
+
+            facture.recalculer_paiement(non_ventile)
             facture.save(update_fields=["statut_paiement", "montant_paye", "date_paiement", "updated_at"])
-            # Locations liées : même statut
-            for location in facture.locations.all():
-                location.payee = facture.est_payee
-                if facture.statut_paiement == Facture.StatutPaiement.ACOMPTE:
-                    location.acompte = True
-                    location.montant_acompte = facture.montant_paye
-                    location.date_acompte = location.date_acompte or facture.date_paiement
-                elif facture.statut_paiement == Facture.StatutPaiement.A_PAYER:
-                    location.acompte = False
-                    location.montant_acompte = None
-                    location.date_acompte = None
-                # Payé : l'acompte éventuel est conservé (TVA déjà due à sa réception)
-                location.save(update_fields=["payee", "acompte", "montant_acompte", "date_acompte", "updated_at"])
+            _synchroniser_locations(facture)
     except ValueError as e:
         messages.error(request, str(e))
         return redirect("facture:detail", pk=facture.pk)
 
     _log(request.user, ACTION_PAIEMENT_FACTURE, facture)
-    messages.success(request, _("Paiement enregistré : %(statut)s.") % {"statut": facture.get_statut_paiement_display()})
+    messages.success(request, "%s %s" % (message, _("Statut : %(statut)s.") % {"statut": facture.get_statut_paiement_display()}))
     return redirect("facture:detail", pk=facture.pk)
+
+
+# -----------------------------
+# Comptabilité : caisse et banque (encaissements des factures)
+# -----------------------------
+@never_cache
+@login_required
+def caisse_banque_view(request):
+    from .models import PaiementFacture
+    from .paiements import COMPTE_BANQUE, COMPTE_CAISSE, COMPTES, ecritures_paiement
+
+    if not _peut(request.user, ROLES_FACTURATION):
+        return _refuser(request)
+
+    aujourdhui = timezone.localdate()
+    try:
+        annee = int(request.GET.get("annee") or aujourdhui.year)
+    except ValueError:
+        annee = aujourdhui.year
+    try:
+        mois = int(request.GET.get("mois") or 0)
+    except ValueError:
+        mois = 0
+
+    paiements = (
+        PaiementFacture.objects.filter(facture__societe=request.user.societe, date__year=annee)
+        .select_related("facture", "cree_par")
+        .order_by("date", "created_at")
+    )
+    if 1 <= mois <= 12:
+        paiements = paiements.filter(date__month=mois)
+    paiements = list(paiements)
+
+    zero = Decimal("0.00")
+    caisse = [p for p in paiements if p.est_especes]
+    banque = [p for p in paiements if not p.est_especes]
+    par_mode = {}
+    for p in paiements:
+        par_mode.setdefault(p.mode, {"label": p.get_mode_display(), "nb": 0, "total": zero})
+        par_mode[p.mode]["nb"] += 1
+        par_mode[p.mode]["total"] += p.montant
+
+    journal = [{"paiement": p, "journal": "CAI" if p.est_especes else "BQE", "lignes": ecritures_paiement(p)} for p in paiements]
+
+    if request.GET.get("export") == "csv":
+        import csv
+        nom = f"caisse_banque_{annee}{'-%02d' % mois if mois else ''}.csv"
+        response = HttpResponse(content_type="text/csv; charset=utf-8")
+        response["Content-Disposition"] = f'attachment; filename="{nom}"'
+        response.write("\ufeff")
+        w = csv.writer(response, delimiter=";")
+        w.writerow([_("Date"), _("Journal"), _("Pièce"), _("Compte"), _("Intitulé du compte"), _("Libellé"),
+                    _("Mode de paiement"), _("Débit"), _("Crédit")])
+        fmt = lambda x: f"{x:.2f}".replace(".", ",") if x else ""
+        for e in journal:
+            p = e["paiement"]
+            for l in e["lignes"]:
+                w.writerow([p.date.strftime("%d/%m/%Y"), e["journal"], p.facture.numero or "", l["compte"], l["intitule"],
+                            l["libelle"], p.get_mode_display(), fmt(l["debit"]), fmt(l["credit"])])
+        return response
+
+    return render(request, "facture/caisse_banque.html", {
+        "annee": annee,
+        "mois": mois,
+        "annees": range(aujourdhui.year - 5, aujourdhui.year + 1),
+        "mois_choix": range(1, 13),
+        "paiements": paiements,
+        "total_caisse": sum((p.montant for p in caisse), zero),
+        "total_banque": sum((p.montant for p in banque), zero),
+        "total_encaisse": sum((p.montant for p in paiements), zero),
+        "nb_caisse": len(caisse),
+        "nb_banque": len(banque),
+        "par_mode": list(par_mode.values()),
+        "journal": journal,
+        "compte_caisse": COMPTE_CAISSE,
+        "compte_banque": COMPTE_BANQUE,
+        "intitule_caisse": COMPTES[COMPTE_CAISSE],
+        "intitule_banque": COMPTES[COMPTE_BANQUE],
+    })
