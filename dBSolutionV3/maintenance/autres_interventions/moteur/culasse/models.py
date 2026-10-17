@@ -159,8 +159,9 @@ class Culasse(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    culasse_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     culasse_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    culasse_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
 
     joint_culasse = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Joint de culasse"))
     joint_culasse_fabricant = models.CharField(
@@ -169,8 +170,10 @@ class Culasse(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    joint_culasse_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     joint_culasse_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    joint_culasse_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
+
 
     jeu_soupapes = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu aux soupapes"))
     jeu_soupapes_fabricant = models.CharField(
@@ -179,8 +182,10 @@ class Culasse(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    jeu_soupapes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     jeu_soupapes_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    jeu_soupapes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
+
 
     guides_soupapes = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Guides de soupapes"))
     guides_soupapes_fabricant = models.CharField(
@@ -189,8 +194,9 @@ class Culasse(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    guides_soupapes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     guides_soupapes_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    guides_soupapes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
 
     soupapes = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Soupapes"))
     soupapes_fabricant = models.CharField(
@@ -199,8 +205,10 @@ class Culasse(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    soupapes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     soupapes_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    soupapes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
+
 
     ressorts_soupapes = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Ressorts de soupapes"))
     ressorts_soupapes_fabricant = models.CharField(
@@ -209,8 +217,9 @@ class Culasse(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    ressorts_soupapes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     ressorts_soupapes_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    ressorts_soupapes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
 
     clavettes_soupapes = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Clavettes de soupapes"))
     clavettes_soupapes_fabricant = models.CharField(
@@ -219,8 +228,9 @@ class Culasse(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    clavettes_soupapes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     clavettes_soupapes_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    clavettes_soupapes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
 
     sieges_soupapes = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Sièges de soupapes"))
     sieges_soupapes_fabricant = models.CharField(
@@ -229,8 +239,9 @@ class Culasse(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    sieges_soupapes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     sieges_soupapes_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    sieges_soupapes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
 
     rodage_soupapes = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Rodage des soupapes"))
     rodage_soupapes_fabricant = models.CharField(
@@ -239,8 +250,10 @@ class Culasse(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    rodage_soupapes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     rodage_soupapes_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    rodage_soupapes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
+
 
     arbre_cames_echappement = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Arbre à cames d'échappement"))
     arbre_cames_echappement_fabricant = models.CharField(
@@ -249,8 +262,9 @@ class Culasse(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    arbre_cames_echappement_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     arbre_cames_echappement_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    arbre_cames_echappement_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
 
     arbre_cames_admission = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Arbre à cames d'admission"))
     arbre_cames_admission_fabricant = models.CharField(
@@ -259,8 +273,9 @@ class Culasse(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    arbre_cames_admission_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     arbre_cames_admission_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    arbre_cames_admission_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
 
     planage_culasse = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Planage de la culasse"))
     planage_culasse_fabricant = models.CharField(
@@ -269,8 +284,10 @@ class Culasse(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    planage_culasse_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     planage_culasse_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    planage_culasse_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
+
 
     poussoirs_hydrauliques = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Poussoirs hydrauliques"))
     poussoirs_hydrauliques_fabricant = models.CharField(
@@ -279,8 +296,10 @@ class Culasse(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    poussoirs_hydrauliques_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     poussoirs_hydrauliques_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    poussoirs_hydrauliques_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
+
 
     tiges_culbuteur = models.CharField(max_length=25, choices=EtatCulbuteur.choices, default=EtatCulbuteur.NON_PRESENT, verbose_name=_("Tiges de culbuteur"))
     tiges_culbuteur_fabricant = models.CharField(
@@ -289,8 +308,11 @@ class Culasse(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    tiges_culbuteur_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     tiges_culbuteur_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    tiges_culbuteur_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
+
+
 
     culbuteurs = models.CharField(max_length=25, choices=EtatCulbuteur.choices, default=EtatCulbuteur.NON_PRESENT, verbose_name=_("Culbuteurs"))
     culbuteurs_fabricant = models.CharField(
@@ -299,8 +321,9 @@ class Culasse(TechnicienMixin, models.Model):
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    culbuteurs_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
     culbuteurs_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    culbuteurs_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+
 
     # -------------------------
     # HUILE MOTEUR
@@ -315,7 +338,7 @@ class Culasse(TechnicienMixin, models.Model):
     # LIQUIDE DE REFROIDISSEMENT
     # -------------------------
     refroidissement = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Liquide de refroidissement"))
-    refroidissement_fabricant = models.CharField(max_length=25, choices=RefroidissementFabricant.choices, default=RefroidissementFabricant.CHOISIR, verbose_name=_("Fabricant"))
+    refroidissement_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.CHOISIR, verbose_name=_("Fabricant"))
     refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices, default=RefroidissementQualiteEtat.G13, verbose_name=_("Qualité de liquide de refroidissement"))
     refroidissement_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité ajoutée en litres"), validators=[StepValueValidator(0.1)])
     refroidissement_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA par litre"))
