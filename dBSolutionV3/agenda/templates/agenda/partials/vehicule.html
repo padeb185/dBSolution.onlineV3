@@ -1,0 +1,7 @@
+{% load static %}<div class="flex items-center gap-2">
+    <img src="{% static 'images/marques/' %}{{ exemplaire.voiture_modele.voiture_marque.nom_marque|lower }}.png"
+         alt="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}" title="{{ exemplaire.voiture_modele.voiture_marque.nom_marque }}"
+         class="w-10 h-10 object-contain"
+         onerror="this.onerror=null;this.replaceWith(document.createTextNode('{{ exemplaire.voiture_modele.voiture_marque.nom_marque|escapejs }}'));">
+    <span>{{ exemplaire.voiture_modele.nom_modele }}{% if exemplaire.voiture_modele.nom_variante %} {{ exemplaire.voiture_modele.nom_variante }}{% endif %}</span>
+</div>

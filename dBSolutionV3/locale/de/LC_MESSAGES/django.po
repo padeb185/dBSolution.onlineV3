@@ -46333,6 +46333,199 @@ msgstr "Einkaufsjournal"
 msgid "Totaux & comptabilité"
 msgstr "Summen & Buchhaltung"
 
+msgid "Problème"
+msgstr "Problem"
+
+msgid "Réserve"
+msgstr "Reserve"
+
+msgid "1/4"
+msgstr "1/4"
+
+msgid "1/2"
+msgstr "1/2"
+
+msgid "3/4"
+msgstr "3/4"
+
+msgid "Plein"
+msgstr "Voll"
+
+msgid "Kilométrage avant location"
+msgstr "Kilometerstand vor der Vermietung"
+
+msgid "Niveau d'essence au départ"
+msgstr "Tankfüllung bei Abfahrt"
+
+msgid "Sortie effectuée"
+msgstr "Ausgegeben"
+
+msgid "Sortie le"
+msgstr "Ausgegeben am"
+
+msgid "Sortie validée par"
+msgstr "Ausgabe freigegeben von"
+
+msgid "Kilométrage après location"
+msgstr "Kilometerstand nach der Vermietung"
+
+msgid "Contrôle visuel carrosserie"
+msgstr "Sichtprüfung Karosserie"
+
+msgid "Niveau d'essence au retour"
+msgstr "Tankfüllung bei Rückgabe"
+
+msgid "Tag retour"
+msgstr "Tag Rückgabe"
+
+msgid "Retour effectué"
+msgstr "Zurückgegeben"
+
+msgid "Retour le"
+msgstr "Zurückgegeben am"
+
+msgid "Retour contrôlé par"
+msgstr "Rückgabe geprüft von"
+
+msgid "Location (agenda)"
+msgstr "Vermietung (Kalender)"
+
+msgid "Agenda des locations"
+msgstr "Vermietungskalender"
+
+msgid "En préparation (checkup non vert)"
+msgstr "In Vorbereitung (Check-up nicht grün)"
+
+msgid "OK pour sortie"
+msgstr "Bereit zur Ausgabe"
+
+msgid "En location"
+msgstr "In Vermietung"
+
+msgid "Rentrée – tag jaune"
+msgstr "Zurück – gelber Tag"
+
+msgid "Rentrée – problème (tag rouge)"
+msgstr "Zurück – Problem (roter Tag)"
+
+msgid ""
+"Le kilométrage après location ne peut pas être inférieur au kilométrage avant"
+" location."
+msgstr ""
+"Der Kilometerstand nach der Vermietung darf nicht niedriger sein als vor der "
+"Vermietung."
+
+msgid ""
+"Sortie impossible : le checkup piste n'est pas au vert dans l'agenda "
+"maintenances."
+msgstr ""
+"Ausgabe nicht möglich: Der Strecken-Check-up ist im Wartungskalender nicht "
+"grün."
+
+msgid "Sortie du véhicule enregistrée."
+msgstr "Fahrzeugausgabe gespeichert."
+
+msgid "Retour enregistré : problème signalé (tag rouge)."
+msgstr "Rückgabe gespeichert: Problem gemeldet (roter Tag)."
+
+msgid "Retour enregistré (tag jaune)."
+msgstr "Rückgabe gespeichert (gelber Tag)."
+
+msgid "Sortie annulée."
+msgstr "Ausgabe storniert."
+
+msgid "Agenda des maintenances"
+msgstr "Wartungskalender"
+
+msgid "Mes maintenances à faire"
+msgstr "Meine offenen Wartungen"
+
+msgid "location(s)"
+msgstr "Vermietung(en)"
+
+msgid "départ(s)"
+msgstr "Abfahrt(en)"
+
+msgid "Retours attendus"
+msgstr "Erwartete Rückgaben"
+
+msgid "En préparation"
+msgstr "In Vorbereitung"
+
+msgid "Problèmes au retour"
+msgstr "Probleme bei Rückgabe"
+
+msgid "Retours en retard"
+msgstr "Verspätete Rückgaben"
+
+msgid "Locations du jour"
+msgstr "Vermietungen des Tages"
+
+msgid "Locations des 7 prochains jours"
+msgstr "Vermietungen der nächsten 7 Tage"
+
+msgid "Dashboard agenda"
+msgstr "Kalender-Dashboard"
+
+msgid "Sortie possible uniquement quand le checkup piste est au vert."
+msgstr "Ausgabe nur möglich, wenn der Strecken-Check-up grün ist."
+
+msgid "Sortie"
+msgstr "Ausgabe"
+
+msgid "Sortie du véhicule"
+msgstr "Fahrzeugausgabe"
+
+msgid "Checkup piste au vert : OK pour sortie."
+msgstr "Strecken-Check-up grün: bereit zur Ausgabe."
+
+msgid ""
+"Le checkup piste n'est pas au vert : la sortie n'est pas encore possible."
+msgstr "Der Strecken-Check-up ist nicht grün: Ausgabe noch nicht möglich."
+
+msgid "Valider la sortie"
+msgstr "Ausgabe bestätigen"
+
+msgid "Retour à l'agenda"
+msgstr "Zurück zum Kalender"
+
+msgid "Contrôle au retour (modifier)"
+msgstr "Rückgabekontrolle (bearbeiten)"
+
+msgid "Contrôle au retour"
+msgstr "Rückgabekontrolle"
+
+msgid ""
+"Tag jaune par défaut au retour ; tag rouge automatiquement si la carrosserie "
+"ou le bruit moteur pose problème."
+msgstr ""
+"Standardmäßig gelber Tag bei Rückgabe; automatisch roter Tag bei Problem mit "
+"Karosserie oder Motorgeräusch."
+
+msgid "Enregistrer le retour"
+msgstr "Rückgabe speichern"
+
+msgid "Annuler la sortie"
+msgstr "Ausgabe stornieren"
+
+msgid "Km avant"
+msgstr "Km vorher"
+
+msgid "Km après"
+msgstr "Km nachher"
+
+msgid "Départ"
+msgstr "Abfahrt"
+
+msgid "Retour prévu"
+msgstr "Geplante Rückgabe"
+
+msgid "Retour en retard"
+msgstr "Verspätete Rückgabe"
+
+msgid "Aucune location."
+msgstr "Keine Vermietungen."
+
 #~ msgid "Pièce d'origine constructeur (OEM)"
 #~ msgstr "Originalhersteller (OEM)"
 

@@ -46213,6 +46213,198 @@ msgstr "Purchase journal"
 msgid "Totaux & comptabilité"
 msgstr "Totals & accounting"
 
+msgid "Problème"
+msgstr "Problem"
+
+msgid "Réserve"
+msgstr "Reserve"
+
+msgid "1/4"
+msgstr "1/4"
+
+msgid "1/2"
+msgstr "1/2"
+
+msgid "3/4"
+msgstr "3/4"
+
+msgid "Plein"
+msgstr "Full"
+
+msgid "Kilométrage avant location"
+msgstr "Mileage before rental"
+
+msgid "Niveau d'essence au départ"
+msgstr "Fuel level at departure"
+
+msgid "Sortie effectuée"
+msgstr "Checked out"
+
+msgid "Sortie le"
+msgstr "Checked out on"
+
+msgid "Sortie validée par"
+msgstr "Check-out approved by"
+
+msgid "Kilométrage après location"
+msgstr "Mileage after rental"
+
+msgid "Contrôle visuel carrosserie"
+msgstr "Visual bodywork check"
+
+msgid "Niveau d'essence au retour"
+msgstr "Fuel level on return"
+
+msgid "Tag retour"
+msgstr "Return tag"
+
+msgid "Retour effectué"
+msgstr "Returned"
+
+msgid "Retour le"
+msgstr "Returned on"
+
+msgid "Retour contrôlé par"
+msgstr "Return checked by"
+
+msgid "Location (agenda)"
+msgstr "Rental (planner)"
+
+msgid "Agenda des locations"
+msgstr "Rental planner"
+
+msgid "En préparation (checkup non vert)"
+msgstr "In preparation (check-up not green)"
+
+msgid "OK pour sortie"
+msgstr "Ready to go out"
+
+msgid "En location"
+msgstr "On rental"
+
+msgid "Rentrée – tag jaune"
+msgstr "Returned – yellow tag"
+
+msgid "Rentrée – problème (tag rouge)"
+msgstr "Returned – problem (red tag)"
+
+msgid ""
+"Le kilométrage après location ne peut pas être inférieur au kilométrage avant"
+" location."
+msgstr ""
+"The mileage after rental cannot be lower than the mileage before rental."
+
+msgid ""
+"Sortie impossible : le checkup piste n'est pas au vert dans l'agenda "
+"maintenances."
+msgstr ""
+"Check-out not possible: the track check-up is not green in the maintenance "
+"planner."
+
+msgid "Sortie du véhicule enregistrée."
+msgstr "Vehicle check-out saved."
+
+msgid "Retour enregistré : problème signalé (tag rouge)."
+msgstr "Return saved: problem reported (red tag)."
+
+msgid "Retour enregistré (tag jaune)."
+msgstr "Return saved (yellow tag)."
+
+msgid "Sortie annulée."
+msgstr "Check-out cancelled."
+
+msgid "Agenda des maintenances"
+msgstr "Maintenance planner"
+
+msgid "Mes maintenances à faire"
+msgstr "My maintenance to do"
+
+msgid "location(s)"
+msgstr "rental(s)"
+
+msgid "départ(s)"
+msgstr "departure(s)"
+
+msgid "Retours attendus"
+msgstr "Expected returns"
+
+msgid "En préparation"
+msgstr "In preparation"
+
+msgid "Problèmes au retour"
+msgstr "Problems on return"
+
+msgid "Retours en retard"
+msgstr "Late returns"
+
+msgid "Locations du jour"
+msgstr "Today's rentals"
+
+msgid "Locations des 7 prochains jours"
+msgstr "Rentals in the next 7 days"
+
+msgid "Dashboard agenda"
+msgstr "Planner dashboard"
+
+msgid "Sortie possible uniquement quand le checkup piste est au vert."
+msgstr "Check-out only possible when the track check-up is green."
+
+msgid "Sortie"
+msgstr "Check-out"
+
+msgid "Sortie du véhicule"
+msgstr "Vehicle check-out"
+
+msgid "Checkup piste au vert : OK pour sortie."
+msgstr "Track check-up green: ready to go out."
+
+msgid ""
+"Le checkup piste n'est pas au vert : la sortie n'est pas encore possible."
+msgstr "The track check-up is not green: check-out is not possible yet."
+
+msgid "Valider la sortie"
+msgstr "Confirm check-out"
+
+msgid "Retour à l'agenda"
+msgstr "Back to the planner"
+
+msgid "Contrôle au retour (modifier)"
+msgstr "Return check (edit)"
+
+msgid "Contrôle au retour"
+msgstr "Return check"
+
+msgid ""
+"Tag jaune par défaut au retour ; tag rouge automatiquement si la carrosserie "
+"ou le bruit moteur pose problème."
+msgstr ""
+"Yellow tag by default on return; red tag automatically if the bodywork or "
+"engine noise is a problem."
+
+msgid "Enregistrer le retour"
+msgstr "Save return"
+
+msgid "Annuler la sortie"
+msgstr "Cancel check-out"
+
+msgid "Km avant"
+msgstr "Km before"
+
+msgid "Km après"
+msgstr "Km after"
+
+msgid "Départ"
+msgstr "Departure"
+
+msgid "Retour prévu"
+msgstr "Return due"
+
+msgid "Retour en retard"
+msgstr "Late return"
+
+msgid "Aucune location."
+msgstr "No rentals."
+
 #~ msgid "Pièce d'origine constructeur (OEM)"
 #~ msgstr "Original Equipment Manufacturer (OEM)"
 

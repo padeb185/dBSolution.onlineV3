@@ -46353,6 +46353,199 @@ msgstr "Ημερολόγιο αγορών"
 msgid "Totaux & comptabilité"
 msgstr "Σύνολα & λογιστική"
 
+msgid "Problème"
+msgstr "Πρόβλημα"
+
+msgid "Réserve"
+msgstr "Ρεζέρβα"
+
+msgid "1/4"
+msgstr "1/4"
+
+msgid "1/2"
+msgstr "1/2"
+
+msgid "3/4"
+msgstr "3/4"
+
+msgid "Plein"
+msgstr "Γεμάτο"
+
+msgid "Kilométrage avant location"
+msgstr "Χιλιόμετρα πριν την ενοικίαση"
+
+msgid "Niveau d'essence au départ"
+msgstr "Στάθμη καυσίμου κατά την αναχώρηση"
+
+msgid "Sortie effectuée"
+msgstr "Έγινε έξοδος"
+
+msgid "Sortie le"
+msgstr "Έξοδος στις"
+
+msgid "Sortie validée par"
+msgstr "Έξοδος εγκρίθηκε από"
+
+msgid "Kilométrage après location"
+msgstr "Χιλιόμετρα μετά την ενοικίαση"
+
+msgid "Contrôle visuel carrosserie"
+msgstr "Οπτικός έλεγχος αμαξώματος"
+
+msgid "Niveau d'essence au retour"
+msgstr "Στάθμη καυσίμου κατά την επιστροφή"
+
+msgid "Tag retour"
+msgstr "Ετικέτα επιστροφής"
+
+msgid "Retour effectué"
+msgstr "Έγινε επιστροφή"
+
+msgid "Retour le"
+msgstr "Επιστροφή στις"
+
+msgid "Retour contrôlé par"
+msgstr "Επιστροφή ελέγχθηκε από"
+
+msgid "Location (agenda)"
+msgstr "Ενοικίαση (ημερολόγιο)"
+
+msgid "Agenda des locations"
+msgstr "Ημερολόγιο ενοικιάσεων"
+
+msgid "En préparation (checkup non vert)"
+msgstr "Σε προετοιμασία (ο έλεγχος δεν είναι πράσινος)"
+
+msgid "OK pour sortie"
+msgstr "Έτοιμο για έξοδο"
+
+msgid "En location"
+msgstr "Σε ενοικίαση"
+
+msgid "Rentrée – tag jaune"
+msgstr "Επέστρεψε – κίτρινη ετικέτα"
+
+msgid "Rentrée – problème (tag rouge)"
+msgstr "Επέστρεψε – πρόβλημα (κόκκινη ετικέτα)"
+
+msgid ""
+"Le kilométrage après location ne peut pas être inférieur au kilométrage avant"
+" location."
+msgstr ""
+"Τα χιλιόμετρα μετά την ενοικίαση δεν μπορούν να είναι λιγότερα από αυτά πριν "
+"την ενοικίαση."
+
+msgid ""
+"Sortie impossible : le checkup piste n'est pas au vert dans l'agenda "
+"maintenances."
+msgstr ""
+"Η έξοδος δεν είναι δυνατή: ο έλεγχος πίστας δεν είναι πράσινος στο ημερολόγιο"
+" συντηρήσεων."
+
+msgid "Sortie du véhicule enregistrée."
+msgstr "Η έξοδος του οχήματος καταχωρήθηκε."
+
+msgid "Retour enregistré : problème signalé (tag rouge)."
+msgstr "Η επιστροφή καταχωρήθηκε: αναφέρθηκε πρόβλημα (κόκκινη ετικέτα)."
+
+msgid "Retour enregistré (tag jaune)."
+msgstr "Η επιστροφή καταχωρήθηκε (κίτρινη ετικέτα)."
+
+msgid "Sortie annulée."
+msgstr "Η έξοδος ακυρώθηκε."
+
+msgid "Agenda des maintenances"
+msgstr "Ημερολόγιο συντηρήσεων"
+
+msgid "Mes maintenances à faire"
+msgstr "Οι συντηρήσεις μου προς εκτέλεση"
+
+msgid "location(s)"
+msgstr "ενοικίαση(εις)"
+
+msgid "départ(s)"
+msgstr "αναχώρηση(εις)"
+
+msgid "Retours attendus"
+msgstr "Αναμενόμενες επιστροφές"
+
+msgid "En préparation"
+msgstr "Σε προετοιμασία"
+
+msgid "Problèmes au retour"
+msgstr "Προβλήματα κατά την επιστροφή"
+
+msgid "Retours en retard"
+msgstr "Καθυστερημένες επιστροφές"
+
+msgid "Locations du jour"
+msgstr "Ενοικιάσεις της ημέρας"
+
+msgid "Locations des 7 prochains jours"
+msgstr "Ενοικιάσεις των επόμενων 7 ημερών"
+
+msgid "Dashboard agenda"
+msgstr "Πίνακας ημερολογίου"
+
+msgid "Sortie possible uniquement quand le checkup piste est au vert."
+msgstr "Έξοδος μόνο όταν ο έλεγχος πίστας είναι πράσινος."
+
+msgid "Sortie"
+msgstr "Έξοδος"
+
+msgid "Sortie du véhicule"
+msgstr "Έξοδος οχήματος"
+
+msgid "Checkup piste au vert : OK pour sortie."
+msgstr "Έλεγχος πίστας πράσινος: έτοιμο για έξοδο."
+
+msgid ""
+"Le checkup piste n'est pas au vert : la sortie n'est pas encore possible."
+msgstr "Ο έλεγχος πίστας δεν είναι πράσινος: η έξοδος δεν είναι ακόμη δυνατή."
+
+msgid "Valider la sortie"
+msgstr "Επιβεβαίωση εξόδου"
+
+msgid "Retour à l'agenda"
+msgstr "Επιστροφή στο ημερολόγιο"
+
+msgid "Contrôle au retour (modifier)"
+msgstr "Έλεγχος επιστροφής (επεξεργασία)"
+
+msgid "Contrôle au retour"
+msgstr "Έλεγχος επιστροφής"
+
+msgid ""
+"Tag jaune par défaut au retour ; tag rouge automatiquement si la carrosserie "
+"ou le bruit moteur pose problème."
+msgstr ""
+"Κίτρινη ετικέτα από προεπιλογή στην επιστροφή· αυτόματα κόκκινη αν υπάρχει "
+"πρόβλημα στο αμάξωμα ή θόρυβος κινητήρα."
+
+msgid "Enregistrer le retour"
+msgstr "Καταχώρηση επιστροφής"
+
+msgid "Annuler la sortie"
+msgstr "Ακύρωση εξόδου"
+
+msgid "Km avant"
+msgstr "Χλμ πριν"
+
+msgid "Km après"
+msgstr "Χλμ μετά"
+
+msgid "Départ"
+msgstr "Αναχώρηση"
+
+msgid "Retour prévu"
+msgstr "Προγραμματισμένη επιστροφή"
+
+msgid "Retour en retard"
+msgstr "Καθυστερημένη επιστροφή"
+
+msgid "Aucune location."
+msgstr "Καμία ενοικίαση."
+
 #~ msgid "Pièce d'origine constructeur (OEM)"
 #~ msgstr "Γνήσιο ανταλλακτικό κατασκευαστή (OEM)"
 

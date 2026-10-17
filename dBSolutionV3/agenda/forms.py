@@ -85,3 +85,58 @@ class AgendaTacheRapideForm(forms.ModelForm):
     class Meta:
         model = AgendaTache
         fields = ["tag", "statut", "prete_pour"]
+
+
+# =====================================================================
+# AGENDA DES LOCATIONS
+# =====================================================================
+from .models import AgendaLocation  # noqa: E402
+
+
+class AgendaLocationSortieForm(forms.ModelForm):
+    class Meta:
+        model = AgendaLocation
+        fields = ["kilometrage_avant", "niveau_essence_depart", "remarques"]
+        widgets = {"remarques": forms.Textarea(attrs={"rows": 3})}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["kilometrage_avant"].required = True
+        for field in self.fields.values():
+            field.widget.attrs.setdefault("class", "input")
+
+
+class AgendaLocationRetourForm(forms.ModelForm):
+    class Meta:
+        model = AgendaLocation
+        fields = [
+            "kilometrage_avant", "kilometrage_apres", "controle_carrosserie", "bruit_moteur",
+            "niveau_essence_retour", "tag_retour", "remarques",
+        ]
+        widgets = {"remarques": forms.Textarea(attrs={"rows": 4})}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for nom in ("kilometrage_apres", "controle_carrosserie", "bruit_moteur", "niveau_essence_retour"):
+            self.fields[nom].required = True
+        # Au retour : jaune (à contrôler en atelier) ou rouge (problème)
+        self.fields["tag_retour"].choices = [
+            (Maintenance.Tag.JAUNE, Maintenance.Tag.JAUNE.label),
+            (Maintenance.Tag.ROUGE, Maintenance.Tag.ROUGE.label),
+        ]
+        self.fields["tag_retour"].required = True
+        if not self.initial.get("tag_retour"):
+            self.initial["tag_retour"] = Maintenance.Tag.JAUNE
+        for field in self.fields.values():
+            field.widget.attrs.setdefault("class", "input")
+
+    def clean(self):
+        cleaned = super().clean()
+        avant, apres = cleaned.get("kilometrage_avant"), cleaned.get("kilometrage_apres")
+        if avant is not None and apres is not None and apres < avant:
+            self.add_error("kilometrage_apres",
+                           _("Le kilométrage après location ne peut pas être inférieur au kilométrage avant location."))
+        # Un problème (carrosserie ou bruit moteur) impose le tag rouge
+        if AgendaLocation.Controle.PROBLEME in (cleaned.get("controle_carrosserie"), cleaned.get("bruit_moteur")):
+            cleaned["tag_retour"] = Maintenance.Tag.ROUGE
+        return cleaned

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Agenda" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold flex items-center gap-3 mb-6">
+    <img src="{% static 'icons/agenda.png' %}" alt="" class="w-16 h-16">
+    <span>{% trans "Agenda" %}
+        <span class="block text-lg font-semibold text-gray-600 capitalize">{{ aujourdhui|date:"l j F Y" }}</span>
+    </span>
+</h1>
+
+{% include "partials/messages.html" %}
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    {% if peut_maintenances %}
+    <a href="{% url 'agenda:agenda_jour' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-xl font-semibold mb-2">{% trans "Agenda des maintenances" %}</h2>
+            <p class="text-gray-600">{% trans "Aujourd'hui" %} : <strong>{{ nb_terminees }} / {{ nb_taches }}</strong> {% trans "terminée(s)" %}</p>
+            <p class="text-gray-600">{% trans "Mes maintenances à faire" %} :
+                <strong class="{% if mes_a_faire %}text-red-700{% endif %}">{{ mes_a_faire }}</strong></p>
+        </div>
+        <img src="{% static 'icons/gestion-de-projet.png' %}" alt="" class="w-[60px] h-[60px]">
+    </a>
+    {% endif %}
+
+    <a href="{% url 'agenda:agenda_location' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-xl font-semibold mb-2">{% trans "Agenda des locations" %}</h2>
+            <p class="text-gray-600">{% trans "Aujourd'hui" %} : <strong>{{ nb_locations }}</strong> {% trans "location(s)" %} · {{ nb_departs }} {% trans "départ(s)" %}</p>
+            <p class="text-gray-600">{% trans "Retours attendus" %} : <strong>{{ nb_retours }}</strong></p>
+        </div>
+        <img src="{% static 'icons/location.png' %}" alt="" class="w-[60px] h-[60px]">
+    </a>
+</div>
+
+<!-- Indicateurs locations du jour -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+    <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-green-600">
+        <p class="text-gray-500 text-sm">{% trans "OK pour sortie" %}</p>
+        <p class="text-2xl font-bold text-green-700">{{ nb_ok_sortie }}</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-gray-400">
+        <p class="text-gray-500 text-sm">{% trans "En préparation" %}</p>
+        <p class="text-2xl font-bold text-gray-700">{{ nb_preparation }}</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-blue-600">
+        <p class="text-gray-500 text-sm">{% trans "En location" %}</p>
+        <p class="text-2xl font-bold text-blue-700">{{ nb_en_location }}</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-red-600">
+        <p class="text-gray-500 text-sm">{% trans "Problèmes au retour" %}</p>
+        <p class="text-2xl font-bold text-red-700">{{ nb_problemes }}</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-red-800">
+        <p class="text-gray-500 text-sm">{% trans "Retours en retard" %}</p>
+        <p class="text-2xl font-bold text-red-800">{{ en_retard|length }}</p>
+    </div>
+</div>
+
+{% if en_retard %}
+<h2 class="text-lg font-semibold mb-3 text-red-700">{% trans "Retours en retard" %}</h2>
+{% include "agenda/partials/table_locations.html" with lignes=en_retard %}
+<br>
+{% endif %}
+
+<h2 class="text-lg font-semibold mb-3">{% trans "Locations du jour" %}</h2>
+{% include "agenda/partials/table_locations.html" with lignes=lignes_jour jour=aujourdhui %}
+<br>
+
+<h2 class="text-lg font-semibold mb-3">{% trans "Locations des 7 prochains jours" %}</h2>
+{% include "agenda/partials/table_locations.html" with lignes=a_venir %}
+<br>
+{% endblock %}

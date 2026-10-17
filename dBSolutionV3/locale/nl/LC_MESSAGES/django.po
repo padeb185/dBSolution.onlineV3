@@ -46304,6 +46304,199 @@ msgstr "Aankoopdagboek"
 msgid "Totaux & comptabilité"
 msgstr "Totalen & boekhouding"
 
+msgid "Problème"
+msgstr "Probleem"
+
+msgid "Réserve"
+msgstr "Reserve"
+
+msgid "1/4"
+msgstr "1/4"
+
+msgid "1/2"
+msgstr "1/2"
+
+msgid "3/4"
+msgstr "3/4"
+
+msgid "Plein"
+msgstr "Vol"
+
+msgid "Kilométrage avant location"
+msgstr "Kilometerstand vóór verhuur"
+
+msgid "Niveau d'essence au départ"
+msgstr "Brandstofniveau bij vertrek"
+
+msgid "Sortie effectuée"
+msgstr "Vertrokken"
+
+msgid "Sortie le"
+msgstr "Vertrokken op"
+
+msgid "Sortie validée par"
+msgstr "Vertrek goedgekeurd door"
+
+msgid "Kilométrage après location"
+msgstr "Kilometerstand na verhuur"
+
+msgid "Contrôle visuel carrosserie"
+msgstr "Visuele controle carrosserie"
+
+msgid "Niveau d'essence au retour"
+msgstr "Brandstofniveau bij terugkeer"
+
+msgid "Tag retour"
+msgstr "Tag terugkeer"
+
+msgid "Retour effectué"
+msgstr "Teruggebracht"
+
+msgid "Retour le"
+msgstr "Teruggebracht op"
+
+msgid "Retour contrôlé par"
+msgstr "Terugkeer gecontroleerd door"
+
+msgid "Location (agenda)"
+msgstr "Verhuur (agenda)"
+
+msgid "Agenda des locations"
+msgstr "Verhuuragenda"
+
+msgid "En préparation (checkup non vert)"
+msgstr "In voorbereiding (check-up niet groen)"
+
+msgid "OK pour sortie"
+msgstr "Klaar voor vertrek"
+
+msgid "En location"
+msgstr "In verhuur"
+
+msgid "Rentrée – tag jaune"
+msgstr "Terug – gele tag"
+
+msgid "Rentrée – problème (tag rouge)"
+msgstr "Terug – probleem (rode tag)"
+
+msgid ""
+"Le kilométrage après location ne peut pas être inférieur au kilométrage avant"
+" location."
+msgstr ""
+"De kilometerstand na verhuur mag niet lager zijn dan de kilometerstand vóór "
+"verhuur."
+
+msgid ""
+"Sortie impossible : le checkup piste n'est pas au vert dans l'agenda "
+"maintenances."
+msgstr ""
+"Vertrek onmogelijk: de circuitcheck-up staat niet op groen in de "
+"onderhoudsagenda."
+
+msgid "Sortie du véhicule enregistrée."
+msgstr "Vertrek van het voertuig geregistreerd."
+
+msgid "Retour enregistré : problème signalé (tag rouge)."
+msgstr "Terugkeer geregistreerd: probleem gemeld (rode tag)."
+
+msgid "Retour enregistré (tag jaune)."
+msgstr "Terugkeer geregistreerd (gele tag)."
+
+msgid "Sortie annulée."
+msgstr "Vertrek geannuleerd."
+
+msgid "Agenda des maintenances"
+msgstr "Onderhoudsagenda"
+
+msgid "Mes maintenances à faire"
+msgstr "Mijn uit te voeren onderhoud"
+
+msgid "location(s)"
+msgstr "verhuring(en)"
+
+msgid "départ(s)"
+msgstr "vertrek(ken)"
+
+msgid "Retours attendus"
+msgstr "Verwachte terugkeer"
+
+msgid "En préparation"
+msgstr "In voorbereiding"
+
+msgid "Problèmes au retour"
+msgstr "Problemen bij terugkeer"
+
+msgid "Retours en retard"
+msgstr "Laattijdige terugkeer"
+
+msgid "Locations du jour"
+msgstr "Verhuringen van de dag"
+
+msgid "Locations des 7 prochains jours"
+msgstr "Verhuringen de komende 7 dagen"
+
+msgid "Dashboard agenda"
+msgstr "Dashboard agenda"
+
+msgid "Sortie possible uniquement quand le checkup piste est au vert."
+msgstr "Vertrek enkel mogelijk wanneer de circuitcheck-up op groen staat."
+
+msgid "Sortie"
+msgstr "Vertrek"
+
+msgid "Sortie du véhicule"
+msgstr "Vertrek van het voertuig"
+
+msgid "Checkup piste au vert : OK pour sortie."
+msgstr "Circuitcheck-up op groen: klaar voor vertrek."
+
+msgid ""
+"Le checkup piste n'est pas au vert : la sortie n'est pas encore possible."
+msgstr "De circuitcheck-up staat niet op groen: vertrek is nog niet mogelijk."
+
+msgid "Valider la sortie"
+msgstr "Vertrek bevestigen"
+
+msgid "Retour à l'agenda"
+msgstr "Terug naar de agenda"
+
+msgid "Contrôle au retour (modifier)"
+msgstr "Controle bij terugkeer (wijzigen)"
+
+msgid "Contrôle au retour"
+msgstr "Controle bij terugkeer"
+
+msgid ""
+"Tag jaune par défaut au retour ; tag rouge automatiquement si la carrosserie "
+"ou le bruit moteur pose problème."
+msgstr ""
+"Standaard gele tag bij terugkeer; automatisch rode tag bij een probleem met "
+"carrosserie of motorgeluid."
+
+msgid "Enregistrer le retour"
+msgstr "Terugkeer opslaan"
+
+msgid "Annuler la sortie"
+msgstr "Vertrek annuleren"
+
+msgid "Km avant"
+msgstr "Km vóór"
+
+msgid "Km après"
+msgstr "Km na"
+
+msgid "Départ"
+msgstr "Vertrek"
+
+msgid "Retour prévu"
+msgstr "Geplande terugkeer"
+
+msgid "Retour en retard"
+msgstr "Laattijdige terugkeer"
+
+msgid "Aucune location."
+msgstr "Geen verhuringen."
+
 #~ msgid "Pièce d'origine constructeur (OEM)"
 #~ msgstr "Origineel onderdeel van de fabrikant (OEM)"
 

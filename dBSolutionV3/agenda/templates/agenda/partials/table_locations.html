@@ -1,0 +1,70 @@
+{% load i18n %}
+<div class="overflow-x-auto bg-white shadow-md rounded-lg">
+<table class="min-w-full table-auto border-collapse border border-gray-200">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-3 py-2 text-left">{% trans "Immatriculation" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Véhicule" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Client" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Location" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Checkup piste" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "État" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Km avant" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Km après" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Retour" %}</th>
+            <th class="border px-3 py-2 text-center">{% trans "Action" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for l in lignes %}
+        {% with loc=l.location suivi=l.suivi exemplaire=l.exemplaire %}
+        <tr class="{% if l.en_retard %}bg-red-50{% elif suivi.etat == 'RETOUR' %}text-gray-500{% endif %}">
+            <td class="border px-3 py-2">{% include "maintenance/partials/plaque.html" with taille="petite" %}</td>
+            <td class="border px-3 py-2">{% include "agenda/partials/vehicule.html" %}</td>
+            <td class="border px-3 py-2 font-semibold">{{ l.client }}</td>
+            <td class="border px-3 py-2 text-sm">
+                {{ loc.lieu|default:loc.get_type_location_display }}<br>
+                <span class="text-gray-500">
+                    {{ loc.date_debut|date:"d/m" }}{% if loc.date_fin and loc.date_fin != loc.date_debut %} → {{ loc.date_fin|date:"d/m" }}{% endif %}
+                    {% if l.depart %}· <strong class="text-blue-800">{% trans "Départ" %}</strong>{% endif %}
+                    {% if l.retour_prevu %}· <strong class="text-blue-800">{% trans "Retour prévu" %}</strong>{% endif %}
+                    {% if l.en_retard %}· <strong class="text-red-700">{% trans "Retour en retard" %}</strong>{% endif %}
+                </span>
+            </td>
+            <td class="border px-3 py-2">
+                {% if l.checkup %}
+                    <a href="{% url 'agenda:detail_tache' l.checkup.pk %}">{% include "agenda/partials/tag.html" with tag=l.checkup.tag %}</a>
+                {% else %}—{% endif %}
+            </td>
+            <td class="border px-3 py-2">{% include "agenda/partials/etat_location.html" %}</td>
+            <td class="border px-3 py-2 text-right">{{ suivi.kilometrage_avant|default_if_none:"—" }}</td>
+            <td class="border px-3 py-2 text-right">
+                {{ suivi.kilometrage_apres|default_if_none:"—" }}
+                {% if suivi.km_parcourus is not None %}<br><span class="text-xs text-gray-500">+{{ suivi.km_parcourus }} km</span>{% endif %}
+            </td>
+            <td class="border px-3 py-2 text-sm">
+                {% if suivi.retour_effectue %}
+                    {% include "agenda/partials/tag.html" with tag=suivi.tag_retour %}
+                    {% if suivi.remarques %}<p class="text-gray-600 mt-1">{{ suivi.remarques|truncatechars:80 }}</p>{% endif %}
+                {% elif suivi.remarques %}<p class="text-gray-600">{{ suivi.remarques|truncatechars:80 }}</p>
+                {% else %}—{% endif %}
+            </td>
+            <td class="border px-3 py-2 text-center whitespace-nowrap">
+                <a href="{% url 'agenda:agenda_location_controle' loc.pk %}{% if jour %}?date={{ jour|date:'Y-m-d' }}{% endif %}"
+                   class="inline-block px-3 py-1 rounded text-white font-semibold
+                   {% if suivi.etat == 'OK_SORTIE' %}bg-green-600 hover:bg-green-700
+                   {% elif suivi.etat == 'EN_LOCATION' %}bg-blue-700 hover:bg-blue-500
+                   {% else %}bg-gray-500 hover:bg-gray-600{% endif %}">
+                    {% if suivi.etat == 'OK_SORTIE' %}{% trans "Sortie" %}
+                    {% elif suivi.etat == 'EN_LOCATION' %}{% trans "Retour" %}
+                    {% else %}{% trans "Info" %}{% endif %}
+                </a>
+            </td>
+        </tr>
+        {% endwith %}
+    {% empty %}
+        <tr><td colspan="10" class="text-center py-6 text-gray-500">{% trans "Aucune location." %}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>

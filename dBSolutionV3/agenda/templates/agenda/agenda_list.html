@@ -41,6 +41,11 @@
 <!-- Messages -->
 {% include "partials/messages.html" %}
 
+<div class="flex flex-wrap items-center gap-3 mb-4">
+    <a href="{% url 'agenda:agenda_dashboard' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Dashboard agenda" %}</a>
+    <a href="{% url 'agenda:agenda_location_date' jour.year jour.month jour.day %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Agenda des locations" %}</a>
+</div>
+
 <!-- Barre d'actions -->
 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
     <div class="flex items-center gap-3">
@@ -95,10 +100,7 @@
                 {% include "maintenance/partials/plaque.html" with taille="petite" %}
             </td>
 
-            <td class="border px-4 py-2">
-                {{ exemplaire.voiture_modele.voiture_marque.nom_marque }}
-                {{ exemplaire.voiture_modele.nom_modele }}
-            </td>
+            <td class="border px-4 py-2">{% include "agenda/partials/vehicule.html" %}</td>
 
             <td class="border px-4 py-2">
                 {% if tache.technicien %}
