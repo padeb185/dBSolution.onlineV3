@@ -438,18 +438,18 @@ def calculer_paie(brut, statut="employe", taux_patronal=None, situation_familial
 # ==================================================================
 # COMPTABILISATION (PCMN – plan comptable minimum normalisé belge)
 # ==================================================================
-from django.utils.translation import gettext as _, gettext_noop as N_
+from django.utils.translation import gettext as _, gettext_noop
 
 COMPTES = {
-    "620200": N_("Rémunérations et avantages sociaux directs – employés"),
-    "620300": N_("Rémunérations et avantages sociaux directs – ouvriers"),
-    "621000": N_("Cotisations patronales d'assurances sociales"),
-    "625000": N_("Provisions pour pécules de vacances (dotations)"),
-    "453000": N_("Précomptes retenus"),
-    "454000": N_("Office National de Sécurité Sociale"),
-    "455000": N_("Rémunérations"),
-    "456000": N_("Pécules de vacances"),
-    "550000": N_("Banque – compte courant"),
+    "620200": gettext_noop("Rémunérations et avantages sociaux directs – employés"),
+    "620300": gettext_noop("Rémunérations et avantages sociaux directs – ouvriers"),
+    "621000": gettext_noop("Cotisations patronales d'assurances sociales"),
+    "625000": gettext_noop("Provisions pour pécules de vacances (dotations)"),
+    "453000": gettext_noop("Précomptes retenus"),
+    "454000": gettext_noop("Office National de Sécurité Sociale"),
+    "455000": gettext_noop("Rémunérations"),
+    "456000": gettext_noop("Pécules de vacances"),
+    "550000": gettext_noop("Banque – compte courant"),
 }
 
 

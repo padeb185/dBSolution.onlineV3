@@ -10,7 +10,7 @@ from datetime import date, datetime
 from decimal import Decimal, ROUND_HALF_UP
 
 from django.utils import timezone
-from django.utils.translation import gettext as _, gettext_noop as N_
+from django.utils.translation import gettext as _, gettext_noop
 
 from adblue.models import AdBlue
 from recharge.models import Electricite, RechargeCarburant
@@ -34,26 +34,26 @@ COMPTE_TVA_ETRANGERE = "416100"
 COMPTE_CONTREPARTIE = "550000"
 
 COMPTES = OrderedDict([
-    (COMPTE_CARBURANT, N_("Carburants véhicules")),
-    (COMPTE_ELECTRICITE, N_("Recharges électriques véhicules")),
-    (COMPTE_ADBLUE, N_("AdBlue")),
-    (COMPTE_TVA_DEDUCTIBLE, N_("TVA à récupérer")),
-    (COMPTE_TVA_ETRANGERE, N_("TVA étrangère à récupérer (remboursement UE)")),
-    (COMPTE_CONTREPARTIE, N_("Banque – compte courant")),
+    (COMPTE_CARBURANT, gettext_noop("Carburants véhicules")),
+    (COMPTE_ELECTRICITE, gettext_noop("Recharges électriques véhicules")),
+    (COMPTE_ADBLUE, gettext_noop("AdBlue")),
+    (COMPTE_TVA_DEDUCTIBLE, gettext_noop("TVA à récupérer")),
+    (COMPTE_TVA_ETRANGERE, gettext_noop("TVA étrangère à récupérer (remboursement UE)")),
+    (COMPTE_CONTREPARTIE, gettext_noop("Banque – compte courant")),
 ])
 
 PAYS_SOCIETE = "BE"
 PAYS_HORS_UE = {"GB"}
 
 FAMILLES = OrderedDict([
-    ("carburant", {"label": N_("Carburants"), "compte": COMPTE_CARBURANT, "prefixe": "CARB"}),
-    ("electricite", {"label": N_("Recharges électriques"), "compte": COMPTE_ELECTRICITE, "prefixe": "ELEC"}),
-    ("adblue", {"label": N_("AdBlue"), "compte": COMPTE_ADBLUE, "prefixe": "ADB"}),
+    ("carburant", {"label": gettext_noop("Carburants"), "compte": COMPTE_CARBURANT, "prefixe": "CARB"}),
+    ("electricite", {"label": gettext_noop("Recharges électriques"), "compte": COMPTE_ELECTRICITE, "prefixe": "ELEC"}),
+    ("adblue", {"label": gettext_noop("AdBlue"), "compte": COMPTE_ADBLUE, "prefixe": "ADB"}),
 ])
 
 MOIS_NOMS = [
-    "", N_("Janvier"), N_("Février"), N_("Mars"), N_("Avril"), N_("Mai"), N_("Juin"),
-    N_("Juillet"), N_("Août"), N_("Septembre"), N_("Octobre"), N_("Novembre"), N_("Décembre"),
+    "", gettext_noop("Janvier"), gettext_noop("Février"), gettext_noop("Mars"), gettext_noop("Avril"), gettext_noop("Mai"), gettext_noop("Juin"),
+    gettext_noop("Juillet"), gettext_noop("Août"), gettext_noop("Septembre"), gettext_noop("Octobre"), gettext_noop("Novembre"), gettext_noop("Décembre"),
 ]
 
 
@@ -243,9 +243,9 @@ def regime_tva(pays):
 
 
 REGIMES = {
-    "deductible": N_("Déductible (déclaration TVA belge)"),
-    "remboursement_ue": N_("À récupérer via la procédure de remboursement UE"),
-    "non_recuperable": N_("Non récupérable (hors UE)"),
+    "deductible": gettext_noop("Déductible (déclaration TVA belge)"),
+    "remboursement_ue": gettext_noop("À récupérer via la procédure de remboursement UE"),
+    "non_recuperable": gettext_noop("Non récupérable (hors UE)"),
 }
 
 
