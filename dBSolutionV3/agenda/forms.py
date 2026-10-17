@@ -97,11 +97,16 @@ class AgendaLocationSortieForm(forms.ModelForm):
     class Meta:
         model = AgendaLocation
         fields = ["kilometrage_avant", "niveau_essence_depart", "remarques"]
-        widgets = {"remarques": forms.Textarea(attrs={"rows": 3})}
+        widgets = {
+            "kilometrage_avant": forms.NumberInput(attrs={"min": 0, "inputmode": "numeric"}),
+            "niveau_essence_depart": forms.RadioSelect,
+            "remarques": forms.Textarea(attrs={"rows": 3}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["kilometrage_avant"].required = True
+        self.fields["niveau_essence_depart"].choices = AgendaLocation.NiveauEssence.choices
         for field in self.fields.values():
             field.widget.attrs.setdefault("class", "input")
 
@@ -113,10 +118,22 @@ class AgendaLocationRetourForm(forms.ModelForm):
             "kilometrage_avant", "kilometrage_apres", "controle_carrosserie", "bruit_moteur",
             "niveau_essence_retour", "tag_retour", "remarques",
         ]
-        widgets = {"remarques": forms.Textarea(attrs={"rows": 4})}
+        widgets = {
+            "kilometrage_avant": forms.NumberInput(attrs={"min": 0, "inputmode": "numeric"}),
+            "kilometrage_apres": forms.NumberInput(attrs={"min": 0, "inputmode": "numeric"}),
+            "controle_carrosserie": forms.RadioSelect,
+            "bruit_moteur": forms.RadioSelect,
+            "niveau_essence_retour": forms.RadioSelect,
+            "tag_retour": forms.RadioSelect,
+            "remarques": forms.Textarea(attrs={"rows": 4}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # Pas de choix vide sur les boutons
+        self.fields["controle_carrosserie"].choices = AgendaLocation.Controle.choices
+        self.fields["bruit_moteur"].choices = AgendaLocation.Controle.choices
+        self.fields["niveau_essence_retour"].choices = AgendaLocation.NiveauEssence.choices
         for nom in ("kilometrage_apres", "controle_carrosserie", "bruit_moteur", "niveau_essence_retour"):
             self.fields[nom].required = True
         # Au retour : jaune (à contrôler en atelier) ou rouge (problème)
@@ -139,4 +156,6 @@ class AgendaLocationRetourForm(forms.ModelForm):
         # Un problème (carrosserie ou bruit moteur) impose le tag rouge
         if AgendaLocation.Controle.PROBLEME in (cleaned.get("controle_carrosserie"), cleaned.get("bruit_moteur")):
             cleaned["tag_retour"] = Maintenance.Tag.ROUGE
+            if not (cleaned.get("remarques") or "").strip():
+                self.add_error("remarques", _("Décrivez le problème constaté."))
         return cleaned

@@ -1,0 +1,36 @@
+{% load i18n %}{# Paramètres : field ; jauge="1" pour le niveau d'essence #}
+<div>
+    <span class="block font-semibold mb-2">{{ field.label }}{% if field.field.required %} <span class="text-red-600">*</span>{% endif %}</span>
+    <div class="flex {% if jauge %}gap-1{% else %}flex-wrap gap-3{% endif %}" role="radiogroup" id="groupe-{{ field.name }}">
+        {% for radio in field %}
+        {% with v=radio.data.value %}
+        <label class="{% if jauge %}flex-1{% endif %} cursor-pointer select-none">
+            <input type="radio" name="{{ field.html_name }}" value="{{ v }}" id="{{ radio.id_for_label }}"
+                   class="peer sr-only" {% if radio.data.selected %}checked{% endif %}>
+            <span class="flex flex-col items-center justify-center text-center rounded-lg border-2 font-semibold transition
+                         {% if jauge %}px-1 py-3 text-sm{% else %}px-5 py-3 min-w-[130px]{% endif %}
+                         border-gray-300 bg-white text-gray-700 hover:bg-gray-50
+                         peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500
+                         {% if v == 'OK' %}peer-checked:bg-green-600 peer-checked:border-green-700 peer-checked:text-white
+                         {% elif v == 'PROBLEME' or v == 'ROUGE' %}peer-checked:bg-red-600 peer-checked:border-red-700 peer-checked:text-white
+                         {% elif v == 'JAUNE' %}peer-checked:bg-yellow-300 peer-checked:border-yellow-500 peer-checked:text-yellow-900
+                         {% elif v == 'RESERVE' %}peer-checked:bg-red-500 peer-checked:border-red-600 peer-checked:text-white
+                         {% elif v == '1_4' %}peer-checked:bg-orange-400 peer-checked:border-orange-500 peer-checked:text-white
+                         {% elif v == '1_2' %}peer-checked:bg-yellow-300 peer-checked:border-yellow-500 peer-checked:text-yellow-900
+                         {% else %}peer-checked:bg-green-600 peer-checked:border-green-700 peer-checked:text-white{% endif %}">
+                {% if jauge %}
+                    <span class="block w-full h-2 mb-1 rounded bg-gray-200 overflow-hidden">
+                        <span class="block h-full bg-current opacity-60
+                            {% if v == 'RESERVE' %}w-[8%]{% elif v == '1_4' %}w-1/4{% elif v == '1_2' %}w-1/2{% elif v == '3_4' %}w-3/4{% else %}w-full{% endif %}"></span>
+                    </span>
+                {% elif v == 'OK' %}<span class="text-xl leading-none">✔</span>
+                {% elif v == 'PROBLEME' %}<span class="text-xl leading-none">✖</span>
+                {% endif %}
+                {{ radio.choice_label }}
+            </span>
+        </label>
+        {% endwith %}
+        {% endfor %}
+    </div>
+    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+</div>
