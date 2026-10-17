@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Détails du contrôle du bas moteur" %}{% endblock %}
+
+{% block content %}
+    {% url 'bas_moteur:modifier_bas_moteur' bas_moteur.pk as url_modifier %}
+    {% url 'bas_moteur:bas_moteur_detail_pdf' bas_moteur.pk as url_pdf %}
+    {% url 'bas_moteur:delete_bas_moteur' bas_moteur.pk as url_delete %}
+    {% if exemplaire %}{% url 'bas_moteur:bas_moteur_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Détails du contrôle du bas moteur" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=bas_moteur km_controle=bas_moteur.kilometrage_bas_moteur icone="bas_moteur.png" %}
+{% endblock %}

@@ -41,6 +41,7 @@ from maintenance.autres_interventions.abs.models import Abs
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
 from maintenance.autres_interventions.moteur.chaine_distribution.models import ChaineDistribution
 from maintenance.autres_interventions.moteur.culasse.models import Culasse
+from maintenance.autres_interventions.moteur.bas_moteur.models import BasMoteur
 from maintenance.autres_interventions.moteur.electronique_moteur.models import ElectroniqueMoteur
 from maintenance.autres_interventions.moteur.lubrification.models import Lubrification
 from maintenance.autres_interventions.batterie.models import Batterie
@@ -174,6 +175,10 @@ def choisir_type_maintenance(request, exemplaire_id):
             voiture_exemplaire=exemplaire
         )
 
+        bas_moteur = BasMoteur.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
+
         electronique = ElectroniqueMoteur.objects.filter(
             voiture_exemplaire=exemplaire
         )
@@ -248,6 +253,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             + courroie.count()
             + chaine.count()
             + culasse.count()
+            + bas_moteur.count()
             + electronique.count()
             + lubrification.count()
             + turbo.count()

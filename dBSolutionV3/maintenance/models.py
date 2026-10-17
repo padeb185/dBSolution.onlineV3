@@ -61,6 +61,7 @@ class Maintenance(models.Model):
         CULASSE = "CULASSE", _("Culasse")
         ROULEMENT = "ROULEMENT", _("Roulements de roue")
         REMPLACEMENT_BTE_AUTO = "remplacement_bte_auto", _("Remplacement boîte automatique")
+        BAS_MOTEUR = "BAS_MOTEUR", _("Bas moteur")
 
     class Tag(models.TextChoices):
         VERT = "VERT", _("Vert")

@@ -182,6 +182,7 @@ urlpatterns += i18n_patterns(
     path('courroie/',include(('maintenance.autres_interventions.moteur.courroie.urls', 'courroie'), namespace='courroie')),
     path('chaine_distribution/', include(('maintenance.autres_interventions.moteur.chaine_distribution.urls', 'chaine_distribution'), namespace='chaine_distribution')),
     path('culasse/', include(('maintenance.autres_interventions.moteur.culasse.urls', 'culasse'), namespace='culasse')),
+    path('bas_moteur/', include(('maintenance.autres_interventions.moteur.bas_moteur.urls', 'bas_moteur'), namespace='bas_moteur')),
     path('electronique_moteur/', include(('maintenance.autres_interventions.moteur.electronique_moteur.urls', 'electronique_moteur'), namespace='electronique_moteur')),
     path('lubrification/', include(('maintenance.autres_interventions.moteur.lubrification.urls', 'lubrification'), namespace='lubrification')),
 
