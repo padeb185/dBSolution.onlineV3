@@ -49273,6 +49273,158 @@ msgstr "Änderung Eingriff ESP"
 msgid "Suppression de l'intervention ESP"
 msgstr "Löschung Eingriff ESP"
 
+#: achat_mds/models.py
+msgid "Achats de marchandises / pièces"
+msgstr "Wareneinkäufe / Teile"
+
+#: achat_mds/models.py
+msgid "Comptabilisation"
+msgstr "Buchungen"
+
+#: achat_mds/models.py
+msgid "Frais accessoires d'achat – transport"
+msgstr "Anschaffungsnebenkosten – Transport"
+
+#: achat_mds/models.py
+msgid "Frais de transport"
+msgstr "Transportkosten"
+
+#: achat_mds/models.py
+msgid "Frais de transport sur achats"
+msgstr "Transportkosten auf Einkäufe"
+
+#: achat_mds/models.py
+msgid ""
+"Laisser vide : même taux que la marchandise (frais accessoires facturés par "
+"le fournisseur)."
+msgstr ""
+"Leer lassen: gleicher Satz wie die Ware (vom Lieferanten berechnete "
+"Nebenkosten)."
+
+#: achat_mds/models.py
+msgid ""
+"Les frais de transport facturés avec la marchandise sont des frais "
+"accessoires d'achat : même taux de TVA que la marchandise, TVA déductible "
+"dans les mêmes conditions, et incorporés au coût d'acquisition (compte "
+"604100). La TVA déductible va au compte 411000 et apparaît dans la page TVA "
+"(source « Frais de transport sur achats »)."
+msgstr ""
+"Mit der Ware berechnete Transportkosten sind Anschaffungsnebenkosten: "
+"gleicher MwSt.-Satz wie die Ware, Vorsteuer unter denselben Bedingungen "
+"abzugsfähig, in den Anschaffungskosten enthalten (Konto 604100). Die "
+"abzugsfähige MwSt. geht auf Konto 411000 und erscheint auf der MwSt.-Seite "
+"(Quelle „Transportkosten auf Einkäufe“)."
+
+#: achat_mds/models.py
+msgid "Marchandises / pièces"
+msgstr "Waren / Teile"
+
+#: achat_mds/models.py
+msgid "Montants et TVA à récupérer"
+msgstr "Beträge und erstattungsfähige MwSt."
+
+#: achat_mds/models.py
+msgid "Même taux que l'achat"
+msgstr "Gleicher Satz wie der Einkauf"
+
+#: achat_mds/models.py
+msgid "Poste"
+msgstr "Posten"
+
+#: achat_mds/models.py
+msgid "TVA du transport (%)"
+msgstr "MwSt. Transport (%)"
+
+#: achat_mds/models.py
+msgid "Taux de TVA du transport (%)"
+msgstr "MwSt.-Satz Transport (%)"
+
+#: facture/views.py
+msgid "0 à 30 jours"
+msgstr "0 bis 30 Tage"
+
+#: facture/views.py
+msgid "31 à 60 jours"
+msgstr "31 bis 60 Tage"
+
+#: facture/views.py
+msgid "61 à 90 jours"
+msgstr "61 bis 90 Tage"
+
+#: facture/views.py
+msgid "Plus de 90 jours"
+msgstr "Über 90 Tage"
+
+#: facture/views.py
+msgid "Factures à payer"
+msgstr "Zu zahlende Rechnungen"
+
+#: facture/views.py
+msgid "Tous les fournisseurs"
+msgstr "Alle Lieferanten"
+
+#: facture/views.py
+msgid "Encoder une facture d'achat"
+msgstr "Einkaufsrechnung erfassen"
+
+#: facture/views.py
+msgid "Total à payer aux fournisseurs (440000)"
+msgstr "Gesamtbetrag an Lieferanten (440000)"
+
+#: facture/views.py
+msgid "facture(s)"
+msgstr "Rechnung(en)"
+
+#: facture/views.py
+msgid "dont TVA"
+msgstr "davon MwSt."
+
+#: facture/views.py
+msgid "Factures d'achat non payées"
+msgstr "Unbezahlte Einkaufsrechnungen"
+
+#: facture/views.py
+msgid "Ancienneté"
+msgstr "Alter"
+
+#: facture/views.py
+msgid "j"
+msgstr "T"
+
+#: facture/views.py
+msgid "Marquer payée"
+msgstr "Als bezahlt markieren"
+
+#: facture/views.py
+msgid "Aucune facture d'achat à payer."
+msgstr "Keine zu zahlende Einkaufsrechnung."
+
+#: facture/views.py
+msgid "À payer par fournisseur"
+msgstr "Zu zahlen pro Lieferant"
+
+#: facture/views.py
+msgid "Payées ces 30 derniers jours"
+msgstr "In den letzten 30 Tagen bezahlt"
+
+#: facture/views.py
+msgid ""
+"Au paiement, l'écriture 440000 Fournisseurs (débit) / 550000 Banque (crédit)"
+" est ajoutée au journal de la facture d'achat (voir son détail)."
+msgstr ""
+"Bei Zahlung wird die Buchung 440000 Lieferanten (Soll) / 550000 Bank (Haben)"
+" dem Journal der Einkaufsrechnung hinzugefügt (siehe Detail)."
+
+#: facture/views.py
+#, python-format
+msgid "Paiement annulé : %(achat)s"
+msgstr "Zahlung storniert: %(achat)s"
+
+#: facture/views.py
+#, python-format
+msgid "Facture d'achat payée : %(achat)s"
+msgstr "Einkaufsrechnung bezahlt: %(achat)s"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Eingriffe am Automatikgetriebe"
 

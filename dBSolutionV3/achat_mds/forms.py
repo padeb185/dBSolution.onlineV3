@@ -25,6 +25,7 @@ class AchatForm(forms.ModelForm):
             "achat_montant_htva",
             "transport_montant_htva",
             "achat_tva",
+            "transport_tva",
             "date_facture",
             "date_paiement",
         ]
@@ -35,6 +36,7 @@ class AchatForm(forms.ModelForm):
             "achat_montant_htva": _("Montant achat HTVA"),
             "transport_montant_htva": _("Montant transport HTVA"),
             "achat_tva": _("TVA (%)"),
+            "transport_tva": _("TVA du transport (%)"),
             "date_facture": _("Date de la facture"),
             "date_paiement": _("Date de paiement"),
         }
@@ -67,6 +69,13 @@ class AchatForm(forms.ModelForm):
             "transport_montant_htva": forms.NumberInput(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm",
                 "placeholder": _("0.00"),
+                "step": "0.01",
+                "min": "0"
+            }),
+
+            "transport_tva": forms.NumberInput(attrs={
+                "class": "border rounded px-3 py-2 w-full text-sm",
+                "placeholder": _("Même taux que l'achat"),
                 "step": "0.01",
                 "min": "0"
             }),

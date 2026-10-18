@@ -49294,6 +49294,157 @@ msgstr "Τροποποίηση επέμβασης ESP"
 msgid "Suppression de l'intervention ESP"
 msgstr "Διαγραφή επέμβασης ESP"
 
+#: achat_mds/models.py
+msgid "Achats de marchandises / pièces"
+msgstr "Αγορές εμπορευμάτων / ανταλλακτικών"
+
+#: achat_mds/models.py
+msgid "Comptabilisation"
+msgstr "Λογιστικές εγγραφές"
+
+#: achat_mds/models.py
+msgid "Frais accessoires d'achat – transport"
+msgstr "Παρεπόμενα έξοδα αγοράς – μεταφορά"
+
+#: achat_mds/models.py
+msgid "Frais de transport"
+msgstr "Έξοδα μεταφοράς"
+
+#: achat_mds/models.py
+msgid "Frais de transport sur achats"
+msgstr "Έξοδα μεταφοράς αγορών"
+
+#: achat_mds/models.py
+msgid ""
+"Laisser vide : même taux que la marchandise (frais accessoires facturés par "
+"le fournisseur)."
+msgstr ""
+"Αφήστε κενό: ίδιος συντελεστής με τα εμπορεύματα (παρεπόμενα έξοδα που "
+"τιμολογεί ο προμηθευτής)."
+
+#: achat_mds/models.py
+msgid ""
+"Les frais de transport facturés avec la marchandise sont des frais "
+"accessoires d'achat : même taux de TVA que la marchandise, TVA déductible "
+"dans les mêmes conditions, et incorporés au coût d'acquisition (compte "
+"604100). La TVA déductible va au compte 411000 et apparaît dans la page TVA "
+"(source « Frais de transport sur achats »)."
+msgstr ""
+"Τα έξοδα μεταφοράς που τιμολογούνται με τα εμπορεύματα είναι παρεπόμενα "
+"έξοδα αγοράς: ίδιος συντελεστής ΦΠΑ, εκπιπτόμενος ΦΠΑ με τους ίδιους όρους, "
+"ενσωματώνονται στο κόστος κτήσης (λογαριασμός 604100). Ο εκπιπτόμενος ΦΠΑ "
+"πηγαίνει στον λογαριασμό 411000 και εμφανίζεται στη σελίδα ΦΠΑ."
+
+#: achat_mds/models.py
+msgid "Marchandises / pièces"
+msgstr "Εμπορεύματα / ανταλλακτικά"
+
+#: achat_mds/models.py
+msgid "Montants et TVA à récupérer"
+msgstr "Ποσά και ανακτήσιμος ΦΠΑ"
+
+#: achat_mds/models.py
+msgid "Même taux que l'achat"
+msgstr "Ίδιος συντελεστής με την αγορά"
+
+#: achat_mds/models.py
+msgid "Poste"
+msgstr "Κονδύλι"
+
+#: achat_mds/models.py
+msgid "TVA du transport (%)"
+msgstr "ΦΠΑ μεταφοράς (%)"
+
+#: achat_mds/models.py
+msgid "Taux de TVA du transport (%)"
+msgstr "Συντελεστής ΦΠΑ μεταφοράς (%)"
+
+#: facture/views.py
+msgid "0 à 30 jours"
+msgstr "0 έως 30 ημέρες"
+
+#: facture/views.py
+msgid "31 à 60 jours"
+msgstr "31 έως 60 ημέρες"
+
+#: facture/views.py
+msgid "61 à 90 jours"
+msgstr "61 έως 90 ημέρες"
+
+#: facture/views.py
+msgid "Plus de 90 jours"
+msgstr "Πάνω από 90 ημέρες"
+
+#: facture/views.py
+msgid "Factures à payer"
+msgstr "Τιμολόγια προς πληρωμή"
+
+#: facture/views.py
+msgid "Tous les fournisseurs"
+msgstr "Όλοι οι προμηθευτές"
+
+#: facture/views.py
+msgid "Encoder une facture d'achat"
+msgstr "Καταχώριση τιμολογίου αγοράς"
+
+#: facture/views.py
+msgid "Total à payer aux fournisseurs (440000)"
+msgstr "Σύνολο πληρωτέο σε προμηθευτές (440000)"
+
+#: facture/views.py
+msgid "facture(s)"
+msgstr "τιμολόγιο(α)"
+
+#: facture/views.py
+msgid "dont TVA"
+msgstr "εκ των οποίων ΦΠΑ"
+
+#: facture/views.py
+msgid "Factures d'achat non payées"
+msgstr "Απλήρωτα τιμολόγια αγοράς"
+
+#: facture/views.py
+msgid "Ancienneté"
+msgstr "Παλαιότητα"
+
+#: facture/views.py
+msgid "j"
+msgstr "ημ"
+
+#: facture/views.py
+msgid "Marquer payée"
+msgstr "Σήμανση ως πληρωμένο"
+
+#: facture/views.py
+msgid "Aucune facture d'achat à payer."
+msgstr "Κανένα τιμολόγιο αγοράς προς πληρωμή."
+
+#: facture/views.py
+msgid "À payer par fournisseur"
+msgstr "Πληρωτέο ανά προμηθευτή"
+
+#: facture/views.py
+msgid "Payées ces 30 derniers jours"
+msgstr "Πληρώθηκαν τις τελευταίες 30 ημέρες"
+
+#: facture/views.py
+msgid ""
+"Au paiement, l'écriture 440000 Fournisseurs (débit) / 550000 Banque (crédit)"
+" est ajoutée au journal de la facture d'achat (voir son détail)."
+msgstr ""
+"Κατά την πληρωμή προστίθεται η εγγραφή 440000 Προμηθευτές (χρέωση) / 550000 "
+"Τράπεζα (πίστωση) στο ημερολόγιο του τιμολογίου αγοράς."
+
+#: facture/views.py
+#, python-format
+msgid "Paiement annulé : %(achat)s"
+msgstr "Η πληρωμή ακυρώθηκε: %(achat)s"
+
+#: facture/views.py
+#, python-format
+msgid "Facture d'achat payée : %(achat)s"
+msgstr "Τιμολόγιο αγοράς πληρώθηκε: %(achat)s"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Επεμβάσεις σε αυτόματο κιβώτιο"
 

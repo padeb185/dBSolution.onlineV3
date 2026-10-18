@@ -49235,6 +49235,158 @@ msgstr "Modificación de intervención ESP"
 msgid "Suppression de l'intervention ESP"
 msgstr "Eliminación de la intervención ESP"
 
+#: achat_mds/models.py
+msgid "Achats de marchandises / pièces"
+msgstr "Compras de mercaderías / piezas"
+
+#: achat_mds/models.py
+msgid "Comptabilisation"
+msgstr "Contabilización"
+
+#: achat_mds/models.py
+msgid "Frais accessoires d'achat – transport"
+msgstr "Gastos accesorios de compra – transporte"
+
+#: achat_mds/models.py
+msgid "Frais de transport"
+msgstr "Gastos de transporte"
+
+#: achat_mds/models.py
+msgid "Frais de transport sur achats"
+msgstr "Gastos de transporte de compras"
+
+#: achat_mds/models.py
+msgid ""
+"Laisser vide : même taux que la marchandise (frais accessoires facturés par "
+"le fournisseur)."
+msgstr ""
+"Dejar vacío: mismo tipo que la mercancía (gastos accesorios facturados por "
+"el proveedor)."
+
+#: achat_mds/models.py
+msgid ""
+"Les frais de transport facturés avec la marchandise sont des frais "
+"accessoires d'achat : même taux de TVA que la marchandise, TVA déductible "
+"dans les mêmes conditions, et incorporés au coût d'acquisition (compte "
+"604100). La TVA déductible va au compte 411000 et apparaît dans la page TVA "
+"(source « Frais de transport sur achats »)."
+msgstr ""
+"Los gastos de transporte facturados con la mercancía son gastos accesorios "
+"de compra: mismo tipo de IVA que la mercancía, IVA deducible en las mismas "
+"condiciones e incorporados al coste de adquisición (cuenta 604100). El IVA "
+"deducible va a la cuenta 411000 y aparece en la página de IVA (fuente "
+"«Gastos de transporte de compras»)."
+
+#: achat_mds/models.py
+msgid "Marchandises / pièces"
+msgstr "Mercancías / piezas"
+
+#: achat_mds/models.py
+msgid "Montants et TVA à récupérer"
+msgstr "Importes e IVA a recuperar"
+
+#: achat_mds/models.py
+msgid "Même taux que l'achat"
+msgstr "Mismo tipo que la compra"
+
+#: achat_mds/models.py
+msgid "Poste"
+msgstr "Partida"
+
+#: achat_mds/models.py
+msgid "TVA du transport (%)"
+msgstr "IVA del transporte (%)"
+
+#: achat_mds/models.py
+msgid "Taux de TVA du transport (%)"
+msgstr "Tipo de IVA del transporte (%)"
+
+#: facture/views.py
+msgid "0 à 30 jours"
+msgstr "0 a 30 días"
+
+#: facture/views.py
+msgid "31 à 60 jours"
+msgstr "31 a 60 días"
+
+#: facture/views.py
+msgid "61 à 90 jours"
+msgstr "61 a 90 días"
+
+#: facture/views.py
+msgid "Plus de 90 jours"
+msgstr "Más de 90 días"
+
+#: facture/views.py
+msgid "Factures à payer"
+msgstr "Facturas por pagar"
+
+#: facture/views.py
+msgid "Tous les fournisseurs"
+msgstr "Todos los proveedores"
+
+#: facture/views.py
+msgid "Encoder une facture d'achat"
+msgstr "Registrar una factura de compra"
+
+#: facture/views.py
+msgid "Total à payer aux fournisseurs (440000)"
+msgstr "Total a pagar a proveedores (440000)"
+
+#: facture/views.py
+msgid "facture(s)"
+msgstr "factura(s)"
+
+#: facture/views.py
+msgid "dont TVA"
+msgstr "del cual IVA"
+
+#: facture/views.py
+msgid "Factures d'achat non payées"
+msgstr "Facturas de compra no pagadas"
+
+#: facture/views.py
+msgid "Ancienneté"
+msgstr "Antigüedad"
+
+#: facture/views.py
+msgid "j"
+msgstr "d"
+
+#: facture/views.py
+msgid "Marquer payée"
+msgstr "Marcar como pagada"
+
+#: facture/views.py
+msgid "Aucune facture d'achat à payer."
+msgstr "Ninguna factura de compra por pagar."
+
+#: facture/views.py
+msgid "À payer par fournisseur"
+msgstr "Por pagar por proveedor"
+
+#: facture/views.py
+msgid "Payées ces 30 derniers jours"
+msgstr "Pagadas en los últimos 30 días"
+
+#: facture/views.py
+msgid ""
+"Au paiement, l'écriture 440000 Fournisseurs (débit) / 550000 Banque (crédit)"
+" est ajoutée au journal de la facture d'achat (voir son détail)."
+msgstr ""
+"Al pagar, se añade el asiento 440000 Proveedores (debe) / 550000 Banco "
+"(haber) al diario de la factura de compra (ver detalle)."
+
+#: facture/views.py
+#, python-format
+msgid "Paiement annulé : %(achat)s"
+msgstr "Pago anulado: %(achat)s"
+
+#: facture/views.py
+#, python-format
+msgid "Facture d'achat payée : %(achat)s"
+msgstr "Factura de compra pagada: %(achat)s"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Intervenciones de la caja automática"
 

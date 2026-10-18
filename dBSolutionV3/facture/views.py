@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from decimal import Decimal
 
 from django.contrib import messages
@@ -876,4 +876,78 @@ def caisse_banque_view(request):
         "compte_banque": COMPTE_BANQUE,
         "intitule_caisse": COMPTES[COMPTE_CAISSE],
         "intitule_banque": COMPTES[COMPTE_BANQUE],
+    })
+
+
+# -----------------------------
+# Factures à payer : factures d'achat fournisseurs non payées (dettes 440000)
+# -----------------------------
+@never_cache
+@login_required
+def factures_a_payer_view(request):
+    from achat_mds.models import AchatMds
+
+    if not _peut(request.user, ROLES_FACTURATION):
+        return _refuser(request)
+
+    achats_societe = AchatMds.objects.filter(societe=request.user.societe).select_related("fournisseur")
+
+    # Marquer une facture d'achat comme payée (ou annuler le paiement)
+    if request.method == "POST":
+        achat = get_object_or_404(achats_societe, pk=request.POST.get("achat_id"))
+        if request.POST.get("action") == "annuler":
+            achat.date_paiement = None
+            message = _("Paiement annulé : %(achat)s") % {"achat": achat.reference_facture or achat.fournisseur.nom}
+        else:
+            try:
+                achat.date_paiement = datetime.strptime(request.POST.get("date") or "", "%Y-%m-%d").date()
+            except ValueError:
+                achat.date_paiement = timezone.localdate()
+            message = _("Facture d'achat payée : %(achat)s") % {"achat": achat.reference_facture or achat.fournisseur.nom}
+        achat.save(update_fields=["date_paiement", "updated_at"])
+        UserLog.objects.create(utilisateur=request.user, action=str(message))
+        messages.success(request, message)
+        return redirect(f"{reverse('facture:a_payer')}?{request.GET.urlencode()}")
+
+    aujourdhui = timezone.localdate()
+    fournisseur_id = request.GET.get("fournisseur") or ""
+
+    a_payer = achats_societe.filter(date_paiement__isnull=True).order_by("date_facture")
+    if fournisseur_id:
+        a_payer = a_payer.filter(fournisseur_id=fournisseur_id)
+
+    z = Decimal("0.00")
+    tranches = [
+        {"code": "0_30", "libelle": _("0 à 30 jours"), "total": z, "nb": 0, "couleur": "green", "bordure": "border-green-500", "badge": "bg-green-100 text-green-800"},
+        {"code": "31_60", "libelle": _("31 à 60 jours"), "total": z, "nb": 0, "couleur": "yellow", "bordure": "border-yellow-500", "badge": "bg-yellow-100 text-yellow-800"},
+        {"code": "61_90", "libelle": _("61 à 90 jours"), "total": z, "nb": 0, "couleur": "orange", "bordure": "border-orange-500", "badge": "bg-orange-100 text-orange-800"},
+        {"code": "90", "libelle": _("Plus de 90 jours"), "total": z, "nb": 0, "couleur": "red", "bordure": "border-red-500", "badge": "bg-red-100 text-red-800"},
+    ]
+    lignes = []
+    par_fournisseur = {}
+    for achat in a_payer:
+        age = (aujourdhui - achat.date_facture).days if achat.date_facture else 0
+        idx = 0 if age <= 30 else 1 if age <= 60 else 2 if age <= 90 else 3
+        tranches[idx]["total"] += achat.total_tvac
+        tranches[idx]["nb"] += 1
+        lignes.append({"achat": achat, "age": age, "badge": tranches[idx]["badge"]})
+        f = par_fournisseur.setdefault(achat.fournisseur_id, {"fournisseur": achat.fournisseur, "nb": 0, "total": z})
+        f["nb"] += 1
+        f["total"] += achat.total_tvac
+
+    payees_recentes = (
+        achats_societe.filter(date_paiement__isnull=False, date_paiement__gte=aujourdhui - timedelta(days=30))
+        .order_by("-date_paiement")
+    )
+
+    return render(request, "facture/factures_a_payer.html", {
+        "lignes": lignes,
+        "tranches": tranches,
+        "total_a_payer": sum((l["achat"].total_tvac for l in lignes), z),
+        "total_tva": sum((l["achat"].montant_tva for l in lignes), z),
+        "par_fournisseur": sorted(par_fournisseur.values(), key=lambda f: -f["total"]),
+        "fournisseurs": sorted({a.fournisseur for a in achats_societe.filter(date_paiement__isnull=True)}, key=lambda f: f.nom or ""),
+        "fournisseur_id": fournisseur_id,
+        "payees_recentes": payees_recentes,
+        "aujourdhui": aujourdhui,
     })

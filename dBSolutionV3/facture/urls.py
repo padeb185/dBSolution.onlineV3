@@ -11,6 +11,7 @@ urlpatterns = [
     path("liste/", views.facture_list_view, name="liste"),
     path("tva/", views.tva_view, name="tva"),
     path("caisse-banque/", views.caisse_banque_view, name="caisse_banque"),
+    path("a-payer/", views.factures_a_payer_view, name="a_payer"),
     path("parametres-peppol/", views.parametres_peppol_view, name="parametres_peppol"),
     path("<uuid:pk>/", views.facture_detail_view, name="detail"),
     path("<uuid:pk>/modifier/", views.facture_modifier_view, name="modifier"),

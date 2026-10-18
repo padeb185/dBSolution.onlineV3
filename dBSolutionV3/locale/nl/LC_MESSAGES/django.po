@@ -49245,6 +49245,158 @@ msgstr "Wijziging interventie ESP"
 msgid "Suppression de l'intervention ESP"
 msgstr "Verwijdering interventie ESP"
 
+#: achat_mds/models.py
+msgid "Achats de marchandises / pièces"
+msgstr "Aankopen handelsgoederen / onderdelen"
+
+#: achat_mds/models.py
+msgid "Comptabilisation"
+msgstr "Boekingen"
+
+#: achat_mds/models.py
+msgid "Frais accessoires d'achat – transport"
+msgstr "Bijkomende aankoopkosten – transport"
+
+#: achat_mds/models.py
+msgid "Frais de transport"
+msgstr "Transportkosten"
+
+#: achat_mds/models.py
+msgid "Frais de transport sur achats"
+msgstr "Transportkosten op aankopen"
+
+#: achat_mds/models.py
+msgid ""
+"Laisser vide : même taux que la marchandise (frais accessoires facturés par "
+"le fournisseur)."
+msgstr ""
+"Leeg laten: zelfde tarief als de goederen (bijkomende kosten gefactureerd "
+"door de leverancier)."
+
+#: achat_mds/models.py
+msgid ""
+"Les frais de transport facturés avec la marchandise sont des frais "
+"accessoires d'achat : même taux de TVA que la marchandise, TVA déductible "
+"dans les mêmes conditions, et incorporés au coût d'acquisition (compte "
+"604100). La TVA déductible va au compte 411000 et apparaît dans la page TVA "
+"(source « Frais de transport sur achats »)."
+msgstr ""
+"Transportkosten gefactureerd met de goederen zijn bijkomende aankoopkosten: "
+"zelfde btw-tarief als de goederen, btw aftrekbaar onder dezelfde "
+"voorwaarden, en opgenomen in de aanschaffingswaarde (rekening 604100). De "
+"aftrekbare btw gaat naar rekening 411000 en verschijnt op de btw-pagina "
+"(bron „Transportkosten op aankopen”)."
+
+#: achat_mds/models.py
+msgid "Marchandises / pièces"
+msgstr "Goederen / onderdelen"
+
+#: achat_mds/models.py
+msgid "Montants et TVA à récupérer"
+msgstr "Bedragen en terug te vorderen btw"
+
+#: achat_mds/models.py
+msgid "Même taux que l'achat"
+msgstr "Zelfde tarief als de aankoop"
+
+#: achat_mds/models.py
+msgid "Poste"
+msgstr "Post"
+
+#: achat_mds/models.py
+msgid "TVA du transport (%)"
+msgstr "Btw transport (%)"
+
+#: achat_mds/models.py
+msgid "Taux de TVA du transport (%)"
+msgstr "Btw-tarief transport (%)"
+
+#: facture/views.py
+msgid "0 à 30 jours"
+msgstr "0 tot 30 dagen"
+
+#: facture/views.py
+msgid "31 à 60 jours"
+msgstr "31 tot 60 dagen"
+
+#: facture/views.py
+msgid "61 à 90 jours"
+msgstr "61 tot 90 dagen"
+
+#: facture/views.py
+msgid "Plus de 90 jours"
+msgstr "Meer dan 90 dagen"
+
+#: facture/views.py
+msgid "Factures à payer"
+msgstr "Te betalen facturen"
+
+#: facture/views.py
+msgid "Tous les fournisseurs"
+msgstr "Alle leveranciers"
+
+#: facture/views.py
+msgid "Encoder une facture d'achat"
+msgstr "Aankoopfactuur invoeren"
+
+#: facture/views.py
+msgid "Total à payer aux fournisseurs (440000)"
+msgstr "Totaal te betalen aan leveranciers (440000)"
+
+#: facture/views.py
+msgid "facture(s)"
+msgstr "factuur/facturen"
+
+#: facture/views.py
+msgid "dont TVA"
+msgstr "waarvan btw"
+
+#: facture/views.py
+msgid "Factures d'achat non payées"
+msgstr "Onbetaalde aankoopfacturen"
+
+#: facture/views.py
+msgid "Ancienneté"
+msgstr "Ouderdom"
+
+#: facture/views.py
+msgid "j"
+msgstr "d"
+
+#: facture/views.py
+msgid "Marquer payée"
+msgstr "Als betaald markeren"
+
+#: facture/views.py
+msgid "Aucune facture d'achat à payer."
+msgstr "Geen te betalen aankoopfactuur."
+
+#: facture/views.py
+msgid "À payer par fournisseur"
+msgstr "Te betalen per leverancier"
+
+#: facture/views.py
+msgid "Payées ces 30 derniers jours"
+msgstr "Betaald in de laatste 30 dagen"
+
+#: facture/views.py
+msgid ""
+"Au paiement, l'écriture 440000 Fournisseurs (débit) / 550000 Banque (crédit)"
+" est ajoutée au journal de la facture d'achat (voir son détail)."
+msgstr ""
+"Bij betaling wordt de boeking 440000 Leveranciers (debet) / 550000 Bank "
+"(credit) toegevoegd aan het journaal van de aankoopfactuur (zie detail)."
+
+#: facture/views.py
+#, python-format
+msgid "Paiement annulé : %(achat)s"
+msgstr "Betaling geannuleerd: %(achat)s"
+
+#: facture/views.py
+#, python-format
+msgid "Facture d'achat payée : %(achat)s"
+msgstr "Aankoopfactuur betaald: %(achat)s"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Automatische versnellingsbakinterventies"
 

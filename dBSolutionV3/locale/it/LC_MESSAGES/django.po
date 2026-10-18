@@ -49233,6 +49233,158 @@ msgstr "Modifica intervento ESP"
 msgid "Suppression de l'intervention ESP"
 msgstr "Eliminazione dell'intervento ESP"
 
+#: achat_mds/models.py
+msgid "Achats de marchandises / pièces"
+msgstr "Acquisti di merci / ricambi"
+
+#: achat_mds/models.py
+msgid "Comptabilisation"
+msgstr "Contabilizzazione"
+
+#: achat_mds/models.py
+msgid "Frais accessoires d'achat – transport"
+msgstr "Spese accessorie di acquisto – trasporto"
+
+#: achat_mds/models.py
+msgid "Frais de transport"
+msgstr "Spese di trasporto"
+
+#: achat_mds/models.py
+msgid "Frais de transport sur achats"
+msgstr "Spese di trasporto sugli acquisti"
+
+#: achat_mds/models.py
+msgid ""
+"Laisser vide : même taux que la marchandise (frais accessoires facturés par "
+"le fournisseur)."
+msgstr ""
+"Lasciare vuoto: stessa aliquota della merce (spese accessorie fatturate dal "
+"fornitore)."
+
+#: achat_mds/models.py
+msgid ""
+"Les frais de transport facturés avec la marchandise sont des frais "
+"accessoires d'achat : même taux de TVA que la marchandise, TVA déductible "
+"dans les mêmes conditions, et incorporés au coût d'acquisition (compte "
+"604100). La TVA déductible va au compte 411000 et apparaît dans la page TVA "
+"(source « Frais de transport sur achats »)."
+msgstr ""
+"Le spese di trasporto fatturate con la merce sono spese accessorie di "
+"acquisto: stessa aliquota IVA della merce, IVA detraibile alle stesse "
+"condizioni e incluse nel costo di acquisto (conto 604100). L'IVA detraibile "
+"va sul conto 411000 e compare nella pagina IVA (fonte «Spese di trasporto "
+"sugli acquisti»)."
+
+#: achat_mds/models.py
+msgid "Marchandises / pièces"
+msgstr "Merci / ricambi"
+
+#: achat_mds/models.py
+msgid "Montants et TVA à récupérer"
+msgstr "Importi e IVA da recuperare"
+
+#: achat_mds/models.py
+msgid "Même taux que l'achat"
+msgstr "Stessa aliquota dell'acquisto"
+
+#: achat_mds/models.py
+msgid "Poste"
+msgstr "Voce"
+
+#: achat_mds/models.py
+msgid "TVA du transport (%)"
+msgstr "IVA trasporto (%)"
+
+#: achat_mds/models.py
+msgid "Taux de TVA du transport (%)"
+msgstr "Aliquota IVA trasporto (%)"
+
+#: facture/views.py
+msgid "0 à 30 jours"
+msgstr "0-30 giorni"
+
+#: facture/views.py
+msgid "31 à 60 jours"
+msgstr "31-60 giorni"
+
+#: facture/views.py
+msgid "61 à 90 jours"
+msgstr "61-90 giorni"
+
+#: facture/views.py
+msgid "Plus de 90 jours"
+msgstr "Oltre 90 giorni"
+
+#: facture/views.py
+msgid "Factures à payer"
+msgstr "Fatture da pagare"
+
+#: facture/views.py
+msgid "Tous les fournisseurs"
+msgstr "Tutti i fornitori"
+
+#: facture/views.py
+msgid "Encoder une facture d'achat"
+msgstr "Registra una fattura d'acquisto"
+
+#: facture/views.py
+msgid "Total à payer aux fournisseurs (440000)"
+msgstr "Totale da pagare ai fornitori (440000)"
+
+#: facture/views.py
+msgid "facture(s)"
+msgstr "fattura/e"
+
+#: facture/views.py
+msgid "dont TVA"
+msgstr "di cui IVA"
+
+#: facture/views.py
+msgid "Factures d'achat non payées"
+msgstr "Fatture d'acquisto non pagate"
+
+#: facture/views.py
+msgid "Ancienneté"
+msgstr "Anzianità"
+
+#: facture/views.py
+msgid "j"
+msgstr "g"
+
+#: facture/views.py
+msgid "Marquer payée"
+msgstr "Segna come pagata"
+
+#: facture/views.py
+msgid "Aucune facture d'achat à payer."
+msgstr "Nessuna fattura d'acquisto da pagare."
+
+#: facture/views.py
+msgid "À payer par fournisseur"
+msgstr "Da pagare per fornitore"
+
+#: facture/views.py
+msgid "Payées ces 30 derniers jours"
+msgstr "Pagate negli ultimi 30 giorni"
+
+#: facture/views.py
+msgid ""
+"Au paiement, l'écriture 440000 Fournisseurs (débit) / 550000 Banque (crédit)"
+" est ajoutée au journal de la facture d'achat (voir son détail)."
+msgstr ""
+"Al pagamento, la scrittura 440000 Fornitori (dare) / 550000 Banca (avere) "
+"viene aggiunta al giornale della fattura d'acquisto (vedi dettaglio)."
+
+#: facture/views.py
+#, python-format
+msgid "Paiement annulé : %(achat)s"
+msgstr "Pagamento annullato: %(achat)s"
+
+#: facture/views.py
+#, python-format
+msgid "Facture d'achat payée : %(achat)s"
+msgstr "Fattura d'acquisto pagata: %(achat)s"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Interventi cambio automatico"
 

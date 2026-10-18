@@ -95,6 +95,7 @@ def achat_detail_view(request, achat_id):
         {
             "achat": achat,
             "fournisseurs": fournisseurs,
+            "ecritures": achat.ecritures_comptables(),
         },
     )
 

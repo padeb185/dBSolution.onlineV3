@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Factures à payer" %}{% endblock %}
+
+{% block content %}
+<br>
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+    <h1 class="text-2xl font-bold flex items-center gap-3">
+        {% include "facture/_icone.html" %}
+        <span>{% trans "Factures à payer" %}</span>
+    </h1>
+    <form method="get" class="flex flex-wrap items-center gap-2">
+        <select name="fournisseur" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            <option value="">{% trans "Tous les fournisseurs" %}</option>
+            {% for f in fournisseurs %}
+                <option value="{{ f.pk }}" {% if f.pk|stringformat:"s" == fournisseur_id %}selected{% endif %}>{{ f.nom }}</option>
+            {% endfor %}
+        </select>
+        <a href="{% url 'achat_mds:achat_form' %}" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">{% trans "Encoder une facture d'achat" %}</a>
+        <a href="{% url 'facture:maintenances' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Facturation" %}</a>
+    </form>
+</div>
+
+{% include "partials/messages.html" %}
+
+<!-- Totaux et ancienneté -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-red-600 col-span-2 md:col-span-1 lg:col-span-2">
+        <p class="text-gray-500 text-sm">{% trans "Total à payer aux fournisseurs (440000)" %}</p>
+        <p class="text-2xl font-bold text-red-700">{{ total_a_payer|floatformat:2 }} €</p>
+        <p class="text-xs text-gray-500">{{ lignes|length }} {% trans "facture(s)" %} – {% trans "dont TVA" %} {{ total_tva|floatformat:2 }} €</p>
+    </div>
+    {% for t in tranches %}
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 {{ t.bordure }}">
+        <p class="text-gray-500 text-sm">{{ t.libelle }}</p>
+        <p class="text-xl font-bold">{{ t.total|floatformat:2 }} €</p>
+        <p class="text-xs text-gray-500">{{ t.nb }} {% trans "facture(s)" %}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Factures d'achat non payées -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Factures d'achat non payées" %}</h2>
+    {% if lignes %}
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-2 py-2 text-left">{% trans "Date de la facture" %}</th>
+                <th class="border px-2 py-2 text-left">{% trans "Fournisseur" %}</th>
+                <th class="border px-2 py-2 text-left">{% trans "Référence facture" %}</th>
+                <th class="border px-2 py-2 text-left">{% trans "Libellé" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "HTVA" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "TVA" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "TVAC" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Ancienneté" %}</th>
+                <th class="border px-2 py-2 text-center">{% trans "Paiement" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for l in lignes %}
+            <tr>
+                <td class="border px-2 py-1">{{ l.achat.date_facture|date:"d/m/Y" }}</td>
+                <td class="border px-2 py-1">{{ l.achat.fournisseur.nom }}</td>
+                <td class="border px-2 py-1">
+                    <a href="{% url 'achat_mds:achat_detail' l.achat.id %}" class="text-blue-700 hover:underline">{{ l.achat.reference_facture|default:"—" }}</a>
+                </td>
+                <td class="border px-2 py-1">{{ l.achat.libelle_facture|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right">{{ l.achat.montant_htva_total|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ l.achat.montant_tva|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right font-semibold">{{ l.achat.total_tvac|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">
+                    <span class="px-2 py-1 rounded text-xs font-semibold {{ l.badge }}">{{ l.age }} {% trans "j" %}</span>
+                </td>
+                <td class="border px-2 py-1">
+                    <form method="post" class="flex items-center gap-1 justify-center">
+                        {% csrf_token %}
+                        <input type="hidden" name="achat_id" value="{{ l.achat.id }}">
+                        <input type="date" name="date" value="{{ aujourdhui|date:'Y-m-d' }}" class="border rounded px-2 py-1 text-xs">
+                        <button type="submit" class="bg-green-700 text-white px-3 py-1 rounded hover:bg-green-500 font-semibold text-xs">{% trans "Marquer payée" %}</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr class="bg-gray-100 font-semibold">
+                <td class="border px-2 py-1" colspan="6">{% trans "Total" %}</td>
+                <td class="border px-2 py-1 text-right">{{ total_a_payer|floatformat:2 }} €</td>
+                <td class="border px-2 py-1" colspan="2"></td>
+            </tr>
+        </tfoot>
+    </table>
+    {% else %}
+        <p class="text-gray-500">{% trans "Aucune facture d'achat à payer." %}</p>
+    {% endif %}
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+    <!-- Par fournisseur -->
+    <div class="bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-4">{% trans "À payer par fournisseur" %}</h2>
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-2 py-2 text-left">{% trans "Fournisseur" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Nombre" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "TVAC" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for f in par_fournisseur %}
+                <tr>
+                    <td class="border px-2 py-1"><a href="?fournisseur={{ f.fournisseur.pk }}" class="text-blue-700 hover:underline">{{ f.fournisseur.nom }}</a></td>
+                    <td class="border px-2 py-1 text-right">{{ f.nb }}</td>
+                    <td class="border px-2 py-1 text-right">{{ f.total|floatformat:2 }} €</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="3" class="border px-2 py-1 text-gray-400">—</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Payées récemment -->
+    <div class="bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Payées ces 30 derniers jours" %}</h2>
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-2 py-2 text-left">{% trans "Date de paiement" %}</th>
+                    <th class="border px-2 py-2 text-left">{% trans "Fournisseur" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "TVAC" %}</th>
+                    <th class="border px-2 py-2 text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for a in payees_recentes %}
+                <tr>
+                    <td class="border px-2 py-1">{{ a.date_paiement|date:"d/m/Y" }}</td>
+                    <td class="border px-2 py-1">
+                        <a href="{% url 'achat_mds:achat_detail' a.id %}" class="text-blue-700 hover:underline">{{ a.fournisseur.nom }}</a>
+                        <span class="text-gray-400 text-xs">{{ a.reference_facture|default:"" }}</span>
+                    </td>
+                    <td class="border px-2 py-1 text-right">{{ a.total_tvac|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-center">
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="achat_id" value="{{ a.id }}">
+                            <input type="hidden" name="action" value="annuler">
+                            <button type="submit" class="text-red-700 hover:underline text-xs">{% trans "Annuler le paiement" %}</button>
+                        </form>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="4" class="border px-2 py-1 text-gray-400">—</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<p class="text-sm text-gray-600 mb-6">
+    {% trans "Au paiement, l'écriture 440000 Fournisseurs (débit) / 550000 Banque (crédit) est ajoutée au journal de la facture d'achat (voir son détail)." %}
+</p>
+{% endblock %}

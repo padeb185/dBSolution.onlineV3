@@ -43260,7 +43260,7 @@ msgstr "Paid on"
 
 #: utilisateurs/templates/utilisateurs/paie/paie_detail.html:61
 msgid "Annuler le paiement"
-msgstr "Cancel the payment"
+msgstr "Cancel payment"
 
 #: utilisateurs/templates/utilisateurs/paie/paie_detail.html:68
 msgid "dont double pécule"
@@ -49137,6 +49137,158 @@ msgstr "ESP job update"
 #: maintenance/autres_interventions/esp/models.py
 msgid "Suppression de l'intervention ESP"
 msgstr "ESP job deletion"
+
+#: achat_mds/models.py
+msgid "Achats de marchandises / pièces"
+msgstr "Purchases of goods / parts"
+
+#: achat_mds/models.py
+msgid "Comptabilisation"
+msgstr "Accounting entries"
+
+#: achat_mds/models.py
+msgid "Frais accessoires d'achat – transport"
+msgstr "Incidental purchase costs – transport"
+
+#: achat_mds/models.py
+msgid "Frais de transport"
+msgstr "Transport costs"
+
+#: achat_mds/models.py
+msgid "Frais de transport sur achats"
+msgstr "Transport costs on purchases"
+
+#: achat_mds/models.py
+msgid ""
+"Laisser vide : même taux que la marchandise (frais accessoires facturés par "
+"le fournisseur)."
+msgstr ""
+"Leave empty: same rate as the goods (incidental costs invoiced by the "
+"supplier)."
+
+#: achat_mds/models.py
+msgid ""
+"Les frais de transport facturés avec la marchandise sont des frais "
+"accessoires d'achat : même taux de TVA que la marchandise, TVA déductible "
+"dans les mêmes conditions, et incorporés au coût d'acquisition (compte "
+"604100). La TVA déductible va au compte 411000 et apparaît dans la page TVA "
+"(source « Frais de transport sur achats »)."
+msgstr ""
+"Transport costs invoiced with the goods are incidental purchase costs: same "
+"VAT rate as the goods, VAT deductible under the same conditions, and "
+"included in the acquisition cost (account 604100). Deductible VAT goes to "
+"account 411000 and appears on the VAT page (source “Transport costs on "
+"purchases”)."
+
+#: achat_mds/models.py
+msgid "Marchandises / pièces"
+msgstr "Goods / parts"
+
+#: achat_mds/models.py
+msgid "Montants et TVA à récupérer"
+msgstr "Amounts and recoverable VAT"
+
+#: achat_mds/models.py
+msgid "Même taux que l'achat"
+msgstr "Same rate as the purchase"
+
+#: achat_mds/models.py
+msgid "Poste"
+msgstr "Item"
+
+#: achat_mds/models.py
+msgid "TVA du transport (%)"
+msgstr "Transport VAT (%)"
+
+#: achat_mds/models.py
+msgid "Taux de TVA du transport (%)"
+msgstr "Transport VAT rate (%)"
+
+#: facture/views.py
+msgid "0 à 30 jours"
+msgstr "0 to 30 days"
+
+#: facture/views.py
+msgid "31 à 60 jours"
+msgstr "31 to 60 days"
+
+#: facture/views.py
+msgid "61 à 90 jours"
+msgstr "61 to 90 days"
+
+#: facture/views.py
+msgid "Plus de 90 jours"
+msgstr "Over 90 days"
+
+#: facture/views.py
+msgid "Factures à payer"
+msgstr "Invoices to pay"
+
+#: facture/views.py
+msgid "Tous les fournisseurs"
+msgstr "All suppliers"
+
+#: facture/views.py
+msgid "Encoder une facture d'achat"
+msgstr "Enter a purchase invoice"
+
+#: facture/views.py
+msgid "Total à payer aux fournisseurs (440000)"
+msgstr "Total payable to suppliers (440000)"
+
+#: facture/views.py
+msgid "facture(s)"
+msgstr "invoice(s)"
+
+#: facture/views.py
+msgid "dont TVA"
+msgstr "incl. VAT"
+
+#: facture/views.py
+msgid "Factures d'achat non payées"
+msgstr "Unpaid purchase invoices"
+
+#: facture/views.py
+msgid "Ancienneté"
+msgstr "Age"
+
+#: facture/views.py
+msgid "j"
+msgstr "d"
+
+#: facture/views.py
+msgid "Marquer payée"
+msgstr "Mark as paid"
+
+#: facture/views.py
+msgid "Aucune facture d'achat à payer."
+msgstr "No purchase invoice to pay."
+
+#: facture/views.py
+msgid "À payer par fournisseur"
+msgstr "Payable by supplier"
+
+#: facture/views.py
+msgid "Payées ces 30 derniers jours"
+msgstr "Paid in the last 30 days"
+
+#: facture/views.py
+msgid ""
+"Au paiement, l'écriture 440000 Fournisseurs (débit) / 550000 Banque (crédit)"
+" est ajoutée au journal de la facture d'achat (voir son détail)."
+msgstr ""
+"On payment, the entry 440000 Suppliers (debit) / 550000 Bank (credit) is "
+"added to the purchase invoice journal (see its detail)."
+
+#: facture/views.py
+#, python-format
+msgid "Paiement annulé : %(achat)s"
+msgstr "Payment cancelled: %(achat)s"
+
+#: facture/views.py
+#, python-format
+msgid "Facture d'achat payée : %(achat)s"
+msgstr "Purchase invoice paid: %(achat)s"
 
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Automatic gearbox services"

@@ -30,6 +30,7 @@ class CalculTVA:
     # (ex. carburant d'une voiture de société : souvent 50 % en Belgique — à adapter).
     SOURCES = {
         "achats": {"label": _("Achats (factures fournisseurs)"), "deductible": 100},
+        "transport_achats": {"label": _("Frais de transport sur achats"), "deductible": 100},
         "outillage": {"label": _("Outillage"), "deductible": 100},
         "carburant": {"label": _("Carburant"), "deductible": 100},
         "adblue": {"label": _("AdBlue"), "deductible": 100},
@@ -220,8 +221,20 @@ class CalculTVA:
         base = tva = ZERO
         n = 0
         for achat in AchatMds.objects.filter(self._filtre_societe(), date_facture__range=(self.debut, self.fin)):
-            base += achat.montant_htva_total or ZERO
-            tva += achat.montant_tva or ZERO
+            # Marchandises / pièces (le transport est une source à part, avec sa propre déductibilité)
+            base += achat.achat_montant_htva or ZERO
+            tva += achat.montant_tva_achat or ZERO
+            n += 1
+        return base, tva, n
+
+    def _transport_achats(self):
+        from achat_mds.models import AchatMds
+        base = tva = ZERO
+        n = 0
+        for achat in AchatMds.objects.filter(self._filtre_societe(), date_facture__range=(self.debut, self.fin),
+                                             transport_montant_htva__gt=0):
+            base += achat.transport_montant_htva or ZERO
+            tva += achat.montant_tva_transport or ZERO
             n += 1
         return base, tva, n
 
@@ -317,6 +330,7 @@ class CalculTVA:
 
         calculs = {
             "achats": self._achats,
+            "transport_achats": self._transport_achats,
             "outillage": self._outillage,
             "carburant": self._carburant,
             "adblue": self._adblue,

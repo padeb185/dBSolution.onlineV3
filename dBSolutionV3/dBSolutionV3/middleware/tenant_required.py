@@ -1,5 +1,29 @@
+from django.apps import apps
+from django.conf import settings
 from django.shortcuts import redirect
+from django.urls import Resolver404, resolve
 from django_tenants.utils import get_public_schema_name
+
+
+def _apps_tenant_seulement():
+    partagees = set(getattr(settings, "SHARED_APPS", ()))
+    return {a for a in getattr(settings, "TENANT_APPS", ()) if a not in partagees}
+
+
+def _vue_app_tenant(request, path):
+    """True si l'URL appartient à une app présente uniquement dans les schémas des tenants."""
+    try:
+        match = resolve(path, urlconf=getattr(request, "urlconf", None))
+    except Resolver404:
+        return False
+    func = match.func
+    module = getattr(getattr(func, "view_class", None), "__module__", None) or getattr(func, "__module__", "")
+    config = apps.get_containing_app_config(module)
+    if config is None:
+        return False
+    tenant_apps = _apps_tenant_seulement()
+    # INSTALLED_APPS peut contenir le chemin de l'AppConfig (…apps.XxxConfig)
+    return any(config.name == a or a.startswith(config.name + ".apps.") for a in tenant_apps)
 
 
 class TenantRequiredMiddleware:
@@ -40,8 +64,23 @@ class TenantRequiredMiddleware:
         if tenant is None:
             return self.get_response(request)
 
-        # Le schéma public est autorisé
+        # Schéma public : une page d'app « tenant » (achats, maintenances…) n'y a pas de table.
+        # On renvoie vers la même page dans le tenant de l'utilisateur (/tenant/<schema>/…).
         if schema_requete == get_public_schema_name():
+            schema_cible = request.session.get("tenant_schema")
+            if not schema_cible and request.user.is_authenticated:
+                schema_cible = getattr(getattr(request.user, "societe", None), "schema_name", None)
+            if (
+                schema_cible
+                and schema_cible != get_public_schema_name()
+                and request.method in ("GET", "HEAD")
+                and _vue_app_tenant(request, path)
+            ):
+                prefixe = getattr(settings, "TENANT_SUBFOLDER_PREFIX", "tenant").strip("/")
+                cible = f"/{prefixe}/{schema_cible}{path}"
+                if request.META.get("QUERY_STRING"):
+                    cible += "?" + request.META["QUERY_STRING"]
+                return redirect(cible)
             return self.get_response(request)
 
         # Dans un tenant privé, utilisateur obligatoire
