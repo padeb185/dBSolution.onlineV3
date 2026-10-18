@@ -275,13 +275,25 @@
 
         <div>
             <span class="label">{% trans "Véhicule" %} :</span>
-            {{ maindoeuvre.voiture_exemplaire }}
+            {{ maindoeuvre.voiture_exemplaire|default:"-" }}
         </div>
 
         <div>
-            <span class="label">{% trans "Kilométrage chassis" %} :</span>
-            {{ maindoeuvre.kilometres_chassis }} km
+            <span class="label">{% trans "Immatriculation" %} :</span>
+            {{ maindoeuvre.voiture_exemplaire.immatriculation|default:"-" }}
         </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage de l'intervention" %} :</span>
+            {% if maindoeuvre.kilometres_chassis %}{{ maindoeuvre.kilometres_chassis }} km{% else %}-{% endif %}
+        </div>
+
+        {% if intervention_libelle %}
+        <div>
+            <span class="label">{% trans "Intervention" %} :</span>
+            {{ intervention_libelle }}
+        </div>
+        {% endif %}
 
 
     </div>

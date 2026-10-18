@@ -148,9 +148,16 @@ def maindoeuvre_detail_view(request, main_oeuvre_id):
         id=main_oeuvre_id
     )
 
+    from .liaison import libelle_intervention, synchroniser, tag_intervention
+
+    # Véhicule et kilométrage repris de l'intervention liée
+    intervention = synchroniser(maindoeuvre)
+
     context = {
         "maindoeuvre": maindoeuvre,
-
+        "intervention": intervention,
+        "intervention_libelle": libelle_intervention(intervention) if intervention else "",
+        "intervention_tag": tag_intervention(intervention),
     }
     return render(request, "maindoeuvre/main_oeuvre_detail.html", context)
 
@@ -231,11 +238,18 @@ def modifier_maindoeuvre_view(request, main_oeuvre_id):
 
 @login_required
 def maindoeuvre_detail_pdf_view(request, id):
+    from .liaison import libelle_intervention, synchroniser
+
     maindoeuvre = get_object_or_404(MainDoeuvre, id=id)
+    intervention = synchroniser(maindoeuvre)
 
     html_string = render_to_string(
         "maindoeuvre/main_oeuvre_detail_pdf.html",
-        {"maindoeuvre": maindoeuvre},
+        {
+            "maindoeuvre": maindoeuvre,
+            "intervention": intervention,
+            "intervention_libelle": libelle_intervention(intervention) if intervention else "",
+        },
         request=request
     )
 

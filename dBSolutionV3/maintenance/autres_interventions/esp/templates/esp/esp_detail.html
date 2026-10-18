@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "ESP (contrôle de stabilité)" %}{% endblock %}
+
+{% block content %}
+    {% url 'esp:modifier_esp' esp.pk as url_modifier %}
+    {% url 'esp:esp_detail_pdf' esp.pk as url_pdf %}
+    {% url 'esp:delete_esp' esp.pk as url_delete %}
+    {% if exemplaire %}{% url 'esp:esp_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "ESP (contrôle de stabilité)" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=esp km_controle=esp.kilometrage_esp icone="esp.png" %}
+{% endblock %}

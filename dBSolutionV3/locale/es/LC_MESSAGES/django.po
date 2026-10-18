@@ -49179,6 +49179,62 @@ msgstr "imputadas"
 msgid "paie(s)"
 msgstr "nómina(s)"
 
+#: maintenance/autres_interventions/esp/models.py
+msgid "Bouton ESP (désactivation)"
+msgstr "Botón ESP (desactivación)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Calculateur ESP"
+msgstr "Centralita ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Calibrage des capteurs (angle de volant, lacet)"
+msgstr "Calibración de sensores (ángulo de volante, guiñada)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Capteur de lacet et d'accélération transversale"
+msgstr "Sensor de guiñada y aceleración transversal"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Capteurs de vitesse de roue"
+msgstr "Sensores de velocidad de rueda"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Diagnostic et codage du calculateur ESP"
+msgstr "Diagnóstico y codificación de la centralita ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "ESP"
+msgstr "ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "ESP (contrôle de stabilité)"
+msgstr "ESP (control de estabilidad)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Faisceau et connecteurs ESP"
+msgstr "Cableado y conectores ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Groupe hydraulique ESP (bloc et pompe)"
+msgstr "Grupo hidráulico ESP (bloque y bomba)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Intervention ESP"
+msgstr "Intervención ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Liquide de frein (purge du groupe ESP)"
+msgstr "Líquido de frenos (purga del grupo ESP)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Modification intervention ESP"
+msgstr "Modificación de intervención ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Suppression de l'intervention ESP"
+msgstr "Eliminación de la intervención ESP"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Intervenciones de la caja automática"
 

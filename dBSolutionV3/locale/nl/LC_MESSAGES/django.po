@@ -49189,6 +49189,62 @@ msgstr "toegewezen"
 msgid "paie(s)"
 msgstr "loonstrook/-stroken"
 
+#: maintenance/autres_interventions/esp/models.py
+msgid "Bouton ESP (désactivation)"
+msgstr "ESP-knop (uitschakeling)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Calculateur ESP"
+msgstr "ESP-regeleenheid"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Calibrage des capteurs (angle de volant, lacet)"
+msgstr "Kalibratie sensoren (stuurhoek, gier)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Capteur de lacet et d'accélération transversale"
+msgstr "Gier- en dwarsversnellingssensor"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Capteurs de vitesse de roue"
+msgstr "Wielsnelheidssensoren"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Diagnostic et codage du calculateur ESP"
+msgstr "Diagnose en codering ESP-regeleenheid"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "ESP"
+msgstr "ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "ESP (contrôle de stabilité)"
+msgstr "ESP (stabiliteitscontrole)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Faisceau et connecteurs ESP"
+msgstr "ESP-kabelboom en connectoren"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Groupe hydraulique ESP (bloc et pompe)"
+msgstr "ESP-hydraulische unit (blok en pomp)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Intervention ESP"
+msgstr "Interventie ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Liquide de frein (purge du groupe ESP)"
+msgstr "Remvloeistof (ontluchting ESP-unit)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Modification intervention ESP"
+msgstr "Wijziging interventie ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Suppression de l'intervention ESP"
+msgstr "Verwijdering interventie ESP"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Automatische versnellingsbakinterventies"
 

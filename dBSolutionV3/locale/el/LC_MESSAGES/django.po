@@ -49238,6 +49238,62 @@ msgstr "καταλογισμένες"
 msgid "paie(s)"
 msgstr "μισθοδοσία(ες)"
 
+#: maintenance/autres_interventions/esp/models.py
+msgid "Bouton ESP (désactivation)"
+msgstr "Διακόπτης ESP (απενεργοποίηση)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Calculateur ESP"
+msgstr "Εγκέφαλος ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Calibrage des capteurs (angle de volant, lacet)"
+msgstr "Βαθμονόμηση αισθητήρων (γωνία τιμονιού, εκτροπή)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Capteur de lacet et d'accélération transversale"
+msgstr "Αισθητήρας εκτροπής και πλευρικής επιτάχυνσης"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Capteurs de vitesse de roue"
+msgstr "Αισθητήρες ταχύτητας τροχού"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Diagnostic et codage du calculateur ESP"
+msgstr "Διάγνωση και κωδικοποίηση εγκεφάλου ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "ESP"
+msgstr "ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "ESP (contrôle de stabilité)"
+msgstr "ESP (έλεγχος ευστάθειας)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Faisceau et connecteurs ESP"
+msgstr "Καλωδίωση και φις ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Groupe hydraulique ESP (bloc et pompe)"
+msgstr "Υδραυλική μονάδα ESP (μπλοκ και αντλία)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Intervention ESP"
+msgstr "Επέμβαση ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Liquide de frein (purge du groupe ESP)"
+msgstr "Υγρό φρένων (εξαέρωση μονάδας ESP)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Modification intervention ESP"
+msgstr "Τροποποίηση επέμβασης ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Suppression de l'intervention ESP"
+msgstr "Διαγραφή επέμβασης ESP"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Επεμβάσεις σε αυτόματο κιβώτιο"
 

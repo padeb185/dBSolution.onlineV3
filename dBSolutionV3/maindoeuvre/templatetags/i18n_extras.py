@@ -235,6 +235,7 @@ DESCRIPTIFS_TRADUISIBLES = [
     # ==========================================================
     "Culasse",
     "Bas moteur",
+    "ESP (contrôle de stabilité)",
     "Suspension d'origine",
     "Suspension sport",
     "Bougies d'allumage",

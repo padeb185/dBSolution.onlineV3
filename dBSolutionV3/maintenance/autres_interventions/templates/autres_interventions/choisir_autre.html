@@ -204,6 +204,25 @@
         </a>
 
         <!-- ================================================== -->
+        <!-- ESP -->
+        <!-- ================================================== -->
+        <a
+            href="{% url 'esp:esp_list' exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="mb-2 text-lg font-semibold">{% trans "ESP" %}</h2>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_esp|default:0 }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/esp.png' %}" alt="{% trans 'ESP' %}" class="h-[60px] w-[60px]">
+            </div>
+        </a>
+
+        <!-- ================================================== -->
         <!-- COURROIE D'ACCESSOIRES -->
         <!-- ================================================== -->
 

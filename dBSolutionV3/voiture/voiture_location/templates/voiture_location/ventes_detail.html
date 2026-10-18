@@ -145,11 +145,8 @@
             <th class="border px-4 py-2">{% trans "Véhicule" %}</th>
             <th class="border px-4 py-2">{% trans "Client" %}</th>
             <th class="border px-4 py-2">{% trans "Vendeur" %}</th>
-            <th class="border px-4 py-2">{% trans "Type" %}</th>
             <th class="border px-4 py-2">{% trans "Circuit / route" %}</th>
             <th class="border px-4 py-2">{% trans "Kilométrage" %}</th>
-            <th class="border px-4 py-2 text-right">{% trans "HTVA" %}</th>
-            <th class="border px-4 py-2 text-right">{% trans "TVA" %}</th>
             <th class="border px-4 py-2 text-right">{% trans "TVAC" %}</th>
             <th class="border px-4 py-2">{% trans "Facture" %}</th>
             <th class="border px-4 py-2">{% trans "Paiement" %}</th>
@@ -162,14 +159,19 @@
             <td class="border px-4 py-2">
                 {% with exemplaire=loc.voiture_exemplaire %}{% include "maintenance/partials/plaque.html" with taille="petite" %}{% endwith %}
             </td>
-            <td class="border px-4 py-2">{{ loc.voiture_exemplaire.voiture_marque.nom_marque }} {{ loc.voiture_exemplaire.voiture_modele.nom_modele }}</td>
+            <td class="border px-4 py-2">
+                <div class="flex items-center gap-2">
+                    <img src="{% static 'images/marques/' %}{{ loc.voiture_exemplaire.voiture_marque.nom_marque|lower }}.png"
+                         alt="{{ loc.voiture_exemplaire.voiture_marque.nom_marque }}"
+                         title="{{ loc.voiture_exemplaire.voiture_marque.nom_marque }}"
+                         class="w-8 h-8 object-contain">
+                    <span>{{ loc.voiture_exemplaire.voiture_modele.nom_modele }}</span>
+                </div>
+            </td>
             <td class="border px-4 py-2">{{ loc.locataire|default:"—" }}</td>
             <td class="border px-4 py-2">{% if loc.vendeur %}{{ loc.vendeur.prenom }} {{ loc.vendeur.nom }}{% else %}—{% endif %}</td>
-            <td class="border px-4 py-2">{{ loc.get_type_location_display }}</td>
             <td class="border px-4 py-2">{{ loc.lieu|default:"—" }}</td>
             <td class="border px-4 py-2" data-order="{{ loc.kilometrage|default:0 }}">{{ loc.distance_affichage|default:"—" }}</td>
-            <td class="border px-4 py-2 text-right" data-order="{{ loc.prix_htva }}">{{ loc.prix_htva|floatformat:2 }} €</td>
-            <td class="border px-4 py-2 text-right" data-order="{{ loc.montant_tva }}">{{ loc.montant_tva|floatformat:2 }} € <span class="text-xs text-gray-500">({{ loc.taux_tva|floatformat:"-2" }} %)</span></td>
             <td class="border px-4 py-2 text-right font-semibold" data-order="{{ loc.prix_tvac }}">{{ loc.prix_tvac|floatformat:2 }} €</td>
             <td class="border px-4 py-2 text-center whitespace-nowrap">{% include "voiture_location/_facture_location.html" %}</td>
             <td class="border px-4 py-2 text-center whitespace-nowrap">{% include "voiture_location/_paiement_location.html" %}</td>
@@ -178,9 +180,7 @@
     </tbody>
     <tfoot>
         <tr class="bg-gray-100 font-semibold">
-            <td class="border px-4 py-2" colspan="8">{% trans "Total" %}</td>
-            <td class="border px-4 py-2 text-right">{{ totaux.htva|floatformat:2 }} €</td>
-            <td class="border px-4 py-2 text-right">{{ totaux.tva|floatformat:2 }} €</td>
+            <td class="border px-4 py-2" colspan="7">{% trans "Total" %}</td>
             <td class="border px-4 py-2 text-right">{{ totaux.tvac|floatformat:2 }} €</td>
             <td class="border px-4 py-2"></td>
             <td class="border px-4 py-2"></td>
@@ -218,8 +218,8 @@ $(document).ready(function () {
         },
         order: [[0, 'desc']],
         columnDefs: [
-            { targets: [11, 12], orderable: false, searchable: false },
-            { targets: [7, 8, 9, 10], type: 'num' }
+            { targets: [8, 9], orderable: false, searchable: false },
+            { targets: [6, 7], type: 'num' }
         ]
     });
 });

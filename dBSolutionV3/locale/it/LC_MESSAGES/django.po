@@ -49177,6 +49177,62 @@ msgstr "imputate"
 msgid "paie(s)"
 msgstr "busta/e paga"
 
+#: maintenance/autres_interventions/esp/models.py
+msgid "Bouton ESP (désactivation)"
+msgstr "Pulsante ESP (disattivazione)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Calculateur ESP"
+msgstr "Centralina ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Calibrage des capteurs (angle de volant, lacet)"
+msgstr "Calibrazione sensori (angolo volante, imbardata)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Capteur de lacet et d'accélération transversale"
+msgstr "Sensore di imbardata e accelerazione laterale"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Capteurs de vitesse de roue"
+msgstr "Sensori velocità ruota"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Diagnostic et codage du calculateur ESP"
+msgstr "Diagnosi e codifica della centralina ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "ESP"
+msgstr "ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "ESP (contrôle de stabilité)"
+msgstr "ESP (controllo di stabilità)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Faisceau et connecteurs ESP"
+msgstr "Cablaggio e connettori ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Groupe hydraulique ESP (bloc et pompe)"
+msgstr "Gruppo idraulico ESP (blocco e pompa)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Intervention ESP"
+msgstr "Intervento ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Liquide de frein (purge du groupe ESP)"
+msgstr "Liquido freni (spurgo gruppo ESP)"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Modification intervention ESP"
+msgstr "Modifica intervento ESP"
+
+#: maintenance/autres_interventions/esp/models.py
+msgid "Suppression de l'intervention ESP"
+msgstr "Eliminazione dell'intervento ESP"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Interventi cambio automatico"
 

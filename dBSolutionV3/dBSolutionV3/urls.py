@@ -188,6 +188,7 @@ urlpatterns += i18n_patterns(
     path("suspension/", include(("maintenance.autres_interventions.suspension.urls", "suspension"), namespace="suspension")),
     path("suspension/origine/", include(("maintenance.autres_interventions.suspension.suspension_origine.urls", "suspension_origine"), namespace="suspension_origine")),
     path("suspension/sport/", include(("maintenance.autres_interventions.suspension.suspension_sport.urls", "suspension_sport"), namespace="suspension_sport")),
+    path("esp/", include(("maintenance.autres_interventions.esp.urls", "esp"), namespace="esp")),
     path('bas_moteur/', include(('maintenance.autres_interventions.moteur.bas_moteur.urls', 'bas_moteur'), namespace='bas_moteur')),
     path('electronique_moteur/', include(('maintenance.autres_interventions.moteur.electronique_moteur.urls', 'electronique_moteur'), namespace='electronique_moteur')),
     path('lubrification/', include(('maintenance.autres_interventions.moteur.lubrification.urls', 'lubrification'), namespace='lubrification')),

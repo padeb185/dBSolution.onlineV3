@@ -39,18 +39,27 @@
             <div>
                 <strong>{% trans "Immatriculation" %} :</strong>
                 <div class="mt-2">
-                    {% include "maintenance/partials/plaque.html" with exemplaire=maindoeuvre.voiture_exemplaire %}
+                    {% if maindoeuvre.voiture_exemplaire %}
+                        {% include "maintenance/partials/plaque.html" with exemplaire=maindoeuvre.voiture_exemplaire %}
+                    {% else %}-{% endif %}
                 </div>
             </div>
 
             <p>
-                <strong>{% trans "Kilométrage" %} :</strong>
-                {{ maindoeuvre.kilometres_chassis }}
+                <strong>{% trans "Kilométrage de l'intervention" %} :</strong>
+                {% if maindoeuvre.kilometres_chassis %}{{ maindoeuvre.kilometres_chassis }} km{% else %}-{% endif %}
             </p>
+
+            {% if intervention_libelle %}
+            <p>
+                <strong>{% trans "Intervention" %} :</strong>
+                {{ intervention_libelle }}
+            </p>
+            {% endif %}
 
             <p>
                 <strong>{% trans "Tag" %} :</strong>
-                {{ maindoeuvre.get_tag_display }}
+                {{ intervention_tag|default:"-" }}
             </p>
 
             <p>
