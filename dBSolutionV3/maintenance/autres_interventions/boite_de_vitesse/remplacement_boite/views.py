@@ -31,6 +31,7 @@ ICONES_DEPOSE = {
     "depose_batterie": "batterie.png",
     "depose_bac_batterie": "batterie.png",
     "depose_filtre_air": "filtre-a-air.png",
+    "depose_demarreur": "demarreur.png",
     "depose_cardans": "cardan.png",
     "depose_arbre_transmission": "arbre-de-transmission.png",
     "depose_capteur": "capteurs.png",
@@ -39,8 +40,10 @@ ICONES_DEPOSE = {
     "depose_commande_embrayage": "fm_cable_principal.png",
     "depose_support_moteur": "silent-moteur.png",
     "depose_support_boite": "support-boite.png",
+    "depose_traverse_renfort": "traverse-renfort.png",
     "depose_coquille_aile": "aile.png",
     "depose_cable_masse": "masse-equi.png",
+    "depose_vidange": "huile-boite.png",
 }
 
 

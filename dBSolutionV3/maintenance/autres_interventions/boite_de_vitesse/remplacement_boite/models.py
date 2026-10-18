@@ -47,6 +47,7 @@ PIECES_DEPOSE_REPOSE = [
     ("depose_traverse_renfort", _("Traverse de renfort")),
     ("depose_coquille_aile", _("Coquille d'aile")),
     ("depose_cable_masse", _("Câble de masse")),
+    ("depose_vidange", _("Vidange")),
 ]
 
 
@@ -274,6 +275,7 @@ class RemplacementBoite(TechnicienMixin, models.Model):
     depose_traverse_renfort = models.BooleanField(default=False, verbose_name=_("Traverse de renfort"))
     depose_coquille_aile = models.BooleanField(default=False, verbose_name=_("Coquille d'aile"))
     depose_cable_masse = models.BooleanField(default=False, verbose_name=_("Câble de masse"))
+    depose_vidange = models.BooleanField(default=False, verbose_name=_("Vidange"))
 
     remarques = models.TextField(
         verbose_name=_("Remarques"),
