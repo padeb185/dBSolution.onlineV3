@@ -69,5 +69,6 @@ urlpatterns = [
     path("paie/<int:pk>/supprimer/", views_paie.delete_paie, name="delete_paie"),
     path("paie/<int:pk>/payer/", views_paie.paie_payer, name="paie_payer"),
     path("paie/comptabilite/", views_paie.paie_comptabilite, name="paie_comptabilite"),
+    path("paie/cout-main-oeuvre/", views_paie.cout_main_oeuvre, name="cout_main_oeuvre"),
     path("paie/comptabilite/export.csv", views_paie.paie_comptabilite_csv, name="paie_comptabilite_csv"),
 ]

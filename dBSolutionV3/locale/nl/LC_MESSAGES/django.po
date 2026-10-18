@@ -49074,6 +49074,121 @@ msgstr "Dashboard ophanging"
 msgid "Écrous de tige d'amortisseur"
 msgstr "Moeren schokdemperstang"
 
+#: utilisateurs/views_paie.py
+msgid "Apprentis"
+msgstr "Leerlingen"
+
+#: utilisateurs/views_paie.py
+msgid "Atelier"
+msgstr "Werkplaats"
+
+#: utilisateurs/views_paie.py
+msgid "Aucune paie sur la période."
+msgstr "Geen loonstrook voor de periode."
+
+#: utilisateurs/views_paie.py
+msgid "Coût de la main-d'œuvre"
+msgstr "Arbeidskosten"
+
+#: utilisateurs/views_paie.py
+msgid "Coût de revient par utilisateur"
+msgstr "Kostprijs per gebruiker"
+
+#: utilisateurs/views_paie.py
+msgid "Coût des heures non imputées"
+msgstr "Kosten van niet-toegewezen uren"
+
+#: utilisateurs/views_paie.py
+msgid "Coût total employeur"
+msgstr "Totale werkgeverskost"
+
+#: utilisateurs/views_paie.py
+msgid "Coût total ÷ heures imputées"
+msgstr "Totale kost ÷ toegewezen uren"
+
+#: utilisateurs/views_paie.py
+msgid "Facturable"
+msgstr "Factureerbaar"
+
+#: utilisateurs/views_paie.py
+msgid "Heures imputées"
+msgstr "Toegewezen uren"
+
+#: utilisateurs/views_paie.py
+#, python-format
+msgid ""
+"Heures non encodées dans la paie : estimées sur l'horaire de référence "
+"(%(heures_reference)s h/mois × régime de travail)."
+msgstr ""
+"Uren niet ingevoerd in de loonstrook: geschat op het referentieschema "
+"(%(heures_reference)s u/maand × arbeidsregime)."
+
+#: utilisateurs/views_paie.py
+msgid "Heures prestées"
+msgstr "Gepresteerde uren"
+
+#: utilisateurs/views_paie.py
+msgid "Main-d'œuvre facturable"
+msgstr "Factureerbare arbeid"
+
+#: utilisateurs/views_paie.py
+msgid "Marge sur main-d'œuvre"
+msgstr "Marge op arbeid"
+
+#: utilisateurs/views_paie.py
+msgid "Mécaniciens"
+msgstr "Mecaniciens"
+
+#: utilisateurs/views_paie.py
+msgid "Retour au panneau des paies"
+msgstr "Terug naar het loonpaneel"
+
+#: utilisateurs/views_paie.py
+msgid "Sous-total"
+msgstr "Subtotaal"
+
+#: utilisateurs/views_paie.py
+msgid "Taux d'occupation"
+msgstr "Bezettingsgraad"
+
+#: utilisateurs/views_paie.py
+msgid "Taux d'occupation (%)"
+msgstr "Bezettingsgraad (%)"
+
+#: utilisateurs/views_paie.py
+msgid "Taux de revient horaire"
+msgstr "Uurkostprijs"
+
+#: utilisateurs/views_paie.py
+msgid ""
+"Taux de revient horaire = salaire total employeur ÷ heures prestées, repris "
+"des paies (rapport de calcul du salaire). Les heures imputées sont le temps "
+"encodé sur les interventions (fiches main-d'œuvre)."
+msgstr ""
+"Uurkostprijs = totale werkgeverskost ÷ gepresteerde uren, overgenomen uit de"
+" loonstroken (loonberekeningsrapport). Toegewezen uren zijn de tijd "
+"ingevoerd op de interventies (arbeidsfiches)."
+
+#: utilisateurs/views_paie.py
+msgid "Taux de revient moyen de l'atelier"
+msgstr "Gemiddelde kostprijs werkplaats"
+
+#: utilisateurs/views_paie.py
+msgid "Taux de revient productif"
+msgstr "Productieve kostprijs"
+
+#: utilisateurs/views_paie.py
+msgid "Total atelier"
+msgstr "Totaal werkplaats"
+
+#: utilisateurs/views_paie.py
+msgid "imputées"
+msgstr "toegewezen"
+
+#: utilisateurs/views_paie.py
+msgid "paie(s)"
+msgstr "loonstrook/-stroken"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Automatische versnellingsbakinterventies"
 

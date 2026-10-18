@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Coût de la main-d'œuvre" %}{% endblock %}
+
+{% block content %}
+<br>
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+    <h1 class="text-2xl font-bold flex items-center">
+        <img src="{% static 'icons/main-doeuvre.png' %}" alt="" style="width:60px; height:60px; margin-right:10px;">
+        {% trans "Coût de la main-d'œuvre" %}
+    </h1>
+
+    <form method="get" class="flex flex-wrap items-center gap-2">
+        <select name="annee" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            {% for a in annees %}<option value="{{ a }}" {% if a == annee %}selected{% endif %}>{{ a }}</option>{% endfor %}
+        </select>
+        <select name="trimestre" class="border rounded px-3 py-2" onchange="this.form.mois.value='';this.form.submit()">
+            <option value="">{% trans "Trimestre" %}</option>
+            {% for t in "1234" %}<option value="{{ t }}" {% if t|add:0 == trimestre %}selected{% endif %}>T{{ t }}</option>{% endfor %}
+        </select>
+        <select name="mois" class="border rounded px-3 py-2" onchange="this.form.trimestre.value='';this.form.submit()">
+            <option value="">{% trans "Toute l'année" %}</option>
+            {% for num, nom in mois_choix %}<option value="{{ num }}" {% if num == mois %}selected{% endif %}>{{ nom }}</option>{% endfor %}
+        </select>
+        <a href="?annee={{ annee }}{% if mois %}&mois={{ mois }}{% endif %}{% if trimestre %}&trimestre={{ trimestre }}{% endif %}&export=csv"
+           class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold">{% trans "Exporter en CSV" %}</a>
+    </form>
+</div>
+
+{% include "partials/messages.html" %}
+
+<p class="text-sm text-gray-600 mb-6">
+    {% trans "Taux de revient horaire = salaire total employeur ÷ heures prestées, repris des paies (rapport de calcul du salaire). Les heures imputées sont le temps encodé sur les interventions (fiches main-d'œuvre)." %}
+</p>
+
+{% with t=rapport.total %}
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-blue-600">
+        <p class="text-gray-500 text-sm">{% trans "Coût total employeur" %}</p>
+        <p class="text-2xl font-bold">{{ t.cout|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-gray-500">
+        <p class="text-gray-500 text-sm">{% trans "Heures prestées" %}</p>
+        <p class="text-2xl font-bold">{{ t.heures|floatformat:2 }} h</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-purple-600">
+        <p class="text-gray-500 text-sm">{% trans "Taux de revient moyen de l'atelier" %}</p>
+        <p class="text-2xl font-bold text-purple-700">{{ t.taux_revient|floatformat:2 }} €/h</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-yellow-500">
+        <p class="text-gray-500 text-sm">{% trans "Taux d'occupation" %}</p>
+        <p class="text-2xl font-bold">{{ t.occupation|floatformat:1 }} %</p>
+        <p class="text-gray-500 text-xs">{{ t.heures_imputees|floatformat:2 }} h {% trans "imputées" %}</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-red-600">
+        <p class="text-gray-500 text-sm">{% trans "Taux de revient productif" %}</p>
+        <p class="text-2xl font-bold text-red-700">{{ t.taux_revient_productif|floatformat:2 }} €/h</p>
+        <p class="text-gray-500 text-xs">{% trans "Coût total ÷ heures imputées" %}</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-green-600">
+        <p class="text-gray-500 text-sm">{% trans "Marge sur main-d'œuvre" %}</p>
+        <p class="text-2xl font-bold {% if t.marge < 0 %}text-red-700{% else %}text-green-700{% endif %}">{{ t.marge|floatformat:2 }} €</p>
+        <p class="text-gray-500 text-xs">{% trans "Facturable" %} : {{ t.facturable|floatformat:2 }} €</p>
+    </div>
+</div>
+{% endwith %}
+
+<div class="bg-white shadow-md rounded-lg p-6 mb-8 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Coût de revient par utilisateur" %}</h2>
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-2 py-2 text-left">{% trans "Utilisateur" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Coût total employeur" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Heures prestées" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Taux de revient horaire" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Heures imputées" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Taux d'occupation" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Coût des heures non imputées" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Taux de revient productif" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Main-d'œuvre facturable" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Marge sur main-d'œuvre" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for role in rapport.roles %}
+            <tr class="bg-blue-50">
+                <td colspan="10" class="border px-2 py-2 font-semibold">{{ role.libelle }}</td>
+            </tr>
+            {% for l in role.lignes %}
+            <tr>
+                <td class="border px-2 py-1">
+                    <a href="{% url 'utilisateurs:paie_list_travailleur' l.utilisateur.pk %}?annee={{ annee }}" class="text-blue-700 hover:underline">
+                        {{ l.utilisateur.prenom }} {{ l.utilisateur.nom }}
+                    </a>
+                    <span class="text-gray-400 text-xs">({{ l.nb_paies }} {% trans "paie(s)" %})</span>
+                </td>
+                <td class="border px-2 py-1 text-right">{{ l.cout|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ l.heures|floatformat:2 }} h{% if l.heures_estimees %} *{% endif %}</td>
+                <td class="border px-2 py-1 text-right font-semibold text-purple-700">{{ l.taux_revient|floatformat:2 }} €/h</td>
+                <td class="border px-2 py-1 text-right">{{ l.heures_imputees|floatformat:2 }} h</td>
+                <td class="border px-2 py-1 text-right">{{ l.occupation|floatformat:1 }} %</td>
+                <td class="border px-2 py-1 text-right">{{ l.cout_non_impute|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ l.taux_revient_productif|floatformat:2 }} €/h</td>
+                <td class="border px-2 py-1 text-right">{{ l.facturable|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right {% if l.marge < 0 %}text-red-700{% else %}text-green-700{% endif %}">{{ l.marge|floatformat:2 }} €</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="10" class="border px-2 py-1 text-gray-400">{% trans "Aucune paie sur la période." %}</td></tr>
+            {% endfor %}
+            {% if role.lignes %}
+            {% with s=role.total %}
+            <tr class="bg-gray-50 font-semibold">
+                <td class="border px-2 py-1">{% trans "Sous-total" %} – {{ role.libelle }}</td>
+                <td class="border px-2 py-1 text-right">{{ s.cout|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ s.heures|floatformat:2 }} h</td>
+                <td class="border px-2 py-1 text-right text-purple-700">{{ s.taux_revient|floatformat:2 }} €/h</td>
+                <td class="border px-2 py-1 text-right">{{ s.heures_imputees|floatformat:2 }} h</td>
+                <td class="border px-2 py-1 text-right">{{ s.occupation|floatformat:1 }} %</td>
+                <td class="border px-2 py-1 text-right">{{ s.cout_non_impute|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ s.taux_revient_productif|floatformat:2 }} €/h</td>
+                <td class="border px-2 py-1 text-right">{{ s.facturable|floatformat:2 }} €</td>
+                <td class="border px-2 py-1 text-right">{{ s.marge|floatformat:2 }} €</td>
+            </tr>
+            {% endwith %}
+            {% endif %}
+        {% endfor %}
+        </tbody>
+        {% with t=rapport.total %}
+        <tfoot>
+            <tr class="bg-gray-200 font-bold">
+                <td class="border px-2 py-2">{% trans "Total atelier" %}</td>
+                <td class="border px-2 py-2 text-right">{{ t.cout|floatformat:2 }} €</td>
+                <td class="border px-2 py-2 text-right">{{ t.heures|floatformat:2 }} h</td>
+                <td class="border px-2 py-2 text-right text-purple-700">{{ t.taux_revient|floatformat:2 }} €/h</td>
+                <td class="border px-2 py-2 text-right">{{ t.heures_imputees|floatformat:2 }} h</td>
+                <td class="border px-2 py-2 text-right">{{ t.occupation|floatformat:1 }} %</td>
+                <td class="border px-2 py-2 text-right">{{ t.cout_non_impute|floatformat:2 }} €</td>
+                <td class="border px-2 py-2 text-right">{{ t.taux_revient_productif|floatformat:2 }} €/h</td>
+                <td class="border px-2 py-2 text-right">{{ t.facturable|floatformat:2 }} €</td>
+                <td class="border px-2 py-2 text-right">{{ t.marge|floatformat:2 }} €</td>
+            </tr>
+        </tfoot>
+        {% endwith %}
+    </table>
+    {% if rapport.total.heures_estimees %}
+    <p class="text-xs text-gray-500 mt-2">
+        * {% blocktrans %}Heures non encodées dans la paie : estimées sur l'horaire de référence ({{ heures_reference }} h/mois × régime de travail).{% endblocktrans %}
+    </p>
+    {% endif %}
+</div>
+
+<div>
+    <a href="{% url 'utilisateurs:paie_panneau' %}?annee={{ annee }}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au panneau des paies" %}
+    </a>
+</div>
+<br>
+{% endblock %}

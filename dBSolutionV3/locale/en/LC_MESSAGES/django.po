@@ -48967,6 +48967,121 @@ msgstr "Suspension dashboard"
 msgid "Écrous de tige d'amortisseur"
 msgstr "Shock absorber rod nuts"
 
+#: utilisateurs/views_paie.py
+msgid "Apprentis"
+msgstr "Apprentices"
+
+#: utilisateurs/views_paie.py
+msgid "Atelier"
+msgstr "Workshop"
+
+#: utilisateurs/views_paie.py
+msgid "Aucune paie sur la période."
+msgstr "No payslip for the period."
+
+#: utilisateurs/views_paie.py
+msgid "Coût de la main-d'œuvre"
+msgstr "Labour cost"
+
+#: utilisateurs/views_paie.py
+msgid "Coût de revient par utilisateur"
+msgstr "Cost price per user"
+
+#: utilisateurs/views_paie.py
+msgid "Coût des heures non imputées"
+msgstr "Cost of unallocated hours"
+
+#: utilisateurs/views_paie.py
+msgid "Coût total employeur"
+msgstr "Total employer cost"
+
+#: utilisateurs/views_paie.py
+msgid "Coût total ÷ heures imputées"
+msgstr "Total cost ÷ allocated hours"
+
+#: utilisateurs/views_paie.py
+msgid "Facturable"
+msgstr "Billable"
+
+#: utilisateurs/views_paie.py
+msgid "Heures imputées"
+msgstr "Allocated hours"
+
+#: utilisateurs/views_paie.py
+#, python-format
+msgid ""
+"Heures non encodées dans la paie : estimées sur l'horaire de référence "
+"(%(heures_reference)s h/mois × régime de travail)."
+msgstr ""
+"Hours not entered in the payslip: estimated on the reference schedule "
+"(%(heures_reference)s h/month × work regime)."
+
+#: utilisateurs/views_paie.py
+msgid "Heures prestées"
+msgstr "Hours worked"
+
+#: utilisateurs/views_paie.py
+msgid "Main-d'œuvre facturable"
+msgstr "Billable labour"
+
+#: utilisateurs/views_paie.py
+msgid "Marge sur main-d'œuvre"
+msgstr "Labour margin"
+
+#: utilisateurs/views_paie.py
+msgid "Mécaniciens"
+msgstr "Mechanics"
+
+#: utilisateurs/views_paie.py
+msgid "Retour au panneau des paies"
+msgstr "Back to payroll panel"
+
+#: utilisateurs/views_paie.py
+msgid "Sous-total"
+msgstr "Subtotal"
+
+#: utilisateurs/views_paie.py
+msgid "Taux d'occupation"
+msgstr "Utilisation rate"
+
+#: utilisateurs/views_paie.py
+msgid "Taux d'occupation (%)"
+msgstr "Utilisation rate (%)"
+
+#: utilisateurs/views_paie.py
+msgid "Taux de revient horaire"
+msgstr "Hourly cost rate"
+
+#: utilisateurs/views_paie.py
+msgid ""
+"Taux de revient horaire = salaire total employeur ÷ heures prestées, repris "
+"des paies (rapport de calcul du salaire). Les heures imputées sont le temps "
+"encodé sur les interventions (fiches main-d'œuvre)."
+msgstr ""
+"Hourly cost rate = total employer cost ÷ hours worked, taken from the "
+"payslips (salary calculation report). Allocated hours are the time entered "
+"on jobs (labour records)."
+
+#: utilisateurs/views_paie.py
+msgid "Taux de revient moyen de l'atelier"
+msgstr "Average workshop cost rate"
+
+#: utilisateurs/views_paie.py
+msgid "Taux de revient productif"
+msgstr "Productive cost rate"
+
+#: utilisateurs/views_paie.py
+msgid "Total atelier"
+msgstr "Workshop total"
+
+#: utilisateurs/views_paie.py
+msgid "imputées"
+msgstr "allocated"
+
+#: utilisateurs/views_paie.py
+msgid "paie(s)"
+msgstr "payslip(s)"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Automatic gearbox services"
 

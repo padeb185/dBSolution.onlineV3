@@ -49062,6 +49062,121 @@ msgstr "Pannello sospensioni"
 msgid "Écrous de tige d'amortisseur"
 msgstr "Dadi stelo ammortizzatore"
 
+#: utilisateurs/views_paie.py
+msgid "Apprentis"
+msgstr "Apprendisti"
+
+#: utilisateurs/views_paie.py
+msgid "Atelier"
+msgstr "Officina"
+
+#: utilisateurs/views_paie.py
+msgid "Aucune paie sur la période."
+msgstr "Nessuna busta paga nel periodo."
+
+#: utilisateurs/views_paie.py
+msgid "Coût de la main-d'œuvre"
+msgstr "Costo della manodopera"
+
+#: utilisateurs/views_paie.py
+msgid "Coût de revient par utilisateur"
+msgstr "Costo per utente"
+
+#: utilisateurs/views_paie.py
+msgid "Coût des heures non imputées"
+msgstr "Costo delle ore non imputate"
+
+#: utilisateurs/views_paie.py
+msgid "Coût total employeur"
+msgstr "Costo totale datore di lavoro"
+
+#: utilisateurs/views_paie.py
+msgid "Coût total ÷ heures imputées"
+msgstr "Costo totale ÷ ore imputate"
+
+#: utilisateurs/views_paie.py
+msgid "Facturable"
+msgstr "Fatturabile"
+
+#: utilisateurs/views_paie.py
+msgid "Heures imputées"
+msgstr "Ore imputate"
+
+#: utilisateurs/views_paie.py
+#, python-format
+msgid ""
+"Heures non encodées dans la paie : estimées sur l'horaire de référence "
+"(%(heures_reference)s h/mois × régime de travail)."
+msgstr ""
+"Ore non inserite nella busta paga: stimate sull'orario di riferimento "
+"(%(heures_reference)s h/mese × regime di lavoro)."
+
+#: utilisateurs/views_paie.py
+msgid "Heures prestées"
+msgstr "Ore lavorate"
+
+#: utilisateurs/views_paie.py
+msgid "Main-d'œuvre facturable"
+msgstr "Manodopera fatturabile"
+
+#: utilisateurs/views_paie.py
+msgid "Marge sur main-d'œuvre"
+msgstr "Margine sulla manodopera"
+
+#: utilisateurs/views_paie.py
+msgid "Mécaniciens"
+msgstr "Meccanici"
+
+#: utilisateurs/views_paie.py
+msgid "Retour au panneau des paies"
+msgstr "Torna al pannello paghe"
+
+#: utilisateurs/views_paie.py
+msgid "Sous-total"
+msgstr "Subtotale"
+
+#: utilisateurs/views_paie.py
+msgid "Taux d'occupation"
+msgstr "Tasso di occupazione"
+
+#: utilisateurs/views_paie.py
+msgid "Taux d'occupation (%)"
+msgstr "Tasso di occupazione (%)"
+
+#: utilisateurs/views_paie.py
+msgid "Taux de revient horaire"
+msgstr "Costo orario"
+
+#: utilisateurs/views_paie.py
+msgid ""
+"Taux de revient horaire = salaire total employeur ÷ heures prestées, repris "
+"des paies (rapport de calcul du salaire). Les heures imputées sont le temps "
+"encodé sur les interventions (fiches main-d'œuvre)."
+msgstr ""
+"Costo orario = costo totale datore di lavoro ÷ ore lavorate, preso dalle "
+"buste paga (rapporto di calcolo dello stipendio). Le ore imputate sono il "
+"tempo registrato sugli interventi (schede manodopera)."
+
+#: utilisateurs/views_paie.py
+msgid "Taux de revient moyen de l'atelier"
+msgstr "Costo orario medio dell'officina"
+
+#: utilisateurs/views_paie.py
+msgid "Taux de revient productif"
+msgstr "Costo orario produttivo"
+
+#: utilisateurs/views_paie.py
+msgid "Total atelier"
+msgstr "Totale officina"
+
+#: utilisateurs/views_paie.py
+msgid "imputées"
+msgstr "imputate"
+
+#: utilisateurs/views_paie.py
+msgid "paie(s)"
+msgstr "busta/e paga"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Interventi cambio automatico"
 

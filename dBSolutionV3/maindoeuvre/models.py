@@ -101,9 +101,28 @@ class MainDoeuvre(models.Model):
         return (heures * self.taux_horaire).quantize(Decimal("0.01"))
 
     @property
+    def taux_revient_horaire(self):
+        """
+        Coût de revient horaire du technicien (salaire total employeur / heures prestées),
+        repris de sa paie du mois de l'intervention. À défaut : salaire brut / heure.
+        """
+        from utilisateurs.cout_main_oeuvre import cout_horaire_utilisateur
+
+        if not hasattr(self, "_taux_revient_cache"):
+            jour = self.date or self.created_at
+            taux = cout_horaire_utilisateur(
+                self.utilisateur,
+                jour.year if jour else None,
+                jour.month if jour else None,
+            )
+            if not taux:
+                taux = getattr(self.utilisateur, "salaire_brut_heure", None) or Decimal("0.00")
+            self._taux_revient_cache = Decimal(taux)
+        return self._taux_revient_cache
+
+    @property
     def cout_interne(self):
-        salaire = getattr(self.utilisateur, "salaire_brut_heure", None) or Decimal("0.00")
-        return (self.temps_decimal * salaire).quantize(Decimal("0.01"))
+        return (self.temps_decimal * self.taux_revient_horaire).quantize(Decimal("0.01"))
 
 
 

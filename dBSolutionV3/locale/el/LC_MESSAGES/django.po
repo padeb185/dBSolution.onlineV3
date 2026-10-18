@@ -49123,6 +49123,121 @@ msgstr "Πίνακας ανάρτησης"
 msgid "Écrous de tige d'amortisseur"
 msgstr "Παξιμάδια βάκτρου αμορτισέρ"
 
+#: utilisateurs/views_paie.py
+msgid "Apprentis"
+msgstr "Μαθητευόμενοι"
+
+#: utilisateurs/views_paie.py
+msgid "Atelier"
+msgstr "Συνεργείο"
+
+#: utilisateurs/views_paie.py
+msgid "Aucune paie sur la période."
+msgstr "Καμία μισθοδοσία για την περίοδο."
+
+#: utilisateurs/views_paie.py
+msgid "Coût de la main-d'œuvre"
+msgstr "Κόστος εργασίας"
+
+#: utilisateurs/views_paie.py
+msgid "Coût de revient par utilisateur"
+msgstr "Κόστος ανά χρήστη"
+
+#: utilisateurs/views_paie.py
+msgid "Coût des heures non imputées"
+msgstr "Κόστος μη καταλογισμένων ωρών"
+
+#: utilisateurs/views_paie.py
+msgid "Coût total employeur"
+msgstr "Συνολικό κόστος εργοδότη"
+
+#: utilisateurs/views_paie.py
+msgid "Coût total ÷ heures imputées"
+msgstr "Συνολικό κόστος ÷ καταλογισμένες ώρες"
+
+#: utilisateurs/views_paie.py
+msgid "Facturable"
+msgstr "Χρεώσιμο"
+
+#: utilisateurs/views_paie.py
+msgid "Heures imputées"
+msgstr "Καταλογισμένες ώρες"
+
+#: utilisateurs/views_paie.py
+#, python-format
+msgid ""
+"Heures non encodées dans la paie : estimées sur l'horaire de référence "
+"(%(heures_reference)s h/mois × régime de travail)."
+msgstr ""
+"Ώρες που δεν καταχωρήθηκαν στη μισθοδοσία: εκτίμηση βάσει ωραρίου αναφοράς "
+"(%(heures_reference)s ώ/μήνα × καθεστώς εργασίας)."
+
+#: utilisateurs/views_paie.py
+msgid "Heures prestées"
+msgstr "Ώρες εργασίας"
+
+#: utilisateurs/views_paie.py
+msgid "Main-d'œuvre facturable"
+msgstr "Χρεώσιμη εργασία"
+
+#: utilisateurs/views_paie.py
+msgid "Marge sur main-d'œuvre"
+msgstr "Περιθώριο εργασίας"
+
+#: utilisateurs/views_paie.py
+msgid "Mécaniciens"
+msgstr "Μηχανικοί"
+
+#: utilisateurs/views_paie.py
+msgid "Retour au panneau des paies"
+msgstr "Επιστροφή στον πίνακα μισθοδοσίας"
+
+#: utilisateurs/views_paie.py
+msgid "Sous-total"
+msgstr "Μερικό σύνολο"
+
+#: utilisateurs/views_paie.py
+msgid "Taux d'occupation"
+msgstr "Ποσοστό απασχόλησης"
+
+#: utilisateurs/views_paie.py
+msgid "Taux d'occupation (%)"
+msgstr "Ποσοστό απασχόλησης (%)"
+
+#: utilisateurs/views_paie.py
+msgid "Taux de revient horaire"
+msgstr "Ωριαίο κόστος"
+
+#: utilisateurs/views_paie.py
+msgid ""
+"Taux de revient horaire = salaire total employeur ÷ heures prestées, repris "
+"des paies (rapport de calcul du salaire). Les heures imputées sont le temps "
+"encodé sur les interventions (fiches main-d'œuvre)."
+msgstr ""
+"Ωριαίο κόστος = συνολικό κόστος εργοδότη ÷ ώρες εργασίας, από τις "
+"μισθοδοσίες (αναφορά υπολογισμού μισθού). Οι καταλογισμένες ώρες είναι ο "
+"χρόνος που καταχωρήθηκε στις επεμβάσεις."
+
+#: utilisateurs/views_paie.py
+msgid "Taux de revient moyen de l'atelier"
+msgstr "Μέσο ωριαίο κόστος συνεργείου"
+
+#: utilisateurs/views_paie.py
+msgid "Taux de revient productif"
+msgstr "Παραγωγικό ωριαίο κόστος"
+
+#: utilisateurs/views_paie.py
+msgid "Total atelier"
+msgstr "Σύνολο συνεργείου"
+
+#: utilisateurs/views_paie.py
+msgid "imputées"
+msgstr "καταλογισμένες"
+
+#: utilisateurs/views_paie.py
+msgid "paie(s)"
+msgstr "μισθοδοσία(ες)"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Επεμβάσεις σε αυτόματο κιβώτιο"
 

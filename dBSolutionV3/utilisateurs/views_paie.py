@@ -480,3 +480,60 @@ def paie_comptabilite_csv(request):
                         l["libelle"], travailleur, fmt(l["debit"]), fmt(l["credit"])])
 
     return response
+
+
+# ==================================================================
+# COÛT DE LA MAIN-D'ŒUVRE (taux de revient par utilisateur)
+# ==================================================================
+@never_cache
+@login_required
+def cout_main_oeuvre(request):
+    from .cout_main_oeuvre import HEURES_REFERENCE_MOIS, rapport_cout_main_oeuvre
+
+    if not _acces_paie(request.user):
+        return _refuser(request)
+
+    annee, mois = _periode(request)
+    try:
+        trimestre = int(request.GET.get("trimestre") or 0)
+    except ValueError:
+        trimestre = 0
+    trimestre = trimestre if 1 <= trimestre <= 4 and not mois else 0
+
+    rapport = rapport_cout_main_oeuvre(request.user.societe, annee, mois=mois or None, trimestre=trimestre or None)
+
+    if request.GET.get("export") == "csv":
+        import csv
+        from django.http import HttpResponse
+
+        suffixe = f"-{mois:02d}" if mois else (f"-T{trimestre}" if trimestre else "")
+        response = HttpResponse(content_type="text/csv; charset=utf-8")
+        response["Content-Disposition"] = f'attachment; filename="cout_main_oeuvre_{annee}{suffixe}.csv"'
+        response.write("﻿")
+        w = csv.writer(response, delimiter=";")
+        fmt = lambda x: f"{x:.2f}".replace(".", ",")
+        w.writerow([_("Rôle"), _("Utilisateur"), _("Coût total employeur"), _("Heures prestées"),
+                    _("Taux de revient horaire"), _("Heures imputées"), _("Taux d'occupation (%)"),
+                    _("Coût des heures non imputées"), _("Taux de revient productif"),
+                    _("Main-d'œuvre facturable"), _("Marge sur main-d'œuvre")])
+        for role in rapport["roles"]:
+            for l in role["lignes"] + [dict(role["total"], utilisateur=None)]:
+                nom = f"{l['utilisateur'].prenom} {l['utilisateur'].nom}" if l["utilisateur"] else _("Total")
+                w.writerow([str(role["libelle"]), nom, fmt(l["cout"]), fmt(l["heures"]), fmt(l["taux_revient"]),
+                            fmt(l["heures_imputees"]), fmt(l["occupation"]), fmt(l["cout_non_impute"]),
+                            fmt(l["taux_revient_productif"]), fmt(l["facturable"]), fmt(l["marge"])])
+        t = rapport["total"]
+        w.writerow([_("Atelier"), _("Total"), fmt(t["cout"]), fmt(t["heures"]), fmt(t["taux_revient"]),
+                    fmt(t["heures_imputees"]), fmt(t["occupation"]), fmt(t["cout_non_impute"]),
+                    fmt(t["taux_revient_productif"]), fmt(t["facturable"]), fmt(t["marge"])])
+        return response
+
+    return render(request, "utilisateurs/paie/cout_main_oeuvre.html", {
+        "annee": annee,
+        "mois": mois,
+        "trimestre": trimestre,
+        "mois_choix": [(i, _(MOIS_NOMS[i])) for i in range(1, 13)],
+        "annees": sorted(set(_paies_societe(request).values_list("annee", flat=True)) | {annee}, reverse=True),
+        "rapport": rapport,
+        "heures_reference": HEURES_REFERENCE_MOIS,
+    })
