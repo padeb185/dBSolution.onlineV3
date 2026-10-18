@@ -42,6 +42,7 @@ from maintenance.autres_interventions.moteur.courroie.models import CourroieDist
 from maintenance.autres_interventions.moteur.chaine_distribution.models import ChaineDistribution
 from maintenance.autres_interventions.moteur.culasse.models import Culasse
 from maintenance.autres_interventions.moteur.bas_moteur.models import BasMoteur
+from maintenance.autres_interventions.moteur.bougies.composants import total_bougies
 from maintenance.autres_interventions.moteur.electronique_moteur.models import ElectroniqueMoteur
 from maintenance.autres_interventions.moteur.lubrification.models import Lubrification
 from maintenance.autres_interventions.batterie.models import Batterie
@@ -49,6 +50,7 @@ from maintenance.autres_interventions.moteur.remplacement_moteur.models import R
 from maintenance.autres_interventions.moteur.turbo.models import Turbo
 from maintenance.check_up.models import Checkup
 from maintenance.autres_interventions.echappement.models import Echappement
+from maintenance.autres_interventions.echappement.composants import total_composants_echappement
 
 
 @login_required
@@ -216,6 +218,7 @@ def choisir_type_maintenance(request, exemplaire_id):
         echappement = Echappement.objects.filter(
             voiture_exemplaire=exemplaire
         )
+        composants_ech_total = total_composants_echappement(exemplaire)
 
         batterie = Batterie.objects.filter(
             voiture_exemplaire=exemplaire
@@ -237,7 +240,7 @@ def choisir_type_maintenance(request, exemplaire_id):
         total_carrosserie_interne = carrosserie_interne.count()
         total_essuyage = essuyage.count()
         total_checkup_track = checkup_track.count()
-        total_echappement = echappement.count()
+        total_echappement = echappement.count() + composants_ech_total
         total_allumage = allumage.count()
         total_remplacement_boite = remplacement_boite.count()
         total_eclairage = eclairage.count()
@@ -254,6 +257,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             + chaine.count()
             + culasse.count()
             + bas_moteur.count()
+            + total_bougies(exemplaire)
             + electronique.count()
             + lubrification.count()
             + turbo.count()
@@ -261,6 +265,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             + abs_qs.count()
             + courroie_access.count()
             + echappement.count()
+            + composants_ech_total
             + batterie.count()
             + remplacement_boite.count()
             + remplacement_bte_auto.count()

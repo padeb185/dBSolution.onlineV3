@@ -46,6 +46,9 @@ def dashboard_echappement_view(request, exemplaire_id):
 
 
     total_echappement = 0
+    total_controle_echappement = 0
+    total_composants_echappement = 0
+    composants = []
 
     echappement = []
 
@@ -61,7 +64,11 @@ def dashboard_echappement_view(request, exemplaire_id):
 
 
             # ✅ COUNTS CORRECTS
-            total_echappement = echappement.count()
+            from maintenance.autres_interventions.echappement.composants import composants_echappement
+            total_controle_echappement = echappement.count()
+            composants = composants_echappement(exemplaire)
+            total_composants_echappement = sum(c["total"] for c in composants)
+            total_echappement = total_controle_echappement + total_composants_echappement
 
 
             modeles = VoitureModele.objects.all()
@@ -95,6 +102,9 @@ def dashboard_echappement_view(request, exemplaire_id):
 
 
         "total_echappement": total_echappement,
+        "total_controle_echappement": total_controle_echappement,
+        "total_composants_echappement": total_composants_echappement,
+        "composants": composants,
 
 
         "echappement": echappement,

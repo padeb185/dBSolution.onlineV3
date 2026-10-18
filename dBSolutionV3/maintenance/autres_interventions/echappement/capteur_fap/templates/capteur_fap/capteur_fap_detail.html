@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Capteur de pression différentielle FAP" %}{% endblock %}
+
+{% block content %}
+    {% url 'capteur_fap:modifier_capteur_fap' capteur_fap.pk as url_modifier %}
+    {% url 'capteur_fap:capteur_fap_detail_pdf' capteur_fap.pk as url_pdf %}
+    {% url 'capteur_fap:delete_capteur_fap' capteur_fap.pk as url_delete %}
+    {% if exemplaire %}{% url 'capteur_fap:capteur_fap_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Capteur de pression différentielle FAP" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=capteur_fap km_controle=capteur_fap.kilometrage_capteur_fap icone="ech_capteur_fap.png" %}
+{% endblock %}

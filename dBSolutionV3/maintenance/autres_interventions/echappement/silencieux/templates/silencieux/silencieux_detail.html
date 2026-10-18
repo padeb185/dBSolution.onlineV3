@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Silencieux" %}{% endblock %}
+
+{% block content %}
+    {% url 'silencieux:modifier_silencieux' silencieux.pk as url_modifier %}
+    {% url 'silencieux:silencieux_detail_pdf' silencieux.pk as url_pdf %}
+    {% url 'silencieux:delete_silencieux' silencieux.pk as url_delete %}
+    {% if exemplaire %}{% url 'silencieux:silencieux_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Silencieux" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=silencieux km_controle=silencieux.kilometrage_silencieux icone="ech_silencieux.png" %}
+{% endblock %}

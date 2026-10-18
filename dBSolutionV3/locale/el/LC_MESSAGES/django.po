@@ -48825,6 +48825,160 @@ msgstr "Ενημερωτικό (εκτός συνόλου)"
 msgid "Grille"
 msgstr "Κωδικός"
 
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Composants d'échappement"
+msgstr "Εξαρτήματα εξάτμισης"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Contrôle échappement"
+msgstr "Έλεγχος εξάτμισης"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Détail composants d'échappement"
+msgstr "Λεπτομέρειες εξαρτημάτων εξάτμισης"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Détails de l'intervention composants d'échappement"
+msgstr "Λεπτομέρειες επέμβασης στα εξαρτήματα εξάτμισης"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Filtre à particules (FAP)"
+msgstr "Φίλτρο σωματιδίων (DPF)"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement"
+msgstr "Επέμβαση στα εξαρτήματα εξάτμισης"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement enregistrée avec succès."
+msgstr "Η επέμβαση στα εξαρτήματα εξάτμισης αποθηκεύτηκε με επιτυχία."
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement modifiée avec succès !"
+msgstr "Η επέμβαση στα εξαρτήματα εξάτμισης τροποποιήθηκε με επιτυχία!"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement pour :"
+msgstr "Επέμβαση στα εξαρτήματα εξάτμισης για:"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement supprimée avec succès."
+msgstr "Η επέμβαση στα εξαρτήματα εξάτμισης διαγράφηκε με επιτυχία."
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Kilométrage composants d'échappement"
+msgstr "Χιλιόμετρα εξαρτημάτων εξάτμισης"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Liste des interventions composants d'échappement"
+msgstr "Λίστα επεμβάσεων στα εξαρτήματα εξάτμισης"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Modification composants d'échappement"
+msgstr "Τροποποίηση εξαρτημάτων εξάτμισης"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Modifier l'intervention composants d'échappement"
+msgstr "Τροποποίηση της επέμβασης στα εξαρτήματα εξάτμισης"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Pot DeNOx (SCR)"
+msgstr "Μονάδα DeNOx (SCR)"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Retour à la liste des interventions composants d'échappement"
+msgstr "Επιστροφή στη λίστα επεμβάσεων στα εξαρτήματα εξάτμισης"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Sonde de température FAP amont"
+msgstr "Αισθητήρας θερμοκρασίας πριν το DPF"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Sonde de température FAP aval"
+msgstr "Αισθητήρας θερμοκρασίας μετά το DPF"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Suppression de l'intervention composants d'échappement"
+msgstr "Διαγραφή της επέμβασης στα εξαρτήματα εξάτμισης"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Supprimer l'intervention composants d'échappement"
+msgstr "Διαγραφή της επέμβασης στα εξαρτήματα εξάτμισης"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Tuyaux du capteur FAP"
+msgstr "Σωλήνες αισθητήρα DPF"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Valves d'échappement"
+msgstr "Βαλβίδες εξάτμισης"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid ""
+"Voulez-vous vraiment supprimer l'intervention composants d'échappement pour"
+msgstr ""
+"Θέλετε σίγουρα να διαγράψετε την επέμβαση στα εξαρτήματα εξάτμισης για"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention enregistrée avec succès."
+msgstr "Η επέμβαση αποθηκεύτηκε με επιτυχία."
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention modifiée avec succès !"
+msgstr "Η επέμβαση τροποποιήθηκε με επιτυχία!"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention supprimée avec succès."
+msgstr "Η επέμβαση διαγράφηκε με επιτυχία."
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention échappement"
+msgstr "Επέμβαση στην εξάτμιση"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Modification intervention échappement"
+msgstr "Τροποποίηση επέμβασης στην εξάτμιση"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Suppression de l'intervention échappement"
+msgstr "Διαγραφή επέμβασης στην εξάτμιση"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Supprimer l'intervention"
+msgstr "Διαγραφή επέμβασης"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Voulez-vous vraiment supprimer l'intervention pour"
+msgstr "Θέλετε σίγουρα να διαγράψετε την επέμβαση για"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Bougies d'allumage"
+msgstr "Μπουζί ανάφλεξης"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Bougies de préchauffage"
+msgstr "Προθερμαντήρες"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Intervention bougies"
+msgstr "Επέμβαση στα μπουζί"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Modification intervention bougies"
+msgstr "Τροποποίηση επέμβασης στα μπουζί"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Retour au dashboard bougies"
+msgstr "Επιστροφή στον πίνακα μπουζί"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Suppression de l'intervention bougies"
+msgstr "Διαγραφή επέμβασης στα μπουζί"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Tableau de bord bougies"
+msgstr "Πίνακας μπουζί"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Επεμβάσεις σε αυτόματο κιβώτιο"
 

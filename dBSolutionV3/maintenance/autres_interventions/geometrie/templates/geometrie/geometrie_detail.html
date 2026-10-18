@@ -10,5 +10,5 @@
     {% if exemplaire %}{% url 'geometrie:geometrie_list' exemplaire.id as url_list %}{% endif %}
     {% trans "Détails de la géométrie" as titre %}
 
-    {% include "maintenance/partials/intervention_detail.html" with obj=geometrie km_controle=geometrie.kilometrage_geometrie icone="geometrie.png" %}
+    {% include "maintenance/partials/intervention_detail.html" with obj=geometrie km_controle=geometrie.kilometrage_geometrie icone="geometrie-laser.png" %}
 {% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Sonde de température FAP aval" %}{% endblock %}
+
+{% block content %}
+    {% url 'sonde_fap_aval:modifier_sonde_fap_aval' sonde_fap_aval.pk as url_modifier %}
+    {% url 'sonde_fap_aval:sonde_fap_aval_detail_pdf' sonde_fap_aval.pk as url_pdf %}
+    {% url 'sonde_fap_aval:delete_sonde_fap_aval' sonde_fap_aval.pk as url_delete %}
+    {% if exemplaire %}{% url 'sonde_fap_aval:sonde_fap_aval_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Sonde de température FAP aval" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=sonde_fap_aval km_controle=sonde_fap_aval.kilometrage_sonde_fap_aval icone="ech_sonde_fap_aval.png" %}
+{% endblock %}

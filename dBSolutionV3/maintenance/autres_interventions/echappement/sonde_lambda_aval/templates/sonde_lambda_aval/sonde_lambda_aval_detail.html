@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Sonde lambda aval" %}{% endblock %}
+
+{% block content %}
+    {% url 'sonde_lambda_aval:modifier_sonde_lambda_aval' sonde_lambda_aval.pk as url_modifier %}
+    {% url 'sonde_lambda_aval:sonde_lambda_aval_detail_pdf' sonde_lambda_aval.pk as url_pdf %}
+    {% url 'sonde_lambda_aval:delete_sonde_lambda_aval' sonde_lambda_aval.pk as url_delete %}
+    {% if exemplaire %}{% url 'sonde_lambda_aval:sonde_lambda_aval_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Sonde lambda aval" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=sonde_lambda_aval km_controle=sonde_lambda_aval.kilometrage_sonde_lambda_aval icone="ech_sonde_lambda_aval.png" %}
+{% endblock %}

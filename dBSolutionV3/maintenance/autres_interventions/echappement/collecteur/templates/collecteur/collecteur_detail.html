@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Collecteur d'échappement" %}{% endblock %}
+
+{% block content %}
+    {% url 'collecteur:modifier_collecteur' collecteur.pk as url_modifier %}
+    {% url 'collecteur:collecteur_detail_pdf' collecteur.pk as url_pdf %}
+    {% url 'collecteur:delete_collecteur' collecteur.pk as url_delete %}
+    {% if exemplaire %}{% url 'collecteur:collecteur_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Collecteur d'échappement" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=collecteur km_controle=collecteur.kilometrage_collecteur icone="ech_collecteur.png" %}
+{% endblock %}

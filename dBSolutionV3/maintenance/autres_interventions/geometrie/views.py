@@ -624,7 +624,7 @@ def geometrie_check_view(request, exemplaire_id):
         },
         {
             "title": _("Hauteur de caisse"),
-            "icon": "icons/hauteur.png",
+            "icon": "icons/hauteur-caisse.png",
             "fields": [
                 form[f.name]
                 for f in form
@@ -996,7 +996,7 @@ def geometrie_modifier_view(request, geometrie_id):
         },
         {
             "title": _("Hauteur de caisse"),
-            "icon": "icons/hauteur.png",
+            "icon": "icons/hauteur-caisse.png",
             "fields": [form[f.name] for f in form if "hauteur" in f.name],
         },
         {

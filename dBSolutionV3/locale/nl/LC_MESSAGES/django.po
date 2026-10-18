@@ -48777,6 +48777,159 @@ msgstr "Ter informatie (buiten totaal)"
 msgid "Grille"
 msgstr "Rooster"
 
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Composants d'échappement"
+msgstr "Uitlaatcomponenten"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Contrôle échappement"
+msgstr "Controle uitlaat"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Détail composants d'échappement"
+msgstr "Detail uitlaatcomponenten"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Détails de l'intervention composants d'échappement"
+msgstr "Details van de interventie uitlaatcomponenten"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Filtre à particules (FAP)"
+msgstr "Roetfilter (DPF)"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement"
+msgstr "Interventie uitlaatcomponenten"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement enregistrée avec succès."
+msgstr "Interventie uitlaatcomponenten succesvol opgeslagen."
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement modifiée avec succès !"
+msgstr "Interventie uitlaatcomponenten succesvol gewijzigd!"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement pour :"
+msgstr "Interventie uitlaatcomponenten voor:"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement supprimée avec succès."
+msgstr "Interventie uitlaatcomponenten succesvol verwijderd."
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Kilométrage composants d'échappement"
+msgstr "Kilometerstand uitlaatcomponenten"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Liste des interventions composants d'échappement"
+msgstr "Lijst van interventies uitlaatcomponenten"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Modification composants d'échappement"
+msgstr "Wijziging uitlaatcomponenten"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Modifier l'intervention composants d'échappement"
+msgstr "Interventie uitlaatcomponenten wijzigen"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Pot DeNOx (SCR)"
+msgstr "DeNOx-katalysator (SCR)"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Retour à la liste des interventions composants d'échappement"
+msgstr "Terug naar de lijst van interventies uitlaatcomponenten"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Sonde de température FAP amont"
+msgstr "Temperatuursensor vóór roetfilter"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Sonde de température FAP aval"
+msgstr "Temperatuursensor na roetfilter"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Suppression de l'intervention composants d'échappement"
+msgstr "Verwijdering van de interventie uitlaatcomponenten"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Supprimer l'intervention composants d'échappement"
+msgstr "Interventie uitlaatcomponenten verwijderen"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Tuyaux du capteur FAP"
+msgstr "Slangen roetfiltersensor"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Valves d'échappement"
+msgstr "Uitlaatkleppen"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid ""
+"Voulez-vous vraiment supprimer l'intervention composants d'échappement pour"
+msgstr "Wilt u de interventie uitlaatcomponenten echt verwijderen voor"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention enregistrée avec succès."
+msgstr "Interventie succesvol opgeslagen."
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention modifiée avec succès !"
+msgstr "Interventie succesvol gewijzigd!"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention supprimée avec succès."
+msgstr "Interventie succesvol verwijderd."
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention échappement"
+msgstr "Interventie uitlaat"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Modification intervention échappement"
+msgstr "Wijziging interventie uitlaat"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Suppression de l'intervention échappement"
+msgstr "Verwijdering interventie uitlaat"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Supprimer l'intervention"
+msgstr "Interventie verwijderen"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Voulez-vous vraiment supprimer l'intervention pour"
+msgstr "Wilt u de interventie echt verwijderen voor"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Bougies d'allumage"
+msgstr "Bougies"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Bougies de préchauffage"
+msgstr "Gloeibougies"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Intervention bougies"
+msgstr "Interventie bougies"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Modification intervention bougies"
+msgstr "Wijziging interventie bougies"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Retour au dashboard bougies"
+msgstr "Terug naar dashboard bougies"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Suppression de l'intervention bougies"
+msgstr "Verwijdering interventie bougies"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Tableau de bord bougies"
+msgstr "Dashboard bougies"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Automatische versnellingsbakinterventies"
 

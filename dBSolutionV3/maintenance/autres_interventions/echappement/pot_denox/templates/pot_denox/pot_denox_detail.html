@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Pot DeNOx (SCR)" %}{% endblock %}
+
+{% block content %}
+    {% url 'pot_denox:modifier_pot_denox' pot_denox.pk as url_modifier %}
+    {% url 'pot_denox:pot_denox_detail_pdf' pot_denox.pk as url_pdf %}
+    {% url 'pot_denox:delete_pot_denox' pot_denox.pk as url_delete %}
+    {% if exemplaire %}{% url 'pot_denox:pot_denox_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Pot DeNOx (SCR)" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=pot_denox km_controle=pot_denox.kilometrage_pot_denox icone="ech_pot_denox.png" %}
+{% endblock %}

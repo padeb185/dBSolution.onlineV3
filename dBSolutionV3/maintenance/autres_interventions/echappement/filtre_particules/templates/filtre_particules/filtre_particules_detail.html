@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Filtre à particules (FAP)" %}{% endblock %}
+
+{% block content %}
+    {% url 'filtre_particules:modifier_filtre_particules' filtre_particules.pk as url_modifier %}
+    {% url 'filtre_particules:filtre_particules_detail_pdf' filtre_particules.pk as url_pdf %}
+    {% url 'filtre_particules:delete_filtre_particules' filtre_particules.pk as url_delete %}
+    {% if exemplaire %}{% url 'filtre_particules:filtre_particules_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Filtre à particules (FAP)" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=filtre_particules km_controle=filtre_particules.kilometrage_filtre_particules icone="ech_filtre_particules.png" %}
+{% endblock %}

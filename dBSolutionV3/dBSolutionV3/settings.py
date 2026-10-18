@@ -25,7 +25,7 @@ environ.Env.read_env(BASE_DIR / ".env")
 # ------------------------------------------------------------------------------
 
 SECRET_KEY = env("SECRET_KEY")
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = [
@@ -287,6 +287,24 @@ TENANT_APPS = (
     "maintenance.autres_interventions.moteur.chaine_distribution.apps.ChaineDistributionConfig",
     "maintenance.autres_interventions.moteur.culasse.apps.CulasseConfig",
     "maintenance.autres_interventions.moteur.bas_moteur.apps.BasMoteurConfig",
+    "maintenance.autres_interventions.moteur.bougies.apps.BougiesConfig",
+    "maintenance.autres_interventions.moteur.bougies.bougies_allumage.apps.BougiesAllumageConfig",
+    "maintenance.autres_interventions.moteur.bougies.bougies_prechauffage.apps.BougiesPrechauffageConfig",
+    "maintenance.autres_interventions.echappement.collecteur.apps.CollecteurConfig",
+    "maintenance.autres_interventions.echappement.catalyseur.apps.CatalyseurConfig",
+    "maintenance.autres_interventions.echappement.silencieux.apps.SilencieuxConfig",
+    "maintenance.autres_interventions.echappement.filtre_particules.apps.FiltreParticulesConfig",
+    "maintenance.autres_interventions.echappement.pot_denox.apps.PotDenoxConfig",
+    "maintenance.autres_interventions.echappement.sonde_lambda_amont.apps.SondeLambdaAmontConfig",
+    "maintenance.autres_interventions.echappement.sonde_lambda_aval.apps.SondeLambdaAvalConfig",
+    "maintenance.autres_interventions.echappement.sonde_fap_amont.apps.SondeFapAmontConfig",
+    "maintenance.autres_interventions.echappement.sonde_fap_aval.apps.SondeFapAvalConfig",
+    "maintenance.autres_interventions.echappement.capteur_fap.apps.CapteurFapConfig",
+    "maintenance.autres_interventions.echappement.tuyaux_fap.apps.TuyauxFapConfig",
+    "maintenance.autres_interventions.echappement.regeneration_fap.apps.RegenerationFapConfig",
+    "maintenance.autres_interventions.echappement.injecteur_adblue.apps.InjecteurAdblueConfig",
+    "maintenance.autres_interventions.echappement.valves_echappement.apps.ValvesEchappementConfig",
+    "maintenance.autres_interventions.echappement.silent_blocs_echappement.apps.SilentBlocsEchappementConfig",
     "maintenance.autres_interventions.moteur.electronique_moteur.apps.ElectroniqueMoteurConfig",
     "maintenance.autres_interventions.moteur.lubrification.apps.LubrificationConfig",
     "maintenance.autres_interventions.courroie_accessoires.apps.CourroieAccessoiresConfig",

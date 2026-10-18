@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Régénération du FAP" %}{% endblock %}
+
+{% block content %}
+    {% url 'regeneration_fap:modifier_regeneration_fap' regeneration_fap.pk as url_modifier %}
+    {% url 'regeneration_fap:regeneration_fap_detail_pdf' regeneration_fap.pk as url_pdf %}
+    {% url 'regeneration_fap:delete_regeneration_fap' regeneration_fap.pk as url_delete %}
+    {% if exemplaire %}{% url 'regeneration_fap:regeneration_fap_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Régénération du FAP" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=regeneration_fap km_controle=regeneration_fap.kilometrage_regeneration_fap icone="ech_regeneration_fap.png" %}
+{% endblock %}

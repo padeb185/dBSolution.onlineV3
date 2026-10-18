@@ -108,7 +108,10 @@ def dashboard_moteur_view(request, exemplaire_id):
     total_allumage = allumage.count()
     total_injection = injection.count()
 
-    total_int_moteur = total_admission + total_injection + total_allumage + total_alternateur + total_courroie + total_chaine + total_culasse + total_bas_moteur + total_electronique + total_lubrification + total_remplacement_moteur + total_turbo + total_rodage
+    from maintenance.autres_interventions.moteur.bougies.composants import total_bougies
+    total_bougies_moteur = total_bougies(exemplaire)
+
+    total_int_moteur = total_bougies_moteur + total_admission + total_injection + total_allumage + total_alternateur + total_courroie + total_chaine + total_culasse + total_bas_moteur + total_electronique + total_lubrification + total_remplacement_moteur + total_turbo + total_rodage
 
 
     # --- POST ---
@@ -145,6 +148,7 @@ def dashboard_moteur_view(request, exemplaire_id):
         "total_chaine": total_chaine,
         "total_culasse": total_culasse,
         "total_bas_moteur": total_bas_moteur,
+        "total_bougies": total_bougies_moteur,
         "total_electronique": total_electronique,
         "total_lubrification": total_lubrification,
         "total_remplacement_moteur": total_remplacement_moteur,

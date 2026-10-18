@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Injecteur AdBlue" %}{% endblock %}
+
+{% block content %}
+    {% url 'injecteur_adblue:modifier_injecteur_adblue' injecteur_adblue.pk as url_modifier %}
+    {% url 'injecteur_adblue:injecteur_adblue_detail_pdf' injecteur_adblue.pk as url_pdf %}
+    {% url 'injecteur_adblue:delete_injecteur_adblue' injecteur_adblue.pk as url_delete %}
+    {% if exemplaire %}{% url 'injecteur_adblue:injecteur_adblue_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Injecteur AdBlue" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=injecteur_adblue km_controle=injecteur_adblue.kilometrage_injecteur_adblue icone="ech_injecteur_adblue.png" %}
+{% endblock %}

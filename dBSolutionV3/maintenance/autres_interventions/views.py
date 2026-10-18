@@ -11,6 +11,7 @@ from maintenance.autres_interventions.roulement.models import Roulement
 from maintenance.autres_interventions.climatisation.models import Climatisation
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from maintenance.autres_interventions.echappement.models import Echappement
+from maintenance.autres_interventions.echappement.composants import total_composants_echappement
 from maintenance.autres_interventions.batterie.models import Batterie
 from maintenance.autres_interventions.embrayage.models import Embrayage
 from maintenance.autres_interventions.moteur.allumage.models import Allumage
@@ -30,6 +31,7 @@ from maintenance.autres_interventions.moteur.courroie.models import CourroieDist
 from maintenance.autres_interventions.moteur.chaine_distribution.models import ChaineDistribution
 from maintenance.autres_interventions.moteur.culasse.models import Culasse
 from maintenance.autres_interventions.moteur.bas_moteur.models import BasMoteur
+from maintenance.autres_interventions.moteur.bougies.composants import total_bougies
 from maintenance.autres_interventions.moteur.electronique_moteur.models import ElectroniqueMoteur
 from maintenance.autres_interventions.moteur.lubrification.models import Lubrification
 from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
@@ -99,6 +101,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     turbo = Turbo.objects.none()
     remplacement_moteur = RemplacementMoteur.objects.none()
     echappement = Echappement.objects.none()
+    composants_ech_total = 0
     batterie = Batterie.objects.none()
     climatisation = Climatisation.objects.none()
     refroidissement = Refroidissement.objects.none()
@@ -174,6 +177,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
             echappement = Echappement.objects.filter(
                 voiture_exemplaire=exemplaire
             )
+            composants_ech_total = total_composants_echappement(exemplaire)
 
             batterie = Batterie.objects.filter(
                 voiture_exemplaire=exemplaire
@@ -209,7 +213,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_remplacement_bte_auto = remplacement_bte_auto.count()
             total_int_bte_auto = total_bte_auto + total_remplacement_bte_auto
             total_access = courroie_access.count()
-            total_echappement = echappement.count()
+            total_echappement = echappement.count() + composants_ech_total
             total_batterie = batterie.count()
             total_clim = climatisation.count()
             total_ref = refroidissement.count()
@@ -271,6 +275,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
                     + chaine.count()
                     + culasse.count()
                     + bas_moteur.count()
+                    + total_bougies(exemplaire)
                     + electronique.count()
                     + lubrification.count()
                     + turbo.count()
@@ -292,6 +297,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
                 + chaine.count()
                     + culasse.count()
                     + bas_moteur.count()
+                    + total_bougies(exemplaire)
                 + electronique.count()
                 + lubrification.count()
                 + turbo.count()

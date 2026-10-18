@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Tuyaux du capteur FAP" %}{% endblock %}
+
+{% block content %}
+    {% url 'tuyaux_fap:modifier_tuyaux_fap' tuyaux_fap.pk as url_modifier %}
+    {% url 'tuyaux_fap:tuyaux_fap_detail_pdf' tuyaux_fap.pk as url_pdf %}
+    {% url 'tuyaux_fap:delete_tuyaux_fap' tuyaux_fap.pk as url_delete %}
+    {% if exemplaire %}{% url 'tuyaux_fap:tuyaux_fap_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Tuyaux du capteur FAP" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=tuyaux_fap km_controle=tuyaux_fap.kilometrage_tuyaux_fap icone="ech_tuyaux_fap.png" %}
+{% endblock %}

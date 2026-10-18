@@ -48670,6 +48670,159 @@ msgstr "For information (not in total)"
 msgid "Grille"
 msgstr "Box"
 
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Composants d'échappement"
+msgstr "Exhaust components"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Contrôle échappement"
+msgstr "Exhaust inspection"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Détail composants d'échappement"
+msgstr "Exhaust components detail"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Détails de l'intervention composants d'échappement"
+msgstr "Exhaust components job details"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Filtre à particules (FAP)"
+msgstr "Diesel particulate filter (DPF)"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement"
+msgstr "Exhaust components job"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement enregistrée avec succès."
+msgstr "Exhaust components job saved successfully."
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement modifiée avec succès !"
+msgstr "Exhaust components job updated successfully!"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement pour :"
+msgstr "Exhaust components job for:"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement supprimée avec succès."
+msgstr "Exhaust components job deleted successfully."
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Kilométrage composants d'échappement"
+msgstr "Exhaust components mileage"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Liste des interventions composants d'échappement"
+msgstr "Exhaust components jobs list"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Modification composants d'échappement"
+msgstr "Exhaust components update"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Modifier l'intervention composants d'échappement"
+msgstr "Edit exhaust components job"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Pot DeNOx (SCR)"
+msgstr "DeNOx unit (SCR)"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Retour à la liste des interventions composants d'échappement"
+msgstr "Back to exhaust components jobs list"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Sonde de température FAP amont"
+msgstr "Upstream DPF temperature sensor"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Sonde de température FAP aval"
+msgstr "Downstream DPF temperature sensor"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Suppression de l'intervention composants d'échappement"
+msgstr "Exhaust components job deletion"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Supprimer l'intervention composants d'échappement"
+msgstr "Delete exhaust components job"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Tuyaux du capteur FAP"
+msgstr "DPF sensor hoses"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Valves d'échappement"
+msgstr "Exhaust valves"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid ""
+"Voulez-vous vraiment supprimer l'intervention composants d'échappement pour"
+msgstr "Do you really want to delete the exhaust components job for"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention enregistrée avec succès."
+msgstr "Job saved successfully."
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention modifiée avec succès !"
+msgstr "Job updated successfully!"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention supprimée avec succès."
+msgstr "Job deleted successfully."
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention échappement"
+msgstr "Exhaust job"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Modification intervention échappement"
+msgstr "Exhaust job update"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Suppression de l'intervention échappement"
+msgstr "Exhaust job deletion"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Supprimer l'intervention"
+msgstr "Delete job"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Voulez-vous vraiment supprimer l'intervention pour"
+msgstr "Do you really want to delete the job for"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Bougies d'allumage"
+msgstr "Spark plugs"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Bougies de préchauffage"
+msgstr "Glow plugs"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Intervention bougies"
+msgstr "Plugs job"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Modification intervention bougies"
+msgstr "Plugs job update"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Retour au dashboard bougies"
+msgstr "Back to plugs dashboard"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Suppression de l'intervention bougies"
+msgstr "Plugs job deletion"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Tableau de bord bougies"
+msgstr "Plugs dashboard"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Automatic gearbox services"
 

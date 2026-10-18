@@ -37,6 +37,23 @@ from maintenance.autres_interventions.moteur.courroie.models import CourroieDist
 from maintenance.autres_interventions.moteur.chaine_distribution.models import ChaineDistribution
 from maintenance.autres_interventions.moteur.culasse.models import Culasse
 from maintenance.autres_interventions.moteur.bas_moteur.models import BasMoteur
+from maintenance.autres_interventions.moteur.bougies.bougies_allumage.models import BougiesAllumage
+from maintenance.autres_interventions.moteur.bougies.bougies_prechauffage.models import BougiesPrechauffage
+from maintenance.autres_interventions.echappement.collecteur.models import Collecteur
+from maintenance.autres_interventions.echappement.catalyseur.models import Catalyseur
+from maintenance.autres_interventions.echappement.silencieux.models import Silencieux
+from maintenance.autres_interventions.echappement.filtre_particules.models import FiltreParticules
+from maintenance.autres_interventions.echappement.pot_denox.models import PotDenox
+from maintenance.autres_interventions.echappement.sonde_lambda_amont.models import SondeLambdaAmont
+from maintenance.autres_interventions.echappement.sonde_lambda_aval.models import SondeLambdaAval
+from maintenance.autres_interventions.echappement.sonde_fap_amont.models import SondeFapAmont
+from maintenance.autres_interventions.echappement.sonde_fap_aval.models import SondeFapAval
+from maintenance.autres_interventions.echappement.capteur_fap.models import CapteurFap
+from maintenance.autres_interventions.echappement.tuyaux_fap.models import TuyauxFap
+from maintenance.autres_interventions.echappement.regeneration_fap.models import RegenerationFap
+from maintenance.autres_interventions.echappement.injecteur_adblue.models import InjecteurAdblue
+from maintenance.autres_interventions.echappement.valves_echappement.models import ValvesEchappement
+from maintenance.autres_interventions.echappement.silent_blocs_echappement.models import SilentBlocsEchappement
 from maintenance.autres_interventions.batterie.models import Batterie
 from maintenance.autres_interventions.moteur.electronique_moteur.models import ElectroniqueMoteur
 from maintenance.autres_interventions.moteur.lubrification.models import Lubrification
@@ -99,6 +116,23 @@ admin.site.register(CourroieDistribution)
 admin.site.register(ChaineDistribution)
 admin.site.register(Culasse)
 admin.site.register(BasMoteur)
+admin.site.register(BougiesAllumage)
+admin.site.register(BougiesPrechauffage)
+admin.site.register(Collecteur)
+admin.site.register(Catalyseur)
+admin.site.register(Silencieux)
+admin.site.register(FiltreParticules)
+admin.site.register(PotDenox)
+admin.site.register(SondeLambdaAmont)
+admin.site.register(SondeLambdaAval)
+admin.site.register(SondeFapAmont)
+admin.site.register(SondeFapAval)
+admin.site.register(CapteurFap)
+admin.site.register(TuyauxFap)
+admin.site.register(RegenerationFap)
+admin.site.register(InjecteurAdblue)
+admin.site.register(ValvesEchappement)
+admin.site.register(SilentBlocsEchappement)
 admin.site.register(Batterie)
 admin.site.register(ElectroniqueMoteur)
 admin.site.register(Lubrification)

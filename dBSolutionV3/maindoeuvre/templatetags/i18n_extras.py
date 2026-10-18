@@ -235,6 +235,23 @@ DESCRIPTIFS_TRADUISIBLES = [
     # ==========================================================
     "Culasse",
     "Bas moteur",
+    "Bougies d'allumage",
+    "Bougies de préchauffage",
+    "Collecteur d'échappement",
+    "Catalyseur",
+    "Silencieux",
+    "Filtre à particules (FAP)",
+    "Pot DeNOx (SCR)",
+    "Sonde lambda amont",
+    "Sonde lambda aval",
+    "Sonde de température FAP amont",
+    "Sonde de température FAP aval",
+    "Capteur de pression différentielle FAP",
+    "Tuyaux du capteur FAP",
+    "Régénération du FAP",
+    "Injecteur AdBlue",
+    "Valves d'échappement",
+    "Silent blocs d'échappement",
 
     # ==========================================================
     # ROULEMENTS DE ROUE

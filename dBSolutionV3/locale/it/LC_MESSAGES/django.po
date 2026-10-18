@@ -48765,6 +48765,159 @@ msgstr "Informativo (escluso dal totale)"
 msgid "Grille"
 msgstr "Rigo"
 
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Composants d'échappement"
+msgstr "Componenti di scarico"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Contrôle échappement"
+msgstr "Controllo scarico"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Détail composants d'échappement"
+msgstr "Dettaglio componenti di scarico"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Détails de l'intervention composants d'échappement"
+msgstr "Dettagli dell'intervento sui componenti di scarico"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Filtre à particules (FAP)"
+msgstr "Filtro antiparticolato (FAP)"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement"
+msgstr "Intervento sui componenti di scarico"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement enregistrée avec succès."
+msgstr "Intervento sui componenti di scarico salvato con successo."
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement modifiée avec succès !"
+msgstr "Intervento sui componenti di scarico modificato con successo!"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement pour :"
+msgstr "Intervento sui componenti di scarico per:"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement supprimée avec succès."
+msgstr "Intervento sui componenti di scarico eliminato con successo."
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Kilométrage composants d'échappement"
+msgstr "Chilometraggio componenti di scarico"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Liste des interventions composants d'échappement"
+msgstr "Elenco degli interventi sui componenti di scarico"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Modification composants d'échappement"
+msgstr "Modifica componenti di scarico"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Modifier l'intervention composants d'échappement"
+msgstr "Modifica l'intervento sui componenti di scarico"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Pot DeNOx (SCR)"
+msgstr "Catalizzatore DeNOx (SCR)"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Retour à la liste des interventions composants d'échappement"
+msgstr "Torna all'elenco degli interventi sui componenti di scarico"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Sonde de température FAP amont"
+msgstr "Sonda di temperatura FAP a monte"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Sonde de température FAP aval"
+msgstr "Sonda di temperatura FAP a valle"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Suppression de l'intervention composants d'échappement"
+msgstr "Eliminazione dell'intervento sui componenti di scarico"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Supprimer l'intervention composants d'échappement"
+msgstr "Elimina l'intervento sui componenti di scarico"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Tuyaux du capteur FAP"
+msgstr "Tubi del sensore FAP"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Valves d'échappement"
+msgstr "Valvole di scarico"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid ""
+"Voulez-vous vraiment supprimer l'intervention composants d'échappement pour"
+msgstr "Vuoi davvero eliminare l'intervento sui componenti di scarico per"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention enregistrée avec succès."
+msgstr "Intervento salvato con successo."
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention modifiée avec succès !"
+msgstr "Intervento modificato con successo!"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention supprimée avec succès."
+msgstr "Intervento eliminato con successo."
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention échappement"
+msgstr "Intervento sullo scarico"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Modification intervention échappement"
+msgstr "Modifica intervento sullo scarico"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Suppression de l'intervention échappement"
+msgstr "Eliminazione dell'intervento sullo scarico"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Supprimer l'intervention"
+msgstr "Elimina l'intervento"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Voulez-vous vraiment supprimer l'intervention pour"
+msgstr "Vuoi davvero eliminare l'intervento per"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Bougies d'allumage"
+msgstr "Candele di accensione"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Bougies de préchauffage"
+msgstr "Candelette di preriscaldamento"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Intervention bougies"
+msgstr "Intervento sulle candele"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Modification intervention bougies"
+msgstr "Modifica intervento sulle candele"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Retour au dashboard bougies"
+msgstr "Torna al pannello candele"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Suppression de l'intervention bougies"
+msgstr "Eliminazione dell'intervento sulle candele"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Tableau de bord bougies"
+msgstr "Pannello candele"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Interventi cambio automatico"
 

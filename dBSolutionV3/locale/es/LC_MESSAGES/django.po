@@ -48767,6 +48767,159 @@ msgstr "Informativo (fuera del total)"
 msgid "Grille"
 msgstr "Casilla"
 
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Composants d'échappement"
+msgstr "Componentes de escape"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Contrôle échappement"
+msgstr "Control del escape"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Détail composants d'échappement"
+msgstr "Detalle de componentes de escape"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Détails de l'intervention composants d'échappement"
+msgstr "Detalles de la intervención en componentes de escape"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Filtre à particules (FAP)"
+msgstr "Filtro de partículas (FAP)"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement"
+msgstr "Intervención en componentes de escape"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement enregistrée avec succès."
+msgstr "Intervención en componentes de escape guardada correctamente."
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement modifiée avec succès !"
+msgstr "¡Intervención en componentes de escape modificada correctamente!"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement pour :"
+msgstr "Intervención en componentes de escape para:"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Intervention composants d'échappement supprimée avec succès."
+msgstr "Intervención en componentes de escape eliminada correctamente."
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Kilométrage composants d'échappement"
+msgstr "Kilometraje componentes de escape"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Liste des interventions composants d'échappement"
+msgstr "Lista de intervenciones en componentes de escape"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Modification composants d'échappement"
+msgstr "Modificación de componentes de escape"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Modifier l'intervention composants d'échappement"
+msgstr "Modificar la intervención en componentes de escape"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Pot DeNOx (SCR)"
+msgstr "Catalizador DeNOx (SCR)"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Retour à la liste des interventions composants d'échappement"
+msgstr "Volver a la lista de intervenciones en componentes de escape"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Sonde de température FAP amont"
+msgstr "Sonda de temperatura FAP anterior"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Sonde de température FAP aval"
+msgstr "Sonda de temperatura FAP posterior"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Suppression de l'intervention composants d'échappement"
+msgstr "Eliminación de la intervención en componentes de escape"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Supprimer l'intervention composants d'échappement"
+msgstr "Eliminar la intervención en componentes de escape"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Tuyaux du capteur FAP"
+msgstr "Tubos del sensor FAP"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid "Valves d'échappement"
+msgstr "Válvulas de escape"
+
+#: maintenance/autres_interventions/echappement/composants_echappement/models.py
+msgid ""
+"Voulez-vous vraiment supprimer l'intervention composants d'échappement pour"
+msgstr "¿Realmente desea eliminar la intervención en componentes de escape de"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention enregistrée avec succès."
+msgstr "Intervención guardada correctamente."
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention modifiée avec succès !"
+msgstr "¡Intervención modificada correctamente!"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention supprimée avec succès."
+msgstr "Intervención eliminada correctamente."
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Intervention échappement"
+msgstr "Intervención en el escape"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Modification intervention échappement"
+msgstr "Modificación de intervención en el escape"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Suppression de l'intervention échappement"
+msgstr "Eliminación de la intervención en el escape"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Supprimer l'intervention"
+msgstr "Eliminar la intervención"
+
+#: maintenance/autres_interventions/echappement/catalyseur/views.py
+msgid "Voulez-vous vraiment supprimer l'intervention pour"
+msgstr "¿Realmente desea eliminar la intervención de"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Bougies d'allumage"
+msgstr "Bujías de encendido"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Bougies de préchauffage"
+msgstr "Bujías de precalentamiento"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Intervention bougies"
+msgstr "Intervención en bujías"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Modification intervention bougies"
+msgstr "Modificación de intervención en bujías"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Retour au dashboard bougies"
+msgstr "Volver al panel de bujías"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Suppression de l'intervention bougies"
+msgstr "Eliminación de la intervención en bujías"
+
+#: maintenance/autres_interventions/moteur/bougies/views.py
+msgid "Tableau de bord bougies"
+msgstr "Panel de bujías"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Intervenciones de la caja automática"
 

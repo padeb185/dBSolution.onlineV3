@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Silent blocs d'échappement" %}{% endblock %}
+
+{% block content %}
+    {% url 'silent_blocs_echappement:modifier_silent_blocs_echappement' silent_blocs_echappement.pk as url_modifier %}
+    {% url 'silent_blocs_echappement:silent_blocs_echappement_detail_pdf' silent_blocs_echappement.pk as url_pdf %}
+    {% url 'silent_blocs_echappement:delete_silent_blocs_echappement' silent_blocs_echappement.pk as url_delete %}
+    {% if exemplaire %}{% url 'silent_blocs_echappement:silent_blocs_echappement_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Silent blocs d'échappement" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=silent_blocs_echappement km_controle=silent_blocs_echappement.kilometrage_silent_blocs_echappement icone="ech_silent_blocs_echappement.png" %}
+{% endblock %}

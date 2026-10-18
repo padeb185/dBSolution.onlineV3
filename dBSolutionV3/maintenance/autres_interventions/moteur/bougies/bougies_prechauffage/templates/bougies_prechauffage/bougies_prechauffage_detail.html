@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Bougies de préchauffage" %}{% endblock %}
+
+{% block content %}
+    {% url 'bougies_prechauffage:modifier_bougies_prechauffage' bougies_prechauffage.pk as url_modifier %}
+    {% url 'bougies_prechauffage:bougies_prechauffage_detail_pdf' bougies_prechauffage.pk as url_pdf %}
+    {% url 'bougies_prechauffage:delete_bougies_prechauffage' bougies_prechauffage.pk as url_delete %}
+    {% if exemplaire %}{% url 'bougies_prechauffage:bougies_prechauffage_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Bougies de préchauffage" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=bougies_prechauffage km_controle=bougies_prechauffage.kilometrage_bougies_prechauffage icone="bg_bougies_prechauffage.png" %}
+{% endblock %}

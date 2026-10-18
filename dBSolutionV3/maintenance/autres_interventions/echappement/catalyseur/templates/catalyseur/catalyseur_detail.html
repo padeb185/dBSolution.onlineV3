@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Catalyseur" %}{% endblock %}
+
+{% block content %}
+    {% url 'catalyseur:modifier_catalyseur' catalyseur.pk as url_modifier %}
+    {% url 'catalyseur:catalyseur_detail_pdf' catalyseur.pk as url_pdf %}
+    {% url 'catalyseur:delete_catalyseur' catalyseur.pk as url_delete %}
+    {% if exemplaire %}{% url 'catalyseur:catalyseur_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Catalyseur" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=catalyseur km_controle=catalyseur.kilometrage_catalyseur icone="ech_catalyseur.png" %}
+{% endblock %}

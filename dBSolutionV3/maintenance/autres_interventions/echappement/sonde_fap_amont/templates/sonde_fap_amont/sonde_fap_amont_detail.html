@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Sonde de température FAP amont" %}{% endblock %}
+
+{% block content %}
+    {% url 'sonde_fap_amont:modifier_sonde_fap_amont' sonde_fap_amont.pk as url_modifier %}
+    {% url 'sonde_fap_amont:sonde_fap_amont_detail_pdf' sonde_fap_amont.pk as url_pdf %}
+    {% url 'sonde_fap_amont:delete_sonde_fap_amont' sonde_fap_amont.pk as url_delete %}
+    {% if exemplaire %}{% url 'sonde_fap_amont:sonde_fap_amont_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Sonde de température FAP amont" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=sonde_fap_amont km_controle=sonde_fap_amont.kilometrage_sonde_fap_amont icone="ech_sonde_fap_amont.png" %}
+{% endblock %}

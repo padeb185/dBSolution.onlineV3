@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Valves d'échappement" %}{% endblock %}
+
+{% block content %}
+    {% url 'valves_echappement:modifier_valves_echappement' valves_echappement.pk as url_modifier %}
+    {% url 'valves_echappement:valves_echappement_detail_pdf' valves_echappement.pk as url_pdf %}
+    {% url 'valves_echappement:delete_valves_echappement' valves_echappement.pk as url_delete %}
+    {% if exemplaire %}{% url 'valves_echappement:valves_echappement_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Valves d'échappement" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=valves_echappement km_controle=valves_echappement.kilometrage_valves_echappement icone="ech_valves_echappement.png" %}
+{% endblock %}

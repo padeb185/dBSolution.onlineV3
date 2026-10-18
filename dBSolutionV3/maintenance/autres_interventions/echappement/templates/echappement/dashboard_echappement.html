@@ -9,7 +9,7 @@
     <div class="flex items-center gap-3">
 
         <img src="{% static 'icons/echappement.png' %}"
-             alt="Nettoyage Extérieur"
+             alt="{% trans 'Echappement' %}"
              class="w-16 h-16">
 
         <div class="flex items-center gap-2">
@@ -39,20 +39,32 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
 
-<!-- Carte admission -->
+<!-- Contrôle échappement -->
   <a href="{% url 'echappement:echappement_list' exemplaire.id %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Echappement" %}</h2>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Contrôle échappement" %}</h2>
       <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_echappement }}</span>
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_controle_echappement }}</span>
       </p>
     </div>
-    <img src="{% static 'icons/echappement.png' %}" alt="Echappement" style="width:60px; height:60px;">
+    <img src="{% static 'icons/echappement.png' %}" alt="{% trans 'Contrôle échappement' %}" style="width:60px; height:60px;">
   </a>
 
-
-
+<!-- Composants d'échappement : une app par composant -->
+{% for c in composants %}
+  {% url c.url_list exemplaire.id as url_composant %}
+  <a href="{{ url_composant }}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{{ c.label }}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ c.total }}</span>
+      </p>
+    </div>
+    <img src="{% static c.icone %}" alt="{{ c.label }}" style="width:60px; height:60px;">
+  </a>
+{% endfor %}
 
 </div>
 <br>

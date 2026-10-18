@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Bougies d'allumage" %}{% endblock %}
+
+{% block content %}
+    {% url 'bougies_allumage:modifier_bougies_allumage' bougies_allumage.pk as url_modifier %}
+    {% url 'bougies_allumage:bougies_allumage_detail_pdf' bougies_allumage.pk as url_pdf %}
+    {% url 'bougies_allumage:delete_bougies_allumage' bougies_allumage.pk as url_delete %}
+    {% if exemplaire %}{% url 'bougies_allumage:bougies_allumage_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Bougies d'allumage" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=bougies_allumage km_controle=bougies_allumage.kilometrage_bougies_allumage icone="bg_bougies_allumage.png" %}
+{% endblock %}
