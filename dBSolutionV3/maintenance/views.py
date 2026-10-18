@@ -51,6 +51,7 @@ from maintenance.autres_interventions.moteur.turbo.models import Turbo
 from maintenance.check_up.models import Checkup
 from maintenance.autres_interventions.echappement.models import Echappement
 from maintenance.autres_interventions.echappement.composants import total_composants_echappement
+from maintenance.autres_interventions.suspension.composants import total_suspension
 
 
 @login_required
@@ -266,6 +267,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             + courroie_access.count()
             + echappement.count()
             + composants_ech_total
+            + total_suspension(exemplaire)
             + batterie.count()
             + remplacement_boite.count()
             + remplacement_bte_auto.count()

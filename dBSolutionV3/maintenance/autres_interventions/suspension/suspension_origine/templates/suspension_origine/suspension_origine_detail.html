@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Suspension d'origine" %}{% endblock %}
+
+{% block content %}
+    {% url 'suspension_origine:modifier_suspension_origine' suspension_origine.pk as url_modifier %}
+    {% url 'suspension_origine:suspension_origine_detail_pdf' suspension_origine.pk as url_pdf %}
+    {% url 'suspension_origine:delete_suspension_origine' suspension_origine.pk as url_delete %}
+    {% if exemplaire %}{% url 'suspension_origine:suspension_origine_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Suspension d'origine" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=suspension_origine km_controle=suspension_origine.kilometrage_suspension_origine icone="susp_suspension_origine.png" %}
+{% endblock %}

@@ -235,6 +235,8 @@ DESCRIPTIFS_TRADUISIBLES = [
     # ==========================================================
     "Culasse",
     "Bas moteur",
+    "Suspension d'origine",
+    "Suspension sport",
     "Bougies d'allumage",
     "Bougies de préchauffage",
     "Collecteur d'échappement",

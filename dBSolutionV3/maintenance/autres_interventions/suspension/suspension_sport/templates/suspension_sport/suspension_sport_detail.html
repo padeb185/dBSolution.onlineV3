@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Suspension sport" %}{% endblock %}
+
+{% block content %}
+    {% url 'suspension_sport:modifier_suspension_sport' suspension_sport.pk as url_modifier %}
+    {% url 'suspension_sport:suspension_sport_detail_pdf' suspension_sport.pk as url_pdf %}
+    {% url 'suspension_sport:delete_suspension_sport' suspension_sport.pk as url_delete %}
+    {% if exemplaire %}{% url 'suspension_sport:suspension_sport_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Suspension sport" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=suspension_sport km_controle=suspension_sport.kilometrage_suspension_sport icone="susp_suspension_sport.png" %}
+{% endblock %}

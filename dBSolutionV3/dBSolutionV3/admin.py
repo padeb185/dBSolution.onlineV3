@@ -37,6 +37,8 @@ from maintenance.autres_interventions.moteur.courroie.models import CourroieDist
 from maintenance.autres_interventions.moteur.chaine_distribution.models import ChaineDistribution
 from maintenance.autres_interventions.moteur.culasse.models import Culasse
 from maintenance.autres_interventions.moteur.bas_moteur.models import BasMoteur
+from maintenance.autres_interventions.suspension.suspension_origine.models import SuspensionOrigine
+from maintenance.autres_interventions.suspension.suspension_sport.models import SuspensionSport
 from maintenance.autres_interventions.moteur.bougies.bougies_allumage.models import BougiesAllumage
 from maintenance.autres_interventions.moteur.bougies.bougies_prechauffage.models import BougiesPrechauffage
 from maintenance.autres_interventions.echappement.collecteur.models import Collecteur
@@ -116,6 +118,8 @@ admin.site.register(CourroieDistribution)
 admin.site.register(ChaineDistribution)
 admin.site.register(Culasse)
 admin.site.register(BasMoteur)
+admin.site.register(SuspensionOrigine)
+admin.site.register(SuspensionSport)
 admin.site.register(BougiesAllumage)
 admin.site.register(BougiesPrechauffage)
 admin.site.register(Collecteur)

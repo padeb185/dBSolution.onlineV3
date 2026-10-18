@@ -1,0 +1,766 @@
+{% load i18n static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+{% if suspension_sport.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ suspension_sport.tech_societe.nom }}
+            </div>
+
+            {% if suspension_sport.tech_societe.adresse %}
+                <div>
+                    {{ suspension_sport.tech_societe.adresse.rue }}
+                    {{ suspension_sport.tech_societe.adresse.numero }}
+                    {% if suspension_sport.tech_societe.adresse.boite %}
+                        / {{ suspension_sport.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ suspension_sport.tech_societe.adresse.code_postal }}
+                    {{ suspension_sport.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if suspension_sport.tech_societe.adresse.pays %}
+                <div>{{ suspension_sport.tech_societe.adresse.pays }}
+                    {{ suspension_sport.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if suspension_sport.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ suspension_sport.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if suspension_sport.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ suspension_sport.tech_societe.iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ suspension_sport.tech_societe.nom }}.png"
+                alt="{{ suspension_sport.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Suspension sport" %}</h1>
+
+<!-- ================= INFOS ================= -->
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ suspension_sport.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ suspension_sport.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ suspension_sport.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ suspension_sport.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ suspension_sport.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage de l'intervention" %} :</span>
+            {{ suspension_sport.kilometrage_suspension_sport }} km
+        </div>
+
+
+
+<!-- ================= TAG ================= -->
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if suspension_sport.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ suspension_sport.get_tag_display }}
+                </span>
+
+            {% elif suspension_sport.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ suspension_sport.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ suspension_sport.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= SUSPENSION_SPORT ================= -->
+<h2>{% trans "Suspension sport" %}</h2>
+
+<div>
+
+    <table class="table-2-cols">
+
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>{% trans "Combinés filetés avant" %}</td>
+                <td>
+                    {% if suspension_sport.combines_filetes_av == "OK" %}<span class="ok">{{ suspension_sport.get_combines_filetes_av_display }}</span>
+                    {% elif suspension_sport.combines_filetes_av == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_combines_filetes_av_display }}</span>
+                    {% elif suspension_sport.combines_filetes_av == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_combines_filetes_av_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_combines_filetes_av_display }}</span>{% endif %}
+                    {% if suspension_sport.combines_filetes_av_fabricant and suspension_sport.combines_filetes_av_fabricant != "CHOISIR" %} — {{ suspension_sport.get_combines_filetes_av_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Combinés filetés arrière" %}</td>
+                <td>
+                    {% if suspension_sport.combines_filetes_ar == "OK" %}<span class="ok">{{ suspension_sport.get_combines_filetes_ar_display }}</span>
+                    {% elif suspension_sport.combines_filetes_ar == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_combines_filetes_ar_display }}</span>
+                    {% elif suspension_sport.combines_filetes_ar == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_combines_filetes_ar_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_combines_filetes_ar_display }}</span>{% endif %}
+                    {% if suspension_sport.combines_filetes_ar_fabricant and suspension_sport.combines_filetes_ar_fabricant != "CHOISIR" %} — {{ suspension_sport.get_combines_filetes_ar_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Amortisseurs sport avant" %}</td>
+                <td>
+                    {% if suspension_sport.amortisseurs_sport_av == "OK" %}<span class="ok">{{ suspension_sport.get_amortisseurs_sport_av_display }}</span>
+                    {% elif suspension_sport.amortisseurs_sport_av == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_amortisseurs_sport_av_display }}</span>
+                    {% elif suspension_sport.amortisseurs_sport_av == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_amortisseurs_sport_av_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_amortisseurs_sport_av_display }}</span>{% endif %}
+                    {% if suspension_sport.amortisseurs_sport_av_fabricant and suspension_sport.amortisseurs_sport_av_fabricant != "CHOISIR" %} — {{ suspension_sport.get_amortisseurs_sport_av_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Amortisseurs sport arrière" %}</td>
+                <td>
+                    {% if suspension_sport.amortisseurs_sport_ar == "OK" %}<span class="ok">{{ suspension_sport.get_amortisseurs_sport_ar_display }}</span>
+                    {% elif suspension_sport.amortisseurs_sport_ar == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_amortisseurs_sport_ar_display }}</span>
+                    {% elif suspension_sport.amortisseurs_sport_ar == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_amortisseurs_sport_ar_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_amortisseurs_sport_ar_display }}</span>{% endif %}
+                    {% if suspension_sport.amortisseurs_sport_ar_fabricant and suspension_sport.amortisseurs_sport_ar_fabricant != "CHOISIR" %} — {{ suspension_sport.get_amortisseurs_sport_ar_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Ressorts sport avant" %}</td>
+                <td>
+                    {% if suspension_sport.ressorts_sport_av == "OK" %}<span class="ok">{{ suspension_sport.get_ressorts_sport_av_display }}</span>
+                    {% elif suspension_sport.ressorts_sport_av == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_ressorts_sport_av_display }}</span>
+                    {% elif suspension_sport.ressorts_sport_av == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_ressorts_sport_av_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_ressorts_sport_av_display }}</span>{% endif %}
+                    {% if suspension_sport.ressorts_sport_av_fabricant and suspension_sport.ressorts_sport_av_fabricant != "CHOISIR" %} — {{ suspension_sport.get_ressorts_sport_av_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Ressorts sport arrière" %}</td>
+                <td>
+                    {% if suspension_sport.ressorts_sport_ar == "OK" %}<span class="ok">{{ suspension_sport.get_ressorts_sport_ar_display }}</span>
+                    {% elif suspension_sport.ressorts_sport_ar == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_ressorts_sport_ar_display }}</span>
+                    {% elif suspension_sport.ressorts_sport_ar == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_ressorts_sport_ar_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_ressorts_sport_ar_display }}</span>{% endif %}
+                    {% if suspension_sport.ressorts_sport_ar_fabricant and suspension_sport.ressorts_sport_ar_fabricant != "CHOISIR" %} — {{ suspension_sport.get_ressorts_sport_ar_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Ressorts de rappel (helper)" %}</td>
+                <td>
+                    {% if suspension_sport.ressorts_rappel == "OK" %}<span class="ok">{{ suspension_sport.get_ressorts_rappel_display }}</span>
+                    {% elif suspension_sport.ressorts_rappel == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_ressorts_rappel_display }}</span>
+                    {% elif suspension_sport.ressorts_rappel == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_ressorts_rappel_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_ressorts_rappel_display }}</span>{% endif %}
+                    {% if suspension_sport.ressorts_rappel_fabricant and suspension_sport.ressorts_rappel_fabricant != "CHOISIR" %} — {{ suspension_sport.get_ressorts_rappel_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Coupelles réglables (carrossage)" %}</td>
+                <td>
+                    {% if suspension_sport.coupelles_reglables == "OK" %}<span class="ok">{{ suspension_sport.get_coupelles_reglables_display }}</span>
+                    {% elif suspension_sport.coupelles_reglables == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_coupelles_reglables_display }}</span>
+                    {% elif suspension_sport.coupelles_reglables == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_coupelles_reglables_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_coupelles_reglables_display }}</span>{% endif %}
+                    {% if suspension_sport.coupelles_reglables_fabricant and suspension_sport.coupelles_reglables_fabricant != "CHOISIR" %} — {{ suspension_sport.get_coupelles_reglables_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Roulements de suspension" %}</td>
+                <td>
+                    {% if suspension_sport.roulements_suspension == "OK" %}<span class="ok">{{ suspension_sport.get_roulements_suspension_display }}</span>
+                    {% elif suspension_sport.roulements_suspension == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_roulements_suspension_display }}</span>
+                    {% elif suspension_sport.roulements_suspension == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_roulements_suspension_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_roulements_suspension_display }}</span>{% endif %}
+                    {% if suspension_sport.roulements_suspension_fabricant and suspension_sport.roulements_suspension_fabricant != "CHOISIR" %} — {{ suspension_sport.get_roulements_suspension_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Butées de suspension" %}</td>
+                <td>
+                    {% if suspension_sport.butees_suspension == "OK" %}<span class="ok">{{ suspension_sport.get_butees_suspension_display }}</span>
+                    {% elif suspension_sport.butees_suspension == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_butees_suspension_display }}</span>
+                    {% elif suspension_sport.butees_suspension == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_butees_suspension_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_butees_suspension_display }}</span>{% endif %}
+                    {% if suspension_sport.butees_suspension_fabricant and suspension_sport.butees_suspension_fabricant != "CHOISIR" %} — {{ suspension_sport.get_butees_suspension_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Soufflets / kits de protection" %}</td>
+                <td>
+                    {% if suspension_sport.soufflets == "OK" %}<span class="ok">{{ suspension_sport.get_soufflets_display }}</span>
+                    {% elif suspension_sport.soufflets == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_soufflets_display }}</span>
+                    {% elif suspension_sport.soufflets == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_soufflets_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_soufflets_display }}</span>{% endif %}
+                    {% if suspension_sport.soufflets_fabricant and suspension_sport.soufflets_fabricant != "CHOISIR" %} — {{ suspension_sport.get_soufflets_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Écrous de tige d'amortisseur" %}</td>
+                <td>
+                    {% if suspension_sport.ecrous == "OK" %}<span class="ok">{{ suspension_sport.get_ecrous_display }}</span>
+                    {% elif suspension_sport.ecrous == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_ecrous_display }}</span>
+                    {% elif suspension_sport.ecrous == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_ecrous_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_ecrous_display }}</span>{% endif %}
+                    {% if suspension_sport.ecrous_fabricant and suspension_sport.ecrous_fabricant != "CHOISIR" %} — {{ suspension_sport.get_ecrous_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Biellettes de barre stabilisatrice réglables" %}</td>
+                <td>
+                    {% if suspension_sport.biellettes_reglables == "OK" %}<span class="ok">{{ suspension_sport.get_biellettes_reglables_display }}</span>
+                    {% elif suspension_sport.biellettes_reglables == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_biellettes_reglables_display }}</span>
+                    {% elif suspension_sport.biellettes_reglables == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_biellettes_reglables_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_biellettes_reglables_display }}</span>{% endif %}
+                    {% if suspension_sport.biellettes_reglables_fabricant and suspension_sport.biellettes_reglables_fabricant != "CHOISIR" %} — {{ suspension_sport.get_biellettes_reglables_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Huile d'amortisseur" %}</td>
+                <td>
+                    {% if suspension_sport.huile_amortisseur == "OK" %}<span class="ok">{{ suspension_sport.get_huile_amortisseur_display }}</span>
+                    {% elif suspension_sport.huile_amortisseur == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_huile_amortisseur_display }}</span>
+                    {% elif suspension_sport.huile_amortisseur == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_huile_amortisseur_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_huile_amortisseur_display }}</span>{% endif %}
+                    {% if suspension_sport.huile_amortisseur_fabricant and suspension_sport.huile_amortisseur_fabricant != "CHOISIR" %} — {{ suspension_sport.get_huile_amortisseur_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Préréglage du combiné fileté" %}</td>
+                <td>
+                    {% if suspension_sport.prereglage == "OK" %}<span class="ok">{{ suspension_sport.get_prereglage_display }}</span>
+                    {% elif suspension_sport.prereglage == "NOT_OK" %}<span class="not-ok">{{ suspension_sport.get_prereglage_display }}</span>
+                    {% elif suspension_sport.prereglage == "REMPLACE" %}<span class="remplace">{{ suspension_sport.get_prereglage_display }}</span>
+                    {% else %}<span>{{ suspension_sport.get_prereglage_display }}</span>{% endif %}
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+</div>
+<!-- ================= PRÉRÉGLAGE ================= -->
+<h2>{% trans "Préréglage du combiné fileté" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Hauteur de caisse avant (mm)" %} :</span> {{ suspension_sport.prereglage_hauteur_av|default:"-" }}</div>
+        <div><span class="label">{% trans "Hauteur de caisse arrière (mm)" %} :</span> {{ suspension_sport.prereglage_hauteur_ar|default:"-" }}</div>
+        <div><span class="label">{% trans "Précharge ressort avant (mm)" %} :</span> {{ suspension_sport.prereglage_precharge_av|default:"-" }}</div>
+        <div><span class="label">{% trans "Précharge ressort arrière (mm)" %} :</span> {{ suspension_sport.prereglage_precharge_ar|default:"-" }}</div>
+        <div><span class="label">{% trans "Détente avant (clics)" %} :</span> {{ suspension_sport.prereglage_detente_av|default:"-" }}</div>
+        <div><span class="label">{% trans "Détente arrière (clics)" %} :</span> {{ suspension_sport.prereglage_detente_ar|default:"-" }}</div>
+        <div><span class="label">{% trans "Compression avant (clics)" %} :</span> {{ suspension_sport.prereglage_compression_av|default:"-" }}</div>
+        <div><span class="label">{% trans "Compression arrière (clics)" %} :</span> {{ suspension_sport.prereglage_compression_ar|default:"-" }}</div>
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ suspension_sport.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if suspension_sport.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ suspension_sport.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ suspension_sport.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ suspension_sport.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        <td class="text-right">
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ suspension_sport.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ suspension_sport.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
+
+        <table class="table-2-cols">
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ suspension_sport.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ suspension_sport.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+
+<br>
+<!-- ================= REMARQUES ================= -->
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ suspension_sport.remarques|default:_("Aucune remarque.") }}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

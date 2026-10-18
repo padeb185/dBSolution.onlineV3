@@ -62,6 +62,8 @@ class Maintenance(models.Model):
         ROULEMENT = "ROULEMENT", _("Roulements de roue")
         REMPLACEMENT_BTE_AUTO = "remplacement_bte_auto", _("Remplacement boîte automatique")
         BAS_MOTEUR = "BAS_MOTEUR", _("Bas moteur")
+        SUSPENSION_ORIGINE = "SUSPENSION_ORIGINE", _("Suspension d'origine")
+        SUSPENSION_SPORT = "SUSPENSION_SPORT", _("Suspension sport")
         BOUGIES_ALLUMAGE = "BOUGIES_ALLUMAGE", _("Bougies d'allumage")
         BOUGIES_PRECHAUFFAGE = "BOUGIES_PRECHAUFFAGE", _("Bougies de préchauffage")
         ECH_COLLECTEUR = "ECH_COLLECTEUR", _("Collecteur d'échappement")
