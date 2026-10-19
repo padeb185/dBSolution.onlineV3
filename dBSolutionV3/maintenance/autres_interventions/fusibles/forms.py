@@ -1,3 +1,4 @@
+from django.db import models
 from datetime import timedelta
 from decimal import Decimal
 from django import forms
@@ -229,6 +230,18 @@ _C = "block w-full border rounded px-3 py-2 bg-white"
 
 
 class FusibleDetailForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        from .models import FabricantFusible
+        qs = FabricantFusible.objects.filter(actif=True)
+        if self.instance.pk and self.instance.fabricant_id:
+            qs = FabricantFusible.objects.filter(models.Q(actif=True) | models.Q(pk=self.instance.fabricant_id))
+        # Ordre alphabétique ; « Constructeur (OEM) » en tête et « Autre » en dernier
+        from django.db.models.functions import Lower
+        qs = qs.order_by("-oem", models.Case(models.When(nom="Autre", then=1), default=0), Lower("nom"))
+        self.fields["fabricant"].queryset = qs
+        self.fields["fabricant"].empty_label = _("— Choisir —")
+
     def clean(self):
         cleaned = super().clean()
         if cleaned.get("circuit") == "AUTRE" and not cleaned.get("organe"):
@@ -237,7 +250,7 @@ class FusibleDetailForm(forms.ModelForm):
 
     class Meta:
         model = FusibleDetail
-        fields = ["emplacement", "repere", "circuit", "organe", "type_fusible", "amperage", "etat"]
+        fields = ["emplacement", "repere", "circuit", "organe", "fabricant", "type_fusible", "amperage", "etat"]
         widgets = {
             "emplacement": forms.Select(attrs={"class": _C}),
             "repere": forms.TextInput(attrs={"class": _C + " font-mono uppercase", "placeholder": "F12"}),
@@ -246,6 +259,7 @@ class FusibleDetailForm(forms.ModelForm):
             "circuit": forms.Select(attrs={"class": _C}),
             "organe": forms.TextInput(attrs={"class": _C, "placeholder": _("Précision (si « Autre »)")}),
             "etat": forms.Select(attrs={"class": _C}),
+            "fabricant": forms.Select(attrs={"class": _C}),
         }
 
     def has_changed(self):

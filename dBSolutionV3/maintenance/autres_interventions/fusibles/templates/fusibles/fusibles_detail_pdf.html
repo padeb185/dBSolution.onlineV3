@@ -683,6 +683,7 @@
                 <th>{% trans "Type" %}</th>
                 <th class="text-right">{% trans "Ampérage (A)" %}</th>
                 <th>{% trans "Circuit protégé" %}</th>
+                <th>{% trans "Fabricant" %}</th>
                 <th>{% trans "État" %}</th>
             </tr>
         </thead>
@@ -694,6 +695,7 @@
                 <td>{{ l.get_type_fusible_display }}</td>
                 <td class="text-right">{% if l.amperage is not None %}{{ l.amperage_affiche }} A{% else %}-{% endif %}</td>
                 <td>{{ l.circuit_affiche|default:"-" }}</td>
+                <td>{{ l.fabricant|default:"-" }}</td>
                 <td>{% if l.etat == "GRILLE" %}<span class="not-ok">{{ l.get_etat_display }}</span>{% elif l.etat == "REMPLACE" %}<span class="remplace">{{ l.get_etat_display }}</span>{% else %}<span class="ok">{{ l.get_etat_display }}</span>{% endif %}</td>
             </tr>
         {% endfor %}

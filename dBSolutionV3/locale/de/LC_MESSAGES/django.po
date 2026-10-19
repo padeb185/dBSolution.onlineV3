@@ -52178,3 +52178,35 @@ msgid ""
 msgstr ""
 "Beträge netto (Energie, Wartung, Vermietung). Nettoergebnis = Mieteinnahmen "
 "+ Wiederverkaufswert − Anschaffungskosten − Nutzungskosten."
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Constructeur (OEM)"
+msgstr "Fahrzeughersteller (OEM)"
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Fusible d'origine fourni par le constructeur du véhicule."
+msgstr "Originalsicherung des Fahrzeugherstellers."
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Fabricant de fusibles"
+msgstr "Sicherungshersteller"
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Fabricants de fusibles"
+msgstr "Sicherungshersteller"
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "— Choisir —"
+msgstr "— Auswählen —"
+
+#: maintenance/autres_interventions/fusibles/templates/fusibles/_detail_fusibles_form.html
+msgid "Quantité facturée :"
+msgstr "Berechnete Menge:"
+
+#: maintenance/autres_interventions/fusibles/templates/fusibles/_detail_fusibles_form.html
+msgid ""
+"fusibles « Remplacé » ci-dessous, au prix unitaire et au code OEM/EAN de la "
+"pièce ci-dessus."
+msgstr ""
+"„Ersetzte“ Sicherungen unten, zum Stückpreis und OEM/EAN-Code des Teils "
+"oben."

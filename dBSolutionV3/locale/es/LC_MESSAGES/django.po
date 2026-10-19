@@ -52137,3 +52137,35 @@ msgstr ""
 "Importes sin IVA (energía, mantenimientos, alquileres). Resultado neto = "
 "ingresos por alquiler + valor de reventa − coste de adquisición − costes de "
 "uso."
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Constructeur (OEM)"
+msgstr "Fabricante del vehículo (OEM)"
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Fusible d'origine fourni par le constructeur du véhicule."
+msgstr "Fusible original suministrado por el fabricante del vehículo."
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Fabricant de fusibles"
+msgstr "Fabricante de fusibles"
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Fabricants de fusibles"
+msgstr "Fabricantes de fusibles"
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "— Choisir —"
+msgstr "— Elegir —"
+
+#: maintenance/autres_interventions/fusibles/templates/fusibles/_detail_fusibles_form.html
+msgid "Quantité facturée :"
+msgstr "Cantidad facturada:"
+
+#: maintenance/autres_interventions/fusibles/templates/fusibles/_detail_fusibles_form.html
+msgid ""
+"fusibles « Remplacé » ci-dessous, au prix unitaire et au code OEM/EAN de la "
+"pièce ci-dessus."
+msgstr ""
+"fusibles «Sustituido» abajo, al precio unitario y código OEM/EAN de la pieza"
+" de arriba."

@@ -839,6 +839,43 @@ AMPERAGES_FUSIBLES = ["1", "2", "3", "4", "5", "7.5", "10", "15", "20", "25", "3
                       "70", "80", "100", "125", "150", "175", "200", "250", "300"]
 
 
+# Fabricants de fusibles proposés à la création (modifiables ensuite dans l'admin)
+FABRICANTS_FUSIBLES = [
+    ("Constructeur (OEM)", True),
+    ("Littelfuse", False),
+    ("Eaton Bussmann", False),
+    ("Mersen (Ferraz Shawmut)", False),
+    ("Bosch", False),
+    ("Hella", False),
+    ("MTA", False),
+    ("Pudenz", False),
+    ("Schurter", False),
+    ("OptiFuse", False),
+    ("Herth+Buss Elparts", False),
+    ("Febi Bilstein", False),
+    ("Vemo", False),
+    ("Würth", False),
+    ("Blue Sea Systems", False),
+    ("Autre", False),
+]
+
+
+class FabricantFusible(models.Model):
+    nom = models.CharField(max_length=80, unique=True, verbose_name=_("Fabricant"))
+    oem = models.BooleanField(default=False, verbose_name=_("Constructeur (OEM)"),
+                              help_text=_("Fusible d'origine fourni par le constructeur du véhicule."))
+    actif = models.BooleanField(default=True, verbose_name=_("Actif"))
+    ordre = models.PositiveSmallIntegerField(default=0, verbose_name=_("Ordre"))
+
+    class Meta:
+        ordering = ["ordre", "nom"]
+        verbose_name = _("Fabricant de fusibles")
+        verbose_name_plural = _("Fabricants de fusibles")
+
+    def __str__(self):
+        return self.nom
+
+
 class FusibleDetail(models.Model):
     intervention = models.ForeignKey(Fusibles, on_delete=models.CASCADE, related_name="detail_fusibles",
                                      verbose_name=_("Intervention"))
@@ -852,6 +889,8 @@ class FusibleDetail(models.Model):
     amperage = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True,
                                    verbose_name=_("Ampérage (A)"))
     organe = models.CharField(max_length=150, blank=True, verbose_name=_("Précision"))
+    fabricant = models.ForeignKey(FabricantFusible, on_delete=models.SET_NULL, null=True, blank=True,
+                                  related_name="fusibles", verbose_name=_("Fabricant"))
     etat = models.CharField(max_length=10, choices=EtatFusible.choices, default=EtatFusible.OK,
                             verbose_name=_("État"))
     ordre = models.PositiveSmallIntegerField(default=0)
@@ -891,35 +930,68 @@ LIGNE_PAR_TYPE = {
 }
 
 
+def _fabricant_ligne(fabricant):
+    """FabricantFusible du détail → valeur FabricantPiece de la ligne facturée (None si aucune correspondance)."""
+    if fabricant is None:
+        return None
+    if fabricant.oem:
+        return FabricantPiece.CONSTRUCTEUR
+    import unicodedata
+
+    def norm(t):
+        t = unicodedata.normalize("NFKD", str(t)).encode("ascii", "ignore").decode().lower()
+        return "".join(c for c in t if c.isalnum())
+
+    cible = norm(fabricant.nom)
+    for valeur, libelle in FabricantPiece.choices:
+        if valeur == FabricantPiece.CHOISIR:
+            continue
+        n = norm(libelle)
+        if n and (n == cible or (len(n) > 3 and (n in cible or cible in n))):
+            return valeur
+    return None
+
+
 def synchroniser_quantites(intervention):
     """
-    Pour chaque type présent dans le détail : quantité de la ligne facturée = nombre de fusibles remplacés
-    (état « Remplacé »). La ligne passe à « Remplacé » si au moins un fusible a été remplacé.
-    Les types absents du détail gardent la quantité saisie à la main.
+    Les lignes facturées des fusibles (lame, mini, maxi, méga, relais) sont déduites du détail :
+      - quantité = nombre de fusibles « Remplacé » de ce type ;
+      - état = Remplacé s'il y en a, « A Remplacer » si un fusible est grillé, sinon OK ;
+      - fabricant = celui des fusibles remplacés lorsqu'ils ont tous le même (Constructeur OEM, Bosch…).
+    Le prix unitaire et le code OEM/EAN restent saisis sur la ligne.
     """
-    lignes = list(intervention.detail_fusibles.all())
-    if not lignes:
-        return False
-    compte = {}
+    lignes = list(intervention.detail_fusibles.select_related("fabricant"))
+    par_ligne = {p: [] for p in dict.fromkeys(LIGNE_PAR_TYPE.values())}
     for l in lignes:
         prefixe = LIGNE_PAR_TYPE.get(l.type_fusible)
-        if not prefixe:
-            continue
-        compte.setdefault(prefixe, 0)
-        if l.etat == EtatFusible.REMPLACE:
-            compte[prefixe] += 1
+        if prefixe:
+            par_ligne[prefixe].append(l)
+
     change = False
-    for prefixe, n in compte.items():
-        if getattr(intervention, f"{prefixe}_quantite", None) != n:
-            setattr(intervention, f"{prefixe}_quantite", n)
+
+    def maj(champ, valeur):
+        nonlocal change
+        if getattr(intervention, champ, None) != valeur:
+            setattr(intervention, champ, valeur)
             change = True
-        etat = getattr(intervention, prefixe, None)
-        if n > 0 and etat != "REMPLACE":
-            setattr(intervention, prefixe, "REMPLACE")
-            change = True
-        elif n == 0 and etat == "REMPLACE":
-            setattr(intervention, prefixe, "OK")
-            change = True
+
+    for prefixe, fusibles in par_ligne.items():
+        remplaces = [f for f in fusibles if f.etat == EtatFusible.REMPLACE]
+        maj(f"{prefixe}_quantite", len(remplaces))
+        if remplaces:
+            maj(prefixe, EtatOKNotOK.REMPLACE)
+        elif any(f.etat == EtatFusible.GRILLE for f in fusibles):
+            maj(prefixe, EtatOKNotOK.NOT_OK)
+        elif fusibles:
+            maj(prefixe, EtatOKNotOK.OK)
+        elif getattr(intervention, prefixe, None) in (EtatOKNotOK.REMPLACE, EtatOKNotOK.NOT_OK):
+            # aucun fusible de ce type : retour à l'état par défaut (OK, ou « Non présent » pour les méga)
+            maj(prefixe, intervention._meta.get_field(prefixe).default)
+        fabricants = {f.fabricant_id: f.fabricant for f in remplaces if f.fabricant_id}
+        if len(fabricants) == 1:
+            valeur = _fabricant_ligne(next(iter(fabricants.values())))
+            if valeur:
+                maj(f"{prefixe}_fabricant", valeur)
     if change:
         intervention.save()
     return change

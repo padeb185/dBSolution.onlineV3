@@ -52202,3 +52202,35 @@ msgid ""
 msgstr ""
 "Ποσά χωρίς ΦΠΑ (ενέργεια, συντηρήσεις, ενοικιάσεις). Καθαρό αποτέλεσμα = "
 "έσοδα ενοικιάσεων + αξία μεταπώλησης − κόστος απόκτησης − κόστη χρήσης."
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Constructeur (OEM)"
+msgstr "Κατασκευαστής οχήματος (OEM)"
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Fusible d'origine fourni par le constructeur du véhicule."
+msgstr "Γνήσια ασφάλεια από τον κατασκευαστή του οχήματος."
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Fabricant de fusibles"
+msgstr "Κατασκευαστής ασφαλειών"
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Fabricants de fusibles"
+msgstr "Κατασκευαστές ασφαλειών"
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "— Choisir —"
+msgstr "— Επιλογή —"
+
+#: maintenance/autres_interventions/fusibles/templates/fusibles/_detail_fusibles_form.html
+msgid "Quantité facturée :"
+msgstr "Τιμολογούμενη ποσότητα:"
+
+#: maintenance/autres_interventions/fusibles/templates/fusibles/_detail_fusibles_form.html
+msgid ""
+"fusibles « Remplacé » ci-dessous, au prix unitaire et au code OEM/EAN de la "
+"pièce ci-dessus."
+msgstr ""
+"ασφάλειες «Αντικαταστάθηκε» παρακάτω, με την τιμή μονάδας και τον κωδικό "
+"OEM/EAN του ανταλλακτικού παραπάνω."

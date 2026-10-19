@@ -10890,7 +10890,7 @@ msgstr ""
 
 #: facture/models.py:565
 msgid "Ordre"
-msgstr ""
+msgstr "Ordre"
 
 #: facture/models.py:567 facture/templates/facture/facture_detail.html:188
 #: facture/templates/facture/facture_form.html:131
@@ -16946,7 +16946,7 @@ msgstr ""
 #: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:45
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:35
 msgid "Fabricant"
-msgstr ""
+msgstr "Fabricant"
 
 #: maintenance/autres_interventions/abs/models.py:126
 msgid "Prix d'achat htva de la pompe ABS"
@@ -42342,7 +42342,7 @@ msgstr ""
 #: piece/piece_fluides/forms.py:62
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:58
 msgid "Actif"
-msgstr ""
+msgstr "Actif"
 
 #: piece/piece_fluides/forms.py:73
 msgid "La désignation doit contenir au moins 3 caractères."
@@ -51468,3 +51468,35 @@ msgid ""
 msgstr ""
 "Montants HTVA (énergie, maintenances, locations). Résultat net = revenus des"
 " locations + valeur de revente − coût d'acquisition − coûts d'utilisation."
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Constructeur (OEM)"
+msgstr "Constructeur (OEM)"
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Fusible d'origine fourni par le constructeur du véhicule."
+msgstr "Fusible d'origine fourni par le constructeur du véhicule."
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Fabricant de fusibles"
+msgstr "Fabricant de fusibles"
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Fabricants de fusibles"
+msgstr "Fabricants de fusibles"
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "— Choisir —"
+msgstr "— Choisir —"
+
+#: maintenance/autres_interventions/fusibles/templates/fusibles/_detail_fusibles_form.html
+msgid "Quantité facturée :"
+msgstr "Quantité facturée :"
+
+#: maintenance/autres_interventions/fusibles/templates/fusibles/_detail_fusibles_form.html
+msgid ""
+"fusibles « Remplacé » ci-dessous, au prix unitaire et au code OEM/EAN de la "
+"pièce ci-dessus."
+msgstr ""
+"fusibles « Remplacé » ci-dessous, au prix unitaire et au code OEM/EAN de la "
+"pièce ci-dessus."

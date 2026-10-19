@@ -22,8 +22,7 @@ Les cartes sont rendues ici puis déplacées par le JS sous la section de leur t
         <div><label class="{{ C }}">{% trans "Numéro sur la boîte (F12, SB3…)" %}</label>{{ f.repere }}</div>
         <div><label class="{{ C }}">{% trans "Circuit protégé" %}</label>{{ f.circuit }}</div>
         <div><label class="{{ C }}">{% trans "Précision" %}</label>{{ f.organe }}{% for e in f.organe.errors %}<p class="text-red-600 text-xs">{{ e }}</p>{% endfor %}</div>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
+        <div class="champ-fabricant"><label class="{{ C }}">{% trans "Fabricant" %}</label>{{ f.fabricant }}</div>
         <div class="champ-type"><label class="{{ C }}">{% trans "Type" %}</label>{{ f.type_fusible }}</div>
         <div><label class="{{ C }}">{% trans "Ampérage (A)" %}</label>{{ f.amperage }}{% for e in f.amperage.errors %}<p class="text-red-600 text-xs">{{ e }}</p>{% endfor %}</div>
         <div><label class="{{ C }}">{% trans "État" %}</label>{{ f.etat }}</div>
@@ -44,8 +43,7 @@ Les cartes sont rendues ici puis déplacées par le JS sous la section de leur t
         <div><label class="{{ C }}">{% trans "Numéro sur la boîte (F12, SB3…)" %}</label>{{ detail_fs.empty_form.repere }}</div>
         <div><label class="{{ C }}">{% trans "Circuit protégé" %}</label>{{ detail_fs.empty_form.circuit }}</div>
         <div><label class="{{ C }}">{% trans "Précision" %}</label>{{ detail_fs.empty_form.organe }}</div>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
+        <div class="champ-fabricant"><label class="{{ C }}">{% trans "Fabricant" %}</label>{{ detail_fs.empty_form.fabricant }}</div>
         <div class="champ-type"><label class="{{ C }}">{% trans "Type" %}</label>{{ detail_fs.empty_form.type_fusible }}</div>
         <div><label class="{{ C }}">{% trans "Ampérage (A)" %}</label>{{ detail_fs.empty_form.amperage }}</div>
         <div><label class="{{ C }}">{% trans "État" %}</label>{{ detail_fs.empty_form.etat }}</div>
@@ -58,6 +56,7 @@ Les cartes sont rendues ici puis déplacées par le JS sous la section de leur t
     <div class="mt-4 border-l-4 border-blue-300 pl-3">
         <h3 class="font-semibold text-gray-800 mb-1">{% trans "Détail des fusibles" %}</h3>
         <p class="text-xs text-gray-500 mb-3">{% trans "Un fusible par carte : emplacement de la boîte, numéro sur la boîte, circuit protégé, ampérage et état. Les fusibles « Remplacé » sont comptés dans la quantité facturée." %}</p>
+        <p class="quantite-facturee text-sm text-blue-800 bg-blue-50 rounded px-3 py-2 mb-3"></p>
         <div class="cartes-fusibles"></div>
         <button type="button" class="ajouter-fusible bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">+ {% trans "Ajouter un fusible" %}</button>
     </div>
@@ -88,6 +87,14 @@ Les cartes sont rendues ici puis déplacées par le JS sous la section de leur t
         z.classList.remove('hidden');
         zones[p] = z;
         z.querySelector('.ajouter-fusible').addEventListener('click', function () { ajouter(p); });
+        // Fusion ligne / détail : état, fabricant et quantité de la ligne sont déduits des fusibles ci-dessous
+        // (seuls le code OEM/EAN et le prix unitaire restent saisis sur la ligne)
+        var section = z.closest('.mb-16') || z.parentElement;
+        [p, p + '_fabricant', p + '_quantite'].forEach(function (nom) {
+            var champ = section.querySelector('[name="' + nom + '"]');
+            var bloc = champ && champ.closest('.mb-4');
+            if (bloc && section.contains(bloc)) bloc.style.display = 'none';   // style (pas de classe) : pieces_intervention.js recopie la classe du bloc fabricant
+        });
     });
 
     function preparerCarte(carte, p) {
@@ -97,7 +104,7 @@ Les cartes sont rendues ici puis déplacées par le JS sous la section de leur t
             var ok = typesParLigne[p];
             if (ok.indexOf(sel.value) === -1) sel.value = ok[0];
             Array.prototype.slice.call(sel.options).forEach(function (o) { if (ok.indexOf(o.value) === -1) o.remove(); });
-            if (ok.length === 1) { var ct = carte.querySelector('.champ-type'); ct.classList.add('hidden'); ct.parentElement.classList.replace('sm:grid-cols-3', 'sm:grid-cols-2'); }
+            if (ok.length === 1) { carte.querySelector('.champ-type').classList.add('hidden'); carte.querySelector('.champ-fabricant').classList.add('sm:col-span-2'); }
         }
         zones[p].querySelector('.cartes-fusibles').appendChild(carte);
     }
@@ -126,8 +133,8 @@ Les cartes sont rendues ici puis déplacées par le JS sous la section de leur t
         total.value = n + 1;
         var sel = carte.querySelector('[name$="-type_fusible"]');
         if (sel) sel.value = typesParLigne[p][0];
-        if (derniere) {   // saisie en série : reprend l'emplacement et le type du fusible précédent
-            ['emplacement', 'type_fusible'].forEach(function (c) {
+        if (derniere) {   // saisie en série : reprend l'emplacement, le type et le fabricant du fusible précédent
+            ['emplacement', 'type_fusible', 'fabricant'].forEach(function (c) {
                 var src = derniere.querySelector('[name$="-' + c + '"]'), dst = carte.querySelector('[name$="-' + c + '"]');
                 if (src && dst) dst.value = src.value;
             });
@@ -148,7 +155,7 @@ Les cartes sont rendues ici puis déplacées par le JS sous la section de leur t
 
     // Quantité facturée par type = nombre de fusibles « Remplacé » (mise à jour en direct)
     function synchroniser() {
-        var compte = {}, presents = {};
+        var compte = {}, presents = {}, grilles = {};
         form.querySelectorAll('.zone-fusibles .ligne-fusible').forEach(function (c) {
             var del = c.querySelector('[name$="-DELETE"]');
             if (del && del.checked) return;
@@ -160,12 +167,21 @@ Les cartes sont rendues ici puis déplacées par le JS sous la section de leur t
             var p = LIGNES[t.value]; if (!p) return;
             presents[p] = true;
             if (e && e.value === 'REMPLACE') compte[p] = (compte[p] || 0) + 1;
+            if (e && e.value === 'GRILLE') grilles[p] = true;
         });
         var resume = [];
-        Object.keys(presents).forEach(function (p) {
+        Object.keys(zones).forEach(function (p) {
             var n = compte[p] || 0, q = form.querySelector('[name="' + p + '_quantite"]'), etat = form.querySelector('select[name="' + p + '"]');
             if (q) q.value = n;
-            if (etat && n > 0 && etat.querySelector('option[value="REMPLACE"]')) etat.value = 'REMPLACE';
+            if (etat) {
+                var a = function (v) { return etat.querySelector('option[value="' + v + '"]') ? v : null; };
+                if (n > 0) etat.value = a('REMPLACE') || etat.value;
+                else if (grilles[p]) etat.value = a('NOT_OK') || etat.value;
+                else if (presents[p]) etat.value = a('OK') || etat.value;
+                else if (etat.value === 'REMPLACE' || etat.value === 'NOT_OK') etat.value = a('NON_PRESENT') || a('OK') || etat.value;
+            }
+            var info = zones[p].querySelector('.quantite-facturee');
+            if (info) info.textContent = '{{ _("Quantité facturée :")|escapejs }} ' + n + ' – {{ _("fusibles « Remplacé » ci-dessous, au prix unitaire et au code OEM/EAN de la pièce ci-dessus.")|escapejs }}';
             if (n > 0) {
                 var titre = q ? (q.closest('.mb-16') || document).querySelector('h2') : null;
                 resume.push(n + ' × ' + (titre ? titre.textContent.trim() : p));

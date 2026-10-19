@@ -52032,3 +52032,35 @@ msgid ""
 msgstr ""
 "Amounts excl. VAT (energy, maintenance, rentals). Net result = rental income"
 " + resale value − acquisition cost − running costs."
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Constructeur (OEM)"
+msgstr "Vehicle manufacturer (OEM)"
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Fusible d'origine fourni par le constructeur du véhicule."
+msgstr "Original fuse supplied by the vehicle manufacturer."
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Fabricant de fusibles"
+msgstr "Fuse manufacturer"
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "Fabricants de fusibles"
+msgstr "Fuse manufacturers"
+
+#: maintenance/autres_interventions/fusibles/models.py
+msgid "— Choisir —"
+msgstr "— Choose —"
+
+#: maintenance/autres_interventions/fusibles/templates/fusibles/_detail_fusibles_form.html
+msgid "Quantité facturée :"
+msgstr "Invoiced quantity:"
+
+#: maintenance/autres_interventions/fusibles/templates/fusibles/_detail_fusibles_form.html
+msgid ""
+"fusibles « Remplacé » ci-dessous, au prix unitaire et au code OEM/EAN de la "
+"pièce ci-dessus."
+msgstr ""
+"“Replaced” fuses below, at the unit price and OEM/EAN code of the part "
+"above."
