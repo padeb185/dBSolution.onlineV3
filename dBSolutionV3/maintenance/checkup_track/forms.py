@@ -35,7 +35,7 @@ class CheckupTrackForm(forms.ModelForm):
             "kilometres_boite",
             "kilometres_moteur",
             "kilometres_embrayage",
-
+            "ready_for",  # remplacé par circuit + km / tours (ready_circuit, ready_unite, ready_distance)
         }
         widgets = {
             'maintenance': forms.HiddenInput(),

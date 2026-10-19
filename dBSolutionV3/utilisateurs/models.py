@@ -4,7 +4,7 @@ import uuid
 from io import BytesIO
 import pyotp
 import qrcode
-from client_atelier.models import validate_iban
+from core.iban import normaliser_iban, validate_iban
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -121,7 +121,8 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     prenom = models.CharField(max_length=100)
     date_naissance = models.DateField(null=True, blank=True)
     numero_registre_national = models.CharField(max_length=100, blank=True, null=True)
-    numero_compte_bancaire = models.CharField(max_length=100, blank=True, null=True, validators=[validate_iban])
+    numero_compte_bancaire = models.CharField(max_length=100, blank=True, null=True, validators=[validate_iban],
+                                              verbose_name=_("IBAN"))
 
     email = models.EmailField(unique=True, blank=True, null=True)
     email_entreprise = models.EmailField(unique=True, blank=True, null=True)
@@ -338,8 +339,20 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
             })
 
     def save(self, *args, **kwargs):
+        # IBAN stocké sans espaces, en majuscules (affiché en groupes de 4 via |format_iban)
+        if self.numero_compte_bancaire:
+            self.numero_compte_bancaire = normaliser_iban(self.numero_compte_bancaire) or None
         super().save(*args, **kwargs)
 
+    @property
+    def iban_formate(self):
+        from core.iban import formater_iban
+        return formater_iban(self.numero_compte_bancaire) if self.numero_compte_bancaire else ""
+
+    @property
+    def iban_valide(self):
+        from core.iban import erreur_iban
+        return bool(self.numero_compte_bancaire) and erreur_iban(self.numero_compte_bancaire) is None
 
     def __str__(self):
         return f"{self.prenom} {self.nom}"

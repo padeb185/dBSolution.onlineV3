@@ -53,6 +53,13 @@ urlpatterns = [
         name="liste_utilisateurs",
     ),
 
+    # IBAN d'un utilisateur (contrôle + mise en forme)
+    path(
+        "admin/utilisateurs/<uuid:pk>/iban/",
+        views.modifier_iban_utilisateur,
+        name="modifier_iban",
+    ),
+
     # -------------------------
     # PAIES MENSUELLES
     # -------------------------

@@ -119,6 +119,7 @@ class UtilisateurCreationForm(forms.ModelForm):
             "email_entreprise",
             "telephone",
             "date_naissance",
+            "numero_compte_bancaire",
             "role",
             "password",
         ]
@@ -155,7 +156,19 @@ class UtilisateurCreationForm(forms.ModelForm):
                     "type": "date",
                 }
             ),
+            "numero_compte_bancaire": forms.TextInput(
+                attrs={
+                    "placeholder": "BE68 5390 0754 7034",
+                    "autocomplete": "off",
+                    "class": "font-mono uppercase",
+                }
+            ),
         }
+
+    def clean_numero_compte_bancaire(self):
+        # IBAN : nettoyage (sans espaces, majuscules), longueur du pays et clé mod 97
+        from core.iban import nettoyer_iban_formulaire
+        return nettoyer_iban_formulaire(self.cleaned_data.get("numero_compte_bancaire"))
 
     def __init__(self, *args, **kwargs):
         societe = kwargs.pop("societe", None)
@@ -325,3 +338,29 @@ class PaieUtilisateurForm(forms.ModelForm):
                 Utilisateur.objects.none()
             )
 
+
+
+
+class UtilisateurIbanForm(forms.ModelForm):
+    """Modification de l'IBAN d'un utilisateur (contrôle pays + clé mod 97, mise en forme par 4)."""
+
+    class Meta:
+        model = Utilisateur
+        fields = ["numero_compte_bancaire"]
+        labels = {"numero_compte_bancaire": _("IBAN")}
+        widgets = {
+            "numero_compte_bancaire": forms.TextInput(attrs={
+                "placeholder": "BE68 5390 0754 7034", "autocomplete": "off",
+                "class": "input border rounded px-3 py-2 w-full font-mono uppercase",
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        from core.iban import formater_iban
+        if self.instance and self.instance.numero_compte_bancaire and not self.is_bound:
+            self.initial["numero_compte_bancaire"] = formater_iban(self.instance.numero_compte_bancaire)
+
+    def clean_numero_compte_bancaire(self):
+        from core.iban import nettoyer_iban_formulaire
+        return nettoyer_iban_formulaire(self.cleaned_data.get("numero_compte_bancaire"))

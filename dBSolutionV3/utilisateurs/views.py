@@ -698,6 +698,33 @@ def liste_utilisateurs(request):
     )
 
 
+ROLES_IBAN = ["direction", "comptable"]
+
+
+@login_required
+def modifier_iban_utilisateur(request, pk):
+    """IBAN d'un utilisateur : contrôle (longueur du pays + clé mod 97) et mise en forme par groupes de 4.
+    Accessible à la direction / comptabilité et à l'utilisateur lui-même."""
+    from django.shortcuts import get_object_or_404
+    from django.utils.translation import gettext as _t
+    from .forms import UtilisateurIbanForm
+
+    utilisateur = get_object_or_404(Utilisateur, pk=pk, societe=request.user.societe)
+    if not (request.user.is_superuser or request.user.pk == utilisateur.pk
+            or getattr(request.user, "role", None) in ROLES_IBAN):
+        messages.error(request, _t("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    form = UtilisateurIbanForm(request.POST or None, instance=utilisateur)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, _t("IBAN enregistré."))
+        if getattr(request.user, "role", None) in ROLES_IBAN or request.user.is_superuser:
+            return redirect("utilisateurs:liste_utilisateurs")
+        return redirect("utilisateurs:dashboard")
+    return render(request, "utilisateurs/modifier_iban.html", {"form": form, "utilisateur": utilisateur})
+
+
 @receiver(user_logged_in)
 def log_connexion(sender, request, user, **kwargs):
     UserLog.objects.create(

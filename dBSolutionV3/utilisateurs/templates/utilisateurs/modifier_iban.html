@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "IBAN" %} – {{ utilisateur }}{% endblock %}
+
+{% block content %}
+<div class="p-6 max-w-xl mx-auto">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h1 class="text-2xl font-bold mb-1">{% trans "IBAN" %}</h1>
+        <p class="text-gray-600 mb-6">{{ utilisateur.prenom }} {{ utilisateur.nom }} – {{ utilisateur.get_role_display }}</p>
+
+        {% include "partials/messages.html" %}
+
+        <form method="post" class="flex flex-col gap-4">
+            {% csrf_token %}
+            <div>
+                <label class="block font-semibold mb-1" for="{{ form.numero_compte_bancaire.id_for_label }}">{{ form.numero_compte_bancaire.label }}</label>
+                {{ form.numero_compte_bancaire }}
+                {% for e in form.numero_compte_bancaire.errors %}<p class="text-red-600 text-sm mt-1">{{ e }}</p>{% endfor %}
+                <p class="text-gray-500 text-sm mt-1">{% trans "Mis en forme par groupes de 4 ; contrôle de la longueur du pays et de la clé (mod 97)." %}</p>
+            </div>
+            <div class="flex gap-3">
+                <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-3 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer" %}</button>
+                <a href="javascript:history.back()" class="flex-1 bg-gray-300 text-black px-5 py-3 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -10,5 +10,5 @@
     {% if exemplaire %}{% url 'checkup_track:checkup_track_list' exemplaire.id as url_list %}{% endif %}
     {% trans "Détails du checkup piste" as titre %}
 
-    {% include "maintenance/partials/intervention_detail.html" with obj=checkup_track km_controle=checkup_track.kilometrage_checkup_track icone="checkup_track.png" %}
+    {% include "maintenance/partials/intervention_detail.html" with obj=checkup_track km_controle=checkup_track.kilometrage_checkup_track icone="checkup_track.png" infos_template="checkup_track/_infos_piste.html" %}
 {% endblock %}

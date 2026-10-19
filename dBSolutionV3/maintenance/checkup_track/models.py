@@ -10,6 +10,7 @@ from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, Fabrican
     FabricantAmpoule, TVAConfig, HuileEtat, HuileBoiteEtat, RefroidissementQualiteEtat, HuilePontEtat, FabricantPiece, \
     FabricantPneus, LaveGlaceQualite
 from maintenance.models import Maintenance
+from voiture.voiture_location.models import CircuitEuropeen, LONGUEUR_CIRCUIT_KM
 from maintenance.esthetique.nettoyage_exterieur.models import EtatAjouter
 from django.conf import settings
 from utils.mixin import TechnicienMixin
@@ -90,6 +91,22 @@ class ReadyForOK(models.TextChoices):
     AUTRE200 = "AUTRE200", _("Autre circuit 200 km")
     AUTRE300 = "AUTRE300", _("Autre circuit 300 km")
     AUTRE400 = "AUTRE400", _("Autre circuit 400 km")
+
+class UniteDistancePiste(models.TextChoices):
+    KM = "KM", _("Kilomètres")
+    TOURS = "TOURS", _("Tours")
+
+
+# Anciennes valeurs « Prête pour » → (circuit, unité, distance) : reprise par la migration de données
+ANCIEN_READY_FOR = {
+    "SPA200": ("spa_francorchamps", "KM", 200), "SPA300": ("spa_francorchamps", "KM", 300),
+    "SPA400": ("spa_francorchamps", "KM", 400),
+    "NURBURG2": ("nurburgring_nordschleife", "TOURS", 2), "NURBURG5": ("nurburgring_nordschleife", "TOURS", 5),
+    "NURBURG7": ("nurburgring_nordschleife", "TOURS", 7), "NURBURG10": ("nurburgring_nordschleife", "TOURS", 10),
+    "NURBURG12": ("nurburgring_nordschleife", "TOURS", 12), "NURBURG15": ("nurburgring_nordschleife", "TOURS", 15),
+    "AUTRE200": ("autre", "KM", 200), "AUTRE300": ("autre", "KM", 300), "AUTRE400": ("autre", "KM", 400),
+}
+
 
 class QualiteLiquideFrein(models.TextChoices):
     DOT3 = "DOT3", _("DOT 3")
@@ -841,6 +858,14 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     ready_for = models.CharField(max_length=25, choices=ReadyForOK.choices, verbose_name=_("Prête pour :"), blank=True, default="")
 
+    # « Prête pour » : circuit (liste des circuits de la location) + distance en kilomètres ou en tours
+    ready_circuit = models.CharField(max_length=40, choices=CircuitEuropeen.choices, blank=True, default="",
+                                     verbose_name=_("Circuit"))
+    ready_unite = models.CharField(max_length=5, choices=UniteDistancePiste.choices, default=UniteDistancePiste.KM,
+                                   verbose_name=_("Distance en"))
+    ready_distance = models.PositiveIntegerField(null=True, blank=True,
+                                                 verbose_name=_("Kilomètres ou nombre de tours"))
+
     main_oeuvre = models.ForeignKey(
         "maindoeuvre.MainDoeuvre",
         on_delete=models.SET_NULL,
@@ -905,6 +930,44 @@ class CheckupTrack(TechnicienMixin, models.Model):
         verbose_name = _("Contrôle général")
         verbose_name_plural = _("Contrôles généraux")
 
+    # -------------------------
+    # PRÊTE POUR (circuit + km / tours)
+    # -------------------------
+    @property
+    def ready_km(self):
+        """Kilométrage prévu : direct en km, ou tours × longueur du circuit."""
+        if not self.ready_distance:
+            return None
+        if self.ready_unite == UniteDistancePiste.TOURS:
+            longueur = LONGUEUR_CIRCUIT_KM.get(self.ready_circuit)
+            if not longueur:
+                return None
+            return int((longueur * self.ready_distance).quantize(Decimal("1"), rounding=ROUND_HALF_UP))
+        return self.ready_distance
+
+    @property
+    def ready_display(self):
+        """Ex. : « Nürburgring Nordschleife – 5 tours (≈ 104 km) » ou « Spa-Francorchamps – 300 km »."""
+        from django.utils.translation import ngettext
+        if not self.ready_circuit and not self.ready_distance:
+            return self.get_ready_for_display() if self.ready_for else ""
+        morceaux = [self.get_ready_circuit_display()] if self.ready_circuit else []
+        if self.ready_distance:
+            if self.ready_unite == UniteDistancePiste.TOURS:
+                txt = ngettext("%(n)s tour", "%(n)s tours", self.ready_distance) % {"n": self.ready_distance}
+                if self.ready_km:
+                    txt += f" (≈ {self.ready_km} km)"
+            else:
+                txt = f"{self.ready_distance} km"
+            morceaux.append(txt)
+        return " – ".join(morceaux)
+
+    def clean_ready(self):
+        erreurs = {}
+        if self.ready_distance and not self.ready_circuit:
+            erreurs["ready_circuit"] = _("Choisissez le circuit.")
+        return erreurs
+
     def __str__(self):
         # Si l'objet a une maintenance liée, on affiche son id
         if self.maintenance:
@@ -914,6 +977,9 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     def clean(self):
         super().clean()
+        erreurs_ready = self.clean_ready()
+        if erreurs_ready:
+            raise ValidationError(erreurs_ready)
         if self.voiture_exemplaire and self.kilometrage_checkup_track is not None:
             if (
                     self.kilometrage_checkup_track is not None

@@ -17,6 +17,7 @@
                         <th class="px-4 py-2 border text-left">{% trans "Email" %}</th>
                         <th class="px-4 py-2 border text-left">{% trans "Rôle" %}</th>
                         <th class="px-4 py-2 border text-left">{% trans "Téléphone" %}</th>
+                        <th class="px-4 py-2 border text-left">{% trans "IBAN" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +28,13 @@
                         <td class="px-4 py-2 border text-left">{{ u.email }}</td>
                         <td class="px-4 py-2 border text-left">{{ u.get_role_display }}</td>
                         <td class="px-4 py-2 border text-left">{{ u.telephone }}</td>
+                        <td class="px-4 py-2 border text-left whitespace-nowrap">
+                            {% if u.numero_compte_bancaire %}
+                                <span class="font-mono">{{ u.iban_formate }}</span>
+                                {% if not u.iban_valide %}<span class="ml-1 px-2 py-0.5 rounded bg-red-100 text-red-800 text-xs font-semibold">{% trans "IBAN invalide" %}</span>{% endif %}
+                            {% else %}<span class="text-gray-400">—</span>{% endif %}
+                            <a href="{% url 'utilisateurs:modifier_iban' u.pk %}" class="ml-2 text-blue-700 text-sm hover:underline">{% trans "Modifier" %}</a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

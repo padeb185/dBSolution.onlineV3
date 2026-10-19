@@ -1,0 +1,4 @@
+{% load i18n %}
+{% if obj.ready_display %}
+<p><strong>{% trans "Voiture prête pour :" %}</strong> {{ obj.ready_display }}</p>
+{% endif %}
