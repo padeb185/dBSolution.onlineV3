@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Inventaires" %}{% endblock %}
+
+{% block content %}
+<br>
+{% trans "Inventaires" as titre %}
+{% include "piece/stock/_nav.html" with titre=titre actif="inventaires" %}
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <form method="post" class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-3 h-fit">
+        {% csrf_token %}
+        <h2 class="text-lg font-semibold">{% trans "Nouvel inventaire" %}</h2>
+        <p class="text-sm text-gray-500">{% trans "Le stock théorique de chaque pièce active est figé à la création. Comptez ensuite les pièces ; à la clôture, chaque écart est régularisé par un mouvement de stock." %}</p>
+        {% for f in form %}
+        <div>
+            <label class="block text-sm font-semibold mb-1" for="{{ f.id_for_label }}">{{ f.label }}{% if f.name == "categorie" %} <span class="font-normal text-gray-500">({% trans "vide = toutes" %})</span>{% endif %}</label>
+            {{ f }}
+            {% for e in f.errors %}<p class="text-sm text-red-600">{{ e }}</p>{% endfor %}
+        </div>
+        {% endfor %}
+        <button class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">{% trans "Créer l'inventaire" %}</button>
+    </form>
+
+    <div class="bg-white shadow-md rounded-lg p-6 lg:col-span-2 overflow-x-auto">
+        {% if inventaires %}
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+            <thead><tr class="bg-gray-100">
+                <th class="border px-2 py-2 text-left">{% trans "Date" %}</th>
+                <th class="border px-2 py-2 text-left">{% trans "Catégorie" %}</th>
+                <th class="border px-2 py-2 text-left">{% trans "Statut" %}</th>
+                <th class="border px-2 py-2 text-left">{% trans "Utilisateur" %}</th>
+                <th class="border px-2 py-2 text-left">{% trans "Commentaire" %}</th>
+            </tr></thead>
+            <tbody>
+            {% for inv in inventaires %}
+                <tr class="hover:bg-blue-50 cursor-pointer" onclick="window.location='{% url 'piece:inventaire_detail' inv.pk %}'">
+                    <td class="border px-2 py-2"><a class="text-blue-700 hover:underline" href="{% url 'piece:inventaire_detail' inv.pk %}">{{ inv.date|date:"d/m/Y" }}</a></td>
+                    <td class="border px-2 py-2">{{ inv.get_categorie_display|default:_("Toutes") }}</td>
+                    <td class="border px-2 py-2">{% if inv.statut == "CLOTURE" %}<span class="px-2 py-0.5 rounded bg-green-100 text-green-800 text-xs font-semibold">{{ inv.get_statut_display }}</span>{% else %}<span class="px-2 py-0.5 rounded bg-yellow-100 text-yellow-800 text-xs font-semibold">{{ inv.get_statut_display }}</span>{% endif %}</td>
+                    <td class="border px-2 py-2">{{ inv.utilisateur|default:"" }}</td>
+                    <td class="border px-2 py-2">{{ inv.commentaire }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="text-gray-500">{% trans "Aucun inventaire." %}</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

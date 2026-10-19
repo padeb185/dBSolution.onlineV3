@@ -593,6 +593,25 @@
              class="w-[60px] h-[60px]">
     </a>
 
+    <!-- Stock pièces et fluides -->
+    <a href="{% url 'piece:list' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Stock pièces et fluides" %}
+            </h2>
+
+            <p class="text-gray-600 text-sm">
+                {% trans "Inventaire, variations de stock" %}
+            </p>
+        </div>
+
+        <img src="{% static 'icons/pieces-de-voiture.png' %}"
+             alt="{% trans 'Stock pièces et fluides' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
 </div>
 
 {% endif %}

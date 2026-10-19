@@ -26,7 +26,9 @@ def group_by(value, sizes, sep=" "):
 
 @register.filter
 def format_iban(value):
-    return group_by(value, [4, 4, 4, 4])
+    """IBAN en groupes de 4 sur toute sa longueur (BE68 5390 0754 7034, FR76 3000 …)."""
+    from core.iban import formater_iban
+    return formater_iban(value) if value else value
 
 
 @register.filter

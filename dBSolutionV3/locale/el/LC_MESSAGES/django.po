@@ -49445,6 +49445,838 @@ msgstr "Η πληρωμή ακυρώθηκε: %(achat)s"
 msgid "Facture d'achat payée : %(achat)s"
 msgstr "Τιμολόγιο αγοράς πληρώθηκε: %(achat)s"
 
+#: core/iban.py
+msgid ""
+"L'IBAN doit commencer par le code pays (2 lettres) suivi de 2 chiffres de "
+"contrôle."
+msgstr ""
+"Το IBAN πρέπει να ξεκινά με τον κωδικό χώρας (2 γράμματα) και 2 ψηφία "
+"ελέγχου."
+
+#: core/iban.py
+#, python-format
+msgid "Un IBAN %(pays)s compte %(attendu)s caractères (%(saisi)s saisis)."
+msgstr ""
+"Ένα IBAN %(pays)s έχει %(attendu)s χαρακτήρες (%(saisi)s καταχωρήθηκαν)."
+
+#: core/iban.py
+msgid "Longueur d'IBAN invalide."
+msgstr "Μη έγκυρο μήκος IBAN."
+
+#: core/iban.py
+msgid "Clé de contrôle IBAN incorrecte (mod 97) : vérifiez le numéro saisi."
+msgstr "Λανθασμένο κλειδί ελέγχου IBAN (mod 97): ελέγξτε τον αριθμό."
+
+#: core/iban.py
+msgid "IBAN valide"
+msgstr "Έγκυρο IBAN"
+
+#: core/iban.py
+msgid "Code pays (2 lettres) suivi de 2 chiffres de contrôle attendu"
+msgstr "Αναμένεται κωδικός χώρας (2 γράμματα) και 2 ψηφία ελέγχου"
+
+#: core/iban.py
+msgid "Longueur attendue : {n} caractères"
+msgstr "Αναμενόμενο μήκος: {n} χαρακτήρες"
+
+#: core/iban.py
+msgid "Clé de contrôle IBAN incorrecte (mod 97)"
+msgstr "Λανθασμένο κλειδί ελέγχου IBAN (mod 97)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Acquisition"
+msgstr "Απόκτηση"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Allemagne (Umweltplakette)"
+msgstr "Γερμανία (Umweltplakette)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Assurance, taxe de circulation et vignettes par année"
+msgstr "Ασφάλιση, τέλη κυκλοφορίας και βινιέτες ανά έτος"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Assurance, taxes, vignettes…"
+msgstr "Ασφάλιση, φόροι, βινιέτες…"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Aucune location pour ce véhicule."
+msgstr "Καμία ενοικίαση για αυτό το όχημα."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Aucune maintenance chiffrée pour ce véhicule."
+msgstr "Καμία κοστολογημένη συντήρηση για αυτό το όχημα."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Autre pays"
+msgstr "Άλλη χώρα"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Autres frais d'achat"
+msgstr "Λοιπά έξοδα αγοράς"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Autres frais d'achat (immatriculation, plaques, transport…) (€)"
+msgstr "Λοιπά έξοδα αγοράς (ταξινόμηση, πινακίδες, μεταφορά…) (€)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Belgique (LEZ)"
+msgstr "Βέλγιο (LEZ)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Contrôle technique"
+msgstr "Τεχνικός έλεγχος (ΚΤΕΟ)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût annuel du véhicule"
+msgstr "Ετήσιο κόστος οχήματος"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût annuel enregistré."
+msgstr "Το ετήσιο κόστος αποθηκεύτηκε."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût annuel supprimé."
+msgstr "Το ετήσιο κόστος διαγράφηκε."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût au kilomètre indisponible : complétez le kilométrage de départ."
+msgstr "Κόστος ανά χλμ μη διαθέσιμο: συμπληρώστε τα αρχικά χιλιόμετρα."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût d'acquisition"
+msgstr "Κόστος απόκτησης"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût total (acquisition + utilisation)"
+msgstr "Συνολικό κόστος (απόκτηση + χρήση)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coûts annuels du véhicule"
+msgstr "Ετήσια κόστη οχήματος"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coûts d'utilisation"
+msgstr "Κόστη χρήσης"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Date d'achat"
+msgstr "Ημερομηνία αγοράς"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Depuis le"
+msgstr "Από"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Entretien interne"
+msgstr "Εσωτερική συντήρηση"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Entretien interne au coût de revient HTVA (pièces au prix d'achat + "
+"main-d'œuvre) et factures des garages externes HTVA."
+msgstr ""
+"Εσωτερική συντήρηση σε κόστος χωρίς ΦΠΑ (ανταλλακτικά σε τιμή αγοράς + "
+"εργασία) και τιμολόγια εξωτερικών συνεργείων χωρίς ΦΠΑ."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Fixer"
+msgstr "Ορισμός"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "France (Crit'Air)"
+msgstr "Γαλλία (Crit'Air)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Garage externe"
+msgstr "Εξωτερικό συνεργείο"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Kilomètres parcourus depuis l'achat"
+msgstr "Χιλιόμετρα από την αγορά"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Montant (€)"
+msgstr "Ποσό (€)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Montants HTVA (énergie, maintenances, locations). Résultat net = revenus des"
+" locations − coût d'acquisition − coûts d'utilisation."
+msgstr ""
+"Ποσά χωρίς ΦΠΑ (ενέργεια, συντήρηση, ενοικιάσεις). Καθαρό αποτέλεσμα = έσοδα"
+" ενοικιάσεων − κόστος απόκτησης − κόστη χρήσης."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Montants annuels par défaut. Ils peuvent être modifiés année par année (et "
+"les vignettes ajoutées) dans le détail des données financières."
+msgstr ""
+"Προεπιλεγμένα ετήσια ποσά. Μπορούν να αλλάξουν ανά έτος (και να προστεθούν "
+"βινιέτες) στις λεπτομέρειες των οικονομικών στοιχείων."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Origine"
+msgstr "Προέλευση"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Par km"
+msgstr "Ανά χλμ"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Rentabilité du véhicule"
+msgstr "Κερδοφορία οχήματος"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Revenus des locations (HTVA)"
+msgstr "Έσοδα ενοικιάσεων (χωρίς ΦΠΑ)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Résultat net"
+msgstr "Καθαρό αποτέλεσμα"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Résultat net du véhicule"
+msgstr "Καθαρό αποτέλεσμα οχήματος"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Sans montant saisi pour une année, l'assurance et la taxe de circulation "
+"reprennent le montant annuel par défaut, au prorata des mois de détention. "
+"Saisissez une ligne pour le remplacer."
+msgstr ""
+"Χωρίς καταχωρημένο ποσό για ένα έτος, η ασφάλιση και τα τέλη κυκλοφορίας "
+"παίρνουν το προεπιλεγμένο ετήσιο ποσό, αναλογικά με τους μήνες κατοχής. "
+"Καταχωρίστε μια γραμμή για αντικατάσταση."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Taxe de circulation"
+msgstr "Τέλη κυκλοφορίας"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Taxe de mise en circulation"
+msgstr "Τέλος ταξινόμησης"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Utilisation"
+msgstr "Χρήση"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Vignette / péage"
+msgstr "Βινιέτα / διόδια"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "garages"
+msgstr "συνεργεία"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "internes"
+msgstr "εσωτερικά"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "km châssis"
+msgstr "χλμ πλαισίου"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "km de départ"
+msgstr "αρχικά χλμ"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+#, python-format
+msgid "montant annuel par défaut (%(mois)s/12 mois)"
+msgstr "προεπιλεγμένο ετήσιο ποσό (%(mois)s/12 μήνες)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Énergie"
+msgstr "Ενέργεια"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "—"
+msgstr "—"
+
+#: facture/templates/facture/facture_detail.html
+msgid "Interne – sans paiement"
+msgstr "Εσωτερικό – χωρίς πληρωμή"
+
+#: facture/templates/facture/facture_detail.html
+msgid "Facture interne : aucun paiement à enregistrer."
+msgstr "Εσωτερικό τιμολόγιο: καμία πληρωμή προς καταχώριση."
+
+#: facture/templates/facture/facture_detail.html
+msgid ""
+"Facture interne (véhicule de la société) : pas de paiement, pas de TVA due –"
+" coût d'entretien imputé au véhicule."
+msgstr ""
+"Εσωτερικό τιμολόγιο (εταιρικό όχημα): χωρίς πληρωμή, χωρίς οφειλόμενο ΦΠΑ – "
+"κόστος συντήρησης στο όχημα."
+
+#: facture/templates/facture/facture_detail.html
+msgid ""
+"Facture à votre propre société : ce n'est pas une vente. Il n'y a rien à "
+"encaisser ni à payer, aucune TVA n'est due et elle n'apparaît pas dans les "
+"factures à payer ni dans la caisse et la banque. La TVA des pièces est "
+"récupérée par les factures d'achat des fournisseurs (page TVA). Le coût de "
+"revient est imputé au véhicule dans ses données financières."
+msgstr ""
+"Τιμολόγιο προς τη δική σας εταιρεία: δεν είναι πώληση. Δεν υπάρχει τίποτα "
+"προς είσπραξη ή πληρωμή, δεν οφείλεται ΦΠΑ και δεν εμφανίζεται στα τιμολόγια"
+" προς πληρωμή ούτε στο ταμείο και την τράπεζα. Ο ΦΠΑ των ανταλλακτικών "
+"ανακτάται μέσω των τιμολογίων αγοράς προμηθευτών (σελίδα ΦΠΑ). Το κόστος "
+"καταλογίζεται στο όχημα στα οικονομικά του στοιχεία."
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Charbons (balais)"
+msgstr "Ψήκτρες (καρβουνάκια)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Collecteur de l'induit (rectification)"
+msgstr "Συλλέκτης επαγωγικού (ανακατασκευή)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Couronne du volant moteur"
+msgstr "Οδοντωτή στεφάνη βολάν"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Coussinets / bagues de palier"
+msgstr "Κουζινέτα / δακτύλιοι έδρασης"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Câble d'alimentation (+ batterie)"
+msgstr "Καλώδιο τροφοδοσίας (+ μπαταρίας)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Démarreur complet (neuf ou échange standard)"
+msgstr "Πλήρης μίζα (καινούργια ή ανταλλακτική)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Essai au banc / test de démarrage"
+msgstr "Δοκιμή σε πάγκο / δοκιμή εκκίνησης"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Fourchette d'engrènement"
+msgstr "Διχάλα εμπλοκής"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Graisse (nettoyage et graissage)"
+msgstr "Γράσο (καθαρισμός και λίπανση)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Inducteurs / aimants (stator)"
+msgstr "Πηνία πεδίου / μαγνήτες (στάτης)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Induit (rotor)"
+msgstr "Επαγωγικό (ρότορας)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Intervention démarreur"
+msgstr "Επέμβαση στη μίζα"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Joints et visserie"
+msgstr "Φλάντζες και βίδες"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Lanceur (pignon / bendix)"
+msgstr "Γρανάζι μίζας (μπέντιξ)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Modification intervention démarreur"
+msgstr "Τροποποίηση επέμβασης στη μίζα"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Porte-balais"
+msgstr "Θήκη ψηκτρών"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Relais de démarrage"
+msgstr "Ρελέ εκκίνησης"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Remplacement"
+msgstr "Αντικατάσταση"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Restauration (réfection)"
+msgstr "Αποκατάσταση (ανακατασκευή)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Roue libre du lanceur"
+msgstr "Ελεύθερος τροχός γραναζιού"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Réducteur planétaire"
+msgstr "Πλανητικός μειωτήρας"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Solénoïde (contacteur / relais de démarreur)"
+msgstr "Σωληνοειδές (αυτόματο μίζας)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Suppression de l'intervention démarreur"
+msgstr "Διαγραφή επέμβασης στη μίζα"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Type d'intervention"
+msgstr "Τύπος επέμβασης"
+
+#: achat_mds/comptabilite.py
+msgid "Outillage – frais de transport"
+msgstr "Εργαλεία – έξοδα μεταφοράς"
+
+#: achat_mds/comptabilite.py
+msgid "Achats et outillage"
+msgstr "Αγορές και εργαλεία"
+
+#: achat_mds/comptabilite.py
+#, python-format
+msgid ""
+"Les frais de transport facturés avec la marchandise sont des frais "
+"accessoires d'achat : même taux de TVA que la marchandise, TVA déductible "
+"dans les mêmes conditions, et incorporés au coût d'acquisition (compte "
+"%(compte)s). La TVA déductible va au compte 411000 et apparaît dans la page "
+"TVA (source « Frais de transport sur achats »)."
+msgstr ""
+"Τα έξοδα μεταφοράς που τιμολογούνται με τα εμπορεύματα είναι παρεπόμενα "
+"έξοδα αγοράς: ίδιος συντελεστής ΦΠΑ, εκπιπτόμενος ΦΠΑ με τους ίδιους όρους, "
+"ενσωματώνονται στο κόστος κτήσης (λογαριασμός %(compte)s). Ο εκπιπτόμενος "
+"ΦΠΑ πηγαίνει στον λογαριασμό 411000 και εμφανίζεται στη σελίδα ΦΠΑ."
+
+msgid "Allumage / bougies"
+msgstr "Ανάφλεξη / μπουζί"
+
+msgid "Annuler le débit"
+msgstr "Ακύρωση χρέωσης"
+
+msgid "Au"
+msgstr "Έως"
+
+msgid "Aucun inventaire."
+msgstr "Καμία απογραφή."
+
+msgid "Aucun mouvement de stock."
+msgstr "Καμία κίνηση αποθέματος."
+
+msgid "Aucune pièce dans cet inventaire."
+msgstr "Κανένα ανταλλακτικό σε αυτή την απογραφή."
+
+msgid "Aucune pièce encodée pour cette maintenance."
+msgstr "Δεν έχει καταχωρηθεί ανταλλακτικό για αυτή τη συντήρηση."
+
+msgid "Aucune pièce trouvée."
+msgstr "Δεν βρέθηκε ανταλλακτικό."
+
+msgid "Boîte de vitesses"
+msgstr "Κιβώτιο ταχυτήτων"
+
+msgid "Catégorie"
+msgstr "Κατηγορία"
+
+msgid "Catégorie (vide = toutes)"
+msgstr "Κατηγορία (κενό = όλες)"
+
+#, python-format
+msgid "Ce code OEM existe déjà : %(piece)s"
+msgstr "Αυτός ο κωδικός OEM υπάρχει ήδη: %(piece)s"
+
+msgid "Chercher"
+msgstr "Αναζήτηση"
+
+msgid "Clôturer et régulariser"
+msgstr "Κλείσιμο και διόρθωση"
+
+msgid "Clôturer l'inventaire et régulariser le stock ?"
+msgstr "Κλείσιμο απογραφής και διόρθωση αποθέματος;"
+
+msgid "Clôturé"
+msgstr "Κλειστή"
+
+msgid "Code OEM (un seul par pièce)"
+msgstr "Κωδικός OEM (ένας ανά ανταλλακτικό)"
+
+msgid "Codes EAN"
+msgstr "Κωδικοί EAN"
+
+msgid "Codes EAN (plusieurs possibles)"
+msgstr "Κωδικοί EAN (επιτρέπονται πολλοί)"
+
+msgid "Compatibilité"
+msgstr "Συμβατότητα"
+
+msgid "Comptage enregistré."
+msgstr "Η καταμέτρηση αποθηκεύτηκε."
+
+msgid "Correction : quantité signée (+ ou −). Autres : quantité positive."
+msgstr "Διόρθωση: ποσότητα με πρόσημο (+ ή −). Άλλα: θετική ποσότητα."
+
+msgid "Correction manuelle"
+msgstr "Χειροκίνητη διόρθωση"
+
+msgid "Créer cette pièce"
+msgstr "Δημιουργία ανταλλακτικού"
+
+msgid "Créer l'inventaire"
+msgstr "Δημιουργία απογραφής"
+
+msgid "Diminutions de stock"
+msgstr "Μειώσεις αποθέματος"
+
+msgid "Débit annulé : pièce remise en stock."
+msgstr "Η χρέωση ακυρώθηκε: το ανταλλακτικό επέστρεψε στο απόθεμα."
+
+msgid "Débiter maintenant"
+msgstr "Χρέωση τώρα"
+
+msgid "Débitée"
+msgstr "Χρεώθηκε"
+
+msgid "Débitée à l'émission"
+msgstr "Χρεώνεται στην έκδοση"
+
+msgid "EAN"
+msgstr "EAN"
+
+#, python-format
+msgid "EAN déjà attribué à une autre pièce (%(piece)s) : %(eans)s"
+msgstr ""
+"Ο EAN έχει ήδη αντιστοιχιστεί σε άλλο ανταλλακτικό (%(piece)s): %(eans)s"
+
+msgid "En alerte"
+msgstr "Σε ειδοποίηση"
+
+msgid "En attente de facture"
+msgstr "Αναμονή τιμολογίου"
+
+msgid "Enregistrer le comptage"
+msgstr "Αποθήκευση καταμέτρησης"
+
+msgid "Enregistrer le mouvement"
+msgstr "Αποθήκευση κίνησης"
+
+msgid "Entrée (achat / réception)"
+msgstr "Εισαγωγή (αγορά / παραλαβή)"
+
+msgid "Entrées"
+msgstr "Εισαγωγές"
+
+msgid "Esthétique / produits d'entretien"
+msgstr "Αισθητική / προϊόντα περιποίησης"
+
+msgid "Export CSV"
+msgstr "Εξαγωγή CSV"
+
+msgid "Filtrer"
+msgstr "Φιλτράρισμα"
+
+msgid "Fluides (huiles, liquides)"
+msgstr "Υγρά (λάδια, υγρά)"
+
+msgid "Gérer"
+msgstr "Διαχείριση"
+
+msgid "Habitacle"
+msgstr "Εσωτερικό"
+
+msgid "Inclure les inactives"
+msgstr "Συμπερίληψη ανενεργών"
+
+msgid "Indiquez au moins une désignation ou un code OEM."
+msgstr "Συμπληρώστε τουλάχιστον περιγραφή ή κωδικό OEM."
+
+msgid "Injection / admission"
+msgstr "Ψεκασμός / εισαγωγή"
+
+#, python-format
+msgid "Inventaire clôturé : %(n)s régularisation(s) de stock."
+msgstr "Η απογραφή έκλεισε: %(n)s διορθώσεις αποθέματος."
+
+msgid "Inventaire créé : comptez les pièces puis clôturez."
+msgstr "Η απογραφή δημιουργήθηκε: μετρήστε τα ανταλλακτικά και κλείστε."
+
+msgid "Inventaire de stock"
+msgstr "Απογραφή αποθέματος"
+
+msgid "Inventaire, variations de stock"
+msgstr "Απογραφή, μεταβολές αποθέματος"
+
+msgid "Inventaires de stock"
+msgstr "Απογραφές αποθέματος"
+
+msgid "Jantes / roues"
+msgstr "Ζάντες / τροχοί"
+
+msgid "Kilo(s)"
+msgstr "Κιλό"
+
+msgid "Kit(s)"
+msgstr "Σετ"
+
+msgid "La quantité ne peut pas être nulle."
+msgstr "Η ποσότητα δεν μπορεί να είναι μηδέν."
+
+msgid ""
+"Le stock théorique de chaque pièce active est figé à la création. Comptez "
+"ensuite les pièces ; à la clôture, chaque écart est régularisé par un "
+"mouvement de stock."
+msgstr ""
+"Το θεωρητικό απόθεμα κάθε ενεργού ανταλλακτικού παγώνει κατά τη δημιουργία. "
+"Στη συνέχεια μετρήστε τα ανταλλακτικά· στο κλείσιμο κάθε διαφορά διορθώνεται"
+" με κίνηση αποθέματος."
+
+msgid ""
+"Les pièces encodées ici sont débitées du stock automatiquement à l'émission "
+"de la facture de la maintenance."
+msgstr ""
+"Τα ανταλλακτικά που καταχωρούνται εδώ χρεώνονται αυτόματα από το απόθεμα με "
+"την έκδοση του τιμολογίου συντήρησης."
+
+msgid "Litre(s)"
+msgstr "Λίτρα"
+
+msgid "Maintenance / facture"
+msgstr "Συντήρηση / τιμολόγιο"
+
+msgid "Marge %"
+msgstr "Περιθώριο %"
+
+msgid "Marque (compatibilité)"
+msgstr "Μάρκα (συμβατότητα)"
+
+msgid "Min."
+msgstr "Ελάχ."
+
+msgid "Modifier la pièce"
+msgstr "Επεξεργασία ανταλλακτικού"
+
+msgid "Modèle (compatibilité)"
+msgstr "Μοντέλο (συμβατότητα)"
+
+msgid "Mouvement de stock"
+msgstr "Κίνηση αποθέματος"
+
+msgid "Mouvement de stock enregistré."
+msgstr "Η κίνηση αποθέματος αποθηκεύτηκε."
+
+msgid "Mouvements de stock"
+msgstr "Κινήσεις αποθέματος"
+
+msgid "Mètre(s)"
+msgstr "Μέτρα"
+
+msgid "Nouvel inventaire"
+msgstr "Νέα απογραφή"
+
+msgid "Nouvelle pièce"
+msgstr "Νέο ανταλλακτικό"
+
+#, python-format
+msgid "Nouvelle pièce créée au catalogue : %(p)s"
+msgstr "Νέο ανταλλακτικό δημιουργήθηκε στον κατάλογο: %(p)s"
+
+msgid "OEM / EAN"
+msgstr "OEM / EAN"
+
+msgid "Pas encore facturée"
+msgstr "Δεν έχει τιμολογηθεί ακόμα"
+
+msgid "Pièce (OEM, EAN, désignation)"
+msgstr "Ανταλλακτικό (OEM, EAN, περιγραφή)"
+
+msgid "Pièce ajoutée à la maintenance."
+msgstr "Το ανταλλακτικό προστέθηκε στη συντήρηση."
+
+msgid "Pièce débitée du stock."
+msgstr "Το ανταλλακτικό χρεώθηκε από το απόθεμα."
+
+msgid "Pièce déjà débitée du stock : annulez d'abord le débit."
+msgstr "Το ανταλλακτικό έχει ήδη χρεωθεί: ακυρώστε πρώτα τη χρέωση."
+
+msgid "Pièce enregistrée."
+msgstr "Το ανταλλακτικό αποθηκεύτηκε."
+
+msgid ""
+"Pièce inconnue : complétez désignation, fabricant et prix, elle sera créée "
+"au catalogue."
+msgstr ""
+"Άγνωστο ανταλλακτικό: συμπληρώστε περιγραφή, κατασκευαστή και τιμή· θα "
+"δημιουργηθεί στον κατάλογο."
+
+msgid "Pièce retirée de la maintenance."
+msgstr "Το ανταλλακτικό αφαιρέθηκε από τη συντήρηση."
+
+msgid "Pièce trouvée – stock :"
+msgstr "Βρέθηκε ανταλλακτικό – απόθεμα:"
+
+msgid "Pièce utilisée"
+msgstr "Χρησιμοποιημένο ανταλλακτικό"
+
+msgid ""
+"Pièce utilisée dans des maintenances : désactivez-la plutôt que de la "
+"supprimer."
+msgstr ""
+"Το ανταλλακτικό χρησιμοποιείται σε συντηρήσεις: απενεργοποιήστε το αντί να "
+"το διαγράψετε."
+
+msgid "Pièce(s)"
+msgstr "Τεμάχια"
+
+msgid "Pièces actives"
+msgstr "Ενεργά ανταλλακτικά"
+
+msgid "Pièces comptées"
+msgstr "Καταμετρημένα ανταλλακτικά"
+
+msgid "Pièces et fluides de la maintenance"
+msgstr "Ανταλλακτικά και υγρά της συντήρησης"
+
+msgid "Pièces utilisées"
+msgstr "Χρησιμοποιημένα ανταλλακτικά"
+
+msgid "Pièces utilisées (stock)"
+msgstr "Χρησιμοποιημένα ανταλλακτικά (απόθεμα)"
+
+msgid "Prix de vente HTVA"
+msgstr "Τιμή πώλησης χωρίς ΦΠΑ"
+
+msgid ""
+"Prix de vente à 0 : calculé automatiquement depuis le prix d'achat et la "
+"majoration."
+msgstr ""
+"Τιμή πώλησης 0: υπολογίζεται αυτόματα από την τιμή αγοράς και την "
+"προσαύξηση."
+
+msgid "Prix et stock"
+msgstr "Τιμή και απόθεμα"
+
+msgid "Quantité (+/-)"
+msgstr "Ποσότητα (+/-)"
+
+msgid "Quantité comptée"
+msgstr "Καταμετρημένη ποσότητα"
+
+msgid "Rechercher (OEM, EAN, désignation, fabricant, emplacement)"
+msgstr "Αναζήτηση (OEM, EAN, περιγραφή, κατασκευαστής, θέση)"
+
+msgid "Remettre cette pièce en stock ?"
+msgstr "Επιστροφή του ανταλλακτικού στο απόθεμα;"
+
+msgid "Retirer cette pièce ?"
+msgstr "Αφαίρεση του ανταλλακτικού;"
+
+msgid "Retour fournisseur / annulation"
+msgstr "Επιστροφή σε προμηθευτή / ακύρωση"
+
+msgid "Référence fabricant"
+msgstr "Κωδικός κατασκευαστή"
+
+msgid "Régularisation d'inventaire"
+msgstr "Διόρθωση απογραφής"
+
+msgid "Scanner ou saisir le code"
+msgstr "Σάρωση ή εισαγωγή κωδικού"
+
+msgid "Scanner un EAN / OEM : +1 sur la ligne"
+msgstr "Σάρωση EAN / OEM: +1 στη γραμμή"
+
+msgid "Scannez un code OEM / EAN ou indiquez la pièce."
+msgstr "Σαρώστε κωδικό OEM / EAN ή συμπληρώστε το ανταλλακτικό."
+
+msgid "Sortie (utilisation / facture)"
+msgstr "Εξαγωγή (χρήση / τιμολόγιο)"
+
+msgid "Sortie de stock"
+msgstr "Εξαγωγή αποθέματος"
+
+msgid "Sous le stock minimum"
+msgstr "Κάτω από το ελάχιστο απόθεμα"
+
+msgid "Stock"
+msgstr "Απόθεμα"
+
+msgid "Stock avant"
+msgstr "Απόθεμα πριν"
+
+msgid "Stock initial"
+msgstr "Αρχικό απόθεμα"
+
+msgid "Stock minimum (alerte)"
+msgstr "Ελάχιστο απόθεμα (ειδοποίηση)"
+
+msgid "Stock négatif"
+msgstr "Αρνητικό απόθεμα"
+
+msgid "Stock pièces et fluides"
+msgstr "Απόθεμα ανταλλακτικών και υγρών"
+
+msgid "Stock théorique"
+msgstr "Θεωρητικό απόθεμα"
+
+msgid "TVA %"
+msgstr "ΦΠΑ %"
+
+msgid "Tous"
+msgstr "Όλοι"
+
+msgid "Toutes"
+msgstr "Όλες"
+
+msgid "Toutes les catégories"
+msgstr "Όλες οι κατηγορίες"
+
+msgid "Train avant / direction"
+msgstr "Εμπρός άξονας / τιμόνι"
+
+msgid "Transmission / cardans"
+msgstr "Μετάδοση / ημιαξόνια"
+
+msgid ""
+"Un EAN par ligne (ou séparés par une virgule). Scannez-les l'un après "
+"l'autre."
+msgstr "Ένας EAN ανά γραμμή (ή χωρισμένοι με κόμμα). Σαρώστε τους διαδοχικά."
+
+msgid "Unité"
+msgstr "Μονάδα"
+
+msgid "Utilisée dans les maintenances"
+msgstr "Χρησιμοποιείται σε συντηρήσεις"
+
+msgid "Valeur des écarts (prix d'achat HTVA)"
+msgstr "Αξία διαφορών (τιμή αγοράς χωρίς ΦΠΑ)"
+
+msgid "Valeur du stock (prix d'achat HTVA)"
+msgstr "Αξία αποθέματος (τιμή αγοράς χωρίς ΦΠΑ)"
+
+msgid "Variation nette"
+msgstr "Καθαρή μεταβολή"
+
+msgid "Variations de stock"
+msgstr "Μεταβολές αποθέματος"
+
+msgid "Vide : prix de vente de la fiche pièce."
+msgstr "Κενό: τιμή πώλησης από την καρτέλα ανταλλακτικού."
+
+#, python-format
+msgid "Voulez-vous vraiment supprimer la pièce « %(nom)s » ?"
+msgstr "Θέλετε σίγουρα να διαγράψετε το ανταλλακτικό «%(nom)s»;"
+
+msgid "stock"
+msgstr "απόθεμα"
+
+msgid "vide = toutes"
+msgstr "κενό = όλες"
+
+msgid "Écart"
+msgstr "Διαφορά"
+
+msgid "Éclairage / ampoules"
+msgstr "Φωτισμός / λάμπες"
+
+msgid "Électricité / batterie / démarreur"
+msgstr "Ηλεκτρικά / μπαταρία / μίζα"
+
+msgid "Électronique / capteurs"
+msgstr "Ηλεκτρονικά / αισθητήρες"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Επεμβάσεις σε αυτόματο κιβώτιο"
 

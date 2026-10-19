@@ -49397,6 +49397,837 @@ msgstr "Betaling geannuleerd: %(achat)s"
 msgid "Facture d'achat payée : %(achat)s"
 msgstr "Aankoopfactuur betaald: %(achat)s"
 
+#: core/iban.py
+msgid ""
+"L'IBAN doit commencer par le code pays (2 lettres) suivi de 2 chiffres de "
+"contrôle."
+msgstr ""
+"Het IBAN moet beginnen met de landcode (2 letters) gevolgd door 2 "
+"controlecijfers."
+
+#: core/iban.py
+#, python-format
+msgid "Un IBAN %(pays)s compte %(attendu)s caractères (%(saisi)s saisis)."
+msgstr "Een %(pays)s-IBAN telt %(attendu)s tekens (%(saisi)s ingevoerd)."
+
+#: core/iban.py
+msgid "Longueur d'IBAN invalide."
+msgstr "Ongeldige IBAN-lengte."
+
+#: core/iban.py
+msgid "Clé de contrôle IBAN incorrecte (mod 97) : vérifiez le numéro saisi."
+msgstr ""
+"Onjuiste IBAN-controlesleutel (mod 97): controleer het ingevoerde nummer."
+
+#: core/iban.py
+msgid "IBAN valide"
+msgstr "Geldig IBAN"
+
+#: core/iban.py
+msgid "Code pays (2 lettres) suivi de 2 chiffres de contrôle attendu"
+msgstr "Landcode (2 letters) gevolgd door 2 controlecijfers verwacht"
+
+#: core/iban.py
+msgid "Longueur attendue : {n} caractères"
+msgstr "Verwachte lengte: {n} tekens"
+
+#: core/iban.py
+msgid "Clé de contrôle IBAN incorrecte (mod 97)"
+msgstr "Onjuiste IBAN-controlesleutel (mod 97)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Acquisition"
+msgstr "Aanschaf"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Allemagne (Umweltplakette)"
+msgstr "Duitsland (Umweltplakette)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Assurance, taxe de circulation et vignettes par année"
+msgstr "Verzekering, verkeersbelasting en vignetten per jaar"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Assurance, taxes, vignettes…"
+msgstr "Verzekering, belastingen, vignetten…"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Aucune location pour ce véhicule."
+msgstr "Geen verhuur voor dit voertuig."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Aucune maintenance chiffrée pour ce véhicule."
+msgstr "Geen gekostbaar onderhoud voor dit voertuig."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Autre pays"
+msgstr "Ander land"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Autres frais d'achat"
+msgstr "Andere aankoopkosten"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Autres frais d'achat (immatriculation, plaques, transport…) (€)"
+msgstr "Andere aankoopkosten (inschrijving, platen, transport…) (€)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Belgique (LEZ)"
+msgstr "België (LEZ)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Contrôle technique"
+msgstr "Technische keuring"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût annuel du véhicule"
+msgstr "Jaarlijkse voertuigkost"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût annuel enregistré."
+msgstr "Jaarlijkse kost opgeslagen."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût annuel supprimé."
+msgstr "Jaarlijkse kost verwijderd."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût au kilomètre indisponible : complétez le kilométrage de départ."
+msgstr "Kost per km niet beschikbaar: vul de beginkilometerstand in."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût d'acquisition"
+msgstr "Aanschaffingskost"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût total (acquisition + utilisation)"
+msgstr "Totale kost (aanschaf + gebruik)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coûts annuels du véhicule"
+msgstr "Jaarlijkse voertuigkosten"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coûts d'utilisation"
+msgstr "Gebruikskosten"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Date d'achat"
+msgstr "Aankoopdatum"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Depuis le"
+msgstr "Sinds"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Entretien interne"
+msgstr "Intern onderhoud"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Entretien interne au coût de revient HTVA (pièces au prix d'achat + "
+"main-d'œuvre) et factures des garages externes HTVA."
+msgstr ""
+"Intern onderhoud tegen kostprijs excl. btw (onderdelen tegen aankoopprijs + "
+"arbeid) en facturen van externe garages excl. btw."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Fixer"
+msgstr "Vastleggen"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "France (Crit'Air)"
+msgstr "Frankrijk (Crit'Air)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Garage externe"
+msgstr "Externe garage"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Kilomètres parcourus depuis l'achat"
+msgstr "Gereden kilometers sinds aankoop"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Montant (€)"
+msgstr "Bedrag (€)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Montants HTVA (énergie, maintenances, locations). Résultat net = revenus des"
+" locations − coût d'acquisition − coûts d'utilisation."
+msgstr ""
+"Bedragen excl. btw (energie, onderhoud, verhuur). Nettoresultaat = "
+"huurinkomsten − aanschaffingskost − gebruikskosten."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Montants annuels par défaut. Ils peuvent être modifiés année par année (et "
+"les vignettes ajoutées) dans le détail des données financières."
+msgstr ""
+"Standaard jaarbedragen. Ze kunnen per jaar worden aangepast (en vignetten "
+"toegevoegd) in het detail van de financiële gegevens."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Origine"
+msgstr "Herkomst"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Par km"
+msgstr "Per km"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Rentabilité du véhicule"
+msgstr "Rendabiliteit van het voertuig"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Revenus des locations (HTVA)"
+msgstr "Huurinkomsten (excl. btw)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Résultat net"
+msgstr "Nettoresultaat"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Résultat net du véhicule"
+msgstr "Nettoresultaat van het voertuig"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Sans montant saisi pour une année, l'assurance et la taxe de circulation "
+"reprennent le montant annuel par défaut, au prorata des mois de détention. "
+"Saisissez une ligne pour le remplacer."
+msgstr ""
+"Zonder ingevoerd bedrag voor een jaar gebruiken verzekering en "
+"verkeersbelasting het standaard jaarbedrag, pro rata van de maanden in "
+"bezit. Voer een lijn in om het te vervangen."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Taxe de circulation"
+msgstr "Verkeersbelasting"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Taxe de mise en circulation"
+msgstr "Belasting op de inverkeerstelling"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Utilisation"
+msgstr "Gebruik"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Vignette / péage"
+msgstr "Vignet / tol"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "garages"
+msgstr "garages"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "internes"
+msgstr "intern"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "km châssis"
+msgstr "km chassis"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "km de départ"
+msgstr "beginkm"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+#, python-format
+msgid "montant annuel par défaut (%(mois)s/12 mois)"
+msgstr "standaard jaarbedrag (%(mois)s/12 maanden)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Énergie"
+msgstr "Energie"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "—"
+msgstr "—"
+
+#: facture/templates/facture/facture_detail.html
+msgid "Interne – sans paiement"
+msgstr "Intern – geen betaling"
+
+#: facture/templates/facture/facture_detail.html
+msgid "Facture interne : aucun paiement à enregistrer."
+msgstr "Interne factuur: geen betaling te registreren."
+
+#: facture/templates/facture/facture_detail.html
+msgid ""
+"Facture interne (véhicule de la société) : pas de paiement, pas de TVA due –"
+" coût d'entretien imputé au véhicule."
+msgstr ""
+"Interne factuur (bedrijfsvoertuig): geen betaling, geen btw verschuldigd – "
+"onderhoudskost toegewezen aan het voertuig."
+
+#: facture/templates/facture/facture_detail.html
+msgid ""
+"Facture à votre propre société : ce n'est pas une vente. Il n'y a rien à "
+"encaisser ni à payer, aucune TVA n'est due et elle n'apparaît pas dans les "
+"factures à payer ni dans la caisse et la banque. La TVA des pièces est "
+"récupérée par les factures d'achat des fournisseurs (page TVA). Le coût de "
+"revient est imputé au véhicule dans ses données financières."
+msgstr ""
+"Factuur aan uw eigen bedrijf: dit is geen verkoop. Er is niets te innen of "
+"te betalen, er is geen btw verschuldigd en ze verschijnt niet bij de te "
+"betalen facturen noch in kas en bank. De btw op onderdelen wordt "
+"teruggevorderd via de aankoopfacturen van leveranciers (btw-pagina). De "
+"kostprijs wordt toegewezen aan het voertuig in zijn financiële gegevens."
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Charbons (balais)"
+msgstr "Koolborstels"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Collecteur de l'induit (rectification)"
+msgstr "Collector van het anker (afdraaien)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Couronne du volant moteur"
+msgstr "Starterkrans van het vliegwiel"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Coussinets / bagues de palier"
+msgstr "Lagerbussen"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Câble d'alimentation (+ batterie)"
+msgstr "Voedingskabel (+ accu)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Démarreur complet (neuf ou échange standard)"
+msgstr "Volledige startmotor (nieuw of ruil)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Essai au banc / test de démarrage"
+msgstr "Banktest / starttest"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Fourchette d'engrènement"
+msgstr "Inschakelvork"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Graisse (nettoyage et graissage)"
+msgstr "Vet (reinigen en smeren)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Inducteurs / aimants (stator)"
+msgstr "Veldspoelen / magneten (stator)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Induit (rotor)"
+msgstr "Anker (rotor)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Intervention démarreur"
+msgstr "Interventie startmotor"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Joints et visserie"
+msgstr "Dichtingen en bevestigingsmateriaal"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Lanceur (pignon / bendix)"
+msgstr "Startpinion (bendix)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Modification intervention démarreur"
+msgstr "Wijziging interventie startmotor"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Porte-balais"
+msgstr "Borstelhouder"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Relais de démarrage"
+msgstr "Startrelais"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Remplacement"
+msgstr "Vervanging"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Restauration (réfection)"
+msgstr "Restauratie (revisie)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Roue libre du lanceur"
+msgstr "Vrijloop van het startpinion"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Réducteur planétaire"
+msgstr "Planetaire reductie"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Solénoïde (contacteur / relais de démarreur)"
+msgstr "Solenoïde (startschakelaar / relais)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Suppression de l'intervention démarreur"
+msgstr "Verwijdering interventie startmotor"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Type d'intervention"
+msgstr "Type interventie"
+
+#: achat_mds/comptabilite.py
+msgid "Outillage – frais de transport"
+msgstr "Gereedschap – transportkosten"
+
+#: achat_mds/comptabilite.py
+msgid "Achats et outillage"
+msgstr "Aankopen en gereedschap"
+
+#: achat_mds/comptabilite.py
+#, python-format
+msgid ""
+"Les frais de transport facturés avec la marchandise sont des frais "
+"accessoires d'achat : même taux de TVA que la marchandise, TVA déductible "
+"dans les mêmes conditions, et incorporés au coût d'acquisition (compte "
+"%(compte)s). La TVA déductible va au compte 411000 et apparaît dans la page "
+"TVA (source « Frais de transport sur achats »)."
+msgstr ""
+"Transportkosten gefactureerd met de goederen zijn bijkomende aankoopkosten: "
+"zelfde btw-tarief als de goederen, btw aftrekbaar onder dezelfde "
+"voorwaarden, en opgenomen in de aanschaffingswaarde (rekening %(compte)s). "
+"De aftrekbare btw gaat naar rekening 411000 en verschijnt op de btw-pagina "
+"(bron „Transportkosten op aankopen”)."
+
+msgid "Allumage / bougies"
+msgstr "Ontsteking / bougies"
+
+msgid "Annuler le débit"
+msgstr "Afboeking annuleren"
+
+msgid "Au"
+msgstr "Tot"
+
+msgid "Aucun inventaire."
+msgstr "Geen inventaris."
+
+msgid "Aucun mouvement de stock."
+msgstr "Geen voorraadbeweging."
+
+msgid "Aucune pièce dans cet inventaire."
+msgstr "Geen onderdeel in deze inventaris."
+
+msgid "Aucune pièce encodée pour cette maintenance."
+msgstr "Geen onderdeel ingevoerd voor dit onderhoud."
+
+msgid "Aucune pièce trouvée."
+msgstr "Geen onderdeel gevonden."
+
+msgid "Boîte de vitesses"
+msgstr "Versnellingsbak"
+
+msgid "Catégorie"
+msgstr "Categorie"
+
+msgid "Catégorie (vide = toutes)"
+msgstr "Categorie (leeg = alle)"
+
+#, python-format
+msgid "Ce code OEM existe déjà : %(piece)s"
+msgstr "Deze OEM-code bestaat al: %(piece)s"
+
+msgid "Chercher"
+msgstr "Zoeken"
+
+msgid "Clôturer et régulariser"
+msgstr "Afsluiten en regulariseren"
+
+msgid "Clôturer l'inventaire et régulariser le stock ?"
+msgstr "Inventaris afsluiten en voorraad regulariseren?"
+
+msgid "Clôturé"
+msgstr "Afgesloten"
+
+msgid "Code OEM (un seul par pièce)"
+msgstr "OEM-code (één per onderdeel)"
+
+msgid "Codes EAN"
+msgstr "EAN-codes"
+
+msgid "Codes EAN (plusieurs possibles)"
+msgstr "EAN-codes (meerdere mogelijk)"
+
+msgid "Compatibilité"
+msgstr "Compatibiliteit"
+
+msgid "Comptage enregistré."
+msgstr "Telling opgeslagen."
+
+msgid "Correction : quantité signée (+ ou −). Autres : quantité positive."
+msgstr ""
+"Correctie: hoeveelheid met teken (+ of −). Andere: positieve hoeveelheid."
+
+msgid "Correction manuelle"
+msgstr "Manuele correctie"
+
+msgid "Créer cette pièce"
+msgstr "Dit onderdeel aanmaken"
+
+msgid "Créer l'inventaire"
+msgstr "Inventaris aanmaken"
+
+msgid "Diminutions de stock"
+msgstr "Voorraaddalingen"
+
+msgid "Débit annulé : pièce remise en stock."
+msgstr "Afboeking geannuleerd: onderdeel terug in voorraad."
+
+msgid "Débiter maintenant"
+msgstr "Nu afboeken"
+
+msgid "Débitée"
+msgstr "Afgeboekt"
+
+msgid "Débitée à l'émission"
+msgstr "Afgeboekt bij uitgifte"
+
+msgid "EAN"
+msgstr "EAN"
+
+#, python-format
+msgid "EAN déjà attribué à une autre pièce (%(piece)s) : %(eans)s"
+msgstr "EAN al toegewezen aan een ander onderdeel (%(piece)s): %(eans)s"
+
+msgid "En alerte"
+msgstr "In alarm"
+
+msgid "En attente de facture"
+msgstr "Wacht op factuur"
+
+msgid "Enregistrer le comptage"
+msgstr "Telling opslaan"
+
+msgid "Enregistrer le mouvement"
+msgstr "Beweging opslaan"
+
+msgid "Entrée (achat / réception)"
+msgstr "Ontvangst (aankoop / levering)"
+
+msgid "Entrées"
+msgstr "Ontvangsten"
+
+msgid "Esthétique / produits d'entretien"
+msgstr "Esthetiek / onderhoudsproducten"
+
+msgid "Export CSV"
+msgstr "CSV-export"
+
+msgid "Filtrer"
+msgstr "Filteren"
+
+msgid "Fluides (huiles, liquides)"
+msgstr "Vloeistoffen (oliën, vloeistoffen)"
+
+msgid "Gérer"
+msgstr "Beheren"
+
+msgid "Habitacle"
+msgstr "Interieur"
+
+msgid "Inclure les inactives"
+msgstr "Inactieve meenemen"
+
+msgid "Indiquez au moins une désignation ou un code OEM."
+msgstr "Geef minstens een omschrijving of een OEM-code op."
+
+msgid "Injection / admission"
+msgstr "Injectie / inlaat"
+
+#, python-format
+msgid "Inventaire clôturé : %(n)s régularisation(s) de stock."
+msgstr "Inventaris afgesloten: %(n)s voorraadregularisatie(s)."
+
+msgid "Inventaire créé : comptez les pièces puis clôturez."
+msgstr "Inventaris aangemaakt: tel de onderdelen en sluit dan af."
+
+msgid "Inventaire de stock"
+msgstr "Voorraadinventaris"
+
+msgid "Inventaire, variations de stock"
+msgstr "Inventaris, voorraadwijzigingen"
+
+msgid "Inventaires de stock"
+msgstr "Voorraadinventarissen"
+
+msgid "Jantes / roues"
+msgstr "Velgen / wielen"
+
+msgid "Kilo(s)"
+msgstr "Kilo('s)"
+
+msgid "Kit(s)"
+msgstr "Kit(s)"
+
+msgid "La quantité ne peut pas être nulle."
+msgstr "De hoeveelheid mag niet nul zijn."
+
+msgid ""
+"Le stock théorique de chaque pièce active est figé à la création. Comptez "
+"ensuite les pièces ; à la clôture, chaque écart est régularisé par un "
+"mouvement de stock."
+msgstr ""
+"De theoretische voorraad van elk actief onderdeel wordt bij aanmaak "
+"vastgelegd. Tel daarna de onderdelen; bij afsluiting wordt elk verschil met "
+"een voorraadbeweging geregulariseerd."
+
+msgid ""
+"Les pièces encodées ici sont débitées du stock automatiquement à l'émission "
+"de la facture de la maintenance."
+msgstr ""
+"Hier ingevoerde onderdelen worden automatisch uit de voorraad afgeboekt bij "
+"uitgifte van de onderhoudsfactuur."
+
+msgid "Litre(s)"
+msgstr "Liter"
+
+msgid "Maintenance / facture"
+msgstr "Onderhoud / factuur"
+
+msgid "Marge %"
+msgstr "Marge %"
+
+msgid "Marque (compatibilité)"
+msgstr "Merk (compatibiliteit)"
+
+msgid "Min."
+msgstr "Min."
+
+msgid "Modifier la pièce"
+msgstr "Onderdeel bewerken"
+
+msgid "Modèle (compatibilité)"
+msgstr "Model (compatibiliteit)"
+
+msgid "Mouvement de stock"
+msgstr "Voorraadbeweging"
+
+msgid "Mouvement de stock enregistré."
+msgstr "Voorraadbeweging opgeslagen."
+
+msgid "Mouvements de stock"
+msgstr "Voorraadbewegingen"
+
+msgid "Mètre(s)"
+msgstr "Meter"
+
+msgid "Nouvel inventaire"
+msgstr "Nieuwe inventaris"
+
+msgid "Nouvelle pièce"
+msgstr "Nieuw onderdeel"
+
+#, python-format
+msgid "Nouvelle pièce créée au catalogue : %(p)s"
+msgstr "Nieuw onderdeel aangemaakt in de catalogus: %(p)s"
+
+msgid "OEM / EAN"
+msgstr "OEM / EAN"
+
+msgid "Pas encore facturée"
+msgstr "Nog niet gefactureerd"
+
+msgid "Pièce (OEM, EAN, désignation)"
+msgstr "Onderdeel (OEM, EAN, omschrijving)"
+
+msgid "Pièce ajoutée à la maintenance."
+msgstr "Onderdeel toegevoegd aan het onderhoud."
+
+msgid "Pièce débitée du stock."
+msgstr "Onderdeel uit voorraad afgeboekt."
+
+msgid "Pièce déjà débitée du stock : annulez d'abord le débit."
+msgstr "Onderdeel al afgeboekt: annuleer eerst de afboeking."
+
+msgid "Pièce enregistrée."
+msgstr "Onderdeel opgeslagen."
+
+msgid ""
+"Pièce inconnue : complétez désignation, fabricant et prix, elle sera créée "
+"au catalogue."
+msgstr ""
+"Onbekend onderdeel: vul omschrijving, fabrikant en prijs in, het wordt in de"
+" catalogus aangemaakt."
+
+msgid "Pièce retirée de la maintenance."
+msgstr "Onderdeel verwijderd uit het onderhoud."
+
+msgid "Pièce trouvée – stock :"
+msgstr "Onderdeel gevonden – voorraad:"
+
+msgid "Pièce utilisée"
+msgstr "Gebruikt onderdeel"
+
+msgid ""
+"Pièce utilisée dans des maintenances : désactivez-la plutôt que de la "
+"supprimer."
+msgstr ""
+"Onderdeel gebruikt in onderhouden: deactiveer het in plaats van het te "
+"verwijderen."
+
+msgid "Pièce(s)"
+msgstr "Stuk(s)"
+
+msgid "Pièces actives"
+msgstr "Actieve onderdelen"
+
+msgid "Pièces comptées"
+msgstr "Getelde onderdelen"
+
+msgid "Pièces et fluides de la maintenance"
+msgstr "Onderdelen en vloeistoffen van het onderhoud"
+
+msgid "Pièces utilisées"
+msgstr "Gebruikte onderdelen"
+
+msgid "Pièces utilisées (stock)"
+msgstr "Gebruikte onderdelen (voorraad)"
+
+msgid "Prix de vente HTVA"
+msgstr "Verkoopprijs excl. btw"
+
+msgid ""
+"Prix de vente à 0 : calculé automatiquement depuis le prix d'achat et la "
+"majoration."
+msgstr "Verkoopprijs op 0: automatisch berekend uit aankoopprijs en opslag."
+
+msgid "Prix et stock"
+msgstr "Prijs en voorraad"
+
+msgid "Quantité (+/-)"
+msgstr "Hoeveelheid (+/-)"
+
+msgid "Quantité comptée"
+msgstr "Getelde hoeveelheid"
+
+msgid "Rechercher (OEM, EAN, désignation, fabricant, emplacement)"
+msgstr "Zoeken (OEM, EAN, omschrijving, fabrikant, locatie)"
+
+msgid "Remettre cette pièce en stock ?"
+msgstr "Dit onderdeel terug in voorraad zetten?"
+
+msgid "Retirer cette pièce ?"
+msgstr "Dit onderdeel verwijderen?"
+
+msgid "Retour fournisseur / annulation"
+msgstr "Retour leverancier / annulering"
+
+msgid "Référence fabricant"
+msgstr "Referentie fabrikant"
+
+msgid "Régularisation d'inventaire"
+msgstr "Inventarisregularisatie"
+
+msgid "Scanner ou saisir le code"
+msgstr "Code scannen of invoeren"
+
+msgid "Scanner un EAN / OEM : +1 sur la ligne"
+msgstr "Scan een EAN / OEM: +1 op de regel"
+
+msgid "Scannez un code OEM / EAN ou indiquez la pièce."
+msgstr "Scan een OEM- / EAN-code of geef het onderdeel op."
+
+msgid "Sortie (utilisation / facture)"
+msgstr "Uitgifte (gebruik / factuur)"
+
+msgid "Sortie de stock"
+msgstr "Voorraaduitgifte"
+
+msgid "Sous le stock minimum"
+msgstr "Onder minimumvoorraad"
+
+msgid "Stock"
+msgstr "Voorraad"
+
+msgid "Stock avant"
+msgstr "Voorraad voor"
+
+msgid "Stock initial"
+msgstr "Beginvoorraad"
+
+msgid "Stock minimum (alerte)"
+msgstr "Minimumvoorraad (alarm)"
+
+msgid "Stock négatif"
+msgstr "Negatieve voorraad"
+
+msgid "Stock pièces et fluides"
+msgstr "Voorraad onderdelen en vloeistoffen"
+
+msgid "Stock théorique"
+msgstr "Theoretische voorraad"
+
+msgid "TVA %"
+msgstr "Btw %"
+
+msgid "Tous"
+msgstr "Alle"
+
+msgid "Toutes"
+msgstr "Alle"
+
+msgid "Toutes les catégories"
+msgstr "Alle categorieën"
+
+msgid "Train avant / direction"
+msgstr "Vooras / stuurinrichting"
+
+msgid "Transmission / cardans"
+msgstr "Transmissie / aandrijfassen"
+
+msgid ""
+"Un EAN par ligne (ou séparés par une virgule). Scannez-les l'un après "
+"l'autre."
+msgstr "Eén EAN per regel (of gescheiden door een komma). Scan ze na elkaar."
+
+msgid "Unité"
+msgstr "Eenheid"
+
+msgid "Utilisée dans les maintenances"
+msgstr "Gebruikt in onderhouden"
+
+msgid "Valeur des écarts (prix d'achat HTVA)"
+msgstr "Waarde van de verschillen (aankoopprijs excl. btw)"
+
+msgid "Valeur du stock (prix d'achat HTVA)"
+msgstr "Voorraadwaarde (aankoopprijs excl. btw)"
+
+msgid "Variation nette"
+msgstr "Netto wijziging"
+
+msgid "Variations de stock"
+msgstr "Voorraadwijzigingen"
+
+msgid "Vide : prix de vente de la fiche pièce."
+msgstr "Leeg: verkoopprijs van de onderdeelfiche."
+
+#, python-format
+msgid "Voulez-vous vraiment supprimer la pièce « %(nom)s » ?"
+msgstr "Wilt u het onderdeel “%(nom)s” echt verwijderen?"
+
+msgid "stock"
+msgstr "voorraad"
+
+msgid "vide = toutes"
+msgstr "leeg = alle"
+
+msgid "Écart"
+msgstr "Verschil"
+
+msgid "Éclairage / ampoules"
+msgstr "Verlichting / lampen"
+
+msgid "Électricité / batterie / démarreur"
+msgstr "Elektriciteit / accu / startmotor"
+
+msgid "Électronique / capteurs"
+msgstr "Elektronica / sensoren"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Automatische versnellingsbakinterventies"
 

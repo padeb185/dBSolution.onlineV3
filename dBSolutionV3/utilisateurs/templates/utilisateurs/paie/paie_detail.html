@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static format_numbers %}
 
 {% block title %}{% trans "Détail de la paie" %}{% endblock %}
 
@@ -52,7 +52,7 @@
                     {% trans "Payé le" %} {{ paie.date_paiement|date:"d/m/Y" }}
                 </span>
                 — {{ paie.net_a_payer|floatformat:2 }} €
-                {% if paie.utilisateur.numero_compte_bancaire %}· {{ paie.utilisateur.numero_compte_bancaire }}{% endif %}
+                {% if paie.utilisateur.numero_compte_bancaire %}· {{ paie.utilisateur.numero_compte_bancaire|format_iban }}{% endif %}
             </p>
             <form method="post" action="{% url 'utilisateurs:paie_payer' paie.pk %}">
                 {% csrf_token %}
@@ -67,7 +67,7 @@
                 {% if paie.double_pecule_net %}
                     <span class="text-gray-500">({% trans "dont double pécule" %} {{ paie.double_pecule_net|floatformat:2 }} €)</span>
                 {% endif %}
-                {% if paie.utilisateur.numero_compte_bancaire %}· {{ paie.utilisateur.numero_compte_bancaire }}{% endif %}
+                {% if paie.utilisateur.numero_compte_bancaire %}· {{ paie.utilisateur.numero_compte_bancaire|format_iban }}{% endif %}
             </p>
             <form method="post" action="{% url 'utilisateurs:paie_payer' paie.pk %}" class="flex flex-wrap gap-2 items-center">
                 {% csrf_token %}

@@ -50,8 +50,24 @@
                 {{ outillage.date_facture|date:"d/m/Y"|default:"-" }}
             </p>
              <p>
+                <strong>{% trans "Référence facture" %} :</strong>
+                {{ outillage.reference_facture|default:"-" }}
+            </p>
+             <p>
+                <strong>{% trans "Quantité" %} :</strong>
+                {{ outillage.quantite }} × {{ outillage.prix_htva|floatformat:2 }} € {% trans "HTVA" %}
+            </p>
+             <p>
                 <strong>{% trans "Prix TVAC" %} :</strong>
-                {{ outillage.montant_calcule }} €
+                {{ outillage.total_tvac|floatformat:2 }} €
+            </p>
+             <p>
+                <strong>{% trans "Paiement" %} :</strong>
+                {% if outillage.date_paiement %}
+                    <span class="px-2 py-1 rounded text-sm font-semibold bg-green-100 text-green-800">{% trans "Payé" %} {{ outillage.date_paiement|date:"d/m/Y" }}</span>
+                {% else %}
+                    <a href="{% url 'facture:a_payer' %}" class="px-2 py-1 rounded text-sm font-semibold bg-red-100 text-red-800">{% trans "À payer" %}</a>
+                {% endif %}
             </p>
 
         </div>
@@ -91,6 +107,9 @@
 
     </div>
 
+
+    {% trans "Outillage" as libelle_outillage %}
+    {% include "achat_mds/_montants_ecritures.html" with achat=outillage ecritures=ecritures libelle_marchandise=libelle_outillage %}
 
     <!-- Métadonnées -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">

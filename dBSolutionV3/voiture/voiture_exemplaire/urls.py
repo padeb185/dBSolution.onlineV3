@@ -4,7 +4,7 @@ from .views import ajouter_exemplaire_all, liste_exemplaires, voiture_exemplaire
     liste_exemplaires_all, lier_boite_exemplaire, lier_moteur_exemplaire, lier_embrayage_exemplaire, \
     lier_freins, lier_frein_ar, lier_pneus_av, lier_pneus_ar, supprimer_exemplaire_all, \
     remplacer_train_pneus, basculer_monte_pneus, \
-    finances_liste, finances_detail, finances_modifier, finances_supprimer
+    finances_liste, finances_detail, finances_modifier, finances_supprimer, finances_cout_annuel
 
 app_name = "voiture_exemplaire"
 
@@ -51,4 +51,5 @@ urlpatterns = [
     path("finances/<uuid:exemplaire_id>/", finances_detail, name="finances_detail"),
     path("finances/<uuid:exemplaire_id>/modifier/", finances_modifier, name="finances_modifier"),
     path("finances/<uuid:exemplaire_id>/supprimer/", finances_supprimer, name="finances_supprimer"),
+    path("finances/<uuid:exemplaire_id>/cout-annuel/", finances_cout_annuel, name="finances_cout_annuel"),
 ]

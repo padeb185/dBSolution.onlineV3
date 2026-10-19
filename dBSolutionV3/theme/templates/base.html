@@ -328,5 +328,15 @@
 })();
 </script>
 
+{% trans 'IBAN valide' as m_valide %}{% trans 'Code pays (2 lettres) suivi de 2 chiffres de contrôle attendu' as m_pays %}{% trans 'Longueur attendue : {n} caractères' as m_longueur %}{% trans 'Clé de contrôle IBAN incorrecte (mod 97)' as m_cle %}
+<script>
+    window.IBAN_MESSAGES = {
+        valide: "{{ m_valide|escapejs }}",
+        pays: "{{ m_pays|escapejs }}",
+        longueur: "{{ m_longueur|escapejs }}",
+        cle: "{{ m_cle|escapejs }}"
+    };
+</script>
+<script src="{% static 'js/iban.js' %}?v=1"></script>
 </body>
 </html>

@@ -14,7 +14,11 @@ class OutillageForm(forms.ModelForm):
             "quantite",
             "prix_htva",
             "taux_tva",
+            "transport_montant_htva",
+            "transport_tva",
+            "reference_facture",
             "date_facture",
+            "date_paiement",
         ]
 
         labels = {
@@ -25,6 +29,10 @@ class OutillageForm(forms.ModelForm):
             "prix_htva": _("Prix HTVA"),
             "taux_tva": _("Taux TVA (%)"),
             "date_facture": _("Date de la facture"),
+            "reference_facture": _("Référence facture"),
+            "transport_montant_htva": _("Montant transport HTVA"),
+            "transport_tva": _("TVA du transport (%)"),
+            "date_paiement": _("Date de paiement"),
         }
 
         widgets = {
@@ -77,6 +85,23 @@ class OutillageForm(forms.ModelForm):
                 "class": "border rounded px-4 py-2 w-full",
                 "placeholder": "21",
                 "step": "0.01"
+            }),
+
+            # -------------------------
+            # FACTURE FOURNISSEUR (comme les achats MDS)
+            # -------------------------
+            "reference_facture": forms.TextInput(attrs={
+                "class": "border rounded px-4 py-2 w-full",
+                "placeholder": _("Ex: FAC-2026-001")
+            }),
+            "transport_montant_htva": forms.NumberInput(attrs={
+                "class": "border rounded px-4 py-2 w-full", "placeholder": "0.00", "step": "0.01", "min": "0"
+            }),
+            "transport_tva": forms.NumberInput(attrs={
+                "class": "border rounded px-4 py-2 w-full", "placeholder": _("Même taux que l'achat"), "step": "0.01", "min": "0"
+            }),
+            "date_paiement": forms.DateInput(format="%Y-%m-%d", attrs={
+                "class": "border rounded px-4 py-2 w-full", "type": "date"
             }),
 
             # -------------------------

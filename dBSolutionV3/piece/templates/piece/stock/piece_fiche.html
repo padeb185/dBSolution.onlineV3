@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{{ piece }}{% endblock %}
+
+{% block content %}
+<br>
+{% include "piece/stock/_nav.html" with titre=piece actif="" %}
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+    <!-- Fiche -->
+    <div class="bg-white shadow-md rounded-lg p-6 lg:col-span-2">
+        <div class="flex items-start justify-between gap-4 mb-4">
+            <div>
+                <p class="text-sm text-gray-500">{{ piece.get_categorie_display }}{% if not piece.actif %} · <span class="text-red-600">{% trans "Inactive" %}</span>{% endif %}</p>
+                <h2 class="text-xl font-bold">{{ piece.designation|default:piece.organe|default:"—" }}</h2>
+            </div>
+            {% if peut_gerer %}
+            <div class="flex gap-2">
+                <a href="{% url 'piece:edit' piece.pk %}" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">{% trans "Modifier" %}</a>
+                <a href="{% url 'piece:delete' piece.pk %}" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold">{% trans "Supprimer" %}</a>
+            </div>
+            {% endif %}
+        </div>
+        <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
+            <div><dt class="text-sm text-gray-500">{% trans "Code OEM" %}</dt><dd class="font-mono font-semibold">{{ piece.oem|default:"—" }}</dd></div>
+            <div><dt class="text-sm text-gray-500">{% trans "Codes EAN" %}</dt>
+                <dd class="font-mono">{% for c in piece.eans %}<span class="inline-block bg-gray-100 rounded px-2 py-0.5 mr-1 mb-1">{{ c }}</span>{% empty %}—{% endfor %}</dd></div>
+            <div><dt class="text-sm text-gray-500">{% trans "Fabricant" %}</dt><dd>{{ piece.nom_fabricant|default:"—" }}</dd></div>
+            <div><dt class="text-sm text-gray-500">{% trans "Référence fabricant" %}</dt><dd class="font-mono">{{ piece.reference_fabricant|default:"—" }}</dd></div>
+            <div><dt class="text-sm text-gray-500">{% trans "Emplacement" %}</dt><dd>{{ piece.emplacement_etagere|default:"—" }}</dd></div>
+            <div><dt class="text-sm text-gray-500">{% trans "Compatibilité" %}</dt><dd>{{ piece.voiture_marque|default:"" }} {{ piece.modele|default:"" }}</dd></div>
+            <div><dt class="text-sm text-gray-500">{% trans "Prix d'achat HTVA" %}</dt><dd>{{ piece.prix_achat|floatformat:2 }} €</dd></div>
+            <div><dt class="text-sm text-gray-500">{% trans "Prix de vente HTVA" %}</dt><dd>{{ piece.prix_vente|floatformat:2 }} € <span class="text-xs text-gray-500">({% trans "TVA" %} {{ piece.tva|floatformat:"-2" }} %)</span></dd></div>
+        </dl>
+    </div>
+
+    <!-- Stock -->
+    <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-3 border-l-4 {% if piece.quantite_stock < 0 %}border-red-600{% elif piece.en_alerte %}border-orange-500{% else %}border-green-600{% endif %}">
+        <p class="text-gray-500 text-sm">{% trans "Stock" %}</p>
+        <p class="text-4xl font-bold {% if piece.quantite_stock < 0 %}text-red-700{% elif piece.en_alerte %}text-orange-600{% endif %}">
+            {{ piece.quantite_stock|floatformat:"-2" }} <span class="text-lg font-normal">{{ piece.get_unite_display }}</span>
+        </p>
+        {% if piece.en_alerte %}<p class="text-orange-600 font-semibold">{% trans "Sous le stock minimum" %} ({{ piece.quantite_min|floatformat:"-2" }})</p>{% endif %}
+        <p class="text-sm">{% trans "Valeur" %} : <strong>{{ piece.valeur_stock|floatformat:2 }} €</strong></p>
+        <p class="text-sm">{% trans "Quantité utilisée" %} : <strong>{{ piece.quantite_utilisee|floatformat:"-2" }}</strong></p>
+
+        {% if peut_gerer %}
+        <form method="post" class="flex flex-col gap-2 mt-2 border-t pt-4">
+            {% csrf_token %}
+            <h3 class="font-semibold">{% trans "Mouvement de stock" %}</h3>
+            {% for f in form %}
+            <div>
+                <label class="block text-sm mb-1" for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}
+                {% if f.help_text %}<p class="text-xs text-gray-500">{{ f.help_text }}</p>{% endif %}
+                {% for e in f.errors %}<p class="text-sm text-red-600">{{ e }}</p>{% endfor %}
+            </div>
+            {% endfor %}
+            <button class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer le mouvement" %}</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Historique des mouvements -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Variations de stock" %}</h2>
+    {% if mouvements %}
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-2 py-2 text-left">{% trans "Date" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Type" %}</th>
+            <th class="border px-2 py-2 text-right">{% trans "Quantité" %}</th>
+            <th class="border px-2 py-2 text-right">{% trans "Stock avant" %}</th>
+            <th class="border px-2 py-2 text-right">{% trans "Stock après" %}</th>
+            <th class="border px-2 py-2 text-right">{% trans "Prix unitaire HTVA" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Maintenance / facture" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Utilisateur" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Commentaire" %}</th>
+        </tr></thead>
+        <tbody>
+        {% for m in mouvements %}
+            <tr>
+                <td class="border px-2 py-2 whitespace-nowrap">{{ m.date|date:"d/m/Y H:i" }}</td>
+                <td class="border px-2 py-2">{{ m.get_type_mouvement_display }}</td>
+                <td class="border px-2 py-2 text-right font-bold {% if m.quantite < 0 %}text-red-700{% else %}text-green-700{% endif %}">{% if m.quantite > 0 %}+{% endif %}{{ m.quantite|floatformat:"-2" }}</td>
+                <td class="border px-2 py-2 text-right">{{ m.stock_avant|floatformat:"-2" }}</td>
+                <td class="border px-2 py-2 text-right">{{ m.stock_apres|floatformat:"-2" }}</td>
+                <td class="border px-2 py-2 text-right">{% if m.prix_unitaire is not None %}{{ m.prix_unitaire|floatformat:2 }} €{% endif %}</td>
+                <td class="border px-2 py-2">
+                    {% if m.maintenance_id %}<a class="text-blue-700 hover:underline" href="{% url 'piece:pieces_maintenance' m.maintenance_id %}">{{ m.maintenance.immatriculation }}</a>{% endif %}
+                    {% if m.facture_id %}<a class="text-blue-700 hover:underline" href="{% url 'facture:detail' m.facture_id %}">{{ m.facture.numero }}</a>{% endif %}
+                </td>
+                <td class="border px-2 py-2">{{ m.utilisateur|default:"" }}</td>
+                <td class="border px-2 py-2">{{ m.commentaire }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="text-gray-500">{% trans "Aucun mouvement de stock." %}</p>
+    {% endif %}
+</div>
+
+<!-- Utilisations -->
+{% if utilisations %}
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Utilisée dans les maintenances" %}</h2>
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-2 py-2 text-left">{% trans "Date" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Immatriculation" %}</th>
+            <th class="border px-2 py-2 text-right">{% trans "Quantité" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Statut" %}</th>
+        </tr></thead>
+        <tbody>
+        {% for u in utilisations %}
+            <tr>
+                <td class="border px-2 py-2">{{ u.maintenance.date_intervention|date:"d/m/Y" }}</td>
+                <td class="border px-2 py-2"><a class="text-blue-700 hover:underline" href="{% url 'piece:pieces_maintenance' u.maintenance_id %}">{{ u.maintenance.immatriculation }}</a></td>
+                <td class="border px-2 py-2 text-right">{{ u.quantite|floatformat:"-2" }}</td>
+                <td class="border px-2 py-2">{% if u.debitee %}<span class="px-2 py-0.5 rounded bg-green-100 text-green-800 text-xs font-semibold">{% trans "Débitée" %}</span>{% else %}<span class="px-2 py-0.5 rounded bg-yellow-100 text-yellow-800 text-xs font-semibold">{% trans "En attente de facture" %}</span>{% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

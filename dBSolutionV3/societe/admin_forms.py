@@ -18,3 +18,9 @@ class SocieteAdminForm(forms.ModelForm):
         if not numero_tva:
             raise forms.ValidationError("Le numéro de TVA ne peut pas être vide.")
         return numero_tva
+
+
+    def clean_iban(self):
+        # IBAN de la société (factures, Peppol) : compact, longueur du pays et clé mod 97
+        from core.iban import nettoyer_iban_formulaire
+        return nettoyer_iban_formulaire(self.cleaned_data.get("iban")) or ""

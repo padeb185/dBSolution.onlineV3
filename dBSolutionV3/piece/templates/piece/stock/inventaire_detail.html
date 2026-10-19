@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Inventaire" %} {{ inv.date|date:"d/m/Y" }}{% endblock %}
+
+{% block content %}
+<br>
+{% trans "Inventaire" as titre %}
+{% include "piece/stock/_nav.html" with titre=titre actif="inventaires" %}
+
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-blue-600">
+        <p class="text-gray-500 text-sm">{% trans "Date" %}</p>
+        <p class="text-xl font-bold">{{ inv.date|date:"d/m/Y" }}</p>
+        <p class="text-xs text-gray-500">{{ inv.get_categorie_display|default:_("Toutes les catégories") }}</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-gray-400">
+        <p class="text-gray-500 text-sm">{% trans "Pièces comptées" %}</p>
+        <p class="text-xl font-bold">{{ nb_comptees }} / {{ lignes|length }}</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 {% if ecart_valeur < 0 %}border-red-600{% else %}border-green-600{% endif %}">
+        <p class="text-gray-500 text-sm">{% trans "Valeur des écarts (prix d'achat HTVA)" %}</p>
+        <p class="text-xl font-bold {% if ecart_valeur < 0 %}text-red-700{% endif %}">{{ ecart_valeur|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 {% if en_cours %}border-yellow-500{% else %}border-green-600{% endif %}">
+        <p class="text-gray-500 text-sm">{% trans "Statut" %}</p>
+        <p class="text-xl font-bold">{{ inv.get_statut_display }}</p>
+        {% if inv.cloture_le %}<p class="text-xs text-gray-500">{{ inv.cloture_le|date:"d/m/Y H:i" }}</p>{% endif %}
+    </div>
+</div>
+
+<form method="post" class="bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+    {% csrf_token %}
+    {% if en_cours %}
+    <div class="flex flex-wrap items-center gap-3 mb-4">
+        <input type="text" id="scan" class="border rounded px-3 py-2 font-mono flex-1 min-w-[220px]" placeholder="{% trans 'Scanner un EAN / OEM : +1 sur la ligne' %}">
+        <button name="action" value="enregistrer" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer le comptage" %}</button>
+        <button name="action" value="cloturer" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold"
+                onclick="return confirm('{% trans "Clôturer l'inventaire et régulariser le stock ?" %}')">{% trans "Clôturer et régulariser" %}</button>
+    </div>
+    {% endif %}
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-2 py-2 text-left">{% trans "Emplacement" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Pièce" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Code OEM" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "EAN" %}</th>
+            <th class="border px-2 py-2 text-right">{% trans "Stock théorique" %}</th>
+            <th class="border px-2 py-2 text-right">{% trans "Quantité comptée" %}</th>
+            <th class="border px-2 py-2 text-right">{% trans "Écart" %}</th>
+        </tr></thead>
+        <tbody>
+        {% for l in lignes %}
+            <tr data-codes="{{ l.piece.oem }} {% for c in l.piece.eans %}{{ c }} {% endfor %}">
+                <td class="border px-2 py-2">{{ l.piece.emplacement_etagere|default:"" }}</td>
+                <td class="border px-2 py-2"><a class="text-blue-700 hover:underline" href="{% url 'piece:detail' l.piece_id %}">{{ l.piece.designation|default:l.piece }}</a></td>
+                <td class="border px-2 py-2 font-mono">{{ l.piece.oem }}</td>
+                <td class="border px-2 py-2 font-mono text-xs">{{ l.piece.eans|join:", " }}</td>
+                <td class="border px-2 py-2 text-right">{{ l.stock_theorique|floatformat:"-2" }}</td>
+                <td class="border px-2 py-1 text-right">
+                    {% if en_cours %}
+                    <input type="number" step="0.01" name="q_{{ l.pk }}" value="{% if l.quantite_comptee is not None %}{{ l.quantite_comptee|stringformat:'s' }}{% endif %}" class="border rounded px-2 py-1 w-24 text-right">
+                    {% else %}{{ l.quantite_comptee|floatformat:"-2"|default:"—" }}{% endif %}
+                </td>
+                <td class="border px-2 py-2 text-right font-bold {% if l.ecart < 0 %}text-red-700{% elif l.ecart > 0 %}text-green-700{% endif %}">{% if l.ecart is not None %}{% if l.ecart > 0 %}+{% endif %}{{ l.ecart|floatformat:"-2" }}{% endif %}</td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="7" class="border px-2 py-4 text-gray-500">{% trans "Aucune pièce dans cet inventaire." %}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</form>
+
+{% if en_cours %}
+<script>
+// Douchette : chaque scan ajoute 1 à la quantité comptée de la pièce correspondante
+(function () {
+    var scan = document.getElementById('scan');
+    if (!scan) return;
+    scan.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter') return;
+        e.preventDefault();
+        var code = scan.value.replace(/\s+/g, '').toUpperCase();
+        scan.value = '';
+        if (!code) return;
+        var ligne = Array.prototype.find.call(document.querySelectorAll('tr[data-codes]'), function (tr) {
+            return tr.dataset.codes.toUpperCase().split(/\s+/).indexOf(code) !== -1;
+        });
+        if (!ligne) { scan.classList.add('border-red-600'); setTimeout(function () { scan.classList.remove('border-red-600'); }, 800); return; }
+        var input = ligne.querySelector('input[type=number]');
+        input.value = (parseFloat(input.value || '0') + 1).toString();
+        ligne.classList.add('bg-green-50');
+        ligne.scrollIntoView({block: 'center'});
+    });
+})();
+</script>
+{% endif %}
+{% endblock %}

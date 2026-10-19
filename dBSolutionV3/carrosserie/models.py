@@ -7,15 +7,9 @@ from stdnum import iban
 
 
 def validate_iban(value):
-    if not value:
-        return
-
-    value = value.replace(" ", "").upper()
-
-    if not iban.is_valid(value):
-        raise ValidationError(_("IBAN invalide"))
-
-
+    """IBAN : longueur du pays + clé mod 97 (voir core.iban)."""
+    from core.iban import validate_iban as _valider
+    _valider(value)
 
 class Carrosserie(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

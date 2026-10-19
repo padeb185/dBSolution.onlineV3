@@ -251,3 +251,8 @@ class ProprietaireForm(forms.ModelForm):
         if prenom and len(prenom) < 2:
             raise forms.ValidationError("Le prénom doit contenir au moins 2 caractères.")
         return prenom
+
+    def clean_numero_compte(self):
+        # IBAN : nettoyage (sans espaces, majuscules), longueur du pays et clé mod 97
+        from core.iban import nettoyer_iban_formulaire
+        return nettoyer_iban_formulaire(self.cleaned_data.get("numero_compte"))

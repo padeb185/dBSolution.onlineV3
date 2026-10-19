@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% if piece %}{% trans "Modifier la pièce" %}{% else %}{% trans "Nouvelle pièce" %}{% endif %}{% endblock %}
+
+{% block content %}
+<br>
+{% if piece %}{% trans "Modifier la pièce" as titre %}{% else %}{% trans "Nouvelle pièce" as titre %}{% endif %}
+{% include "piece/stock/_nav.html" with titre=titre actif="" %}
+
+<form method="post" class="bg-white shadow-md rounded-lg p-6 max-w-5xl">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+    <div class="bg-red-100 text-red-800 rounded p-3 mb-4">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <h2 class="text-lg font-semibold mb-4">{% trans "Identification" %}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        {% for f in form %}{% if f.name in "designation categorie oem reference_fabricant fabricant_nom unite" %}
+        <div>
+            <label class="block text-sm font-semibold mb-1" for="{{ f.id_for_label }}">{{ f.label }}</label>
+            {{ f }}
+            {% if f.help_text %}<p class="text-xs text-gray-500 mt-1">{{ f.help_text }}</p>{% endif %}
+            {% for e in f.errors %}<p class="text-sm text-red-600 mt-1">{{ e }}</p>{% endfor %}
+        </div>
+        {% endif %}{% endfor %}
+        <div class="md:col-span-2">
+            <label class="block text-sm font-semibold mb-1" for="{{ form.eans.id_for_label }}">{{ form.eans.label }}</label>
+            {{ form.eans }}
+            <p class="text-xs text-gray-500 mt-1">{{ form.eans.help_text }}</p>
+            {% for e in form.eans.errors %}<p class="text-sm text-red-600 mt-1">{{ e }}</p>{% endfor %}
+        </div>
+    </div>
+
+    <h2 class="text-lg font-semibold mb-4">{% trans "Prix et stock" %}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        {% for f in form %}{% if f.name in "prix_achat majoration_pourcent tva prix_vente quantite_min stock_initial emplacement_etagere" %}
+        <div>
+            <label class="block text-sm font-semibold mb-1" for="{{ f.id_for_label }}">{{ f.label }}</label>
+            {{ f }}
+            {% for e in f.errors %}<p class="text-sm text-red-600 mt-1">{{ e }}</p>{% endfor %}
+        </div>
+        {% endif %}{% endfor %}
+    </div>
+    <p class="text-xs text-gray-500 -mt-4 mb-6">{% trans "Prix de vente à 0 : calculé automatiquement depuis le prix d'achat et la majoration." %}</p>
+
+    <h2 class="text-lg font-semibold mb-4">{% trans "Compatibilité" %}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div>
+            <label class="block text-sm font-semibold mb-1">{{ form.voiture_marque.label }}</label>{{ form.voiture_marque }}
+        </div>
+        <div>
+            <label class="block text-sm font-semibold mb-1">{{ form.modele.label }}</label>{{ form.modele }}
+        </div>
+        <label class="flex items-center gap-2 mt-6">{{ form.actif }} {{ form.actif.label }}</label>
+    </div>
+
+    <datalist id="liste-fabricants">{% for nom in fabricants %}<option value="{{ nom }}">{% endfor %}</datalist>
+
+    <div class="flex gap-3">
+        <button type="submit" class="bg-blue-700 text-white px-6 py-2 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer" %}</button>
+        <a href="{% if piece %}{% url 'piece:detail' piece.pk %}{% else %}{% url 'piece:list' %}{% endif %}" class="bg-gray-200 hover:bg-gray-300 px-6 py-2 rounded font-semibold">{% trans "Annuler" %}</a>
+    </div>
+</form>
+
+<script>
+// Scanner : la touche Entrée envoyée par la douchette ne soumet pas le formulaire (le champ EAN accepte plusieurs lignes)
+document.querySelectorAll('input[name="oem"], input[name="reference_fabricant"]').forEach(function (el) {
+    el.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); } });
+});
+</script>
+{% endblock %}

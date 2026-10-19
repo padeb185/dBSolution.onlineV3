@@ -93,9 +93,11 @@
             {% trans "Achat" %}
         </h2>
         {% include "voiture_exemplaire/finances/_champ.html" with field=form.etat_achat %}
+        {% include "voiture_exemplaire/finances/_champ.html" with field=form.date_achat %}
         {% include "voiture_exemplaire/finances/_champ.html" with field=form.kilometrage_achat %}
         {% include "voiture_exemplaire/finances/_champ.html" with field=form.prix_achat %}
         {% include "voiture_exemplaire/finances/_champ.html" with field=form.taxe_mise_en_circulation %}
+        {% include "voiture_exemplaire/finances/_champ.html" with field=form.frais_achat manquant_label="" %}
 
         <br>
 
@@ -104,6 +106,7 @@
             <img src="{% static 'icons/assurance-voiture.png' %}" alt="{% trans 'Assurance' %}" class="w-20 h-20">
             {% trans "Assurance et taxes annuelles" %}
         </h2>
+        <p class="text-sm text-gray-500">{% trans "Montants annuels par défaut. Ils peuvent être modifiés année par année (et les vignettes ajoutées) dans le détail des données financières." %}</p>
         {% include "voiture_exemplaire/finances/_champ.html" with field=form.assurance %}
         {% include "voiture_exemplaire/finances/_champ.html" with field=form.taxe_roulage %}
 

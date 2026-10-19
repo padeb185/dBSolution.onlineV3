@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static format_numbers %}
 
 {% block content %}
 
@@ -38,7 +38,7 @@
             <dd class="font-medium">{{ assurance.peppol_id|default:"—" }}</dd>
 
             <dt class="text-gray-600">{% trans "IBAN" %}</dt>
-            <dd class="font-medium">{{ assurance.numero_iban|default:"—" }}</dd>
+            <dd class="font-medium">{{ assurance.numero_iban|format_iban|default:"—"  }}</dd>
 
             <dt class="text-gray-600">{% trans "Adresse" %}</dt>
             <dd class="font-medium">{{ assurance.adresse|default:"—" }}</dd>

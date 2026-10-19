@@ -2,7 +2,7 @@
 <div class="mb-4">
     <label for="{{ field.id_for_label }}" class="block font-semibold mb-1">
         {{ field.label }}
-        {% if field.value is None or field.value == "" %}
+        {% if manquant_label and field.value is None or manquant_label and field.value == "" %}
             <span class="ml-2 px-2 py-0.5 rounded bg-orange-100 text-orange-800 text-xs font-normal">{{ manquant_label }}</span>
         {% endif %}
     </label>

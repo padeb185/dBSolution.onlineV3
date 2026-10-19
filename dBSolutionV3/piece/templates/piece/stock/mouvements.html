@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Variations de stock" %}{% endblock %}
+
+{% block content %}
+<br>
+{% trans "Variations de stock" as titre %}
+{% include "piece/stock/_nav.html" with titre=titre actif="mouvements" %}
+
+<form method="get" class="bg-white shadow-md rounded-lg p-4 mb-6 flex flex-wrap items-end gap-3">
+    <div>
+        <label class="block text-sm text-gray-600 mb-1">{% trans "Du" %}</label>
+        <input type="date" name="du" value="{{ filtres.du|date:'Y-m-d' }}" class="border rounded px-3 py-2">
+    </div>
+    <div>
+        <label class="block text-sm text-gray-600 mb-1">{% trans "Au" %}</label>
+        <input type="date" name="au" value="{{ filtres.au|date:'Y-m-d' }}" class="border rounded px-3 py-2">
+    </div>
+    <div>
+        <label class="block text-sm text-gray-600 mb-1">{% trans "Type" %}</label>
+        <select name="type" class="border rounded px-3 py-2">
+            <option value="">{% trans "Tous" %}</option>
+            {% for val, lib in types %}<option value="{{ val }}" {% if val == filtres.type %}selected{% endif %}>{{ lib }}</option>{% endfor %}
+        </select>
+    </div>
+    <div>
+        <label class="block text-sm text-gray-600 mb-1">{% trans "Catégorie" %}</label>
+        <select name="categorie" class="border rounded px-3 py-2">
+            <option value="">{% trans "Toutes" %}</option>
+            {% for val, lib in categories %}<option value="{{ val }}" {% if val == filtres.categorie %}selected{% endif %}>{{ lib }}</option>{% endfor %}
+        </select>
+    </div>
+    <div class="flex-1 min-w-[180px]">
+        <label class="block text-sm text-gray-600 mb-1">{% trans "Pièce (OEM, EAN, désignation)" %}</label>
+        <input type="text" name="q" value="{{ filtres.q }}" class="border rounded px-3 py-2 w-full font-mono">
+    </div>
+    <button class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">{% trans "Filtrer" %}</button>
+    <button name="export" value="csv" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold">{% trans "Export CSV" %}</button>
+</form>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-green-600">
+        <p class="text-gray-500 text-sm">{% trans "Entrées" %}</p>
+        <p class="text-2xl font-bold text-green-700">+{{ entrees|floatformat:"-2" }}</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-red-600">
+        <p class="text-gray-500 text-sm">{% trans "Diminutions de stock" %}</p>
+        <p class="text-2xl font-bold text-red-700">−{{ sorties|floatformat:"-2" }}</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-blue-600">
+        <p class="text-gray-500 text-sm">{% trans "Variation nette" %}</p>
+        <p class="text-2xl font-bold">{{ variation|floatformat:"-2" }}</p>
+    </div>
+</div>
+
+<div class="bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+    {% if mouvements %}
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-2 py-2 text-left">{% trans "Date" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Pièce" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Type" %}</th>
+            <th class="border px-2 py-2 text-right">{% trans "Quantité" %}</th>
+            <th class="border px-2 py-2 text-right">{% trans "Stock après" %}</th>
+            <th class="border px-2 py-2 text-right">{% trans "Prix unitaire HTVA" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Maintenance / facture" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Utilisateur" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Commentaire" %}</th>
+        </tr></thead>
+        <tbody>
+        {% for m in mouvements %}
+            <tr>
+                <td class="border px-2 py-2 whitespace-nowrap">{{ m.date|date:"d/m/Y H:i" }}</td>
+                <td class="border px-2 py-2"><a class="text-blue-700 hover:underline" href="{% url 'piece:detail' m.piece_id %}">{{ m.piece }}</a></td>
+                <td class="border px-2 py-2">{{ m.get_type_mouvement_display }}</td>
+                <td class="border px-2 py-2 text-right font-bold {% if m.quantite < 0 %}text-red-700{% else %}text-green-700{% endif %}">{% if m.quantite > 0 %}+{% endif %}{{ m.quantite|floatformat:"-2" }}</td>
+                <td class="border px-2 py-2 text-right">{{ m.stock_apres|floatformat:"-2" }}</td>
+                <td class="border px-2 py-2 text-right">{% if m.prix_unitaire is not None %}{{ m.prix_unitaire|floatformat:2 }} €{% endif %}</td>
+                <td class="border px-2 py-2">
+                    {% if m.maintenance_id %}<a class="text-blue-700 hover:underline" href="{% url 'piece:pieces_maintenance' m.maintenance_id %}">{{ m.maintenance.immatriculation }}</a>{% endif %}
+                    {% if m.facture_id %}<a class="text-blue-700 hover:underline" href="{% url 'facture:detail' m.facture_id %}">{{ m.facture.numero }}</a>{% endif %}
+                </td>
+                <td class="border px-2 py-2">{{ m.utilisateur|default:"" }}</td>
+                <td class="border px-2 py-2">{{ m.commentaire }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if page.has_other_pages %}
+    <div class="flex justify-center gap-2 mt-4">
+        {% if page.has_previous %}<a class="px-3 py-1 rounded bg-gray-200" href="?{{ params }}&page={{ page.previous_page_number }}">&laquo;</a>{% endif %}
+        <span class="px-3 py-1">{{ page.number }} / {{ page.paginator.num_pages }}</span>
+        {% if page.has_next %}<a class="px-3 py-1 rounded bg-gray-200" href="?{{ params }}&page={{ page.next_page_number }}">&raquo;</a>{% endif %}
+    </div>
+    {% endif %}
+    {% else %}
+    <p class="text-gray-500">{% trans "Aucun mouvement de stock." %}</p>
+    {% endif %}
+</div>
+{% endblock %}

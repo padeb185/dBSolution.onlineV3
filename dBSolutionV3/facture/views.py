@@ -740,6 +740,9 @@ def facture_paiement_view(request, pk):
     if not facture.est_emise:
         messages.error(request, _("Le paiement ne peut être enregistré que sur une facture émise."))
         return redirect("facture:detail", pk=facture.pk)
+    if facture.client_est_societe:
+        messages.info(request, _("Facture interne : aucun paiement à enregistrer."))
+        return redirect("facture:detail", pk=facture.pk)
 
     action = request.POST.get("action", "ajouter")
     non_ventile = facture.montant_non_ventile
@@ -886,59 +889,92 @@ def caisse_banque_view(request):
 @login_required
 def factures_a_payer_view(request):
     from achat_mds.models import AchatMds
+    from outillage.models import Outillage
 
     if not _peut(request.user, ROLES_FACTURATION):
         return _refuser(request)
 
-    achats_societe = AchatMds.objects.filter(societe=request.user.societe).select_related("fournisseur")
+    societe = request.user.societe
+    # Factures fournisseurs : achats MDS et outillage (mêmes propriétés : FactureAchatMixin)
+    sources = {
+        "achat": AchatMds.objects.filter(societe=societe).select_related("fournisseur"),
+        "outillage": Outillage.objects.filter(societe=societe).select_related("fournisseur"),
+    }
+
+    def detail_url(obj):
+        if isinstance(obj, Outillage):
+            return reverse("outillage:outillage_detail", args=[obj.pk])
+        return reverse("achat_mds:achat_detail", args=[obj.pk])
+
+    def nature(obj):
+        return _("Outillage") if isinstance(obj, Outillage) else _("Achat")
+
+    def libelle(obj):
+        return getattr(obj, "libelle_facture", None) or getattr(obj, "libelle", None) or ""
 
     # Marquer une facture d'achat comme payée (ou annuler le paiement)
     if request.method == "POST":
-        achat = get_object_or_404(achats_societe, pk=request.POST.get("achat_id"))
+        qs = sources.get(request.POST.get("type"), sources["achat"])
+        achat = get_object_or_404(qs, pk=request.POST.get("achat_id"))
+        nom = achat.reference_facture or achat.fournisseur.nom
         if request.POST.get("action") == "annuler":
             achat.date_paiement = None
-            message = _("Paiement annulé : %(achat)s") % {"achat": achat.reference_facture or achat.fournisseur.nom}
+            message = _("Paiement annulé : %(achat)s") % {"achat": nom}
         else:
             try:
                 achat.date_paiement = datetime.strptime(request.POST.get("date") or "", "%Y-%m-%d").date()
             except ValueError:
                 achat.date_paiement = timezone.localdate()
-            message = _("Facture d'achat payée : %(achat)s") % {"achat": achat.reference_facture or achat.fournisseur.nom}
-        achat.save(update_fields=["date_paiement", "updated_at"])
+            message = _("Facture d'achat payée : %(achat)s") % {"achat": nom}
+        achat.save()
         UserLog.objects.create(utilisateur=request.user, action=str(message))
         messages.success(request, message)
         return redirect(f"{reverse('facture:a_payer')}?{request.GET.urlencode()}")
 
     aujourdhui = timezone.localdate()
     fournisseur_id = request.GET.get("fournisseur") or ""
+    type_filtre = request.GET.get("type") or ""
 
-    a_payer = achats_societe.filter(date_paiement__isnull=True).order_by("date_facture")
-    if fournisseur_id:
-        a_payer = a_payer.filter(fournisseur_id=fournisseur_id)
+    a_payer = []
+    for type_, qs in sources.items():
+        if type_filtre and type_filtre != type_:
+            continue
+        q = qs.filter(date_paiement__isnull=True)
+        if fournisseur_id:
+            q = q.filter(fournisseur_id=fournisseur_id)
+        a_payer += [(type_, o) for o in q]
+    a_payer.sort(key=lambda t: t[1].date_facture or aujourdhui)
 
     z = Decimal("0.00")
     tranches = [
-        {"code": "0_30", "libelle": _("0 à 30 jours"), "total": z, "nb": 0, "couleur": "green", "bordure": "border-green-500", "badge": "bg-green-100 text-green-800"},
-        {"code": "31_60", "libelle": _("31 à 60 jours"), "total": z, "nb": 0, "couleur": "yellow", "bordure": "border-yellow-500", "badge": "bg-yellow-100 text-yellow-800"},
-        {"code": "61_90", "libelle": _("61 à 90 jours"), "total": z, "nb": 0, "couleur": "orange", "bordure": "border-orange-500", "badge": "bg-orange-100 text-orange-800"},
-        {"code": "90", "libelle": _("Plus de 90 jours"), "total": z, "nb": 0, "couleur": "red", "bordure": "border-red-500", "badge": "bg-red-100 text-red-800"},
+        {"code": "0_30", "libelle": _("0 à 30 jours"), "total": z, "nb": 0, "bordure": "border-green-500", "badge": "bg-green-100 text-green-800"},
+        {"code": "31_60", "libelle": _("31 à 60 jours"), "total": z, "nb": 0, "bordure": "border-yellow-500", "badge": "bg-yellow-100 text-yellow-800"},
+        {"code": "61_90", "libelle": _("61 à 90 jours"), "total": z, "nb": 0, "bordure": "border-orange-500", "badge": "bg-orange-100 text-orange-800"},
+        {"code": "90", "libelle": _("Plus de 90 jours"), "total": z, "nb": 0, "bordure": "border-red-500", "badge": "bg-red-100 text-red-800"},
     ]
     lignes = []
     par_fournisseur = {}
-    for achat in a_payer:
+    for type_, achat in a_payer:
         age = (aujourdhui - achat.date_facture).days if achat.date_facture else 0
         idx = 0 if age <= 30 else 1 if age <= 60 else 2 if age <= 90 else 3
         tranches[idx]["total"] += achat.total_tvac
         tranches[idx]["nb"] += 1
-        lignes.append({"achat": achat, "age": age, "badge": tranches[idx]["badge"]})
+        lignes.append({"achat": achat, "type": type_, "nature": nature(achat), "libelle": libelle(achat),
+                       "url": detail_url(achat), "age": age, "badge": tranches[idx]["badge"]})
         f = par_fournisseur.setdefault(achat.fournisseur_id, {"fournisseur": achat.fournisseur, "nb": 0, "total": z})
         f["nb"] += 1
         f["total"] += achat.total_tvac
 
-    payees_recentes = (
-        achats_societe.filter(date_paiement__isnull=False, date_paiement__gte=aujourdhui - timedelta(days=30))
-        .order_by("-date_paiement")
-    )
+    payees_recentes = []
+    for type_, qs in sources.items():
+        for o in qs.filter(date_paiement__isnull=False, date_paiement__gte=aujourdhui - timedelta(days=30)):
+            payees_recentes.append({"achat": o, "type": type_, "nature": nature(o), "url": detail_url(o)})
+    payees_recentes.sort(key=lambda p: p["achat"].date_paiement, reverse=True)
+
+    fournisseurs = {}
+    for qs in sources.values():
+        for o in qs.filter(date_paiement__isnull=True):
+            fournisseurs[o.fournisseur_id] = o.fournisseur
 
     return render(request, "facture/factures_a_payer.html", {
         "lignes": lignes,
@@ -946,8 +982,9 @@ def factures_a_payer_view(request):
         "total_a_payer": sum((l["achat"].total_tvac for l in lignes), z),
         "total_tva": sum((l["achat"].montant_tva for l in lignes), z),
         "par_fournisseur": sorted(par_fournisseur.values(), key=lambda f: -f["total"]),
-        "fournisseurs": sorted({a.fournisseur for a in achats_societe.filter(date_paiement__isnull=True)}, key=lambda f: f.nom or ""),
+        "fournisseurs": sorted(fournisseurs.values(), key=lambda f: f.nom or ""),
         "fournisseur_id": fournisseur_id,
+        "type_filtre": type_filtre,
         "payees_recentes": payees_recentes,
         "aujourdhui": aujourdhui,
     })

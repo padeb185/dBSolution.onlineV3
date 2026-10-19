@@ -1,0 +1,793 @@
+{% load i18n static format_numbers %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+{% if demarreur.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ demarreur.tech_societe.nom }}
+            </div>
+
+            {% if demarreur.tech_societe.adresse %}
+                <div>
+                    {{ demarreur.tech_societe.adresse.rue }}
+                    {{ demarreur.tech_societe.adresse.numero }}
+                    {% if demarreur.tech_societe.adresse.boite %}
+                        / {{ demarreur.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ demarreur.tech_societe.adresse.code_postal }}
+                    {{ demarreur.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if demarreur.tech_societe.adresse.pays %}
+                <div>{{ demarreur.tech_societe.adresse.pays }}
+                    {{ demarreur.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if demarreur.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ demarreur.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if demarreur.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ demarreur.tech_societe.iban|format_iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ demarreur.tech_societe.nom }}.png"
+                alt="{{ demarreur.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Démarreur" %}</h1>
+
+<!-- ================= INFOS ================= -->
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ demarreur.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ demarreur.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ demarreur.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ demarreur.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ demarreur.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage de l'intervention" %} :</span>
+            {{ demarreur.kilometrage_demarreur }} km
+        </div>
+
+
+
+<!-- ================= TAG ================= -->
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if demarreur.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ demarreur.get_tag_display }}
+                </span>
+
+            {% elif demarreur.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ demarreur.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ demarreur.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= DEMARREUR ================= -->
+<h2>{% trans "Démarreur" %}</h2>
+
+<div>
+
+    <table class="table-2-cols">
+
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td><strong>{% trans "Type d'intervention" %}</strong></td>
+                <td><strong>{{ demarreur.get_type_intervention_display }}</strong></td>
+            </tr>
+            <tr>
+                <td>{% trans "Démarreur complet (neuf ou échange standard)" %}</td>
+                <td>
+                    {% if demarreur.demarreur_complet == "OK" %}<span class="ok">{{ demarreur.get_demarreur_complet_display }}</span>
+                    {% elif demarreur.demarreur_complet == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_demarreur_complet_display }}</span>
+                    {% elif demarreur.demarreur_complet == "REMPLACE" %}<span class="remplace">{{ demarreur.get_demarreur_complet_display }}</span>
+                    {% else %}<span>{{ demarreur.get_demarreur_complet_display }}</span>{% endif %}
+                    {% if demarreur.demarreur_complet_fabricant and demarreur.demarreur_complet_fabricant != "CHOISIR" %} — {{ demarreur.get_demarreur_complet_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Solénoïde (contacteur / relais de démarreur)" %}</td>
+                <td>
+                    {% if demarreur.solenoide == "OK" %}<span class="ok">{{ demarreur.get_solenoide_display }}</span>
+                    {% elif demarreur.solenoide == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_solenoide_display }}</span>
+                    {% elif demarreur.solenoide == "REMPLACE" %}<span class="remplace">{{ demarreur.get_solenoide_display }}</span>
+                    {% else %}<span>{{ demarreur.get_solenoide_display }}</span>{% endif %}
+                    {% if demarreur.solenoide_fabricant and demarreur.solenoide_fabricant != "CHOISIR" %} — {{ demarreur.get_solenoide_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Lanceur (pignon / bendix)" %}</td>
+                <td>
+                    {% if demarreur.lanceur == "OK" %}<span class="ok">{{ demarreur.get_lanceur_display }}</span>
+                    {% elif demarreur.lanceur == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_lanceur_display }}</span>
+                    {% elif demarreur.lanceur == "REMPLACE" %}<span class="remplace">{{ demarreur.get_lanceur_display }}</span>
+                    {% else %}<span>{{ demarreur.get_lanceur_display }}</span>{% endif %}
+                    {% if demarreur.lanceur_fabricant and demarreur.lanceur_fabricant != "CHOISIR" %} — {{ demarreur.get_lanceur_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Roue libre du lanceur" %}</td>
+                <td>
+                    {% if demarreur.roue_libre == "OK" %}<span class="ok">{{ demarreur.get_roue_libre_display }}</span>
+                    {% elif demarreur.roue_libre == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_roue_libre_display }}</span>
+                    {% elif demarreur.roue_libre == "REMPLACE" %}<span class="remplace">{{ demarreur.get_roue_libre_display }}</span>
+                    {% else %}<span>{{ demarreur.get_roue_libre_display }}</span>{% endif %}
+                    {% if demarreur.roue_libre_fabricant and demarreur.roue_libre_fabricant != "CHOISIR" %} — {{ demarreur.get_roue_libre_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Fourchette d'engrènement" %}</td>
+                <td>
+                    {% if demarreur.fourchette == "OK" %}<span class="ok">{{ demarreur.get_fourchette_display }}</span>
+                    {% elif demarreur.fourchette == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_fourchette_display }}</span>
+                    {% elif demarreur.fourchette == "REMPLACE" %}<span class="remplace">{{ demarreur.get_fourchette_display }}</span>
+                    {% else %}<span>{{ demarreur.get_fourchette_display }}</span>{% endif %}
+                    {% if demarreur.fourchette_fabricant and demarreur.fourchette_fabricant != "CHOISIR" %} — {{ demarreur.get_fourchette_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Induit (rotor)" %}</td>
+                <td>
+                    {% if demarreur.induit == "OK" %}<span class="ok">{{ demarreur.get_induit_display }}</span>
+                    {% elif demarreur.induit == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_induit_display }}</span>
+                    {% elif demarreur.induit == "REMPLACE" %}<span class="remplace">{{ demarreur.get_induit_display }}</span>
+                    {% else %}<span>{{ demarreur.get_induit_display }}</span>{% endif %}
+                    {% if demarreur.induit_fabricant and demarreur.induit_fabricant != "CHOISIR" %} — {{ demarreur.get_induit_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Inducteurs / aimants (stator)" %}</td>
+                <td>
+                    {% if demarreur.inducteurs == "OK" %}<span class="ok">{{ demarreur.get_inducteurs_display }}</span>
+                    {% elif demarreur.inducteurs == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_inducteurs_display }}</span>
+                    {% elif demarreur.inducteurs == "REMPLACE" %}<span class="remplace">{{ demarreur.get_inducteurs_display }}</span>
+                    {% else %}<span>{{ demarreur.get_inducteurs_display }}</span>{% endif %}
+                    {% if demarreur.inducteurs_fabricant and demarreur.inducteurs_fabricant != "CHOISIR" %} — {{ demarreur.get_inducteurs_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Charbons (balais)" %}</td>
+                <td>
+                    {% if demarreur.charbons == "OK" %}<span class="ok">{{ demarreur.get_charbons_display }}</span>
+                    {% elif demarreur.charbons == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_charbons_display }}</span>
+                    {% elif demarreur.charbons == "REMPLACE" %}<span class="remplace">{{ demarreur.get_charbons_display }}</span>
+                    {% else %}<span>{{ demarreur.get_charbons_display }}</span>{% endif %}
+                    {% if demarreur.charbons_fabricant and demarreur.charbons_fabricant != "CHOISIR" %} — {{ demarreur.get_charbons_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Porte-balais" %}</td>
+                <td>
+                    {% if demarreur.porte_balais == "OK" %}<span class="ok">{{ demarreur.get_porte_balais_display }}</span>
+                    {% elif demarreur.porte_balais == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_porte_balais_display }}</span>
+                    {% elif demarreur.porte_balais == "REMPLACE" %}<span class="remplace">{{ demarreur.get_porte_balais_display }}</span>
+                    {% else %}<span>{{ demarreur.get_porte_balais_display }}</span>{% endif %}
+                    {% if demarreur.porte_balais_fabricant and demarreur.porte_balais_fabricant != "CHOISIR" %} — {{ demarreur.get_porte_balais_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Collecteur de l'induit (rectification)" %}</td>
+                <td>
+                    {% if demarreur.collecteur_induit == "OK" %}<span class="ok">{{ demarreur.get_collecteur_induit_display }}</span>
+                    {% elif demarreur.collecteur_induit == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_collecteur_induit_display }}</span>
+                    {% elif demarreur.collecteur_induit == "REMPLACE" %}<span class="remplace">{{ demarreur.get_collecteur_induit_display }}</span>
+                    {% else %}<span>{{ demarreur.get_collecteur_induit_display }}</span>{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Coussinets / bagues de palier" %}</td>
+                <td>
+                    {% if demarreur.coussinets == "OK" %}<span class="ok">{{ demarreur.get_coussinets_display }}</span>
+                    {% elif demarreur.coussinets == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_coussinets_display }}</span>
+                    {% elif demarreur.coussinets == "REMPLACE" %}<span class="remplace">{{ demarreur.get_coussinets_display }}</span>
+                    {% else %}<span>{{ demarreur.get_coussinets_display }}</span>{% endif %}
+                    {% if demarreur.coussinets_fabricant and demarreur.coussinets_fabricant != "CHOISIR" %} — {{ demarreur.get_coussinets_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Réducteur planétaire" %}</td>
+                <td>
+                    {% if demarreur.reducteur == "OK" %}<span class="ok">{{ demarreur.get_reducteur_display }}</span>
+                    {% elif demarreur.reducteur == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_reducteur_display }}</span>
+                    {% elif demarreur.reducteur == "REMPLACE" %}<span class="remplace">{{ demarreur.get_reducteur_display }}</span>
+                    {% else %}<span>{{ demarreur.get_reducteur_display }}</span>{% endif %}
+                    {% if demarreur.reducteur_fabricant and demarreur.reducteur_fabricant != "CHOISIR" %} — {{ demarreur.get_reducteur_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Joints et visserie" %}</td>
+                <td>
+                    {% if demarreur.joints_demarreur == "OK" %}<span class="ok">{{ demarreur.get_joints_demarreur_display }}</span>
+                    {% elif demarreur.joints_demarreur == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_joints_demarreur_display }}</span>
+                    {% elif demarreur.joints_demarreur == "REMPLACE" %}<span class="remplace">{{ demarreur.get_joints_demarreur_display }}</span>
+                    {% else %}<span>{{ demarreur.get_joints_demarreur_display }}</span>{% endif %}
+                    {% if demarreur.joints_demarreur_fabricant and demarreur.joints_demarreur_fabricant != "CHOISIR" %} — {{ demarreur.get_joints_demarreur_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Câble d'alimentation (+ batterie)" %}</td>
+                <td>
+                    {% if demarreur.cable_alimentation == "OK" %}<span class="ok">{{ demarreur.get_cable_alimentation_display }}</span>
+                    {% elif demarreur.cable_alimentation == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_cable_alimentation_display }}</span>
+                    {% elif demarreur.cable_alimentation == "REMPLACE" %}<span class="remplace">{{ demarreur.get_cable_alimentation_display }}</span>
+                    {% else %}<span>{{ demarreur.get_cable_alimentation_display }}</span>{% endif %}
+                    {% if demarreur.cable_alimentation_fabricant and demarreur.cable_alimentation_fabricant != "CHOISIR" %} — {{ demarreur.get_cable_alimentation_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Câble de masse" %}</td>
+                <td>
+                    {% if demarreur.cable_masse_demarreur == "OK" %}<span class="ok">{{ demarreur.get_cable_masse_demarreur_display }}</span>
+                    {% elif demarreur.cable_masse_demarreur == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_cable_masse_demarreur_display }}</span>
+                    {% elif demarreur.cable_masse_demarreur == "REMPLACE" %}<span class="remplace">{{ demarreur.get_cable_masse_demarreur_display }}</span>
+                    {% else %}<span>{{ demarreur.get_cable_masse_demarreur_display }}</span>{% endif %}
+                    {% if demarreur.cable_masse_demarreur_fabricant and demarreur.cable_masse_demarreur_fabricant != "CHOISIR" %} — {{ demarreur.get_cable_masse_demarreur_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Relais de démarrage" %}</td>
+                <td>
+                    {% if demarreur.relais_demarrage == "OK" %}<span class="ok">{{ demarreur.get_relais_demarrage_display }}</span>
+                    {% elif demarreur.relais_demarrage == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_relais_demarrage_display }}</span>
+                    {% elif demarreur.relais_demarrage == "REMPLACE" %}<span class="remplace">{{ demarreur.get_relais_demarrage_display }}</span>
+                    {% else %}<span>{{ demarreur.get_relais_demarrage_display }}</span>{% endif %}
+                    {% if demarreur.relais_demarrage_fabricant and demarreur.relais_demarrage_fabricant != "CHOISIR" %} — {{ demarreur.get_relais_demarrage_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Graisse (nettoyage et graissage)" %}</td>
+                <td>
+                    {% if demarreur.graisse_demarreur == "OK" %}<span class="ok">{{ demarreur.get_graisse_demarreur_display }}</span>
+                    {% elif demarreur.graisse_demarreur == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_graisse_demarreur_display }}</span>
+                    {% elif demarreur.graisse_demarreur == "REMPLACE" %}<span class="remplace">{{ demarreur.get_graisse_demarreur_display }}</span>
+                    {% else %}<span>{{ demarreur.get_graisse_demarreur_display }}</span>{% endif %}
+                    {% if demarreur.graisse_demarreur_fabricant and demarreur.graisse_demarreur_fabricant != "CHOISIR" %} — {{ demarreur.get_graisse_demarreur_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Couronne du volant moteur" %}</td>
+                <td>
+                    {% if demarreur.couronne_volant == "OK" %}<span class="ok">{{ demarreur.get_couronne_volant_display }}</span>
+                    {% elif demarreur.couronne_volant == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_couronne_volant_display }}</span>
+                    {% elif demarreur.couronne_volant == "REMPLACE" %}<span class="remplace">{{ demarreur.get_couronne_volant_display }}</span>
+                    {% else %}<span>{{ demarreur.get_couronne_volant_display }}</span>{% endif %}
+                    {% if demarreur.couronne_volant_fabricant and demarreur.couronne_volant_fabricant != "CHOISIR" %} — {{ demarreur.get_couronne_volant_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Essai au banc / test de démarrage" %}</td>
+                <td>
+                    {% if demarreur.essai_banc == "OK" %}<span class="ok">{{ demarreur.get_essai_banc_display }}</span>
+                    {% elif demarreur.essai_banc == "NOT_OK" %}<span class="not-ok">{{ demarreur.get_essai_banc_display }}</span>
+                    {% elif demarreur.essai_banc == "REMPLACE" %}<span class="remplace">{{ demarreur.get_essai_banc_display }}</span>
+                    {% else %}<span>{{ demarreur.get_essai_banc_display }}</span>{% endif %}
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+</div>
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ demarreur.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if demarreur.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ demarreur.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ demarreur.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ demarreur.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        <td class="text-right">
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ demarreur.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ demarreur.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
+
+        <table class="table-2-cols">
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ demarreur.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ demarreur.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+
+<br>
+<!-- ================= REMARQUES ================= -->
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ demarreur.remarques|default:_("Aucune remarque.") }}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

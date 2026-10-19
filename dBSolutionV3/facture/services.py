@@ -356,6 +356,10 @@ def emettre_facture(facture):
         facture.xml_ubl = generate_peppol_invoice(facture).decode("utf-8")
         facture.save(update_fields=["xml_ubl"])
 
+    # Stock : les pièces utilisées des maintenances facturées sont débitées à l'émission
+    from piece.stock import debiter_facture
+    debiter_facture(facture)
+
     # Location(s) facturée(s) : l'acompte déjà versé est repris sur la facture
     acomptes = sum(
         (l.montant_paye for l in facture.locations.all()),

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Démarreur" %}{% endblock %}
+
+{% block content %}
+    {% url 'demarreur:modifier_demarreur' demarreur.pk as url_modifier %}
+    {% url 'demarreur:demarreur_detail_pdf' demarreur.pk as url_pdf %}
+    {% url 'demarreur:delete_demarreur' demarreur.pk as url_delete %}
+    {% if exemplaire %}{% url 'demarreur:demarreur_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Démarreur" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=demarreur km_controle=demarreur.kilometrage_demarreur icone="demarreur.png" %}
+{% endblock %}

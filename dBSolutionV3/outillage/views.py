@@ -42,14 +42,14 @@ def outillage_detail(request, outillage_id):
     tenant = request.user.societe
 
 
-    outillage = get_object_or_404(Outillage, id_outillage=outillage_id)
-
+    outillage = get_object_or_404(Outillage, id_outillage=outillage_id, societe=tenant)
 
     return render(
         request,
         "outillage/outillage_detail.html",
         {
             "outillage": outillage,
+            "ecritures": outillage.ecritures_comptables(),
         },
     )
 

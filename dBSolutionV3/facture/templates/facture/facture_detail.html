@@ -44,6 +44,18 @@
         </div>
     </div>
 
+    {% if facture.client_est_societe %}
+    <!-- Facture interne : pas de paiement -->
+    <div class="bg-gray-50 border border-gray-300 shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-2 flex items-center gap-3">
+            {% trans "Paiement" %}
+            {% with f=facture %}{% include "facture/_paiement.html" %}{% endwith %}
+        </h2>
+        <p class="text-sm text-gray-700">
+            {% trans "Facture à votre propre société : ce n'est pas une vente. Il n'y a rien à encaisser ni à payer, aucune TVA n'est due et elle n'apparaît pas dans les factures à payer ni dans la caisse et la banque. La TVA des pièces est récupérée par les factures d'achat des fournisseurs (page TVA). Le coût de revient est imputé au véhicule dans ses données financières." %}
+        </p>
+    </div>
+    {% else %}
     <!-- Paiement -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <h2 class="text-lg font-semibold mb-4 flex items-center gap-3">
@@ -166,6 +178,7 @@
         {% endif %}
     </div>
 
+    {% endif %}
     <!-- Lignes -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
         <h2 class="text-lg font-semibold mb-4">{% trans "Lignes de la facture" %}</h2>
@@ -235,6 +248,25 @@
         </div>
     </div>
     {% endif %}
+
+    <!-- Stock : pièces utilisées des maintenances (débitées à l'émission) -->
+    {% for m in facture.maintenances.all %}{% with pus=m.pieces_utilisees.all %}{% if pus %}
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-3">{% trans "Pièces utilisées (stock)" %} – {{ m.immatriculation }} {{ m.get_type_maintenance_display }}
+            <a href="{% url 'piece:pieces_maintenance' m.pk %}" class="text-sm text-blue-700 font-normal hover:underline">{% trans "Gérer" %}</a></h2>
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+            <tbody>
+            {% for l in pus %}
+                <tr>
+                    <td class="border px-2 py-1">{{ l.piece }}</td>
+                    <td class="border px-2 py-1 text-right">{{ l.quantite|floatformat:"-2" }}</td>
+                    <td class="border px-2 py-1">{% if l.debitee %}<span class="text-green-700 font-semibold">{% trans "Débitée" %}</span>{% else %}<span class="text-yellow-700">{% trans "Débitée à l'émission" %}</span>{% endif %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}{% endwith %}{% endfor %}
 
     <!-- Actions -->
     <a href="{% url 'facture:pdf' facture.pk %}" target="_blank" class="block w-full mb-4">

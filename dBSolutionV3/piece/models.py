@@ -1,7 +1,51 @@
+from decimal import Decimal
+
+from django.conf import settings
 from django.db import models
 import uuid
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
+
+class CategoriePiece(models.TextChoices):
+    """Familles de pièces (catalogue unique, une catégorie par type de maintenance)."""
+    MOTEUR = "MOTEUR", _("Moteur")
+    DISTRIBUTION = "DISTRIBUTION", _("Distribution")
+    FILTRES = "FILTRES", _("Filtres")
+    FLUIDES = "FLUIDES", _("Fluides (huiles, liquides)")
+    ALLUMAGE = "ALLUMAGE", _("Allumage / bougies")
+    INJECTION = "INJECTION", _("Injection / admission")
+    TURBO = "TURBO", _("Turbo")
+    REFROIDISSEMENT = "REFROIDISSEMENT", _("Refroidissement")
+    ECHAPPEMENT = "ECHAPPEMENT", _("Échappement")
+    EMBRAYAGE = "EMBRAYAGE", _("Embrayage")
+    BOITE = "BOITE", _("Boîte de vitesses")
+    TRANSMISSION = "TRANSMISSION", _("Transmission / cardans")
+    FREINS = "FREINS", _("Freins")
+    PNEUS = "PNEUS", _("Pneus")
+    JANTES = "JANTES", _("Jantes / roues")
+    SUSPENSION = "SUSPENSION", _("Suspension")
+    TRAIN_AV = "TRAIN_AV", _("Train avant / direction")
+    TRAIN_AR = "TRAIN_AR", _("Train arrière")
+    ROULEMENTS = "ROULEMENTS", _("Roulements")
+    SILENT_BLOC = "SILENT_BLOC", _("Silent blocs")
+    ELECTRICITE = "ELECTRICITE", _("Électricité / batterie / démarreur")
+    ELECTRONIQUE = "ELECTRONIQUE", _("Électronique / capteurs")
+    ECLAIRAGE = "ECLAIRAGE", _("Éclairage / ampoules")
+    ESSUYAGE = "ESSUYAGE", _("Essuyage")
+    CLIMATISATION = "CLIMATISATION", _("Climatisation")
+    CARROSSERIE = "CARROSSERIE", _("Carrosserie")
+    HABITACLE = "HABITACLE", _("Habitacle")
+    ESTHETIQUE = "ESTHETIQUE", _("Esthétique / produits d'entretien")
+    AUTRE = "AUTRE", _("Autre")
+
+
+class UnitePiece(models.TextChoices):
+    PIECE = "PIECE", _("Pièce(s)")
+    LITRE = "LITRE", _("Litre(s)")
+    KG = "KG", _("Kilo(s)")
+    METRE = "METRE", _("Mètre(s)")
+    KIT = "KIT", _("Kit(s)")
 
 
 class Fabricant(models.Model):
@@ -62,8 +106,20 @@ class Piece(models.Model):
     fabricants = models.ManyToManyField(
         Fabricant,
         related_name="pieces",
+        blank=True,
         verbose_name=_("Fabricants")
     )
+
+    # Catalogue / stock
+    designation = models.CharField(max_length=150, blank=True, verbose_name=_("Désignation"))
+    categorie = models.CharField(max_length=20, choices=CategoriePiece.choices, default=CategoriePiece.AUTRE,
+                                 verbose_name=_("Catégorie"))
+    fabricant = models.ForeignKey(Fabricant, on_delete=models.SET_NULL, null=True, blank=True,
+                                  related_name="pieces_principales", verbose_name=_("Fabricant"))
+    reference_fabricant = models.CharField(max_length=60, blank=True, verbose_name=_("Référence fabricant"))
+    unite = models.CharField(max_length=10, choices=UnitePiece.choices, default=UnitePiece.PIECE,
+                             verbose_name=_("Unité"))
+    actif = models.BooleanField(default=True, verbose_name=_("Active"))
 
     codes_barres = models.ManyToManyField(
         CodeBarre,
@@ -95,9 +151,10 @@ class Piece(models.Model):
     prix_vente = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix de vente"))
 
     # Stock
-    quantite_stock = models.PositiveIntegerField(default=0, verbose_name=_("Quantité en stock"))
-    quantite_utilisee = models.PositiveIntegerField(default=0, verbose_name=_("Quantité utilisée"))
-    quantite_min = models.PositiveIntegerField(default=0, verbose_name=_("Quantité minimale"))
+    # Décimales : fluides au litre. Le stock peut devenir négatif (pièce utilisée avant son entrée en stock).
+    quantite_stock = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Quantité en stock"))
+    quantite_utilisee = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Quantité utilisée"))
+    quantite_min = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Quantité minimale"))
 
     # Dates
     date_creation = models.DateTimeField(default=timezone.now, verbose_name=_("Date de création"))
@@ -109,12 +166,38 @@ class Piece(models.Model):
     class Meta:
         verbose_name = _("Pièce")
         verbose_name_plural = _("Pièces")
+        ordering = ["categorie", "designation", "oem"]
+        constraints = [
+            # Un code OEM = une seule pièce par société
+            models.UniqueConstraint(
+                fields=["societe", "oem"],
+                condition=~models.Q(oem=""),
+                name="piece_oem_unique_par_societe",
+            ),
+        ]
 
     def __str__(self):
-        return _("%(organe)s - %(marque)s") % {
-            "organe": self.organe or _("Pièce"),
-            "marque": self.marque or _("Marque")
-        }
+        nom = self.designation or self.organe or _("Pièce")
+        return f"{nom} – {self.oem}" if self.oem else str(nom)
+
+    @property
+    def nom_fabricant(self):
+        if self.fabricant_id:
+            return self.fabricant.nom
+        f = self.fabricants.first()
+        return f.nom if f else (self.marque or "")
+
+    @property
+    def eans(self):
+        return [c.code for c in self.codes_barres.all()]
+
+    @property
+    def en_alerte(self):
+        return self.quantite_min and self.quantite_stock <= self.quantite_min
+
+    @property
+    def valeur_stock(self):
+        return (Decimal(self.quantite_stock or 0) * Decimal(self.prix_achat or 0)).quantize(Decimal("0.01"))
 
     def calcul_prix_vente(self):
         """Calcul automatique du prix de vente"""
@@ -157,3 +240,118 @@ class Inventaire(models.Model):
             stock_apres=self.piece.quantite_stock,
             date=timezone.now()
         )
+
+
+
+# ======================================================================
+# STOCK : mouvements, pièces utilisées par maintenance, inventaires
+# ======================================================================
+class MouvementStock(models.Model):
+    """Variation de stock (entrée, sortie, inventaire, correction). quantite > 0 entrée, < 0 sortie."""
+
+    class Type(models.TextChoices):
+        ENTREE = "ENTREE", _("Entrée (achat / réception)")
+        SORTIE = "SORTIE", _("Sortie (utilisation / facture)")
+        INVENTAIRE = "INVENTAIRE", _("Régularisation d'inventaire")
+        CORRECTION = "CORRECTION", _("Correction manuelle")
+        RETOUR = "RETOUR", _("Retour fournisseur / annulation")
+
+    societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, null=True, blank=True,
+                                related_name="mouvements_stock")
+    piece = models.ForeignKey(Piece, on_delete=models.CASCADE, related_name="mouvements", verbose_name=_("Pièce"))
+    type_mouvement = models.CharField(max_length=12, choices=Type.choices, verbose_name=_("Type"))
+    quantite = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Quantité (+/-)"))
+    stock_avant = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Stock avant"))
+    stock_apres = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Stock après"))
+    prix_unitaire = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True,
+                                        verbose_name=_("Prix unitaire HTVA"))
+    maintenance = models.ForeignKey("maintenance.Maintenance", on_delete=models.SET_NULL, null=True, blank=True,
+                                    related_name="mouvements_stock", verbose_name=_("Maintenance"))
+    facture = models.ForeignKey("facture.Facture", on_delete=models.SET_NULL, null=True, blank=True,
+                                related_name="mouvements_stock", verbose_name=_("Facture"))
+    commentaire = models.CharField(max_length=255, blank=True, verbose_name=_("Commentaire"))
+    utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,
+                                    related_name="mouvements_stock", verbose_name=_("Utilisateur"))
+    date = models.DateTimeField(default=timezone.now, verbose_name=_("Date"))
+
+    class Meta:
+        verbose_name = _("Mouvement de stock")
+        verbose_name_plural = _("Mouvements de stock")
+        ordering = ["-date"]
+
+    def __str__(self):
+        return f"{self.piece} : {self.quantite:+}"
+
+
+class PieceUtilisee(models.Model):
+    """
+    Pièce ou fluide utilisé dans une maintenance.
+    Le stock est débité à l'émission de la facture de la maintenance (ou manuellement).
+    """
+    societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, null=True, blank=True,
+                                related_name="pieces_utilisees")
+    maintenance = models.ForeignKey("maintenance.Maintenance", on_delete=models.CASCADE,
+                                    related_name="pieces_utilisees", verbose_name=_("Maintenance"))
+    piece = models.ForeignKey(Piece, on_delete=models.PROTECT, related_name="utilisations", verbose_name=_("Pièce"))
+    quantite = models.DecimalField(max_digits=10, decimal_places=2, default=1, verbose_name=_("Quantité"))
+    prix_unitaire = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix unitaire HTVA"))
+    mouvement = models.OneToOneField(MouvementStock, on_delete=models.SET_NULL, null=True, blank=True,
+                                     related_name="piece_utilisee", verbose_name=_("Sortie de stock"))
+    facture = models.ForeignKey("facture.Facture", on_delete=models.SET_NULL, null=True, blank=True,
+                                related_name="pieces_utilisees", verbose_name=_("Facture"))
+    utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,
+                                    related_name="pieces_utilisees")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("Pièce utilisée")
+        verbose_name_plural = _("Pièces utilisées")
+        ordering = ["created_at"]
+
+    @property
+    def debitee(self):
+        return self.mouvement_id is not None
+
+    @property
+    def total(self):
+        return (Decimal(self.quantite or 0) * Decimal(self.prix_unitaire or 0)).quantize(Decimal("0.01"))
+
+
+class InventaireStock(models.Model):
+    """Inventaire physique : comptage des pièces, puis régularisation des écarts à la clôture."""
+
+    class Statut(models.TextChoices):
+        EN_COURS = "EN_COURS", _("En cours")
+        CLOTURE = "CLOTURE", _("Clôturé")
+
+    societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, null=True, blank=True,
+                                related_name="inventaires_stock")
+    date = models.DateField(default=timezone.localdate, verbose_name=_("Date"))
+    categorie = models.CharField(max_length=20, choices=CategoriePiece.choices, blank=True,
+                                 verbose_name=_("Catégorie (vide = toutes)"))
+    statut = models.CharField(max_length=10, choices=Statut.choices, default=Statut.EN_COURS, verbose_name=_("Statut"))
+    commentaire = models.CharField(max_length=255, blank=True, verbose_name=_("Commentaire"))
+    utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,
+                                    related_name="inventaires_stock")
+    cloture_le = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("Inventaire de stock")
+        verbose_name_plural = _("Inventaires de stock")
+        ordering = ["-date", "-id"]
+
+
+class LigneInventaire(models.Model):
+    inventaire = models.ForeignKey(InventaireStock, on_delete=models.CASCADE, related_name="lignes")
+    piece = models.ForeignKey(Piece, on_delete=models.CASCADE, related_name="lignes_inventaire")
+    stock_theorique = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    quantite_comptee = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+
+    class Meta:
+        unique_together = [("inventaire", "piece")]
+
+    @property
+    def ecart(self):
+        if self.quantite_comptee is None:
+            return None
+        return self.quantite_comptee - self.stock_theorique

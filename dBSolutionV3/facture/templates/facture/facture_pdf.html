@@ -1,4 +1,4 @@
-{% load i18n static %}
+{% load i18n static format_numbers %}
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -122,7 +122,7 @@
                 <div><strong>{% trans "Numéro de TVA" %} :</strong> {{ societe.numero_tva }}</div>
             {% endif %}
             {% if societe.iban %}
-                <div><strong>{% trans "Numéro de compte" %} :</strong> {{ societe.iban }}</div>
+                <div><strong>{% trans "Numéro de compte" %} :</strong> {{ societe.iban|format_iban }}</div>
             {% endif %}
         </div>
 
@@ -278,9 +278,13 @@
     </div>
 {% endif %}
 
-{% if societe.iban and facture.numero %}
+{% if facture.client_est_societe %}
     <div class="mention">
-        {% trans "Merci d'effectuer le paiement sur le compte" %} <strong>{{ societe.iban }}</strong>
+        {% trans "Facture interne (véhicule de la société) : pas de paiement, pas de TVA due – coût d'entretien imputé au véhicule." %}
+    </div>
+{% elif societe.iban and facture.numero %}
+    <div class="mention">
+        {% trans "Merci d'effectuer le paiement sur le compte" %} <strong>{{ societe.iban|format_iban }}</strong>
         {% if facture.due_date %}{% trans "avant le" %} <strong>{{ facture.due_date|date:"d/m/Y" }}</strong>{% endif %},
         {% trans "avec la communication" %} <strong>{{ facture.numero }}</strong>.
     </div>

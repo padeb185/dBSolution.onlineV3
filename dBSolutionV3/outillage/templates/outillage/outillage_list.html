@@ -68,6 +68,10 @@
             <th class="border px-4 py-2 cursor-pointer">{% trans "Quantité" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Prix HTVA" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Taux de TVA" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Transport HTVA" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Total TVA" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Montant TVAC" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Paiement" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
@@ -94,6 +98,16 @@
             <td class="border px-4 py-2">{{ outillage.quantite }}</td>
             <td class="border px-4 py-2">{{ outillage.prix_htva }}</td>
             <td class="border px-4 py-2">{{ outillage.taux_tva }}</td>
+            <td class="border px-4 py-2 text-right">{{ outillage.transport_montant_htva|default:0|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ outillage.montant_tva|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right font-bold">{{ outillage.total_tvac|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-center">
+                {% if outillage.date_paiement %}
+                    <span class="px-2 py-1 rounded text-xs font-semibold bg-green-100 text-green-800">{% trans "Payé" %}</span>
+                {% else %}
+                    <a href="{% url 'facture:a_payer' %}?type=outillage" class="px-2 py-1 rounded text-xs font-semibold bg-red-100 text-red-800">{% trans "À payer" %}</a>
+                {% endif %}
+            </td>
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'outillage:outillage_detail' outillage.id_outillage %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">

@@ -301,6 +301,22 @@ class VoitureExemplaire(models.Model):
         null=True
     )
 
+    # Date d'achat : point de départ des coûts annuels (assurance, taxe, vignettes)
+    date_achat = models.DateField(
+        null=True,
+        blank=True,
+        verbose_name=_("Date d'achat"),
+    )
+
+    # Autres frais d'achat : immatriculation, plaques, transport, préparation, carte grise…
+    frais_achat = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        verbose_name=_("Autres frais d'achat"),
+    )
+
     # 👥 Propriétaires
     nombre_proprietaires = models.PositiveSmallIntegerField(
         default=1,
@@ -464,9 +480,60 @@ class VoitureExemplaire(models.Model):
             self.kilometres_embrayage = km_chassis
 
 
+class CoutAnnuelVehicule(models.Model):
+    """
+    Coût annuel d'un véhicule, modifiable année par année :
+    assurance, taxe de circulation, vignettes (Allemagne, Autriche, Suisse…), contrôle technique…
+    Sans ligne pour une année, l'assurance et la taxe de circulation reprennent
+    les montants annuels par défaut des données financières du véhicule.
+    """
 
+    class Type(models.TextChoices):
+        ASSURANCE = "ASSURANCE", _("Assurance")
+        TAXE_CIRCULATION = "TAXE_CIRCULATION", _("Taxe de circulation")
+        VIGNETTE = "VIGNETTE", _("Vignette / péage")
+        CONTROLE_TECHNIQUE = "CONTROLE_TECHNIQUE", _("Contrôle technique")
+        AUTRE = "AUTRE", _("Autre")
 
+    class PaysVignette(models.TextChoices):
+        AUCUN = "", _("—")
+        DE = "DE", _("Allemagne (Umweltplakette)")
+        AT = "AT", _("Autriche")
+        CH = "CH", _("Suisse")
+        FR = "FR", _("France (Crit'Air)")
+        BE = "BE", _("Belgique (LEZ)")
+        NL = "NL", _("Pays-Bas")
+        LU = "LU", _("Luxembourg")
+        IT = "IT", _("Italie")
+        SI = "SI", _("Slovénie")
+        CZ = "CZ", _("Tchéquie")
+        SK = "SK", _("Slovaquie")
+        HU = "HU", _("Hongrie")
+        RO = "RO", _("Roumanie")
+        BG = "BG", _("Bulgarie")
+        AUTRE = "XX", _("Autre pays")
 
+    exemplaire = models.ForeignKey(
+        VoitureExemplaire,
+        on_delete=models.CASCADE,
+        related_name="couts_annuels",
+        verbose_name=_("Véhicule"),
+    )
+    annee = models.PositiveIntegerField(verbose_name=_("Année"))
+    type_cout = models.CharField(max_length=20, choices=Type.choices, verbose_name=_("Type"))
+    pays = models.CharField(max_length=2, choices=PaysVignette.choices, blank=True, default="", verbose_name=_("Pays"))
+    libelle = models.CharField(max_length=100, blank=True, verbose_name=_("Libellé"))
+    montant = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Montant (€)"))
+    date = models.DateField(null=True, blank=True, verbose_name=_("Date de paiement"))
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = _("Coût annuel du véhicule")
+        verbose_name_plural = _("Coûts annuels du véhicule")
+        ordering = ["-annee", "type_cout", "pays"]
+
+    def __str__(self):
+        return f"{self.exemplaire} – {self.annee} – {self.get_type_cout_display()} : {self.montant} €"
 

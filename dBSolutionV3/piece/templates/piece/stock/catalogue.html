@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Stock pièces et fluides" %}{% endblock %}
+
+{% block content %}
+<br>
+{% trans "Stock pièces et fluides" as titre %}
+{% include "piece/stock/_nav.html" with titre=titre actif="catalogue" %}
+
+<!-- Totaux -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-blue-600">
+        <p class="text-gray-500 text-sm">{% trans "Pièces actives" %}</p>
+        <p class="text-2xl font-bold">{{ totaux.nb }}</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-green-600">
+        <p class="text-gray-500 text-sm">{% trans "Valeur du stock (prix d'achat HTVA)" %}</p>
+        <p class="text-2xl font-bold">{{ totaux.valeur|floatformat:2 }} €</p>
+    </div>
+    <a href="?alerte=1" class="bg-white shadow-md rounded-lg p-5 border-l-4 border-orange-500 hover:bg-orange-50">
+        <p class="text-gray-500 text-sm">{% trans "Sous le stock minimum" %}</p>
+        <p class="text-2xl font-bold text-orange-600">{{ totaux.alertes }}</p>
+    </a>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-red-600">
+        <p class="text-gray-500 text-sm">{% trans "Stock négatif" %}</p>
+        <p class="text-2xl font-bold text-red-700">{{ totaux.negatifs }}</p>
+    </div>
+</div>
+
+<!-- Filtres -->
+<form method="get" class="bg-white shadow-md rounded-lg p-4 mb-6 flex flex-wrap items-end gap-3">
+    <div class="flex-1 min-w-[220px]">
+        <label class="block text-sm text-gray-600 mb-1">{% trans "Rechercher (OEM, EAN, désignation, fabricant, emplacement)" %}</label>
+        <input type="text" name="q" value="{{ q }}" autofocus class="border rounded px-3 py-2 w-full font-mono"
+               placeholder="{% trans 'Scanner ou saisir le code' %}">
+    </div>
+    <div>
+        <label class="block text-sm text-gray-600 mb-1">{% trans "Catégorie" %}</label>
+        <select name="categorie" class="border rounded px-3 py-2" onchange="this.form.submit()">
+            <option value="">{% trans "Toutes" %}</option>
+            {% for val, lib in categories %}
+            <option value="{{ val }}" {% if val == categorie %}selected{% endif %}>{{ lib }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <label class="flex items-center gap-2 py-2"><input type="checkbox" name="alerte" value="1" {% if alerte %}checked{% endif %} onchange="this.form.submit()"> {% trans "En alerte" %}</label>
+    <label class="flex items-center gap-2 py-2"><input type="checkbox" name="inactives" value="1" {% if inactives %}checked{% endif %} onchange="this.form.submit()"> {% trans "Inclure les inactives" %}</label>
+    <button class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">{% trans "Filtrer" %}</button>
+</form>
+
+<div class="bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+    {% if pieces %}
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-2 py-2 text-left">{% trans "Désignation" %}</th>
+                <th class="border px-2 py-2 text-left">{% trans "Catégorie" %}</th>
+                <th class="border px-2 py-2 text-left">{% trans "Code OEM" %}</th>
+                <th class="border px-2 py-2 text-left">{% trans "EAN" %}</th>
+                <th class="border px-2 py-2 text-left">{% trans "Fabricant" %}</th>
+                <th class="border px-2 py-2 text-left">{% trans "Emplacement" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Stock" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Min." %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Prix d'achat HTVA" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Valeur" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in pieces %}
+            <tr class="hover:bg-blue-50 cursor-pointer {% if not p.actif %}text-gray-400{% endif %}" onclick="window.location='{% url 'piece:detail' p.pk %}'">
+                <td class="border px-2 py-2 font-semibold"><a href="{% url 'piece:detail' p.pk %}" class="text-blue-700 hover:underline">{{ p.designation|default:p.organe|default:"—" }}</a></td>
+                <td class="border px-2 py-2">{{ p.get_categorie_display }}</td>
+                <td class="border px-2 py-2 font-mono">{{ p.oem|default:"—" }}</td>
+                <td class="border px-2 py-2 font-mono text-xs">{% for c in p.codes_barres.all %}{{ c.code }}{% if not forloop.last %}<br>{% endif %}{% empty %}—{% endfor %}</td>
+                <td class="border px-2 py-2">{{ p.nom_fabricant|default:"—" }}</td>
+                <td class="border px-2 py-2">{{ p.emplacement_etagere|default:"" }}</td>
+                <td class="border px-2 py-2 text-right font-bold {% if p.quantite_stock < 0 %}text-red-700{% elif p.en_alerte %}text-orange-600{% endif %}">
+                    {{ p.quantite_stock|floatformat:"-2" }} <span class="text-xs font-normal text-gray-500">{{ p.get_unite_display }}</span>
+                </td>
+                <td class="border px-2 py-2 text-right">{{ p.quantite_min|floatformat:"-2" }}</td>
+                <td class="border px-2 py-2 text-right">{{ p.prix_achat|floatformat:2 }} €</td>
+                <td class="border px-2 py-2 text-right">{{ p.valeur_stock|floatformat:2 }} €</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if page.has_other_pages %}
+    <div class="flex justify-center gap-2 mt-4">
+        {% if page.has_previous %}<a class="px-3 py-1 rounded bg-gray-200" href="?q={{ q|urlencode }}&categorie={{ categorie }}{% if alerte %}&alerte=1{% endif %}{% if inactives %}&inactives=1{% endif %}&page={{ page.previous_page_number }}">&laquo;</a>{% endif %}
+        <span class="px-3 py-1">{{ page.number }} / {{ page.paginator.num_pages }}</span>
+        {% if page.has_next %}<a class="px-3 py-1 rounded bg-gray-200" href="?q={{ q|urlencode }}&categorie={{ categorie }}{% if alerte %}&alerte=1{% endif %}{% if inactives %}&inactives=1{% endif %}&page={{ page.next_page_number }}">&raquo;</a>{% endif %}
+    </div>
+    {% endif %}
+    {% else %}
+    <p class="text-gray-500">{% trans "Aucune pièce trouvée." %}
+        {% if q and peut_gerer %}<a href="{% url 'piece:add' %}?oem={{ q|urlencode }}" class="text-blue-700 underline">{% trans "Créer cette pièce" %}</a>{% endif %}
+    </p>
+    {% endif %}
+</div>
+{% endblock %}

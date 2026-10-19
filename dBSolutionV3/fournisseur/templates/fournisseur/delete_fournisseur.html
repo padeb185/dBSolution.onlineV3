@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static format_numbers %}
 
 {% block content %}
 
@@ -97,7 +97,7 @@
             <dd class="font-medium">{{ fournisseur.gsm|default:"—" }}</dd>
 
             <dt class="text-gray-600">{% trans "Numéro de compte bancaire" %}</dt>
-            <dd class="font-medium">{{ fournisseur.numero_compte|default:"—" }}</dd>
+            <dd class="font-medium">{{ fournisseur.numero_compte|format_iban|default:"—"  }}</dd>
         </dl>
     </div>
 

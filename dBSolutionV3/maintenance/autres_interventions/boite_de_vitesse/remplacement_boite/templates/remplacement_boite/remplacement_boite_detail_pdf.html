@@ -1,4 +1,4 @@
-{% load i18n static %}
+{% load i18n static format_numbers %}
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -286,7 +286,7 @@
              {% if remplacement.tech_societe.iban %}
                 <div>
                     <strong>{% trans "Numéro de compte" %} :</strong>
-                    {{ remplacement.tech_societe.iban }}
+                    {{ remplacement.tech_societe.iban|format_iban }}
                 </div>
             {% endif %}
         </div>

@@ -52,6 +52,7 @@ class VoitureExemplaireForm(forms.ModelForm):
             "cote_conduite",
             "kilometres_chassis",
             "etat_achat",
+            "date_achat",
             "kilometrage_achat",
             "kilometres_moteur",
             "kilometres_boite",
@@ -76,9 +77,11 @@ class VoitureExemplaireForm(forms.ModelForm):
             }),
             "est_apres_2010": forms.CheckboxInput(attrs={"class": "mt-2"}),
             "kilometrage_achat": forms.NumberInput(attrs={"min": "0"}),
+            "date_achat": forms.DateInput(attrs={"type": "date", "class": "input"}, format="%Y-%m-%d"),
         }
         labels = {
             "etat_achat": _("Véhicule acheté"),
+            "date_achat": _("Date d'achat"),
             "kilometrage_achat": _("Kilométrage de départ (km)"),
         }
         help_texts = {
@@ -90,6 +93,7 @@ class VoitureExemplaireForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields["date_mise_en_circulation"].widget.format = "%Y-%m-%d"
+        self.fields["date_achat"].required = False
 
     def clean_numero_vin(self):
         vin = self.cleaned_data.get("numero_vin")
@@ -178,6 +182,7 @@ class VoitureExemplaireForm(forms.ModelForm):
 
 FINANCE_FIELDS = (
     "etat_achat",
+    "date_achat",
     "kilometrage_achat",
     "prix_achat",
     "assurance",
@@ -185,6 +190,11 @@ FINANCE_FIELDS = (
     "taxe_roulage",
     "nombre_proprietaires",
     "part_proprietaires_pourcent",
+)
+
+# Champs financiers facultatifs (non comptés dans « données incomplètes »)
+FINANCE_FIELDS_OPTIONNELS = (
+    "frais_achat",
 )
 
 
@@ -196,7 +206,7 @@ class VoitureExemplaireFinanceForm(forms.ModelForm):
 
     class Meta:
         model = VoitureExemplaire
-        fields = FINANCE_FIELDS
+        fields = FINANCE_FIELDS + FINANCE_FIELDS_OPTIONNELS
         labels = {
             "etat_achat": _("Véhicule acheté"),
             "kilometrage_achat": _("Kilométrage de départ (km)"),
@@ -204,6 +214,8 @@ class VoitureExemplaireFinanceForm(forms.ModelForm):
             "assurance": _("Assurance annuelle (€)"),
             "taxe_mise_en_circulation": _("Taxe de mise en circulation (€)"),
             "taxe_roulage": _("Taxe de roulage annuelle (€)"),
+            "date_achat": _("Date d'achat"),
+            "frais_achat": _("Autres frais d'achat (immatriculation, plaques, transport…) (€)"),
             "nombre_proprietaires": _("Nombre de propriétaires"),
             "part_proprietaires_pourcent": _("Part des propriétaires (%)"),
         }
@@ -216,13 +228,15 @@ class VoitureExemplaireFinanceForm(forms.ModelForm):
             "assurance": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
             "taxe_mise_en_circulation": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
             "taxe_roulage": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
+            "date_achat": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "frais_achat": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
             "nombre_proprietaires": forms.NumberInput(attrs={"min": "1", "max": "10"}),
             "part_proprietaires_pourcent": forms.NumberInput(attrs={"step": "0.01", "min": "0", "max": "100"}),
         }
 
     def clean(self):
         cleaned_data = super().clean()
-        for name in ("prix_achat", "assurance", "taxe_mise_en_circulation", "taxe_roulage"):
+        for name in ("prix_achat", "assurance", "taxe_mise_en_circulation", "taxe_roulage", "frais_achat"):
             value = cleaned_data.get(name)
             if value is not None and value < 0:
                 self.add_error(name, _("Le montant ne peut pas être négatif."))
@@ -230,3 +244,27 @@ class VoitureExemplaireFinanceForm(forms.ModelForm):
         # Kilométrage de départ : 0 pour un neuf, obligatoire pour une occasion
         valider_kilometrage_achat(self, cleaned_data)
         return cleaned_data
+
+
+
+from .models import CoutAnnuelVehicule  # noqa: E402
+
+
+class CoutAnnuelVehiculeForm(forms.ModelForm):
+    class Meta:
+        model = CoutAnnuelVehicule
+        fields = ["annee", "type_cout", "pays", "libelle", "montant", "date"]
+        widgets = {
+            "annee": forms.NumberInput(attrs={"min": "1990", "max": "2100", "class": "border rounded px-2 py-1 w-24"}),
+            "type_cout": forms.Select(attrs={"class": "border rounded px-2 py-1"}),
+            "pays": forms.Select(attrs={"class": "border rounded px-2 py-1"}),
+            "libelle": forms.TextInput(attrs={"class": "border rounded px-2 py-1 w-full"}),
+            "montant": forms.NumberInput(attrs={"step": "0.01", "min": "0", "class": "border rounded px-2 py-1 w-28"}),
+            "date": forms.DateInput(attrs={"type": "date", "class": "border rounded px-2 py-1"}, format="%Y-%m-%d"),
+        }
+
+    def clean_montant(self):
+        montant = self.cleaned_data.get("montant")
+        if montant is not None and montant < 0:
+            raise forms.ValidationError(_("Le montant ne peut pas être négatif."))
+        return montant

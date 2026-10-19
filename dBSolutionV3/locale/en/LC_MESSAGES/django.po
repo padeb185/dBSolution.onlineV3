@@ -49290,6 +49290,832 @@ msgstr "Payment cancelled: %(achat)s"
 msgid "Facture d'achat payée : %(achat)s"
 msgstr "Purchase invoice paid: %(achat)s"
 
+#: core/iban.py
+msgid ""
+"L'IBAN doit commencer par le code pays (2 lettres) suivi de 2 chiffres de "
+"contrôle."
+msgstr ""
+"The IBAN must start with the country code (2 letters) followed by 2 check "
+"digits."
+
+#: core/iban.py
+#, python-format
+msgid "Un IBAN %(pays)s compte %(attendu)s caractères (%(saisi)s saisis)."
+msgstr "A %(pays)s IBAN has %(attendu)s characters (%(saisi)s entered)."
+
+#: core/iban.py
+msgid "Longueur d'IBAN invalide."
+msgstr "Invalid IBAN length."
+
+#: core/iban.py
+msgid "Clé de contrôle IBAN incorrecte (mod 97) : vérifiez le numéro saisi."
+msgstr ""
+"Incorrect IBAN check digits (mod 97): please check the number entered."
+
+#: core/iban.py
+msgid "IBAN valide"
+msgstr "Valid IBAN"
+
+#: core/iban.py
+msgid "Code pays (2 lettres) suivi de 2 chiffres de contrôle attendu"
+msgstr "Country code (2 letters) followed by 2 check digits expected"
+
+#: core/iban.py
+msgid "Longueur attendue : {n} caractères"
+msgstr "Expected length: {n} characters"
+
+#: core/iban.py
+msgid "Clé de contrôle IBAN incorrecte (mod 97)"
+msgstr "Incorrect IBAN check digits (mod 97)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Acquisition"
+msgstr "Acquisition"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Allemagne (Umweltplakette)"
+msgstr "Germany (Umweltplakette)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Assurance, taxe de circulation et vignettes par année"
+msgstr "Insurance, road tax and vignettes per year"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Assurance, taxes, vignettes…"
+msgstr "Insurance, taxes, vignettes…"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Aucune location pour ce véhicule."
+msgstr "No rental for this vehicle."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Aucune maintenance chiffrée pour ce véhicule."
+msgstr "No costed maintenance for this vehicle."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Autre pays"
+msgstr "Other country"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Autres frais d'achat"
+msgstr "Other purchase costs"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Autres frais d'achat (immatriculation, plaques, transport…) (€)"
+msgstr "Other purchase costs (registration, plates, transport…) (€)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Belgique (LEZ)"
+msgstr "Belgium (LEZ)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Contrôle technique"
+msgstr "Technical inspection"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût annuel du véhicule"
+msgstr "Annual vehicle cost"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût annuel enregistré."
+msgstr "Annual cost saved."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût annuel supprimé."
+msgstr "Annual cost deleted."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût au kilomètre indisponible : complétez le kilométrage de départ."
+msgstr "Cost per km unavailable: enter the starting mileage."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût d'acquisition"
+msgstr "Acquisition cost"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût total (acquisition + utilisation)"
+msgstr "Total cost (acquisition + use)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coûts annuels du véhicule"
+msgstr "Annual vehicle costs"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coûts d'utilisation"
+msgstr "Running costs"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Date d'achat"
+msgstr "Purchase date"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Depuis le"
+msgstr "Since"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Entretien interne"
+msgstr "In-house maintenance"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Entretien interne au coût de revient HTVA (pièces au prix d'achat + "
+"main-d'œuvre) et factures des garages externes HTVA."
+msgstr ""
+"In-house maintenance at cost excl. VAT (parts at purchase price + labour) "
+"and external garage invoices excl. VAT."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Fixer"
+msgstr "Set"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "France (Crit'Air)"
+msgstr "France (Crit'Air)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Garage externe"
+msgstr "External garage"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Kilomètres parcourus depuis l'achat"
+msgstr "Kilometres driven since purchase"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Montant (€)"
+msgstr "Amount (€)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Montants HTVA (énergie, maintenances, locations). Résultat net = revenus des"
+" locations − coût d'acquisition − coûts d'utilisation."
+msgstr ""
+"Amounts excl. VAT (energy, maintenance, rentals). Net result = rental income"
+" − acquisition cost − running costs."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Montants annuels par défaut. Ils peuvent être modifiés année par année (et "
+"les vignettes ajoutées) dans le détail des données financières."
+msgstr ""
+"Default annual amounts. They can be changed year by year (and vignettes "
+"added) in the financial data detail."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Origine"
+msgstr "Origin"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Par km"
+msgstr "Per km"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Rentabilité du véhicule"
+msgstr "Vehicle profitability"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Revenus des locations (HTVA)"
+msgstr "Rental income (excl. VAT)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Résultat net"
+msgstr "Net result"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Résultat net du véhicule"
+msgstr "Vehicle net result"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Sans montant saisi pour une année, l'assurance et la taxe de circulation "
+"reprennent le montant annuel par défaut, au prorata des mois de détention. "
+"Saisissez une ligne pour le remplacer."
+msgstr ""
+"Without an amount entered for a year, insurance and road tax use the default"
+" annual amount, pro rata to the months owned. Enter a line to replace it."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Taxe de circulation"
+msgstr "Road tax"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Taxe de mise en circulation"
+msgstr "Registration tax"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Utilisation"
+msgstr "Use"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Vignette / péage"
+msgstr "Vignette / toll"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "garages"
+msgstr "garages"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "internes"
+msgstr "in-house"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "km châssis"
+msgstr "chassis km"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "km de départ"
+msgstr "starting km"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+#, python-format
+msgid "montant annuel par défaut (%(mois)s/12 mois)"
+msgstr "default annual amount (%(mois)s/12 months)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Énergie"
+msgstr "Energy"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "—"
+msgstr "—"
+
+#: facture/templates/facture/facture_detail.html
+msgid "Interne – sans paiement"
+msgstr "Internal – no payment"
+
+#: facture/templates/facture/facture_detail.html
+msgid "Facture interne : aucun paiement à enregistrer."
+msgstr "Internal invoice: no payment to record."
+
+#: facture/templates/facture/facture_detail.html
+msgid ""
+"Facture interne (véhicule de la société) : pas de paiement, pas de TVA due –"
+" coût d'entretien imputé au véhicule."
+msgstr ""
+"Internal invoice (company vehicle): no payment, no VAT due – maintenance "
+"cost allocated to the vehicle."
+
+#: facture/templates/facture/facture_detail.html
+msgid ""
+"Facture à votre propre société : ce n'est pas une vente. Il n'y a rien à "
+"encaisser ni à payer, aucune TVA n'est due et elle n'apparaît pas dans les "
+"factures à payer ni dans la caisse et la banque. La TVA des pièces est "
+"récupérée par les factures d'achat des fournisseurs (page TVA). Le coût de "
+"revient est imputé au véhicule dans ses données financières."
+msgstr ""
+"Invoice to your own company: this is not a sale. There is nothing to collect"
+" or pay, no VAT is due and it does not appear in invoices to pay or in cash "
+"and bank. VAT on parts is recovered through supplier purchase invoices (VAT "
+"page). The cost price is allocated to the vehicle in its financial data."
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Charbons (balais)"
+msgstr "Carbon brushes"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Collecteur de l'induit (rectification)"
+msgstr "Armature commutator (skimming)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Couronne du volant moteur"
+msgstr "Flywheel ring gear"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Coussinets / bagues de palier"
+msgstr "Bushes / bearing rings"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Câble d'alimentation (+ batterie)"
+msgstr "Supply cable (battery +)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Démarreur complet (neuf ou échange standard)"
+msgstr "Complete starter (new or exchange)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Essai au banc / test de démarrage"
+msgstr "Bench test / starting test"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Fourchette d'engrènement"
+msgstr "Engagement fork"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Graisse (nettoyage et graissage)"
+msgstr "Grease (cleaning and lubrication)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Inducteurs / aimants (stator)"
+msgstr "Field coils / magnets (stator)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Induit (rotor)"
+msgstr "Armature (rotor)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Intervention démarreur"
+msgstr "Starter job"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Joints et visserie"
+msgstr "Seals and fasteners"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Lanceur (pignon / bendix)"
+msgstr "Drive pinion (bendix)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Modification intervention démarreur"
+msgstr "Starter job update"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Porte-balais"
+msgstr "Brush holder"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Relais de démarrage"
+msgstr "Starter relay"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Remplacement"
+msgstr "Replacement"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Restauration (réfection)"
+msgstr "Restoration (rebuild)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Roue libre du lanceur"
+msgstr "Pinion freewheel"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Réducteur planétaire"
+msgstr "Planetary reduction gear"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Solénoïde (contacteur / relais de démarreur)"
+msgstr "Solenoid (starter switch / relay)"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Suppression de l'intervention démarreur"
+msgstr "Starter job deletion"
+
+#: maintenance/autres_interventions/demarreur/models.py
+msgid "Type d'intervention"
+msgstr "Type of job"
+
+#: achat_mds/comptabilite.py
+msgid "Outillage – frais de transport"
+msgstr "Tools – transport costs"
+
+#: achat_mds/comptabilite.py
+msgid "Achats et outillage"
+msgstr "Purchases and tools"
+
+#: achat_mds/comptabilite.py
+#, python-format
+msgid ""
+"Les frais de transport facturés avec la marchandise sont des frais "
+"accessoires d'achat : même taux de TVA que la marchandise, TVA déductible "
+"dans les mêmes conditions, et incorporés au coût d'acquisition (compte "
+"%(compte)s). La TVA déductible va au compte 411000 et apparaît dans la page "
+"TVA (source « Frais de transport sur achats »)."
+msgstr ""
+"Transport costs invoiced with the goods are incidental purchase costs: same "
+"VAT rate as the goods, VAT deductible under the same conditions, and "
+"included in the acquisition cost (account %(compte)s). Deductible VAT goes "
+"to account 411000 and appears on the VAT page (source “Transport costs on "
+"purchases”)."
+
+msgid "Allumage / bougies"
+msgstr "Ignition / spark plugs"
+
+msgid "Annuler le débit"
+msgstr "Cancel the debit"
+
+msgid "Au"
+msgstr "To"
+
+msgid "Aucun inventaire."
+msgstr "No inventory."
+
+msgid "Aucun mouvement de stock."
+msgstr "No stock movement."
+
+msgid "Aucune pièce dans cet inventaire."
+msgstr "No part in this inventory."
+
+msgid "Aucune pièce encodée pour cette maintenance."
+msgstr "No part entered for this maintenance."
+
+msgid "Aucune pièce trouvée."
+msgstr "No part found."
+
+msgid "Boîte de vitesses"
+msgstr "Gearbox"
+
+msgid "Catégorie"
+msgstr "Category"
+
+msgid "Catégorie (vide = toutes)"
+msgstr "Category (empty = all)"
+
+#, python-format
+msgid "Ce code OEM existe déjà : %(piece)s"
+msgstr "This OEM code already exists: %(piece)s"
+
+msgid "Chercher"
+msgstr "Search"
+
+msgid "Clôturer et régulariser"
+msgstr "Close and adjust"
+
+msgid "Clôturer l'inventaire et régulariser le stock ?"
+msgstr "Close the inventory and adjust the stock?"
+
+msgid "Clôturé"
+msgstr "Closed"
+
+msgid "Code OEM (un seul par pièce)"
+msgstr "OEM code (one per part)"
+
+msgid "Codes EAN"
+msgstr "EAN codes"
+
+msgid "Codes EAN (plusieurs possibles)"
+msgstr "EAN codes (several allowed)"
+
+msgid "Compatibilité"
+msgstr "Compatibility"
+
+msgid "Comptage enregistré."
+msgstr "Count saved."
+
+msgid "Correction : quantité signée (+ ou −). Autres : quantité positive."
+msgstr "Correction: signed quantity (+ or −). Others: positive quantity."
+
+msgid "Correction manuelle"
+msgstr "Manual correction"
+
+msgid "Créer cette pièce"
+msgstr "Create this part"
+
+msgid "Créer l'inventaire"
+msgstr "Create the inventory"
+
+msgid "Diminutions de stock"
+msgstr "Stock decreases"
+
+msgid "Débit annulé : pièce remise en stock."
+msgstr "Debit cancelled: part returned to stock."
+
+msgid "Débiter maintenant"
+msgstr "Debit now"
+
+msgid "Débitée"
+msgstr "Debited"
+
+msgid "Débitée à l'émission"
+msgstr "Debited on issue"
+
+msgid "EAN"
+msgstr "EAN"
+
+#, python-format
+msgid "EAN déjà attribué à une autre pièce (%(piece)s) : %(eans)s"
+msgstr "EAN already assigned to another part (%(piece)s): %(eans)s"
+
+msgid "En alerte"
+msgstr "Alert"
+
+msgid "En attente de facture"
+msgstr "Awaiting invoice"
+
+msgid "Enregistrer le comptage"
+msgstr "Save the count"
+
+msgid "Enregistrer le mouvement"
+msgstr "Save the movement"
+
+msgid "Entrée (achat / réception)"
+msgstr "Receipt (purchase / delivery)"
+
+msgid "Entrées"
+msgstr "Receipts"
+
+msgid "Esthétique / produits d'entretien"
+msgstr "Detailing / care products"
+
+msgid "Export CSV"
+msgstr "CSV export"
+
+msgid "Filtrer"
+msgstr "Filter"
+
+msgid "Fluides (huiles, liquides)"
+msgstr "Fluids (oils, liquids)"
+
+msgid "Gérer"
+msgstr "Manage"
+
+msgid "Habitacle"
+msgstr "Interior"
+
+msgid "Inclure les inactives"
+msgstr "Include inactive"
+
+msgid "Indiquez au moins une désignation ou un code OEM."
+msgstr "Enter at least a description or an OEM code."
+
+msgid "Injection / admission"
+msgstr "Injection / intake"
+
+#, python-format
+msgid "Inventaire clôturé : %(n)s régularisation(s) de stock."
+msgstr "Inventory closed: %(n)s stock adjustment(s)."
+
+msgid "Inventaire créé : comptez les pièces puis clôturez."
+msgstr "Inventory created: count the parts, then close."
+
+msgid "Inventaire de stock"
+msgstr "Stock inventory"
+
+msgid "Inventaire, variations de stock"
+msgstr "Inventory, stock changes"
+
+msgid "Inventaires de stock"
+msgstr "Stock inventories"
+
+msgid "Jantes / roues"
+msgstr "Rims / wheels"
+
+msgid "Kilo(s)"
+msgstr "Kilo(s)"
+
+msgid "Kit(s)"
+msgstr "Kit(s)"
+
+msgid "La quantité ne peut pas être nulle."
+msgstr "The quantity cannot be zero."
+
+msgid ""
+"Le stock théorique de chaque pièce active est figé à la création. Comptez "
+"ensuite les pièces ; à la clôture, chaque écart est régularisé par un "
+"mouvement de stock."
+msgstr ""
+"The theoretical stock of each active part is frozen at creation. Then count "
+"the parts; on closing, each difference is adjusted by a stock movement."
+
+msgid ""
+"Les pièces encodées ici sont débitées du stock automatiquement à l'émission "
+"de la facture de la maintenance."
+msgstr ""
+"Parts entered here are automatically debited from stock when the maintenance"
+" invoice is issued."
+
+msgid "Litre(s)"
+msgstr "Litre(s)"
+
+msgid "Maintenance / facture"
+msgstr "Maintenance / invoice"
+
+msgid "Marge %"
+msgstr "Margin %"
+
+msgid "Marque (compatibilité)"
+msgstr "Make (compatibility)"
+
+msgid "Min."
+msgstr "Min."
+
+msgid "Modifier la pièce"
+msgstr "Edit the part"
+
+msgid "Modèle (compatibilité)"
+msgstr "Model (compatibility)"
+
+msgid "Mouvement de stock"
+msgstr "Stock movement"
+
+msgid "Mouvement de stock enregistré."
+msgstr "Stock movement saved."
+
+msgid "Mouvements de stock"
+msgstr "Stock movements"
+
+msgid "Mètre(s)"
+msgstr "Metre(s)"
+
+msgid "Nouvel inventaire"
+msgstr "New inventory"
+
+msgid "Nouvelle pièce"
+msgstr "New part"
+
+#, python-format
+msgid "Nouvelle pièce créée au catalogue : %(p)s"
+msgstr "New part created in the catalogue: %(p)s"
+
+msgid "OEM / EAN"
+msgstr "OEM / EAN"
+
+msgid "Pas encore facturée"
+msgstr "Not yet invoiced"
+
+msgid "Pièce (OEM, EAN, désignation)"
+msgstr "Part (OEM, EAN, description)"
+
+msgid "Pièce ajoutée à la maintenance."
+msgstr "Part added to the maintenance."
+
+msgid "Pièce débitée du stock."
+msgstr "Part debited from stock."
+
+msgid "Pièce déjà débitée du stock : annulez d'abord le débit."
+msgstr "Part already debited from stock: cancel the debit first."
+
+msgid "Pièce enregistrée."
+msgstr "Part saved."
+
+msgid ""
+"Pièce inconnue : complétez désignation, fabricant et prix, elle sera créée "
+"au catalogue."
+msgstr ""
+"Unknown part: fill in description, manufacturer and price; it will be "
+"created in the catalogue."
+
+msgid "Pièce retirée de la maintenance."
+msgstr "Part removed from the maintenance."
+
+msgid "Pièce trouvée – stock :"
+msgstr "Part found – stock:"
+
+msgid "Pièce utilisée"
+msgstr "Used part"
+
+msgid ""
+"Pièce utilisée dans des maintenances : désactivez-la plutôt que de la "
+"supprimer."
+msgstr "Part used in maintenances: deactivate it rather than delete it."
+
+msgid "Pièce(s)"
+msgstr "Piece(s)"
+
+msgid "Pièces actives"
+msgstr "Active parts"
+
+msgid "Pièces comptées"
+msgstr "Parts counted"
+
+msgid "Pièces et fluides de la maintenance"
+msgstr "Parts and fluids of the maintenance"
+
+msgid "Pièces utilisées"
+msgstr "Used parts"
+
+msgid "Pièces utilisées (stock)"
+msgstr "Used parts (stock)"
+
+msgid "Prix de vente HTVA"
+msgstr "Selling price excl. VAT"
+
+msgid ""
+"Prix de vente à 0 : calculé automatiquement depuis le prix d'achat et la "
+"majoration."
+msgstr ""
+"Selling price at 0: calculated automatically from purchase price and markup."
+
+msgid "Prix et stock"
+msgstr "Price and stock"
+
+msgid "Quantité (+/-)"
+msgstr "Quantity (+/-)"
+
+msgid "Quantité comptée"
+msgstr "Counted quantity"
+
+msgid "Rechercher (OEM, EAN, désignation, fabricant, emplacement)"
+msgstr "Search (OEM, EAN, description, manufacturer, location)"
+
+msgid "Remettre cette pièce en stock ?"
+msgstr "Return this part to stock?"
+
+msgid "Retirer cette pièce ?"
+msgstr "Remove this part?"
+
+msgid "Retour fournisseur / annulation"
+msgstr "Supplier return / cancellation"
+
+msgid "Référence fabricant"
+msgstr "Manufacturer reference"
+
+msgid "Régularisation d'inventaire"
+msgstr "Inventory adjustment"
+
+msgid "Scanner ou saisir le code"
+msgstr "Scan or enter the code"
+
+msgid "Scanner un EAN / OEM : +1 sur la ligne"
+msgstr "Scan an EAN / OEM: +1 on the line"
+
+msgid "Scannez un code OEM / EAN ou indiquez la pièce."
+msgstr "Scan an OEM / EAN code or enter the part."
+
+msgid "Sortie (utilisation / facture)"
+msgstr "Issue (use / invoice)"
+
+msgid "Sortie de stock"
+msgstr "Stock issue"
+
+msgid "Sous le stock minimum"
+msgstr "Below minimum stock"
+
+msgid "Stock"
+msgstr "Stock"
+
+msgid "Stock avant"
+msgstr "Stock before"
+
+msgid "Stock initial"
+msgstr "Initial stock"
+
+msgid "Stock minimum (alerte)"
+msgstr "Minimum stock (alert)"
+
+msgid "Stock négatif"
+msgstr "Negative stock"
+
+msgid "Stock pièces et fluides"
+msgstr "Parts and fluids stock"
+
+msgid "Stock théorique"
+msgstr "Theoretical stock"
+
+msgid "TVA %"
+msgstr "VAT %"
+
+msgid "Tous"
+msgstr "All"
+
+msgid "Toutes"
+msgstr "All"
+
+msgid "Toutes les catégories"
+msgstr "All categories"
+
+msgid "Train avant / direction"
+msgstr "Front axle / steering"
+
+msgid "Transmission / cardans"
+msgstr "Transmission / drive shafts"
+
+msgid ""
+"Un EAN par ligne (ou séparés par une virgule). Scannez-les l'un après "
+"l'autre."
+msgstr "One EAN per line (or comma-separated). Scan them one after another."
+
+msgid "Unité"
+msgstr "Unit"
+
+msgid "Utilisée dans les maintenances"
+msgstr "Used in maintenances"
+
+msgid "Valeur des écarts (prix d'achat HTVA)"
+msgstr "Value of differences (purchase price excl. VAT)"
+
+msgid "Valeur du stock (prix d'achat HTVA)"
+msgstr "Stock value (purchase price excl. VAT)"
+
+msgid "Variation nette"
+msgstr "Net change"
+
+msgid "Variations de stock"
+msgstr "Stock changes"
+
+msgid "Vide : prix de vente de la fiche pièce."
+msgstr "Empty: selling price from the part record."
+
+#, python-format
+msgid "Voulez-vous vraiment supprimer la pièce « %(nom)s » ?"
+msgstr "Do you really want to delete the part “%(nom)s”?"
+
+msgid "stock"
+msgstr "stock"
+
+msgid "vide = toutes"
+msgstr "empty = all"
+
+msgid "Écart"
+msgstr "Difference"
+
+msgid "Éclairage / ampoules"
+msgstr "Lighting / bulbs"
+
+msgid "Électricité / batterie / démarreur"
+msgstr "Electrics / battery / starter"
+
+msgid "Électronique / capteurs"
+msgstr "Electronics / sensors"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Automatic gearbox services"
 

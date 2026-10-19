@@ -6,11 +6,9 @@ from stdnum import iban
 
 
 def validate_iban(value):
-    if not iban.is_valid(value):
-        raise ValidationError("IBAN invalide")
-
-
-
+    """IBAN : longueur du pays + clé mod 97 (voir core.iban)."""
+    from core.iban import validate_iban as _valider
+    _valider(value)
 
 class SocieteCliente(models.Model):
     id_societe_cliente = models.UUIDField(

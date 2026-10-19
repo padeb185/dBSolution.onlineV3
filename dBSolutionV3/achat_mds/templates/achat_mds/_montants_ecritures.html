@@ -1,0 +1,71 @@
+{% load i18n %}
+<!-- Montants, TVA (marchandise + transport) et comptabilisation – achats MDS et outillage -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Montants et TVA à récupérer" %}</h2>
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm mb-6">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-2 py-2 text-left">{% trans "Poste" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "HTVA" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Taux" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "TVA à récupérer" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "TVAC" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="border px-2 py-1">{% if libelle_marchandise %}{{ libelle_marchandise }}{% else %}{% trans "Marchandises / pièces" %}{% endif %}</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.achat_montant_htva|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.achat_tva|floatformat:"-2" }} %</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.montant_tva_achat|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right"></td>
+                </tr>
+                <tr>
+                    <td class="border px-2 py-1">{% trans "Frais de transport" %}</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.transport_montant_htva|default:0|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.taux_tva_transport|floatformat:"-2" }} %</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.montant_tva_transport|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="bg-gray-100 font-semibold">
+                    <td class="border px-2 py-1">{% trans "Total" %}</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.montant_htva_total|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1"></td>
+                    <td class="border px-2 py-1 text-right">{{ achat.montant_tva|floatformat:2 }} €</td>
+                    <td class="border px-2 py-1 text-right">{{ achat.total_tvac|floatformat:2 }} €</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <h2 class="text-lg font-semibold mb-2">{% trans "Comptabilisation" %}</h2>
+        <p class="text-sm text-gray-600 mb-3">
+            {% blocktrans with compte=achat.COMPTE_TRANSPORT %}Les frais de transport facturés avec la marchandise sont des frais accessoires d'achat : même taux de TVA que la marchandise, TVA déductible dans les mêmes conditions, et incorporés au coût d'acquisition (compte {{ compte }}). La TVA déductible va au compte 411000 et apparaît dans la page TVA (source « Frais de transport sur achats »).{% endblocktrans %}
+        </p>
+        <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-2 py-2 text-left">{% trans "Journal" %}</th>
+                    <th class="border px-2 py-2 text-left">{% trans "Date" %}</th>
+                    <th class="border px-2 py-2 text-left">{% trans "Compte" %}</th>
+                    <th class="border px-2 py-2 text-left">{% trans "Intitulé du compte" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Débit" %}</th>
+                    <th class="border px-2 py-2 text-right">{% trans "Crédit" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for e in ecritures %}
+                <tr>
+                    <td class="border px-2 py-1">{{ e.journal }}</td>
+                    <td class="border px-2 py-1">{{ e.date|date:"d/m/Y" }}</td>
+                    <td class="border px-2 py-1 font-mono">{{ e.compte }}</td>
+                    <td class="border px-2 py-1">{{ e.intitule }}</td>
+                    <td class="border px-2 py-1 text-right">{% if e.debit %}{{ e.debit|floatformat:2 }} €{% endif %}</td>
+                    <td class="border px-2 py-1 text-right">{% if e.credit %}{{ e.credit|floatformat:2 }} €{% endif %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+

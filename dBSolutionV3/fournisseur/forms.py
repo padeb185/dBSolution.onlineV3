@@ -176,18 +176,6 @@ class FournisseurForm(forms.ModelForm):
 
 
     def clean_numero_compte(self):
-        value = self.cleaned_data.get("numero_compte")
-
-        if not value:
-            return None
-
-        # nettoyage
-        value = value.replace(" ", "").upper()
-
-        # validation IBAN
-        if not iban.is_valid(value):
-            raise forms.ValidationError(
-                _("Numéro de compte IBAN invalide")
-            )
-
-        return value
+        # IBAN : nettoyage (sans espaces, majuscules), longueur du pays et clé mod 97
+        from core.iban import nettoyer_iban_formulaire
+        return nettoyer_iban_formulaire(self.cleaned_data.get("numero_compte"))

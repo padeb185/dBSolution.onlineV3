@@ -1,4 +1,4 @@
-{% load i18n static %}
+{% load i18n static format_numbers %}
 
 <!DOCTYPE html>
 <html>
@@ -233,7 +233,7 @@
              {% if maindoeuvre.utilisateur.iban %}
                 <div>
                     <strong>{% trans "Numéro de compte" %} :</strong>
-                    {{ maindoeuvre.utilisateur.iban }}
+                    {{ maindoeuvre.utilisateur.iban|format_iban }}
                 </div>
             {% endif %}
         </div>

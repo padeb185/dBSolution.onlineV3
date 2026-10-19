@@ -67,6 +67,20 @@ class PieceDeleteView(LoginRequiredMixin, DeleteView):
             return refuser_suppression(request)
         return super().dispatch(request, *args, **kwargs)
 
+    def get_queryset(self):
+        return Piece.objects.filter(societe=self.request.user.societe)
+
+    def form_valid(self, form):
+        from django.contrib import messages
+        from django.db.models import ProtectedError
+        from django.shortcuts import redirect
+        from django.utils.translation import gettext as _
+        try:
+            return super().form_valid(form)
+        except ProtectedError:
+            messages.error(self.request, _("Pièce utilisée dans des maintenances : désactivez-la plutôt que de la supprimer."))
+            return redirect("piece:detail", pk=self.object.pk)
+
 
 
 

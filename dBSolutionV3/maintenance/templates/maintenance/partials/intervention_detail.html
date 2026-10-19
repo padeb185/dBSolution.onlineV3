@@ -121,6 +121,16 @@ Variables attendues (passées par le template de chaque app) :
             </a>
         </div>
         {% endif %}
+
+        {% if obj.maintenance_id %}
+        <div class="w-full">
+            <a href="{% url 'piece:pieces_maintenance' obj.maintenance_id %}?next={{ request.path|urlencode }}"
+               class="block w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold text-center">
+                {% trans "Pièces utilisées (stock)" %}
+                {% with n=obj.maintenance.pieces_utilisees.count %}{% if n %}<span class="ml-1 bg-white text-green-700 rounded-full px-2 text-sm">{{ n }}</span>{% endif %}{% endwith %}
+            </a>
+        </div>
+        {% endif %}
     </div>
 
     <!-- Pièces remplacées / à remplacer -->

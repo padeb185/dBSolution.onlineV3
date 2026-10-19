@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.views.decorators.cache import never_cache
-from .forms import VoitureExemplaireForm, VoitureExemplaireFinanceForm, FINANCE_FIELDS
+from .forms import VoitureExemplaireForm, VoitureExemplaireFinanceForm, FINANCE_FIELDS, FINANCE_FIELDS_OPTIONNELS
 from .models import VoitureExemplaire
 from ..voiture_modele.models import VoitureModele
 from ..voiture_moteur.models import MoteurVoiture
@@ -803,7 +803,11 @@ def finances_detail(request, exemplaire_id):
             valeur = exemplaire.get_etat_achat_display()
         elif f == "kilometrage_achat" and valeur is not None:
             valeur = f"{valeur} km"
+        elif f == "date_achat" and valeur is not None:
+            valeur = valeur.strftime("%d/%m/%Y")
         champs.append({"nom": f, "label": labels[f].label, "valeur": valeur})
+    if exemplaire.frais_achat is not None:
+        champs.append({"nom": "frais_achat", "label": labels["frais_achat"].label, "valeur": exemplaire.frais_achat})
 
     # Entretien interne : factures à notre propre société pour ce véhicule (coût de revient HTVA)
     from decimal import Decimal
@@ -818,7 +822,13 @@ def finances_detail(request, exemplaire_id):
         entretiens.append({"facture": f, **c})
         total_entretien += c["total"]
 
+    from .forms import CoutAnnuelVehiculeForm
+    from .rentabilite import rentabilite
+    from django.utils import timezone as _tz
+
     return render(request, "voiture_exemplaire/finances/detail.html", {
+        "rent": rentabilite(exemplaire),
+        "form_cout": CoutAnnuelVehiculeForm(initial={"annee": _tz.localdate().year}),
         "entretiens": entretiens,
         "total_entretien": total_entretien,
         "exemplaire": exemplaire,
@@ -826,7 +836,8 @@ def finances_detail(request, exemplaire_id):
         "manquants": manquants,
         "police": _police_active(exemplaire),
         "cout_fixe_annuel": (exemplaire.assurance or 0) + (exemplaire.taxe_roulage or 0),
-        "cout_acquisition": (exemplaire.prix_achat or 0) + (exemplaire.taxe_mise_en_circulation or 0),
+        "cout_acquisition": (exemplaire.prix_achat or 0) + (exemplaire.taxe_mise_en_circulation or 0)
+                            + (exemplaire.frais_achat or 0),
     })
 
 
@@ -848,7 +859,7 @@ def finances_modifier(request, exemplaire_id):
             # le décodage VIN ni le recalcul des kilométrages de save().
             VoitureExemplaire.objects.filter(pk=exemplaire.pk).update(
                 updated_at=timezone.now(),
-                **{f: form.cleaned_data.get(f) for f in FINANCE_FIELDS},
+                **{f: form.cleaned_data.get(f) for f in FINANCE_FIELDS + FINANCE_FIELDS_OPTIONNELS},
             )
             messages.success(
                 request,
@@ -885,7 +896,7 @@ def finances_supprimer(request, exemplaire_id):
         from django.utils import timezone
         VoitureExemplaire.objects.filter(pk=exemplaire.pk).update(
             updated_at=timezone.now(),
-            **{f: None for f in FINANCE_FIELDS},
+            **{f: None for f in FINANCE_FIELDS + FINANCE_FIELDS_OPTIONNELS},
         )
         messages.success(
             request,
@@ -898,3 +909,42 @@ def finances_supprimer(request, exemplaire_id):
     return render(request, "voiture_exemplaire/finances/supprimer.html", {
         "exemplaire": exemplaire,
     })
+
+
+
+@login_required
+def finances_cout_annuel(request, exemplaire_id):
+    """Ajout / modification / suppression d'un coût annuel (assurance, taxe, vignette…)."""
+    from .forms import CoutAnnuelVehiculeForm
+    from .models import CoutAnnuelVehicule
+
+    if not _finance_autorise(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+
+    exemplaire = get_object_or_404(_finance_queryset(request), id=exemplaire_id)
+    retour = redirect(f"{reverse('voiture_exemplaire:finances_detail', kwargs={'exemplaire_id': exemplaire.id})}#couts-annuels")
+    if request.method != "POST":
+        return retour
+
+    action = request.POST.get("action", "ajouter")
+    objet = None
+    if request.POST.get("cout_id"):
+        objet = get_object_or_404(CoutAnnuelVehicule, pk=request.POST.get("cout_id"), exemplaire=exemplaire)
+
+    if action == "supprimer" and objet:
+        objet.delete()
+        messages.success(request, _("Coût annuel supprimé."))
+        return retour
+
+    form = CoutAnnuelVehiculeForm(request.POST, instance=objet)
+    if form.is_valid():
+        cout = form.save(commit=False)
+        cout.exemplaire = exemplaire
+        cout.save()
+        messages.success(request, _("Coût annuel enregistré."))
+    else:
+        for champ, erreurs in form.errors.items():
+            for e in erreurs:
+                messages.error(request, f"{form.fields[champ].label if champ in form.fields else ''} : {e}")
+    return retour

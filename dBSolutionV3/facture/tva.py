@@ -236,6 +236,12 @@ class CalculTVA:
             base += achat.transport_montant_htva or ZERO
             tva += achat.montant_tva_transport or ZERO
             n += 1
+        from outillage.models import Outillage
+        for outil in Outillage.objects.filter(self._filtre_societe(), date_facture__range=(self.debut, self.fin),
+                                              transport_montant_htva__gt=0):
+            base += outil.transport_montant_htva or ZERO
+            tva += outil.montant_tva_transport or ZERO
+            n += 1
         return base, tva, n
 
     def _outillage(self):
@@ -243,8 +249,9 @@ class CalculTVA:
         base = tva = ZERO
         n = 0
         for outil in Outillage.objects.filter(self._filtre_societe(), date_facture__range=(self.debut, self.fin)):
-            base += Decimal(outil.prix_htva or 0) * Decimal(outil.quantite or 0)
-            tva += outil.tva_a_recuperer or ZERO
+            # Outillage hors transport (le transport est dans « Frais de transport sur achats »)
+            base += outil.achat_montant_htva
+            tva += outil.montant_tva_achat
             n += 1
         return base, tva, n
 
