@@ -223,6 +223,25 @@
         </a>
 
         <!-- ================================================== -->
+        <!-- BOÎTES À FUSIBLES -->
+        <!-- ================================================== -->
+        <a
+            href="{% url 'fusibles:fusibles_list' exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="mb-2 text-lg font-semibold">{% trans "Boîtes à fusibles" %}</h2>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_fusibles|default:0 }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/fusibles.png' %}" alt="{% trans 'Boîtes à fusibles' %}" class="h-[60px] w-[60px]">
+            </div>
+        </a>
+
+        <!-- ================================================== -->
         <!-- DÉMARREUR -->
         <!-- ================================================== -->
         <a

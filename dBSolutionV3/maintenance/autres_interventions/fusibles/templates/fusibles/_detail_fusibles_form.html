@@ -1,0 +1,114 @@
+{% load i18n static %}
+{% comment %}Détail des fusibles : emplacement de la boîte, repère, type, ampérage, organe protégé, état (formset « detail »).{% endcomment %}
+<br>
+<h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+    <img src="{% static 'icons/fusibles_detail.png' %}" alt="" class="w-20 h-20">
+    {% trans "Détail des fusibles" %}
+</h2>
+<p class="text-sm text-gray-500 mb-3">{% trans "Un fusible par ligne : emplacement de la boîte, numéro sur la boîte, circuit protégé, type, ampérage et état. Les fusibles « Remplacé » sont comptés dans la quantité facturée de leur type (lame, mini, maxi…)." %}</p>
+
+{{ detail_fs.management_form }}
+{% if detail_fs.non_form_errors %}<div class="text-red-600 text-sm mb-2">{{ detail_fs.non_form_errors }}</div>{% endif %}
+<div class="overflow-x-auto mb-4">
+<table class="min-w-full table-auto border-collapse border border-gray-200 text-sm" id="table-fusibles">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-2 py-2 text-left">{% trans "Emplacement de la boîte" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Numéro" %}</th>
+            <th class="border px-2 py-2 text-left" style="min-width:13rem">{% trans "Circuit protégé" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Précision" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Type" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "Ampérage (A)" %}</th>
+            <th class="border px-2 py-2 text-left">{% trans "État" %}</th>
+            <th class="border px-2 py-2 text-center">{% trans "Supprimer" %}</th>
+        </tr>
+    </thead>
+    <tbody id="lignes-fusibles">
+    {% for f in detail_fs %}
+        <tr class="ligne-fusible">
+            <td class="border px-1 py-1">{% for h in f.hidden_fields %}{{ h }}{% endfor %}{{ f.emplacement }}</td>
+            <td class="border px-1 py-1">{{ f.repere }}</td>
+            <td class="border px-1 py-1">{{ f.circuit }}</td>
+            <td class="border px-1 py-1">{{ f.organe }}{% for e in f.organe.errors %}<p class="text-red-600 text-xs">{{ e }}</p>{% endfor %}</td>
+            <td class="border px-1 py-1">{{ f.type_fusible }}</td>
+            <td class="border px-1 py-1">{{ f.amperage }}{% for e in f.amperage.errors %}<p class="text-red-600 text-xs">{{ e }}</p>{% endfor %}</td>
+            <td class="border px-1 py-1">{{ f.etat }}</td>
+            <td class="border px-1 py-1 text-center">{% if f.instance.pk %}{{ f.DELETE }}{% endif %}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+<template id="modele-fusible">
+    <tr class="ligne-fusible">
+        <td class="border px-1 py-1">{% for h in detail_fs.empty_form.hidden_fields %}{{ h }}{% endfor %}{{ detail_fs.empty_form.emplacement }}</td>
+        <td class="border px-1 py-1">{{ detail_fs.empty_form.repere }}</td>
+        <td class="border px-1 py-1">{{ detail_fs.empty_form.circuit }}</td>
+        <td class="border px-1 py-1">{{ detail_fs.empty_form.organe }}</td>
+        <td class="border px-1 py-1">{{ detail_fs.empty_form.type_fusible }}</td>
+        <td class="border px-1 py-1">{{ detail_fs.empty_form.amperage }}</td>
+        <td class="border px-1 py-1">{{ detail_fs.empty_form.etat }}</td>
+        <td class="border px-1 py-1"></td>
+    </tr>
+</template>
+<datalist id="amperages-fusibles">{% for a in amperages_fusibles %}<option value="{{ a }}">{% endfor %}</datalist>
+<p id="resume-fusibles" class="text-sm text-blue-800 bg-blue-50 rounded px-3 py-2 mb-3 hidden"></p>
+<button type="button" id="ajouter-fusible" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">+ {% trans "Ajouter un fusible" %}</button>
+<script>
+(function () {
+    var total = document.getElementById('id_detail-TOTAL_FORMS');
+    var corps = document.getElementById('lignes-fusibles');
+    var modele = document.getElementById('modele-fusible');
+    document.getElementById('ajouter-fusible').addEventListener('click', function () {
+        var n = parseInt(total.value, 10);
+        // reprend l'emplacement et le type de la dernière ligne (saisie en série dans une même boîte)
+        var derniere = corps.querySelector('tr.ligne-fusible:last-child');
+        corps.insertAdjacentHTML('beforeend', modele.innerHTML.replace(/__prefix__/g, n));
+        total.value = n + 1;
+        var nouvelle = corps.querySelector('tr.ligne-fusible:last-child');
+        if (derniere) {
+            ['emplacement', 'type_fusible'].forEach(function (c) {
+                var src = derniere.querySelector('[name$="-' + c + '"]'), dst = nouvelle.querySelector('[name$="-' + c + '"]');
+                if (src && dst) dst.value = src.value;
+            });
+        }
+        var rep = nouvelle.querySelector('[name$="-repere"]'); if (rep) rep.focus();
+        synchroniser();
+    });
+
+    // Quantité facturée par type = nombre de fusibles « Remplacé » de ce type (mise à jour en direct)
+    var LIGNES = {{ ligne_par_type_json|safe }};
+    var form = corps.closest('form');
+    function synchroniser() {
+        var compte = {}, presents = {};
+        corps.querySelectorAll('tr.ligne-fusible').forEach(function (tr) {
+            var del = tr.querySelector('[name$="-DELETE"]');
+            if (del && del.checked) return;
+            var t = tr.querySelector('[name$="-type_fusible"]'), e = tr.querySelector('[name$="-etat"]');
+            var rempli = ['repere', 'circuit', 'organe', 'amperage'].some(function (c) {
+                var el = tr.querySelector('[name$="-' + c + '"]'); return el && el.value;
+            });
+            if (!t || !rempli) return;
+            var p = LIGNES[t.value]; if (!p) return;
+            presents[p] = true;
+            if (e && e.value === 'REMPLACE') compte[p] = (compte[p] || 0) + 1;
+        });
+        var resume = [];
+        Object.keys(presents).forEach(function (p) {
+            var n = compte[p] || 0, q = form.querySelector('[name="' + p + '_quantite"]'), etat = form.querySelector('select[name="' + p + '"]');
+            if (q) { q.value = n; }
+            if (etat && n > 0 && etat.querySelector('option[value="REMPLACE"]')) etat.value = 'REMPLACE';
+            if (n > 0) {
+                var titre = q ? (q.closest('.mb-16') || document).querySelector('h2') : null;
+                resume.push(n + ' × ' + (titre ? titre.textContent.trim() : p));
+            }
+        });
+        var bloc = document.getElementById('resume-fusibles');
+        bloc.textContent = resume.length ? '{{ _("Fusibles remplacés facturés :")|escapejs }} ' + resume.join(' · ') : '';
+        bloc.classList.toggle('hidden', !resume.length);
+    }
+    corps.addEventListener('change', synchroniser);
+    corps.addEventListener('input', synchroniser);
+    synchroniser();
+})();
+</script>

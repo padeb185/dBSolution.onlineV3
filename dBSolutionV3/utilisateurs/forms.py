@@ -328,6 +328,9 @@ class PaieUtilisateurForm(forms.ModelForm):
                     societe=societe,
                     is_active=True,
                 )
+                # Les comptes administrateurs de la plateforme (superutilisateurs, ex. « Admin Campus »)
+                # ne sont pas des travailleurs du garage : pas de paie.
+                .exclude(is_superuser=True)
                 .order_by(
                     "nom",
                     "prenom",

@@ -210,7 +210,12 @@ def facture_list_view(request):
     factures = _factures(request).select_related(
         "client_particulier", "client_atelier__client_particulier", "societe_cliente", "voiture_exemplaire"
     )
-    return render(request, "facture/facture_list.html", {"factures": factures})
+    return render(request, "facture/facture_list.html", {
+        "factures": factures,
+        "types_facture": Facture.TypeFacture.choices,
+        "statuts": Facture.Statut.choices,
+        "statuts_paiement": Facture.StatutPaiement.choices,
+    })
 
 
 # -----------------------------

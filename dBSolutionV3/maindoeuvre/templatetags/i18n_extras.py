@@ -236,6 +236,7 @@ DESCRIPTIFS_TRADUISIBLES = [
     "Culasse",
     "Bas moteur",
     "ESP (contrôle de stabilité)",
+    "Boîtes à fusibles",
     "Démarreur",
     "Suspension d'origine",
     "Suspension sport",

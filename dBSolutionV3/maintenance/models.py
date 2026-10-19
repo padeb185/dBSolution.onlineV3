@@ -63,6 +63,7 @@ class Maintenance(models.Model):
         REMPLACEMENT_BTE_AUTO = "remplacement_bte_auto", _("Remplacement boîte automatique")
         BAS_MOTEUR = "BAS_MOTEUR", _("Bas moteur")
         ESP = "ESP", _("ESP (contrôle de stabilité)")
+        FUSIBLES = "FUSIBLES", _("Boîtes à fusibles")
         DEMARREUR = "DEMARREUR", _("Démarreur")
         SUSPENSION_ORIGINE = "SUSPENSION_ORIGINE", _("Suspension d'origine")
         SUSPENSION_SPORT = "SUSPENSION_SPORT", _("Suspension sport")

@@ -38,6 +38,7 @@ from maintenance.autres_interventions.moteur.chaine_distribution.models import C
 from maintenance.autres_interventions.moteur.culasse.models import Culasse
 from maintenance.autres_interventions.moteur.bas_moteur.models import BasMoteur
 from maintenance.autres_interventions.esp.models import Esp
+from maintenance.autres_interventions.fusibles.models import Fusibles, FusibleDetail
 from maintenance.autres_interventions.demarreur.models import Demarreur
 from maintenance.autres_interventions.suspension.suspension_origine.models import SuspensionOrigine
 from maintenance.autres_interventions.suspension.suspension_sport.models import SuspensionSport
@@ -121,6 +122,8 @@ admin.site.register(ChaineDistribution)
 admin.site.register(Culasse)
 admin.site.register(BasMoteur)
 admin.site.register(Esp)
+admin.site.register(Fusibles)
+admin.site.register(FusibleDetail)
 admin.site.register(Demarreur)
 admin.site.register(SuspensionOrigine)
 admin.site.register(SuspensionSport)

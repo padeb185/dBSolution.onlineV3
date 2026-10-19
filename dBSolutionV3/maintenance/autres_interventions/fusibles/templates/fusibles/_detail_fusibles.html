@@ -1,0 +1,32 @@
+{% load i18n %}
+{% with lignes=obj.detail_fusibles.all %}{% if lignes %}
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Détail des fusibles" %}</h2>
+    <table class="min-w-full table-auto border-collapse border border-gray-200">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-3 py-2 text-left">{% trans "Emplacement de la boîte" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Numéro" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Type" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Ampérage (A)" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Circuit protégé" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "État" %}</th>
+        </tr></thead>
+        <tbody>
+        {% for l in lignes %}
+            <tr>
+                <td class="border px-3 py-2">{{ l.get_emplacement_display }}</td>
+                <td class="border px-3 py-2 font-mono">{{ l.repere|default:"—" }}</td>
+                <td class="border px-3 py-2">{{ l.get_type_fusible_display }}</td>
+                <td class="border px-3 py-2 text-right font-semibold">{% if l.amperage is not None %}{{ l.amperage_affiche }} A{% else %}—{% endif %}</td>
+                <td class="border px-3 py-2">{{ l.circuit_affiche|default:"—" }}</td>
+                <td class="border px-3 py-2">
+                    {% if l.etat == "GRILLE" %}<span class="px-2 py-0.5 rounded bg-red-100 text-red-800 text-xs font-semibold">{{ l.get_etat_display }}</span>
+                    {% elif l.etat == "REMPLACE" %}<span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 text-xs font-semibold">{{ l.get_etat_display }}</span>
+                    {% else %}<span class="px-2 py-0.5 rounded bg-green-100 text-green-800 text-xs font-semibold">{{ l.get_etat_display }}</span>{% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}{% endwith %}

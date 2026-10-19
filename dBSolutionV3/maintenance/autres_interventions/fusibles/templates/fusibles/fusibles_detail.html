@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Boîtes à fusibles" %}{% endblock %}
+
+{% block content %}
+    {% url 'fusibles:modifier_fusibles' fusibles.pk as url_modifier %}
+    {% url 'fusibles:fusibles_detail_pdf' fusibles.pk as url_pdf %}
+    {% url 'fusibles:delete_fusibles' fusibles.pk as url_delete %}
+    {% if exemplaire %}{% url 'fusibles:fusibles_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Boîtes à fusibles" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=fusibles km_controle=fusibles.kilometrage_fusibles icone="fusibles.png" extra_template="fusibles/_detail_fusibles.html" %}
+{% endblock %}

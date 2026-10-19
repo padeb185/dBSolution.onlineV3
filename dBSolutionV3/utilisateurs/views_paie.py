@@ -46,10 +46,19 @@ def _refuser(request):
     return redirect("utilisateurs:dashboard")
 
 
+def _societe(request):
+    """Société du tenant affiché (et non celle d'un compte admin d'un autre tenant)."""
+    tenant = getattr(request, "tenant", None)
+    if tenant is not None and getattr(tenant, "schema_name", "public") != "public":
+        return tenant
+    return request.user.societe
+
+
 def _paies_societe(request):
     return (
         PaieUtilisateur.objects
-        .filter(utilisateur__societe=request.user.societe)
+        .filter(utilisateur__societe=_societe(request))
+        .exclude(utilisateur__is_superuser=True)
         .select_related("utilisateur")
     )
 
@@ -121,7 +130,8 @@ def paie_panneau(request):
     ).values_list("utilisateur_id", flat=True)
     sans_paie = (
         Utilisateur.objects
-        .filter(societe=request.user.societe, is_active=True)
+        .filter(societe=_societe(request), is_active=True)
+        .exclude(is_superuser=True)  # comptes administrateurs de la plateforme (ex. « Admin Campus »)
         .exclude(id__in=avec_paie_ce_mois)
         .order_by("nom", "prenom")
     )
@@ -169,7 +179,7 @@ def paie_list_travailleur(request, utilisateur_id):
         return _refuser(request)
 
     travailleur = get_object_or_404(
-        Utilisateur, pk=utilisateur_id, societe=request.user.societe
+        Utilisateur, pk=utilisateur_id, societe=_societe(request)
     )
     paies = _paies_societe(request).filter(utilisateur=travailleur).order_by("-annee", "-mois")
     annee = request.GET.get("annee")
@@ -194,7 +204,7 @@ def paie_detail(request, pk):
         return _refuser(request)
 
     paie = _get_paie(request, pk)
-    form = PaieUtilisateurForm(instance=paie, societe=request.user.societe)
+    form = PaieUtilisateurForm(instance=paie, societe=_societe(request))
     for champ in form.fields.values():   # fiche en lecture seule
         champ.disabled = True
 
@@ -214,13 +224,13 @@ def creer_paie_utilisateur(request):
         return _refuser(request)
 
     if request.method == "POST":
-        form = PaieUtilisateurForm(request.POST, societe=request.user.societe)
+        form = PaieUtilisateurForm(request.POST, societe=_societe(request))
 
         if form.is_valid():
             if "calculer" in request.POST:
                 paie = form.save(commit=False)
                 paie.calculer()
-                form = PaieUtilisateurForm(instance=paie, societe=request.user.societe)
+                form = PaieUtilisateurForm(instance=paie, societe=_societe(request))
                 messages.info(request, _("Calcul effectué – vérifiez puis enregistrez."))
             else:
                 paie = form.save()
@@ -247,7 +257,7 @@ def creer_paie_utilisateur(request):
                 for champ in PaieUtilisateurForm.CHAMPS_REPRIS:
                     initial[champ] = getattr(derniere, champ)
 
-        form = PaieUtilisateurForm(societe=request.user.societe, initial=initial)
+        form = PaieUtilisateurForm(societe=_societe(request), initial=initial)
 
     return render(request, "utilisateurs/paie/paie_form.html", {
         "form": form,
@@ -266,13 +276,13 @@ def modifier_paie(request, pk):
     paie = _get_paie(request, pk)
 
     if request.method == "POST":
-        form = PaieUtilisateurForm(request.POST, instance=paie, societe=request.user.societe)
+        form = PaieUtilisateurForm(request.POST, instance=paie, societe=_societe(request))
 
         if form.is_valid():
             if "calculer" in request.POST:
                 paie_calc = form.save(commit=False)
                 paie_calc.calculer()
-                form = PaieUtilisateurForm(instance=paie_calc, societe=request.user.societe)
+                form = PaieUtilisateurForm(instance=paie_calc, societe=_societe(request))
                 messages.info(request, _("Calcul effectué – vérifiez puis enregistrez."))
             else:
                 paie = form.save()
@@ -282,7 +292,7 @@ def modifier_paie(request, pk):
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
     else:
-        form = PaieUtilisateurForm(instance=paie, societe=request.user.societe)
+        form = PaieUtilisateurForm(instance=paie, societe=_societe(request))
 
     return render(request, "utilisateurs/paie/modifier_paie.html", {
         "form": form,
@@ -500,7 +510,7 @@ def cout_main_oeuvre(request):
         trimestre = 0
     trimestre = trimestre if 1 <= trimestre <= 4 and not mois else 0
 
-    rapport = rapport_cout_main_oeuvre(request.user.societe, annee, mois=mois or None, trimestre=trimestre or None)
+    rapport = rapport_cout_main_oeuvre(_societe(request), annee, mois=mois or None, trimestre=trimestre or None)
 
     if request.GET.get("export") == "csv":
         import csv

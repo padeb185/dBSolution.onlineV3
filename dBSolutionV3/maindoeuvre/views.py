@@ -315,7 +315,7 @@ def delete_main_oeuvre_view(request, pk):
         mecanicien = str(main_oeuvre.utilisateur) if main_oeuvre.utilisateur_id else "—"
         date_mo = main_oeuvre.date.strftime("%d/%m/%Y") if main_oeuvre.date else "—"
         nom_log = (
-            f"{libelle} – {voiture} – {mecanicien} "
+            f"{libelle} "
         )
 
         try:

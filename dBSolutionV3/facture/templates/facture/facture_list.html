@@ -19,6 +19,29 @@
 
     {% include "partials/messages.html" %}
 
+    <!-- Champs de recherche (comme les listes de maintenances) -->
+    <div class="bg-white shadow-md rounded-lg p-4 mb-4">
+        <div class="flex flex-wrap items-end gap-3">
+            <input id="search-numero" type="text" class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="{% trans 'Numéro' %}">
+            <input id="search-date" type="date" class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500" title="{% trans 'Date' %}">
+            <select id="search-type" class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">{% trans "Tous les types" %}</option>
+                {% for v, lib in types_facture %}<option value="{{ lib }}">{{ lib }}</option>{% endfor %}
+            </select>
+            <input id="search-client" type="text" class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="{% trans 'Client' %}">
+            <input id="search-immatriculation" type="text" class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="{% trans 'Immatriculation' %}">
+            <input id="search-montant" type="text" class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="{% trans 'Total TVAC' %}">
+            <select id="search-statut" class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">{% trans "Tous les statuts" %}</option>
+                {% for v, lib in statuts %}<option value="{{ lib }}">{{ lib }}</option>{% endfor %}
+            </select>
+            <select id="search-paiement" class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">{% trans "Tous les paiements" %}</option>
+                {% for v, lib in statuts_paiement %}<option value="{{ lib }}">{{ lib }}</option>{% endfor %}
+            </select>
+        </div>
+    </div>
+
     <div class="overflow-x-auto bg-white shadow-md rounded-lg p-4">
     <table id="factures-table" class="min-w-full table-auto border-collapse border border-gray-200">
         <thead>
@@ -38,8 +61,8 @@
         {% for f in factures %}
             <tr>
                 <td class="border px-4 py-2 font-semibold">{{ f.numero|default:"—" }}</td>
-                <td class="border px-4 py-2" data-order="{{ f.issue_date|date:'Y-m-d' }}">{{ f.issue_date|date:"d/m/Y" }}</td>
-                <td class="border px-4 py-2">{{ f.get_type_facture_display }}</td>
+                <td class="border px-4 py-2" data-order="{{ f.issue_date|date:'Y-m-d' }}" data-search="{{ f.issue_date|date:'Y-m-d' }} {{ f.issue_date|date:'d/m/Y' }}">{{ f.issue_date|date:"d/m/Y" }}</td>
+                <td class="border px-4 py-2" data-search="{{ f.get_type_facture_display }}">{{ f.get_type_facture_display }}</td>
                 <td class="border px-4 py-2">{{ f.nom_client_courant|default:"-" }}</td>
                 <td class="border px-4 py-2" data-search="{{ f.voiture_exemplaire.immatriculation|default:'' }}" data-order="{{ f.voiture_exemplaire.immatriculation|default:'' }}">
                     {% if f.voiture_exemplaire %}
@@ -48,13 +71,13 @@
                         -
                     {% endif %}
                 </td>
-                <td class="border px-4 py-2 text-right" data-order="{{ f.total|stringformat:'.2f' }}">{{ f.total|floatformat:2 }} €</td>
-                <td class="border px-4 py-2">
+                <td class="border px-4 py-2 text-right" data-order="{{ f.total|stringformat:'.2f' }}" data-search="{{ f.total|stringformat:'.2f' }} {{ f.total|floatformat:2 }}">{{ f.total|floatformat:2 }} €</td>
+                <td class="border px-4 py-2" data-search="{{ f.get_statut_display }}">
                     <span class="px-2 py-1 rounded text-sm font-semibold {% if f.est_emise %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
                         {{ f.get_statut_display }}
                     </span>
                 </td>
-                <td class="border px-4 py-2" data-search="{{ f.get_statut_paiement_display }}">
+                <td class="border px-4 py-2" data-search="{% if f.est_emise %}{{ f.get_statut_paiement_display }}{% endif %}">
                     {% if f.est_emise %}{% include "facture/_paiement.html" %}{% else %}<span class="text-gray-400">—</span>{% endif %}
                 </td>
                 <td class="border px-4 py-2 text-center">
@@ -78,7 +101,7 @@
 
 <script>
 $(document).ready(function () {
-    $('#factures-table').DataTable({
+    var table = $('#factures-table').DataTable({
         pageLength: 50,
         order: [[1, "desc"]],
         language: {
@@ -96,6 +119,24 @@ $(document).ready(function () {
             }
         }
     });
+
+    function texte(id, col) {
+        $(id).on('keyup change', function () { table.column(col).search(this.value).draw(); });
+    }
+    function exact(id, col) {   // listes : correspondance exacte du libellé
+        $(id).on('change', function () {
+            var v = $.fn.dataTable.util.escapeRegex(this.value);
+            table.column(col).search(v ? '^' + v + '$' : '', true, false).draw();
+        });
+    }
+    texte('#search-numero', 0);
+    texte('#search-date', 1);
+    exact('#search-type', 2);
+    texte('#search-client', 3);
+    texte('#search-immatriculation', 4);
+    texte('#search-montant', 5);
+    exact('#search-statut', 6);
+    exact('#search-paiement', 7);
 });
 </script>
 {% endblock %}
