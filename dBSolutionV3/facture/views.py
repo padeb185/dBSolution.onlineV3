@@ -3,6 +3,8 @@ from decimal import Decimal
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+import logging
+
 from django.db import transaction
 from django.db.models import Max, Prefetch
 from django.http import HttpResponse
@@ -29,6 +31,8 @@ from .services import (
 )
 
 # Qui peut facturer (+ super admin)
+logger = logging.getLogger(__name__)
+
 ROLES_FACTURATION = ["direction", "chef_mecanicien", "comptable"]
 # Qui peut supprimer un brouillon (+ super admin)
 ROLES_SUPPRESSION = ["direction", "chef_mecanicien"]
@@ -226,7 +230,11 @@ def facture_modifier_view(request, pk):
     if request.method == "GET":
         # Pièces utilisées ajoutées aux maintenances depuis la création du brouillon
         from .services import synchroniser_brouillon
-        synchroniser_brouillon(facture)
+        try:
+            with transaction.atomic():
+                synchroniser_brouillon(facture)
+        except Exception:
+            logger.exception("Synchronisation du brouillon %s impossible", facture.pk)
 
     if request.method == "POST":
         form = FactureForm(request.POST, instance=facture, user=request.user)

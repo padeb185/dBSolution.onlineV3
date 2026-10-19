@@ -39,13 +39,15 @@ def objets_detail_maintenance(maintenance):
             continue
         accesseur = relation.get_accessor_name()
         try:
-            if relation.one_to_one:
-                obj = getattr(maintenance, accesseur, None)
-                if obj is not None:
-                    objets.append(obj)
-            else:
-                objets.extend(getattr(maintenance, accesseur).all())
+            with transaction.atomic():  # savepoint : une table absente ne bloque pas les autres
+                if relation.one_to_one:
+                    obj = getattr(maintenance, accesseur, None)
+                    if obj is not None:
+                        objets.append(obj)
+                else:
+                    objets.extend(list(getattr(maintenance, accesseur).all()))
         except Exception:  # relation absente / objet supprimé
+            logger.warning("Relation %s illisible pour la maintenance %s", accesseur, maintenance.pk, exc_info=True)
             continue
     return objets
 
@@ -114,7 +116,8 @@ def lignes_depuis_maintenance(maintenance, marge_pieces, marge_main_oeuvre):
 
         # ---------- Pièces / produits ----------
         try:
-            rapport = obj.generer_rapport_remplacement()
+            with transaction.atomic():
+                rapport = obj.generer_rapport_remplacement()
         except Exception:
             logger.exception("Rapport impossible pour %s", obj)
             rapport = {}
@@ -137,7 +140,8 @@ def lignes_depuis_maintenance(maintenance, marge_pieces, marge_main_oeuvre):
             if fabricant:
                 description += f" ({fabricant})"
 
-            reference = ligne.get("reference") or ligne.get("oem") or codes_pieces.get(ligne.get("code"), "")
+            reference = (ligne.get("reference") or ligne.get("oem") or codes_pieces.get(ligne.get("code"))
+                         or codes_pieces.get(_cle_libelle(libelle)) or "")
             lignes.append({
                 "maintenance": maintenance,
                 "type_ligne": FactureLine.TypeLigne.PIECE,
@@ -180,30 +184,51 @@ def lignes_depuis_maintenance(maintenance, marge_pieces, marge_main_oeuvre):
 
     # ---------- Pièces utilisées (stock) ----------
     try:
-        lignes.extend(lignes_pieces_utilisees(maintenance))
+        with transaction.atomic():
+            lignes.extend(lignes_pieces_utilisees(maintenance))
     except Exception:
         logger.exception("Pièces utilisées non reprises pour la maintenance %s", maintenance.pk)
     return lignes
 
 
+def _cle_libelle(texte):
+    return " ".join(str(texte or "").lower().replace("’", "'").split())
+
+
 def _codes_pieces_intervention(maintenance):
     """{prefixe de ligne d'intervention: OEM / EAN} des pièces codées dans le formulaire d'intervention."""
     try:
-        return {
-            pu.prefixe: (pu.piece.oem or (pu.piece.eans[0] if pu.piece.eans else ""))
-            for pu in maintenance.pieces_utilisees.exclude(prefixe="").select_related("piece")
-        }
+        with transaction.atomic():  # savepoint : une erreur SQL ne doit pas casser la transaction de la facture
+            codes = {}
+            objets = objets_detail_maintenance(maintenance)
+            for pu in maintenance.pieces_utilisees.exclude(prefixe="").select_related("piece"):
+                code = pu.piece.oem or (pu.piece.eans[0] if pu.piece.eans else "")
+                codes[pu.prefixe] = code
+                # rapports sans clé « code » : correspondance par libellé de la ligne
+                for obj in objets:
+                    for nom in (pu.prefixe, f"{pu.prefixe}_etat"):
+                        try:
+                            codes.setdefault(_cle_libelle(_libelle_piece(obj._meta.get_field(nom).verbose_name)), code)
+                        except Exception:
+                            pass
+                codes.setdefault(_cle_libelle(pu.piece.designation), code)
+            return codes
     except Exception:
+        logger.exception("Codes OEM / EAN illisibles pour la maintenance %s", maintenance.pk)
         return {}
 
 
 def regenerer_lignes_maintenance(facture, maintenance):
     """Brouillon : recrée les lignes (pièces, main-d'œuvre, pièces utilisées) d'une maintenance de la facture."""
+    nouvelles = lignes_depuis_maintenance(maintenance, facture.marge_pieces, facture.marge_main_oeuvre)
+    if not nouvelles:
+        return False  # rien à reprendre : on ne supprime jamais les lignes existantes
     facture.lines.filter(maintenance=maintenance).delete()
     ordre = max((l.ordre for l in facture.lines.all()), default=0)
-    for donnees in lignes_depuis_maintenance(maintenance, facture.marge_pieces, facture.marge_main_oeuvre):
+    for donnees in nouvelles:
         ordre += 1
         FactureLine.objects.create(facture=facture, ordre=ordre, **donnees)
+    return True
 
 
 def synchroniser_brouillon(facture, forcer=False):
@@ -217,8 +242,7 @@ def synchroniser_brouillon(facture, forcer=False):
     change = False
     for maintenance in facture.maintenances.all():
         if forcer or not facture.lines.filter(maintenance=maintenance).exists():
-            regenerer_lignes_maintenance(facture, maintenance)
-            change = True
+            change = regenerer_lignes_maintenance(facture, maintenance) or change
     change = synchroniser_pieces_utilisees(facture, recalculer=False) or change
     if change:
         facture.recalculer_totaux()

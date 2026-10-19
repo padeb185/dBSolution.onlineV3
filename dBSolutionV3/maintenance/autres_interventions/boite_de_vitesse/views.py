@@ -297,6 +297,10 @@ def boite_check_view(request, exemplaire_id):
                     # 👨‍🔧 dernier technicien maintenance
                     boite.tech_last_maintained_by = request.user
 
+                    # 🔗 rattachement de l'intervention à sa maintenance (facture, pièces utilisées)
+
+                    boite.maintenance = maintenance
+
                     boite.save()
 
                 ACTION_CONTROLE_BOITE_VITESSE = gettext_noop(

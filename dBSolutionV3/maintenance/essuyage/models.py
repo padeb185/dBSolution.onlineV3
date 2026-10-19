@@ -38,6 +38,15 @@ class Essuyage(TechnicienMixin, models.Model):
         blank=True
     )
 
+    # Lien vers la maintenance (facture, pièces utilisées) — supprimé par la migration 0006, rétabli
+    maintenance = models.ForeignKey(
+        Maintenance,
+        on_delete=models.CASCADE,
+        related_name="essuyages",
+        null=True,
+        blank=True,
+    )
+
     kilometres_chassis = models.PositiveIntegerField(
         default=0,
         null=True,

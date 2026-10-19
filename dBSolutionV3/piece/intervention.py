@@ -76,9 +76,14 @@ def synchroniser(instance, codes, user=None):
         existant = PieceUtilisee.objects.filter(maintenance=maintenance, prefixe=prefixe).first()
         if existant and existant.debitee:
             continue  # déjà sortie du stock (facture émise) : on ne touche plus
-        if not code or qte <= 0:
+        if qte <= 0:
             if existant:
-                existant.delete()
+                existant.delete()  # ligne vidée : la pièce n'est plus utilisée
+            continue
+        if not code:
+            if existant:  # champ OEM / EAN vide (non rechargé) : on garde la pièce, quantité et prix à jour
+                existant.quantite, existant.prix_unitaire = qte, prix
+                existant.save(update_fields=["quantite", "prix_unitaire"])
             continue
 
         nom_fab = _fabricant(instance, prefixe)
@@ -137,18 +142,33 @@ def _avant_suppression(sender, instance, **kwargs):
         logger.exception("Lignes de facture de la pièce utilisée %s non retirées", instance.pk)
 
 
-ETATS_A_MARQUER = {"OK"}          # pièce saisie mais laissée « OK »
-ETAT_FAIT = "REMPLACE"            # « Fait » : la ligne apparaît dans le rapport, le PDF et la facture
+ETATS_NEUTRES = {"OK", "NON_PRESENT", "BON", "CHOISIR", ""}   # pièce saisie mais état laissé « rien à faire »
+ETATS_CIBLES = ("REMPLACE", "AJOUTER", "FAIT", "A_REMPLACER", "NOT_OK")  # états qui font entrer la ligne au rapport
+
+
+def _nb_lignes_rapport(instance):
+    try:
+        r = instance.generer_rapport_remplacement()
+    except Exception:
+        return None
+    if isinstance(r, dict):
+        for cle in ("lignes", "pieces", "rapport"):
+            if isinstance(r.get(cle), list):
+                return len(r[cle])
+        return 0
+    return len(r) if isinstance(r, list) else 0
 
 
 @receiver(pre_save, dispatch_uid="piece_intervention_quantite_fait")
-def _ligne_saisie_fait(sender, instance, **kwargs):
+def _ligne_saisie_fait(sender, instance, raw=False, **kwargs):
     """
     Intervention : une ligne de pièce avec une quantité et un prix > 0 est une pièce posée.
-    Si son état est resté « OK », il passe à « Fait » ; sinon le rapport (détail, PDF, facture) l'ignore.
+    Si son état est resté neutre (OK, Non présent, Bon…), il passe au premier état qui fait entrer la ligne
+    dans le rapport (Remplacé, Ajouté…) ; sinon le détail, le PDF et la facture l'ignorent.
     """
-    if not sender.__module__.startswith("maintenance.") or not hasattr(instance, "maintenance_id"):
+    if raw or not sender.__module__.startswith("maintenance.") or not hasattr(instance, "generer_rapport_remplacement"):
         return
+    base = None
     for champ in sender._meta.concrete_fields:
         if not champ.name.endswith("_quantite"):
             continue
@@ -167,7 +187,46 @@ def _ligne_saisie_fait(sender, instance, **kwargs):
                 f_etat = sender._meta.get_field(nom)
             except Exception:
                 continue
-            valeurs = {str(v) for v, _l in (f_etat.choices or [])}
-            if ETAT_FAIT in valeurs and getattr(instance, nom, None) in ETATS_A_MARQUER:
-                setattr(instance, nom, ETAT_FAIT)
+            actuel = getattr(instance, nom, None)
+            valeurs = [str(v) for v, _l in (f_etat.choices or [])]
+            if not valeurs or str(actuel or "") not in ETATS_NEUTRES:
+                break
+            if base is None:
+                base = _nb_lignes_rapport(instance)
+            if base is None:
+                break
+            for cible in ETATS_CIBLES:
+                if cible not in valeurs:
+                    continue
+                setattr(instance, nom, cible)
+                n = _nb_lignes_rapport(instance)
+                if n is not None and n > base:
+                    base = n
+                    break
+                setattr(instance, nom, actuel)
             break
+
+
+# ---------------------------------------------------------------------------------------------
+# Liens d'une intervention : les formulaires « modifier » ne renvoient pas le champ caché
+# « maintenance » ; le ModelForm le remettait à vide et l'intervention perdait sa maintenance
+# (plus de lignes dans la facture, plus de pièces / codes OEM-EAN retrouvés).
+# ---------------------------------------------------------------------------------------------
+CHAMPS_LIENS = ("maintenance", "voiture_exemplaire")
+
+
+@receiver(pre_save, dispatch_uid="intervention_liens_conserves")
+def _conserver_liens(sender, instance, raw=False, **kwargs):
+    if raw or not sender.__module__.startswith("maintenance.") or instance.pk is None:
+        return
+    manquants = [c for c in CHAMPS_LIENS
+                 if any(f.name == c for f in sender._meta.concrete_fields) and getattr(instance, f"{c}_id") is None]
+    if not manquants:
+        return
+    try:
+        anciens = sender.objects.filter(pk=instance.pk).values(*[f"{c}_id" for c in manquants]).first()
+    except Exception:
+        return
+    for c in manquants:
+        if anciens and anciens.get(f"{c}_id"):
+            setattr(instance, f"{c}_id", anciens[f"{c}_id"])

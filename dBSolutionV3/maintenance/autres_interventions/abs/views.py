@@ -289,6 +289,10 @@ def abs_form_view(request, exemplaire_id):
                     # 👨‍🔧 dernier technicien maintenance
                     abs.tech_last_maintained_by = request.user
 
+                    # 🔗 rattachement de l'intervention à sa maintenance (facture, pièces utilisées)
+
+                    abs.maintenance = maintenance
+
                     abs.save()
 
                     ACTION_CONTROLE_ABS = gettext_noop("Contrôle de l'ABS")

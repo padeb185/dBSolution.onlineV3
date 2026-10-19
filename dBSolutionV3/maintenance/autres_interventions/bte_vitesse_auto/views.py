@@ -310,6 +310,10 @@ def bte_auto_check_view(request, exemplaire_id):
                     # 👨‍🔧 dernier technicien maintenance
                     bte_auto.tech_last_maintained_by = request.user
 
+                    # 🔗 rattachement de l'intervention à sa maintenance (facture, pièces utilisées)
+
+                    bte_auto.maintenance = maintenance
+
                     bte_auto.save()
 
 

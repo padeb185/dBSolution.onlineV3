@@ -86,6 +86,25 @@
         });
         if (!Object.keys(lignes).length) return;
 
+        // Formulaire renvoyé avec des erreurs : les codes saisis sont restaurés (mémoire de l'onglet)
+        var cle = 'pieces_codes:' + window.location.pathname;
+        try {
+            var memo = JSON.parse(sessionStorage.getItem(cle) || 'null');
+            sessionStorage.removeItem(cle);
+            // uniquement si la page est le formulaire renvoyé avec des erreurs (pas un nouveau formulaire)
+            var erreurs = document.querySelector('.errorlist, form .text-red-600');
+            if (memo && erreurs && Date.now() - memo.t < 15 * 60 * 1000) {
+                Object.keys(memo.codes).forEach(function (p) {
+                    if (lignes[p] && memo.codes[p] && !lignes[p].input.value) lignes[p].input.value = memo.codes[p];
+                });
+            }
+        } catch (e) {}
+        form.addEventListener('submit', function () {
+            var codes = {};
+            Object.keys(lignes).forEach(function (p) { if (lignes[p].input.value) codes[p] = lignes[p].input.value; });
+            try { sessionStorage.setItem(cle, JSON.stringify({t: Date.now(), codes: codes})); } catch (e) {}
+        });
+
         // Modification : reprise des codes déjà enregistrés (maintenance retrouvée via l'URL de la page)
         if (!cfg.apiCodes) return;
         fetch(cfg.apiCodes + '?chemin=' + encodeURIComponent(window.location.pathname), {credentials: 'same-origin'})
@@ -94,7 +113,7 @@
                 Object.keys(d.lignes || {}).forEach(function (prefixe) {
                     var l = lignes[prefixe], info = d.lignes[prefixe];
                     if (!l) return;
-                    l.input.value = info.code;
+                    if (!l.input.value) l.input.value = info.code;
                     if (info.debitee) {
                         l.input.readOnly = true;
                         l.input.classList.add('bg-gray-100');
