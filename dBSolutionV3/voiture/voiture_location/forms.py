@@ -205,3 +205,44 @@ class LocationVehiculeSupForm(forms.ModelForm):
         if vehicules is not None:
             self.fields["voiture_exemplaire"].queryset = vehicules
         self.fields["prix"].label = _("Prix TVAC (€)")
+
+
+# =====================================================================
+# BOX EN PIT LANE (un ou plusieurs par location)
+# =====================================================================
+from .models import LocationBox  # noqa: E402
+
+_C_BOX = "input block w-full border rounded px-3 py-2 bg-white"
+
+
+class LocationBoxForm(forms.ModelForm):
+    class Meta:
+        model = LocationBox
+        fields = ["numero", "pit_lane", "quantite", "prix_unitaire"]
+        widgets = {
+            "numero": forms.NumberInput(attrs={"class": _C_BOX, "min": "1", "max": "100", "placeholder": "1 – 100"}),
+            "pit_lane": forms.Select(attrs={"class": _C_BOX}),
+            "quantite": forms.NumberInput(attrs={"class": _C_BOX, "min": "1"}),
+            "prix_unitaire": forms.NumberInput(attrs={"class": _C_BOX, "min": "0", "step": "0.01"}),
+        }
+
+
+class BaseLocationBoxFormSet(forms.BaseInlineFormSet):
+    def clean(self):
+        super().clean()
+        vus = set()
+        for f in self.forms:
+            if not hasattr(f, "cleaned_data") or not f.cleaned_data or f.cleaned_data.get("DELETE"):
+                continue
+            cle = (f.cleaned_data.get("pit_lane"), f.cleaned_data.get("numero"))
+            if None in cle:
+                continue
+            if cle in vus:
+                f.add_error("numero", _("Ce box est déjà dans la liste."))
+            vus.add(cle)
+
+
+LocationBoxFormSet = forms.inlineformset_factory(
+    Location, LocationBox, form=LocationBoxForm, formset=BaseLocationBoxFormSet,
+    extra=0, can_delete=True,
+)

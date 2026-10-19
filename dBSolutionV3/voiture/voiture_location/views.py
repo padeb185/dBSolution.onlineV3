@@ -9,7 +9,7 @@ from django.utils.translation import gettext as _, gettext_noop
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
 
-from .forms import LocationForm, LocationVehiculeSupForm
+from .forms import LocationBoxFormSet, LocationForm, LocationVehiculeSupForm
 from .models import Location, ObjectifVente
 
 ROLES_AUTORISES = ["vendeur", "direction", "chef_mecanicien"]
@@ -50,7 +50,7 @@ def _queryset(request):
             "societe__adresse",
             "vendeur",
         )
-        .prefetch_related("factures")
+        .prefetch_related("factures", "boxes")
     )
 
 
@@ -85,6 +85,8 @@ def location_ajouter(request):
 
     form = LocationForm(request.POST or None, user=request.user, initial=initial)
     vehicules = form.fields["voiture_exemplaire"].queryset
+    # Box en pit lane : rattachés à la location du véhicule 1
+    boxes_fs = LocationBoxFormSet(request.POST or None, instance=Location(), prefix="box")
 
     # Véhicules supplémentaires (même client) : une location complète par véhicule
     forms_sup = []
@@ -106,6 +108,7 @@ def location_ajouter(request):
             form.add_error(None, _("La remise doit être comprise entre 0 et 99,99 %."))
             principal_ok = False
         sup_ok = all([f.is_valid() for f in forms_sup])
+        principal_ok = boxes_fs.is_valid() and principal_ok
         doublons = _vehicules_en_double(form, forms_sup)
         if doublons:
             form.add_error(None, _("Le véhicule %(v)s est sélectionné plusieurs fois.") % {"v": ", ".join(doublons)})
@@ -116,6 +119,8 @@ def location_ajouter(request):
                 location = form.save(commit=False)
                 _appliquer_remise(location, remise)
                 location.save()
+                boxes_fs.instance = location
+                boxes_fs.save()
                 _log(request.user, ACTION_CREATION_LOCATION, location)
                 creees = [location]
                 for f in forms_sup:
@@ -150,6 +155,7 @@ def location_ajouter(request):
         "form_sup_vide": LocationVehiculeSupForm(prefix="sup-__ID__", vehicules=vehicules),
         "champs_vehicule": CHAMPS_VEHICULE,
         "remise": remise_brute if request.method == "POST" else "0",
+        "boxes_fs": boxes_fs,
     })
 
 
@@ -192,8 +198,11 @@ def location_modifier(request, location_id):
 
     location = get_object_or_404(_queryset(request), id=location_id)
     form = LocationForm(request.POST or None, instance=location, user=request.user)
-    if request.method == "POST" and form.is_valid():
+    boxes_fs = LocationBoxFormSet(request.POST or None, instance=location, prefix="box")
+    if request.method == "POST" and all([form.is_valid(), boxes_fs.is_valid()]):
         location = form.save()
+        boxes_fs.save()
+        getattr(location, "_prefetched_objects_cache", {}).pop("boxes", None)  # total box à jour
         location.synchroniser_paiement_facture()
         _log(request.user, ACTION_MODIFICATION_LOCATION, location)
         messages.success(request, _("Location '%(loc)s' mise à jour.") % {"loc": location})
@@ -201,6 +210,7 @@ def location_modifier(request, location_id):
 
     return render(request, "voiture_location/location_form.html", {
         "form": form, "location": location, "taux_tva": location.taux_tva,
+        "boxes_fs": boxes_fs,
     })
 
 

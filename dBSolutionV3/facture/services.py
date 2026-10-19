@@ -10,7 +10,7 @@ Chaque type de maintenance (allumage, freins, pneus…) est un modèle lié à
 """
 import logging
 from datetime import timedelta
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 
 from django.db import models, transaction
 from django.utils import timezone
@@ -438,9 +438,32 @@ def creer_facture_depuis_location(location, type_facture, user):
         quantity=Decimal("1.00"),
         unit_cost=None,
         marge=Decimal("0.00"),
-        unit_price=location.prix_htva,
+        unit_price=location.prix_vehicule_htva,
         vat_rate=location.taux_tva,
     )
+    # Box en pit lane : une ligne par box (prix unitaire TVAC → HTVA)
+    from voiture.voiture_location.models import prix_htva_depuis_tvac
+    for ordre, box in enumerate(location.boxes_liste, start=2):
+        quantite, unitaire, description = Decimal(box.quantite), box.prix_unitaire_htva, box.libelle
+        base = quantite * unitaire
+        tva = (base * location.taux_tva / Decimal("100")).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        if base + tva != box.total_tvac:
+            # Arrondi : une seule ligne au total, pour retomber exactement sur le prix TVAC
+            description = f"{box.libelle} ({box.quantite} × {box.prix_unitaire} € TVAC)"
+            quantite, unitaire = Decimal("1"), prix_htva_depuis_tvac(box.total_tvac, location.taux_tva)
+        FactureLine.objects.create(
+            facture=facture,
+            location=location,
+            ordre=ordre,
+            type_ligne=FactureLine.TypeLigne.LOCATION,
+            description=description[:255],
+            reference="",
+            quantity=quantite,
+            unit_cost=None,
+            marge=Decimal("0.00"),
+            unit_price=unitaire,
+            vat_rate=location.taux_tva,
+        )
     facture.recalculer_totaux()
     return facture
 

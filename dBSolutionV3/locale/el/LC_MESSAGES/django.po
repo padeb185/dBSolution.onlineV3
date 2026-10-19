@@ -52234,3 +52234,71 @@ msgid ""
 msgstr ""
 "ασφάλειες «Αντικαταστάθηκε» παρακάτω, με την τιμή μονάδας και τον κωδικό "
 "OEM/EAN του ανταλλακτικού παραπάνω."
+
+#: voiture/voiture_location/models.py
+msgid "Pit Lane 1"
+msgstr "Pit Lane 1"
+
+#: voiture/voiture_location/models.py
+msgid "Pit Lane 2"
+msgstr "Pit Lane 2"
+
+#: voiture/voiture_location/models.py
+msgid "Pit Lane"
+msgstr "Pit Lane"
+
+#: voiture/voiture_location/models.py
+msgid "Box"
+msgstr "Box"
+
+#: voiture/voiture_location/models.py
+msgid "Numéro du box"
+msgstr "Αριθμός box"
+
+#: voiture/voiture_location/models.py
+msgid "Numéro (1 – 100)"
+msgstr "Αριθμός (1 – 100)"
+
+#: voiture/voiture_location/models.py
+msgid "Prix unitaire TVAC (€)"
+msgstr "Τιμή μονάδας με ΦΠΑ (€)"
+
+#: voiture/voiture_location/models.py
+msgid "Prix unitaire TVAC"
+msgstr "Τιμή μονάδας με ΦΠΑ"
+
+#: voiture/voiture_location/models.py
+msgid "Box %(numero)s – %(pit_lane)s"
+msgstr "Box %(numero)s – %(pit_lane)s"
+
+#: voiture/voiture_location/models.py
+msgid "Box en pit lane"
+msgstr "Box στο pit lane"
+
+#: voiture/voiture_location/models.py
+msgid ""
+"Un ou plusieurs box loués avec la location (numéro 1 à 100, Pit Lane 1 ou "
+"2). Le prix unitaire est TVAC et s'ajoute au prix de la location."
+msgstr ""
+"Ένα ή περισσότερα box με την ενοικίαση (αριθμός 1 έως 100, Pit Lane 1 ή 2). "
+"Η τιμή μονάδας περιλαμβάνει ΦΠΑ και προστίθεται στην τιμή ενοικίασης."
+
+#: voiture/voiture_location/models.py
+msgid "Ajouter un box"
+msgstr "Προσθήκη box"
+
+#: voiture/voiture_location/models.py
+msgid "Total box TVAC"
+msgstr "Σύνολο box με ΦΠΑ"
+
+#: voiture/voiture_location/models.py
+msgid "Total location TVAC (véhicule + box)"
+msgstr "Σύνολο ενοικίασης με ΦΠΑ (όχημα + box)"
+
+#: voiture/voiture_location/models.py
+msgid "Véhicule (TVAC)"
+msgstr "Όχημα (με ΦΠΑ)"
+
+#: voiture/voiture_location/models.py
+msgid "Ce box est déjà dans la liste."
+msgstr "Αυτό το box υπάρχει ήδη στη λίστα."

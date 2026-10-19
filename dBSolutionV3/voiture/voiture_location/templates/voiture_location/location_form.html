@@ -116,6 +116,10 @@
 
         <br>
 
+        {% include "voiture_location/_boxes_form.html" %}
+
+        <br>
+
         {% else %}
         <!-- ================= VÉHICULES (une fiche par véhicule) ================= -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
@@ -149,6 +153,11 @@
         {% include "voiture_location/_champ.html" with field=form.locataire %}
         {% if form.vendeur %}{% include "voiture_location/_champ.html" with field=form.vendeur %}{% endif %}
         {% include "voiture_location/_champ.html" with field=form.remarques %}
+
+        <br>
+
+        <!-- ================= BOX EN PIT LANE ================= -->
+        {% include "voiture_location/_boxes_form.html" %}
 
         <br>
 
@@ -364,9 +373,17 @@
             tr.firstChild.appendChild(document.createTextNode(libelle));
             corps.appendChild(tr);
         });
+        // Box en pit lane : ajoutés au total, sans remise
+        const boxes = window.totalBoxes ? window.totalBoxes() : 0;
+        if (boxes) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td class="border px-3 py-2">{{ _("Box en pit lane")|escapejs }}</td><td class="border px-3 py-2 text-right">${fmt(boxes)}</td>`;
+            corps.appendChild(tr);
+            sousTotal += boxes;
+        }
         const pct = Math.min(Math.max(num(remise && remise.value), 0), 99.99);
         // Même calcul que le serveur : remise arrondie sur chaque véhicule
-        let total = 0;
+        let total = boxes;
         fiches().forEach(f => {
             const prix = f.querySelector("[name='prix'], [name$='-prix']");
             total += r2(num(prix && prix.value) * (100 - pct) / 100);

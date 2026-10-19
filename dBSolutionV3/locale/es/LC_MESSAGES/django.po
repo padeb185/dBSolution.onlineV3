@@ -52169,3 +52169,71 @@ msgid ""
 msgstr ""
 "fusibles «Sustituido» abajo, al precio unitario y código OEM/EAN de la pieza"
 " de arriba."
+
+#: voiture/voiture_location/models.py
+msgid "Pit Lane 1"
+msgstr "Pit Lane 1"
+
+#: voiture/voiture_location/models.py
+msgid "Pit Lane 2"
+msgstr "Pit Lane 2"
+
+#: voiture/voiture_location/models.py
+msgid "Pit Lane"
+msgstr "Pit Lane"
+
+#: voiture/voiture_location/models.py
+msgid "Box"
+msgstr "Box"
+
+#: voiture/voiture_location/models.py
+msgid "Numéro du box"
+msgstr "Número de box"
+
+#: voiture/voiture_location/models.py
+msgid "Numéro (1 – 100)"
+msgstr "Número (1 – 100)"
+
+#: voiture/voiture_location/models.py
+msgid "Prix unitaire TVAC (€)"
+msgstr "Precio unitario con IVA (€)"
+
+#: voiture/voiture_location/models.py
+msgid "Prix unitaire TVAC"
+msgstr "Precio unitario con IVA"
+
+#: voiture/voiture_location/models.py
+msgid "Box %(numero)s – %(pit_lane)s"
+msgstr "Box %(numero)s – %(pit_lane)s"
+
+#: voiture/voiture_location/models.py
+msgid "Box en pit lane"
+msgstr "Box en el pit lane"
+
+#: voiture/voiture_location/models.py
+msgid ""
+"Un ou plusieurs box loués avec la location (numéro 1 à 100, Pit Lane 1 ou "
+"2). Le prix unitaire est TVAC et s'ajoute au prix de la location."
+msgstr ""
+"Uno o varios boxes alquilados con el alquiler (número 1 a 100, Pit Lane 1 o "
+"2). El precio unitario incluye IVA y se suma al precio del alquiler."
+
+#: voiture/voiture_location/models.py
+msgid "Ajouter un box"
+msgstr "Añadir un box"
+
+#: voiture/voiture_location/models.py
+msgid "Total box TVAC"
+msgstr "Total boxes con IVA"
+
+#: voiture/voiture_location/models.py
+msgid "Total location TVAC (véhicule + box)"
+msgstr "Total alquiler con IVA (vehículo + box)"
+
+#: voiture/voiture_location/models.py
+msgid "Véhicule (TVAC)"
+msgstr "Vehículo (con IVA)"
+
+#: voiture/voiture_location/models.py
+msgid "Ce box est déjà dans la liste."
+msgstr "Este box ya está en la lista."

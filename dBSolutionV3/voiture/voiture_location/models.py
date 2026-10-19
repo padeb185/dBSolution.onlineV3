@@ -3,7 +3,7 @@ from decimal import Decimal, ROUND_HALF_UP
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.validators import MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext, gettext_lazy as _, ngettext
 
@@ -363,9 +363,26 @@ class Location(models.Model):
         from maintenance.choices import TVAConfig
         return Decimal(str(TVAConfig.get_tva(self.pays_tva))).quantize(DEUX_DECIMALES)
 
+    # Prix total = prix du véhicule (« prix », remise comprise) + box(es) en pit lane
+    @property
+    def boxes_liste(self):
+        return list(self.boxes.all()) if self.pk else []
+
+    @property
+    def prix_vehicule_tvac(self):
+        return Decimal(str(self.prix or 0)).quantize(DEUX_DECIMALES, rounding=ROUND_HALF_UP)
+
+    @property
+    def prix_vehicule_htva(self):
+        return prix_htva_depuis_tvac(self.prix_vehicule_tvac, self.taux_tva)
+
+    @property
+    def total_boxes_tvac(self):
+        return sum((b.total_tvac for b in self.boxes_liste), Decimal("0.00")).quantize(DEUX_DECIMALES)
+
     @property
     def prix_tvac(self):
-        return Decimal(str(self.prix or 0)).quantize(DEUX_DECIMALES, rounding=ROUND_HALF_UP)
+        return (self.prix_vehicule_tvac + self.total_boxes_tvac).quantize(DEUX_DECIMALES)
 
     @property
     def prix_htva(self):
@@ -557,6 +574,48 @@ class Location(models.Model):
 
         if errors:
             raise ValidationError(errors)
+
+
+class PitLane(models.IntegerChoices):
+    PIT_LANE_1 = 1, _("Pit Lane 1")
+    PIT_LANE_2 = 2, _("Pit Lane 2")
+
+
+class LocationBox(models.Model):
+    """Box (garage) loué en pit lane avec la location. Le prix unitaire est TVAC."""
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name="boxes",
+                                 verbose_name=_("Location"))
+    numero = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(100)],
+        verbose_name=_("Numéro du box"),
+    )
+    pit_lane = models.PositiveSmallIntegerField(choices=PitLane.choices, default=PitLane.PIT_LANE_1,
+                                                verbose_name=_("Pit Lane"))
+    quantite = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1)],
+                                                verbose_name=_("Quantité"))
+    prix_unitaire = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal("0"),
+                                        validators=[MinValueValidator(Decimal("0"))],
+                                        verbose_name=_("Prix unitaire TVAC (€)"))
+
+    class Meta:
+        verbose_name = _("Box")
+        verbose_name_plural = _("Box")
+        ordering = ["pit_lane", "numero", "id"]
+
+    def __str__(self):
+        return self.libelle
+
+    @property
+    def libelle(self):
+        return gettext("Box %(numero)s – %(pit_lane)s") % {"numero": self.numero, "pit_lane": self.get_pit_lane_display()}
+
+    @property
+    def total_tvac(self):
+        return (Decimal(self.quantite or 0) * Decimal(str(self.prix_unitaire or 0))).quantize(DEUX_DECIMALES, rounding=ROUND_HALF_UP)
+
+    @property
+    def prix_unitaire_htva(self):
+        return prix_htva_depuis_tvac(self.prix_unitaire, self.location.taux_tva)
 
 
 class ObjectifVente(models.Model):

@@ -51500,3 +51500,71 @@ msgid ""
 msgstr ""
 "fusibles « Remplacé » ci-dessous, au prix unitaire et au code OEM/EAN de la "
 "pièce ci-dessus."
+
+#: voiture/voiture_location/models.py
+msgid "Pit Lane 1"
+msgstr "Pit Lane 1"
+
+#: voiture/voiture_location/models.py
+msgid "Pit Lane 2"
+msgstr "Pit Lane 2"
+
+#: voiture/voiture_location/models.py
+msgid "Pit Lane"
+msgstr "Pit Lane"
+
+#: voiture/voiture_location/models.py
+msgid "Box"
+msgstr "Box"
+
+#: voiture/voiture_location/models.py
+msgid "Numéro du box"
+msgstr "Numéro du box"
+
+#: voiture/voiture_location/models.py
+msgid "Numéro (1 – 100)"
+msgstr "Numéro (1 – 100)"
+
+#: voiture/voiture_location/models.py
+msgid "Prix unitaire TVAC (€)"
+msgstr "Prix unitaire TVAC (€)"
+
+#: voiture/voiture_location/models.py
+msgid "Prix unitaire TVAC"
+msgstr "Prix unitaire TVAC"
+
+#: voiture/voiture_location/models.py
+msgid "Box %(numero)s – %(pit_lane)s"
+msgstr "Box %(numero)s – %(pit_lane)s"
+
+#: voiture/voiture_location/models.py
+msgid "Box en pit lane"
+msgstr "Box en pit lane"
+
+#: voiture/voiture_location/models.py
+msgid ""
+"Un ou plusieurs box loués avec la location (numéro 1 à 100, Pit Lane 1 ou "
+"2). Le prix unitaire est TVAC et s'ajoute au prix de la location."
+msgstr ""
+"Un ou plusieurs box loués avec la location (numéro 1 à 100, Pit Lane 1 ou "
+"2). Le prix unitaire est TVAC et s'ajoute au prix de la location."
+
+#: voiture/voiture_location/models.py
+msgid "Ajouter un box"
+msgstr "Ajouter un box"
+
+#: voiture/voiture_location/models.py
+msgid "Total box TVAC"
+msgstr "Total box TVAC"
+
+#: voiture/voiture_location/models.py
+msgid "Total location TVAC (véhicule + box)"
+msgstr "Total location TVAC (véhicule + box)"
+
+#: voiture/voiture_location/models.py
+msgid "Véhicule (TVAC)"
+msgstr "Véhicule (TVAC)"
+
+#: voiture/voiture_location/models.py
+msgid "Ce box est déjà dans la liste."
+msgstr "Ce box est déjà dans la liste."

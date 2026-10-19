@@ -52064,3 +52064,71 @@ msgid ""
 msgstr ""
 "“Replaced” fuses below, at the unit price and OEM/EAN code of the part "
 "above."
+
+#: voiture/voiture_location/models.py
+msgid "Pit Lane 1"
+msgstr "Pit Lane 1"
+
+#: voiture/voiture_location/models.py
+msgid "Pit Lane 2"
+msgstr "Pit Lane 2"
+
+#: voiture/voiture_location/models.py
+msgid "Pit Lane"
+msgstr "Pit Lane"
+
+#: voiture/voiture_location/models.py
+msgid "Box"
+msgstr "Box"
+
+#: voiture/voiture_location/models.py
+msgid "Numéro du box"
+msgstr "Box number"
+
+#: voiture/voiture_location/models.py
+msgid "Numéro (1 – 100)"
+msgstr "Number (1 – 100)"
+
+#: voiture/voiture_location/models.py
+msgid "Prix unitaire TVAC (€)"
+msgstr "Unit price incl. VAT (€)"
+
+#: voiture/voiture_location/models.py
+msgid "Prix unitaire TVAC"
+msgstr "Unit price incl. VAT"
+
+#: voiture/voiture_location/models.py
+msgid "Box %(numero)s – %(pit_lane)s"
+msgstr "Box %(numero)s – %(pit_lane)s"
+
+#: voiture/voiture_location/models.py
+msgid "Box en pit lane"
+msgstr "Pit lane box"
+
+#: voiture/voiture_location/models.py
+msgid ""
+"Un ou plusieurs box loués avec la location (numéro 1 à 100, Pit Lane 1 ou "
+"2). Le prix unitaire est TVAC et s'ajoute au prix de la location."
+msgstr ""
+"One or more boxes rented with the rental (number 1 to 100, Pit Lane 1 or 2)."
+" The unit price includes VAT and is added to the rental price."
+
+#: voiture/voiture_location/models.py
+msgid "Ajouter un box"
+msgstr "Add a box"
+
+#: voiture/voiture_location/models.py
+msgid "Total box TVAC"
+msgstr "Box total incl. VAT"
+
+#: voiture/voiture_location/models.py
+msgid "Total location TVAC (véhicule + box)"
+msgstr "Rental total incl. VAT (vehicle + box)"
+
+#: voiture/voiture_location/models.py
+msgid "Véhicule (TVAC)"
+msgstr "Vehicle (incl. VAT)"
+
+#: voiture/voiture_location/models.py
+msgid "Ce box est déjà dans la liste."
+msgstr "This box is already in the list."

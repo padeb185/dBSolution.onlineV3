@@ -52210,3 +52210,71 @@ msgid ""
 msgstr ""
 "„Ersetzte“ Sicherungen unten, zum Stückpreis und OEM/EAN-Code des Teils "
 "oben."
+
+#: voiture/voiture_location/models.py
+msgid "Pit Lane 1"
+msgstr "Pit Lane 1"
+
+#: voiture/voiture_location/models.py
+msgid "Pit Lane 2"
+msgstr "Pit Lane 2"
+
+#: voiture/voiture_location/models.py
+msgid "Pit Lane"
+msgstr "Pit Lane"
+
+#: voiture/voiture_location/models.py
+msgid "Box"
+msgstr "Box"
+
+#: voiture/voiture_location/models.py
+msgid "Numéro du box"
+msgstr "Boxnummer"
+
+#: voiture/voiture_location/models.py
+msgid "Numéro (1 – 100)"
+msgstr "Nummer (1 – 100)"
+
+#: voiture/voiture_location/models.py
+msgid "Prix unitaire TVAC (€)"
+msgstr "Stückpreis inkl. MwSt. (€)"
+
+#: voiture/voiture_location/models.py
+msgid "Prix unitaire TVAC"
+msgstr "Stückpreis inkl. MwSt."
+
+#: voiture/voiture_location/models.py
+msgid "Box %(numero)s – %(pit_lane)s"
+msgstr "Box %(numero)s – %(pit_lane)s"
+
+#: voiture/voiture_location/models.py
+msgid "Box en pit lane"
+msgstr "Box in der Boxengasse"
+
+#: voiture/voiture_location/models.py
+msgid ""
+"Un ou plusieurs box loués avec la location (numéro 1 à 100, Pit Lane 1 ou "
+"2). Le prix unitaire est TVAC et s'ajoute au prix de la location."
+msgstr ""
+"Eine oder mehrere Boxen zur Vermietung (Nummer 1 bis 100, Pit Lane 1 oder "
+"2). Der Stückpreis ist inkl. MwSt. und wird zum Mietpreis addiert."
+
+#: voiture/voiture_location/models.py
+msgid "Ajouter un box"
+msgstr "Box hinzufügen"
+
+#: voiture/voiture_location/models.py
+msgid "Total box TVAC"
+msgstr "Boxen gesamt inkl. MwSt."
+
+#: voiture/voiture_location/models.py
+msgid "Total location TVAC (véhicule + box)"
+msgstr "Miete gesamt inkl. MwSt. (Fahrzeug + Box)"
+
+#: voiture/voiture_location/models.py
+msgid "Véhicule (TVAC)"
+msgstr "Fahrzeug (inkl. MwSt.)"
+
+#: voiture/voiture_location/models.py
+msgid "Ce box est déjà dans la liste."
+msgstr "Diese Box ist bereits in der Liste."

@@ -1,0 +1,122 @@
+{% load i18n static %}
+{% comment %}Box en pit lane (formset « box ») : numéro 1–100, Pit Lane 1 ou 2, quantité, prix unitaire TVAC.{% endcomment %}
+<h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+    <img src="{% static 'icons/location_circuit_route.png' %}" alt="{% trans 'Box' %}" class="w-20 h-20">
+    {% trans "Box en pit lane" %}
+</h2>
+<p class="text-sm text-gray-500 mb-3">{% trans "Un ou plusieurs box loués avec la location (numéro 1 à 100, Pit Lane 1 ou 2). Le prix unitaire est TVAC et s'ajoute au prix de la location." %}</p>
+
+{{ boxes_fs.management_form }}
+{% if boxes_fs.non_form_errors %}<div class="text-red-600 text-sm mb-2">{{ boxes_fs.non_form_errors }}</div>{% endif %}
+
+{% with C="block text-xs font-semibold text-gray-600 mb-1" %}
+<div id="lignes-box">
+{% for f in boxes_fs %}
+<div class="ligne-box border border-gray-300 rounded-lg p-3 mb-3 bg-gray-50">
+    <div class="flex items-center justify-between mb-2">
+        <span class="font-semibold text-gray-700">{% trans "Box" %} <span class="numero-ligne-box">{{ forloop.counter }}</span></span>
+        {% if f.instance.pk %}<label class="text-sm text-red-700 flex items-center gap-1">{{ f.DELETE }} {% trans "Supprimer" %}</label>{% else %}<button type="button" class="retirer-box text-sm text-red-700 hover:underline">{% trans "Supprimer" %}</button>{% endif %}
+    </div>
+    {% for h in f.hidden_fields %}{{ h }}{% endfor %}
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div><label class="{{ C }}">{% trans "Numéro (1 – 100)" %}</label>{{ f.numero }}{% for e in f.numero.errors %}<p class="text-red-600 text-xs">{{ e }}</p>{% endfor %}</div>
+        <div><label class="{{ C }}">{% trans "Pit Lane" %}</label>{{ f.pit_lane }}</div>
+        <div><label class="{{ C }}">{% trans "Quantité" %}</label>{{ f.quantite }}{% for e in f.quantite.errors %}<p class="text-red-600 text-xs">{{ e }}</p>{% endfor %}</div>
+        <div><label class="{{ C }}">{% trans "Prix unitaire TVAC (€)" %}</label>{{ f.prix_unitaire }}{% for e in f.prix_unitaire.errors %}<p class="text-red-600 text-xs">{{ e }}</p>{% endfor %}</div>
+    </div>
+    <p class="text-right text-sm mt-2">{% trans "Total" %} : <strong class="total-ligne-box">—</strong></p>
+</div>
+{% endfor %}
+</div>
+
+<template id="modele-box">
+<div class="ligne-box border border-gray-300 rounded-lg p-3 mb-3 bg-gray-50">
+    <div class="flex items-center justify-between mb-2">
+        <span class="font-semibold text-gray-700">{% trans "Box" %} <span class="numero-ligne-box"></span></span>
+        <button type="button" class="retirer-box text-sm text-red-700 hover:underline">{% trans "Supprimer" %}</button>
+    </div>
+    {% for h in boxes_fs.empty_form.hidden_fields %}{{ h }}{% endfor %}
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div><label class="{{ C }}">{% trans "Numéro (1 – 100)" %}</label>{{ boxes_fs.empty_form.numero }}</div>
+        <div><label class="{{ C }}">{% trans "Pit Lane" %}</label>{{ boxes_fs.empty_form.pit_lane }}</div>
+        <div><label class="{{ C }}">{% trans "Quantité" %}</label>{{ boxes_fs.empty_form.quantite }}</div>
+        <div><label class="{{ C }}">{% trans "Prix unitaire TVAC (€)" %}</label>{{ boxes_fs.empty_form.prix_unitaire }}</div>
+    </div>
+    <p class="text-right text-sm mt-2">{% trans "Total" %} : <strong class="total-ligne-box">—</strong></p>
+</div>
+</template>
+{% endwith %}
+
+<button type="button" id="ajouter-box" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold mb-3">+ {% trans "Ajouter un box" %}</button>
+<div id="resume-box" class="bg-gray-50 border rounded p-3 text-sm space-y-1 mb-4 hidden">
+    <div class="flex justify-between"><span>{% trans "Total box TVAC" %}</span><strong id="total-box">—</strong></div>
+    {% if location %}<div class="flex justify-between"><span>{% trans "Total location TVAC (véhicule + box)" %}</span><strong id="total-location-box">—</strong></div>{% endif %}
+</div>
+
+<script>
+(function () {
+    var total = document.getElementById('id_box-TOTAL_FORMS');
+    var corps = document.getElementById('lignes-box');
+    var modele = document.getElementById('modele-box');
+    var form = corps.closest('form');
+    var fmt = function (v) { return v.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' €'; };
+    var num = function (v) { var x = parseFloat(String(v || '').replace(',', '.')); return isNaN(x) ? 0 : x; };
+
+    function lignes() {
+        return Array.prototype.filter.call(corps.querySelectorAll('.ligne-box'), function (l) {
+            var del = l.querySelector('[name$="-DELETE"]'); return !(del && del.checked);
+        });
+    }
+    // Total TVAC des box (utilisé aussi par les totaux de la création)
+    window.totalBoxes = function () {
+        var t = 0;
+        lignes().forEach(function (l) {
+            var q = num(l.querySelector('[name$="-quantite"]').value), p = num(l.querySelector('[name$="-prix_unitaire"]').value);
+            var n = l.querySelector('[name$="-numero"]').value;
+            if (n) t += Math.round(q * p * 100) / 100;
+        });
+        return Math.round(t * 100) / 100;
+    };
+    function maj() {
+        corps.querySelectorAll('.ligne-box').forEach(function (l, i) {
+            l.querySelector('.numero-ligne-box').textContent = i + 1;
+            var q = num(l.querySelector('[name$="-quantite"]').value), p = num(l.querySelector('[name$="-prix_unitaire"]').value);
+            l.querySelector('.total-ligne-box').textContent = fmt(Math.round(q * p * 100) / 100);
+        });
+        var t = window.totalBoxes(), resume = document.getElementById('resume-box');
+        resume.classList.toggle('hidden', !corps.querySelector('.ligne-box'));
+        document.getElementById('total-box').textContent = fmt(t);
+        var tl = document.getElementById('total-location-box'), prix = form.querySelector('[name="prix"]');
+        if (tl && prix) tl.textContent = fmt(Math.round((num(prix.value) + t) * 100) / 100);
+    }
+    document.getElementById('ajouter-box').addEventListener('click', function () {
+        var n = parseInt(total.value, 10);
+        var tmp = document.createElement('div');
+        tmp.innerHTML = modele.innerHTML.replace(/__prefix__/g, n);
+        var ligne = tmp.firstElementChild, derniere = corps.querySelector('.ligne-box:last-child');
+        if (derniere) {   // reprend la pit lane et le prix du box précédent, numéro suivant
+            ['pit_lane', 'prix_unitaire'].forEach(function (c) {
+                var src = derniere.querySelector('[name$="-' + c + '"]'), dst = ligne.querySelector('[name$="-' + c + '"]');
+                if (src && dst) dst.value = src.value;
+            });
+            var pn = parseInt(derniere.querySelector('[name$="-numero"]').value, 10);
+            if (pn && pn < 100) ligne.querySelector('[name$="-numero"]').value = pn + 1;
+        }
+        corps.appendChild(ligne);
+        total.value = n + 1;
+        maj();
+        ligne.querySelector('[name$="-numero"]').focus();
+        form.dispatchEvent(new Event('change'));
+    });
+    form.addEventListener('click', function (ev) {
+        var b = ev.target.closest('.retirer-box');
+        if (!b) return;
+        b.closest('.ligne-box').remove();
+        maj();
+        form.dispatchEvent(new Event('change'));
+    });
+    form.addEventListener('input', maj);
+    form.addEventListener('change', maj);
+    maj();
+})();
+</script>

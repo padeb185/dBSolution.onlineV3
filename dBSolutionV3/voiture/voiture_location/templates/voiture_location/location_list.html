@@ -99,8 +99,8 @@
             <td class="border px-4 py-2">{{ loc.lieu|default:"—" }}</td>
             <td class="border px-4 py-2">{{ loc.locataire|default:"—" }}</td>
             <td class="border px-4 py-2" data-order="{{ loc.kilometrage|default:0 }}">{{ loc.distance_affichage|default:"—" }}</td>
-            <td class="border px-4 py-2" data-order="{{ loc.prix }}">
-                {{ loc.prix|floatformat:2 }} €
+            <td class="border px-4 py-2" data-order="{{ loc.prix_tvac|stringformat:'s' }}">
+                {{ loc.prix_tvac|floatformat:2 }} €
                 <div class="text-xs text-gray-500">{% trans "HTVA" %} {{ loc.prix_htva|floatformat:2 }} € · {% trans "TVA" %} {{ loc.montant_tva|floatformat:2 }} €</div>
             </td>
             <td class="border px-4 py-2" data-order="{{ loc.date_debut|date:'Y-m-d' }}">

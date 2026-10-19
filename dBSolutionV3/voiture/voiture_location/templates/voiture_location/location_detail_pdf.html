@@ -327,12 +327,31 @@
             </tr>
         </thead>
         <tbody>
+            {% with boxes=location.boxes_liste %}
+            {% if boxes %}
+            <tr>
+                <td>{{ location.libelle_facture }}</td>
+                <td class="text-right">{{ location.prix_vehicule_htva|floatformat:2 }} €</td>
+                <td class="text-right"></td>
+                <td class="text-right">{{ location.prix_vehicule_tvac|floatformat:2 }} €</td>
+            </tr>
+            {% for b in boxes %}
+            <tr>
+                <td>{{ b.libelle }} ({{ b.quantite }} × {{ b.prix_unitaire|floatformat:2 }} € {% trans "TVAC" %})</td>
+                <td class="text-right"></td>
+                <td class="text-right"></td>
+                <td class="text-right">{{ b.total_tvac|floatformat:2 }} €</td>
+            </tr>
+            {% endfor %}
+            {% else %}
             <tr>
                 <td>{{ location.libelle_facture }}</td>
                 <td class="text-right">{{ location.prix_htva|floatformat:2 }} €</td>
                 <td class="text-right">{{ location.montant_tva|floatformat:2 }} €</td>
                 <td class="text-right">{{ location.prix_tvac|floatformat:2 }} €</td>
             </tr>
+            {% endif %}
+            {% endwith %}
             <tr class="total-general">
                 <td>{% trans "Total" %}</td>
                 <td class="text-right">{{ location.prix_htva|floatformat:2 }} €</td>
