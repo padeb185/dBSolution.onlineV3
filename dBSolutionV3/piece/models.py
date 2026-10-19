@@ -293,6 +293,8 @@ class PieceUtilisee(models.Model):
     maintenance = models.ForeignKey("maintenance.Maintenance", on_delete=models.CASCADE,
                                     related_name="pieces_utilisees", verbose_name=_("Maintenance"))
     piece = models.ForeignKey(Piece, on_delete=models.PROTECT, related_name="utilisations", verbose_name=_("Pièce"))
+    # Ligne de pièce de l'intervention (ex. « capteur_lacet ») quand saisie depuis le formulaire de maintenance
+    prefixe = models.CharField(max_length=80, blank=True, default="", verbose_name=_("Ligne de l'intervention"))
     quantite = models.DecimalField(max_digits=10, decimal_places=2, default=1, verbose_name=_("Quantité"))
     prix_unitaire = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix unitaire HTVA"))
     mouvement = models.OneToOneField(MouvementStock, on_delete=models.SET_NULL, null=True, blank=True,

@@ -101,11 +101,13 @@ class MouvementForm(forms.Form):
 
 class PieceUtiliseeForm(forms.Form):
     """Pièce utilisée dans une maintenance : OEM/EAN, fabricant, quantité, prix (création si inconnue)."""
+    field_order = ["designation", "fabricant", "code", "quantite", "prix_unitaire", "categorie", "unite"]
     code = forms.CharField(required=False, label=_("OEM / EAN"),
-                           widget=forms.TextInput(attrs={"class": C + " font-mono uppercase", "autofocus": "autofocus",
+                           widget=forms.TextInput(attrs={"class": C + " font-mono uppercase",
                                                          "placeholder": _("Scanner ou saisir le code")}))
     piece_id = forms.UUIDField(required=False, widget=forms.HiddenInput())
-    designation = forms.CharField(required=False, label=_("Pièce"), widget=forms.TextInput(attrs={"class": C}))
+    designation = forms.CharField(required=False, label=_("Intitulé de la pièce"),
+                                  widget=forms.TextInput(attrs={"class": C, "autofocus": "autofocus"}))
     fabricant = forms.CharField(required=False, label=_("Fabricant"),
                                 widget=forms.TextInput(attrs={"class": C, "list": "liste-fabricants"}))
     categorie = forms.ChoiceField(choices=CategoriePiece.choices, required=False, label=_("Catégorie"),

@@ -50116,6 +50116,38 @@ msgstr "Electrics / battery / starter"
 msgid "Électronique / capteurs"
 msgstr "Electronics / sensors"
 
+msgid "Intitulé de la pièce"
+msgstr "Part name"
+
+msgid "Repris de la fiche pièce via l'OEM / EAN."
+msgstr "Taken from the part record via the OEM / EAN."
+
+msgid "Nouvelle pièce : catégorie et unité"
+msgstr "New part: category and unit"
+
+msgid "Pièce trouvée :"
+msgstr "Part found:"
+
+msgid "Code inconnu : la pièce sera créée au catalogue à l’enregistrement."
+msgstr "Unknown code: the part will be created in the catalogue when saving."
+
+#, python-format
+msgid "fabricant « %s » absent de la liste"
+msgstr "manufacturer “%s” not in the list"
+
+msgid "déjà débitée du stock (facture émise)"
+msgstr "already debited from stock (invoice issued)"
+
+msgid "Ligne de l'intervention"
+msgstr "Intervention line"
+
+msgid ""
+"Les pièces encodées ici sont ajoutées à la facture de la maintenance (au "
+"prix de vente indiqué) et sorties du stock à l'émission de la facture."
+msgstr ""
+"Parts entered here are added to the maintenance invoice (at the selling "
+"price entered) and taken out of stock when the invoice is issued."
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Automatic gearbox services"
 

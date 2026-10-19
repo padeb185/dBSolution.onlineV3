@@ -391,6 +391,8 @@ MIDDLEWARE = [
     "dBSolutionV3.middleware.tenant_required.TenantRequiredMiddleware",
     "utilisateurs.middleware.TenantUserAccessMiddleware",
     "utilisateurs.middleware.TOTPRequiredMiddleware",
+    # Codes OEM / EAN des lignes de pièces des interventions → pièces utilisées (stock)
+    "piece.intervention.CodesPiecesInterventionMiddleware",
 
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]

@@ -69,6 +69,15 @@ def rechercher(societe, texte, limite=20):
     return qs[:limite]
 
 
+def prix_vente_effectif(piece):
+    """Prix de vente HTVA de la fiche, sinon prix d'achat + majoration."""
+    if piece.prix_vente:
+        return Decimal(piece.prix_vente).quantize(Decimal("0.01"))
+    achat = Decimal(piece.prix_achat or 0)
+    maj = Decimal(piece.majoration_pourcent or 0)
+    return (achat * (1 + maj / 100)).quantize(Decimal("0.01"))
+
+
 def fabricant_par_nom(nom):
     nom = (nom or "").strip()
     if not nom:

@@ -223,6 +223,11 @@ def facture_modifier_view(request, pk):
         messages.info(request, _("Cette facture est émise : elle ne peut plus être modifiée."))
         return redirect("facture:detail", pk=facture.pk)
 
+    if request.method == "GET":
+        # Pièces utilisées ajoutées aux maintenances depuis la création du brouillon
+        from .services import synchroniser_pieces_utilisees
+        synchroniser_pieces_utilisees(facture)
+
     if request.method == "POST":
         form = FactureForm(request.POST, instance=facture, user=request.user)
         formset = FactureLineFormSet(request.POST, instance=facture, prefix="lignes")

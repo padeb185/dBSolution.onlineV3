@@ -545,6 +545,16 @@ class FactureLine(models.Model):
         verbose_name=_("Location"),
     )
 
+    # Pièce utilisée encodée dans la maintenance (stock) : ligne générée automatiquement
+    piece_utilisee = models.ForeignKey(
+        "piece.PieceUtilisee",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="lignes_facture",
+        verbose_name=_("Pièce utilisée"),
+    )
+
     type_ligne = models.CharField(
         _("Type de ligne"),
         max_length=15,

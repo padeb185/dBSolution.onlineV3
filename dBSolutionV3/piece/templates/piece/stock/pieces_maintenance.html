@@ -34,7 +34,7 @@
     </div>
 
     <div class="bg-blue-50 border border-blue-200 text-blue-900 rounded-lg p-4 mb-6 text-sm">
-        {% trans "Les pièces encodées ici sont débitées du stock automatiquement à l'émission de la facture de la maintenance." %}
+        {% trans "Les pièces encodées ici sont ajoutées à la facture de la maintenance (au prix de vente indiqué) et sorties du stock à l'émission de la facture." %}
     </div>
 
     <!-- Ajout -->
@@ -44,35 +44,40 @@
         {{ form.piece_id }}
         <h2 class="text-lg font-semibold mb-4">{% trans "Ajouter une pièce" %}</h2>
         {% if form.non_field_errors %}<div class="bg-red-100 text-red-800 rounded p-3 mb-4">{{ form.non_field_errors }}</div>{% endif %}
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <!-- Ordre de saisie : intitulé → fabricant → OEM / EAN → quantité → prix -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
+            <div class="md:col-span-4">
+                <label class="block text-sm font-semibold mb-1" for="{{ form.designation.id_for_label }}">{% trans "Intitulé de la pièce" %}</label>
+                {{ form.designation }}
+                {% for e in form.designation.errors %}<p class="text-sm text-red-600">{{ e }}</p>{% endfor %}
+            </div>
             <div class="md:col-span-2">
+                <label class="block text-sm font-semibold mb-1" for="{{ form.fabricant.id_for_label }}">{{ form.fabricant.label }}</label>
+                {{ form.fabricant }}
+            </div>
+            <div class="md:col-span-3">
                 <label class="block text-sm font-semibold mb-1" for="{{ form.code.id_for_label }}">{{ form.code.label }}</label>
                 <div class="flex gap-2">{{ form.code }}<button type="button" id="btn-chercher" class="bg-gray-200 hover:bg-gray-300 px-3 rounded font-semibold">{% trans "Chercher" %}</button></div>
                 <p id="etat-scan" class="text-sm mt-1"></p>
             </div>
-            <div class="md:col-span-2">
-                <label class="block text-sm font-semibold mb-1" for="{{ form.designation.id_for_label }}">{{ form.designation.label }}</label>
-                {{ form.designation }}
-            </div>
-            <div>
-                <label class="block text-sm font-semibold mb-1" for="{{ form.fabricant.id_for_label }}">{{ form.fabricant.label }}</label>
-                {{ form.fabricant }}
-            </div>
-            <div>
-                <label class="block text-sm font-semibold mb-1" for="{{ form.categorie.id_for_label }}">{{ form.categorie.label }}</label>
-                {{ form.categorie }}
-            </div>
-            <div>
+            <div class="md:col-span-1">
                 <label class="block text-sm font-semibold mb-1" for="{{ form.quantite.id_for_label }}">{{ form.quantite.label }}</label>
-                <div class="flex gap-2">{{ form.quantite }}<span class="w-28">{{ form.unite }}</span></div>
+                {{ form.quantite }}
                 {% for e in form.quantite.errors %}<p class="text-sm text-red-600">{{ e }}</p>{% endfor %}
             </div>
-            <div>
-                <label class="block text-sm font-semibold mb-1" for="{{ form.prix_unitaire.id_for_label }}">{{ form.prix_unitaire.label }}</label>
+            <div class="md:col-span-2">
+                <label class="block text-sm font-semibold mb-1" for="{{ form.prix_unitaire.id_for_label }}">{% trans "Prix de vente HTVA" %}</label>
                 {{ form.prix_unitaire }}
-                <p class="text-xs text-gray-500 mt-1">{% trans "Vide : prix de vente de la fiche pièce." %}</p>
+                <p class="text-xs text-gray-500 mt-1">{% trans "Repris de la fiche pièce via l'OEM / EAN." %}</p>
             </div>
         </div>
+        <details class="mt-3 text-sm">
+            <summary class="cursor-pointer text-gray-600">{% trans "Nouvelle pièce : catégorie et unité" %}</summary>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-2">
+                <div><label class="block text-sm font-semibold mb-1">{{ form.categorie.label }}</label>{{ form.categorie }}</div>
+                <div><label class="block text-sm font-semibold mb-1">{{ form.unite.label }}</label>{{ form.unite }}</div>
+            </div>
+        </details>
         <datalist id="liste-fabricants">{% for nom in fabricants %}<option value="{{ nom }}">{% endfor %}</datalist>
         <button type="submit" class="mt-4 bg-blue-700 text-white px-6 py-2 rounded hover:bg-blue-400 font-semibold">{% trans "Ajouter" %}</button>
     </form>
@@ -84,11 +89,11 @@
         <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
             <thead><tr class="bg-gray-100">
                 <th class="border px-2 py-2 text-left">{% trans "Pièce" %}</th>
+                <th class="border px-2 py-2 text-left">{% trans "Fabricant" %}</th>
                 <th class="border px-2 py-2 text-left">{% trans "Code OEM" %}</th>
                 <th class="border px-2 py-2 text-left">{% trans "EAN" %}</th>
-                <th class="border px-2 py-2 text-left">{% trans "Fabricant" %}</th>
                 <th class="border px-2 py-2 text-right">{% trans "Quantité" %}</th>
-                <th class="border px-2 py-2 text-right">{% trans "Prix unitaire HTVA" %}</th>
+                <th class="border px-2 py-2 text-right">{% trans "Prix de vente HTVA" %}</th>
                 <th class="border px-2 py-2 text-right">{% trans "Total HTVA" %}</th>
                 <th class="border px-2 py-2 text-left">{% trans "Stock" %}</th>
                 <th class="border px-2 py-2"></th>
@@ -97,9 +102,9 @@
             {% for l in lignes %}
                 <tr>
                     <td class="border px-2 py-2"><a class="text-blue-700 hover:underline" href="{% url 'piece:detail' l.piece_id %}">{{ l.piece.designation|default:l.piece }}</a></td>
+                    <td class="border px-2 py-2">{{ l.piece.nom_fabricant|default:"—" }}</td>
                     <td class="border px-2 py-2 font-mono">{{ l.piece.oem|default:"—" }}</td>
                     <td class="border px-2 py-2 font-mono text-xs">{{ l.piece.eans|join:", "|default:"—" }}</td>
-                    <td class="border px-2 py-2">{{ l.piece.nom_fabricant|default:"—" }}</td>
                     <td class="border px-2 py-2 text-right">{{ l.quantite|floatformat:"-2" }} <span class="text-xs text-gray-500">{{ l.piece.get_unite_display }}</span></td>
                     <td class="border px-2 py-2 text-right">{{ l.prix_unitaire|floatformat:2 }} €</td>
                     <td class="border px-2 py-2 text-right font-semibold">{{ l.total|floatformat:2 }} €</td>
@@ -139,15 +144,34 @@
 </div>
 
 <script>
-// Scan OEM / EAN : recherche au catalogue et pré-remplissage ; sinon la pièce sera créée
+// OEM / EAN → fiche pièce : intitulé, fabricant et prix de vente repris automatiquement.
+// Intitulé → suggestions du catalogue (choisir une suggestion remplit le reste).
 (function () {
     var form = document.getElementById('form-piece');
-    var code = form.querySelector('[name=code]');
-    var etat = document.getElementById('etat-scan');
     var champ = function (n) { return form.querySelector('[name=' + n + ']'); };
+    var code = champ('code'), designation = champ('designation');
+    var etat = document.getElementById('etat-scan');
     var url = "{% url 'piece:api_recherche' %}";
     var txtTrouvee = "{% trans 'Pièce trouvée – stock :' %}";
     var txtNouvelle = "{% trans 'Pièce inconnue : complétez désignation, fabricant et prix, elle sera créée au catalogue.' %}";
+    var suggestions = {};
+
+    designation.setAttribute('list', 'liste-pieces');
+    designation.setAttribute('autocomplete', 'off');
+    var dl = document.createElement('datalist'); dl.id = 'liste-pieces'; form.appendChild(dl);
+
+    function remplir(p) {
+        champ('piece_id').value = p.id;
+        designation.value = p.designation;
+        champ('fabricant').value = p.fabricant || '';
+        code.value = p.oem || (p.eans[0] || code.value);
+        champ('categorie').value = p.categorie;
+        champ('unite').value = p.unite;
+        champ('prix_unitaire').value = p.prix_vente_effectif;
+        etat.className = 'text-sm mt-1 text-green-700';
+        etat.textContent = txtTrouvee + ' ' + p.stock + (p.emplacement ? ' · ' + p.emplacement : '');
+        champ('quantite').focus(); champ('quantite').select();
+    }
 
     function chercher() {
         var v = code.value.trim();
@@ -156,29 +180,38 @@
         fetch(url + '?code=' + encodeURIComponent(v), {credentials: 'same-origin'})
             .then(function (r) { return r.json(); })
             .then(function (d) {
-                if (d.found) {
-                    var p = d.piece;
-                    champ('piece_id').value = p.id;
-                    champ('designation').value = p.designation;
-                    champ('fabricant').value = p.fabricant || '';
-                    champ('categorie').value = p.categorie;
-                    champ('unite').value = p.unite;
-                    if (!champ('prix_unitaire').value) {
-                        champ('prix_unitaire').value = parseFloat(p.prix_vente) ? p.prix_vente : p.prix_achat;
-                    }
-                    etat.className = 'text-sm mt-1 text-green-700';
-                    etat.textContent = txtTrouvee + ' ' + p.stock + (p.emplacement ? ' · ' + p.emplacement : '');
-                    champ('quantite').focus();
-                } else {
+                if (d.found) { remplir(d.piece); }
+                else {
                     etat.className = 'text-sm mt-1 text-orange-600';
                     etat.textContent = txtNouvelle;
-                    champ('designation').focus();
+                    (designation.value ? champ('quantite') : designation).focus();
                 }
             });
     }
     code.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); chercher(); } });
     code.addEventListener('change', chercher);
     document.getElementById('btn-chercher').addEventListener('click', chercher);
+
+    var minuterie;
+    designation.addEventListener('input', function () {
+        var v = designation.value.trim();
+        if (suggestions[v]) { remplir(suggestions[v]); return; }
+        champ('piece_id').value = '';
+        clearTimeout(minuterie);
+        if (v.length < 2) return;
+        minuterie = setTimeout(function () {
+            fetch(url + '?q=' + encodeURIComponent(v), {credentials: 'same-origin'})
+                .then(function (r) { return r.json(); })
+                .then(function (d) {
+                    dl.innerHTML = ''; suggestions = {};
+                    d.results.forEach(function (p) {
+                        var lib = p.designation + (p.fabricant ? ' – ' + p.fabricant : '') + (p.oem ? ' – ' + p.oem : '');
+                        suggestions[lib] = p;
+                        var o = document.createElement('option'); o.value = lib; dl.appendChild(o);
+                    });
+                });
+        }, 250);
+    });
 })();
 </script>
 {% endblock %}

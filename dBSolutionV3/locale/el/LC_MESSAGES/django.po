@@ -50277,6 +50277,41 @@ msgstr "Ηλεκτρικά / μπαταρία / μίζα"
 msgid "Électronique / capteurs"
 msgstr "Ηλεκτρονικά / αισθητήρες"
 
+msgid "Intitulé de la pièce"
+msgstr "Ονομασία ανταλλακτικού"
+
+msgid "Repris de la fiche pièce via l'OEM / EAN."
+msgstr "Λαμβάνεται από την καρτέλα ανταλλακτικού μέσω OEM / EAN."
+
+msgid "Nouvelle pièce : catégorie et unité"
+msgstr "Νέο ανταλλακτικό: κατηγορία και μονάδα"
+
+msgid "Pièce trouvée :"
+msgstr "Βρέθηκε ανταλλακτικό:"
+
+msgid "Code inconnu : la pièce sera créée au catalogue à l’enregistrement."
+msgstr ""
+"Άγνωστος κωδικός: το ανταλλακτικό θα δημιουργηθεί στον κατάλογο κατά την "
+"αποθήκευση."
+
+#, python-format
+msgid "fabricant « %s » absent de la liste"
+msgstr "ο κατασκευαστής «%s» δεν υπάρχει στη λίστα"
+
+msgid "déjà débitée du stock (facture émise)"
+msgstr "έχει ήδη χρεωθεί από το απόθεμα (εκδόθηκε τιμολόγιο)"
+
+msgid "Ligne de l'intervention"
+msgstr "Γραμμή επέμβασης"
+
+msgid ""
+"Les pièces encodées ici sont ajoutées à la facture de la maintenance (au "
+"prix de vente indiqué) et sorties du stock à l'émission de la facture."
+msgstr ""
+"Τα ανταλλακτικά που καταχωρούνται εδώ προστίθενται στο τιμολόγιο της "
+"συντήρησης (στην τιμή πώλησης που ορίστηκε) και αφαιρούνται από το απόθεμα "
+"με την έκδοση του τιμολογίου."
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Επεμβάσεις σε αυτόματο κιβώτιο"
 

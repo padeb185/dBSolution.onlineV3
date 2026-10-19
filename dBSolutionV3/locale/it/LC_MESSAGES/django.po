@@ -50216,6 +50216,40 @@ msgstr "Elettricità / batteria / motorino d'avviamento"
 msgid "Électronique / capteurs"
 msgstr "Elettronica / sensori"
 
+msgid "Intitulé de la pièce"
+msgstr "Denominazione del ricambio"
+
+msgid "Repris de la fiche pièce via l'OEM / EAN."
+msgstr "Ripreso dalla scheda ricambio tramite OEM / EAN."
+
+msgid "Nouvelle pièce : catégorie et unité"
+msgstr "Nuovo ricambio: categoria e unità"
+
+msgid "Pièce trouvée :"
+msgstr "Ricambio trovato:"
+
+msgid "Code inconnu : la pièce sera créée au catalogue à l’enregistrement."
+msgstr ""
+"Codice sconosciuto: il ricambio sarà creato nel catalogo al salvataggio."
+
+#, python-format
+msgid "fabricant « %s » absent de la liste"
+msgstr "produttore «%s» non presente nell'elenco"
+
+msgid "déjà débitée du stock (facture émise)"
+msgstr "già scaricato dal magazzino (fattura emessa)"
+
+msgid "Ligne de l'intervention"
+msgstr "Riga dell'intervento"
+
+msgid ""
+"Les pièces encodées ici sont ajoutées à la facture de la maintenance (au "
+"prix de vente indiqué) et sorties du stock à l'émission de la facture."
+msgstr ""
+"I ricambi registrati qui vengono aggiunti alla fattura della manutenzione "
+"(al prezzo di vendita indicato) e scaricati dal magazzino all'emissione "
+"della fattura."
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Interventi cambio automatico"
 

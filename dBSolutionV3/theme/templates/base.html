@@ -338,5 +338,25 @@
     };
 </script>
 <script src="{% static 'js/iban.js' %}?v=1"></script>
+{% url 'piece:api_recherche' as api_pieces %}{% url 'piece:api_codes_intervention' as api_codes_pieces %}
+{% if api_pieces and request.user.is_authenticated %}
+<script>
+    window.PIECES_INTERVENTION = {
+        api: "{{ api_pieces|escapejs }}",
+        apiCodes: "{{ api_codes_pieces|escapejs }}",
+        messages: {
+            label: "{{ _('OEM / EAN')|escapejs }}",
+            placeholder: "{{ _('Scanner ou saisir le code')|escapejs }}",
+            chercher: "{{ _('Chercher')|escapejs }}",
+            trouvee: "{{ _('Pièce trouvée :')|escapejs }}",
+            stock: "{{ _('stock')|escapejs }}",
+            inconnue: "{{ _('Code inconnu : la pièce sera créée au catalogue à l’enregistrement.')|escapejs }}",
+            fabricantAbsent: "{{ _('fabricant « %s » absent de la liste')|escapejs }}",
+            debitee: "{{ _('déjà débitée du stock (facture émise)')|escapejs }}"
+        }
+    };
+</script>
+<script src="{% static 'js/pieces_intervention.js' %}?v=2"></script>
+{% endif %}
 </body>
 </html>

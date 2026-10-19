@@ -22,5 +22,6 @@ urlpatterns = [
     path("maintenance/<uuid:maintenance_id>/", stock.pieces_maintenance_view, name="pieces_maintenance"),
     # API scan OEM / EAN
     path("api/recherche/", stock.api_recherche, name="api_recherche"),
+    path("api/codes-intervention/", stock.api_codes_intervention, name="api_codes_intervention"),
     path("api/check_fabricants", check_fabricants, name="check_fabricants"),
 ]

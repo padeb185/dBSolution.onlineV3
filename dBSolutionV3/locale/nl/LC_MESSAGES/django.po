@@ -50228,6 +50228,41 @@ msgstr "Elektriciteit / accu / startmotor"
 msgid "Électronique / capteurs"
 msgstr "Elektronica / sensoren"
 
+msgid "Intitulé de la pièce"
+msgstr "Benaming van het onderdeel"
+
+msgid "Repris de la fiche pièce via l'OEM / EAN."
+msgstr "Overgenomen van de onderdeelfiche via de OEM / EAN."
+
+msgid "Nouvelle pièce : catégorie et unité"
+msgstr "Nieuw onderdeel: categorie en eenheid"
+
+msgid "Pièce trouvée :"
+msgstr "Onderdeel gevonden:"
+
+msgid "Code inconnu : la pièce sera créée au catalogue à l’enregistrement."
+msgstr ""
+"Onbekende code: het onderdeel wordt bij het opslaan in de catalogus "
+"aangemaakt."
+
+#, python-format
+msgid "fabricant « %s » absent de la liste"
+msgstr "fabrikant “%s” niet in de lijst"
+
+msgid "déjà débitée du stock (facture émise)"
+msgstr "al uit voorraad afgeboekt (factuur uitgegeven)"
+
+msgid "Ligne de l'intervention"
+msgstr "Regel van de interventie"
+
+msgid ""
+"Les pièces encodées ici sont ajoutées à la facture de la maintenance (au "
+"prix de vente indiqué) et sorties du stock à l'émission de la facture."
+msgstr ""
+"Hier ingevoerde onderdelen worden aan de onderhoudsfactuur toegevoegd (tegen"
+" de opgegeven verkoopprijs) en bij uitgifte van de factuur uit de voorraad "
+"gehaald."
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Automatische versnellingsbakinterventies"
 

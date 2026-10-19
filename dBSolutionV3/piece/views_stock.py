@@ -306,6 +306,12 @@ def _piece_depuis_formulaire(request, maintenance, cd):
             return p, False
     code = stock.normaliser_code(cd.get("code"))
     p = stock.trouver_piece(societe, code) if code else None
+    if not p and not code and cd.get("designation"):
+        # Sans code : même intitulé (et même fabricant si indiqué) = pièce existante
+        qs = _pieces(request).filter(designation__iexact=cd["designation"].strip())
+        if cd.get("fabricant"):
+            qs = qs.filter(fabricant__nom__iexact=cd["fabricant"].strip())
+        p = qs.first()
     if p:
         return p, False
     # Création : un code de 8/12/13/14 chiffres est un EAN, sinon c'est l'OEM
@@ -317,13 +323,21 @@ def _piece_depuis_formulaire(request, maintenance, cd):
         unite=cd.get("unite") or "PIECE",
         oem="" if est_ean else code,
         fabricant=stock.fabricant_par_nom(cd.get("fabricant")),
-        prix_achat=cd.get("prix_unitaire") or 0,
+        prix_vente=cd.get("prix_unitaire") or 0,
     )
     if p.fabricant:
         p.fabricants.add(p.fabricant)
     if est_ean:
         stock.definir_eans(p, [code])
     return p, True
+
+
+def _synchroniser_brouillons(maintenance):
+    """Factures brouillon de la maintenance : les pièces utilisées y sont ajoutées / retirées."""
+    from facture.models import Facture
+    from facture.services import synchroniser_pieces_utilisees
+    for facture in maintenance.factures.filter(statut=Facture.Statut.BROUILLON):
+        synchroniser_pieces_utilisees(facture)
 
 
 @never_cache
@@ -346,11 +360,12 @@ def pieces_maintenance_view(request, maintenance_id):
                     piece, cree = _piece_depuis_formulaire(request, maintenance, cd)
                     prix = cd.get("prix_unitaire")
                     if prix is None:
-                        prix = piece.prix_vente or piece.prix_achat or 0
+                        prix = stock.prix_vente_effectif(piece)
                     PieceUtilisee.objects.create(
                         societe=request.user.societe, maintenance=maintenance, piece=piece,
                         quantite=cd["quantite"], prix_unitaire=prix, utilisateur=request.user,
                     )
+                _synchroniser_brouillons(maintenance)
                 if cree:
                     messages.info(request, _("Nouvelle pièce créée au catalogue : %(p)s") % {"p": piece})
                 messages.success(request, _("Pièce ajoutée à la maintenance."))
@@ -371,6 +386,7 @@ def pieces_maintenance_view(request, maintenance_id):
                 messages.success(request, _("Débit annulé : pièce remise en stock."))
             else:
                 return _refuser(request)
+            _synchroniser_brouillons(maintenance)
             return redirect("piece:pieces_maintenance", maintenance_id=maintenance.pk)
 
     lignes = maintenance.pieces_utilisees.select_related("piece", "piece__fabricant", "facture", "mouvement")
@@ -396,7 +412,8 @@ def api_recherche(request):
         return {
             "id": str(p.pk), "designation": p.designation or str(p), "oem": p.oem, "eans": p.eans,
             "fabricant": p.nom_fabricant, "categorie": p.categorie, "unite": p.unite,
-            "prix_achat": str(p.prix_achat), "prix_vente": str(p.prix_vente), "stock": str(p.quantite_stock),
+            "prix_achat": str(p.prix_achat), "prix_vente": str(p.prix_vente),
+            "prix_vente_effectif": str(stock.prix_vente_effectif(p)), "stock": str(p.quantite_stock),
             "emplacement": p.emplacement_etagere or "",
         }
 
@@ -404,3 +421,49 @@ def api_recherche(request):
         p = stock.trouver_piece(request.user.societe, code)
         return JsonResponse({"found": bool(p), "piece": serialiser(p) if p else None})
     return JsonResponse({"results": [serialiser(p) for p in stock.rechercher(request.user.societe, q, 15)]})
+
+
+def _maintenance_depuis_chemin(request, chemin):
+    """Retrouve la maintenance d'une page de modification d'intervention à partir de son URL."""
+    from django.apps import apps
+    from django.urls import resolve
+    try:
+        match = resolve(chemin, urlconf=getattr(request, "urlconf", None))
+    except Exception:
+        return None
+    module = getattr(match.func, "__module__", "") or ""
+    app = next((c for c in sorted(apps.get_app_configs(), key=lambda c: -len(c.name))
+                if module == c.name or module.startswith(c.name + ".")), None)
+    if app is None:
+        return None
+    valeurs = [v for v in match.kwargs.values() if v]
+    for modele in app.get_models():
+        if not any(f.name == "maintenance" for f in modele._meta.fields):
+            continue
+        for v in valeurs:
+            try:
+                obj = modele.objects.filter(pk=v).only("maintenance").first()
+            except Exception:
+                continue
+            if obj and obj.maintenance_id:
+                return obj.maintenance_id
+    return None
+
+
+@login_required
+def api_codes_intervention(request):
+    """Codes OEM / EAN déjà enregistrés pour les lignes de pièces de l'intervention affichée (pré-remplissage)."""
+    if not _peut(request.user, ROLES_ATELIER):
+        return JsonResponse({"error": "forbidden"}, status=403)
+    maintenance_id = _maintenance_depuis_chemin(request, request.GET.get("chemin") or "")
+    if not maintenance_id:
+        return JsonResponse({"lignes": {}})
+    maintenance = _maintenance(request, maintenance_id)
+    lignes = {}
+    for pu in maintenance.pieces_utilisees.exclude(prefixe="").select_related("piece"):
+        p = pu.piece
+        lignes[pu.prefixe] = {
+            "code": p.oem or (p.eans[0] if p.eans else ""), "designation": p.designation or str(p),
+            "debitee": pu.debitee, "stock": str(p.quantite_stock),
+        }
+    return JsonResponse({"lignes": lignes})

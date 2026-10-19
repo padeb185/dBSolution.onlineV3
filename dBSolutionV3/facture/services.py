@@ -12,7 +12,7 @@ import logging
 from datetime import timedelta
 from decimal import Decimal
 
-from django.db import transaction
+from django.db import models, transaction
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
@@ -171,7 +171,81 @@ def lignes_depuis_maintenance(maintenance, marge_pieces, marge_main_oeuvre):
             "vat_rate": taux_tva,
         })
 
+    # ---------- Pièces utilisées (stock) ----------
+    lignes.extend(lignes_pieces_utilisees(maintenance))
     return lignes
+
+
+def _pieces_a_facturer(maintenance):
+    """
+    Pièces utilisées encodées depuis la page « Pièces utilisées » de la maintenance.
+    Celles saisies sur une ligne d'intervention (prefixe) sont déjà facturées via le rapport.
+    """
+    return maintenance.pieces_utilisees.filter(prefixe="").select_related("piece", "piece__fabricant")
+
+
+def ligne_piece_utilisee(pu, taux_tva):
+    """Ligne de facture d'une pièce utilisée : coût = prix d'achat, marge calculée pour retomber sur le prix choisi."""
+    piece = pu.piece
+    maintenance = pu.maintenance
+    type_label = maintenance.get_type_maintenance_display() or _("Maintenance")
+    prix = arrondi(_decimal(pu.prix_unitaire))
+    achat = _decimal(piece.prix_achat)
+    if achat > 0 and prix > 0:
+        cout, marge = arrondi(achat), arrondi((prix / achat - 1) * 100)
+    else:
+        cout, marge = prix, Decimal("0.00")
+    description = f"{type_label} – {piece.designation or piece}"
+    if piece.nom_fabricant:
+        description += f" ({piece.nom_fabricant})"
+    return {
+        "maintenance": maintenance,
+        "piece_utilisee": pu,
+        "type_ligne": FactureLine.TypeLigne.PIECE,
+        "description": description[:255],
+        "reference": (piece.oem or (piece.eans[0] if piece.eans else ""))[:100],
+        "quantity": arrondi(_decimal(pu.quantite)),
+        "unit_cost": cout,
+        "marge": marge,
+        "vat_rate": taux_tva,
+    }
+
+
+def lignes_pieces_utilisees(maintenance):
+    taux_tva = _taux_tva_societe(getattr(maintenance, "societe", None))
+    return [ligne_piece_utilisee(pu, taux_tva) for pu in _pieces_a_facturer(maintenance)]
+
+
+def synchroniser_pieces_utilisees(facture, recalculer=True):
+    """
+    Facture brouillon : ajoute les lignes des pièces utilisées manquantes et supprime celles dont la pièce
+    utilisée a été retirée de la maintenance (les lignes existantes, éventuellement retouchées, sont conservées).
+    """
+    if not facture.est_brouillon:
+        return False
+    change = False
+    vues = set()
+    ordre = max((l.ordre for l in facture.lines.all()), default=0)
+    for maintenance in facture.maintenances.all():
+        taux_tva = _taux_tva_societe(getattr(maintenance, "societe", None))
+        for pu in _pieces_a_facturer(maintenance):
+            vues.add(pu.pk)
+            donnees = ligne_piece_utilisee(pu, taux_tva)
+            ligne = facture.lines.filter(piece_utilisee=pu).first()
+            if ligne is None:
+                ordre += 1
+                FactureLine.objects.create(facture=facture, ordre=ordre, **donnees)
+                change = True
+    # Lignes orphelines : pièce utilisée supprimée (FK remise à NULL) ou retirée de la maintenance
+    orphelines = facture.lines.filter(type_ligne=FactureLine.TypeLigne.PIECE).filter(
+        models.Q(piece_utilisee__isnull=False) & ~models.Q(piece_utilisee__in=vues)
+    )
+    if orphelines.exists():
+        orphelines.delete()
+        change = True
+    if change and recalculer:
+        facture.recalculer_totaux()
+    return change
 
 
 # ------------------------------------------------------------
@@ -289,6 +363,8 @@ def creer_facture_depuis_diagnostic(diagnostic, type_facture, user):
 def appliquer_marges(facture):
     """Applique les marges par défaut de la facture à toutes ses lignes pièces / main-d'œuvre."""
     for ligne in facture.lines.all():
+        if ligne.piece_utilisee_id:
+            continue  # pièce utilisée : prix de vente choisi dans la maintenance
         if ligne.type_ligne == FactureLine.TypeLigne.PIECE:
             ligne.marge = facture.marge_pieces
         elif ligne.type_ligne == FactureLine.TypeLigne.MAIN_OEUVRE:
@@ -342,6 +418,9 @@ def emettre_facture(facture):
     facture = Facture.objects.select_for_update().get(pk=facture.pk)
     if not facture.est_brouillon:
         return facture
+
+    # Pièces utilisées des maintenances : comptées dans la facture avant numérotation
+    synchroniser_pieces_utilisees(facture, recalculer=False)
 
     if not facture.issue_date:
         facture.issue_date = timezone.localdate()
