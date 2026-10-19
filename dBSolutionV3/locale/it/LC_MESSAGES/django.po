@@ -52112,3 +52112,31 @@ msgstr ""
 "Un fusibile per scheda: posizione della scatola, numero sulla scatola, "
 "circuito protetto, amperaggio e stato. I fusibili «Sostituito» sono "
 "conteggiati nella quantità fatturata."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Valeur de revente"
+msgstr "Valore di rivendita"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Valeur de revente (€)"
+msgstr "Valore di rivendita (€)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Valeur estimée ou prix de revente réel, déduit du coût total. 0 par défaut."
+msgstr ""
+"Valore stimato o prezzo di rivendita effettivo, dedotto dal costo totale. 0 "
+"per impostazione predefinita."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût net (après revente)"
+msgstr "Costo netto (dopo la rivendita)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Montants HTVA (énergie, maintenances, locations). Résultat net = revenus des"
+" locations + valeur de revente − coût d'acquisition − coûts d'utilisation."
+msgstr ""
+"Importi IVA esclusa (energia, manutenzioni, noleggi). Risultato netto = "
+"ricavi dei noleggi + valore di rivendita − costo di acquisto − costi di "
+"utilizzo."

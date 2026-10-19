@@ -195,6 +195,7 @@ FINANCE_FIELDS = (
 # Champs financiers facultatifs (non comptés dans « données incomplètes »)
 FINANCE_FIELDS_OPTIONNELS = (
     "frais_achat",
+    "valeur_revente",
 )
 
 
@@ -203,6 +204,10 @@ class VoitureExemplaireFinanceForm(forms.ModelForm):
     Complète les données financières d'un exemplaire existant.
     Les données d'identification (marque, VIN, km...) ne sont pas modifiables ici.
     """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["valeur_revente"].required = False
 
     class Meta:
         model = VoitureExemplaire
@@ -216,11 +221,13 @@ class VoitureExemplaireFinanceForm(forms.ModelForm):
             "taxe_roulage": _("Taxe de roulage annuelle (€)"),
             "date_achat": _("Date d'achat"),
             "frais_achat": _("Autres frais d'achat (immatriculation, plaques, transport…) (€)"),
+            "valeur_revente": _("Valeur de revente (€)"),
             "nombre_proprietaires": _("Nombre de propriétaires"),
             "part_proprietaires_pourcent": _("Part des propriétaires (%)"),
         }
         help_texts = {
             "kilometrage_achat": _("Neuf : 0 km. Occasion : kilométrage du véhicule au moment de l'achat."),
+            "valeur_revente": _("Valeur estimée ou prix de revente réel, déduit du coût total. 0 par défaut."),
         }
         widgets = {
             "kilometrage_achat": forms.NumberInput(attrs={"min": "0"}),
@@ -230,19 +237,23 @@ class VoitureExemplaireFinanceForm(forms.ModelForm):
             "taxe_roulage": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
             "date_achat": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "frais_achat": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
+            "valeur_revente": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
             "nombre_proprietaires": forms.NumberInput(attrs={"min": "1", "max": "10"}),
             "part_proprietaires_pourcent": forms.NumberInput(attrs={"step": "0.01", "min": "0", "max": "100"}),
         }
 
     def clean(self):
         cleaned_data = super().clean()
-        for name in ("prix_achat", "assurance", "taxe_mise_en_circulation", "taxe_roulage", "frais_achat"):
+        for name in ("prix_achat", "assurance", "taxe_mise_en_circulation", "taxe_roulage", "frais_achat", "valeur_revente"):
             value = cleaned_data.get(name)
             if value is not None and value < 0:
                 self.add_error(name, _("Le montant ne peut pas être négatif."))
 
         # Kilométrage de départ : 0 pour un neuf, obligatoire pour une occasion
         valider_kilometrage_achat(self, cleaned_data)
+        # Champ vidé : revient à la valeur par défaut 0
+        if cleaned_data.get("valeur_revente") is None:
+            cleaned_data["valeur_revente"] = 0
         return cleaned_data
 
 

@@ -52109,3 +52109,31 @@ msgstr ""
 "Un fusible por tarjeta: ubicación de la caja, número en la caja, circuito "
 "protegido, amperaje y estado. Los fusibles «Sustituido» se cuentan en la "
 "cantidad facturada."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Valeur de revente"
+msgstr "Valor de reventa"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Valeur de revente (€)"
+msgstr "Valor de reventa (€)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Valeur estimée ou prix de revente réel, déduit du coût total. 0 par défaut."
+msgstr ""
+"Valor estimado o precio de reventa real, deducido del coste total. 0 por "
+"defecto."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût net (après revente)"
+msgstr "Coste neto (tras la reventa)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Montants HTVA (énergie, maintenances, locations). Résultat net = revenus des"
+" locations + valeur de revente − coût d'acquisition − coûts d'utilisation."
+msgstr ""
+"Importes sin IVA (energía, mantenimientos, alquileres). Resultado neto = "
+"ingresos por alquiler + valor de reventa − coste de adquisición − costes de "
+"uso."

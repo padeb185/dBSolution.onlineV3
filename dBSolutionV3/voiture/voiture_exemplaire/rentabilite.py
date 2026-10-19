@@ -6,6 +6,8 @@ Rentabilité d'un véhicule (Données financières).
                         + maintenances (entretien interne au coût de revient + garages externes HTVA)
                         + coûts annuels (assurance, taxe de circulation, vignettes, contrôle technique…)
   = coût total
+  − valeur de revente (0 par défaut)
+  = coût net
   − revenus des locations (HTVA)
   = résultat net du véhicule
 
@@ -180,7 +182,9 @@ def rentabilite(ex):
 
     utilisation = r2(total_energie + mt["total"] + an["total"])
     cout_total = r2(acquisition["total"] + utilisation)
-    resultat = r2(loc["htva"] - cout_total)
+    valeur_revente = r2(ex.valeur_revente)
+    cout_net = r2(cout_total - valeur_revente)
+    resultat = r2(loc["htva"] - cout_net)
 
     km = max(int(ex.kilometres_chassis or 0) - int(ex.kilometrage_achat or 0), 0)
     par_km = lambda x: (Decimal(x) / km).quantize(Decimal("0.001"), rounding=ROUND_HALF_UP) if km else None
@@ -194,6 +198,8 @@ def rentabilite(ex):
         "locations": loc,
         "utilisation": utilisation,
         "cout_total": cout_total,
+        "valeur_revente": valeur_revente,
+        "cout_net": cout_net,
         "resultat": resultat,
         "km": km,
         "km_depart": int(ex.kilometrage_achat or 0),
@@ -203,6 +209,8 @@ def rentabilite(ex):
             "annuels": par_km(an["total"]),
             "utilisation": par_km(utilisation),
             "total": par_km(cout_total),
+            "revente": par_km(valeur_revente),
+            "cout_net": par_km(cout_net),
             "revenus": par_km(loc["htva"]),
             "net": par_km(resultat),
         },

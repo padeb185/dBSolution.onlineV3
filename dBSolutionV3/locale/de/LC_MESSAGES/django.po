@@ -52151,3 +52151,30 @@ msgstr ""
 "Eine Sicherung pro Karte: Position des Kastens, Nummer auf dem Kasten, "
 "abgesicherter Stromkreis, Stromstärke und Zustand. „Ersetzte“ Sicherungen "
 "werden in der berechneten Menge gezählt."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Valeur de revente"
+msgstr "Wiederverkaufswert"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Valeur de revente (€)"
+msgstr "Wiederverkaufswert (€)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Valeur estimée ou prix de revente réel, déduit du coût total. 0 par défaut."
+msgstr ""
+"Geschätzter Wert oder tatsächlicher Verkaufspreis, wird von den Gesamtkosten"
+" abgezogen. Standardmäßig 0."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût net (après revente)"
+msgstr "Nettokosten (nach Wiederverkauf)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Montants HTVA (énergie, maintenances, locations). Résultat net = revenus des"
+" locations + valeur de revente − coût d'acquisition − coûts d'utilisation."
+msgstr ""
+"Beträge netto (Energie, Wartung, Vermietung). Nettoergebnis = Mieteinnahmen "
+"+ Wiederverkaufswert − Anschaffungskosten − Nutzungskosten."

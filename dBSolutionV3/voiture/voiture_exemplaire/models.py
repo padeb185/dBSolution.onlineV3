@@ -317,6 +317,14 @@ class VoitureExemplaire(models.Model):
         verbose_name=_("Autres frais d'achat"),
     )
 
+    # Valeur de revente estimée (ou prix de vente réel) : déduite du coût total du véhicule
+    valeur_revente = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Valeur de revente"),
+    )
+
     # 👥 Propriétaires
     nombre_proprietaires = models.PositiveSmallIntegerField(
         default=1,

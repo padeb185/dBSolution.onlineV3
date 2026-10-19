@@ -75,7 +75,7 @@
             <p class="text-xl font-bold {% if r.resultat < 0 %}text-red-700{% else %}text-green-800{% endif %}">{{ r.resultat|floatformat:2 }} €</p>
         </div>
     </div>
-    <p class="text-xs text-gray-500 mb-6">{% trans "Montants HTVA (énergie, maintenances, locations). Résultat net = revenus des locations − coût d'acquisition − coûts d'utilisation." %}</p>
+    <p class="text-xs text-gray-500 mb-6">{% trans "Montants HTVA (énergie, maintenances, locations). Résultat net = revenus des locations + valeur de revente − coût d'acquisition − coûts d'utilisation." %}</p>
 
     <!-- ================= TABLEAU DE CALCUL ================= -->
     <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm mb-6">
@@ -106,6 +106,8 @@
             <tr class="font-semibold"><td class="border px-2 py-1">{% trans "Coûts d'utilisation" %}</td><td class="border px-2 py-1 text-right">{{ r.utilisation|floatformat:2 }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.utilisation is not None %}{{ r.par_km.utilisation|floatformat:3 }} €{% else %}—{% endif %}</td></tr>
 
             <tr class="bg-gray-100 font-bold"><td class="border px-2 py-1">{% trans "Coût total (acquisition + utilisation)" %}</td><td class="border px-2 py-1 text-right">{{ r.cout_total|floatformat:2 }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.total is not None %}{{ r.par_km.total|floatformat:3 }} €{% else %}—{% endif %}</td></tr>
+            <tr class="text-green-800"><td class="border px-2 py-1">− {% trans "Valeur de revente" %}</td><td class="border px-2 py-1 text-right">{{ r.valeur_revente|floatformat:2 }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.revente is not None %}{{ r.par_km.revente|floatformat:3 }} €{% else %}—{% endif %}</td></tr>
+            <tr class="font-semibold"><td class="border px-2 py-1">{% trans "Coût net (après revente)" %}</td><td class="border px-2 py-1 text-right">{{ r.cout_net|floatformat:2 }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.cout_net is not None %}{{ r.par_km.cout_net|floatformat:3 }} €{% else %}—{% endif %}</td></tr>
             <tr class="text-green-800"><td class="border px-2 py-1">− {% trans "Revenus des locations (HTVA)" %} <span class="text-gray-400 text-xs">({{ r.locations.nb }} {% trans "location(s)" %})</span></td><td class="border px-2 py-1 text-right">{{ r.locations.htva|floatformat:2 }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.revenus is not None %}{{ r.par_km.revenus|floatformat:3 }} €{% else %}—{% endif %}</td></tr>
             <tr class="font-bold {% if r.resultat < 0 %}bg-red-50 text-red-700{% else %}bg-green-100 text-green-800{% endif %}"><td class="border px-2 py-1">{% trans "Résultat net" %}</td><td class="border px-2 py-1 text-right">{{ r.resultat|floatformat:2 }} €</td><td class="border px-2 py-1 text-right">{% if r.par_km.net is not None %}{{ r.par_km.net|floatformat:3 }} €{% else %}—{% endif %}</td></tr>
         </tbody>

@@ -51442,3 +51442,29 @@ msgstr ""
 "Un fusible par carte : emplacement de la boîte, numéro sur la boîte, circuit"
 " protégé, ampérage et état. Les fusibles « Remplacé » sont comptés dans la "
 "quantité facturée."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Valeur de revente"
+msgstr "Valeur de revente"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Valeur de revente (€)"
+msgstr "Valeur de revente (€)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Valeur estimée ou prix de revente réel, déduit du coût total. 0 par défaut."
+msgstr ""
+"Valeur estimée ou prix de revente réel, déduit du coût total. 0 par défaut."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût net (après revente)"
+msgstr "Coût net (après revente)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Montants HTVA (énergie, maintenances, locations). Résultat net = revenus des"
+" locations + valeur de revente − coût d'acquisition − coûts d'utilisation."
+msgstr ""
+"Montants HTVA (énergie, maintenances, locations). Résultat net = revenus des"
+" locations + valeur de revente − coût d'acquisition − coûts d'utilisation."

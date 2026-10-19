@@ -52175,3 +52175,30 @@ msgstr ""
 "Μία ασφάλεια ανά κάρτα: θέση κουτιού, αριθμός στο κουτί, προστατευόμενο "
 "κύκλωμα, αμπεράζ και κατάσταση. Οι ασφάλειες «Αντικαταστάθηκε» υπολογίζονται"
 " στην τιμολογούμενη ποσότητα."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Valeur de revente"
+msgstr "Αξία μεταπώλησης"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Valeur de revente (€)"
+msgstr "Αξία μεταπώλησης (€)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Valeur estimée ou prix de revente réel, déduit du coût total. 0 par défaut."
+msgstr ""
+"Εκτιμώμενη αξία ή πραγματική τιμή μεταπώλησης, αφαιρείται από το συνολικό "
+"κόστος. 0 από προεπιλογή."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût net (après revente)"
+msgstr "Καθαρό κόστος (μετά τη μεταπώληση)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Montants HTVA (énergie, maintenances, locations). Résultat net = revenus des"
+" locations + valeur de revente − coût d'acquisition − coûts d'utilisation."
+msgstr ""
+"Ποσά χωρίς ΦΠΑ (ενέργεια, συντηρήσεις, ενοικιάσεις). Καθαρό αποτέλεσμα = "
+"έσοδα ενοικιάσεων + αξία μεταπώλησης − κόστος απόκτησης − κόστη χρήσης."

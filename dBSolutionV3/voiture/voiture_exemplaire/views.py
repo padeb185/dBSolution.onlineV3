@@ -805,6 +805,7 @@ def finances_detail(request, exemplaire_id):
         champs.append({"nom": f, "label": labels[f].label, "valeur": valeur})
     if exemplaire.frais_achat is not None:
         champs.append({"nom": "frais_achat", "label": labels["frais_achat"].label, "valeur": exemplaire.frais_achat})
+    champs.append({"nom": "valeur_revente", "label": labels["valeur_revente"].label, "valeur": exemplaire.valeur_revente or 0})
 
     # Entretien interne : factures à notre propre société pour ce véhicule (coût de revient HTVA)
     from decimal import Decimal

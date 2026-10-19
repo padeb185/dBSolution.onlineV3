@@ -52134,3 +52134,30 @@ msgstr ""
 "Eén zekering per kaart: locatie van de kast, nummer op de kast, beveiligd "
 "circuit, stroomsterkte en staat. Zekeringen met status « Vervangen » worden "
 "meegeteld in de gefactureerde hoeveelheid."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Valeur de revente"
+msgstr "Restwaarde"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Valeur de revente (€)"
+msgstr "Restwaarde (€)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Valeur estimée ou prix de revente réel, déduit du coût total. 0 par défaut."
+msgstr ""
+"Geschatte waarde of werkelijke verkoopprijs, afgetrokken van de totale kost."
+" Standaard 0."
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid "Coût net (après revente)"
+msgstr "Nettokost (na verkoop)"
+
+#: voiture/voiture_exemplaire/rentabilite.py
+msgid ""
+"Montants HTVA (énergie, maintenances, locations). Résultat net = revenus des"
+" locations + valeur de revente − coût d'acquisition − coûts d'utilisation."
+msgstr ""
+"Bedragen excl. btw (energie, onderhoud, verhuur). Nettoresultaat = "
+"huurinkomsten + restwaarde − aankoopkost − gebruikskosten."
