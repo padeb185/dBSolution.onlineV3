@@ -224,6 +224,17 @@ def _ligne_saisie_fait(sender, instance, raw=False, **kwargs):
                 break
 
 
+def marquer_lignes_posees(obj):
+    """Interventions enregistrées avant la correction : applique la règle et enregistre les états modifiés."""
+    sender = type(obj)
+    avant = {f.name: getattr(obj, f.name) for f in sender._meta.concrete_fields if f.choices}
+    _ligne_saisie_fait(sender, obj)
+    changes = {n: getattr(obj, n) for n, v in avant.items() if getattr(obj, n) != v}
+    if changes and obj.pk:
+        sender.objects.filter(pk=obj.pk).update(**changes)
+    return list(changes)
+
+
 # ---------------------------------------------------------------------------------------------
 # Liens d'une intervention : les formulaires « modifier » ne renvoient pas le champ caché
 # « maintenance » ; le ModelForm le remettait à vide et l'intervention perdait sa maintenance

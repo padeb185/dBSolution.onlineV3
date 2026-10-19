@@ -1456,6 +1456,7 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA")
     )
 
+
     huile_bte_auto_vitesse = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
                                           verbose_name=_("Huile de boîte de vitesse"))
 

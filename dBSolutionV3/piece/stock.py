@@ -66,7 +66,22 @@ def rechercher(societe, texte, limite=20):
             Q(oem__icontains=code) | Q(codes_barres__code__icontains=code) | Q(reference_fabricant__icontains=code)
             | Q(designation__icontains=texte) | Q(organe__icontains=texte) | Q(fabricant__nom__icontains=texte)
         ).distinct()
-    return qs[:limite]
+    if not texte:
+        return qs[:limite]
+    # pertinence : code exact, puis code qui commence par la saisie, puis le reste
+    pieces = list(qs.prefetch_related("codes_barres")[:limite * 3])
+
+    def rang(p):
+        codes = [p.oem.upper(), (p.reference_fabricant or "").upper()] + [c.upper() for c in p.eans]
+        if code in codes:
+            return 0
+        if any(c.startswith(code) for c in codes if c):
+            return 1
+        if (p.designation or "").lower().startswith(texte.lower()):
+            return 2
+        return 3
+    pieces.sort(key=lambda p: (rang(p), p.designation or ""))
+    return pieces[:limite]
 
 
 def prix_vente_effectif(piece):

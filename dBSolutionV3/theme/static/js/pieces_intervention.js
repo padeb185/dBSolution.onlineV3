@@ -50,31 +50,105 @@
         var input = div.querySelector('input'), etat = div.querySelector('p');
         function message(txt, couleur) { etat.className = 'text-sm mt-1 ' + couleur; etat.textContent = txt; }
 
+        function appliquer(p) {
+            var txt = M.trouvee + ' ' + p.designation + ' · ' + M.stock + ' ' + p.stock;
+            if (!choisirFabricant(fab, p.fabricant)) txt += ' · ' + M.fabricantAbsent.replace('%s', p.fabricant);
+            prix.value = p.prix_vente_effectif;
+            if (!parseFloat(qte.value)) qte.value = 1;
+            // pièce posée : l'état « OK » passe à « Fait » (sinon absente du rapport, du PDF et de la facture)
+            var etatSel = form.querySelector('select[name="' + prefixe + '"], select[name="' + prefixe + '_etat"]');
+            if (etatSel && etatSel.value === 'OK' && etatSel.querySelector('option[value="REMPLACE"]')) {
+                etatSel.value = 'REMPLACE';
+                etatSel.dispatchEvent(new Event('change', {bubbles: true}));
+            }
+            [fab, prix, qte].forEach(function (el) { el.dispatchEvent(new Event('change', {bubbles: true})); });
+            message(txt, 'text-green-700');
+            qte.focus(); if (qte.select) qte.select();
+        }
+
+        var dernierCode = '';
         function chercher() {
             var v = input.value.trim();
             if (!v) { etat.textContent = ''; return; }
+            if (v === dernierCode) return;
+            dernierCode = v;
             fetch(cfg.api + '?code=' + encodeURIComponent(v), {credentials: 'same-origin'})
                 .then(function (r) { return r.json(); })
                 .then(function (d) {
                     if (!d.found) { message(M.inconnue, 'text-orange-600'); return; }
-                    var p = d.piece, txt = M.trouvee + ' ' + p.designation + ' · ' + M.stock + ' ' + p.stock;
-                    if (!choisirFabricant(fab, p.fabricant)) txt += ' · ' + M.fabricantAbsent.replace('%s', p.fabricant);
-                    prix.value = p.prix_vente_effectif;
-                    if (!parseFloat(qte.value)) qte.value = 1;
-                    // pièce posée : l'état « OK » passe à « Fait » (sinon absente du rapport, du PDF et de la facture)
-                    var etatSel = form.querySelector('select[name="' + prefixe + '"], select[name="' + prefixe + '_etat"]');
-                    if (etatSel && etatSel.value === 'OK' && etatSel.querySelector('option[value="REMPLACE"]')) {
-                        etatSel.value = 'REMPLACE';
-                        etatSel.dispatchEvent(new Event('change', {bubbles: true}));
-                    }
-                    [fab, prix, qte].forEach(function (el) { el.dispatchEvent(new Event('change', {bubbles: true})); });
-                    message(txt, 'text-green-700');
-                    qte.focus(); if (qte.select) qte.select();
+                    appliquer(d.piece);
                 });
         }
-        input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); chercher(); } });
+
+        // ---------- Auto-complétion (OEM, EAN, désignation, fabricant) ----------
+        var zone = input.parentNode;
+        zone.style.position = 'relative';
+        var liste = document.createElement('ul');
+        liste.className = 'absolute left-0 right-0 top-full z-50 bg-white border rounded shadow-lg max-h-72 overflow-y-auto hidden';
+        zone.appendChild(liste);
+        var resultats = [], actif = -1, minuterie = null, requete = 0;
+
+        function fermer() { liste.classList.add('hidden'); liste.innerHTML = ''; resultats = []; actif = -1; }
+        function surligner(i) {
+            actif = i;
+            Array.prototype.forEach.call(liste.children, function (li, j) {
+                li.classList.toggle('bg-blue-100', j === i);
+                if (j === i) li.scrollIntoView({block: 'nearest'});
+            });
+        }
+        function choisir(i) {
+            var p = resultats[i];
+            if (!p) return;
+            input.value = p.oem || (p.eans && p.eans[0]) || input.value;
+            dernierCode = input.value.trim();
+            fermer();
+            appliquer(p);
+        }
+        function afficher(items) {
+            resultats = items; actif = -1; liste.innerHTML = '';
+            if (!items.length) { liste.classList.add('hidden'); return; }
+            items.forEach(function (p, i) {
+                var li = document.createElement('li');
+                li.className = 'px-3 py-2 cursor-pointer hover:bg-blue-50 border-b last:border-b-0';
+                var code = p.oem || (p.eans && p.eans[0]) || '';
+                li.innerHTML = '<div class="flex justify-between gap-2"><span class="font-mono font-semibold"></span>' +
+                    '<span class="text-xs text-gray-500 whitespace-nowrap"></span></div><div class="text-sm text-gray-700"></div>';
+                li.children[0].children[0].textContent = code;
+                li.children[0].children[1].textContent = M.stock + ' ' + p.stock + ' · ' + p.prix_vente_effectif + ' €';
+                li.children[1].textContent = p.designation + (p.fabricant ? ' – ' + p.fabricant : '') +
+                    (p.eans && p.eans.length && p.oem ? ' · EAN ' + p.eans.join(', ') : '');
+                // mousedown : choisir avant que le champ ne perde le focus
+                li.addEventListener('mousedown', function (e) { e.preventDefault(); choisir(i); });
+                liste.appendChild(li);
+            });
+            liste.classList.remove('hidden');
+        }
+        input.addEventListener('input', function () {
+            var v = input.value.trim();
+            clearTimeout(minuterie);
+            if (v.length < 2) { fermer(); return; }
+            minuterie = setTimeout(function () {
+                var n = ++requete;
+                fetch(cfg.api + '?q=' + encodeURIComponent(v), {credentials: 'same-origin'})
+                    .then(function (r) { return r.json(); })
+                    .then(function (d) { if (n === requete && document.activeElement === input) afficher(d.results || []); })
+                    .catch(function () {});
+            }, 200);
+        });
+        input.addEventListener('keydown', function (e) {
+            var ouvert = !liste.classList.contains('hidden') && resultats.length;
+            if (e.key === 'ArrowDown' && ouvert) { e.preventDefault(); surligner(Math.min(actif + 1, resultats.length - 1)); }
+            else if (e.key === 'ArrowUp' && ouvert) { e.preventDefault(); surligner(Math.max(actif - 1, 0)); }
+            else if (e.key === 'Escape') { fermer(); }
+            else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (ouvert && actif >= 0) { choisir(actif); }
+                else { clearTimeout(minuterie); requete++; fermer(); chercher(); }  // scan douchette : code exact
+            }
+        });
+        input.addEventListener('blur', function () { setTimeout(fermer, 150); });
         input.addEventListener('change', chercher);
-        div.querySelector('button').addEventListener('click', chercher);
+        div.querySelector('button').addEventListener('click', function () { dernierCode = ''; chercher(); });
         return {prefixe: prefixe, input: input, message: message};
     }
 

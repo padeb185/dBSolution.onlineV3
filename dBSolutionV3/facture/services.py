@@ -126,6 +126,13 @@ def lignes_depuis_maintenance(maintenance, marge_pieces, marge_main_oeuvre):
         # ---------- Pièces / produits ----------
         try:
             with transaction.atomic():
+                # pièces saisies (quantité + prix) restées en état neutre avant la correction
+                from piece.intervention import marquer_lignes_posees
+                marquer_lignes_posees(obj)
+        except Exception:
+            logger.exception("États des pièces non mis à jour pour %s", obj)
+        try:
+            with transaction.atomic():
                 rapport = obj.generer_rapport_remplacement()
         except Exception:
             logger.exception("Rapport impossible pour %s", obj)
