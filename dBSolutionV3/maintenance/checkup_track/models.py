@@ -921,11 +921,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
                     and self.kilometrage_checkup_track < self.voiture_exemplaire.kilometres_chassis
             ):
                 raise ValidationError({
-                    'kilometrage_checkup_track': _(
-                        f"Le kilométrage du checkup Track ({self.kilometrage_checkup_track}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture "
-                        f"({self.voiture_exemplaire.kilometres_chassis})."
-                    )
+                    'kilometrage_checkup_track': _("Le kilométrage du checkup Track (%(kilometrage_checkup_track)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"kilometrage_checkup_track": self.kilometrage_checkup_track, "kilometres_chassis": self.voiture_exemplaire.kilometres_chassis}
                 })
 
 

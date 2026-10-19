@@ -86,8 +86,7 @@ def ajouter_assurance_all(request):
             assurance_police.save()
             messages.success(
                 request,
-                _(f"Assurance '{assurance_police.assurance.nom_compagnie}' créée avec succès !"
-            ))
+                _("Assurance '%(nom_compagnie)s' créée avec succès !") % {"nom_compagnie": assurance_police.assurance.nom_compagnie})
 
             return redirect(
                 f"{reverse('assurance_police:assurance_police_list')}?saved=1"

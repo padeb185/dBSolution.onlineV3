@@ -350,10 +350,7 @@ class GeometrieVoiture(models.Model):
         if self.voiture_exemplaire and self.kilometrage_geometrie is not None:
             if self.kilometrage_geometrie < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_geometrie': _(
-                        f"Le kilométrage de la geometrie ({self.kilometrage_geometrie}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
+                    'kilometrage_geometrie': _("Le kilométrage de la geometrie (%(kilometrage_geometrie)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"kilometrage_geometrie": self.kilometrage_geometrie, "kilometres_chassis": self.voiture_exemplaire.kilometres_chassis}
                 })
 
     def save(self, *args, **kwargs):

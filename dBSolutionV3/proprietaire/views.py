@@ -158,7 +158,7 @@ def modifier_proprietaire_view(request, proprietaire_id):
         form = ProprietaireForm(request.POST, instance=proprietaire)
         if form.is_valid():
             form.save()
-            messages.success(request, _(f"Client '{proprietaire.prenom} {proprietaire.nom}' modifié avec succès !"))
+            messages.success(request, _("Client '%(prenom)s %(nom)s' modifié avec succès !") % {"prenom": proprietaire.prenom, "nom": proprietaire.nom})
 
             return redirect(
                 f"{reverse('proprietaire:proprietaire_detail', kwargs={'proprietaire_id': proprietaire.id})}?saved=1"

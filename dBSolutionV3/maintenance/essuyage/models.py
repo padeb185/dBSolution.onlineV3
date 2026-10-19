@@ -832,10 +832,7 @@ class Essuyage(TechnicienMixin, models.Model):
         if self.voiture_exemplaire and self.kilometrage_essuyage is not None:
             if self.kilometrage_essuyage < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_système_abs': _(
-                        f"Le kilométrage du système d'essuyage ({self.kilometrage_essuyage}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
+                    'kilometrage_système_abs': _("Le kilométrage du système d'essuyage (%(kilometrage_essuyage)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"kilometrage_essuyage": self.kilometrage_essuyage, "kilometres_chassis": self.voiture_exemplaire.kilometres_chassis}
                 })
 
     # -------------------------

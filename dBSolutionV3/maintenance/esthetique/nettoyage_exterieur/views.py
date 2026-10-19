@@ -325,7 +325,7 @@ def nettoyage_exterieur_view(request, exemplaire_id):
             except Exception as e:
                 messages.error(
                     request,
-                    _(f"Erreur lors de l'enregistrement : {str(e)}")
+                    _("Erreur lors de l'enregistrement : %(erreur)s") % {"erreur": str(e)}
                 )
 
         else:

@@ -88,11 +88,7 @@ def client_particulier_form_view(request):
 
             messages.success(
                 request,
-                _(
-                    f"Client '{client_particulier.prenom} "
-                    f"{client_particulier.nom}' créé avec succès ! "
-                    f"Âge : {client_particulier.age} ans"
-                )
+                _("Client '%(prenom)s %(nom)s' créé avec succès ! Âge : %(age)s ans") % {"prenom": client_particulier.prenom, "nom": client_particulier.nom, "age": client_particulier.age}
             )
             return redirect(
                 f"{reverse('client_particulier:clientparticulier_list')}?saved=1"
@@ -187,7 +183,7 @@ def modifier_client_particulier_view(request, client_particulier_id):
 
             messages.success(
                 request,
-                _(f"Client '{cp.prenom} {cp.nom}' modifié avec succès !")
+                _("Client '%(prenom)s %(nom)s' modifié avec succès !") % {"prenom": cp.prenom, "nom": cp.nom}
             )
 
             return redirect(

@@ -102,11 +102,7 @@ def ajouter_pneus_simple(request):
 
             messages.success(
                 request,
-                _(
-                    f"Le pneu '{pneu.get_manufacturier_display()} "
-                    f"{pneu.pneus_largeur}/{pneu.pneus_hauteur} "
-                    f"R{pneu.pneus_jante}' a été ajouté avec succès !"
-                ),
+                _("Le pneu '%(manufacturier)s %(pneus_largeur)s/%(pneus_hauteur)s R%(pneus_jante)s' a été ajouté avec succès !") % {"manufacturier": pneu.get_manufacturier_display(), "pneus_largeur": pneu.pneus_largeur, "pneus_hauteur": pneu.pneus_hauteur, "pneus_jante": pneu.pneus_jante},
             )
             return redirect(
                 f"{reverse('voiture_pneus:list')}?saved=1"

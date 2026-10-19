@@ -101,7 +101,7 @@ def lier_boite_exemplaire(request, exemplaire_id):
         if boite_id:
             boite = get_object_or_404(VoitureBoite, id=boite_id)
             boite.voitures_exemplaires.add(exemplaire)
-            messages.success(request, _(f"La boîte de vitesse a été liée au véhicule '{exemplaire.voiture_marque} { exemplaire.immatriculation}' avec succès."))
+            messages.success(request, _("La boîte de vitesse a été liée au véhicule '%(voiture_marque)s %(immatriculation)s' avec succès.") % {"voiture_marque": exemplaire.voiture_marque, "immatriculation": exemplaire.immatriculation})
 
 
             return redirect("voiture_exemplaire:lier_boite_exemplaire", exemplaire_id=exemplaire.id)
@@ -308,7 +308,7 @@ def lier_moteur_exemplaire(request, exemplaire_id):
         if moteur_id:
             moteur = get_object_or_404(MoteurVoiture, id=moteur_id)
             moteur.voitures_exemplaires.add(exemplaire)
-            messages.success(request, _(f"Le moteur a été lié au véhicule '{exemplaire.voiture_marque} { exemplaire.immatriculation }' avec succès."))
+            messages.success(request, _("Le moteur a été lié au véhicule '%(voiture_marque)s %(immatriculation)s' avec succès.") % {"voiture_marque": exemplaire.voiture_marque, "immatriculation": exemplaire.immatriculation})
 
 
             return redirect("voiture_exemplaire:lier_moteur_exemplaire", exemplaire_id=exemplaire.id)
@@ -333,7 +333,7 @@ def lier_embrayage_exemplaire(request, exemplaire_id):
         if embrayage_id:
             embrayage = get_object_or_404(VoitureEmbrayage, id=embrayage_id)
             embrayage.voitures_exemplaires.add(exemplaire)
-            messages.success(request, _(f"L'embrayage a été lié au véhicule '{exemplaire.voiture_marque} { exemplaire.immatriculation }' avec succès."))
+            messages.success(request, _("L'embrayage a été lié au véhicule '%(voiture_marque)s %(immatriculation)s' avec succès.") % {"voiture_marque": exemplaire.voiture_marque, "immatriculation": exemplaire.immatriculation})
 
 
             return redirect("voiture_exemplaire:lier_embrayage_exemplaire", exemplaire_id=exemplaire.id)
@@ -389,10 +389,7 @@ def lier_freins(request, exemplaire_id):
 
         messages.success(
             request,
-            _(
-                f"Le système de freinage avant a été lié au véhicule "
-                f"'{exemplaire.voiture_marque} {exemplaire.immatriculation}' avec succès."
-            )
+            _("Le système de freinage avant a été lié au véhicule '%(voiture_marque)s %(immatriculation)s' avec succès.") % {"voiture_marque": exemplaire.voiture_marque, "immatriculation": exemplaire.immatriculation}
         )
 
         return redirect(
@@ -431,7 +428,7 @@ def lier_frein_ar(request, exemplaire_id):
 
                 # Lier le frein à l'exemplaire
             frein_ar.voitures_exemplaires.add(exemplaire)
-            messages.success(request, _(f"Le système de freinage arrière a été lié au véhicule '{exemplaire.voiture_marque}  { exemplaire.immatriculation }' avec succès."))
+            messages.success(request, _("Le système de freinage arrière a été lié au véhicule '%(voiture_marque)s  %(immatriculation)s' avec succès.") % {"voiture_marque": exemplaire.voiture_marque, "immatriculation": exemplaire.immatriculation})
 
                 # Redirection vers la page de détail de l'exemplaire (ou une page liste)
             return redirect("voiture_exemplaire:lier_frein_ar", exemplaire_id=exemplaire.id)

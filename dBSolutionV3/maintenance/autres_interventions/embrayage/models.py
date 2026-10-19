@@ -311,10 +311,7 @@ class Embrayage(TechnicienMixin, models.Model):
         if self.voiture_exemplaire and self.kilometrage_embrayage is not None:
             if self.kilometrage_embrayage < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_embrayage': _(
-                        f"Le kilométrage de l'embrayage ({self.kilometrage_embrayage}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
+                    'kilometrage_embrayage': _("Le kilométrage de l'embrayage (%(kilometrage_embrayage)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"kilometrage_embrayage": self.kilometrage_embrayage, "kilometres_chassis": self.voiture_exemplaire.kilometres_chassis}
                 })
 
     # -------------------------

@@ -108,9 +108,7 @@ def ajouter_assurance_all(request):
 
                 messages.success(
                     request,
-                    _(
-                        f"Assurance '{assurance.nom_compagnie}' créée avec succès !"
-                    )
+                    _("Assurance '%(nom_compagnie)s' créée avec succès !") % {"nom_compagnie": assurance.nom_compagnie}
                 )
                 return redirect(
                     f"{reverse('assurance:assurance_list')}?saved=1"

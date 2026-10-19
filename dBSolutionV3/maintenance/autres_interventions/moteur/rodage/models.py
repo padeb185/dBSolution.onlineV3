@@ -586,10 +586,7 @@ class Rodage(TechnicienMixin, models.Model):
         if self.voiture_exemplaire and self.kilometres_rodage is not None:
             if self.kilometres_rodage < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometres_rodage': _(
-                        f"Le kilométrage du rodage ({self.kilometres_rodage}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
+                    'kilometres_rodage': _("Le kilométrage du rodage (%(kilometres_rodage)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"kilometres_rodage": self.kilometres_rodage, "kilometres_chassis": self.voiture_exemplaire.kilometres_chassis}
                 })
 
     def save(self, *args, **kwargs):

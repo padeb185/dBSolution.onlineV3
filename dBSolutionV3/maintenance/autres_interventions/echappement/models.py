@@ -352,10 +352,7 @@ class Echappement(models.Model):
         if self.voiture_exemplaire and self.kilometrage_echappement is not None:
             if self.kilometrage_echappement < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_echappement': _(
-                        f"Le kilométrage de l'échappement ({self.kilometrage_echappement}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
+                    'kilometrage_echappement': _("Le kilométrage de l'échappement (%(kilometrage_echappement)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"kilometrage_echappement": self.kilometrage_echappement, "kilometres_chassis": self.voiture_exemplaire.kilometres_chassis}
                 })
 
     def save(self, *args, **kwargs):

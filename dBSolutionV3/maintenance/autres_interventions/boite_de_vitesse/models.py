@@ -401,10 +401,7 @@ class ControleBoite(TechnicienMixin, models.Model):
         if self.voiture_exemplaire and self.kilometrage_controle_boite is not None:
             if self.kilometrage_controle_boite < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_controle_boite': _(
-                        f"Le kilométrage du check-up ({self.kilometrage_conytrole_boite}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
+                    'kilometrage_controle_boite': _("Le kilométrage du check-up (%(kilometrage_conytrole_boite)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"kilometrage_conytrole_boite": self.kilometrage_conytrole_boite, "kilometres_chassis": self.voiture_exemplaire.kilometres_chassis}
                 })
 
     def save(self, *args, **kwargs):

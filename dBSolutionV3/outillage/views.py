@@ -77,9 +77,7 @@ def ajouter_outillage_all(request):
 
             messages.success(
                 request,
-                _(
-                    f"Outillage '{outillage.libelle}' créé avec succès !"
-                )
+                _("Outillage '%(libelle)s' créé avec succès !") % {"libelle": outillage.libelle}
             )
             return redirect(
                 f"{reverse('outillage:outillage_list')}?saved=1"

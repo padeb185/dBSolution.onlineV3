@@ -279,10 +279,7 @@ class Abs(TechnicienMixin, models.Model):
         if self.voiture_exemplaire and self.kilometrage_abs is not None:
             if self.kilometrage_abs < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_système_abs': _(
-                        f"Le kilométrage du système ABS ({self.kilometrage_abs}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
+                    'kilometrage_système_abs': _("Le kilométrage du système ABS (%(kilometrage_abs)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"kilometrage_abs": self.kilometrage_abs, "kilometres_chassis": self.voiture_exemplaire.kilometres_chassis}
                 })
 
     # -------------------------

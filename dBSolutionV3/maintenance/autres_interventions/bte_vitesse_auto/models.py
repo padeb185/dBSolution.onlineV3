@@ -1557,10 +1557,7 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         if self.voiture_exemplaire and self.kilometrage_controle_boite_auto is not None:
             if self.kilometrage_controle_boite_auto < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_controle_boite_auto': _(
-                        f"Le kilométrage du contrôle ({self.kilometrage_controle_boite_auto}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
+                    'kilometrage_controle_boite_auto': _("Le kilométrage du contrôle (%(kilometrage_controle_boite_auto)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"kilometrage_controle_boite_auto": self.kilometrage_controle_boite_auto, "kilometres_chassis": self.voiture_exemplaire.kilometres_chassis}
                 })
 
 

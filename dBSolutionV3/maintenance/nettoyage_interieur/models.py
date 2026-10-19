@@ -263,10 +263,7 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
         if self.voiture_exemplaire_id and self.kilometrage_net_int is not None:
             if self.kilometrage_net_int < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    "kilometrage_net_int": _(
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture "
-                        f"({self.voiture_exemplaire.kilometres_chassis})."
-                    )
+                    "kilometrage_net_int": _("ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"kilometres_chassis": self.voiture_exemplaire.kilometres_chassis}
                 })
 
     def save(self, *args, **kwargs):

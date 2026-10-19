@@ -336,7 +336,7 @@ def niveau_form_view(request, exemplaire_id):
 
 
             except Exception as e:
-                messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+                messages.error(request, _("Erreur lors de l'enregistrement : %(erreur)s") % {"erreur": str(e)})
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
 

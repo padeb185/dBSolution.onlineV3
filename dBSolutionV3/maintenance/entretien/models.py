@@ -980,10 +980,7 @@ class Entretien(TechnicienMixin, models.Model):
         if self.voiture_exemplaire and self.kilometrage_entretien is not None:
             if self.kilometrage_entretien < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_entretien': _(
-                        f"Le kilométrage de l'entretien ({self.kilometrage_entretien}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
+                    'kilometrage_entretien': _("Le kilométrage de l'entretien (%(kilometrage_entretien)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"kilometrage_entretien": self.kilometrage_entretien, "kilometres_chassis": self.voiture_exemplaire.kilometres_chassis}
                 })
 
     def save(self, *args, **kwargs):

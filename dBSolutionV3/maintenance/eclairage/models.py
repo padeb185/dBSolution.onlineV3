@@ -564,10 +564,7 @@ class Eclairage(TechnicienMixin, models.Model):
         if self.voiture_exemplaire and self.kilometrage_eclairage is not None:
             if self.kilometrage_eclairage < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_eclairage': _(
-                        f"Le kilométrage de l'eclairage ({self.kilometrage_eclairage}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
+                    'kilometrage_eclairage': _("Le kilométrage de l'eclairage (%(kilometrage_eclairage)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"kilometrage_eclairage": self.kilometrage_eclairage, "kilometres_chassis": self.voiture_exemplaire.kilometres_chassis}
                 })
 
 

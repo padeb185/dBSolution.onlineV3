@@ -1170,10 +1170,7 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
         if self.voiture_exemplaire and self.kilometrage_jeu is not None:
             if self.kilometrage_jeu < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_checkup': _(
-                        f"Le kilométrage du check-up ({self.kilometrage_jeu}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
+                    'kilometrage_checkup': _("Le kilométrage du check-up (%(kilometrage_jeu)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"kilometrage_jeu": self.kilometrage_jeu, "kilometres_chassis": self.voiture_exemplaire.kilometres_chassis}
                 })
 
     def save(self, *args, **kwargs):

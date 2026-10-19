@@ -20,10 +20,7 @@ class CheckupForm(forms.ModelForm):
         km = self.cleaned_data.get("kilometrage_checkup")
         voiture = self.cleaned_data.get("voiture_exemplaire")
         if km is not None and voiture and km < voiture.kilometres_chassis:
-            raise forms.ValidationError(_(
-                f"Le kilométrage du check-up ({km}) "
-                f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
-            ))
+            raise forms.ValidationError(_("Le kilométrage du check-up (%(km)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"km": km, "kilometres_chassis": voiture.kilometres_chassis})
         return km
 
 # ---------------------------

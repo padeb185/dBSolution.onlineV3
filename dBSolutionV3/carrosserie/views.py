@@ -88,7 +88,7 @@ def ajouter_carrosserie_all(request):
 
             messages.success(
                 request,
-                _(f"Carrosserie '{carrosserie.nom_societe}' créée avec succès !")
+                _("Carrosserie '%(nom_societe)s' créée avec succès !") % {"nom_societe": carrosserie.nom_societe}
             )
 
             return redirect(

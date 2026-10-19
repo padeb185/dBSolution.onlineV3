@@ -125,7 +125,7 @@ def modifier_client_pilotage_view(request, client_pilotage_id):
 
             messages.success(
                 request,
-                _(f"Client '{cp.prenom} {cp.nom}' modifié avec succès !")
+                _("Client '%(prenom)s %(nom)s' modifié avec succès !") % {"prenom": cp.prenom, "nom": cp.nom}
             )
 
             return redirect(
@@ -230,10 +230,7 @@ def client_pilotage_form_view(request):
 
             messages.success(
                 request,
-                _(
-                    f"Client '{client_particulier.prenom} "
-                    f"{client_particulier.nom}' créé avec succès !"
-                )
+                _("Client '%(prenom)s %(nom)s' créé avec succès !") % {"prenom": client_particulier.prenom, "nom": client_particulier.nom}
             )
             return redirect(
                 f"{reverse('client_pilotage:client_pilotage_list')}?saved=1"

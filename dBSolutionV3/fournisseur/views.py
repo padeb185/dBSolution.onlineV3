@@ -115,7 +115,7 @@ def ajouter_fournisseur_all(request):
 
                     messages.success(
                         request,
-                        _(f"Fournisseur '{fournisseur.nom}' créé avec succès !"))
+                        _("Fournisseur '%(nom)s' créé avec succès !") % {"nom": fournisseur.nom})
 
                     return redirect(
                         f"{reverse('fournisseur:fournisseur_list')}?saved=1"
@@ -144,7 +144,7 @@ def modifier_fournisseur(request, fournisseur_id):
         form = FournisseurForm(request.POST, instance=fournisseur)
         if form.is_valid():
             form.save()
-            messages.success(request, _(f"Fournisseur '{fournisseur.nom}' modifié avec succès !"))
+            messages.success(request, _("Fournisseur '%(nom)s' modifié avec succès !") % {"nom": fournisseur.nom})
 
             return redirect(
                 f"{reverse('fournisseur:fournisseur_detail', kwargs={'fournisseur_id': fournisseur.id})}?saved=1"

@@ -730,10 +730,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         if self.voiture_exemplaire and self.kilometrage_silent is not None:
             if self.kilometrage_silent < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_silent': _(
-                        f"Le kilométrage du contrôle ({self.kilometrage_silent}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
+                    'kilometrage_silent': _("Le kilométrage du contrôle (%(kilometrage_silent)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"kilometrage_silent": self.kilometrage_silent, "kilometres_chassis": self.voiture_exemplaire.kilometres_chassis}
                 })
 
     def save(self, *args, **kwargs):

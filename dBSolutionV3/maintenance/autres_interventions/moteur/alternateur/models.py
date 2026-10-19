@@ -250,10 +250,7 @@ class Alternateur(TechnicienMixin, models.Model):
         if self.voiture_exemplaire and self.kilometrage_alte is not None:
             if self.kilometrage_alte < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_alte': _(
-                        f"Le kilométrage de l'alternateur ({self.kilometrage_alte}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
+                    'kilometrage_alte': _("Le kilométrage de l'alternateur (%(kilometrage_alte)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"kilometrage_alte": self.kilometrage_alte, "kilometres_chassis": self.voiture_exemplaire.kilometres_chassis}
                 })
 
     # -------------------------

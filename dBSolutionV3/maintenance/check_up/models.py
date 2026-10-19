@@ -1961,10 +1961,7 @@ class Checkup(TechnicienMixin, models.Model):
         if self.voiture_exemplaire and self.kilometrage_checkup is not None:
             if self.kilometrage_checkup < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_checkup': _(
-                        f"Le kilométrage du check-up ({self.kilometrage_checkup}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
+                    'kilometrage_checkup': _("Le kilométrage du check-up (%(kilometrage_checkup)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(kilometres_chassis)s).") % {"kilometrage_checkup": self.kilometrage_checkup, "kilometres_chassis": self.voiture_exemplaire.kilometres_chassis}
                 })
 
 
