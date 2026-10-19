@@ -315,14 +315,10 @@ class PaieUtilisateurForm(forms.ModelForm):
                 "En %. Laisser vide pour le taux facial de 25 %."
             )
 
-    def sections(self):
-        return [
-            (titre, [self[nom] for nom in noms if nom in self.fields])
-            for titre, noms in self.SECTIONS
-        ]
-
+        # Travailleurs de la société du tenant uniquement (ce bloc était placé après le « return »
+        # de sections() et n'était donc jamais exécuté : tous les utilisateurs de tous les tenants apparaissaient)
         if societe is not None:
-            self.fields["utilisateur"].queryset = (
+            qs = (
                 Utilisateur.objects
                 .filter(
                     societe=societe,
@@ -331,15 +327,21 @@ class PaieUtilisateurForm(forms.ModelForm):
                 # Les comptes administrateurs de la plateforme (superutilisateurs, ex. « Admin Campus »)
                 # ne sont pas des travailleurs du garage : pas de paie.
                 .exclude(is_superuser=True)
-                .order_by(
-                    "nom",
-                    "prenom",
-                )
             )
+            # Modification : garder le travailleur de la paie même s'il a été désactivé depuis
+            if self.instance.pk and self.instance.utilisateur_id:
+                qs = qs | Utilisateur.objects.filter(pk=self.instance.utilisateur_id, societe=societe)
+            self.fields["utilisateur"].queryset = qs.distinct().order_by("nom", "prenom")
         else:
             self.fields["utilisateur"].queryset = (
                 Utilisateur.objects.none()
             )
+
+    def sections(self):
+        return [
+            (titre, [self[nom] for nom in noms if nom in self.fields])
+            for titre, noms in self.SECTIONS
+        ]
 
 
 
