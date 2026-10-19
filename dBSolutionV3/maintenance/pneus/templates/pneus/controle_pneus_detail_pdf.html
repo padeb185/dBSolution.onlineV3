@@ -762,6 +762,7 @@
     {{ controle_pneus.remarques|default:_("Aucune remarque.") }}
 </div>
 
+{% include "piece/stock/_pieces_utilisees_pdf.html" with maintenance=controle_pneus.maintenance %}
 <div class="footer">
     {% trans "Document généré automatiquement par CarsCosts.com." %}
     <br>

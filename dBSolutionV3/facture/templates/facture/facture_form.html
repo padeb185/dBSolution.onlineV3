@@ -109,7 +109,16 @@
 
         <!-- Lignes -->
         <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
-            <h2 class="text-lg font-semibold mb-4">{% trans "Lignes de la facture" %}</h2>
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <h2 class="text-lg font-semibold">{% trans "Lignes de la facture" %}</h2>
+                {% if facture.maintenances.exists %}
+                <button type="submit" name="action" value="recharger_maintenances"
+                        onclick="return confirm('{% trans "Recréer les lignes des maintenances ? Les lignes modifiées à la main seront remplacées (les lignes libres sont conservées)." %}')"
+                        class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold text-sm">
+                    {% trans "Recharger les lignes des maintenances" %}
+                </button>
+                {% endif %}
+            </div>
             {{ formset.management_form }}
             {% if formset.non_form_errors %}
                 <div class="mb-4 p-4 bg-red-50 border border-red-300 rounded text-red-700">{{ formset.non_form_errors }}</div>

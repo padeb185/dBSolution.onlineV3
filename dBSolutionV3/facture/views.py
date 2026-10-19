@@ -225,8 +225,8 @@ def facture_modifier_view(request, pk):
 
     if request.method == "GET":
         # Pièces utilisées ajoutées aux maintenances depuis la création du brouillon
-        from .services import synchroniser_pieces_utilisees
-        synchroniser_pieces_utilisees(facture)
+        from .services import synchroniser_brouillon
+        synchroniser_brouillon(facture)
 
     if request.method == "POST":
         form = FactureForm(request.POST, instance=facture, user=request.user)
@@ -250,6 +250,10 @@ def facture_modifier_view(request, pk):
                 if action == "appliquer_marges":
                     appliquer_marges(facture)
                     messages.success(request, _("Marges appliquées à toutes les lignes."))
+                elif action == "recharger_maintenances":
+                    from .services import synchroniser_brouillon
+                    synchroniser_brouillon(facture, forcer=True)
+                    messages.success(request, _("Lignes des maintenances rechargées (pièces et main-d'œuvre)."))
                 else:
                     facture.recalculer_totaux()
 

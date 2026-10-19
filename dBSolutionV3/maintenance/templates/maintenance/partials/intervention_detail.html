@@ -175,6 +175,41 @@ Variables attendues (passées par le template de chaque app) :
     </div>
     {% endwith %}
 
+    <!-- Pièces utilisées ajoutées depuis le stock (hors lignes de l'intervention) -->
+    {% if obj.maintenance_id %}{% with pus=obj.maintenance.pieces_utilisees_hors_intervention %}{% if pus %}
+    
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-4 flex items-center justify-between">
+            <span>{% trans "Pièces utilisées (stock)" %}</span>
+            <a href="{% url 'piece:pieces_maintenance' obj.maintenance_id %}?next={{ request.path|urlencode }}" class="text-sm text-blue-700 font-normal hover:underline">{% trans "Gérer" %}</a>
+        </h2>
+        <table class="min-w-full table-auto border-collapse border border-gray-200">
+            <thead><tr class="bg-gray-100">
+                <th class="border px-3 py-2 text-left">{% trans "Pièce / produit" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Fabricant" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "OEM / EAN" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Quantité" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Prix de vente HTVA" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Total HTVA" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Stock" %}</th>
+            </tr></thead>
+            <tbody>
+            {% for l in pus %}
+                <tr>
+                    <td class="border px-3 py-2">{{ l.piece.designation|default:l.piece }}</td>
+                    <td class="border px-3 py-2">{{ l.piece.nom_fabricant|default:"-" }}</td>
+                    <td class="border px-3 py-2 font-mono">{{ l.piece.oem|default:"" }}{% if not l.piece.oem %}{{ l.piece.eans|first|default:"-" }}{% endif %}</td>
+                    <td class="border px-3 py-2 text-right">{{ l.quantite|floatformat:"-2" }}</td>
+                    <td class="border px-3 py-2 text-right">{{ l.prix_unitaire|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ l.total|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2">{% if l.debitee %}<span class="px-2 py-0.5 rounded bg-green-100 text-green-800 text-xs font-semibold">{% trans "Débitée" %}</span>{% else %}<span class="px-2 py-0.5 rounded bg-yellow-100 text-yellow-800 text-xs font-semibold">{% trans "Débitée à l'émission" %}</span>{% endif %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}{% endwith %}{% endif %}
+
     <!-- Bloc spécifique à l'intervention (optionnel) -->
     {% if extra_template %}{% include extra_template %}{% endif %}
 

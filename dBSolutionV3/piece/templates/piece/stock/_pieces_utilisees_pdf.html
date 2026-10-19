@@ -1,0 +1,32 @@
+{% load i18n %}{% comment %}PDF d'intervention : pièces ajoutées via « Pièces utilisées » (hors lignes de l'intervention).{% endcomment %}
+{% if maintenance %}{% with pus=maintenance.pieces_utilisees_hors_intervention %}{% if pus %}
+
+<h2>{% trans "Pièces utilisées (stock)" %}</h2>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Pièce / Produit" %}</th>
+                <th>{% trans "Fabricant" %}</th>
+                <th>{% trans "OEM / EAN" %}</th>
+                <th class="text-right">{% trans "Quantité" %}</th>
+                <th class="text-right">{% trans "Prix de vente HTVA" %}</th>
+                <th class="text-right">{% trans "Total HTVA" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for l in pus %}
+            <tr>
+                <td>{{ l.piece.designation|default:l.piece }}</td>
+                <td>{{ l.piece.nom_fabricant|default:"-" }}</td>
+                <td>{{ l.piece.oem|default:"" }}{% if not l.piece.oem %}{{ l.piece.eans|first|default:"-" }}{% endif %}</td>
+                <td class="text-right">{{ l.quantite|floatformat:"-2" }}</td>
+                <td class="text-right">{{ l.prix_unitaire|floatformat:2 }} €</td>
+                <td class="text-right">{{ l.total|floatformat:2 }} €</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<br>
+{% endif %}{% endwith %}{% endif %}

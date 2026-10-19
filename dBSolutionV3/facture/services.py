@@ -102,6 +102,12 @@ def lignes_depuis_maintenance(maintenance, marge_pieces, marge_main_oeuvre):
     lignes = []
     main_oeuvres_vues = set()
     type_label = maintenance.get_type_maintenance_display() or _("Maintenance")
+    codes_pieces = _codes_pieces_intervention(maintenance)
+    ref_maintenance = " – ".join(x for x in (
+        maintenance.immatriculation or "",
+        f"{maintenance.kilometres_chassis or maintenance.kilometres_total or ''} km".strip()
+        if (maintenance.kilometres_chassis or maintenance.kilometres_total) else "",
+    ) if x)
 
     for obj in objets_detail_maintenance(maintenance):
         taux_tva = _taux_tva(obj)
@@ -131,11 +137,12 @@ def lignes_depuis_maintenance(maintenance, marge_pieces, marge_main_oeuvre):
             if fabricant:
                 description += f" ({fabricant})"
 
+            reference = ligne.get("reference") or ligne.get("oem") or codes_pieces.get(ligne.get("code"), "")
             lignes.append({
                 "maintenance": maintenance,
                 "type_ligne": FactureLine.TypeLigne.PIECE,
                 "description": description[:255],
-                "reference": str(ligne.get("reference") or ligne.get("oem") or "")[:100],
+                "reference": str(reference or "")[:100],
                 "quantity": arrondi(quantite),
                 "unit_cost": arrondi(prix),
                 "marge": marge_pieces,
@@ -164,7 +171,7 @@ def lignes_depuis_maintenance(maintenance, marge_pieces, marge_main_oeuvre):
             "maintenance": maintenance,
             "type_ligne": FactureLine.TypeLigne.MAIN_OEUVRE,
             "description": description[:255],
-            "reference": "",
+            "reference": ref_maintenance[:100],
             "quantity": arrondi(heures),
             "unit_cost": arrondi(main_oeuvre.taux_horaire or 0),
             "marge": marge_main_oeuvre,
@@ -172,8 +179,50 @@ def lignes_depuis_maintenance(maintenance, marge_pieces, marge_main_oeuvre):
         })
 
     # ---------- Pièces utilisées (stock) ----------
-    lignes.extend(lignes_pieces_utilisees(maintenance))
+    try:
+        lignes.extend(lignes_pieces_utilisees(maintenance))
+    except Exception:
+        logger.exception("Pièces utilisées non reprises pour la maintenance %s", maintenance.pk)
     return lignes
+
+
+def _codes_pieces_intervention(maintenance):
+    """{prefixe de ligne d'intervention: OEM / EAN} des pièces codées dans le formulaire d'intervention."""
+    try:
+        return {
+            pu.prefixe: (pu.piece.oem or (pu.piece.eans[0] if pu.piece.eans else ""))
+            for pu in maintenance.pieces_utilisees.exclude(prefixe="").select_related("piece")
+        }
+    except Exception:
+        return {}
+
+
+def regenerer_lignes_maintenance(facture, maintenance):
+    """Brouillon : recrée les lignes (pièces, main-d'œuvre, pièces utilisées) d'une maintenance de la facture."""
+    facture.lines.filter(maintenance=maintenance).delete()
+    ordre = max((l.ordre for l in facture.lines.all()), default=0)
+    for donnees in lignes_depuis_maintenance(maintenance, facture.marge_pieces, facture.marge_main_oeuvre):
+        ordre += 1
+        FactureLine.objects.create(facture=facture, ordre=ordre, **donnees)
+
+
+def synchroniser_brouillon(facture, forcer=False):
+    """
+    Facture brouillon : une maintenance sans aucune ligne (facture créée avant l'encodage des pièces /
+    de la main-d'œuvre) est régénérée ; forcer=True régénère toutes les maintenances.
+    Puis ajoute les pièces utilisées manquantes.
+    """
+    if not facture.est_brouillon:
+        return False
+    change = False
+    for maintenance in facture.maintenances.all():
+        if forcer or not facture.lines.filter(maintenance=maintenance).exists():
+            regenerer_lignes_maintenance(facture, maintenance)
+            change = True
+    change = synchroniser_pieces_utilisees(facture, recalculer=False) or change
+    if change:
+        facture.recalculer_totaux()
+    return change
 
 
 def _pieces_a_facturer(maintenance):
@@ -420,7 +469,7 @@ def emettre_facture(facture):
         return facture
 
     # Pièces utilisées des maintenances : comptées dans la facture avant numérotation
-    synchroniser_pieces_utilisees(facture, recalculer=False)
+    synchroniser_brouillon(facture)
 
     if not facture.issue_date:
         facture.issue_date = timezone.localdate()

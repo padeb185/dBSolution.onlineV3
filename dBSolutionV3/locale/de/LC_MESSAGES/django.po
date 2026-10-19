@@ -50285,6 +50285,19 @@ msgstr ""
 "Hier erfasste Teile werden der Wartungsrechnung hinzugefügt (zum angegebenen"
 " Verkaufspreis) und bei Ausstellung der Rechnung vom Lager abgebucht."
 
+msgid "Lignes des maintenances rechargées (pièces et main-d'œuvre)."
+msgstr "Wartungszeilen neu geladen (Teile und Arbeitszeit)."
+
+msgid ""
+"Recréer les lignes des maintenances ? Les lignes modifiées à la main seront "
+"remplacées (les lignes libres sont conservées)."
+msgstr ""
+"Wartungszeilen neu erstellen? Manuell geänderte Zeilen werden ersetzt (freie"
+" Zeilen bleiben erhalten)."
+
+msgid "Recharger les lignes des maintenances"
+msgstr "Wartungszeilen neu laden"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Eingriffe am Automatikgetriebe"
 

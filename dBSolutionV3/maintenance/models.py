@@ -197,6 +197,11 @@ class Maintenance(models.Model):
         verbose_name_plural = _("Maintenances")
 
     @property
+    def pieces_utilisees_hors_intervention(self):
+        """Pièces ajoutées via « Pièces utilisées » (stock), hors lignes de pièces de l'intervention."""
+        return self.pieces_utilisees.filter(prefixe="").select_related("piece", "piece__fabricant")
+
+    @property
     def kilometres_calcules(self):
         if self.kilometres_dernier_entretien is not None:
             return (

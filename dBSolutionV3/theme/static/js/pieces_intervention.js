@@ -61,6 +61,12 @@
                     if (!choisirFabricant(fab, p.fabricant)) txt += ' · ' + M.fabricantAbsent.replace('%s', p.fabricant);
                     prix.value = p.prix_vente_effectif;
                     if (!parseFloat(qte.value)) qte.value = 1;
+                    // pièce posée : l'état « OK » passe à « Fait » (sinon absente du rapport, du PDF et de la facture)
+                    var etatSel = form.querySelector('select[name="' + prefixe + '"], select[name="' + prefixe + '_etat"]');
+                    if (etatSel && etatSel.value === 'OK' && etatSel.querySelector('option[value="REMPLACE"]')) {
+                        etatSel.value = 'REMPLACE';
+                        etatSel.dispatchEvent(new Event('change', {bubbles: true}));
+                    }
                     [fab, prix, qte].forEach(function (el) { el.dispatchEvent(new Event('change', {bubbles: true})); });
                     message(txt, 'text-green-700');
                     qte.focus(); if (qte.select) qte.select();

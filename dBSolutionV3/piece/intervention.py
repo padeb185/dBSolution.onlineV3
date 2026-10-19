@@ -5,11 +5,14 @@ Codes OEM / EAN saisis dans les formulaires d'intervention (une ligne de pièce 
 de la maintenance (débitée du stock à l'émission de la facture).
 """
 import contextvars
+import logging
 from decimal import Decimal, InvalidOperation
 
-from django.db.models.signals import post_save, pre_delete
+from django.db import transaction
+from django.db.models.signals import post_save, pre_delete, pre_save
 from django.dispatch import receiver
 
+logger = logging.getLogger(__name__)
 SUFFIXE = "_code_piece"
 _codes = contextvars.ContextVar("pieces_intervention", default=None)
 
@@ -111,15 +114,60 @@ def _apres_enregistrement(sender, instance, **kwargs):
         return
     if not any(hasattr(instance, f"{p}_prix") for p in ctx["codes"]):
         return
-    synchroniser(instance, ctx["codes"], ctx.get("user"))
+    # Ne jamais faire échouer l'enregistrement de l'intervention (ex. migrations du stock non appliquées)
+    try:
+        with transaction.atomic():
+            synchroniser(instance, ctx["codes"], ctx.get("user"))
+    except Exception:
+        logger.exception("Pièces utilisées non synchronisées pour %s", instance)
 
 
 @receiver(pre_delete, sender="piece.PieceUtilisee", dispatch_uid="piece_utilisee_lignes_brouillon")
 def _avant_suppression(sender, instance, **kwargs):
     """Pièce utilisée retirée : sa ligne disparaît des factures encore en brouillon (les émises restent intactes)."""
     from facture.models import Facture
-    lignes = instance.lignes_facture.filter(facture__statut=Facture.Statut.BROUILLON)
-    factures = {l.facture for l in lignes.select_related("facture")}
-    lignes.delete()
-    for facture in factures:
-        facture.recalculer_totaux()
+    try:
+        with transaction.atomic():
+            lignes = instance.lignes_facture.filter(facture__statut=Facture.Statut.BROUILLON)
+            factures = {l.facture for l in lignes.select_related("facture")}
+            lignes.delete()
+            for facture in factures:
+                facture.recalculer_totaux()
+    except Exception:
+        logger.exception("Lignes de facture de la pièce utilisée %s non retirées", instance.pk)
+
+
+ETATS_A_MARQUER = {"OK"}          # pièce saisie mais laissée « OK »
+ETAT_FAIT = "REMPLACE"            # « Fait » : la ligne apparaît dans le rapport, le PDF et la facture
+
+
+@receiver(pre_save, dispatch_uid="piece_intervention_quantite_fait")
+def _ligne_saisie_fait(sender, instance, **kwargs):
+    """
+    Intervention : une ligne de pièce avec une quantité et un prix > 0 est une pièce posée.
+    Si son état est resté « OK », il passe à « Fait » ; sinon le rapport (détail, PDF, facture) l'ignore.
+    """
+    if not sender.__module__.startswith("maintenance.") or not hasattr(instance, "maintenance_id"):
+        return
+    for champ in sender._meta.concrete_fields:
+        if not champ.name.endswith("_quantite"):
+            continue
+        prefixe = champ.name[:-len("_quantite")]
+        if not hasattr(instance, f"{prefixe}_prix"):
+            continue
+        try:
+            qte = Decimal(str(getattr(instance, champ.name) or 0))
+            prix = Decimal(str(getattr(instance, f"{prefixe}_prix") or 0))
+        except (InvalidOperation, ValueError):
+            continue
+        if qte <= 0 or prix <= 0:
+            continue
+        for nom in (prefixe, f"{prefixe}_etat"):
+            try:
+                f_etat = sender._meta.get_field(nom)
+            except Exception:
+                continue
+            valeurs = {str(v) for v, _l in (f_etat.choices or [])}
+            if ETAT_FAIT in valeurs and getattr(instance, nom, None) in ETATS_A_MARQUER:
+                setattr(instance, nom, ETAT_FAIT)
+            break

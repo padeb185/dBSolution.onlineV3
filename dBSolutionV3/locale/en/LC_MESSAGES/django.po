@@ -50148,6 +50148,19 @@ msgstr ""
 "Parts entered here are added to the maintenance invoice (at the selling "
 "price entered) and taken out of stock when the invoice is issued."
 
+msgid "Lignes des maintenances rechargées (pièces et main-d'œuvre)."
+msgstr "Maintenance lines reloaded (parts and labour)."
+
+msgid ""
+"Recréer les lignes des maintenances ? Les lignes modifiées à la main seront "
+"remplacées (les lignes libres sont conservées)."
+msgstr ""
+"Recreate the maintenance lines? Manually edited lines will be replaced (free"
+" lines are kept)."
+
+msgid "Recharger les lignes des maintenances"
+msgstr "Reload maintenance lines"
+
 #~ msgid "Interventions boîte automatique"
 #~ msgstr "Automatic gearbox services"
 
