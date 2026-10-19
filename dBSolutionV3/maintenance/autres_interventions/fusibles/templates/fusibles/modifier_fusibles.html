@@ -249,6 +249,8 @@
                         {% endif %}
                     </div>
                 {% endfor %}
+                {# Détail des fusibles de ce type (rempli par _detail_fusibles_form.html) #}
+                <div class="zone-fusibles hidden" data-ligne="{{ section.fields.0.name }}"></div>
             </div>
         {% endfor %}
         {% include "fusibles/_detail_fusibles_form.html" %}

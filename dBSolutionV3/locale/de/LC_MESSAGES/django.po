@@ -52141,3 +52141,13 @@ msgstr ""
 
 msgid "Ventilation / pulseur d'air"
 msgstr "Lüftung / Gebläse"
+
+#: maintenance/autres_interventions/fusibles/templates/fusibles/_detail_fusibles_form.html
+msgid ""
+"Un fusible par carte : emplacement de la boîte, numéro sur la boîte, circuit"
+" protégé, ampérage et état. Les fusibles « Remplacé » sont comptés dans la "
+"quantité facturée."
+msgstr ""
+"Eine Sicherung pro Karte: Position des Kastens, Nummer auf dem Kasten, "
+"abgesicherter Stromkreis, Stromstärke und Zustand. „Ersetzte“ Sicherungen "
+"werden in der berechneten Menge gezählt."

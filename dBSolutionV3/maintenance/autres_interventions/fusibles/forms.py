@@ -225,7 +225,7 @@ class FusiblesForm(forms.ModelForm):
 # ---------------------------------------------------------------
 from .models import AMPERAGES_FUSIBLES, FusibleDetail  # noqa: E402
 
-_C = "border rounded px-2 py-1 w-full"
+_C = "block w-full border rounded px-3 py-2 bg-white"
 
 
 class FusibleDetailForm(forms.ModelForm):
@@ -255,5 +255,5 @@ class FusibleDetailForm(forms.ModelForm):
 
 
 FusibleDetailFormSet = forms.inlineformset_factory(
-    Fusibles, FusibleDetail, form=FusibleDetailForm, extra=1, can_delete=True,
+    Fusibles, FusibleDetail, form=FusibleDetailForm, extra=0, can_delete=True,
 )

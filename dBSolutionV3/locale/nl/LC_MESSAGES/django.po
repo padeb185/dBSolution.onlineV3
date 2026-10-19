@@ -52124,3 +52124,13 @@ msgstr ""
 
 msgid "Ventilation / pulseur d'air"
 msgstr "Ventilatie / aanjager"
+
+#: maintenance/autres_interventions/fusibles/templates/fusibles/_detail_fusibles_form.html
+msgid ""
+"Un fusible par carte : emplacement de la boîte, numéro sur la boîte, circuit"
+" protégé, ampérage et état. Les fusibles « Remplacé » sont comptés dans la "
+"quantité facturée."
+msgstr ""
+"Eén zekering per kaart: locatie van de kast, nummer op de kast, beveiligd "
+"circuit, stroomsterkte en staat. Zekeringen met status « Vervangen » worden "
+"meegeteld in de gefactureerde hoeveelheid."

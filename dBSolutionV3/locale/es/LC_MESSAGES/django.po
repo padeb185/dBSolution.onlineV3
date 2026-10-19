@@ -52099,3 +52099,13 @@ msgstr ""
 
 msgid "Ventilation / pulseur d'air"
 msgstr "Ventilación / soplador"
+
+#: maintenance/autres_interventions/fusibles/templates/fusibles/_detail_fusibles_form.html
+msgid ""
+"Un fusible par carte : emplacement de la boîte, numéro sur la boîte, circuit"
+" protégé, ampérage et état. Les fusibles « Remplacé » sont comptés dans la "
+"quantité facturée."
+msgstr ""
+"Un fusible por tarjeta: ubicación de la caja, número en la caja, circuito "
+"protegido, amperaje y estado. Los fusibles «Sustituido» se cuentan en la "
+"cantidad facturada."

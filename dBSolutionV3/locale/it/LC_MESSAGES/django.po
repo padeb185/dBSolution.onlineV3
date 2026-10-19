@@ -52102,3 +52102,13 @@ msgstr ""
 
 msgid "Ventilation / pulseur d'air"
 msgstr "Ventilazione / ventola"
+
+#: maintenance/autres_interventions/fusibles/templates/fusibles/_detail_fusibles_form.html
+msgid ""
+"Un fusible par carte : emplacement de la boîte, numéro sur la boîte, circuit"
+" protégé, ampérage et état. Les fusibles « Remplacé » sont comptés dans la "
+"quantité facturée."
+msgstr ""
+"Un fusibile per scheda: posizione della scatola, numero sulla scatola, "
+"circuito protetto, amperaggio e stato. I fusibili «Sostituito» sono "
+"conteggiati nella quantità fatturata."

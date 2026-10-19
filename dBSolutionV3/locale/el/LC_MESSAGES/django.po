@@ -52165,3 +52165,13 @@ msgstr ""
 
 msgid "Ventilation / pulseur d'air"
 msgstr "Αερισμός / φυσητήρας"
+
+#: maintenance/autres_interventions/fusibles/templates/fusibles/_detail_fusibles_form.html
+msgid ""
+"Un fusible par carte : emplacement de la boîte, numéro sur la boîte, circuit"
+" protégé, ampérage et état. Les fusibles « Remplacé » sont comptés dans la "
+"quantité facturée."
+msgstr ""
+"Μία ασφάλεια ανά κάρτα: θέση κουτιού, αριθμός στο κουτί, προστατευόμενο "
+"κύκλωμα, αμπεράζ και κατάσταση. Οι ασφάλειες «Αντικαταστάθηκε» υπολογίζονται"
+" στην τιμολογούμενη ποσότητα."
