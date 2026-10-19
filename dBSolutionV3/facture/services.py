@@ -30,7 +30,7 @@ CLES_PRIX = ("prix_unitaire", "prix")
 # ------------------------------------------------------------
 # Lecture des maintenances
 # ------------------------------------------------------------
-def objets_detail_maintenance(maintenance):
+def objets_detail_maintenance(maintenance, _rattacher=True):
     """Objets « détail » (Allumage, ControleFreins…) rattachés à une maintenance."""
     objets = []
     for relation in Maintenance._meta.related_objects:
@@ -49,6 +49,15 @@ def objets_detail_maintenance(maintenance):
         except Exception:  # relation absente / objet supprimé
             logger.warning("Relation %s illisible pour la maintenance %s", accesseur, maintenance.pk, exc_info=True)
             continue
+    if not objets and _rattacher:
+        # Intervention enregistrée sans lien vers sa maintenance (anciennes vues) : on la rattache
+        try:
+            from piece.rattachement import rattacher_maintenance
+            with transaction.atomic():
+                if rattacher_maintenance(maintenance):
+                    return objets_detail_maintenance(maintenance, _rattacher=False)
+        except Exception:
+            logger.exception("Rattachement impossible pour la maintenance %s", maintenance.pk)
     return objets
 
 

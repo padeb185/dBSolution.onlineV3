@@ -182,29 +182,46 @@ def _ligne_saisie_fait(sender, instance, raw=False, **kwargs):
             continue
         if qte <= 0 or prix <= 0:
             continue
-        for nom in (prefixe, f"{prefixe}_etat"):
+        # champ d'état : <p>, <p>_etat, ou autre champ à choix de la ligne (ex. <p>_plaquettes_remplacer)
+        noms = [prefixe, f"{prefixe}_etat"] + [
+            f.name for f in sender._meta.concrete_fields
+            if f.name.startswith(prefixe + "_") and f.choices
+            and not f.name.endswith(("_fabricant", "_qualite", "_cote", "_type", "_marque"))
+        ]
+        champs = []
+        for nom in dict.fromkeys(noms):
             try:
                 f_etat = sender._meta.get_field(nom)
             except Exception:
                 continue
-            actuel = getattr(instance, nom, None)
-            valeurs = [str(v) for v, _l in (f_etat.choices or [])]
-            if not valeurs or str(actuel or "") not in ETATS_NEUTRES:
-                break
-            if base is None:
-                base = _nb_lignes_rapport(instance)
-            if base is None:
-                break
+            if f_etat.choices:
+                champs.append(f_etat)
+        if not champs:
+            continue
+        # déjà dans un état « à facturer » : rien à faire
+        if any(str(getattr(instance, f.name, "") or "") not in ETATS_NEUTRES for f in champs if f.name in (prefixe, f"{prefixe}_etat")):
+            continue
+        if base is None:
+            base = _nb_lignes_rapport(instance)
+        if base is None:
+            return
+        trouve = False
+        for f_etat in champs:
+            actuel = getattr(instance, f_etat.name, None)
+            if str(actuel or "") not in ETATS_NEUTRES:
+                continue
+            valeurs = [str(v) for v, _l in f_etat.choices]
             for cible in ETATS_CIBLES:
                 if cible not in valeurs:
                     continue
-                setattr(instance, nom, cible)
+                setattr(instance, f_etat.name, cible)
                 n = _nb_lignes_rapport(instance)
                 if n is not None and n > base:
-                    base = n
+                    base, trouve = n, True
                     break
-                setattr(instance, nom, actuel)
-            break
+                setattr(instance, f_etat.name, actuel)
+            if trouve:
+                break
 
 
 # ---------------------------------------------------------------------------------------------
