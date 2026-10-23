@@ -19,6 +19,7 @@ class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("OK")
     NOT_OK = "NOT_OK", _("A Remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
+    AJOUTER = "AJOUTER", _("Ajouté")
 
 
 class EtatOptionnel(models.TextChoices):
@@ -27,6 +28,7 @@ class EtatOptionnel(models.TextChoices):
     OK = "OK", _("OK")
     NOT_OK = "NOT_OK", _("A Remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
+    AJOUTER = "AJOUTER", _("Ajouté")
 
 
 
@@ -551,6 +553,7 @@ class AirJack(TechnicienMixin, models.Model):
             if etat not in [
                 EtatOKNotOK.NOT_OK,
                 EtatOKNotOK.REMPLACE,
+                EtatOKNotOK.AJOUTER,
                 EtatDemontage.DEMONTE,
                 EtatDemontage.REMONTE,
                 EtatDemontage.SUPPRIME,

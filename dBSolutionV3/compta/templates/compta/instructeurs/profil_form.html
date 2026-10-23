@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Profil d'instructeur indépendant" %}{% endblock %}
+{% block content %}
+<br>
+<div class="max-w-2xl mx-auto p-6 bg-white rounded shadow">
+    {% blocktrans with nom=instructeur.prenom|add:" "|add:instructeur.nom asvar titre %}Profil d'entreprise – {{ nom }}{% endblocktrans %}
+    {% include "compta/instructeurs/_entete.html" %}
+
+    <p class="text-sm bg-yellow-50 border border-yellow-300 rounded p-3 mb-4">
+        {% trans "Autofacturation : l'entreprise établit la facture au nom et pour le compte de l'instructeur. Elle n'est permise qu'avec un accord préalable écrit ; chaque autofacture doit être acceptée par l'instructeur. Faites valider le traitement TVA par votre comptable." %}
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        {% include "compta/_champs.html" %}
+        <div class="flex gap-3 mt-6">
+            <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer" %}</button>
+            <a href="{% url 'compta:instructeurs_liste' %}" class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+</div>
+<br>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const regime = document.getElementById("id_regime_tva");
+    const bloc = document.getElementById("bloc-taux_tva");
+    function maj() { if (bloc) bloc.style.display = (regime && regime.value !== "ASSUJETTI") ? "none" : ""; }
+    if (regime) regime.addEventListener("change", maj);
+    maj();
+});
+</script>
+{% endblock %}

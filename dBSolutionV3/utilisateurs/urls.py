@@ -85,6 +85,7 @@ urlpatterns = [
     ),
     path("paie/creer/", views_paie.creer_paie_utilisateur, name="creer_paie_utilisateur"),
     path("paie/<int:pk>/", views_paie.paie_detail, name="paie_detail"),
+    path("paie/<int:pk>/pdf/", views_paie.paie_pdf, name="paie_pdf"),
     path("paie/<int:pk>/modifier/", views_paie.modifier_paie, name="modifier_paie"),
     path("paie/<int:pk>/supprimer/", views_paie.delete_paie, name="delete_paie"),
     path("paie/<int:pk>/payer/", views_paie.paie_payer, name="paie_payer"),

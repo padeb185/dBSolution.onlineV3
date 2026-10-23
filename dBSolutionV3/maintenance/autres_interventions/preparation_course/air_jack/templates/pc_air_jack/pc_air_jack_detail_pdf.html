@@ -414,7 +414,7 @@
                 <td>
                     {% if pc_air_jack.verins_air_jack == "OK" or pc_air_jack.verins_air_jack == "REMONTE" %}<span class="ok">{{ pc_air_jack.get_verins_air_jack_display }}</span>
                     {% elif pc_air_jack.verins_air_jack == "NOT_OK" %}<span class="not-ok">{{ pc_air_jack.get_verins_air_jack_display }}</span>
-                    {% elif pc_air_jack.verins_air_jack == "REMPLACE" or pc_air_jack.verins_air_jack == "DEMONTE" or pc_air_jack.verins_air_jack == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_verins_air_jack_display }}</span>
+                    {% elif pc_air_jack.verins_air_jack == "REMPLACE" or pc_air_jack.verins_air_jack == "AJOUTER" or pc_air_jack.verins_air_jack == "DEMONTE" or pc_air_jack.verins_air_jack == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_verins_air_jack_display }}</span>
                     {% else %}<span>{{ pc_air_jack.get_verins_air_jack_display }}</span>{% endif %}
                     {% if pc_air_jack.verins_air_jack_fabricant and pc_air_jack.verins_air_jack_fabricant != "CHOISIR" %} — {{ pc_air_jack.get_verins_air_jack_fabricant_display }}{% endif %}
                 </td>
@@ -424,7 +424,7 @@
                 <td>
                     {% if pc_air_jack.tuyaux_connecteurs == "OK" or pc_air_jack.tuyaux_connecteurs == "REMONTE" %}<span class="ok">{{ pc_air_jack.get_tuyaux_connecteurs_display }}</span>
                     {% elif pc_air_jack.tuyaux_connecteurs == "NOT_OK" %}<span class="not-ok">{{ pc_air_jack.get_tuyaux_connecteurs_display }}</span>
-                    {% elif pc_air_jack.tuyaux_connecteurs == "REMPLACE" or pc_air_jack.tuyaux_connecteurs == "DEMONTE" or pc_air_jack.tuyaux_connecteurs == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_tuyaux_connecteurs_display }}</span>
+                    {% elif pc_air_jack.tuyaux_connecteurs == "REMPLACE" or pc_air_jack.tuyaux_connecteurs == "AJOUTER" or pc_air_jack.tuyaux_connecteurs == "DEMONTE" or pc_air_jack.tuyaux_connecteurs == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_tuyaux_connecteurs_display }}</span>
                     {% else %}<span>{{ pc_air_jack.get_tuyaux_connecteurs_display }}</span>{% endif %}
                     {% if pc_air_jack.tuyaux_connecteurs_fabricant and pc_air_jack.tuyaux_connecteurs_fabricant != "CHOISIR" %} — {{ pc_air_jack.get_tuyaux_connecteurs_fabricant_display }}{% endif %}
                 </td>
@@ -434,7 +434,7 @@
                 <td>
                     {% if pc_air_jack.valve_injection == "OK" or pc_air_jack.valve_injection == "REMONTE" %}<span class="ok">{{ pc_air_jack.get_valve_injection_display }}</span>
                     {% elif pc_air_jack.valve_injection == "NOT_OK" %}<span class="not-ok">{{ pc_air_jack.get_valve_injection_display }}</span>
-                    {% elif pc_air_jack.valve_injection == "REMPLACE" or pc_air_jack.valve_injection == "DEMONTE" or pc_air_jack.valve_injection == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_valve_injection_display }}</span>
+                    {% elif pc_air_jack.valve_injection == "REMPLACE" or pc_air_jack.valve_injection == "AJOUTER" or pc_air_jack.valve_injection == "DEMONTE" or pc_air_jack.valve_injection == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_valve_injection_display }}</span>
                     {% else %}<span>{{ pc_air_jack.get_valve_injection_display }}</span>{% endif %}
                     {% if pc_air_jack.valve_injection_fabricant and pc_air_jack.valve_injection_fabricant != "CHOISIR" %} — {{ pc_air_jack.get_valve_injection_fabricant_display }}{% endif %}
                 </td>
@@ -444,7 +444,7 @@
                 <td>
                     {% if pc_air_jack.supports_verins == "OK" or pc_air_jack.supports_verins == "REMONTE" %}<span class="ok">{{ pc_air_jack.get_supports_verins_display }}</span>
                     {% elif pc_air_jack.supports_verins == "NOT_OK" %}<span class="not-ok">{{ pc_air_jack.get_supports_verins_display }}</span>
-                    {% elif pc_air_jack.supports_verins == "REMPLACE" or pc_air_jack.supports_verins == "DEMONTE" or pc_air_jack.supports_verins == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_supports_verins_display }}</span>
+                    {% elif pc_air_jack.supports_verins == "REMPLACE" or pc_air_jack.supports_verins == "AJOUTER" or pc_air_jack.supports_verins == "DEMONTE" or pc_air_jack.supports_verins == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_supports_verins_display }}</span>
                     {% else %}<span>{{ pc_air_jack.get_supports_verins_display }}</span>{% endif %}
                     {% if pc_air_jack.supports_verins_fabricant and pc_air_jack.supports_verins_fabricant != "CHOISIR" %} — {{ pc_air_jack.get_supports_verins_fabricant_display }}{% endif %}
                 </td>
@@ -455,7 +455,7 @@
                 <td>
                     {% if pc_air_jack.clapets_anti_retour == "OK" or pc_air_jack.clapets_anti_retour == "REMONTE" %}<span class="ok">{{ pc_air_jack.get_clapets_anti_retour_display }}</span>
                     {% elif pc_air_jack.clapets_anti_retour == "NOT_OK" %}<span class="not-ok">{{ pc_air_jack.get_clapets_anti_retour_display }}</span>
-                    {% elif pc_air_jack.clapets_anti_retour == "REMPLACE" or pc_air_jack.clapets_anti_retour == "DEMONTE" or pc_air_jack.clapets_anti_retour == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_clapets_anti_retour_display }}</span>
+                    {% elif pc_air_jack.clapets_anti_retour == "REMPLACE" or pc_air_jack.clapets_anti_retour == "AJOUTER" or pc_air_jack.clapets_anti_retour == "DEMONTE" or pc_air_jack.clapets_anti_retour == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_clapets_anti_retour_display }}</span>
                     {% else %}<span>{{ pc_air_jack.get_clapets_anti_retour_display }}</span>{% endif %}
                     {% if pc_air_jack.clapets_anti_retour_fabricant and pc_air_jack.clapets_anti_retour_fabricant != "CHOISIR" %} — {{ pc_air_jack.get_clapets_anti_retour_fabricant_display }}{% endif %}
                 </td>
@@ -467,7 +467,7 @@
                 <td>
                     {% if pc_air_jack.lance_bouteille_air == "OK" or pc_air_jack.lance_bouteille_air == "REMONTE" %}<span class="ok">{{ pc_air_jack.get_lance_bouteille_air_display }}</span>
                     {% elif pc_air_jack.lance_bouteille_air == "NOT_OK" %}<span class="not-ok">{{ pc_air_jack.get_lance_bouteille_air_display }}</span>
-                    {% elif pc_air_jack.lance_bouteille_air == "REMPLACE" or pc_air_jack.lance_bouteille_air == "DEMONTE" or pc_air_jack.lance_bouteille_air == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_lance_bouteille_air_display }}</span>
+                    {% elif pc_air_jack.lance_bouteille_air == "REMPLACE" or pc_air_jack.lance_bouteille_air == "AJOUTER" or pc_air_jack.lance_bouteille_air == "DEMONTE" or pc_air_jack.lance_bouteille_air == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_lance_bouteille_air_display }}</span>
                     {% else %}<span>{{ pc_air_jack.get_lance_bouteille_air_display }}</span>{% endif %}
                     {% if pc_air_jack.lance_bouteille_air_fabricant and pc_air_jack.lance_bouteille_air_fabricant != "CHOISIR" %} — {{ pc_air_jack.get_lance_bouteille_air_fabricant_display }}{% endif %}
                 </td>
@@ -547,12 +547,12 @@
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
                                     <span class="etat-rouge">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "REMPLACE" %}
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" %}
                                     <span class="etat-bleu">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>

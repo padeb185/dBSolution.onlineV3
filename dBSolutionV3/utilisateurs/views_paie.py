@@ -215,6 +215,46 @@ def paie_detail(request, pk):
     })
 
 
+
+# ==================================================================
+# FICHE DE PAIE PDF (travailleur – sans coût employeur)
+# ==================================================================
+@never_cache
+@login_required
+def paie_pdf(request, pk):
+    if not _acces_paie(request.user):
+        return _refuser(request)
+
+    from django.http import HttpResponse
+    from django.template.loader import render_to_string
+    from weasyprint import HTML
+    from .paie_belgique import ANNEE_PARAMETRES
+
+    paie = _get_paie(request, pk)
+    travailleur = paie.utilisateur
+    societe = _societe(request) or getattr(travailleur, "societe", None)
+    fiche = paie.fiche_paie()
+    mois_nom = _(MOIS_NOMS[paie.mois]) if 1 <= paie.mois <= 12 else paie.mois
+
+    html_string = render_to_string("utilisateurs/paie/paie_pdf.html", {
+        "paie": paie,
+        "travailleur": travailleur,
+        "societe": societe,
+        "fiche": fiche,
+        "mois_nom": mois_nom,
+        "annee_parametres": ANNEE_PARAMETRES,
+        "date_export": timezone.now(),
+    }, request=request)
+
+    pdf = HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf()
+    nom = f"{travailleur.nom}_{travailleur.prenom}".replace(" ", "_")
+    response = HttpResponse(pdf, content_type="application/pdf")
+    response["Content-Disposition"] = (
+        f'inline; filename="{_("Fiche_de_paie")}_{nom}_{paie.annee}-{paie.mois:02d}.pdf"'
+    )
+    _log(request, f"Fiche de paie PDF {paie.mois}/{paie.annee} – {travailleur}")
+    return response
+
 # ==================================================================
 # CRÉATION
 # ==================================================================

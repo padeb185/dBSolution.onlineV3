@@ -430,7 +430,7 @@
                 <td>
                     {% if pc_boitier.boitier == "OK" or pc_boitier.boitier == "REMONTE" %}<span class="ok">{{ pc_boitier.get_boitier_display }}</span>
                     {% elif pc_boitier.boitier == "NOT_OK" %}<span class="not-ok">{{ pc_boitier.get_boitier_display }}</span>
-                    {% elif pc_boitier.boitier == "REMPLACE" or pc_boitier.boitier == "DEMONTE" or pc_boitier.boitier == "SUPPRIME" %}<span class="remplace">{{ pc_boitier.get_boitier_display }}</span>
+                    {% elif pc_boitier.boitier == "REMPLACE" or pc_boitier.boitier == "AJOUTER" or pc_boitier.boitier == "DEMONTE" or pc_boitier.boitier == "SUPPRIME" %}<span class="remplace">{{ pc_boitier.get_boitier_display }}</span>
                     {% else %}<span>{{ pc_boitier.get_boitier_display }}</span>{% endif %}
                     {% if pc_boitier.boitier_fabricant and pc_boitier.boitier_fabricant != "CHOISIR" %} — {{ pc_boitier.get_boitier_fabricant_display }}{% endif %}
                 </td>
@@ -441,7 +441,7 @@
                 <td>
                     {% if pc_boitier.faisceau_adaptation == "OK" or pc_boitier.faisceau_adaptation == "REMONTE" %}<span class="ok">{{ pc_boitier.get_faisceau_adaptation_display }}</span>
                     {% elif pc_boitier.faisceau_adaptation == "NOT_OK" %}<span class="not-ok">{{ pc_boitier.get_faisceau_adaptation_display }}</span>
-                    {% elif pc_boitier.faisceau_adaptation == "REMPLACE" or pc_boitier.faisceau_adaptation == "DEMONTE" or pc_boitier.faisceau_adaptation == "SUPPRIME" %}<span class="remplace">{{ pc_boitier.get_faisceau_adaptation_display }}</span>
+                    {% elif pc_boitier.faisceau_adaptation == "REMPLACE" or pc_boitier.faisceau_adaptation == "AJOUTER" or pc_boitier.faisceau_adaptation == "DEMONTE" or pc_boitier.faisceau_adaptation == "SUPPRIME" %}<span class="remplace">{{ pc_boitier.get_faisceau_adaptation_display }}</span>
                     {% else %}<span>{{ pc_boitier.get_faisceau_adaptation_display }}</span>{% endif %}
                     {% if pc_boitier.faisceau_adaptation_fabricant and pc_boitier.faisceau_adaptation_fabricant != "CHOISIR" %} — {{ pc_boitier.get_faisceau_adaptation_fabricant_display }}{% endif %}
                 </td>
@@ -453,7 +453,7 @@
                 <td>
                     {% if pc_boitier.capteurs_additionnels == "OK" or pc_boitier.capteurs_additionnels == "REMONTE" %}<span class="ok">{{ pc_boitier.get_capteurs_additionnels_display }}</span>
                     {% elif pc_boitier.capteurs_additionnels == "NOT_OK" %}<span class="not-ok">{{ pc_boitier.get_capteurs_additionnels_display }}</span>
-                    {% elif pc_boitier.capteurs_additionnels == "REMPLACE" or pc_boitier.capteurs_additionnels == "DEMONTE" or pc_boitier.capteurs_additionnels == "SUPPRIME" %}<span class="remplace">{{ pc_boitier.get_capteurs_additionnels_display }}</span>
+                    {% elif pc_boitier.capteurs_additionnels == "REMPLACE" or pc_boitier.capteurs_additionnels == "AJOUTER" or pc_boitier.capteurs_additionnels == "DEMONTE" or pc_boitier.capteurs_additionnels == "SUPPRIME" %}<span class="remplace">{{ pc_boitier.get_capteurs_additionnels_display }}</span>
                     {% else %}<span>{{ pc_boitier.get_capteurs_additionnels_display }}</span>{% endif %}
                     {% if pc_boitier.capteurs_additionnels_fabricant and pc_boitier.capteurs_additionnels_fabricant != "CHOISIR" %} — {{ pc_boitier.get_capteurs_additionnels_fabricant_display }}{% endif %}
                 </td>
@@ -465,7 +465,7 @@
                 <td>
                     {% if pc_boitier.sonde_wideband == "OK" or pc_boitier.sonde_wideband == "REMONTE" %}<span class="ok">{{ pc_boitier.get_sonde_wideband_display }}</span>
                     {% elif pc_boitier.sonde_wideband == "NOT_OK" %}<span class="not-ok">{{ pc_boitier.get_sonde_wideband_display }}</span>
-                    {% elif pc_boitier.sonde_wideband == "REMPLACE" or pc_boitier.sonde_wideband == "DEMONTE" or pc_boitier.sonde_wideband == "SUPPRIME" %}<span class="remplace">{{ pc_boitier.get_sonde_wideband_display }}</span>
+                    {% elif pc_boitier.sonde_wideband == "REMPLACE" or pc_boitier.sonde_wideband == "AJOUTER" or pc_boitier.sonde_wideband == "DEMONTE" or pc_boitier.sonde_wideband == "SUPPRIME" %}<span class="remplace">{{ pc_boitier.get_sonde_wideband_display }}</span>
                     {% else %}<span>{{ pc_boitier.get_sonde_wideband_display }}</span>{% endif %}
                     {% if pc_boitier.sonde_wideband_fabricant and pc_boitier.sonde_wideband_fabricant != "CHOISIR" %} — {{ pc_boitier.get_sonde_wideband_fabricant_display }}{% endif %}
                 </td>
@@ -477,7 +477,7 @@
                 <td>
                     {% if pc_boitier.acquisition_donnees == "OK" or pc_boitier.acquisition_donnees == "REMONTE" %}<span class="ok">{{ pc_boitier.get_acquisition_donnees_display }}</span>
                     {% elif pc_boitier.acquisition_donnees == "NOT_OK" %}<span class="not-ok">{{ pc_boitier.get_acquisition_donnees_display }}</span>
-                    {% elif pc_boitier.acquisition_donnees == "REMPLACE" or pc_boitier.acquisition_donnees == "DEMONTE" or pc_boitier.acquisition_donnees == "SUPPRIME" %}<span class="remplace">{{ pc_boitier.get_acquisition_donnees_display }}</span>
+                    {% elif pc_boitier.acquisition_donnees == "REMPLACE" or pc_boitier.acquisition_donnees == "AJOUTER" or pc_boitier.acquisition_donnees == "DEMONTE" or pc_boitier.acquisition_donnees == "SUPPRIME" %}<span class="remplace">{{ pc_boitier.get_acquisition_donnees_display }}</span>
                     {% else %}<span>{{ pc_boitier.get_acquisition_donnees_display }}</span>{% endif %}
                     {% if pc_boitier.acquisition_donnees_fabricant and pc_boitier.acquisition_donnees_fabricant != "CHOISIR" %} — {{ pc_boitier.get_acquisition_donnees_fabricant_display }}{% endif %}
                 </td>
@@ -489,7 +489,7 @@
                 <td>
                     {% if pc_boitier.cartographie == "OK" or pc_boitier.cartographie == "REMONTE" %}<span class="ok">{{ pc_boitier.get_cartographie_display }}</span>
                     {% elif pc_boitier.cartographie == "NOT_OK" %}<span class="not-ok">{{ pc_boitier.get_cartographie_display }}</span>
-                    {% elif pc_boitier.cartographie == "REMPLACE" or pc_boitier.cartographie == "DEMONTE" or pc_boitier.cartographie == "SUPPRIME" %}<span class="remplace">{{ pc_boitier.get_cartographie_display }}</span>
+                    {% elif pc_boitier.cartographie == "REMPLACE" or pc_boitier.cartographie == "AJOUTER" or pc_boitier.cartographie == "DEMONTE" or pc_boitier.cartographie == "SUPPRIME" %}<span class="remplace">{{ pc_boitier.get_cartographie_display }}</span>
                     {% else %}<span>{{ pc_boitier.get_cartographie_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -500,7 +500,7 @@
                 <td>
                     {% if pc_boitier.passage_banc == "OK" or pc_boitier.passage_banc == "REMONTE" %}<span class="ok">{{ pc_boitier.get_passage_banc_display }}</span>
                     {% elif pc_boitier.passage_banc == "NOT_OK" %}<span class="not-ok">{{ pc_boitier.get_passage_banc_display }}</span>
-                    {% elif pc_boitier.passage_banc == "REMPLACE" or pc_boitier.passage_banc == "DEMONTE" or pc_boitier.passage_banc == "SUPPRIME" %}<span class="remplace">{{ pc_boitier.get_passage_banc_display }}</span>
+                    {% elif pc_boitier.passage_banc == "REMPLACE" or pc_boitier.passage_banc == "AJOUTER" or pc_boitier.passage_banc == "DEMONTE" or pc_boitier.passage_banc == "SUPPRIME" %}<span class="remplace">{{ pc_boitier.get_passage_banc_display }}</span>
                     {% else %}<span>{{ pc_boitier.get_passage_banc_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -579,12 +579,12 @@
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
                                     <span class="etat-rouge">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "REMPLACE" %}
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" %}
                                     <span class="etat-bleu">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>

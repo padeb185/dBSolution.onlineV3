@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Nouvelle facture d'instructeur" %}{% endblock %}
+{% block content %}
+<br>
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+    {% trans "Nouvelle facture d'instructeur" as titre %}
+    {% include "compta/instructeurs/_entete.html" %}
+    <form method="get" class="space-y-4">
+        <div>
+            <label class="block font-semibold mb-1">{% trans "Instructeur" %} <span class="text-red-600">*</span></label>
+            <select name="instructeur" required class="border rounded px-3 py-2 w-full">
+                <option value="">{% trans "Choisir" %}</option>
+                {% for u in instructeurs %}<option value="{{ u.pk }}">{{ u.prenom }} {{ u.nom }}</option>{% endfor %}
+            </select>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+            <div><label class="block font-semibold mb-1">{% trans "Période du" %}</label><input type="date" name="debut" value="{{ debut|date:'Y-m-d' }}" class="border rounded px-3 py-2 w-full"></div>
+            <div><label class="block font-semibold mb-1">{% trans "au" %}</label><input type="date" name="fin" value="{{ fin|date:'Y-m-d' }}" class="border rounded px-3 py-2 w-full"></div>
+        </div>
+        <button class="w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold">{% trans "Continuer" %}</button>
+    </form>
+</div>
+<br>
+{% endblock %}

@@ -6,7 +6,7 @@
 {% block content %}
 <br>
 <h1 class="text-2xl font-bold mb-6 flex items-center">
-    <img src="{% static 'icons/equipe.png' %}" alt=""
+    <img src="{% static 'icons/paie.png' %}" alt=""
          style="width:60px; height:60px; margin-right:10px;">
     {% if travailleur %}
         {% trans "Paies de" %} {{ travailleur.prenom }} {{ travailleur.nom }}
@@ -103,6 +103,10 @@
                 <a href="{% url 'utilisateurs:paie_detail' paie.pk %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Info" %}
+                </a>
+                <a href="{% url 'utilisateurs:paie_pdf' paie.pk %}" target="_blank"
+                   class="bg-purple-700 text-white px-3 py-1 rounded hover:bg-purple-500 transition ml-1">
+                    PDF
                 </a>
             </td>
         </tr>

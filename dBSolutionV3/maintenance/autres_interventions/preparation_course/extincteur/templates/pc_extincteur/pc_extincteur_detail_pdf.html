@@ -438,7 +438,7 @@
                 <td>
                     {% if pc_extincteur.bouteille_extincteur == "OK" or pc_extincteur.bouteille_extincteur == "REMONTE" %}<span class="ok">{{ pc_extincteur.get_bouteille_extincteur_display }}</span>
                     {% elif pc_extincteur.bouteille_extincteur == "NOT_OK" %}<span class="not-ok">{{ pc_extincteur.get_bouteille_extincteur_display }}</span>
-                    {% elif pc_extincteur.bouteille_extincteur == "REMPLACE" or pc_extincteur.bouteille_extincteur == "DEMONTE" or pc_extincteur.bouteille_extincteur == "SUPPRIME" %}<span class="remplace">{{ pc_extincteur.get_bouteille_extincteur_display }}</span>
+                    {% elif pc_extincteur.bouteille_extincteur == "REMPLACE" or pc_extincteur.bouteille_extincteur == "AJOUTER" or pc_extincteur.bouteille_extincteur == "DEMONTE" or pc_extincteur.bouteille_extincteur == "SUPPRIME" %}<span class="remplace">{{ pc_extincteur.get_bouteille_extincteur_display }}</span>
                     {% else %}<span>{{ pc_extincteur.get_bouteille_extincteur_display }}</span>{% endif %}
                     {% if pc_extincteur.bouteille_extincteur_fabricant and pc_extincteur.bouteille_extincteur_fabricant != "CHOISIR" %} — {{ pc_extincteur.get_bouteille_extincteur_fabricant_display }}{% endif %}
                 </td>
@@ -448,7 +448,7 @@
                 <td>
                     {% if pc_extincteur.tuyaux_buses == "OK" or pc_extincteur.tuyaux_buses == "REMONTE" %}<span class="ok">{{ pc_extincteur.get_tuyaux_buses_display }}</span>
                     {% elif pc_extincteur.tuyaux_buses == "NOT_OK" %}<span class="not-ok">{{ pc_extincteur.get_tuyaux_buses_display }}</span>
-                    {% elif pc_extincteur.tuyaux_buses == "REMPLACE" or pc_extincteur.tuyaux_buses == "DEMONTE" or pc_extincteur.tuyaux_buses == "SUPPRIME" %}<span class="remplace">{{ pc_extincteur.get_tuyaux_buses_display }}</span>
+                    {% elif pc_extincteur.tuyaux_buses == "REMPLACE" or pc_extincteur.tuyaux_buses == "AJOUTER" or pc_extincteur.tuyaux_buses == "DEMONTE" or pc_extincteur.tuyaux_buses == "SUPPRIME" %}<span class="remplace">{{ pc_extincteur.get_tuyaux_buses_display }}</span>
                     {% else %}<span>{{ pc_extincteur.get_tuyaux_buses_display }}</span>{% endif %}
                     {% if pc_extincteur.tuyaux_buses_fabricant and pc_extincteur.tuyaux_buses_fabricant != "CHOISIR" %} — {{ pc_extincteur.get_tuyaux_buses_fabricant_display }}{% endif %}
                 </td>
@@ -459,7 +459,7 @@
                 <td>
                     {% if pc_extincteur.declencheur_interieur == "OK" or pc_extincteur.declencheur_interieur == "REMONTE" %}<span class="ok">{{ pc_extincteur.get_declencheur_interieur_display }}</span>
                     {% elif pc_extincteur.declencheur_interieur == "NOT_OK" %}<span class="not-ok">{{ pc_extincteur.get_declencheur_interieur_display }}</span>
-                    {% elif pc_extincteur.declencheur_interieur == "REMPLACE" or pc_extincteur.declencheur_interieur == "DEMONTE" or pc_extincteur.declencheur_interieur == "SUPPRIME" %}<span class="remplace">{{ pc_extincteur.get_declencheur_interieur_display }}</span>
+                    {% elif pc_extincteur.declencheur_interieur == "REMPLACE" or pc_extincteur.declencheur_interieur == "AJOUTER" or pc_extincteur.declencheur_interieur == "DEMONTE" or pc_extincteur.declencheur_interieur == "SUPPRIME" %}<span class="remplace">{{ pc_extincteur.get_declencheur_interieur_display }}</span>
                     {% else %}<span>{{ pc_extincteur.get_declencheur_interieur_display }}</span>{% endif %}
                     {% if pc_extincteur.declencheur_interieur_fabricant and pc_extincteur.declencheur_interieur_fabricant != "CHOISIR" %} — {{ pc_extincteur.get_declencheur_interieur_fabricant_display }}{% endif %}
                 </td>
@@ -471,7 +471,7 @@
                 <td>
                     {% if pc_extincteur.declencheur_exterieur == "OK" or pc_extincteur.declencheur_exterieur == "REMONTE" %}<span class="ok">{{ pc_extincteur.get_declencheur_exterieur_display }}</span>
                     {% elif pc_extincteur.declencheur_exterieur == "NOT_OK" %}<span class="not-ok">{{ pc_extincteur.get_declencheur_exterieur_display }}</span>
-                    {% elif pc_extincteur.declencheur_exterieur == "REMPLACE" or pc_extincteur.declencheur_exterieur == "DEMONTE" or pc_extincteur.declencheur_exterieur == "SUPPRIME" %}<span class="remplace">{{ pc_extincteur.get_declencheur_exterieur_display }}</span>
+                    {% elif pc_extincteur.declencheur_exterieur == "REMPLACE" or pc_extincteur.declencheur_exterieur == "AJOUTER" or pc_extincteur.declencheur_exterieur == "DEMONTE" or pc_extincteur.declencheur_exterieur == "SUPPRIME" %}<span class="remplace">{{ pc_extincteur.get_declencheur_exterieur_display }}</span>
                     {% else %}<span>{{ pc_extincteur.get_declencheur_exterieur_display }}</span>{% endif %}
                     {% if pc_extincteur.declencheur_exterieur_fabricant and pc_extincteur.declencheur_exterieur_fabricant != "CHOISIR" %} — {{ pc_extincteur.get_declencheur_exterieur_fabricant_display }}{% endif %}
                 </td>
@@ -482,7 +482,7 @@
                 <td>
                     {% if pc_extincteur.fixations_extincteur == "OK" or pc_extincteur.fixations_extincteur == "REMONTE" %}<span class="ok">{{ pc_extincteur.get_fixations_extincteur_display }}</span>
                     {% elif pc_extincteur.fixations_extincteur == "NOT_OK" %}<span class="not-ok">{{ pc_extincteur.get_fixations_extincteur_display }}</span>
-                    {% elif pc_extincteur.fixations_extincteur == "REMPLACE" or pc_extincteur.fixations_extincteur == "DEMONTE" or pc_extincteur.fixations_extincteur == "SUPPRIME" %}<span class="remplace">{{ pc_extincteur.get_fixations_extincteur_display }}</span>
+                    {% elif pc_extincteur.fixations_extincteur == "REMPLACE" or pc_extincteur.fixations_extincteur == "AJOUTER" or pc_extincteur.fixations_extincteur == "DEMONTE" or pc_extincteur.fixations_extincteur == "SUPPRIME" %}<span class="remplace">{{ pc_extincteur.get_fixations_extincteur_display }}</span>
                     {% else %}<span>{{ pc_extincteur.get_fixations_extincteur_display }}</span>{% endif %}
                     {% if pc_extincteur.fixations_extincteur_fabricant and pc_extincteur.fixations_extincteur_fabricant != "CHOISIR" %} — {{ pc_extincteur.get_fixations_extincteur_fabricant_display }}{% endif %}
                 </td>
@@ -493,7 +493,7 @@
                 <td>
                     {% if pc_extincteur.extincteur_manuel == "OK" or pc_extincteur.extincteur_manuel == "REMONTE" %}<span class="ok">{{ pc_extincteur.get_extincteur_manuel_display }}</span>
                     {% elif pc_extincteur.extincteur_manuel == "NOT_OK" %}<span class="not-ok">{{ pc_extincteur.get_extincteur_manuel_display }}</span>
-                    {% elif pc_extincteur.extincteur_manuel == "REMPLACE" or pc_extincteur.extincteur_manuel == "DEMONTE" or pc_extincteur.extincteur_manuel == "SUPPRIME" %}<span class="remplace">{{ pc_extincteur.get_extincteur_manuel_display }}</span>
+                    {% elif pc_extincteur.extincteur_manuel == "REMPLACE" or pc_extincteur.extincteur_manuel == "AJOUTER" or pc_extincteur.extincteur_manuel == "DEMONTE" or pc_extincteur.extincteur_manuel == "SUPPRIME" %}<span class="remplace">{{ pc_extincteur.get_extincteur_manuel_display }}</span>
                     {% else %}<span>{{ pc_extincteur.get_extincteur_manuel_display }}</span>{% endif %}
                     {% if pc_extincteur.extincteur_manuel_fabricant and pc_extincteur.extincteur_manuel_fabricant != "CHOISIR" %} — {{ pc_extincteur.get_extincteur_manuel_fabricant_display }}{% endif %}
                 </td>
@@ -505,7 +505,7 @@
                 <td>
                     {% if pc_extincteur.pesee_charge == "OK" or pc_extincteur.pesee_charge == "REMONTE" %}<span class="ok">{{ pc_extincteur.get_pesee_charge_display }}</span>
                     {% elif pc_extincteur.pesee_charge == "NOT_OK" %}<span class="not-ok">{{ pc_extincteur.get_pesee_charge_display }}</span>
-                    {% elif pc_extincteur.pesee_charge == "REMPLACE" or pc_extincteur.pesee_charge == "DEMONTE" or pc_extincteur.pesee_charge == "SUPPRIME" %}<span class="remplace">{{ pc_extincteur.get_pesee_charge_display }}</span>
+                    {% elif pc_extincteur.pesee_charge == "REMPLACE" or pc_extincteur.pesee_charge == "AJOUTER" or pc_extincteur.pesee_charge == "DEMONTE" or pc_extincteur.pesee_charge == "SUPPRIME" %}<span class="remplace">{{ pc_extincteur.get_pesee_charge_display }}</span>
                     {% else %}<span>{{ pc_extincteur.get_pesee_charge_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -516,7 +516,7 @@
                 <td>
                     {% if pc_extincteur.revision_extincteur == "OK" or pc_extincteur.revision_extincteur == "REMONTE" %}<span class="ok">{{ pc_extincteur.get_revision_extincteur_display }}</span>
                     {% elif pc_extincteur.revision_extincteur == "NOT_OK" %}<span class="not-ok">{{ pc_extincteur.get_revision_extincteur_display }}</span>
-                    {% elif pc_extincteur.revision_extincteur == "REMPLACE" or pc_extincteur.revision_extincteur == "DEMONTE" or pc_extincteur.revision_extincteur == "SUPPRIME" %}<span class="remplace">{{ pc_extincteur.get_revision_extincteur_display }}</span>
+                    {% elif pc_extincteur.revision_extincteur == "REMPLACE" or pc_extincteur.revision_extincteur == "AJOUTER" or pc_extincteur.revision_extincteur == "DEMONTE" or pc_extincteur.revision_extincteur == "SUPPRIME" %}<span class="remplace">{{ pc_extincteur.get_revision_extincteur_display }}</span>
                     {% else %}<span>{{ pc_extincteur.get_revision_extincteur_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -595,12 +595,12 @@
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
                                     <span class="etat-rouge">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "REMPLACE" %}
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" %}
                                     <span class="etat-bleu">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>

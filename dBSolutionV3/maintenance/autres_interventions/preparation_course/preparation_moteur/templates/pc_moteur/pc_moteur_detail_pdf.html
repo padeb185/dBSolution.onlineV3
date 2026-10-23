@@ -431,7 +431,7 @@
                 <td>
                     {% if pc_moteur.carter_sec_reservoir == "OK" or pc_moteur.carter_sec_reservoir == "REMONTE" %}<span class="ok">{{ pc_moteur.get_carter_sec_reservoir_display }}</span>
                     {% elif pc_moteur.carter_sec_reservoir == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_carter_sec_reservoir_display }}</span>
-                    {% elif pc_moteur.carter_sec_reservoir == "REMPLACE" or pc_moteur.carter_sec_reservoir == "DEMONTE" or pc_moteur.carter_sec_reservoir == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_carter_sec_reservoir_display }}</span>
+                    {% elif pc_moteur.carter_sec_reservoir == "REMPLACE" or pc_moteur.carter_sec_reservoir == "AJOUTER" or pc_moteur.carter_sec_reservoir == "DEMONTE" or pc_moteur.carter_sec_reservoir == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_carter_sec_reservoir_display }}</span>
                     {% else %}<span>{{ pc_moteur.get_carter_sec_reservoir_display }}</span>{% endif %}
                     {% if pc_moteur.carter_sec_reservoir_fabricant and pc_moteur.carter_sec_reservoir_fabricant != "CHOISIR" %} — {{ pc_moteur.get_carter_sec_reservoir_fabricant_display }}{% endif %}
                 </td>
@@ -443,7 +443,7 @@
                 <td>
                     {% if pc_moteur.carter_sec_pompe == "OK" or pc_moteur.carter_sec_pompe == "REMONTE" %}<span class="ok">{{ pc_moteur.get_carter_sec_pompe_display }}</span>
                     {% elif pc_moteur.carter_sec_pompe == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_carter_sec_pompe_display }}</span>
-                    {% elif pc_moteur.carter_sec_pompe == "REMPLACE" or pc_moteur.carter_sec_pompe == "DEMONTE" or pc_moteur.carter_sec_pompe == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_carter_sec_pompe_display }}</span>
+                    {% elif pc_moteur.carter_sec_pompe == "REMPLACE" or pc_moteur.carter_sec_pompe == "AJOUTER" or pc_moteur.carter_sec_pompe == "DEMONTE" or pc_moteur.carter_sec_pompe == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_carter_sec_pompe_display }}</span>
                     {% else %}<span>{{ pc_moteur.get_carter_sec_pompe_display }}</span>{% endif %}
                     {% if pc_moteur.carter_sec_pompe_fabricant and pc_moteur.carter_sec_pompe_fabricant != "CHOISIR" %} — {{ pc_moteur.get_carter_sec_pompe_fabricant_display }}{% endif %}
                 </td>
@@ -455,7 +455,7 @@
                 <td>
                     {% if pc_moteur.carter_sec_durites == "OK" or pc_moteur.carter_sec_durites == "REMONTE" %}<span class="ok">{{ pc_moteur.get_carter_sec_durites_display }}</span>
                     {% elif pc_moteur.carter_sec_durites == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_carter_sec_durites_display }}</span>
-                    {% elif pc_moteur.carter_sec_durites == "REMPLACE" or pc_moteur.carter_sec_durites == "DEMONTE" or pc_moteur.carter_sec_durites == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_carter_sec_durites_display }}</span>
+                    {% elif pc_moteur.carter_sec_durites == "REMPLACE" or pc_moteur.carter_sec_durites == "AJOUTER" or pc_moteur.carter_sec_durites == "DEMONTE" or pc_moteur.carter_sec_durites == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_carter_sec_durites_display }}</span>
                     {% else %}<span>{{ pc_moteur.get_carter_sec_durites_display }}</span>{% endif %}
                     {% if pc_moteur.carter_sec_durites_fabricant and pc_moteur.carter_sec_durites_fabricant != "CHOISIR" %} — {{ pc_moteur.get_carter_sec_durites_fabricant_display }}{% endif %}
                 </td>
@@ -467,7 +467,7 @@
                 <td>
                     {% if pc_moteur.bache_huile == "OK" or pc_moteur.bache_huile == "REMONTE" %}<span class="ok">{{ pc_moteur.get_bache_huile_display }}</span>
                     {% elif pc_moteur.bache_huile == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_bache_huile_display }}</span>
-                    {% elif pc_moteur.bache_huile == "REMPLACE" or pc_moteur.bache_huile == "DEMONTE" or pc_moteur.bache_huile == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_bache_huile_display }}</span>
+                    {% elif pc_moteur.bache_huile == "REMPLACE" or pc_moteur.bache_huile == "AJOUTER" or pc_moteur.bache_huile == "DEMONTE" or pc_moteur.bache_huile == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_bache_huile_display }}</span>
                     {% else %}<span>{{ pc_moteur.get_bache_huile_display }}</span>{% endif %}
                     {% if pc_moteur.bache_huile_fabricant and pc_moteur.bache_huile_fabricant != "CHOISIR" %} — {{ pc_moteur.get_bache_huile_fabricant_display }}{% endif %}
                 </td>
@@ -479,7 +479,7 @@
                 <td>
                     {% if pc_moteur.radiateur_huile == "OK" or pc_moteur.radiateur_huile == "REMONTE" %}<span class="ok">{{ pc_moteur.get_radiateur_huile_display }}</span>
                     {% elif pc_moteur.radiateur_huile == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_radiateur_huile_display }}</span>
-                    {% elif pc_moteur.radiateur_huile == "REMPLACE" or pc_moteur.radiateur_huile == "DEMONTE" or pc_moteur.radiateur_huile == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_radiateur_huile_display }}</span>
+                    {% elif pc_moteur.radiateur_huile == "REMPLACE" or pc_moteur.radiateur_huile == "AJOUTER" or pc_moteur.radiateur_huile == "DEMONTE" or pc_moteur.radiateur_huile == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_radiateur_huile_display }}</span>
                     {% else %}<span>{{ pc_moteur.get_radiateur_huile_display }}</span>{% endif %}
                     {% if pc_moteur.radiateur_huile_fabricant and pc_moteur.radiateur_huile_fabricant != "CHOISIR" %} — {{ pc_moteur.get_radiateur_huile_fabricant_display }}{% endif %}
                 </td>
@@ -491,7 +491,7 @@
                 <td>
                     {% if pc_moteur.pistons_forges == "OK" or pc_moteur.pistons_forges == "REMONTE" %}<span class="ok">{{ pc_moteur.get_pistons_forges_display }}</span>
                     {% elif pc_moteur.pistons_forges == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_pistons_forges_display }}</span>
-                    {% elif pc_moteur.pistons_forges == "REMPLACE" or pc_moteur.pistons_forges == "DEMONTE" or pc_moteur.pistons_forges == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_pistons_forges_display }}</span>
+                    {% elif pc_moteur.pistons_forges == "REMPLACE" or pc_moteur.pistons_forges == "AJOUTER" or pc_moteur.pistons_forges == "DEMONTE" or pc_moteur.pistons_forges == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_pistons_forges_display }}</span>
                     {% else %}<span>{{ pc_moteur.get_pistons_forges_display }}</span>{% endif %}
                     {% if pc_moteur.pistons_forges_fabricant and pc_moteur.pistons_forges_fabricant != "CHOISIR" %} — {{ pc_moteur.get_pistons_forges_fabricant_display }}{% endif %}
                 </td>
@@ -503,7 +503,7 @@
                 <td>
                     {% if pc_moteur.bielles_forgees == "OK" or pc_moteur.bielles_forgees == "REMONTE" %}<span class="ok">{{ pc_moteur.get_bielles_forgees_display }}</span>
                     {% elif pc_moteur.bielles_forgees == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_bielles_forgees_display }}</span>
-                    {% elif pc_moteur.bielles_forgees == "REMPLACE" or pc_moteur.bielles_forgees == "DEMONTE" or pc_moteur.bielles_forgees == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_bielles_forgees_display }}</span>
+                    {% elif pc_moteur.bielles_forgees == "REMPLACE" or pc_moteur.bielles_forgees == "AJOUTER" or pc_moteur.bielles_forgees == "DEMONTE" or pc_moteur.bielles_forgees == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_bielles_forgees_display }}</span>
                     {% else %}<span>{{ pc_moteur.get_bielles_forgees_display }}</span>{% endif %}
                     {% if pc_moteur.bielles_forgees_fabricant and pc_moteur.bielles_forgees_fabricant != "CHOISIR" %} — {{ pc_moteur.get_bielles_forgees_fabricant_display }}{% endif %}
                 </td>
@@ -515,7 +515,7 @@
                 <td>
                     {% if pc_moteur.arbres_cames == "OK" or pc_moteur.arbres_cames == "REMONTE" %}<span class="ok">{{ pc_moteur.get_arbres_cames_display }}</span>
                     {% elif pc_moteur.arbres_cames == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_arbres_cames_display }}</span>
-                    {% elif pc_moteur.arbres_cames == "REMPLACE" or pc_moteur.arbres_cames == "DEMONTE" or pc_moteur.arbres_cames == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_arbres_cames_display }}</span>
+                    {% elif pc_moteur.arbres_cames == "REMPLACE" or pc_moteur.arbres_cames == "AJOUTER" or pc_moteur.arbres_cames == "DEMONTE" or pc_moteur.arbres_cames == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_arbres_cames_display }}</span>
                     {% else %}<span>{{ pc_moteur.get_arbres_cames_display }}</span>{% endif %}
                     {% if pc_moteur.arbres_cames_fabricant and pc_moteur.arbres_cames_fabricant != "CHOISIR" %} — {{ pc_moteur.get_arbres_cames_fabricant_display }}{% endif %}
                 </td>
@@ -527,7 +527,7 @@
                 <td>
                     {% if pc_moteur.soupapes_ressorts == "OK" or pc_moteur.soupapes_ressorts == "REMONTE" %}<span class="ok">{{ pc_moteur.get_soupapes_ressorts_display }}</span>
                     {% elif pc_moteur.soupapes_ressorts == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_soupapes_ressorts_display }}</span>
-                    {% elif pc_moteur.soupapes_ressorts == "REMPLACE" or pc_moteur.soupapes_ressorts == "DEMONTE" or pc_moteur.soupapes_ressorts == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_soupapes_ressorts_display }}</span>
+                    {% elif pc_moteur.soupapes_ressorts == "REMPLACE" or pc_moteur.soupapes_ressorts == "AJOUTER" or pc_moteur.soupapes_ressorts == "DEMONTE" or pc_moteur.soupapes_ressorts == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_soupapes_ressorts_display }}</span>
                     {% else %}<span>{{ pc_moteur.get_soupapes_ressorts_display }}</span>{% endif %}
                     {% if pc_moteur.soupapes_ressorts_fabricant and pc_moteur.soupapes_ressorts_fabricant != "CHOISIR" %} — {{ pc_moteur.get_soupapes_ressorts_fabricant_display }}{% endif %}
                 </td>
@@ -539,7 +539,7 @@
                 <td>
                     {% if pc_moteur.joint_culasse_renforce == "OK" or pc_moteur.joint_culasse_renforce == "REMONTE" %}<span class="ok">{{ pc_moteur.get_joint_culasse_renforce_display }}</span>
                     {% elif pc_moteur.joint_culasse_renforce == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_joint_culasse_renforce_display }}</span>
-                    {% elif pc_moteur.joint_culasse_renforce == "REMPLACE" or pc_moteur.joint_culasse_renforce == "DEMONTE" or pc_moteur.joint_culasse_renforce == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_joint_culasse_renforce_display }}</span>
+                    {% elif pc_moteur.joint_culasse_renforce == "REMPLACE" or pc_moteur.joint_culasse_renforce == "AJOUTER" or pc_moteur.joint_culasse_renforce == "DEMONTE" or pc_moteur.joint_culasse_renforce == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_joint_culasse_renforce_display }}</span>
                     {% else %}<span>{{ pc_moteur.get_joint_culasse_renforce_display }}</span>{% endif %}
                     {% if pc_moteur.joint_culasse_renforce_fabricant and pc_moteur.joint_culasse_renforce_fabricant != "CHOISIR" %} — {{ pc_moteur.get_joint_culasse_renforce_fabricant_display }}{% endif %}
                 </td>
@@ -551,7 +551,7 @@
                 <td>
                     {% if pc_moteur.admission_course == "OK" or pc_moteur.admission_course == "REMONTE" %}<span class="ok">{{ pc_moteur.get_admission_course_display }}</span>
                     {% elif pc_moteur.admission_course == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_admission_course_display }}</span>
-                    {% elif pc_moteur.admission_course == "REMPLACE" or pc_moteur.admission_course == "DEMONTE" or pc_moteur.admission_course == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_admission_course_display }}</span>
+                    {% elif pc_moteur.admission_course == "REMPLACE" or pc_moteur.admission_course == "AJOUTER" or pc_moteur.admission_course == "DEMONTE" or pc_moteur.admission_course == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_admission_course_display }}</span>
                     {% else %}<span>{{ pc_moteur.get_admission_course_display }}</span>{% endif %}
                     {% if pc_moteur.admission_course_fabricant and pc_moteur.admission_course_fabricant != "CHOISIR" %} — {{ pc_moteur.get_admission_course_fabricant_display }}{% endif %}
                 </td>
@@ -563,7 +563,7 @@
                 <td>
                     {% if pc_moteur.injecteurs_course == "OK" or pc_moteur.injecteurs_course == "REMONTE" %}<span class="ok">{{ pc_moteur.get_injecteurs_course_display }}</span>
                     {% elif pc_moteur.injecteurs_course == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_injecteurs_course_display }}</span>
-                    {% elif pc_moteur.injecteurs_course == "REMPLACE" or pc_moteur.injecteurs_course == "DEMONTE" or pc_moteur.injecteurs_course == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_injecteurs_course_display }}</span>
+                    {% elif pc_moteur.injecteurs_course == "REMPLACE" or pc_moteur.injecteurs_course == "AJOUTER" or pc_moteur.injecteurs_course == "DEMONTE" or pc_moteur.injecteurs_course == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_injecteurs_course_display }}</span>
                     {% else %}<span>{{ pc_moteur.get_injecteurs_course_display }}</span>{% endif %}
                     {% if pc_moteur.injecteurs_course_fabricant and pc_moteur.injecteurs_course_fabricant != "CHOISIR" %} — {{ pc_moteur.get_injecteurs_course_fabricant_display }}{% endif %}
                 </td>
@@ -575,7 +575,7 @@
                 <td>
                     {% if pc_moteur.pompe_carburant_course == "OK" or pc_moteur.pompe_carburant_course == "REMONTE" %}<span class="ok">{{ pc_moteur.get_pompe_carburant_course_display }}</span>
                     {% elif pc_moteur.pompe_carburant_course == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_pompe_carburant_course_display }}</span>
-                    {% elif pc_moteur.pompe_carburant_course == "REMPLACE" or pc_moteur.pompe_carburant_course == "DEMONTE" or pc_moteur.pompe_carburant_course == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_pompe_carburant_course_display }}</span>
+                    {% elif pc_moteur.pompe_carburant_course == "REMPLACE" or pc_moteur.pompe_carburant_course == "AJOUTER" or pc_moteur.pompe_carburant_course == "DEMONTE" or pc_moteur.pompe_carburant_course == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_pompe_carburant_course_display }}</span>
                     {% else %}<span>{{ pc_moteur.get_pompe_carburant_course_display }}</span>{% endif %}
                     {% if pc_moteur.pompe_carburant_course_fabricant and pc_moteur.pompe_carburant_course_fabricant != "CHOISIR" %} — {{ pc_moteur.get_pompe_carburant_course_fabricant_display }}{% endif %}
                 </td>
@@ -587,7 +587,7 @@
                 <td>
                     {% if pc_moteur.volant_moteur_allege == "OK" or pc_moteur.volant_moteur_allege == "REMONTE" %}<span class="ok">{{ pc_moteur.get_volant_moteur_allege_display }}</span>
                     {% elif pc_moteur.volant_moteur_allege == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_volant_moteur_allege_display }}</span>
-                    {% elif pc_moteur.volant_moteur_allege == "REMPLACE" or pc_moteur.volant_moteur_allege == "DEMONTE" or pc_moteur.volant_moteur_allege == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_volant_moteur_allege_display }}</span>
+                    {% elif pc_moteur.volant_moteur_allege == "REMPLACE" or pc_moteur.volant_moteur_allege == "AJOUTER" or pc_moteur.volant_moteur_allege == "DEMONTE" or pc_moteur.volant_moteur_allege == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_volant_moteur_allege_display }}</span>
                     {% else %}<span>{{ pc_moteur.get_volant_moteur_allege_display }}</span>{% endif %}
                     {% if pc_moteur.volant_moteur_allege_fabricant and pc_moteur.volant_moteur_allege_fabricant != "CHOISIR" %} — {{ pc_moteur.get_volant_moteur_allege_fabricant_display }}{% endif %}
                 </td>
@@ -599,7 +599,7 @@
                 <td>
                     {% if pc_moteur.rodage_moteur == "OK" or pc_moteur.rodage_moteur == "REMONTE" %}<span class="ok">{{ pc_moteur.get_rodage_moteur_display }}</span>
                     {% elif pc_moteur.rodage_moteur == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_rodage_moteur_display }}</span>
-                    {% elif pc_moteur.rodage_moteur == "REMPLACE" or pc_moteur.rodage_moteur == "DEMONTE" or pc_moteur.rodage_moteur == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_rodage_moteur_display }}</span>
+                    {% elif pc_moteur.rodage_moteur == "REMPLACE" or pc_moteur.rodage_moteur == "AJOUTER" or pc_moteur.rodage_moteur == "DEMONTE" or pc_moteur.rodage_moteur == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_rodage_moteur_display }}</span>
                     {% else %}<span>{{ pc_moteur.get_rodage_moteur_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -678,12 +678,12 @@
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
                                     <span class="etat-rouge">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "REMPLACE" %}
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" %}
                                     <span class="etat-bleu">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>

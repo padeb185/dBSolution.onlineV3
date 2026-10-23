@@ -430,7 +430,7 @@
                 <td>
                     {% if pc_arceau.arceau_principal == "OK" or pc_arceau.arceau_principal == "REMONTE" %}<span class="ok">{{ pc_arceau.get_arceau_principal_display }}</span>
                     {% elif pc_arceau.arceau_principal == "NOT_OK" %}<span class="not-ok">{{ pc_arceau.get_arceau_principal_display }}</span>
-                    {% elif pc_arceau.arceau_principal == "REMPLACE" or pc_arceau.arceau_principal == "DEMONTE" or pc_arceau.arceau_principal == "SUPPRIME" %}<span class="remplace">{{ pc_arceau.get_arceau_principal_display }}</span>
+                    {% elif pc_arceau.arceau_principal == "REMPLACE" or pc_arceau.arceau_principal == "AJOUTER" or pc_arceau.arceau_principal == "DEMONTE" or pc_arceau.arceau_principal == "SUPPRIME" %}<span class="remplace">{{ pc_arceau.get_arceau_principal_display }}</span>
                     {% else %}<span>{{ pc_arceau.get_arceau_principal_display }}</span>{% endif %}
                     {% if pc_arceau.arceau_principal_fabricant and pc_arceau.arceau_principal_fabricant != "CHOISIR" %} — {{ pc_arceau.get_arceau_principal_fabricant_display }}{% endif %}
                 </td>
@@ -441,7 +441,7 @@
                 <td>
                     {% if pc_arceau.arceau_avant == "OK" or pc_arceau.arceau_avant == "REMONTE" %}<span class="ok">{{ pc_arceau.get_arceau_avant_display }}</span>
                     {% elif pc_arceau.arceau_avant == "NOT_OK" %}<span class="not-ok">{{ pc_arceau.get_arceau_avant_display }}</span>
-                    {% elif pc_arceau.arceau_avant == "REMPLACE" or pc_arceau.arceau_avant == "DEMONTE" or pc_arceau.arceau_avant == "SUPPRIME" %}<span class="remplace">{{ pc_arceau.get_arceau_avant_display }}</span>
+                    {% elif pc_arceau.arceau_avant == "REMPLACE" or pc_arceau.arceau_avant == "AJOUTER" or pc_arceau.arceau_avant == "DEMONTE" or pc_arceau.arceau_avant == "SUPPRIME" %}<span class="remplace">{{ pc_arceau.get_arceau_avant_display }}</span>
                     {% else %}<span>{{ pc_arceau.get_arceau_avant_display }}</span>{% endif %}
                     {% if pc_arceau.arceau_avant_fabricant and pc_arceau.arceau_avant_fabricant != "CHOISIR" %} — {{ pc_arceau.get_arceau_avant_fabricant_display }}{% endif %}
                 </td>
@@ -452,7 +452,7 @@
                 <td>
                     {% if pc_arceau.diagonales_renforts == "OK" or pc_arceau.diagonales_renforts == "REMONTE" %}<span class="ok">{{ pc_arceau.get_diagonales_renforts_display }}</span>
                     {% elif pc_arceau.diagonales_renforts == "NOT_OK" %}<span class="not-ok">{{ pc_arceau.get_diagonales_renforts_display }}</span>
-                    {% elif pc_arceau.diagonales_renforts == "REMPLACE" or pc_arceau.diagonales_renforts == "DEMONTE" or pc_arceau.diagonales_renforts == "SUPPRIME" %}<span class="remplace">{{ pc_arceau.get_diagonales_renforts_display }}</span>
+                    {% elif pc_arceau.diagonales_renforts == "REMPLACE" or pc_arceau.diagonales_renforts == "AJOUTER" or pc_arceau.diagonales_renforts == "DEMONTE" or pc_arceau.diagonales_renforts == "SUPPRIME" %}<span class="remplace">{{ pc_arceau.get_diagonales_renforts_display }}</span>
                     {% else %}<span>{{ pc_arceau.get_diagonales_renforts_display }}</span>{% endif %}
                     {% if pc_arceau.diagonales_renforts_fabricant and pc_arceau.diagonales_renforts_fabricant != "CHOISIR" %} — {{ pc_arceau.get_diagonales_renforts_fabricant_display }}{% endif %}
                 </td>
@@ -463,7 +463,7 @@
                 <td>
                     {% if pc_arceau.barres_portes == "OK" or pc_arceau.barres_portes == "REMONTE" %}<span class="ok">{{ pc_arceau.get_barres_portes_display }}</span>
                     {% elif pc_arceau.barres_portes == "NOT_OK" %}<span class="not-ok">{{ pc_arceau.get_barres_portes_display }}</span>
-                    {% elif pc_arceau.barres_portes == "REMPLACE" or pc_arceau.barres_portes == "DEMONTE" or pc_arceau.barres_portes == "SUPPRIME" %}<span class="remplace">{{ pc_arceau.get_barres_portes_display }}</span>
+                    {% elif pc_arceau.barres_portes == "REMPLACE" or pc_arceau.barres_portes == "AJOUTER" or pc_arceau.barres_portes == "DEMONTE" or pc_arceau.barres_portes == "SUPPRIME" %}<span class="remplace">{{ pc_arceau.get_barres_portes_display }}</span>
                     {% else %}<span>{{ pc_arceau.get_barres_portes_display }}</span>{% endif %}
                     {% if pc_arceau.barres_portes_fabricant and pc_arceau.barres_portes_fabricant != "CHOISIR" %} — {{ pc_arceau.get_barres_portes_fabricant_display }}{% endif %}
                 </td>
@@ -474,7 +474,7 @@
                 <td>
                     {% if pc_arceau.platines_fixation == "OK" or pc_arceau.platines_fixation == "REMONTE" %}<span class="ok">{{ pc_arceau.get_platines_fixation_display }}</span>
                     {% elif pc_arceau.platines_fixation == "NOT_OK" %}<span class="not-ok">{{ pc_arceau.get_platines_fixation_display }}</span>
-                    {% elif pc_arceau.platines_fixation == "REMPLACE" or pc_arceau.platines_fixation == "DEMONTE" or pc_arceau.platines_fixation == "SUPPRIME" %}<span class="remplace">{{ pc_arceau.get_platines_fixation_display }}</span>
+                    {% elif pc_arceau.platines_fixation == "REMPLACE" or pc_arceau.platines_fixation == "AJOUTER" or pc_arceau.platines_fixation == "DEMONTE" or pc_arceau.platines_fixation == "SUPPRIME" %}<span class="remplace">{{ pc_arceau.get_platines_fixation_display }}</span>
                     {% else %}<span>{{ pc_arceau.get_platines_fixation_display }}</span>{% endif %}
                     {% if pc_arceau.platines_fixation_fabricant and pc_arceau.platines_fixation_fabricant != "CHOISIR" %} — {{ pc_arceau.get_platines_fixation_fabricant_display }}{% endif %}
                 </td>
@@ -485,7 +485,7 @@
                 <td>
                     {% if pc_arceau.visserie_arceau == "OK" or pc_arceau.visserie_arceau == "REMONTE" %}<span class="ok">{{ pc_arceau.get_visserie_arceau_display }}</span>
                     {% elif pc_arceau.visserie_arceau == "NOT_OK" %}<span class="not-ok">{{ pc_arceau.get_visserie_arceau_display }}</span>
-                    {% elif pc_arceau.visserie_arceau == "REMPLACE" or pc_arceau.visserie_arceau == "DEMONTE" or pc_arceau.visserie_arceau == "SUPPRIME" %}<span class="remplace">{{ pc_arceau.get_visserie_arceau_display }}</span>
+                    {% elif pc_arceau.visserie_arceau == "REMPLACE" or pc_arceau.visserie_arceau == "AJOUTER" or pc_arceau.visserie_arceau == "DEMONTE" or pc_arceau.visserie_arceau == "SUPPRIME" %}<span class="remplace">{{ pc_arceau.get_visserie_arceau_display }}</span>
                     {% else %}<span>{{ pc_arceau.get_visserie_arceau_display }}</span>{% endif %}
                     {% if pc_arceau.visserie_arceau_fabricant and pc_arceau.visserie_arceau_fabricant != "CHOISIR" %} — {{ pc_arceau.get_visserie_arceau_fabricant_display }}{% endif %}
                 </td>
@@ -497,7 +497,7 @@
                 <td>
                     {% if pc_arceau.mousses_protection == "OK" or pc_arceau.mousses_protection == "REMONTE" %}<span class="ok">{{ pc_arceau.get_mousses_protection_display }}</span>
                     {% elif pc_arceau.mousses_protection == "NOT_OK" %}<span class="not-ok">{{ pc_arceau.get_mousses_protection_display }}</span>
-                    {% elif pc_arceau.mousses_protection == "REMPLACE" or pc_arceau.mousses_protection == "DEMONTE" or pc_arceau.mousses_protection == "SUPPRIME" %}<span class="remplace">{{ pc_arceau.get_mousses_protection_display }}</span>
+                    {% elif pc_arceau.mousses_protection == "REMPLACE" or pc_arceau.mousses_protection == "AJOUTER" or pc_arceau.mousses_protection == "DEMONTE" or pc_arceau.mousses_protection == "SUPPRIME" %}<span class="remplace">{{ pc_arceau.get_mousses_protection_display }}</span>
                     {% else %}<span>{{ pc_arceau.get_mousses_protection_display }}</span>{% endif %}
                     {% if pc_arceau.mousses_protection_fabricant and pc_arceau.mousses_protection_fabricant != "CHOISIR" %} — {{ pc_arceau.get_mousses_protection_fabricant_display }}{% endif %}
                 </td>
@@ -509,7 +509,7 @@
                 <td>
                     {% if pc_arceau.controle_soudures == "OK" or pc_arceau.controle_soudures == "REMONTE" %}<span class="ok">{{ pc_arceau.get_controle_soudures_display }}</span>
                     {% elif pc_arceau.controle_soudures == "NOT_OK" %}<span class="not-ok">{{ pc_arceau.get_controle_soudures_display }}</span>
-                    {% elif pc_arceau.controle_soudures == "REMPLACE" or pc_arceau.controle_soudures == "DEMONTE" or pc_arceau.controle_soudures == "SUPPRIME" %}<span class="remplace">{{ pc_arceau.get_controle_soudures_display }}</span>
+                    {% elif pc_arceau.controle_soudures == "REMPLACE" or pc_arceau.controle_soudures == "AJOUTER" or pc_arceau.controle_soudures == "DEMONTE" or pc_arceau.controle_soudures == "SUPPRIME" %}<span class="remplace">{{ pc_arceau.get_controle_soudures_display }}</span>
                     {% else %}<span>{{ pc_arceau.get_controle_soudures_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -588,12 +588,12 @@
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
                                     <span class="etat-rouge">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "REMPLACE" %}
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" %}
                                     <span class="etat-bleu">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>

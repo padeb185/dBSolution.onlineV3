@@ -9,12 +9,19 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
             {% include "facture/_icone.html" %}
-            <span>{% trans "Factures" %}</span>
+            <span>{% if vendeur_locations %}{% trans "Factures des locations" %}{% else %}{% trans "Factures" %}{% endif %}</span>
         </h1>
+{% if vendeur_locations %}
+        <a href="{% url 'voiture_location:location_liste' %}"
+           class="bg-blue-700 hover:bg-blue-400 text-white px-5 py-3 rounded font-semibold">
+            + {% trans "Facturer une location" %}
+        </a>
+        {% else %}
         <a href="{% url 'facture:maintenances' %}"
            class="bg-blue-700 hover:bg-blue-400 text-white px-5 py-3 rounded font-semibold">
             + {% trans "Facturer une maintenance" %}
         </a>
+        {% endif %}
     </div>
 
     {% include "partials/messages.html" %}
@@ -93,9 +100,9 @@
     </div>
 
     <br>
-    <a href="{% url 'facture:maintenances' %}"
+    <a href="{% if vendeur_locations %}{% url 'voiture_location:location_liste' %}{% else %}{% url 'facture:maintenances' %}{% endif %}"
        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-        {% trans "Retour à la facturation" %}
+        {% if vendeur_locations %}{% trans "Retour aux locations" %}{% else %}{% trans "Retour à la facturation" %}{% endif %}
     </a>
 </div>
 

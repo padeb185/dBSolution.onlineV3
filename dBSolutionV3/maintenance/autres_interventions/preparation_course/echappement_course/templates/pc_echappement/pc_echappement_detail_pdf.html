@@ -423,7 +423,7 @@
                 <td>
                     {% if pc_echappement.collecteur_course == "OK" or pc_echappement.collecteur_course == "REMONTE" %}<span class="ok">{{ pc_echappement.get_collecteur_course_display }}</span>
                     {% elif pc_echappement.collecteur_course == "NOT_OK" %}<span class="not-ok">{{ pc_echappement.get_collecteur_course_display }}</span>
-                    {% elif pc_echappement.collecteur_course == "REMPLACE" or pc_echappement.collecteur_course == "DEMONTE" or pc_echappement.collecteur_course == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_collecteur_course_display }}</span>
+                    {% elif pc_echappement.collecteur_course == "REMPLACE" or pc_echappement.collecteur_course == "AJOUTER" or pc_echappement.collecteur_course == "DEMONTE" or pc_echappement.collecteur_course == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_collecteur_course_display }}</span>
                     {% else %}<span>{{ pc_echappement.get_collecteur_course_display }}</span>{% endif %}
                     {% if pc_echappement.collecteur_course_fabricant and pc_echappement.collecteur_course_fabricant != "CHOISIR" %} — {{ pc_echappement.get_collecteur_course_fabricant_display }}{% endif %}
                 </td>
@@ -435,7 +435,7 @@
                 <td>
                     {% if pc_echappement.downpipe == "OK" or pc_echappement.downpipe == "REMONTE" %}<span class="ok">{{ pc_echappement.get_downpipe_display }}</span>
                     {% elif pc_echappement.downpipe == "NOT_OK" %}<span class="not-ok">{{ pc_echappement.get_downpipe_display }}</span>
-                    {% elif pc_echappement.downpipe == "REMPLACE" or pc_echappement.downpipe == "DEMONTE" or pc_echappement.downpipe == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_downpipe_display }}</span>
+                    {% elif pc_echappement.downpipe == "REMPLACE" or pc_echappement.downpipe == "AJOUTER" or pc_echappement.downpipe == "DEMONTE" or pc_echappement.downpipe == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_downpipe_display }}</span>
                     {% else %}<span>{{ pc_echappement.get_downpipe_display }}</span>{% endif %}
                     {% if pc_echappement.downpipe_fabricant and pc_echappement.downpipe_fabricant != "CHOISIR" %} — {{ pc_echappement.get_downpipe_fabricant_display }}{% endif %}
                 </td>
@@ -447,7 +447,7 @@
                 <td>
                     {% if pc_echappement.catalyseur_sport == "OK" or pc_echappement.catalyseur_sport == "REMONTE" %}<span class="ok">{{ pc_echappement.get_catalyseur_sport_display }}</span>
                     {% elif pc_echappement.catalyseur_sport == "NOT_OK" %}<span class="not-ok">{{ pc_echappement.get_catalyseur_sport_display }}</span>
-                    {% elif pc_echappement.catalyseur_sport == "REMPLACE" or pc_echappement.catalyseur_sport == "DEMONTE" or pc_echappement.catalyseur_sport == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_catalyseur_sport_display }}</span>
+                    {% elif pc_echappement.catalyseur_sport == "REMPLACE" or pc_echappement.catalyseur_sport == "AJOUTER" or pc_echappement.catalyseur_sport == "DEMONTE" or pc_echappement.catalyseur_sport == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_catalyseur_sport_display }}</span>
                     {% else %}<span>{{ pc_echappement.get_catalyseur_sport_display }}</span>{% endif %}
                     {% if pc_echappement.catalyseur_sport_fabricant and pc_echappement.catalyseur_sport_fabricant != "CHOISIR" %} — {{ pc_echappement.get_catalyseur_sport_fabricant_display }}{% endif %}
                 </td>
@@ -459,7 +459,7 @@
                 <td>
                     {% if pc_echappement.silencieux_intermediaire == "OK" or pc_echappement.silencieux_intermediaire == "REMONTE" %}<span class="ok">{{ pc_echappement.get_silencieux_intermediaire_display }}</span>
                     {% elif pc_echappement.silencieux_intermediaire == "NOT_OK" %}<span class="not-ok">{{ pc_echappement.get_silencieux_intermediaire_display }}</span>
-                    {% elif pc_echappement.silencieux_intermediaire == "REMPLACE" or pc_echappement.silencieux_intermediaire == "DEMONTE" or pc_echappement.silencieux_intermediaire == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_silencieux_intermediaire_display }}</span>
+                    {% elif pc_echappement.silencieux_intermediaire == "REMPLACE" or pc_echappement.silencieux_intermediaire == "AJOUTER" or pc_echappement.silencieux_intermediaire == "DEMONTE" or pc_echappement.silencieux_intermediaire == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_silencieux_intermediaire_display }}</span>
                     {% else %}<span>{{ pc_echappement.get_silencieux_intermediaire_display }}</span>{% endif %}
                     {% if pc_echappement.silencieux_intermediaire_fabricant and pc_echappement.silencieux_intermediaire_fabricant != "CHOISIR" %} — {{ pc_echappement.get_silencieux_intermediaire_fabricant_display }}{% endif %}
                 </td>
@@ -471,7 +471,7 @@
                 <td>
                     {% if pc_echappement.silencieux_arriere == "OK" or pc_echappement.silencieux_arriere == "REMONTE" %}<span class="ok">{{ pc_echappement.get_silencieux_arriere_display }}</span>
                     {% elif pc_echappement.silencieux_arriere == "NOT_OK" %}<span class="not-ok">{{ pc_echappement.get_silencieux_arriere_display }}</span>
-                    {% elif pc_echappement.silencieux_arriere == "REMPLACE" or pc_echappement.silencieux_arriere == "DEMONTE" or pc_echappement.silencieux_arriere == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_silencieux_arriere_display }}</span>
+                    {% elif pc_echappement.silencieux_arriere == "REMPLACE" or pc_echappement.silencieux_arriere == "AJOUTER" or pc_echappement.silencieux_arriere == "DEMONTE" or pc_echappement.silencieux_arriere == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_silencieux_arriere_display }}</span>
                     {% else %}<span>{{ pc_echappement.get_silencieux_arriere_display }}</span>{% endif %}
                     {% if pc_echappement.silencieux_arriere_fabricant and pc_echappement.silencieux_arriere_fabricant != "CHOISIR" %} — {{ pc_echappement.get_silencieux_arriere_fabricant_display }}{% endif %}
                 </td>
@@ -483,7 +483,7 @@
                 <td>
                     {% if pc_echappement.ligne_complete == "OK" or pc_echappement.ligne_complete == "REMONTE" %}<span class="ok">{{ pc_echappement.get_ligne_complete_display }}</span>
                     {% elif pc_echappement.ligne_complete == "NOT_OK" %}<span class="not-ok">{{ pc_echappement.get_ligne_complete_display }}</span>
-                    {% elif pc_echappement.ligne_complete == "REMPLACE" or pc_echappement.ligne_complete == "DEMONTE" or pc_echappement.ligne_complete == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_ligne_complete_display }}</span>
+                    {% elif pc_echappement.ligne_complete == "REMPLACE" or pc_echappement.ligne_complete == "AJOUTER" or pc_echappement.ligne_complete == "DEMONTE" or pc_echappement.ligne_complete == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_ligne_complete_display }}</span>
                     {% else %}<span>{{ pc_echappement.get_ligne_complete_display }}</span>{% endif %}
                     {% if pc_echappement.ligne_complete_fabricant and pc_echappement.ligne_complete_fabricant != "CHOISIR" %} — {{ pc_echappement.get_ligne_complete_fabricant_display }}{% endif %}
                 </td>
@@ -494,7 +494,7 @@
                 <td>
                     {% if pc_echappement.colliers_supports == "OK" or pc_echappement.colliers_supports == "REMONTE" %}<span class="ok">{{ pc_echappement.get_colliers_supports_display }}</span>
                     {% elif pc_echappement.colliers_supports == "NOT_OK" %}<span class="not-ok">{{ pc_echappement.get_colliers_supports_display }}</span>
-                    {% elif pc_echappement.colliers_supports == "REMPLACE" or pc_echappement.colliers_supports == "DEMONTE" or pc_echappement.colliers_supports == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_colliers_supports_display }}</span>
+                    {% elif pc_echappement.colliers_supports == "REMPLACE" or pc_echappement.colliers_supports == "AJOUTER" or pc_echappement.colliers_supports == "DEMONTE" or pc_echappement.colliers_supports == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_colliers_supports_display }}</span>
                     {% else %}<span>{{ pc_echappement.get_colliers_supports_display }}</span>{% endif %}
                     {% if pc_echappement.colliers_supports_fabricant and pc_echappement.colliers_supports_fabricant != "CHOISIR" %} — {{ pc_echappement.get_colliers_supports_fabricant_display }}{% endif %}
                 </td>
@@ -505,7 +505,7 @@
                 <td>
                     {% if pc_echappement.protection_thermique == "OK" or pc_echappement.protection_thermique == "REMONTE" %}<span class="ok">{{ pc_echappement.get_protection_thermique_display }}</span>
                     {% elif pc_echappement.protection_thermique == "NOT_OK" %}<span class="not-ok">{{ pc_echappement.get_protection_thermique_display }}</span>
-                    {% elif pc_echappement.protection_thermique == "REMPLACE" or pc_echappement.protection_thermique == "DEMONTE" or pc_echappement.protection_thermique == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_protection_thermique_display }}</span>
+                    {% elif pc_echappement.protection_thermique == "REMPLACE" or pc_echappement.protection_thermique == "AJOUTER" or pc_echappement.protection_thermique == "DEMONTE" or pc_echappement.protection_thermique == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_protection_thermique_display }}</span>
                     {% else %}<span>{{ pc_echappement.get_protection_thermique_display }}</span>{% endif %}
                     {% if pc_echappement.protection_thermique_fabricant and pc_echappement.protection_thermique_fabricant != "CHOISIR" %} — {{ pc_echappement.get_protection_thermique_fabricant_display }}{% endif %}
                 </td>
@@ -585,12 +585,12 @@
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
                                     <span class="etat-rouge">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "REMPLACE" %}
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" %}
                                     <span class="etat-bleu">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>

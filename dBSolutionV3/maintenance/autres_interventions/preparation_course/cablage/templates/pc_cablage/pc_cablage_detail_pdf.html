@@ -398,7 +398,7 @@
                 <td>
                     {% if pc_cablage.coupe_circuit == "OK" or pc_cablage.coupe_circuit == "REMONTE" %}<span class="ok">{{ pc_cablage.get_coupe_circuit_display }}</span>
                     {% elif pc_cablage.coupe_circuit == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_coupe_circuit_display }}</span>
-                    {% elif pc_cablage.coupe_circuit == "REMPLACE" or pc_cablage.coupe_circuit == "DEMONTE" or pc_cablage.coupe_circuit == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_coupe_circuit_display }}</span>
+                    {% elif pc_cablage.coupe_circuit == "REMPLACE" or pc_cablage.coupe_circuit == "AJOUTER" or pc_cablage.coupe_circuit == "DEMONTE" or pc_cablage.coupe_circuit == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_coupe_circuit_display }}</span>
                     {% else %}<span>{{ pc_cablage.get_coupe_circuit_display }}</span>{% endif %}
                     {% if pc_cablage.coupe_circuit_fabricant and pc_cablage.coupe_circuit_fabricant != "CHOISIR" %} — {{ pc_cablage.get_coupe_circuit_fabricant_display }}{% endif %}
                 </td>
@@ -409,7 +409,7 @@
                 <td>
                     {% if pc_cablage.faisceau_competition == "OK" or pc_cablage.faisceau_competition == "REMONTE" %}<span class="ok">{{ pc_cablage.get_faisceau_competition_display }}</span>
                     {% elif pc_cablage.faisceau_competition == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_faisceau_competition_display }}</span>
-                    {% elif pc_cablage.faisceau_competition == "REMPLACE" or pc_cablage.faisceau_competition == "DEMONTE" or pc_cablage.faisceau_competition == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_faisceau_competition_display }}</span>
+                    {% elif pc_cablage.faisceau_competition == "REMPLACE" or pc_cablage.faisceau_competition == "AJOUTER" or pc_cablage.faisceau_competition == "DEMONTE" or pc_cablage.faisceau_competition == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_faisceau_competition_display }}</span>
                     {% else %}<span>{{ pc_cablage.get_faisceau_competition_display }}</span>{% endif %}
                     {% if pc_cablage.faisceau_competition_fabricant and pc_cablage.faisceau_competition_fabricant != "CHOISIR" %} — {{ pc_cablage.get_faisceau_competition_fabricant_display }}{% endif %}
                 </td>
@@ -421,7 +421,7 @@
                 <td>
                     {% if pc_cablage.batterie_competition == "OK" or pc_cablage.batterie_competition == "REMONTE" %}<span class="ok">{{ pc_cablage.get_batterie_competition_display }}</span>
                     {% elif pc_cablage.batterie_competition == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_batterie_competition_display }}</span>
-                    {% elif pc_cablage.batterie_competition == "REMPLACE" or pc_cablage.batterie_competition == "DEMONTE" or pc_cablage.batterie_competition == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_batterie_competition_display }}</span>
+                    {% elif pc_cablage.batterie_competition == "REMPLACE" or pc_cablage.batterie_competition == "AJOUTER" or pc_cablage.batterie_competition == "DEMONTE" or pc_cablage.batterie_competition == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_batterie_competition_display }}</span>
                     {% else %}<span>{{ pc_cablage.get_batterie_competition_display }}</span>{% endif %}
                     {% if pc_cablage.batterie_competition_fabricant and pc_cablage.batterie_competition_fabricant != "CHOISIR" %} — {{ pc_cablage.get_batterie_competition_fabricant_display }}{% endif %}
                 </td>
@@ -433,7 +433,7 @@
                 <td>
                     {% if pc_cablage.boitier_distribution == "OK" or pc_cablage.boitier_distribution == "REMONTE" %}<span class="ok">{{ pc_cablage.get_boitier_distribution_display }}</span>
                     {% elif pc_cablage.boitier_distribution == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_boitier_distribution_display }}</span>
-                    {% elif pc_cablage.boitier_distribution == "REMPLACE" or pc_cablage.boitier_distribution == "DEMONTE" or pc_cablage.boitier_distribution == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_boitier_distribution_display }}</span>
+                    {% elif pc_cablage.boitier_distribution == "REMPLACE" or pc_cablage.boitier_distribution == "AJOUTER" or pc_cablage.boitier_distribution == "DEMONTE" or pc_cablage.boitier_distribution == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_boitier_distribution_display }}</span>
                     {% else %}<span>{{ pc_cablage.get_boitier_distribution_display }}</span>{% endif %}
                     {% if pc_cablage.boitier_distribution_fabricant and pc_cablage.boitier_distribution_fabricant != "CHOISIR" %} — {{ pc_cablage.get_boitier_distribution_fabricant_display }}{% endif %}
                 </td>
@@ -445,7 +445,7 @@
                 <td>
                     {% if pc_cablage.tableau_interrupteurs == "OK" or pc_cablage.tableau_interrupteurs == "REMONTE" %}<span class="ok">{{ pc_cablage.get_tableau_interrupteurs_display }}</span>
                     {% elif pc_cablage.tableau_interrupteurs == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_tableau_interrupteurs_display }}</span>
-                    {% elif pc_cablage.tableau_interrupteurs == "REMPLACE" or pc_cablage.tableau_interrupteurs == "DEMONTE" or pc_cablage.tableau_interrupteurs == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_tableau_interrupteurs_display }}</span>
+                    {% elif pc_cablage.tableau_interrupteurs == "REMPLACE" or pc_cablage.tableau_interrupteurs == "AJOUTER" or pc_cablage.tableau_interrupteurs == "DEMONTE" or pc_cablage.tableau_interrupteurs == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_tableau_interrupteurs_display }}</span>
                     {% else %}<span>{{ pc_cablage.get_tableau_interrupteurs_display }}</span>{% endif %}
                     {% if pc_cablage.tableau_interrupteurs_fabricant and pc_cablage.tableau_interrupteurs_fabricant != "CHOISIR" %} — {{ pc_cablage.get_tableau_interrupteurs_fabricant_display }}{% endif %}
                 </td>
@@ -456,7 +456,7 @@
                 <td>
                     {% if pc_cablage.fusibles_relais == "OK" or pc_cablage.fusibles_relais == "REMONTE" %}<span class="ok">{{ pc_cablage.get_fusibles_relais_display }}</span>
                     {% elif pc_cablage.fusibles_relais == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_fusibles_relais_display }}</span>
-                    {% elif pc_cablage.fusibles_relais == "REMPLACE" or pc_cablage.fusibles_relais == "DEMONTE" or pc_cablage.fusibles_relais == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_fusibles_relais_display }}</span>
+                    {% elif pc_cablage.fusibles_relais == "REMPLACE" or pc_cablage.fusibles_relais == "AJOUTER" or pc_cablage.fusibles_relais == "DEMONTE" or pc_cablage.fusibles_relais == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_fusibles_relais_display }}</span>
                     {% else %}<span>{{ pc_cablage.get_fusibles_relais_display }}</span>{% endif %}
                     {% if pc_cablage.fusibles_relais_fabricant and pc_cablage.fusibles_relais_fabricant != "CHOISIR" %} — {{ pc_cablage.get_fusibles_relais_fabricant_display }}{% endif %}
                 </td>
@@ -467,7 +467,7 @@
                 <td>
                     {% if pc_cablage.connecteurs_competition == "OK" or pc_cablage.connecteurs_competition == "REMONTE" %}<span class="ok">{{ pc_cablage.get_connecteurs_competition_display }}</span>
                     {% elif pc_cablage.connecteurs_competition == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_connecteurs_competition_display }}</span>
-                    {% elif pc_cablage.connecteurs_competition == "REMPLACE" or pc_cablage.connecteurs_competition == "DEMONTE" or pc_cablage.connecteurs_competition == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_connecteurs_competition_display }}</span>
+                    {% elif pc_cablage.connecteurs_competition == "REMPLACE" or pc_cablage.connecteurs_competition == "AJOUTER" or pc_cablage.connecteurs_competition == "DEMONTE" or pc_cablage.connecteurs_competition == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_connecteurs_competition_display }}</span>
                     {% else %}<span>{{ pc_cablage.get_connecteurs_competition_display }}</span>{% endif %}
                     {% if pc_cablage.connecteurs_competition_fabricant and pc_cablage.connecteurs_competition_fabricant != "CHOISIR" %} — {{ pc_cablage.get_connecteurs_competition_fabricant_display }}{% endif %}
                 </td>
@@ -478,7 +478,7 @@
                 <td>
                     {% if pc_cablage.tresses_masse == "OK" or pc_cablage.tresses_masse == "REMONTE" %}<span class="ok">{{ pc_cablage.get_tresses_masse_display }}</span>
                     {% elif pc_cablage.tresses_masse == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_tresses_masse_display }}</span>
-                    {% elif pc_cablage.tresses_masse == "REMPLACE" or pc_cablage.tresses_masse == "DEMONTE" or pc_cablage.tresses_masse == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_tresses_masse_display }}</span>
+                    {% elif pc_cablage.tresses_masse == "REMPLACE" or pc_cablage.tresses_masse == "AJOUTER" or pc_cablage.tresses_masse == "DEMONTE" or pc_cablage.tresses_masse == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_tresses_masse_display }}</span>
                     {% else %}<span>{{ pc_cablage.get_tresses_masse_display }}</span>{% endif %}
                     {% if pc_cablage.tresses_masse_fabricant and pc_cablage.tresses_masse_fabricant != "CHOISIR" %} — {{ pc_cablage.get_tresses_masse_fabricant_display }}{% endif %}
                 </td>
@@ -489,7 +489,7 @@
                 <td>
                     {% if pc_cablage.feu_pluie == "OK" or pc_cablage.feu_pluie == "REMONTE" %}<span class="ok">{{ pc_cablage.get_feu_pluie_display }}</span>
                     {% elif pc_cablage.feu_pluie == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_feu_pluie_display }}</span>
-                    {% elif pc_cablage.feu_pluie == "REMPLACE" or pc_cablage.feu_pluie == "DEMONTE" or pc_cablage.feu_pluie == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_feu_pluie_display }}</span>
+                    {% elif pc_cablage.feu_pluie == "REMPLACE" or pc_cablage.feu_pluie == "AJOUTER" or pc_cablage.feu_pluie == "DEMONTE" or pc_cablage.feu_pluie == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_feu_pluie_display }}</span>
                     {% else %}<span>{{ pc_cablage.get_feu_pluie_display }}</span>{% endif %}
                     {% if pc_cablage.feu_pluie_fabricant and pc_cablage.feu_pluie_fabricant != "CHOISIR" %} — {{ pc_cablage.get_feu_pluie_fabricant_display }}{% endif %}
                 </td>
@@ -569,12 +569,12 @@
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
                                     <span class="etat-rouge">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "REMPLACE" %}
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" %}
                                     <span class="etat-bleu">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>

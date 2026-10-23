@@ -125,9 +125,12 @@
             <a href="{% url 'utilisateurs:paie_comptabilite' %}" class="block bg-gray-100 px-4 py-3 rounded hover:bg-blue-50 font-semibold">
                 {% trans "Comptabilité des salaires" %}
             </a>
+            <a href="{% url 'compta:factures_instructeurs' %}" class="block bg-gray-100 px-4 py-3 rounded hover:bg-blue-50 font-semibold">
+                {% trans "Instructeurs indépendants – factures et autofacturation" %}
+            </a>
         </div>
         <p class="text-gray-500 text-xs mt-4">
-            {% trans "Les encaissements des factures et les salaires payés apparaissent automatiquement dans le journal du compte par défaut (caisse pour les espèces, banque pour les autres modes)." %}
+            {% trans "Les encaissements des factures, les salaires et les factures d'instructeurs payés apparaissent automatiquement dans le journal du compte par défaut (caisse pour les espèces, banque pour les autres modes)." %}
         </p>
     </div>
 </div>

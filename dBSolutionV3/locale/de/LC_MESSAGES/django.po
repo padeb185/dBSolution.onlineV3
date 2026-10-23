@@ -53847,3 +53847,528 @@ msgstr "Löschung Eingriff: Ausbau und Gewichtsreduzierung"
 
 msgid "Suppression de l'intervention : Air jack (vérins pneumatiques)"
 msgstr "Löschung Eingriff: Air Jacks (pneumatische Wagenheber)"
+
+msgid "Aucun salaire brut : la fiche ne peut pas être calculée."
+msgstr "Kein Bruttolohn: Die Lohnabrechnung kann nicht berechnet werden."
+
+msgid "Autres avantages de toute nature"
+msgstr "Sonstige Sachbezüge"
+
+msgid "Avantage de toute nature – voiture de société"
+msgstr "Sachbezug – Firmenwagen"
+
+msgid "Avantages de toute nature (non payés en argent)"
+msgstr "Sachbezüge (nicht in Geld ausgezahlt)"
+
+msgid "Base"
+msgstr "Basis"
+
+msgid "Bonus à l'emploi (réduction ONSS)"
+msgstr "Beschäftigungsbonus (LSS-Ermäßigung)"
+
+msgid "Brut soumis à l'ONSS (ouvrier : 108 %)"
+msgstr "LSS-pflichtiges Brutto (Arbeiter: 108 %)"
+
+msgid "Classe de fonction"
+msgstr "Funktionsklasse"
+
+msgid "Conjoint handicapé"
+msgstr "Ehepartner mit Behinderung"
+
+msgid "Cotisation ONSS personnelle"
+msgstr "Arbeitnehmer-LSS-Beitrag"
+
+msgid "Document généré le"
+msgstr "Dokument erstellt am"
+
+msgid "Détail du calcul"
+msgstr "Berechnungsdetails"
+
+msgid "Enfants à charge"
+msgstr "Unterhaltsberechtigte Kinder"
+
+msgid "Fiche de paie"
+msgstr "Lohnabrechnung"
+
+msgid "Fiche de paie PDF"
+msgstr "Lohnabrechnung PDF"
+
+msgid "Fiche_de_paie"
+msgstr "Lohnabrechnung"
+
+msgid "Fonction"
+msgstr "Funktion"
+
+msgid "Heures supplémentaires (majoration %(m)s %%)"
+msgstr "Überstunden (Zuschlag %(m)s %%)"
+
+msgid "Jours prestés"
+msgstr "Gearbeitete Tage"
+
+msgid ""
+"Montants calculés selon les barèmes belges %(annee_parametres)s (ONSS, "
+"précompte professionnel – formule-clé, cotisation spéciale de sécurité "
+"sociale, bonus à l'emploi). Le taux de précompte indiqué est le taux "
+"effectif sur la rémunération imposable."
+msgstr ""
+"Beträge berechnet nach den belgischen Tabellen %(annee_parametres)s (LSS, "
+"Berufssteuervorabzug – Schlüsselformel, Sonderbeitrag zur sozialen "
+"Sicherheit, Beschäftigungsbonus). Der angegebene Vorabzugssatz ist der "
+"effektive Satz auf das steuerpflichtige Entgelt."
+
+msgid "Net du salaire"
+msgstr "Nettolohn"
+
+msgid "N° TVA / entreprise"
+msgstr "MwSt.- / Unternehmensnr."
+
+msgid "ONSS sur double pécule (sur %(p)s %% du brut mensuel)"
+msgstr "LSS auf doppeltes Urlaubsgeld (auf %(p)s %% des Monatsbruttos)"
+
+msgid "Parent isolé"
+msgstr "Alleinerziehend"
+
+msgid "Prestations"
+msgstr "Arbeitsleistungen"
+
+msgid "Précompte sur double pécule"
+msgstr "Vorabzug auf doppeltes Urlaubsgeld"
+
+msgid "Retenue ONSS nette"
+msgstr "Netto-LSS-Abzug"
+
+msgid "Réduction de précompte – heures supplémentaires"
+msgstr "Vorabzugsermäßigung – Überstunden"
+
+msgid "Régime de travail"
+msgstr "Arbeitsregelung"
+
+msgid "Rémunération brute"
+msgstr "Bruttoentgelt"
+
+msgid "Rémunération imposable"
+msgstr "Steuerpflichtiges Entgelt"
+
+msgid "Salaire de base"
+msgstr "Grundlohn"
+
+msgid "Statut et situation"
+msgstr "Status und Situation"
+
+msgid "Taux horaire brut"
+msgstr "Bruttostundenlohn"
+
+msgid "Travailleur handicapé"
+msgstr "Arbeitnehmer mit Behinderung"
+
+msgid "Versé sur le compte"
+msgstr "Überwiesen auf das Konto"
+
+msgid "an(s) d'expérience"
+msgstr "Jahr(e) Erfahrung"
+
+msgid "dont handicapés"
+msgstr "davon mit Behinderung"
+
+msgid "le"
+msgstr "am"
+
+msgid "AUTOFACTURE"
+msgstr "GUTSCHRIFT (SELBSTFAKTURIERUNG)"
+
+msgid "Acceptation du fournisseur"
+msgstr "Annahme durch den Lieferanten"
+
+msgid "Accord d'autofacturation signé"
+msgstr "Unterzeichnete Gutschriftsvereinbarung"
+
+msgid "Afficher les locations de la période"
+msgstr "Vermietungen des Zeitraums anzeigen"
+
+msgid "Assujetti à la TVA"
+msgstr "Mehrwertsteuerpflichtig"
+
+msgid ""
+"Aucun instructeur indépendant. Créez un utilisateur avec le rôle « "
+"Instructeur Externe »."
+msgstr ""
+"Kein selbstständiger Instruktor. Legen Sie einen Benutzer mit der Rolle "
+"„Externer Instruktor“ an."
+
+msgid "Aucune facture d'instructeur."
+msgstr "Keine Instruktorrechnung."
+
+msgid "Aucune ligne n'a été retenue : ajoutez des prestations."
+msgstr "Keine Zeile ausgewählt: Fügen Sie Leistungen hinzu."
+
+msgid "Aucune location non facturée pour cet instructeur sur la période."
+msgstr ""
+"Keine nicht abgerechnete Vermietung für diesen Instruktor im Zeitraum."
+
+msgid "Aucune prestation."
+msgstr "Keine Leistungen."
+
+msgid "Autofacturation"
+msgstr "Selbstfakturierung (Gutschrift)"
+
+msgid ""
+"Autofacturation : l'entreprise établit la facture au nom et pour le compte "
+"de l'instructeur. Elle n'est permise qu'avec un accord préalable écrit ; "
+"chaque autofacture doit être acceptée par l'instructeur. Faites valider le "
+"traitement TVA par votre comptable."
+msgstr ""
+"Selbstfakturierung: Das Unternehmen stellt die Rechnung im Namen und für "
+"Rechnung des Instruktors aus. Sie ist nur mit einer vorherigen schriftlichen"
+" Vereinbarung zulässig; jede Gutschrift muss vom Instruktor angenommen "
+"werden. Lassen Sie die MwSt.-Behandlung von Ihrem Buchhalter prüfen."
+
+msgid ""
+"Autofacturation indisponible : complétez le profil de l'instructeur (numéro "
+"d'entreprise, accord écrit et sa date)."
+msgstr ""
+"Selbstfakturierung nicht verfügbar: Vervollständigen Sie das Profil des "
+"Instruktors (Unternehmensnummer, schriftliche Vereinbarung und Datum)."
+
+msgid "Autofacture"
+msgstr "Gutschrift"
+
+msgid "Autofacture %(n)s émise. Envoyez-la à l'instructeur pour acceptation."
+msgstr ""
+"Gutschrift %(n)s ausgestellt. Senden Sie sie dem Instruktor zur Annahme."
+
+msgid "Autofacture PDF"
+msgstr "Gutschrift PDF"
+
+msgid "Autres prestations"
+msgstr "Sonstige Leistungen"
+
+msgid ""
+"Ce que l'entreprise paie à l'instructeur. Vide : prix facturé au client "
+"(HTVA)."
+msgstr ""
+"Was das Unternehmen dem Instruktor zahlt. Leer: dem Kunden berechneter Preis"
+" (netto)."
+
+msgid "Client (émetteur de l'autofacture)"
+msgstr "Kunde (Aussteller der Gutschrift)"
+
+msgid ""
+"Coché : l'entreprise établit la facture au nom et pour le compte de "
+"l'instructeur. Décoché : facture reçue de l'instructeur."
+msgstr ""
+"Angehakt: Das Unternehmen stellt die Rechnung im Namen und für Rechnung des "
+"Instruktors aus. Nicht angehakt: vom Instruktor erhaltene Rechnung."
+
+msgid "Complétez d'abord le profil d'entreprise de l'instructeur."
+msgstr "Vervollständigen Sie zuerst das Unternehmensprofil des Instruktors."
+
+msgid "Compte bancaire par défaut"
+msgstr "Standard-Bankkonto"
+
+msgid "Continuer"
+msgstr "Weiter"
+
+msgid "Date de facture"
+msgstr "Rechnungsdatum"
+
+msgid "Date de l'accord d'autofacturation"
+msgstr "Datum der Gutschriftsvereinbarung"
+
+msgid "Délai de paiement (jours)"
+msgstr "Zahlungsfrist (Tage)"
+
+msgid "Enregistrer comme facture à payer"
+msgstr "Als zu zahlende Rechnung erfassen"
+
+msgid ""
+"Envoyez l'autofacture à l'instructeur : il doit l'accepter (ou la contester)"
+" et la reprendre dans sa propre comptabilité et sa déclaration TVA."
+msgstr ""
+"Senden Sie die Gutschrift an den Instruktor: Er muss sie annehmen (oder "
+"anfechten) und in seine eigene Buchhaltung und MwSt.-Erklärung aufnehmen."
+
+msgid "Ex. : BE0123456789"
+msgstr "Z. B. BE0123456789"
+
+msgid "Ex. : briefing, coaching, déplacement…"
+msgstr "Z. B. Briefing, Coaching, Anfahrt…"
+
+msgid "Exemption de TVA – article 44 du Code de la TVA"
+msgstr "MwSt.-Befreiung – Artikel 44 des MwSt.-Gesetzbuches"
+
+msgid "Exonéré de TVA (art. 44 CTVA)"
+msgstr "Von der MwSt. befreit (Art. 44 MwStGB)"
+
+msgid "Facture d'instructeur"
+msgstr "Instruktorrechnung"
+
+msgid "Facture d'instructeur %(piece)s"
+msgstr "Instruktorrechnung %(piece)s"
+
+msgid "Facture de l'instructeur n°"
+msgstr "Rechnung des Instruktors Nr."
+
+msgid "Facture reçue de l'instructeur"
+msgstr "Vom Instruktor erhaltene Rechnung"
+
+msgid "Facture établie par le client au nom et pour le compte du fournisseur"
+msgstr ""
+"Rechnung vom Kunden im Namen und für Rechnung des Lieferanten ausgestellt"
+
+msgid ""
+"Facture établie par le client conformément à l'accord d'autofacturation "
+"conclu par écrit avec le fournisseur le %(date_accord)s. Chaque autofacture "
+"est soumise à l'acceptation du fournisseur selon la procédure prévue dans "
+"cet accord."
+msgstr ""
+"Rechnung vom Kunden gemäß der am %(date_accord)s schriftlich mit dem "
+"Lieferanten geschlossenen Gutschriftsvereinbarung ausgestellt. Jede "
+"Gutschrift unterliegt der Annahme durch den Lieferanten nach dem in dieser "
+"Vereinbarung vorgesehenen Verfahren."
+
+msgid "Facture_instructeur"
+msgstr "Instruktorrechnung"
+
+msgid "Factures d'instructeurs"
+msgstr "Instruktorrechnungen"
+
+msgid "Fournisseur (prestataire)"
+msgstr "Lieferant (Dienstleister)"
+
+msgid "Franchise des petites entreprises (art. 56bis CTVA)"
+msgstr "Kleinunternehmerregelung (Art. 56bis MwStGB)"
+
+msgid "Heures / quantité"
+msgstr "Stunden / Menge"
+
+msgid "Heures non facturées"
+msgstr "Nicht abgerechnete Stunden"
+
+msgid "Inclure"
+msgstr "Einschließen"
+
+msgid "Indiquez la date de l'accord écrit d'autofacturation."
+msgstr "Geben Sie das Datum der schriftlichen Gutschriftsvereinbarung an."
+
+msgid "Indiquez le numéro de la facture reçue de l'instructeur."
+msgstr "Geben Sie die Nummer der vom Instruktor erhaltenen Rechnung an."
+
+msgid "Indiquez le taux de TVA de l'instructeur."
+msgstr "Geben Sie den MwSt.-Satz des Instruktors an."
+
+msgid "Instructeurs indépendants"
+msgstr "Selbstständige Instruktoren"
+
+msgid "Instructeurs indépendants – factures et autofacturation"
+msgstr "Selbstständige Instruktoren – Rechnungen und Gutschriften"
+
+msgid ""
+"L'autofacturation n'est permise qu'avec un accord préalable écrit de "
+"l'instructeur."
+msgstr ""
+"Die Selbstfakturierung ist nur mit vorheriger schriftlicher Zustimmung des "
+"Instruktors zulässig."
+
+msgid "La facture d'instructeur a été enregistrée en brouillon."
+msgstr "Die Instruktorrechnung wurde als Entwurf gespeichert."
+
+msgid "La facture d'instructeur a été mise à jour."
+msgstr "Die Instruktorrechnung wurde aktualisiert."
+
+msgid "La facture d'instructeur a été supprimée."
+msgstr "Die Instruktorrechnung wurde gelöscht."
+
+msgid "La facture de l'instructeur est enregistrée et à payer."
+msgstr "Die Rechnung des Instruktors ist erfasst und zu zahlen."
+
+msgid "La facture ne contient aucune prestation."
+msgstr "Die Rechnung enthält keine Leistungen."
+
+msgid "La fin de période doit être postérieure au début."
+msgstr "Das Ende des Zeitraums muss nach dem Beginn liegen."
+
+msgid "Le paiement a été enregistré."
+msgstr "Die Zahlung wurde erfasst."
+
+msgid ""
+"Le prix / heure proposé est le tarif de l'instructeur (profil) ou, à défaut,"
+" le prix facturé au client HTVA. Seules les locations non encore facturées "
+"par l'instructeur sont proposées."
+msgstr ""
+"Der vorgeschlagene Preis / Stunde ist der Satz des Instruktors (Profil) oder"
+" ersatzweise der dem Kunden berechnete Nettopreis. Nur noch nicht vom "
+"Instruktor abgerechnete Vermietungen werden angezeigt."
+
+msgid "Le profil de l'instructeur a été enregistré."
+msgstr "Das Profil des Instruktors wurde gespeichert."
+
+msgid ""
+"Les encaissements des factures, les salaires et les factures d'instructeurs "
+"payés apparaissent automatiquement dans le journal du compte par défaut "
+"(caisse pour les espèces, banque pour les autres modes)."
+msgstr ""
+"Rechnungseingänge, Gehälter und bezahlte Instruktorrechnungen erscheinen "
+"automatisch im Journal des Standardkontos (Kasse für Bargeld, Bank für "
+"andere Zahlungsarten)."
+
+msgid ""
+"Les locations reprises redeviendront disponibles pour une autre facture. "
+"Cette action est irréversible."
+msgstr ""
+"Die enthaltenen Vermietungen werden wieder für eine andere Rechnung "
+"verfügbar. Diese Aktion kann nicht rückgängig gemacht werden."
+
+msgid "Ligne de facture d'instructeur"
+msgstr "Zeile der Instruktorrechnung"
+
+msgid "Lignes de facture d'instructeur"
+msgstr "Zeilen der Instruktorrechnung"
+
+msgid "Modifier la facture d'instructeur"
+msgstr "Instruktorrechnung bearbeiten"
+
+msgid "Montant estimé HTVA"
+msgstr "Geschätzter Nettobetrag"
+
+msgid "Nom commercial / dénomination"
+msgstr "Handelsname / Bezeichnung"
+
+msgid "Nouvelle facture d'instructeur"
+msgstr "Neue Instruktorrechnung"
+
+msgid "Numéro d'entreprise (BCE) / TVA"
+msgstr "Unternehmensnummer (ZDU) / MwSt."
+
+msgid "Numéro de la facture de l'instructeur"
+msgstr "Rechnungsnummer des Instruktors"
+
+msgid "N° d'entreprise / TVA"
+msgstr "Unternehmens- / MwSt.-Nr."
+
+msgid "Paiement par virement sur le compte"
+msgstr "Zahlung per Überweisung auf das Konto"
+
+msgid "Pas d'accord d'autofacturation enregistré pour cet instructeur."
+msgstr "Keine Gutschriftsvereinbarung für diesen Instruktor erfasst."
+
+msgid "Payée depuis le compte"
+msgstr "Bezahlt vom Konto"
+
+msgid "Payée le"
+msgstr "Bezahlt am"
+
+msgid "Pour le client"
+msgstr "Für den Kunden"
+
+msgid "Prestations – locations avec cet instructeur"
+msgstr "Leistungen – Vermietungen mit diesem Instruktor"
+
+msgid "Prix / heure HTVA"
+msgstr "Preis / Stunde netto"
+
+msgid "Profil"
+msgstr "Profil"
+
+msgid "Profil d'entreprise – %(nom)s"
+msgstr "Unternehmensprofil – %(nom)s"
+
+msgid "Profil d'instructeur indépendant"
+msgstr "Profil selbstständiger Instruktor"
+
+msgid "Profil à compléter"
+msgstr "Profil zu vervollständigen"
+
+msgid "Profils d'instructeurs indépendants"
+msgstr "Profile selbstständiger Instruktoren"
+
+msgid "Période du"
+msgstr "Zeitraum vom"
+
+msgid "Récapitulatif PDF"
+msgstr "Übersicht PDF"
+
+msgid "Récapitulatif des prestations"
+msgstr "Leistungsübersicht"
+
+msgid "Régime particulier de franchise des petites entreprises"
+msgstr "Sonderregelung für Kleinunternehmen"
+
+msgid "Rétributions de tiers – honoraires"
+msgstr "Vergütungen an Dritte – Honorare"
+
+msgid "Rétributions de tiers – honoraires (instructeurs)"
+msgstr "Vergütungen an Dritte – Honorare (Instruktoren)"
+
+msgid "Seule une facture en brouillon peut être modifiée."
+msgstr "Nur eine Rechnung im Entwurf kann bearbeitet werden."
+
+msgid "Supprimer la facture d'instructeur"
+msgstr "Instruktorrechnung löschen"
+
+msgid "Tarif horaire de l'instructeur HTVA (€)"
+msgstr "Stundensatz des Instruktors netto (€)"
+
+msgid "Total à payer"
+msgstr "Zu zahlender Gesamtbetrag"
+
+msgid ""
+"Un instructeur indépendant (rôle « Instructeur Externe ») facture ses heures"
+" à l'entreprise. Avec un accord écrit, l'entreprise peut établir la facture "
+"en son nom (autofacturation). Complétez son profil d'entreprise avant de "
+"créer une facture."
+msgstr ""
+"Ein selbstständiger Instruktor (Rolle „Externer Instruktor“) stellt dem "
+"Unternehmen seine Stunden in Rechnung. Mit einer schriftlichen Vereinbarung "
+"kann das Unternehmen die Rechnung in seinem Namen ausstellen (Gutschrift). "
+"Vervollständigen Sie sein Unternehmensprofil, bevor Sie eine Rechnung "
+"erstellen."
+
+msgid "Une autofacture émise ou une facture payée ne peut pas être supprimée."
+msgstr ""
+"Eine ausgestellte Gutschrift oder eine bezahlte Rechnung kann nicht gelöscht"
+" werden."
+
+msgid "Vide : compte bancaire de la fiche utilisateur."
+msgstr "Leer: Bankkonto aus dem Benutzerprofil."
+
+msgid "Vide : compte bancaire par défaut."
+msgstr "Leer: Standard-Bankkonto."
+
+msgid "accord du"
+msgstr "Vereinbarung vom"
+
+msgid "au plus tard le"
+msgstr "spätestens am"
+
+msgid "instructeur"
+msgstr "Instruktor"
+
+msgid "sur le compte"
+msgstr "auf das Konto"
+
+msgid "voir la location"
+msgstr "Vermietung ansehen"
+
+msgid "Écritures comptables (PCMN)"
+msgstr "Buchungen (PCMN)"
+
+msgid "Émettez d'abord la facture."
+msgstr "Stellen Sie zuerst die Rechnung aus."
+
+msgid "Émettre l'autofacture (attribuer le numéro)"
+msgstr "Gutschrift ausstellen (Nummer vergeben)"
+
+msgid "Émise – à payer"
+msgstr "Ausgestellt – zu zahlen"
+
+msgid "Facturer une location"
+msgstr "Eine Vermietung abrechnen"
+
+msgid "Factures des locations"
+msgstr "Rechnungen der Vermietungen"
+
+msgid "Retour aux locations"
+msgstr "Zurück zu den Vermietungen"
+
+msgid "Consultation, émission et encaissement"
+msgstr "Ansehen, ausstellen und kassieren"

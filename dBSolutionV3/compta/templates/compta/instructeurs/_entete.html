@@ -1,0 +1,12 @@
+{% load i18n static %}
+<h1 class="text-2xl font-bold mb-6 flex items-center gap-4">
+    <img src="{% static 'icons/instructeur_facture.png' %}" alt="" class="w-16 h-16">
+    <span>{{ titre }}</span>
+</h1>
+{% include "partials/messages.html" %}
+<div class="flex flex-wrap gap-2 mb-6">
+    <a href="{% url 'compta:instructeurs_liste' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Instructeurs indépendants" %}</a>
+    <a href="{% url 'compta:factures_instructeurs' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Factures d'instructeurs" %}</a>
+    <a href="{% url 'compta:facture_instructeur_creer' %}" class="bg-blue-700 hover:bg-blue-400 text-white px-4 py-2 rounded font-semibold">+ {% trans "Nouvelle facture d'instructeur" %}</a>
+    <a href="{% url 'compta:tableau_de_bord' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Comptabilité" %}</a>
+</div>

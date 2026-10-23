@@ -1,0 +1,158 @@
+{% load i18n static format_numbers %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'fr' }}">
+<head>
+<meta charset="utf-8">
+<title>{% trans "Fiche de paie" %} – {{ travailleur.prenom }} {{ travailleur.nom }} – {{ mois_nom }} {{ paie.annee }}</title>
+<style>
+    @page { size: A4; margin: 14mm 12mm 16mm 12mm;
+        @bottom-center { content: "{% trans 'Page' %} " counter(page) " / " counter(pages); font-size: 8pt; color: #6b7280; } }
+    body { font-family: "DejaVu Sans", Arial, sans-serif; font-size: 9pt; color: #111827; }
+    h1 { font-size: 16pt; margin: 0 0 2mm 0; color: #1e3a8a; }
+    h2 { font-size: 10.5pt; margin: 5mm 0 2mm 0; padding-bottom: 1mm; border-bottom: 1.5px solid #1e3a8a; color: #1e3a8a; }
+    .entete { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4mm; }
+    .entete .societe { line-height: 1.35; }
+    .entete .societe .nom { font-size: 12pt; font-weight: bold; }
+    .entete img { max-height: 22mm; max-width: 50mm; object-fit: contain; }
+    .periode { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 2.5mm 3mm; margin-bottom: 3mm; }
+    .periode strong { font-size: 11pt; }
+    .grille { display: flex; gap: 4mm; }
+    .grille > div { flex: 1; border: 1px solid #e5e7eb; border-radius: 3px; padding: 2.5mm 3mm; }
+    .grille .titre { font-weight: bold; color: #1e3a8a; margin-bottom: 1.5mm; }
+    dl { margin: 0; }
+    dt { color: #4b5563; float: left; clear: left; width: 44%; margin-bottom: 0.8mm; }
+    dd { margin: 0 0 0.8mm 45%; font-weight: 600; }
+    table.calc { width: 100%; border-collapse: collapse; margin-top: 1mm; }
+    table.calc th { background: #1e3a8a; color: white; font-weight: 600; padding: 1.8mm 2mm; text-align: left; font-size: 8.5pt; }
+    table.calc th.n, table.calc td.n { text-align: right; white-space: nowrap; }
+    table.calc td { padding: 1.5mm 2mm; border-bottom: 1px solid #e5e7eb; }
+    tr.total td { font-weight: bold; background: #f3f4f6; border-top: 1px solid #9ca3af; }
+    tr.sous-total td { font-weight: 600; background: #f9fafb; }
+    tr.info td { color: #6b7280; font-style: italic; }
+    .moins { color: #b91c1c; }
+    .plus { color: #166534; }
+    .net { margin-top: 4mm; display: flex; justify-content: space-between; align-items: center;
+           background: #166534; color: white; padding: 3mm 4mm; border-radius: 3px; font-size: 12pt; font-weight: bold; }
+    .paiement { margin-top: 2mm; font-size: 8.5pt; color: #374151; }
+    .note { margin-top: 5mm; font-size: 7.5pt; color: #6b7280; line-height: 1.4; }
+</style>
+</head>
+<body>
+
+<!-- ================= EN-TÊTE ================= -->
+<div class="entete">
+    <div class="societe">
+        {% if societe %}
+            <div class="nom">{{ societe.nom }}</div>
+            {% if societe.adresse %}
+                <div>{{ societe.adresse.rue }} {{ societe.adresse.numero }}{% if societe.adresse.boite %} / {{ societe.adresse.boite }}{% endif %}</div>
+                <div>{{ societe.adresse.code_postal }} {{ societe.adresse.ville }}{% if societe.adresse.pays %} – {{ societe.adresse.pays }}{% endif %}</div>
+            {% endif %}
+            {% if societe.numero_tva %}<div>{% trans "N° TVA / entreprise" %} : {{ societe.numero_tva }}</div>{% endif %}
+        {% endif %}
+    </div>
+    {% if societe %}
+        <img src="{% static 'societe/' %}{{ societe.nom }}.png" alt="{{ societe.nom }}">
+    {% endif %}
+</div>
+
+<h1>{% trans "Fiche de paie" %}</h1>
+<div class="periode">
+    {% trans "Période" %} : <strong>{{ mois_nom|capfirst }} {{ paie.annee }}</strong>
+    {% if paie.date_paiement %} — {% trans "Payé le" %} {{ paie.date_paiement|date:"d/m/Y" }}{% endif %}
+</div>
+
+<!-- ================= TRAVAILLEUR / STATUT ================= -->
+<div class="grille">
+    <div>
+        <div class="titre">{% trans "Travailleur" %}</div>
+        <dl>
+            <dt>{% trans "Nom" %}</dt><dd>{{ travailleur.prenom }} {{ travailleur.nom }}</dd>
+            {% if travailleur.adresse %}
+                <dt>{% trans "Adresse" %}</dt>
+                <dd>{{ travailleur.adresse.rue }} {{ travailleur.adresse.numero }}{% if travailleur.adresse.boite %} / {{ travailleur.adresse.boite }}{% endif %},
+                    {{ travailleur.adresse.code_postal }} {{ travailleur.adresse.ville }}</dd>
+            {% endif %}
+            {% if travailleur.numero_registre_national %}<dt>{% trans "N° de registre national" %}</dt><dd>{{ travailleur.numero_registre_national }}</dd>{% endif %}
+            {% if travailleur.date_naissance %}<dt>{% trans "Date de naissance" %}</dt><dd>{{ travailleur.date_naissance|date:"d/m/Y" }}</dd>{% endif %}
+            {% if travailleur.numero_compte_bancaire %}<dt>{% trans "Compte bancaire" %}</dt><dd>{{ travailleur.numero_compte_bancaire|format_iban }}</dd>{% endif %}
+            <dt>{% trans "Fonction" %}</dt><dd>{{ travailleur.get_role_display }}</dd>
+        </dl>
+    </div>
+    <div>
+        <div class="titre">{% trans "Statut et situation" %}</div>
+        <dl>
+            <dt>{% trans "Statut" %}</dt><dd>{{ paie.get_statut_travailleur_display }}</dd>
+            <dt>{% trans "Commission paritaire" %}</dt><dd>{{ paie.get_commission_paritaire_display }}</dd>
+            {% if paie.categorie_cp %}<dt>{% trans "Catégorie" %}</dt><dd>{{ paie.get_categorie_cp_display }}</dd>{% endif %}
+            {% if paie.classe_cp200 %}<dt>{% trans "Classe de fonction" %}</dt><dd>{{ paie.get_classe_cp200_display }} – {{ paie.annees_experience }} {% trans "an(s) d'expérience" %}</dd>{% endif %}
+            <dt>{% trans "Régime de travail" %}</dt><dd>{{ paie.regime_travail|floatformat:"-2" }} %</dd>
+            <dt>{% trans "Situation familiale" %}</dt><dd>{{ paie.get_situation_familiale_display }}</dd>
+            <dt>{% trans "Enfants à charge" %}</dt><dd>{{ paie.nombre_enfants_charge }}{% if paie.nombre_enfants_handicapes %} ({% trans "dont handicapés" %} : {{ paie.nombre_enfants_handicapes }}){% endif %}</dd>
+            {% if paie.parent_isole %}<dt>{% trans "Parent isolé" %}</dt><dd>{% trans "Oui" %}</dd>{% endif %}
+            {% if paie.beneficiaire_handicape %}<dt>{% trans "Travailleur handicapé" %}</dt><dd>{% trans "Oui" %}</dd>{% endif %}
+            {% if paie.conjoint_handicape %}<dt>{% trans "Conjoint handicapé" %}</dt><dd>{% trans "Oui" %}</dd>{% endif %}
+        </dl>
+    </div>
+</div>
+
+<!-- ================= PRESTATIONS ================= -->
+<h2>{% trans "Prestations" %}</h2>
+<div class="grille">
+    <div>
+        <dl>
+            <dt>{% trans "Jours prestés" %}</dt><dd>{{ paie.nombre_jours_preste|default:"—" }}</dd>
+            <dt>{% trans "Heures prestées" %}</dt><dd>{{ paie.nombre_heures_preste|default:"—" }}</dd>
+        </dl>
+    </div>
+    <div>
+        <dl>
+            <dt>{% trans "Taux horaire brut" %}</dt><dd>{{ paie.salaire_brut_heure|default:0|floatformat:2 }} €/h</dd>
+            <dt>{% trans "Heures supplémentaires" %}</dt><dd>{{ paie.heures_supplementaires|floatformat:"-2" }} h{% if paie.heures_supplementaires %} (+{{ paie.majoration_heures_sup }} %){% endif %}</dd>
+        </dl>
+    </div>
+</div>
+
+<!-- ================= CALCUL ================= -->
+<h2>{% trans "Détail du calcul" %}</h2>
+{% if fiche %}
+<table class="calc">
+    <thead>
+        <tr>
+            <th>{% trans "Libellé" %}</th>
+            <th class="n">{% trans "Base" %}</th>
+            <th class="n">{% trans "Taux" %}</th>
+            <th class="n">{% trans "Montant" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for l in fiche.lignes %}
+        <tr class="{{ l.style }}">
+            <td>{{ l.libelle }}</td>
+            <td class="n">{% if l.base is not None %}{{ l.base|floatformat:2 }}{% endif %}</td>
+            <td class="n">{% if l.taux is not None %}{{ l.taux|floatformat:2 }} {{ l.unite_taux }}{% endif %}</td>
+            <td class="n {% if l.signe == '-' %}moins{% elif l.signe == '+' %}plus{% endif %}">
+                {% if l.montant is not None %}{% if l.signe == '-' %}− {% elif l.signe == '+' %}+ {% endif %}{{ l.montant|floatformat:2 }} €{% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div class="net">
+    <span>{% trans "Net à payer" %}</span>
+    <span>{{ fiche.net|floatformat:2 }} €</span>
+</div>
+{% if travailleur.numero_compte_bancaire %}
+    <p class="paiement">{% trans "Versé sur le compte" %} {{ travailleur.numero_compte_bancaire|format_iban }}{% if paie.date_paiement %} {% trans "le" %} {{ paie.date_paiement|date:"d/m/Y" }}{% endif %}.</p>
+{% endif %}
+{% else %}
+    <p>{% trans "Aucun salaire brut : la fiche ne peut pas être calculée." %}</p>
+{% endif %}
+
+<p class="note">
+    {% blocktrans %}Montants calculés selon les barèmes belges {{ annee_parametres }} (ONSS, précompte professionnel – formule-clé, cotisation spéciale de sécurité sociale, bonus à l'emploi). Le taux de précompte indiqué est le taux effectif sur la rémunération imposable.{% endblocktrans %}
+    <br>{% trans "Document généré le" %} {{ date_export|date:"d/m/Y H:i" }}.
+</p>
+
+</body>
+</html>

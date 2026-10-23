@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Facture d'instructeur" %}{% endblock %}
+{% block content %}
+<div class="p-6 max-w-6xl mx-auto">
+    {% if facture %}{% trans "Modifier la facture d'instructeur" as titre %}{% else %}{% trans "Nouvelle facture d'instructeur" as titre %}{% endif %}
+    {% include "compta/instructeurs/_entete.html" %}
+
+    <div class="bg-white shadow rounded p-4 mb-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+        <div><span class="text-gray-500">{% trans "Instructeur" %} :</span> <strong>{{ profil.nom_affiche }}</strong></div>
+        <div><span class="text-gray-500">{% trans "Numéro d'entreprise (BCE) / TVA" %} :</span> <strong>{{ profil.numero_entreprise }}</strong></div>
+        <div><span class="text-gray-500">{% trans "Régime TVA" %} :</span> <strong>{{ profil.get_regime_tva_display }}{% if profil.regime_tva == 'ASSUJETTI' %} – {{ profil.taux_tva|floatformat:"-2" }} %{% endif %}</strong></div>
+    </div>
+
+    <!-- Changer de période (recharge les locations) -->
+    <form method="get" class="flex flex-wrap items-end gap-3 mb-4">
+        {% if not facture %}<input type="hidden" name="instructeur" value="{{ instructeur.pk }}">{% endif %}
+        <div><label class="block text-sm font-semibold mb-1">{% trans "Période du" %}</label><input type="date" name="debut" value="{{ debut|date:'Y-m-d' }}" class="border rounded px-3 py-2"></div>
+        <div><label class="block text-sm font-semibold mb-1">{% trans "au" %}</label><input type="date" name="fin" value="{{ fin|date:'Y-m-d' }}" class="border rounded px-3 py-2"></div>
+        <button class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Afficher les locations de la période" %}</button>
+    </form>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="instructeur" value="{{ instructeur.pk }}">
+        <input type="hidden" name="enregistrer" value="1">
+        {% if form.non_field_errors %}<div class="bg-red-100 text-red-800 border border-red-300 p-4 rounded mb-4">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div>{% endif %}
+
+        <div class="bg-white shadow rounded p-6 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+                {% include "compta/_champs.html" %}
+            </div>
+        </div>
+
+        <h2 class="text-xl font-semibold mb-2">{% trans "Prestations – locations avec cet instructeur" %}</h2>
+        <p class="text-sm text-gray-500 mb-2">{% trans "Le prix / heure proposé est le tarif de l'instructeur (profil) ou, à défaut, le prix facturé au client HTVA. Seules les locations non encore facturées par l'instructeur sont proposées." %}</p>
+        <div class="overflow-x-auto bg-white shadow-md rounded-lg mb-6">
+        <table class="min-w-full table-auto border-collapse border border-gray-200" id="table-lignes">
+            <thead><tr class="bg-gray-100">
+                <th class="border px-3 py-2">{% trans "Inclure" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Date" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Location" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Heures" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Prix / heure HTVA" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Montant HTVA" %}</th>
+            </tr></thead>
+            <tbody>
+            {% for l in lignes %}
+                <tr class="ligne">
+                    <td class="border px-3 py-2 text-center"><input type="checkbox" name="loc_{{ l.location.pk }}_inclure" value="1" class="h-5 w-5 inclure" {% if l.coche %}checked{% endif %}></td>
+                    <td class="border px-3 py-2">{{ l.location.date_debut|date:"d/m/Y" }}</td>
+                    <td class="border px-3 py-2">{{ l.location.lieu }} – {{ l.location.voiture_exemplaire }}{% if l.location.locataire %}<span class="block text-xs text-gray-500">{{ l.location.locataire }}</span>{% endif %}</td>
+                    <td class="border px-3 py-2 text-right"><input type="number" step="0.25" min="0" name="loc_{{ l.location.pk }}_heures" value="{{ l.heures|stringformat:'s' }}" class="border rounded px-2 py-1 w-24 text-right heures"></td>
+                    <td class="border px-3 py-2 text-right"><input type="number" step="0.01" min="0" name="loc_{{ l.location.pk }}_prix" value="{{ l.prix|stringformat:'s' }}" class="border rounded px-2 py-1 w-28 text-right prix"></td>
+                    <td class="border px-3 py-2 text-right montant">—</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="6" class="text-center py-4 text-gray-500">{% trans "Aucune location non facturée pour cet instructeur sur la période." %}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+
+        <h2 class="text-xl font-semibold mb-2">{% trans "Autres prestations" %}</h2>
+        <div class="overflow-x-auto bg-white shadow-md rounded-lg mb-4">
+        <table class="min-w-full table-auto border-collapse border border-gray-200">
+            <thead><tr class="bg-gray-100">
+                <th class="border px-3 py-2 text-left">{% trans "Date" %}</th>
+                <th class="border px-3 py-2 text-left">{% trans "Description" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Heures / quantité" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Prix unitaire HTVA" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Montant HTVA" %}</th>
+            </tr></thead>
+            <tbody>
+            {% for l in libres %}
+                <tr class="ligne libre">
+                    <td class="border px-3 py-2"><input type="date" name="libre_{{ forloop.counter0 }}_date" value="{{ l.date|date:'Y-m-d' }}" class="border rounded px-2 py-1"></td>
+                    <td class="border px-3 py-2"><input type="text" name="libre_{{ forloop.counter0 }}_description" value="{{ l.description }}" maxlength="255" class="border rounded px-2 py-1 w-full description" placeholder="{% trans 'Ex. : briefing, coaching, déplacement…' %}"></td>
+                    <td class="border px-3 py-2 text-right"><input type="number" step="0.25" min="0" name="libre_{{ forloop.counter0 }}_heures" value="{{ l.heures|stringformat:'s' }}" class="border rounded px-2 py-1 w-24 text-right heures"></td>
+                    <td class="border px-3 py-2 text-right"><input type="number" step="0.01" min="0" name="libre_{{ forloop.counter0 }}_prix" value="{{ l.prix|stringformat:'s' }}" class="border rounded px-2 py-1 w-28 text-right prix"></td>
+                    <td class="border px-3 py-2 text-right montant">—</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+
+        <div class="bg-gray-50 border rounded p-4 mb-6 text-right space-y-1">
+            <div>{% trans "Total HTVA" %} : <strong id="total-htva">—</strong></div>
+            <div>{% trans "TVA" %} ({{ profil.taux_tva|floatformat:"-2" }} %) : <strong id="total-tva">—</strong></div>
+            <div class="text-lg">{% trans "Total TVAC" %} : <strong id="total-tvac">—</strong></div>
+        </div>
+
+        <div class="flex gap-3">
+            <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer le brouillon" %}</button>
+            <a href="{% if facture %}{% url 'compta:facture_instructeur_detail' facture.pk %}{% else %}{% url 'compta:factures_instructeurs' %}{% endif %}" class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+</div>
+<br>
+<script>
+(function () {
+    const taux = {% if profil.regime_tva == 'ASSUJETTI' %}{{ profil.taux_tva|stringformat:"s" }}{% else %}0{% endif %};
+    const num = v => { const x = parseFloat(String(v || "").replace(",", ".")); return isNaN(x) ? 0 : x; };
+    const fmt = v => v.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " €";
+    function maj() {
+        let total = 0;
+        document.querySelectorAll("tr.ligne").forEach(tr => {
+            const cb = tr.querySelector(".inclure");
+            const desc = tr.querySelector(".description");
+            const actif = cb ? cb.checked : (desc && desc.value.trim() !== "");
+            const m = Math.round(num(tr.querySelector(".heures").value) * num(tr.querySelector(".prix").value) * 100) / 100;
+            tr.querySelector(".montant").textContent = actif ? fmt(m) : "—";
+            tr.classList.toggle("opacity-50", !actif);
+            if (actif) total += m;
+        });
+        const tva = Math.round(total * taux) / 100;
+        document.getElementById("total-htva").textContent = fmt(total);
+        document.getElementById("total-tva").textContent = fmt(tva);
+        document.getElementById("total-tvac").textContent = fmt(total + tva);
+    }
+    document.addEventListener("input", maj);
+    document.addEventListener("change", maj);
+    maj();
+    // Facture reçue : le n° de l'instructeur n'est utile que hors autofacturation
+    const auto = document.getElementById("id_autofacturation");
+    const ref = document.getElementById("bloc-reference_instructeur");
+    function majRef() { if (ref && auto) ref.style.display = auto.checked ? "none" : ""; }
+    if (auto) auto.addEventListener("change", majRef);
+    majRef();
+})();
+</script>
+{% endblock %}

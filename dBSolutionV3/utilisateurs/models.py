@@ -770,6 +770,48 @@ class PaieUtilisateur(models.Model):
     # -------------------------
     # CALCUL
     # -------------------------
+    def _resultat_calcul(self):
+        """Appelle le moteur de calcul belge avec les paramètres de la paie."""
+        from datetime import date
+        from .paie_belgique import calculer_paie
+
+        voiture = None
+        if self.voiture_societe:
+            voiture = {
+                "valeur_catalogue": self.voiture_valeur_catalogue,
+                "co2": self.voiture_co2,
+                "carburant": self.voiture_carburant,
+                "date_immatriculation": self.voiture_date_immatriculation,
+                "commandee_apres_07_2023": self.voiture_commandee_apres_07_2023,
+                "contribution_personnelle": self.voiture_contribution_personnelle,
+            }
+
+        try:
+            date_paie = date(int(self.annee), int(self.mois), 1)
+        except (TypeError, ValueError):
+            date_paie = date.today()
+
+        return calculer_paie(
+            self.salaire_brut_mensuel,
+            statut=self.statut_travailleur,
+            taux_patronal=self.taux_charges_patronales,
+            situation_familiale=self.situation_familiale,
+            nombre_enfants=self.nombre_enfants_charge,
+            nombre_enfants_handicapes=self.nombre_enfants_handicapes,
+            parent_isole=self.parent_isole,
+            beneficiaire_handicape=self.beneficiaire_handicape,
+            conjoint_handicape=self.conjoint_handicape,
+            regime_travail=self.regime_travail,
+            taux_horaire=self.salaire_brut_heure,
+            heures_sup=self.heures_supplementaires,
+            majoration_heures_sup=self.majoration_heures_sup,
+            atn_autres=self.atn_autres,
+            voiture=voiture,
+            date_paie=date_paie,
+            double_pecule=self.double_pecule_ce_mois,
+            reduction_groupe_cible=self.reduction_groupe_cible,
+        )
+
     def calculer(self):
         """Calcule la paie complète (brut → net, coût employeur)."""
         from datetime import date
@@ -806,42 +848,7 @@ class PaieUtilisateur(models.Model):
                 self.salaire_brut_mensuel / (Decimal("164.67") * fraction)
             ).quantize(Decimal("0.01"))
 
-        voiture = None
-        if self.voiture_societe:
-            voiture = {
-                "valeur_catalogue": self.voiture_valeur_catalogue,
-                "co2": self.voiture_co2,
-                "carburant": self.voiture_carburant,
-                "date_immatriculation": self.voiture_date_immatriculation,
-                "commandee_apres_07_2023": self.voiture_commandee_apres_07_2023,
-                "contribution_personnelle": self.voiture_contribution_personnelle,
-            }
-
-        try:
-            date_paie = date(int(self.annee), int(self.mois), 1)
-        except (TypeError, ValueError):
-            date_paie = date.today()
-
-        r = calculer_paie(
-            self.salaire_brut_mensuel,
-            statut=self.statut_travailleur,
-            taux_patronal=self.taux_charges_patronales,
-            situation_familiale=self.situation_familiale,
-            nombre_enfants=self.nombre_enfants_charge,
-            nombre_enfants_handicapes=self.nombre_enfants_handicapes,
-            parent_isole=self.parent_isole,
-            beneficiaire_handicape=self.beneficiaire_handicape,
-            conjoint_handicape=self.conjoint_handicape,
-            regime_travail=self.regime_travail,
-            taux_horaire=self.salaire_brut_heure,
-            heures_sup=self.heures_supplementaires,
-            majoration_heures_sup=self.majoration_heures_sup,
-            atn_autres=self.atn_autres,
-            voiture=voiture,
-            date_paie=date_paie,
-            double_pecule=self.double_pecule_ce_mois,
-            reduction_groupe_cible=self.reduction_groupe_cible,
-        )
+        r = self._resultat_calcul()
 
         self.montant_heures_sup = r["montant_heures_sup"]
         self.salaire_brut_majore = r["brut_majore"]
@@ -870,6 +877,95 @@ class PaieUtilisateur(models.Model):
             r["brut_employeur"] + (self.conges_payes or Decimal("0"))
         ).quantize(Decimal("0.01"))
         return r
+
+    # -------------------------
+    # FICHE DE PAIE (PDF travailleur – sans coût employeur)
+    # -------------------------
+    def fiche_paie(self):
+        """Lignes détaillées de la fiche de paie (base, taux, montant), sans les charges patronales."""
+        from decimal import Decimal
+        from .paie_belgique import (TAUX_ONSS_TRAVAILLEUR, COEF_BRUT_MAJORE_OUVRIER,
+                                    REDUCTION_PP_HEURES_SUP, DOUBLE_PECULE_TAUX, DOUBLE_PECULE_PART_ONSS)
+        z = Decimal("0")
+        r = self._resultat_calcul() if self.salaire_brut_mensuel else None
+        if not r:
+            return None
+
+        def ligne(libelle, base=None, taux=None, montant=None, signe="", style="", unite_taux="%"):
+            return {"libelle": libelle, "base": base, "taux": taux, "unite_taux": unite_taux,
+                    "montant": montant, "signe": signe, "style": style}
+
+        maj = int(self.majoration_heures_sup or 50)
+        heures = self.nombre_heures_preste or z
+        lignes = []
+
+        # ---- Rémunération brute
+        lignes.append(ligne(_("Salaire de base"),
+                            base=heures if heures else None,
+                            taux=self.salaire_brut_heure, unite_taux="€/h",
+                            montant=r["brut_base"], signe="+"))
+        if r["montant_heures_sup"]:
+            lignes.append(ligne(_("Heures supplémentaires (majoration %(m)s %%)") % {"m": maj},
+                                base=self.heures_supplementaires,
+                                taux=((self.salaire_brut_heure or z) * (1 + Decimal(maj) / 100)).quantize(Decimal("0.01")),
+                                unite_taux="€/h", montant=r["montant_heures_sup"], signe="+"))
+        lignes.append(ligne(_("Rémunération brute"), montant=r["brut"], style="total"))
+
+        # ---- ONSS
+        if self.statut_travailleur == "ouvrier":
+            lignes.append(ligne(_("Brut soumis à l'ONSS (ouvrier : 108 %)"), base=r["brut"],
+                                taux=(COEF_BRUT_MAJORE_OUVRIER * 100).quantize(Decimal("0.01")),
+                                montant=r["brut_majore"], style="info"))
+        lignes.append(ligne(_("Cotisation ONSS personnelle"), base=r["brut_majore"],
+                            taux=TAUX_ONSS_TRAVAILLEUR, montant=r["onss_brut"], signe="-"))
+        if r["bonus_emploi"]:
+            lignes.append(ligne(_("Bonus à l'emploi (réduction ONSS)"), montant=r["bonus_emploi"], signe="+"))
+        lignes.append(ligne(_("Retenue ONSS nette"), montant=r["onss"], signe="-", style="sous-total"))
+
+        # ---- Avantages de toute nature
+        atn_autres = (r["atn_total"] - r["atn_voiture"])
+        if r["atn_voiture"]:
+            lignes.append(ligne(_("Avantage de toute nature – voiture de société"), montant=r["atn_voiture"], signe="+"))
+        if atn_autres:
+            lignes.append(ligne(_("Autres avantages de toute nature"), montant=atn_autres, signe="+"))
+
+        lignes.append(ligne(_("Rémunération imposable"), montant=r["imposable"], style="total"))
+
+        # ---- Précompte professionnel
+        if r["reduction_heures_sup"]:
+            lignes.append(ligne(_("Réduction de précompte – heures supplémentaires"),
+                                base=(self.heures_supplementaires or z) * (self.salaire_brut_heure or z),
+                                taux=(REDUCTION_PP_HEURES_SUP.get(maj, Decimal("0.5775")) * 100).quantize(Decimal("0.01")),
+                                montant=r["reduction_heures_sup"], style="info"))
+        lignes.append(ligne(_("Précompte professionnel"), base=r["imposable"],
+                            taux=r["taux_precompte"], montant=r["precompte"], signe="-"))
+
+        # ---- Cotisation spéciale de sécurité sociale
+        lignes.append(ligne(_("Cotisation spéciale de sécurité sociale"), base=r["brut_majore"],
+                            montant=r["csss"], signe="-"))
+
+        # ---- ATN (non payés en argent)
+        if r["atn_total"]:
+            lignes.append(ligne(_("Avantages de toute nature (non payés en argent)"), montant=r["atn_total"], signe="-"))
+
+        lignes.append(ligne(_("Net du salaire"), montant=(r["net"] - ((r["double_pecule"] or {}).get("net") or z)), style="total"))
+
+        # ---- Double pécule de vacances
+        pecule = r["double_pecule"]
+        if pecule:
+            brut_mensuel = (r["brut_base"])
+            lignes.append(ligne(_("Double pécule de vacances brut"), base=brut_mensuel,
+                                taux=(DOUBLE_PECULE_TAUX * 100).quantize(Decimal("0.01")), montant=pecule["brut"], signe="+"))
+            lignes.append(ligne(_("ONSS sur double pécule (sur %(p)s %% du brut mensuel)") % {"p": int(DOUBLE_PECULE_PART_ONSS * 100)},
+                                base=(brut_mensuel * DOUBLE_PECULE_PART_ONSS).quantize(Decimal("0.01")),
+                                taux=TAUX_ONSS_TRAVAILLEUR, montant=pecule["onss"], signe="-"))
+            base_pp = pecule["brut"] - pecule["onss"]
+            lignes.append(ligne(_("Précompte sur double pécule"), base=base_pp,
+                                taux=((pecule["precompte"] / base_pp * 100).quantize(Decimal("0.01")) if base_pp else None),
+                                montant=pecule["precompte"], signe="-"))
+            lignes.append(ligne(_("Double pécule net"), montant=pecule["net"], style="sous-total"))
+
+        return {"lignes": lignes, "net": r["net"], "resultat": r}
 
     # -------------------------
     # COMPTABILITÉ

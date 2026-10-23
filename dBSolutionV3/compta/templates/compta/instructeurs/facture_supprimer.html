@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="max-w-2xl mx-auto mt-10 mb-10 p-6 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-4 text-red-700">{% trans "Supprimer la facture d'instructeur" %}</h1>
+    <p class="mb-2"><strong>{{ facture.piece }}</strong> – {{ facture.instructeur.prenom }} {{ facture.instructeur.nom }} – {{ facture.montant_tvac|floatformat:2 }} €</p>
+    <p class="mb-6">{% trans "Les locations reprises redeviendront disponibles pour une autre facture. Cette action est irréversible." %}</p>
+    <form method="post" class="flex gap-4">
+        {% csrf_token %}
+        <button type="submit" class="w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold">{% trans "Supprimer" %}</button>
+        <a href="{% url 'compta:facture_instructeur_detail' facture.pk %}" class="block w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+    </form>
+</div>
+{% endblock %}

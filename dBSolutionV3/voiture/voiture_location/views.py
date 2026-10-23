@@ -55,8 +55,8 @@ def _queryset(request):
 
 
 def _peut_facturer(user):
-    from facture.views import ROLES_FACTURATION
-    return user.is_superuser or getattr(user, "role", None) in ROLES_FACTURATION
+    from facture.views import ROLES_FACTURATION, ROLES_FACTURATION_LOCATION
+    return user.is_superuser or getattr(user, "role", None) in (ROLES_FACTURATION + ROLES_FACTURATION_LOCATION)
 
 
 @never_cache

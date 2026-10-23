@@ -208,7 +208,7 @@
         </a>
     {% endif %}
 
-    <a href="{% url 'facture:maintenances' %}"
+    <a href="{% if vendeur_locations %}{% url 'facture:liste' %}{% else %}{% url 'facture:maintenances' %}{% endif %}"
        class="block w-full bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
         {% trans "Retour à la facturation" %}
     </a>

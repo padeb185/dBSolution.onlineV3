@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from . import views, views_instructeur as vi
 
 app_name = "compta"
 
@@ -14,4 +14,17 @@ urlpatterns = [
     path("mouvements/<uuid:pk>/modifier/", views.mouvement_modifier, name="mouvement_modifier"),
     path("mouvements/<uuid:pk>/supprimer/", views.mouvement_supprimer, name="mouvement_supprimer"),
     path("virement/", views.virement_interne, name="virement_interne"),
+
+    # Instructeurs indépendants (factures d'achat / autofacturation)
+    path("instructeurs/", vi.instructeurs_liste, name="instructeurs_liste"),
+    path("instructeurs/<uuid:utilisateur_id>/profil/", vi.profil_instructeur, name="profil_instructeur"),
+    path("instructeurs/factures/", vi.factures_instructeurs, name="factures_instructeurs"),
+    path("instructeurs/factures/creer/", vi.facture_instructeur_creer, name="facture_instructeur_creer"),
+    path("instructeurs/factures/<uuid:pk>/", vi.facture_instructeur_detail, name="facture_instructeur_detail"),
+    path("instructeurs/factures/<uuid:pk>/modifier/", vi.facture_instructeur_modifier, name="facture_instructeur_modifier"),
+    path("instructeurs/factures/<uuid:pk>/emettre/", vi.facture_instructeur_emettre, name="facture_instructeur_emettre"),
+    path("instructeurs/factures/<uuid:pk>/payer/", vi.facture_instructeur_payer, name="facture_instructeur_payer"),
+    path("instructeurs/factures/<uuid:pk>/annuler-paiement/", vi.facture_instructeur_annuler_paiement, name="facture_instructeur_annuler_paiement"),
+    path("instructeurs/factures/<uuid:pk>/supprimer/", vi.facture_instructeur_supprimer, name="facture_instructeur_supprimer"),
+    path("instructeurs/factures/<uuid:pk>/pdf/", vi.facture_instructeur_pdf, name="facture_instructeur_pdf"),
 ]

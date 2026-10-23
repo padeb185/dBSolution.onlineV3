@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Instructeurs indépendants" %}{% endblock %}
+{% block content %}
+<div class="p-6">
+{% trans "Instructeurs indépendants" as titre %}
+{% include "compta/instructeurs/_entete.html" %}
+
+<p class="text-sm bg-blue-50 border border-blue-200 rounded p-3 mb-6">
+    {% trans "Un instructeur indépendant (rôle « Instructeur Externe ») facture ses heures à l'entreprise. Avec un accord écrit, l'entreprise peut établir la facture en son nom (autofacturation). Complétez son profil d'entreprise avant de créer une facture." %}
+</p>
+
+<div class="overflow-x-auto bg-white shadow-md rounded-lg">
+<table class="min-w-full table-auto border-collapse border border-gray-200">
+    <thead><tr class="bg-gray-100">
+        <th class="border px-4 py-2 text-left">{% trans "Instructeur" %}</th>
+        <th class="border px-4 py-2 text-left">{% trans "Numéro d'entreprise (BCE) / TVA" %}</th>
+        <th class="border px-4 py-2 text-left">{% trans "Régime TVA" %}</th>
+        <th class="border px-4 py-2 text-center">{% trans "Autofacturation" %}</th>
+        <th class="border px-4 py-2 text-right">{% trans "Heures non facturées" %}</th>
+        <th class="border px-4 py-2 text-right">{% trans "Montant estimé HTVA" %}</th>
+        <th class="border px-4 py-2 text-right">{% trans "À payer" %}</th>
+        <th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>
+    </tr></thead>
+    <tbody>
+    {% for l in lignes %}
+        <tr>
+            <td class="border px-4 py-2 font-semibold">{% if l.profil %}{{ l.profil.nom_affiche }}{% else %}{{ l.utilisateur.prenom }} {{ l.utilisateur.nom }}{% endif %}</td>
+            <td class="border px-4 py-2">{% if l.profil %}{{ l.profil.numero_entreprise }}{% else %}<span class="text-red-700 font-semibold">{% trans "Profil à compléter" %}</span>{% endif %}</td>
+            <td class="border px-4 py-2">{% if l.profil %}{{ l.profil.get_regime_tva_display }}{% if l.profil.regime_tva == 'ASSUJETTI' %} ({{ l.profil.taux_tva|floatformat:"-2" }} %){% endif %}{% else %}—{% endif %}</td>
+            <td class="border px-4 py-2 text-center">
+                {% if l.profil.autofacturation_possible %}<span class="text-green-700 font-semibold">{% trans "Oui" %}</span>
+                <span class="block text-xs text-gray-500">{% trans "accord du" %} {{ l.profil.date_accord_autofacturation|date:"d/m/Y" }}</span>
+                {% else %}<span class="text-gray-500">{% trans "Non" %}</span>{% endif %}
+            </td>
+            <td class="border px-4 py-2 text-right">{{ l.heures_a_facturer|floatformat:"-2" }} h <span class="text-xs text-gray-500">({{ l.nb_a_facturer }})</span></td>
+            <td class="border px-4 py-2 text-right">{{ l.montant_a_facturer|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right {% if l.a_payer %}text-red-700 font-semibold{% endif %}">{{ l.a_payer|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-center whitespace-nowrap">
+                <a href="{% url 'compta:profil_instructeur' l.utilisateur.pk %}" class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">{% trans "Profil" %}</a>
+                {% if l.profil %}
+                <a href="{% url 'compta:facture_instructeur_creer' %}?instructeur={{ l.utilisateur.pk }}" class="bg-blue-700 hover:bg-blue-400 text-white px-3 py-1 rounded">{% trans "Facturer" %}</a>
+                {% endif %}
+                <a href="{% url 'compta:factures_instructeurs' %}?instructeur={{ l.utilisateur.pk }}" class="bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">{% trans "Factures" %}</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="8" class="text-center py-6 text-gray-500">{% trans "Aucun instructeur indépendant. Créez un utilisateur avec le rôle « Instructeur Externe »." %}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+{% endblock %}

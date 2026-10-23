@@ -1,0 +1,134 @@
+{% load i18n static format_numbers %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'fr' }}">
+<head>
+<meta charset="utf-8">
+<title>{% if facture.autofacturation %}{% trans "Autofacture" %}{% else %}{% trans "Récapitulatif des prestations" %}{% endif %} {{ facture.piece }}</title>
+<style>
+    @page { size: A4; margin: 14mm 12mm 18mm 12mm;
+        @bottom-center { content: "{% trans 'Page' %} " counter(page) " / " counter(pages); font-size: 8pt; color: #6b7280; } }
+    body { font-family: "DejaVu Sans", Arial, sans-serif; font-size: 9pt; color: #111827; }
+    h1 { font-size: 17pt; margin: 0; color: #1e3a8a; }
+    .sous-titre { color: #6b21a8; font-weight: bold; margin: 1mm 0 4mm 0; }
+    .parties { width: 100%; border-collapse: separate; border-spacing: 4mm 0; margin: 0 -4mm 4mm -4mm; }
+    .parties td { width: 50%; vertical-align: top; border: 1px solid #d1d5db; border-radius: 3px; padding: 3mm; line-height: 1.4; }
+    .parties .titre { font-size: 8pt; text-transform: uppercase; color: #6b7280; font-weight: bold; margin-bottom: 1mm; }
+    .parties .nom { font-size: 11pt; font-weight: bold; }
+    .infos { width: 100%; border-collapse: collapse; margin-bottom: 4mm; }
+    .infos td { padding: 1.5mm 2mm; border: 1px solid #e5e7eb; }
+    .infos td.l { background: #f3f4f6; color: #374151; width: 22%; }
+    table.lignes { width: 100%; border-collapse: collapse; }
+    table.lignes th { background: #1e3a8a; color: white; padding: 2mm; text-align: left; font-size: 8.5pt; }
+    table.lignes td { padding: 1.8mm 2mm; border-bottom: 1px solid #e5e7eb; }
+    .n { text-align: right; white-space: nowrap; }
+    .totaux { width: 45%; margin-left: 55%; border-collapse: collapse; margin-top: 3mm; }
+    .totaux td { padding: 1.8mm 2mm; border-bottom: 1px solid #e5e7eb; }
+    .totaux tr.tvac td { font-weight: bold; font-size: 11pt; background: #1e3a8a; color: white; }
+    .mention { margin-top: 4mm; padding: 2.5mm 3mm; border: 1px solid #c4b5fd; background: #f5f3ff; border-radius: 3px; font-size: 8.5pt; }
+    .tva { margin-top: 2mm; font-weight: bold; }
+    .paiement { margin-top: 4mm; font-size: 8.5pt; }
+    .acceptation { margin-top: 8mm; width: 100%; border-collapse: collapse; }
+    .acceptation td { width: 50%; padding: 2mm; vertical-align: top; font-size: 8.5pt; }
+    .signature { height: 18mm; border-bottom: 1px dotted #6b7280; }
+</style>
+</head>
+<body>
+
+{% if facture.autofacturation %}
+    <h1>{% trans "AUTOFACTURE" %}{% if facture.numero %} {{ facture.numero }}{% endif %}</h1>
+    <div class="sous-titre">{% trans "Facture établie par le client au nom et pour le compte du fournisseur" %}</div>
+{% else %}
+    <h1>{% trans "Récapitulatif des prestations" %}</h1>
+    <div class="sous-titre">{% trans "Facture de l'instructeur n°" %} {{ facture.reference_instructeur|default:"—" }}</div>
+{% endif %}
+
+<table class="parties">
+    <tr>
+        <td>
+            <div class="titre">{% trans "Fournisseur (prestataire)" %}</div>
+            <div class="nom">{% if profil.nom_commercial %}{{ profil.nom_commercial }}{% else %}{{ instructeur.prenom }} {{ instructeur.nom }}{% endif %}</div>
+            {% if profil.nom_commercial %}<div>{{ instructeur.prenom }} {{ instructeur.nom }}</div>{% endif %}
+            {% if instructeur.adresse %}
+                <div>{{ instructeur.adresse.rue }} {{ instructeur.adresse.numero }}{% if instructeur.adresse.boite %} / {{ instructeur.adresse.boite }}{% endif %}</div>
+                <div>{{ instructeur.adresse.code_postal }} {{ instructeur.adresse.ville }}{% if instructeur.adresse.pays %} – {{ instructeur.adresse.pays }}{% endif %}</div>
+            {% endif %}
+            <div>{% trans "N° d'entreprise / TVA" %} : <strong>{{ profil.numero_entreprise|default:"—" }}</strong></div>
+            {% if profil.iban_paiement %}<div>{% trans "IBAN" %} : {{ profil.iban_paiement|format_iban }}</div>{% endif %}
+        </td>
+        <td>
+            <div class="titre">{% trans "Client (émetteur de l'autofacture)" as t1 %}{% trans "Client" as t2 %}{% if facture.autofacturation %}{{ t1 }}{% else %}{{ t2 }}{% endif %}</div>
+            <div class="nom">{{ societe.nom }}</div>
+            {% if societe.adresse %}
+                <div>{{ societe.adresse.rue }} {{ societe.adresse.numero }}{% if societe.adresse.boite %} / {{ societe.adresse.boite }}{% endif %}</div>
+                <div>{{ societe.adresse.code_postal }} {{ societe.adresse.ville }}{% if societe.adresse.pays %} – {{ societe.adresse.pays }}{% endif %}</div>
+            {% endif %}
+            {% if societe.numero_tva %}<div>{% trans "N° d'entreprise / TVA" %} : <strong>{{ societe.numero_tva }}</strong></div>{% endif %}
+        </td>
+    </tr>
+</table>
+
+<table class="infos">
+    <tr>
+        <td class="l">{% trans "Numéro" %}</td><td><strong>{{ facture.numero|default:facture.reference_instructeur|default:_("Brouillon") }}</strong></td>
+        <td class="l">{% trans "Date de facture" %}</td><td>{{ facture.date_facture|date:"d/m/Y" }}</td>
+    </tr>
+    <tr>
+        <td class="l">{% trans "Période" %}</td><td>{{ facture.periode_debut|date:"d/m/Y" }} – {{ facture.periode_fin|date:"d/m/Y" }}</td>
+        <td class="l">{% trans "Échéance" %}</td><td>{{ facture.date_echeance|date:"d/m/Y"|default:"—" }}</td>
+    </tr>
+</table>
+
+<table class="lignes">
+    <thead><tr>
+        <th>{% trans "Date" %}</th>
+        <th>{% trans "Description" %}</th>
+        <th class="n">{% trans "Heures" %}</th>
+        <th class="n">{% trans "Prix / heure HTVA" %}</th>
+        <th class="n">{% trans "Montant HTVA" %}</th>
+    </tr></thead>
+    <tbody>
+    {% for l in lignes %}
+        <tr>
+            <td>{{ l.date|date:"d/m/Y"|default:"" }}</td>
+            <td>{{ l.description }}</td>
+            <td class="n">{{ l.heures|floatformat:"-2" }}</td>
+            <td class="n">{{ l.prix_heure_htva|floatformat:2 }} €</td>
+            <td class="n">{{ l.montant_htva|floatformat:2 }} €</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<table class="totaux">
+    <tr><td>{% trans "Total HTVA" %}</td><td class="n">{{ facture.montant_htva|floatformat:2 }} €</td></tr>
+    <tr><td>{% trans "TVA" %}{% if facture.regime_tva == 'ASSUJETTI' %} {{ facture.taux_tva|floatformat:"-2" }} %{% endif %}</td><td class="n">{{ facture.montant_tva|floatformat:2 }} €</td></tr>
+    <tr class="tvac"><td>{% trans "Total à payer" %}</td><td class="n">{{ facture.montant_tvac|floatformat:2 }} €</td></tr>
+</table>
+
+{% if facture.mention_tva %}<p class="tva">{{ facture.mention_tva }}</p>{% endif %}
+
+{% if facture.autofacturation %}
+<div class="mention">
+    <strong>{% trans "Autofacturation" %}</strong> —
+    {% blocktrans with date_accord=profil.date_accord_autofacturation|date:"d/m/Y" %}Facture établie par le client conformément à l'accord d'autofacturation conclu par écrit avec le fournisseur le {{ date_accord }}. Chaque autofacture est soumise à l'acceptation du fournisseur selon la procédure prévue dans cet accord.{% endblocktrans %}
+</div>
+{% endif %}
+
+<p class="paiement">
+    {% if facture.date_paiement %}
+        {% trans "Payée le" %} {{ facture.date_paiement|date:"d/m/Y" }}{% if profil.iban_paiement %} {% trans "sur le compte" %} {{ profil.iban_paiement|format_iban }}{% endif %}.
+    {% elif profil.iban_paiement %}
+        {% trans "Paiement par virement sur le compte" %} {{ profil.iban_paiement|format_iban }}{% if facture.date_echeance %} {% trans "au plus tard le" %} {{ facture.date_echeance|date:"d/m/Y" }}{% endif %}.
+    {% endif %}
+</p>
+
+{% if facture.autofacturation %}
+<table class="acceptation">
+    <tr>
+        <td>{% trans "Pour le client" %} – {{ societe.nom }}<div class="signature"></div></td>
+        <td>{% trans "Acceptation du fournisseur" %} – {% if profil.nom_commercial %}{{ profil.nom_commercial }}{% else %}{{ instructeur.prenom }} {{ instructeur.nom }}{% endif %}<div class="signature"></div></td>
+    </tr>
+</table>
+{% endif %}
+
+</body>
+</html>

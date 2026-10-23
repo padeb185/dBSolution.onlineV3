@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Factures d'instructeurs" %}{% endblock %}
+{% block content %}
+<div class="p-6">
+{% trans "Factures d'instructeurs" as titre %}
+{% include "compta/instructeurs/_entete.html" %}
+
+<form method="get" class="flex flex-wrap gap-3 items-end mb-4">
+    <div>
+        <label class="block text-sm font-semibold mb-1">{% trans "Instructeur" %}</label>
+        <select name="instructeur" class="border rounded px-3 py-2">
+            <option value="">{% trans "Tous" %}</option>
+            {% for u in instructeurs %}<option value="{{ u.pk }}" {% if instructeur_id == u.pk|stringformat:"s" %}selected{% endif %}>{{ u.prenom }} {{ u.nom }}</option>{% endfor %}
+        </select>
+    </div>
+    <div>
+        <label class="block text-sm font-semibold mb-1">{% trans "Statut" %}</label>
+        <select name="statut" class="border rounded px-3 py-2">
+            <option value="">{% trans "Tous" %}</option>
+            {% for v, l in statuts %}<option value="{{ v }}" {% if statut == v %}selected{% endif %}>{{ l }}</option>{% endfor %}
+        </select>
+    </div>
+    <button class="bg-blue-700 text-white px-4 py-2 rounded font-semibold">{% trans "Filtrer" %}</button>
+</form>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Total HTVA" %}</p><p class="text-xl font-bold">{{ total_htva|floatformat:2 }} €</p></div>
+    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Total TVAC" %}</p><p class="text-xl font-bold">{{ total_tvac|floatformat:2 }} €</p></div>
+    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "À payer" %}</p><p class="text-xl font-bold text-red-700">{{ total_a_payer|floatformat:2 }} €</p></div>
+</div>
+
+<div class="overflow-x-auto bg-white shadow-md rounded-lg">
+<table class="min-w-full table-auto border-collapse border border-gray-200">
+    <thead><tr class="bg-gray-100">
+        <th class="border px-4 py-2 text-left">{% trans "Numéro" %}</th>
+        <th class="border px-4 py-2 text-left">{% trans "Date" %}</th>
+        <th class="border px-4 py-2 text-left">{% trans "Instructeur" %}</th>
+        <th class="border px-4 py-2 text-left">{% trans "Période" %}</th>
+        <th class="border px-4 py-2 text-right">{% trans "HTVA" %}</th>
+        <th class="border px-4 py-2 text-right">{% trans "TVAC" %}</th>
+        <th class="border px-4 py-2 text-left">{% trans "Statut" %}</th>
+        <th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>
+    </tr></thead>
+    <tbody>
+    {% for f in factures %}
+        <tr>
+            <td class="border px-4 py-2 font-semibold">{{ f.piece }}{% if f.autofacturation %} <span class="text-xs bg-purple-100 text-purple-800 px-1 rounded">{% trans "Autofacture" %}</span>{% endif %}</td>
+            <td class="border px-4 py-2">{{ f.date_facture|date:"d/m/Y" }}</td>
+            <td class="border px-4 py-2">{{ f.instructeur.prenom }} {{ f.instructeur.nom }}</td>
+            <td class="border px-4 py-2">{{ f.periode_debut|date:"d/m/Y" }} – {{ f.periode_fin|date:"d/m/Y" }}</td>
+            <td class="border px-4 py-2 text-right">{{ f.montant_htva|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right font-semibold">{{ f.montant_tvac|floatformat:2 }} €</td>
+            <td class="border px-4 py-2">
+                <span class="px-2 py-1 rounded text-sm font-semibold {% if f.statut == 'PAYEE' %}bg-green-100 text-green-800{% elif f.statut == 'EMISE' %}bg-yellow-100 text-yellow-800{% else %}bg-gray-100 text-gray-700{% endif %}">{{ f.get_statut_display }}</span>
+            </td>
+            <td class="border px-4 py-2 text-center whitespace-nowrap">
+                <a href="{% url 'compta:facture_instructeur_detail' f.pk %}" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">{% trans "Info" %}</a>
+                <a href="{% url 'compta:facture_instructeur_pdf' f.pk %}" target="_blank" class="bg-purple-700 text-white px-3 py-1 rounded hover:bg-purple-500">PDF</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="8" class="text-center py-6 text-gray-500">{% trans "Aucune facture d'instructeur." %}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+</div>
+{% endblock %}

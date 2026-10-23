@@ -51,6 +51,22 @@ def _peut(user, roles):
     return user.is_superuser or getattr(user, "role", None) in roles
 
 
+# Le vendeur a accès aux factures des locations (consultation, émission, encaissement)
+ROLES_FACTURATION_LOCATION = ["vendeur"]
+
+
+def _vendeur_locations(user):
+    """Vrai si l'utilisateur n'a accès qu'aux factures des locations."""
+    return not _peut(user, ROLES_FACTURATION) and _peut(user, ROLES_FACTURATION_LOCATION)
+
+
+def _peut_facture(user, facture):
+    """Accès à une facture : rôles de facturation, ou vendeur pour une facture de location."""
+    if _peut(user, ROLES_FACTURATION):
+        return True
+    return _vendeur_locations(user) and facture.locations.exists()
+
+
 def _refuser(request):
     messages.error(request, _("Accès refusé"))
     return redirect("utilisateurs:dashboard")
@@ -204,17 +220,21 @@ def creer_facture_diagnostic_view(request, diagnostic_id):
 @never_cache
 @login_required
 def facture_list_view(request):
-    if not _peut(request.user, ROLES_FACTURATION):
+    vendeur = _vendeur_locations(request.user)
+    if not (_peut(request.user, ROLES_FACTURATION) or vendeur):
         return _refuser(request)
 
     factures = _factures(request).select_related(
         "client_particulier", "client_atelier__client_particulier", "societe_cliente", "voiture_exemplaire"
     )
+    if vendeur:
+        factures = factures.filter(locations__isnull=False).distinct()
     return render(request, "facture/facture_list.html", {
         "factures": factures,
         "types_facture": Facture.TypeFacture.choices,
         "statuts": Facture.Statut.choices,
         "statuts_paiement": Facture.StatutPaiement.choices,
+        "vendeur_locations": vendeur,
     })
 
 
@@ -224,10 +244,14 @@ def facture_list_view(request):
 @never_cache
 @login_required
 def facture_modifier_view(request, pk):
-    if not _peut(request.user, ROLES_FACTURATION):
+    if not (_peut(request.user, ROLES_FACTURATION) or _vendeur_locations(request.user)):
         return _refuser(request)
 
     facture = _get_facture(request, pk)
+
+    if not _peut_facture(request.user, facture):
+
+        return _refuser(request)
     if not facture.est_brouillon:
         messages.info(request, _("Cette facture est émise : elle ne peut plus être modifiée."))
         return redirect("facture:detail", pk=facture.pk)
@@ -301,6 +325,7 @@ def facture_modifier_view(request, pk):
         "groupes_tva": facture.totaux_par_taux(),
         "marge_totale": sum((l.marge_montant for l in facture.lines.all()), 0),
         "peut_supprimer": _peut(request.user, ROLES_SUPPRESSION),
+        "vendeur_locations": _vendeur_locations(request.user),
     })
 
 
@@ -310,10 +335,14 @@ def facture_modifier_view(request, pk):
 @never_cache
 @login_required
 def facture_detail_view(request, pk):
-    if not _peut(request.user, ROLES_FACTURATION):
+    if not (_peut(request.user, ROLES_FACTURATION) or _vendeur_locations(request.user)):
         return _refuser(request)
 
     facture = _get_facture(request, pk)
+
+    if not _peut_facture(request.user, facture):
+
+        return _refuser(request)
     if facture.est_brouillon:
         return redirect("facture:modifier", pk=facture.pk)
 
@@ -325,6 +354,7 @@ def facture_detail_view(request, pk):
         "peppol_configure": _peppol_configure(request),
         "parametres_peppol": ParametresPeppol.pour_societe(request.user.societe),
         "peut_parametrer": _peut(request.user, ROLES_PARAMETRES),
+        "vendeur_locations": _vendeur_locations(request.user),
         **_contexte_paiement(facture),
     })
 
@@ -349,12 +379,16 @@ def _contexte_paiement(facture):
 # -----------------------------
 @login_required
 def facture_pdf_view(request, pk):
-    if not _peut(request.user, ROLES_FACTURATION):
+    if not (_peut(request.user, ROLES_FACTURATION) or _vendeur_locations(request.user)):
         return _refuser(request)
 
     from weasyprint import HTML
 
     facture = _get_facture(request, pk)
+
+    if not _peut_facture(request.user, facture):
+
+        return _refuser(request)
     html_string = render_to_string("facture/facture_pdf.html", {
         "facture": facture,
         "lignes": facture.lines.all(),
@@ -376,10 +410,14 @@ def facture_pdf_view(request, pk):
 # -----------------------------
 @login_required
 def facture_xml_view(request, pk):
-    if not _peut(request.user, ROLES_FACTURATION):
+    if not (_peut(request.user, ROLES_FACTURATION) or _vendeur_locations(request.user)):
         return _refuser(request)
 
     facture = _get_facture(request, pk)
+
+    if not _peut_facture(request.user, facture):
+
+        return _refuser(request)
     if not facture.est_pro or not facture.est_emise:
         messages.error(request, _("Le XML n'est disponible que pour une facture professionnelle émise."))
         return redirect("facture:detail", pk=facture.pk)
@@ -429,10 +467,14 @@ def _envoyer_peppol(request, facture, parametres):
 @login_required
 @require_POST
 def facture_envoyer_peppol_view(request, pk):
-    if not _peut(request.user, ROLES_FACTURATION):
+    if not (_peut(request.user, ROLES_FACTURATION) or _vendeur_locations(request.user)):
         return _refuser(request)
 
     facture = _get_facture(request, pk)
+
+    if not _peut_facture(request.user, facture):
+
+        return _refuser(request)
     if not facture.est_pro or not facture.est_emise or not facture.xml_ubl:
         messages.error(request, _("Seule une facture professionnelle émise peut être envoyée via Peppol."))
         return redirect("facture:detail", pk=facture.pk)
@@ -755,10 +797,14 @@ def facture_paiement_view(request, pk):
     from .models import PaiementFacture
     from .paiements import depasse_plafond, plafond_especes
 
-    if not _peut(request.user, ROLES_FACTURATION):
+    if not (_peut(request.user, ROLES_FACTURATION) or _vendeur_locations(request.user)):
         return _refuser(request)
 
     facture = _get_facture(request, pk)
+
+    if not _peut_facture(request.user, facture):
+
+        return _refuser(request)
     if not facture.est_emise:
         messages.error(request, _("Le paiement ne peut être enregistré que sur une facture émise."))
         return redirect("facture:detail", pk=facture.pk)

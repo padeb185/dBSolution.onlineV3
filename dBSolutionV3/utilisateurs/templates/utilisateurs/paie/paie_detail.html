@@ -8,7 +8,7 @@
 <div class="max-w-4xl mx-auto">
 
     <h1 class="text-2xl font-bold mb-2 flex items-center gap-4">
-        <img src="{% static 'icons/equipe.png' %}" alt="" class="w-16 h-16">
+        <img src="{% static 'icons/paie.png' %}" alt="" class="w-16 h-16">
         <span>{% trans "Paie" %} {{ mois_nom }} {{ paie.annee }}</span>
     </h1>
     <p class="text-gray-600 mb-6">
@@ -98,6 +98,12 @@
     <p class="text-xs text-gray-500 mb-6">
         {% trans "Les montants sont des estimations calculées selon les barèmes belges 2026." %}
     </p>
+
+    <!-- Fiche de paie PDF -->
+    <a href="{% url 'utilisateurs:paie_pdf' paie.pk %}" target="_blank"
+       class="block w-full bg-purple-700 text-white px-4 py-3 rounded hover:bg-purple-500 font-semibold text-center mb-3">
+        {% trans "Fiche de paie PDF" %}
+    </a>
 
     <!-- Actions -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">

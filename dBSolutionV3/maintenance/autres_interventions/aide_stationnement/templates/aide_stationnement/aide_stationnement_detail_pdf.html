@@ -398,7 +398,7 @@
                 <td>
                     {% if aide_stationnement.capteurs_av == "OK" %}<span class="ok">{{ aide_stationnement.get_capteurs_av_display }}</span>
                     {% elif aide_stationnement.capteurs_av == "NOT_OK" %}<span class="not-ok">{{ aide_stationnement.get_capteurs_av_display }}</span>
-                    {% elif aide_stationnement.capteurs_av == "REMPLACE" %}<span class="remplace">{{ aide_stationnement.get_capteurs_av_display }}</span>
+                    {% elif aide_stationnement.capteurs_av == "REMPLACE" or aide_stationnement.capteurs_av == "AJOUTER" %}<span class="remplace">{{ aide_stationnement.get_capteurs_av_display }}</span>
                     {% else %}<span>{{ aide_stationnement.get_capteurs_av_display }}</span>{% endif %}
                     {% if aide_stationnement.capteurs_av_fabricant and aide_stationnement.capteurs_av_fabricant != "CHOISIR" %} — {{ aide_stationnement.get_capteurs_av_fabricant_display }}{% endif %}
                 </td>
@@ -408,7 +408,7 @@
                 <td>
                     {% if aide_stationnement.capteurs_ar == "OK" %}<span class="ok">{{ aide_stationnement.get_capteurs_ar_display }}</span>
                     {% elif aide_stationnement.capteurs_ar == "NOT_OK" %}<span class="not-ok">{{ aide_stationnement.get_capteurs_ar_display }}</span>
-                    {% elif aide_stationnement.capteurs_ar == "REMPLACE" %}<span class="remplace">{{ aide_stationnement.get_capteurs_ar_display }}</span>
+                    {% elif aide_stationnement.capteurs_ar == "REMPLACE" or aide_stationnement.capteurs_ar == "AJOUTER" %}<span class="remplace">{{ aide_stationnement.get_capteurs_ar_display }}</span>
                     {% else %}<span>{{ aide_stationnement.get_capteurs_ar_display }}</span>{% endif %}
                     {% if aide_stationnement.capteurs_ar_fabricant and aide_stationnement.capteurs_ar_fabricant != "CHOISIR" %} — {{ aide_stationnement.get_capteurs_ar_fabricant_display }}{% endif %}
                 </td>
@@ -419,7 +419,7 @@
                 <td>
                     {% if aide_stationnement.capteurs_lateraux == "OK" %}<span class="ok">{{ aide_stationnement.get_capteurs_lateraux_display }}</span>
                     {% elif aide_stationnement.capteurs_lateraux == "NOT_OK" %}<span class="not-ok">{{ aide_stationnement.get_capteurs_lateraux_display }}</span>
-                    {% elif aide_stationnement.capteurs_lateraux == "REMPLACE" %}<span class="remplace">{{ aide_stationnement.get_capteurs_lateraux_display }}</span>
+                    {% elif aide_stationnement.capteurs_lateraux == "REMPLACE" or aide_stationnement.capteurs_lateraux == "AJOUTER" %}<span class="remplace">{{ aide_stationnement.get_capteurs_lateraux_display }}</span>
                     {% else %}<span>{{ aide_stationnement.get_capteurs_lateraux_display }}</span>{% endif %}
                     {% if aide_stationnement.capteurs_lateraux_fabricant and aide_stationnement.capteurs_lateraux_fabricant != "CHOISIR" %} — {{ aide_stationnement.get_capteurs_lateraux_fabricant_display }}{% endif %}
                 </td>
@@ -430,7 +430,7 @@
                 <td>
                     {% if aide_stationnement.supports_capteurs == "OK" %}<span class="ok">{{ aide_stationnement.get_supports_capteurs_display }}</span>
                     {% elif aide_stationnement.supports_capteurs == "NOT_OK" %}<span class="not-ok">{{ aide_stationnement.get_supports_capteurs_display }}</span>
-                    {% elif aide_stationnement.supports_capteurs == "REMPLACE" %}<span class="remplace">{{ aide_stationnement.get_supports_capteurs_display }}</span>
+                    {% elif aide_stationnement.supports_capteurs == "REMPLACE" or aide_stationnement.supports_capteurs == "AJOUTER" %}<span class="remplace">{{ aide_stationnement.get_supports_capteurs_display }}</span>
                     {% else %}<span>{{ aide_stationnement.get_supports_capteurs_display }}</span>{% endif %}
                     {% if aide_stationnement.supports_capteurs_fabricant and aide_stationnement.supports_capteurs_fabricant != "CHOISIR" %} — {{ aide_stationnement.get_supports_capteurs_fabricant_display }}{% endif %}
                 </td>
@@ -440,7 +440,7 @@
                 <td>
                     {% if aide_stationnement.calculateur_stationnement == "OK" %}<span class="ok">{{ aide_stationnement.get_calculateur_stationnement_display }}</span>
                     {% elif aide_stationnement.calculateur_stationnement == "NOT_OK" %}<span class="not-ok">{{ aide_stationnement.get_calculateur_stationnement_display }}</span>
-                    {% elif aide_stationnement.calculateur_stationnement == "REMPLACE" %}<span class="remplace">{{ aide_stationnement.get_calculateur_stationnement_display }}</span>
+                    {% elif aide_stationnement.calculateur_stationnement == "REMPLACE" or aide_stationnement.calculateur_stationnement == "AJOUTER" %}<span class="remplace">{{ aide_stationnement.get_calculateur_stationnement_display }}</span>
                     {% else %}<span>{{ aide_stationnement.get_calculateur_stationnement_display }}</span>{% endif %}
                     {% if aide_stationnement.calculateur_stationnement_fabricant and aide_stationnement.calculateur_stationnement_fabricant != "CHOISIR" %} — {{ aide_stationnement.get_calculateur_stationnement_fabricant_display }}{% endif %}
                 </td>
@@ -450,7 +450,7 @@
                 <td>
                     {% if aide_stationnement.faisceau_stationnement == "OK" %}<span class="ok">{{ aide_stationnement.get_faisceau_stationnement_display }}</span>
                     {% elif aide_stationnement.faisceau_stationnement == "NOT_OK" %}<span class="not-ok">{{ aide_stationnement.get_faisceau_stationnement_display }}</span>
-                    {% elif aide_stationnement.faisceau_stationnement == "REMPLACE" %}<span class="remplace">{{ aide_stationnement.get_faisceau_stationnement_display }}</span>
+                    {% elif aide_stationnement.faisceau_stationnement == "REMPLACE" or aide_stationnement.faisceau_stationnement == "AJOUTER" %}<span class="remplace">{{ aide_stationnement.get_faisceau_stationnement_display }}</span>
                     {% else %}<span>{{ aide_stationnement.get_faisceau_stationnement_display }}</span>{% endif %}
                     {% if aide_stationnement.faisceau_stationnement_fabricant and aide_stationnement.faisceau_stationnement_fabricant != "CHOISIR" %} — {{ aide_stationnement.get_faisceau_stationnement_fabricant_display }}{% endif %}
                 </td>
@@ -460,7 +460,7 @@
                 <td>
                     {% if aide_stationnement.buzzer_stationnement == "OK" %}<span class="ok">{{ aide_stationnement.get_buzzer_stationnement_display }}</span>
                     {% elif aide_stationnement.buzzer_stationnement == "NOT_OK" %}<span class="not-ok">{{ aide_stationnement.get_buzzer_stationnement_display }}</span>
-                    {% elif aide_stationnement.buzzer_stationnement == "REMPLACE" %}<span class="remplace">{{ aide_stationnement.get_buzzer_stationnement_display }}</span>
+                    {% elif aide_stationnement.buzzer_stationnement == "REMPLACE" or aide_stationnement.buzzer_stationnement == "AJOUTER" %}<span class="remplace">{{ aide_stationnement.get_buzzer_stationnement_display }}</span>
                     {% else %}<span>{{ aide_stationnement.get_buzzer_stationnement_display }}</span>{% endif %}
                     {% if aide_stationnement.buzzer_stationnement_fabricant and aide_stationnement.buzzer_stationnement_fabricant != "CHOISIR" %} — {{ aide_stationnement.get_buzzer_stationnement_fabricant_display }}{% endif %}
                 </td>
@@ -471,7 +471,7 @@
                 <td>
                     {% if aide_stationnement.afficheur_stationnement == "OK" %}<span class="ok">{{ aide_stationnement.get_afficheur_stationnement_display }}</span>
                     {% elif aide_stationnement.afficheur_stationnement == "NOT_OK" %}<span class="not-ok">{{ aide_stationnement.get_afficheur_stationnement_display }}</span>
-                    {% elif aide_stationnement.afficheur_stationnement == "REMPLACE" %}<span class="remplace">{{ aide_stationnement.get_afficheur_stationnement_display }}</span>
+                    {% elif aide_stationnement.afficheur_stationnement == "REMPLACE" or aide_stationnement.afficheur_stationnement == "AJOUTER" %}<span class="remplace">{{ aide_stationnement.get_afficheur_stationnement_display }}</span>
                     {% else %}<span>{{ aide_stationnement.get_afficheur_stationnement_display }}</span>{% endif %}
                     {% if aide_stationnement.afficheur_stationnement_fabricant and aide_stationnement.afficheur_stationnement_fabricant != "CHOISIR" %} — {{ aide_stationnement.get_afficheur_stationnement_fabricant_display }}{% endif %}
                 </td>
@@ -482,7 +482,7 @@
                 <td>
                     {% if aide_stationnement.bouton_stationnement == "OK" %}<span class="ok">{{ aide_stationnement.get_bouton_stationnement_display }}</span>
                     {% elif aide_stationnement.bouton_stationnement == "NOT_OK" %}<span class="not-ok">{{ aide_stationnement.get_bouton_stationnement_display }}</span>
-                    {% elif aide_stationnement.bouton_stationnement == "REMPLACE" %}<span class="remplace">{{ aide_stationnement.get_bouton_stationnement_display }}</span>
+                    {% elif aide_stationnement.bouton_stationnement == "REMPLACE" or aide_stationnement.bouton_stationnement == "AJOUTER" %}<span class="remplace">{{ aide_stationnement.get_bouton_stationnement_display }}</span>
                     {% else %}<span>{{ aide_stationnement.get_bouton_stationnement_display }}</span>{% endif %}
                     {% if aide_stationnement.bouton_stationnement_fabricant and aide_stationnement.bouton_stationnement_fabricant != "CHOISIR" %} — {{ aide_stationnement.get_bouton_stationnement_fabricant_display }}{% endif %}
                 </td>
@@ -493,7 +493,7 @@
                 <td>
                     {% if aide_stationnement.camera_recul == "OK" %}<span class="ok">{{ aide_stationnement.get_camera_recul_display }}</span>
                     {% elif aide_stationnement.camera_recul == "NOT_OK" %}<span class="not-ok">{{ aide_stationnement.get_camera_recul_display }}</span>
-                    {% elif aide_stationnement.camera_recul == "REMPLACE" %}<span class="remplace">{{ aide_stationnement.get_camera_recul_display }}</span>
+                    {% elif aide_stationnement.camera_recul == "REMPLACE" or aide_stationnement.camera_recul == "AJOUTER" %}<span class="remplace">{{ aide_stationnement.get_camera_recul_display }}</span>
                     {% else %}<span>{{ aide_stationnement.get_camera_recul_display }}</span>{% endif %}
                     {% if aide_stationnement.camera_recul_fabricant and aide_stationnement.camera_recul_fabricant != "CHOISIR" %} — {{ aide_stationnement.get_camera_recul_fabricant_display }}{% endif %}
                 </td>
@@ -505,7 +505,7 @@
                 <td>
                     {% if aide_stationnement.cameras_360 == "OK" %}<span class="ok">{{ aide_stationnement.get_cameras_360_display }}</span>
                     {% elif aide_stationnement.cameras_360 == "NOT_OK" %}<span class="not-ok">{{ aide_stationnement.get_cameras_360_display }}</span>
-                    {% elif aide_stationnement.cameras_360 == "REMPLACE" %}<span class="remplace">{{ aide_stationnement.get_cameras_360_display }}</span>
+                    {% elif aide_stationnement.cameras_360 == "REMPLACE" or aide_stationnement.cameras_360 == "AJOUTER" %}<span class="remplace">{{ aide_stationnement.get_cameras_360_display }}</span>
                     {% else %}<span>{{ aide_stationnement.get_cameras_360_display }}</span>{% endif %}
                     {% if aide_stationnement.cameras_360_fabricant and aide_stationnement.cameras_360_fabricant != "CHOISIR" %} — {{ aide_stationnement.get_cameras_360_fabricant_display }}{% endif %}
                 </td>
@@ -517,7 +517,7 @@
                 <td>
                     {% if aide_stationnement.assistant_stationnement == "OK" %}<span class="ok">{{ aide_stationnement.get_assistant_stationnement_display }}</span>
                     {% elif aide_stationnement.assistant_stationnement == "NOT_OK" %}<span class="not-ok">{{ aide_stationnement.get_assistant_stationnement_display }}</span>
-                    {% elif aide_stationnement.assistant_stationnement == "REMPLACE" %}<span class="remplace">{{ aide_stationnement.get_assistant_stationnement_display }}</span>
+                    {% elif aide_stationnement.assistant_stationnement == "REMPLACE" or aide_stationnement.assistant_stationnement == "AJOUTER" %}<span class="remplace">{{ aide_stationnement.get_assistant_stationnement_display }}</span>
                     {% else %}<span>{{ aide_stationnement.get_assistant_stationnement_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -528,7 +528,7 @@
                 <td>
                     {% if aide_stationnement.peinture_capteurs == "OK" %}<span class="ok">{{ aide_stationnement.get_peinture_capteurs_display }}</span>
                     {% elif aide_stationnement.peinture_capteurs == "NOT_OK" %}<span class="not-ok">{{ aide_stationnement.get_peinture_capteurs_display }}</span>
-                    {% elif aide_stationnement.peinture_capteurs == "REMPLACE" %}<span class="remplace">{{ aide_stationnement.get_peinture_capteurs_display }}</span>
+                    {% elif aide_stationnement.peinture_capteurs == "REMPLACE" or aide_stationnement.peinture_capteurs == "AJOUTER" %}<span class="remplace">{{ aide_stationnement.get_peinture_capteurs_display }}</span>
                     {% else %}<span>{{ aide_stationnement.get_peinture_capteurs_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -539,7 +539,7 @@
                 <td>
                     {% if aide_stationnement.calibrage_stationnement == "OK" %}<span class="ok">{{ aide_stationnement.get_calibrage_stationnement_display }}</span>
                     {% elif aide_stationnement.calibrage_stationnement == "NOT_OK" %}<span class="not-ok">{{ aide_stationnement.get_calibrage_stationnement_display }}</span>
-                    {% elif aide_stationnement.calibrage_stationnement == "REMPLACE" %}<span class="remplace">{{ aide_stationnement.get_calibrage_stationnement_display }}</span>
+                    {% elif aide_stationnement.calibrage_stationnement == "REMPLACE" or aide_stationnement.calibrage_stationnement == "AJOUTER" %}<span class="remplace">{{ aide_stationnement.get_calibrage_stationnement_display }}</span>
                     {% else %}<span>{{ aide_stationnement.get_calibrage_stationnement_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -550,7 +550,7 @@
                 <td>
                     {% if aide_stationnement.diagnostic_codage_stationnement == "OK" %}<span class="ok">{{ aide_stationnement.get_diagnostic_codage_stationnement_display }}</span>
                     {% elif aide_stationnement.diagnostic_codage_stationnement == "NOT_OK" %}<span class="not-ok">{{ aide_stationnement.get_diagnostic_codage_stationnement_display }}</span>
-                    {% elif aide_stationnement.diagnostic_codage_stationnement == "REMPLACE" %}<span class="remplace">{{ aide_stationnement.get_diagnostic_codage_stationnement_display }}</span>
+                    {% elif aide_stationnement.diagnostic_codage_stationnement == "REMPLACE" or aide_stationnement.diagnostic_codage_stationnement == "AJOUTER" %}<span class="remplace">{{ aide_stationnement.get_diagnostic_codage_stationnement_display }}</span>
                     {% else %}<span>{{ aide_stationnement.get_diagnostic_codage_stationnement_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -629,12 +629,12 @@
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
                                     <span class="etat-rouge">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "REMPLACE" %}
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" %}
                                     <span class="etat-bleu">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>

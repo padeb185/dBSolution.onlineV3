@@ -753,6 +753,18 @@
              class="w-[60px] h-[60px]">
     </a>
 
+    <!-- Factures des locations (vendeur : consultation, émission et encaissement) -->
+    {% if request.user.role == "vendeur" %}
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/facture/liste/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Factures des locations" %}</h2>
+            <p class="text-gray-600 text-sm">{% trans "Consultation, émission et encaissement" %}</p>
+        </div>
+        {% include "facture/_icone.html" with classe="w-[60px] h-[60px]" %}
+    </a>
+    {% endif %}
+
     <!-- Statistiques des ventes par vendeur : direction uniquement -->
     {% if request.user.role == "direction" or request.user.is_superuser %}
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/location/statistiques/"
@@ -921,8 +933,8 @@
             </h2>
         </div>
 
-        <img src="{% static 'icons/equipe.png' %}"
-             alt="{% trans 'Compléter utilisateur' %}"
+        <img src="{% static 'icons/paie.png' %}"
+             alt="{% trans 'Paies mensuelles' %}"
              class="w-[60px] h-[60px] mr-[10px]">
     </a>
 
@@ -1027,7 +1039,7 @@
         <div>
             <h2 class="text-lg font-semibold mb-2">{% trans "Paies mensuelles" %}</h2>
         </div>
-        <img src="{% static 'icons/equipe.png' %}" alt="{% trans 'Paies mensuelles' %}" class="w-[60px] h-[60px] mr-[10px]">
+        <img src="{% static 'icons/paie.png' %}" alt="{% trans 'Paies mensuelles' %}" class="w-[60px] h-[60px] mr-[10px]">
     </a>
 </div>
 

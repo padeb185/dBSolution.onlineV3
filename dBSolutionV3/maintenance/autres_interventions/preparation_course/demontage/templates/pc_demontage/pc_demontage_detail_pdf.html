@@ -415,7 +415,7 @@
                 <td>
                     {% if pc_demontage.garnitures_porte_av == "OK" or pc_demontage.garnitures_porte_av == "REMONTE" %}<span class="ok">{{ pc_demontage.get_garnitures_porte_av_display }}</span>
                     {% elif pc_demontage.garnitures_porte_av == "NOT_OK" %}<span class="not-ok">{{ pc_demontage.get_garnitures_porte_av_display }}</span>
-                    {% elif pc_demontage.garnitures_porte_av == "REMPLACE" or pc_demontage.garnitures_porte_av == "DEMONTE" or pc_demontage.garnitures_porte_av == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_garnitures_porte_av_display }}</span>
+                    {% elif pc_demontage.garnitures_porte_av == "REMPLACE" or pc_demontage.garnitures_porte_av == "AJOUTER" or pc_demontage.garnitures_porte_av == "DEMONTE" or pc_demontage.garnitures_porte_av == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_garnitures_porte_av_display }}</span>
                     {% else %}<span>{{ pc_demontage.get_garnitures_porte_av_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -426,7 +426,7 @@
                 <td>
                     {% if pc_demontage.garnitures_porte_ar == "OK" or pc_demontage.garnitures_porte_ar == "REMONTE" %}<span class="ok">{{ pc_demontage.get_garnitures_porte_ar_display }}</span>
                     {% elif pc_demontage.garnitures_porte_ar == "NOT_OK" %}<span class="not-ok">{{ pc_demontage.get_garnitures_porte_ar_display }}</span>
-                    {% elif pc_demontage.garnitures_porte_ar == "REMPLACE" or pc_demontage.garnitures_porte_ar == "DEMONTE" or pc_demontage.garnitures_porte_ar == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_garnitures_porte_ar_display }}</span>
+                    {% elif pc_demontage.garnitures_porte_ar == "REMPLACE" or pc_demontage.garnitures_porte_ar == "AJOUTER" or pc_demontage.garnitures_porte_ar == "DEMONTE" or pc_demontage.garnitures_porte_ar == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_garnitures_porte_ar_display }}</span>
                     {% else %}<span>{{ pc_demontage.get_garnitures_porte_ar_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -437,7 +437,7 @@
                 <td>
                     {% if pc_demontage.sieges_arriere == "OK" or pc_demontage.sieges_arriere == "REMONTE" %}<span class="ok">{{ pc_demontage.get_sieges_arriere_display }}</span>
                     {% elif pc_demontage.sieges_arriere == "NOT_OK" %}<span class="not-ok">{{ pc_demontage.get_sieges_arriere_display }}</span>
-                    {% elif pc_demontage.sieges_arriere == "REMPLACE" or pc_demontage.sieges_arriere == "DEMONTE" or pc_demontage.sieges_arriere == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_sieges_arriere_display }}</span>
+                    {% elif pc_demontage.sieges_arriere == "REMPLACE" or pc_demontage.sieges_arriere == "AJOUTER" or pc_demontage.sieges_arriere == "DEMONTE" or pc_demontage.sieges_arriere == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_sieges_arriere_display }}</span>
                     {% else %}<span>{{ pc_demontage.get_sieges_arriere_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -448,7 +448,7 @@
                 <td>
                     {% if pc_demontage.siege_passager == "OK" or pc_demontage.siege_passager == "REMONTE" %}<span class="ok">{{ pc_demontage.get_siege_passager_display }}</span>
                     {% elif pc_demontage.siege_passager == "NOT_OK" %}<span class="not-ok">{{ pc_demontage.get_siege_passager_display }}</span>
-                    {% elif pc_demontage.siege_passager == "REMPLACE" or pc_demontage.siege_passager == "DEMONTE" or pc_demontage.siege_passager == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_siege_passager_display }}</span>
+                    {% elif pc_demontage.siege_passager == "REMPLACE" or pc_demontage.siege_passager == "AJOUTER" or pc_demontage.siege_passager == "DEMONTE" or pc_demontage.siege_passager == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_siege_passager_display }}</span>
                     {% else %}<span>{{ pc_demontage.get_siege_passager_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -459,7 +459,7 @@
                 <td>
                     {% if pc_demontage.moquettes == "OK" or pc_demontage.moquettes == "REMONTE" %}<span class="ok">{{ pc_demontage.get_moquettes_display }}</span>
                     {% elif pc_demontage.moquettes == "NOT_OK" %}<span class="not-ok">{{ pc_demontage.get_moquettes_display }}</span>
-                    {% elif pc_demontage.moquettes == "REMPLACE" or pc_demontage.moquettes == "DEMONTE" or pc_demontage.moquettes == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_moquettes_display }}</span>
+                    {% elif pc_demontage.moquettes == "REMPLACE" or pc_demontage.moquettes == "AJOUTER" or pc_demontage.moquettes == "DEMONTE" or pc_demontage.moquettes == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_moquettes_display }}</span>
                     {% else %}<span>{{ pc_demontage.get_moquettes_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -470,7 +470,7 @@
                 <td>
                     {% if pc_demontage.insonorisant == "OK" or pc_demontage.insonorisant == "REMONTE" %}<span class="ok">{{ pc_demontage.get_insonorisant_display }}</span>
                     {% elif pc_demontage.insonorisant == "NOT_OK" %}<span class="not-ok">{{ pc_demontage.get_insonorisant_display }}</span>
-                    {% elif pc_demontage.insonorisant == "REMPLACE" or pc_demontage.insonorisant == "DEMONTE" or pc_demontage.insonorisant == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_insonorisant_display }}</span>
+                    {% elif pc_demontage.insonorisant == "REMPLACE" or pc_demontage.insonorisant == "AJOUTER" or pc_demontage.insonorisant == "DEMONTE" or pc_demontage.insonorisant == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_insonorisant_display }}</span>
                     {% else %}<span>{{ pc_demontage.get_insonorisant_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -481,7 +481,7 @@
                 <td>
                     {% if pc_demontage.ciel_de_toit == "OK" or pc_demontage.ciel_de_toit == "REMONTE" %}<span class="ok">{{ pc_demontage.get_ciel_de_toit_display }}</span>
                     {% elif pc_demontage.ciel_de_toit == "NOT_OK" %}<span class="not-ok">{{ pc_demontage.get_ciel_de_toit_display }}</span>
-                    {% elif pc_demontage.ciel_de_toit == "REMPLACE" or pc_demontage.ciel_de_toit == "DEMONTE" or pc_demontage.ciel_de_toit == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_ciel_de_toit_display }}</span>
+                    {% elif pc_demontage.ciel_de_toit == "REMPLACE" or pc_demontage.ciel_de_toit == "AJOUTER" or pc_demontage.ciel_de_toit == "DEMONTE" or pc_demontage.ciel_de_toit == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_ciel_de_toit_display }}</span>
                     {% else %}<span>{{ pc_demontage.get_ciel_de_toit_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -492,7 +492,7 @@
                 <td>
                     {% if pc_demontage.garnitures_coffre == "OK" or pc_demontage.garnitures_coffre == "REMONTE" %}<span class="ok">{{ pc_demontage.get_garnitures_coffre_display }}</span>
                     {% elif pc_demontage.garnitures_coffre == "NOT_OK" %}<span class="not-ok">{{ pc_demontage.get_garnitures_coffre_display }}</span>
-                    {% elif pc_demontage.garnitures_coffre == "REMPLACE" or pc_demontage.garnitures_coffre == "DEMONTE" or pc_demontage.garnitures_coffre == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_garnitures_coffre_display }}</span>
+                    {% elif pc_demontage.garnitures_coffre == "REMPLACE" or pc_demontage.garnitures_coffre == "AJOUTER" or pc_demontage.garnitures_coffre == "DEMONTE" or pc_demontage.garnitures_coffre == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_garnitures_coffre_display }}</span>
                     {% else %}<span>{{ pc_demontage.get_garnitures_coffre_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -503,7 +503,7 @@
                 <td>
                     {% if pc_demontage.roue_secours == "OK" or pc_demontage.roue_secours == "REMONTE" %}<span class="ok">{{ pc_demontage.get_roue_secours_display }}</span>
                     {% elif pc_demontage.roue_secours == "NOT_OK" %}<span class="not-ok">{{ pc_demontage.get_roue_secours_display }}</span>
-                    {% elif pc_demontage.roue_secours == "REMPLACE" or pc_demontage.roue_secours == "DEMONTE" or pc_demontage.roue_secours == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_roue_secours_display }}</span>
+                    {% elif pc_demontage.roue_secours == "REMPLACE" or pc_demontage.roue_secours == "AJOUTER" or pc_demontage.roue_secours == "DEMONTE" or pc_demontage.roue_secours == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_roue_secours_display }}</span>
                     {% else %}<span>{{ pc_demontage.get_roue_secours_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -514,7 +514,7 @@
                 <td>
                     {% if pc_demontage.airbags == "OK" or pc_demontage.airbags == "REMONTE" %}<span class="ok">{{ pc_demontage.get_airbags_display }}</span>
                     {% elif pc_demontage.airbags == "NOT_OK" %}<span class="not-ok">{{ pc_demontage.get_airbags_display }}</span>
-                    {% elif pc_demontage.airbags == "REMPLACE" or pc_demontage.airbags == "DEMONTE" or pc_demontage.airbags == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_airbags_display }}</span>
+                    {% elif pc_demontage.airbags == "REMPLACE" or pc_demontage.airbags == "AJOUTER" or pc_demontage.airbags == "DEMONTE" or pc_demontage.airbags == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_airbags_display }}</span>
                     {% else %}<span>{{ pc_demontage.get_airbags_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -525,7 +525,7 @@
                 <td>
                     {% if pc_demontage.climatisation_course == "OK" or pc_demontage.climatisation_course == "REMONTE" %}<span class="ok">{{ pc_demontage.get_climatisation_course_display }}</span>
                     {% elif pc_demontage.climatisation_course == "NOT_OK" %}<span class="not-ok">{{ pc_demontage.get_climatisation_course_display }}</span>
-                    {% elif pc_demontage.climatisation_course == "REMPLACE" or pc_demontage.climatisation_course == "DEMONTE" or pc_demontage.climatisation_course == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_climatisation_course_display }}</span>
+                    {% elif pc_demontage.climatisation_course == "REMPLACE" or pc_demontage.climatisation_course == "AJOUTER" or pc_demontage.climatisation_course == "DEMONTE" or pc_demontage.climatisation_course == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_climatisation_course_display }}</span>
                     {% else %}<span>{{ pc_demontage.get_climatisation_course_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -536,7 +536,7 @@
                 <td>
                     {% if pc_demontage.leve_vitres == "OK" or pc_demontage.leve_vitres == "REMONTE" %}<span class="ok">{{ pc_demontage.get_leve_vitres_display }}</span>
                     {% elif pc_demontage.leve_vitres == "NOT_OK" %}<span class="not-ok">{{ pc_demontage.get_leve_vitres_display }}</span>
-                    {% elif pc_demontage.leve_vitres == "REMPLACE" or pc_demontage.leve_vitres == "DEMONTE" or pc_demontage.leve_vitres == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_leve_vitres_display }}</span>
+                    {% elif pc_demontage.leve_vitres == "REMPLACE" or pc_demontage.leve_vitres == "AJOUTER" or pc_demontage.leve_vitres == "DEMONTE" or pc_demontage.leve_vitres == "SUPPRIME" %}<span class="remplace">{{ pc_demontage.get_leve_vitres_display }}</span>
                     {% else %}<span>{{ pc_demontage.get_leve_vitres_display }}</span>{% endif %}
                 </td>
             </tr>
@@ -615,12 +615,12 @@
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
                                     <span class="etat-rouge">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
 
-                                {% elif ligne.etat == "REMPLACE" %}
+                                {% elif ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" or ligne.etat == "DEMONTE" or ligne.etat == "REMONTE" or ligne.etat == "SUPPRIME" %}
                                     <span class="etat-bleu">
                                         {{ ligne.etat_label|default:"-" }}
                                     </span>
