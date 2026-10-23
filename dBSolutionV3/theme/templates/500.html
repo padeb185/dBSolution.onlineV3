@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}
+500 – {% trans "Erreur interne du serveur" %}
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center text-center gap-6 py-20">
+
+    <!-- Code erreur -->
+    <h1 class="text-6xl font-extrabold text-red-600">
+        500
+    </h1>
+
+    <!-- Message principal -->
+    <h2 class="text-2xl font-bold text-gray-700">
+        {% trans "Une erreur est survenue" %}
+    </h2>
+
+    <!-- Message -->
+    <p class="text-gray-500 max-w-xl">
+        {% trans "Le serveur a rencontré un problème inattendu et n'a pas pu traiter votre demande. L'erreur a été enregistrée ; veuillez réessayer dans quelques instants." %}
+    </p>
+
+    <!-- Boutons -->
+    <div class="flex flex-col sm:flex-row gap-4 mt-6">
+        <button onclick="goBack()"
+                class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+            ← {% trans "Retour à la page précédente" %}
+        </button>
+
+        <a href="{% url 'home' %}"
+           class="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-300 transition duration-300">
+            {% trans "Retour à l'accueil" %}
+        </a>
+    </div>
+
+</div>
+
+<script>
+function goBack() {
+    if (document.referrer) {
+        window.history.back();
+    } else {
+        window.location.href = "{% url 'home' %}";
+    }
+}
+</script>
+{% endblock %}

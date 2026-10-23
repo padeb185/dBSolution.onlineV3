@@ -2,6 +2,7 @@ from decimal import Decimal
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _
@@ -40,6 +41,7 @@ def _contexte_form(form, maintenance):
         "garages_infos": form.garages_infos,
         "vehicules_infos": form.vehicules_infos,
         "taux_pays": {k: str(v) for k, v in TVAConfig.TVA_PIECES.items()},
+        "effets_types": form.effets_types,
     }
 
 
@@ -70,7 +72,12 @@ def maintenance_externe_ajouter(request):
         initial["voiture_exemplaire"] = request.GET["voiture_exemplaire"]
     form = MaintenanceExterneForm(request.POST or None, user=request.user, initial=initial)
     if request.method == "POST" and form.is_valid():
-        maintenance = form.save()
+        with transaction.atomic():
+            maintenance = form.save(commit=False)
+            if maintenance.societe_id is None:
+                maintenance.societe = request.user.societe
+            maintenance.appliquer_compteurs()
+            maintenance.save()
         messages.success(request, _("Maintenance externe enregistrée : %(total)s € TVAC.") % {
             "total": maintenance.total_tvac})
         return redirect("maintenance_externe:maintenance_externe_liste")
@@ -85,7 +92,16 @@ def maintenance_externe_modifier(request, maintenance_id):
     maintenance = get_object_or_404(_queryset(request), id=maintenance_id)
     form = MaintenanceExterneForm(request.POST or None, instance=maintenance, user=request.user)
     if request.method == "POST" and form.is_valid():
-        maintenance = form.save()
+        with transaction.atomic():
+            recalcul = form.compteurs_modifies()
+            if recalcul:
+                # Annule l'effet de l'ancienne version (valeurs relues en base)
+                ancienne = MaintenanceExterne.objects.select_for_update().get(pk=maintenance.pk)
+                ancienne.annuler_compteurs()
+            maintenance = form.save(commit=False)
+            if recalcul:
+                maintenance.appliquer_compteurs()
+            maintenance.save()
         messages.success(request, _("Maintenance externe mise à jour."))
         return redirect("maintenance_externe:maintenance_externe_liste")
     return render(request, "maintenance_externe/maintenance_externe_form.html", _contexte_form(form, maintenance))
@@ -98,7 +114,9 @@ def maintenance_externe_supprimer(request, maintenance_id):
         return _refus(request)
     maintenance = get_object_or_404(_queryset(request), id=maintenance_id)
     if request.method == "POST":
-        maintenance.delete()
+        with transaction.atomic():
+            maintenance.annuler_compteurs()
+            maintenance.delete()
         messages.success(request, _("Maintenance externe supprimée."))
         return redirect("maintenance_externe:maintenance_externe_liste")
     return render(request, "maintenance_externe/maintenance_externe_confirm_delete.html", {"maintenance": maintenance})

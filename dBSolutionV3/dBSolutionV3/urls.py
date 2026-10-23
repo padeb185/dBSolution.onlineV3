@@ -15,6 +15,28 @@ def custom_404(request, exception):
 
 handler404 = custom_404
 
+
+# Handler 500 personnalisé (actif uniquement quand DEBUG = False)
+def custom_500(request):
+    from django.http import HttpResponseServerError
+    try:
+        return render(request, "500.html", status=500)
+    except Exception:
+        # Si la mise en page elle-même plante (base de données, contexte…),
+        # on renvoie une page minimale qui ne dépend de rien.
+        return HttpResponseServerError(
+            "<!doctype html><html lang='fr'><head><meta charset='utf-8'>"
+            "<title>500 – Erreur interne</title></head>"
+            "<body style='font-family:Arial,sans-serif;text-align:center;padding:80px 20px;color:#374151'>"
+            "<h1 style='font-size:64px;color:#dc2626;margin:0'>500</h1>"
+            "<h2>Une erreur est survenue</h2>"
+            "<p>Le serveur a rencontré un problème inattendu. Veuillez réessayer dans quelques instants.</p>"
+            "<p><a href='javascript:history.back()'>← Retour à la page précédente</a> · <a href='/'>Accueil</a></p>"
+            "</body></html>"
+        )
+
+handler500 = custom_500
+
 urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
 ]

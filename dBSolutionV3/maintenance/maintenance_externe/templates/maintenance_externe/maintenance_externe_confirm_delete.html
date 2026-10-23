@@ -16,7 +16,13 @@
         <li>{{ maintenance.get_type_maintenance_display }} – {{ maintenance.garage.nom }}</li>
         <li>{% trans "Date" %} : {{ maintenance.date_facture|date:"d/m/Y" }}</li>
         <li>{% trans "Total TVAC" %} : {{ maintenance.total_tvac|floatformat:2 }} €</li>
+        {% if maintenance.kilometrage %}<li>{% trans "Kilométrage" %} : {{ maintenance.kilometrage }} km</li>{% endif %}
     </ul>
+    {% if maintenance.compteurs_appliques %}
+    <p class="mb-6 text-sm bg-yellow-50 border border-yellow-300 rounded p-3">
+        {% trans "Les compteurs du véhicule (kilométrage, moteur, boîte, embrayage, dernier entretien, nombre de moteurs / boîtes) seront remis à leur valeur d'avant cette intervention." %}
+    </p>
+    {% endif %}
     <form method="post" class="flex gap-3">
         {% csrf_token %}
         <button type="submit" class="flex-1 bg-red-600 text-white px-5 py-4 rounded hover:bg-red-400 font-semibold text-center">{% trans "Confirmer la suppression" %}</button>

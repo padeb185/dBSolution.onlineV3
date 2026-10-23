@@ -58,6 +58,29 @@
         {% include "maintenance_externe/_champ.html" with field=form.numero_facture %}
         {% include "maintenance_externe/_champ.html" with field=form.kilometrage %}
 
+        <!-- Variation du kilométrage -->
+        <div class="mb-4">
+            <label class="block font-semibold mb-1">{% trans "Variation du kilométrage" %}</label>
+            <input type="text" id="km-variation" class="input bg-gray-100" readonly value="">
+        </div>
+
+        <!-- Compteurs actuels du véhicule -->
+        <div id="compteurs-vehicule" class="mb-4 bg-gray-50 border border-gray-200 rounded p-4 text-sm" style="display:none;">
+            <p class="font-semibold mb-2">{% trans "Compteurs actuels du véhicule" %}</p>
+            <div class="grid grid-cols-2 gap-x-4 gap-y-1">
+                <span class="text-gray-600">{% trans "Châssis" %}</span><span id="c-km" class="font-medium text-right"></span>
+                <span class="text-gray-600">{% trans "Moteur" %}</span><span id="c-moteur" class="font-medium text-right"></span>
+                <span class="text-gray-600">{% trans "Boîte de vitesse" %}</span><span id="c-boite" class="font-medium text-right"></span>
+                <span class="text-gray-600">{% trans "Embrayage" %}</span><span id="c-embrayage" class="font-medium text-right"></span>
+                <span class="text-gray-600">{% trans "Dernier entretien" %}</span><span id="c-entretien" class="font-medium text-right"></span>
+                <span class="text-gray-600">{% trans "Nombre de moteurs remplacés" %}</span><span id="c-nb-moteurs" class="font-medium text-right"></span>
+                <span class="text-gray-600">{% trans "Nombre de boîtes remplacées" %}</span><span id="c-nb-boites" class="font-medium text-right"></span>
+            </div>
+        </div>
+
+        <!-- Effet de l'intervention sur les compteurs -->
+        <div id="effet-type" class="mb-4 bg-blue-50 border border-blue-200 text-blue-900 rounded p-3 text-sm" style="display:none;"></div>
+
         <br>
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
             <img src="{% static 'icons/achatmds.png' %}" alt="" class="w-20 h-20">
@@ -86,6 +109,7 @@
         {{ garages_infos|json_script:"garages-infos" }}
         {{ vehicules_infos|json_script:"vehicules-infos" }}
         {{ taux_pays|json_script:"taux-pays" }}
+        {{ effets_types|json_script:"effets-types" }}
 
         <div class="flex gap-3 mt-6">
             <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">{% trans "Enregistrer" %}</button>
@@ -105,6 +129,21 @@
 .input { width: 100% !important; border: 1px solid #ccc !important; border-radius: 6px !important; padding: 8px !important; box-sizing: border-box !important; }
 .input-error { border-color: #dc2626 !important; }
 </style>
+
+<div id="kilometrage-popup" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,.45); align-items:center; justify-content:center; padding:20px;">
+    <div style="width:100%; max-width:520px; background:#fee2e2; border:1px solid #fca5a5; border-radius:10px; padding:24px; box-shadow:0 12px 30px rgba(0,0,0,.2);">
+        <h3 style="font-size:1.25rem; font-weight:700; color:#374151; margin-bottom:16px;">{% trans "Confirmer le kilométrage" %}</h3>
+        <p style="color:#4b5563; margin-bottom:12px;">
+            {% trans "La variation du kilométrage est de" %}
+            <strong style="color:#991b1b;"><span id="popup-variation">0</span> km</strong>.
+        </p>
+        <p style="color:#4b5563;">{% trans "Cette variation est supérieure à 2 000 km. Voulez-vous vraiment enregistrer ce kilométrage ?" %}</p>
+        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:22px;">
+            <button type="button" id="popup-annuler" style="background:#d1d5db; color:#374151; border-radius:6px; padding:9px 18px; font-weight:600;">{% trans "Annuler" %}</button>
+            <button type="button" id="popup-confirmer" style="background:#991b1b; color:white; border-radius:6px; padding:9px 18px; font-weight:600;">{% trans "Confirmer" %}</button>
+        </div>
+    </div>
+</div>
 
 <script>
 (function () {
@@ -145,6 +184,80 @@
     [taux, pieces, mo].forEach((el) => el && el.addEventListener("input", calculer));
 
     if (taux && !taux.value) majTaux(); else calculer();
+
+    // ------------------------------------------------------------
+    // Kilométrage : compteurs, variation, effet du type, contrôle > 2000 km
+    // ------------------------------------------------------------
+    const effets = lire("effets-types");
+    const typeSel = $("id_type_maintenance");
+    const variationEl = $("km-variation");
+    const fmt = (n) => Number(n || 0).toLocaleString("{{ LANGUAGE_CODE|default:'fr' }}") + " km";
+    const kmInitialVehicule = {% if maintenance and maintenance.compteurs_appliques and maintenance.km_chassis_avant is not None %}{{ maintenance.km_chassis_avant }}{% else %}null{% endif %};
+    const MESSAGES = {
+        moteur: "{{ _('Remplacement du moteur : le compteur moteur repartira à 0 km et le nombre de moteurs remplacés augmentera de 1.')|escapejs }}",
+        boite: "{{ _('Remplacement de la boîte : le compteur boîte repartira à 0 km et le nombre de boîtes remplacées augmentera de 1.')|escapejs }}",
+        embrayage: "{{ _('Embrayage : le compteur embrayage repartira à 0 km.')|escapejs }}",
+        entretien: "{{ _('Entretien : ce kilométrage deviendra le kilométrage du dernier entretien.')|escapejs }}",
+        aucun: "{{ _('Le kilométrage châssis du véhicule sera mis à jour.')|escapejs }}",
+    };
+
+    function kmReference() {
+        const v = vehicules[vehicule && vehicule.value];
+        if (!v) return null;
+        // En modification, la référence est le kilométrage d'avant cette intervention
+        return (kmInitialVehicule !== null && {{ maintenance|yesno:"true,false" }}) ? kmInitialVehicule : v.km;
+    }
+
+    function majCompteurs() {
+        const v = vehicules[vehicule && vehicule.value];
+        const bloc = $("compteurs-vehicule");
+        if (!v) { bloc.style.display = "none"; return; }
+        bloc.style.display = "";
+        $("c-km").textContent = fmt(v.km);
+        $("c-moteur").textContent = fmt(v.km_moteur);
+        $("c-boite").textContent = fmt(v.km_boite);
+        $("c-embrayage").textContent = fmt(v.km_embrayage);
+        $("c-entretien").textContent = fmt(v.km_entretien);
+        $("c-nb-moteurs").textContent = v.nb_moteurs;
+        $("c-nb-boites").textContent = v.nb_boites;
+    }
+
+    function variation() {
+        const ref = kmReference();
+        if (ref === null || !km || km.value.trim() === "") { variationEl.value = ""; return null; }
+        const d = Number(km.value) - ref;
+        variationEl.value = isNaN(d) ? "" : d;
+        return isNaN(d) ? null : d;
+    }
+
+    function majEffet() {
+        const bloc = $("effet-type");
+        const effet = typeSel ? effets[typeSel.value] : null;
+        if (!typeSel || !typeSel.value) { bloc.style.display = "none"; return; }
+        bloc.textContent = MESSAGES[effet || "aucun"];
+        bloc.style.display = "";
+    }
+
+    if (vehicule) vehicule.addEventListener("change", function () { majCompteurs(); variation(); });
+    if (km) km.addEventListener("input", variation);
+    if (typeSel) typeSel.addEventListener("change", majEffet);
+    majCompteurs(); variation(); majEffet();
+
+    // Confirmation si la variation dépasse 2 000 km
+    const form = $("me-form"), popup = $("kilometrage-popup");
+    let confirme = false;
+    form.addEventListener("submit", function (e) {
+        const d = variation();
+        if (!confirme && d !== null && d > 2000) {
+            e.preventDefault();
+            $("popup-variation").textContent = d.toLocaleString("{{ LANGUAGE_CODE|default:'fr' }}");
+            popup.style.display = "flex";
+        }
+    });
+    $("popup-annuler").addEventListener("click", function () { popup.style.display = "none"; km.focus(); });
+    $("popup-confirmer").addEventListener("click", function () {
+        confirme = true; popup.style.display = "none"; form.requestSubmit();
+    });
 })();
 </script>
 {% endblock %}

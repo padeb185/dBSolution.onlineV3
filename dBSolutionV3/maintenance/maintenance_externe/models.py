@@ -89,6 +89,20 @@ class MaintenanceExterne(models.Model):
 
     description = models.TextField(_("Description des travaux"), blank=True)
 
+    # -------------------------------------------------------------
+    # Compteurs du véhicule AVANT l'intervention (pour l'annulation)
+    # -------------------------------------------------------------
+    compteurs_appliques = models.BooleanField(default=False, editable=False)
+    km_chassis_avant = models.PositiveIntegerField(null=True, blank=True, editable=False)
+    km_moteur_avant = models.PositiveIntegerField(null=True, blank=True, editable=False)
+    km_boite_avant = models.PositiveIntegerField(null=True, blank=True, editable=False)
+    km_embrayage_avant = models.PositiveIntegerField(null=True, blank=True, editable=False)
+    km_dernier_entretien_avant = models.PositiveIntegerField(null=True, blank=True, editable=False)
+    km_remplacement_moteur_avant = models.PositiveIntegerField(null=True, blank=True, editable=False)
+    km_remplacement_boite_avant = models.PositiveIntegerField(null=True, blank=True, editable=False)
+    km_remplacement_embrayage_avant = models.PositiveIntegerField(null=True, blank=True, editable=False)
+    variation_kilometres = models.PositiveIntegerField(_("Variation du kilométrage"), default=0, editable=False)
+
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
 
@@ -118,3 +132,121 @@ class MaintenanceExterne(models.Model):
     def save(self, *args, **kwargs):
         self.calculer()
         super().save(*args, **kwargs)
+
+    # =============================================================
+    # COMPTEURS DU VÉHICULE (même logique que les maintenances internes)
+    # =============================================================
+    TYPES_MOTEUR = {"REMPLACEMENT_MOTEUR"}
+    TYPES_BOITE = {"remplacement_boite", "remplacement_bte_auto"}
+    TYPES_EMBRAYAGE = {"EMBRAYAGE"}
+    TYPES_ENTRETIEN = {"entretien", "checkup", "checkup_track"}
+
+    CHAMPS_VEHICULE = [
+        "kilometres_chassis", "kilometres_rollback", "date_derniere_intervention",
+        "kilometres_moteur", "kilometres_boite", "kilometres_embrayage",
+        "kilometres_moteur_rollback", "kilometres_boite_rollback", "kilometres_embrayage_rollback",
+        "kilometres_remplacement_moteur", "kilometres_remplacement_boite",
+        "kilometres_remplacement_embrayage", "kilometres_dernier_entretien",
+        "kilometres_entretien_rollback", "variation_kilometres",
+        "nombre_remplacements_moteurs", "nombre_remplacements_boites",
+    ]
+
+    @classmethod
+    def effet_type(cls, type_maintenance):
+        """Compteur remis à zéro par ce type de maintenance (moteur, boite, embrayage, entretien) ou None."""
+        if type_maintenance in cls.TYPES_MOTEUR:
+            return "moteur"
+        if type_maintenance in cls.TYPES_BOITE:
+            return "boite"
+        if type_maintenance in cls.TYPES_EMBRAYAGE:
+            return "embrayage"
+        if type_maintenance in cls.TYPES_ENTRETIEN:
+            return "entretien"
+        return None
+
+    def appliquer_compteurs(self):
+        """
+        Met à jour le véhicule après l'intervention :
+        kilométrage châssis, date de dernière intervention, compteur
+        moteur / boîte / embrayage remis à zéro, dernier entretien,
+        nombre de moteurs / boîtes. Les valeurs AVANT sont mémorisées.
+        """
+        from voiture.voiture_exemplaire.models import VoitureExemplaire
+
+        v = VoitureExemplaire.objects.select_for_update().get(pk=self.voiture_exemplaire_id)
+        km = self.kilometrage if self.kilometrage is not None else (v.kilometres_chassis or 0)
+
+        # Sauvegarde AVANT intervention
+        self.km_chassis_avant = v.kilometres_chassis or 0
+        self.km_moteur_avant = v.kilometres_moteur or 0
+        self.km_boite_avant = v.kilometres_boite or 0
+        self.km_embrayage_avant = v.kilometres_embrayage or 0
+        self.km_dernier_entretien_avant = v.kilometres_dernier_entretien or 0
+        self.km_remplacement_moteur_avant = v.kilometres_remplacement_moteur or 0
+        self.km_remplacement_boite_avant = v.kilometres_remplacement_boite or 0
+        self.km_remplacement_embrayage_avant = v.kilometres_remplacement_embrayage or 0
+        self.variation_kilometres = max(0, km - self.km_chassis_avant)
+
+        # Le kilométrage ne recule jamais
+        v.kilometres_rollback = self.km_chassis_avant
+        v.kilometres_moteur_rollback = self.km_moteur_avant
+        v.kilometres_boite_rollback = self.km_boite_avant
+        v.kilometres_embrayage_rollback = self.km_embrayage_avant
+        v.kilometres_chassis = max(km, self.km_chassis_avant)
+        if not v.date_derniere_intervention or self.date_facture >= v.date_derniere_intervention:
+            v.date_derniere_intervention = self.date_facture
+
+        effet = self.effet_type(self.type_maintenance)
+        if effet == "moteur":
+            v.kilometres_remplacement_moteur = km          # moteur neuf → 0 km
+            v.nombre_remplacements_moteurs = (v.nombre_remplacements_moteurs or 0) + 1
+        elif effet == "boite":
+            v.kilometres_remplacement_boite = km           # boîte neuve → 0 km
+            v.nombre_remplacements_boites = (v.nombre_remplacements_boites or 0) + 1
+        elif effet == "embrayage":
+            v.kilometres_remplacement_embrayage = km       # embrayage neuf → 0 km
+        elif effet == "entretien":
+            v.kilometres_entretien_rollback = self.km_dernier_entretien_avant
+            v.kilometres_dernier_entretien = km
+
+        v.update_kilometres()
+        v.save(update_fields=self.CHAMPS_VEHICULE)
+        self.compteurs_appliques = True
+
+    def annuler_compteurs(self):
+        """
+        Annule l'effet de cette maintenance sur le véhicule (suppression / modification).
+        Le kilométrage châssis n'est restauré que si aucune intervention
+        plus récente ne l'a fait avancer depuis.
+        """
+        if not self.compteurs_appliques:
+            return
+        from voiture.voiture_exemplaire.models import VoitureExemplaire
+
+        v = VoitureExemplaire.objects.select_for_update().get(pk=self.voiture_exemplaire_id)
+        km = self.kilometrage or 0
+        dernier = (v.kilometres_chassis or 0) == km
+
+        if dernier and self.km_chassis_avant is not None:
+            v.kilometres_chassis = self.km_chassis_avant
+
+        effet = self.effet_type(self.type_maintenance)
+        if effet == "moteur":
+            if (v.kilometres_remplacement_moteur or 0) == km:
+                v.kilometres_remplacement_moteur = self.km_remplacement_moteur_avant or 0
+            v.nombre_remplacements_moteurs = max(0, (v.nombre_remplacements_moteurs or 0) - 1)
+        elif effet == "boite":
+            if (v.kilometres_remplacement_boite or 0) == km:
+                v.kilometres_remplacement_boite = self.km_remplacement_boite_avant or 0
+            v.nombre_remplacements_boites = max(0, (v.nombre_remplacements_boites or 0) - 1)
+        elif effet == "embrayage":
+            if (v.kilometres_remplacement_embrayage or 0) == km:
+                v.kilometres_remplacement_embrayage = self.km_remplacement_embrayage_avant or 0
+        elif effet == "entretien":
+            if (v.kilometres_dernier_entretien or 0) == km:
+                v.kilometres_dernier_entretien = self.km_dernier_entretien_avant or 0
+
+        v.update_kilometres()
+        v.save(update_fields=self.CHAMPS_VEHICULE)
+        self.compteurs_appliques = False
+
