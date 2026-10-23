@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{{ immo.libelle }}{% endblock %}
+{% block content %}
+<div class="p-6 max-w-6xl mx-auto">
+{% include "compta/immo/_nav.html" with icone="icons/immobilisations.png" titre=immo.libelle %}
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+    <div class="bg-white shadow rounded p-5 space-y-1">
+        <h2 class="text-lg font-semibold mb-2">{% trans "Acquisition" %}</h2>
+        <p>{% trans "Catégorie" %} : <strong>{{ immo.get_categorie_display }}</strong> <span class="font-mono text-sm">({{ immo.compte_actif }})</span></p>
+        {% if immo.fournisseur %}<p>{% trans "Fournisseur" %} : {{ immo.fournisseur }}{% if immo.reference_facture %} – {{ immo.reference_facture }}{% endif %}</p>{% endif %}
+        {% if immo.immatriculation %}<p>{% trans "Immatriculation / n° de série" %} : {{ immo.immatriculation }}</p>{% endif %}
+        <p>{% trans "Date d'acquisition" %} : {{ immo.date_acquisition|date:"d/m/Y" }} — {% trans "Mise en service" %} : {{ immo.debut|date:"d/m/Y" }}</p>
+        <p>{% trans "Valeur d'acquisition HTVA" %} : {{ immo.valeur_acquisition|floatformat:2 }} €</p>
+        <p>{% trans "Frais accessoires et TVA non déductible" %} : {{ immo.frais_accessoires|floatformat:2 }} €</p>
+        <p>{% trans "TVA" %} {{ immo.taux_tva|floatformat:"-2" }} % : {{ immo.montant_tva|floatformat:2 }} € ({% trans "déductible" %} {{ immo.tva_deductible|floatformat:"-2" }} % = {{ immo.tva_recuperable|floatformat:2 }} €)</p>
+        <p class="font-semibold">{% trans "Valeur comptable brute" %} : {{ immo.valeur_comptable_brute|floatformat:2 }} €</p>
+        {% if immo.date_paiement %}<p>{% trans "Payée le" %} {{ immo.date_paiement|date:"d/m/Y" }}{% if immo.compte_paiement %} ({{ immo.compte_paiement.nom }}){% endif %}</p>{% endif %}
+    </div>
+    <div class="bg-white shadow rounded p-5 space-y-1">
+        <h2 class="text-lg font-semibold mb-2">{% trans "Amortissement" %}</h2>
+        {% if immo.amortissable %}
+            <p>{% trans "Méthode" %} : <strong>{{ immo.get_methode_display }}</strong> – {{ immo.duree_annees }} {% trans "ans" %}
+               ({% if immo.methode == 'DEGRESSIF' %}{{ immo.taux_degressif|floatformat:2 }}{% else %}{{ immo.taux_lineaire|floatformat:2 }}{% endif %} %)</p>
+            <p>{% trans "Prorata temporis la première année" %} : {% if immo.prorata_temporis %}{% trans "Oui" %}{% else %}{% trans "Non" %}{% endif %}</p>
+            <p>{% trans "Valeur résiduelle" %} : {{ immo.valeur_residuelle|floatformat:2 }} €</p>
+            <p>{% trans "Base amortissable" %} : {{ immo.base_amortissable|floatformat:2 }} €</p>
+            <p>{% trans "Compte des amortissements actés" %} : <span class="font-mono">{{ immo.compte_amortissements }}</span></p>
+        {% else %}
+            <p>{% trans "Non amortissable" %}</p>
+        {% endif %}
+        {% if immo.date_cession %}
+            <p class="mt-2">{% trans "Cédée le" %} {{ immo.date_cession|date:"d/m/Y" }} – {% trans "prix" %} {{ immo.prix_cession|default:0|floatformat:2 }} €</p>
+            <p class="font-semibold {% if immo.resultat_cession >= 0 %}text-green-700{% else %}text-red-700{% endif %}">
+                {% if immo.resultat_cession >= 0 %}{% trans "Plus-value" %}{% else %}{% trans "Moins-value" %}{% endif %} : {{ immo.resultat_cession|floatformat:2 }} €</p>
+        {% endif %}
+    </div>
+</div>
+
+{% if plan %}
+<h2 class="text-xl font-semibold mb-2">{% trans "Tableau d'amortissement" %}</h2>
+<div class="overflow-x-auto bg-white shadow-md rounded-lg mb-6">
+<table class="min-w-full table-auto border-collapse border border-gray-200">
+    <thead><tr class="bg-gray-100">
+        <th class="border px-4 py-2 text-left">{% trans "Exercice" %}</th>
+        <th class="border px-4 py-2 text-right">{% trans "Taux" %}</th>
+        <th class="border px-4 py-2 text-right">{% trans "Dotation" %}</th>
+        <th class="border px-4 py-2 text-right">{% trans "Amortissements cumulés" %}</th>
+        <th class="border px-4 py-2 text-right">{% trans "Valeur nette comptable" %}</th>
+    </tr></thead>
+    <tbody>
+    {% for p in plan %}
+        <tr>
+            <td class="border px-4 py-2">{{ p.annee }}</td>
+            <td class="border px-4 py-2 text-right">{{ p.taux|floatformat:2 }} %</td>
+            <td class="border px-4 py-2 text-right">{{ p.dotation|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ p.cumul|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right font-semibold">{{ p.vnc|floatformat:2 }} €</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endif %}
+
+<h2 class="text-xl font-semibold mb-2">{% trans "Écritures comptables (PCMN)" %}</h2>
+{% include "compta/immo/_ecritures.html" with ecritures=ecritures %}
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-6 mb-8">
+    <a href="{% url 'compta:immobilisation_modifier' immo.pk %}" class="block bg-blue-700 text-white px-4 py-3 rounded hover:bg-blue-400 font-semibold text-center">{% trans "Modifier" %}</a>
+    <a href="{% url 'compta:immobilisations_liste' %}" class="block bg-gray-300 text-black px-4 py-3 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Retour aux immobilisations" %}</a>
+    <a href="{% url 'compta:immobilisation_supprimer' immo.pk %}" class="block bg-red-700 text-white px-4 py-3 rounded hover:bg-red-400 font-semibold text-center">{% trans "Supprimer" %}</a>
+</div>
+</div>
+{% endblock %}

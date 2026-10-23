@@ -23,6 +23,12 @@ ZERO = Decimal("0.00")
 # Comptes de contrepartie proposés (PCMN belge)
 COMPTES_CONTREPARTIE = [
     ("100000", _("Capital")),
+    ("220000", _("Terrains")),
+    ("221000", _("Constructions")),
+    ("230000", _("Installations, machines et outillage")),
+    ("240000", _("Mobilier et matériel de bureau")),
+    ("241000", _("Matériel roulant")),
+    ("340000", _("Marchandises (stock)")),
     ("400000", _("Clients")),
     ("411000", _("TVA à récupérer")),
     ("440000", _("Fournisseurs")),
@@ -154,6 +160,18 @@ class CompteTresorerie(models.Model):
         except Exception:
             pass
 
+        # Investissements et versements ONSS / précompte payés depuis ce compte
+        for rel, champ in (("immobilisations", "date_paiement"), ("versements_sociaux", "date")):
+            try:
+                qs = getattr(self, rel).filter(**{f"{champ}__isnull": False})
+                if debut:
+                    qs = qs.filter(**{f"{champ}__gte": debut})
+                if fin:
+                    qs = qs.filter(**{f"{champ}__lte": fin})
+                L += [o.ligne_tresorerie() for o in qs]
+            except Exception:
+                pass
+
         L += self._lignes_automatiques(debut, fin)
         L.sort(key=lambda l: (l["date"], l["ordre"]))
         return L
@@ -210,6 +228,17 @@ class CompteTresorerie(models.Model):
                     })
             except Exception:
                 pass
+
+            # Investissements et versements sociaux sans compte précisé → banque par défaut
+            for modele, champ in ((Immobilisation, "date_paiement"), (VersementSocial, "date")):
+                try:
+                    qs = modele.objects.filter(**{"societe": self.societe, f"{champ}__isnull": False,
+                                                  "compte_paiement__isnull": True, f"{champ}__gte": bornes_debut})
+                    if fin:
+                        qs = qs.filter(**{f"{champ}__lte": fin})
+                    L += [o.ligne_tresorerie() for o in qs]
+                except Exception:
+                    pass
 
             # Factures d'instructeurs payées sans compte précisé → banque par défaut
             try:
@@ -506,3 +535,365 @@ class LigneFactureInstructeur(models.Model):
     def save(self, *args, **kwargs):
         self.montant_htva = (Decimal(self.heures or 0) * Decimal(self.prix_heure_htva or 0)).quantize(R2)
         super().save(*args, **kwargs)
+
+
+# ======================================================================
+# IMMOBILISATIONS ET AMORTISSEMENTS (PCMN classe 2 – dotations 6302)
+# ======================================================================
+COMPTE_DOTATIONS = "630200"
+COMPTE_PLUS_VALUE = "763000"
+COMPTE_MOINS_VALUE = "663000"
+COMPTE_CREANCES_DIVERSES = "416000"
+
+
+class CategorieImmobilisation(models.TextChoices):
+    TERRAIN = "TERRAIN", _("Terrains")
+    IMMEUBLE = "IMMEUBLE", _("Constructions / immeubles")
+    INSTALLATIONS = "INSTALLATIONS", _("Installations, machines et outillage")
+    MOBILIER_BUREAU = "MOBILIER_BUREAU", _("Mobilier et matériel de bureau")
+    MATERIEL_ROULANT = "MATERIEL_ROULANT", _("Matériel roulant")
+    AUTRES = "AUTRES", _("Autres immobilisations corporelles")
+
+
+# catégorie : (compte d'actif, compte des amortissements actés, durée par défaut en années)
+COMPTES_IMMOBILISATIONS = {
+    CategorieImmobilisation.TERRAIN: ("220000", None, 0),
+    CategorieImmobilisation.IMMEUBLE: ("221000", "221900", 33),
+    CategorieImmobilisation.INSTALLATIONS: ("230000", "230900", 10),
+    CategorieImmobilisation.MOBILIER_BUREAU: ("240000", "240900", 5),
+    CategorieImmobilisation.MATERIEL_ROULANT: ("241000", "241900", 5),
+    CategorieImmobilisation.AUTRES: ("260000", "260900", 5),
+}
+
+INTITULES_COMPTES_IMMO = {
+    "220000": _("Terrains"),
+    "221000": _("Constructions"),
+    "221900": _("Constructions – amortissements actés"),
+    "230000": _("Installations, machines et outillage"),
+    "230900": _("Installations, machines et outillage – amortissements actés"),
+    "240000": _("Mobilier et matériel de bureau"),
+    "240900": _("Mobilier et matériel de bureau – amortissements actés"),
+    "241000": _("Matériel roulant"),
+    "241900": _("Matériel roulant – amortissements actés"),
+    "260000": _("Autres immobilisations corporelles"),
+    "260900": _("Autres immobilisations corporelles – amortissements actés"),
+    COMPTE_DOTATIONS: _("Dotations aux amortissements sur immobilisations corporelles"),
+    COMPTE_PLUS_VALUE: _("Plus-values sur réalisation d'immobilisations corporelles"),
+    COMPTE_MOINS_VALUE: _("Moins-values sur réalisation d'immobilisations corporelles"),
+    COMPTE_CREANCES_DIVERSES: _("Créances diverses"),
+}
+
+
+class Immobilisation(models.Model):
+    class Methode(models.TextChoices):
+        LINEAIRE = "LINEAIRE", _("Linéaire")
+        DEGRESSIF = "DEGRESSIF", _("Dégressif")
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, related_name="immobilisations")
+    categorie = models.CharField(_("Catégorie"), max_length=20, choices=CategorieImmobilisation.choices,
+                                 default=CategorieImmobilisation.INSTALLATIONS)
+    libelle = models.CharField(_("Libellé"), max_length=200, help_text=_("Ex. : pont élévateur, camionnette, bâtiment atelier…"))
+    fournisseur = models.ForeignKey("fournisseur.Fournisseur", on_delete=models.SET_NULL, null=True, blank=True,
+                                    related_name="immobilisations", verbose_name=_("Fournisseur"))
+    reference_facture = models.CharField(_("Référence de la facture"), max_length=100, blank=True)
+    immatriculation = models.CharField(_("Immatriculation / n° de série"), max_length=50, blank=True)
+
+    date_acquisition = models.DateField(_("Date d'acquisition"), default=date.today)
+    date_mise_en_service = models.DateField(_("Date de mise en service"), null=True, blank=True,
+                                            help_text=_("Vide : date d'acquisition."))
+    valeur_acquisition = models.DecimalField(_("Valeur d'acquisition HTVA"), max_digits=12, decimal_places=2,
+                                             validators=[MinValueValidator(Decimal("0"))])
+    frais_accessoires = models.DecimalField(
+        _("Frais accessoires et TVA non déductible"), max_digits=12, decimal_places=2, default=ZERO,
+        validators=[MinValueValidator(Decimal("0"))],
+        help_text=_("Transport, installation, frais d'acte… et part de TVA non déductible (ex. 50 % sur une voiture)."),
+    )
+    taux_tva = models.DecimalField(_("Taux de TVA (%)"), max_digits=5, decimal_places=2, default=Decimal("21.00"))
+    tva_deductible = models.DecimalField(_("TVA déductible (%)"), max_digits=5, decimal_places=2, default=Decimal("100.00"))
+    valeur_residuelle = models.DecimalField(_("Valeur résiduelle"), max_digits=12, decimal_places=2, default=ZERO,
+                                            validators=[MinValueValidator(Decimal("0"))])
+
+    methode = models.CharField(_("Méthode d'amortissement"), max_length=10, choices=Methode.choices,
+                               default=Methode.LINEAIRE,
+                               help_text=_("Le dégressif n'est plus admis fiscalement pour les sociétés (acquisitions depuis 2020) ni pour les voitures."))
+    duree_annees = models.PositiveSmallIntegerField(_("Durée d'amortissement (années)"), default=5)
+    prorata_temporis = models.BooleanField(_("Prorata temporis la première année"), default=True)
+    compte_paiement = models.ForeignKey(CompteTresorerie, on_delete=models.SET_NULL, null=True, blank=True,
+                                        related_name="immobilisations", verbose_name=_("Payée depuis le compte"))
+    date_paiement = models.DateField(_("Date de paiement"), null=True, blank=True)
+
+    date_cession = models.DateField(_("Date de cession / mise hors service"), null=True, blank=True)
+    prix_cession = models.DecimalField(_("Prix de cession HTVA"), max_digits=12, decimal_places=2, null=True, blank=True)
+    remarques = models.TextField(_("Remarques"), blank=True)
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("Immobilisation")
+        verbose_name_plural = _("Immobilisations")
+        ordering = ["categorie", "-date_acquisition"]
+
+    def __str__(self):
+        return f"{self.libelle} ({self.get_categorie_display()})"
+
+    # ------------------------------------------------------------------
+    @property
+    def compte_actif(self):
+        return COMPTES_IMMOBILISATIONS[self.categorie][0]
+
+    @property
+    def compte_amortissements(self):
+        return COMPTES_IMMOBILISATIONS[self.categorie][1]
+
+    @property
+    def amortissable(self):
+        return self.categorie != CategorieImmobilisation.TERRAIN and (self.duree_annees or 0) > 0
+
+    @property
+    def valeur_comptable_brute(self):
+        return (Decimal(self.valeur_acquisition or 0) + Decimal(self.frais_accessoires or 0)).quantize(R2)
+
+    @property
+    def base_amortissable(self):
+        return max(ZERO, self.valeur_comptable_brute - Decimal(self.valeur_residuelle or 0)).quantize(R2)
+
+    @property
+    def montant_tva(self):
+        return (Decimal(self.valeur_acquisition or 0) * Decimal(self.taux_tva or 0) / 100).quantize(R2)
+
+    @property
+    def tva_recuperable(self):
+        return (self.montant_tva * Decimal(self.tva_deductible or 0) / 100).quantize(R2)
+
+    @property
+    def total_tvac(self):
+        return (Decimal(self.valeur_acquisition or 0) + self.montant_tva).quantize(R2)
+
+    @property
+    def taux_lineaire(self):
+        return (Decimal("100") / self.duree_annees).quantize(Decimal("0.01")) if self.amortissable else ZERO
+
+    @property
+    def taux_degressif(self):
+        return min(self.taux_lineaire * 2, Decimal("40")) if self.amortissable else ZERO
+
+    @property
+    def debut(self):
+        return self.date_mise_en_service or self.date_acquisition
+
+    def plan_amortissement(self):
+        """[{annee, base, taux, dotation, cumul, vnc}] – exercices = années civiles."""
+        if not self.amortissable or not self.base_amortissable:
+            return []
+        base = self.base_amortissable
+        annee = self.debut.year
+        fraction = Decimal(13 - self.debut.month) / 12 if self.prorata_temporis else Decimal("1")
+        lineaire = base / self.duree_annees
+        cumul = ZERO
+        plan = []
+        derniere_annee = self.date_cession.year - 1 if self.date_cession else None
+        i = 0
+        while cumul < base and i < self.duree_annees + 2:
+            if derniere_annee is not None and annee > derniere_annee:
+                break
+            reste = base - cumul
+            if self.methode == self.Methode.DEGRESSIF:
+                deg = reste * self.taux_degressif / 100
+                annees_restantes = max(Decimal(self.duree_annees) - Decimal(i) - (1 - fraction if i else 0), Decimal("1"))
+                lin_reste = reste / annees_restantes
+                dotation = max(deg, lin_reste)
+                taux = self.taux_degressif if deg >= lin_reste else self.taux_lineaire
+            else:
+                dotation = lineaire
+                taux = self.taux_lineaire
+            if i == 0:
+                dotation = dotation * fraction
+            dotation = min(dotation, reste).quantize(R2)
+            if dotation <= 0:
+                break
+            cumul += dotation
+            plan.append({"annee": annee, "taux": taux, "dotation": dotation, "cumul": cumul,
+                         "vnc": (self.valeur_comptable_brute - cumul).quantize(R2)})
+            annee += 1
+            i += 1
+        return plan
+
+    def dotation(self, annee):
+        return next((p["dotation"] for p in self.plan_amortissement() if p["annee"] == annee), ZERO)
+
+    def cumul_fin(self, annee):
+        cumul = ZERO
+        for p in self.plan_amortissement():
+            if p["annee"] <= annee:
+                cumul = p["cumul"]
+        return cumul
+
+    def vnc_fin(self, annee):
+        if self.date_cession and self.date_cession.year <= annee:
+            return ZERO
+        if self.debut.year > annee:
+            return ZERO
+        return (self.valeur_comptable_brute - self.cumul_fin(annee)).quantize(R2)
+
+    @property
+    def vnc_actuelle(self):
+        return self.vnc_fin(date.today().year - 1) if self.debut.year < date.today().year else self.valeur_comptable_brute
+
+    @property
+    def resultat_cession(self):
+        if not self.date_cession:
+            return None
+        vnc = (self.valeur_comptable_brute - self.cumul_fin(self.date_cession.year - 1)).quantize(R2)
+        return (Decimal(self.prix_cession or 0) - vnc).quantize(R2)
+
+    # ------------------------------------------------------------------
+    def ecritures(self, debut=None, fin=None):
+        lib = f"{self.libelle}" + (f" – {self.reference_facture}" if self.reference_facture else "")
+        L = []
+
+        def ligne(journal, jour, compte, debit=ZERO, credit=ZERO, libelle=lib, intitule=None):
+            if (debit or credit) and (debut is None or jour >= debut) and (fin is None or jour <= fin):
+                L.append({"journal": journal, "date": jour, "compte": compte,
+                          "intitule": intitule or INTITULES_COMPTES_IMMO.get(compte) or INTITULES_CONTREPARTIE.get(compte, ""),
+                          "libelle": libelle, "debit": Decimal(debit).quantize(R2), "credit": Decimal(credit).quantize(R2),
+                          "source": "immobilisation", "objet": self})
+
+        # Acquisition (journal d'achats) – la TVA non déductible est comprise dans les frais accessoires
+        ligne("ACH", self.date_acquisition, self.compte_actif, debit=self.valeur_comptable_brute)
+        ligne("ACH", self.date_acquisition, COMPTE_TVA_DEDUCTIBLE, debit=self.tva_recuperable, intitule=_("TVA à récupérer"))
+        ligne("ACH", self.date_acquisition, COMPTE_FOURNISSEURS,
+              credit=self.valeur_comptable_brute + self.tva_recuperable, intitule=_("Fournisseurs"))
+        if self.date_paiement:
+            banque = self.compte_paiement.compte_pcmn if self.compte_paiement else COMPTE_BANQUE_DEFAUT
+            ligne("BQ", self.date_paiement, COMPTE_FOURNISSEURS, debit=self.valeur_comptable_brute + self.tva_recuperable,
+                  intitule=_("Fournisseurs"))
+            ligne("BQ", self.date_paiement, banque, credit=self.valeur_comptable_brute + self.tva_recuperable,
+                  intitule=_("Banque"))
+        # Dotations annuelles (31/12)
+        for p in self.plan_amortissement():
+            jour = date(p["annee"], 12, 31)
+            libd = f"{_('Amortissement')} {p['annee']} – {self.libelle}"
+            ligne("OD", jour, COMPTE_DOTATIONS, debit=p["dotation"], libelle=libd)
+            ligne("OD", jour, self.compte_amortissements, credit=p["dotation"], libelle=libd)
+        # Cession
+        if self.date_cession:
+            cumul = self.cumul_fin(self.date_cession.year - 1)
+            prix = Decimal(self.prix_cession or 0)
+            libc = f"{_('Cession')} – {self.libelle}"
+            if cumul and self.compte_amortissements:
+                ligne("OD", self.date_cession, self.compte_amortissements, debit=cumul, libelle=libc)
+            ligne("OD", self.date_cession, COMPTE_CREANCES_DIVERSES, debit=prix, libelle=libc)
+            res = self.resultat_cession
+            if res and res < 0:
+                ligne("OD", self.date_cession, COMPTE_MOINS_VALUE, debit=-res, libelle=libc)
+            ligne("OD", self.date_cession, self.compte_actif, credit=self.valeur_comptable_brute, libelle=libc)
+            if res and res > 0:
+                ligne("OD", self.date_cession, COMPTE_PLUS_VALUE, credit=res, libelle=libc)
+        return L
+
+    def ligne_tresorerie(self):
+        montant = self.valeur_comptable_brute + self.tva_recuperable
+        return {"date": self.date_paiement, "libelle": f"{_('Investissement')} – {self.libelle}",
+                "entree": ZERO, "sortie": montant, "contrepartie": COMPTE_FOURNISSEURS,
+                "piece": self.reference_facture or f"IMMO-{str(self.pk)[:8]}",
+                "source": "immobilisation", "objet": self, "ordre": 5}
+
+
+# ======================================================================
+# STOCK – valorisation à l'inventaire et variation de stock (classe 3 / 609)
+# ======================================================================
+COMPTE_STOCK = "340000"
+COMPTE_VARIATION_STOCK = "609400"
+
+
+class ValorisationStock(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, related_name="valorisations_stock")
+    date = models.DateField(_("Date de l'inventaire"), default=date.today)
+    valeur_pieces = models.DecimalField(_("Pièces (quantité × prix d'achat)"), max_digits=14, decimal_places=2, default=ZERO)
+    valeur_autres = models.DecimalField(_("Autres stocks (fluides, pneus…)"), max_digits=14, decimal_places=2, default=ZERO)
+    remarques = models.TextField(_("Remarques"), blank=True)
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("Valorisation du stock")
+        verbose_name_plural = _("Valorisations du stock")
+        ordering = ["-date"]
+
+    def __str__(self):
+        return f"{self.date:%d/%m/%Y} – {self.total} €"
+
+    @property
+    def total(self):
+        return (Decimal(self.valeur_pieces or 0) + Decimal(self.valeur_autres or 0)).quantize(R2)
+
+    @property
+    def precedente(self):
+        return (ValorisationStock.objects.filter(societe=self.societe, date__lt=self.date).order_by("-date").first())
+
+    @property
+    def variation(self):
+        prec = self.precedente
+        return (self.total - (prec.total if prec else ZERO)).quantize(R2)
+
+    def ecritures(self):
+        v = self.variation
+        lib = f"{_('Variation de stock')} – {_('inventaire du')} {self.date:%d/%m/%Y}"
+        base = {"journal": "OD", "date": self.date, "libelle": lib, "source": "stock", "objet": self}
+        if v > 0:
+            return [dict(base, compte=COMPTE_STOCK, intitule=_("Marchandises (stock)"), debit=v, credit=ZERO),
+                    dict(base, compte=COMPTE_VARIATION_STOCK, intitule=_("Variation de stock de marchandises"), debit=ZERO, credit=v)]
+        if v < 0:
+            return [dict(base, compte=COMPTE_VARIATION_STOCK, intitule=_("Variation de stock de marchandises"), debit=-v, credit=ZERO),
+                    dict(base, compte=COMPTE_STOCK, intitule=_("Marchandises (stock)"), debit=ZERO, credit=-v)]
+        return []
+
+
+# ======================================================================
+# SALAIRES – versements ONSS et précompte professionnel
+# ======================================================================
+class VersementSocial(models.Model):
+    class Type(models.TextChoices):
+        ONSS = "ONSS", _("ONSS (cotisations sociales)")
+        PRECOMPTE = "PRECOMPTE", _("Précompte professionnel (SPF Finances)")
+
+    COMPTES = {Type.ONSS: "454000", Type.PRECOMPTE: "453000"}
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, related_name="versements_sociaux")
+    type = models.CharField(_("Type"), max_length=10, choices=Type.choices)
+    periode = models.CharField(_("Période"), max_length=20, help_text=_("Ex. : 10/2026 ou T3/2026"))
+    date = models.DateField(_("Date du paiement"), default=date.today)
+    montant = models.DecimalField(_("Montant"), max_digits=12, decimal_places=2, validators=[MinValueValidator(Decimal("0.01"))])
+    compte_paiement = models.ForeignKey(CompteTresorerie, on_delete=models.SET_NULL, null=True, blank=True,
+                                        related_name="versements_sociaux", verbose_name=_("Payé depuis le compte"),
+                                        help_text=_("Vide : compte bancaire par défaut."))
+    reference = models.CharField(_("Référence / communication"), max_length=100, blank=True)
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("Versement ONSS / précompte")
+        verbose_name_plural = _("Versements ONSS / précompte")
+        ordering = ["-date"]
+
+    def __str__(self):
+        return f"{self.get_type_display()} {self.periode} – {self.montant} €"
+
+    @property
+    def compte_dette(self):
+        return self.COMPTES[self.type]
+
+    def ecritures(self):
+        banque = self.compte_paiement.compte_pcmn if self.compte_paiement else COMPTE_BANQUE_DEFAUT
+        lib = f"{self.get_type_display()} {self.periode}"
+        base = {"journal": "BQ", "date": self.date, "libelle": lib, "source": "versement_social", "objet": self}
+        return [dict(base, compte=self.compte_dette, intitule=INTITULES_CONTREPARTIE.get(self.compte_dette, ""), debit=self.montant, credit=ZERO),
+                dict(base, compte=banque, intitule=_("Banque"), debit=ZERO, credit=self.montant)]
+
+    def ligne_tresorerie(self):
+        return {"date": self.date, "libelle": f"{self.get_type_display()} {self.periode}",
+                "entree": ZERO, "sortie": self.montant, "contrepartie": self.compte_dette,
+                "piece": self.reference or f"{self.type}-{self.periode}", "source": "versement_social",
+                "objet": self, "ordre": 6}

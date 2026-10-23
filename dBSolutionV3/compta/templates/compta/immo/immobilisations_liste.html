@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Immobilisations et amortissements" %}{% endblock %}
+{% block content %}
+<div class="p-6">
+{% trans "Immobilisations et amortissements" as titre %}
+{% include "compta/immo/_nav.html" with icone="icons/immobilisations.png" %}
+
+<div class="flex flex-wrap items-end justify-between gap-3 mb-4">
+    <form method="get" class="flex flex-wrap items-end gap-3">
+        <div>
+            <label class="block text-sm font-semibold mb-1">{% trans "Exercice" %}</label>
+            <select name="annee" class="border rounded px-3 py-2" onchange="this.form.submit()">
+                {% for a in annees %}<option value="{{ a }}" {% if a == annee %}selected{% endif %}>{{ a }}</option>{% endfor %}
+            </select>
+        </div>
+        <div>
+            <label class="block text-sm font-semibold mb-1">{% trans "Catégorie" %}</label>
+            <select name="categorie" class="border rounded px-3 py-2" onchange="this.form.submit()">
+                <option value="">{% trans "Toutes" %}</option>
+                {% for v, l in categories %}<option value="{{ v }}" {% if v == categorie %}selected{% endif %}>{{ l }}</option>{% endfor %}
+            </select>
+        </div>
+    </form>
+    <a href="{% url 'compta:immobilisation_ajouter' %}{% if categorie %}?categorie={{ categorie }}{% endif %}" class="bg-blue-700 hover:bg-blue-400 text-white px-5 py-3 rounded font-semibold">+ {% trans "Nouvelle immobilisation" %}</a>
+</div>
+
+<!-- Synthèse par catégorie -->
+<div class="overflow-x-auto bg-white shadow-md rounded-lg mb-6">
+<table class="min-w-full table-auto border-collapse border border-gray-200">
+    <thead><tr class="bg-gray-100">
+        <th class="border px-4 py-2 text-left">{% trans "Compte" %}</th>
+        <th class="border px-4 py-2 text-left">{% trans "Catégorie" %}</th>
+        <th class="border px-4 py-2 text-right">{% trans "Valeur brute" %}</th>
+        <th class="border px-4 py-2 text-right">{% blocktrans %}Dotation {{ annee }}{% endblocktrans %}</th>
+        <th class="border px-4 py-2 text-right">{% blocktrans %}Amortissements cumulés au 31/12/{{ annee }}{% endblocktrans %}</th>
+        <th class="border px-4 py-2 text-right">{% trans "Valeur nette comptable" %}</th>
+    </tr></thead>
+    <tbody>
+    {% for c in par_categorie %}
+        <tr>
+            <td class="border px-4 py-2 font-mono">{{ c.compte }}</td>
+            <td class="border px-4 py-2">{{ c.label }} <span class="text-xs text-gray-500">({{ c.nb }})</span></td>
+            <td class="border px-4 py-2 text-right">{{ c.brut|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ c.dotation|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ c.cumul|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right font-semibold">{{ c.vnc|floatformat:2 }} €</td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="6" class="text-center py-4 text-gray-500">{% trans "Aucune immobilisation." %}</td></tr>
+    {% endfor %}
+    </tbody>
+    {% if par_categorie %}
+    <tfoot class="font-bold bg-gray-50">
+        <tr>
+            <td class="border px-4 py-2" colspan="2">{% trans "Total" %}</td>
+            <td class="border px-4 py-2 text-right">{{ totaux.brut|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ totaux.dotation|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ totaux.cumul|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ totaux.vnc|floatformat:2 }} €</td>
+        </tr>
+    </tfoot>
+    {% endif %}
+</table>
+</div>
+
+<!-- Détail -->
+<div class="overflow-x-auto bg-white shadow-md rounded-lg">
+<table class="min-w-full table-auto border-collapse border border-gray-200">
+    <thead><tr class="bg-gray-100">
+        <th class="border px-4 py-2 text-left">{% trans "Libellé" %}</th>
+        <th class="border px-4 py-2 text-left">{% trans "Catégorie" %}</th>
+        <th class="border px-4 py-2 text-left">{% trans "Mise en service" %}</th>
+        <th class="border px-4 py-2 text-left">{% trans "Méthode" %}</th>
+        <th class="border px-4 py-2 text-right">{% trans "Valeur brute" %}</th>
+        <th class="border px-4 py-2 text-right">{% trans "Dotation" %} {{ annee }}</th>
+        <th class="border px-4 py-2 text-right">{% trans "Valeur nette comptable" %}</th>
+        <th class="border px-4 py-2 text-center">{% trans "Info" %}</th>
+    </tr></thead>
+    <tbody>
+    {% for l in lignes %}
+        <tr class="{% if l.cedee %}text-gray-400{% endif %}">
+            <td class="border px-4 py-2 font-semibold">{{ l.immo.libelle }}{% if l.cedee %} <span class="text-xs">({% trans "cédée" %})</span>{% endif %}</td>
+            <td class="border px-4 py-2">{{ l.immo.get_categorie_display }}</td>
+            <td class="border px-4 py-2">{{ l.immo.debut|date:"d/m/Y" }}</td>
+            <td class="border px-4 py-2">{% if l.immo.amortissable %}{{ l.immo.get_methode_display }} – {{ l.immo.duree_annees }} {% trans "ans" %}{% else %}{% trans "Non amortissable" %}{% endif %}</td>
+            <td class="border px-4 py-2 text-right">{{ l.immo.valeur_comptable_brute|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ l.dotation|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ l.vnc|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-center"><a href="{% url 'compta:immobilisation_detail' l.immo.pk %}" class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">{% trans "Info" %}</a></td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="8" class="text-center py-4 text-gray-500">{% trans "Aucune immobilisation." %}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+<p class="text-xs text-gray-500 mt-4">{% trans "Exercice comptable = année civile. Amortissements actés au 31/12 (compte 630200 / comptes xx9 de la classe 2). Les terrains ne s'amortissent pas." %}</p>
+</div>
+{% endblock %}

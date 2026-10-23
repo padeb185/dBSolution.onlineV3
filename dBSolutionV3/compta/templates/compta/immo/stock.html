@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Stock – valorisation comptable" %}{% endblock %}
+{% block content %}
+<div class="p-6 max-w-6xl mx-auto">
+{% trans "Stock – valorisation comptable" as titre %}
+{% include "compta/immo/_nav.html" with icone="icons/stock_compta.png" %}
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Valeur actuelle du stock de pièces" %}</p><p class="text-2xl font-bold">{{ valeur_actuelle|floatformat:2 }} €</p><p class="text-xs text-gray-500">{% trans "quantité en stock × prix d'achat HTVA" %}</p></div>
+    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Dernier inventaire comptabilisé" %}</p><p class="text-2xl font-bold">{% if derniere %}{{ derniere.total|floatformat:2 }} €{% else %}—{% endif %}</p><p class="text-xs text-gray-500">{% if derniere %}{{ derniere.date|date:"d/m/Y" }}{% endif %}</p></div>
+    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Pièces au dernier inventaire" %}</p><p class="text-2xl font-bold">{% if derniere %}{{ derniere.valeur_pieces|floatformat:2 }} €{% else %}—{% endif %}</p></div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-white shadow rounded p-5">
+        <h2 class="text-lg font-semibold mb-3">{% trans "Comptabiliser un inventaire" %}</h2>
+        <p class="text-sm text-gray-500 mb-3">{% trans "À la clôture (31/12) : la variation par rapport à l'inventaire précédent est passée en 340000 (stock) / 609400 (variation de stock)." %}</p>
+        <form method="post">
+            {% csrf_token %}
+            {% include "compta/_champs.html" %}
+            <button class="w-full bg-blue-700 text-white px-5 py-3 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer" %}</button>
+        </form>
+    </div>
+    <div class="md:col-span-2">
+        <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+        <table class="min-w-full table-auto border-collapse border border-gray-200">
+            <thead><tr class="bg-gray-100">
+                <th class="border px-3 py-2 text-left">{% trans "Date" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Pièces" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Autres" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Total" %}</th>
+                <th class="border px-3 py-2 text-right">{% trans "Variation" %}</th>
+                <th class="border px-3 py-2"></th>
+            </tr></thead>
+            <tbody>
+            {% for v in valorisations %}
+                <tr>
+                    <td class="border px-3 py-2">{{ v.date|date:"d/m/Y" }}</td>
+                    <td class="border px-3 py-2 text-right">{{ v.valeur_pieces|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right">{{ v.valeur_autres|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right font-semibold">{{ v.total|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right {% if v.variation < 0 %}text-red-700{% else %}text-green-700{% endif %}">{{ v.variation|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-center"><a href="{% url 'compta:stock_supprimer' v.pk %}" class="text-red-700 hover:underline text-sm">{% trans "Supprimer" %}</a></td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="6" class="text-center py-4 text-gray-500">{% trans "Aucun inventaire comptabilisé." %}</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

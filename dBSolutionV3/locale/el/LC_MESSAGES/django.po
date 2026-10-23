@@ -54396,3 +54396,460 @@ msgstr "Επιστροφή στις ενοικιάσεις"
 
 msgid "Consultation, émission et encaissement"
 msgstr "Προβολή, έκδοση και είσπραξη"
+
+msgid "Amortissement"
+msgstr "Απόσβεση"
+
+msgid "Amortissements cumulés"
+msgstr "Σωρευμένες αποσβέσεις"
+
+msgid "Amortissements cumulés au 31/12/%(annee)s"
+msgstr "Σωρευμένες αποσβέσεις στις 31/12/%(annee)s"
+
+msgid "Aucun inventaire comptabilisé."
+msgstr "Δεν έχει καταχωριστεί απογραφή."
+
+msgid "Aucune immobilisation."
+msgstr "Κανένα πάγιο."
+
+msgid "Aucune écriture."
+msgstr "Καμία εγγραφή."
+
+msgid "Autres"
+msgstr "Λοιπά"
+
+msgid "Autres immobilisations corporelles"
+msgstr "Λοιπά ενσώματα πάγια"
+
+msgid "Autres immobilisations corporelles – amortissements actés"
+msgstr "Λοιπά ενσώματα πάγια – λογισθείσες αποσβέσεις"
+
+msgid "Autres stocks (fluides, pneus…)"
+msgstr "Λοιπά αποθέματα (υγρά, ελαστικά…)"
+
+msgid "Balance des comptes"
+msgstr "Ισοζύγιο λογαριασμών"
+
+msgid "Base amortissable"
+msgstr "Αποσβέσιμη βάση"
+
+msgid "Cession"
+msgstr "Εκχώρηση"
+
+msgid "Comptabiliser un inventaire"
+msgstr "Καταχώριση απογραφής"
+
+msgid "Comptabilité détaillée des salaires"
+msgstr "Αναλυτική λογιστική μισθοδοσίας"
+
+msgid "Comptabilité générale"
+msgstr "Γενική λογιστική"
+
+msgid "Compte (commence par)"
+msgstr "Λογαριασμός (ξεκινά με)"
+
+msgid "Compte des amortissements actés"
+msgstr "Λογαριασμός λογισθεισών αποσβέσεων"
+
+msgid "Constructions"
+msgstr "Κτίρια"
+
+msgid "Constructions / immeubles"
+msgstr "Κτίρια / ακίνητα"
+
+msgid "Constructions – amortissements actés"
+msgstr "Κτίρια – λογισθείσες αποσβέσεις"
+
+msgid "Contrôle"
+msgstr "Έλεγχος"
+
+msgid "Créances diverses"
+msgstr "Λοιπές απαιτήσεις"
+
+msgid "Crédit (dû)"
+msgstr "Πίστωση (οφειλόμενο)"
+
+msgid "Cédée le"
+msgstr "Εκχωρήθηκε στις"
+
+msgid "Date d'acquisition"
+msgstr "Ημερομηνία απόκτησης"
+
+msgid "Date de cession / mise hors service"
+msgstr "Ημερομηνία εκχώρησης / απόσυρσης"
+
+msgid "Date de l'inventaire"
+msgstr "Ημερομηνία απογραφής"
+
+msgid "Date de mise en service"
+msgstr "Ημερομηνία θέσης σε λειτουργία"
+
+msgid "Dernier inventaire comptabilisé"
+msgstr "Τελευταία καταχωρισμένη απογραφή"
+
+msgid "Dettes salariales et sociales"
+msgstr "Μισθολογικές και ασφαλιστικές υποχρεώσεις"
+
+msgid "Dotation"
+msgstr "Απόσβεση χρήσης"
+
+msgid "Dotation %(annee)s"
+msgstr "Απόσβεση %(annee)s"
+
+msgid "Dotations aux amortissements sur immobilisations corporelles"
+msgstr "Αποσβέσεις ενσώματων παγίων"
+
+msgid "Durée d'amortissement (années)"
+msgstr "Διάρκεια απόσβεσης (έτη)"
+
+msgid ""
+"Durées indicatives : constructions 33 ans (3 %), installations et machines "
+"10 ans, mobilier et matériel de bureau 5 à 10 ans (informatique 3 ans), "
+"matériel roulant 4 à 5 ans. Terrains : pas d'amortissement. Faites valider "
+"les durées par votre comptable."
+msgstr ""
+"Ενδεικτικές διάρκειες: κτίρια 33 έτη (3 %), εγκαταστάσεις και μηχανήματα 10 "
+"έτη, έπιπλα και εξοπλισμός γραφείου 5 έως 10 έτη (πληροφορική 3 έτη), "
+"μεταφορικά μέσα 4 έως 5 έτη. Γήπεδα: χωρίς απόσβεση. Ζητήστε επικύρωση από "
+"τον λογιστή σας."
+
+msgid "Débit (payé)"
+msgstr "Χρέωση (πληρώθηκε)"
+
+msgid "Déséquilibré"
+msgstr "Μη ισοσκελισμένο"
+
+msgid "Encaissements"
+msgstr "Εισπράξεις"
+
+msgid "Enregistrer le versement"
+msgstr "Καταχώριση καταβολής"
+
+msgid "Ex. : 10/2026 ou T3/2026"
+msgstr "Π.χ. 10/2026 ή Τ3/2026"
+
+msgid "Ex. : pont élévateur, camionnette, bâtiment atelier…"
+msgstr "Π.χ. ανυψωτικό, βαν, κτίριο συνεργείου…"
+
+msgid "Exercice"
+msgstr "Χρήση"
+
+msgid ""
+"Exercice comptable = année civile. Amortissements actés au 31/12 (compte "
+"630200 / comptes xx9 de la classe 2). Les terrains ne s'amortissent pas."
+msgstr ""
+"Χρήση = ημερολογιακό έτος. Αποσβέσεις στις 31/12 (λογαριασμός 630200 / "
+"λογαριασμοί xx9 της τάξης 2). Τα γήπεδα δεν αποσβένονται."
+
+msgid "Frais accessoires et TVA non déductible"
+msgstr "Παρεπόμενα έξοδα και μη εκπιπτόμενος ΦΠΑ"
+
+msgid "Immatriculation / n° de série"
+msgstr "Αρ. κυκλοφορίας / σειράς"
+
+msgid "Immobilisation"
+msgstr "Πάγιο"
+
+msgid "Immobilisations"
+msgstr "Πάγια"
+
+msgid "Immobilisations et amortissements"
+msgstr "Πάγια και αποσβέσεις"
+
+msgid "Installations, machines et outillage"
+msgstr "Εγκαταστάσεις, μηχανήματα και εξοπλισμός"
+
+msgid "Installations, machines et outillage – amortissements actés"
+msgstr "Εγκαταστάσεις, μηχανήματα και εξοπλισμός – λογισθείσες αποσβέσεις"
+
+msgid "Investissements et amortissements"
+msgstr "Επενδύσεις και αποσβέσεις"
+
+msgid "Journal général"
+msgstr "Γενικό ημερολόγιο"
+
+msgid "Journal général (débit / crédit)"
+msgstr "Γενικό ημερολόγιο (χρέωση / πίστωση)"
+
+msgid "Journal général et balance"
+msgstr "Γενικό ημερολόγιο και ισοζύγιο"
+
+msgid "L'immobilisation a été enregistrée."
+msgstr "Το πάγιο αποθηκεύτηκε."
+
+msgid "L'immobilisation a été supprimée."
+msgstr "Το πάγιο διαγράφηκε."
+
+msgid "La cession ne peut pas précéder l'acquisition."
+msgstr "Η εκχώρηση δεν μπορεί να προηγείται της απόκτησης."
+
+msgid "La valeur résiduelle dépasse la valeur d'acquisition."
+msgstr "Η υπολειμματική αξία υπερβαίνει την αξία κτήσης."
+
+msgid "La valorisation du stock a été enregistrée."
+msgstr "Η αποτίμηση αποθεμάτων αποθηκεύτηκε."
+
+msgid "La valorisation du stock a été supprimée."
+msgstr "Η αποτίμηση αποθεμάτων διαγράφηκε."
+
+msgid ""
+"Le dégressif n'est plus admis fiscalement pour les sociétés (acquisitions "
+"depuis 2020) ni pour les voitures."
+msgstr ""
+"Η φθίνουσα μέθοδος δεν επιτρέπεται πλέον φορολογικά για εταιρείες "
+"(αποκτήσεις από το 2020) ούτε για αυτοκίνητα."
+
+msgid "Le versement a été enregistré."
+msgstr "Η καταβολή καταχωρίστηκε."
+
+msgid "Le versement a été supprimé."
+msgstr "Η καταβολή διαγράφηκε."
+
+msgid ""
+"Les écritures comptables liées seront retirées. Cette action est "
+"irréversible."
+msgstr ""
+"Οι σχετικές λογιστικές εγγραφές θα αφαιρεθούν. Η ενέργεια δεν αναιρείται."
+
+msgid "Marchandises (stock)"
+msgstr "Εμπορεύματα (απόθεμα)"
+
+msgid "Matériel roulant"
+msgstr "Μεταφορικά μέσα"
+
+msgid "Matériel roulant – amortissements actés"
+msgstr "Μεταφορικά μέσα – λογισθείσες αποσβέσεις"
+
+msgid "Mise en service"
+msgstr "Θέση σε λειτουργία"
+
+msgid "Mobilier et matériel de bureau"
+msgstr "Έπιπλα και εξοπλισμός γραφείου"
+
+msgid "Mobilier et matériel de bureau – amortissements actés"
+msgstr "Έπιπλα και εξοπλισμός γραφείου – λογισθείσες αποσβέσεις"
+
+msgid "Modifier l'immobilisation"
+msgstr "Επεξεργασία παγίου"
+
+msgid "Moins-value"
+msgstr "Υποαξία"
+
+msgid "Moins-values sur réalisation d'immobilisations corporelles"
+msgstr "Ζημίες από εκποίηση ενσώματων παγίων"
+
+msgid "Méthode"
+msgstr "Μέθοδος"
+
+msgid "Méthode d'amortissement"
+msgstr "Μέθοδος απόσβεσης"
+
+msgid "Nets, ONSS, précompte – débit / crédit"
+msgstr "Καθαρά, ONSS, παρακράτηση – χρέωση / πίστωση"
+
+msgid "Non amortissable"
+msgstr "Μη αποσβέσιμο"
+
+msgid "Nouvelle immobilisation"
+msgstr "Νέο πάγιο"
+
+msgid "ONSS / précompte"
+msgstr "ONSS / παρακράτηση"
+
+msgid "ONSS à payer"
+msgstr "ONSS πληρωτέο"
+
+msgid "Paiement des salaires"
+msgstr "Πληρωμή μισθών"
+
+msgid "Paiement des salaires nets"
+msgstr "Πληρωμή καθαρών μισθών"
+
+msgid "Payé depuis le compte"
+msgstr "Πληρώθηκε από τον λογαριασμό"
+
+msgid "Pièces (quantité × prix d'achat)"
+msgstr "Ανταλλακτικά (ποσότητα × τιμή αγοράς)"
+
+msgid "Pièces au dernier inventaire"
+msgstr "Ανταλλακτικά στην τελευταία απογραφή"
+
+msgid "Plus-value"
+msgstr "Υπεραξία"
+
+msgid "Plus-values sur réalisation d'immobilisations corporelles"
+msgstr "Κέρδη από εκποίηση ενσώματων παγίων"
+
+msgid "Prix de cession HTVA"
+msgstr "Τιμή εκχώρησης χωρίς ΦΠΑ"
+
+msgid "Prorata temporis la première année"
+msgstr "Κατ' αναλογία χρόνου το πρώτο έτος"
+
+msgid ""
+"Précompte : mensuel, au plus tard le 15 du mois suivant. ONSS : provisions "
+"mensuelles et solde trimestriel."
+msgstr ""
+"Παρακράτηση: μηνιαία, έως τις 15 του επόμενου μήνα. ONSS: μηνιαίες "
+"προκαταβολές και τριμηνιαίο υπόλοιπο."
+
+msgid "Précompte professionnel à payer"
+msgstr "Παρακράτηση φόρου πληρωτέα"
+
+msgid "Retour aux immobilisations"
+msgstr "Επιστροφή στα πάγια"
+
+msgid "Référence / communication"
+msgstr "Αναφορά / αιτιολογία"
+
+msgid "Référence de la facture"
+msgstr "Αναφορά τιμολογίου"
+
+msgid "Rémunérations nettes à payer"
+msgstr "Καθαρές αποδοχές πληρωτέες"
+
+msgid "Salaires"
+msgstr "Μισθοί"
+
+msgid "Salaires – paiements (débit / crédit)"
+msgstr "Μισθοί – πληρωμές (χρέωση / πίστωση)"
+
+msgid "Solde créditeur"
+msgstr "Πιστωτικό υπόλοιπο"
+
+msgid "Solde débiteur"
+msgstr "Χρεωστικό υπόλοιπο"
+
+msgid "Stock – valorisation comptable"
+msgstr "Απόθεμα – λογιστική αποτίμηση"
+
+msgid "Supprimer l'immobilisation"
+msgstr "Διαγραφή παγίου"
+
+msgid "Supprimer la valorisation du stock"
+msgstr "Διαγραφή αποτίμησης αποθεμάτων"
+
+msgid "Supprimer le versement"
+msgstr "Διαγραφή καταβολής"
+
+msgid "TVA déductible (%)"
+msgstr "Εκπιπτόμενος ΦΠΑ (%)"
+
+msgid "Tableau d'amortissement"
+msgstr "Πίνακας αποσβέσεων"
+
+msgid "Terrains"
+msgstr "Γήπεδα"
+
+msgid "Terrains, immeubles, machines, matériel de bureau, matériel roulant"
+msgstr "Γήπεδα, κτίρια, μηχανήματα, εξοπλισμός γραφείου, μεταφορικά μέσα"
+
+msgid "Total crédit"
+msgstr "Σύνολο πίστωσης"
+
+msgid "Total débit"
+msgstr "Σύνολο χρέωσης"
+
+msgid "Toutes les écritures – débit / crédit"
+msgstr "Όλες οι εγγραφές – χρέωση / πίστωση"
+
+msgid ""
+"Transport, installation, frais d'acte… et part de TVA non déductible (ex. 50"
+" % sur une voiture)."
+msgstr ""
+"Μεταφορά, εγκατάσταση, συμβολαιογραφικά… και μη εκπιπτόμενος ΦΠΑ (π.χ. 50 % "
+"σε αυτοκίνητο)."
+
+msgid "Trésorerie"
+msgstr "Ταμείο"
+
+msgid "Trésorerie (mouvements manuels)"
+msgstr "Ταμείο (χειροκίνητες κινήσεις)"
+
+msgid "Valeur actuelle du stock de pièces"
+msgstr "Τρέχουσα αξία αποθέματος ανταλλακτικών"
+
+msgid "Valeur brute"
+msgstr "Ακαθάριστη αξία"
+
+msgid "Valeur comptable brute"
+msgstr "Ακαθάριστη λογιστική αξία"
+
+msgid "Valeur d'acquisition HTVA"
+msgstr "Αξία κτήσης χωρίς ΦΠΑ"
+
+msgid "Valeur nette comptable"
+msgstr "Καθαρή λογιστική αξία"
+
+msgid "Valeur résiduelle"
+msgstr "Υπολειμματική αξία"
+
+msgid "Valorisation du stock"
+msgstr "Αποτίμηση αποθεμάτων"
+
+msgid "Valorisation et variation de stock"
+msgstr "Αποτίμηση και μεταβολή αποθεμάτων"
+
+msgid "Valorisations du stock"
+msgstr "Αποτιμήσεις αποθεμάτων"
+
+msgid "Variation de stock"
+msgstr "Μεταβολή αποθεμάτων"
+
+msgid "Variation de stock de marchandises"
+msgstr "Μεταβολή αποθεμάτων εμπορευμάτων"
+
+msgid "Versement ONSS / précompte"
+msgstr "Καταβολή ONSS / παρακράτησης"
+
+msgid "Versements ONSS / précompte"
+msgstr "Καταβολές ONSS / παρακράτησης"
+
+msgid "Vide : date d'acquisition."
+msgstr "Κενό: ημερομηνία απόκτησης."
+
+msgid "cédée"
+msgstr "εκχωρήθηκε"
+
+msgid "déductible"
+msgstr "εκπιπτόμενος"
+
+msgid "inventaire du"
+msgstr "απογραφή της"
+
+msgid "investissement"
+msgstr "επένδυση"
+
+msgid "payé"
+msgstr "πληρώθηκε"
+
+msgid "prix"
+msgstr "τιμή"
+
+msgid "quantité en stock × prix d'achat HTVA"
+msgstr "ποσότητα σε απόθεμα × τιμή αγοράς χωρίς ΦΠΑ"
+
+msgid ""
+"À la clôture (31/12) : la variation par rapport à l'inventaire précédent est"
+" passée en 340000 (stock) / 609400 (variation de stock)."
+msgstr ""
+"Στο κλείσιμο (31/12): η μεταβολή από την προηγούμενη απογραφή καταχωρίζεται "
+"στους 340000 (απόθεμα) / 609400 (μεταβολή αποθεμάτων)."
+
+msgid "Écritures"
+msgstr "Εγγραφές"
+
+msgid "Écritures de paiement (débit / crédit)"
+msgstr "Εγγραφές πληρωμών (χρέωση / πίστωση)"
+
+msgid ""
+"Écritures générées à partir des factures émises, encaissements, achats, "
+"paies, versements, instructeurs, immobilisations, inventaires et mouvements "
+"de trésorerie. Document de travail à valider par votre comptable."
+msgstr ""
+"Εγγραφές από εκδοθέντα τιμολόγια, εισπράξεις, αγορές, μισθοδοσία, καταβολές,"
+" εκπαιδευτές, πάγια, απογραφές και κινήσεις ταμείου. Έγγραφο εργασίας προς "
+"επικύρωση από τον λογιστή σας."
+
+msgid "Équilibré"
+msgstr "Ισοσκελισμένο"

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import (CompteTresorerie, FactureInstructeur, LigneFactureInstructeur, MouvementTresorerie,
+from .models import (Immobilisation, ValorisationStock, VersementSocial, CompteTresorerie, FactureInstructeur, LigneFactureInstructeur, MouvementTresorerie,
                      ProfilInstructeur)
 
 
@@ -34,3 +34,13 @@ class FactureInstructeurAdmin(admin.ModelAdmin):
     list_display = ("numero", "reference_instructeur", "instructeur", "date_facture", "montant_tvac", "statut")
     list_filter = ("statut", "autofacturation")
     inlines = [LigneFactureInstructeurInline]
+
+
+@admin.register(Immobilisation)
+class ImmobilisationAdmin(admin.ModelAdmin):
+    list_display = ("libelle", "categorie", "date_acquisition", "valeur_acquisition", "methode", "duree_annees", "date_cession")
+    list_filter = ("categorie", "methode")
+
+
+admin.site.register(ValorisationStock)
+admin.site.register(VersementSocial)

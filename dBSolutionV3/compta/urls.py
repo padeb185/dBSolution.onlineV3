@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views, views_instructeur as vi
+from . import views, views_immo as vim, views_instructeur as vi
 
 app_name = "compta"
 
@@ -14,6 +14,18 @@ urlpatterns = [
     path("mouvements/<uuid:pk>/modifier/", views.mouvement_modifier, name="mouvement_modifier"),
     path("mouvements/<uuid:pk>/supprimer/", views.mouvement_supprimer, name="mouvement_supprimer"),
     path("virement/", views.virement_interne, name="virement_interne"),
+
+    # Immobilisations / amortissements, stock, salaires, journal général
+    path("immobilisations/", vim.immobilisations_liste, name="immobilisations_liste"),
+    path("immobilisations/ajouter/", vim.immobilisation_ajouter, name="immobilisation_ajouter"),
+    path("immobilisations/<uuid:pk>/", vim.immobilisation_detail, name="immobilisation_detail"),
+    path("immobilisations/<uuid:pk>/modifier/", vim.immobilisation_modifier, name="immobilisation_modifier"),
+    path("immobilisations/<uuid:pk>/supprimer/", vim.immobilisation_supprimer, name="immobilisation_supprimer"),
+    path("stock/", vim.stock_compta, name="stock_compta"),
+    path("stock/<uuid:pk>/supprimer/", vim.stock_supprimer, name="stock_supprimer"),
+    path("salaires/", vim.salaires_compta, name="salaires_compta"),
+    path("salaires/versements/<uuid:pk>/supprimer/", vim.versement_supprimer, name="versement_supprimer"),
+    path("journal/", vim.journal_general, name="journal_general"),
 
     # Instructeurs indépendants (factures d'achat / autofacturation)
     path("instructeurs/", vi.instructeurs_liste, name="instructeurs_liste"),

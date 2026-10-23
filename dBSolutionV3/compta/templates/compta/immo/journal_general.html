@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Journal général" %}{% endblock %}
+{% block content %}
+<div class="p-6">
+{% trans "Journal général (débit / crédit)" as titre %}
+{% include "compta/immo/_nav.html" %}
+
+<form method="get" class="bg-white shadow rounded p-4 mb-4">
+    <div class="flex flex-wrap items-end gap-3 mb-3">
+        <div><label class="block text-sm font-semibold mb-1">{% trans "Année" %}</label>
+            <select name="annee" class="border rounded px-3 py-2">{% for a in annees %}<option value="{{ a }}" {% if a == annee %}selected{% endif %}>{{ a }}</option>{% endfor %}</select></div>
+        <div><label class="block text-sm font-semibold mb-1">{% trans "Mois" %}</label>
+            <select name="mois" class="border rounded px-3 py-2"><option value="0">{% trans "Toute l'année" %}</option>{% for m in mois_choix %}<option value="{{ m }}" {% if m == mois %}selected{% endif %}>{{ m|stringformat:"02d" }}</option>{% endfor %}</select></div>
+        <div><label class="block text-sm font-semibold mb-1">{% trans "Compte (commence par)" %}</label>
+            <input type="text" name="compte" value="{{ compte }}" class="border rounded px-3 py-2 w-32" placeholder="ex. 45"></div>
+        <button class="bg-blue-700 text-white px-4 py-2 rounded font-semibold">{% trans "Afficher" %}</button>
+        <a href="?{{ query }}&export=csv" class="bg-green-700 text-white px-4 py-2 rounded font-semibold">{% trans "Exporter (CSV)" %}</a>
+    </div>
+    <div class="flex flex-wrap gap-4 text-sm">
+        {% for code, label in sources.items %}
+            <label class="inline-flex items-center gap-1"><input type="checkbox" name="source" value="{{ code }}" {% if code in choisies %}checked{% endif %}> {{ label }}</label>
+        {% endfor %}
+    </div>
+</form>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Total débit" %}</p><p class="text-xl font-bold">{{ total_debit|floatformat:2 }} €</p></div>
+    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Total crédit" %}</p><p class="text-xl font-bold">{{ total_credit|floatformat:2 }} €</p></div>
+    <div class="bg-white shadow rounded p-4"><p class="text-gray-500 text-sm">{% trans "Contrôle" %}</p>
+        <p class="text-xl font-bold {% if equilibre %}text-green-700{% else %}text-red-700{% endif %}">{% if equilibre %}{% trans "Équilibré" %}{% else %}{% trans "Déséquilibré" %}{% endif %}</p></div>
+</div>
+
+<h2 class="text-xl font-semibold mb-2">{% trans "Balance des comptes" %}</h2>
+<div class="overflow-x-auto bg-white shadow-md rounded-lg mb-6">
+<table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+    <thead><tr class="bg-gray-100">
+        <th class="border px-3 py-2 text-left">{% trans "Compte" %}</th>
+        <th class="border px-3 py-2 text-left">{% trans "Intitulé" %}</th>
+        <th class="border px-3 py-2 text-right">{% trans "Débit" %}</th>
+        <th class="border px-3 py-2 text-right">{% trans "Crédit" %}</th>
+        <th class="border px-3 py-2 text-right">{% trans "Solde débiteur" %}</th>
+        <th class="border px-3 py-2 text-right">{% trans "Solde créditeur" %}</th>
+    </tr></thead>
+    <tbody>
+    {% for b in balance %}
+        <tr>
+            <td class="border px-3 py-2 font-mono"><a href="?annee={{ annee }}&mois={{ mois }}&compte={{ b.compte }}" class="text-blue-700 hover:underline">{{ b.compte }}</a></td>
+            <td class="border px-3 py-2">{{ b.intitule }}</td>
+            <td class="border px-3 py-2 text-right">{{ b.debit|floatformat:2 }}</td>
+            <td class="border px-3 py-2 text-right">{{ b.credit|floatformat:2 }}</td>
+            <td class="border px-3 py-2 text-right">{% if b.solde > 0 %}{{ b.solde|floatformat:2 }}{% endif %}</td>
+            <td class="border px-3 py-2 text-right">{% if b.solde < 0 %}{{ b.solde|stringformat:"s"|cut:"-"|floatformat:2 }}{% endif %}</td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="6" class="text-center py-4 text-gray-500">{% trans "Aucune écriture." %}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<h2 class="text-xl font-semibold mb-2">{% trans "Écritures" %} ({{ ecritures|length }})</h2>
+{% include "compta/immo/_ecritures.html" with avec_piece=True %}
+<p class="text-xs text-gray-500 mt-4">{% trans "Écritures générées à partir des factures émises, encaissements, achats, paies, versements, instructeurs, immobilisations, inventaires et mouvements de trésorerie. Document de travail à valider par votre comptable." %}</p>
+<br>
+</div>
+{% endblock %}

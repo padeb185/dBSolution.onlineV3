@@ -112,6 +112,29 @@
         {% endif %}
     </div>
 
+    <!-- Comptabilité générale -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Comptabilité générale" %}</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <a href="{% url 'compta:immobilisations_liste' %}" class="flex items-center gap-3 bg-gray-100 px-4 py-3 rounded hover:bg-blue-50 font-semibold">
+                <img src="{% static 'icons/immobilisations.png' %}" alt="" class="w-10 h-10">
+                <span>{% trans "Investissements et amortissements" %}<span class="block text-xs font-normal text-gray-500">{% trans "Terrains, immeubles, machines, matériel de bureau, matériel roulant" %}</span></span>
+            </a>
+            <a href="{% url 'compta:stock_compta' %}" class="flex items-center gap-3 bg-gray-100 px-4 py-3 rounded hover:bg-blue-50 font-semibold">
+                <img src="{% static 'icons/stock_compta.png' %}" alt="" class="w-10 h-10">
+                <span>{% trans "Stock" %}<span class="block text-xs font-normal text-gray-500">{% trans "Valorisation et variation de stock" %}</span></span>
+            </a>
+            <a href="{% url 'compta:salaires_compta' %}" class="flex items-center gap-3 bg-gray-100 px-4 py-3 rounded hover:bg-blue-50 font-semibold">
+                <img src="{% static 'icons/paie.png' %}" alt="" class="w-10 h-10">
+                <span>{% trans "Paiement des salaires" %}<span class="block text-xs font-normal text-gray-500">{% trans "Nets, ONSS, précompte – débit / crédit" %}</span></span>
+            </a>
+            <a href="{% url 'compta:journal_general' %}" class="flex items-center gap-3 bg-gray-100 px-4 py-3 rounded hover:bg-blue-50 font-semibold">
+                <img src="{% static 'icons/comptabilite.png' %}" alt="" class="w-10 h-10">
+                <span>{% trans "Journal général et balance" %}<span class="block text-xs font-normal text-gray-500">{% trans "Toutes les écritures – débit / crédit" %}</span></span>
+            </a>
+        </div>
+    </div>
+
     <!-- Autres modules comptables -->
     <div class="bg-white shadow-md rounded-lg p-6">
         <h2 class="text-lg font-semibold mb-4">{% trans "Autres journaux" %}</h2>

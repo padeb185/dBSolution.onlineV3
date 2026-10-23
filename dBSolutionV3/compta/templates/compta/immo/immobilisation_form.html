@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Immobilisation" %}{% endblock %}
+{% block content %}
+<br>
+<div class="max-w-3xl mx-auto p-6 bg-white rounded shadow">
+    {% if immo %}{% trans "Modifier l'immobilisation" as titre %}{% else %}{% trans "Nouvelle immobilisation" as titre %}{% endif %}
+    {% include "compta/immo/_nav.html" with icone="icons/immobilisations.png" %}
+    <p class="text-sm bg-blue-50 border border-blue-200 rounded p-3 mb-4">
+        {% trans "Durées indicatives : constructions 33 ans (3 %), installations et machines 10 ans, mobilier et matériel de bureau 5 à 10 ans (informatique 3 ans), matériel roulant 4 à 5 ans. Terrains : pas d'amortissement. Faites valider les durées par votre comptable." %}
+    </p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+            {% include "compta/_champs.html" %}
+        </div>
+        <div class="flex gap-3 mt-6">
+            <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer" %}</button>
+            <a href="{% if immo %}{% url 'compta:immobilisation_detail' immo.pk %}{% else %}{% url 'compta:immobilisations_liste' %}{% endif %}" class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+</div>
+<br>
+{{ durees|json_script:"durees-immo" }}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const durees = JSON.parse(document.getElementById("durees-immo").textContent);
+    const cat = document.getElementById("id_categorie");
+    const duree = document.getElementById("id_duree_annees");
+    const amort = ["duree_annees", "methode", "prorata_temporis", "valeur_residuelle"];
+    function maj(changement) {
+        const terrain = cat.value === "TERRAIN";
+        amort.forEach(n => { const b = document.getElementById("bloc-" + n); if (b) b.style.display = terrain ? "none" : ""; });
+        if (changement && duree && durees[cat.value]) duree.value = durees[cat.value];
+    }
+    if (cat) { cat.addEventListener("change", () => maj(true)); maj(false); }
+});
+</script>
+{% endblock %}

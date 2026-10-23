@@ -1,0 +1,31 @@
+{% load i18n %}
+<div class="overflow-x-auto bg-white shadow-md rounded-lg">
+<table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+    <thead><tr class="bg-gray-100">
+        <th class="border px-3 py-2 text-left">{% trans "Date" %}</th>
+        <th class="border px-3 py-2 text-left">{% trans "Journal" %}</th>
+        {% if avec_piece %}<th class="border px-3 py-2 text-left">{% trans "Pièce" %}</th>{% endif %}
+        <th class="border px-3 py-2 text-left">{% trans "Compte" %}</th>
+        <th class="border px-3 py-2 text-left">{% trans "Intitulé" %}</th>
+        <th class="border px-3 py-2 text-left">{% trans "Libellé" %}</th>
+        <th class="border px-3 py-2 text-right">{% trans "Débit" %}</th>
+        <th class="border px-3 py-2 text-right">{% trans "Crédit" %}</th>
+    </tr></thead>
+    <tbody>
+    {% for e in ecritures %}
+        <tr>
+            <td class="border px-3 py-2 whitespace-nowrap">{{ e.date|date:"d/m/Y" }}</td>
+            <td class="border px-3 py-2">{{ e.journal }}</td>
+            {% if avec_piece %}<td class="border px-3 py-2">{{ e.piece }}</td>{% endif %}
+            <td class="border px-3 py-2 font-mono">{{ e.compte }}</td>
+            <td class="border px-3 py-2">{{ e.intitule }}</td>
+            <td class="border px-3 py-2">{{ e.libelle }}</td>
+            <td class="border px-3 py-2 text-right">{% if e.debit %}{{ e.debit|floatformat:2 }}{% endif %}</td>
+            <td class="border px-3 py-2 text-right">{% if e.credit %}{{ e.credit|floatformat:2 }}{% endif %}</td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="8" class="text-center py-4 text-gray-500">{% trans "Aucune écriture." %}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
