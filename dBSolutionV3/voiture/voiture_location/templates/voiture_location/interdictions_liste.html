@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Règles et interdictions de location" %}{% endblock %}
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center gap-3">
+    <img src="{% static 'icons/interdiction_location.png' %}" alt="" class="w-16 h-16">
+    {% trans "Règles et interdictions de location" %}
+</h1>
+{% include "voiture_location/_messages.html" %}
+
+<div class="bg-blue-50 border border-blue-200 rounded p-4 mb-6 text-sm space-y-1">
+    <p class="font-semibold">{% trans "Règles appliquées automatiquement à chaque location :" %}</p>
+    <p>1. {% trans "Une voiture, un jour, un créneau : un véhicule ne peut pas être loué deux fois sur des créneaux qui se chevauchent (sans heures = journée entière)." %}</p>
+    <p>2. {% trans "Interdictions : aucune location n'est possible pendant une période interdite (un véhicule ou tous les véhicules, avec ou sans créneau horaire, éventuellement certains jours de la semaine)." %}</p>
+</div>
+
+<div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+    <div class="flex gap-2">
+        <a href="?afficher=a_venir" class="px-4 py-2 rounded font-semibold {% if afficher == 'a_venir' %}bg-blue-700 text-white{% else %}bg-gray-200 hover:bg-gray-300{% endif %}">{% trans "En cours et à venir" %}</a>
+        <a href="?afficher=toutes" class="px-4 py-2 rounded font-semibold {% if afficher == 'toutes' %}bg-blue-700 text-white{% else %}bg-gray-200 hover:bg-gray-300{% endif %}">{% trans "Toutes" %}</a>
+    </div>
+    {% if peut_gerer %}
+    <a href="{% url 'voiture_location:interdiction_ajouter' %}" class="bg-red-700 hover:bg-red-500 text-white px-5 py-3 rounded font-semibold">+ {% trans "Nouvelle interdiction" %}</a>
+    {% endif %}
+</div>
+
+<div class="overflow-x-auto bg-white shadow-md rounded-lg">
+<table class="min-w-full table-auto border-collapse border border-gray-200">
+    <thead><tr class="bg-gray-100">
+        <th class="border px-4 py-2 text-left">{% trans "Véhicule" %}</th>
+        <th class="border px-4 py-2 text-left">{% trans "Période" %}</th>
+        <th class="border px-4 py-2 text-left">{% trans "Créneau" %}</th>
+        <th class="border px-4 py-2 text-left">{% trans "Jours" %}</th>
+        <th class="border px-4 py-2 text-left">{% trans "Motif" %}</th>
+        <th class="border px-4 py-2 text-center">{% trans "Statut" %}</th>
+        {% if peut_gerer %}<th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>{% endif %}
+    </tr></thead>
+    <tbody>
+    {% for i in interdictions %}
+        <tr class="{% if not i.actif %}text-gray-400{% endif %}">
+            <td class="border px-4 py-2">
+                {% if i.voiture_exemplaire %}
+                    {{ i.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }} {{ i.voiture_exemplaire.voiture_modele.nom_modele }}
+                    <span class="block text-xs text-gray-500">{{ i.voiture_exemplaire.immatriculation }}</span>
+                {% else %}<strong>{% trans "Tous les véhicules" %}</strong>{% endif %}
+            </td>
+            <td class="border px-4 py-2">{{ i.date_debut|date:"d/m/Y" }}{% if i.date_fin and i.date_fin != i.date_debut %} → {{ i.date_fin|date:"d/m/Y" }}{% endif %}</td>
+            <td class="border px-4 py-2">{% if i.heure_debut or i.heure_fin %}{{ i.heure_debut|time:"H:i"|default:"00:00" }} – {{ i.heure_fin|time:"H:i"|default:"24:00" }}{% else %}{% trans "Journée entière" %}{% endif %}</td>
+            <td class="border px-4 py-2">{{ i.jours_affichage|default:_("Tous") }}</td>
+            <td class="border px-4 py-2"><strong>{{ i.get_motif_display }}</strong>{% if i.description %}<span class="block text-sm text-gray-600">{{ i.description }}</span>{% endif %}</td>
+            <td class="border px-4 py-2 text-center">{% if i.actif %}<span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm font-semibold">{% trans "Active" %}</span>{% else %}<span class="bg-gray-100 px-2 py-1 rounded text-sm">{% trans "Désactivée" %}</span>{% endif %}</td>
+            {% if peut_gerer %}
+            <td class="border px-4 py-2 text-center whitespace-nowrap">
+                <a href="{% url 'voiture_location:interdiction_modifier' i.pk %}" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">{% trans "Modifier" %}</a>
+                <a href="{% url 'voiture_location:interdiction_supprimer' i.pk %}" class="bg-red-700 text-white px-3 py-1 rounded hover:bg-red-500">{% trans "Supprimer" %}</a>
+            </td>
+            {% endif %}
+        </tr>
+    {% empty %}
+        <tr><td colspan="7" class="text-center py-6 text-gray-500">{% trans "Aucune interdiction de location." %}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<br>
+<a href="{% url 'voiture_location:location_liste' %}" class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">{% trans "Retour aux locations" %}</a>
+<br>
+{% endblock %}

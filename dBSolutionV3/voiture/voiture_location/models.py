@@ -216,6 +216,11 @@ class Location(models.Model):
 
     date_debut = models.DateField(verbose_name=_("Date de début"))
     date_fin = models.DateField(null=True, blank=True, verbose_name=_("Date de fin"))
+    # Créneau horaire (vide = journée entière)
+    heure_debut = models.TimeField(null=True, blank=True, verbose_name=_("Heure de début"),
+                                   help_text=_("Vide : à partir du début de la journée."))
+    heure_fin = models.TimeField(null=True, blank=True, verbose_name=_("Heure de fin"),
+                                 help_text=_("Vide : jusqu'à la fin de la journée."))
 
     nombre_tours = models.PositiveIntegerField(
         null=True,
@@ -618,6 +623,9 @@ class Location(models.Model):
 
         if self.date_debut and self.date_fin and self.date_fin < self.date_debut:
             errors["date_fin"] = _("La date de fin doit être postérieure à la date de début.")
+        if (self.date_debut and self.heure_debut and self.heure_fin
+                and (self.date_fin or self.date_debut) == self.date_debut and self.heure_fin <= self.heure_debut):
+            errors["heure_fin"] = _("L'heure de fin doit être postérieure à l'heure de début.")
 
         # Paiement
         if self.payee and (self._state.adding or self.facture_emise is None):
@@ -729,3 +737,84 @@ class ObjectifVente(models.Model):
 
     def __str__(self):
         return f"{self.vendeur} – {self.mois:02d}/{self.annee} – {self.montant_htva} €"
+
+
+# =====================================================================
+# RÈGLES DE LOCATION : interdictions (véhicule ou tous les véhicules)
+# =====================================================================
+class InterdictionLocation(models.Model):
+    """Période (avec ou sans créneau horaire, éventuellement certains jours) où la location est interdite."""
+
+    class Motif(models.TextChoices):
+        ENTRETIEN = "ENTRETIEN", _("Entretien / réparation")
+        RESERVATION_INTERNE = "RESERVATION_INTERNE", _("Réservation interne")
+        CIRCUIT_FERME = "CIRCUIT_FERME", _("Circuit fermé / pas de roulage")
+        FERIE = "FERIE", _("Jour férié / fermeture")
+        BRUIT = "BRUIT", _("Restriction de bruit")
+        AUTRE = "AUTRE", _("Autre")
+
+    JOURS = [("0", _("Lundi")), ("1", _("Mardi")), ("2", _("Mercredi")), ("3", _("Jeudi")),
+             ("4", _("Vendredi")), ("5", _("Samedi")), ("6", _("Dimanche"))]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, related_name="interdictions_location")
+    voiture_exemplaire = models.ForeignKey(
+        "voiture_exemplaire.VoitureExemplaire", on_delete=models.CASCADE, null=True, blank=True,
+        related_name="interdictions_location", verbose_name=_("Véhicule"),
+        help_text=_("Vide : tous les véhicules."),
+    )
+    date_debut = models.DateField(_("Du"))
+    date_fin = models.DateField(_("Au"), null=True, blank=True, help_text=_("Vide : un seul jour."))
+    heure_debut = models.TimeField(_("De"), null=True, blank=True, help_text=_("Vide : toute la journée."))
+    heure_fin = models.TimeField(_("À"), null=True, blank=True)
+    jours_semaine = models.CharField(
+        _("Jours de la semaine"), max_length=20, blank=True,
+        help_text=_("Vide : tous les jours de la période."),
+    )
+    motif = models.CharField(_("Motif"), max_length=30, choices=Motif.choices, default=Motif.AUTRE)
+    description = models.CharField(_("Description"), max_length=255, blank=True)
+    actif = models.BooleanField(_("Active"), default=True)
+    cree_par = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,
+                                 related_name="interdictions_location_creees", editable=False)
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("Interdiction de location")
+        verbose_name_plural = _("Interdictions de location")
+        ordering = ["-date_debut"]
+
+    def __str__(self):
+        cible = str(self.voiture_exemplaire) if self.voiture_exemplaire_id else gettext("Tous les véhicules")
+        return f"{self.get_motif_display()} – {cible} – {self.periode_affichage}"
+
+    @property
+    def jours_liste(self):
+        return [int(j) for j in (self.jours_semaine or "").split(",") if j.strip().isdigit()]
+
+    @property
+    def jours_affichage(self):
+        noms = dict(self.JOURS)
+        return ", ".join(str(noms[str(j)]) for j in self.jours_liste)
+
+    @property
+    def periode_affichage(self):
+        txt = f"{self.date_debut:%d/%m/%Y}"
+        if self.date_fin and self.date_fin != self.date_debut:
+            txt += f" → {self.date_fin:%d/%m/%Y}"
+        if self.heure_debut or self.heure_fin:
+            txt += " ({}–{})".format(self.heure_debut.strftime("%H:%M") if self.heure_debut else "00:00",
+                                     self.heure_fin.strftime("%H:%M") if self.heure_fin else "24:00")
+        if self.jours_liste:
+            txt += f" – {self.jours_affichage}"
+        return txt
+
+    def clean(self):
+        super().clean()
+        errors = {}
+        if self.date_fin and self.date_debut and self.date_fin < self.date_debut:
+            errors["date_fin"] = _("La date de fin doit être postérieure à la date de début.")
+        if self.heure_debut and self.heure_fin and self.heure_fin <= self.heure_debut:
+            errors["heure_fin"] = _("L'heure de fin doit être postérieure à l'heure de début.")
+        if errors:
+            raise ValidationError(errors)

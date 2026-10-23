@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+{% block title %}{% trans "Interdiction de location" %}{% endblock %}
+{% block content %}
+<br>
+<div class="max-w-2xl mx-auto p-6 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-6 flex items-center gap-3">
+        <img src="{% static 'icons/interdiction_location.png' %}" alt="" class="w-16 h-16">
+        {% if interdiction %}{% trans "Modifier l'interdiction de location" %}{% else %}{% trans "Nouvelle interdiction de location" %}{% endif %}
+    </h1>
+    {% include "voiture_location/_messages.html" %}
+    {% if form.non_field_errors %}<div class="bg-red-100 text-red-800 border border-red-300 p-3 rounded mb-4">{{ form.non_field_errors|striptags }}</div>{% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {% include "voiture_location/_champ.html" with field=form.voiture_exemplaire %}
+        <div class="grid grid-cols-2 gap-3">
+            <div>{% include "voiture_location/_champ.html" with field=form.date_debut %}</div>
+            <div>{% include "voiture_location/_champ.html" with field=form.date_fin %}</div>
+            <div>{% include "voiture_location/_champ.html" with field=form.heure_debut %}</div>
+            <div>{% include "voiture_location/_champ.html" with field=form.heure_fin %}</div>
+        </div>
+        <div class="mb-4">
+            <label class="block font-semibold mb-1">{{ form.jours.label }}</label>
+            <div class="flex flex-wrap gap-4">
+                {% for c in form.jours %}<label class="inline-flex items-center gap-1">{{ c.tag }} {{ c.choice_label }}</label>{% endfor %}
+            </div>
+            <p class="text-gray-500 text-sm mt-1">{{ form.jours.help_text }}</p>
+        </div>
+        {% include "voiture_location/_champ.html" with field=form.motif %}
+        {% include "voiture_location/_champ.html" with field=form.description %}
+        <label class="inline-flex items-center gap-2 mb-4">{{ form.actif|add_class:"h-5 w-5" }} <span class="font-semibold">{{ form.actif.label }}</span></label>
+
+        <div class="flex gap-3 mt-4">
+            <button type="submit" class="flex-1 bg-red-700 text-white px-5 py-4 rounded hover:bg-red-500 font-semibold">{% trans "Enregistrer" %}</button>
+            <a href="{% url 'voiture_location:interdictions_liste' %}" class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+</div>
+<br>
+<style>.input{width:100%!important;border:1px solid #ccc!important;border-radius:6px!important;padding:8px!important;}</style>
+{% endblock %}

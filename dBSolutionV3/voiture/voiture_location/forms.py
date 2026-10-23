@@ -24,6 +24,19 @@ TYPES_CLIENT = {
 }
 
 
+
+def verifier_regles_location(form, societe, exclure_pk=None):
+    """Règles de location : pas de double location du véhicule, respect des interdictions."""
+    from .regles import conflits
+    d = form.cleaned_data
+    voiture, debut = d.get("voiture_exemplaire"), d.get("date_debut")
+    if not voiture or not debut or form.has_error("date_fin") or form.has_error("heure_fin"):
+        return
+    for c in conflits(societe, voiture, debut, d.get("date_fin"), d.get("heure_debut"), d.get("heure_fin"),
+                      exclure_pk=exclure_pk):
+        form.add_error(None, c["message"])
+
+
 class LocationForm(forms.ModelForm):
     locataire = forms.ChoiceField(
         label=_("Client"),
@@ -39,6 +52,8 @@ class LocationForm(forms.ModelForm):
             "route",
             "date_debut",
             "date_fin",
+            "heure_debut",
+            "heure_fin",
             "nombre_tours",
             "kilometrage",
             "prix",
@@ -54,6 +69,8 @@ class LocationForm(forms.ModelForm):
         widgets = {
             "date_debut": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "date_fin": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "heure_debut": forms.TimeInput(attrs={"type": "time"}, format="%H:%M"),
+            "heure_fin": forms.TimeInput(attrs={"type": "time"}, format="%H:%M"),
             "nombre_tours": forms.NumberInput(attrs={"min": "1"}),
             "kilometrage": forms.NumberInput(attrs={"min": "0"}),
             "prix": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
@@ -161,6 +178,12 @@ class LocationForm(forms.ModelForm):
         # Ordre d'affichage : le client juste après le véhicule
         self.order_fields(["voiture_exemplaire", "locataire"])
 
+    def clean(self):
+        cleaned = super().clean()
+        societe = self.instance.societe if self.instance.societe_id else getattr(self.user, "societe", None)
+        verifier_regles_location(self, societe, exclure_pk=self.instance.pk if not self.instance._state.adding else None)
+        return cleaned
+
     def clean_locataire(self):
         valeur = self.cleaned_data.get("locataire")
         if not valeur:
@@ -216,6 +239,8 @@ class LocationVehiculeSupForm(forms.ModelForm):
             "route",
             "date_debut",
             "date_fin",
+            "heure_debut",
+            "heure_fin",
             "nombre_tours",
             "kilometrage",
             "prix",
@@ -223,16 +248,25 @@ class LocationVehiculeSupForm(forms.ModelForm):
         widgets = {
             "date_debut": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "date_fin": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "heure_debut": forms.TimeInput(attrs={"type": "time"}, format="%H:%M"),
+            "heure_fin": forms.TimeInput(attrs={"type": "time"}, format="%H:%M"),
             "nombre_tours": forms.NumberInput(attrs={"min": "1"}),
             "kilometrage": forms.NumberInput(attrs={"min": "0"}),
             "prix": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
         }
 
-    def __init__(self, *args, vehicules=None, **kwargs):
+    def __init__(self, *args, vehicules=None, societe=None, **kwargs):
         super().__init__(*args, **kwargs)
+        self.societe = societe
         if vehicules is not None:
             self.fields["voiture_exemplaire"].queryset = vehicules
         self.fields["prix"].label = _("Prix TVAC (€)")
+
+    def clean(self):
+        cleaned = super().clean()
+        if self.societe is not None:
+            verifier_regles_location(self, self.societe)
+        return cleaned
 
 
 # =====================================================================
@@ -274,3 +308,46 @@ LocationBoxFormSet = forms.inlineformset_factory(
     Location, LocationBox, form=LocationBoxForm, formset=BaseLocationBoxFormSet,
     extra=0, can_delete=True,
 )
+
+
+# =====================================================================
+# INTERDICTIONS DE LOCATION
+# =====================================================================
+from .models import InterdictionLocation  # noqa: E402
+
+
+class InterdictionLocationForm(forms.ModelForm):
+    jours = forms.MultipleChoiceField(
+        label=_("Jours de la semaine"), required=False, choices=InterdictionLocation.JOURS,
+        widget=forms.CheckboxSelectMultiple, help_text=_("Aucun jour coché : tous les jours de la période."),
+    )
+
+    class Meta:
+        model = InterdictionLocation
+        fields = ["voiture_exemplaire", "date_debut", "date_fin", "heure_debut", "heure_fin", "motif", "description", "actif"]
+        widgets = {
+            "date_debut": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "date_fin": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
+            "heure_debut": forms.TimeInput(attrs={"type": "time"}, format="%H:%M"),
+            "heure_fin": forms.TimeInput(attrs={"type": "time"}, format="%H:%M"),
+        }
+
+    def __init__(self, *args, societe=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        vehicules = VoitureExemplaire.objects.select_related("voiture_marque", "voiture_modele").order_by(
+            "voiture_marque__nom_marque", "voiture_modele__nom_modele", "immatriculation")
+        if societe is not None:
+            vehicules = vehicules.filter(societe=societe)
+        self.fields["voiture_exemplaire"].queryset = vehicules
+        self.fields["voiture_exemplaire"].required = False
+        self.fields["voiture_exemplaire"].empty_label = _("Tous les véhicules")
+        self.initial.setdefault("jours", self.instance.jours_liste and [str(j) for j in self.instance.jours_liste])
+        self.order_fields(["voiture_exemplaire", "date_debut", "date_fin", "heure_debut", "heure_fin", "jours",
+                           "motif", "description", "actif"])
+
+    def save(self, commit=True):
+        obj = super().save(commit=False)
+        obj.jours_semaine = ",".join(sorted(self.cleaned_data.get("jours") or []))
+        if commit:
+            obj.save()
+        return obj

@@ -54778,3 +54778,177 @@ msgstr ""
 
 msgid "Équilibré"
 msgstr "Bilanciato"
+
+msgid ""
+"Attention : %(n)s location(s) déjà enregistrée(s) tombent dans cette "
+"interdiction : %(liste)s"
+msgstr ""
+"Attenzione: %(n)s noleggio/i già registrato/i rientra/no in questo divieto: "
+"%(liste)s"
+
+msgid "Aucun jour coché : tous les jours de la période."
+msgstr "Nessun giorno selezionato: tutti i giorni del periodo."
+
+msgid "Aucune interdiction de location."
+msgstr "Nessun divieto di noleggio."
+
+msgid "Circuit fermé / pas de roulage"
+msgstr "Circuito chiuso / niente guida"
+
+msgid "Créneau"
+msgstr "Fascia oraria"
+
+msgid "Créneau horaire"
+msgstr "Fascia oraria"
+
+msgid "De"
+msgstr "Dalle"
+
+msgid "Dimanche"
+msgstr "Domenica"
+
+msgid "Désactivée"
+msgstr "Disattivato"
+
+msgid "En cours et à venir"
+msgstr "In corso e future"
+
+msgid "Entretien / réparation"
+msgstr "Manutenzione / riparazione"
+
+msgid "Heure de début"
+msgstr "Ora di inizio"
+
+msgid "Heure de fin"
+msgstr "Ora di fine"
+
+msgid "Interdiction de location"
+msgstr "Divieto di noleggio"
+
+msgid ""
+"Interdictions : aucune location n'est possible pendant une période interdite"
+" (un véhicule ou tous les véhicules, avec ou sans créneau horaire, "
+"éventuellement certains jours de la semaine)."
+msgstr ""
+"Divieti: nessun noleggio è possibile durante un periodo vietato (un veicolo "
+"o tutti i veicoli, con o senza fascia oraria, eventualmente in certi giorni "
+"della settimana)."
+
+msgid "Interdictions de location"
+msgstr "Divieti di noleggio"
+
+msgid "Jeudi"
+msgstr "Giovedì"
+
+msgid "Jour férié / fermeture"
+msgstr "Giorno festivo / chiusura"
+
+msgid "Journée entière"
+msgstr "Giornata intera"
+
+msgid "Jours"
+msgstr "Giorni"
+
+msgid "Jours de la semaine"
+msgstr "Giorni della settimana"
+
+msgid "L'heure de fin doit être postérieure à l'heure de début."
+msgstr "L'ora di fine deve essere successiva all'ora di inizio."
+
+msgid "L'interdiction de location a été enregistrée."
+msgstr "Il divieto di noleggio è stato salvato."
+
+msgid "L'interdiction de location a été supprimée."
+msgstr "Il divieto di noleggio è stato eliminato."
+
+msgid "Location interdite le %(jour)s (%(creneau)s) : %(motif)s%(desc)s."
+msgstr "Noleggio vietato il %(jour)s (%(creneau)s): %(motif)s%(desc)s."
+
+msgid "Lundi"
+msgstr "Lunedì"
+
+msgid "Mardi"
+msgstr "Martedì"
+
+msgid "Mercredi"
+msgstr "Mercoledì"
+
+msgid "Modifier l'interdiction de location"
+msgstr "Modifica divieto di noleggio"
+
+msgid "Motif"
+msgstr "Motivo"
+
+msgid "Nouvelle interdiction"
+msgstr "Nuovo divieto"
+
+msgid "Nouvelle interdiction de location"
+msgstr "Nuovo divieto di noleggio"
+
+msgid "Restriction de bruit"
+msgstr "Limitazione del rumore"
+
+msgid "Règles appliquées automatiquement à chaque location :"
+msgstr "Regole applicate automaticamente a ogni noleggio:"
+
+msgid "Règles et interdictions"
+msgstr "Regole e divieti"
+
+msgid "Règles et interdictions de location"
+msgstr "Regole e divieti di noleggio"
+
+msgid "Réservation interne"
+msgstr "Prenotazione interna"
+
+msgid "Samedi"
+msgstr "Sabato"
+
+msgid "Supprimer l'interdiction de location"
+msgstr "Elimina divieto di noleggio"
+
+msgid "Tous les véhicules"
+msgstr "Tutti i veicoli"
+
+msgid ""
+"Une voiture, un jour, un créneau : un véhicule ne peut pas être loué deux "
+"fois sur des créneaux qui se chevauchent (sans heures = journée entière)."
+msgstr ""
+"Un'auto, un giorno, una fascia oraria: un veicolo non può essere noleggiato "
+"due volte in fasce sovrapposte (senza orari = giornata intera)."
+
+msgid "Vendredi"
+msgstr "Venerdì"
+
+msgid "Vide : jusqu'à la fin de la journée."
+msgstr "Vuoto: fino alla fine della giornata."
+
+msgid "Vide : tous les jours de la période."
+msgstr "Vuoto: tutti i giorni del periodo."
+
+msgid "Vide : tous les véhicules."
+msgstr "Vuoto: tutti i veicoli."
+
+msgid "Vide : toute la journée."
+msgstr "Vuoto: tutta la giornata."
+
+msgid "Vide : un seul jour."
+msgstr "Vuoto: un solo giorno."
+
+msgid "Vide : à partir du début de la journée."
+msgstr "Vuoto: dall'inizio della giornata."
+
+msgid "Véhicule disponible sur ce créneau."
+msgstr "Veicolo disponibile in questa fascia."
+
+msgid "Véhicule déjà loué le %(dates)s (%(creneau)s) – %(client)s, %(lieu)s."
+msgstr ""
+"Veicolo già noleggiato il %(dates)s (%(creneau)s) – %(client)s, %(lieu)s."
+
+msgid "client non renseigné"
+msgstr "cliente non indicato"
+
+msgid "journée entière"
+msgstr "giornata intera"
+
+msgid "À"
+msgstr "Alle"

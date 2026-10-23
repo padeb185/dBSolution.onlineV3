@@ -54811,3 +54811,176 @@ msgstr ""
 
 msgid "Équilibré"
 msgstr "In evenwicht"
+
+msgid ""
+"Attention : %(n)s location(s) déjà enregistrée(s) tombent dans cette "
+"interdiction : %(liste)s"
+msgstr ""
+"Let op: %(n)s reeds geregistreerde verhuring(en) vallen binnen dit verbod: "
+"%(liste)s"
+
+msgid "Aucun jour coché : tous les jours de la période."
+msgstr "Geen dag aangevinkt: alle dagen van de periode."
+
+msgid "Aucune interdiction de location."
+msgstr "Geen verhuurverbod."
+
+msgid "Circuit fermé / pas de roulage"
+msgstr "Circuit gesloten / geen rijden"
+
+msgid "Créneau"
+msgstr "Tijdslot"
+
+msgid "Créneau horaire"
+msgstr "Tijdslot"
+
+msgid "De"
+msgstr "Van"
+
+msgid "Dimanche"
+msgstr "Zondag"
+
+msgid "Désactivée"
+msgstr "Gedeactiveerd"
+
+msgid "En cours et à venir"
+msgstr "Lopend en komend"
+
+msgid "Entretien / réparation"
+msgstr "Onderhoud / herstelling"
+
+msgid "Heure de début"
+msgstr "Beginuur"
+
+msgid "Heure de fin"
+msgstr "Einduur"
+
+msgid "Interdiction de location"
+msgstr "Verhuurverbod"
+
+msgid ""
+"Interdictions : aucune location n'est possible pendant une période interdite"
+" (un véhicule ou tous les véhicules, avec ou sans créneau horaire, "
+"éventuellement certains jours de la semaine)."
+msgstr ""
+"Verboden: geen verhuring mogelijk tijdens een verboden periode (één voertuig"
+" of alle voertuigen, met of zonder tijdslot, eventueel bepaalde weekdagen)."
+
+msgid "Interdictions de location"
+msgstr "Verhuurverboden"
+
+msgid "Jeudi"
+msgstr "Donderdag"
+
+msgid "Jour férié / fermeture"
+msgstr "Feestdag / sluiting"
+
+msgid "Journée entière"
+msgstr "Hele dag"
+
+msgid "Jours"
+msgstr "Dagen"
+
+msgid "Jours de la semaine"
+msgstr "Weekdagen"
+
+msgid "L'heure de fin doit être postérieure à l'heure de début."
+msgstr "Het einduur moet na het beginuur liggen."
+
+msgid "L'interdiction de location a été enregistrée."
+msgstr "Het verhuurverbod werd opgeslagen."
+
+msgid "L'interdiction de location a été supprimée."
+msgstr "Het verhuurverbod werd verwijderd."
+
+msgid "Location interdite le %(jour)s (%(creneau)s) : %(motif)s%(desc)s."
+msgstr "Verhuring verboden op %(jour)s (%(creneau)s): %(motif)s%(desc)s."
+
+msgid "Lundi"
+msgstr "Maandag"
+
+msgid "Mardi"
+msgstr "Dinsdag"
+
+msgid "Mercredi"
+msgstr "Woensdag"
+
+msgid "Modifier l'interdiction de location"
+msgstr "Verhuurverbod wijzigen"
+
+msgid "Motif"
+msgstr "Reden"
+
+msgid "Nouvelle interdiction"
+msgstr "Nieuw verbod"
+
+msgid "Nouvelle interdiction de location"
+msgstr "Nieuw verhuurverbod"
+
+msgid "Restriction de bruit"
+msgstr "Geluidsbeperking"
+
+msgid "Règles appliquées automatiquement à chaque location :"
+msgstr "Regels die automatisch op elke verhuring worden toegepast:"
+
+msgid "Règles et interdictions"
+msgstr "Regels en verboden"
+
+msgid "Règles et interdictions de location"
+msgstr "Verhuurregels en -verboden"
+
+msgid "Réservation interne"
+msgstr "Interne reservering"
+
+msgid "Samedi"
+msgstr "Zaterdag"
+
+msgid "Supprimer l'interdiction de location"
+msgstr "Verhuurverbod verwijderen"
+
+msgid "Tous les véhicules"
+msgstr "Alle voertuigen"
+
+msgid ""
+"Une voiture, un jour, un créneau : un véhicule ne peut pas être loué deux "
+"fois sur des créneaux qui se chevauchent (sans heures = journée entière)."
+msgstr ""
+"Eén auto, één dag, één tijdslot: een voertuig kan niet twee keer verhuurd "
+"worden in overlappende tijdsloten (zonder uren = hele dag)."
+
+msgid "Vendredi"
+msgstr "Vrijdag"
+
+msgid "Vide : jusqu'à la fin de la journée."
+msgstr "Leeg: tot het einde van de dag."
+
+msgid "Vide : tous les jours de la période."
+msgstr "Leeg: alle dagen van de periode."
+
+msgid "Vide : tous les véhicules."
+msgstr "Leeg: alle voertuigen."
+
+msgid "Vide : toute la journée."
+msgstr "Leeg: de hele dag."
+
+msgid "Vide : un seul jour."
+msgstr "Leeg: één enkele dag."
+
+msgid "Vide : à partir du début de la journée."
+msgstr "Leeg: vanaf het begin van de dag."
+
+msgid "Véhicule disponible sur ce créneau."
+msgstr "Voertuig beschikbaar in dit tijdslot."
+
+msgid "Véhicule déjà loué le %(dates)s (%(creneau)s) – %(client)s, %(lieu)s."
+msgstr ""
+"Voertuig al verhuurd op %(dates)s (%(creneau)s) – %(client)s, %(lieu)s."
+
+msgid "client non renseigné"
+msgstr "klant niet ingevuld"
+
+msgid "journée entière"
+msgstr "hele dag"
+
+msgid "À"
+msgstr "Tot"

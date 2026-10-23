@@ -95,6 +95,10 @@
         </h2>
         {% include "voiture_location/_champ.html" with field=form.date_debut %}
         {% include "voiture_location/_champ.html" with field=form.date_fin %}
+        <div class="grid grid-cols-2 gap-3">
+            <div>{% include "voiture_location/_champ.html" with field=form.heure_debut %}</div>
+            <div>{% include "voiture_location/_champ.html" with field=form.heure_fin %}</div>
+        </div>
         {% include "voiture_location/_champ.html" with field=form.nombre_tours %}
         {% include "voiture_location/_champ.html" with field=form.kilometrage %}
         {% include "voiture_location/_champ.html" with field=form.prix %}
@@ -335,7 +339,7 @@
     conteneur.querySelectorAll(".ligne-vehicule-sup").forEach(l => { compteur = Math.max(compteur, parseInt(l.dataset.idx, 10) || 0); });
 
     // Champs repris du véhicule 1 à l'ajout d'une fiche (modifiables ensuite)
-    const COPIES = ["type_location", "circuit", "route", "date_debut", "date_fin", "nombre_tours", "kilometrage"];
+    const COPIES = ["type_location", "circuit", "route", "date_debut", "date_fin", "heure_debut", "heure_fin", "nombre_tours", "kilometrage"];
 
     function fiches() { return Array.from(document.querySelectorAll(".ligne-vehicule-sup")); }
     function numeroter() { fiches().forEach((f, i) => { const n = f.querySelector(".num-vehicule"); if (n) n.textContent = i + 1; }); }
@@ -439,6 +443,62 @@
         const btnChoix = fiche.querySelector(".choix-bouton");
         if (btnChoix) setTimeout(() => btnChoix.click(), 0);
     });
+})();
+</script>
+
+<script>
+// Règles de location : contrôle en direct (véhicule déjà loué / interdiction)
+(function () {
+    const URL = "{% url 'voiture_location:location_disponibilite' %}";
+    const EXCLURE = "{% if location %}{{ location.pk }}{% endif %}";
+    const T_OK = "{{ _('Véhicule disponible sur ce créneau.')|escapejs }}";
+    const champ = (zone, nom) => zone.querySelector(`[name$='${nom}']`);
+    function groupes() {
+        const fiches = Array.from(document.querySelectorAll(".ligne-vehicule-sup")).filter(f => !f.closest("template"));
+        return fiches.length ? fiches : [document.getElementById("location-form")];
+    }
+    function statut(zone) {
+        let el = zone.querySelector(":scope > .dispo-statut") || zone.querySelector(".dispo-statut");
+        if (!el) {
+            el = document.createElement("div");
+            el.className = "dispo-statut text-sm rounded p-2 mb-3 hidden";
+            const ref = champ(zone, "heure_fin") || champ(zone, "date_fin");
+            const bloc = ref ? (ref.closest(".sup-bloc") || ref.closest("[id^='bloc-']") || ref.parentElement) : null;
+            const grille = bloc && bloc.parentElement && bloc.parentElement.classList.contains("grid") ? bloc.parentElement : bloc;
+            if (grille) grille.insertAdjacentElement("afterend", el); else zone.appendChild(el);
+        }
+        return el;
+    }
+    let minuteur = {};
+    function verifier(zone, cle) {
+        const v = champ(zone, "voiture_exemplaire"), d = champ(zone, "date_debut");
+        if (!v || !d) return;
+        const el = statut(zone);
+        if (!v.value || !d.value) { el.classList.add("hidden"); return; }
+        const p = new URLSearchParams({
+            voiture: v.value, date_debut: d.value,
+            date_fin: (champ(zone, "date_fin") || {}).value || "",
+            heure_debut: (champ(zone, "heure_debut") || {}).value || "",
+            heure_fin: (champ(zone, "heure_fin") || {}).value || "",
+            exclure: EXCLURE,
+        });
+        fetch(URL + "?" + p.toString(), {credentials: "same-origin"})
+            .then(r => r.json())
+            .then(data => {
+                if (data.ok === null) { el.classList.add("hidden"); return; }
+                el.classList.remove("hidden", "bg-green-50", "text-green-800", "bg-red-100", "text-red-800", "border", "border-red-300");
+                if (data.ok) { el.classList.add("bg-green-50", "text-green-800"); el.textContent = "✓ " + T_OK; }
+                else { el.classList.add("bg-red-100", "text-red-800", "border", "border-red-300"); el.innerHTML = data.messages.map(m => "✗ " + m.replace(/</g, "&lt;")).join("<br>"); }
+            }).catch(() => {});
+    }
+    document.addEventListener("change", e => {
+        if (!/(voiture_exemplaire|date_debut|date_fin|heure_debut|heure_fin)$/.test(e.target.name || "")) return;
+        const zone = e.target.closest(".ligne-vehicule-sup") || document.getElementById("location-form");
+        clearTimeout(minuteur[zone.dataset.idx]);
+        minuteur[zone.dataset.idx] = setTimeout(() => verifier(zone), 250);
+    });
+    document.addEventListener("DOMContentLoaded", () => groupes().forEach(z => verifier(z)));
+    if (document.readyState !== "loading") groupes().forEach(z => verifier(z));
 })();
 </script>
 {% endblock %}

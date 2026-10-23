@@ -28,6 +28,10 @@
         {% trans "Statistiques" %}
     </a>
     {% endif %}
+    <a href="{% url 'voiture_location:interdictions_liste' %}"
+       class="bg-red-700 text-white px-5 py-4 rounded hover:bg-red-500 font-semibold text-center">
+        {% trans "Règles et interdictions" %}
+    </a>
     <a href="{% url 'voiture_location:mes_statistiques' %}"
        class="bg-indigo-700 text-white px-5 py-4 rounded hover:bg-indigo-500 font-semibold text-center">
         {% trans "Mes statistiques" %}
@@ -105,6 +109,7 @@
             </td>
             <td class="border px-4 py-2" data-order="{{ loc.date_debut|date:'Y-m-d' }}">
                 {{ loc.date_debut|date:"d/m/Y" }}{% if loc.date_fin and loc.date_fin != loc.date_debut %} → {{ loc.date_fin|date:"d/m/Y" }}{% endif %}
+                {% if loc.heure_debut or loc.heure_fin %}<span class="block text-xs text-gray-500">{{ loc.heure_debut|time:"H:i"|default:"00:00" }}–{{ loc.heure_fin|time:"H:i"|default:"24:00" }}</span>{% endif %}
             </td>
             <td class="border px-4 py-2 text-center whitespace-nowrap">
                 {% include "voiture_location/_facture_location.html" %}

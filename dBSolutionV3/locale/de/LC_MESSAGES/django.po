@@ -54830,3 +54830,178 @@ msgstr ""
 
 msgid "Équilibré"
 msgstr "Ausgeglichen"
+
+msgid ""
+"Attention : %(n)s location(s) déjà enregistrée(s) tombent dans cette "
+"interdiction : %(liste)s"
+msgstr ""
+"Achtung: %(n)s bereits erfasste Vermietung(en) fallen in diese Sperre: "
+"%(liste)s"
+
+msgid "Aucun jour coché : tous les jours de la période."
+msgstr "Kein Tag angehakt: alle Tage des Zeitraums."
+
+msgid "Aucune interdiction de location."
+msgstr "Keine Vermietungssperre."
+
+msgid "Circuit fermé / pas de roulage"
+msgstr "Strecke geschlossen / kein Fahrbetrieb"
+
+msgid "Créneau"
+msgstr "Zeitfenster"
+
+msgid "Créneau horaire"
+msgstr "Zeitfenster"
+
+msgid "De"
+msgstr "Von"
+
+msgid "Dimanche"
+msgstr "Sonntag"
+
+msgid "Désactivée"
+msgstr "Deaktiviert"
+
+msgid "En cours et à venir"
+msgstr "Laufend und bevorstehend"
+
+msgid "Entretien / réparation"
+msgstr "Wartung / Reparatur"
+
+msgid "Heure de début"
+msgstr "Startzeit"
+
+msgid "Heure de fin"
+msgstr "Endzeit"
+
+msgid "Interdiction de location"
+msgstr "Vermietungssperre"
+
+msgid ""
+"Interdictions : aucune location n'est possible pendant une période interdite"
+" (un véhicule ou tous les véhicules, avec ou sans créneau horaire, "
+"éventuellement certains jours de la semaine)."
+msgstr ""
+"Sperren: Während eines gesperrten Zeitraums ist keine Vermietung möglich "
+"(ein Fahrzeug oder alle Fahrzeuge, mit oder ohne Zeitfenster, ggf. an "
+"bestimmten Wochentagen)."
+
+msgid "Interdictions de location"
+msgstr "Vermietungssperren"
+
+msgid "Jeudi"
+msgstr "Donnerstag"
+
+msgid "Jour férié / fermeture"
+msgstr "Feiertag / Schließung"
+
+msgid "Journée entière"
+msgstr "Ganzer Tag"
+
+msgid "Jours"
+msgstr "Tage"
+
+msgid "Jours de la semaine"
+msgstr "Wochentage"
+
+msgid "L'heure de fin doit être postérieure à l'heure de début."
+msgstr "Die Endzeit muss nach der Startzeit liegen."
+
+msgid "L'interdiction de location a été enregistrée."
+msgstr "Die Vermietungssperre wurde gespeichert."
+
+msgid "L'interdiction de location a été supprimée."
+msgstr "Die Vermietungssperre wurde gelöscht."
+
+msgid "Location interdite le %(jour)s (%(creneau)s) : %(motif)s%(desc)s."
+msgstr "Vermietung am %(jour)s (%(creneau)s) gesperrt: %(motif)s%(desc)s."
+
+msgid "Lundi"
+msgstr "Montag"
+
+msgid "Mardi"
+msgstr "Dienstag"
+
+msgid "Mercredi"
+msgstr "Mittwoch"
+
+msgid "Modifier l'interdiction de location"
+msgstr "Vermietungssperre bearbeiten"
+
+msgid "Motif"
+msgstr "Grund"
+
+msgid "Nouvelle interdiction"
+msgstr "Neue Sperre"
+
+msgid "Nouvelle interdiction de location"
+msgstr "Neue Vermietungssperre"
+
+msgid "Restriction de bruit"
+msgstr "Lärmbeschränkung"
+
+msgid "Règles appliquées automatiquement à chaque location :"
+msgstr "Automatisch auf jede Vermietung angewandte Regeln:"
+
+msgid "Règles et interdictions"
+msgstr "Regeln und Sperren"
+
+msgid "Règles et interdictions de location"
+msgstr "Vermietungsregeln und -sperren"
+
+msgid "Réservation interne"
+msgstr "Interne Reservierung"
+
+msgid "Samedi"
+msgstr "Samstag"
+
+msgid "Supprimer l'interdiction de location"
+msgstr "Vermietungssperre löschen"
+
+msgid "Tous les véhicules"
+msgstr "Alle Fahrzeuge"
+
+msgid ""
+"Une voiture, un jour, un créneau : un véhicule ne peut pas être loué deux "
+"fois sur des créneaux qui se chevauchent (sans heures = journée entière)."
+msgstr ""
+"Ein Auto, ein Tag, ein Zeitfenster: Ein Fahrzeug kann nicht zweimal in sich "
+"überschneidenden Zeitfenstern vermietet werden (ohne Uhrzeit = ganzer Tag)."
+
+msgid "Vendredi"
+msgstr "Freitag"
+
+msgid "Vide : jusqu'à la fin de la journée."
+msgstr "Leer: bis zum Ende des Tages."
+
+msgid "Vide : tous les jours de la période."
+msgstr "Leer: alle Tage des Zeitraums."
+
+msgid "Vide : tous les véhicules."
+msgstr "Leer: alle Fahrzeuge."
+
+msgid "Vide : toute la journée."
+msgstr "Leer: den ganzen Tag."
+
+msgid "Vide : un seul jour."
+msgstr "Leer: ein einziger Tag."
+
+msgid "Vide : à partir du début de la journée."
+msgstr "Leer: ab Tagesbeginn."
+
+msgid "Véhicule disponible sur ce créneau."
+msgstr "Fahrzeug in diesem Zeitfenster verfügbar."
+
+msgid "Véhicule déjà loué le %(dates)s (%(creneau)s) – %(client)s, %(lieu)s."
+msgstr ""
+"Fahrzeug bereits vermietet am %(dates)s (%(creneau)s) – %(client)s, "
+"%(lieu)s."
+
+msgid "client non renseigné"
+msgstr "Kunde nicht angegeben"
+
+msgid "journée entière"
+msgstr "ganzer Tag"
+
+msgid "À"
+msgstr "Bis"

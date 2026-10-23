@@ -54853,3 +54853,177 @@ msgstr ""
 
 msgid "Équilibré"
 msgstr "Ισοσκελισμένο"
+
+msgid ""
+"Attention : %(n)s location(s) déjà enregistrée(s) tombent dans cette "
+"interdiction : %(liste)s"
+msgstr ""
+"Προσοχή: %(n)s ήδη καταχωρισμένη(ες) ενοικίαση(εις) εμπίπτει(ουν) σε αυτή "
+"την απαγόρευση: %(liste)s"
+
+msgid "Aucun jour coché : tous les jours de la période."
+msgstr "Καμία ημέρα: όλες οι ημέρες της περιόδου."
+
+msgid "Aucune interdiction de location."
+msgstr "Καμία απαγόρευση ενοικίασης."
+
+msgid "Circuit fermé / pas de roulage"
+msgstr "Πίστα κλειστή / χωρίς οδήγηση"
+
+msgid "Créneau"
+msgstr "Χρονική ζώνη"
+
+msgid "Créneau horaire"
+msgstr "Χρονική ζώνη"
+
+msgid "De"
+msgstr "Από"
+
+msgid "Dimanche"
+msgstr "Κυριακή"
+
+msgid "Désactivée"
+msgstr "Απενεργοποιημένη"
+
+msgid "En cours et à venir"
+msgstr "Τρέχουσες και επερχόμενες"
+
+msgid "Entretien / réparation"
+msgstr "Συντήρηση / επισκευή"
+
+msgid "Heure de début"
+msgstr "Ώρα έναρξης"
+
+msgid "Heure de fin"
+msgstr "Ώρα λήξης"
+
+msgid "Interdiction de location"
+msgstr "Απαγόρευση ενοικίασης"
+
+msgid ""
+"Interdictions : aucune location n'est possible pendant une période interdite"
+" (un véhicule ou tous les véhicules, avec ou sans créneau horaire, "
+"éventuellement certains jours de la semaine)."
+msgstr ""
+"Απαγορεύσεις: καμία ενοικίαση δεν είναι δυνατή σε απαγορευμένη περίοδο (ένα "
+"ή όλα τα οχήματα, με ή χωρίς χρονική ζώνη, ενδεχομένως ορισμένες ημέρες)."
+
+msgid "Interdictions de location"
+msgstr "Απαγορεύσεις ενοικίασης"
+
+msgid "Jeudi"
+msgstr "Πέμπτη"
+
+msgid "Jour férié / fermeture"
+msgstr "Αργία / κλειστό"
+
+msgid "Journée entière"
+msgstr "Ολόκληρη ημέρα"
+
+msgid "Jours"
+msgstr "Ημέρες"
+
+msgid "Jours de la semaine"
+msgstr "Ημέρες της εβδομάδας"
+
+msgid "L'heure de fin doit être postérieure à l'heure de début."
+msgstr "Η ώρα λήξης πρέπει να είναι μετά την ώρα έναρξης."
+
+msgid "L'interdiction de location a été enregistrée."
+msgstr "Η απαγόρευση ενοικίασης αποθηκεύτηκε."
+
+msgid "L'interdiction de location a été supprimée."
+msgstr "Η απαγόρευση ενοικίασης διαγράφηκε."
+
+msgid "Location interdite le %(jour)s (%(creneau)s) : %(motif)s%(desc)s."
+msgstr ""
+"Η ενοικίαση απαγορεύεται στις %(jour)s (%(creneau)s): %(motif)s%(desc)s."
+
+msgid "Lundi"
+msgstr "Δευτέρα"
+
+msgid "Mardi"
+msgstr "Τρίτη"
+
+msgid "Mercredi"
+msgstr "Τετάρτη"
+
+msgid "Modifier l'interdiction de location"
+msgstr "Επεξεργασία απαγόρευσης ενοικίασης"
+
+msgid "Motif"
+msgstr "Αιτία"
+
+msgid "Nouvelle interdiction"
+msgstr "Νέα απαγόρευση"
+
+msgid "Nouvelle interdiction de location"
+msgstr "Νέα απαγόρευση ενοικίασης"
+
+msgid "Restriction de bruit"
+msgstr "Περιορισμός θορύβου"
+
+msgid "Règles appliquées automatiquement à chaque location :"
+msgstr "Κανόνες που εφαρμόζονται αυτόματα σε κάθε ενοικίαση:"
+
+msgid "Règles et interdictions"
+msgstr "Κανόνες και απαγορεύσεις"
+
+msgid "Règles et interdictions de location"
+msgstr "Κανόνες και απαγορεύσεις ενοικίασης"
+
+msgid "Réservation interne"
+msgstr "Εσωτερική κράτηση"
+
+msgid "Samedi"
+msgstr "Σάββατο"
+
+msgid "Supprimer l'interdiction de location"
+msgstr "Διαγραφή απαγόρευσης ενοικίασης"
+
+msgid "Tous les véhicules"
+msgstr "Όλα τα οχήματα"
+
+msgid ""
+"Une voiture, un jour, un créneau : un véhicule ne peut pas être loué deux "
+"fois sur des créneaux qui se chevauchent (sans heures = journée entière)."
+msgstr ""
+"Ένα αυτοκίνητο, μία ημέρα, μία ζώνη: ένα όχημα δεν μπορεί να ενοικιαστεί δύο"
+" φορές σε επικαλυπτόμενες ζώνες (χωρίς ώρες = ολόκληρη ημέρα)."
+
+msgid "Vendredi"
+msgstr "Παρασκευή"
+
+msgid "Vide : jusqu'à la fin de la journée."
+msgstr "Κενό: έως το τέλος της ημέρας."
+
+msgid "Vide : tous les jours de la période."
+msgstr "Κενό: όλες οι ημέρες της περιόδου."
+
+msgid "Vide : tous les véhicules."
+msgstr "Κενό: όλα τα οχήματα."
+
+msgid "Vide : toute la journée."
+msgstr "Κενό: όλη την ημέρα."
+
+msgid "Vide : un seul jour."
+msgstr "Κενό: μία μόνο ημέρα."
+
+msgid "Vide : à partir du début de la journée."
+msgstr "Κενό: από την αρχή της ημέρας."
+
+msgid "Véhicule disponible sur ce créneau."
+msgstr "Όχημα διαθέσιμο σε αυτή τη ζώνη."
+
+msgid "Véhicule déjà loué le %(dates)s (%(creneau)s) – %(client)s, %(lieu)s."
+msgstr ""
+"Όχημα ήδη ενοικιασμένο στις %(dates)s (%(creneau)s) – %(client)s, %(lieu)s."
+
+msgid "client non renseigné"
+msgstr "πελάτης μη καταχωρισμένος"
+
+msgid "journée entière"
+msgstr "ολόκληρη ημέρα"
+
+msgid "À"
+msgstr "Έως"

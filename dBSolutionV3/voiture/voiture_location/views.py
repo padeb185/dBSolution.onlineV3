@@ -93,7 +93,7 @@ def location_ajouter(request):
     if request.method == "POST":
         for idx in request.POST.getlist("sup_index"):
             if idx.isdigit():
-                forms_sup.append(LocationVehiculeSupForm(request.POST, prefix=f"sup-{idx}", vehicules=vehicules))
+                forms_sup.append(LocationVehiculeSupForm(request.POST, prefix=f"sup-{idx}", vehicules=vehicules, societe=request.user.societe))
 
     # Remise en % sur l'ensemble des véhicules
     remise_brute = (request.POST.get("remise_pourcent") or "0").replace(",", ".") if request.method == "POST" else "0"
@@ -161,7 +161,7 @@ def location_ajouter(request):
 
 
 # Champs propres à chaque véhicule loué (affichés dans la fiche de chaque véhicule)
-CHAMPS_VEHICULE = ["type_location", "circuit", "route", "date_debut", "date_fin", "nombre_tours", "kilometrage", "prix"]
+CHAMPS_VEHICULE = ["type_location", "circuit", "route", "date_debut", "date_fin", "heure_debut", "heure_fin", "nombre_tours", "kilometrage", "prix"]
 
 
 def _appliquer_remise(location, remise):
@@ -656,3 +656,130 @@ def objectifs_ventes(request):
         "lignes": lignes,
         "total_societe": sum((l["total"] for l in lignes), Decimal("0")),
     })
+
+
+# -----------------------------
+# Règles de location : disponibilité et interdictions
+# -----------------------------
+def _peut_gerer_interdictions(user):
+    return user.is_superuser or getattr(user, "role", None) in ROLES_SUPPRESSION
+
+
+@never_cache
+@login_required
+def location_disponibilite(request):
+    """Contrôle en direct (formulaire) : le véhicule est-il libre sur la date / le créneau ?"""
+    from datetime import date as _date, time as _time
+    from django.http import JsonResponse
+    from .regles import conflits
+
+    if not _autorise(request.user):
+        return JsonResponse({"ok": False, "messages": [str(_("Accès refusé"))]}, status=403)
+
+    def d(nom):
+        try:
+            return _date.fromisoformat(request.GET.get(nom) or "")
+        except ValueError:
+            return None
+
+    def h(nom):
+        try:
+            return _time.fromisoformat(request.GET.get(nom) or "")
+        except ValueError:
+            return None
+
+    voiture, debut = request.GET.get("voiture"), d("date_debut")
+    if not voiture or not debut:
+        return JsonResponse({"ok": None, "messages": []})
+    exclure = request.GET.get("exclure") or None
+    liste = conflits(request.user.societe, voiture, debut, d("date_fin"), h("heure_debut"), h("heure_fin"),
+                     exclure_pk=exclure)
+    return JsonResponse({"ok": not liste, "messages": [c["message"] for c in liste]})
+
+
+@never_cache
+@login_required
+def interdictions_liste(request):
+    from .models import InterdictionLocation
+    if not _autorise(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("utilisateurs:dashboard")
+    interdictions = (InterdictionLocation.objects.filter(societe=request.user.societe)
+                     .select_related("voiture_exemplaire__voiture_marque", "voiture_exemplaire__voiture_modele"))
+    afficher = request.GET.get("afficher") or "a_venir"
+    if afficher == "a_venir":
+        from django.db.models import Q
+        aujourdhui = timezone.localdate()
+        interdictions = interdictions.filter(Q(date_fin__gte=aujourdhui) | Q(date_fin__isnull=True, date_debut__gte=aujourdhui))
+    return render(request, "voiture_location/interdictions_liste.html", {
+        "interdictions": interdictions, "afficher": afficher,
+        "peut_gerer": _peut_gerer_interdictions(request.user),
+    })
+
+
+def _interdiction_form(request, interdiction=None):
+    from .forms import InterdictionLocationForm
+    if not _peut_gerer_interdictions(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("voiture_location:interdictions_liste")
+    form = InterdictionLocationForm(request.POST or None, instance=interdiction, societe=request.user.societe,
+                                    initial={"voiture_exemplaire": request.GET.get("exemplaire")} if not interdiction else None)
+    if request.method == "POST" and form.is_valid():
+        obj = form.save(commit=False)
+        obj.societe = request.user.societe
+        if not obj.cree_par_id:
+            obj.cree_par = request.user
+        obj.save()
+        from utilisateurs.models import UserLog
+        UserLog.objects.create(utilisateur=request.user, action=f"Interdiction de location – {obj}"[:255])
+        # Locations déjà enregistrées qui tombent dans la nouvelle interdiction
+        from .models import Location
+        from .regles import conflits
+        touchees = []
+        qs = Location.objects.filter(societe=obj.societe, date_debut__lte=obj.date_fin or obj.date_debut)
+        if obj.voiture_exemplaire_id:
+            qs = qs.filter(voiture_exemplaire_id=obj.voiture_exemplaire_id)
+        from django.db.models import Q
+        qs = qs.filter(Q(date_fin__gte=obj.date_debut) | Q(date_fin__isnull=True, date_debut__gte=obj.date_debut))
+        for loc in qs.select_related("voiture_exemplaire"):
+            if any(c["type"] == "interdiction" and c["objet"].pk == obj.pk for c in
+                   conflits(obj.societe, loc.voiture_exemplaire_id, loc.date_debut, loc.date_fin,
+                            loc.heure_debut, loc.heure_fin, exclure_pk=loc.pk)):
+                touchees.append(loc)
+        messages.success(request, _("L'interdiction de location a été enregistrée."))
+        if touchees:
+            messages.warning(request, _("Attention : %(n)s location(s) déjà enregistrée(s) tombent dans cette interdiction : %(liste)s") % {
+                "n": len(touchees), "liste": ", ".join(str(l) for l in touchees[:10])})
+        return redirect("voiture_location:interdictions_liste")
+    return render(request, "voiture_location/interdiction_form.html", {"form": form, "interdiction": interdiction})
+
+
+@never_cache
+@login_required
+def interdiction_ajouter(request):
+    if not _autorise(request.user):
+        return redirect("utilisateurs:dashboard")
+    return _interdiction_form(request)
+
+
+@never_cache
+@login_required
+def interdiction_modifier(request, pk):
+    from .models import InterdictionLocation
+    if not _autorise(request.user):
+        return redirect("utilisateurs:dashboard")
+    return _interdiction_form(request, get_object_or_404(InterdictionLocation, societe=request.user.societe, pk=pk))
+
+
+@login_required
+def interdiction_supprimer(request, pk):
+    from .models import InterdictionLocation
+    if not _peut_gerer_interdictions(request.user):
+        messages.error(request, _("Accès refusé"))
+        return redirect("voiture_location:interdictions_liste")
+    obj = get_object_or_404(InterdictionLocation, societe=request.user.societe, pk=pk)
+    if request.method == "POST":
+        obj.delete()
+        messages.success(request, _("L'interdiction de location a été supprimée."))
+        return redirect("voiture_location:interdictions_liste")
+    return render(request, "voiture_location/interdiction_supprimer.html", {"interdiction": obj})

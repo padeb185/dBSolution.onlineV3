@@ -54668,3 +54668,175 @@ msgstr ""
 
 msgid "Équilibré"
 msgstr "Balanced"
+
+msgid ""
+"Attention : %(n)s location(s) déjà enregistrée(s) tombent dans cette "
+"interdiction : %(liste)s"
+msgstr ""
+"Warning: %(n)s existing rental(s) fall within this restriction: %(liste)s"
+
+msgid "Aucun jour coché : tous les jours de la période."
+msgstr "No day ticked: every day of the period."
+
+msgid "Aucune interdiction de location."
+msgstr "No rental restriction."
+
+msgid "Circuit fermé / pas de roulage"
+msgstr "Track closed / no driving"
+
+msgid "Créneau"
+msgstr "Time slot"
+
+msgid "Créneau horaire"
+msgstr "Time slot"
+
+msgid "De"
+msgstr "From"
+
+msgid "Dimanche"
+msgstr "Sunday"
+
+msgid "Désactivée"
+msgstr "Disabled"
+
+msgid "En cours et à venir"
+msgstr "Current and upcoming"
+
+msgid "Entretien / réparation"
+msgstr "Maintenance / repair"
+
+msgid "Heure de début"
+msgstr "Start time"
+
+msgid "Heure de fin"
+msgstr "End time"
+
+msgid "Interdiction de location"
+msgstr "Rental restriction"
+
+msgid ""
+"Interdictions : aucune location n'est possible pendant une période interdite"
+" (un véhicule ou tous les véhicules, avec ou sans créneau horaire, "
+"éventuellement certains jours de la semaine)."
+msgstr ""
+"Restrictions: no rental is possible during a restricted period (one vehicle "
+"or all vehicles, with or without a time slot, possibly on certain weekdays)."
+
+msgid "Interdictions de location"
+msgstr "Rental restrictions"
+
+msgid "Jeudi"
+msgstr "Thursday"
+
+msgid "Jour férié / fermeture"
+msgstr "Public holiday / closure"
+
+msgid "Journée entière"
+msgstr "Whole day"
+
+msgid "Jours"
+msgstr "Days"
+
+msgid "Jours de la semaine"
+msgstr "Weekdays"
+
+msgid "L'heure de fin doit être postérieure à l'heure de début."
+msgstr "The end time must be after the start time."
+
+msgid "L'interdiction de location a été enregistrée."
+msgstr "The rental restriction has been saved."
+
+msgid "L'interdiction de location a été supprimée."
+msgstr "The rental restriction has been deleted."
+
+msgid "Location interdite le %(jour)s (%(creneau)s) : %(motif)s%(desc)s."
+msgstr "Rental not allowed on %(jour)s (%(creneau)s): %(motif)s%(desc)s."
+
+msgid "Lundi"
+msgstr "Monday"
+
+msgid "Mardi"
+msgstr "Tuesday"
+
+msgid "Mercredi"
+msgstr "Wednesday"
+
+msgid "Modifier l'interdiction de location"
+msgstr "Edit rental restriction"
+
+msgid "Motif"
+msgstr "Reason"
+
+msgid "Nouvelle interdiction"
+msgstr "New restriction"
+
+msgid "Nouvelle interdiction de location"
+msgstr "New rental restriction"
+
+msgid "Restriction de bruit"
+msgstr "Noise restriction"
+
+msgid "Règles appliquées automatiquement à chaque location :"
+msgstr "Rules applied automatically to every rental:"
+
+msgid "Règles et interdictions"
+msgstr "Rules and restrictions"
+
+msgid "Règles et interdictions de location"
+msgstr "Rental rules and restrictions"
+
+msgid "Réservation interne"
+msgstr "Internal booking"
+
+msgid "Samedi"
+msgstr "Saturday"
+
+msgid "Supprimer l'interdiction de location"
+msgstr "Delete rental restriction"
+
+msgid "Tous les véhicules"
+msgstr "All vehicles"
+
+msgid ""
+"Une voiture, un jour, un créneau : un véhicule ne peut pas être loué deux "
+"fois sur des créneaux qui se chevauchent (sans heures = journée entière)."
+msgstr ""
+"One car, one day, one slot: a vehicle cannot be rented twice in overlapping "
+"time slots (no times = whole day)."
+
+msgid "Vendredi"
+msgstr "Friday"
+
+msgid "Vide : jusqu'à la fin de la journée."
+msgstr "Empty: until the end of the day."
+
+msgid "Vide : tous les jours de la période."
+msgstr "Empty: every day of the period."
+
+msgid "Vide : tous les véhicules."
+msgstr "Empty: all vehicles."
+
+msgid "Vide : toute la journée."
+msgstr "Empty: the whole day."
+
+msgid "Vide : un seul jour."
+msgstr "Empty: a single day."
+
+msgid "Vide : à partir du début de la journée."
+msgstr "Empty: from the start of the day."
+
+msgid "Véhicule disponible sur ce créneau."
+msgstr "Vehicle available in this slot."
+
+msgid "Véhicule déjà loué le %(dates)s (%(creneau)s) – %(client)s, %(lieu)s."
+msgstr ""
+"Vehicle already rented on %(dates)s (%(creneau)s) – %(client)s, %(lieu)s."
+
+msgid "client non renseigné"
+msgstr "customer not specified"
+
+msgid "journée entière"
+msgstr "whole day"
+
+msgid "À"
+msgstr "To"

@@ -316,6 +316,7 @@
     <div class="grid">
         <div><span class="label">{% trans "Date de début" %} :</span> {{ location.date_debut|date:"d/m/Y" }}</div>
         <div><span class="label">{% trans "Date de fin" %} :</span> {{ location.date_fin|date:"d/m/Y"|default:"—" }}</div>
+        {% if location.heure_debut or location.heure_fin %}<div><span class="label">{% trans "Créneau horaire" %} :</span> {{ location.heure_debut|time:"H:i"|default:"00:00" }} – {{ location.heure_fin|time:"H:i"|default:"24:00" }}</div>{% endif %}
     </div>
     <table>
         <thead>

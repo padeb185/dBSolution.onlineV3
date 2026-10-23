@@ -23,3 +23,12 @@ from .models import ObjectifVente  # noqa: E402
 class ObjectifVenteAdmin(admin.ModelAdmin):
     list_display = ("vendeur", "annee", "mois", "montant_htva", "nombre_ventes")
     list_filter = ("annee", "vendeur")
+
+
+from .models import InterdictionLocation  # noqa: E402
+
+
+@admin.register(InterdictionLocation)
+class InterdictionLocationAdmin(admin.ModelAdmin):
+    list_display = ("motif", "voiture_exemplaire", "date_debut", "date_fin", "heure_debut", "heure_fin", "jours_semaine", "actif")
+    list_filter = ("motif", "actif")
