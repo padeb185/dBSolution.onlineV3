@@ -90,7 +90,16 @@
         <tr class="{% if tache.est_terminee %}bg-gray-50 text-gray-500{% endif %}">
 
             <td class="border px-4 py-2 font-semibold">
-                {{ tache.get_type_maintenance_display }}
+                {% with url_m=tache.url_maintenance %}
+                {% if url_m %}
+                    <a href="{{ url_m }}" class="text-blue-700 hover:text-blue-900 hover:underline inline-flex items-center gap-1"
+                       title="{% trans 'Effectuer cette maintenance sur ce véhicule' %}">
+                        {{ tache.get_type_maintenance_display }} <span aria-hidden="true">→</span>
+                    </a>
+                {% else %}
+                    {{ tache.get_type_maintenance_display }}
+                {% endif %}
+                {% endwith %}
                 {% if tache.remarques %}
                     <p class="text-sm font-normal text-gray-500 mt-1">{{ tache.remarques|linebreaksbr }}</p>
                 {% endif %}
@@ -100,7 +109,12 @@
                 {% include "maintenance/partials/plaque.html" with taille="petite" %}
             </td>
 
-            <td class="border px-4 py-2">{% include "agenda/partials/vehicule.html" %}</td>
+            <td class="border px-4 py-2">
+                {% with url_v=tache.url_vehicule %}
+                {% if url_v %}<a href="{{ url_v }}" class="hover:underline" title="{% trans 'Voir le véhicule' %}">{% include "agenda/partials/vehicule.html" %}</a>
+                {% else %}{% include "agenda/partials/vehicule.html" %}{% endif %}
+                {% endwith %}
+            </td>
 
             <td class="border px-4 py-2">
                 {% if tache.technicien %}

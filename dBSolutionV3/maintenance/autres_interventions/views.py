@@ -118,6 +118,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     total_geometrie = 0
     total_abs = 0
     total_esp = 0
+    total_aide_stationnement = 0
     total_fusibles = 0
     total_demarreur = 0
     total_remplacement_boite = 0
@@ -215,6 +216,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_abs = abs_qs.count()
             from maintenance.autres_interventions.esp.models import Esp
             total_esp = Esp.objects.filter(voiture_exemplaire=exemplaire).count()
+            from maintenance.autres_interventions.aide_stationnement.models import AideStationnement
+            total_aide_stationnement = AideStationnement.objects.filter(voiture_exemplaire=exemplaire).count()
             from maintenance.autres_interventions.fusibles.models import Fusibles
             total_fusibles = Fusibles.objects.filter(voiture_exemplaire=exemplaire).count()
             from maintenance.autres_interventions.demarreur.models import Demarreur
@@ -362,6 +365,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_geometrie": total_geometrie,
         "total_abs": total_abs,
         "total_esp": total_esp,
+        "total_aide_stationnement": total_aide_stationnement,
         "total_fusibles": total_fusibles,
         "total_demarreur": total_demarreur,
         "total_remplacement_boite": total_remplacement_boite,

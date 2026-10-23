@@ -1150,6 +1150,7 @@ def connexion_globale_view(request):
             "utilisateurs/connexion_globale.html",
             {
                 "form": form,
+                "afficher_totp": True,
             },
         )
 
@@ -1167,6 +1168,7 @@ def connexion_globale_view(request):
             "utilisateurs/connexion_globale.html",
             {
                 "form": form,
+                "afficher_totp": True,
             },
         )
 

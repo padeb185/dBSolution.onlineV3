@@ -223,6 +223,26 @@
         </a>
 
         <!-- ================================================== -->
+        <!-- AIDE AU STATIONNEMENT -->
+        <!-- ================================================== -->
+        <a
+            href="{% url 'aide_stationnement:aide_stationnement_list' exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="mb-1 text-lg font-semibold">{% trans "Aide au stationnement" %}</h2>
+                    <p class="text-xs text-gray-500 mb-1">{% trans "Capteurs avant / arrière, caméra de recul, Park Assist" %}</p>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_aide_stationnement|default:0 }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/aide_stationnement.png' %}" alt="{% trans 'Aide au stationnement' %}" class="h-[60px] w-[60px]">
+            </div>
+        </a>
+
+        <!-- ================================================== -->
         <!-- BOÎTES À FUSIBLES -->
         <!-- ================================================== -->
         <a

@@ -7,6 +7,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from voiture.voiture_exemplaire.views import voiture_exemplaire_detail
 from utilisateurs.views import connexion_globale_view
+from utilisateurs.views_connexion import verifier_identifiants
 
 
 # Handler 404 personnalisé
@@ -44,6 +45,7 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path("", home_view, name="home"),
     path("connexion/", connexion_globale_view, name="connexion_globale"),
+    path("connexion/verifier/", verifier_identifiants, name="connexion_verifier"),
 
     path("admin/", admin.site.urls),
 
@@ -213,6 +215,7 @@ urlpatterns += i18n_patterns(
     path("suspension/sport/", include(("maintenance.autres_interventions.suspension.suspension_sport.urls", "suspension_sport"), namespace="suspension_sport")),
     path("demarreur/", include(("maintenance.autres_interventions.demarreur.urls", "demarreur"), namespace="demarreur")),
     path("esp/", include(("maintenance.autres_interventions.esp.urls", "esp"), namespace="esp")),
+    path("aide-stationnement/", include(("maintenance.autres_interventions.aide_stationnement.urls", "aide_stationnement"), namespace="aide_stationnement")),
     path("fusibles/", include(("maintenance.autres_interventions.fusibles.urls", "fusibles"), namespace="fusibles")),
     path('bas_moteur/', include(('maintenance.autres_interventions.moteur.bas_moteur.urls', 'bas_moteur'), namespace='bas_moteur')),
     path('electronique_moteur/', include(('maintenance.autres_interventions.moteur.electronique_moteur.urls', 'electronique_moteur'), namespace='electronique_moteur')),

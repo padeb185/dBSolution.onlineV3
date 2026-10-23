@@ -189,20 +189,80 @@
                     {% endif %}
                 </div>
 
-                <div>
-                    <label
-                        for="id_totp_code"
-                        class="block text-sm font-medium text-gray-700 mb-1"
-                    >
-                        {% trans "Code de sécurité" %}
-                    </label>
+                <!-- Vérification des identifiants (affichée après la saisie) -->
+                <p id="statut-identifiants" class="text-sm hidden"></p>
+
+                <!-- Code TOTP : affiché seulement si e-mail + mot de passe corrects
+                     et si l'utilisateur a configuré son TOTP -->
+                <div id="bloc-totp" class="{% if not afficher_totp and not form.totp_code.errors %}hidden{% endif %}">
+                    <div class="flex items-center gap-2 mb-1">
+                        <label
+                            for="id_totp_code"
+                            class="block text-sm font-medium text-gray-700"
+                        >
+                            {% trans "Code de sécurité TOTP" %}
+                        </label>
+
+                        <!-- Bouton info : explication au survol -->
+                        <span class="relative inline-flex group">
+                            <button
+                                type="button"
+                                aria-label="{% trans 'Information sur le code TOTP' %}"
+                                aria-describedby="aide-totp"
+                                class="
+                                    w-5 h-5
+                                    rounded-full
+                                    bg-blue-600
+                                    text-white
+                                    text-xs
+                                    font-bold
+                                    leading-5
+                                    text-center
+                                    cursor-help
+                                    focus:outline-none
+                                    focus:ring-2
+                                    focus:ring-blue-400
+                                "
+                            >i</button>
+                            <span
+                                id="aide-totp"
+                                role="tooltip"
+                                class="
+                                    invisible
+                                    opacity-0
+                                    group-hover:visible
+                                    group-hover:opacity-100
+                                    group-focus-within:visible
+                                    group-focus-within:opacity-100
+                                    transition
+                                    duration-200
+                                    absolute
+                                    left-1/2
+                                    -translate-x-1/2
+                                    bottom-full
+                                    mb-2
+                                    w-64
+                                    bg-gray-800
+                                    text-white
+                                    text-xs
+                                    rounded
+                                    px-3
+                                    py-2
+                                    shadow-lg
+                                    z-50
+                                "
+                            >
+                                {% trans "Entrez votre code TOTP : le code à 6 chiffres affiché dans votre application d'authentification (Google Authenticator, Microsoft Authenticator, Authy…). Il change toutes les 30 secondes." %}
+                            </span>
+                        </span>
+                    </div>
 
                     <input
                         type="text"
                         id="id_totp_code"
                         name="totp_code"
                         value="{{ form.totp_code.value|default:'' }}"
-                        placeholder="{% trans 'Code TOTP si activé' %}"
+                        placeholder="{% trans 'Code à 6 chiffres' %}"
                         autocomplete="one-time-code"
                         inputmode="numeric"
                         pattern="[0-9]{6}"
@@ -214,6 +274,9 @@
                             px-3
                             py-2
                             rounded
+                            tracking-widest
+                            text-center
+                            text-lg
                             focus:ring-2
                             focus:ring-blue-500
                             focus:outline-none
@@ -258,5 +321,82 @@
         </div>
     </div>
 </div>
+
+<script>
+(function () {
+    const email = document.getElementById("id_email");
+    const password = document.getElementById("id_password");
+    const blocTotp = document.getElementById("bloc-totp");
+    const totp = document.getElementById("id_totp_code");
+    const statut = document.getElementById("statut-identifiants");
+    if (!email || !password || !blocTotp) return;
+
+    const URL_VERIFIER = "{% url 'connexion_verifier' %}";
+    const csrf = document.querySelector("[name=csrfmiddlewaretoken]").value;
+    let minuteur = null;
+    let derniereRequete = "";
+
+    function afficherStatut(texte, couleur) {
+        statut.textContent = texte || "";
+        statut.className = "text-sm " + (texte ? couleur : "hidden");
+    }
+
+    function verifier() {
+        const e = email.value.trim(), p = password.value;
+        if (!e || !p) {
+            afficherStatut("", "");
+            return;
+        }
+        const cle = e + "\u0000" + p;
+        if (cle === derniereRequete) return;
+        derniereRequete = cle;
+
+        const donnees = new FormData();
+        donnees.append("email", e);
+        donnees.append("password", p);
+
+        fetch(URL_VERIFIER, {
+            method: "POST",
+            headers: { "X-CSRFToken": csrf, "X-Requested-With": "XMLHttpRequest" },
+            body: donnees,
+            credentials: "same-origin",
+        })
+        .then(r => r.json())
+        .then(rep => {
+            if (cle !== email.value.trim() + "\u0000" + password.value) return; // saisie modifiée entre-temps
+            if (rep.ok && rep.totp) {
+                blocTotp.classList.remove("hidden");
+                afficherStatut("{{ _('Identifiants corrects : entrez votre code TOTP.')|escapejs }}", "text-green-700");
+                totp.focus();
+            } else if (rep.ok) {
+                blocTotp.classList.add("hidden");
+                afficherStatut(rep.message, "text-blue-700");
+            } else {
+                blocTotp.classList.add("hidden");
+                afficherStatut(rep.message, "text-red-700");
+            }
+        })
+        .catch(() => { derniereRequete = ""; });
+    }
+
+    // Vérifie après une courte pause de frappe, ou en quittant le champ mot de passe
+    function programmer() {
+        clearTimeout(minuteur);
+        minuteur = setTimeout(verifier, 700);
+    }
+    email.addEventListener("input", programmer);
+    password.addEventListener("input", programmer);
+    password.addEventListener("blur", verifier);
+    email.addEventListener("blur", verifier);
+
+    // Code TOTP : chiffres uniquement, envoi automatique à 6 chiffres
+    if (totp) {
+        totp.addEventListener("input", function () {
+            totp.value = totp.value.replace(/\D/g, "").slice(0, 6);
+            if (totp.value.length === 6 && password.value) totp.form.requestSubmit();
+        });
+    }
+})();
+</script>
 
 {% endblock %}

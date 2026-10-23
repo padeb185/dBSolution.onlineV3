@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Aide au stationnement" %}{% endblock %}
+
+{% block content %}
+    {% url 'aide_stationnement:modifier_aide_stationnement' aide_stationnement.pk as url_modifier %}
+    {% url 'aide_stationnement:aide_stationnement_detail_pdf' aide_stationnement.pk as url_pdf %}
+    {% url 'aide_stationnement:delete_aide_stationnement' aide_stationnement.pk as url_delete %}
+    {% if exemplaire %}{% url 'aide_stationnement:aide_stationnement_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Aide au stationnement" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=aide_stationnement km_controle=aide_stationnement.kilometrage_aide_stationnement icone="aide_stationnement.png" %}
+{% endblock %}

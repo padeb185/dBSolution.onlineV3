@@ -114,6 +114,17 @@ class AgendaTache(models.Model):
     def immatriculation(self):
         return getattr(self.voiture_exemplaire, "immatriculation", "") or ""
 
+    @property
+    def url_maintenance(self):
+        """Lien direct vers la maintenance à effectuer pour le véhicule concerné."""
+        from .liens import url_maintenance
+        return url_maintenance(self.type_maintenance, self.voiture_exemplaire_id)
+
+    @property
+    def url_vehicule(self):
+        from .liens import url_vehicule
+        return url_vehicule(self.voiture_exemplaire_id)
+
 
 class AgendaLocation(models.Model):
     """

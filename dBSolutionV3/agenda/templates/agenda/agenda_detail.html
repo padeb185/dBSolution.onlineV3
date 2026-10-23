@@ -7,12 +7,17 @@
 <div class="p-6 w-full ml-[-10px] mr-[10px]">
 
     <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
+    <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
             <img src="{% static 'icons/agenda.png' %}" alt="{% trans 'Agenda' %}" class="w-12 h-12">
             <span>{% trans "Détails de la maintenance planifiée :" %}</span>
             <span class="text-black-700">{{ tache.get_type_maintenance_display }}</span>
         </h1>
+        {% with url_m=tache.url_maintenance %}{% if url_m %}
+            <a href="{{ url_m }}" class="bg-blue-700 hover:bg-blue-400 text-white px-5 py-3 rounded font-semibold">
+                {% trans "Effectuer la maintenance" %} : {{ tache.get_type_maintenance_display }} →
+            </a>
+        {% endif %}{% endwith %}
     </div>
 
     <!-- Messages -->
@@ -32,7 +37,12 @@
 
             <p>
                 <strong>{% trans "Maintenance" %} :</strong>
-                {{ tache.get_type_maintenance_display }}
+                {% with url_m=tache.url_maintenance %}
+                {% if url_m %}
+                    <a href="{{ url_m }}" class="text-blue-700 hover:underline font-semibold"
+                       title="{% trans 'Effectuer cette maintenance sur ce véhicule' %}">{{ tache.get_type_maintenance_display }} →</a>
+                {% else %}{{ tache.get_type_maintenance_display }}{% endif %}
+                {% endwith %}
             </p>
 
             <p>

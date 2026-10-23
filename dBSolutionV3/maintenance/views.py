@@ -52,6 +52,7 @@ from maintenance.check_up.models import Checkup
 from maintenance.autres_interventions.echappement.models import Echappement
 from maintenance.autres_interventions.echappement.composants import total_composants_echappement
 from maintenance.autres_interventions.esp.models import Esp
+from maintenance.autres_interventions.aide_stationnement.models import AideStationnement
 from maintenance.autres_interventions.fusibles.models import Fusibles
 from maintenance.autres_interventions.demarreur.models import Demarreur
 from maintenance.autres_interventions.suspension.composants import total_suspension
@@ -268,6 +269,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             + remplacement_moteur.count()
             + abs_qs.count()
             + Esp.objects.filter(voiture_exemplaire=exemplaire).count()
+            + AideStationnement.objects.filter(voiture_exemplaire=exemplaire).count()
             + Fusibles.objects.filter(voiture_exemplaire=exemplaire).count()
             + Demarreur.objects.filter(voiture_exemplaire=exemplaire).count()
             + courroie_access.count()
