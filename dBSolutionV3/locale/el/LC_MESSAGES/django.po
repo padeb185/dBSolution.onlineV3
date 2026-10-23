@@ -52338,3 +52338,237 @@ msgstr ""
 "Οι μετρητές του οχήματος (χιλιόμετρα, κινητήρας, κιβώτιο, συμπλέκτης, "
 "τελευταίο σέρβις, αριθμός κινητήρων / κιβωτίων) θα επανέλθουν στις τιμές πριν"
 " από αυτή την επέμβαση."
+
+#: utilisateurs/views_tenants.py
+msgid "+ Ajouter un utilisateur"
+msgstr "+ Προσθήκη χρήστη"
+
+#: utilisateurs/views_tenants.py
+msgid "+ Utilisateur"
+msgstr "+ Χρήστης"
+
+#: utilisateurs/views_tenants.py
+msgid "Abonnement"
+msgstr "Συνδρομή"
+
+#: utilisateurs/views_tenants.py
+msgid "Abonnement payé jusqu'au"
+msgstr "Συνδρομή πληρωμένη έως"
+
+#: utilisateurs/views_tenants.py
+msgid "Activer"
+msgstr "Ενεργοποίηση"
+
+#: utilisateurs/views_tenants.py
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ tenants"
+msgstr "Εμφάνιση _START_ έως _END_ από _TOTAL_ μισθωτές"
+
+#: utilisateurs/views_tenants.py
+msgid "Ajouter un utilisateur"
+msgstr "Προσθήκη χρήστη"
+
+#: utilisateurs/views_tenants.py
+msgid "Aucun tenant trouvé"
+msgstr "Δεν βρέθηκε μισθωτής"
+
+#: utilisateurs/views_tenants.py
+msgid "Aucun tenant."
+msgstr "Κανένας μισθωτής."
+
+#: utilisateurs/views_tenants.py
+msgid "Aucun utilisateur pour ce tenant."
+msgstr "Κανένας χρήστης για αυτόν τον μισθωτή."
+
+#: utilisateurs/views_tenants.py
+msgid "Ce nom de schéma est réservé."
+msgstr "Αυτό το όνομα σχήματος είναι δεσμευμένο."
+
+#: utilisateurs/views_tenants.py
+msgid "Ce numéro de TVA est déjà utilisé."
+msgstr "Αυτός ο ΑΦΜ χρησιμοποιείται ήδη."
+
+#: utilisateurs/views_tenants.py
+msgid "Ce schéma existe déjà."
+msgstr "Αυτό το σχήμα υπάρχει ήδη."
+
+#: utilisateurs/views_tenants.py
+msgid "Création du tenant en cours…"
+msgstr "Δημιουργία μισθωτή σε εξέλιξη…"
+
+#: utilisateurs/views_tenants.py
+msgid "Créer et ajouter un autre utilisateur"
+msgstr "Δημιουργία και προσθήκη άλλου χρήστη"
+
+#: utilisateurs/views_tenants.py
+msgid "Créer l'utilisateur"
+msgstr "Δημιουργία χρήστη"
+
+#: utilisateurs/views_tenants.py
+msgid "Créer le tenant"
+msgstr "Δημιουργία μισθωτή"
+
+#: utilisateurs/views_tenants.py
+msgid "Créer un tenant"
+msgstr "Δημιουργία μισθωτή"
+
+#: utilisateurs/views_tenants.py
+msgid "Domaine(s)"
+msgstr "Τομέας(-είς)"
+
+#: utilisateurs/views_tenants.py
+msgid "Désactiver"
+msgstr "Απενεργοποίηση"
+
+#: utilisateurs/views_tenants.py
+msgid "Désactivé"
+msgstr "Απενεργοποιημένος"
+
+#: utilisateurs/views_tenants.py
+msgid "Enregistrement…"
+msgstr "Αποθήκευση…"
+
+#: utilisateurs/views_tenants.py
+msgid "Erreur lors de la création du tenant : %(erreur)s"
+msgstr "Σφάλμα κατά τη δημιουργία μισθωτή: %(erreur)s"
+
+#: utilisateurs/views_tenants.py
+msgid "Erreur lors de la mise à jour : %(erreur)s"
+msgstr "Σφάλμα κατά την ενημέρωση: %(erreur)s"
+
+#: utilisateurs/views_tenants.py
+msgid "Essai"
+msgstr "Δοκιμή"
+
+#: utilisateurs/views_tenants.py
+msgid ""
+"La création du tenant crée son schéma dans la base de données et y applique "
+"toutes les migrations. Cela peut prendre une à deux minutes : ne fermez pas "
+"la page."
+msgstr ""
+"Η δημιουργία του μισθωτή δημιουργεί το σχήμα του στη βάση δεδομένων και "
+"εφαρμόζει όλες τις μεταναστεύσεις. Αυτό μπορεί να διαρκέσει ένα με δύο λεπτά:"
+" μην κλείσετε τη σελίδα."
+
+#: utilisateurs/views_tenants.py
+msgid "Le nombre maximum d'utilisateurs de ce tenant est atteint (%(max)s)."
+msgstr ""
+"Έχει συμπληρωθεί ο μέγιστος αριθμός χρηστών αυτού του μισθωτή (%(max)s)."
+
+#: utilisateurs/views_tenants.py
+msgid ""
+"Le nombre maximum d'utilisateurs de ce tenant est atteint (%(max)s). "
+"Augmentez la limite avant d'ajouter un utilisateur."
+msgstr ""
+"Έχει συμπληρωθεί ο μέγιστος αριθμός χρηστών αυτού του μισθωτή (%(max)s). "
+"Αυξήστε το όριο πριν προσθέσετε χρήστη."
+
+#: utilisateurs/views_tenants.py
+msgid ""
+"Le schéma doit commencer par une lettre et ne contenir que des minuscules, "
+"chiffres et _."
+msgstr ""
+"Το σχήμα πρέπει να ξεκινά με γράμμα και να περιέχει μόνο πεζά, ψηφία και _."
+
+#: utilisateurs/views_tenants.py
+msgid "Le tenant a été mis à jour."
+msgstr "Ο μισθωτής ενημερώθηκε."
+
+#: utilisateurs/views_tenants.py
+msgid "Le tenant « %(nom)s » a été créé."
+msgstr "Ο μισθωτής «%(nom)s» δημιουργήθηκε."
+
+#: utilisateurs/views_tenants.py
+msgid ""
+"Lettres minuscules, chiffres et _ uniquement. Laissez vide pour le générer "
+"depuis le nom. Il apparaît dans l'adresse : /tenant/<schéma>/"
+msgstr ""
+"Μόνο πεζά, ψηφία και _. Αφήστε κενό για αυτόματη δημιουργία από το όνομα. "
+"Εμφανίζεται στη διεύθυνση: /tenant/<schema>/"
+
+#: utilisateurs/views_tenants.py
+msgid "Limite d'utilisateurs atteinte"
+msgstr "Συμπληρώθηκε το όριο χρηστών"
+
+#: utilisateurs/views_tenants.py
+msgid "Modifier le tenant"
+msgstr "Επεξεργασία μισθωτή"
+
+#: utilisateurs/views_tenants.py
+msgid "Nom du schéma (identifiant du tenant)"
+msgstr "Όνομα σχήματος (αναγνωριστικό μισθωτή)"
+
+#: utilisateurs/views_tenants.py
+msgid "Nouvelle société : schéma, adresse, abonnement et premier utilisateur."
+msgstr "Νέα εταιρεία: σχήμα, διεύθυνση, συνδρομή και πρώτος χρήστης."
+
+#: utilisateurs/views_tenants.py
+msgid "Obligatoire pour créer le premier utilisateur."
+msgstr "Υποχρεωτικό για τη δημιουργία του πρώτου χρήστη."
+
+#: utilisateurs/views_tenants.py
+msgid "Oui,Non"
+msgstr "Ναι,Όχι"
+
+#: utilisateurs/views_tenants.py
+msgid "Premier utilisateur (direction) – facultatif"
+msgstr "Πρώτος χρήστης (διοίκηση) – προαιρετικό"
+
+#: utilisateurs/views_tenants.py
+msgid "Période d'essai"
+msgstr "Δοκιμαστική περίοδος"
+
+#: utilisateurs/views_tenants.py
+msgid "Retour au tableau de bord administrateur"
+msgstr "Επιστροφή στον πίνακα διαχειριστή"
+
+#: utilisateurs/views_tenants.py
+msgid "Retour à la liste des tenants"
+msgstr "Επιστροφή στη λίστα μισθωτών"
+
+#: utilisateurs/views_tenants.py
+msgid "Tenant"
+msgstr "Μισθωτής"
+
+#: utilisateurs/views_tenants.py
+msgid "Tenants"
+msgstr "Μισθωτές"
+
+#: utilisateurs/views_tenants.py
+msgid "Tenants (sociétés clientes)"
+msgstr "Μισθωτές (εταιρείες-πελάτες)"
+
+#: utilisateurs/views_tenants.py
+msgid "Un utilisateur utilise déjà cet email."
+msgstr "Ένας χρήστης χρησιμοποιεί ήδη αυτό το email."
+
+#: utilisateurs/views_tenants.py
+msgid "Une société porte déjà ce nom."
+msgstr "Μια εταιρεία έχει ήδη αυτό το όνομα."
+
+#: utilisateurs/views_tenants.py
+msgid "Utilisateur %(email)s %(etat)s."
+msgstr "Χρήστης %(email)s %(etat)s."
+
+#: utilisateurs/views_tenants.py
+msgid "Utilisateur créé pour %(nom)s."
+msgstr "Ο χρήστης δημιουργήθηκε για %(nom)s."
+
+#: utilisateurs/views_tenants.py
+msgid "Utilisateurs"
+msgstr "Χρήστες"
+
+#: utilisateurs/views_tenants.py
+msgid "Utilisateurs actifs / max"
+msgstr "Ενεργοί χρήστες / μέγ."
+
+#: utilisateurs/views_tenants.py
+msgid "Voir les sociétés clientes, créer un tenant et ses utilisateurs."
+msgstr "Προβολή εταιρειών-πελατών, δημιουργία μισθωτή και των χρηστών του."
+
+#: utilisateurs/views_tenants.py
+msgid "Vous ne pouvez pas désactiver votre propre compte."
+msgstr "Δεν μπορείτε να απενεργοποιήσετε τον δικό σας λογαριασμό."
+
+#: utilisateurs/views_tenants.py
+msgid "jusqu'au"
+msgstr "έως"

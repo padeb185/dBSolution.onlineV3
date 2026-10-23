@@ -52313,3 +52313,238 @@ msgstr ""
 "Die Zählerstände des Fahrzeugs (Kilometerstand, Motor, Getriebe, Kupplung, "
 "letzte Wartung, Anzahl Motoren / Getriebe) werden auf ihre Werte vor dieser "
 "Arbeit zurückgesetzt."
+
+#: utilisateurs/views_tenants.py
+msgid "+ Ajouter un utilisateur"
+msgstr "+ Benutzer hinzufügen"
+
+#: utilisateurs/views_tenants.py
+msgid "+ Utilisateur"
+msgstr "+ Benutzer"
+
+#: utilisateurs/views_tenants.py
+msgid "Abonnement"
+msgstr "Abonnement"
+
+#: utilisateurs/views_tenants.py
+msgid "Abonnement payé jusqu'au"
+msgstr "Abonnement bezahlt bis"
+
+#: utilisateurs/views_tenants.py
+msgid "Activer"
+msgstr "Aktivieren"
+
+#: utilisateurs/views_tenants.py
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ tenants"
+msgstr "_START_ bis _END_ von _TOTAL_ Mandanten"
+
+#: utilisateurs/views_tenants.py
+msgid "Ajouter un utilisateur"
+msgstr "Benutzer hinzufügen"
+
+#: utilisateurs/views_tenants.py
+msgid "Aucun tenant trouvé"
+msgstr "Kein Mandant gefunden"
+
+#: utilisateurs/views_tenants.py
+msgid "Aucun tenant."
+msgstr "Keine Mandanten."
+
+#: utilisateurs/views_tenants.py
+msgid "Aucun utilisateur pour ce tenant."
+msgstr "Keine Benutzer für diesen Mandanten."
+
+#: utilisateurs/views_tenants.py
+msgid "Ce nom de schéma est réservé."
+msgstr "Dieser Schemaname ist reserviert."
+
+#: utilisateurs/views_tenants.py
+msgid "Ce numéro de TVA est déjà utilisé."
+msgstr "Diese USt-IdNr. wird bereits verwendet."
+
+#: utilisateurs/views_tenants.py
+msgid "Ce schéma existe déjà."
+msgstr "Dieses Schema existiert bereits."
+
+#: utilisateurs/views_tenants.py
+msgid "Création du tenant en cours…"
+msgstr "Mandant wird erstellt…"
+
+#: utilisateurs/views_tenants.py
+msgid "Créer et ajouter un autre utilisateur"
+msgstr "Erstellen und weiteren Benutzer hinzufügen"
+
+#: utilisateurs/views_tenants.py
+msgid "Créer l'utilisateur"
+msgstr "Benutzer erstellen"
+
+#: utilisateurs/views_tenants.py
+msgid "Créer le tenant"
+msgstr "Mandanten erstellen"
+
+#: utilisateurs/views_tenants.py
+msgid "Créer un tenant"
+msgstr "Mandanten erstellen"
+
+#: utilisateurs/views_tenants.py
+msgid "Domaine(s)"
+msgstr "Domain(s)"
+
+#: utilisateurs/views_tenants.py
+msgid "Désactiver"
+msgstr "Deaktivieren"
+
+#: utilisateurs/views_tenants.py
+msgid "Désactivé"
+msgstr "Deaktiviert"
+
+#: utilisateurs/views_tenants.py
+msgid "Enregistrement…"
+msgstr "Speichern…"
+
+#: utilisateurs/views_tenants.py
+msgid "Erreur lors de la création du tenant : %(erreur)s"
+msgstr "Fehler beim Erstellen des Mandanten: %(erreur)s"
+
+#: utilisateurs/views_tenants.py
+msgid "Erreur lors de la mise à jour : %(erreur)s"
+msgstr "Fehler bei der Aktualisierung: %(erreur)s"
+
+#: utilisateurs/views_tenants.py
+msgid "Essai"
+msgstr "Testphase"
+
+#: utilisateurs/views_tenants.py
+msgid ""
+"La création du tenant crée son schéma dans la base de données et y applique "
+"toutes les migrations. Cela peut prendre une à deux minutes : ne fermez pas "
+"la page."
+msgstr ""
+"Beim Erstellen des Mandanten wird sein Schema in der Datenbank angelegt und "
+"alle Migrationen werden angewendet. Das kann ein bis zwei Minuten dauern: "
+"Schließen Sie die Seite nicht."
+
+#: utilisateurs/views_tenants.py
+msgid "Le nombre maximum d'utilisateurs de ce tenant est atteint (%(max)s)."
+msgstr "Die maximale Benutzeranzahl dieses Mandanten ist erreicht (%(max)s)."
+
+#: utilisateurs/views_tenants.py
+msgid ""
+"Le nombre maximum d'utilisateurs de ce tenant est atteint (%(max)s). "
+"Augmentez la limite avant d'ajouter un utilisateur."
+msgstr ""
+"Die maximale Benutzeranzahl dieses Mandanten ist erreicht (%(max)s). Erhöhen "
+"Sie das Limit, bevor Sie einen Benutzer hinzufügen."
+
+#: utilisateurs/views_tenants.py
+msgid ""
+"Le schéma doit commencer par une lettre et ne contenir que des minuscules, "
+"chiffres et _."
+msgstr ""
+"Das Schema muss mit einem Buchstaben beginnen und darf nur Kleinbuchstaben, "
+"Ziffern und _ enthalten."
+
+#: utilisateurs/views_tenants.py
+msgid "Le tenant a été mis à jour."
+msgstr "Der Mandant wurde aktualisiert."
+
+#: utilisateurs/views_tenants.py
+msgid "Le tenant « %(nom)s » a été créé."
+msgstr "Der Mandant „%(nom)s“ wurde erstellt."
+
+#: utilisateurs/views_tenants.py
+msgid ""
+"Lettres minuscules, chiffres et _ uniquement. Laissez vide pour le générer "
+"depuis le nom. Il apparaît dans l'adresse : /tenant/<schéma>/"
+msgstr ""
+"Nur Kleinbuchstaben, Ziffern und _. Leer lassen, um es aus dem Namen zu "
+"erzeugen. Es erscheint in der Adresse: /tenant/<schema>/"
+
+#: utilisateurs/views_tenants.py
+msgid "Limite d'utilisateurs atteinte"
+msgstr "Benutzerlimit erreicht"
+
+#: utilisateurs/views_tenants.py
+msgid "Modifier le tenant"
+msgstr "Mandanten bearbeiten"
+
+#: utilisateurs/views_tenants.py
+msgid "Nom du schéma (identifiant du tenant)"
+msgstr "Schemaname (Mandantenkennung)"
+
+#: utilisateurs/views_tenants.py
+msgid "Nouvelle société : schéma, adresse, abonnement et premier utilisateur."
+msgstr "Neues Unternehmen: Schema, Adresse, Abonnement und erster Benutzer."
+
+#: utilisateurs/views_tenants.py
+msgid "Obligatoire pour créer le premier utilisateur."
+msgstr "Erforderlich, um den ersten Benutzer zu erstellen."
+
+#: utilisateurs/views_tenants.py
+msgid "Oui,Non"
+msgstr "Ja,Nein"
+
+#: utilisateurs/views_tenants.py
+msgid "Premier utilisateur (direction) – facultatif"
+msgstr "Erster Benutzer (Geschäftsleitung) – optional"
+
+#: utilisateurs/views_tenants.py
+msgid "Période d'essai"
+msgstr "Testphase"
+
+#: utilisateurs/views_tenants.py
+msgid "Retour au tableau de bord administrateur"
+msgstr "Zurück zum Administrator-Dashboard"
+
+#: utilisateurs/views_tenants.py
+msgid "Retour à la liste des tenants"
+msgstr "Zurück zur Mandantenliste"
+
+#: utilisateurs/views_tenants.py
+msgid "Tenant"
+msgstr "Mandant"
+
+#: utilisateurs/views_tenants.py
+msgid "Tenants"
+msgstr "Mandanten"
+
+#: utilisateurs/views_tenants.py
+msgid "Tenants (sociétés clientes)"
+msgstr "Mandanten (Kundenunternehmen)"
+
+#: utilisateurs/views_tenants.py
+msgid "Un utilisateur utilise déjà cet email."
+msgstr "Ein Benutzer verwendet diese E-Mail bereits."
+
+#: utilisateurs/views_tenants.py
+msgid "Une société porte déjà ce nom."
+msgstr "Ein Unternehmen trägt bereits diesen Namen."
+
+#: utilisateurs/views_tenants.py
+msgid "Utilisateur %(email)s %(etat)s."
+msgstr "Benutzer %(email)s %(etat)s."
+
+#: utilisateurs/views_tenants.py
+msgid "Utilisateur créé pour %(nom)s."
+msgstr "Benutzer für %(nom)s erstellt."
+
+#: utilisateurs/views_tenants.py
+msgid "Utilisateurs"
+msgstr "Benutzer"
+
+#: utilisateurs/views_tenants.py
+msgid "Utilisateurs actifs / max"
+msgstr "Aktive Benutzer / max"
+
+#: utilisateurs/views_tenants.py
+msgid "Voir les sociétés clientes, créer un tenant et ses utilisateurs."
+msgstr ""
+"Kundenunternehmen anzeigen, einen Mandanten und seine Benutzer erstellen."
+
+#: utilisateurs/views_tenants.py
+msgid "Vous ne pouvez pas désactiver votre propre compte."
+msgstr "Sie können Ihr eigenes Konto nicht deaktivieren."
+
+#: utilisateurs/views_tenants.py
+msgid "jusqu'au"
+msgstr "bis"

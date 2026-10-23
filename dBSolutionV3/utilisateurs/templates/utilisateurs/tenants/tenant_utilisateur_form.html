@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Ajouter un utilisateur" %}{% endblock %}
+
+{% block content %}
+<br><br>
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-2 flex items-center gap-4">
+        <img src="{% static 'icons/mecanicien.png' %}" alt="" class="w-16 h-16">
+        <span>{% trans "Ajouter un utilisateur" %}</span>
+    </h1>
+    <p class="text-gray-600 mb-6">
+        {{ societe.nom }} · <span class="font-mono">{{ societe.schema_name }}</span>
+        · {% trans "Utilisateurs actifs / max" %} : {{ societe.nb_actifs }} / {{ societe.max_utilisateurs }}
+    </p>
+
+    {% include "partials/messages.html" %}
+
+    {% if form.non_field_errors %}
+        <div class="bg-red-100 text-red-800 border border-red-300 p-4 rounded mb-6">
+            {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <h2 class="text-xl font-semibold mb-4 mt-4 border-b pb-1">{% trans "Informations utilisateur" %}</h2>
+        {% for field in form %}
+            {% if field.name != "rue" and field.name != "numero" and field.name != "code_postal" and field.name != "ville" and field.name != "pays" %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}{% if field.field.required %} <span class="text-red-600">*</span>{% endif %}
+                    </label>
+                    {% if field.field.disabled %}{{ field|add_class:"input bg-gray-100" }}{% else %}{{ field|add_class:"input" }}{% endif %}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <h2 class="text-xl font-semibold mb-4 mt-8 border-b pb-1">{% trans "Adresse" %}</h2>
+        {% for field in form %}
+            {% if field.name == "rue" or field.name == "numero" or field.name == "code_postal" or field.name == "ville" or field.name == "pays" %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }} <span class="text-red-600">*</span></label>
+                    {{ field|add_class:"input" }}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <div class="flex flex-col gap-3 mt-6">
+            <button type="submit"
+                    class="w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Créer l'utilisateur" %}
+            </button>
+            <button type="submit" name="ajouter_autre" value="1"
+                    class="w-full bg-green-700 text-white px-5 py-4 rounded hover:bg-green-500 font-semibold text-center">
+                {% trans "Créer et ajouter un autre utilisateur" %}
+            </button>
+            <a href="{% url 'utilisateurs:tenant_detail' societe.pk %}"
+               class="w-full bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                {% trans "Annuler" %}
+            </a>
+        </div>
+    </form>
+</div>
+<br>
+
+<style>
+.input { width: 100% !important; border: 1px solid #ccc !important; border-radius: 6px !important; padding: 8px !important; box-sizing: border-box !important; }
+</style>
+{% endblock %}

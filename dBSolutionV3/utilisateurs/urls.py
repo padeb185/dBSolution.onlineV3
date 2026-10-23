@@ -2,6 +2,7 @@ from django.urls import path
 
 from . import views
 from . import views_paie
+from . import views_tenants
 
 
 app_name = "utilisateurs"
@@ -52,6 +53,18 @@ urlpatterns = [
         views.liste_utilisateurs,
         name="liste_utilisateurs",
     ),
+
+    # -------------------------
+    # ADMINISTRATION DES TENANTS
+    # -------------------------
+    path("admin/tenants/", views_tenants.tenants_liste, name="tenants_liste"),
+    path("admin/tenants/creer/", views_tenants.tenant_creer, name="tenant_creer"),
+    path("admin/tenants/<int:pk>/", views_tenants.tenant_detail, name="tenant_detail"),
+    path("admin/tenants/<int:pk>/modifier/", views_tenants.tenant_modifier, name="tenant_modifier"),
+    path("admin/tenants/<int:pk>/utilisateur/creer/", views_tenants.tenant_utilisateur_creer,
+         name="tenant_utilisateur_creer"),
+    path("admin/tenants/<int:pk>/utilisateur/<uuid:utilisateur_id>/activer/",
+         views_tenants.tenant_utilisateur_activer, name="tenant_utilisateur_activer"),
 
     # IBAN d'un utilisateur (contrôle + mise en forme)
     path(

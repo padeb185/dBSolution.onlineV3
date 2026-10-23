@@ -52270,3 +52270,236 @@ msgstr ""
 "Los contadores del vehículo (kilometraje, motor, caja, embrague, último "
 "mantenimiento, número de motores / cajas) volverán a sus valores anteriores a"
 " esta intervención."
+
+#: utilisateurs/views_tenants.py
+msgid "+ Ajouter un utilisateur"
+msgstr "+ Añadir un usuario"
+
+#: utilisateurs/views_tenants.py
+msgid "+ Utilisateur"
+msgstr "+ Usuario"
+
+#: utilisateurs/views_tenants.py
+msgid "Abonnement"
+msgstr "Suscripción"
+
+#: utilisateurs/views_tenants.py
+msgid "Abonnement payé jusqu'au"
+msgstr "Suscripción pagada hasta"
+
+#: utilisateurs/views_tenants.py
+msgid "Activer"
+msgstr "Activar"
+
+#: utilisateurs/views_tenants.py
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ tenants"
+msgstr "Mostrando de _START_ a _END_ de _TOTAL_ inquilinos"
+
+#: utilisateurs/views_tenants.py
+msgid "Ajouter un utilisateur"
+msgstr "Añadir un usuario"
+
+#: utilisateurs/views_tenants.py
+msgid "Aucun tenant trouvé"
+msgstr "No se ha encontrado ningún inquilino"
+
+#: utilisateurs/views_tenants.py
+msgid "Aucun tenant."
+msgstr "Ningún inquilino."
+
+#: utilisateurs/views_tenants.py
+msgid "Aucun utilisateur pour ce tenant."
+msgstr "Ningún usuario para este inquilino."
+
+#: utilisateurs/views_tenants.py
+msgid "Ce nom de schéma est réservé."
+msgstr "Este nombre de esquema está reservado."
+
+#: utilisateurs/views_tenants.py
+msgid "Ce numéro de TVA est déjà utilisé."
+msgstr "Este número de IVA ya está en uso."
+
+#: utilisateurs/views_tenants.py
+msgid "Ce schéma existe déjà."
+msgstr "Este esquema ya existe."
+
+#: utilisateurs/views_tenants.py
+msgid "Création du tenant en cours…"
+msgstr "Creando el inquilino…"
+
+#: utilisateurs/views_tenants.py
+msgid "Créer et ajouter un autre utilisateur"
+msgstr "Crear y añadir otro usuario"
+
+#: utilisateurs/views_tenants.py
+msgid "Créer l'utilisateur"
+msgstr "Crear el usuario"
+
+#: utilisateurs/views_tenants.py
+msgid "Créer le tenant"
+msgstr "Crear el inquilino"
+
+#: utilisateurs/views_tenants.py
+msgid "Créer un tenant"
+msgstr "Crear un inquilino"
+
+#: utilisateurs/views_tenants.py
+msgid "Domaine(s)"
+msgstr "Dominio(s)"
+
+#: utilisateurs/views_tenants.py
+msgid "Désactiver"
+msgstr "Desactivar"
+
+#: utilisateurs/views_tenants.py
+msgid "Désactivé"
+msgstr "Desactivado"
+
+#: utilisateurs/views_tenants.py
+msgid "Enregistrement…"
+msgstr "Guardando…"
+
+#: utilisateurs/views_tenants.py
+msgid "Erreur lors de la création du tenant : %(erreur)s"
+msgstr "Error al crear el inquilino: %(erreur)s"
+
+#: utilisateurs/views_tenants.py
+msgid "Erreur lors de la mise à jour : %(erreur)s"
+msgstr "Error al actualizar: %(erreur)s"
+
+#: utilisateurs/views_tenants.py
+msgid "Essai"
+msgstr "Prueba"
+
+#: utilisateurs/views_tenants.py
+msgid ""
+"La création du tenant crée son schéma dans la base de données et y applique "
+"toutes les migrations. Cela peut prendre une à deux minutes : ne fermez pas "
+"la page."
+msgstr ""
+"Crear el inquilino crea su esquema en la base de datos y aplica todas las "
+"migraciones. Puede tardar uno o dos minutos: no cierre la página."
+
+#: utilisateurs/views_tenants.py
+msgid "Le nombre maximum d'utilisateurs de ce tenant est atteint (%(max)s)."
+msgstr ""
+"Se ha alcanzado el número máximo de usuarios de este inquilino (%(max)s)."
+
+#: utilisateurs/views_tenants.py
+msgid ""
+"Le nombre maximum d'utilisateurs de ce tenant est atteint (%(max)s). "
+"Augmentez la limite avant d'ajouter un utilisateur."
+msgstr ""
+"Se ha alcanzado el número máximo de usuarios de este inquilino (%(max)s). "
+"Aumente el límite antes de añadir un usuario."
+
+#: utilisateurs/views_tenants.py
+msgid ""
+"Le schéma doit commencer par une lettre et ne contenir que des minuscules, "
+"chiffres et _."
+msgstr ""
+"El esquema debe empezar por una letra y contener solo minúsculas, cifras y _."
+
+#: utilisateurs/views_tenants.py
+msgid "Le tenant a été mis à jour."
+msgstr "El inquilino se ha actualizado."
+
+#: utilisateurs/views_tenants.py
+msgid "Le tenant « %(nom)s » a été créé."
+msgstr "Se ha creado el inquilino «%(nom)s»."
+
+#: utilisateurs/views_tenants.py
+msgid ""
+"Lettres minuscules, chiffres et _ uniquement. Laissez vide pour le générer "
+"depuis le nom. Il apparaît dans l'adresse : /tenant/<schéma>/"
+msgstr ""
+"Solo minúsculas, cifras y _. Déjelo vacío para generarlo a partir del nombre."
+" Aparece en la dirección: /tenant/<esquema>/"
+
+#: utilisateurs/views_tenants.py
+msgid "Limite d'utilisateurs atteinte"
+msgstr "Límite de usuarios alcanzado"
+
+#: utilisateurs/views_tenants.py
+msgid "Modifier le tenant"
+msgstr "Modificar el inquilino"
+
+#: utilisateurs/views_tenants.py
+msgid "Nom du schéma (identifiant du tenant)"
+msgstr "Nombre del esquema (identificador del inquilino)"
+
+#: utilisateurs/views_tenants.py
+msgid "Nouvelle société : schéma, adresse, abonnement et premier utilisateur."
+msgstr "Nueva empresa: esquema, dirección, suscripción y primer usuario."
+
+#: utilisateurs/views_tenants.py
+msgid "Obligatoire pour créer le premier utilisateur."
+msgstr "Obligatorio para crear el primer usuario."
+
+#: utilisateurs/views_tenants.py
+msgid "Oui,Non"
+msgstr "Sí,No"
+
+#: utilisateurs/views_tenants.py
+msgid "Premier utilisateur (direction) – facultatif"
+msgstr "Primer usuario (dirección) – opcional"
+
+#: utilisateurs/views_tenants.py
+msgid "Période d'essai"
+msgstr "Periodo de prueba"
+
+#: utilisateurs/views_tenants.py
+msgid "Retour au tableau de bord administrateur"
+msgstr "Volver al panel de administrador"
+
+#: utilisateurs/views_tenants.py
+msgid "Retour à la liste des tenants"
+msgstr "Volver a la lista de inquilinos"
+
+#: utilisateurs/views_tenants.py
+msgid "Tenant"
+msgstr "Inquilino"
+
+#: utilisateurs/views_tenants.py
+msgid "Tenants"
+msgstr "Inquilinos"
+
+#: utilisateurs/views_tenants.py
+msgid "Tenants (sociétés clientes)"
+msgstr "Inquilinos (empresas clientes)"
+
+#: utilisateurs/views_tenants.py
+msgid "Un utilisateur utilise déjà cet email."
+msgstr "Un usuario ya utiliza este correo electrónico."
+
+#: utilisateurs/views_tenants.py
+msgid "Une société porte déjà ce nom."
+msgstr "Ya existe una empresa con este nombre."
+
+#: utilisateurs/views_tenants.py
+msgid "Utilisateur %(email)s %(etat)s."
+msgstr "Usuario %(email)s %(etat)s."
+
+#: utilisateurs/views_tenants.py
+msgid "Utilisateur créé pour %(nom)s."
+msgstr "Usuario creado para %(nom)s."
+
+#: utilisateurs/views_tenants.py
+msgid "Utilisateurs"
+msgstr "Usuarios"
+
+#: utilisateurs/views_tenants.py
+msgid "Utilisateurs actifs / max"
+msgstr "Usuarios activos / máx."
+
+#: utilisateurs/views_tenants.py
+msgid "Voir les sociétés clientes, créer un tenant et ses utilisateurs."
+msgstr "Ver las empresas clientes, crear un inquilino y sus usuarios."
+
+#: utilisateurs/views_tenants.py
+msgid "Vous ne pouvez pas désactiver votre propre compte."
+msgstr "No puede desactivar su propia cuenta."
+
+#: utilisateurs/views_tenants.py
+msgid "jusqu'au"
+msgstr "hasta el"

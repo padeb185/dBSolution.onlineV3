@@ -669,7 +669,12 @@ def dashboard_admin(request):
     utilisateurs_actifs = Utilisateur.objects.filter(is_active=True).count()
     total_admins = Utilisateur.objects.filter(is_staff=True, is_superuser=True).count()
 
+    from django_tenants.utils import get_public_schema_name
+    from societe.models import Societe
+    total_tenants = Societe.objects.exclude(schema_name=get_public_schema_name()).count()
+
     context = {
+        "total_tenants": total_tenants,
         "total_utilisateurs": total_utilisateurs,
         "utilisateurs_actifs": utilisateurs_actifs,
         "total_admins": total_admins,

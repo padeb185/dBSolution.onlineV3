@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{{ societe.nom }}{% endblock %}
+
+{% block content %}
+<br>
+<div class="max-w-5xl mx-auto">
+
+    <h1 class="text-2xl font-bold mb-2 flex items-center gap-4">
+        <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="" class="w-16 h-16">
+        <span>{{ societe.nom }}</span>
+    </h1>
+    <p class="text-gray-600 mb-6">
+        {% trans "Schéma" %} : <span class="font-mono">{{ societe.schema_name }}</span>
+        · <a href="/tenant/{{ societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/dashboard/" class="text-blue-700 hover:underline">/tenant/{{ societe.schema_name }}/</a>
+    </p>
+
+    {% include "partials/messages.html" %}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">{% trans "Société" %}</h2>
+            <dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+                <dt class="text-gray-600">{% trans "Directeur" %}</dt><dd>{{ societe.directeur }}</dd>
+                <dt class="text-gray-600">{% trans "Numéro de TVA" %}</dt><dd>{{ societe.numero_tva }}</dd>
+                <dt class="text-gray-600">{% trans "Numéro de téléphone" %}</dt><dd>{{ societe.numero_tel|default:"—" }}</dd>
+                <dt class="text-gray-600">{% trans "IBAN" %}</dt><dd>{{ societe.iban|default:"—" }}</dd>
+                <dt class="text-gray-600">{% trans "Site internet" %}</dt><dd>{{ societe.site|default:"—" }}</dd>
+                <dt class="text-gray-600">{% trans "Adresse" %}</dt>
+                <dd>
+                    {% if societe.adresse %}
+                        {{ societe.adresse.rue }} {{ societe.adresse.numero }}{% if societe.adresse.boite %}/{{ societe.adresse.boite }}{% endif %},
+                        {{ societe.adresse.code_postal }} {{ societe.adresse.ville }} ({{ societe.adresse.code_pays }})
+                    {% else %}—{% endif %}
+                </dd>
+            </dl>
+        </div>
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">{% trans "Tenant" %}</h2>
+            <dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+                <dt class="text-gray-600">{% trans "Utilisateurs actifs / max" %}</dt>
+                <dd class="{% if not places_restantes %}text-red-700 font-semibold{% endif %}">{{ societe.nb_actifs }} / {{ societe.max_utilisateurs }}</dd>
+                <dt class="text-gray-600">{% trans "Période d'essai" %}</dt><dd>{{ societe.on_trial|yesno:_("Oui,Non") }}</dd>
+                <dt class="text-gray-600">{% trans "Abonnement payé jusqu'au" %}</dt><dd>{{ societe.paid_until|date:"d/m/Y"|default:"—" }}</dd>
+                <dt class="text-gray-600">{% trans "Créé le" %}</dt><dd>{{ societe.created_on|date:"d/m/Y" }}</dd>
+                <dt class="text-gray-600">{% trans "Domaine(s)" %}</dt>
+                <dd class="font-mono">{% for d in domaines %}{{ d.domain }}{% if d.is_primary %} ★{% endif %}{% if not forloop.last %}, {% endif %}{% empty %}—{% endfor %}</dd>
+            </dl>
+        </div>
+    </div>
+
+    <!-- Utilisateurs -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold">{% trans "Utilisateurs" %}</h2>
+            {% if places_restantes %}
+                <a href="{% url 'utilisateurs:tenant_utilisateur_creer' societe.pk %}"
+                   class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 font-semibold">{% trans "+ Ajouter un utilisateur" %}</a>
+            {% else %}
+                <span class="text-sm text-red-700">{% trans "Limite d'utilisateurs atteinte" %}</span>
+            {% endif %}
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full table-auto border-collapse border border-gray-200">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border px-3 py-2 text-left">{% trans "Nom" %}</th>
+                        <th class="border px-3 py-2 text-left">{% trans "Email" %}</th>
+                        <th class="border px-3 py-2 text-left">{% trans "Rôle" %}</th>
+                        <th class="border px-3 py-2 text-left">{% trans "Statut" %}</th>
+                        <th class="border px-3 py-2 text-center">{% trans "Actions" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in utilisateurs %}
+                    <tr class="{% if not u.is_active %}text-gray-400{% endif %}">
+                        <td class="border px-3 py-2">{{ u.prenom }} {{ u.nom }}{% if u.is_superuser %} <span class="text-xs text-blue-700">(superadmin)</span>{% endif %}</td>
+                        <td class="border px-3 py-2">{{ u.email }}</td>
+                        <td class="border px-3 py-2">{{ u.get_role_display }}</td>
+                        <td class="border px-3 py-2">{% if u.is_active %}{% trans "Actif" %}{% else %}{% trans "Désactivé" %}{% endif %}</td>
+                        <td class="border px-3 py-2 text-center">
+                            <form method="post" action="{% url 'utilisateurs:tenant_utilisateur_activer' societe.pk u.pk %}">
+                                {% csrf_token %}
+                                <button type="submit"
+                                        class="{% if u.is_active %}bg-red-600 hover:bg-red-700{% else %}bg-green-600 hover:bg-green-700{% endif %} text-white px-3 py-1 rounded text-sm">
+                                    {% if u.is_active %}{% trans "Désactiver" %}{% else %}{% trans "Activer" %}{% endif %}
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="5" class="border px-3 py-2 text-gray-500">{% trans "Aucun utilisateur pour ce tenant." %}</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10">
+        <a href="{% url 'utilisateurs:tenant_modifier' societe.pk %}"
+           class="block w-full bg-blue-700 text-white px-4 py-3 rounded hover:bg-blue-400 font-semibold text-center">
+            {% trans "Modifier le tenant" %}
+        </a>
+        <a href="{% url 'utilisateurs:tenants_liste' %}"
+           class="block w-full bg-gray-300 text-black px-4 py-3 rounded hover:bg-gray-400 font-semibold text-center">
+            {% trans "Retour à la liste des tenants" %}
+        </a>
+    </div>
+</div>
+{% endblock %}

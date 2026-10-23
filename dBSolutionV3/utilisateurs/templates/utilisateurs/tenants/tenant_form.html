@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% if societe %}{% trans "Modifier le tenant" %}{% else %}{% trans "Créer un tenant" %}{% endif %}{% endblock %}
+
+{% block content %}
+<br><br>
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-6 flex items-center gap-4">
+        <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="" class="w-16 h-16">
+        <span>{% if societe %}{% trans "Modifier le tenant" %} – {{ societe.nom }}{% else %}{% trans "Créer un tenant" %}{% endif %}</span>
+    </h1>
+
+    {% include "partials/messages.html" %}
+
+    {% if form.non_field_errors %}
+        <div class="bg-red-100 text-red-800 border border-red-300 p-4 rounded mb-6">
+            {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+        </div>
+    {% endif %}
+
+    {% if not societe %}
+    <p class="text-sm bg-blue-50 border border-blue-200 rounded p-3 mb-4">
+        {% trans "La création du tenant crée son schéma dans la base de données et y applique toutes les migrations. Cela peut prendre une à deux minutes : ne fermez pas la page." %}
+    </p>
+    {% endif %}
+
+    <form method="post" id="tenant-form">
+        {% csrf_token %}
+
+        {% for titre, champs in form.sections %}
+            <h2 class="text-xl font-semibold mb-4 mt-8 border-b pb-1">{{ titre }}</h2>
+            {% for field in champs %}
+                <div class="mb-4">
+                    {% if field.field.widget.input_type == "checkbox" %}
+                        <label class="inline-flex items-center gap-2">
+                            {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                            <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                        </label>
+                    {% else %}
+                        <label class="block font-semibold mb-1">
+                            {{ field.label }}{% if field.field.required %} <span class="text-red-600">*</span>{% endif %}
+                        </label>
+                        {{ field|add_class:"input" }}
+                    {% endif %}
+                    {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+                    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="flex gap-3 mt-6">
+            <button type="submit" id="tenant-submit"
+                    class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% if societe %}{% trans "Enregistrer les modifications" %}{% else %}{% trans "Créer le tenant" %}{% endif %}
+            </button>
+            <a href="{% if societe %}{% url 'utilisateurs:tenant_detail' societe.pk %}{% else %}{% url 'utilisateurs:tenants_liste' %}{% endif %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                {% trans "Annuler" %}
+            </a>
+        </div>
+    </form>
+</div>
+<br>
+
+<style>
+.input { width: 100% !important; border: 1px solid #ccc !important; border-radius: 6px !important; padding: 8px !important; box-sizing: border-box !important; }
+</style>
+
+<script>
+document.getElementById("tenant-form").addEventListener("submit", function () {
+    const b = document.getElementById("tenant-submit");
+    b.disabled = true;
+    b.textContent = "{% if societe %}{% trans 'Enregistrement…' %}{% else %}{% trans 'Création du tenant en cours…' %}{% endif %}";
+});
+</script>
+{% endblock %}

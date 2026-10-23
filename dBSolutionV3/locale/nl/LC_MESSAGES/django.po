@@ -52297,3 +52297,237 @@ msgstr ""
 "De tellers van het voertuig (kilometerstand, motor, versnellingsbak, "
 "koppeling, laatste onderhoud, aantal motoren / bakken) worden teruggezet naar"
 " hun waarde van vóór deze interventie."
+
+#: utilisateurs/views_tenants.py
+msgid "+ Ajouter un utilisateur"
+msgstr "+ Gebruiker toevoegen"
+
+#: utilisateurs/views_tenants.py
+msgid "+ Utilisateur"
+msgstr "+ Gebruiker"
+
+#: utilisateurs/views_tenants.py
+msgid "Abonnement"
+msgstr "Abonnement"
+
+#: utilisateurs/views_tenants.py
+msgid "Abonnement payé jusqu'au"
+msgstr "Abonnement betaald tot"
+
+#: utilisateurs/views_tenants.py
+msgid "Activer"
+msgstr "Activeren"
+
+#: utilisateurs/views_tenants.py
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ tenants"
+msgstr "_START_ tot _END_ van _TOTAL_ tenants"
+
+#: utilisateurs/views_tenants.py
+msgid "Ajouter un utilisateur"
+msgstr "Gebruiker toevoegen"
+
+#: utilisateurs/views_tenants.py
+msgid "Aucun tenant trouvé"
+msgstr "Geen tenant gevonden"
+
+#: utilisateurs/views_tenants.py
+msgid "Aucun tenant."
+msgstr "Geen tenants."
+
+#: utilisateurs/views_tenants.py
+msgid "Aucun utilisateur pour ce tenant."
+msgstr "Geen gebruikers voor deze tenant."
+
+#: utilisateurs/views_tenants.py
+msgid "Ce nom de schéma est réservé."
+msgstr "Deze schemanaam is gereserveerd."
+
+#: utilisateurs/views_tenants.py
+msgid "Ce numéro de TVA est déjà utilisé."
+msgstr "Dit btw-nummer wordt al gebruikt."
+
+#: utilisateurs/views_tenants.py
+msgid "Ce schéma existe déjà."
+msgstr "Dit schema bestaat al."
+
+#: utilisateurs/views_tenants.py
+msgid "Création du tenant en cours…"
+msgstr "Tenant wordt aangemaakt…"
+
+#: utilisateurs/views_tenants.py
+msgid "Créer et ajouter un autre utilisateur"
+msgstr "Aanmaken en nog een gebruiker toevoegen"
+
+#: utilisateurs/views_tenants.py
+msgid "Créer l'utilisateur"
+msgstr "Gebruiker aanmaken"
+
+#: utilisateurs/views_tenants.py
+msgid "Créer le tenant"
+msgstr "Tenant aanmaken"
+
+#: utilisateurs/views_tenants.py
+msgid "Créer un tenant"
+msgstr "Tenant aanmaken"
+
+#: utilisateurs/views_tenants.py
+msgid "Domaine(s)"
+msgstr "Domein(en)"
+
+#: utilisateurs/views_tenants.py
+msgid "Désactiver"
+msgstr "Deactiveren"
+
+#: utilisateurs/views_tenants.py
+msgid "Désactivé"
+msgstr "Gedeactiveerd"
+
+#: utilisateurs/views_tenants.py
+msgid "Enregistrement…"
+msgstr "Opslaan…"
+
+#: utilisateurs/views_tenants.py
+msgid "Erreur lors de la création du tenant : %(erreur)s"
+msgstr "Fout bij het aanmaken van de tenant: %(erreur)s"
+
+#: utilisateurs/views_tenants.py
+msgid "Erreur lors de la mise à jour : %(erreur)s"
+msgstr "Fout bij het bijwerken: %(erreur)s"
+
+#: utilisateurs/views_tenants.py
+msgid "Essai"
+msgstr "Proef"
+
+#: utilisateurs/views_tenants.py
+msgid ""
+"La création du tenant crée son schéma dans la base de données et y applique "
+"toutes les migrations. Cela peut prendre une à deux minutes : ne fermez pas "
+"la page."
+msgstr ""
+"Bij het aanmaken van de tenant wordt het schema in de database aangemaakt en "
+"worden alle migraties toegepast. Dit kan een à twee minuten duren: sluit de "
+"pagina niet."
+
+#: utilisateurs/views_tenants.py
+msgid "Le nombre maximum d'utilisateurs de ce tenant est atteint (%(max)s)."
+msgstr "Het maximumaantal gebruikers van deze tenant is bereikt (%(max)s)."
+
+#: utilisateurs/views_tenants.py
+msgid ""
+"Le nombre maximum d'utilisateurs de ce tenant est atteint (%(max)s). "
+"Augmentez la limite avant d'ajouter un utilisateur."
+msgstr ""
+"Het maximumaantal gebruikers van deze tenant is bereikt (%(max)s). Verhoog de"
+" limiet voordat u een gebruiker toevoegt."
+
+#: utilisateurs/views_tenants.py
+msgid ""
+"Le schéma doit commencer par une lettre et ne contenir que des minuscules, "
+"chiffres et _."
+msgstr ""
+"Het schema moet met een letter beginnen en mag alleen kleine letters, cijfers"
+" en _ bevatten."
+
+#: utilisateurs/views_tenants.py
+msgid "Le tenant a été mis à jour."
+msgstr "De tenant is bijgewerkt."
+
+#: utilisateurs/views_tenants.py
+msgid "Le tenant « %(nom)s » a été créé."
+msgstr "De tenant „%(nom)s” is aangemaakt."
+
+#: utilisateurs/views_tenants.py
+msgid ""
+"Lettres minuscules, chiffres et _ uniquement. Laissez vide pour le générer "
+"depuis le nom. Il apparaît dans l'adresse : /tenant/<schéma>/"
+msgstr ""
+"Alleen kleine letters, cijfers en _. Leeg laten om het uit de naam te "
+"genereren. Het verschijnt in het adres: /tenant/<schema>/"
+
+#: utilisateurs/views_tenants.py
+msgid "Limite d'utilisateurs atteinte"
+msgstr "Gebruikerslimiet bereikt"
+
+#: utilisateurs/views_tenants.py
+msgid "Modifier le tenant"
+msgstr "Tenant wijzigen"
+
+#: utilisateurs/views_tenants.py
+msgid "Nom du schéma (identifiant du tenant)"
+msgstr "Schemanaam (tenant-ID)"
+
+#: utilisateurs/views_tenants.py
+msgid "Nouvelle société : schéma, adresse, abonnement et premier utilisateur."
+msgstr "Nieuwe onderneming: schema, adres, abonnement en eerste gebruiker."
+
+#: utilisateurs/views_tenants.py
+msgid "Obligatoire pour créer le premier utilisateur."
+msgstr "Verplicht om de eerste gebruiker aan te maken."
+
+#: utilisateurs/views_tenants.py
+msgid "Oui,Non"
+msgstr "Ja,Nee"
+
+#: utilisateurs/views_tenants.py
+msgid "Premier utilisateur (direction) – facultatif"
+msgstr "Eerste gebruiker (directie) – optioneel"
+
+#: utilisateurs/views_tenants.py
+msgid "Période d'essai"
+msgstr "Proefperiode"
+
+#: utilisateurs/views_tenants.py
+msgid "Retour au tableau de bord administrateur"
+msgstr "Terug naar het beheerdersdashboard"
+
+#: utilisateurs/views_tenants.py
+msgid "Retour à la liste des tenants"
+msgstr "Terug naar de lijst met tenants"
+
+#: utilisateurs/views_tenants.py
+msgid "Tenant"
+msgstr "Tenant"
+
+#: utilisateurs/views_tenants.py
+msgid "Tenants"
+msgstr "Tenants"
+
+#: utilisateurs/views_tenants.py
+msgid "Tenants (sociétés clientes)"
+msgstr "Tenants (klantbedrijven)"
+
+#: utilisateurs/views_tenants.py
+msgid "Un utilisateur utilise déjà cet email."
+msgstr "Een gebruiker gebruikt dit e-mailadres al."
+
+#: utilisateurs/views_tenants.py
+msgid "Une société porte déjà ce nom."
+msgstr "Een onderneming draagt deze naam al."
+
+#: utilisateurs/views_tenants.py
+msgid "Utilisateur %(email)s %(etat)s."
+msgstr "Gebruiker %(email)s %(etat)s."
+
+#: utilisateurs/views_tenants.py
+msgid "Utilisateur créé pour %(nom)s."
+msgstr "Gebruiker aangemaakt voor %(nom)s."
+
+#: utilisateurs/views_tenants.py
+msgid "Utilisateurs"
+msgstr "Gebruikers"
+
+#: utilisateurs/views_tenants.py
+msgid "Utilisateurs actifs / max"
+msgstr "Actieve gebruikers / max"
+
+#: utilisateurs/views_tenants.py
+msgid "Voir les sociétés clientes, créer un tenant et ses utilisateurs."
+msgstr "Klantbedrijven bekijken, een tenant en zijn gebruikers aanmaken."
+
+#: utilisateurs/views_tenants.py
+msgid "Vous ne pouvez pas désactiver votre propre compte."
+msgstr "U kunt uw eigen account niet deactiveren."
+
+#: utilisateurs/views_tenants.py
+msgid "jusqu'au"
+msgstr "tot"

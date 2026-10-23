@@ -43,6 +43,24 @@
     <!-- Cartes fonctionnelles -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
+        <a href="{% url 'utilisateurs:tenants_liste' %}"
+           class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div>
+                <h2 class="text-lg font-semibold mb-2">{% trans "Tenants" %} ({{ total_tenants }})</h2>
+                <p>{% trans "Voir les sociétés clientes, créer un tenant et ses utilisateurs." %}</p>
+            </div>
+            <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="{% trans 'Tenants' %}" style="width:60px; height:60px; margin-right:10px;">
+        </a>
+
+        <a href="{% url 'utilisateurs:tenant_creer' %}"
+           class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div>
+                <h2 class="text-lg font-semibold mb-2">{% trans "Créer un tenant" %}</h2>
+                <p>{% trans "Nouvelle société : schéma, adresse, abonnement et premier utilisateur." %}</p>
+            </div>
+            <img src="{% static 'icons/equipe.png' %}" alt="{% trans 'Créer un tenant' %}" style="width:60px; height:60px; margin-right:10px;">
+        </a>
+
         <a href="{% url 'utilisateurs:creer_utilisateur' %}"
             class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
             <div>
