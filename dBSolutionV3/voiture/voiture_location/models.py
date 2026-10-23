@@ -285,6 +285,22 @@ class Location(models.Model):
         verbose_name=_("Prix de l'instructeur à l'heure TVAC (€)"),
     )
 
+    # Deuxième pilote (client particulier ou client pilotage) et son tarif TVAC
+    deuxieme_client = models.ForeignKey(
+        "client_particulier.ClientParticulier", on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="locations_deuxieme_pilote", verbose_name=_("Deuxième pilote (client)"),
+    )
+    deuxieme_client_pilotage = models.ForeignKey(
+        "client_pilotage.ClientPilotage", on_delete=models.SET_NULL, null=True, blank=True,
+        related_name="locations_deuxieme_pilote", verbose_name=_("Deuxième pilote (client pilotage)"),
+    )
+    prix_deuxieme_pilote = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True,
+        validators=[MinValueValidator(Decimal("0"))],
+        verbose_name=_("Tarif deuxième pilote TVAC (€)"),
+        help_text=_("Ajouté au prix de la location (sans remise)."),
+    )
+
     # Paiement : acompte (montant) ou payé (uniquement si la facture est émise)
     acompte = models.BooleanField(default=False, verbose_name=_("Acompte versé"))
     montant_acompte = models.DecimalField(
@@ -439,9 +455,39 @@ class Location(models.Model):
             "prix": f"{Decimal(str(self.instructeur_prix_heure or 0)):.2f}",
         }
 
+    # Deuxième pilote : tarif TVAC (sans remise)
+    @property
+    def deuxieme_pilote(self):
+        return self.deuxieme_client_pilotage or self.deuxieme_client
+
+    @property
+    def deuxieme_pilote_nom(self):
+        p = self.deuxieme_pilote
+        if p is None:
+            return ""
+        cp = getattr(p, "client_particulier", None) or p
+        return f"{getattr(cp, 'prenom', '')} {getattr(cp, 'nom', '')}".strip() or str(p)
+
+    @property
+    def total_deuxieme_pilote_tvac(self):
+        if not self.deuxieme_pilote or not self.prix_deuxieme_pilote:
+            return Decimal("0.00")
+        return Decimal(str(self.prix_deuxieme_pilote)).quantize(DEUX_DECIMALES, rounding=ROUND_HALF_UP)
+
+    @property
+    def total_deuxieme_pilote_htva(self):
+        return prix_htva_depuis_tvac(self.total_deuxieme_pilote_tvac, self.taux_tva)
+
+    @property
+    def libelle_deuxieme_pilote(self):
+        if not self.deuxieme_pilote:
+            return ""
+        return gettext("Deuxième pilote %(nom)s") % {"nom": self.deuxieme_pilote_nom}
+
     @property
     def prix_tvac(self):
-        return (self.prix_vehicule_tvac + self.total_boxes_tvac + self.total_instructeur_tvac).quantize(DEUX_DECIMALES)
+        return (self.prix_vehicule_tvac + self.total_boxes_tvac + self.total_instructeur_tvac
+                + self.total_deuxieme_pilote_tvac).quantize(DEUX_DECIMALES)
 
     @property
     def prix_htva(self):
@@ -610,6 +656,15 @@ class Location(models.Model):
 
         if sum(bool(x) for x in (self.client_id, self.societe_cliente_id, self.client_pilotage_id)) > 1:
             errors["client"] = _("Choisissez un seul client.")
+
+        # Deuxième pilote : un seul choix, différent du premier pilote
+        if self.deuxieme_client_id and self.deuxieme_client_pilotage_id:
+            errors["deuxieme_client"] = _("Choisissez un seul deuxième pilote.")
+        if ((self.deuxieme_client_pilotage_id and self.deuxieme_client_pilotage_id == self.client_pilotage_id)
+                or (self.deuxieme_client_id and self.deuxieme_client_id == self.client_id)):
+            errors["deuxieme_client"] = _("Le deuxième pilote doit être différent du premier.")
+        if not (self.deuxieme_client_id or self.deuxieme_client_pilotage_id):
+            self.prix_deuxieme_pilote = None
 
         # Instructeur : heures et prix à l'heure obligatoires
         if self.instructeur_id:

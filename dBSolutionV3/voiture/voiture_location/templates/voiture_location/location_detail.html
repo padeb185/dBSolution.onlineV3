@@ -46,6 +46,7 @@
             </p>
             {% endif %}
             <p><strong>{% trans "Client" %} :</strong> {{ location.locataire|default:"—" }}</p>
+            {% if location.deuxieme_pilote %}<p><strong>{% trans "Deuxième pilote" %} :</strong> {{ location.deuxieme_pilote }}</p>{% endif %}
             <p><strong>{% trans "Vendeur" %} :</strong> {% if location.vendeur %}{{ location.vendeur.prenom }} {{ location.vendeur.nom }}{% else %}{% trans "Non attribué" %}{% endif %}</p>
         </div>
 
@@ -111,6 +112,12 @@
                 </table>
             </div>
             {% endif %}{% endwith %}
+            {% if location.deuxieme_pilote %}
+            <div class="bg-gray-50 border rounded p-3">
+                <p class="font-semibold mb-1">{% trans "Deuxième pilote" %} :</p>
+                <p>{{ location.deuxieme_pilote_nom }} = <strong>{{ location.total_deuxieme_pilote_tvac|floatformat:2 }} €</strong> {% trans "TVAC" %}</p>
+            </div>
+            {% endif %}
             {% if location.instructeur_id %}
             <div class="bg-gray-50 border rounded p-3">
                 <p class="font-semibold mb-1">{% trans "Instructeur" %} :</p>

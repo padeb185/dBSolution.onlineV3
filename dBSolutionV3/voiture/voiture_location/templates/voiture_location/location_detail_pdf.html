@@ -293,6 +293,7 @@
             {% if location.voiture_exemplaire.voiture_modele.nom_variante %}{{ location.voiture_exemplaire.voiture_modele.nom_variante }}{% endif %}
         </div>
         <div><span class="label">{% trans "Client" %} :</span> {{ location.locataire|default:"—" }}</div>
+        {% if location.deuxieme_pilote %}<div><span class="label">{% trans "Deuxième pilote" %} :</span> {{ location.deuxieme_pilote }}</div>{% endif %}
     </div>
 </div>
 
@@ -329,7 +330,7 @@
         </thead>
         <tbody>
             {% with boxes=location.boxes_liste %}
-            {% if boxes or location.instructeur_id %}
+            {% if boxes or location.instructeur_id or location.total_deuxieme_pilote_tvac %}
             <tr>
                 <td>{{ location.libelle_facture }}</td>
                 <td class="text-right">{{ location.prix_vehicule_htva|floatformat:2 }} €</td>
@@ -344,6 +345,14 @@
                 <td class="text-right">{{ b.total_tvac|floatformat:2 }} €</td>
             </tr>
             {% endfor %}
+            {% if location.total_deuxieme_pilote_tvac %}
+            <tr>
+                <td>{{ location.libelle_deuxieme_pilote }}</td>
+                <td class="text-right">{{ location.total_deuxieme_pilote_htva|floatformat:2 }} €</td>
+                <td class="text-right"></td>
+                <td class="text-right">{{ location.total_deuxieme_pilote_tvac|floatformat:2 }} €</td>
+            </tr>
+            {% endif %}
             {% if location.instructeur_id %}
             <tr>
                 <td>{{ location.libelle_instructeur }}</td>

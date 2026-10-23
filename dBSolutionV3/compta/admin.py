@@ -44,3 +44,17 @@ class ImmobilisationAdmin(admin.ModelAdmin):
 
 admin.site.register(ValorisationStock)
 admin.site.register(VersementSocial)
+
+
+from .models import LigneOperationDiverse, OperationDiverse  # noqa: E402
+
+
+class LigneODInline(admin.TabularInline):
+    model = LigneOperationDiverse
+    extra = 0
+
+
+@admin.register(OperationDiverse)
+class OperationDiverseAdmin(admin.ModelAdmin):
+    list_display = ("date", "journal", "piece", "libelle")
+    inlines = [LigneODInline]

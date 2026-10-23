@@ -1,0 +1,19 @@
+{% load i18n %}
+<table class="tbl w-full">
+    <thead><tr>
+        <th class="text-left">{{ titre_tableau }}</th>
+        <th class="code">{% trans "Codes" %}</th>
+        <th class="n">{% trans "Exercice" %} {{ annee }}</th>
+        <th class="n">{% trans "Exercice" %} {{ annee_precedente }}</th>
+    </tr></thead>
+    <tbody>
+    {% for l in lignes %}
+        <tr class="niv-{{ l.niveau }}{% if l.gras %} gras{% endif %}">
+            <td class="lib">{{ l.libelle }}</td>
+            <td class="code">{{ l.code }}</td>
+            <td class="n">{% if l.n or l.gras %}{{ l.n|floatformat:2 }}{% else %}—{% endif %}</td>
+            <td class="n">{% if l.n1 or l.gras %}{{ l.n1|floatformat:2 }}{% else %}—{% endif %}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

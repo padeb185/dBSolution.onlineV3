@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+{% block title %}{% trans "Opération diverse" %}{% endblock %}
+{% block content %}
+<div class="p-6 max-w-5xl mx-auto">
+{% if od %}{% trans "Modifier l'opération diverse" as titre %}{% else %}{% trans "Nouvelle opération diverse" as titre %}{% endif %}
+{% include "compta/immo/_nav.html" %}
+<form method="post">
+    {% csrf_token %}
+    <div class="bg-white shadow rounded p-5 mb-4 grid grid-cols-1 md:grid-cols-2 gap-x-6">
+        {% include "compta/_champs.html" %}
+    </div>
+    {{ formset.management_form }}
+    {% if formset.non_form_errors %}<div class="bg-red-100 text-red-800 border border-red-300 p-3 rounded mb-4">{% for e in formset.non_form_errors %}<p>{{ e }}</p>{% endfor %}</div>{% endif %}
+    <div class="bg-white shadow rounded overflow-x-auto mb-4">
+    <table class="min-w-full text-sm">
+        <thead><tr class="bg-gray-100">
+            <th class="px-3 py-2 text-left">{% trans "Compte (PCMN)" %}</th>
+            <th class="px-3 py-2 text-left">{% trans "Libellé" %}</th>
+            <th class="px-3 py-2 text-right">{% trans "Débit" %}</th>
+            <th class="px-3 py-2 text-right">{% trans "Crédit" %}</th>
+            <th class="px-3 py-2">{% trans "Supprimer" %}</th>
+        </tr></thead>
+        <tbody>
+        {% for f in formset %}
+            <tr class="border-b">
+                {% for h in f.hidden_fields %}{{ h }}{% endfor %}
+                <td class="px-3 py-2">{{ f.compte }}{% if f.compte.errors %}<p class="text-red-600 text-xs">{{ f.compte.errors|striptags }}</p>{% endif %}</td>
+                <td class="px-3 py-2">{{ f.libelle }}</td>
+                <td class="px-3 py-2 text-right">{{ f.debit }}</td>
+                <td class="px-3 py-2 text-right">{{ f.credit }}{% if f.non_field_errors %}<p class="text-red-600 text-xs">{{ f.non_field_errors|striptags }}</p>{% endif %}</td>
+                <td class="px-3 py-2 text-center">{% if f.instance.pk %}{{ f.DELETE }}{% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot><tr class="font-semibold bg-gray-50">
+            <td></td><td class="px-3 py-2 text-right">{% trans "Total" %}</td>
+            <td class="px-3 py-2 text-right" id="tot-debit">0,00</td><td class="px-3 py-2 text-right" id="tot-credit">0,00</td>
+            <td class="px-3 py-2 text-center" id="tot-etat"></td>
+        </tr></tfoot>
+    </table>
+    </div>
+    <div class="flex gap-3">
+        <button class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer" %}</button>
+        <a href="{% url 'compta:od_liste' %}" class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+    </div>
+</form>
+</div>
+<script>
+(function () {
+    const num = v => { const x = parseFloat(String(v || "").replace(",", ".")); return isNaN(x) ? 0 : x; };
+    const fmt = v => v.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    function maj() {
+        let d = 0, c = 0;
+        document.querySelectorAll("input.debit").forEach(i => d += num(i.value));
+        document.querySelectorAll("input.credit").forEach(i => c += num(i.value));
+        document.getElementById("tot-debit").textContent = fmt(d);
+        document.getElementById("tot-credit").textContent = fmt(c);
+        const ok = Math.abs(d - c) < 0.005 && d > 0;
+        const e = document.getElementById("tot-etat");
+        e.textContent = ok ? "✓" : "≠ " + fmt(Math.abs(d - c));
+        e.className = "px-3 py-2 text-center " + (ok ? "text-green-700" : "text-red-700");
+    }
+    document.addEventListener("input", maj); maj();
+})();
+</script>
+{% endblock %}

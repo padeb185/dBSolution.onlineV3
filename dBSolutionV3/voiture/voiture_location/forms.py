@@ -42,6 +42,11 @@ class LocationForm(forms.ModelForm):
         label=_("Client"),
         required=False,
     )
+    deuxieme_pilote = forms.ChoiceField(
+        label=_("Deuxième pilote"),
+        required=False,
+        help_text=_("Facultatif : client ou client pilotage qui partage le véhicule."),
+    )
 
     class Meta:
         model = Location
@@ -65,6 +70,7 @@ class LocationForm(forms.ModelForm):
             "instructeur",
             "instructeur_heures",
             "instructeur_prix_heure",
+            "prix_deuxieme_pilote",
         )
         widgets = {
             "date_debut": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
@@ -79,6 +85,7 @@ class LocationForm(forms.ModelForm):
             "remarques": forms.Textarea(attrs={"rows": 3}),
             "instructeur_heures": forms.NumberInput(attrs={"step": "0.25", "min": "0"}),
             "instructeur_prix_heure": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
+            "prix_deuxieme_pilote": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -118,6 +125,17 @@ class LocationForm(forms.ModelForm):
             (_("Sociétés clientes"), [(f"societe:{c.pk}", str(c)) for c in societes]),
             (_("Clients pilotage"), [(f"pilotage:{c.pk}", str(c)) for c in pilotes]),
         ]
+
+        # Deuxième pilote : clients particuliers et clients pilotage
+        self.fields["deuxieme_pilote"].choices = [
+            ("", "---------"),
+            (_("Clients pilotage"), [(f"pilotage:{c.pk}", str(c)) for c in pilotes]),
+            (_("Clients"), [(f"client:{c.pk}", str(c)) for c in clients]),
+        ]
+        if self.instance.deuxieme_client_pilotage_id:
+            self.initial["deuxieme_pilote"] = f"pilotage:{self.instance.deuxieme_client_pilotage_id}"
+        elif self.instance.deuxieme_client_id:
+            self.initial["deuxieme_pilote"] = f"client:{self.instance.deuxieme_client_id}"
 
         # Valeur initiale en modification
         inst = self.instance
@@ -197,7 +215,30 @@ class LocationForm(forms.ModelForm):
         except (modele.DoesNotExist, ValueError, DjangoValidationError):
             raise forms.ValidationError(_("Client introuvable."))
 
+    def clean_deuxieme_pilote(self):
+        valeur = self.cleaned_data.get("deuxieme_pilote")
+        if not valeur:
+            return None
+        prefixe, _sep, pk = valeur.partition(":")
+        if prefixe not in ("client", "pilotage"):
+            raise forms.ValidationError(_("Client invalide."))
+        modele, champ = TYPES_CLIENT[prefixe]
+        try:
+            return prefixe, modele.objects.get(pk=pk)
+        except (modele.DoesNotExist, ValueError, DjangoValidationError):
+            raise forms.ValidationError(_("Client introuvable."))
+
     def _post_clean(self):
+        # Deuxième pilote
+        deuxieme = self.cleaned_data.get("deuxieme_pilote") if hasattr(self, "cleaned_data") else None
+        self.instance.deuxieme_client = None
+        self.instance.deuxieme_client_pilotage = None
+        if deuxieme:
+            prefixe, obj = deuxieme
+            if prefixe == "pilotage":
+                self.instance.deuxieme_client_pilotage = obj
+            else:
+                self.instance.deuxieme_client = obj
         # Affecte le bon champ client avant la validation du modèle
         choix = self.cleaned_data.get("locataire") if hasattr(self, "cleaned_data") else None
         self.instance.client = None

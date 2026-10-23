@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Comptes annuels" %} {{ annee }}{% endblock %}
+{% block content %}
+<div class="p-6 max-w-7xl mx-auto">
+{% trans "Comptes annuels – bilan et compte de résultats (normes belges)" as titre %}
+{% include "compta/immo/_nav.html" with icone="icons/bilan.png" %}
+{% include "compta/bilan/_styles.html" %}
+
+<div class="flex flex-wrap items-end justify-between gap-3 mb-4">
+    <form method="get" class="flex items-end gap-3">
+        <div>
+            <label class="block text-sm font-semibold mb-1">{% trans "Exercice (au 31/12)" %}</label>
+            <select name="annee" class="border rounded px-3 py-2" onchange="this.form.submit()">
+                {% for a in annees %}<option value="{{ a }}" {% if a == annee %}selected{% endif %}>{{ a }}</option>{% endfor %}
+            </select>
+        </div>
+    </form>
+    <div class="flex gap-2">
+        <a href="{% url 'compta:od_ajouter' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">+ {% trans "Opération diverse" %}</a>
+        <a href="{% url 'compta:journal_general' %}?annee={{ annee }}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Journal général" %}</a>
+        <a href="{% url 'compta:bilan_pdf' %}?annee={{ annee }}" target="_blank" class="bg-purple-700 hover:bg-purple-500 text-white px-4 py-2 rounded font-semibold">PDF</a>
+    </div>
+</div>
+
+<div class="mb-4 p-3 rounded border {% if equilibre %}bg-green-50 border-green-300 text-green-800{% else %}bg-red-50 border-red-300 text-red-800{% endif %}">
+    {% if equilibre %}
+        ✓ {% trans "Bilan équilibré : total de l'actif = total du passif." %}
+    {% else %}
+        ✗ {% blocktrans with e=ecart|floatformat:2 %}Bilan déséquilibré : écart de %(e)s €. Vérifiez le journal général (contrôle débit / crédit) et les soldes d'ouverture.{% endblocktrans %}
+    {% endif %}
+    <span class="text-sm">({{ n.nb_ecritures }} {% trans "écritures jusqu'au 31/12" %})</span>
+</div>
+
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">
+    <div class="bg-white shadow rounded overflow-x-auto">
+        <h2 class="text-xl font-bold p-3">{% trans "ACTIF" %}</h2>
+        {% trans "Rubriques" as titre_tableau %}
+        {% include "compta/bilan/_tableau.html" with lignes=actif %}
+    </div>
+    <div class="bg-white shadow rounded overflow-x-auto">
+        <h2 class="text-xl font-bold p-3">{% trans "PASSIF" %}</h2>
+        {% include "compta/bilan/_tableau.html" with lignes=passif %}
+    </div>
+</div>
+
+<div class="bg-white shadow rounded overflow-x-auto mb-6">
+    <h2 class="text-xl font-bold p-3">{% trans "COMPTE DE RÉSULTATS" %}</h2>
+    {% include "compta/bilan/_tableau.html" with lignes=resultats %}
+</div>
+
+<div class="text-xs text-gray-500 space-y-1 mb-8">
+    <p>{% trans "Présentation selon le schéma des comptes annuels de la Banque nationale de Belgique (codes des rubriques), à partir du plan comptable minimum normalisé (PCMN). Montants en euros." %}</p>
+    <p>{% trans "Exercice = année civile. Le résultat de l'exercice est présenté avant affectation ; les résultats des exercices antérieurs non affectés sont repris en « Bénéfice (Perte) reporté(e) ». Les amortissements sont déduits des immobilisations (valeurs nettes)." %}</p>
+    <p>{% trans "Document de travail établi à partir des écritures de l'application (ventes, achats, salaires, immobilisations, stock, trésorerie, opérations diverses). Le dépôt à la BNB doit être effectué par votre comptable ou expert-comptable." %}</p>
+</div>
+</div>
+{% endblock %}

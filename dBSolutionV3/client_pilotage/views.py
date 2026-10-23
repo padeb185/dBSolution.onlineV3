@@ -47,12 +47,22 @@ def client_pilotage_detail_view(request, client_pilotage_id):
     tenant = request.user.societe
 
 
-    client_pilotage = get_object_or_404(ClientPilotage, id=client_pilotage_id)
+    from django.db.models import Q
+    client_pilotage = get_object_or_404(
+        ClientPilotage.objects.filter(Q(societe=tenant) | Q(societe__isnull=True)), id=client_pilotage_id
+    )
     adresse = client_pilotage.adresse  # si tu veux l’afficher séparément
+    locations = list(client_pilotage.locations_historique())
+    ids = set(client_pilotage.clients_particuliers_lies())
+    for l in locations:
+        premier = l.client_pilotage_id == client_pilotage.pk or l.client_id in ids
+        l.comme_deuxieme = not premier and (l.deuxieme_client_pilotage_id == client_pilotage.pk or l.deuxieme_client_id in ids)
 
     return render(request, "client_pilotage/client_pilotage_detail.html", {
         "client_pilotage": client_pilotage,
         "adresse": adresse,
+        "locations": locations,
+        "stats": client_pilotage.statistiques_pilotage(locations),
     })
 
 

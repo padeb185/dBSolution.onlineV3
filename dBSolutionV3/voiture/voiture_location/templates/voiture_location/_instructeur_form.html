@@ -43,7 +43,8 @@
         var tl = document.getElementById('total-location-instructeur'), prix = form.querySelector('[name="prix"]');
         if (tl && prix) {
             var boxes = window.totalBoxes ? window.totalBoxes() : 0;
-            tl.textContent = fmt(Math.round((num(prix.value) + boxes + t) * 100) / 100);
+            var deuxieme = window.totalDeuxiemePilote ? window.totalDeuxiemePilote() : 0;
+            tl.textContent = fmt(Math.round((num(prix.value) + boxes + t + deuxieme) * 100) / 100);
         }
     }
 

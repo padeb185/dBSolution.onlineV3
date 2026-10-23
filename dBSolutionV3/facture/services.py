@@ -486,6 +486,21 @@ def creer_facture_depuis_location(location, type_facture, user):
             unit_price=unitaire,
             vat_rate=location.taux_tva,
         )
+    # Deuxième pilote : une ligne (tarif TVAC → HTVA)
+    if location.total_deuxieme_pilote_tvac:
+        FactureLine.objects.create(
+            facture=facture,
+            location=location,
+            ordre=len(location.boxes_liste) + 3,
+            type_ligne=FactureLine.TypeLigne.LOCATION,
+            description=location.libelle_deuxieme_pilote[:255],
+            reference="",
+            quantity=Decimal("1.00"),
+            unit_cost=None,
+            marge=Decimal("0.00"),
+            unit_price=location.total_deuxieme_pilote_htva,
+            vat_rate=location.taux_tva,
+        )
     facture.recalculer_totaux()
     return facture
 

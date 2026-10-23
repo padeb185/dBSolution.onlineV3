@@ -23,6 +23,12 @@ ZERO = Decimal("0.00")
 # Comptes de contrepartie proposés (PCMN belge)
 COMPTES_CONTREPARTIE = [
     ("100000", _("Capital")),
+    ("130000", _("Réserves")),
+    ("140000", _("Bénéfice (perte) reporté(e)")),
+    ("170000", _("Dettes à plus d'un an")),
+    ("173000", _("Emprunts auprès d'établissements de crédit")),
+    ("210000", _("Immobilisations incorporelles")),
+    ("280000", _("Immobilisations financières")),
     ("220000", _("Terrains")),
     ("221000", _("Constructions")),
     ("230000", _("Installations, machines et outillage")),
@@ -36,6 +42,10 @@ COMPTES_CONTREPARTIE = [
     ("453000", _("Précomptes retenus")),
     ("454000", _("Office National de Sécurité Sociale")),
     ("455000", _("Rémunérations")),
+    ("430000", _("Dettes financières à court terme")),
+    ("480000", _("Dettes diverses")),
+    ("490000", _("Charges à reporter")),
+    ("492000", _("Charges à imputer")),
     ("499000", _("Compte d'attente")),
     ("580000", _("Virements internes")),
     ("600000", _("Achats de marchandises")),
@@ -44,6 +54,7 @@ COMPTES_CONTREPARTIE = [
     ("640000", _("Autres charges d'exploitation")),
     ("650000", _("Charges financières")),
     ("700000", _("Chiffre d'affaires – ventes")),
+    ("670000", _("Impôts sur le résultat")),
     ("750000", _("Produits financiers")),
 ]
 INTITULES_CONTREPARTIE = dict(COMPTES_CONTREPARTIE)
@@ -897,3 +908,65 @@ class VersementSocial(models.Model):
                 "entree": ZERO, "sortie": self.montant, "contrepartie": self.compte_dette,
                 "piece": self.reference or f"{self.type}-{self.periode}", "source": "versement_social",
                 "objet": self, "ordre": 6}
+
+
+# ======================================================================
+# OPÉRATIONS DIVERSES (OD) – bilan d'ouverture, capital, emprunts, régularisations…
+# ======================================================================
+class OperationDiverse(models.Model):
+    class Journal(models.TextChoices):
+        OUVERTURE = "OUV", _("Écriture d'ouverture (bilan d'ouverture)")
+        OD = "OD", _("Opération diverse")
+        CLOTURE = "CLO", _("Écriture de clôture / affectation du résultat")
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    societe = models.ForeignKey("societe.Societe", on_delete=models.CASCADE, related_name="operations_diverses")
+    journal = models.CharField(_("Journal"), max_length=3, choices=Journal.choices, default=Journal.OD)
+    date = models.DateField(_("Date"), default=date.today)
+    piece = models.CharField(_("Pièce"), max_length=50, blank=True)
+    libelle = models.CharField(_("Libellé"), max_length=255)
+    cree_par = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,
+                                 related_name="operations_diverses", editable=False)
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("Opération diverse")
+        verbose_name_plural = _("Opérations diverses")
+        ordering = ["-date", "-created_at"]
+
+    def __str__(self):
+        return f"{self.date:%d/%m/%Y} – {self.libelle}"
+
+    @property
+    def total_debit(self):
+        return sum((l.debit for l in self.lignes.all()), ZERO)
+
+    @property
+    def total_credit(self):
+        return sum((l.credit for l in self.lignes.all()), ZERO)
+
+    @property
+    def equilibree(self):
+        return self.total_debit == self.total_credit
+
+    def ecritures(self):
+        return [{"journal": self.journal, "date": self.date, "piece": self.piece or f"OD-{str(self.pk)[:8]}",
+                 "compte": l.compte, "intitule": INTITULES_CONTREPARTIE.get(l.compte, ""),
+                 "libelle": l.libelle or self.libelle, "debit": l.debit, "credit": l.credit}
+                for l in self.lignes.all()]
+
+
+class LigneOperationDiverse(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    operation = models.ForeignKey(OperationDiverse, on_delete=models.CASCADE, related_name="lignes")
+    compte = models.CharField(_("Compte (PCMN)"), max_length=10)
+    libelle = models.CharField(_("Libellé"), max_length=255, blank=True)
+    debit = models.DecimalField(_("Débit"), max_digits=14, decimal_places=2, default=ZERO,
+                                validators=[MinValueValidator(Decimal("0"))])
+    credit = models.DecimalField(_("Crédit"), max_digits=14, decimal_places=2, default=ZERO,
+                                 validators=[MinValueValidator(Decimal("0"))])
+
+    class Meta:
+        verbose_name = _("Ligne d'opération diverse")
+        verbose_name_plural = _("Lignes d'opérations diverses")
+        ordering = ["-debit", "compte"]

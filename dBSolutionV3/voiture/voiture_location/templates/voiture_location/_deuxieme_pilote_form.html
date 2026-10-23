@@ -1,0 +1,27 @@
+{% load i18n static %}
+<div class="border rounded-lg p-4 mb-4 bg-gray-50" id="bloc-deuxieme-pilote">
+    <p class="font-semibold mb-2 flex items-center gap-2">
+        <img src="{% static 'icons/pilote.png' %}" alt="" class="w-8 h-8">
+        {% trans "Deuxième pilote" %}
+    </p>
+    {% include "voiture_location/_champ.html" with field=form.deuxieme_pilote %}
+    <div id="bloc-tarif-deuxieme-pilote">
+        {% include "voiture_location/_champ.html" with field=form.prix_deuxieme_pilote %}
+    </div>
+</div>
+<script>
+(function () {
+    var select = document.getElementById('id_deuxieme_pilote');
+    var prix = document.getElementById('id_prix_deuxieme_pilote');
+    if (!select || !prix) return;
+    var num = function (v) { var x = parseFloat(String(v || '').replace(',', '.')); return isNaN(x) ? 0 : x; };
+    window.totalDeuxiemePilote = function () {
+        return select.value ? Math.round(num(prix.value) * 100) / 100 : 0;
+    };
+    function maj() {
+        document.getElementById('bloc-tarif-deuxieme-pilote').style.display = select.value ? '' : 'none';
+    }
+    select.addEventListener('change', maj);
+    maj();
+})();
+</script>

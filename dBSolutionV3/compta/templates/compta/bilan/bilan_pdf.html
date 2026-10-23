@@ -1,0 +1,53 @@
+{% load i18n static %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'fr' }}">
+<head>
+<meta charset="utf-8">
+<title>{% trans "Comptes annuels" %} {{ annee }} – {{ societe.nom }}</title>
+<style>
+    @page { size: A4; margin: 14mm 12mm 16mm 12mm;
+        @bottom-center { content: "{% trans 'Page' %} " counter(page) " / " counter(pages); font-size: 8pt; color: #6b7280; } }
+    body { font-family: "DejaVu Sans", Arial, sans-serif; font-size: 8.5pt; color: #111827; }
+    h1 { font-size: 15pt; color: #1e3a8a; margin: 0; }
+    h2 { font-size: 11pt; color: #1e3a8a; margin: 6mm 0 2mm 0; }
+    .entete { margin-bottom: 4mm; line-height: 1.4; }
+    .saut { page-break-before: always; }
+    .tbl { width: 100%; border-collapse: collapse; }
+    .tbl th { background: #1e3a8a; color: #fff; padding: 1.6mm 2mm; text-align: left; }
+    .tbl td { padding: 1.2mm 2mm; border-bottom: 1px solid #e5e7eb; }
+    .tbl .n { text-align: right; white-space: nowrap; width: 28mm; }
+    .tbl .code { text-align: center; color: #6b7280; width: 16mm; }
+    .tbl tr.niv-0 td { font-weight: bold; background: #eef2ff; }
+    .tbl tr.niv-1 td.lib { padding-left: 5mm; }
+    .tbl tr.niv-2 td.lib { padding-left: 9mm; }
+    .tbl tr.niv-3 td.lib { padding-left: 13mm; }
+    .tbl tr.gras td { font-weight: bold; }
+    .note { margin-top: 5mm; font-size: 7pt; color: #6b7280; }
+    .alerte { color: #b91c1c; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="entete">
+    <h1>{% trans "Comptes annuels" %} – {% trans "exercice" %} {{ annee }}</h1>
+    <strong>{{ societe.nom }}</strong>{% if societe.numero_tva %} – {% trans "N° d'entreprise / TVA" %} : {{ societe.numero_tva }}{% endif %}<br>
+    {% if societe.adresse %}{{ societe.adresse.rue }} {{ societe.adresse.numero }}, {{ societe.adresse.code_postal }} {{ societe.adresse.ville }}<br>{% endif %}
+    {% trans "Bilan au" %} 31/12/{{ annee }} – {% trans "montants en euros" %}
+    {% if not equilibre %}<p class="alerte">{% blocktrans with e=ecart|floatformat:2 %}Bilan déséquilibré : écart de %(e)s €.{% endblocktrans %}</p>{% endif %}
+</div>
+
+<h2>{% trans "ACTIF" %}</h2>
+{% trans "Rubriques" as titre_tableau %}
+{% include "compta/bilan/_tableau.html" with lignes=actif %}
+
+<h2 class="saut">{% trans "PASSIF" %}</h2>
+{% include "compta/bilan/_tableau.html" with lignes=passif %}
+
+<h2 class="saut">{% trans "COMPTE DE RÉSULTATS" %}</h2>
+{% include "compta/bilan/_tableau.html" with lignes=resultats %}
+
+<p class="note">
+    {% trans "Présentation selon le schéma des comptes annuels de la Banque nationale de Belgique (codes des rubriques), à partir du plan comptable minimum normalisé (PCMN). Montants en euros." %}
+    {% trans "Document de travail établi à partir des écritures de l'application (ventes, achats, salaires, immobilisations, stock, trésorerie, opérations diverses). Le dépôt à la BNB doit être effectué par votre comptable ou expert-comptable." %}
+    {% trans "Document généré le" %} {{ date_export|date:"d/m/Y H:i" }}.
+</p>
+</body>
+</html>

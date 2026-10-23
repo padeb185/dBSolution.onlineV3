@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views, views_immo as vim, views_instructeur as vi
+from . import views, views_bilan as vb, views_immo as vim, views_instructeur as vi
 
 app_name = "compta"
 
@@ -26,6 +26,12 @@ urlpatterns = [
     path("salaires/", vim.salaires_compta, name="salaires_compta"),
     path("salaires/versements/<uuid:pk>/supprimer/", vim.versement_supprimer, name="versement_supprimer"),
     path("journal/", vim.journal_general, name="journal_general"),
+    path("bilan/", vb.bilan, name="bilan"),
+    path("bilan/pdf/", vb.bilan_pdf, name="bilan_pdf"),
+    path("operations-diverses/", vb.od_liste, name="od_liste"),
+    path("operations-diverses/ajouter/", vb.od_ajouter, name="od_ajouter"),
+    path("operations-diverses/<uuid:pk>/modifier/", vb.od_modifier, name="od_modifier"),
+    path("operations-diverses/<uuid:pk>/supprimer/", vb.od_supprimer, name="od_supprimer"),
 
     # Instructeurs indépendants (factures d'achat / autofacturation)
     path("instructeurs/", vi.instructeurs_liste, name="instructeurs_liste"),

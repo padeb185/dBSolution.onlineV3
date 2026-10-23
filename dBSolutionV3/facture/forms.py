@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 from client_atelier.models import ClientAtelier
 from client_particulier.models import ClientParticulier
+from client_pilotage.models import ClientPilotage
 from societe_cliente.models import SocieteCliente
 
 from .models import Facture, FactureLine, ParametresPeppol
@@ -49,7 +50,16 @@ class FactureForm(forms.ModelForm):
             del self.fields["autoliquidation"]
             del self.fields["client_particulier"]
 
-            clients = ClientParticulier.objects.filter(societe=societe).order_by("nom", "prenom")
+            from django.db.models import Q
+            pilotes = (
+                ClientPilotage.objects.filter(Q(societe=societe) | Q(societe__isnull=True, client_particulier__societe=societe))
+                .select_related("client_particulier")
+                .order_by("client_particulier__nom", "client_particulier__prenom")
+            )
+            ids_pilotes = {p.client_particulier_id for p in pilotes}
+            # Les fiches client des pilotes sont proposées dans le groupe « Clients pilotage »
+            clients = (ClientParticulier.objects.filter(societe=societe).exclude(pk__in=ids_pilotes)
+                       .order_by("nom", "prenom"))
             ateliers = (
                 ClientAtelier.objects.filter(societe=societe)
                 .select_related("client_particulier", "societe_cliente")
@@ -65,12 +75,18 @@ class FactureForm(forms.ModelForm):
             self.fields["client_choix"].choices = [
                 ("", "---------"),
                 (_("Clients"), [(f"particulier:{c.pk}", f"{c.nom} {c.prenom}") for c in clients]),
+                (_("Clients pilotage"), [
+                    (f"pilotage:{p.pk}", f"{p.client_particulier.nom} {p.client_particulier.prenom} ({p.get_niveau_display()})")
+                    for p in pilotes
+                ]),
                 (_("Clients atelier"), [(f"atelier:{ca.pk}", libelle_atelier(ca)) for ca in ateliers]),
             ]
             if self.instance.client_atelier_id:
                 self.initial["client_choix"] = f"atelier:{self.instance.client_atelier_id}"
             elif self.instance.client_particulier_id:
-                self.initial["client_choix"] = f"particulier:{self.instance.client_particulier_id}"
+                pilote = next((p for p in pilotes if p.client_particulier_id == self.instance.client_particulier_id), None)
+                self.initial["client_choix"] = (f"pilotage:{pilote.pk}" if pilote
+                                                else f"particulier:{self.instance.client_particulier_id}")
 
         for name, field in self.fields.items():
             if name not in ("autoliquidation", "client_est_societe"):
@@ -84,13 +100,19 @@ class FactureForm(forms.ModelForm):
         if not valeur:
             return None
         type_client, _sep, pk = valeur.partition(":")
-        modele = {"particulier": ClientParticulier, "atelier": ClientAtelier}.get(type_client)
+        modele = {"particulier": ClientParticulier, "atelier": ClientAtelier, "pilotage": ClientPilotage}.get(type_client)
         if modele is None:
             raise forms.ValidationError(_("Client invalide."))
         try:
-            return type_client, modele.objects.get(pk=pk)
+            obj = modele.objects.get(pk=pk)
         except (modele.DoesNotExist, ValueError):
             raise forms.ValidationError(_("Client introuvable."))
+        if type_client == "pilotage":
+            # Un client pilotage est facturé via sa fiche client particulier
+            if not obj.client_particulier_id:
+                raise forms.ValidationError(_("Client introuvable."))
+            return "particulier", obj.client_particulier
+        return type_client, obj
 
     def _post_clean(self):
         # Affecte le client choisi (particulier ou atelier) avant la validation du modèle

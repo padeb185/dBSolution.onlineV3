@@ -24,6 +24,8 @@ SOURCES = OrderedDict([
     ("immobilisation", gettext_lazy("Immobilisations et amortissements")),
     ("stock", gettext_lazy("Stock")),
     ("tresorerie", gettext_lazy("Trésorerie (mouvements manuels)")),
+    ("ouverture", gettext_lazy("Soldes d'ouverture des comptes de trésorerie")),
+    ("od", gettext_lazy("Opérations diverses (OD)")),
 ])
 
 
@@ -141,6 +143,30 @@ def ecritures_societe(societe, debut=None, fin=None, sources=None):
             E.append(_norm(dict(base, compte=m.compte_contrepartie, intitule=m.intitule_contrepartie,
                                 debit=ZERO if entree else m.montant, credit=m.montant if entree else ZERO),
                            "tresorerie", m.piece, journal))
+
+    # ---- Soldes d'ouverture des caisses / banques
+    if "ouverture" in sources:
+        from .models import CompteTresorerie
+        for c in CompteTresorerie.objects.filter(societe=societe):
+            if c.solde_ouverture and _dans(c.date_ouverture, debut, fin):
+                montant = Decimal(c.solde_ouverture)
+                base = {"libelle": f"{_('Solde d’ouverture')} – {c.nom}", "date": c.date_ouverture}
+                E.append(_norm(dict(base, compte=c.compte_pcmn, intitule=c.nom,
+                                    debit=max(montant, ZERO), credit=max(-montant, ZERO)), "ouverture", "OUV", "OUV"))
+                E.append(_norm(dict(base, compte=c.compte_contrepartie_ouverture or "499000", intitule="",
+                                    debit=max(-montant, ZERO), credit=max(montant, ZERO)), "ouverture", "OUV", "OUV"))
+
+    # ---- Opérations diverses
+    if "od" in sources:
+        from .models import OperationDiverse
+        qs = OperationDiverse.objects.filter(societe=societe).prefetch_related("lignes")
+        if debut:
+            qs = qs.filter(date__gte=debut)
+        if fin:
+            qs = qs.filter(date__lte=fin)
+        for od in qs:
+            for l in od.ecritures():
+                E.append(_norm(l, "od", l["piece"]))
 
     E.sort(key=lambda e: (e["date"], e["journal"], e["piece"], -e["debit"]))
     return E
