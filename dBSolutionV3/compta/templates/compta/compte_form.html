@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% if compte %}{% trans "Modifier le compte" %}{% else %}{% trans "Ouvrir un compte de trésorerie" %}{% endif %}{% endblock %}
+
+{% block content %}
+<br><br>
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-6 flex items-center gap-4">
+        <img src="{% static 'icons/comptabilite.png' %}" alt="" class="w-16 h-16">
+        <span>{% if compte %}{% trans "Modifier le compte" %} – {{ compte.nom }}{% else %}{% trans "Ouvrir un compte de trésorerie" %}{% endif %}</span>
+    </h1>
+
+    {% include "partials/messages.html" %}
+    {% if form.non_field_errors %}
+        <div class="bg-red-100 text-red-800 border border-red-300 p-4 rounded mb-6">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div>
+    {% endif %}
+
+    {% if not compte %}
+    <p class="text-sm bg-blue-50 border border-blue-200 rounded p-3 mb-4">
+        {% trans "L'ouverture enregistre le montant présent dans la caisse ou sur le compte bancaire à la date choisie. Les mouvements sont ensuite encodés à partir de cette date." %}
+    </p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {% include "compta/_champs.html" %}
+
+        <div class="flex gap-3 mt-6">
+            <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% if compte %}{% trans "Enregistrer les modifications" %}{% else %}{% trans "Ouvrir le compte" %}{% endif %}
+            </button>
+            <a href="{% if compte %}{% url 'compta:compte_journal' compte.pk %}{% else %}{% url 'compta:tableau_de_bord' %}{% endif %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+</div>
+<br>
+
+<script>
+// Caisse : masque les champs bancaires et propose 570000 ; banque : 550000
+document.addEventListener("DOMContentLoaded", function () {
+    const type = document.getElementById("id_type");
+    const pcmn = document.getElementById("id_compte_pcmn");
+    const bancaires = ["banque", "iban", "bic"];
+    function maj(changement) {
+        const caisse = type && type.value === "CAISSE";
+        bancaires.forEach(n => { const b = document.getElementById("bloc-" + n); if (b) b.style.display = caisse ? "none" : ""; });
+        if (pcmn && (changement || !pcmn.value) && (!pcmn.value || pcmn.value === "570000" || pcmn.value === "550000")) {
+            pcmn.value = caisse ? "570000" : "550000";
+        }
+    }
+    if (type) type.addEventListener("change", () => maj(true));
+    maj(false);
+});
+</script>
+{% endblock %}

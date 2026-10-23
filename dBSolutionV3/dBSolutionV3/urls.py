@@ -186,6 +186,7 @@ urlpatterns += i18n_patterns(
     path('agenda/', include(('agenda.urls', 'agenda'), namespace='agenda')),
 
     path('facture/', include(('facture.urls', 'facture'), namespace='facture')),
+    path('compta/', include(('compta.urls', 'compta'), namespace='compta')),
 
     path('maintenance/carrosserie/', include(('maintenance.carrosserie_interne.urls', 'carrosserie_interne'), namespace='carrosserie_interne')),
 

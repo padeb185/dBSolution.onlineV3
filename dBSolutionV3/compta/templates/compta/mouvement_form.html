@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% if mouvement %}{% trans "Modifier le mouvement" %}{% else %}{% trans "Nouveau mouvement" %}{% endif %}{% endblock %}
+
+{% block content %}
+<br><br>
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-2 flex items-center gap-4">
+        <img src="{% static 'icons/comptabilite.png' %}" alt="" class="w-16 h-16">
+        <span>{% if mouvement %}{% trans "Modifier le mouvement" %}{% else %}{% trans "Nouveau mouvement" %}{% endif %}</span>
+    </h1>
+    <p class="text-gray-600 mb-6">{{ compte }} · {% trans "PCMN" %} <span class="font-mono">{{ compte.compte_pcmn }}</span></p>
+
+    {% include "partials/messages.html" %}
+    {% if form.non_field_errors %}
+        <div class="bg-red-100 text-red-800 border border-red-300 p-4 rounded mb-6">{% for e in form.non_field_errors %}<p>{{ e }}</p>{% endfor %}</div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {% include "compta/_champs.html" %}
+
+        <div class="flex flex-col gap-3 mt-6">
+            <button type="submit" class="w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">{% trans "Enregistrer" %}</button>
+            {% if not mouvement %}
+            <button type="submit" name="ajouter_autre" value="1" class="w-full bg-green-700 text-white px-5 py-4 rounded hover:bg-green-500 font-semibold text-center">{% trans "Enregistrer et encoder un autre mouvement" %}</button>
+            {% endif %}
+            <a href="{% url 'compta:compte_journal' compte.pk %}" class="w-full bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+        </div>
+    </form>
+</div>
+<br>
+{% endblock %}

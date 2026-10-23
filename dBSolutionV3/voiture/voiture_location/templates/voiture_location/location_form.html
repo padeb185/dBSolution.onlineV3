@@ -120,6 +120,10 @@
 
         <br>
 
+        {% include "voiture_location/_instructeur_form.html" %}
+
+        <br>
+
         {% else %}
         <!-- ================= VÉHICULES (une fiche par véhicule) ================= -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
@@ -158,6 +162,10 @@
 
         <!-- ================= BOX EN PIT LANE ================= -->
         {% include "voiture_location/_boxes_form.html" %}
+
+        <br>
+
+        {% include "voiture_location/_instructeur_form.html" %}
 
         <br>
 
@@ -381,9 +389,17 @@
             corps.appendChild(tr);
             sousTotal += boxes;
         }
+        // Instructeur : ajouté au total, sans remise
+        const instructeur = window.totalInstructeur ? window.totalInstructeur() : 0;
+        if (instructeur) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td class="border px-3 py-2">{{ _("Instructeur")|escapejs }}</td><td class="border px-3 py-2 text-right">${fmt(instructeur)}</td>`;
+            corps.appendChild(tr);
+            sousTotal += instructeur;
+        }
         const pct = Math.min(Math.max(num(remise && remise.value), 0), 99.99);
         // Même calcul que le serveur : remise arrondie sur chaque véhicule
-        let total = boxes;
+        let total = boxes + instructeur;
         fiches().forEach(f => {
             const prix = f.querySelector("[name='prix'], [name$='-prix']");
             total += r2(num(prix && prix.value) * (100 - pct) / 100);

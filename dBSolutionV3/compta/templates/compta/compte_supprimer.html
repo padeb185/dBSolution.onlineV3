@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto mt-10 mb-10 p-6 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-4 text-red-700">{% trans "Supprimer le compte de trésorerie" %}</h1>
+
+    <div class="mb-4 border rounded">
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-2 p-4 text-sm">
+            <dt class="text-gray-600">{% trans "Compte" %}</dt><dd class="font-medium">{{ compte }}</dd>
+            <dt class="text-gray-600">{% trans "PCMN" %}</dt><dd class="font-mono">{{ compte.compte_pcmn }}</dd>
+            <dt class="text-gray-600">{% trans "Solde d'ouverture" %}</dt><dd>{{ compte.solde_ouverture|floatformat:2 }} €</dd>
+            <dt class="text-gray-600">{% trans "Mouvements encodés" %}</dt><dd>{{ nb_mouvements }}</dd>
+        </dl>
+    </div>
+
+    {% if nb_mouvements %}
+        <p class="mb-6 p-4 bg-red-50 border border-red-300 rounded text-sm">
+            {% trans "Ce compte contient des mouvements : il ne peut pas être supprimé. Désactivez-le dans « Modifier le compte »." %}
+        </p>
+        <a href="{% url 'compta:compte_journal' compte.pk %}" class="block w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Retour" %}</a>
+    {% else %}
+        <p class="mb-6">{% trans "Voulez-vous vraiment supprimer ce compte ? Cette action est irréversible." %}</p>
+        <form method="post" class="flex gap-4">
+            {% csrf_token %}
+            <button type="submit" class="w-full bg-red-700 text-white px-4 py-2 rounded hover:bg-red-400 font-semibold">{% trans "Supprimer" %}</button>
+            <a href="{% url 'compta:compte_journal' compte.pk %}" class="block w-full bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 font-semibold text-center">{% trans "Annuler" %}</a>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Comptabilité" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/comptabilite.png' %}" alt="" style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Comptabilité – trésorerie" %}
+</h1>
+
+{% include "partials/messages.html" %}
+
+<!-- Actions -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+    <a href="{% url 'compta:compte_ouvrir' %}?type=CAISSE"
+       class="block bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ouvrir une caisse" %}
+    </a>
+    <a href="{% url 'compta:compte_ouvrir' %}?type=BANQUE"
+       class="block bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ouvrir un compte bancaire" %}
+    </a>
+    <a href="{% url 'compta:virement_interne' %}"
+       class="block bg-green-700 text-white px-5 py-4 rounded hover:bg-green-500 font-semibold text-center">
+        {% trans "Virement interne (caisse ↔ banque)" %}
+    </a>
+</div>
+
+<!-- Totaux -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-yellow-500">
+        <p class="text-gray-500 text-sm">{% trans "Caisses (57)" %}</p>
+        <p class="text-2xl font-bold">{{ total_caisse|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-blue-600">
+        <p class="text-gray-500 text-sm">{% trans "Banques (55)" %}</p>
+        <p class="text-2xl font-bold">{{ total_banque|floatformat:2 }} €</p>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-5 border-l-4 border-green-600">
+        <p class="text-gray-500 text-sm">{% trans "Trésorerie totale" %} – {{ aujourdhui|date:"d/m/Y" }}</p>
+        <p class="text-2xl font-bold {% if total_tresorerie < 0 %}text-red-700{% else %}text-green-700{% endif %}">{{ total_tresorerie|floatformat:2 }} €</p>
+    </div>
+</div>
+
+<!-- Comptes -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-8">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Comptes de trésorerie" %}</h2>
+    {% if comptes %}
+    <div class="overflow-x-auto">
+        <table class="min-w-full table-auto border-collapse border border-gray-200">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-3 py-2 text-left">{% trans "Compte" %}</th>
+                    <th class="border px-3 py-2 text-left">{% trans "Type" %}</th>
+                    <th class="border px-3 py-2 text-left">{% trans "PCMN" %}</th>
+                    <th class="border px-3 py-2 text-left">{% trans "IBAN" %}</th>
+                    <th class="border px-3 py-2 text-left">{% trans "Ouverture" %}</th>
+                    <th class="border px-3 py-2 text-right">{% trans "Solde actuel" %}</th>
+                    <th class="border px-3 py-2 text-center">{% trans "Actions" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in comptes %}
+                <tr class="{% if not c.actif %}text-gray-400{% endif %}">
+                    <td class="border px-3 py-2 font-semibold">
+                        <a href="{% url 'compta:compte_journal' c.pk %}" class="text-blue-700 hover:underline">{{ c.nom }}</a>
+                        {% if c.par_defaut %}<span class="ml-1 px-2 py-0.5 rounded bg-blue-100 text-blue-800 text-xs">{% trans "par défaut" %}</span>{% endif %}
+                        {% if not c.actif %}<span class="ml-1 text-xs">({% trans "inactif" %})</span>{% endif %}
+                    </td>
+                    <td class="border px-3 py-2">{{ c.get_type_display }}</td>
+                    <td class="border px-3 py-2 font-mono">{{ c.compte_pcmn }}</td>
+                    <td class="border px-3 py-2 font-mono">{{ c.iban|default:"—" }}</td>
+                    <td class="border px-3 py-2">{{ c.date_ouverture|date:"d/m/Y" }} · {{ c.solde_ouverture|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-right font-bold {% if c.solde_actuel < 0 %}text-red-700{% endif %}">{{ c.solde_actuel|floatformat:2 }} €</td>
+                    <td class="border px-3 py-2 text-center whitespace-nowrap">
+                        <a href="{% url 'compta:mouvement_ajouter' c.pk %}?sens=ENTREE" class="bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700 text-sm">+ {% trans "Entrée" %}</a>
+                        <a href="{% url 'compta:mouvement_ajouter' c.pk %}?sens=SORTIE" class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 text-sm">− {% trans "Sortie" %}</a>
+                        <a href="{% url 'compta:compte_journal' c.pk %}" class="bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700 text-sm">{% trans "Journal" %}</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p class="text-gray-500">{% trans "Aucun compte. Commencez par ouvrir une caisse et un compte bancaire avec leur solde d'ouverture." %}</p>
+    {% endif %}
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <!-- Derniers mouvements -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Derniers mouvements encodés" %}</h2>
+        {% if derniers %}
+            <ul class="divide-y">
+                {% for m in derniers %}
+                <li class="py-2 flex justify-between items-center gap-3">
+                    <span>
+                        <span class="text-gray-500 text-sm">{{ m.date|date:"d/m/Y" }} · {{ m.compte.nom }}</span><br>
+                        {{ m.libelle }}
+                    </span>
+                    <span class="font-semibold whitespace-nowrap {% if m.sens == 'ENTREE' %}text-green-700{% else %}text-red-700{% endif %}">
+                        {% if m.sens == 'ENTREE' %}+{% else %}−{% endif %}{{ m.montant|floatformat:2 }} €
+                    </span>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-gray-500">{% trans "Aucun mouvement." %}</p>
+        {% endif %}
+    </div>
+
+    <!-- Autres modules comptables -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Autres journaux" %}</h2>
+        <div class="flex flex-col gap-3">
+            <a href="{% url 'facture:caisse_banque' %}" class="block bg-gray-100 px-4 py-3 rounded hover:bg-blue-50 font-semibold">
+                {% trans "Encaissements des factures (caisse / banque)" %}
+            </a>
+            <a href="{% url 'facture:tva' %}" class="block bg-gray-100 px-4 py-3 rounded hover:bg-blue-50 font-semibold">
+                {% trans "TVA" %}
+            </a>
+            <a href="{% url 'utilisateurs:paie_comptabilite' %}" class="block bg-gray-100 px-4 py-3 rounded hover:bg-blue-50 font-semibold">
+                {% trans "Comptabilité des salaires" %}
+            </a>
+        </div>
+        <p class="text-gray-500 text-xs mt-4">
+            {% trans "Les encaissements des factures et les salaires payés apparaissent automatiquement dans le journal du compte par défaut (caisse pour les espèces, banque pour les autres modes)." %}
+        </p>
+    </div>
+</div>
+
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+<br>
+{% endblock %}

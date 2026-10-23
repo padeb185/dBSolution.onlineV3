@@ -943,6 +943,22 @@
     </a>
     {% endif %}
 
+    <!-- Comptabilité – trésorerie -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/compta/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Comptabilité" %}
+            </h2>
+            <p class="text-gray-600 text-sm">
+                {% trans "Caisse, banque, soldes d'ouverture et journaux" %}
+            </p>
+        </div>
+        <img src="{% static 'icons/comptabilite.png' %}"
+             alt="{% trans 'Comptabilité' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
     <!-- Données financières des véhicules -->
     <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/voiture/exemplaires/finances/"
        class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -963,6 +979,60 @@
 {% endif %}
 
 <br>
+<br>
+
+<!-- ================================================== -->
+<!-- SECTION COMPTABILITÉ (rôle comptable) -->
+<!-- ================================================== -->
+
+{% if request.user.role == "comptable" %}
+
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
+    <img src="{% static 'icons/comptabilite.png' %}"
+         alt="{% trans 'Comptabilité' %}"
+         class="w-[60px] h-[60px] mr-4">
+    <h2 class="text-lg font-semibold">
+        {% trans "Comptabilité" %}
+    </h2>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+    <!-- Comptabilité – trésorerie -->
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/compta/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">
+                {% trans "Comptabilité" %}
+            </h2>
+            <p class="text-gray-600 text-sm">
+                {% trans "Caisse, banque, soldes d'ouverture et journaux" %}
+            </p>
+        </div>
+        <img src="{% static 'icons/comptabilite.png' %}"
+             alt="{% trans 'Comptabilité' %}"
+             class="w-[60px] h-[60px]">
+    </a>
+
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/facture/"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Facturation" %}</h2>
+            <p class="text-gray-600 text-sm">{% trans "Factures clients et professionnelles (XML)" %}</p>
+        </div>
+        {% include "facture/_icone.html" with classe="w-[60px] h-[60px]" %}
+    </a>
+
+    <a href="/tenant/{{ request.user.societe.schema_name }}/{{ LANGUAGE_CODE }}/utilisateurs/paie/"
+       class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-2">{% trans "Paies mensuelles" %}</h2>
+        </div>
+        <img src="{% static 'icons/equipe.png' %}" alt="{% trans 'Paies mensuelles' %}" class="w-[60px] h-[60px] mr-[10px]">
+    </a>
+</div>
+
+{% endif %}
+
 <br>
 
 <!-- ================================================== -->

@@ -1,0 +1,59 @@
+{% load i18n static %}
+{% comment %}Instructeur facturé à l'heure (prix TVAC, sans remise).{% endcomment %}
+<h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center gap-4">
+    <img src="{% static 'icons/mecanicien.png' %}" alt="{% trans 'Instructeur' %}" class="w-20 h-20">
+    {% trans "Instructeur" %}
+</h2>
+<p class="text-sm text-gray-500 mb-3">{% trans "Instructeur de pilotage facturé à l'heure. Le prix à l'heure est TVAC et s'ajoute au prix de la location (sans remise)." %}</p>
+
+{% include "voiture_location/_champ.html" with field=form.instructeur %}
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="bloc-instructeur-details">
+    <div>{% include "voiture_location/_champ.html" with field=form.instructeur_heures %}</div>
+    <div>{% include "voiture_location/_champ.html" with field=form.instructeur_prix_heure %}</div>
+</div>
+<div id="resume-instructeur" class="bg-gray-50 border rounded p-3 text-sm space-y-1 mb-4 hidden">
+    <div class="flex justify-between"><span>{% trans "Total instructeur TVAC" %}</span><strong id="total-instructeur">—</strong></div>
+    {% if location %}<div class="flex justify-between"><span>{% trans "Total location TVAC (véhicule + box + instructeur)" %}</span><strong id="total-location-instructeur">—</strong></div>{% endif %}
+</div>
+
+{{ prix_instructeurs|json_script:"prix-instructeurs" }}
+<script>
+(function () {
+    var select = document.getElementById('id_instructeur');
+    var heures = document.getElementById('id_instructeur_heures');
+    var prixHeure = document.getElementById('id_instructeur_prix_heure');
+    if (!select) return;
+    var form = select.closest('form');
+    var prixConnus = JSON.parse(document.getElementById('prix-instructeurs').textContent || '{}');
+    var fmt = function (v) { return v.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' €'; };
+    var num = function (v) { var x = parseFloat(String(v || '').replace(',', '.')); return isNaN(x) ? 0 : x; };
+
+    // Total TVAC de l'instructeur (utilisé aussi par les totaux de la création)
+    window.totalInstructeur = function () {
+        if (!select.value) return 0;
+        return Math.round(num(heures.value) * num(prixHeure.value) * 100) / 100;
+    };
+
+    function maj() {
+        var actif = !!select.value;
+        document.getElementById('bloc-instructeur-details').style.display = actif ? '' : 'none';
+        document.getElementById('resume-instructeur').classList.toggle('hidden', !actif);
+        var t = window.totalInstructeur();
+        document.getElementById('total-instructeur').textContent = fmt(t);
+        var tl = document.getElementById('total-location-instructeur'), prix = form.querySelector('[name="prix"]');
+        if (tl && prix) {
+            var boxes = window.totalBoxes ? window.totalBoxes() : 0;
+            tl.textContent = fmt(Math.round((num(prix.value) + boxes + t) * 100) / 100);
+        }
+    }
+
+    select.addEventListener('change', function () {
+        // Reprend le dernier prix à l'heure utilisé pour cet instructeur
+        if (select.value && prixConnus[select.value] && !prixHeure.value) prixHeure.value = prixConnus[select.value];
+        maj();
+    });
+    form.addEventListener('input', maj);
+    form.addEventListener('change', maj);
+    maj();
+})();
+</script>

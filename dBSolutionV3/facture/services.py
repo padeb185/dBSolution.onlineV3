@@ -464,6 +464,28 @@ def creer_facture_depuis_location(location, type_facture, user):
             unit_price=unitaire,
             vat_rate=location.taux_tva,
         )
+    # Instructeur : une ligne (heures × prix à l'heure TVAC → HTVA)
+    if location.total_instructeur_tvac:
+        heures = Decimal(str(location.instructeur_heures))
+        unitaire = location.instructeur_prix_heure_htva
+        description = location.libelle_instructeur
+        base = heures * unitaire
+        tva = (base * location.taux_tva / Decimal("100")).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        if (base + tva).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP) != location.total_instructeur_tvac:
+            heures, unitaire = Decimal("1"), location.total_instructeur_htva
+        FactureLine.objects.create(
+            facture=facture,
+            location=location,
+            ordre=len(location.boxes_liste) + 2,
+            type_ligne=FactureLine.TypeLigne.LOCATION,
+            description=description[:255],
+            reference="",
+            quantity=heures,
+            unit_cost=None,
+            marge=Decimal("0.00"),
+            unit_price=unitaire,
+            vat_rate=location.taux_tva,
+        )
     facture.recalculer_totaux()
     return facture
 

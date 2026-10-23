@@ -12,6 +12,9 @@ from societe_cliente.models import SocieteCliente
 # Rôles pouvant être indiqués comme vendeur d'une location
 ROLES_VENDEUR = ("vendeur", "direction", "chef_mecanicien")
 
+# Rôles pouvant être choisis comme instructeur
+ROLES_INSTRUCTEUR = ("instructeur", "instructeur externe")
+
 
 # préfixe -> (modèle, champ de Location)
 TYPES_CLIENT = {
@@ -44,6 +47,9 @@ class LocationForm(forms.ModelForm):
             "date_acompte",
             "payee",
             "remarques",
+            "instructeur",
+            "instructeur_heures",
+            "instructeur_prix_heure",
         )
         widgets = {
             "date_debut": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
@@ -54,6 +60,8 @@ class LocationForm(forms.ModelForm):
             "montant_acompte": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
             "date_acompte": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"),
             "remarques": forms.Textarea(attrs={"rows": 3}),
+            "instructeur_heures": forms.NumberInput(attrs={"step": "0.25", "min": "0"}),
+            "instructeur_prix_heure": forms.NumberInput(attrs={"step": "0.01", "min": "0"}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -125,6 +133,26 @@ class LocationForm(forms.ModelForm):
             self.fields["payee"].help_text = _("Disponible une fois la facture de la location émise.")
         else:
             self.fields["payee"].help_text = _("Facture %(numero)s") % {"numero": self.facture_emise.numero}
+
+        # Instructeur : utilisateurs actifs avec le rôle instructeur (interne ou externe)
+        instructeurs = Utilisateur.objects.filter(is_active=True, role__in=ROLES_INSTRUCTEUR)
+        if societe is not None:
+            instructeurs = instructeurs.filter(societe=societe)
+        if self.instance.instructeur_id:
+            instructeurs = instructeurs | Utilisateur.objects.filter(pk=self.instance.instructeur_id)
+        self.fields["instructeur"].queryset = instructeurs.distinct().order_by("nom", "prenom")
+        self.fields["instructeur"].required = False
+        self.fields["instructeur"].help_text = _("Facultatif : facturé en plus de la location, sans remise.")
+
+        # Dernier prix à l'heure utilisé pour chaque instructeur (pré-remplissage)
+        self.prix_instructeurs = {}
+        derniers = (
+            Location.objects.filter(instructeur__in=instructeurs, instructeur_prix_heure__isnull=False)
+            .order_by("instructeur_id", "-date_debut", "-created_at")
+            .values_list("instructeur_id", "instructeur_prix_heure")
+        )
+        for instructeur_id, prix_heure in derniers:
+            self.prix_instructeurs.setdefault(str(instructeur_id), str(prix_heure))
 
         # Le prix de location est saisi TVAC
         self.fields["prix"].label = _("Prix TVAC (€)")

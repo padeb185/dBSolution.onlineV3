@@ -52572,3 +52572,519 @@ msgstr "Δεν μπορείτε να απενεργοποιήσετε τον δ�
 #: utilisateurs/views_tenants.py
 msgid "jusqu'au"
 msgstr "έως"
+
+#: compta/views.py
+msgid ""
+"570000 pour la caisse, 550000 pour la banque (ou un sous-compte : 550100…)."
+msgstr ""
+"570000 για το ταμείο, 550000 για την τράπεζα (ή υπολογαριασμός: 550100…)."
+
+#: compta/views.py
+msgid "Achats de marchandises"
+msgstr "Αγορές εμπορευμάτων"
+
+#: compta/views.py
+msgid ""
+"Aucun compte. Commencez par ouvrir une caisse et un compte bancaire avec leur"
+" solde d'ouverture."
+msgstr ""
+"Δεν υπάρχουν λογαριασμοί. Ανοίξτε πρώτα ένα ταμείο και έναν τραπεζικό "
+"λογαριασμό με το υπόλοιπο έναρξης."
+
+#: compta/views.py
+msgid "Aucun mouvement pour cette période."
+msgstr "Καμία κίνηση για αυτή την περίοδο."
+
+#: compta/views.py
+msgid "Aucun mouvement."
+msgstr "Καμία κίνηση."
+
+#: compta/views.py
+msgid "Autres charges d'exploitation"
+msgstr "Λοιπά λειτουργικά έξοδα"
+
+#: compta/views.py
+msgid "Autres journaux"
+msgstr "Άλλα ημερολόγια"
+
+#: compta/views.py
+msgid "BIC"
+msgstr "BIC"
+
+#: compta/views.py
+msgid "Banques (55)"
+msgstr "Τράπεζες (55)"
+
+#: compta/views.py
+msgid ""
+"C'est un virement interne : le mouvement correspondant sur l'autre compte "
+"sera aussi supprimé."
+msgstr ""
+"Πρόκειται για εσωτερική μεταφορά: η αντίστοιχη κίνηση στον άλλο λογαριασμό θα"
+" διαγραφεί επίσης."
+
+#: compta/views.py
+msgid "Caisse"
+msgstr "Ταμείο"
+
+#: compta/views.py
+msgid "Caisse, banque, soldes d'ouverture et journaux"
+msgstr "Ταμείο, τράπεζα, υπόλοιπα έναρξης και ημερολόγια"
+
+#: compta/views.py
+msgid "Caisses (57)"
+msgstr "Ταμεία (57)"
+
+#: compta/views.py
+msgid "Capital"
+msgstr "Κεφάλαιο"
+
+#: compta/views.py
+msgid ""
+"Ce compte contient des mouvements : désactivez-le plutôt que de le supprimer."
+msgstr ""
+"Ο λογαριασμός έχει κινήσεις: απενεργοποιήστε τον αντί να τον διαγράψετε."
+
+#: compta/views.py
+msgid ""
+"Ce compte contient des mouvements : il ne peut pas être supprimé. Désactivez-"
+"le dans « Modifier le compte »."
+msgstr ""
+"Ο λογαριασμός έχει κινήσεις: δεν μπορεί να διαγραφεί. Απενεργοποιήστε τον "
+"στην «Επεξεργασία λογαριασμού»."
+
+#: compta/views.py
+msgid "Charges financières"
+msgstr "Χρηματοοικονομικά έξοδα"
+
+#: compta/views.py
+msgid "Chiffre d'affaires – ventes"
+msgstr "Κύκλος εργασιών – πωλήσεις"
+
+#: compta/views.py
+msgid "Choisissez deux comptes différents."
+msgstr "Επιλέξτε δύο διαφορετικούς λογαριασμούς."
+
+#: compta/views.py
+msgid "Comptabilité"
+msgstr "Λογιστική"
+
+#: compta/views.py
+msgid "Comptabilité – trésorerie"
+msgstr "Λογιστική – ταμειακά διαθέσιμα"
+
+#: compta/views.py
+msgid "Compte comptable (PCMN)"
+msgstr "Λογιστικός λογαριασμός (βελγικό σχέδιο)"
+
+#: compta/views.py
+msgid ""
+"Compte crédité par l'écriture d'ouverture (499000 compte d'attente, 100000 "
+"capital…)."
+msgstr ""
+"Λογαριασμός που πιστώνεται με την εγγραφή έναρξης (499000 μεταβατικός, 100000"
+" κεφάλαιο…)."
+
+#: compta/views.py
+msgid "Compte d'attente"
+msgstr "Μεταβατικός λογαριασμός"
+
+#: compta/views.py
+msgid "Compte de contrepartie (PCMN)"
+msgstr "Αντίθετος λογαριασμός (βελγικό σχέδιο)"
+
+#: compta/views.py
+msgid "Compte de trésorerie"
+msgstr "Λογαριασμός διαθεσίμων"
+
+#: compta/views.py
+msgid "Compte par défaut"
+msgstr "Προεπιλεγμένος λογαριασμός"
+
+#: compta/views.py
+msgid "Comptes de trésorerie"
+msgstr "Λογαριασμοί διαθεσίμων"
+
+#: compta/views.py
+msgid "Contrepartie"
+msgstr "Αντίθετος λογαριασμός"
+
+#: compta/views.py
+msgid "Contrepartie de l'ouverture (PCMN)"
+msgstr "Αντίθετος λογαριασμός έναρξης (βελγικό σχέδιο)"
+
+#: compta/views.py
+msgid "Date d'ouverture"
+msgstr "Ημερομηνία έναρξης"
+
+#: compta/views.py
+msgid "Depuis le compte"
+msgstr "Από τον λογαριασμό"
+
+#: compta/views.py
+msgid "Derniers mouvements encodés"
+msgstr "Τελευταίες καταχωρισμένες κινήσεις"
+
+#: compta/views.py
+msgid ""
+"Dépôt de la caisse en banque, retrait d'espèces, transfert entre deux comptes"
+" bancaires (compte 580000 – virements internes)."
+msgstr ""
+"Κατάθεση ταμείου στην τράπεζα, ανάληψη μετρητών, μεταφορά μεταξύ δύο "
+"τραπεζικών λογαριασμών (λογαριασμός 580000 – εσωτερικές μεταφορές)."
+
+#: compta/views.py
+msgid "Encaissement facture"
+msgstr "Είσπραξη τιμολογίου"
+
+#: compta/views.py
+msgid "Encaissements des factures (caisse / banque)"
+msgstr "Εισπράξεις τιμολογίων (ταμείο / τράπεζα)"
+
+#: compta/views.py
+msgid "Enregistrer et encoder un autre mouvement"
+msgstr "Αποθήκευση και καταχώριση άλλης κίνησης"
+
+#: compta/views.py
+msgid "Enregistrer le virement"
+msgstr "Αποθήκευση μεταφοράς"
+
+#: compta/views.py
+msgid "Entrée"
+msgstr "Είσπραξη"
+
+#: compta/views.py
+msgid "Entrée (recette)"
+msgstr "Είσπραξη (έσοδο)"
+
+#: compta/views.py
+msgid ""
+"Ex. : 440000 fournisseurs, 610000 services et biens divers, 700000 ventes…"
+msgstr ""
+"Π.χ. 440000 προμηθευτές, 610000 υπηρεσίες και διάφορα αγαθά, 700000 πωλήσεις…"
+
+#: compta/views.py
+msgid "Ex. : Caisse atelier, KBC compte courant…"
+msgstr "Π.χ. Ταμείο συνεργείου, τρεχούμενος λογαριασμός KBC…"
+
+#: compta/views.py
+msgid "Ex. : dépôt de la caisse en banque, retrait au distributeur…"
+msgstr "Π.χ. κατάθεση ταμείου στην τράπεζα, ανάληψη από ΑΤΜ…"
+
+#: compta/views.py
+msgid "Exporter (CSV)"
+msgstr "Εξαγωγή (CSV)"
+
+#: compta/views.py
+msgid ""
+"L'ouverture enregistre le montant présent dans la caisse ou sur le compte "
+"bancaire à la date choisie. Les mouvements sont ensuite encodés à partir de "
+"cette date."
+msgstr ""
+"Η έναρξη καταγράφει το ποσό που υπάρχει στο ταμείο ή στον τραπεζικό "
+"λογαριασμό κατά την επιλεγμένη ημερομηνία. Οι κινήσεις καταχωρίζονται έπειτα "
+"από αυτή την ημερομηνία."
+
+#: compta/views.py
+msgid "La date est antérieure à l'ouverture du compte %(compte)s."
+msgstr "Η ημερομηνία είναι πριν από το άνοιγμα του λογαριασμού %(compte)s."
+
+#: compta/views.py
+msgid "La date est antérieure à l'ouverture du compte (%(date)s)."
+msgstr "Η ημερομηνία είναι πριν από το άνοιγμα του λογαριασμού (%(date)s)."
+
+#: compta/views.py
+msgid "Le compte a été mis à jour."
+msgstr "Ο λογαριασμός ενημερώθηκε."
+
+#: compta/views.py
+msgid "Le compte a été supprimé."
+msgstr "Ο λογαριασμός διαγράφηκε."
+
+#: compta/views.py
+msgid "Le compte comptable ne contient que des chiffres."
+msgstr "Ο λογιστικός λογαριασμός περιέχει μόνο ψηφία."
+
+#: compta/views.py
+msgid "Le compte « %(nom)s » est ouvert avec un solde de %(solde)s €."
+msgstr "Ο λογαριασμός «%(nom)s» άνοιξε με υπόλοιπο %(solde)s €."
+
+#: compta/views.py
+msgid ""
+"Les encaissements des factures et les salaires payés apparaissent "
+"automatiquement dans le journal du compte par défaut (caisse pour les "
+"espèces, banque pour les autres modes)."
+msgstr ""
+"Οι εισπράξεις τιμολογίων και οι πληρωμένοι μισθοί εμφανίζονται αυτόματα στο "
+"ημερολόγιο του προεπιλεγμένου λογαριασμού (ταμείο για μετρητά, τράπεζα για "
+"τους άλλους τρόπους)."
+
+#: compta/views.py
+msgid "Modifier le compte"
+msgstr "Επεξεργασία λογαριασμού"
+
+#: compta/views.py
+msgid "Modifier le mouvement"
+msgstr "Επεξεργασία κίνησης"
+
+#: compta/views.py
+msgid "Montant présent dans la caisse / sur le compte à la date d'ouverture."
+msgstr "Ποσό στο ταμείο / στον λογαριασμό κατά την ημερομηνία έναρξης."
+
+#: compta/views.py
+msgid "Mouvement de trésorerie"
+msgstr "Ταμειακή κίνηση"
+
+#: compta/views.py
+msgid "Mouvement enregistré."
+msgstr "Η κίνηση αποθηκεύτηκε."
+
+#: compta/views.py
+msgid "Mouvement mis à jour."
+msgstr "Η κίνηση ενημερώθηκε."
+
+#: compta/views.py
+msgid "Mouvement supprimé."
+msgstr "Η κίνηση διαγράφηκε."
+
+#: compta/views.py
+msgid "Mouvements de trésorerie"
+msgstr "Ταμειακές κινήσεις"
+
+#: compta/views.py
+msgid "Mouvements encodés"
+msgstr "Καταχωρισμένες κινήσεις"
+
+#: compta/views.py
+msgid "Nom du compte"
+msgstr "Όνομα λογαριασμού"
+
+#: compta/views.py
+msgid "Nouveau mouvement"
+msgstr "Νέα κίνηση"
+
+#: compta/views.py
+msgid "Ouverture"
+msgstr "Έναρξη"
+
+#: compta/views.py
+msgid "Ouvrir le compte"
+msgstr "Άνοιγμα λογαριασμού"
+
+#: compta/views.py
+msgid "Ouvrir un compte bancaire"
+msgstr "Άνοιγμα τραπεζικού λογαριασμού"
+
+#: compta/views.py
+msgid "Ouvrir un compte de trésorerie"
+msgstr "Άνοιγμα λογαριασμού διαθεσίμων"
+
+#: compta/views.py
+msgid "Ouvrir une caisse"
+msgstr "Άνοιγμα ταμείου"
+
+#: compta/views.py
+msgid "PCMN"
+msgstr "Λογιστικό σχέδιο"
+
+#: compta/views.py
+msgid "Pièce / référence"
+msgstr "Παραστατικό / αναφορά"
+
+#: compta/views.py
+msgid "Produits financiers"
+msgstr "Χρηματοοικονομικά έσοδα"
+
+#: compta/views.py
+msgid "Report"
+msgstr "Μεταφορά"
+
+#: compta/views.py
+msgid "Report (début de période)"
+msgstr "Μεταφορά (αρχή περιόδου)"
+
+#: compta/views.py
+msgid "Retour à la comptabilité"
+msgstr "Επιστροφή στη λογιστική"
+
+#: compta/views.py
+msgid ""
+"Reçoit automatiquement les encaissements des factures (espèces pour une "
+"caisse, autres modes pour une banque) et les salaires payés (banque)."
+msgstr ""
+"Λαμβάνει αυτόματα τις εισπράξεις τιμολογίων (μετρητά για ταμείο, άλλοι τρόποι"
+" για τράπεζα) και τους πληρωμένους μισθούς (τράπεζα)."
+
+#: compta/views.py
+msgid "Salaire net"
+msgstr "Καθαρός μισθός"
+
+#: compta/views.py
+msgid "Sens"
+msgstr "Κατεύθυνση"
+
+#: compta/views.py
+msgid "Services et biens divers"
+msgstr "Υπηρεσίες και διάφορα αγαθά"
+
+#: compta/views.py
+msgid "Solde actuel"
+msgstr "Τρέχον υπόλοιπο"
+
+#: compta/views.py
+msgid "Solde d'ouverture"
+msgstr "Υπόλοιπο έναρξης"
+
+#: compta/views.py
+msgid "Solde de caisse insuffisant (%(solde)s € disponibles)."
+msgstr "Ανεπαρκές υπόλοιπο ταμείου (%(solde)s € διαθέσιμα)."
+
+#: compta/views.py
+msgid "Solde fin de période"
+msgstr "Υπόλοιπο τέλους περιόδου"
+
+#: compta/views.py
+msgid "Sortie (dépense)"
+msgstr "Πληρωμή (δαπάνη)"
+
+#: compta/views.py
+msgid "Sorties"
+msgstr "Πληρωμές"
+
+#: compta/views.py
+msgid "Supprimer le compte"
+msgstr "Διαγραφή λογαριασμού"
+
+#: compta/views.py
+msgid "Supprimer le compte de trésorerie"
+msgstr "Διαγραφή λογαριασμού διαθεσίμων"
+
+#: compta/views.py
+msgid "Supprimer le mouvement"
+msgstr "Διαγραφή κίνησης"
+
+#: compta/views.py
+msgid "Total de la période"
+msgstr "Σύνολο περιόδου"
+
+#: compta/views.py
+msgid "Trésorerie totale"
+msgstr "Συνολικά διαθέσιμα"
+
+#: compta/views.py
+msgid "Un compte bancaire commence par 55 (PCMN)."
+msgstr "Ο τραπεζικός λογαριασμός ξεκινά με 55 (βελγικό σχέδιο)."
+
+#: compta/views.py
+msgid "Un compte de caisse commence par 57 (PCMN)."
+msgstr "Ο λογαριασμός ταμείου ξεκινά με 57 (βελγικό σχέδιο)."
+
+#: compta/views.py
+msgid "Un virement interne ne se modifie pas : supprimez-le puis recréez-le."
+msgstr ""
+"Μια εσωτερική μεταφορά δεν τροποποιείται: διαγράψτε την και δημιουργήστε την "
+"ξανά."
+
+#: compta/views.py
+msgid "Une caisse ne peut pas avoir un solde négatif."
+msgstr "Ένα ταμείο δεν μπορεί να έχει αρνητικό υπόλοιπο."
+
+#: compta/views.py
+msgid "Vers le compte"
+msgstr "Προς τον λογαριασμό"
+
+#: compta/views.py
+msgid "Virement interne"
+msgstr "Εσωτερική μεταφορά"
+
+#: compta/views.py
+msgid "Virement interne %(src)s → %(dst)s"
+msgstr "Εσωτερική μεταφορά %(src)s → %(dst)s"
+
+#: compta/views.py
+msgid "Virement interne (caisse ↔ banque)"
+msgstr "Εσωτερική μεταφορά (ταμείο ↔ τράπεζα)"
+
+#: compta/views.py
+msgid "Virement interne de %(montant)s € enregistré."
+msgstr "Η εσωτερική μεταφορά %(montant)s € αποθηκεύτηκε."
+
+#: compta/views.py
+msgid "Virements internes"
+msgstr "Εσωτερικές μεταφορές"
+
+#: compta/views.py
+msgid ""
+"Voulez-vous vraiment supprimer ce compte ? Cette action est irréversible."
+msgstr ""
+"Θέλετε σίγουρα να διαγράψετε αυτόν τον λογαριασμό; Η ενέργεια δεν αναιρείται."
+
+#: compta/views.py
+msgid ""
+"Voulez-vous vraiment supprimer ce mouvement ? Cette action est irréversible."
+msgstr ""
+"Θέλετε σίγουρα να διαγράψετε αυτή την κίνηση; Η ενέργεια δεν αναιρείται."
+
+#: compta/views.py
+msgid "facture"
+msgstr "τιμολόγιο"
+
+#: compta/views.py
+msgid "inactif"
+msgstr "ανενεργός"
+
+#: compta/views.py
+msgid "ouvert le"
+msgstr "άνοιξε στις"
+
+#: compta/views.py
+msgid "par défaut"
+msgstr "προεπιλογή"
+
+#: compta/views.py
+msgid "salaire"
+msgstr "μισθός"
+
+#: compta/views.py
+msgid "virement interne"
+msgstr "εσωτερική μεταφορά"
+
+#: voiture/voiture_location/models.py
+msgid "Nombre d'heures d'instruction"
+msgstr "Αριθμός ωρών εκπαίδευσης"
+
+#: voiture/voiture_location/models.py
+msgid "Prix de l'instructeur à l'heure TVAC (€)"
+msgstr "Ωριαία τιμή εκπαιδευτή με ΦΠΑ (€)"
+
+#: voiture/voiture_location/models.py
+msgid "Instructeur %(nom)s – %(heures)s h × %(prix)s € TVAC"
+msgstr "Εκπαιδευτής %(nom)s – %(heures)s ώρ. × %(prix)s € με ΦΠΑ"
+
+#: voiture/voiture_location/models.py
+msgid "Indiquez le nombre d'heures de l'instructeur."
+msgstr "Συμπληρώστε τον αριθμό ωρών του εκπαιδευτή."
+
+#: voiture/voiture_location/models.py
+msgid "Indiquez le prix de l'instructeur à l'heure."
+msgstr "Συμπληρώστε την ωριαία τιμή του εκπαιδευτή."
+
+#: voiture/voiture_location/models.py
+msgid "Facultatif : facturé en plus de la location, sans remise."
+msgstr "Προαιρετικό: τιμολογείται επιπλέον της ενοικίασης, χωρίς έκπτωση."
+
+#: voiture/voiture_location/models.py
+msgid ""
+"Instructeur de pilotage facturé à l'heure. Le prix à l'heure est TVAC et "
+"s'ajoute au prix de la location (sans remise)."
+msgstr ""
+"Εκπαιδευτής οδήγησης με χρέωση ανά ώρα. Η ωριαία τιμή περιλαμβάνει ΦΠΑ και "
+"προστίθεται στην τιμή ενοικίασης (χωρίς έκπτωση)."
+
+#: voiture/voiture_location/models.py
+msgid "Total instructeur TVAC"
+msgstr "Σύνολο εκπαιδευτή με ΦΠΑ"
+
+#: voiture/voiture_location/models.py
+msgid "Total location TVAC (véhicule + box + instructeur)"
+msgstr "Σύνολο ενοικίασης με ΦΠΑ (όχημα + box + εκπαιδευτής)"

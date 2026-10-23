@@ -156,6 +156,7 @@ def location_ajouter(request):
         "champs_vehicule": CHAMPS_VEHICULE,
         "remise": remise_brute if request.method == "POST" else "0",
         "boxes_fs": boxes_fs,
+        "prix_instructeurs": form.prix_instructeurs,
     })
 
 
@@ -211,6 +212,7 @@ def location_modifier(request, location_id):
     return render(request, "voiture_location/location_form.html", {
         "form": form, "location": location, "taux_tva": location.taux_tva,
         "boxes_fs": boxes_fs,
+        "prix_instructeurs": form.prix_instructeurs,
     })
 
 

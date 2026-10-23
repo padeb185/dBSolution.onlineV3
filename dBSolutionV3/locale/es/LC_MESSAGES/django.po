@@ -52503,3 +52503,515 @@ msgstr "No puede desactivar su propia cuenta."
 #: utilisateurs/views_tenants.py
 msgid "jusqu'au"
 msgstr "hasta el"
+
+#: compta/views.py
+msgid ""
+"570000 pour la caisse, 550000 pour la banque (ou un sous-compte : 550100…)."
+msgstr "570000 para la caja, 550000 para el banco (o una subcuenta: 550100…)."
+
+#: compta/views.py
+msgid "Achats de marchandises"
+msgstr "Compras de mercaderías"
+
+#: compta/views.py
+msgid ""
+"Aucun compte. Commencez par ouvrir une caisse et un compte bancaire avec leur"
+" solde d'ouverture."
+msgstr ""
+"No hay cuentas. Empiece abriendo una caja y una cuenta bancaria con su saldo "
+"de apertura."
+
+#: compta/views.py
+msgid "Aucun mouvement pour cette période."
+msgstr "Ningún movimiento en este periodo."
+
+#: compta/views.py
+msgid "Aucun mouvement."
+msgstr "Ningún movimiento."
+
+#: compta/views.py
+msgid "Autres charges d'exploitation"
+msgstr "Otros gastos de explotación"
+
+#: compta/views.py
+msgid "Autres journaux"
+msgstr "Otros diarios"
+
+#: compta/views.py
+msgid "BIC"
+msgstr "BIC"
+
+#: compta/views.py
+msgid "Banques (55)"
+msgstr "Bancos (55)"
+
+#: compta/views.py
+msgid ""
+"C'est un virement interne : le mouvement correspondant sur l'autre compte "
+"sera aussi supprimé."
+msgstr ""
+"Es una transferencia interna: también se eliminará el movimiento "
+"correspondiente de la otra cuenta."
+
+#: compta/views.py
+msgid "Caisse"
+msgstr "Caja"
+
+#: compta/views.py
+msgid "Caisse, banque, soldes d'ouverture et journaux"
+msgstr "Caja, banco, saldos de apertura y diarios"
+
+#: compta/views.py
+msgid "Caisses (57)"
+msgstr "Cajas (57)"
+
+#: compta/views.py
+msgid "Capital"
+msgstr "Capital"
+
+#: compta/views.py
+msgid ""
+"Ce compte contient des mouvements : désactivez-le plutôt que de le supprimer."
+msgstr "Esta cuenta tiene movimientos: desactívela en lugar de eliminarla."
+
+#: compta/views.py
+msgid ""
+"Ce compte contient des mouvements : il ne peut pas être supprimé. Désactivez-"
+"le dans « Modifier le compte »."
+msgstr ""
+"Esta cuenta tiene movimientos: no se puede eliminar. Desactívela en "
+"«Modificar la cuenta»."
+
+#: compta/views.py
+msgid "Charges financières"
+msgstr "Gastos financieros"
+
+#: compta/views.py
+msgid "Chiffre d'affaires – ventes"
+msgstr "Cifra de negocios – ventas"
+
+#: compta/views.py
+msgid "Choisissez deux comptes différents."
+msgstr "Elija dos cuentas diferentes."
+
+#: compta/views.py
+msgid "Comptabilité"
+msgstr "Contabilidad"
+
+#: compta/views.py
+msgid "Comptabilité – trésorerie"
+msgstr "Contabilidad – tesorería"
+
+#: compta/views.py
+msgid "Compte comptable (PCMN)"
+msgstr "Cuenta contable (plan belga)"
+
+#: compta/views.py
+msgid ""
+"Compte crédité par l'écriture d'ouverture (499000 compte d'attente, 100000 "
+"capital…)."
+msgstr ""
+"Cuenta abonada por el asiento de apertura (499000 cuenta transitoria, 100000 "
+"capital…)."
+
+#: compta/views.py
+msgid "Compte d'attente"
+msgstr "Cuenta transitoria"
+
+#: compta/views.py
+msgid "Compte de contrepartie (PCMN)"
+msgstr "Cuenta de contrapartida (plan belga)"
+
+#: compta/views.py
+msgid "Compte de trésorerie"
+msgstr "Cuenta de tesorería"
+
+#: compta/views.py
+msgid "Compte par défaut"
+msgstr "Cuenta predeterminada"
+
+#: compta/views.py
+msgid "Comptes de trésorerie"
+msgstr "Cuentas de tesorería"
+
+#: compta/views.py
+msgid "Contrepartie"
+msgstr "Contrapartida"
+
+#: compta/views.py
+msgid "Contrepartie de l'ouverture (PCMN)"
+msgstr "Contrapartida de la apertura (plan belga)"
+
+#: compta/views.py
+msgid "Date d'ouverture"
+msgstr "Fecha de apertura"
+
+#: compta/views.py
+msgid "Depuis le compte"
+msgstr "Desde la cuenta"
+
+#: compta/views.py
+msgid "Derniers mouvements encodés"
+msgstr "Últimos movimientos registrados"
+
+#: compta/views.py
+msgid ""
+"Dépôt de la caisse en banque, retrait d'espèces, transfert entre deux comptes"
+" bancaires (compte 580000 – virements internes)."
+msgstr ""
+"Ingreso de la caja en el banco, retirada de efectivo, transferencia entre dos"
+" cuentas bancarias (cuenta 580000 – transferencias internas)."
+
+#: compta/views.py
+msgid "Encaissement facture"
+msgstr "Cobro de factura"
+
+#: compta/views.py
+msgid "Encaissements des factures (caisse / banque)"
+msgstr "Cobros de facturas (caja / banco)"
+
+#: compta/views.py
+msgid "Enregistrer et encoder un autre mouvement"
+msgstr "Guardar y registrar otro movimiento"
+
+#: compta/views.py
+msgid "Enregistrer le virement"
+msgstr "Guardar la transferencia"
+
+#: compta/views.py
+msgid "Entrée"
+msgstr "Entrada"
+
+#: compta/views.py
+msgid "Entrée (recette)"
+msgstr "Entrada (ingreso)"
+
+#: compta/views.py
+msgid ""
+"Ex. : 440000 fournisseurs, 610000 services et biens divers, 700000 ventes…"
+msgstr ""
+"P. ej. 440000 proveedores, 610000 servicios y bienes diversos, 700000 ventas…"
+
+#: compta/views.py
+msgid "Ex. : Caisse atelier, KBC compte courant…"
+msgstr "P. ej. Caja del taller, cuenta corriente KBC…"
+
+#: compta/views.py
+msgid "Ex. : dépôt de la caisse en banque, retrait au distributeur…"
+msgstr "P. ej. ingreso de la caja en el banco, retirada en el cajero…"
+
+#: compta/views.py
+msgid "Exporter (CSV)"
+msgstr "Exportar (CSV)"
+
+#: compta/views.py
+msgid ""
+"L'ouverture enregistre le montant présent dans la caisse ou sur le compte "
+"bancaire à la date choisie. Les mouvements sont ensuite encodés à partir de "
+"cette date."
+msgstr ""
+"La apertura registra el importe disponible en la caja o en la cuenta bancaria"
+" en la fecha elegida. Después, los movimientos se registran a partir de esa "
+"fecha."
+
+#: compta/views.py
+msgid "La date est antérieure à l'ouverture du compte %(compte)s."
+msgstr "La fecha es anterior a la apertura de la cuenta %(compte)s."
+
+#: compta/views.py
+msgid "La date est antérieure à l'ouverture du compte (%(date)s)."
+msgstr "La fecha es anterior a la apertura de la cuenta (%(date)s)."
+
+#: compta/views.py
+msgid "Le compte a été mis à jour."
+msgstr "La cuenta se ha actualizado."
+
+#: compta/views.py
+msgid "Le compte a été supprimé."
+msgstr "La cuenta se ha eliminado."
+
+#: compta/views.py
+msgid "Le compte comptable ne contient que des chiffres."
+msgstr "La cuenta contable solo contiene cifras."
+
+#: compta/views.py
+msgid "Le compte « %(nom)s » est ouvert avec un solde de %(solde)s €."
+msgstr "La cuenta «%(nom)s» se ha abierto con un saldo de %(solde)s €."
+
+#: compta/views.py
+msgid ""
+"Les encaissements des factures et les salaires payés apparaissent "
+"automatiquement dans le journal du compte par défaut (caisse pour les "
+"espèces, banque pour les autres modes)."
+msgstr ""
+"Los cobros de facturas y los salarios pagados aparecen automáticamente en el "
+"diario de la cuenta predeterminada (caja para el efectivo, banco para los "
+"demás medios)."
+
+#: compta/views.py
+msgid "Modifier le compte"
+msgstr "Modificar la cuenta"
+
+#: compta/views.py
+msgid "Modifier le mouvement"
+msgstr "Modificar el movimiento"
+
+#: compta/views.py
+msgid "Montant présent dans la caisse / sur le compte à la date d'ouverture."
+msgstr "Importe en la caja / en la cuenta en la fecha de apertura."
+
+#: compta/views.py
+msgid "Mouvement de trésorerie"
+msgstr "Movimiento de tesorería"
+
+#: compta/views.py
+msgid "Mouvement enregistré."
+msgstr "Movimiento guardado."
+
+#: compta/views.py
+msgid "Mouvement mis à jour."
+msgstr "Movimiento actualizado."
+
+#: compta/views.py
+msgid "Mouvement supprimé."
+msgstr "Movimiento eliminado."
+
+#: compta/views.py
+msgid "Mouvements de trésorerie"
+msgstr "Movimientos de tesorería"
+
+#: compta/views.py
+msgid "Mouvements encodés"
+msgstr "Movimientos registrados"
+
+#: compta/views.py
+msgid "Nom du compte"
+msgstr "Nombre de la cuenta"
+
+#: compta/views.py
+msgid "Nouveau mouvement"
+msgstr "Nuevo movimiento"
+
+#: compta/views.py
+msgid "Ouverture"
+msgstr "Apertura"
+
+#: compta/views.py
+msgid "Ouvrir le compte"
+msgstr "Abrir la cuenta"
+
+#: compta/views.py
+msgid "Ouvrir un compte bancaire"
+msgstr "Abrir una cuenta bancaria"
+
+#: compta/views.py
+msgid "Ouvrir un compte de trésorerie"
+msgstr "Abrir una cuenta de tesorería"
+
+#: compta/views.py
+msgid "Ouvrir une caisse"
+msgstr "Abrir una caja"
+
+#: compta/views.py
+msgid "PCMN"
+msgstr "Plan contable"
+
+#: compta/views.py
+msgid "Pièce / référence"
+msgstr "Documento / referencia"
+
+#: compta/views.py
+msgid "Produits financiers"
+msgstr "Ingresos financieros"
+
+#: compta/views.py
+msgid "Report"
+msgstr "Saldo anterior"
+
+#: compta/views.py
+msgid "Report (début de période)"
+msgstr "Saldo anterior (inicio del periodo)"
+
+#: compta/views.py
+msgid "Retour à la comptabilité"
+msgstr "Volver a la contabilidad"
+
+#: compta/views.py
+msgid ""
+"Reçoit automatiquement les encaissements des factures (espèces pour une "
+"caisse, autres modes pour une banque) et les salaires payés (banque)."
+msgstr ""
+"Recibe automáticamente los cobros de facturas (efectivo para una caja, otros "
+"medios para un banco) y los salarios pagados (banco)."
+
+#: compta/views.py
+msgid "Salaire net"
+msgstr "Salario neto"
+
+#: compta/views.py
+msgid "Sens"
+msgstr "Sentido"
+
+#: compta/views.py
+msgid "Services et biens divers"
+msgstr "Servicios y bienes diversos"
+
+#: compta/views.py
+msgid "Solde actuel"
+msgstr "Saldo actual"
+
+#: compta/views.py
+msgid "Solde d'ouverture"
+msgstr "Saldo de apertura"
+
+#: compta/views.py
+msgid "Solde de caisse insuffisant (%(solde)s € disponibles)."
+msgstr "Saldo de caja insuficiente (%(solde)s € disponibles)."
+
+#: compta/views.py
+msgid "Solde fin de période"
+msgstr "Saldo al final del periodo"
+
+#: compta/views.py
+msgid "Sortie (dépense)"
+msgstr "Salida (gasto)"
+
+#: compta/views.py
+msgid "Sorties"
+msgstr "Salidas"
+
+#: compta/views.py
+msgid "Supprimer le compte"
+msgstr "Eliminar la cuenta"
+
+#: compta/views.py
+msgid "Supprimer le compte de trésorerie"
+msgstr "Eliminar la cuenta de tesorería"
+
+#: compta/views.py
+msgid "Supprimer le mouvement"
+msgstr "Eliminar el movimiento"
+
+#: compta/views.py
+msgid "Total de la période"
+msgstr "Total del periodo"
+
+#: compta/views.py
+msgid "Trésorerie totale"
+msgstr "Tesorería total"
+
+#: compta/views.py
+msgid "Un compte bancaire commence par 55 (PCMN)."
+msgstr "Una cuenta bancaria empieza por 55 (plan belga)."
+
+#: compta/views.py
+msgid "Un compte de caisse commence par 57 (PCMN)."
+msgstr "Una cuenta de caja empieza por 57 (plan belga)."
+
+#: compta/views.py
+msgid "Un virement interne ne se modifie pas : supprimez-le puis recréez-le."
+msgstr ""
+"Una transferencia interna no se modifica: elimínela y vuelva a crearla."
+
+#: compta/views.py
+msgid "Une caisse ne peut pas avoir un solde négatif."
+msgstr "Una caja no puede tener un saldo negativo."
+
+#: compta/views.py
+msgid "Vers le compte"
+msgstr "Hacia la cuenta"
+
+#: compta/views.py
+msgid "Virement interne"
+msgstr "Transferencia interna"
+
+#: compta/views.py
+msgid "Virement interne %(src)s → %(dst)s"
+msgstr "Transferencia interna %(src)s → %(dst)s"
+
+#: compta/views.py
+msgid "Virement interne (caisse ↔ banque)"
+msgstr "Transferencia interna (caja ↔ banco)"
+
+#: compta/views.py
+msgid "Virement interne de %(montant)s € enregistré."
+msgstr "Transferencia interna de %(montant)s € guardada."
+
+#: compta/views.py
+msgid "Virements internes"
+msgstr "Transferencias internas"
+
+#: compta/views.py
+msgid ""
+"Voulez-vous vraiment supprimer ce compte ? Cette action est irréversible."
+msgstr "¿Seguro que desea eliminar esta cuenta? Esta acción es irreversible."
+
+#: compta/views.py
+msgid ""
+"Voulez-vous vraiment supprimer ce mouvement ? Cette action est irréversible."
+msgstr ""
+"¿Seguro que desea eliminar este movimiento? Esta acción es irreversible."
+
+#: compta/views.py
+msgid "facture"
+msgstr "factura"
+
+#: compta/views.py
+msgid "inactif"
+msgstr "inactiva"
+
+#: compta/views.py
+msgid "ouvert le"
+msgstr "abierta el"
+
+#: compta/views.py
+msgid "par défaut"
+msgstr "predeterminada"
+
+#: compta/views.py
+msgid "salaire"
+msgstr "salario"
+
+#: compta/views.py
+msgid "virement interne"
+msgstr "transferencia interna"
+
+#: voiture/voiture_location/models.py
+msgid "Nombre d'heures d'instruction"
+msgstr "Número de horas de instrucción"
+
+#: voiture/voiture_location/models.py
+msgid "Prix de l'instructeur à l'heure TVAC (€)"
+msgstr "Precio por hora del instructor IVA incl. (€)"
+
+#: voiture/voiture_location/models.py
+msgid "Instructeur %(nom)s – %(heures)s h × %(prix)s € TVAC"
+msgstr "Instructor %(nom)s – %(heures)s h × %(prix)s € IVA incl."
+
+#: voiture/voiture_location/models.py
+msgid "Indiquez le nombre d'heures de l'instructeur."
+msgstr "Indique el número de horas del instructor."
+
+#: voiture/voiture_location/models.py
+msgid "Indiquez le prix de l'instructeur à l'heure."
+msgstr "Indique el precio por hora del instructor."
+
+#: voiture/voiture_location/models.py
+msgid "Facultatif : facturé en plus de la location, sans remise."
+msgstr "Opcional: se factura además del alquiler, sin descuento."
+
+#: voiture/voiture_location/models.py
+msgid ""
+"Instructeur de pilotage facturé à l'heure. Le prix à l'heure est TVAC et "
+"s'ajoute au prix de la location (sans remise)."
+msgstr ""
+"Instructor de conducción facturado por horas. El precio por hora incluye IVA "
+"y se suma al precio del alquiler (sin descuento)."
+
+#: voiture/voiture_location/models.py
+msgid "Total instructeur TVAC"
+msgstr "Total instructor IVA incl."
+
+#: voiture/voiture_location/models.py
+msgid "Total location TVAC (véhicule + box + instructeur)"
+msgstr "Total alquiler IVA incl. (vehículo + box + instructor)"

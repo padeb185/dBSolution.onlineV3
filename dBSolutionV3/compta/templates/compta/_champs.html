@@ -1,0 +1,28 @@
+{% load widget_tweaks %}
+{% for field in form %}
+    <div class="mb-4" id="bloc-{{ field.name }}">
+        {% if field.field.widget.input_type == "checkbox" %}
+            <label class="inline-flex items-center gap-2">
+                {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                <span class="font-semibold text-gray-700">{{ field.label }}</span>
+            </label>
+        {% else %}
+            <label class="block font-semibold mb-1">
+                {{ field.label }}{% if field.field.required %} <span class="text-red-600">*</span>{% endif %}
+            </label>
+            {{ field|add_class:"input" }}
+        {% endif %}
+        {% if field.help_text %}<p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>{% endif %}
+        {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+    </div>
+{% endfor %}
+
+{% if comptes_pcmn %}
+<datalist id="comptes-pcmn">
+    {% for code, libelle in comptes_pcmn %}<option value="{{ code }}">{{ code }} – {{ libelle }}</option>{% endfor %}
+</datalist>
+{% endif %}
+
+<style>
+.input { width: 100% !important; border: 1px solid #ccc !important; border-radius: 6px !important; padding: 8px !important; box-sizing: border-box !important; }
+</style>

@@ -129,6 +129,7 @@ TENANT_APPS = (
     'piece',
     'panier',
     'facture',
+    'compta',
 
     'client_particulier',
     'client_atelier',

@@ -254,6 +254,32 @@ class Location(models.Model):
         verbose_name=_("Prix TVAC avant remise (€)"),
     )
 
+    # Instructeur (pilotage) facturé à l'heure – prix TVAC, sans remise
+    instructeur = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        related_name="locations_instructeur",
+        null=True,
+        blank=True,
+        verbose_name=_("Instructeur"),
+    )
+    instructeur_heures = models.DecimalField(
+        max_digits=6,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(Decimal("0"))],
+        verbose_name=_("Nombre d'heures d'instruction"),
+    )
+    instructeur_prix_heure = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(Decimal("0"))],
+        verbose_name=_("Prix de l'instructeur à l'heure TVAC (€)"),
+    )
+
     # Paiement : acompte (montant) ou payé (uniquement si la facture est émise)
     acompte = models.BooleanField(default=False, verbose_name=_("Acompte versé"))
     montant_acompte = models.DecimalField(
@@ -380,9 +406,37 @@ class Location(models.Model):
     def total_boxes_tvac(self):
         return sum((b.total_tvac for b in self.boxes_liste), Decimal("0.00")).quantize(DEUX_DECIMALES)
 
+    # Instructeur : heures × prix à l'heure TVAC
+    @property
+    def total_instructeur_tvac(self):
+        if not self.instructeur_id or not self.instructeur_heures or not self.instructeur_prix_heure:
+            return Decimal("0.00")
+        return (Decimal(str(self.instructeur_heures)) * Decimal(str(self.instructeur_prix_heure))).quantize(
+            DEUX_DECIMALES, rounding=ROUND_HALF_UP
+        )
+
+    @property
+    def total_instructeur_htva(self):
+        return prix_htva_depuis_tvac(self.total_instructeur_tvac, self.taux_tva)
+
+    @property
+    def instructeur_prix_heure_htva(self):
+        return prix_htva_depuis_tvac(self.instructeur_prix_heure or 0, self.taux_tva)
+
+    @property
+    def libelle_instructeur(self):
+        if not self.instructeur_id:
+            return ""
+        nom = f"{self.instructeur.prenom} {self.instructeur.nom}".strip()
+        return gettext("Instructeur %(nom)s – %(heures)s h × %(prix)s € TVAC") % {
+            "nom": nom,
+            "heures": f"{Decimal(str(self.instructeur_heures or 0)).normalize():f}",
+            "prix": f"{Decimal(str(self.instructeur_prix_heure or 0)):.2f}",
+        }
+
     @property
     def prix_tvac(self):
-        return (self.prix_vehicule_tvac + self.total_boxes_tvac).quantize(DEUX_DECIMALES)
+        return (self.prix_vehicule_tvac + self.total_boxes_tvac + self.total_instructeur_tvac).quantize(DEUX_DECIMALES)
 
     @property
     def prix_htva(self):
@@ -551,6 +605,16 @@ class Location(models.Model):
 
         if sum(bool(x) for x in (self.client_id, self.societe_cliente_id, self.client_pilotage_id)) > 1:
             errors["client"] = _("Choisissez un seul client.")
+
+        # Instructeur : heures et prix à l'heure obligatoires
+        if self.instructeur_id:
+            if not self.instructeur_heures or self.instructeur_heures <= 0:
+                errors["instructeur_heures"] = _("Indiquez le nombre d'heures de l'instructeur.")
+            if self.instructeur_prix_heure is None:
+                errors["instructeur_prix_heure"] = _("Indiquez le prix de l'instructeur à l'heure.")
+        else:
+            self.instructeur_heures = None
+            self.instructeur_prix_heure = None
 
         if self.date_debut and self.date_fin and self.date_fin < self.date_debut:
             errors["date_fin"] = _("La date de fin doit être postérieure à la date de début.")

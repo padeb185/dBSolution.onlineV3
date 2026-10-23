@@ -328,7 +328,7 @@
         </thead>
         <tbody>
             {% with boxes=location.boxes_liste %}
-            {% if boxes %}
+            {% if boxes or location.instructeur_id %}
             <tr>
                 <td>{{ location.libelle_facture }}</td>
                 <td class="text-right">{{ location.prix_vehicule_htva|floatformat:2 }} €</td>
@@ -343,6 +343,14 @@
                 <td class="text-right">{{ b.total_tvac|floatformat:2 }} €</td>
             </tr>
             {% endfor %}
+            {% if location.instructeur_id %}
+            <tr>
+                <td>{{ location.libelle_instructeur }}</td>
+                <td class="text-right">{{ location.total_instructeur_htva|floatformat:2 }} €</td>
+                <td class="text-right"></td>
+                <td class="text-right">{{ location.total_instructeur_tvac|floatformat:2 }} €</td>
+            </tr>
+            {% endif %}
             {% else %}
             <tr>
                 <td>{{ location.libelle_facture }}</td>
