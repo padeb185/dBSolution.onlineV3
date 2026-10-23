@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Extincteur" %}{% endblock %}
+
+{% block content %}
+    {% url 'pc_extincteur:modifier_pc_extincteur' pc_extincteur.pk as url_modifier %}
+    {% url 'pc_extincteur:pc_extincteur_detail_pdf' pc_extincteur.pk as url_pdf %}
+    {% url 'pc_extincteur:delete_pc_extincteur' pc_extincteur.pk as url_delete %}
+    {% if exemplaire %}{% url 'pc_extincteur:pc_extincteur_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Extincteur" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=pc_extincteur km_controle=pc_extincteur.kilometrage_pc_extincteur icone="pc_extincteur.png" %}
+{% endblock %}

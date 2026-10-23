@@ -1,0 +1,704 @@
+{% load i18n static format_numbers %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+{% if pc_cablage.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ pc_cablage.tech_societe.nom }}
+            </div>
+
+            {% if pc_cablage.tech_societe.adresse %}
+                <div>
+                    {{ pc_cablage.tech_societe.adresse.rue }}
+                    {{ pc_cablage.tech_societe.adresse.numero }}
+                    {% if pc_cablage.tech_societe.adresse.boite %}
+                        / {{ pc_cablage.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ pc_cablage.tech_societe.adresse.code_postal }}
+                    {{ pc_cablage.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if pc_cablage.tech_societe.adresse.pays %}
+                <div>{{ pc_cablage.tech_societe.adresse.pays }}
+                    {{ pc_cablage.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if pc_cablage.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ pc_cablage.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if pc_cablage.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ pc_cablage.tech_societe.iban|format_iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ pc_cablage.tech_societe.nom }}.png"
+                alt="{{ pc_cablage.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Câblage électrique" %}</h1>
+
+<!-- ================= INFOS ================= -->
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ pc_cablage.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ pc_cablage.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ pc_cablage.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ pc_cablage.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ pc_cablage.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage de l'intervention" %} :</span>
+            {{ pc_cablage.kilometrage_pc_cablage }} km
+        </div>
+
+
+
+<!-- ================= TAG ================= -->
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if pc_cablage.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ pc_cablage.get_tag_display }}
+                </span>
+
+            {% elif pc_cablage.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ pc_cablage.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ pc_cablage.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= CÂBLAGE ÉLECTRIQUE ================= -->
+<h2>{% trans "Câblage électrique" %}</h2>
+
+<div>
+
+    <table class="table-2-cols">
+
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>{% trans "Coupe-circuit général (commandes intérieure et extérieure)" %}</td>
+                <td>
+                    {% if pc_cablage.coupe_circuit == "OK" or pc_cablage.coupe_circuit == "REMONTE" %}<span class="ok">{{ pc_cablage.get_coupe_circuit_display }}</span>
+                    {% elif pc_cablage.coupe_circuit == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_coupe_circuit_display }}</span>
+                    {% elif pc_cablage.coupe_circuit == "REMPLACE" or pc_cablage.coupe_circuit == "DEMONTE" or pc_cablage.coupe_circuit == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_coupe_circuit_display }}</span>
+                    {% else %}<span>{{ pc_cablage.get_coupe_circuit_display }}</span>{% endif %}
+                    {% if pc_cablage.coupe_circuit_fabricant and pc_cablage.coupe_circuit_fabricant != "CHOISIR" %} — {{ pc_cablage.get_coupe_circuit_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% if pc_cablage.faisceau_competition != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Faisceau compétition" %}</td>
+                <td>
+                    {% if pc_cablage.faisceau_competition == "OK" or pc_cablage.faisceau_competition == "REMONTE" %}<span class="ok">{{ pc_cablage.get_faisceau_competition_display }}</span>
+                    {% elif pc_cablage.faisceau_competition == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_faisceau_competition_display }}</span>
+                    {% elif pc_cablage.faisceau_competition == "REMPLACE" or pc_cablage.faisceau_competition == "DEMONTE" or pc_cablage.faisceau_competition == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_faisceau_competition_display }}</span>
+                    {% else %}<span>{{ pc_cablage.get_faisceau_competition_display }}</span>{% endif %}
+                    {% if pc_cablage.faisceau_competition_fabricant and pc_cablage.faisceau_competition_fabricant != "CHOISIR" %} — {{ pc_cablage.get_faisceau_competition_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_cablage.batterie_competition != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Batterie compétition (lithium / AGM)" %}</td>
+                <td>
+                    {% if pc_cablage.batterie_competition == "OK" or pc_cablage.batterie_competition == "REMONTE" %}<span class="ok">{{ pc_cablage.get_batterie_competition_display }}</span>
+                    {% elif pc_cablage.batterie_competition == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_batterie_competition_display }}</span>
+                    {% elif pc_cablage.batterie_competition == "REMPLACE" or pc_cablage.batterie_competition == "DEMONTE" or pc_cablage.batterie_competition == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_batterie_competition_display }}</span>
+                    {% else %}<span>{{ pc_cablage.get_batterie_competition_display }}</span>{% endif %}
+                    {% if pc_cablage.batterie_competition_fabricant and pc_cablage.batterie_competition_fabricant != "CHOISIR" %} — {{ pc_cablage.get_batterie_competition_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_cablage.boitier_distribution != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Boîtier de distribution de puissance (PDM)" %}</td>
+                <td>
+                    {% if pc_cablage.boitier_distribution == "OK" or pc_cablage.boitier_distribution == "REMONTE" %}<span class="ok">{{ pc_cablage.get_boitier_distribution_display }}</span>
+                    {% elif pc_cablage.boitier_distribution == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_boitier_distribution_display }}</span>
+                    {% elif pc_cablage.boitier_distribution == "REMPLACE" or pc_cablage.boitier_distribution == "DEMONTE" or pc_cablage.boitier_distribution == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_boitier_distribution_display }}</span>
+                    {% else %}<span>{{ pc_cablage.get_boitier_distribution_display }}</span>{% endif %}
+                    {% if pc_cablage.boitier_distribution_fabricant and pc_cablage.boitier_distribution_fabricant != "CHOISIR" %} — {{ pc_cablage.get_boitier_distribution_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_cablage.tableau_interrupteurs != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Tableau d'interrupteurs" %}</td>
+                <td>
+                    {% if pc_cablage.tableau_interrupteurs == "OK" or pc_cablage.tableau_interrupteurs == "REMONTE" %}<span class="ok">{{ pc_cablage.get_tableau_interrupteurs_display }}</span>
+                    {% elif pc_cablage.tableau_interrupteurs == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_tableau_interrupteurs_display }}</span>
+                    {% elif pc_cablage.tableau_interrupteurs == "REMPLACE" or pc_cablage.tableau_interrupteurs == "DEMONTE" or pc_cablage.tableau_interrupteurs == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_tableau_interrupteurs_display }}</span>
+                    {% else %}<span>{{ pc_cablage.get_tableau_interrupteurs_display }}</span>{% endif %}
+                    {% if pc_cablage.tableau_interrupteurs_fabricant and pc_cablage.tableau_interrupteurs_fabricant != "CHOISIR" %} — {{ pc_cablage.get_tableau_interrupteurs_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>{% trans "Fusibles et relais" %}</td>
+                <td>
+                    {% if pc_cablage.fusibles_relais == "OK" or pc_cablage.fusibles_relais == "REMONTE" %}<span class="ok">{{ pc_cablage.get_fusibles_relais_display }}</span>
+                    {% elif pc_cablage.fusibles_relais == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_fusibles_relais_display }}</span>
+                    {% elif pc_cablage.fusibles_relais == "REMPLACE" or pc_cablage.fusibles_relais == "DEMONTE" or pc_cablage.fusibles_relais == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_fusibles_relais_display }}</span>
+                    {% else %}<span>{{ pc_cablage.get_fusibles_relais_display }}</span>{% endif %}
+                    {% if pc_cablage.fusibles_relais_fabricant and pc_cablage.fusibles_relais_fabricant != "CHOISIR" %} — {{ pc_cablage.get_fusibles_relais_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% if pc_cablage.connecteurs_competition != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Connecteurs (type Deutsch / Autosport)" %}</td>
+                <td>
+                    {% if pc_cablage.connecteurs_competition == "OK" or pc_cablage.connecteurs_competition == "REMONTE" %}<span class="ok">{{ pc_cablage.get_connecteurs_competition_display }}</span>
+                    {% elif pc_cablage.connecteurs_competition == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_connecteurs_competition_display }}</span>
+                    {% elif pc_cablage.connecteurs_competition == "REMPLACE" or pc_cablage.connecteurs_competition == "DEMONTE" or pc_cablage.connecteurs_competition == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_connecteurs_competition_display }}</span>
+                    {% else %}<span>{{ pc_cablage.get_connecteurs_competition_display }}</span>{% endif %}
+                    {% if pc_cablage.connecteurs_competition_fabricant and pc_cablage.connecteurs_competition_fabricant != "CHOISIR" %} — {{ pc_cablage.get_connecteurs_competition_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>{% trans "Tresses et points de masse" %}</td>
+                <td>
+                    {% if pc_cablage.tresses_masse == "OK" or pc_cablage.tresses_masse == "REMONTE" %}<span class="ok">{{ pc_cablage.get_tresses_masse_display }}</span>
+                    {% elif pc_cablage.tresses_masse == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_tresses_masse_display }}</span>
+                    {% elif pc_cablage.tresses_masse == "REMPLACE" or pc_cablage.tresses_masse == "DEMONTE" or pc_cablage.tresses_masse == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_tresses_masse_display }}</span>
+                    {% else %}<span>{{ pc_cablage.get_tresses_masse_display }}</span>{% endif %}
+                    {% if pc_cablage.tresses_masse_fabricant and pc_cablage.tresses_masse_fabricant != "CHOISIR" %} — {{ pc_cablage.get_tresses_masse_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% if pc_cablage.feu_pluie != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Feu arrière de pluie (FIA)" %}</td>
+                <td>
+                    {% if pc_cablage.feu_pluie == "OK" or pc_cablage.feu_pluie == "REMONTE" %}<span class="ok">{{ pc_cablage.get_feu_pluie_display }}</span>
+                    {% elif pc_cablage.feu_pluie == "NOT_OK" %}<span class="not-ok">{{ pc_cablage.get_feu_pluie_display }}</span>
+                    {% elif pc_cablage.feu_pluie == "REMPLACE" or pc_cablage.feu_pluie == "DEMONTE" or pc_cablage.feu_pluie == "SUPPRIME" %}<span class="remplace">{{ pc_cablage.get_feu_pluie_display }}</span>
+                    {% else %}<span>{{ pc_cablage.get_feu_pluie_display }}</span>{% endif %}
+                    {% if pc_cablage.feu_pluie_fabricant and pc_cablage.feu_pluie_fabricant != "CHOISIR" %} — {{ pc_cablage.get_feu_pluie_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+
+    </table>
+
+</div>
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ pc_cablage.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if pc_cablage.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ pc_cablage.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ pc_cablage.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ pc_cablage.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        <td class="text-right">
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ pc_cablage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ pc_cablage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
+
+        <table class="table-2-cols">
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ pc_cablage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ pc_cablage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+
+<br>
+{% include "piece/stock/_pieces_utilisees_pdf.html" with maintenance=pc_cablage.maintenance %}
+<!-- ================= REMARQUES ================= -->
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ pc_cablage.remarques|default:_("Aucune remarque.") }}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

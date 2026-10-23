@@ -56,6 +56,7 @@ from maintenance.autres_interventions.aide_stationnement.models import AideStati
 from maintenance.autres_interventions.fusibles.models import Fusibles
 from maintenance.autres_interventions.demarreur.models import Demarreur
 from maintenance.autres_interventions.suspension.composants import total_suspension
+from maintenance.autres_interventions.preparation_course.composants import total_preparation_course
 
 
 @login_required
@@ -270,6 +271,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             + abs_qs.count()
             + Esp.objects.filter(voiture_exemplaire=exemplaire).count()
             + AideStationnement.objects.filter(voiture_exemplaire=exemplaire).count()
+            + total_preparation_course(exemplaire)
             + Fusibles.objects.filter(voiture_exemplaire=exemplaire).count()
             + Demarreur.objects.filter(voiture_exemplaire=exemplaire).count()
             + courroie_access.count()

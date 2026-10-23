@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Boîtier compétition / additionnel" %}{% endblock %}
+
+{% block content %}
+    {% url 'pc_boitier:modifier_pc_boitier' pc_boitier.pk as url_modifier %}
+    {% url 'pc_boitier:pc_boitier_detail_pdf' pc_boitier.pk as url_pdf %}
+    {% url 'pc_boitier:delete_pc_boitier' pc_boitier.pk as url_delete %}
+    {% if exemplaire %}{% url 'pc_boitier:pc_boitier_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Boîtier compétition / additionnel" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=pc_boitier km_controle=pc_boitier.kilometrage_pc_boitier icone="pc_boitier.png" %}
+{% endblock %}

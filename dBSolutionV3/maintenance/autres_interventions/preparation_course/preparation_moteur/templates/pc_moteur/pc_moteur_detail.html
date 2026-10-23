@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Préparation moteur" %}{% endblock %}
+
+{% block content %}
+    {% url 'pc_moteur:modifier_pc_moteur' pc_moteur.pk as url_modifier %}
+    {% url 'pc_moteur:pc_moteur_detail_pdf' pc_moteur.pk as url_pdf %}
+    {% url 'pc_moteur:delete_pc_moteur' pc_moteur.pk as url_delete %}
+    {% if exemplaire %}{% url 'pc_moteur:pc_moteur_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Préparation moteur" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=pc_moteur km_controle=pc_moteur.kilometrage_pc_moteur icone="pc_moteur.png" %}
+{% endblock %}

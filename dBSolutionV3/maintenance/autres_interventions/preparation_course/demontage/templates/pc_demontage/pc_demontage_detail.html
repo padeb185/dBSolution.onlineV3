@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Démontage et allègement" %}{% endblock %}
+
+{% block content %}
+    {% url 'pc_demontage:modifier_pc_demontage' pc_demontage.pk as url_modifier %}
+    {% url 'pc_demontage:pc_demontage_detail_pdf' pc_demontage.pk as url_pdf %}
+    {% url 'pc_demontage:delete_pc_demontage' pc_demontage.pk as url_delete %}
+    {% if exemplaire %}{% url 'pc_demontage:pc_demontage_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Démontage et allègement" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=pc_demontage km_controle=pc_demontage.kilometrage_pc_demontage icone="pc_demontage.png" %}
+{% endblock %}

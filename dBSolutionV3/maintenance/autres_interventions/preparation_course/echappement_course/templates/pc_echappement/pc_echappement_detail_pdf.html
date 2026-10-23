@@ -1,0 +1,720 @@
+{% load i18n static format_numbers %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+{% if pc_echappement.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ pc_echappement.tech_societe.nom }}
+            </div>
+
+            {% if pc_echappement.tech_societe.adresse %}
+                <div>
+                    {{ pc_echappement.tech_societe.adresse.rue }}
+                    {{ pc_echappement.tech_societe.adresse.numero }}
+                    {% if pc_echappement.tech_societe.adresse.boite %}
+                        / {{ pc_echappement.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ pc_echappement.tech_societe.adresse.code_postal }}
+                    {{ pc_echappement.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if pc_echappement.tech_societe.adresse.pays %}
+                <div>{{ pc_echappement.tech_societe.adresse.pays }}
+                    {{ pc_echappement.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if pc_echappement.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ pc_echappement.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if pc_echappement.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ pc_echappement.tech_societe.iban|format_iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ pc_echappement.tech_societe.nom }}.png"
+                alt="{{ pc_echappement.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Échappement compétition" %}</h1>
+
+<!-- ================= INFOS ================= -->
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ pc_echappement.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ pc_echappement.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ pc_echappement.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ pc_echappement.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ pc_echappement.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage de l'intervention" %} :</span>
+            {{ pc_echappement.kilometrage_pc_echappement }} km
+        </div>
+
+
+
+<!-- ================= TAG ================= -->
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if pc_echappement.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ pc_echappement.get_tag_display }}
+                </span>
+
+            {% elif pc_echappement.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ pc_echappement.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ pc_echappement.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<h2>{% trans "Caractéristiques" %}</h2>
+<div>
+    <table class="table-2-cols">
+        <tbody>
+            <tr>
+                <td>{% trans "Matériau" %}</td>
+                <td>{{ pc_echappement.get_materiau_echappement_display|default:"—" }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Niveau sonore mesuré (dB)" %}</td>
+                <td>{{ pc_echappement.niveau_sonore|default:"—" }} dB</td>
+            </tr>
+            <tr>
+                <td>{% trans "Régime de mesure (tr/min)" %}</td>
+                <td>{{ pc_echappement.regime_mesure|default:"—" }} tr/min</td>
+            </tr>
+            <tr>
+                <td>{% trans "Limite sonore du circuit / de l'épreuve (dB)" %}</td>
+                <td>{{ pc_echappement.limite_sonore|default:"—" }} dB</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ================= ÉCHAPPEMENT COMPÉTITION ================= -->
+<h2>{% trans "Échappement compétition" %}</h2>
+
+<div>
+
+    <table class="table-2-cols">
+
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% if pc_echappement.collecteur_course != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Collecteur" %}</td>
+                <td>
+                    {% if pc_echappement.collecteur_course == "OK" or pc_echappement.collecteur_course == "REMONTE" %}<span class="ok">{{ pc_echappement.get_collecteur_course_display }}</span>
+                    {% elif pc_echappement.collecteur_course == "NOT_OK" %}<span class="not-ok">{{ pc_echappement.get_collecteur_course_display }}</span>
+                    {% elif pc_echappement.collecteur_course == "REMPLACE" or pc_echappement.collecteur_course == "DEMONTE" or pc_echappement.collecteur_course == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_collecteur_course_display }}</span>
+                    {% else %}<span>{{ pc_echappement.get_collecteur_course_display }}</span>{% endif %}
+                    {% if pc_echappement.collecteur_course_fabricant and pc_echappement.collecteur_course_fabricant != "CHOISIR" %} — {{ pc_echappement.get_collecteur_course_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_echappement.downpipe != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Downpipe" %}</td>
+                <td>
+                    {% if pc_echappement.downpipe == "OK" or pc_echappement.downpipe == "REMONTE" %}<span class="ok">{{ pc_echappement.get_downpipe_display }}</span>
+                    {% elif pc_echappement.downpipe == "NOT_OK" %}<span class="not-ok">{{ pc_echappement.get_downpipe_display }}</span>
+                    {% elif pc_echappement.downpipe == "REMPLACE" or pc_echappement.downpipe == "DEMONTE" or pc_echappement.downpipe == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_downpipe_display }}</span>
+                    {% else %}<span>{{ pc_echappement.get_downpipe_display }}</span>{% endif %}
+                    {% if pc_echappement.downpipe_fabricant and pc_echappement.downpipe_fabricant != "CHOISIR" %} — {{ pc_echappement.get_downpipe_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_echappement.catalyseur_sport != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Catalyseur sport" %}</td>
+                <td>
+                    {% if pc_echappement.catalyseur_sport == "OK" or pc_echappement.catalyseur_sport == "REMONTE" %}<span class="ok">{{ pc_echappement.get_catalyseur_sport_display }}</span>
+                    {% elif pc_echappement.catalyseur_sport == "NOT_OK" %}<span class="not-ok">{{ pc_echappement.get_catalyseur_sport_display }}</span>
+                    {% elif pc_echappement.catalyseur_sport == "REMPLACE" or pc_echappement.catalyseur_sport == "DEMONTE" or pc_echappement.catalyseur_sport == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_catalyseur_sport_display }}</span>
+                    {% else %}<span>{{ pc_echappement.get_catalyseur_sport_display }}</span>{% endif %}
+                    {% if pc_echappement.catalyseur_sport_fabricant and pc_echappement.catalyseur_sport_fabricant != "CHOISIR" %} — {{ pc_echappement.get_catalyseur_sport_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_echappement.silencieux_intermediaire != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Silencieux intermédiaire" %}</td>
+                <td>
+                    {% if pc_echappement.silencieux_intermediaire == "OK" or pc_echappement.silencieux_intermediaire == "REMONTE" %}<span class="ok">{{ pc_echappement.get_silencieux_intermediaire_display }}</span>
+                    {% elif pc_echappement.silencieux_intermediaire == "NOT_OK" %}<span class="not-ok">{{ pc_echappement.get_silencieux_intermediaire_display }}</span>
+                    {% elif pc_echappement.silencieux_intermediaire == "REMPLACE" or pc_echappement.silencieux_intermediaire == "DEMONTE" or pc_echappement.silencieux_intermediaire == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_silencieux_intermediaire_display }}</span>
+                    {% else %}<span>{{ pc_echappement.get_silencieux_intermediaire_display }}</span>{% endif %}
+                    {% if pc_echappement.silencieux_intermediaire_fabricant and pc_echappement.silencieux_intermediaire_fabricant != "CHOISIR" %} — {{ pc_echappement.get_silencieux_intermediaire_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_echappement.silencieux_arriere != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Silencieux arrière" %}</td>
+                <td>
+                    {% if pc_echappement.silencieux_arriere == "OK" or pc_echappement.silencieux_arriere == "REMONTE" %}<span class="ok">{{ pc_echappement.get_silencieux_arriere_display }}</span>
+                    {% elif pc_echappement.silencieux_arriere == "NOT_OK" %}<span class="not-ok">{{ pc_echappement.get_silencieux_arriere_display }}</span>
+                    {% elif pc_echappement.silencieux_arriere == "REMPLACE" or pc_echappement.silencieux_arriere == "DEMONTE" or pc_echappement.silencieux_arriere == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_silencieux_arriere_display }}</span>
+                    {% else %}<span>{{ pc_echappement.get_silencieux_arriere_display }}</span>{% endif %}
+                    {% if pc_echappement.silencieux_arriere_fabricant and pc_echappement.silencieux_arriere_fabricant != "CHOISIR" %} — {{ pc_echappement.get_silencieux_arriere_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_echappement.ligne_complete != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Ligne complète" %}</td>
+                <td>
+                    {% if pc_echappement.ligne_complete == "OK" or pc_echappement.ligne_complete == "REMONTE" %}<span class="ok">{{ pc_echappement.get_ligne_complete_display }}</span>
+                    {% elif pc_echappement.ligne_complete == "NOT_OK" %}<span class="not-ok">{{ pc_echappement.get_ligne_complete_display }}</span>
+                    {% elif pc_echappement.ligne_complete == "REMPLACE" or pc_echappement.ligne_complete == "DEMONTE" or pc_echappement.ligne_complete == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_ligne_complete_display }}</span>
+                    {% else %}<span>{{ pc_echappement.get_ligne_complete_display }}</span>{% endif %}
+                    {% if pc_echappement.ligne_complete_fabricant and pc_echappement.ligne_complete_fabricant != "CHOISIR" %} — {{ pc_echappement.get_ligne_complete_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>{% trans "Colliers et supports" %}</td>
+                <td>
+                    {% if pc_echappement.colliers_supports == "OK" or pc_echappement.colliers_supports == "REMONTE" %}<span class="ok">{{ pc_echappement.get_colliers_supports_display }}</span>
+                    {% elif pc_echappement.colliers_supports == "NOT_OK" %}<span class="not-ok">{{ pc_echappement.get_colliers_supports_display }}</span>
+                    {% elif pc_echappement.colliers_supports == "REMPLACE" or pc_echappement.colliers_supports == "DEMONTE" or pc_echappement.colliers_supports == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_colliers_supports_display }}</span>
+                    {% else %}<span>{{ pc_echappement.get_colliers_supports_display }}</span>{% endif %}
+                    {% if pc_echappement.colliers_supports_fabricant and pc_echappement.colliers_supports_fabricant != "CHOISIR" %} — {{ pc_echappement.get_colliers_supports_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% if pc_echappement.protection_thermique != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Protection thermique (bandes / écrans)" %}</td>
+                <td>
+                    {% if pc_echappement.protection_thermique == "OK" or pc_echappement.protection_thermique == "REMONTE" %}<span class="ok">{{ pc_echappement.get_protection_thermique_display }}</span>
+                    {% elif pc_echappement.protection_thermique == "NOT_OK" %}<span class="not-ok">{{ pc_echappement.get_protection_thermique_display }}</span>
+                    {% elif pc_echappement.protection_thermique == "REMPLACE" or pc_echappement.protection_thermique == "DEMONTE" or pc_echappement.protection_thermique == "SUPPRIME" %}<span class="remplace">{{ pc_echappement.get_protection_thermique_display }}</span>
+                    {% else %}<span>{{ pc_echappement.get_protection_thermique_display }}</span>{% endif %}
+                    {% if pc_echappement.protection_thermique_fabricant and pc_echappement.protection_thermique_fabricant != "CHOISIR" %} — {{ pc_echappement.get_protection_thermique_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+
+    </table>
+
+</div>
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ pc_echappement.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if pc_echappement.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ pc_echappement.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ pc_echappement.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ pc_echappement.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        <td class="text-right">
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ pc_echappement.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ pc_echappement.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
+
+        <table class="table-2-cols">
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ pc_echappement.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ pc_echappement.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+
+<br>
+{% include "piece/stock/_pieces_utilisees_pdf.html" with maintenance=pc_echappement.maintenance %}
+<!-- ================= REMARQUES ================= -->
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ pc_echappement.remarques|default:_("Aucune remarque.") }}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

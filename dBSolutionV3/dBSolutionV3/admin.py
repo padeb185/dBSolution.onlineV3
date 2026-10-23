@@ -39,6 +39,15 @@ from maintenance.autres_interventions.moteur.culasse.models import Culasse
 from maintenance.autres_interventions.moteur.bas_moteur.models import BasMoteur
 from maintenance.autres_interventions.esp.models import Esp
 from maintenance.autres_interventions.aide_stationnement.models import AideStationnement
+from maintenance.autres_interventions.preparation_course.arceau.models import ArceauSecurite
+from maintenance.autres_interventions.preparation_course.extincteur.models import Extincteur
+from maintenance.autres_interventions.preparation_course.sieges_baquets.models import SiegesBaquets
+from maintenance.autres_interventions.preparation_course.cablage.models import CablageCompetition
+from maintenance.autres_interventions.preparation_course.boitier_competition.models import BoitierCompetition
+from maintenance.autres_interventions.preparation_course.preparation_moteur.models import PreparationMoteur
+from maintenance.autres_interventions.preparation_course.echappement_course.models import EchappementCompetition
+from maintenance.autres_interventions.preparation_course.demontage.models import DemontageAllegement
+from maintenance.autres_interventions.preparation_course.air_jack.models import AirJack
 from maintenance.autres_interventions.fusibles.models import Fusibles, FusibleDetail
 from maintenance.autres_interventions.demarreur.models import Demarreur
 from maintenance.autres_interventions.suspension.suspension_origine.models import SuspensionOrigine
@@ -124,6 +133,15 @@ admin.site.register(Culasse)
 admin.site.register(BasMoteur)
 admin.site.register(Esp)
 admin.site.register(AideStationnement)
+admin.site.register(ArceauSecurite)
+admin.site.register(Extincteur)
+admin.site.register(SiegesBaquets)
+admin.site.register(CablageCompetition)
+admin.site.register(BoitierCompetition)
+admin.site.register(PreparationMoteur)
+admin.site.register(EchappementCompetition)
+admin.site.register(DemontageAllegement)
+admin.site.register(AirJack)
 admin.site.register(Fusibles)
 admin.site.register(FusibleDetail)
 admin.site.register(Demarreur)

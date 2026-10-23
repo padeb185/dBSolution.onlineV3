@@ -138,6 +138,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     total_cardan = 0
     total_roulement = 0
     total_suspension = 0
+    total_preparation_course = 0
 
     modeles = VoitureModele.objects.none()
 
@@ -237,6 +238,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
             total_roulement = roulement.count()
             from maintenance.autres_interventions.suspension.composants import total_suspension as _total_suspension
             total_suspension = _total_suspension(exemplaire)
+            from maintenance.autres_interventions.preparation_course.composants import total_preparation_course as _total_pc
+            total_preparation_course = _total_pc(exemplaire)
 
             # ---------------- MOTEUR ----------------
 
@@ -385,6 +388,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_cardan": total_cardan,
         "total_roulement": total_roulement,
         "total_suspension": total_suspension,
+        "total_preparation_course": total_preparation_course,
 
 
 

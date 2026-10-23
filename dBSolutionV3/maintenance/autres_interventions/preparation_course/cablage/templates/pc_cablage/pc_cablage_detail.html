@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Câblage électrique" %}{% endblock %}
+
+{% block content %}
+    {% url 'pc_cablage:modifier_pc_cablage' pc_cablage.pk as url_modifier %}
+    {% url 'pc_cablage:pc_cablage_detail_pdf' pc_cablage.pk as url_pdf %}
+    {% url 'pc_cablage:delete_pc_cablage' pc_cablage.pk as url_delete %}
+    {% if exemplaire %}{% url 'pc_cablage:pc_cablage_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Câblage électrique" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=pc_cablage km_controle=pc_cablage.kilometrage_pc_cablage icone="pc_cablage.png" %}
+{% endblock %}

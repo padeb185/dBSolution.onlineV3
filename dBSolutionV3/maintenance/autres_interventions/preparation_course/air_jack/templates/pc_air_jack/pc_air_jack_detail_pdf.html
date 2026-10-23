@@ -1,0 +1,682 @@
+{% load i18n static format_numbers %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+{% if pc_air_jack.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ pc_air_jack.tech_societe.nom }}
+            </div>
+
+            {% if pc_air_jack.tech_societe.adresse %}
+                <div>
+                    {{ pc_air_jack.tech_societe.adresse.rue }}
+                    {{ pc_air_jack.tech_societe.adresse.numero }}
+                    {% if pc_air_jack.tech_societe.adresse.boite %}
+                        / {{ pc_air_jack.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ pc_air_jack.tech_societe.adresse.code_postal }}
+                    {{ pc_air_jack.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if pc_air_jack.tech_societe.adresse.pays %}
+                <div>{{ pc_air_jack.tech_societe.adresse.pays }}
+                    {{ pc_air_jack.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if pc_air_jack.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ pc_air_jack.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if pc_air_jack.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ pc_air_jack.tech_societe.iban|format_iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ pc_air_jack.tech_societe.nom }}.png"
+                alt="{{ pc_air_jack.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Air jack (vérins pneumatiques)" %}</h1>
+
+<!-- ================= INFOS ================= -->
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ pc_air_jack.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ pc_air_jack.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ pc_air_jack.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ pc_air_jack.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ pc_air_jack.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage de l'intervention" %} :</span>
+            {{ pc_air_jack.kilometrage_pc_air_jack }} km
+        </div>
+
+
+
+<!-- ================= TAG ================= -->
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if pc_air_jack.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ pc_air_jack.get_tag_display }}
+                </span>
+
+            {% elif pc_air_jack.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ pc_air_jack.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ pc_air_jack.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<h2>{% trans "Caractéristiques" %}</h2>
+<div>
+    <table class="table-2-cols">
+        <tbody>
+            <tr>
+                <td>{% trans "Nombre de vérins" %}</td>
+                <td>{{ pc_air_jack.get_nombre_verins_display|default:"—" }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Pression de service (bar)" %}</td>
+                <td>{{ pc_air_jack.pression_service|default:"—" }} bar</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ================= AIR JACK (VÉRINS PNEUMATIQUES) ================= -->
+<h2>{% trans "Air jack (vérins pneumatiques)" %}</h2>
+
+<div>
+
+    <table class="table-2-cols">
+
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>{% trans "Vérins" %}</td>
+                <td>
+                    {% if pc_air_jack.verins_air_jack == "OK" or pc_air_jack.verins_air_jack == "REMONTE" %}<span class="ok">{{ pc_air_jack.get_verins_air_jack_display }}</span>
+                    {% elif pc_air_jack.verins_air_jack == "NOT_OK" %}<span class="not-ok">{{ pc_air_jack.get_verins_air_jack_display }}</span>
+                    {% elif pc_air_jack.verins_air_jack == "REMPLACE" or pc_air_jack.verins_air_jack == "DEMONTE" or pc_air_jack.verins_air_jack == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_verins_air_jack_display }}</span>
+                    {% else %}<span>{{ pc_air_jack.get_verins_air_jack_display }}</span>{% endif %}
+                    {% if pc_air_jack.verins_air_jack_fabricant and pc_air_jack.verins_air_jack_fabricant != "CHOISIR" %} — {{ pc_air_jack.get_verins_air_jack_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Tuyaux et connecteurs" %}</td>
+                <td>
+                    {% if pc_air_jack.tuyaux_connecteurs == "OK" or pc_air_jack.tuyaux_connecteurs == "REMONTE" %}<span class="ok">{{ pc_air_jack.get_tuyaux_connecteurs_display }}</span>
+                    {% elif pc_air_jack.tuyaux_connecteurs == "NOT_OK" %}<span class="not-ok">{{ pc_air_jack.get_tuyaux_connecteurs_display }}</span>
+                    {% elif pc_air_jack.tuyaux_connecteurs == "REMPLACE" or pc_air_jack.tuyaux_connecteurs == "DEMONTE" or pc_air_jack.tuyaux_connecteurs == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_tuyaux_connecteurs_display }}</span>
+                    {% else %}<span>{{ pc_air_jack.get_tuyaux_connecteurs_display }}</span>{% endif %}
+                    {% if pc_air_jack.tuyaux_connecteurs_fabricant and pc_air_jack.tuyaux_connecteurs_fabricant != "CHOISIR" %} — {{ pc_air_jack.get_tuyaux_connecteurs_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Valve / prise d'injection d'air" %}</td>
+                <td>
+                    {% if pc_air_jack.valve_injection == "OK" or pc_air_jack.valve_injection == "REMONTE" %}<span class="ok">{{ pc_air_jack.get_valve_injection_display }}</span>
+                    {% elif pc_air_jack.valve_injection == "NOT_OK" %}<span class="not-ok">{{ pc_air_jack.get_valve_injection_display }}</span>
+                    {% elif pc_air_jack.valve_injection == "REMPLACE" or pc_air_jack.valve_injection == "DEMONTE" or pc_air_jack.valve_injection == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_valve_injection_display }}</span>
+                    {% else %}<span>{{ pc_air_jack.get_valve_injection_display }}</span>{% endif %}
+                    {% if pc_air_jack.valve_injection_fabricant and pc_air_jack.valve_injection_fabricant != "CHOISIR" %} — {{ pc_air_jack.get_valve_injection_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{% trans "Supports de vérins" %}</td>
+                <td>
+                    {% if pc_air_jack.supports_verins == "OK" or pc_air_jack.supports_verins == "REMONTE" %}<span class="ok">{{ pc_air_jack.get_supports_verins_display }}</span>
+                    {% elif pc_air_jack.supports_verins == "NOT_OK" %}<span class="not-ok">{{ pc_air_jack.get_supports_verins_display }}</span>
+                    {% elif pc_air_jack.supports_verins == "REMPLACE" or pc_air_jack.supports_verins == "DEMONTE" or pc_air_jack.supports_verins == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_supports_verins_display }}</span>
+                    {% else %}<span>{{ pc_air_jack.get_supports_verins_display }}</span>{% endif %}
+                    {% if pc_air_jack.supports_verins_fabricant and pc_air_jack.supports_verins_fabricant != "CHOISIR" %} — {{ pc_air_jack.get_supports_verins_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% if pc_air_jack.clapets_anti_retour != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Clapets anti-retour" %}</td>
+                <td>
+                    {% if pc_air_jack.clapets_anti_retour == "OK" or pc_air_jack.clapets_anti_retour == "REMONTE" %}<span class="ok">{{ pc_air_jack.get_clapets_anti_retour_display }}</span>
+                    {% elif pc_air_jack.clapets_anti_retour == "NOT_OK" %}<span class="not-ok">{{ pc_air_jack.get_clapets_anti_retour_display }}</span>
+                    {% elif pc_air_jack.clapets_anti_retour == "REMPLACE" or pc_air_jack.clapets_anti_retour == "DEMONTE" or pc_air_jack.clapets_anti_retour == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_clapets_anti_retour_display }}</span>
+                    {% else %}<span>{{ pc_air_jack.get_clapets_anti_retour_display }}</span>{% endif %}
+                    {% if pc_air_jack.clapets_anti_retour_fabricant and pc_air_jack.clapets_anti_retour_fabricant != "CHOISIR" %} — {{ pc_air_jack.get_clapets_anti_retour_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_air_jack.lance_bouteille_air != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Lance et bouteille d'air comprimé" %}</td>
+                <td>
+                    {% if pc_air_jack.lance_bouteille_air == "OK" or pc_air_jack.lance_bouteille_air == "REMONTE" %}<span class="ok">{{ pc_air_jack.get_lance_bouteille_air_display }}</span>
+                    {% elif pc_air_jack.lance_bouteille_air == "NOT_OK" %}<span class="not-ok">{{ pc_air_jack.get_lance_bouteille_air_display }}</span>
+                    {% elif pc_air_jack.lance_bouteille_air == "REMPLACE" or pc_air_jack.lance_bouteille_air == "DEMONTE" or pc_air_jack.lance_bouteille_air == "SUPPRIME" %}<span class="remplace">{{ pc_air_jack.get_lance_bouteille_air_display }}</span>
+                    {% else %}<span>{{ pc_air_jack.get_lance_bouteille_air_display }}</span>{% endif %}
+                    {% if pc_air_jack.lance_bouteille_air_fabricant and pc_air_jack.lance_bouteille_air_fabricant != "CHOISIR" %} — {{ pc_air_jack.get_lance_bouteille_air_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+
+    </table>
+
+</div>
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ pc_air_jack.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if pc_air_jack.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ pc_air_jack.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ pc_air_jack.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ pc_air_jack.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        <td class="text-right">
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ pc_air_jack.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ pc_air_jack.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
+
+        <table class="table-2-cols">
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ pc_air_jack.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ pc_air_jack.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+
+<br>
+{% include "piece/stock/_pieces_utilisees_pdf.html" with maintenance=pc_air_jack.maintenance %}
+<!-- ================= REMARQUES ================= -->
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ pc_air_jack.remarques|default:_("Aucune remarque.") }}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

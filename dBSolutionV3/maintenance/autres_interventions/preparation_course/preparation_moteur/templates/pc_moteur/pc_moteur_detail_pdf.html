@@ -1,0 +1,813 @@
+{% load i18n static format_numbers %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    </style>
+</head>
+<body>
+{% if pc_moteur.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ pc_moteur.tech_societe.nom }}
+            </div>
+
+            {% if pc_moteur.tech_societe.adresse %}
+                <div>
+                    {{ pc_moteur.tech_societe.adresse.rue }}
+                    {{ pc_moteur.tech_societe.adresse.numero }}
+                    {% if pc_moteur.tech_societe.adresse.boite %}
+                        / {{ pc_moteur.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ pc_moteur.tech_societe.adresse.code_postal }}
+                    {{ pc_moteur.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if pc_moteur.tech_societe.adresse.pays %}
+                <div>{{ pc_moteur.tech_societe.adresse.pays }}
+                    {{ pc_moteur.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if pc_moteur.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ pc_moteur.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if pc_moteur.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ pc_moteur.tech_societe.iban|format_iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ pc_moteur.tech_societe.nom }}.png"
+                alt="{{ pc_moteur.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Préparation moteur" %}</h1>
+
+<!-- ================= INFOS ================= -->
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ pc_moteur.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ pc_moteur.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ pc_moteur.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ pc_moteur.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ pc_moteur.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage de l'intervention" %} :</span>
+            {{ pc_moteur.kilometrage_pc_moteur }} km
+        </div>
+
+
+
+<!-- ================= TAG ================= -->
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if pc_moteur.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ pc_moteur.get_tag_display }}
+                </span>
+
+            {% elif pc_moteur.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ pc_moteur.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ pc_moteur.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<h2>{% trans "Caractéristiques" %}</h2>
+<div>
+    <table class="table-2-cols">
+        <tbody>
+            <tr>
+                <td>{% trans "Lubrification" %}</td>
+                <td>{{ pc_moteur.get_type_lubrification_display|default:"—" }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Puissance d'origine (ch)" %}</td>
+                <td>{{ pc_moteur.puissance_origine|default:"—" }} ch</td>
+            </tr>
+            <tr>
+                <td>{% trans "Puissance après préparation (ch)" %}</td>
+                <td>{{ pc_moteur.puissance_apres|default:"—" }} ch</td>
+            </tr>
+            <tr>
+                <td>{% trans "Couple d'origine (Nm)" %}</td>
+                <td>{{ pc_moteur.couple_origine|default:"—" }} Nm</td>
+            </tr>
+            <tr>
+                <td>{% trans "Couple après préparation (Nm)" %}</td>
+                <td>{{ pc_moteur.couple_apres|default:"—" }} Nm</td>
+            </tr>
+            <tr>
+                <td>{% trans "Régime maximum (tr/min)" %}</td>
+                <td>{{ pc_moteur.regime_maxi|default:"—" }} tr/min</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ================= PRÉPARATION MOTEUR ================= -->
+<h2>{% trans "Préparation moteur" %}</h2>
+
+<div>
+
+    <table class="table-2-cols">
+
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% if pc_moteur.carter_sec_reservoir != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Carter sec : réservoir d'huile" %}</td>
+                <td>
+                    {% if pc_moteur.carter_sec_reservoir == "OK" or pc_moteur.carter_sec_reservoir == "REMONTE" %}<span class="ok">{{ pc_moteur.get_carter_sec_reservoir_display }}</span>
+                    {% elif pc_moteur.carter_sec_reservoir == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_carter_sec_reservoir_display }}</span>
+                    {% elif pc_moteur.carter_sec_reservoir == "REMPLACE" or pc_moteur.carter_sec_reservoir == "DEMONTE" or pc_moteur.carter_sec_reservoir == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_carter_sec_reservoir_display }}</span>
+                    {% else %}<span>{{ pc_moteur.get_carter_sec_reservoir_display }}</span>{% endif %}
+                    {% if pc_moteur.carter_sec_reservoir_fabricant and pc_moteur.carter_sec_reservoir_fabricant != "CHOISIR" %} — {{ pc_moteur.get_carter_sec_reservoir_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_moteur.carter_sec_pompe != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Carter sec : pompe multi-étages" %}</td>
+                <td>
+                    {% if pc_moteur.carter_sec_pompe == "OK" or pc_moteur.carter_sec_pompe == "REMONTE" %}<span class="ok">{{ pc_moteur.get_carter_sec_pompe_display }}</span>
+                    {% elif pc_moteur.carter_sec_pompe == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_carter_sec_pompe_display }}</span>
+                    {% elif pc_moteur.carter_sec_pompe == "REMPLACE" or pc_moteur.carter_sec_pompe == "DEMONTE" or pc_moteur.carter_sec_pompe == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_carter_sec_pompe_display }}</span>
+                    {% else %}<span>{{ pc_moteur.get_carter_sec_pompe_display }}</span>{% endif %}
+                    {% if pc_moteur.carter_sec_pompe_fabricant and pc_moteur.carter_sec_pompe_fabricant != "CHOISIR" %} — {{ pc_moteur.get_carter_sec_pompe_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_moteur.carter_sec_durites != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Carter sec : durites et raccords" %}</td>
+                <td>
+                    {% if pc_moteur.carter_sec_durites == "OK" or pc_moteur.carter_sec_durites == "REMONTE" %}<span class="ok">{{ pc_moteur.get_carter_sec_durites_display }}</span>
+                    {% elif pc_moteur.carter_sec_durites == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_carter_sec_durites_display }}</span>
+                    {% elif pc_moteur.carter_sec_durites == "REMPLACE" or pc_moteur.carter_sec_durites == "DEMONTE" or pc_moteur.carter_sec_durites == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_carter_sec_durites_display }}</span>
+                    {% else %}<span>{{ pc_moteur.get_carter_sec_durites_display }}</span>{% endif %}
+                    {% if pc_moteur.carter_sec_durites_fabricant and pc_moteur.carter_sec_durites_fabricant != "CHOISIR" %} — {{ pc_moteur.get_carter_sec_durites_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_moteur.bache_huile != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Bâche à huile / carter cloisonné" %}</td>
+                <td>
+                    {% if pc_moteur.bache_huile == "OK" or pc_moteur.bache_huile == "REMONTE" %}<span class="ok">{{ pc_moteur.get_bache_huile_display }}</span>
+                    {% elif pc_moteur.bache_huile == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_bache_huile_display }}</span>
+                    {% elif pc_moteur.bache_huile == "REMPLACE" or pc_moteur.bache_huile == "DEMONTE" or pc_moteur.bache_huile == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_bache_huile_display }}</span>
+                    {% else %}<span>{{ pc_moteur.get_bache_huile_display }}</span>{% endif %}
+                    {% if pc_moteur.bache_huile_fabricant and pc_moteur.bache_huile_fabricant != "CHOISIR" %} — {{ pc_moteur.get_bache_huile_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_moteur.radiateur_huile != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Radiateur d'huile" %}</td>
+                <td>
+                    {% if pc_moteur.radiateur_huile == "OK" or pc_moteur.radiateur_huile == "REMONTE" %}<span class="ok">{{ pc_moteur.get_radiateur_huile_display }}</span>
+                    {% elif pc_moteur.radiateur_huile == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_radiateur_huile_display }}</span>
+                    {% elif pc_moteur.radiateur_huile == "REMPLACE" or pc_moteur.radiateur_huile == "DEMONTE" or pc_moteur.radiateur_huile == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_radiateur_huile_display }}</span>
+                    {% else %}<span>{{ pc_moteur.get_radiateur_huile_display }}</span>{% endif %}
+                    {% if pc_moteur.radiateur_huile_fabricant and pc_moteur.radiateur_huile_fabricant != "CHOISIR" %} — {{ pc_moteur.get_radiateur_huile_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_moteur.pistons_forges != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Pistons forgés" %}</td>
+                <td>
+                    {% if pc_moteur.pistons_forges == "OK" or pc_moteur.pistons_forges == "REMONTE" %}<span class="ok">{{ pc_moteur.get_pistons_forges_display }}</span>
+                    {% elif pc_moteur.pistons_forges == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_pistons_forges_display }}</span>
+                    {% elif pc_moteur.pistons_forges == "REMPLACE" or pc_moteur.pistons_forges == "DEMONTE" or pc_moteur.pistons_forges == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_pistons_forges_display }}</span>
+                    {% else %}<span>{{ pc_moteur.get_pistons_forges_display }}</span>{% endif %}
+                    {% if pc_moteur.pistons_forges_fabricant and pc_moteur.pistons_forges_fabricant != "CHOISIR" %} — {{ pc_moteur.get_pistons_forges_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_moteur.bielles_forgees != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Bielles forgées" %}</td>
+                <td>
+                    {% if pc_moteur.bielles_forgees == "OK" or pc_moteur.bielles_forgees == "REMONTE" %}<span class="ok">{{ pc_moteur.get_bielles_forgees_display }}</span>
+                    {% elif pc_moteur.bielles_forgees == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_bielles_forgees_display }}</span>
+                    {% elif pc_moteur.bielles_forgees == "REMPLACE" or pc_moteur.bielles_forgees == "DEMONTE" or pc_moteur.bielles_forgees == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_bielles_forgees_display }}</span>
+                    {% else %}<span>{{ pc_moteur.get_bielles_forgees_display }}</span>{% endif %}
+                    {% if pc_moteur.bielles_forgees_fabricant and pc_moteur.bielles_forgees_fabricant != "CHOISIR" %} — {{ pc_moteur.get_bielles_forgees_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_moteur.arbres_cames != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Arbres à cames" %}</td>
+                <td>
+                    {% if pc_moteur.arbres_cames == "OK" or pc_moteur.arbres_cames == "REMONTE" %}<span class="ok">{{ pc_moteur.get_arbres_cames_display }}</span>
+                    {% elif pc_moteur.arbres_cames == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_arbres_cames_display }}</span>
+                    {% elif pc_moteur.arbres_cames == "REMPLACE" or pc_moteur.arbres_cames == "DEMONTE" or pc_moteur.arbres_cames == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_arbres_cames_display }}</span>
+                    {% else %}<span>{{ pc_moteur.get_arbres_cames_display }}</span>{% endif %}
+                    {% if pc_moteur.arbres_cames_fabricant and pc_moteur.arbres_cames_fabricant != "CHOISIR" %} — {{ pc_moteur.get_arbres_cames_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_moteur.soupapes_ressorts != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Soupapes et ressorts renforcés" %}</td>
+                <td>
+                    {% if pc_moteur.soupapes_ressorts == "OK" or pc_moteur.soupapes_ressorts == "REMONTE" %}<span class="ok">{{ pc_moteur.get_soupapes_ressorts_display }}</span>
+                    {% elif pc_moteur.soupapes_ressorts == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_soupapes_ressorts_display }}</span>
+                    {% elif pc_moteur.soupapes_ressorts == "REMPLACE" or pc_moteur.soupapes_ressorts == "DEMONTE" or pc_moteur.soupapes_ressorts == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_soupapes_ressorts_display }}</span>
+                    {% else %}<span>{{ pc_moteur.get_soupapes_ressorts_display }}</span>{% endif %}
+                    {% if pc_moteur.soupapes_ressorts_fabricant and pc_moteur.soupapes_ressorts_fabricant != "CHOISIR" %} — {{ pc_moteur.get_soupapes_ressorts_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_moteur.joint_culasse_renforce != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Joint de culasse renforcé" %}</td>
+                <td>
+                    {% if pc_moteur.joint_culasse_renforce == "OK" or pc_moteur.joint_culasse_renforce == "REMONTE" %}<span class="ok">{{ pc_moteur.get_joint_culasse_renforce_display }}</span>
+                    {% elif pc_moteur.joint_culasse_renforce == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_joint_culasse_renforce_display }}</span>
+                    {% elif pc_moteur.joint_culasse_renforce == "REMPLACE" or pc_moteur.joint_culasse_renforce == "DEMONTE" or pc_moteur.joint_culasse_renforce == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_joint_culasse_renforce_display }}</span>
+                    {% else %}<span>{{ pc_moteur.get_joint_culasse_renforce_display }}</span>{% endif %}
+                    {% if pc_moteur.joint_culasse_renforce_fabricant and pc_moteur.joint_culasse_renforce_fabricant != "CHOISIR" %} — {{ pc_moteur.get_joint_culasse_renforce_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_moteur.admission_course != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Admission (filtre / boîte à air)" %}</td>
+                <td>
+                    {% if pc_moteur.admission_course == "OK" or pc_moteur.admission_course == "REMONTE" %}<span class="ok">{{ pc_moteur.get_admission_course_display }}</span>
+                    {% elif pc_moteur.admission_course == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_admission_course_display }}</span>
+                    {% elif pc_moteur.admission_course == "REMPLACE" or pc_moteur.admission_course == "DEMONTE" or pc_moteur.admission_course == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_admission_course_display }}</span>
+                    {% else %}<span>{{ pc_moteur.get_admission_course_display }}</span>{% endif %}
+                    {% if pc_moteur.admission_course_fabricant and pc_moteur.admission_course_fabricant != "CHOISIR" %} — {{ pc_moteur.get_admission_course_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_moteur.injecteurs_course != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Injecteurs" %}</td>
+                <td>
+                    {% if pc_moteur.injecteurs_course == "OK" or pc_moteur.injecteurs_course == "REMONTE" %}<span class="ok">{{ pc_moteur.get_injecteurs_course_display }}</span>
+                    {% elif pc_moteur.injecteurs_course == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_injecteurs_course_display }}</span>
+                    {% elif pc_moteur.injecteurs_course == "REMPLACE" or pc_moteur.injecteurs_course == "DEMONTE" or pc_moteur.injecteurs_course == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_injecteurs_course_display }}</span>
+                    {% else %}<span>{{ pc_moteur.get_injecteurs_course_display }}</span>{% endif %}
+                    {% if pc_moteur.injecteurs_course_fabricant and pc_moteur.injecteurs_course_fabricant != "CHOISIR" %} — {{ pc_moteur.get_injecteurs_course_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_moteur.pompe_carburant_course != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Pompe à carburant" %}</td>
+                <td>
+                    {% if pc_moteur.pompe_carburant_course == "OK" or pc_moteur.pompe_carburant_course == "REMONTE" %}<span class="ok">{{ pc_moteur.get_pompe_carburant_course_display }}</span>
+                    {% elif pc_moteur.pompe_carburant_course == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_pompe_carburant_course_display }}</span>
+                    {% elif pc_moteur.pompe_carburant_course == "REMPLACE" or pc_moteur.pompe_carburant_course == "DEMONTE" or pc_moteur.pompe_carburant_course == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_pompe_carburant_course_display }}</span>
+                    {% else %}<span>{{ pc_moteur.get_pompe_carburant_course_display }}</span>{% endif %}
+                    {% if pc_moteur.pompe_carburant_course_fabricant and pc_moteur.pompe_carburant_course_fabricant != "CHOISIR" %} — {{ pc_moteur.get_pompe_carburant_course_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_moteur.volant_moteur_allege != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Volant moteur allégé" %}</td>
+                <td>
+                    {% if pc_moteur.volant_moteur_allege == "OK" or pc_moteur.volant_moteur_allege == "REMONTE" %}<span class="ok">{{ pc_moteur.get_volant_moteur_allege_display }}</span>
+                    {% elif pc_moteur.volant_moteur_allege == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_volant_moteur_allege_display }}</span>
+                    {% elif pc_moteur.volant_moteur_allege == "REMPLACE" or pc_moteur.volant_moteur_allege == "DEMONTE" or pc_moteur.volant_moteur_allege == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_volant_moteur_allege_display }}</span>
+                    {% else %}<span>{{ pc_moteur.get_volant_moteur_allege_display }}</span>{% endif %}
+                    {% if pc_moteur.volant_moteur_allege_fabricant and pc_moteur.volant_moteur_allege_fabricant != "CHOISIR" %} — {{ pc_moteur.get_volant_moteur_allege_fabricant_display }}{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% if pc_moteur.rodage_moteur != "NON_PRESENT" %}
+            <tr>
+                <td>{% trans "Rodage du moteur" %}</td>
+                <td>
+                    {% if pc_moteur.rodage_moteur == "OK" or pc_moteur.rodage_moteur == "REMONTE" %}<span class="ok">{{ pc_moteur.get_rodage_moteur_display }}</span>
+                    {% elif pc_moteur.rodage_moteur == "NOT_OK" %}<span class="not-ok">{{ pc_moteur.get_rodage_moteur_display }}</span>
+                    {% elif pc_moteur.rodage_moteur == "REMPLACE" or pc_moteur.rodage_moteur == "DEMONTE" or pc_moteur.rodage_moteur == "SUPPRIME" %}<span class="remplace">{{ pc_moteur.get_rodage_moteur_display }}</span>
+                    {% else %}<span>{{ pc_moteur.get_rodage_moteur_display }}</span>{% endif %}
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+
+    </table>
+
+</div>
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ pc_moteur.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if pc_moteur.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire HTVA" %} :</span>
+                {{ pc_moteur.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix HTVA" %} :</span>
+                {{ pc_moteur.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ pc_moteur.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div>
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                       <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                        <td class="text-right">
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        {% trans "Main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ pc_moteur.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td colspan="5" class="text-right">
+                        {% trans "Total général avec main-d'œuvre HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ pc_moteur.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+         <p>
+             {% trans "Aucune pièce ou produit utilisé." %}
+         </p>
+
+        <table class="table-2-cols">
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ pc_moteur.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total-general">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ pc_moteur.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+
+<br>
+{% include "piece/stock/_pieces_utilisees_pdf.html" with maintenance=pc_moteur.maintenance %}
+<!-- ================= REMARQUES ================= -->
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ pc_moteur.remarques|default:_("Aucune remarque.") }}
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

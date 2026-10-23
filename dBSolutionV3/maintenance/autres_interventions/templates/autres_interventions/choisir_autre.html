@@ -499,6 +499,26 @@
         </a>
 
         <!-- ================================================== -->
+        <!-- PRÉPARATION COURSE (dashboard) -->
+        <!-- ================================================== -->
+        <a
+            href="{% url 'preparation_course:dashboard_preparation_course' exemplaire.id %}"
+            class="block rounded-lg bg-white p-6 shadow-md transition duration-300 hover:bg-blue-50 hover:shadow-lg"
+        >
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="mb-1 text-lg font-semibold">{% trans "Préparation course" %}</h2>
+                    <p class="text-xs text-gray-500 mb-1">{% trans "Arceau, extincteur, baquets, câblage, boîtier, moteur, échappement, démontage, air jack" %}</p>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_preparation_course|default:0 }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/preparation_course.png' %}" alt="{% trans 'Préparation course' %}" class="h-[60px] w-[60px]">
+            </div>
+        </a>
+
+        <!-- ================================================== -->
         <!-- SUSPENSION (dashboard : origine + sport) -->
         <!-- ================================================== -->
         <a

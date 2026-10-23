@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Sièges baquets et harnais" %}{% endblock %}
+
+{% block content %}
+    {% url 'pc_sieges:modifier_pc_sieges' pc_sieges.pk as url_modifier %}
+    {% url 'pc_sieges:pc_sieges_detail_pdf' pc_sieges.pk as url_pdf %}
+    {% url 'pc_sieges:delete_pc_sieges' pc_sieges.pk as url_delete %}
+    {% if exemplaire %}{% url 'pc_sieges:pc_sieges_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Sièges baquets et harnais" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=pc_sieges km_controle=pc_sieges.kilometrage_pc_sieges icone="pc_sieges.png" %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Échappement compétition" %}{% endblock %}
+
+{% block content %}
+    {% url 'pc_echappement:modifier_pc_echappement' pc_echappement.pk as url_modifier %}
+    {% url 'pc_echappement:pc_echappement_detail_pdf' pc_echappement.pk as url_pdf %}
+    {% url 'pc_echappement:delete_pc_echappement' pc_echappement.pk as url_delete %}
+    {% if exemplaire %}{% url 'pc_echappement:pc_echappement_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Échappement compétition" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=pc_echappement km_controle=pc_echappement.kilometrage_pc_echappement icone="pc_echappement.png" %}
+{% endblock %}

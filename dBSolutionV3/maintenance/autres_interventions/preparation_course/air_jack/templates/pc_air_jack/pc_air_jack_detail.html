@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Air jack (vérins pneumatiques)" %}{% endblock %}
+
+{% block content %}
+    {% url 'pc_air_jack:modifier_pc_air_jack' pc_air_jack.pk as url_modifier %}
+    {% url 'pc_air_jack:pc_air_jack_detail_pdf' pc_air_jack.pk as url_pdf %}
+    {% url 'pc_air_jack:delete_pc_air_jack' pc_air_jack.pk as url_delete %}
+    {% if exemplaire %}{% url 'pc_air_jack:pc_air_jack_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Air jack (vérins pneumatiques)" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=pc_air_jack km_controle=pc_air_jack.kilometrage_pc_air_jack icone="pc_air_jack.png" %}
+{% endblock %}

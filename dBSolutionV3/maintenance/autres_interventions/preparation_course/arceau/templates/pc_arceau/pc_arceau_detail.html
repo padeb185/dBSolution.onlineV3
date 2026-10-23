@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Arceau de sécurité" %}{% endblock %}
+
+{% block content %}
+    {% url 'pc_arceau:modifier_pc_arceau' pc_arceau.pk as url_modifier %}
+    {% url 'pc_arceau:pc_arceau_detail_pdf' pc_arceau.pk as url_pdf %}
+    {% url 'pc_arceau:delete_pc_arceau' pc_arceau.pk as url_delete %}
+    {% if exemplaire %}{% url 'pc_arceau:pc_arceau_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Arceau de sécurité" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=pc_arceau km_controle=pc_arceau.kilometrage_pc_arceau icone="pc_arceau.png" %}
+{% endblock %}
