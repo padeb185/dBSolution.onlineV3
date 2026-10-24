@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static format_numbers %}
 
 {% block title %}{% trans "Garages officiels" %}{% endblock %}
 
@@ -59,7 +59,7 @@
                 {% else %}—{% endif %}
             </td>
             <td class="border px-4 py-2 text-sm">
-                {{ g.numero_tva|default:"—" }}
+                {{ g.numero_tva|format_tva|default:"—" }}
                 {% if g.peppol_id %}<br><span class="font-mono text-gray-500">{{ g.peppol_id }}</span>{% endif %}
             </td>
             <td class="border px-4 py-2 text-sm">

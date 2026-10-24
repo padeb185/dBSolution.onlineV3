@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static format_numbers %}
 
 {% block content %}
 
@@ -69,7 +69,7 @@
             <dd class="font-medium">{{ societe_cliente.nom_societe_cliente|default:"—" }}</dd>
 
             <dt class="text-gray-600">{% trans "Numéro de TVA" %}</dt>
-            <dd class="font-medium">{{ societe_cliente.numero_tva|default:"—" }}</dd>
+            <dd class="font-medium">{{ societe_cliente.numero_tva|format_tva|default:"—" }}</dd>
 
             <dt class="text-gray-600">{% trans "Numéro d'entreprise" %}</dt>
             <dd class="font-medium">{{ societe_cliente.numero_entreprise|default:"—" }}</dd>

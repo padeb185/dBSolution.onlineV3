@@ -19,16 +19,13 @@ from django.core.exceptions import ValidationError as DjangoValidationError
 
 class UtilisateurManager(BaseUserManager):
     def validate_password(self, password):
+        # Règles communes : 12 caractères, majuscule, minuscule, chiffre, caractère spécial
+        from .mot_de_passe import erreurs_complexite
         if not password:
-            raise ValidationError("Le mot de passe est obligatoire.")
-        if len(password) < 12:
-            raise ValidationError("Le mot de passe doit contenir au moins 12 caractères.")
-        if not re.search(r"[A-Z]", password):
-            raise ValidationError("Le mot de passe doit contenir au moins une majuscule.")
-        if not re.search(r"[a-z]", password):
-            raise ValidationError("Le mot de passe doit contenir au moins une minuscule.")
-        if not re.search(r"\d", password):
-            raise ValidationError("Le mot de passe doit contenir au moins un chiffre.")
+            raise ValidationError(_("Le mot de passe est obligatoire."))
+        erreurs = erreurs_complexite(password)
+        if erreurs:
+            raise ValidationError(" ".join(str(e) for e in erreurs))
 
     def create_user(self, email, password=None, **extra_fields):
         if not email:

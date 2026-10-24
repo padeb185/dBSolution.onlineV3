@@ -41,3 +41,9 @@ def mask_card(value):
     if not value or len(value) < 4:
         return value
     return "**** **** **** " + value[-4:]
+
+@register.filter
+def format_tva(value):
+    """Numéro de TVA mis en forme : BE 0123.456.789, FR 12 345 678 901, NL 123456789 B01…"""
+    from core.tva import formater_tva
+    return formater_tva(value) if value else value

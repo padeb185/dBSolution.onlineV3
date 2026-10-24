@@ -296,7 +296,7 @@
             {% if batterie.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ batterie.tech_societe.numero_tva }}
+                    {{ batterie.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if batterie.tech_societe.iban %}

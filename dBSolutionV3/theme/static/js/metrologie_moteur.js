@@ -225,13 +225,16 @@
         }
     }
 
-    document.getElementById("generer-lignes").addEventListener("click", () => {
+    function ajusterAuNombreDeCylindres() {
         const n = nbCyl();
         if (!n) return;
-        ajusterLignes("ligne-cyl", "cyl", GABARITS_CYL, n);
-        ajusterLignes("ligne-tour", "tour", GABARITS_TOUR, n + 1);
+        ajusterLignes("ligne-cyl", "cyl", GABARITS_CYL, n);       // une ligne (chemise, piston, segments, bielle) par cylindre
+        ajusterLignes("ligne-tour", "tour", GABARITS_TOUR, n + 1); // moteur en ligne : n + 1 tourillons
         tout();
-    });
+    }
+    document.getElementById("generer-lignes").addEventListener("click", ajusterAuNombreDeCylindres);
+    const champNb = champ("nombre_cylindres");
+    if (champNb) champNb.addEventListener("change", ajusterAuNombreDeCylindres);
     document.getElementById("ajouter-cylindre").addEventListener("click", () => { ajouter("cyl", GABARITS_CYL, prochainNumero("ligne-cyl")); tout(); });
     document.getElementById("ajouter-tourillon").addEventListener("click", () => { ajouter("tour", GABARITS_TOUR, prochainNumero("ligne-tour")); tout(); });
 

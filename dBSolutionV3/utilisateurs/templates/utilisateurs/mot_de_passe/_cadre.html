@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% comment %}Mise en page des pages publiques du mot de passe (même cadre que la connexion).{% endcomment %}
+
+{% block body_class %}bg-pastelblue flex items-center justify-center min-h-screen{% endblock %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block main_class %}flex flex-col items-center justify-center w-full{% endblock %}
+
+{% block content %}
+<div class="w-full">
+    <div class="mb-6">
+        <img src="{% static 'CarsCosts/CarsCostsTitre.png' %}" alt="{% trans 'CarsCosts' %}"
+             class="mx-auto h-auto" style="width: 70%; max-width: 520px;">
+    </div>
+    <div class="flex justify-center items-center w-full px-4">
+        <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
+            <h1 class="text-2xl font-bold mb-4 text-center">{% block titre_cadre %}{% endblock %}</h1>
+            {% include "partials/messages.html" %}
+            {% block cadre %}{% endblock %}
+            <div class="text-center text-sm text-gray-500 mt-6">
+                <a href="{% url 'connexion_globale' %}" class="hover:underline hover:text-blue-700">← {% trans "Retour à la connexion" %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

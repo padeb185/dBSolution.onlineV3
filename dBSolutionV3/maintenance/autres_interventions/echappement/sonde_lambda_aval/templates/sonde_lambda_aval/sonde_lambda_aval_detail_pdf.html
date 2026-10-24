@@ -296,7 +296,7 @@
             {% if sonde_lambda_aval.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ sonde_lambda_aval.tech_societe.numero_tva }}
+                    {{ sonde_lambda_aval.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if sonde_lambda_aval.tech_societe.iban %}

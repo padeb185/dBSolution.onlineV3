@@ -296,7 +296,7 @@
             {% if renovation_machoires.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ renovation_machoires.tech_societe.numero_tva }}
+                    {{ renovation_machoires.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if renovation_machoires.tech_societe.iban %}

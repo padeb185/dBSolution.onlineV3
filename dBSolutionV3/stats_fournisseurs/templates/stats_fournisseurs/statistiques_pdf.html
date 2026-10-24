@@ -228,7 +228,7 @@
             {% if societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ societe.numero_tva }}
+                    {{ societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
 
@@ -264,7 +264,7 @@
 
         <div>
             <span class="label">{% trans "Numéro de TVA" %} :</span>
-            {{ fournisseur.numero_tva|default:"-" }}
+            {{ fournisseur.numero_tva|format_tva|default:"-" }}
         </div>
 
         {% if fournisseur.adresse %}

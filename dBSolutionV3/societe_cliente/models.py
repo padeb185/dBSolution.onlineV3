@@ -140,7 +140,8 @@ class SocieteCliente(models.Model):
 
     def __str__(self):
         name = self.nom_societe_cliente or "Sans nom"
-        vat = self.numero_tva or ""
+        from core.tva import formater_tva
+        vat = formater_tva(self.numero_tva) or ""
 
         if vat:
             return f"{name} ({vat})"

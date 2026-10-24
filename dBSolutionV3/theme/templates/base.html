@@ -76,6 +76,12 @@
             </button>
         </form>
 
+        {% if user.is_authenticated %}
+        <a href="{% url 'password_change' %}" title="{% trans 'Changer mon mot de passe' %}"
+           class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-2 text-center whitespace-nowrap shrink-0 rounded-md font-semibold inline-block transition duration-300">
+            🔑 {% trans "Mot de passe" %}
+        </a>
+        {% endif %}
         <a href="{% url 'utilisateurs:logout' %}"
           class="bg-red-700 hover:bg-red-500 text-white px-5 py-2 min-w-[130px] text-center whitespace-nowrap shrink-0 rounded-md font-semibold inline-block transition duration-300">
             {% trans "Déconnexion" %}
@@ -358,6 +364,21 @@
 </script>
 <script src="{% static 'js/pieces_intervention.js' %}?v=6"></script>
 <script src="{% static 'js/quantite_prix.js' %}?v=1"></script>
+<script src="{% static 'js/tva.js' %}?v=1"></script>
+<script>
+    window.MDP_MESSAGES = {
+        longueur: "{% trans 'Au moins 12 caractères' as t %}{{ t|escapejs }}",
+        majuscule: "{% trans 'Une majuscule' as t %}{{ t|escapejs }}",
+        minuscule: "{% trans 'Une minuscule' as t %}{{ t|escapejs }}",
+        chiffre: "{% trans 'Un chiffre' as t %}{{ t|escapejs }}",
+        special: "{% trans 'Un caractère spécial (! ? @ # $ % & * …)' as t %}{{ t|escapejs }}",
+        identiques: "{% trans 'Les mots de passe sont identiques' as t %}{{ t|escapejs }}",
+        differents: "{% trans 'Les mots de passe ne sont pas identiques' as t %}{{ t|escapejs }}",
+        afficher: "{% trans 'Afficher' as t %}{{ t|escapejs }}",
+        masquer: "{% trans 'Masquer' as t %}{{ t|escapejs }}"
+    };
+</script>
+<script src="{% static 'js/mot_de_passe.js' %}?v=1"></script>
 {% endif %}
 </body>
 </html>

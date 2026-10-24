@@ -296,7 +296,7 @@
             {% if fusibles.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ fusibles.tech_societe.numero_tva }}
+                    {{ fusibles.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if fusibles.tech_societe.iban %}

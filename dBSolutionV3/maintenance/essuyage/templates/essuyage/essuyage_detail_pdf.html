@@ -285,7 +285,7 @@
             {% if essuyage.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ essuyage.tech_societe.numero_tva }}
+                    {{ essuyage.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
 

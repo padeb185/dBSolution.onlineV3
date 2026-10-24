@@ -1,0 +1,13 @@
+{% extends "utilisateurs/mot_de_passe/_cadre.html" %}
+{% load i18n %}
+{% block title %}{% trans "Mot de passe oublié" %}{% endblock %}
+{% block titre_cadre %}{% trans "Mot de passe oublié" %}{% endblock %}
+{% block cadre %}
+<p class="text-gray-600 mb-4">{% trans "Indiquez votre e-mail de connexion ou votre e-mail entreprise. Un lien pour choisir un nouveau mot de passe sera envoyé à votre adresse de récupération (e-mail entreprise, ou à défaut e-mail de connexion)." %}</p>
+<form method="post" novalidate>
+    {% csrf_token %}
+    {% include "utilisateurs/mot_de_passe/_erreurs.html" %}
+    {% with field=form.email %}{% include "utilisateurs/mot_de_passe/_champ.html" %}{% endwith %}
+    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-300">{% trans "Envoyer le lien" %}</button>
+</form>
+{% endblock %}

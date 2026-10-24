@@ -406,7 +406,7 @@
             {% if eclairage.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ eclairage.tech_societe.numero_tva }}
+                    {{ eclairage.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if eclairage.tech_societe.iban %}

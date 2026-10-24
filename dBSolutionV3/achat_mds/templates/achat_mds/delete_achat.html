@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static format_numbers %}
 
 {% block content %}
 
@@ -23,7 +23,7 @@
                 <li>
                     {{ achat.fournisseur.nom }}
                     {% if achat.fournisseur.numero_tva %}
-                        <span class="text-gray-500">· {{ achat.fournisseur.numero_tva }}</span>
+                        <span class="text-gray-500">· {{ achat.fournisseur.numero_tva|format_tva }}</span>
                     {% endif %}
                 </li>
             </ul>

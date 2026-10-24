@@ -296,7 +296,7 @@
             {% if demarreur.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ demarreur.tech_societe.numero_tva }}
+                    {{ demarreur.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if demarreur.tech_societe.iban %}

@@ -408,7 +408,7 @@
             {% if controle_freins.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ controle_freins.tech_societe.numero_tva }}
+                    {{ controle_freins.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if controle_freins.tech_societe.iban %}

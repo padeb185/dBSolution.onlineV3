@@ -227,7 +227,7 @@
             {% if maindoeuvre.utilisateur.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ maindoeuvre.utilisateur.numero_tva }}
+                    {{ maindoeuvre.utilisateur.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if maindoeuvre.utilisateur.iban %}

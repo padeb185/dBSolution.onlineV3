@@ -296,7 +296,7 @@
             {% if pc_extincteur.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ pc_extincteur.tech_societe.numero_tva }}
+                    {{ pc_extincteur.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if pc_extincteur.tech_societe.iban %}

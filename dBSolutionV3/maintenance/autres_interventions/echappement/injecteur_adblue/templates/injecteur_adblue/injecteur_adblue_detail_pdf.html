@@ -296,7 +296,7 @@
             {% if injecteur_adblue.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ injecteur_adblue.tech_societe.numero_tva }}
+                    {{ injecteur_adblue.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if injecteur_adblue.tech_societe.iban %}

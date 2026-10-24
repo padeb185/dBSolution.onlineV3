@@ -12,6 +12,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from maindoeuvre.models import MainDoeuvre
+from maintenance.autres_interventions.moteur.moteur_lie import moteur_actuel
 from maintenance.autres_interventions.moteur.injection.forms import InjectionForm
 from maintenance.autres_interventions.moteur.injection.models import Injection
 from maintenance.models import Maintenance
@@ -494,6 +495,12 @@ def injection_form_view(request, exemplaire_id):
             ),
         )
 
+        # Nombre de cylindres / d'injecteurs : repris du moteur lié
+        moteur = moteur_actuel(exemplaire)
+        if moteur and moteur.nombre_cylindres:
+            injection.nombre_cylindres = moteur.nombre_cylindres
+            injection.nombre_injecteurs = moteur.nombre_cylindres
+
         injection.assign_technicien(request.user)
 
         form = InjectionForm(
@@ -581,7 +588,7 @@ def injection_form_view(request, exemplaire_id):
                 for f in form
                 if (
                         f.name.startswith("injecteurs_")
-                        or f.name == "nombre_injecteurs"
+                        or f.name in ("nombre_cylindres", "nombre_injecteurs")
                 )
             ],
         },
@@ -983,7 +990,7 @@ def modifier_injection_view(request, injection_id):
                 for f in form
                 if (
                         f.name.startswith("injecteurs_")
-                        or f.name == "nombre_injecteurs"
+                        or f.name in ("nombre_cylindres", "nombre_injecteurs")
                 )
             ],
         },

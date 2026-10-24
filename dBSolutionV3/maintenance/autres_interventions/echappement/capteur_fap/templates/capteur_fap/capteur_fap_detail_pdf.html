@@ -296,7 +296,7 @@
             {% if capteur_fap.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ capteur_fap.tech_societe.numero_tva }}
+                    {{ capteur_fap.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if capteur_fap.tech_societe.iban %}

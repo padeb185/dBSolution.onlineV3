@@ -296,7 +296,7 @@
             {% if pc_air_jack.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ pc_air_jack.tech_societe.numero_tva }}
+                    {{ pc_air_jack.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if pc_air_jack.tech_societe.iban %}

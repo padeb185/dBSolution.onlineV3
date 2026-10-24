@@ -1,0 +1,18 @@
+{% extends "utilisateurs/mot_de_passe/_cadre.html" %}
+{% load i18n %}
+{% block title %}{% trans "Nouveau mot de passe" %}{% endblock %}
+{% block titre_cadre %}{% trans "Nouveau mot de passe" %}{% endblock %}
+{% block cadre %}
+{% if validlink %}
+<form method="post" novalidate>
+    {% csrf_token %}
+    {% include "utilisateurs/mot_de_passe/_erreurs.html" %}
+    {% with field=form.new_password1 %}{% include "utilisateurs/mot_de_passe/_champ.html" %}{% endwith %}
+    {% with field=form.new_password2 %}{% include "utilisateurs/mot_de_passe/_champ.html" %}{% endwith %}
+    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-300">{% trans "Enregistrer le mot de passe" %}</button>
+</form>
+{% else %}
+<p class="bg-red-100 text-red-800 border border-red-300 p-3 rounded mb-4">{% trans "Ce lien n'est plus valable : il a déjà été utilisé ou il a expiré." %}</p>
+<a href="{% url 'password_reset' %}" class="block w-full text-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700">{% trans "Demander un nouveau lien" %}</a>
+{% endif %}
+{% endblock %}

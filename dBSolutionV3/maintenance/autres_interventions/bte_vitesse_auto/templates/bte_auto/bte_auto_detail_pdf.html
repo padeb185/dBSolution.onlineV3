@@ -270,7 +270,7 @@
             {% if bte_auto.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ bte_auto.tech_societe.numero_tva }}
+                    {{ bte_auto.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if bte_auto.tech_societe.iban %}

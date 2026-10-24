@@ -209,11 +209,6 @@ def metrologie_form_view(request, exemplaire_id):
             kilometres_boite=exemplaire.kilometres_boite or 0,
             kilometres_embrayage=exemplaire.kilometres_embrayage or 0,
         )
-        if moteur:
-            if moteur.nombre_cylindres:
-                nouveau.nombre_cylindres = moteur.nombre_cylindres
-            if moteur.cylindree_l:
-                nouveau.cylindree_constructeur_cm3 = (Decimal(str(moteur.cylindree_l)) * 1000).quantize(Decimal("0.1"))
         # Reprise des cotes constructeur et tolérances de la dernière métrologie de ce véhicule
         precedente = MetrologieMoteur.objects.filter(voiture_exemplaire=exemplaire).order_by("-id").first()
         if precedente:
@@ -221,6 +216,12 @@ def metrologie_form_view(request, exemplaire_id):
                 if f.name.startswith("tol_") or f.name in ("nombre_cylindres", "alesage_nominal", "course_nominale",
                                                             "cylindree_constructeur_cm3"):
                     setattr(nouveau, f.name, getattr(precedente, f.name))
+        # Le moteur lié est prioritaire : nombre de cylindres (= pistons) et cylindrée (litres → cm³)
+        if moteur:
+            if moteur.nombre_cylindres:
+                nouveau.nombre_cylindres = moteur.nombre_cylindres
+            if moteur.cylindree_l:
+                nouveau.cylindree_constructeur_cm3 = (Decimal(str(moteur.cylindree_l)) * 1000).quantize(Decimal("0.1"))
         nouveau.assign_technicien(request.user)
 
         form = MetrologieMoteurForm(instance=nouveau, user=request.user, exemplaire=exemplaire)

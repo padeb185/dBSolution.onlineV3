@@ -248,7 +248,7 @@
             {% if carrosserie.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ carrosserie.tech_societe.numero_tva }}
+                    {{ carrosserie.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if carrosserie.tech_societe.iban %}

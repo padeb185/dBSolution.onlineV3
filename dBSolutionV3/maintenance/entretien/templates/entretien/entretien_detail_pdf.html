@@ -406,7 +406,7 @@
             {% if entretien.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ entretien.tech_societe.numero_tva }}
+                    {{ entretien.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if entretien.tech_societe.iban %}

@@ -63,7 +63,7 @@
             <dd class="font-medium">{{ fournisseur.nom|default:"—" }}</dd>
 
             <dt class="text-gray-600">{% trans "Numéro de TVA" %}</dt>
-            <dd class="font-medium">{{ fournisseur.numero_tva|default:"—" }}</dd>
+            <dd class="font-medium">{{ fournisseur.numero_tva|format_tva|default:"—" }}</dd>
 
             <dt class="text-gray-600">{% trans "Taux de TVA" %}</dt>
             <dd class="font-medium">

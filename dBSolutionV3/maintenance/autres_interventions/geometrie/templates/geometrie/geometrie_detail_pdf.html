@@ -334,7 +334,7 @@
             {% if geometrie.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ geometrie.tech_societe.numero_tva }}
+                    {{ geometrie.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if geometrie.tech_societe.iban %}

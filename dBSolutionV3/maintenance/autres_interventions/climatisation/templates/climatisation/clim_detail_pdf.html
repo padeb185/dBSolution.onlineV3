@@ -317,7 +317,7 @@
             {% if climatisation.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ climatisation.tech_societe.numero_tva }}
+                    {{ climatisation.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if climatisation.tech_societe.iban %}

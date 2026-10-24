@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static format_numbers %}
 
 {% block title %}{% trans "Facture" %} {{ facture.numero }}{% endblock %}
 
@@ -24,7 +24,7 @@
             <h2 class="text-lg font-semibold mb-2">{% trans "Client" %}</h2>
             <p class="font-semibold">{{ facture.client_nom|default:"-" }}</p>
             {% if facture.client_adresse %}<p>{{ facture.client_adresse|linebreaksbr }}</p>{% endif %}
-            {% if facture.client_tva %}<p><strong>{% trans "Numéro de TVA" %} :</strong> {{ facture.client_tva }}</p>{% endif %}
+            {% if facture.client_tva %}<p><strong>{% trans "Numéro de TVA" %} :</strong> {{ facture.client_tva|format_tva }}</p>{% endif %}
             {% if facture.client_email %}<p><strong>{% trans "Email" %} :</strong> {{ facture.client_email }}</p>{% endif %}
             {% if facture.est_pro and facture.societe_cliente.peppol_id %}
                 <p><strong>{% trans "Identifiant Peppol" %} :</strong> {{ facture.societe_cliente.peppol_id }}</p>

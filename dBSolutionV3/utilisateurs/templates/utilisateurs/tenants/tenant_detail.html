@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static format_numbers %}
 
 {% block title %}{{ societe.nom }}{% endblock %}
 
@@ -23,7 +23,7 @@
             <h2 class="text-lg font-semibold mb-4">{% trans "Société" %}</h2>
             <dl class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
                 <dt class="text-gray-600">{% trans "Directeur" %}</dt><dd>{{ societe.directeur }}</dd>
-                <dt class="text-gray-600">{% trans "Numéro de TVA" %}</dt><dd>{{ societe.numero_tva }}</dd>
+                <dt class="text-gray-600">{% trans "Numéro de TVA" %}</dt><dd>{{ societe.numero_tva|format_tva }}</dd>
                 <dt class="text-gray-600">{% trans "Numéro de téléphone" %}</dt><dd>{{ societe.numero_tel|default:"—" }}</dd>
                 <dt class="text-gray-600">{% trans "IBAN" %}</dt><dd>{{ societe.iban|default:"—" }}</dd>
                 <dt class="text-gray-600">{% trans "Site internet" %}</dt><dd>{{ societe.site|default:"—" }}</dd>

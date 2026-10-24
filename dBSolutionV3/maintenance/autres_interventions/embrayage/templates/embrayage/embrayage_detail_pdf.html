@@ -298,7 +298,7 @@
             {% if embrayage.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ embrayage.tech_societe.numero_tva }}
+                    {{ embrayage.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if embrayage.tech_societe.iban %}

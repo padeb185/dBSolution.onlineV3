@@ -296,7 +296,7 @@
             {% if valves_echappement.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ valves_echappement.tech_societe.numero_tva }}
+                    {{ valves_echappement.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if valves_echappement.tech_societe.iban %}

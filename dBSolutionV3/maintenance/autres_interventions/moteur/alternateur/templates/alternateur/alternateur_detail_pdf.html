@@ -290,7 +290,7 @@
             {% if alternateur.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ alternateur.tech_societe.numero_tva }}
+                    {{ alternateur.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if alternateur.tech_societe.iban %}

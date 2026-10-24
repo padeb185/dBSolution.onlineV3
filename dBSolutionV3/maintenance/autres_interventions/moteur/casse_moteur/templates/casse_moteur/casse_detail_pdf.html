@@ -300,7 +300,7 @@
             {% if casse.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ casse.tech_societe.numero_tva }}
+                    {{ casse.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if casse.tech_societe.iban %}

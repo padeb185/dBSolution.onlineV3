@@ -1,0 +1,8 @@
+{% extends "utilisateurs/mot_de_passe/_cadre.html" %}
+{% load i18n %}
+{% block title %}{% trans "Mot de passe modifié" %}{% endblock %}
+{% block titre_cadre %}{% trans "Mot de passe modifié" %}{% endblock %}
+{% block cadre %}
+<p class="text-gray-700 mb-4">{% trans "Votre mot de passe a été enregistré. Vous pouvez maintenant vous connecter." %}</p>
+<a href="{% url 'connexion_globale' %}" class="block w-full text-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700">{% trans "Se connecter" %}</a>
+{% endblock %}

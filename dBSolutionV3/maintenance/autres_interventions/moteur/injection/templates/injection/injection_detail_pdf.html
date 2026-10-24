@@ -324,7 +324,7 @@
             {% if injection.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ injection.tech_societe.numero_tva }}
+                    {{ injection.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
 
@@ -786,6 +786,12 @@
         </div>
 
 
+        <!-- NOMBRE DE CYLINDRES -->
+        <div>
+            <span class="label">{% trans "Nombre de cylindres" %} :</span>
+            {{ injection.nombre_cylindres|default:"-" }}
+        </div>
+
         <!-- NOMBRE D'INJECTEURS -->
         <div>
             <span class="label">
@@ -876,77 +882,12 @@
 
         <tbody>
 
-            {% if injection.injecteur_1_resistance_ohm is not None %}
+            {% for numero, ohm in injection.resistances_injecteurs %}
                 <tr>
-                    <td>{% trans "Injecteur 1" %}</td>
-                    <td class="text-right">
-                        {{ injection.injecteur_1_resistance_ohm }} Ω
-                    </td>
+                    <td>{% trans "Injecteur" %} {{ numero }}</td>
+                    <td class="text-right">{{ ohm }} Ω</td>
                 </tr>
-            {% endif %}
-
-            {% if injection.injecteur_2_resistance_ohm is not None %}
-                <tr>
-                    <td>{% trans "Injecteur 2" %}</td>
-                    <td class="text-right">
-                        {{ injection.injecteur_2_resistance_ohm }} Ω
-                    </td>
-                </tr>
-            {% endif %}
-
-            {% if injection.injecteur_3_resistance_ohm is not None %}
-                <tr>
-                    <td>{% trans "Injecteur 3" %}</td>
-                    <td class="text-right">
-                        {{ injection.injecteur_3_resistance_ohm }} Ω
-                    </td>
-                </tr>
-            {% endif %}
-
-            {% if injection.injecteur_4_resistance_ohm is not None %}
-                <tr>
-                    <td>{% trans "Injecteur 4" %}</td>
-                    <td class="text-right">
-                        {{ injection.injecteur_4_resistance_ohm }} Ω
-                    </td>
-                </tr>
-            {% endif %}
-
-            {% if injection.injecteur_5_resistance_ohm is not None %}
-                <tr>
-                    <td>{% trans "Injecteur 5" %}</td>
-                    <td class="text-right">
-                        {{ injection.injecteur_5_resistance_ohm }} Ω
-                    </td>
-                </tr>
-            {% endif %}
-
-            {% if injection.injecteur_6_resistance_ohm is not None %}
-                <tr>
-                    <td>{% trans "Injecteur 6" %}</td>
-                    <td class="text-right">
-                        {{ injection.injecteur_6_resistance_ohm }} Ω
-                    </td>
-                </tr>
-            {% endif %}
-
-            {% if injection.injecteur_7_resistance_ohm is not None %}
-                <tr>
-                    <td>{% trans "Injecteur 7" %}</td>
-                    <td class="text-right">
-                        {{ injection.injecteur_7_resistance_ohm }} Ω
-                    </td>
-                </tr>
-            {% endif %}
-
-            {% if injection.injecteur_8_resistance_ohm is not None %}
-                <tr>
-                    <td>{% trans "Injecteur 8" %}</td>
-                    <td class="text-right">
-                        {{ injection.injecteur_8_resistance_ohm }} Ω
-                    </td>
-                </tr>
-            {% endif %}
+            {% endfor %}
 
         </tbody>
 

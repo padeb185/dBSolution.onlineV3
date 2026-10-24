@@ -7,6 +7,9 @@ from django.utils.translation import gettext_lazy as _
 from .models import PaieUtilisateur, Utilisateur
 
 
+from .mot_de_passe import ComplexiteValidator, verifier_confirmation, widget_confirmation, widget_nouveau  # noqa: E402
+
+
 class LoginForm(forms.Form):
     email = forms.EmailField(
         label=_("Adresse e-mail"),
@@ -80,12 +83,14 @@ class UtilisateurCreationForm(forms.ModelForm):
 
     password = forms.CharField(
         label=_("Mot de passe"),
-        widget=forms.PasswordInput(
-            attrs={
-                "placeholder": _("Mot de passe"),
-                "autocomplete": "new-password",
-            }
-        ),
+        widget=widget_nouveau(_("Mot de passe")),
+        strip=False,
+        help_text=ComplexiteValidator().get_help_text(),
+    )
+
+    password_confirmation = forms.CharField(
+        label=_("Confirmer le mot de passe"),
+        widget=widget_confirmation(_("Confirmer le mot de passe")),
         strip=False,
     )
 
@@ -108,6 +113,11 @@ class UtilisateurCreationForm(forms.ModelForm):
     pays = forms.CharField(
         label=_("Pays"),
     )
+
+    field_order = [
+        "societe", "schema_name", "nom", "prenom", "email", "email_entreprise", "telephone", "date_naissance",
+        "numero_compte_bancaire", "role", "password", "password_confirmation",
+    ]
 
     class Meta:
         model = Utilisateur
@@ -175,6 +185,11 @@ class UtilisateurCreationForm(forms.ModelForm):
 
         super().__init__(*args, **kwargs)
 
+        self.fields["email_entreprise"].label = _("E-mail entreprise (récupération du mot de passe)")
+        self.fields["email_entreprise"].help_text = _(
+            "Le lien « Mot de passe oublié » est envoyé à cette adresse ; à défaut, à l'e-mail de connexion."
+        )
+
         self.societe_courante = societe
 
         if societe is not None:
@@ -204,6 +219,13 @@ class UtilisateurCreationForm(forms.ModelForm):
             )
 
         return email
+
+    def clean(self):
+        cleaned = super().clean()
+        utilisateur = Utilisateur(email=cleaned.get("email"), nom=cleaned.get("nom") or "",
+                                  prenom=cleaned.get("prenom") or "")
+        verifier_confirmation(self, "password", "password_confirmation", utilisateur)
+        return cleaned
 
     def save(self, commit=True):
         utilisateur = super().save(commit=False)

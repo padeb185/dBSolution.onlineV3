@@ -299,7 +299,7 @@
             {% if niveau.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ niveau.tech_societe.numero_tva }}
+                    {{ niveau.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if niveau.tech_societe.iban %}

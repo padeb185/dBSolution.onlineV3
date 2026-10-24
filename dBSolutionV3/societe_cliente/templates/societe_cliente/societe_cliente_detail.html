@@ -39,7 +39,7 @@
             </p>
             <p>
                 <strong>{% trans "Numéro de TVA" %} :</strong>
-                {{ societe_cliente.numero_tva }}
+                {{ societe_cliente.numero_tva|format_tva }}
             </p>
             <p>
                 <strong>{% trans "Numéro Peppol" %} :</strong>

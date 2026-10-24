@@ -296,7 +296,7 @@
             {% if pot_denox.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ pot_denox.tech_societe.numero_tva }}
+                    {{ pot_denox.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if pot_denox.tech_societe.iban %}

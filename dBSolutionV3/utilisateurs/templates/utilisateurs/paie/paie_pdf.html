@@ -47,7 +47,7 @@
                 <div>{{ societe.adresse.rue }} {{ societe.adresse.numero }}{% if societe.adresse.boite %} / {{ societe.adresse.boite }}{% endif %}</div>
                 <div>{{ societe.adresse.code_postal }} {{ societe.adresse.ville }}{% if societe.adresse.pays %} – {{ societe.adresse.pays }}{% endif %}</div>
             {% endif %}
-            {% if societe.numero_tva %}<div>{% trans "N° TVA / entreprise" %} : {{ societe.numero_tva }}</div>{% endif %}
+            {% if societe.numero_tva %}<div>{% trans "N° TVA / entreprise" %} : {{ societe.numero_tva|format_tva }}</div>{% endif %}
         {% endif %}
     </div>
     {% if societe %}

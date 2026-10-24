@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static widget_tweaks %}
+{% load i18n static widget_tweaks format_numbers %}
 
 {% block title %}{% trans "Liste des Carrosseries" %}{% endblock %}
 
@@ -77,7 +77,7 @@
         {% for carrosserie in carrosseries %}
         <tr>
             <td class="border px-4 py-2">{{ carrosserie.nom_societe }}</td>
-            <td class="border px-4 py-2">{{ carrosserie.numero_tva }}</td>
+            <td class="border px-4 py-2" data-search="{{ carrosserie.numero_tva|default_if_none:'' }} {{ carrosserie.numero_tva|format_tva|default_if_none:'' }}">{{ carrosserie.numero_tva|format_tva }}</td>
             <td class="border px-4 py-2">{{ carrosserie.peppol_id }}</td>
             <td class="border px-4 py-2">{{ carrosserie.email }}</td>
             <td class="border px-4 py-2">{{ carrosserie.telephone }}</td>

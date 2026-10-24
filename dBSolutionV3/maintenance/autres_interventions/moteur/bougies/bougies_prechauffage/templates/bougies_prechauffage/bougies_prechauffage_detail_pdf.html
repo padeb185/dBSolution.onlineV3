@@ -296,7 +296,7 @@
             {% if bougies_prechauffage.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ bougies_prechauffage.tech_societe.numero_tva }}
+                    {{ bougies_prechauffage.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if bougies_prechauffage.tech_societe.iban %}

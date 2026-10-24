@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static format_numbers %}
 
 {% block title %}{% trans "Tenants" %}{% endblock %}
 
@@ -42,7 +42,7 @@
             <td class="border px-4 py-2 font-semibold">{{ t.nom }}</td>
             <td class="border px-4 py-2 font-mono">{{ t.schema_name }}</td>
             <td class="border px-4 py-2">{{ t.directeur }}</td>
-            <td class="border px-4 py-2">{{ t.numero_tva }}</td>
+            <td class="border px-4 py-2" data-search="{{ t.numero_tva|default_if_none:'' }} {{ t.numero_tva|format_tva|default_if_none:'' }}">{{ t.numero_tva|format_tva }}</td>
             <td class="border px-4 py-2 text-center {% if t.nb_actifs >= t.max_utilisateurs %}text-red-700 font-semibold{% endif %}">
                 {{ t.nb_actifs }} / {{ t.max_utilisateurs }}
             </td>

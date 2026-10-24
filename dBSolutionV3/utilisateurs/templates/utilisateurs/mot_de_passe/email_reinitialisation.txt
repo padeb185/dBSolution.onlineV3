@@ -1,0 +1,15 @@
+{% load i18n %}{% autoescape off %}{% blocktrans with prenom=user.prenom %}Bonjour {{ prenom }},{% endblocktrans %}
+
+{% trans "Une demande de réinitialisation du mot de passe de votre compte CarsCosts a été faite." %}
+{% trans "Pour choisir un nouveau mot de passe, ouvrez ce lien (valable 1 heure) :" %}
+
+{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
+
+{% trans "Votre identifiant de connexion :" %} {{ user.email|default:user.email_entreprise }}
+
+{% trans "Le mot de passe doit contenir au moins 12 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial." %}
+
+{% trans "Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail : votre mot de passe reste inchangé." %}
+
+CarsCosts
+{% endautoescape %}

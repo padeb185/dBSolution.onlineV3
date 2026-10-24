@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Changer mon mot de passe" %}{% endblock %}
+{% block content %}
+<br><br>
+<div class="max-w-md mx-auto bg-white p-8 rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">{% trans "Changer mon mot de passe" %}</h1>
+    {% include "partials/messages.html" %}
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% include "utilisateurs/mot_de_passe/_erreurs.html" %}
+        {% with field=form.old_password %}{% include "utilisateurs/mot_de_passe/_champ.html" %}{% endwith %}
+        {% with field=form.new_password1 %}{% include "utilisateurs/mot_de_passe/_champ.html" %}{% endwith %}
+        {% with field=form.new_password2 %}{% include "utilisateurs/mot_de_passe/_champ.html" %}{% endwith %}
+        <button type="submit" class="w-full bg-blue-700 text-white py-2 rounded hover:bg-blue-400 font-semibold">{% trans "Enregistrer" %}</button>
+    </form>
+    <p class="text-sm text-gray-500 mt-4">{% trans "Mot de passe oublié ?" %} <a href="{% url 'password_reset' %}" class="text-blue-700 hover:underline">{% trans "Recevoir un lien par e-mail" %}</a></p>
+</div>
+{% endblock %}

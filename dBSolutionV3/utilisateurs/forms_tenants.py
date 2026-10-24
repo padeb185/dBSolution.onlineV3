@@ -11,6 +11,9 @@ from .models import Utilisateur
 SCHEMAS_RESERVES = {"public", "information_schema", "pg_catalog", "pg_toast", "tenant", "admin", "static", "media"}
 
 
+from .mot_de_passe import ComplexiteValidator, verifier_confirmation, widget_confirmation, widget_nouveau  # noqa: E402
+
+
 class TenantCreationForm(forms.Form):
     # ---------------- Société
     nom = forms.CharField(label=_("Nom de la société"), max_length=100)
@@ -48,14 +51,20 @@ class TenantCreationForm(forms.Form):
     admin_email = forms.EmailField(label=_("Email"), required=False)
     admin_password = forms.CharField(
         label=_("Mot de passe"), required=False, strip=False,
-        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
+        widget=widget_nouveau(),
+        help_text=ComplexiteValidator().get_help_text(),
+    )
+    admin_password_confirmation = forms.CharField(
+        label=_("Confirmer le mot de passe"), required=False, strip=False,
+        widget=widget_confirmation(),
     )
 
     SECTIONS = [
         (_("Société"), ["nom", "directeur", "numero_tva", "numero_tel", "iban", "site"]),
         (_("Tenant"), ["schema_name", "max_utilisateurs", "paid_until", "on_trial"]),
         (_("Adresse"), ["rue", "numero", "boite", "code_postal", "ville", "pays", "code_pays"]),
-        (_("Premier utilisateur (direction) – facultatif"), ["admin_prenom", "admin_nom", "admin_email", "admin_password"]),
+        (_("Premier utilisateur (direction) – facultatif"), ["admin_prenom", "admin_nom", "admin_email", "admin_password",
+                                                                 "admin_password_confirmation"]),
     ]
 
     def sections(self):
@@ -118,10 +127,11 @@ class TenantCreationForm(forms.Form):
                 if not cleaned.get(c):
                     self.add_error(c, _("Obligatoire pour créer le premier utilisateur."))
         if cleaned.get("admin_password"):
-            try:
-                Utilisateur.objects.validate_password(cleaned["admin_password"])
-            except Exception as e:
-                self.add_error("admin_password", str(getattr(e, "detail", e)))
+            verifier_confirmation(
+                self, "admin_password", "admin_password_confirmation",
+                Utilisateur(email=cleaned.get("admin_email"), nom=cleaned.get("admin_nom") or "",
+                            prenom=cleaned.get("admin_prenom") or ""),
+            )
         return cleaned
 
 

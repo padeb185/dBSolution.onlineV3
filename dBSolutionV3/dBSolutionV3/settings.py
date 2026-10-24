@@ -478,11 +478,35 @@ SECRET_KEY = env("SECRET_KEY")
 # ------------------------------------------------------------------------------
 
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+     'OPTIONS': {'user_attributes': ('email', 'email_entreprise', 'nom', 'prenom')}},
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+    # 12 caractères minimum, majuscule, minuscule, chiffre, caractère spécial
+    {'NAME': 'utilisateurs.mot_de_passe.ComplexiteValidator', 'OPTIONS': {'min_length': 12}},
 ]
+
+# Lien de réinitialisation du mot de passe valable 1 heure
+PASSWORD_RESET_TIMEOUT = 60 * 60
+
+# ------------------------------------------------------------------------------
+# E-MAIL (réinitialisation des mots de passe…) — paramètres dans .env
+# Sans EMAIL_HOST, les e-mails sont affichés dans la console (développement).
+# ------------------------------------------------------------------------------
+EMAIL_HOST = env("EMAIL_HOST", default="")
+EMAIL_PORT = env.int("EMAIL_PORT", default=587)
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
+EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", default=False)
+EMAIL_TIMEOUT = 20
+EMAIL_BACKEND = env(
+    "EMAIL_BACKEND",
+    default=("django.core.mail.backends.smtp.EmailBackend" if EMAIL_HOST
+             else "django.core.mail.backends.console.EmailBackend"),
+)
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="CarsCosts <no-reply@carscosts.com>")
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 # ------------------------------------------------------------------------------
 # I18N

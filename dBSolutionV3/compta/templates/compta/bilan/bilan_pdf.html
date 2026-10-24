@@ -1,4 +1,4 @@
-{% load i18n static %}<!DOCTYPE html>
+{% load i18n static format_numbers %}<!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:'fr' }}">
 <head>
 <meta charset="utf-8">
@@ -28,7 +28,7 @@
 <body>
 <div class="entete">
     <h1>{% trans "Comptes annuels" %} – {% trans "exercice" %} {{ annee }}</h1>
-    <strong>{{ societe.nom }}</strong>{% if societe.numero_tva %} – {% trans "N° d'entreprise / TVA" %} : {{ societe.numero_tva }}{% endif %}<br>
+    <strong>{{ societe.nom }}</strong>{% if societe.numero_tva %} – {% trans "N° d'entreprise / TVA" %} : {{ societe.numero_tva|format_tva }}{% endif %}<br>
     {% if societe.adresse %}{{ societe.adresse.rue }} {{ societe.adresse.numero }}, {{ societe.adresse.code_postal }} {{ societe.adresse.ville }}<br>{% endif %}
     {% trans "Bilan au" %} 31/12/{{ annee }} – {% trans "montants en euros" %}
     {% if not equilibre %}<p class="alerte">{% blocktrans with e=ecart|floatformat:2 %}Bilan déséquilibré : écart de {{ e }} €.{% endblocktrans %}</p>{% endif %}

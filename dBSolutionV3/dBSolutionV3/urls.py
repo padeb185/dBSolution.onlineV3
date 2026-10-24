@@ -8,6 +8,7 @@ from django.conf.urls.static import static
 from voiture.voiture_exemplaire.views import voiture_exemplaire_detail
 from utilisateurs.views import connexion_globale_view
 from utilisateurs.views_connexion import verifier_identifiants
+from utilisateurs import views_mot_de_passe as mdp
 
 
 # Handler 404 personnalisé
@@ -46,6 +47,16 @@ urlpatterns += i18n_patterns(
     path("", home_view, name="home"),
     path("connexion/", connexion_globale_view, name="connexion_globale"),
     path("connexion/verifier/", verifier_identifiants, name="connexion_verifier"),
+
+    # Mot de passe oublié → lien par e-mail (adresse de récupération) → nouveau mot de passe
+    path("connexion/mot-de-passe-oublie/", mdp.MotDePasseOublieView.as_view(), name="password_reset"),
+    path("connexion/mot-de-passe-oublie/envoye/", mdp.MotDePasseOublieEnvoyeView.as_view(), name="password_reset_done"),
+    path("connexion/reinitialiser/<uidb64>/<token>/", mdp.NouveauMotDePasseView.as_view(), name="password_reset_confirm"),
+    path("connexion/reinitialiser/termine/", mdp.NouveauMotDePasseTermineView.as_view(), name="password_reset_complete"),
+
+    # Changement du mot de passe par l'utilisateur connecté
+    path("compte/mot-de-passe/", mdp.ChangerMotDePasseView.as_view(), name="password_change"),
+    path("compte/mot-de-passe/modifie/", mdp.ChangerMotDePasseTermineView.as_view(), name="password_change_done"),
 
     path("admin/", admin.site.urls),
 

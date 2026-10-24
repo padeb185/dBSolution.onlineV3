@@ -301,7 +301,7 @@
             {% if turbo.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ turbo.tech_societe.numero_tva }}
+                    {{ turbo.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if turbo.tech_societe.iban %}

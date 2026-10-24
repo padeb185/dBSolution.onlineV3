@@ -296,7 +296,7 @@
             {% if suspension_sport.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ suspension_sport.tech_societe.numero_tva }}
+                    {{ suspension_sport.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if suspension_sport.tech_societe.iban %}

@@ -296,7 +296,7 @@
             {% if culasse.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ culasse.tech_societe.numero_tva }}
+                    {{ culasse.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if culasse.tech_societe.iban %}

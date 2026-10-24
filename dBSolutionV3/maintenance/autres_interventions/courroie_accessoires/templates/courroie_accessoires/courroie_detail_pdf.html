@@ -298,7 +298,7 @@
             {% if courroie_accessoires.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ courroie_accessoires.tech_societe.numero_tva }}
+                    {{ courroie_accessoires.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if courroie_accessoires.tech_societe.iban %}

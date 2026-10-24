@@ -70,7 +70,7 @@
             <dd class="font-medium">{{ carrosserie.nom_societe|default:"—" }}</dd>
 
             <dt class="text-gray-600">{% trans "Numéro de TVA" %}</dt>
-            <dd class="font-medium">{{ carrosserie.numero_tva|default:"—" }}</dd>
+            <dd class="font-medium">{{ carrosserie.numero_tva|format_tva|default:"—" }}</dd>
 
             <dt class="text-gray-600">{% trans "Identifiant Peppol" %}</dt>
             <dd class="font-medium">{{ carrosserie.peppol_id|default:"—" }}</dd>

@@ -329,7 +329,7 @@
             {% if echappement.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ echappement.tech_societe.numero_tva }}
+                    {{ echappement.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
 

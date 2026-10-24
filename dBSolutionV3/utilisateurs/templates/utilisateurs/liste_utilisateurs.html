@@ -18,6 +18,7 @@
                         <th class="px-4 py-2 border text-left">{% trans "Rôle" %}</th>
                         <th class="px-4 py-2 border text-left">{% trans "Téléphone" %}</th>
                         <th class="px-4 py-2 border text-left">{% trans "IBAN" %}</th>
+                        {% if request.user.role == "direction" or request.user.is_superuser %}<th class="px-4 py-2 border text-left">{% trans "Mot de passe" %}</th>{% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -35,6 +36,16 @@
                             {% else %}<span class="text-gray-400">—</span>{% endif %}
                             <a href="{% url 'utilisateurs:modifier_iban' u.pk %}" class="ml-2 text-blue-700 text-sm hover:underline">{% trans "Modifier" %}</a>
                         </td>
+                        {% if request.user.role == "direction" or request.user.is_superuser %}
+                        <td class="px-4 py-2 border text-left whitespace-nowrap">
+                            <form method="post" action="{% url 'utilisateurs:envoyer_reinitialisation' u.pk %}"
+                                  onsubmit="return confirm('{% trans "Envoyer un lien de réinitialisation du mot de passe à cet utilisateur ?" as q %}{{ q|escapejs }}');">
+                                {% csrf_token %}
+                                <button type="submit" class="text-blue-700 text-sm hover:underline">{% trans "Envoyer un lien de réinitialisation" %}</button>
+                            </form>
+                            <span class="text-xs text-gray-500">{{ u.email_entreprise|default:u.email }}</span>
+                        </td>
+                        {% endif %}
                     </tr>
                     {% endfor %}
                 </tbody>

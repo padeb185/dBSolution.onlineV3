@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 from . import views_paie
 from . import views_tenants
+from . import views_mot_de_passe
 
 
 app_name = "utilisateurs"
@@ -52,6 +53,12 @@ urlpatterns = [
         "admin/utilisateurs/",
         views.liste_utilisateurs,
         name="liste_utilisateurs",
+    ),
+
+    path(
+        "admin/utilisateurs/<uuid:pk>/reinitialiser-mot-de-passe/",
+        views_mot_de_passe.envoyer_lien_reinitialisation,
+        name="envoyer_reinitialisation",
     ),
 
     # -------------------------

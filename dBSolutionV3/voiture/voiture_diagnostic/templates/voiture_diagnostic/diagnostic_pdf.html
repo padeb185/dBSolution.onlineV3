@@ -1,4 +1,4 @@
-{% load i18n static %}
+{% load i18n static format_numbers %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +43,7 @@
             <div>{{ societe.adresse.code_postal }} {{ societe.adresse.ville }}</div>
             {% if societe.adresse.pays %}<div>{{ societe.adresse.pays }} {{ societe.adresse.code_pays }}</div>{% endif %}
         {% endif %}
-        {% if societe.numero_tva %}<div><strong>{% trans "Numéro de TVA" %} :</strong> {{ societe.numero_tva }}</div>{% endif %}
+        {% if societe.numero_tva %}<div><strong>{% trans "Numéro de TVA" %} :</strong> {{ societe.numero_tva|format_tva }}</div>{% endif %}
     </div>
     <div class="societe-logo">
         <img src="{% static 'societe/' %}{{ societe.nom }}.png" alt="{{ societe.nom }}">

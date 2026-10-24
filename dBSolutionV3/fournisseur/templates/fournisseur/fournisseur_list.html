@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static widget_tweaks %}
+{% load i18n static widget_tweaks format_numbers %}
 
 {% block title %}{% trans "Liste des Fournisseurs" %}{% endblock %}
 
@@ -83,7 +83,7 @@
                     onerror="this.onerror=null; this.outerHTML='{{ fournisseur.nom }}';"
                 >
             </td>
-            <td class="border px-4 py-2">{{ fournisseur.numero_tva }}</td>
+            <td class="border px-4 py-2" data-search="{{ fournisseur.numero_tva|default_if_none:'' }} {{ fournisseur.numero_tva|format_tva|default_if_none:'' }}">{{ fournisseur.numero_tva|format_tva }}</td>
             <td class="border px-4 py-2">{{ fournisseur.peppol_id }}</td>
             <td class="border px-4 py-2">{{ fournisseur.email }}</td>
             <td class="border px-4 py-2">{{ fournisseur.telephone_fixe }}</td>

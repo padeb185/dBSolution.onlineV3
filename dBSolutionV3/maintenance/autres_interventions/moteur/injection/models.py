@@ -3,7 +3,7 @@ from decimal import Decimal, ROUND_HALF_UP
 from django.conf import settings
 
 from django.core.exceptions import ValidationError, FieldDoesNotExist
-from django.core.validators import MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.choices import TAUX_HORAIRE_CHOICES, FabricantPompeCarburant, FabricantPompeHautePression, \
@@ -36,6 +36,9 @@ class EtatInjectionNettoye(models.TextChoices):
     OK = "OK", _("OK")
     NETTOYE = "NETTOYE", _("Nettoyé")
     NON_APPLICABLE = "NON_APPLICABLE", _("Non applicable")
+
+
+NOMBRE_MAX_INJECTEURS = 16
 
 
 class Injection(models.Model):
@@ -334,9 +337,18 @@ class Injection(models.Model):
         verbose_name=_("État des injecteurs"),
     )
 
+    nombre_cylindres = models.PositiveSmallIntegerField(
+        default=4,
+        validators=[MinValueValidator(1), MaxValueValidator(NOMBRE_MAX_INJECTEURS)],
+        verbose_name=_("Nombre de cylindres"),
+        help_text=_("Repris de la fiche du moteur lié lorsqu'elle est renseignée."),
+    )
+
     nombre_injecteurs = models.PositiveSmallIntegerField(
         default=4,
+        validators=[MinValueValidator(0), MaxValueValidator(NOMBRE_MAX_INJECTEURS)],
         verbose_name=_("Nombre d'injecteurs"),
+        help_text=_("Par défaut, un injecteur par cylindre."),
     )
     injecteurs_fabricant = models.CharField(
         max_length=50,
@@ -433,6 +445,78 @@ class Injection(models.Model):
         blank=True,
         validators=[MinValueValidator(Decimal("0.000"))],
         verbose_name=_("Résistance injecteur 8 en ohms"),
+    )
+
+    injecteur_9_resistance_ohm = models.DecimalField(
+        max_digits=8,
+        decimal_places=3,
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(Decimal("0.000"))],
+        verbose_name=_("Résistance injecteur 9 en ohms"),
+    )
+
+    injecteur_10_resistance_ohm = models.DecimalField(
+        max_digits=8,
+        decimal_places=3,
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(Decimal("0.000"))],
+        verbose_name=_("Résistance injecteur 10 en ohms"),
+    )
+
+    injecteur_11_resistance_ohm = models.DecimalField(
+        max_digits=8,
+        decimal_places=3,
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(Decimal("0.000"))],
+        verbose_name=_("Résistance injecteur 11 en ohms"),
+    )
+
+    injecteur_12_resistance_ohm = models.DecimalField(
+        max_digits=8,
+        decimal_places=3,
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(Decimal("0.000"))],
+        verbose_name=_("Résistance injecteur 12 en ohms"),
+    )
+
+    injecteur_13_resistance_ohm = models.DecimalField(
+        max_digits=8,
+        decimal_places=3,
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(Decimal("0.000"))],
+        verbose_name=_("Résistance injecteur 13 en ohms"),
+    )
+
+    injecteur_14_resistance_ohm = models.DecimalField(
+        max_digits=8,
+        decimal_places=3,
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(Decimal("0.000"))],
+        verbose_name=_("Résistance injecteur 14 en ohms"),
+    )
+
+    injecteur_15_resistance_ohm = models.DecimalField(
+        max_digits=8,
+        decimal_places=3,
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(Decimal("0.000"))],
+        verbose_name=_("Résistance injecteur 15 en ohms"),
+    )
+
+    injecteur_16_resistance_ohm = models.DecimalField(
+        max_digits=8,
+        decimal_places=3,
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(Decimal("0.000"))],
+        verbose_name=_("Résistance injecteur 16 en ohms"),
     )
 
     # ==========================================================
@@ -643,9 +727,21 @@ class Injection(models.Model):
     # -------------------------
     # SAVE
     # -------------------------
+    @property
+    def resistances_injecteurs(self):
+        """[(numéro, résistance)] des injecteurs mesurés, jusqu'au nombre d'injecteurs."""
+        n = min(self.nombre_injecteurs or 0, NOMBRE_MAX_INJECTEURS)
+        return [
+            (i, getattr(self, f"injecteur_{i}_resistance_ohm"))
+            for i in range(1, n + 1)
+            if getattr(self, f"injecteur_{i}_resistance_ohm") is not None
+        ]
+
     def save(self, *args, **kwargs):
 
-
+        # Résistances au-delà du nombre d'injecteurs : effacées
+        for i in range((self.nombre_injecteurs or 0) + 1, NOMBRE_MAX_INJECTEURS + 1):
+            setattr(self, f"injecteur_{i}_resistance_ohm", None)
 
         # Calculs
         self.calcul_piece("pompe_carburant")

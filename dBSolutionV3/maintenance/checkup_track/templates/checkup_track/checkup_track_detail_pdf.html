@@ -408,7 +408,7 @@
             {% if checkup_track.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ checkup_track.tech_societe.numero_tva }}
+                    {{ checkup_track.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if checkup_track.tech_societe.iban %}

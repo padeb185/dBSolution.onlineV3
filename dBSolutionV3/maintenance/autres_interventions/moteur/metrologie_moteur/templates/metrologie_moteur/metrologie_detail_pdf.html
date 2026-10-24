@@ -300,7 +300,7 @@
             {% if metrologie.tech_societe.numero_tva %}
                 <div>
                     <strong>{% trans "Numéro de TVA" %} :</strong>
-                    {{ metrologie.tech_societe.numero_tva }}
+                    {{ metrologie.tech_societe.numero_tva|format_tva }}
                 </div>
             {% endif %}
              {% if metrologie.tech_societe.iban %}
