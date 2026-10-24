@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Métrologie moteur" %}{% endblock %}
+
+{% block content %}
+    {% url 'metrologie_moteur:modifier_metrologie' metrologie.pk as url_modifier %}
+    {% url 'metrologie_moteur:metrologie_detail_pdf' metrologie.pk as url_pdf %}
+    {% url 'metrologie_moteur:delete_metrologie' metrologie.pk as url_delete %}
+    {% if exemplaire %}{% url 'metrologie_moteur:metrologie_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Métrologie moteur" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=metrologie km_controle=metrologie.kilometrage_metrologie icone="metrologie_moteur.png" extra_template="metrologie_moteur/_detail_metrologie.html" infos_template="metrologie_moteur/_infos_metrologie.html" %}
+{% endblock %}

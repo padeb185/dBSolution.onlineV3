@@ -60,6 +60,7 @@ URLS_MAINTENANCE = {
     "ROULEMENT": ["roulement:roulement_check", "roulement:roulement_list"],
     "remplacement_bte_auto": ["remplacement_bte_auto:remplacement_bte_auto_form"],
     "BAS_MOTEUR": ["bas_moteur:bas_moteur_form"],
+    "METROLOGIE_MOTEUR": ["metrologie_moteur:metrologie_form", "metrologie_moteur:metrologie_list"],
     "ESP": ["esp:esp_form", "esp:esp_list"],
     "AIDE_STATIONNEMENT": ["aide_stationnement:aide_stationnement_form", "aide_stationnement:aide_stationnement_list"],
     "PC_ARCEAU": ["pc_arceau:pc_arceau_form", "pc_arceau:pc_arceau_list"],

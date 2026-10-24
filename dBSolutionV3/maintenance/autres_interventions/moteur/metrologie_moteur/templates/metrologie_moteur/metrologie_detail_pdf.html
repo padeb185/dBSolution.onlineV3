@@ -1,0 +1,448 @@
+{% load i18n static format_numbers %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+         /* ============================================
+           FORMAT PDF A4
+           ============================================ */
+        @page {
+            size: A4;
+            margin: 15mm 12mm 15mm 12mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+         .table-2-cols {
+            width: 96%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-2-cols th:first-child,
+        .table-2-cols td:first-child {
+            width: 66.67%;
+        }
+
+        .table-2-cols th:last-child,
+        .table-2-cols td:last-child {
+            width: 33.33%;
+        }
+
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+          .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+        .total-general {
+            font-weight: bold;
+            color: #1e3a8a;
+            background: #dbeafe;
+        }
+           .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+            .societe-header {
+            display: table;
+            width: 100%;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        .societe-informations {
+            display: table-cell;
+            width: 75%;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+
+        .societe-informations div {
+            margin-bottom: 6px;
+        }
+
+        .societe-nom {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .societe-logo {
+            display: table-cell;
+            width: 25%;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .societe-logo img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+       /* ============================================
+           GESTION DES COUPURES DE PAGE
+           ============================================ */
+
+        h1,
+        h2 {
+            page-break-after: avoid;
+        }
+
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
+        }
+
+        .box,
+        .societe-header {
+            page-break-inside: avoid;
+        }
+
+    .hors { color: #991b1b; font-weight: bold; }
+        td.num, th.num { text-align: right; font-family: "DejaVu Sans Mono", monospace; }
+        table.mesures { font-size: 9.5px; }
+        table.mesures th, table.mesures td { padding: 3px 4px; }
+    </style>
+</head>
+<body>
+{% if metrologie.tech_societe %}
+    <div class="societe-header">
+
+        <div class="societe-informations">
+            <div class="societe-nom">
+                {{ metrologie.tech_societe.nom }}
+            </div>
+
+            {% if metrologie.tech_societe.adresse %}
+                <div>
+                    {{ metrologie.tech_societe.adresse.rue }}
+                    {{ metrologie.tech_societe.adresse.numero }}
+                    {% if metrologie.tech_societe.adresse.boite %}
+                        / {{ metrologie.tech_societe.adresse.boite }}
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ metrologie.tech_societe.adresse.code_postal }}
+                    {{ metrologie.tech_societe.adresse.ville }}
+                </div>
+            {% endif %}
+
+            {% if metrologie.tech_societe.adresse.pays %}
+                <div>{{ metrologie.tech_societe.adresse.pays }}
+                    {{ metrologie.tech_societe.adresse.code_pays  }}
+                </div>
+            {% endif %}
+
+            {% if metrologie.tech_societe.numero_tva %}
+                <div>
+                    <strong>{% trans "Numéro de TVA" %} :</strong>
+                    {{ metrologie.tech_societe.numero_tva }}
+                </div>
+            {% endif %}
+             {% if metrologie.tech_societe.iban %}
+                <div>
+                    <strong>{% trans "Numéro de compte" %} :</strong>
+                    {{ metrologie.tech_societe.iban|format_iban }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="societe-logo">
+            <img
+                src="{% static 'societe/' %}{{ metrologie.tech_societe.nom }}.png"
+                alt="{{ metrologie.tech_societe.nom }}"
+            >
+        </div>
+
+    </div>
+{% endif %}
+<h1>{% trans "Métrologie moteur" %}</h1>
+
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Date" %} :</span> {{ metrologie.date|date:"d/m/Y H:i" }}</div>
+        <div><span class="label">{% trans "Technicien" %} :</span> {{ metrologie.tech_nom_technicien }}</div>
+        <div><span class="label">{% trans "Société" %} :</span> {{ metrologie.tech_societe }}</div>
+        <div><span class="label">{% trans "Véhicule" %} :</span> {{ metrologie.voiture_exemplaire }}</div>
+        <div><span class="label">{% trans "Kilométrage véhicule" %} :</span> {{ metrologie.kilometres_chassis }} km</div>
+        <div><span class="label">{% trans "Kilométrage de l'intervention" %} :</span> {{ metrologie.kilometrage_metrologie }} km</div>
+        <div><span class="label">{% trans "Tag" %} :</span>
+            <span class="tag {% if metrologie.tag == 'VERT' %}tag-vert{% elif metrologie.tag == 'JAUNE' %}tag-jaune{% else %}tag-rouge{% endif %}">{{ metrologie.get_tag_display }}</span>
+        </div>
+        <div><span class="label">{% trans "Cotes hors tolérance" %} :</span>
+            {% with h=metrologie.nombre_hors_tolerance %}<span class="{% if h %}not-ok{% else %}ok{% endif %}">{{ h }}</span>{% endwith %}
+        </div>
+    </div>
+</div>
+<p style="font-size:10px;color:#555">{% trans "Cotes en millimètres, au centième. Axe A = dans l'axe du vilebrequin, axe B = perpendiculaire." %}</p>
+
+<h2>{% trans "Alésage, course et cylindrée" %}</h2>
+<table class="table-2-cols" style="width:100%">
+    <thead><tr><th></th><th class="num">{% trans "Constructeur" %}</th><th class="num">{% trans "Mesuré / calculé" %}</th></tr></thead>
+    <tbody>
+        <tr><td>{% trans "Nombre de cylindres" %}</td><td class="num" colspan="2">{{ metrologie.nombre_cylindres }}</td></tr>
+        <tr><td>{% trans "Alésage (mm)" %}</td><td class="num">{{ metrologie.alesage_nominal|floatformat:2|default:"-" }}</td><td class="num">{{ metrologie.alesage_mesure|floatformat:2|default:"-" }}</td></tr>
+        <tr><td>{% trans "Course (mm)" %}</td><td class="num">{{ metrologie.course_nominale|floatformat:2|default:"-" }}</td><td class="num">{{ metrologie.course_mesuree|floatformat:2|default:"-" }}</td></tr>
+        <tr class="total"><td>{% trans "Cylindrée (cm³)" %}</td><td class="num">{{ metrologie.cylindree_constructeur_cm3|floatformat:1|default:"-" }}</td><td class="num">{{ metrologie.cylindree_cm3|floatformat:1|default:"-" }}</td></tr>
+        <tr><td>{% trans "Cylindrée unitaire (cm³)" %}</td><td></td><td class="num">{{ metrologie.cylindree_unitaire_cm3|floatformat:1|default:"-" }}</td></tr>
+        <tr><td>{% trans "Rapport course / alésage" %}</td><td></td><td class="num">{% if metrologie.rapport_course_alesage %}{{ metrologie.rapport_course_alesage|floatformat:2 }} ({{ metrologie.type_moteur_geometrie }}){% else %}-{% endif %}</td></tr>
+        {% if metrologie.ecart_cylindree_pct is not None %}<tr><td>{% trans "Écart de cylindrée / constructeur" %}</td><td></td><td class="num">{{ metrologie.ecart_cylindree_pct|floatformat:2 }} %</td></tr>{% endif %}
+    </tbody>
+</table>
+
+{% with hors=metrologie.synthese %}
+<h2>{% trans "Cotes hors tolérance" %}</h2>
+{% if hors %}
+<table>
+    <thead><tr><th>{% trans "Élément" %}</th><th>{% trans "Contrôle" %}</th><th class="num">{% trans "Mesure (mm)" %}</th><th class="num">{% trans "Tolérance mini / maxi (mm)" %}</th></tr></thead>
+    <tbody>{% for h in hors %}
+        <tr><td>{{ h.element }}</td><td>{{ h.libelle }}</td><td class="num hors">{{ h.valeur|floatformat:2 }}</td>
+            <td class="num">{% if h.mini is not None %}{{ h.mini|floatformat:2 }}{% else %}-{% endif %} / {% if h.maxi is not None %}{{ h.maxi|floatformat:2 }}{% else %}-{% endif %}</td></tr>
+    {% endfor %}</tbody>
+</table>
+{% else %}
+<p><span class="ok">{% trans "Aucune cote hors tolérance (parmi les tolérances renseignées)." %}</span></p>
+{% endif %}
+{% endwith %}
+
+{% with cylindres=metrologie.cylindres.all %}{% if cylindres %}
+<h2>{% trans "Chemises et pistons" %}</h2>
+<table class="mesures">
+    <thead>
+        <tr><th rowspan="2">{% trans "Cyl." %}</th><th colspan="2">{% trans "Haut" %}</th><th colspan="2">{% trans "Milieu" %}</th><th colspan="2">{% trans "Bas" %}</th>
+            <th rowspan="2">{% trans "Ovalisation" %}</th><th rowspan="2">{% trans "Conicité" %}</th><th rowspan="2">{% trans "Piston Ø" %}</th><th rowspan="2">{% trans "Jeu piston" %}</th></tr>
+        <tr><th>A</th><th>B</th><th>A</th><th>B</th><th>A</th><th>B</th></tr>
+    </thead>
+    <tbody>{% for c in cylindres %}
+        <tr><td>{{ c.numero }}</td>
+            <td class="num">{{ c.chemise_haut_a|floatformat:2|default:"-" }}</td><td class="num">{{ c.chemise_haut_b|floatformat:2|default:"-" }}</td>
+            <td class="num">{{ c.chemise_milieu_a|floatformat:2|default:"-" }}</td><td class="num">{{ c.chemise_milieu_b|floatformat:2|default:"-" }}</td>
+            <td class="num">{{ c.chemise_bas_a|floatformat:2|default:"-" }}</td><td class="num">{{ c.chemise_bas_b|floatformat:2|default:"-" }}</td>
+            <td class="num">{{ c.chemise_ovalisation|floatformat:2|default:"-" }}</td><td class="num">{{ c.chemise_conicite|floatformat:2|default:"-" }}</td>
+            <td class="num">{{ c.piston_diametre|floatformat:2|default:"-" }}</td>
+            <td class="num">{% if c.jeu_piston_min is not None %}{{ c.jeu_piston_min|floatformat:2 }} – {{ c.jeu_piston_max|floatformat:2 }}{% else %}-{% endif %}</td></tr>
+    {% endfor %}</tbody>
+</table>
+
+<h2>{% trans "Segments, manetons et pieds de bielle" %}</h2>
+<table class="mesures">
+    <thead>
+        <tr><th rowspan="2">{% trans "Cyl." %}</th><th colspan="3">{% trans "Segments – jeu à la coupe" %}</th><th colspan="3">{% trans "Maneton" %}</th><th colspan="3">{% trans "Pied de bielle" %}</th></tr>
+        <tr><th>{% trans "Feu" %}</th><th>{% trans "Étanchéité" %}</th><th>{% trans "Racleur" %}</th>
+            <th>{% trans "Ø mini – maxi" %}</th><th>{% trans "Ovalisation" %}</th><th>{% trans "Conicité" %}</th>
+            <th>{% trans "Ø A / B" %}</th><th>{% trans "Axe Ø" %}</th><th>{% trans "Jeu" %}</th></tr>
+    </thead>
+    <tbody>{% for c in cylindres %}
+        <tr><td>{{ c.numero }}</td>
+            <td class="num">{{ c.segment_feu_jeu|floatformat:2|default:"-" }}</td><td class="num">{{ c.segment_etancheite_jeu|floatformat:2|default:"-" }}</td><td class="num">{{ c.segment_racleur_jeu|floatformat:2|default:"-" }}</td>
+            <td class="num">{% if c.maneton_min is not None %}{{ c.maneton_min|floatformat:2 }} – {{ c.maneton_max|floatformat:2 }}{% else %}-{% endif %}</td>
+            <td class="num">{{ c.maneton_ovalisation|floatformat:2|default:"-" }}</td><td class="num">{{ c.maneton_conicite|floatformat:2|default:"-" }}</td>
+            <td class="num">{{ c.pied_bielle_a|floatformat:2|default:"-" }} / {{ c.pied_bielle_b|floatformat:2|default:"-" }}</td>
+            <td class="num">{{ c.axe_piston_diametre|floatformat:2|default:"-" }}</td>
+            <td class="num">{% if c.jeu_pied_bielle_min is not None %}{{ c.jeu_pied_bielle_min|floatformat:2 }} – {{ c.jeu_pied_bielle_max|floatformat:2 }}{% else %}-{% endif %}</td></tr>
+        {% if c.remarque %}<tr><td></td><td colspan="9"><em>{{ c.remarque }}</em></td></tr>{% endif %}
+    {% endfor %}</tbody>
+</table>
+{% endif %}{% endwith %}
+
+{% with tourillons=metrologie.tourillons.all %}{% if tourillons %}
+<h2>{% trans "Vilebrequin – tourillons" %}</h2>
+<table class="mesures">
+    <thead>
+        <tr><th rowspan="2">{% trans "N°" %}</th><th colspan="2">{% trans "Section 1" %}</th><th colspan="2">{% trans "Section 2" %}</th><th rowspan="2">{% trans "Ovalisation" %}</th><th rowspan="2">{% trans "Conicité" %}</th><th rowspan="2">{% trans "Remarque" %}</th></tr>
+        <tr><th>A</th><th>B</th><th>A</th><th>B</th></tr>
+    </thead>
+    <tbody>{% for t in tourillons %}
+        <tr><td>{{ t.numero }}</td>
+            <td class="num">{{ t.section_1_a|floatformat:2|default:"-" }}</td><td class="num">{{ t.section_1_b|floatformat:2|default:"-" }}</td>
+            <td class="num">{{ t.section_2_a|floatformat:2|default:"-" }}</td><td class="num">{{ t.section_2_b|floatformat:2|default:"-" }}</td>
+            <td class="num">{{ t.ovalisation|floatformat:2|default:"-" }}</td><td class="num">{{ t.conicite|floatformat:2|default:"-" }}</td>
+            <td>{{ t.remarque|default:"" }}</td></tr>
+    {% endfor %}</tbody>
+</table>
+{% endif %}{% endwith %}
+
+<h2>{% trans "Main-d'œuvre" %}</h2>
+<table class="table-2-cols">
+    <tbody>
+        <tr><td>{% trans "Temps" %}</td><td class="text-right">{{ metrologie.temps_main_oeuvre_display }}</td></tr>
+        <tr class="total"><td class="text-right"><strong>{% trans "Main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ metrologie.cout_main_oeuvre|default:0|floatformat:2 }} €</strong></td></tr>
+        <tr class="total-general"><td class="text-right"><strong>{% trans "Total général avec main-d'œuvre HTVA" %}</strong></td><td class="text-right"><strong>{{ metrologie.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €</strong></td></tr>
+    </tbody>
+</table>
+
+{% include "piece/stock/_pieces_utilisees_pdf.html" with maintenance=metrologie.maintenance %}
+
+<h2>{% trans "Remarques" %}</h2>
+<div class="box">{{ metrologie.remarques|default:_("Aucune remarque.") }}</div>
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}<br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+</body>
+</html>

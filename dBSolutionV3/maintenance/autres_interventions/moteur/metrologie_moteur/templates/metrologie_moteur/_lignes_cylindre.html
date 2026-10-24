@@ -1,0 +1,53 @@
+{% load i18n %}{% comment %}
+Cellules d'une ligne « cylindre » pour chacun des tableaux (bloc = chemise / segments / maneton / bielle).
+Utilisé pour les lignes existantes et pour le gabarit de nouvelle ligne (__prefix__).
+{% endcomment %}{% if bloc == "chemise" %}
+<tr class="ligne-cyl" data-prefix="{{ f.prefix }}">
+    <td class="border px-2 py-1 text-center">
+        {% for h in f.hidden_fields %}{{ h }}{% endfor %}
+        {{ f.numero }}
+    </td>
+    <td class="border px-1 py-1">{{ f.chemise_haut_a }}</td>
+    <td class="border px-1 py-1">{{ f.chemise_haut_b }}</td>
+    <td class="border px-1 py-1">{{ f.chemise_milieu_a }}</td>
+    <td class="border px-1 py-1">{{ f.chemise_milieu_b }}</td>
+    <td class="border px-1 py-1">{{ f.chemise_bas_a }}</td>
+    <td class="border px-1 py-1">{{ f.chemise_bas_b }}</td>
+    <td class="border px-2 py-1 text-right font-mono resultat" data-calc="chemise_ovalisation">—</td>
+    <td class="border px-2 py-1 text-right font-mono resultat" data-calc="chemise_conicite">—</td>
+    <td class="border px-1 py-1">{{ f.piston_diametre }}</td>
+    <td class="border px-2 py-1 text-right font-mono resultat whitespace-nowrap" data-calc="jeu_piston">—</td>
+    <td class="border px-1 py-1">{{ f.remarque }}</td>
+    <td class="border px-2 py-1 text-center">{% if f.instance.pk %}<label class="text-xs text-red-700">{{ f.DELETE }} {% trans "Suppr." %}</label>{% else %}<button type="button" class="retirer-ligne text-red-700 font-bold" title="{% trans 'Retirer' %}">✕</button>{% endif %}</td>
+</tr>
+{% elif bloc == "segments" %}
+<tr data-prefix="{{ f.prefix }}">
+    <td class="border px-2 py-1 text-center font-semibold numero-cyl">{{ f.numero.value|default:"" }}</td>
+    <td class="border px-1 py-1">{{ f.segment_feu_jeu }}</td>
+    <td class="border px-2 py-1 text-center resultat" data-calc="segment_feu">—</td>
+    <td class="border px-1 py-1">{{ f.segment_etancheite_jeu }}</td>
+    <td class="border px-2 py-1 text-center resultat" data-calc="segment_etancheite">—</td>
+    <td class="border px-1 py-1">{{ f.segment_racleur_jeu }}</td>
+    <td class="border px-2 py-1 text-center resultat" data-calc="segment_racleur">—</td>
+</tr>
+{% elif bloc == "maneton" %}
+<tr data-prefix="{{ f.prefix }}">
+    <td class="border px-2 py-1 text-center font-semibold numero-cyl">{{ f.numero.value|default:"" }}</td>
+    <td class="border px-1 py-1">{{ f.maneton_1_a }}</td>
+    <td class="border px-1 py-1">{{ f.maneton_1_b }}</td>
+    <td class="border px-1 py-1">{{ f.maneton_2_a }}</td>
+    <td class="border px-1 py-1">{{ f.maneton_2_b }}</td>
+    <td class="border px-2 py-1 text-right font-mono resultat" data-calc="maneton_diametre">—</td>
+    <td class="border px-2 py-1 text-right font-mono resultat" data-calc="maneton_ovalisation">—</td>
+    <td class="border px-2 py-1 text-right font-mono resultat" data-calc="maneton_conicite">—</td>
+</tr>
+{% elif bloc == "bielle" %}
+<tr data-prefix="{{ f.prefix }}">
+    <td class="border px-2 py-1 text-center font-semibold numero-cyl">{{ f.numero.value|default:"" }}</td>
+    <td class="border px-1 py-1">{{ f.pied_bielle_a }}</td>
+    <td class="border px-1 py-1">{{ f.pied_bielle_b }}</td>
+    <td class="border px-2 py-1 text-right font-mono resultat" data-calc="pied_bielle_ovalisation">—</td>
+    <td class="border px-1 py-1">{{ f.axe_piston_diametre }}</td>
+    <td class="border px-2 py-1 text-right font-mono resultat whitespace-nowrap" data-calc="jeu_pied_bielle">—</td>
+</tr>
+{% endif %}

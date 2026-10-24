@@ -94,6 +94,7 @@ class Maintenance(models.Model):
         ECH_INJECTEUR_ADBLUE = "ECH_INJECTEUR_ADBLUE", _("Injecteur AdBlue")
         ECH_VALVES_ECHAPPEMENT = "ECH_VALVES_ECHAPPEMENT", _("Valves d'échappement")
         ECH_SILENT_BLOCS_ECHAPPEMENT = "ECH_SILENT_BLOCS_ECHAPPEMENT", _("Silent blocs d'échappement")
+        METROLOGIE_MOTEUR = "METROLOGIE_MOTEUR", _("Métrologie moteur")
 
     class Tag(models.TextChoices):
         VERT = "VERT", _("Vert")

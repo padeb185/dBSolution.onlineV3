@@ -1,0 +1,152 @@
+{% load i18n %}{% with m=obj %}
+<!-- Moteur : alésage / course / cylindrée -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Alésage, course et cylindrée" %}</h2>
+    <table class="min-w-full table-auto border-collapse border border-gray-200">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-3 py-2 text-left"></th>
+            <th class="border px-3 py-2 text-right">{% trans "Constructeur" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Mesuré / calculé" %}</th>
+        </tr></thead>
+        <tbody>
+            <tr><td class="border px-3 py-2">{% trans "Nombre de cylindres" %}</td><td class="border px-3 py-2 text-right" colspan="2">{{ m.nombre_cylindres }}</td></tr>
+            <tr><td class="border px-3 py-2">{% trans "Alésage (mm)" %}</td><td class="border px-3 py-2 text-right font-mono">{{ m.alesage_nominal|floatformat:2|default:"—" }}</td><td class="border px-3 py-2 text-right font-mono">{{ m.alesage_mesure|floatformat:2|default:"—" }}</td></tr>
+            <tr><td class="border px-3 py-2">{% trans "Course (mm)" %}</td><td class="border px-3 py-2 text-right font-mono">{{ m.course_nominale|floatformat:2|default:"—" }}</td><td class="border px-3 py-2 text-right font-mono">{{ m.course_mesuree|floatformat:2|default:"—" }}</td></tr>
+            <tr><td class="border px-3 py-2">{% trans "Cylindrée (cm³)" %}</td><td class="border px-3 py-2 text-right font-mono">{{ m.cylindree_constructeur_cm3|floatformat:1|default:"—" }}</td><td class="border px-3 py-2 text-right font-mono font-semibold">{{ m.cylindree_cm3|floatformat:1|default:"—" }}</td></tr>
+            <tr><td class="border px-3 py-2">{% trans "Cylindrée unitaire (cm³)" %}</td><td class="border px-3 py-2"></td><td class="border px-3 py-2 text-right font-mono">{{ m.cylindree_unitaire_cm3|floatformat:1|default:"—" }}</td></tr>
+            <tr><td class="border px-3 py-2">{% trans "Rapport course / alésage" %}</td><td class="border px-3 py-2"></td><td class="border px-3 py-2 text-right">{% if m.rapport_course_alesage %}{{ m.rapport_course_alesage|floatformat:2 }} ({{ m.type_moteur_geometrie }}){% else %}—{% endif %}</td></tr>
+            {% if m.ecart_cylindree_pct is not None %}<tr><td class="border px-3 py-2">{% trans "Écart de cylindrée / constructeur" %}</td><td class="border px-3 py-2"></td><td class="border px-3 py-2 text-right">{{ m.ecart_cylindree_pct|floatformat:2 }} %</td></tr>{% endif %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Synthèse hors tolérance -->
+{% with hors=m.synthese %}
+<div class="bg-white shadow-md rounded-lg p-6 mb-6">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Cotes hors tolérance" %}</h2>
+    {% if hors %}
+    <table class="min-w-full table-auto border-collapse border border-gray-200">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-3 py-2 text-left">{% trans "Élément" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Contrôle" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Mesure (mm)" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Tolérance (mm)" %}</th>
+        </tr></thead>
+        <tbody>{% for h in hors %}
+            <tr class="bg-red-50">
+                <td class="border px-3 py-2">{{ h.element }}</td>
+                <td class="border px-3 py-2">{{ h.libelle }}</td>
+                <td class="border px-3 py-2 text-right font-mono font-bold text-red-700">{{ h.valeur|floatformat:2 }}</td>
+                <td class="border px-3 py-2 text-right font-mono">{% if h.mini is not None %}{{ h.mini|floatformat:2 }}{% else %}—{% endif %} / {% if h.maxi is not None %}{{ h.maxi|floatformat:2 }}{% else %}—{% endif %}</td>
+            </tr>{% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p class="text-green-700 font-semibold">{% trans "Aucune cote hors tolérance (parmi les tolérances renseignées)." %}</p>
+    {% endif %}
+</div>
+{% endwith %}
+
+{% with cylindres=m.cylindres.all %}{% if cylindres %}
+<!-- Chemises / pistons -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Chemises et pistons" %} <span class="text-sm font-normal text-gray-500">(mm)</span></h2>
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-2 py-1" rowspan="2">{% trans "Cyl." %}</th>
+                <th class="border px-2 py-1" colspan="2">{% trans "Haut" %}</th>
+                <th class="border px-2 py-1" colspan="2">{% trans "Milieu" %}</th>
+                <th class="border px-2 py-1" colspan="2">{% trans "Bas" %}</th>
+                <th class="border px-2 py-1" rowspan="2">{% trans "Ovalisation" %}</th>
+                <th class="border px-2 py-1" rowspan="2">{% trans "Conicité" %}</th>
+                <th class="border px-2 py-1" rowspan="2">{% trans "Piston Ø" %}</th>
+                <th class="border px-2 py-1" rowspan="2">{% trans "Jeu piston" %}</th>
+            </tr>
+            <tr class="bg-gray-100"><th class="border px-2 py-1">A</th><th class="border px-2 py-1">B</th><th class="border px-2 py-1">A</th><th class="border px-2 py-1">B</th><th class="border px-2 py-1">A</th><th class="border px-2 py-1">B</th></tr>
+        </thead>
+        <tbody>{% for c in cylindres %}
+            <tr>
+                <td class="border px-2 py-1 text-center font-semibold">{{ c.numero }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ c.chemise_haut_a|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ c.chemise_haut_b|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ c.chemise_milieu_a|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ c.chemise_milieu_b|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ c.chemise_bas_a|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ c.chemise_bas_b|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ c.chemise_ovalisation|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ c.chemise_conicite|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ c.piston_diametre|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono whitespace-nowrap">{% if c.jeu_piston_min is not None %}{{ c.jeu_piston_min|floatformat:2 }} – {{ c.jeu_piston_max|floatformat:2 }}{% else %}—{% endif %}</td>
+            </tr>{% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Segments / manetons / pied de bielle -->
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Segments, manetons et pieds de bielle" %} <span class="text-sm font-normal text-gray-500">(mm)</span></h2>
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-2 py-1" rowspan="2">{% trans "Cyl." %}</th>
+                <th class="border px-2 py-1" colspan="3">{% trans "Segments – jeu à la coupe" %}</th>
+                <th class="border px-2 py-1" colspan="3">{% trans "Maneton" %}</th>
+                <th class="border px-2 py-1" colspan="3">{% trans "Pied de bielle" %}</th>
+            </tr>
+            <tr class="bg-gray-100">
+                <th class="border px-2 py-1">{% trans "Feu" %}</th><th class="border px-2 py-1">{% trans "Étanchéité" %}</th><th class="border px-2 py-1">{% trans "Racleur" %}</th>
+                <th class="border px-2 py-1">{% trans "Ø mini – maxi" %}</th><th class="border px-2 py-1">{% trans "Ovalisation" %}</th><th class="border px-2 py-1">{% trans "Conicité" %}</th>
+                <th class="border px-2 py-1">{% trans "Ø A / B" %}</th><th class="border px-2 py-1">{% trans "Axe Ø" %}</th><th class="border px-2 py-1">{% trans "Jeu" %}</th>
+            </tr>
+        </thead>
+        <tbody>{% for c in cylindres %}
+            <tr>
+                <td class="border px-2 py-1 text-center font-semibold">{{ c.numero }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ c.segment_feu_jeu|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ c.segment_etancheite_jeu|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ c.segment_racleur_jeu|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono whitespace-nowrap">{% if c.maneton_min is not None %}{{ c.maneton_min|floatformat:2 }} – {{ c.maneton_max|floatformat:2 }}{% else %}—{% endif %}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ c.maneton_ovalisation|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ c.maneton_conicite|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono whitespace-nowrap">{{ c.pied_bielle_a|floatformat:2|default:"—" }} / {{ c.pied_bielle_b|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ c.axe_piston_diametre|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono whitespace-nowrap">{% if c.jeu_pied_bielle_min is not None %}{{ c.jeu_pied_bielle_min|floatformat:2 }} – {{ c.jeu_pied_bielle_max|floatformat:2 }}{% else %}—{% endif %}</td>
+            </tr>
+            {% if c.remarque %}<tr><td></td><td colspan="9" class="border px-2 py-1 text-gray-600 italic">{{ c.remarque }}</td></tr>{% endif %}
+        {% endfor %}</tbody>
+    </table>
+</div>
+{% endif %}{% endwith %}
+
+{% with tourillons=m.tourillons.all %}{% if tourillons %}
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Vilebrequin – tourillons" %} <span class="text-sm font-normal text-gray-500">(mm)</span></h2>
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="border px-2 py-1" rowspan="2">{% trans "N°" %}</th>
+                <th class="border px-2 py-1" colspan="2">{% trans "Section 1" %}</th>
+                <th class="border px-2 py-1" colspan="2">{% trans "Section 2" %}</th>
+                <th class="border px-2 py-1" rowspan="2">{% trans "Ovalisation" %}</th>
+                <th class="border px-2 py-1" rowspan="2">{% trans "Conicité" %}</th>
+                <th class="border px-2 py-1" rowspan="2">{% trans "Remarque" %}</th>
+            </tr>
+            <tr class="bg-gray-100"><th class="border px-2 py-1">A</th><th class="border px-2 py-1">B</th><th class="border px-2 py-1">A</th><th class="border px-2 py-1">B</th></tr>
+        </thead>
+        <tbody>{% for t in tourillons %}
+            <tr>
+                <td class="border px-2 py-1 text-center font-semibold">{{ t.numero }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ t.section_1_a|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ t.section_1_b|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ t.section_2_a|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ t.section_2_b|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ t.ovalisation|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ t.conicite|floatformat:2|default:"—" }}</td>
+                <td class="border px-2 py-1">{{ t.remarque|default:"" }}</td>
+            </tr>
+        {% endfor %}</tbody>
+    </table>
+</div>
+{% endif %}{% endwith %}
+{% endwith %}

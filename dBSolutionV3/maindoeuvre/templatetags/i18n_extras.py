@@ -235,6 +235,7 @@ DESCRIPTIFS_TRADUISIBLES = [
     # ==========================================================
     "Culasse",
     "Bas moteur",
+    "Métrologie moteur",
     "ESP (contrôle de stabilité)",
     "Aide au stationnement",
     "Arceau de sécurité",
