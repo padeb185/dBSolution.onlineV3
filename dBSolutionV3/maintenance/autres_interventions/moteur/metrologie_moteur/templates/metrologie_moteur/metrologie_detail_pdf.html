@@ -328,6 +328,7 @@
         <div><span class="label">{% trans "Technicien" %} :</span> {{ metrologie.tech_nom_technicien }}</div>
         <div><span class="label">{% trans "Société" %} :</span> {{ metrologie.tech_societe }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ metrologie.voiture_exemplaire }}</div>
+        {% if metrologie.moteur_lie %}<div><span class="label">{% trans "Moteur" %} :</span> {{ metrologie.moteur_lie }}</div>{% endif %}
         <div><span class="label">{% trans "Kilométrage véhicule" %} :</span> {{ metrologie.kilometres_chassis }} km</div>
         <div><span class="label">{% trans "Kilométrage de l'intervention" %} :</span> {{ metrologie.kilometrage_metrologie }} km</div>
         <div><span class="label">{% trans "Tag" %} :</span>

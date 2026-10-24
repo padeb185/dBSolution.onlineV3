@@ -289,6 +289,7 @@ TENANT_APPS = (
     "maintenance.autres_interventions.moteur.culasse.apps.CulasseConfig",
     "maintenance.autres_interventions.moteur.bas_moteur.apps.BasMoteurConfig",
     "maintenance.autres_interventions.moteur.metrologie_moteur.apps.MetrologieMoteurConfig",
+    "maintenance.autres_interventions.moteur.casse_moteur.apps.CasseMoteurConfig",
     "maintenance.autres_interventions.esp.apps.EspConfig",
     "maintenance.autres_interventions.aide_stationnement.apps.AideStationnementConfig",
     "maintenance.autres_interventions.preparation_course.apps.PreparationCourseConfig",

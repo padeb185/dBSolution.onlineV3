@@ -384,6 +384,7 @@
             <span class="label">{% trans "Véhicule" %} :</span>
             {{ injection.voiture_exemplaire }}
         </div>
+        {% if injection.moteur_lie %}<div><span class="label">{% trans "Moteur" %} :</span> {{ injection.moteur_lie }}</div>{% endif %}
 
         <div>
             <span class="label">{% trans "Kilométrage véhicule" %} :</span>

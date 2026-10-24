@@ -40,6 +40,7 @@ class RodageForm(forms.ModelForm):
     class Meta:
         model = Rodage
         exclude = [
+            "moteur_lie",
             "pieces",
             "kilometres_boite_rollback",
             "kilometres_moteur_rollback",

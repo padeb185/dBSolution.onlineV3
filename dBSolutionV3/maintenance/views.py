@@ -43,6 +43,7 @@ from maintenance.autres_interventions.moteur.chaine_distribution.models import C
 from maintenance.autres_interventions.moteur.culasse.models import Culasse
 from maintenance.autres_interventions.moteur.bas_moteur.models import BasMoteur
 from maintenance.autres_interventions.moteur.metrologie_moteur.models import MetrologieMoteur
+from maintenance.autres_interventions.moteur.casse_moteur.models import CasseMoteur
 from maintenance.autres_interventions.moteur.bougies.composants import total_bougies
 from maintenance.autres_interventions.moteur.electronique_moteur.models import ElectroniqueMoteur
 from maintenance.autres_interventions.moteur.lubrification.models import Lubrification
@@ -265,6 +266,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             + culasse.count()
             + bas_moteur.count()
             + MetrologieMoteur.objects.filter(voiture_exemplaire=exemplaire).count()
+            + CasseMoteur.objects.filter(voiture_exemplaire=exemplaire).count()
             + total_bougies(exemplaire)
             + electronique.count()
             + lubrification.count()

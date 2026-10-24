@@ -95,6 +95,7 @@ class Maintenance(models.Model):
         ECH_VALVES_ECHAPPEMENT = "ECH_VALVES_ECHAPPEMENT", _("Valves d'échappement")
         ECH_SILENT_BLOCS_ECHAPPEMENT = "ECH_SILENT_BLOCS_ECHAPPEMENT", _("Silent blocs d'échappement")
         METROLOGIE_MOTEUR = "METROLOGIE_MOTEUR", _("Métrologie moteur")
+        CASSE_MOTEUR = "CASSE_MOTEUR", _("Casse moteur")
 
     class Tag(models.TextChoices):
         VERT = "VERT", _("Vert")

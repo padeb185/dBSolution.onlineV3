@@ -24,6 +24,7 @@ class TurboForm(forms.ModelForm):
     class Meta:
         model = Turbo
         exclude = {
+            "moteur_lie",
             "kilometres_boite_rollback",
             "kilometres_moteur_rollback",
             "kilometres_embrayage_rollback",

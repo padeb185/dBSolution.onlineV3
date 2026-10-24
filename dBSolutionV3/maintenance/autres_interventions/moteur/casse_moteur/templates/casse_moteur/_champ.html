@@ -1,0 +1,12 @@
+{% load widget_tweaks %}{% if field.field.widget.input_type == "checkbox" %}
+<label class="inline-flex items-center gap-2 py-1">
+    {{ field|add_class:"h-5 w-5" }}
+    <span class="font-semibold text-gray-700">{{ field.label }}</span>
+</label>
+{% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+{% else %}<div>
+    <label class="block font-semibold mb-1" for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {{ field|add_class:"input" }}
+    {% if field.help_text %}<p class="text-gray-500 text-xs mt-1">{{ field.help_text }}</p>{% endif %}
+    {% if field.errors %}<p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>{% endif %}
+</div>{% endif %}

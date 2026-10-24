@@ -354,6 +354,7 @@
             <span class="label">{% trans "Véhicule" %} :</span>
             {{ rodage.voiture_exemplaire }}
         </div>
+        {% if rodage.moteur_lie %}<div><span class="label">{% trans "Moteur" %} :</span> {{ rodage.moteur_lie }}</div>{% endif %}
 
         <div>
             <span class="label">{% trans "Kilométrage chassis" %} :</span>

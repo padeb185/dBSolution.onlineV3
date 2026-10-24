@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from maindoeuvre.models import MainDoeuvre
 from maintenance.choices import RouesSerrageEtat
 
+from ..moteur_lie import moteur_actuel
 from .models import RemplacementMoteur
 
 
@@ -29,10 +30,34 @@ class RemplacementMoteurForm(forms.ModelForm):
         max_value=59
     )
 
+    MODE_COPIE = "COPIE"
+    MODE_EXISTANT = "EXISTANT"
+    MODE_AUCUN = "AUCUN"
+
+    mode_nouveau_moteur = forms.ChoiceField(
+        required=False,
+        label=_("Nouveau moteur"),
+        choices=[
+            ("COPIE", _("Moteur identique à l'ancien (nouvelle fiche moteur)")),
+            ("EXISTANT", _("Choisir une fiche moteur existante")),
+            ("AUCUN", _("Ne pas changer la fiche moteur du véhicule")),
+        ],
+        initial="COPIE",
+    )
+    choix_nouveau_moteur = forms.ModelChoiceField(
+        required=False,
+        queryset=None,
+        label=_("Fiche moteur à monter"),
+        help_text=_("Moteurs non montés sur un véhicule."),
+    )
+
     class Meta:
         model = RemplacementMoteur
 
         exclude = [
+
+            "moteur_lie",
+            "nouveau_moteur",
             "kilometres_remplacement_moteur",
             "kilometres_dernier_entretien",
             "tva",
@@ -80,6 +105,24 @@ class RemplacementMoteurForm(forms.ModelForm):
         self.exemplaire = kwargs.pop("exemplaire", None)
 
         super().__init__(*args, **kwargs)
+
+        # ======================================================
+        # NOUVEAU MOTEUR (uniquement à la création)
+        # ======================================================
+        from voiture.voiture_moteur.models import MoteurVoiture
+        if self.instance and self.instance.pk:
+            self.fields.pop("mode_nouveau_moteur", None)
+            self.fields.pop("choix_nouveau_moteur", None)
+        else:
+            self.fields["choix_nouveau_moteur"].queryset = (
+                MoteurVoiture.objects.filter(voitures__isnull=True).order_by("motoriste", "code_moteur")
+            )
+            ancien = moteur_actuel(self.exemplaire)
+            if ancien:
+                self.fields["mode_nouveau_moteur"].help_text = _("Moteur actuellement monté : %(m)s") % {"m": ancien}
+            else:
+                self.fields["mode_nouveau_moteur"].initial = self.MODE_EXISTANT
+                self.fields["mode_nouveau_moteur"].help_text = _("Aucune fiche moteur n'est liée à ce véhicule.")
 
         # ======================================================
         # VOITURE
@@ -253,7 +296,18 @@ class RemplacementMoteurForm(forms.ModelForm):
     # ==========================================================
     # CLEAN
     # ==========================================================
+    def _clean_nouveau_moteur(self):
+        if "mode_nouveau_moteur" not in self.fields:
+            return
+        mode = self.cleaned_data.get("mode_nouveau_moteur") or self.MODE_AUCUN
+        ancien = moteur_actuel(self.exemplaire)
+        if mode == self.MODE_EXISTANT and not self.cleaned_data.get("choix_nouveau_moteur"):
+            self.add_error("choix_nouveau_moteur", _("Choisissez la fiche moteur à monter."))
+        if mode == self.MODE_COPIE and not ancien:
+            self.add_error("mode_nouveau_moteur", _("Aucun moteur à copier : choisissez une fiche moteur existante."))
+
     def clean(self):
+        self._clean_nouveau_moteur()
 
         cleaned_data = super().clean()
 

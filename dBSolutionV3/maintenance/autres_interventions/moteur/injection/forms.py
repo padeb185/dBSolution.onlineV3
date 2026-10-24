@@ -27,6 +27,7 @@ class InjectionForm(forms.ModelForm):
     class Meta:
         model = Injection
         exclude = [
+            "moteur_lie",
             "voiture_exemplaire",
             "kilometres_boite_rollback",
             "kilometres_moteur_rollback",

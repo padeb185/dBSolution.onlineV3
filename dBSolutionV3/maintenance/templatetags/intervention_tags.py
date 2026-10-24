@@ -96,3 +96,30 @@ def classe_etat(ligne):
     if code in ETATS_OK:
         return "text-green-700"
     return ""
+
+
+@register.simple_tag
+def moteur_intervention(obj=None, exemplaire=None):
+    """
+    Moteur à afficher pour une intervention (ou son formulaire) :
+    le moteur lié à l'intervention, sinon le moteur actuellement monté sur le véhicule.
+    Usage : {% moteur_intervention form.instance exemplaire as moteur %}
+    """
+    from maintenance.autres_interventions.moteur.moteur_lie import moteur_actuel
+
+    instance = getattr(obj, "instance", obj)
+    if instance is not None and getattr(instance, "moteur_lie_id", None):
+        return instance.moteur_lie
+    if exemplaire is None and instance is not None and getattr(instance, "voiture_exemplaire_id", None):
+        exemplaire = instance.voiture_exemplaire_id
+    return moteur_actuel(exemplaire) if exemplaire else None
+
+
+@register.filter
+def a_moteur_lie(obj):
+    """Vrai si l'intervention possède le champ « moteur_lie » (interventions moteur)."""
+    try:
+        obj._meta.get_field("moteur_lie")
+        return True
+    except Exception:
+        return False

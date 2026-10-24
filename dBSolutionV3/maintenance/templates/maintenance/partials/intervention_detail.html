@@ -66,6 +66,21 @@ Variables attendues (passées par le template de chaque app) :
                 <p><strong>{% trans "Variation" %} :</strong> {{ obj.kilometrage_variation }} km</p>
             {% endif %}
 
+            {% if obj.moteur_lie %}
+                <p><strong>{% if obj.nouveau_moteur %}{% trans "Moteur déposé" %}{% else %}{% trans "Moteur" %}{% endif %} :</strong>
+                    <a href="{% url 'voiture_moteur:moteur_detail' obj.moteur_lie.id %}" class="text-blue-700 hover:underline">{{ obj.moteur_lie }}</a></p>
+            {% elif obj|a_moteur_lie %}
+                {% moteur_intervention obj exemplaire as moteur_vehicule %}
+                <p><strong>{% trans "Moteur" %} :</strong>
+                    {% if moteur_vehicule %}<a href="{% url 'voiture_moteur:moteur_detail' moteur_vehicule.id %}" class="text-blue-700 hover:underline">{{ moteur_vehicule }}</a>
+                    <span class="text-xs text-gray-500">({% trans "moteur actuel du véhicule" %})</span>
+                    {% else %}<span class="text-yellow-700">{% trans "Aucun moteur lié à ce véhicule." %}</span>{% endif %}</p>
+            {% endif %}
+            {% if obj.nouveau_moteur %}
+                <p><strong>{% trans "Moteur monté" %} :</strong>
+                    <a href="{% url 'voiture_moteur:moteur_detail' obj.nouveau_moteur.id %}" class="text-blue-700 hover:underline">{{ obj.nouveau_moteur }}</a></p>
+            {% endif %}
+
             {% if obj.tag %}
             <p>
                 <strong>{% trans "Tag" %} :</strong>

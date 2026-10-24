@@ -8,6 +8,7 @@ from maindoeuvre.models import MainDoeuvre
 from utilisateurs.models import UserLog
 from django.contrib import messages
 from maintenance.models import Maintenance
+from .moteurs import monter_nouveau_moteur, restaurer_ancien_moteur
 from .forms import RemplacementMoteurForm
 from django.utils.translation import gettext_lazy as _, gettext_noop
 from django.views.generic import ListView
@@ -229,6 +230,13 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                     remplacement_moteur.save()
                     form.save_m2m()
 
+                    # Ancien moteur mémorisé (moteur_lie) → montage du nouveau moteur
+                    monter_nouveau_moteur(
+                        remplacement_moteur,
+                        exemplaire,
+                        form.cleaned_data.get("mode_nouveau_moteur"),
+                        form.cleaned_data.get("choix_nouveau_moteur"),
+                    )
 
                     # save() du modèle remet kilometres_moteur à 0 → on impose le moteur déposé
                     RemplacementMoteur.objects.filter(pk=remplacement_moteur.pk).update(
@@ -586,6 +594,9 @@ def delete_moteur_view(request, remplacement_moteur_id):
 
                 # Sinon : un moteur plus récent est monté → on ne touche à rien
 
+                # Remet l'ancien moteur si le nouveau est toujours monté
+                restaurer_ancien_moteur(remplacement_moteur, exemplaire)
+
                 remplacement_moteur.delete()
 
                 if maintenance:
@@ -624,9 +635,11 @@ def _sections_moteur(form):
     def champs(mot):
         return [form[f.name] for f in form if mot in f.name]
 
-    return [
+    sections = [
         {"title": _("Kilométrage"), "icon": "icons/compteur.png", "fields": champs("kilometres")},
         {"title": _("Remplacement du moteur"), "icon": "icons/engine.png", "fields": champs("moteurs")},
+        {"title": _("Nouveau moteur"), "icon": "icons/engine.png",
+         "fields": [form[n] for n in ("mode_nouveau_moteur", "choix_nouveau_moteur") if n in form.fields]},
         {"title": _("Huile moteur"), "icon": "icons/huile-moteur.png", "fields": champs("niveau")},
         {"title": _("Liquide de refroidissement"), "icon": "icons/anti-gel.png", "fields": champs("refroidissement")},
         {"title": _("Liquide de frein"), "icon": "icons/liquide_frein.png", "fields": champs("frein_liquide")},
@@ -638,6 +651,8 @@ def _sections_moteur(form):
         {"title": _("Technicien"), "icon": "icons/mecanicien.png", "fields": champs("tech")},
         {"title": _("Taux horaire"), "icon": "icons/taux.png", "fields": champs("taux")},
     ]
+    # la section « Nouveau moteur » n'existe qu'à la création
+    return [s for s in sections if s["fields"] or s["title"] != _("Nouveau moteur")]
 
 
 

@@ -39,6 +39,8 @@ class AlternateurForm(forms.ModelForm):
         model = Alternateur
 
         exclude = (
+
+            "moteur_lie",
             "alternateur_tva_achat",
             "alternateur_prix_vente_htva",
             "alternateur_tva_vente",

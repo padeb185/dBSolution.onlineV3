@@ -28,6 +28,7 @@ class ElectroniqueMoteurForm(forms.ModelForm):
     class Meta:
         model = ElectroniqueMoteur
         exclude = {
+            "moteur_lie",
             "kilometres_boite_rollback",
             "kilometres_moteur_rollback",
             "kilometres_embrayage_rollback",

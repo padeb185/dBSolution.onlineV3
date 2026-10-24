@@ -51,6 +51,7 @@
     <div class="mb-4 flex justify-center">
         {% include "maintenance/partials/plaque.html" %}
     </div>
+    {% include "maintenance/partials/moteur_lie.html" with obj=form exemplaire=exemplaire %}
 
     <!-- Messages -->
     {% if messages %}

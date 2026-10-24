@@ -1,0 +1,82 @@
+{% load i18n %}{% with c=obj %}
+<!-- Diagnostic -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Symptômes constatés" %}</h2>
+        {% with s=c.symptomes %}{% if s %}
+            <ul class="list-disc ml-6">{% for x in s %}<li>{{ x }}</li>{% endfor %}</ul>
+        {% else %}<p class="text-gray-500">{% trans "Aucun symptôme renseigné." %}</p>{% endif %}{% endwith %}
+        {% if c.circonstances %}<h3 class="font-semibold mt-4">{% trans "Circonstances" %}</h3>{{ c.circonstances|linebreaks }}{% endif %}
+    </div>
+    <div class="bg-amber-50 border border-amber-300 shadow-md rounded-lg p-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Pistes de diagnostic" %}</h2>
+        {% with p=c.pistes_diagnostic %}{% if p %}
+            <ul class="list-disc ml-6 text-sm">{% for x in p %}<li>{{ x }}</li>{% endfor %}</ul>
+        {% else %}<p class="text-gray-500">{% trans "Aucune piste (cochez les symptômes et réalisez les essais)." %}</p>{% endif %}{% endwith %}
+    </div>
+</div>
+
+{% with essais=c.essais.all %}{% if essais %}
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Compression et test d'étanchéité" %}</h2>
+    <p class="text-sm text-gray-600 mb-2">
+        {% if c.compression_nominale_bar %}{% trans "Compression constructeur" %} : {{ c.compression_nominale_bar }} bar – {% endif %}
+        {% trans "Moyenne" %} : {{ c.compression_moyenne|default:"—" }} bar
+    </p>
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-2 py-1">{% trans "Cyl." %}</th>
+            <th class="border px-2 py-1 text-right">{% trans "Compression (bar)" %}</th>
+            <th class="border px-2 py-1 text-right">{% trans "Écart / meilleur" %}</th>
+            <th class="border px-2 py-1 text-right">{% trans "Fuite (%)" %}</th>
+            <th class="border px-2 py-1 text-left">{% trans "Fuite constatée par" %}</th>
+            <th class="border px-2 py-1 text-left">{% trans "Anomalies" %}</th>
+            <th class="border px-2 py-1 text-left">{% trans "Remarque" %}</th>
+        </tr></thead>
+        <tbody>{% for e in essais %}{% with a=e.anomalies %}
+            <tr class="{% if a %}bg-red-50{% endif %}">
+                <td class="border px-2 py-1 text-center font-semibold">{{ e.numero }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{{ e.compression_bar|default:"—" }}</td>
+                <td class="border px-2 py-1 text-right font-mono">{% if e.ecart_compression_pct is not None %}{{ e.ecart_compression_pct }} %{% else %}—{% endif %}</td>
+                <td class="border px-2 py-1 text-right font-mono">{% if e.fuite_pct is not None %}{{ e.fuite_pct }} %{% else %}—{% endif %}</td>
+                <td class="border px-2 py-1">{{ e.fuites|join:", "|default:"—" }}</td>
+                <td class="border px-2 py-1 {% if a %}text-red-700 font-semibold{% else %}text-green-700{% endif %}">{% if a %}{{ a|join:", " }}{% else %}{% trans "OK" %}{% endif %}</td>
+                <td class="border px-2 py-1">{{ e.remarque }}</td>
+            </tr>{% endwith %}{% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}{% endwith %}
+
+{% if c.analyse_huile or c.endoscopie %}
+<div class="bg-white shadow-md rounded-lg p-6 mb-6">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Constats" %}</h2>
+    {% if c.analyse_huile %}<h3 class="font-semibold">{% trans "Analyse de l'huile / du filtre" %}</h3>{{ c.analyse_huile|linebreaks }}{% endif %}
+    {% if c.endoscopie %}<h3 class="font-semibold mt-2">{% trans "Endoscopie / constat visuel" %}</h3>{{ c.endoscopie|linebreaks }}{% endif %}
+</div>
+{% endif %}
+
+{% with pieces=c.pieces_cassees.all %}
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 overflow-x-auto">
+    <h2 class="text-lg font-semibold mb-4">{% trans "Pièces cassées" %}</h2>
+    {% if pieces %}
+    <table class="min-w-full table-auto border-collapse border border-gray-200 text-sm">
+        <thead><tr class="bg-gray-100">
+            <th class="border px-2 py-1 text-left">{% trans "Pièce" %}</th>
+            <th class="border px-2 py-1 text-left">{% trans "Dommage" %}</th>
+            <th class="border px-2 py-1 text-left">{% trans "Gravité" %}</th>
+            <th class="border px-2 py-1 text-left">{% trans "Décision" %}</th>
+        </tr></thead>
+        <tbody>{% for p in pieces %}
+            <tr>
+                <td class="border px-2 py-1">{{ p.libelle }}</td>
+                <td class="border px-2 py-1">{{ p.get_type_dommage_display }}</td>
+                <td class="border px-2 py-1"><span class="px-2 py-0.5 rounded text-xs font-semibold {% if p.gravite == 'DETRUITE' or p.gravite == 'GRAVE' %}bg-red-100 text-red-800{% elif p.gravite == 'MOYENNE' %}bg-yellow-100 text-yellow-800{% else %}bg-green-100 text-green-800{% endif %}">{{ p.get_gravite_display }}</span></td>
+                <td class="border px-2 py-1">{{ p.get_decision_display }}</td>
+            </tr>{% endfor %}
+        </tbody>
+    </table>
+    {% else %}<p class="text-gray-500">{% trans "Aucune pièce cassée renseignée." %}</p>{% endif %}
+</div>
+{% endwith %}
+{% endwith %}

@@ -26,6 +26,7 @@ class MetrologieMoteurForm(forms.ModelForm):
     class Meta:
         model = MetrologieMoteur
         exclude = {
+            "moteur_lie",
             "maintenance",
             "voiture_exemplaire",
             "main_oeuvre",

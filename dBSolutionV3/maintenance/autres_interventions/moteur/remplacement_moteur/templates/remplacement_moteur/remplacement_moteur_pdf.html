@@ -340,6 +340,8 @@
             <span class="label">{% trans "Véhicule" %} :</span>
             {{ remplacement.voiture_exemplaire|default:"-" }}
         </div>
+        {% if remplacement.moteur_lie %}<div><span class="label">{% trans "Moteur déposé" %} :</span> {{ remplacement.moteur_lie }}</div>{% endif %}
+        {% if remplacement.nouveau_moteur %}<div><span class="label">{% trans "Moteur monté" %} :</span> {{ remplacement.nouveau_moteur }}</div>{% endif %}
 
         <div>
             <span class="label">{% trans "Kilométrage du châssis" %} :</span>

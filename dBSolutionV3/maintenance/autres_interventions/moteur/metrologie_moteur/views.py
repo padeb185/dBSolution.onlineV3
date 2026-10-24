@@ -23,6 +23,7 @@ from utilisateurs.models import UserLog
 from utils.securite import q_intervention_tenant
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 
+from ..moteur_lie import moteur_actuel
 from .forms import MesureCylindreFormSet, MesureTourillonFormSet, MetrologieMoteurForm
 from .models import MetrologieMoteur
 
@@ -200,7 +201,7 @@ def metrologie_form_view(request, exemplaire_id):
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
     else:
-        moteur = getattr(exemplaire, "voiture_moteur", None)
+        moteur = moteur_actuel(exemplaire)
         nouveau = MetrologieMoteur(
             voiture_exemplaire=exemplaire,
             kilometres_chassis=exemplaire.kilometres_chassis or 0,

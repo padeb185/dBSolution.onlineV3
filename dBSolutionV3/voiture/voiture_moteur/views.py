@@ -24,8 +24,11 @@ from utils.securite import peut_supprimer, refuser_suppression
 @login_required()
 def moteur_detail_view(request, moteur_id):
     moteur = get_object_or_404(MoteurVoiture, id=moteur_id)
+    from maintenance.autres_interventions.moteur.moteur_lie import interventions_du_moteur
     return render(request, 'voiture_moteur/moteur_detail.html', {
         'moteur': moteur,
+        'interventions': interventions_du_moteur(moteur),
+        'vehicule_actuel': getattr(moteur, "voitures", None) if hasattr(moteur, "voitures") else None,
     })
 
 

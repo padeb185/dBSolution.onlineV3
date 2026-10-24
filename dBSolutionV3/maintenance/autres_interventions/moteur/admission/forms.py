@@ -38,6 +38,7 @@ class AdmissionForm(forms.ModelForm):
     class Meta:
         model = Admission
         exclude = {
+            "moteur_lie",
             "kilometres_boite_rollback",
             "kilometres_moteur_rollback",
             "kilometres_embrayage_rollback",

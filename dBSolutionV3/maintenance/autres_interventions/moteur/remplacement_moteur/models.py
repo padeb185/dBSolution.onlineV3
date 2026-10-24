@@ -46,6 +46,27 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         blank=True
     )
 
+    # Nouveau moteur monté par ce remplacement (devient le moteur du véhicule)
+    nouveau_moteur = models.ForeignKey(
+        "voiture_moteur.MoteurVoiture",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="remplacements_montes",
+        verbose_name=_("Nouveau moteur"),
+    )
+    nouveau_moteur_cree = models.BooleanField(default=False, editable=False)
+
+    # Moteur monté sur le véhicule au moment de l'intervention (l'historique suit le moteur)
+    moteur_lie = models.ForeignKey(
+        "voiture_moteur.MoteurVoiture",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="interventions_%(app_label)s",
+        verbose_name=_("Moteur"),
+    )
+
     voiture_exemplaire = models.ForeignKey(
         "voiture_exemplaire.VoitureExemplaire",
         on_delete=models.CASCADE,

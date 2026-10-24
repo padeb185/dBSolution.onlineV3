@@ -104,6 +104,16 @@ class MetrologieMoteur(TechnicienMixin, models.Model):
     maintenance = models.ForeignKey(
         Maintenance, on_delete=models.CASCADE, related_name="metrologie_moteur", null=True, blank=True
     )
+    # Moteur monté sur le véhicule au moment de l'intervention (l'historique suit le moteur)
+    moteur_lie = models.ForeignKey(
+        "voiture_moteur.MoteurVoiture",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="interventions_%(app_label)s",
+        verbose_name=_("Moteur"),
+    )
+
     voiture_exemplaire = models.ForeignKey(
         "voiture_exemplaire.VoitureExemplaire", on_delete=models.CASCADE,
         related_name="metrologie_moteur", null=True, blank=True

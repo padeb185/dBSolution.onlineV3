@@ -229,6 +229,7 @@ urlpatterns += i18n_patterns(
     path("fusibles/", include(("maintenance.autres_interventions.fusibles.urls", "fusibles"), namespace="fusibles")),
     path('bas_moteur/', include(('maintenance.autres_interventions.moteur.bas_moteur.urls', 'bas_moteur'), namespace='bas_moteur')),
     path('metrologie_moteur/', include(('maintenance.autres_interventions.moteur.metrologie_moteur.urls', 'metrologie_moteur'), namespace='metrologie_moteur')),
+    path('casse_moteur/', include(('maintenance.autres_interventions.moteur.casse_moteur.urls', 'casse_moteur'), namespace='casse_moteur')),
     path('electronique_moteur/', include(('maintenance.autres_interventions.moteur.electronique_moteur.urls', 'electronique_moteur'), namespace='electronique_moteur')),
     path('lubrification/', include(('maintenance.autres_interventions.moteur.lubrification.urls', 'lubrification'), namespace='lubrification')),
 

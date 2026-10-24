@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Casse moteur" %}{% endblock %}
+
+{% block content %}
+    {% url 'casse_moteur:modifier_casse' casse.pk as url_modifier %}
+    {% url 'casse_moteur:casse_detail_pdf' casse.pk as url_pdf %}
+    {% url 'casse_moteur:delete_casse' casse.pk as url_delete %}
+    {% if exemplaire %}{% url 'casse_moteur:casse_list' exemplaire.id as url_list %}{% endif %}
+    {% trans "Casse moteur" as titre %}
+
+    {% include "maintenance/partials/intervention_detail.html" with obj=casse km_controle=casse.kilometrage_casse icone="casse_moteur.png" extra_template="casse_moteur/_detail_casse.html" infos_template="casse_moteur/_infos_casse.html" %}
+{% endblock %}

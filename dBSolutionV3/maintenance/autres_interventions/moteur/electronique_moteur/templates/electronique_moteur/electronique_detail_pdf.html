@@ -341,6 +341,7 @@
             <span class="label">{% trans "Véhicule" %} :</span>
             {{ electronique.voiture_exemplaire }}
         </div>
+        {% if electronique.moteur_lie %}<div><span class="label">{% trans "Moteur" %} :</span> {{ electronique.moteur_lie }}</div>{% endif %}
 
         <div>
             <span class="label">{% trans "Kilométrage véhicule" %} :</span>

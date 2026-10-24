@@ -35,6 +35,8 @@ class AllumageForm(forms.ModelForm):
         model = Allumage
 
         exclude = [
+
+            "moteur_lie",
             "voiture_exemplaire",
             "immatriculation",
             "kilometres_boite_rollback",

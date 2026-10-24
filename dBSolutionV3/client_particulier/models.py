@@ -100,10 +100,7 @@ class ClientParticulier(models.Model):
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
     def __str__(self):
-        return _("%(nom)s %(prenom)s (Client)") % {
-            "nom": self.nom,
-            "prenom": self.prenom,
-        }
+        return f"{self.nom} {self.prenom}".strip()
 
     def clean(self):
         super().clean()

@@ -369,6 +369,7 @@
             <span class="label">{% trans "Véhicule" %} :</span>
             {{ alternateur.voiture_exemplaire|default:"-" }}
         </div>
+        {% if alternateur.moteur_lie %}<div><span class="label">{% trans "Moteur" %} :</span> {{ alternateur.moteur_lie }}</div>{% endif %}
 
         <div>
             <span class="label">{% trans "Kilométrage du châssis" %} :</span>

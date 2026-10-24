@@ -1,0 +1,18 @@
+{% load i18n intervention_tags %}{% moteur_intervention obj exemplaire as moteur %}
+{% comment %}
+Encadré « Moteur lié » des formulaires d'intervention moteur.
+Variables : obj (formulaire ou intervention), exemplaire (véhicule, facultatif).
+{% endcomment %}
+<div class="mb-4 flex justify-center">
+    {% if moteur %}
+        <a href="{% url 'voiture_moteur:moteur_detail' moteur.id %}" target="_blank"
+           class="inline-flex items-center gap-3 rounded-lg border border-blue-200 bg-blue-50 px-4 py-2 hover:bg-blue-100">
+            <span class="font-semibold">{% trans "Moteur" %} :</span>
+            <span>{{ moteur.motoriste }} {{ moteur.code_moteur }}{% if moteur.cylindree_l %} – {{ moteur.cylindree_l }} L{% endif %}{% if moteur.puissance_ch %} – {{ moteur.puissance_ch }} ch{% endif %}{% if moteur.numero_moteur %} – {% trans "moteur n°" %} {{ moteur.numero_moteur }}{% endif %}</span>
+        </a>
+    {% else %}
+        <span class="rounded-lg border border-yellow-300 bg-yellow-50 px-4 py-2 text-yellow-800">
+            {% trans "Aucun moteur lié à ce véhicule." %}
+        </span>
+    {% endif %}
+</div>
