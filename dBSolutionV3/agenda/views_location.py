@@ -14,6 +14,7 @@ from django.views.decorators.cache import never_cache
 from maintenance.models import Maintenance
 from voiture.voiture_location.models import Location
 
+from .disponibilite import disponibilites
 from .forms import AgendaLocationRetourForm, AgendaLocationSortieForm
 from .models import AgendaLocation, AgendaTache
 from .views import ROLES_AGENDA, _jour_depuis_requete, _peut, _taches_societe, _url_jour
@@ -30,6 +31,15 @@ def _refuser(request):
 def _url_jour_location(jour):
     return reverse("agenda:agenda_location_date",
                    kwargs={"annee": jour.year, "mois": jour.month, "jour": jour.day})
+
+
+def _url_jour_disponibilites(jour):
+    return reverse("agenda:agenda_disponibilites_date",
+                   kwargs={"annee": jour.year, "mois": jour.month, "jour": jour.day})
+
+
+def _compter_tags(lignes):
+    return {tag: sum(1 for l in lignes if l["tag"] == tag) for tag in ("VERT", "JAUNE", "ROUGE")}
 
 
 def _locations_societe(request):
@@ -140,6 +150,8 @@ def agenda_dashboard_view(request):
     )
     a_venir.sort(key=lambda l: l["location"].date_debut)
 
+    dispo = _compter_tags(disponibilites(request.user.societe, aujourdhui))
+
     def compte(etat):
         return sum(1 for l in lignes_jour if l["suivi"].etat == etat)
 
@@ -159,6 +171,7 @@ def agenda_dashboard_view(request):
         "lignes_jour": lignes_jour,
         "en_retard": en_retard,
         "a_venir": a_venir,
+        "dispo": dispo,
     })
 
 
@@ -182,6 +195,30 @@ def agenda_location_view(request, annee=None, mois=None, jour=None):
         "url_aujourdhui": _url_jour_location(timezone.localdate()),
         "url_maintenances": _url_jour(jour_affiche),
         "lignes": lignes,
+    })
+
+
+# =====================================================================
+# VÉHICULES DISPONIBLES À LA LOCATION (page d'un jour)
+# =====================================================================
+@never_cache
+@login_required
+def agenda_disponibilites_view(request, annee=None, mois=None, jour=None):
+    if not _peut(request.user, ROLES_AGENDA_LOCATION):
+        return _refuser(request)
+
+    jour_affiche = _jour_depuis_requete(request, annee, mois, jour)
+    lignes = disponibilites(request.user.societe, jour_affiche)
+
+    return render(request, "agenda/agenda_disponibilites.html", {
+        "jour": jour_affiche,
+        "aujourdhui": timezone.localdate(),
+        "url_veille": _url_jour_disponibilites(jour_affiche - timedelta(days=1)),
+        "url_lendemain": _url_jour_disponibilites(jour_affiche + timedelta(days=1)),
+        "url_aujourdhui": _url_jour_disponibilites(timezone.localdate()),
+        "url_locations": _url_jour_location(jour_affiche),
+        "lignes": lignes,
+        "compte": _compter_tags(lignes),
     })
 
 

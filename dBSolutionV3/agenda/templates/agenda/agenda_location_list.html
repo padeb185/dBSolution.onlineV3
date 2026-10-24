@@ -32,6 +32,7 @@
 <div class="flex flex-wrap items-center gap-3 mb-4">
     <a href="{% url 'agenda:agenda_dashboard' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Dashboard agenda" %}</a>
     <a href="{{ url_maintenances }}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Agenda des maintenances" %}</a>
+    <a href="{% url 'agenda:agenda_disponibilites_date' jour.year jour.month jour.day %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Véhicules disponibles" %}</a>
     <span class="text-gray-600 text-sm">{% trans "Sortie possible uniquement quand le checkup piste est au vert." %}</span>
 </div>
 

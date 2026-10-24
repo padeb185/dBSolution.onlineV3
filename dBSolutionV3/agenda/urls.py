@@ -21,6 +21,9 @@ urlpatterns = [
     path("locations/", views_location.agenda_location_view, name="agenda_location"),
     path("locations/<int:annee>/<int:mois>/<int:jour>/", views_location.agenda_location_view,
          name="agenda_location_date"),
+    path("disponibilites/", views_location.agenda_disponibilites_view, name="agenda_disponibilites"),
+    path("disponibilites/<int:annee>/<int:mois>/<int:jour>/", views_location.agenda_disponibilites_view,
+         name="agenda_disponibilites_date"),
     path("locations/<uuid:location_id>/", views_location.agenda_location_controle_view,
          name="agenda_location_controle"),
 ]

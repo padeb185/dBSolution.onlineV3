@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Véhicules disponibles à la location" %} – {{ jour|date:"d/m/Y" }}{% endblock %}
+
+{% block content %}
+<br>
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+    <h1 class="text-2xl font-bold flex items-center gap-3">
+        <img src="{% static 'icons/location.png' %}" alt="" class="w-16 h-16">
+        <span>
+            {% trans "Véhicules disponibles à la location" %}
+            <span class="block text-lg font-semibold text-gray-600 capitalize">
+                {{ jour|date:"l j F Y" }}
+                {% if jour == aujourdhui %}<span class="ml-2 text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded normal-case">{% trans "Aujourd'hui" %}</span>{% endif %}
+            </span>
+        </span>
+    </h1>
+
+    <div class="flex flex-wrap items-center gap-2">
+        <a href="{{ url_veille }}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">← {% trans "Veille" %}</a>
+        <a href="{{ url_aujourdhui }}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Aujourd'hui" %}</a>
+        <a href="{{ url_lendemain }}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Lendemain" %} →</a>
+        <form method="get" action="{% url 'agenda:agenda_disponibilites' %}">
+            <input type="date" name="date" value="{{ jour|date:'Y-m-d' }}" class="border rounded px-3 py-2" onchange="this.form.submit()">
+        </form>
+    </div>
+</div>
+
+{% include "partials/messages.html" %}
+
+<div class="flex flex-wrap items-center gap-3 mb-6">
+    <a href="{% url 'agenda:agenda_dashboard' %}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Dashboard agenda" %}</a>
+    <a href="{{ url_locations }}" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded font-semibold">{% trans "Agenda des locations" %}</a>
+</div>
+
+<!-- Compteurs = filtres -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6" id="filtres-tag">
+    <button type="button" data-filtre="" class="filtre text-left bg-white shadow-md rounded-lg p-4 border-l-4 border-gray-400 ring-2 ring-blue-400">
+        <p class="text-gray-500 text-sm">{% trans "Tous les véhicules" %}</p>
+        <p class="text-2xl font-bold text-gray-700">{{ lignes|length }}</p>
+    </button>
+    <button type="button" data-filtre="VERT" class="filtre text-left bg-white shadow-md rounded-lg p-4 border-l-4 border-green-600">
+        <p class="text-gray-500 text-sm">{% trans "Disponibles" %}</p>
+        <p class="text-2xl font-bold text-green-700">{{ compte.VERT }}</p>
+    </button>
+    <button type="button" data-filtre="JAUNE" class="filtre text-left bg-white shadow-md rounded-lg p-4 border-l-4 border-yellow-500">
+        <p class="text-gray-500 text-sm">{% trans "Sous réserve" %}</p>
+        <p class="text-2xl font-bold text-yellow-700">{{ compte.JAUNE }}</p>
+    </button>
+    <button type="button" data-filtre="ROUGE" class="filtre text-left bg-white shadow-md rounded-lg p-4 border-l-4 border-red-600">
+        <p class="text-gray-500 text-sm">{% trans "Indisponibles" %}</p>
+        <p class="text-2xl font-bold text-red-700">{{ compte.ROUGE }}</p>
+    </button>
+</div>
+
+<div class="overflow-x-auto bg-white shadow-md rounded-lg">
+<table class="min-w-full table-auto border-collapse border border-gray-200" id="table-dispo">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-3 py-2 text-left">{% trans "État" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Immatriculation" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Véhicule" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Détail" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Dernier retour" %}</th>
+            <th class="border px-3 py-2 text-left">{% trans "Dernier checkup piste vert" %}</th>
+            <th class="border px-3 py-2 text-right">{% trans "Kilomètres" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for l in lignes %}
+        {% with exemplaire=l.exemplaire %}
+        <tr data-tag="{{ l.tag }}" class="{% if l.tag == 'ROUGE' %}bg-red-50{% elif l.tag == 'JAUNE' %}bg-yellow-50{% endif %}">
+            <td class="border px-3 py-2">{% include "agenda/partials/tag.html" with tag=l.tag %}</td>
+            <td class="border px-3 py-2">{% include "maintenance/partials/plaque.html" with taille="petite" %}</td>
+            <td class="border px-3 py-2">{% include "agenda/partials/vehicule.html" %}</td>
+            <td class="border px-3 py-2 text-sm">
+                {% if l.motifs %}
+                    <ul class="list-disc ml-4">{% for m in l.motifs %}<li>{{ m }}</li>{% endfor %}</ul>
+                {% else %}
+                    <span class="text-green-700 font-semibold">{% trans "Disponible toute la journée" %}</span>
+                {% endif %}
+                {% for loc in l.locations %}
+                    <a href="{% url 'agenda:agenda_location_controle' loc.pk %}?date={{ jour|date:'Y-m-d' }}" class="text-blue-700 hover:underline text-xs mr-2">{% trans "Voir la location" %}</a>
+                {% endfor %}
+            </td>
+            <td class="border px-3 py-2 text-sm whitespace-nowrap">
+                {% if l.dernier_retour %}
+                    {{ l.dernier_retour.retour_le|date:"d/m/Y" }} {% include "agenda/partials/tag.html" with tag=l.dernier_retour.tag_retour %}
+                {% else %}—{% endif %}
+            </td>
+            <td class="border px-3 py-2 text-sm whitespace-nowrap">
+                {% if l.dernier_checkup_vert %}
+                    <a href="{% url 'agenda:detail_tache' l.dernier_checkup_vert.pk %}" class="text-blue-700 hover:underline">{{ l.dernier_checkup_vert.date|date:"d/m/Y" }}</a>
+                {% else %}—{% endif %}
+            </td>
+            <td class="border px-3 py-2 text-right">{{ exemplaire.kilometres_chassis|default_if_none:"—" }}</td>
+        </tr>
+        {% endwith %}
+    {% empty %}
+        <tr><td colspan="7" class="text-center py-6 text-gray-500">
+            {% trans "Aucun véhicule de location : indiquez l'utilisation « Location » sur la fiche des véhicules à louer." %}
+        </td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<p class="text-sm text-gray-600 mt-4">
+    <strong>{% trans "Vert" %}</strong> : {% trans "disponible toute la journée." %}
+    <strong>{% trans "Jaune" %}</strong> : {% trans "disponible sous réserve (loué ou interdit sur un créneau, départ / retour ce jour, checkup piste à faire après un retour)." %}
+    <strong>{% trans "Rouge" %}</strong> : {% trans "indisponible (loué ou interdit toute la journée, problème au dernier retour, véhicule au tag rouge)." %}
+</p>
+<br>
+
+<script>
+document.querySelectorAll("#filtres-tag .filtre").forEach(function (b) {
+    b.addEventListener("click", function () {
+        var f = b.dataset.filtre;
+        document.querySelectorAll("#filtres-tag .filtre").forEach(function (x) { x.classList.toggle("ring-2", x === b); x.classList.toggle("ring-blue-400", x === b); });
+        document.querySelectorAll("#table-dispo tbody tr[data-tag]").forEach(function (tr) {
+            tr.style.display = (!f || tr.dataset.tag === f) ? "" : "none";
+        });
+    });
+});
+</script>
+{% endblock %}
