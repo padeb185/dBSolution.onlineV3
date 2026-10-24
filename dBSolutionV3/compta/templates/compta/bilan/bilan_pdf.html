@@ -31,7 +31,7 @@
     <strong>{{ societe.nom }}</strong>{% if societe.numero_tva %} – {% trans "N° d'entreprise / TVA" %} : {{ societe.numero_tva }}{% endif %}<br>
     {% if societe.adresse %}{{ societe.adresse.rue }} {{ societe.adresse.numero }}, {{ societe.adresse.code_postal }} {{ societe.adresse.ville }}<br>{% endif %}
     {% trans "Bilan au" %} 31/12/{{ annee }} – {% trans "montants en euros" %}
-    {% if not equilibre %}<p class="alerte">{% blocktrans with e=ecart|floatformat:2 %}Bilan déséquilibré : écart de %(e)s €.{% endblocktrans %}</p>{% endif %}
+    {% if not equilibre %}<p class="alerte">{% blocktrans with e=ecart|floatformat:2 %}Bilan déséquilibré : écart de {{ e }} €.{% endblocktrans %}</p>{% endif %}
 </div>
 
 <h2>{% trans "ACTIF" %}</h2>

@@ -27,7 +27,7 @@
     {% if equilibre %}
         ✓ {% trans "Bilan équilibré : total de l'actif = total du passif." %}
     {% else %}
-        ✗ {% blocktrans with e=ecart|floatformat:2 %}Bilan déséquilibré : écart de %(e)s €. Vérifiez le journal général (contrôle débit / crédit) et les soldes d'ouverture.{% endblocktrans %}
+        ✗ {% blocktrans with e=ecart|floatformat:2 %}Bilan déséquilibré : écart de {{ e }} €. Vérifiez le journal général (contrôle débit / crédit) et les soldes d'ouverture.{% endblocktrans %}
     {% endif %}
     <span class="text-sm">({{ n.nb_ecritures }} {% trans "écritures jusqu'au 31/12" %})</span>
 </div>
